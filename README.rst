@@ -21,6 +21,6 @@ All content in this repository, unless otherwise stated, is Copyright © 2010-20
 Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
-license, version 2.0<http://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full license
-text also provided in the LICENSE file accompanying this repository.
+license, version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full
+license text also provided in the LICENSE file accompanying this repository.
 
