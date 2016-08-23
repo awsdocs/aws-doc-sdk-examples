@@ -8,9 +8,12 @@
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
 
-###############
-AWS S3 Examples
-###############
+######################################
+AWS SDK for C++ Documentation Examples
+######################################
+
+This is a collection of examples for the AWS SDK for C++ public documentation.
+
 
 Prerequsites
 ============
