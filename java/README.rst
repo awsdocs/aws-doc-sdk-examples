@@ -8,9 +8,11 @@
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
 
-###############
-AWS S3 Examples
-###############
+#######################################
+AWS SDK for Java Documentation Examples
+#######################################
+
+These are examples for the AWS SDK for Java public documentation.
 
 Prerequsites
 ============
@@ -19,6 +21,8 @@ To build and run these examples, you'll need:
 
 * Apache Maven (>3.0)
 * AWS SDK for Java (downloaded and extracted somewhere on your machine)
+* AWS credentials, either configured in a local AWS credentials file or by setting the
+  AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
 
 Building the examples
 =====================
