@@ -27,8 +27,8 @@ public class CopyObject
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, supply the name (key) of an S3 object, the bucket name that\n" +
-            "it's contained within, and the bucket to copy it to.\n" +
+            "To run this example, supply the name (key) of an S3 object, the bucket name\n"
+            "that it's contained within, and the bucket to copy it to.\n" +
             "\n" +
             "Ex: CopyObject <objectname> <frombucket> <tobucket>\n";
 
@@ -42,8 +42,8 @@ public class CopyObject
         String from_bucket = args[1];
         String to_bucket = args[2];
 
-        System.out.format("Copying object %s from bucket %s to %s\n", object_key, from_bucket,
-                to_bucket);
+        System.out.format("Copying object %s from bucket %s to %s\n",
+                object_key, from_bucket, to_bucket);
         final AmazonS3 s3 = new AmazonS3Client();
         try {
             s3.copyObject(from_bucket, object_key, to_bucket, object_key);
