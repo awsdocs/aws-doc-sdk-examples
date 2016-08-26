@@ -43,8 +43,6 @@ int main(int argc, char** argv)
     auto list_objects_outcome = s3_client.ListObjects(objects_request);
 
     if(list_objects_outcome.IsSuccess()) {
-        std::cout << "Your Amazon S3 buckets:" << std::endl;
-
         Aws::Vector<Aws::S3::Model::Object> object_list =
             list_objects_outcome.GetResult().GetContents();
 

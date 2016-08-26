@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 
     const Aws::String bucket_name = argv[1];
     const Aws::String key_name = argv[2];
+    const Aws::String dir_name = ".";
 
     std::cout << "Uploading " << key_name << " to S3 bucket: " <<
         bucket_name << std::endl;
@@ -44,15 +45,11 @@ int main(int argc, char** argv)
     Aws::S3::Model::PutObjectRequest object_request;
     object_request.WithBucket(bucket_name).WithKey(key_name);
 
-    auto input_data = Aws::MakeShared<Aws::IFStream>(key_name.c_str(), std::ios::in | std::ios::binary);
-
-    //auto input_data = Aws::MakeShared<Aws::StringStream>("Hello!");
+    auto input_data = Aws::MakeShared<Aws::FStream>(key_name.c_str(), dir_name.c_str(), std::ios_base::in);
 
     object_request.SetBody(input_data);
 
     auto put_object_outcome = s3_client.PutObject(object_request);
-
-    input_data.close();
 
     if(put_object_outcome.IsSuccess()) {
         std::cout << "Done!" << std::endl;
