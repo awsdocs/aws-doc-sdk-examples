@@ -16,6 +16,6 @@ Aws.config.update({region: 'us-west-2'})
 
 poller = Aws::SQS::QueuePoller.new(URL)
 
-poller.poll(wait_time_seconds: duration, idle_timeout: <replaceable>duration</replaceable> + 1) do |msg|
+poller.poll(wait_time_seconds: duration, idle_timeout: duration + 1) do |msg|
   puts msg.body
 end
