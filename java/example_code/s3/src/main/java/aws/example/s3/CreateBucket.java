@@ -29,7 +29,7 @@ public class CreateBucket
     {
         final String USAGE = "\n" +
             "To run this example, supply the name of a bucket to create!\n" +
-            "Ex: ListBuckets <unique-bucket-name>\n";
+            "Ex: CreateBucket <unique-bucket-name>\n";
 
         if (args.length < 1)
         {
