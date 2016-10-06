@@ -12,9 +12,15 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.model.ListVersionsRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.amazonaws.services.s3.model.S3VersionSummary;
+import com.amazonaws.services.s3.model.VersionListing;
+import java.util.Iterator;
 
 /**
  * Delete an Amazon S3 bucket.
@@ -22,7 +28,8 @@ import com.amazonaws.AmazonServiceException;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  *
- * ++ Warning ++ This code will actually delete the bucket that you specify!
+ * ++ Warning ++ This code will actually delete the bucket that you specify, as
+ *               well as any objects within it!
  */
 public class DeleteBucket
 {
@@ -43,7 +50,45 @@ public class DeleteBucket
 
         System.out.println("Deleting S3 bucket: " + bucket_name);
         final AmazonS3 s3 = new AmazonS3Client();
+
         try {
+            System.out.println(" - removing objects from bucket");
+            ObjectListing object_listing = s3.listObjects(bucket_name);
+            while (true) {
+                for (Iterator<?> iterator =
+                        object_listing.getObjectSummaries().iterator();
+                        iterator.hasNext();) {
+                    S3ObjectSummary summary = (S3ObjectSummary)iterator.next();
+                    s3.deleteObject(bucket_name, summary.getKey());
+                }
+
+                // more object_listing to retrieve?
+                if (object_listing.isTruncated()) {
+                    object_listing = s3.listNextBatchOfObjects(object_listing);
+                }
+                else { break; }
+            };
+
+            System.out.println(" - removing versions from bucket");
+            VersionListing version_listing = s3.listVersions(
+                    new ListVersionsRequest().withBucketName(bucket_name));
+            while (true) {
+                for (Iterator<?> iterator =
+                        version_listing.getVersionSummaries().iterator();
+                        iterator.hasNext();) {
+                    S3VersionSummary vs = (S3VersionSummary)iterator.next();
+                    s3.deleteVersion(
+                            bucket_name, vs.getKey(), vs.getVersionId());
+                }
+
+                if (version_listing.isTruncated()) {
+                    version_listing = s3.listNextBatchOfVersions(
+                            version_listing);
+                }
+                else { break; }
+            }
+
+            System.out.println(" OK, bucket ready to delete!");
             s3.deleteBucket(bucket_name);
         }
         catch (AmazonServiceException e) {
