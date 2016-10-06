@@ -27,7 +27,7 @@ public class CopyObject
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, supply the name (key) of an S3 object, the bucket name\n"
+            "To run this example, supply the name (key) of an S3 object, the bucket name\n" +
             "that it's contained within, and the bucket to copy it to.\n" +
             "\n" +
             "Ex: CopyObject <objectname> <frombucket> <tobucket>\n";
