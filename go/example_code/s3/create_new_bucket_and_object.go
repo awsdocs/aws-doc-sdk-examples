@@ -29,7 +29,7 @@
         return
     }
 
-    uploadResult, err = svc.PutObject(&s3.PutObjectInput{
+    uploadResult, err := svc.PutObject(&s3.PutObjectInput{
         Body:   strings.NewReader("Hello World!"),
         Bucket: &bucket,
         Key:    &key,
