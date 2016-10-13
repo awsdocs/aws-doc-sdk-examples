@@ -12,7 +12,44 @@
 aws-doc-sdk-examples
 ####################
 
-Shared examples used in public AWS SDK documentation.
+This repository contains AWS SDK examples used in the public `AWS documentation repositories
+<https://www.github.com/awsdocs>`_.
+
+.. note:: To build any of these documentation sets, download one of these repositories and run the
+   ``build_docs.py`` script that's provided in the repository. The script will automatically merge
+   this shared content into the build directory before building with Sphinx.
+
+About the examples
+==================
+
+The SDK examples are organized by programming language. For instance, all of the examples for the
+`AWS SDK for Java Developer Guide <https://www.github.com/awsdocs/aws-java-developer-guide>`_ are
+kept in the `java <java>`_ directory.
+
+Building and running examples
+-----------------------------
+
+Within each of the language-scoped directories, you'll find a **README** file that explains how to
+build and run the examples contained within it.
+
+The example code itself is present in the ``example_code`` subdirectory, and is organized further by
+the AWS service abbreviation ("s3" for `Amazon S3 <https://aws.amazon.com/s3>`_ examples, and so on).
+
+
+How examples are used in the documentation
+==========================================
+
+Examples are automatically included within each developer guide by ``build_docs.py`` (present in
+each documentation project), which clones this repository and then copies files from the appropriate
+``example_code`` directory into the ``doc_build`` directory prior to building.
+
+Within a guide's source-files, examples are referenced using Sphinx's `literalinclude
+<http://www.sphinx-doc.org/en/stable/markup/code.html#includes>`_ directive. For example::
+
+   .. literalinclude:: example_code/s3/src/main/java/aws/example/s3/CreateBucket.java
+      :lines: 43-50
+      :dedent: 8
+
 
 Copyright and License
 =====================
