@@ -15,10 +15,6 @@ aws-doc-sdk-examples
 This repository contains AWS SDK examples used in the public `AWS documentation repositories
 <https://www.github.com/awsdocs>`_.
 
-.. note:: To build any of these documentation sets, download one of these repositories and run the
-   ``build_docs.py`` script that's provided in the repository. The script will automatically merge
-   this shared content into the build directory before building with Sphinx.
-
 About the examples
 ==================
 
