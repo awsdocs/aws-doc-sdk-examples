@@ -31,8 +31,7 @@ public class ListBuckets
         final AmazonS3 s3 = new AmazonS3Client();
         List<Bucket> buckets = s3.listBuckets();
         System.out.println("Your Amazon S3 buckets:");
-        for (Bucket b : buckets)
-        {
+        for (Bucket b : buckets) {
             System.out.println("* " + b.getName());
         }
     }

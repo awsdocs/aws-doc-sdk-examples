@@ -36,8 +36,7 @@ public class DeleteObjects
             "\n" +
             "Ex: DeleteObjects <bucketname> <objectname1> [objectname2, ...]\n";
 
-        if (args.length < 2)
-        {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -55,8 +54,7 @@ public class DeleteObjects
             DeleteObjectsRequest dor = new DeleteObjectsRequest(bucket_name)
                 .withKeys(object_keys);
             s3.deleteObjects(dor);
-        }
-        catch (AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

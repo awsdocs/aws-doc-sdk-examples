@@ -40,8 +40,7 @@ public class DeleteBucket
             "\n" +
             "Ex: DeleteBucket <bucketname>\n";
 
-        if (args.length < 1)
-        {
+        if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -65,8 +64,9 @@ public class DeleteBucket
                 // more object_listing to retrieve?
                 if (object_listing.isTruncated()) {
                     object_listing = s3.listNextBatchOfObjects(object_listing);
+                } else {
+                    break;
                 }
-                else { break; }
             };
 
             System.out.println(" - removing versions from bucket");
@@ -84,14 +84,14 @@ public class DeleteBucket
                 if (version_listing.isTruncated()) {
                     version_listing = s3.listNextBatchOfVersions(
                             version_listing);
+                } else {
+                    break;
                 }
-                else { break; }
             }
 
             System.out.println(" OK, bucket ready to delete!");
             s3.deleteBucket(bucket_name);
-        }
-        catch (AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

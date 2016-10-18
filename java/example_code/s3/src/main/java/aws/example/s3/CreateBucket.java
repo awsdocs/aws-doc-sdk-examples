@@ -31,8 +31,7 @@ public class CreateBucket
             "To run this example, supply the name of a bucket to create!\n" +
             "Ex: CreateBucket <unique-bucket-name>\n";
 
-        if (args.length < 1)
-        {
+        if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
