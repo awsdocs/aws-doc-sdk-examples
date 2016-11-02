@@ -12,9 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 
-resp, err := svc.UpdateService((&ec2.UpdateServiceInput{}).
+resp, err := svc.UpdateService((&ecs.UpdateServiceInput{}).
 	SetService("myService").
-	SetDeploymentConfiguration((&ec2.DeploymentConfiguration{}).
+	SetDeploymentConfiguration((&ecs.DeploymentConfiguration{}).
 		SetMinimumHealthyPrecent(80),
 	),
 )
