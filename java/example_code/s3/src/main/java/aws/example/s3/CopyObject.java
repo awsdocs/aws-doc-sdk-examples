@@ -27,13 +27,12 @@ public class CopyObject
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, supply the name (key) of an S3 object, the bucket name\n"
+            "To run this example, supply the name (key) of an S3 object, the bucket name\n" +
             "that it's contained within, and the bucket to copy it to.\n" +
             "\n" +
             "Ex: CopyObject <objectname> <frombucket> <tobucket>\n";
 
-        if (args.length < 3)
-        {
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -47,8 +46,7 @@ public class CopyObject
         final AmazonS3 s3 = new AmazonS3Client();
         try {
             s3.copyObject(from_bucket, object_key, to_bucket, object_key);
-        }
-        catch (AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

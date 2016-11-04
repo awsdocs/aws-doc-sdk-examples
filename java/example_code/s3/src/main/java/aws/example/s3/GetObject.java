@@ -38,8 +38,7 @@ public class GetObject
             "\n" +
             "Ex: GetObject <bucketname> <filename>\n";
 
-        if (args.length < 2)
-        {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -60,16 +59,13 @@ public class GetObject
             }
             s3is.close();
             fos.close();
-        }
-        catch (AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }

@@ -33,8 +33,7 @@ public class PutObject
             "\n" +
             "Ex: PutObject <bucketname> <filename>\n";
 
-        if (args.length < 2)
-        {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -47,8 +46,7 @@ public class PutObject
         final AmazonS3 s3 = new AmazonS3Client();
         try {
             s3.putObject(bucket_name, key_name, file_path);
-        }
-        catch (AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
