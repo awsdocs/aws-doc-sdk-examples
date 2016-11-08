@@ -20,16 +20,16 @@ s3 = Aws::S3::Client.new
 app_name = 'MyRailsApp'
 
 # Get S3 bucket containing app
-app_versions = elb.describe_application_versions({ application_name: app_name })      
+app_versions = elb.describe_application_versions({ application_name: app_name })
 av = app_versions.application_versions[0]
-bucket = av.source_bundle.s3_bucket       
+bucket = av.source_bundle.s3_bucket
 s3_key = av.source_bundle.s3_key
 
 # Get info on environment
 envs = elb.describe_environments({ application_name: app_name })
 env = envs.environments[0]
-env_name = env.environment_name      
-      
+env_name = env.environment_name
+
 # Create new storage location
 resp = elb.create_storage_location()
 
@@ -44,15 +44,15 @@ resp = s3.list_objects({
 zip_file_basename = SecureRandom.urlsafe_base64.to_s
 zip_file_name = zip_file_basename + '.zip'
 
-# Call out to OS to produce ZIP file      
+# Call out to OS to produce ZIP file
 cmd = "git archive --format=zip -o #{zip_file_name} HEAD"
-&percnt;x[ #{cmd} ]
+%x[ #{cmd} ]
 
 # Get ZIP file contents
 zip_contents = File.read(zip_file_name)
 
 key = app_name + "\\" + zip_file_name
-  
+
 resp = s3.put_object({
   body: zip_contents,
   bucket: bucket,
