@@ -1,3 +1,4 @@
 build_dir/
+target/
 README.html
 *.swp
