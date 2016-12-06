@@ -36,13 +36,11 @@ public class CreateTable
 
         /* Table attributes */
         ArrayList<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
-        attributes.add(new AttributeDefinition("Day", ScalarAttributeType.S));
-        attributes.add(new AttributeDefinition("Greeting", ScalarAttributeType.S));
+        attributes.add(new AttributeDefinition("Name", ScalarAttributeType.S));
 
         /* Create the table schema */
         ArrayList<KeySchemaElement> table_schema = new ArrayList<KeySchemaElement>();
-        table_schema.add(new KeySchemaElement("Day", KeyType.HASH));
-        table_schema.add(new KeySchemaElement("Greeting", KeyType.RANGE));
+        table_schema.add(new KeySchemaElement("Name", KeyType.HASH));
 
         System.out.format("Creating table %s\n", table_name);
 

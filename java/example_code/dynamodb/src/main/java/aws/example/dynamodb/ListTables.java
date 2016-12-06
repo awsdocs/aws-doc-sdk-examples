@@ -38,15 +38,19 @@ public class ListTables
                 ListTablesResult table_list = null;
                 if (last_name == null) {
                     table_list = ddb.listTables();
-                }
-                else
-                {
+                } else {
                     table_list = ddb.listTables(last_name);
                 }
 
                 List<String> table_names = table_list.getTableNames();
-                for (String cur_name : table_names) {
-                    System.out.format("* %s\n", cur_name);
+
+                if (table_names.size() > 0) {
+                    for (String cur_name : table_names) {
+                        System.out.format("* %s\n", cur_name);
+                    }
+                } else {
+                    System.out.println("No tables found!");
+                    System.exit(0);
                 }
 
                 last_name = table_list.getLastEvaluatedTableName();
