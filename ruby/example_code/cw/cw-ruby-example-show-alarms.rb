@@ -25,7 +25,7 @@ resp.metric_alarms.each do |alarm|
   puts 'Metric:         ' + alarm.metric_name
   puts 'Namespace:      ' + alarm.namespace
   puts 'Statistic:      ' + alarm.statistic
-  puts 'Dimensions (' + alarm.dimensions.length' + ):'
+  puts 'Dimensions (' + alarm.dimensions.length.to_s + '):'
 
   alarm.dimensions.each do |d|
     puts '  Name:         ' + d.name
