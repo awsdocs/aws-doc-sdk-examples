@@ -20,7 +20,9 @@ import com.amazonaws.AmazonServiceException;
 import java.util.List;
 
 /**
- * Describe a named DynamoDB table.
+ * Get information about (describe) a DynamoDB table.
+ *
+ * Takes the name of the table as input.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -30,8 +32,12 @@ public class DescribeTable
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, supply the name of a table to describe!\n" +
-            "Ex: DescribeTable <table_name>\n";
+            "Usage:\n" +
+            "    DescribeTable <table>\n\n" +
+            "Where:\n" +
+            "    table - the table to get information about.\n\n" +
+            "Example:\n" +
+            "    DescribeTable HelloTable\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

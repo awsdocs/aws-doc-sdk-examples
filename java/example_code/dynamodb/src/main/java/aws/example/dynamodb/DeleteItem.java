@@ -19,7 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Update a DynamoDB table (change provisioned throughput).
+ * Delete an item from a DynamoDB table.
+ *
+ * Takes the table name and item (primary key: "Name") to delete.
+ *
+ * **Warning** The named item will actually be deleted!
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -29,19 +33,26 @@ public class DeleteItem
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, type a name that was previously added to\n" +
-            "the HelloTable DynamoDB table with PutItem.\n" +
-            "Ex:   DeleteItem World\n";
+            "Usage:\n" +
+            "    DeleteItem <table> <name>\n\n" +
+            "Where:\n" +
+            "    table - the table to delete the item from.\n" +
+            "    name  - the item to delete from the table,\n" +
+            "            using the primary key \"Name\"\n\n" +
+            "Example:\n" +
+            "    DeleteItem HelloTable World\n\n" +
+            "**Warning** This program will actually delete the item\n" +
+            "            that you specify!\n";
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String table_name = "HelloTable";
-        String name = args[0];
+        String table_name = args[0];
+        String name = args[1];
 
-        System.out.format("Deleting \"%s\" from %s\n", name, table_name);
+        System.out.format("Deleting item \"%s\" from %s\n", name, table_name);
 
         HashMap<String,AttributeValue> key_to_get =
             new HashMap<String,AttributeValue>();

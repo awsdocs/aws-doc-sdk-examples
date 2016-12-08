@@ -24,6 +24,9 @@ import java.util.ArrayList;
 /**
  * Update a DynamoDB table (change provisioned throughput).
  *
+ * Takes the name of the table to update, the read capacity and the write
+ * capacity to use.
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
@@ -32,9 +35,14 @@ public class UpdateTable
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, supply the name of the table to update, and\n" +
-            "read/write capacity values to use.\n\n" +
-            "Ex: UpdateTable <table_name> <read_capacity> <write_capacity>\n";
+            "Usage:\n" +
+            "    UpdateTable <table> <read> <write>\n\n" +
+            "Where:\n" +
+            "    table - the table to put the item in.\n" +
+            "    read  - the new read capacity of the table.\n" +
+            "    write - the new write capacity of the table.\n\n" +
+            "Example:\n" +
+            "    UpdateTable HelloTable 50 50\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);

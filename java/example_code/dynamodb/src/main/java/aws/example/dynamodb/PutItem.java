@@ -18,7 +18,10 @@ import com.amazonaws.AmazonServiceException;
 import java.util.HashMap;
 
 /**
- * Update a DynamoDB table (change provisioned throughput).
+ * Put an item in a DynamoDB table.
+ *
+ * Takes the name of the table, a name (primary key value) and a greeting
+ * (associated with the key value).
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -28,23 +31,25 @@ public class PutItem
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, type a greeting or phrase, followed by a\n" +
-            "name. If either the greeting or name contains spaces, surround\n" +
-            "the value with quotes.\n\n" +
-            "Ex:   PutItem Hello World\n" +
-            "      PutItem \"Good Morning\" Friend\n\n" +
-            "Note: You must run the CreateTable example first, or the table\n" +
-            "      will not exist yet, and you'll get an error when running\n" +
-            "      this example...\n";
+            "Usage:\n" +
+            "    PutItem <table> <name> <greeting>\n\n" +
+            "Where:\n" +
+            "    table   - the table to put the item in.\n" +
+            "    name    - a name to add to the table. If the name already\n" +
+            "              exists, its entry will be updated.\n" +
+            "    greeing - a greeting to associate with the name.\n\n" +
+            "Examples:\n" +
+            "    PutItem HelloTable World Hello.\n" +
+            "    PutItem HelloTable Friend \"Good Morning!\"\n";
 
-        if (args.length < 2) {
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String table_name = "HelloTable";
-        String greeting = args[0];
+        String table_name = args[0];
         String name = args[1];
+        String greeting = args[2];
 
         System.out.format("Putting item in %s\n", table_name);
         System.out.format("  Name    : %s\n", name);
