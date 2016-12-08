@@ -19,7 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Update a DynamoDB table (change provisioned throughput).
+ * Get an item from a DynamoDB table.
+ *
+ * Takes the name of the table and the name of the item to retrieve from it.
+ *
+ * The primary key searched is "Name", and the value contained by the field
+ * "Greeting" will be returned.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -29,17 +34,21 @@ public class GetItem
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, type a name that was previously added to\n" +
-            "the HelloTable DynamoDB table with PutItem.\n" +
-            "Ex:   GetItem World\n";
+            "Usage:\n" +
+            "    GetItem <table> <name>\n\n" +
+            "Where:\n" +
+            "    table - the table to get an item from.\n" +
+            "    name  - the item to get.\n\n" +
+            "Example:\n" +
+            "    GetItem HelloTable World\n";
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String table_name = "HelloTable";
-        String name = args[0];
+        String table_name = args[0];
+        String name = args[1];
 
         System.out.format(
                 "Retrieving greeting for \"%s\" from %s\n",

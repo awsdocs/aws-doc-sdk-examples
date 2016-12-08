@@ -24,6 +24,9 @@ import java.util.ArrayList;
 /**
  * Create a DynamoDB table.
  *
+ * Takes the name of the table to create. The table will contain a single
+ * primary key, "Name".
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
@@ -31,11 +34,25 @@ public class CreateTable
 {
     public static void main(String[] args)
     {
-        /* The table name */
-        String table_name = "HelloTable";
+        final String USAGE = "\n" +
+            "Usage:\n" +
+            "    CreateTable <table>\n\n" +
+            "Where:\n" +
+            "    table - the table to create.\n\n" +
+            "Example:\n" +
+            "    CreateTable HelloTable\n";
+
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
+        /* Read the name from command args */
+        String table_name = args[0];
 
         /* Table attributes */
-        ArrayList<AttributeDefinition> attributes = new ArrayList<AttributeDefinition>();
+        ArrayList<AttributeDefinition> attributes =
+            new ArrayList<AttributeDefinition>();
         attributes.add(new AttributeDefinition("Name", ScalarAttributeType.S));
 
         /* Create the table schema */
@@ -49,7 +66,7 @@ public class CreateTable
         try {
             ddb.createTable(
                     attributes, table_name, table_schema,
-                    new ProvisionedThroughput(new Long(1000), new Long(1000)));
+                    new ProvisionedThroughput(new Long(100), new Long(100)));
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);

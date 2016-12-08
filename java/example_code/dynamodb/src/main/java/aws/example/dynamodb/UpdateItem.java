@@ -19,7 +19,13 @@ import com.amazonaws.AmazonServiceException;
 import java.util.HashMap;
 
 /**
- * Update a DynamoDB table (change provisioned throughput).
+ * Update a DynamoDB item in a table.
+ *
+ * Takes the name of the table, an item to update (primary key value), and the
+ * greeting to update it with.
+ *
+ * The primary key used is "Name", and the greeting will be added to the
+ * "Greeting" field.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -29,21 +35,26 @@ public class UpdateItem
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, type a key name and an updated greeting.\n" +
-            "If either the greeting or name contains spaces, surround the\n" +
-            "value with quotes.\n\n" +
-            "Ex:   UpdateItem World Hello\n" +
-            "      UpdateItem Friend \"Good morning\"\n\n" +
-            "Note: If the specified key doesn't exist, an error will result.\n";
+            "Usage:\n" +
+            "    UpdateItem <table> <name> <greeting>\n\n" +
+            "Where:\n" +
+            "    table   - the table to put the item in.\n" +
+            "    name    - a name to update in the table.\n" +
+            "    greeing - a new greeting to associate with the name.\n\n" +
+            "Examples:\n" +
+            "    UpdateItem HelloTable World \"Good morning\"\n" +
+            "    UpdateItem HelloTable Friend \"Nice to see you\"\n\n" +
+            "**Note** If the specified key doesn't exist, an error will\n" +
+            "         result.\n";
 
-        if (args.length < 2) {
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String table_name = "HelloTable";
-        String name = args[0];
-        String greeting = args[1];
+        String table_name = args[0];
+        String name = args[1];
+        String greeting = args[2];
 
         System.out.format("Updating item in %s\n", table_name);
         System.out.format("  Name    : %s\n", name);
