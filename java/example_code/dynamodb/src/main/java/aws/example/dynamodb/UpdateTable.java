@@ -45,8 +45,8 @@ public class UpdateTable
         }
 
         String table_name = args[0];
-        Long read_capacity = Long.parselong(args[1])
-        Long write_capacity = Long.parselong(args[2])
+        Long read_capacity = Long.parseLong(args[1]);
+        Long write_capacity = Long.parseLong(args[2]);
 
         System.out.format(
                 "Updating %s with new provisioned throughput values\n",

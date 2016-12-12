@@ -55,7 +55,8 @@ public class PutItem
         System.out.format("  Name    : %s\n", name);
         System.out.format("  Greeting: %s\n", greeting);
 
-        HashMap<String,AttributeValue> item_values = new HashMap<String,AttributeValue>();
+        HashMap<String,AttributeValue> item_values =
+           new HashMap<String,AttributeValue>();
         item_values.put("Name", new AttributeValue(name));
         item_values.put("Greeting", new AttributeValue(greeting));
 

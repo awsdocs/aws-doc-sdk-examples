@@ -60,14 +60,16 @@ public class UpdateItem
         System.out.format("  Name    : %s\n", name);
         System.out.format("  Greeting: %s\n", greeting);
 
-        HashMap<String,AttributeValue> item_key = new HashMap<String,AttributeValue>();
+        HashMap<String,AttributeValue> item_key =
+           new HashMap<String,AttributeValue>();
         item_key.put("Name", new AttributeValue(name));
 
         HashMap<String,AttributeValueUpdate> updated_values =
             new HashMap<String,AttributeValueUpdate>();
 
         updated_values.put("Greeting",
-                new AttributeValueUpdate().withValue(new AttributeValue(greeting)));
+                new AttributeValueUpdate().withValue(
+                   new AttributeValue(greeting)));
 
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
 
