@@ -31,7 +31,7 @@ import com.amazonaws.AmazonServiceException;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class CreateTable
+public class CreateTableCompositeKey
 {
     public static void main(String[] args)
     {
@@ -51,14 +51,19 @@ public class CreateTable
         /* Read the name from command args */
         String table_name = args[0];
 
-        System.out.format("Creating table %s\n with a simple primary key: \"Name\".");
+        System.out.format("Creating table %s\n with a composite primary key:\n");
+        System.out.format("* LastName  - partition key\n");
+        System.out.format("* FirstName - sort key\n");
 
         CreateTableRequest request = new CreateTableRequest()
-            .withAttributeDefinitions(new AttributeDefinition(
-                     "Name", ScalarAttributeType.S))
-            .withKeySchema(new KeySchemaElement("Name", KeyType.HASH))
-            .withProvisionedThroughput(new ProvisionedThroughput(
-                     new Long(10), new Long(10)))
+            .withAttributeDefinitions(
+                  new AttributeDefinition("LastName", ScalarAttributeType.S),
+                  new AttributeDefinition("FirstName", ScalarAttributeType.S))
+            .withKeySchema(
+                  new KeySchemaElement("LastName", KeyType.HASH),
+                  new KeySchemaElement("FirstName", KeyType.RANGE))
+            .withProvisionedThroughput(
+                  new ProvisionedThroughput(new Long(10), new Long(10)))
             .withTableName(table_name);
 
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();

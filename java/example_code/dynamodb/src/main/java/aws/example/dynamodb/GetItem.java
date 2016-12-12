@@ -14,6 +14,7 @@
 package aws.example.dynamodb;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.AmazonServiceException;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,20 +51,23 @@ public class GetItem
         String table_name = args[0];
         String name = args[1];
 
-        System.out.format(
-                "Retrieving greeting for \"%s\" from %s\n",
-                name, table_name);
+        System.out.format("Retrieving greeting for \"%s\" from %s\n", name,
+              table_name);
 
         HashMap<String,AttributeValue> key_to_get =
             new HashMap<String,AttributeValue>();
 
         key_to_get.put("Name", new AttributeValue(name));
 
+        GetItemRequest request = new GetItemRequest()
+            .withKey(key_to_get)
+            .withTableName(table_name);
+
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
 
         try {
-            Map<String,AttributeValue> returned_item = ddb.getItem(
-                    table_name, key_to_get).getItem();
+            Map<String,AttributeValue> returned_item =
+               ddb.getItem(request).getItem();
             if (returned_item != null) {
                 String greeting = returned_item.get("Greeting").getS();
                 System.out.format("%s, %s!\n", greeting, name);

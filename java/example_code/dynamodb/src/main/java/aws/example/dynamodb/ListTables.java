@@ -27,9 +27,9 @@ public class ListTables
 {
     public static void main(String[] args)
     {
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
-
         System.out.println("Your DynamoDB tables:\n");
+
+        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
 
         boolean more_tables = true;
         while(more_tables) {

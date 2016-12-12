@@ -13,13 +13,8 @@
 */
 package aws.example.dynamodb;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
-import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
-import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.AmazonServiceException;
-import java.util.ArrayList;
 
 /**
  * Update a DynamoDB table (change provisioned throughput).
@@ -50,16 +45,17 @@ public class UpdateTable
         }
 
         String table_name = args[0];
-        ProvisionedThroughput table_throughput = new ProvisionedThroughput(
-            Long.parseLong(args[1]), Long.parseLong(args[2]));
+        Long read_capacity = Long.parselong(args[1])
+        Long write_capacity = Long.parselong(args[2])
 
         System.out.format(
                 "Updating %s with new provisioned throughput values\n",
                 table_name);
-        System.out.format("Read capacity : %d\n",
-                table_throughput.getReadCapacityUnits().longValue());
-        System.out.format("Write capacity : %d\n",
-                table_throughput.getWriteCapacityUnits().longValue());
+        System.out.format("Read capacity : %d\n", read_capacity);
+        System.out.format("Write capacity : %d\n", write_capacity);
+
+        ProvisionedThroughput table_throughput = new ProvisionedThroughput(
+              read_capacity, write_capacity);
 
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
 
