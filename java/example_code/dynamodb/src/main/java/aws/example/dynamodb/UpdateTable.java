@@ -42,7 +42,7 @@ public class UpdateTable
             "    read  - the new read capacity of the table.\n" +
             "    write - the new write capacity of the table.\n\n" +
             "Example:\n" +
-            "    UpdateTable HelloTable 50 50\n";
+            "    UpdateTable HelloTable 16 10\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);

@@ -66,7 +66,7 @@ public class CreateTable
         try {
             ddb.createTable(
                     attributes, table_name, table_schema,
-                    new ProvisionedThroughput(new Long(100), new Long(100)));
+                    new ProvisionedThroughput(new Long(10), new Long(10)));
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
