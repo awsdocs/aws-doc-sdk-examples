@@ -35,7 +35,7 @@ public class DeleteTable
             "Where:\n" +
             "    table - the table to delete.\n\n" +
             "Example:\n" +
-            "    DeleteTable HelloTable\n\n" +
+            "    DeleteTable Greetings\n\n" +
             "**Warning** This program will actually delete the table\n" +
             "            that you specify!\n";
 

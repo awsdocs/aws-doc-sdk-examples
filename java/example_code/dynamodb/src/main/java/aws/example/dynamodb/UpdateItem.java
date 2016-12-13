@@ -12,10 +12,13 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.model.AttributeAction;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
-import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -38,14 +41,14 @@ public class UpdateItem
             "Usage:\n" +
             "    UpdateItem <table> <name> <greeting>\n\n" +
             "Where:\n" +
-            "    table   - the table to put the item in.\n" +
-            "    name    - a name to update in the table.\n" +
-            "    greeing - a new greeting to associate with the name.\n\n" +
+            "    table    - the table to put the item in.\n" +
+            "    name     - a name to update in the table. The name must exist,\n" +
+            "               or an error will result.\n" +
+            "Additional fields can be specified by appending them to the end of the\n" +
+            "input.\n\n" +
             "Examples:\n" +
-            "    UpdateItem HelloTable World \"Good morning\"\n" +
-            "    UpdateItem HelloTable Friend \"Nice to see you\"\n\n" +
-            "**Note** If the specified key doesn't exist, an error will\n" +
-            "         result.\n";
+            "    UpdateItem SiteColors text default=000000 bold=b22222\n" +
+            "    UpdateItem SiteColors background default=eeeeee code=d3d3d3\n\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -54,29 +57,50 @@ public class UpdateItem
 
         String table_name = args[0];
         String name = args[1];
-        String greeting = args[2];
+        ArrayList<String[]> extra_fields = new ArrayList<String[]>();
 
-        System.out.format("Updating item in %s\n", table_name);
-        System.out.format("  Name    : %s\n", name);
-        System.out.format("  Greeting: %s\n", greeting);
+        // any additional args (fields to add or update)?
+        for (int x = 2; x < args.length; x++) {
+            String[] fields = args[x].split("=", 2);
+            if (fields.length == 2) {
+                extra_fields.add(fields);
+            } else {
+                System.out.format("Invalid argument: %s\n", args[x]);
+                System.out.println(USAGE);
+                System.exit(1);
+            }
+        }
+
+        System.out.format("Updating \"%s\" in %s\n", name, table_name);
+        if (extra_fields.size() > 0) {
+            System.out.println("Additional fields:");
+            for (String[] field : extra_fields) {
+                System.out.format("  %s: %s\n", field[0], field[1]);
+            }
+        }
 
         HashMap<String,AttributeValue> item_key =
            new HashMap<String,AttributeValue>();
+
         item_key.put("Name", new AttributeValue(name));
 
         HashMap<String,AttributeValueUpdate> updated_values =
             new HashMap<String,AttributeValueUpdate>();
 
-        updated_values.put("Greeting",
-                new AttributeValueUpdate().withValue(
-                   new AttributeValue(greeting)));
+        for (String[] field : extra_fields) {
+            updated_values.put(field[0], new AttributeValueUpdate(
+                        new AttributeValue(field[1]), AttributeAction.PUT));
+        }
 
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
 
         try {
             ddb.updateItem(table_name, item_key, updated_values);
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("Done!");

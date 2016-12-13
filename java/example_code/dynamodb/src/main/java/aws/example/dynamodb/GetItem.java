@@ -18,6 +18,7 @@ import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.AmazonServiceException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Get an item from a DynamoDB table.
@@ -36,12 +37,16 @@ public class GetItem
     {
         final String USAGE = "\n" +
             "Usage:\n" +
-            "    GetItem <table> <name>\n\n" +
+            "    GetItem <table> <name> [projection_expression]\n\n" +
             "Where:\n" +
             "    table - the table to get an item from.\n" +
             "    name  - the item to get.\n\n" +
+            "You can add an optional projection expression (a quote-delimited,\n" +
+            "comma-separated list of attributes to retrieve) to limit the\n" +
+            "fields returned from the table.\n\n" +
             "Example:\n" +
-            "    GetItem HelloTable World\n";
+            "    GetItem HelloTable World\n" +
+            "    GetItem SiteColors text \"default, bold\"\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -50,18 +55,32 @@ public class GetItem
 
         String table_name = args[0];
         String name = args[1];
+        String projection_expression = null;
 
-        System.out.format("Retrieving greeting for \"%s\" from %s\n", name,
-              table_name);
+        // if a projection expression was included, set it.
+        if (args.length == 3) {
+            projection_expression = args[2];
+        }
+
+        System.out.format("Retrieving item \"%s\" from \"%s\"\n",
+                name, table_name);
 
         HashMap<String,AttributeValue> key_to_get =
             new HashMap<String,AttributeValue>();
 
         key_to_get.put("Name", new AttributeValue(name));
 
-        GetItemRequest request = new GetItemRequest()
-            .withKey(key_to_get)
-            .withTableName(table_name);
+        GetItemRequest request = null;
+        if (projection_expression != null) {
+            request = new GetItemRequest()
+                .withKey(key_to_get)
+                .withTableName(table_name)
+                .withProjectionExpression(projection_expression);
+        } else {
+            request = new GetItemRequest()
+                .withKey(key_to_get)
+                .withTableName(table_name);
+        }
 
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
 
@@ -69,10 +88,13 @@ public class GetItem
             Map<String,AttributeValue> returned_item =
                ddb.getItem(request).getItem();
             if (returned_item != null) {
-                String greeting = returned_item.get("Greeting").getS();
-                System.out.format("%s, %s!\n", greeting, name);
+                Set<String> keys = returned_item.keySet();
+                for (String key : keys) {
+                    System.out.format("%s: %s\n",
+                            key, returned_item.get(key).toString());
+                }
             } else {
-                System.out.format("No greeting found for %s!\n", name);
+                System.out.format("No item found with the key %s!\n", name);
             }
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());

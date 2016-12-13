@@ -41,7 +41,7 @@ public class CreateTableCompositeKey
             "Where:\n" +
             "    table - the table to create.\n\n" +
             "Example:\n" +
-            "    CreateTable HelloTable\n";
+            "    CreateTable GreetingsTable\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -52,16 +52,16 @@ public class CreateTableCompositeKey
         String table_name = args[0];
 
         System.out.format("Creating table %s\n with a composite primary key:\n");
-        System.out.format("* LastName  - partition key\n");
-        System.out.format("* FirstName - sort key\n");
+        System.out.format("* Language - partition key\n");
+        System.out.format("* Greeting - sort key\n");
 
         CreateTableRequest request = new CreateTableRequest()
             .withAttributeDefinitions(
-                  new AttributeDefinition("LastName", ScalarAttributeType.S),
-                  new AttributeDefinition("FirstName", ScalarAttributeType.S))
+                  new AttributeDefinition("Language", ScalarAttributeType.S),
+                  new AttributeDefinition("Greeting", ScalarAttributeType.S))
             .withKeySchema(
-                  new KeySchemaElement("LastName", KeyType.HASH),
-                  new KeySchemaElement("FirstName", KeyType.RANGE))
+                  new KeySchemaElement("Language", KeyType.HASH),
+                  new KeySchemaElement("Greeting", KeyType.RANGE))
             .withProvisionedThroughput(
                   new ProvisionedThroughput(new Long(10), new Long(10)))
             .withTableName(table_name);
