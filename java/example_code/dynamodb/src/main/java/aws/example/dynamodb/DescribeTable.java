@@ -12,11 +12,11 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughputDescription;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
-import com.amazonaws.AmazonServiceException;
 import java.util.List;
 
 /**
@@ -85,7 +85,6 @@ public class DescribeTable
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
-
         System.out.println("\nDone!");
     }
 }

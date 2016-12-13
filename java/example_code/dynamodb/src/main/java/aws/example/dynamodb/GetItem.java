@@ -12,10 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
-import com.amazonaws.AmazonServiceException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
