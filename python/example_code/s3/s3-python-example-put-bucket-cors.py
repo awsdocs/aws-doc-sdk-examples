@@ -16,9 +16,16 @@ import boto3
 # Create an S3 client
 s3 = boto3.client('s3')
 
-filename = 'C:\file.txt'
-bucket_name = 'my-bucket'
+# Create the CORS configuration
+cors_configuration = {
+    'CORSRules': [{
+        'AllowedHeaders': ['Authorization'],
+        'AllowedMethods': [],
+        'AllowedOrigins': ['*'],
+        'ExposeHeaders': ['GET', 'PUT'],
+        'MaxAgeSeconds': 3000
+    }]
+}
 
-# Uploads the given file using a managed uploader, which will split up large
-# files automatically and upload parts in parallel.
-s3.upload_file(Bucket=bucket_name, Filename=filename)
+# Set the new CORS configuration on the selected bucket
+s3.put_bucket_cors(Bucket='my-bucket', CORSConfiguration=cors_configuration)
