@@ -31,7 +31,7 @@ import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class CreateTable
+public class CreateTableCompositeKey
 {
     public static void main(String[] args)
     {
@@ -41,7 +41,7 @@ public class CreateTable
             "Where:\n" +
             "    table - the table to create.\n\n" +
             "Example:\n" +
-            "    CreateTable HelloTable\n";
+            "    CreateTable GreetingsTable\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -51,16 +51,19 @@ public class CreateTable
         /* Read the name from command args */
         String table_name = args[0];
 
-        System.out.format(
-            "Creating table \"%s\" with a simple primary key: \"Name\".\n",
-            table_name);
+        System.out.format("Creating table %s\n with a composite primary key:\n");
+        System.out.format("* Language - partition key\n");
+        System.out.format("* Greeting - sort key\n");
 
         CreateTableRequest request = new CreateTableRequest()
-            .withAttributeDefinitions(new AttributeDefinition(
-                     "Name", ScalarAttributeType.S))
-            .withKeySchema(new KeySchemaElement("Name", KeyType.HASH))
-            .withProvisionedThroughput(new ProvisionedThroughput(
-                     new Long(10), new Long(10)))
+            .withAttributeDefinitions(
+                  new AttributeDefinition("Language", ScalarAttributeType.S),
+                  new AttributeDefinition("Greeting", ScalarAttributeType.S))
+            .withKeySchema(
+                  new KeySchemaElement("Language", KeyType.HASH),
+                  new KeySchemaElement("Greeting", KeyType.RANGE))
+            .withProvisionedThroughput(
+                  new ProvisionedThroughput(new Long(10), new Long(10)))
             .withTableName(table_name);
 
         final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();

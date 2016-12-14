@@ -12,11 +12,15 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 /**
  * Delete a DynamoDB table.
+ *
+ * Takes the name of the table to delete.
+ *
+ * **Warning** The named table will actually be deleted!
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -26,8 +30,14 @@ public class DeleteTable
     public static void main(String[] args)
     {
         final String USAGE = "\n" +
-            "To run this example, supply the name of a table to delete!\n" +
-            "Ex: DeleteTable <table_name>\n";
+            "Usage:\n" +
+            "    DeleteTable <table>\n\n" +
+            "Where:\n" +
+            "    table - the table to delete.\n\n" +
+            "Example:\n" +
+            "    DeleteTable Greetings\n\n" +
+            "**Warning** This program will actually delete the table\n" +
+            "            that you specify!\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
