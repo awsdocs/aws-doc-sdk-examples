@@ -11,11 +11,27 @@
 # language governing permissions and limitations under the License.
 
 import boto3
-
+import json
 
 # Create an S3 client
 s3 = boto3.client('s3')
 
-# Call S3 to retrieve CORS configuration for selected bucket
-result = s3.get_bucket_cors(Bucket='my-bucket')
+bucket_name = 'my-bucket'
 
+# Create the bucket policy
+bucket_policy = {
+    'Version': '2012-10-17,
+    'Statement': [{
+        'Sid': 'AddPerm',
+        'Effect': 'Allow',
+        'Principal': '*',
+        'Action': ['s3:GetObject'],
+        'Resource': [bucket_name]
+    }]
+}
+
+# Convert the policy to a JSON string
+bucket_policy = json.dumps(bucket_policy)
+
+# Set the new policy on the given bucket
+s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
