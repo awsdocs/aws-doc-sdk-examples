@@ -38,7 +38,6 @@ $s3Client = new S3Client([
 
 //Delete all Object when versioning is not enabled 
 try {
-    
     $objects = $s3Client->getIterator('ListObjects',([
         'Bucket' => $BUCKET_NAME
     ]));
@@ -53,7 +52,6 @@ try {
     $result = $s3Client->deleteBucket([
         'Bucket' => $BUCKET_NAME,
     ]);
-
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
@@ -75,10 +73,7 @@ try {
     }
     $result = $s3Client->deleteBucket([
         'Bucket' => $BUCKET_NAME,
-        ]);
-    
-
+        ]);    
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
-
