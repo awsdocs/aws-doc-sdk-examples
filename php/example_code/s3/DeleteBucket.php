@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-require '/Users/agshasha/IdeaProjects/aws-sdk-php/vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * Delete an Amazon S3 bucket.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v2/guide/credentials.html
+ * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  *
  * ++ Warning ++ This code will actually delete the bucket that you specify, as
  *               well as any objects within it!
@@ -34,11 +34,11 @@ $BUCKET_NAME='<BUCKET-NAME>';
 $s3Client = new S3Client([
     'region' => 'us-west-2',
     'version' => '2006-03-01'
-    ]);
+]);
 
 //Delete all Objects when versioning is not enabled 
 try {
-    $objects = $s3Client->getIterator('ListObjects',([
+    $objects = $s3Client->getIterator('ListObjects', ([
         'Bucket' => $BUCKET_NAME
     ]));
     echo "Keys retrieved!\n";
@@ -69,11 +69,11 @@ try {
             'Bucket' => $bucket,
             'Key' => $version['Key'],
             'VersionId' => $version['VersionId']
-            ]);
+        ]);
     }
     $result = $s3Client->deleteBucket([
         'Bucket' => $BUCKET_NAME,
-        ]);    
+    ]);    
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
