@@ -19,7 +19,7 @@ use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 
 /**
- * List your Amazon S3 buckets.
+ * Get/Download an Object from Amazon S3.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
