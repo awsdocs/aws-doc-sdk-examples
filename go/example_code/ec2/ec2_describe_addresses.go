@@ -26,7 +26,7 @@ import (
 // Prints out the Elastic IP Addresses for the account's VPC.
 //
 // Usage:
-//    go run ec2_describe_addresses.go BUCKET_NAME
+//    go run ec2_describe_addresses.go 
 func main() {
 	// Initialize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
