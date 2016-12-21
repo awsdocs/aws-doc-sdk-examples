@@ -22,10 +22,8 @@ use Aws\Exception\AwsException;
  * List your Amazon S3 buckets.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v2/guide/credentials.html
+ * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
-
-$BUCKET_NAME='<BUCKET-NAME>';
 
 //Create a S3Client
 $s3Client = new S3Client([
