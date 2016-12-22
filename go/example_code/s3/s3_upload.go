@@ -1,3 +1,17 @@
+/*
+   Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+
 package main
 
 import (
@@ -35,12 +49,12 @@ func main() {
 	defer file.Close()
 
 	// Setup the S3 Upload Manager. Also see the SDK doc for the Upload Manager
-	// for more information on configuring part size, and concurrancy.
+	// for more information on configuring part size, and concurrency.
 	//
 	// http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3manager/#NewUploader
 	uploader := s3manager.NewUploader(sess)
 
-	// Upload the file's body to S3 Bucket as an object with the key being the
+	// Upload the file's body to S3 bucket as an object with the key being the
 	// same as the filename.
 	_, err = uploader.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(bucket),
@@ -50,7 +64,7 @@ func main() {
 		// to a relative path.
 		Key: aws.String(filename),
 
-		// The the file to be uploaded. io.ReadSeeker is prefered as the Uploader
+		// The file to be uploaded. io.ReadSeeker is prefered as the Uploader
 		// will be able to optimize memory when uploading large content. io.Reader
 		// is supported, but will require buffering of the reader's bytes for
 		// each part.

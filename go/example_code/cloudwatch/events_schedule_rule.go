@@ -16,6 +16,7 @@ func main() {
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
+	// Create the cloudwatch events client
 	svc := cloudwatchevents.New(sess)
 
 	result, err := svc.PutRule(&cloudwatchevents.PutRuleInput{
