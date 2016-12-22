@@ -2,28 +2,26 @@ package main
 
 import (
 	"fmt"
-	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/cloudwatch"
+	"github.com/aws/aws-sdk-go/service/cloudwatchevents"
 )
 
 // Usage:
-// go run main.go <alarm name>
+// go run main.go
 func main() {
 	// Load session from shared config.
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
-	// Create new cloudwatch client.
-	svc := cloudwatch.New(sess)
+	svc := cloudwatchevents.New(sess)
 
-	// This will disable the alarm.
-	result, err := svc.DisableAlarmActions(&cloudwatch.DisableAlarmActionsInput{
-		AlarmNames: []*string{
-			&os.Args[1],
-		},
+	result, err := svc.PutRule(&cloudwatchevents.PutRuleInput{
+		Name:               aws.String("DEMO_EVENT"),
+		RoleArn:            aws.String("IAM_ROLE_ARN"),
+		ScheduleExpression: aws.String("rate(5 minutes)"),
 	})
 
 	if err != nil {
