@@ -24,26 +24,38 @@ var paramsRoleList = {
   RoleName: process.argv[2]
 };
 
-iam.listAttachedRolePolicies(paramsRoleList, function(err, data) {
+var policyName = 'AmazonDynamoDBFullAccess';
+var policyArn = 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess';
+
+iam.listAttachedRolePolicies(paramsRoleList).eachPage(function(err, data, done) {
   if (err) {
-    console.log("Error", err);
-  } else {
-    var myRolePolicies = data.AttachedPolicies;
-    myRolePolicies.forEach(function (val, index, array) {
-      if (myRolePolicies[index].PolicyName === 'AmazonDynamoDBFullAccess') {
-        var params = {
-          PolicyArn: 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
-          RoleName: process.argv[2]
-        };
-        iam.detachRolePolicy(params, function(err, data) {
-          if (err) {
-            console.log("Unable to detach policy from role", err);
-          } else {
-            console.log("Policy detached from role successfully");
-            process.exit();
-          }
-        });
+    throw err;
+  }
+  var foundPolicy = false;
+  if (data && data.AttachedPolicies) {
+    data.AttachedPolicies.forEach(function(rolePolicy) {
+      if (rolePolicy.PolicyName !== policyName) {
+        return;
       }
+      foundPolicy = true;
+      var params = {
+        PolicyArn: policyArn,
+        RoleName: process.argv[2]
+      };
+      iam.detachRolePolicy(params, function(err, data) {
+        if (err) {
+          console.error('Unable to detach policy from role.');
+          throw err;
+        } else {
+          console.log('Policy detached from role successfully.');
+          process.exit();
+        }
+      });
     });
+    if (!foundPolicy) {
+      done();
+    }
+  } else {
+    console.log('Policy was not attached to the role.');
   }
 });

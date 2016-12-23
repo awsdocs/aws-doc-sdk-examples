@@ -22,8 +22,8 @@ var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
 iam.listAccountAliases({MaxItems: 10}, function(err, data) {
   if (err) {
-    console.log("Error", err);
+    throw err;
   } else {
-    console.log("Success", data);
+    console.log('Aliases: ' + data.AccountAliases.join(', '));
   }
 });

@@ -26,13 +26,14 @@ var params = {
 
 iam.getUser(params, function(err, data) {
   if (err && err.code === 'NoSuchEntity') {
-    console.log("User " + process.argv[2] + " does not exist");
+    console.error("User " + process.argv[2] + " does not exist.");
+    throw err;
   } else {
     iam.deleteUser(params, function(err, data) {
       if (err) {
-        console.log("Error", err);
+        throw err;
       } else {
-        console.log("Success", data);
+        console.log("User " + process.argv[2] + " deleted.");
       }
     });
   }

@@ -26,8 +26,8 @@ var params = {
 
 iam.getPolicy(params, function(err, data) {
   if (err) {
-    console.log("Error", err);
+    throw err;
   } else {
-    console.log("Success", data.Policy.Description);
+    console.log(params.PolicyArn + ' - ' + data.Policy.Description);
   }
 });

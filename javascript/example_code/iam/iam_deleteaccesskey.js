@@ -27,8 +27,8 @@ var params = {
 
 iam.deleteAccessKey(params, function(err, data) {
   if (err) {
-    console.log("Error", err);
+    throw err;
   } else {
-    console.log("Success", data);
+    console.log('Access Key deleted.');
   }
 });
