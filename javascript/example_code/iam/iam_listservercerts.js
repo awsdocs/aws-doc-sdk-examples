@@ -20,10 +20,13 @@ AWS.config.loadFromPath('./config.json');
 // Create the IAM service object
 var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
-iam.listServerCertificates({}, function(err, data) {
+iam.listServerCertificates().eachPage(function(err, data) {
   if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Success", data);
+    throw err;
+  }
+  if (data && data.ServerCertificateMetadataList) {
+    data.ServerCertificateMetadataList.forEach(function(metadata) {
+      console.log(metadata);
+    });
   }
 });

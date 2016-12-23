@@ -28,7 +28,7 @@ iam.getUser(params, function(err, data) {
   if (err && err.code === 'NoSuchEntity') {
     iam.createUser(params, function(err, data) {
       if (err) {
-        console.log("Error", err);
+        throw err;
       } else {
         console.log("Success", data);
       }

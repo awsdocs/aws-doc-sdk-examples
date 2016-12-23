@@ -22,8 +22,8 @@ var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
 iam.getAccessKeyLastUsed({AccessKeyId: 'ACCESS_KEY_ID'}, function(err, data) {
   if (err) {
-    console.log("Error", err);
+    throw err;
   } else {
-    console.log("Success", data.AccessKeyLastUsed);
+    console.log("Last Access Key used: " + data.AccessKeyLastUsed);
   }
 });
