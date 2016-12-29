@@ -24,24 +24,23 @@ use Aws\Exception\AwsException;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$ALARM_NAME = "<ALARM_NAME>";
+$alarmName = "<ALARM-NAME>";
 
 $client = CloudWatchClient::factory([
         'profile' => 'default',
-        'region'  => 'us-west-2',
+        'region'  => 'us-east-1',
         'version' => '2010-08-01'
 ]);
 
 try {
     $result = $client->describeAlarmHistory([
-        'AlarmName' => $ALARM_NAME
+        'AlarmName' => $alarmName
     ]);
-    echo "Alarm History for ".$ALARM_NAME.":\n";
+    echo "Alarm History for ".$alarmName.":\n";
     foreach ($result['AlarmHistoryItems'] as $alarm){
         echo $alarm['Timestamp']." ".$alarm['HistoryItemType']."\n";
     }
 }catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    error_log($e->getMessage());
 }
