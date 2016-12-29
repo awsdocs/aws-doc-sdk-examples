@@ -27,14 +27,36 @@ To build and run these examples, you'll need:
 Building the examples
 =====================
 
-To build, go to the directory with ``pom.xml`` in it and type::
+The examples are divided into directories by AWS service (``s3``, ``dynamodb``, and so on). Within
+each of these directories, you'll find a ``pom.xml`` file used for building the examples with Maven,
+and a ``Makefile`` that wraps the Maven commands for those of you who also have ``make`` installed.
 
-    mvn package
+To build, open a command-line (terminal) window and change to the directory containing the examples
+you want to build/run. Then type::
 
-It will download the dependencies it needs for building.
+   mvn package
+
+or, if you have ``make``, you can simply type::
+
+   make
+
+To begin the build process. Maven will download any dependencies (such as components of the AWS SDK
+for Java) that it needs for building.
+
+Once the examples have been built, you can run them to see them in action.
 
 Running the examples
 ====================
+
+.. important:: The examples perform AWS operations for the account and region for which you've
+   specified credentials, and you may incur AWS service charges by running them. Please visit the
+   `AWS Pricing <https://aws.amazon.com/pricing/>` page for details about the charges you can expect
+   for a given service and operation.
+
+   Some of these examples perform *destructive* operations on AWS resources, such as deleting an
+   Amazon S3 bucket or an Amazon DynamoDB table. **Be very careful** when running an operation that
+   may delete or modify AWS resources in your account. It's recommended that you create test
+   resources for experimentation with these examples.
 
 To run the examples, you'll need the AWS SDK for Java libraries in your CLASSPATH. You can set them
 directly, such as::
