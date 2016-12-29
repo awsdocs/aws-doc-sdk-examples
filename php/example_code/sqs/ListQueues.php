@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$QUEUE_NAME = "test-agshasha";
+$QUEUE_NAME = "<SQS QUEUE NAME>";
 
 $client = SqsClient::factory(array(
     'region'  => 'us-west-2',
