@@ -39,24 +39,18 @@ func main() {
 		UserName: &os.Args[1],
 	})
 
-	// If we received an error and it is an `awserr.Error`, we want to ensure
-	// that it is something other than a `NoSuchEntity` error.
-	if awserr, ok := err.(awserr.Error); ok && awserr.Code() != "NoSuchEntity" {
+	if awserr, ok := err.(awserr.Error); ok && awserr.Code() == "NoSuchEntity" {
+		result, err := svc.CreateUser(&iam.CreateUserInput{
+			UserName: &os.Args[1],
+		})
+
+		if err != nil {
+			fmt.Println("CreateUser Error", err)
+			return
+		}
+
+		fmt.Println("Success", result)
+	} else {
 		fmt.Println("GetUser Error", err)
-		return
-	} else if err == nil { // If there is no error, that means the user exists.
-		fmt.Println(fmt.Sprintf("User %s already exists", os.Args[1]))
-		return
 	}
-
-	result, err := svc.CreateUser(&iam.CreateUserInput{
-		UserName: &os.Args[1],
-	})
-
-	if err != nil {
-		fmt.Println("CreateUser Error", err)
-		return
-	}
-
-	fmt.Println("Success", result)
 }
