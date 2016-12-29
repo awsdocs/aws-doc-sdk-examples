@@ -43,5 +43,5 @@ func main() {
 		return
 	}
 
-	fmt.Println(fmt.Sprintf("Account alias %s has been created", os.Args[1]))
+	fmt.Printf("Account alias %s has been created\n", os.Args[1])
 }

@@ -47,6 +47,6 @@ func main() {
 		if user == nil {
 			continue
 		}
-		fmt.Println(fmt.Sprintf("%d user %s created %v", i, *user.UserName, user.CreateDate))
+		fmt.Printf("%d user %s created %v\n", i, *user.UserName, user.CreateDate)
 	}
 }

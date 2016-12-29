@@ -41,12 +41,12 @@ func main() {
 
 	// If the user does not exist than we will log an error.
 	if awserr, ok := err.(awserr.Error); ok && awserr.Code() == "NoSuchEntity" {
-		fmt.Println(fmt.Sprintf("User %s does not exist", os.Args[1]))
+		fmt.Printf("User %s does not exist\n", os.Args[1])
 		return
 	} else if err != nil {
 		fmt.Println("Error", err)
 		return
 	}
 
-	fmt.Println(fmt.Sprintf("User %s has been deleted", os.Args[1]))
+	fmt.Printf("User %s has been deleted\n", os.Args[1])
 }

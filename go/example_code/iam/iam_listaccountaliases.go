@@ -47,6 +47,6 @@ func main() {
 		if alias == nil {
 			continue
 		}
-		fmt.Println(fmt.Sprintf("Alias %d: %s", i, *alias))
+		fmt.Printf("Alias %d: %s\n", i, *alias)
 	}
 }

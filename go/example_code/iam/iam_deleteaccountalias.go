@@ -43,5 +43,5 @@ func main() {
 		return
 	}
 
-	fmt.Println(fmt.Sprintf("Alias %s has been deleted", os.Args[1]))
+	fmt.Printf("Alias %s has been deleted\n", os.Args[1])
 }
