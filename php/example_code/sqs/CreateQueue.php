@@ -44,4 +44,3 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-?>
