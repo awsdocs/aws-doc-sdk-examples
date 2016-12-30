@@ -19,17 +19,24 @@ Prerequsites
 
 To build and run these examples, you'll need:
 
-* Apache Maven (>3.0)
-* AWS SDK for Java (downloaded and extracted somewhere on your machine)
+* `Apache Maven <https://maven.apache.org/>`_ (>3.0)
+* `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`_ (downloaded and extracted somewhere on your machine)
 * AWS credentials, either configured in a local AWS credentials file or by setting the
-  AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
+  AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.
+* You should also set the *AWS region* within which the operations will be performed. If a region is
+  not set, the default region used will be ``us-east-1``.
+
+For information about how to set AWS credentials and the region for use with the AWS SDK for Java,
+see `Set up AWS Credentials and Region for Development
+<http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html>`_ in the *AWS
+Java Developer Guide*.
 
 Building the examples
 =====================
 
 The examples are divided into directories by AWS service (``s3``, ``dynamodb``, and so on). Within
-each of these directories, you'll find a ``pom.xml`` file used for building the examples with Maven,
-and a ``Makefile`` that wraps the Maven commands for those of you who also have ``make`` installed.
+each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
+that wraps the Maven commands for those of you who also have ``make`` installed.
 
 To build, open a command-line (terminal) window and change to the directory containing the examples
 you want to build/run. Then type::
@@ -40,7 +47,7 @@ or, if you have ``make``, you can simply type::
 
    make
 
-To begin the build process. Maven will download any dependencies (such as components of the AWS SDK
+to begin the build process. Maven will download any dependencies (such as components of the AWS SDK
 for Java) that it needs for building.
 
 Once the examples have been built, you can run them to see them in action.
@@ -48,18 +55,20 @@ Once the examples have been built, you can run them to see them in action.
 Running the examples
 ====================
 
-.. important:: The examples perform AWS operations for the account and region for which you've
-   specified credentials, and you may incur AWS service charges by running them. Please visit the
-   `AWS Pricing <https://aws.amazon.com/pricing/>` page for details about the charges you can expect
-   for a given service and operation.
+**IMPORTANT**
+
+   The examples perform AWS operations for the account and region for which you've specified
+   credentials, and you may incur AWS service charges by running them. Please visit the `AWS Pricing
+   <https://aws.amazon.com/pricing/>`_ page for details about the charges you can expect for a given
+   service and operation.
 
    Some of these examples perform *destructive* operations on AWS resources, such as deleting an
    Amazon S3 bucket or an Amazon DynamoDB table. **Be very careful** when running an operation that
-   may delete or modify AWS resources in your account. It's recommended that you create test
-   resources for experimentation with these examples.
+   may delete or modify AWS resources in your account. It's best to create separate test-only
+   resources when experimenting with these examples.
 
-To run the examples, you'll need the AWS SDK for Java libraries in your CLASSPATH. You can set them
-directly, such as::
+To run these examples, you'll need the AWS SDK for Java libraries in your ``CLASSPATH``. You can set
+them directly, such as::
 
     export CLASSPATH=/path/to/aws-java-sdk/lib/*:/path/to/aws-java-sdk/third-party/lib/*
 
