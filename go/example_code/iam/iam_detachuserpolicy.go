@@ -1,4 +1,4 @@
-p/*
+/*
    Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -12,7 +12,7 @@ p/*
    specific language governing permissions and limitations under the License.
 */
 
-ackage main
+package main
 
 import (
 	"fmt"
