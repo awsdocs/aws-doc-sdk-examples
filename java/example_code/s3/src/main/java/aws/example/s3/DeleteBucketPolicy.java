@@ -16,7 +16,6 @@ package aws.example.s3;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.BucketPolicy;
 
 /**
 * Get the bucket policy from an existing S3 bucket.

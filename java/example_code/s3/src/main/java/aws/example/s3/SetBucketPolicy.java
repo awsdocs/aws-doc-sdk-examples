@@ -13,6 +13,8 @@ specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.policy.Action;
 import com.amazonaws.auth.policy.Policy;
@@ -20,9 +22,6 @@ import com.amazonaws.auth.policy.Principal;
 import com.amazonaws.auth.policy.Resource;
 import com.amazonaws.auth.policy.Statement;
 import com.amazonaws.auth.policy.actions.S3Actions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.Bucket;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
