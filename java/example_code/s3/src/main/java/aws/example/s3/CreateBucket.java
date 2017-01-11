@@ -42,8 +42,7 @@ public class CreateBucket
         final AmazonS3 s3 = new AmazonS3Client();
         try {
             Bucket b = s3.createBucket(bucket_name);
-        }
-        catch (AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
