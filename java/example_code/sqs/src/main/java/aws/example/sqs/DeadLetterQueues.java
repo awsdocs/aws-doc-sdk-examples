@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,56 +13,66 @@
  * limitations under the License.
  */
 package com.amazonaws;
-
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.AmazonSQSException;
 import com.amazonaws.services.sqs.model.GetQueueAttributesRequest;
 import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
 import com.amazonaws.services.sqs.model.SetQueueAttributesRequest;
-
 import java.util.Date;
 
-public class DeadLetterQueues {
+public class DeadLetterQueues
+{
+    private static final String DEAD_LETTER_QUEUE_NAME = "DLQueue" +
+        new Date().getTime();
+    private static final String SOURCE_QUEUE_NAME = "SrcQueue" +
+        new Date().getTime();
 
-    private static final String DEAD_LETTER_QUEUE_NAME = "DeadLetterQueue" + new Date().getTime();
-    private static final String SOURCE_QUEUE_NAME = "sourceQueue" + new Date().getTime();
-
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         final AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         // Create deadLetter queue
         try {
             sqs.createQueue(DEAD_LETTER_QUEUE_NAME);
-        } catch (AmazonSQSException exception) {
-            if (!exception.getErrorCode().equals("QueueAlreadyExists")) {
-                throw exception;
+        } catch (AmazonSQSException e) {
+            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+                throw e;
             }
         }
 
-        String deadLetterQueueUrl = sqs.getQueueUrl(DEAD_LETTER_QUEUE_NAME).getQueueUrl();
-        System.out.println("Dead letter queue URL: " + deadLetterQueueUrl);
+        String dl_queue_url = sqs.getQueueUrl(DEAD_LETTER_QUEUE_NAME)
+                                 .getQueueUrl();
 
-        GetQueueAttributesResult getQueueAttributesResult = sqs.getQueueAttributes(new GetQueueAttributesRequest(deadLetterQueueUrl).withAttributeNames("QueueArn"));
-        String deadLetterQueueArn = getQueueAttributesResult.getAttributes().get("QueueArn");
+        System.out.println("Dead letter queue URL: " + dl_queue_url);
 
+        GetQueueAttributesResult queue_attrs = sqs.getQueueAttributes(
+                new GetQueueAttributesRequest(dl_queue_url)
+                    .withAttributeNames("QueueArn"));
+
+        String dl_queue_arn = queue_attrs.getAttributes().get("QueueArn");
 
         // Create source queue
         try {
             sqs.createQueue(SOURCE_QUEUE_NAME).getQueueUrl();
-        } catch (AmazonSQSException exception) {
-            if (!exception.getErrorCode().equals("QueueAlreadyExists")) {
-                throw exception;
+        } catch (AmazonSQSException e) {
+            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+                throw e;
             }
         }
 
-        String sourceQueueUrl = sqs.getQueueUrl(SOURCE_QUEUE_NAME).getQueueUrl();
-        System.out.println("Source queue URL: " + sourceQueueUrl);
+        String src_queue_url = sqs.getQueueUrl(SOURCE_QUEUE_NAME)
+                                  .getQueueUrl();
+
+        System.out.println("Source queue URL: " + src_queue_url);
 
         // Configuring source queue
-        SetQueueAttributesRequest setQueueAttributesRequest = new SetQueueAttributesRequest()
-                .withQueueUrl(sourceQueueUrl)
-                .addAttributesEntry("RedrivePolicy", "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\"" + deadLetterQueueArn + "\"}");
-        sqs.setQueueAttributes(setQueueAttributesRequest);
+        SetQueueAttributesRequest sqa_request = new SetQueueAttributesRequest()
+                .withQueueUrl(src_queue_url)
+                .addAttributesEntry("RedrivePolicy",
+                        "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
+                        + dl_queue_arn + "\"}");
+        sqs.setQueueAttributes(sqa_request);
     }
 }
+
