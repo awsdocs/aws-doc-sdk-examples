@@ -1,0 +1,68 @@
+/*
+ * Copyright 2011-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at:
+ *
+ *    http://aws.amazon.com/apache2.0
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+ * OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.amazonaws;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.amazonaws.services.sqs.model.AmazonSQSException;
+import com.amazonaws.services.sqs.model.CreateQueueRequest;
+import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
+import com.amazonaws.services.sqs.model.SetQueueAttributesRequest;
+
+public class LongPolling
+{
+    public static void main(String[] args)
+    {
+        final String USAGE =
+           "To run this example, supply the name of a queue to create and\n" +
+           "queue url of an existing queue.\n\n" +
+           "Ex: LongPolling <unique-queue-name> <existing-queue-url>\n";
+
+        if (args.length != 2) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
+        String queue_name = args[0];
+        String queue_url = args[1];
+
+        final AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+
+        // Enable long polling when creating a queue
+        CreateQueueRequest cq_request = new CreateQueueRequest()
+                .withQueueName(queue_name)
+                .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "20");
+
+        try {
+            sqs.createQueue(cq_request);
+        } catch (AmazonSQSException e) {
+            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+                throw e;
+            }
+        }
+
+        // Enable long polling on an existing queue
+        SetQueueAttributesRequest sqa_request = new SetQueueAttributesRequest()
+                .withQueueUrl(queue_url)
+                .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "20");
+        sqs.setQueueAttributes(sqa_request);
+
+        // Enable long polling on a message receipt
+        ReceiveMessageRequest rm_request = new ReceiveMessageRequest()
+                .withQueueUrl(queue_url)
+                .withWaitTimeSeconds(20);
+        sqs.receiveMessage(rm_request);
+    }
+}
+

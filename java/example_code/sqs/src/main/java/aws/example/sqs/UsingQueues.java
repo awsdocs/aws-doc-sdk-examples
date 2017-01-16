@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,50 +23,52 @@ import com.amazonaws.services.sqs.model.ListQueuesResult;
 
 import java.util.Date;
 
-public class UsingQueues {
+public class UsingQueues
+{
+    private static final String QUEUE_NAME = "testQueue" +
+        new Date().getTime();
 
-    private static final String QUEUE_NAME = "testQueue" + new Date().getTime();
-
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         // Creating a Queue
-        CreateQueueRequest createQueueRequest = new CreateQueueRequest(QUEUE_NAME)
+        CreateQueueRequest cq_request = new CreateQueueRequest(QUEUE_NAME)
                 .addAttributesEntry("DelaySeconds", "60")
                 .addAttributesEntry("MessageRetentionPeriod", "86400");
 
         try {
-            sqs.createQueue(createQueueRequest);
-        } catch (AmazonSQSException exception) {
-            if (!exception.getErrorCode().equals("QueueAlreadyExists")) {
-                throw exception;
+            sqs.createQueue(cq_request);
+        } catch (AmazonSQSException e) {
+            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+                throw e;
             }
         }
 
+        // Get the URL for a queue
+        String queue_url = sqs.getQueueUrl(QUEUE_NAME).getQueueUrl();
 
-        // Getting the URL for a Queue
-        String queueUrl = sqs.getQueueUrl(QUEUE_NAME).getQueueUrl();
-
-        // Deleting a Queue
-        sqs.deleteQueue(queueUrl);
+        // Delete the Queue
+        sqs.deleteQueue(queue_url);
 
         sqs.createQueue("Queue1" + new Date().getTime());
         sqs.createQueue("Queue2" + new Date().getTime());
         sqs.createQueue("MyQueue" + new Date().getTime());
 
-        // Listing Your Queues
-        ListQueuesResult listQueuesResult = sqs.listQueues();
-        System.out.println("List of all queue URLs in your account:");
-        for (String url : listQueuesResult.getQueueUrls()) {
+        // List your queues
+        ListQueuesResult lq_result = sqs.listQueues();
+        System.out.println("Your SQS Queue URLs:");
+        for (String url : lq_result.getQueueUrls()) {
             System.out.println(url);
         }
 
-        // Listing queues with filters
-        String queueNamePrefix = "Queue";
-        listQueuesResult = sqs.listQueues(new ListQueuesRequest(queueNamePrefix));
-        System.out.println("Queue URLs that start with prefix: " + queueNamePrefix);
-        for (String url : listQueuesResult.getQueueUrls()) {
+        // List queues with filters
+        String name_prefix = "Queue";
+        lq_result = sqs.listQueues(new ListQueuesRequest(name_prefix));
+        System.out.println("Queue URLs with prefix: " + name_prefix);
+        for (String url : lq_result.getQueueUrls()) {
             System.out.println(url);
         }
     }
 }
+
