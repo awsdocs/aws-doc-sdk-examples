@@ -12,71 +12,69 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
-
 #include <iostream>
 
-Aws::String MakeRedrivePolicy(const Aws::String& deadLetterQueueArn, int maxMessages)
+Aws::String MakeRedrivePolicy(const Aws::String& dlq_arn, int max_msg)
 {
-    Aws::Utils::Json::JsonValue redriveArnEntry;
-    redriveArnEntry.AsString(deadLetterQueueArn);
+    Aws::Utils::Json::JsonValue redrive_arn_entry;
+    redrive_arn_entry.AsString(dlq_arn);
 
-    Aws::Utils::Json::JsonValue maxMessagesEntry;
-    maxMessagesEntry.AsInteger(maxMessages);
+    Aws::Utils::Json::JsonValue max_msg_entry;
+    max_msg_entry.AsInteger(max_msg);
 
-    Aws::Utils::Json::JsonValue policyMap;
-    policyMap.WithObject("deadLetterTargetArn", redriveArnEntry);
-    policyMap.WithObject("maxReceiveCount", maxMessagesEntry);
+    Aws::Utils::Json::JsonValue policy_map;
+    policy_map.WithObject("deadLetterTargetArn", redrive_arn_entry);
+    policy_map.WithObject("maxReceiveCount", max_msg_entry);
 
-    return policyMap.WriteReadable();
+    return policy_map.WriteReadable();
 }
 
 /**
- * Connects an sqs queue to an associated dead letter queue based on command line input
+ * Connects an sqs queue to an associated dead letter queue based on command
+ * line input
  */
 int main(int argc, char** argv)
 {
-    if(argc != 4)
-    {
-        std::cout << "Usage: sqs_dead_letter_queue <source_queue_url> <dead_letter_queue_arn> <max_messages>" << std::endl;
+    if(argc != 4) {
+        std::cout << "Usage: dead_letter_queue <source_queue_url> " <<
+            "<dead_letter_queue_arn> <max_messages>" << std::endl;
         return 1;
     }
 
-    Aws::String sourceQueueUrl = argv[1];
-    Aws::String deadLetterQueueArn = argv[2];
+    Aws::String src_queue_url = argv[1];
+    Aws::String dlq_arn = argv[2];
 
     Aws::StringStream ss(argv[3]);
-    int maxMessages = 1;
-    ss >> maxMessages;
+    int max_msg = 1;
+    ss >> max_msg;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs_client;
+    Aws::SQS::SQSClient sqs;
 
-    Aws::String redrivePolicy = MakeRedrivePolicy(deadLetterQueueArn, maxMessages);
+    Aws::String redrivePolicy = MakeRedrivePolicy(dlq_arn, max_msg);
 
-    Aws::SQS::Model::SetQueueAttributesRequest setQueueAttributesRequest;
-    setQueueAttributesRequest.SetQueueUrl(sourceQueueUrl);
-    setQueueAttributesRequest.AddAttributes(Aws::SQS::Model::QueueAttributeName::RedrivePolicy, redrivePolicy);
+    Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
+    sqa_req.SetQueueUrl(src_queue_url);
+    sqa_req.AddAttributes(Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
+            redrivePolicy);
 
-    auto setQueueAttributesOutcome = sqs_client.SetQueueAttributes(setQueueAttributesRequest);
-    if(setQueueAttributesOutcome.IsSuccess())
-    {
-        std::cout << "Successfully set dead letter queue for queue  " << sourceQueueUrl  << " to " << deadLetterQueueArn << std::endl;
-    }
-    else
-    {
-        std::cout << "Error setting dead letter queue for queue " << sourceQueueUrl << ": " << setQueueAttributesOutcome.GetError().GetMessage() << std::endl;
+    auto sqa_out = sqs.SetQueueAttributes(sqa_req);
+    if(sqa_out.IsSuccess()) {
+        std::cout << "Successfully set dead letter queue for queue  " <<
+            src_queue_url  << " to " << dlq_arn << std::endl;
+    } else {
+        std::cout << "Error setting dead letter queue for queue " <<
+            src_queue_url << ": " << sqa_out.GetError().GetMessage() <<
+            std::endl;
     }
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

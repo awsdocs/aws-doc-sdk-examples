@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/GetQueueUrlRequest.h>
 #include <aws/sqs/model/GetQueueUrlResult.h>
-
 #include <iostream>
 
 /**
@@ -24,35 +22,32 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
-        std::cout << "Usage: sqs_get_queue_url <queue_name>" << std::endl;
+    if(argc != 2) {
+        std::cout << "Usage: get_queue_url <queue_name>" << std::endl;
         return 1;
     }
 
-    Aws::String queueName = argv[1];
+    Aws::String queue_name = argv[1];
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs_client;
+    Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::GetQueueUrlRequest getQueueUrlRequest;
-    getQueueUrlRequest.SetQueueName(queueName);
-    auto getQueueUrlOutcome = sqs_client.GetQueueUrl(getQueueUrlRequest);
-    if(getQueueUrlOutcome.IsSuccess())
-    {
-        std::cout << "Queue " << queueName << " has url " << getQueueUrlOutcome.GetResult().GetQueueUrl() << std::endl;
-    }
-    else
-    {
-        std::cout << "Error getting url for queue " << queueName << ": " << getQueueUrlOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::GetQueueUrlRequest gqu_req;
+    gqu_req.SetQueueName(queue_name);
+
+    auto gqu_out = sqs.GetQueueUrl(gqu_req);
+    if(gqu_out.IsSuccess()) {
+        std::cout << "Queue " << queue_name << " has url " <<
+            gqu_out.GetResult().GetQueueUrl() << std::endl;
+    } else {
+        std::cout << "Error getting url for queue " << queue_name << ": " <<
+            gqu_out.GetError().GetMessage() << std::endl;
     }
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

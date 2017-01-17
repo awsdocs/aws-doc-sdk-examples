@@ -12,37 +12,38 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
-
 #include <iostream>
 
-void ChangeMessageVisibility(const Aws::String& queueUrl, int visibilityTimeout)
+void ChangeMessageVisibility(
+        const Aws::String& queue_url, int visibility_timeout)
 {
-    // Let's make sure the request timeout is larger than the maximum possible long poll time so that
-    // valid ReceiveMesage requests don't fail on long poll queues
-    Aws::Client::ClientConfiguration clientConfig;
-    clientConfig.requestTimeoutMs = 30000;
+    // Let's make sure the request timeout is larger than the maximum possible
+    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // poll queues
+    Aws::Client::ClientConfiguration client_config;
+    client_config.requestTimeoutMs = 30000;
 
-    Aws::SQS::SQSClient sqs_client(clientConfig);
+    Aws::SQS::SQSClient sqs(client_config);
 
-    Aws::SQS::Model::ReceiveMessageRequest receiveMessageRequest;
-    receiveMessageRequest.SetQueueUrl(queueUrl);
-    receiveMessageRequest.SetMaxNumberOfMessages(1);
-    auto receiveMessageOutcome = sqs_client.ReceiveMessage(receiveMessageRequest);
-    if(!receiveMessageOutcome.IsSuccess())
-    {
-        std::cout << "Error receiving message from queue " << queueUrl << ": " << receiveMessageOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::ReceiveMessageRequest rm_req;
+    rm_req.SetQueueUrl(queue_url);
+    rm_req.SetMaxNumberOfMessages(1);
+
+    auto rm_out = sqs.ReceiveMessage(rm_req);
+    if(!rm_out.IsSuccess()) {
+        std::cout << "Error receiving message from queue " << queue_url << ": "
+            << rm_out.GetError().GetMessage() << std::endl;
         return;
     }
 
-    const auto& messages = receiveMessageOutcome.GetResult().GetMessages();
-    if(messages.size() == 0)
-    {
-        std::cout << "No messages received from queue " << queueUrl << std::endl;
+    const auto& messages = rm_out.GetResult().GetMessages();
+    if(messages.size() == 0) {
+        std::cout << "No messages received from queue " << queue_url <<
+            std::endl;
         return;
     }
 
@@ -52,47 +53,46 @@ void ChangeMessageVisibility(const Aws::String& queueUrl, int visibilityTimeout)
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
 
-    Aws::SQS::Model::ChangeMessageVisibilityRequest changeMessageVisibilityRequest;
-    changeMessageVisibilityRequest.SetQueueUrl(queueUrl);
-    changeMessageVisibilityRequest.SetReceiptHandle(message.GetReceiptHandle());
-    changeMessageVisibilityRequest.SetVisibilityTimeout(visibilityTimeout);
-    auto changeMessageVisibilityOutcome = sqs_client.ChangeMessageVisibility(changeMessageVisibilityRequest);
-    if(changeMessageVisibilityOutcome.IsSuccess())
-    {
-        std::cout << "Successfully changed visibility of message " << message.GetMessageId() << " from queue " << queueUrl << std::endl;
-    }
-    else
-    {
-        std::cout << "Error changing visibility of message " << message.GetMessageId() << " from queue " << queueUrl << ": " << changeMessageVisibilityOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::ChangeMessageVisibilityRequest cmv_req;
+    cmv_req.SetQueueUrl(queue_url);
+    cmv_req.SetReceiptHandle(message.GetReceiptHandle());
+    cmv_req.SetVisibilityTimeout(visibility_timeout);
+    auto cmv_out = sqs.ChangeMessageVisibility(cmv_req);
+    if(cmv_out.IsSuccess()) {
+        std::cout << "Successfully changed visibility of message " <<
+            message.GetMessageId() << " from queue " << queue_url << std::endl;
+    } else {
+        std::cout << "Error changing visibility of message " <<
+            message.GetMessageId() << " from queue " << queue_url << ": " <<
+            cmv_out.GetError().GetMessage() << std::endl;
     }
 }
 
 /**
- * Changes the visibility timeout of a message received from an sqs queue, based on command line input
+ * Changes the visibility timeout of a message received from an sqs queue, based
+ * on command line input
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: sqs_change_message_visibility <queue_url> <visibility_timeout_in_seconds>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: change_message_visibility <queue_url> " <<
+            "<visibility_timeout_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queueUrl = argv[1];
+    Aws::String queue_url = argv[1];
 
-    int visibilityTimeoutInSeconds = 0;
+    int visibility_timeout = 0;
     Aws::StringStream ss(argv[2]);
-    ss >> visibilityTimeoutInSeconds;
+    ss >> visibility_timeout;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    ChangeMessageVisibility(queueUrl, visibilityTimeoutInSeconds);
+    ChangeMessageVisibility(queue_url, visibility_timeout);
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

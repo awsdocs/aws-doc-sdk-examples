@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/core/client/DefaultRetryStrategy.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/DeleteQueueRequest.h>
-
 #include <iostream>
 
 /**
@@ -24,38 +22,36 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
-        std::cout << "Usage: sqs_delete_queue <queue_url>" << std::endl;
+    if(argc != 2) {
+        std::cout << "Usage: delete_queue <queue_url>" << std::endl;
         return 1;
     }
 
-    Aws::String queueUrl = argv[1];
+    Aws::String queue_url = argv[1];
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     // disable retries so that bad urls don't hang the exe via retry loop
-    Aws::Client::ClientConfiguration clientConfig;
-    clientConfig.retryStrategy = Aws::MakeShared< Aws::Client::DefaultRetryStrategy >( "sqs_delete_queue", 0 );
-    Aws::SQS::SQSClient sqs_client(clientConfig);
+    Aws::Client::ClientConfiguration client_cfg;
+    client_cfg.retryStrategy = Aws::MakeShared<Aws::Client::DefaultRetryStrategy>(
+            "sqs_delete_queue", 0);
+    Aws::SQS::SQSClient sqs(client_cfg);
 
-    Aws::SQS::Model::DeleteQueueRequest deleteQueueRequest;
-    deleteQueueRequest.SetQueueUrl(queueUrl);
-    auto deleteQueueOutcome = sqs_client.DeleteQueue(deleteQueueRequest);
-    if(deleteQueueOutcome.IsSuccess())
-    {
-        std::cout << "Successfully deleted queue with url " << queueUrl << std::endl;
-    }
-    else
-    {
-        std::cout << "Error deleting queue " << queueUrl << ": " << deleteQueueOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::DeleteQueueRequest dq_req;
+    dq_req.SetQueueUrl(queue_url);
+
+    auto dq_out = sqs.DeleteQueue(dq_req);
+    if(dq_out.IsSuccess()) {
+        std::cout << "Successfully deleted queue with url " << queue_url <<
+            std::endl;
+    } else {
+        std::cout << "Error deleting queue " << queue_url << ": " <<
+            dq_out.GetError().GetMessage() << std::endl;
     }
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

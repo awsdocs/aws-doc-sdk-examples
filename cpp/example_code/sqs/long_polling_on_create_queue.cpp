@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/CreateQueueRequest.h>
 #include <aws/sqs/model/CreateQueueResult.h>
-
 #include <iostream>
 
 /**
@@ -24,37 +22,37 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: sqs_long_polling_on_create_queue <queue_name> <long_poll_time_in_seconds>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: long_polling_on_create_queue <queue_name> " <<
+            "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queueName = argv[1];
-    Aws::String longPollTimeInSeconds = argv[2];
+    Aws::String queue_name = argv[1];
+    Aws::String poll_time = argv[2];
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs_client;
+    Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::CreateQueueRequest createQueueRequest;
-    createQueueRequest.SetQueueName(queueName);
-    createQueueRequest.AddAttributes(Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds, longPollTimeInSeconds);
-    auto createQueueOutcome = sqs_client.CreateQueue(createQueueRequest);
-    if(createQueueOutcome.IsSuccess())
-    {
-        std::cout << "Successfully created long-polled queue " << queueName << std::endl;
-    }
-    else
-    {
-        std::cout << "Error creating long-polled queue " << queueName << ": " << createQueueOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::CreateQueueRequest cq_req;
+    cq_req.SetQueueName(queue_name);
+    cq_req.AddAttributes(
+          Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
+          poll_time);
+
+    auto cq_out = sqs.CreateQueue(cq_req);
+    if(cq_out.IsSuccess()) {
+        std::cout << "Successfully created long-polled queue " << queue_name <<
+            std::endl;
+    } else {
+        std::cout << "Error creating long-polled queue " << queue_name << ": "
+            << cq_out.GetError().GetMessage() << std::endl;
     }
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

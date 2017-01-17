@@ -13,11 +13,9 @@
 */
 
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ListQueuesRequest.h>
 #include <aws/sqs/model/ListQueuesResult.h>
-
 #include <iostream>
 
 /**
@@ -28,26 +26,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs_client;
+    Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::ListQueuesRequest listQueuesRequest;
-    auto listQueuesOutcome = sqs_client.ListQueues(listQueuesRequest);
-    if(listQueuesOutcome.IsSuccess())
-    {
+    Aws::SQS::Model::ListQueuesRequest lq_req;
+
+    auto lq_out = sqs.ListQueues(lq_req);
+    if(lq_out.IsSuccess()) {
         std::cout << "Queue Urls:" << std::endl << std::endl;
-        const auto& queueUrls = listQueuesOutcome.GetResult().GetQueueUrls();
-        for(const auto& iter : queueUrls)
-        {
+        const auto& queue_urls = lq_out.GetResult().GetQueueUrls();
+        for(const auto& iter : queue_urls) {
             std::cout << " " << iter << std::endl;
         }
-    }
-    else
-    {
-        std::cout << "Error listing queues: " << listQueuesOutcome.GetError().GetMessage() << std::endl;
+    } else {
+        std::cout << "Error listing queues: " << lq_out.GetError().GetMessage()
+            << std::endl;
     }
 
     Aws::ShutdownAPI(options);
 }
-
-
 

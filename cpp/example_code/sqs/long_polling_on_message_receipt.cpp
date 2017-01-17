@@ -12,38 +12,38 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
-
 #include <iostream>
 
-void ReceiveMessage(const Aws::String& queueUrl, int waitTimeInSeconds)
+void ReceiveMessage(const Aws::String& queue_url, int wait_time)
 {
-    // Let's make sure the request timeout is larger than the maximum possible long poll time so that
-    // valid ReceiveMesage requests don't fail on long poll queues
-    Aws::Client::ClientConfiguration clientConfig;
-    clientConfig.requestTimeoutMs = 30000;
+    // Let's make sure the request timeout is larger than the maximum possible
+    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // poll queues
+    Aws::Client::ClientConfiguration client_cfg;
+    client_cfg.requestTimeoutMs = 30000;
 
-    Aws::SQS::SQSClient sqs_client(clientConfig);
+    Aws::SQS::SQSClient sqs(client_cfg);
 
-    Aws::SQS::Model::ReceiveMessageRequest receiveMessageRequest;
-    receiveMessageRequest.SetQueueUrl(queueUrl);
-    receiveMessageRequest.SetMaxNumberOfMessages(1);
-    receiveMessageRequest.SetWaitTimeSeconds(waitTimeInSeconds);
-    auto receiveMessageOutcome = sqs_client.ReceiveMessage(receiveMessageRequest);
-    if(!receiveMessageOutcome.IsSuccess())
-    {
-        std::cout << "Error receiving message from queue " << queueUrl << ": " << receiveMessageOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::ReceiveMessageRequest rm_req;
+    rm_req.SetQueueUrl(queue_url);
+    rm_req.SetMaxNumberOfMessages(1);
+    rm_req.SetWaitTimeSeconds(wait_time);
+
+    auto rm_out = sqs.ReceiveMessage(rm_req);
+    if(!rm_out.IsSuccess()) {
+        std::cout << "Error receiving message from queue " << queue_url << ": "
+            << rm_out.GetError().GetMessage() << std::endl;
         return;
     }
 
-    const auto& messages = receiveMessageOutcome.GetResult().GetMessages();
-    if(messages.size() == 0)
-    {
-        std::cout << "No messages received from queue " << queueUrl << std::endl;
+    const auto& messages = rm_out.GetResult().GetMessages();
+    if(messages.size() == 0) {
+        std::cout << "No messages received from queue " << queue_url <<
+            std::endl;
         return;
     }
 
@@ -53,46 +53,46 @@ void ReceiveMessage(const Aws::String& queueUrl, int waitTimeInSeconds)
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
 
-    Aws::SQS::Model::DeleteMessageRequest deleteMessageRequest;
-    deleteMessageRequest.SetQueueUrl(queueUrl);
-    deleteMessageRequest.SetReceiptHandle(message.GetReceiptHandle());
-    auto deleteMessageOutcome = sqs_client.DeleteMessage(deleteMessageRequest);
-    if(deleteMessageOutcome.IsSuccess())
-    {
-        std::cout << "Successfully deleted message " << message.GetMessageId() << " from queue " << queueUrl << std::endl;
-    }
-    else
-    {
-        std::cout << "Error deleting message " << message.GetMessageId() << " from queue " << queueUrl << ": " << deleteMessageOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::DeleteMessageRequest dm_req;
+    dm_req.SetQueueUrl(queue_url);
+    dm_req.SetReceiptHandle(message.GetReceiptHandle());
+
+    auto dm_out = sqs.DeleteMessage(dm_req);
+    if(dm_out.IsSuccess()) {
+        std::cout << "Successfully deleted message " << message.GetMessageId()
+            << " from queue " << queue_url << std::endl;
+    } else {
+        std::cout << "Error deleting message " << message.GetMessageId() <<
+            " from queue " << queue_url << ": " <<
+            dm_out.GetError().GetMessage() << std::endl;
     }
 }
 
 /**
- * Receives (and deletes) a message from an sqs queue via long polling, based on command line input
+ * Receives (and deletes) a message from an sqs queue via long polling, based on
+ * command line input
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: sqs_long_polling_on_message_receipt <queue_url> <long_poll_time_in_seconds>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: long_polling_on_message_receipt <queue_url> " <<
+           "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queueUrl = argv[1];
+    Aws::String queue_url = argv[1];
 
-    int waitTimeInSeconds = 1;
+    int wait_time = 1;
     Aws::StringStream ss(argv[2]);
-    ss >> waitTimeInSeconds;
+    ss >> wait_time;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    ReceiveMessage(queueUrl, waitTimeInSeconds);
+    ReceiveMessage(queue_url, wait_time);
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

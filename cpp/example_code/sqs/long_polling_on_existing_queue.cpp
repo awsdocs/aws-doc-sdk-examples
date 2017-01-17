@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,38 +21,37 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: sqs_long_polling_on_existing_queue <queue_url> <long_poll_time_in_seconds>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: long_polling_on_existing_queue <queue_url> " <<
+            "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queueUrl = argv[1];
-    Aws::String longPollTimeInSeconds = argv[2];
+    Aws::String queue_url = argv[1];
+    Aws::String poll_time = argv[2];
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs_client;
+    Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::SetQueueAttributesRequest setQueueAttributesRequest;
-    setQueueAttributesRequest.SetQueueUrl(queueUrl);
-    setQueueAttributesRequest.AddAttributes(Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds, longPollTimeInSeconds);
+    Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
+    sqa_req.SetQueueUrl(queue_url);
+    sqa_req.AddAttributes(
+            Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
+            poll_time);
 
-    auto setQueueAttributesOutcome = sqs_client.SetQueueAttributes(setQueueAttributesRequest);
-    if(setQueueAttributesOutcome.IsSuccess())
-    {
-        std::cout << "Successfully updated long polling time for queue " << queueUrl  << " to " << longPollTimeInSeconds << std::endl;
-    }
-    else
-    {
-        std::cout << "Error updating long polling time for queue " << queueUrl << ": " << setQueueAttributesOutcome.GetError().GetMessage() << std::endl;
+    auto sqa_out = sqs.SetQueueAttributes(sqa_req);
+    if(sqa_out.IsSuccess()) {
+        std::cout << "Successfully updated long polling time for queue " <<
+            queue_url  << " to " << poll_time << std::endl;
+    } else {
+        std::cout << "Error updating long polling time for queue " << queue_url
+            << ": " << sqa_out.GetError().GetMessage() << std::endl;
     }
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

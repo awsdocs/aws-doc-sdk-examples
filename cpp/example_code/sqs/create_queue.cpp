@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/CreateQueueRequest.h>
 #include <aws/sqs/model/CreateQueueResult.h>
-
 #include <iostream>
 
 /**
@@ -24,35 +22,31 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
-        std::cout << "Usage: sqs_create_queue <queue_name>" << std::endl;
+    if(argc != 2) {
+        std::cout << "Usage: create_queue <queue_name>" << std::endl;
         return 1;
     }
 
-    Aws::String queueName = argv[1];
+    Aws::String queue_name = argv[1];
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs_client;
+    Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::CreateQueueRequest createQueueRequest;
-    createQueueRequest.SetQueueName(queueName);
-    auto createQueueOutcome = sqs_client.CreateQueue(createQueueRequest);
-    if(createQueueOutcome.IsSuccess())
-    {
-        std::cout << "Successfully created queue " << queueName << std::endl;
-    }
-    else
-    {
-        std::cout << "Error creating queue " << queueName << ": " << createQueueOutcome.GetError().GetMessage() << std::endl;
+    Aws::SQS::Model::CreateQueueRequest cq_req;
+    cq_req.SetQueueName(queue_name);
+
+    auto cq_out = sqs.CreateQueue(cq_req);
+    if(cq_out.IsSuccess()) {
+        std::cout << "Successfully created queue " << queue_name << std::endl;
+    } else {
+        std::cout << "Error creating queue " << queue_name << ": " <<
+            cq_out.GetError().GetMessage() << std::endl;
     }
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 
