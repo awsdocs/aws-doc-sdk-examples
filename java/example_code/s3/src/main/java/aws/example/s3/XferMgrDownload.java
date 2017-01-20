@@ -12,16 +12,13 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
-import aws.example.s3.Common;
+import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.event.ProgressEvent;
-import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferProgress;
 import com.amazonaws.services.s3.transfer.Download;
 import com.amazonaws.services.s3.transfer.MultipleFileDownload;
-import com.amazonaws.services.s3.transfer.Transfer;
 import java.io.File;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,65 +30,42 @@ import java.util.Arrays;
  */
 public class XferMgrDownload
 {
-    public static void downloadDir(String dir_path, String bucket_name,
-            String key_prefix, boolean recursive, boolean pause)
+    public static void downloadDir(String bucket_name, String key_prefix,
+          String dir_path, boolean pause)
     {
-        System.out.println("  directory: " + dir_path + (recursive ?
-                    " (recursive)" : "") + (pause ? " (pause)" : ""));
+        System.out.println("downloading to directory: " + dir_path +
+              (pause ?  " (pause)" : ""));
 
         TransferManager xfer_mgr = new TransferManager();
         try {
-            MultipleFileDownload downloads = xfer_mgr.downloadDirectory(
+            MultipleFileDownload xfer = xfer_mgr.downloadDirectory(
                     bucket_name, key_prefix, new File(dir_path));
-            printDownloadProgress(downloads);
+            // this is a demo function that shows the transfer progress
+            XferMgrProgress.showTransferProgress(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
-        System.out.println("");
     }
 
-    public static void downloadFile(String file_path, String bucket_name,
-            String key_prefix, boolean pause)
+    public static void downloadFile(String bucket_name, String key_name,
+          String file_path, boolean pause)
     {
-        System.out.println("  file: " + file_path +
-                (pause ? " (pause)" : ""));
-
-        String key_name = null;
-        if (key_prefix != null) {
-            key_name = key_prefix + '/' + file_path;
-        } else {
-            key_name = file_path;
-        }
+        System.out.println("Downloading to file: " + file_path +
+              (pause ? " (pause)" : ""));
 
         File f = new File(file_path);
         TransferManager xfer_mgr = new TransferManager();
         try {
-            Download download = xfer_mgr.download(bucket_name, key_name, f);
-            printDownloadProgress(download);
+            Download xfer = xfer_mgr.download(bucket_name, key_name, f);
+            // this is a demo function that shows the transfer progress
+            XferMgrProgress.showTransferProgress(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
-        System.out.println("");
-    }
-
-    // waits for the download to finish, and prints progress.
-    public static void printDownloadProgress(Transfer download)
-    {
-        Common.printProgressBar(0.0, false);
-        while (download.isDone() == false) {
-            TransferProgress progress = download.getProgress();
-            Common.printProgressBar(progress.getPercentTransferred(), true);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                // nothing.
-            }
-        }
-        Common.printProgressBar(100.0, true);
     }
 
     public static void main(String[] args)
@@ -104,14 +78,29 @@ public class XferMgrDownload
             "                  Copies the contents of the directory recursively.\n\n" +
             "    --pause     - Attempt to pause+resume the download. This may not work for\n" +
             "                  small files.\n\n" +
-            "    s3_path     - The S3 destination (bucket/path) to download the file(s) to.\n\n" +
-            "    local_paths - One or more local paths to download to S3. These can be files\n" +
-            "                  or directories. Globs are permitted (*.xml, etc.)\n\n" +
+            "    s3_path     - The S3 (bucket/path) to download the file(s) from. This can be\n" +
+            "                  a single object or a set of files that share a common prefix.\n\n" +
+            "                  * If the path ends with a '/', it is assumed to be a *path prefix*,\n" +
+            "                    and all objects that share the same prefix will be downloaded to\n" +
+            "                    the directory given in local_path.\n" +
+            "                  * Otherwise, the S3 path is assumed to refer to an object, which\n" +
+            "                    will be downloaded to the file name given in local_path.\n\n" +
+            "    local_path  - The local path to use to download the object(s) specified in\n" +
+            "                  s3_path.\n" +
+            "                  * If s3_path ends with a '/', then local_path *must* refer to a\n" +
+            "                    local directory. It will be created if it doesn't already\n" +
+            "                    exist.\n" +
+            "                  * Otherwise, local_path is scanned to see if it's a directory or\n" +
+            "                    file. If it's a file, the specified file name will be used for\n" +
+            "                    the object in s3_path. If it's a directory, the file in s3_path\n" +
+            "                    will be downloaded into that directory. If the path doesn't exist\n" +
+            "                    or is empty, then a file will be created with the object key name\n" +
+            "                    in s3_path.\n\n" +
             "Examples:\n" +
-            "    Copy my_photos/cat_happy.png public_photos/funny_cat.png\n\n" +
-            "    Copy my_photos/cat_sad.png public_photos\n\n";
+            "    XferMgrDownload public_photos/cat_happy.png\n" +
+            "    XferMgrDownload public_photos/ my_photos\n\n";
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -137,48 +126,47 @@ public class XferMgrDownload
         // only the first '/' character is of interest to get the bucket name.
         // Subsequent ones are part of the key name.
         String s3_path[] = args[cur_arg].split("/", 2);
+        String bucket_name = s3_path[0];
+        String key_name = s3_path[1];
+        boolean s3_path_is_prefix = (key_name.lastIndexOf('/') == key_name.length()-1);
         cur_arg += 1;
 
-        // Any remaining args are assumed to be local paths to copy.
-        // They may be directories, arrays, or a mix of both.
-        ArrayList<String> dirs_to_copy = new ArrayList<String>();
-        ArrayList<String> files_to_copy = new ArrayList<String>();
 
-        while (cur_arg < args.length) {
-           // check to see if local path is a directory or file...
-           File f = new File(args[cur_arg]);
-           if (f.exists() == false) {
-              System.out.println("Input path doesn't exist: " + args[cur_arg]);
+        // The final argument is either a local directory or file to copy to.
+        // If there is no final arg, use the key (object) name as the local file
+        // name.
+        String local_path = ((cur_arg < args.length) ? args[cur_arg] : key_name);
+        File f = new File(local_path);
+        if (f.isFile() && s3_path_is_prefix) {
+           System.out.format(
+                 "You can't copy an S3 prefix (%) into a single file!\n",
+                 key_name);
+           System.exit(1);
+        }
+
+        // If the path already exists, print a warning.
+        if (f.exists()) {
+           System.out.println("The local path already exists: " + local_path);
+           String a = System.console().readLine("Do you want to overwrite it anyway? (yes/no): ");
+           if (!a.toLowerCase().equals("yes")) {
+              System.out.println("Aborting download!");
+              System.exit(0);
+           }
+        } else if (s3_path_is_prefix) {
+           try {
+              f.mkdir();
+           } catch (Exception e) {
+              System.out.println("Couldn't create destination directory!");
               System.exit(1);
            }
-           else if (f.isDirectory()) {
-              dirs_to_copy.add(args[cur_arg]);
-           }
-           else {
-              files_to_copy.add(args[cur_arg]);
-           }
-           cur_arg += 1;
         }
 
-        String bucket_name = s3_path[0];
-        String key_prefix = null;
-        if (s3_path.length > 1) {
-            key_prefix = s3_path[1];
+        // Assume that the path exists, do the download.
+        if (s3_path_is_prefix) {
+           downloadDir(bucket_name, key_name, local_path, false);
+        } else {
+           downloadFile(bucket_name, key_name, local_path, false);
         }
-
-        System.out.println("Downloading to S3 bucket " + bucket_name +
-                ((key_prefix != null) ? "using prefix \"" + key_prefix + "\"" : ""));
-
-        // Download any directories in the list.
-        for (String dir_path : dirs_to_copy) {
-            downloadDir(dir_path, bucket_name, key_prefix, recursive, pause);
-        }
-
-        for (String key_path : files_to_copy) {
-            downloadFile(key_path, bucket_name, key_prefix, pause);
-        }
-
-        System.out.println("Done!");
     }
 }
 

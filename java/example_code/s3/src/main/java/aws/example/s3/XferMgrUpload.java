@@ -12,15 +12,11 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
-import aws.example.s3.Common;
+import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.event.ProgressEvent;
-import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferProgress;
 import com.amazonaws.services.s3.transfer.Upload;
 import com.amazonaws.services.s3.transfer.MultipleFileUpload;
-import com.amazonaws.services.s3.transfer.Transfer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,14 +32,15 @@ public class XferMgrUpload
     public static void uploadDir(String dir_path, String bucket_name,
             String key_prefix, boolean recursive, boolean pause)
     {
-        System.out.println("  directory: " + dir_path + (recursive ?
+        System.out.println("directory: " + dir_path + (recursive ?
                     " (recursive)" : "") + (pause ? " (pause)" : ""));
 
         TransferManager xfer_mgr = new TransferManager();
         try {
-            MultipleFileUpload uploads = xfer_mgr.uploadDirectory(bucket_name,
+            MultipleFileUpload xfer = xfer_mgr.uploadDirectory(bucket_name,
                     key_prefix, new File(dir_path), recursive);
-            printUploadProgress(uploads);
+            // this is a demo function that shows the transfer progress
+            XferMgrProgress.showTransferProgress(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
@@ -55,7 +52,7 @@ public class XferMgrUpload
     public static void uploadFileList(String[] file_paths, String bucket_name,
             String key_prefix, boolean pause)
     {
-        System.out.println("  file list: " + Arrays.toString(file_paths) +
+        System.out.println("file list: " + Arrays.toString(file_paths) +
                 (pause ? " (pause)" : ""));
         // convert the file paths to a list of File objects (required by the
         // uploadFileList method)
@@ -66,21 +63,21 @@ public class XferMgrUpload
 
         TransferManager xfer_mgr = new TransferManager();
         try {
-            MultipleFileUpload uploads = xfer_mgr.uploadFileList(bucket_name,
+            MultipleFileUpload xfer = xfer_mgr.uploadFileList(bucket_name,
                     key_prefix, new File("."), files);
-            printUploadProgress(uploads);
+            // this is a demo function that shows the transfer progress
+            XferMgrProgress.showTransferProgress(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
-        System.out.println("");
     }
 
     public static void uploadFile(String file_path, String bucket_name,
             String key_prefix, boolean pause)
     {
-        System.out.println("  file: " + file_path +
+        System.out.println("file: " + file_path +
                 (pause ? " (pause)" : ""));
 
         String key_name = null;
@@ -93,30 +90,14 @@ public class XferMgrUpload
         File f = new File(file_path);
         TransferManager xfer_mgr = new TransferManager();
         try {
-            Upload upload = xfer_mgr.upload(bucket_name, key_name, f);
-            printUploadProgress(upload);
+            Upload xfer = xfer_mgr.upload(bucket_name, key_name, f);
+            // this is a demo function that shows the transfer progress
+            XferMgrProgress.showTransferProgress(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
-        System.out.println("");
-    }
-
-    // waits for the upload to finish, and prints progress.
-    public static void printUploadProgress(Transfer upload)
-    {
-        Common.printProgressBar(0.0, false);
-        while (upload.isDone() == false) {
-            TransferProgress progress = upload.getProgress();
-            Common.printProgressBar(progress.getPercentTransferred(), true);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                // nothing.
-            }
-        }
-        Common.printProgressBar(100.0, true);
     }
 
     public static void main(String[] args)
@@ -191,9 +172,6 @@ public class XferMgrUpload
             key_prefix = s3_path[1];
         }
 
-        System.out.println("Uploading to S3 bucket " + bucket_name +
-                ((key_prefix != null) ? "using prefix \"" + key_prefix + "\"" : ""));
-
         // Upload any directories in the list.
         for (String dir_path : dirs_to_copy) {
             uploadDir(dir_path, bucket_name, key_prefix, recursive, pause);
@@ -207,8 +185,6 @@ public class XferMgrUpload
         } else if (files_to_copy.size() == 1) {
             uploadFile(files_to_copy.get(0), bucket_name, key_prefix, pause);
         } // else: nothing to do.
-
-        System.out.println("Done!");
     }
 }
 
