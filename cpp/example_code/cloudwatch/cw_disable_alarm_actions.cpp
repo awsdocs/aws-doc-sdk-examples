@@ -34,19 +34,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatch::CloudWatchClient cw_client;
-
-    Aws::CloudWatch::Model::DisableAlarmActionsRequest disableAlarmActionsRequest;
-    disableAlarmActionsRequest.AddAlarmNames(alarmName);
-
-    auto disableAlarmActionsOutcome = cw_client.DisableAlarmActions(disableAlarmActionsRequest);
-    if(!disableAlarmActionsOutcome.IsSuccess())
     {
-        std::cout << "Failed to disable actions for alarm " << alarmName << ": " << disableAlarmActionsOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully disabled actions for alarm " << alarmName << std::endl;
+        Aws::CloudWatch::CloudWatchClient cw_client;
+
+        Aws::CloudWatch::Model::DisableAlarmActionsRequest disableAlarmActionsRequest;
+        disableAlarmActionsRequest.AddAlarmNames(alarmName);
+
+        auto disableAlarmActionsOutcome = cw_client.DisableAlarmActions(disableAlarmActionsRequest);
+        if (!disableAlarmActionsOutcome.IsSuccess())
+        {
+            std::cout << "Failed to disable actions for alarm " << alarmName << ": " <<
+            disableAlarmActionsOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully disabled actions for alarm " << alarmName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

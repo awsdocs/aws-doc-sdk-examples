@@ -33,34 +33,37 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::EC2::EC2Client ec2_client;
-
-    Aws::EC2::Model::DescribeSecurityGroupsRequest describeSecurityGroupsRequest;
-    if(argc == 2)
     {
-        describeSecurityGroupsRequest.AddGroupIds(argv[1]);
-    }
+        Aws::EC2::EC2Client ec2_client;
 
-    auto describeSecurityGroupsOutcome = ec2_client.DescribeSecurityGroups(describeSecurityGroupsRequest);
-    if(describeSecurityGroupsOutcome.IsSuccess())
-    {
-        std::cout << std::left << std::setw(32) << "Name" 
-                               << std::setw(20) << "GroupId"
-                               << std::setw(20) << "VpcId"
-                               << std::setw(64) << "Description" << std::endl;
-
-        const auto& securityGroups = describeSecurityGroupsOutcome.GetResult().GetSecurityGroups();
-        for(const auto& securityGroup : securityGroups)
+        Aws::EC2::Model::DescribeSecurityGroupsRequest describeSecurityGroupsRequest;
+        if (argc == 2)
         {
-            std::cout << std::left << std::setw(32) << securityGroup.GetGroupName() 
-                                   << std::setw(20) << securityGroup.GetGroupId()
-                                   << std::setw(20) << securityGroup.GetVpcId()
-                                   << std::setw(64) << securityGroup.GetDescription() << std::endl;
+            describeSecurityGroupsRequest.AddGroupIds(argv[1]);
         }
-    }
-    else
-    {
-        std::cout << "Failed to describe security groups:" << describeSecurityGroupsOutcome.GetError().GetMessage() << std::endl;
+
+        auto describeSecurityGroupsOutcome = ec2_client.DescribeSecurityGroups(describeSecurityGroupsRequest);
+        if (describeSecurityGroupsOutcome.IsSuccess())
+        {
+            std::cout << std::left << std::setw(32) << "Name"
+            << std::setw(20) << "GroupId"
+            << std::setw(20) << "VpcId"
+            << std::setw(64) << "Description" << std::endl;
+
+            const auto &securityGroups = describeSecurityGroupsOutcome.GetResult().GetSecurityGroups();
+            for (const auto &securityGroup : securityGroups)
+            {
+                std::cout << std::left << std::setw(32) << securityGroup.GetGroupName()
+                << std::setw(20) << securityGroup.GetGroupId()
+                << std::setw(20) << securityGroup.GetVpcId()
+                << std::setw(64) << securityGroup.GetDescription() << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Failed to describe security groups:" <<
+            describeSecurityGroupsOutcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

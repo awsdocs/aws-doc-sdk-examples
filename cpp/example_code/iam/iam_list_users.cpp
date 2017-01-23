@@ -29,46 +29,48 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iam_client;
-
-    Aws::IAM::Model::ListUsersRequest listUsersRequest;
-
-    bool done = false;
-    bool header = false;
-    while(!done)
     {
-        auto listUsersOutcome = iam_client.ListUsers(listUsersRequest);
-        if(!listUsersOutcome.IsSuccess())
-        {
-            std::cout << "Failed to list iam users:" << listUsersOutcome.GetError().GetMessage() << std::endl;
-            break;
-        }
+        Aws::IAM::IAMClient iam_client;
 
-        if(!header)
-        {
-            std::cout << std::left << std::setw(32) << "Name" 
-                                   << std::setw(30) << "ID" 
-                                   << std::setw(64) << "Arn" 
-                                   << std::setw(20) << "CreateDate" << std::endl;
-            header = true;
-        }
+        Aws::IAM::Model::ListUsersRequest listUsersRequest;
 
-        const auto& users = listUsersOutcome.GetResult().GetUsers();
-        for (const auto& user : users)
+        bool done = false;
+        bool header = false;
+        while (!done)
         {
-            std::cout << std::left << std::setw(32) << user.GetUserName() 
-                                   << std::setw(30) << user.GetUserId()
-                                   << std::setw(64) << user.GetArn()
-                                   << std::setw(20) << user.GetCreateDate().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
-        }
+            auto listUsersOutcome = iam_client.ListUsers(listUsersRequest);
+            if (!listUsersOutcome.IsSuccess())
+            {
+                std::cout << "Failed to list iam users:" << listUsersOutcome.GetError().GetMessage() << std::endl;
+                break;
+            }
 
-        if(listUsersOutcome.GetResult().GetIsTruncated())
-        {
-            listUsersRequest.SetMarker(listUsersOutcome.GetResult().GetMarker());
-        }
-        else
-        {
-            done = true;
+            if (!header)
+            {
+                std::cout << std::left << std::setw(32) << "Name"
+                << std::setw(30) << "ID"
+                << std::setw(64) << "Arn"
+                << std::setw(20) << "CreateDate" << std::endl;
+                header = true;
+            }
+
+            const auto &users = listUsersOutcome.GetResult().GetUsers();
+            for (const auto &user : users)
+            {
+                std::cout << std::left << std::setw(32) << user.GetUserName()
+                << std::setw(30) << user.GetUserId()
+                << std::setw(64) << user.GetArn()
+                << std::setw(20) << user.GetCreateDate().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
+            }
+
+            if (listUsersOutcome.GetResult().GetIsTruncated())
+            {
+                listUsersRequest.SetMarker(listUsersOutcome.GetResult().GetMarker());
+            }
+            else
+            {
+                done = true;
+            }
         }
     }
 

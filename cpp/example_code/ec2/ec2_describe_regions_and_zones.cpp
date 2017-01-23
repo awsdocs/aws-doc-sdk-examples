@@ -29,51 +29,55 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::EC2::EC2Client ec2_client;
-
-    Aws::EC2::Model::DescribeRegionsRequest describeRegionsRequest;
-
-    auto describeRegionsOutcome = ec2_client.DescribeRegions(describeRegionsRequest);
-    if(describeRegionsOutcome.IsSuccess())
     {
-        std::cout << std::left << std::setw(32) << "RegionName" 
-                               << std::setw(64) << "Endpoint" << std::endl;
+        Aws::EC2::EC2Client ec2_client;
 
-        const auto& regions = describeRegionsOutcome.GetResult().GetRegions();
-        for(const auto& region : regions)
+        Aws::EC2::Model::DescribeRegionsRequest describeRegionsRequest;
+
+        auto describeRegionsOutcome = ec2_client.DescribeRegions(describeRegionsRequest);
+        if (describeRegionsOutcome.IsSuccess())
         {
-            std::cout << std::left << std::setw(32) << region.GetRegionName() 
-                                   << std::setw(64) << region.GetEndpoint() << std::endl;
+            std::cout << std::left << std::setw(32) << "RegionName"
+            << std::setw(64) << "Endpoint" << std::endl;
+
+            const auto &regions = describeRegionsOutcome.GetResult().GetRegions();
+            for (const auto &region : regions)
+            {
+                std::cout << std::left << std::setw(32) << region.GetRegionName()
+                << std::setw(64) << region.GetEndpoint() << std::endl;
+            }
         }
-    }
-    else
-    {
-        std::cout << "Failed to describe regions:" << describeRegionsOutcome.GetError().GetMessage() << std::endl;
-    }
-
-    std::cout << std::endl;
-
-    Aws::EC2::Model::DescribeAvailabilityZonesRequest describeAvailabilityZonesRequest;
-
-    auto describeAvailabilityZonesOutcome = ec2_client.DescribeAvailabilityZones(describeAvailabilityZonesRequest);
-    if(describeAvailabilityZonesOutcome.IsSuccess())
-    {
-        std::cout << std::left << std::setw(32) << "ZoneName"
-                               << std::setw(20) << "State"
-                               << std::setw(32) << "Region" << std::endl;
-
-        const auto& availabilityZones = describeAvailabilityZonesOutcome.GetResult().GetAvailabilityZones();
-        for(const auto& availabilityZone : availabilityZones)
+        else
         {
-            Aws::String stateString = Aws::EC2::Model::AvailabilityZoneStateMapper::GetNameForAvailabilityZoneState(availabilityZone.GetState());
-            std::cout << std::left << std::setw(32) << availabilityZone.GetZoneName()
-                                   << std::setw(20) << stateString 
-                                   << std::setw(32) << availabilityZone.GetRegionName() << std::endl;
+            std::cout << "Failed to describe regions:" << describeRegionsOutcome.GetError().GetMessage() << std::endl;
         }
-    }
-    else
-    {
-        std::cout << "Failed to describe availability zones:" << describeAvailabilityZonesOutcome.GetError().GetMessage() << std::endl;
+
+        std::cout << std::endl;
+
+        Aws::EC2::Model::DescribeAvailabilityZonesRequest describeAvailabilityZonesRequest;
+
+        auto describeAvailabilityZonesOutcome = ec2_client.DescribeAvailabilityZones(describeAvailabilityZonesRequest);
+        if (describeAvailabilityZonesOutcome.IsSuccess())
+        {
+            std::cout << std::left << std::setw(32) << "ZoneName"
+            << std::setw(20) << "State"
+            << std::setw(32) << "Region" << std::endl;
+
+            const auto &availabilityZones = describeAvailabilityZonesOutcome.GetResult().GetAvailabilityZones();
+            for (const auto &availabilityZone : availabilityZones)
+            {
+                Aws::String stateString = Aws::EC2::Model::AvailabilityZoneStateMapper::GetNameForAvailabilityZoneState(
+                        availabilityZone.GetState());
+                std::cout << std::left << std::setw(32) << availabilityZone.GetZoneName()
+                << std::setw(20) << stateString
+                << std::setw(32) << availabilityZone.GetRegionName() << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Failed to describe availability zones:" <<
+            describeAvailabilityZonesOutcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

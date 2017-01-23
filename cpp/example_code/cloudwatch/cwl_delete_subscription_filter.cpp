@@ -37,20 +37,23 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
-
-    Aws::CloudWatchLogs::Model::DeleteSubscriptionFilterRequest deleteSubscriptionFilterRequest;
-    deleteSubscriptionFilterRequest.SetFilterName(filterName);
-    deleteSubscriptionFilterRequest.SetLogGroupName(logGroupName);
-
-    auto deleteSubscriptionFilterOutcome = cwl_client.DeleteSubscriptionFilter(deleteSubscriptionFilterRequest);
-    if(!deleteSubscriptionFilterOutcome.IsSuccess())
     {
-        std::cout << "Failed to delete cloudwatch log subscription filter " << filterName << ": " << deleteSubscriptionFilterOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted cloudwatch logs subscription filter " << filterName << std::endl;
+        Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
+
+        Aws::CloudWatchLogs::Model::DeleteSubscriptionFilterRequest deleteSubscriptionFilterRequest;
+        deleteSubscriptionFilterRequest.SetFilterName(filterName);
+        deleteSubscriptionFilterRequest.SetLogGroupName(logGroupName);
+
+        auto deleteSubscriptionFilterOutcome = cwl_client.DeleteSubscriptionFilter(deleteSubscriptionFilterRequest);
+        if (!deleteSubscriptionFilterOutcome.IsSuccess())
+        {
+            std::cout << "Failed to delete cloudwatch log subscription filter " << filterName << ": " <<
+            deleteSubscriptionFilterOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted cloudwatch logs subscription filter " << filterName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

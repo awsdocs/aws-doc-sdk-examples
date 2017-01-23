@@ -35,25 +35,28 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::GetPolicyRequest getPolicyRequest;
-    getPolicyRequest.SetPolicyArn(policyArn);
-
-    auto getPolicyOutcome = iamClient.GetPolicy(getPolicyRequest);
-    if(!getPolicyOutcome.IsSuccess())
     {
-        std::cout << "Error getting policy " << policyArn << ": " << getPolicyOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        const auto& policy = getPolicyOutcome.GetResult().GetPolicy();
+        Aws::IAM::IAMClient iamClient;
 
-        std::cout << "Name: " << policy.GetPolicyName() << std::endl
-                  << "ID: " << policy.GetPolicyId() << std::endl
-                  << "Arn: " << policy.GetArn() << std::endl
-                  << "Description: " << policy.GetDescription() << std::endl
-                  << "CreateDate: " << policy.GetCreateDate().ToGmtString(Aws::Utils::DateFormat::ISO_8601) << std::endl;
+        Aws::IAM::Model::GetPolicyRequest getPolicyRequest;
+        getPolicyRequest.SetPolicyArn(policyArn);
+
+        auto getPolicyOutcome = iamClient.GetPolicy(getPolicyRequest);
+        if (!getPolicyOutcome.IsSuccess())
+        {
+            std::cout << "Error getting policy " << policyArn << ": " << getPolicyOutcome.GetError().GetMessage() <<
+            std::endl;
+        }
+        else
+        {
+            const auto &policy = getPolicyOutcome.GetResult().GetPolicy();
+
+            std::cout << "Name: " << policy.GetPolicyName() << std::endl
+            << "ID: " << policy.GetPolicyId() << std::endl
+            << "Arn: " << policy.GetArn() << std::endl
+            << "Description: " << policy.GetDescription() << std::endl
+            << "CreateDate: " << policy.GetCreateDate().ToGmtString(Aws::Utils::DateFormat::ISO_8601) << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

@@ -29,48 +29,51 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iam_client;
-
-    Aws::IAM::Model::ListPoliciesRequest listPoliciesRequest;
-
-    bool done = false;
-    bool header = false;
-    while(!done)
     {
-        auto listPoliciesOutcome = iam_client.ListPolicies(listPoliciesRequest);
-        if(!listPoliciesOutcome.IsSuccess())
-        {
-            std::cout << "Failed to list iam policies: " << listPoliciesOutcome.GetError().GetMessage() << std::endl;
-            break;
-        }
+        Aws::IAM::IAMClient iam_client;
 
-        if(!header)
-        {
-            std::cout << std::left << std::setw(55) << "Name" 
-                                   << std::setw(30) << "ID" 
-                                   << std::setw(80) << "Arn"
-                                   << std::setw(64) << "Description"
-                                   << std::setw(12) << "CreateDate" << std::endl;
-            header = true;
-        }
+        Aws::IAM::Model::ListPoliciesRequest listPoliciesRequest;
 
-        const auto& policies = listPoliciesOutcome.GetResult().GetPolicies();
-        for (const auto& policy : policies)
+        bool done = false;
+        bool header = false;
+        while (!done)
         {
-            std::cout << std::left << std::setw(55) << policy.GetPolicyName() 
-                                   << std::setw(30) << policy.GetPolicyId()
-                                   << std::setw(80) << policy.GetArn()
-                                   << std::setw(64) << policy.GetDescription()
-                                   << std::setw(12) << policy.GetCreateDate().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
-        }
+            auto listPoliciesOutcome = iam_client.ListPolicies(listPoliciesRequest);
+            if (!listPoliciesOutcome.IsSuccess())
+            {
+                std::cout << "Failed to list iam policies: " << listPoliciesOutcome.GetError().GetMessage() <<
+                std::endl;
+                break;
+            }
 
-        if(listPoliciesOutcome.GetResult().GetIsTruncated())
-        {
-            listPoliciesRequest.SetMarker(listPoliciesOutcome.GetResult().GetMarker());
-        }
-        else
-        {
-            done = true;
+            if (!header)
+            {
+                std::cout << std::left << std::setw(55) << "Name"
+                << std::setw(30) << "ID"
+                << std::setw(80) << "Arn"
+                << std::setw(64) << "Description"
+                << std::setw(12) << "CreateDate" << std::endl;
+                header = true;
+            }
+
+            const auto &policies = listPoliciesOutcome.GetResult().GetPolicies();
+            for (const auto &policy : policies)
+            {
+                std::cout << std::left << std::setw(55) << policy.GetPolicyName()
+                << std::setw(30) << policy.GetPolicyId()
+                << std::setw(80) << policy.GetArn()
+                << std::setw(64) << policy.GetDescription()
+                << std::setw(12) << policy.GetCreateDate().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
+            }
+
+            if (listPoliciesOutcome.GetResult().GetIsTruncated())
+            {
+                listPoliciesRequest.SetMarker(listPoliciesOutcome.GetResult().GetMarker());
+            }
+            else
+            {
+                done = true;
+            }
         }
     }
 

@@ -38,22 +38,26 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatchEvents::CloudWatchEventsClient cwe_client;
-
-    Aws::CloudWatchEvents::Model::PutRuleRequest putRuleRequest;
-    putRuleRequest.SetName(ruleName);
-    putRuleRequest.SetRoleArn(roleArn);
-    putRuleRequest.SetScheduleExpression("rate(5 minutes)");
-    putRuleRequest.SetState(Aws::CloudWatchEvents::Model::RuleState::ENABLED);
-
-    auto putRuleOutcome = cwe_client.PutRule(putRuleRequest);
-    if(!putRuleOutcome.IsSuccess())
     {
-        std::cout << "Failed to create cloudwatch events rule " << ruleName << ": " << putRuleOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully created cloudwatch events rule " << ruleName << " with resulting Arn " << putRuleOutcome.GetResult().GetRuleArn() << std::endl;
+        Aws::CloudWatchEvents::CloudWatchEventsClient cwe_client;
+
+        Aws::CloudWatchEvents::Model::PutRuleRequest putRuleRequest;
+        putRuleRequest.SetName(ruleName);
+        putRuleRequest.SetRoleArn(roleArn);
+        putRuleRequest.SetScheduleExpression("rate(5 minutes)");
+        putRuleRequest.SetState(Aws::CloudWatchEvents::Model::RuleState::ENABLED);
+
+        auto putRuleOutcome = cwe_client.PutRule(putRuleRequest);
+        if (!putRuleOutcome.IsSuccess())
+        {
+            std::cout << "Failed to create cloudwatch events rule " << ruleName << ": " <<
+            putRuleOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully created cloudwatch events rule " << ruleName << " with resulting Arn " <<
+            putRuleOutcome.GetResult().GetRuleArn() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

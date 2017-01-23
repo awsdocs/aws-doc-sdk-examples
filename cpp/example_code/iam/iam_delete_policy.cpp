@@ -35,19 +35,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::DeletePolicyRequest deletePolicyRequest;
-    deletePolicyRequest.SetPolicyArn(policyArn);
-
-    auto deletePolicyOutcome = iamClient.DeletePolicy(deletePolicyRequest);
-    if (!deletePolicyOutcome.IsSuccess())
     {
-        std::cout << "Error deleting policy with arn " << policyArn << ": " << deletePolicyOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted policy with arn " << policyArn << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::DeletePolicyRequest deletePolicyRequest;
+        deletePolicyRequest.SetPolicyArn(policyArn);
+
+        auto deletePolicyOutcome = iamClient.DeletePolicy(deletePolicyRequest);
+        if (!deletePolicyOutcome.IsSuccess())
+        {
+            std::cout << "Error deleting policy with arn " << policyArn << ": " <<
+            deletePolicyOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted policy with arn " << policyArn << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

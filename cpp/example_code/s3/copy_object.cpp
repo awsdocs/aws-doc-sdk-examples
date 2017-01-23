@@ -40,20 +40,24 @@ int main(int argc, char** argv)
     std::cout << "Copying" << key_name << " from bucket " << from_bucket <<
         " to " << to_bucket << std::endl;
 
-    Aws::S3::S3Client s3_client;
+    {
+        Aws::S3::S3Client s3_client;
 
-    Aws::S3::Model::CopyObjectRequest object_request;
-    object_request.WithBucket(to_bucket).WithKey(key_name).WithCopySource(from_bucket + "/" + key_name);
+        Aws::S3::Model::CopyObjectRequest object_request;
+        object_request.WithBucket(to_bucket).WithKey(key_name).WithCopySource(from_bucket + "/" + key_name);
 
-    auto copy_object_outcome = s3_client.CopyObject(object_request);
+        auto copy_object_outcome = s3_client.CopyObject(object_request);
 
-    if(copy_object_outcome.IsSuccess()) {
-        std::cout << "Done!" << std::endl;
-    }
-    else {
-         std::cout << "CopyObject error: " <<
-             copy_object_outcome.GetError().GetExceptionName() << " " <<
-             copy_object_outcome.GetError().GetMessage() << std::endl;
+        if (copy_object_outcome.IsSuccess())
+        {
+            std::cout << "Done!" << std::endl;
+        }
+        else
+        {
+            std::cout << "CopyObject error: " <<
+            copy_object_outcome.GetError().GetExceptionName() << " " <<
+            copy_object_outcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

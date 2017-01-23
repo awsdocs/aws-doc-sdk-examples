@@ -29,48 +29,51 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iam_client;
-
-    Aws::IAM::Model::ListServerCertificatesRequest listServerCertificatesRequest;
-
-    bool done = false;
-    bool header = false;
-    while(!done)
     {
-        auto listServerCertificatesOutcome = iam_client.ListServerCertificates(listServerCertificatesRequest);
-        if(!listServerCertificatesOutcome.IsSuccess())
-        {
-            std::cout << "Failed to list server certificates: " << listServerCertificatesOutcome.GetError().GetMessage() << std::endl;
-            break;
-        }
+        Aws::IAM::IAMClient iam_client;
 
-        if(!header)
-        {
-            std::cout << std::left << std::setw(55) << "Name" 
-                                   << std::setw(30) << "ID" 
-                                   << std::setw(80) << "Arn"
-                                   << std::setw(14) << "UploadDate"
-                                   << std::setw(14) << "ExpirationDate" << std::endl;
-            header = true;
-        }
+        Aws::IAM::Model::ListServerCertificatesRequest listServerCertificatesRequest;
 
-        const auto& certificates = listServerCertificatesOutcome.GetResult().GetServerCertificateMetadataList();
-        for (const auto& certificate : certificates)
+        bool done = false;
+        bool header = false;
+        while (!done)
         {
-            std::cout << std::left << std::setw(55) << certificate.GetServerCertificateName() 
-                                   << std::setw(30) << certificate.GetServerCertificateId()
-                                   << std::setw(80) << certificate.GetArn()
-                                   << std::setw(14) << certificate.GetUploadDate().ToGmtString(SIMPLE_DATE_FORMAT_STR)
-                                   << std::setw(14) << certificate.GetExpiration().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
-        }
+            auto listServerCertificatesOutcome = iam_client.ListServerCertificates(listServerCertificatesRequest);
+            if (!listServerCertificatesOutcome.IsSuccess())
+            {
+                std::cout << "Failed to list server certificates: " <<
+                listServerCertificatesOutcome.GetError().GetMessage() << std::endl;
+                break;
+            }
 
-        if(listServerCertificatesOutcome.GetResult().GetIsTruncated())
-        {
-            listServerCertificatesRequest.SetMarker(listServerCertificatesOutcome.GetResult().GetMarker());
-        }
-        else
-        {
-            done = true;
+            if (!header)
+            {
+                std::cout << std::left << std::setw(55) << "Name"
+                << std::setw(30) << "ID"
+                << std::setw(80) << "Arn"
+                << std::setw(14) << "UploadDate"
+                << std::setw(14) << "ExpirationDate" << std::endl;
+                header = true;
+            }
+
+            const auto &certificates = listServerCertificatesOutcome.GetResult().GetServerCertificateMetadataList();
+            for (const auto &certificate : certificates)
+            {
+                std::cout << std::left << std::setw(55) << certificate.GetServerCertificateName()
+                << std::setw(30) << certificate.GetServerCertificateId()
+                << std::setw(80) << certificate.GetArn()
+                << std::setw(14) << certificate.GetUploadDate().ToGmtString(SIMPLE_DATE_FORMAT_STR)
+                << std::setw(14) << certificate.GetExpiration().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
+            }
+
+            if (listServerCertificatesOutcome.GetResult().GetIsTruncated())
+            {
+                listServerCertificatesRequest.SetMarker(listServerCertificatesOutcome.GetResult().GetMarker());
+            }
+            else
+            {
+                done = true;
+            }
         }
     }
 

@@ -34,22 +34,25 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::Client::ClientConfiguration config;
-    config.region = Aws::Region::US_WEST_2;
-
-    Aws::EC2::EC2Client ec2_client(config);
-
-    Aws::EC2::Model::ReleaseAddressRequest releaseAddressRequest;
-    releaseAddressRequest.SetAllocationId(allocationId);
-
-    auto releaseAddressOutcome = ec2_client.ReleaseAddress(releaseAddressRequest);
-    if(!releaseAddressOutcome.IsSuccess())
     {
-        std::cout << "Failed to release elastic ip address " << allocationId << ":" << releaseAddressOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully released elastic ip address " << allocationId << std::endl;
+        Aws::Client::ClientConfiguration config;
+        config.region = Aws::Region::US_WEST_2;
+
+        Aws::EC2::EC2Client ec2_client(config);
+
+        Aws::EC2::Model::ReleaseAddressRequest releaseAddressRequest;
+        releaseAddressRequest.SetAllocationId(allocationId);
+
+        auto releaseAddressOutcome = ec2_client.ReleaseAddress(releaseAddressRequest);
+        if (!releaseAddressOutcome.IsSuccess())
+        {
+            std::cout << "Failed to release elastic ip address " << allocationId << ":" <<
+            releaseAddressOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully released elastic ip address " << allocationId << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

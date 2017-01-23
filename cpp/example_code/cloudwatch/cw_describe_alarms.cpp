@@ -29,43 +29,47 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatch::CloudWatchClient cw_client;
-
-    Aws::CloudWatch::Model::DescribeAlarmsRequest describeAlarmsRequest;
-    describeAlarmsRequest.SetMaxRecords(1);
-
-    bool done = false;
-    bool header = false;
-    while(!done)
     {
-        auto describeAlarmsOutcome = cw_client.DescribeAlarms(describeAlarmsRequest);
-        if(!describeAlarmsOutcome.IsSuccess())
-        {
-            std::cout << "Failed to describe cloudwatch alarms:" << describeAlarmsOutcome.GetError().GetMessage() << std::endl;
-            break;
-        }
+        Aws::CloudWatch::CloudWatchClient cw_client;
 
-        if(!header)
-        {
-            std::cout << std::left << std::setw(32) << "Name" 
-                                   << std::setw(64) << "Arn" 
-                                   << std::setw(64) << "Description"
-                                   << std::setw(20) << "LastUpdated" << std::endl;
-            header = true;
-        }
+        Aws::CloudWatch::Model::DescribeAlarmsRequest describeAlarmsRequest;
+        describeAlarmsRequest.SetMaxRecords(1);
 
-        const auto& alarms = describeAlarmsOutcome.GetResult().GetMetricAlarms();
-        for (const auto& alarm : alarms)
+        bool done = false;
+        bool header = false;
+        while (!done)
         {
-            std::cout << std::left << std::setw(32) << alarm.GetAlarmName() 
-                                   << std::setw(64) << alarm.GetAlarmArn()
-                                   << std::setw(64) << alarm.GetAlarmDescription()
-                                   << std::setw(20) << alarm.GetAlarmConfigurationUpdatedTimestamp().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
-        }
+            auto describeAlarmsOutcome = cw_client.DescribeAlarms(describeAlarmsRequest);
+            if (!describeAlarmsOutcome.IsSuccess())
+            {
+                std::cout << "Failed to describe cloudwatch alarms:" << describeAlarmsOutcome.GetError().GetMessage() <<
+                std::endl;
+                break;
+            }
 
-        const auto& nextToken = describeAlarmsOutcome.GetResult().GetNextToken();
-        describeAlarmsRequest.SetNextToken(nextToken);
-        done = nextToken.empty();
+            if (!header)
+            {
+                std::cout << std::left << std::setw(32) << "Name"
+                << std::setw(64) << "Arn"
+                << std::setw(64) << "Description"
+                << std::setw(20) << "LastUpdated" << std::endl;
+                header = true;
+            }
+
+            const auto &alarms = describeAlarmsOutcome.GetResult().GetMetricAlarms();
+            for (const auto &alarm : alarms)
+            {
+                std::cout << std::left << std::setw(32) << alarm.GetAlarmName()
+                << std::setw(64) << alarm.GetAlarmArn()
+                << std::setw(64) << alarm.GetAlarmDescription()
+                << std::setw(20) << alarm.GetAlarmConfigurationUpdatedTimestamp().ToGmtString(SIMPLE_DATE_FORMAT_STR) <<
+                std::endl;
+            }
+
+            const auto &nextToken = describeAlarmsOutcome.GetResult().GetNextToken();
+            describeAlarmsRequest.SetNextToken(nextToken);
+            done = nextToken.empty();
+        }
     }
 
     Aws::ShutdownAPI(options);
