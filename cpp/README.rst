@@ -1,4 +1,4 @@
-.. Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -31,12 +31,12 @@ Building the examples
 
 To build the examples, create a build directory::
 
-    mkdir build_dir
+    mkdir s3_build
 
 Go into the directory and run ``cmake``, providing it with the path to where you built the SDK, and
-the path to the samples you want to build. For example::
+the path to the examples directory that you want to build. For example::
 
-    cd build_dir
+    cd s3_build
     cmake -Daws-sdk-cpp_DIR=/path/to/aws_sdk_build/ ../example_code/s3
 
 Finally, run ``make`` in the build directory:
@@ -56,6 +56,4 @@ directory to your ``PATH``)::
 On **Windows**, you would run the same example as::
 
     list_buckets.exe
-
-
 

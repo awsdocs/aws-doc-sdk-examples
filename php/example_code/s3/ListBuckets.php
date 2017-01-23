@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,10 +22,8 @@ use Aws\Exception\AwsException;
  * List your Amazon S3 buckets.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v2/guide/credentials.html
+ * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
-
-$BUCKET_NAME='<BUCKET-NAME>';
 
 //Create a S3Client
 $s3Client = new S3Client([

@@ -2,3 +2,5 @@ build_dir/
 target/
 README.html
 *.swp
+.DS_Store
+launch.json

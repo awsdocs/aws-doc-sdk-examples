@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -26,7 +26,7 @@ import (
 // Prints out the Elastic IP Addresses for the account's VPC.
 //
 // Usage:
-//    go run ec2_describe_addresses.go BUCKET_NAME
+//    go run ec2_describe_addresses.go 
 func main() {
 	// Initialize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
