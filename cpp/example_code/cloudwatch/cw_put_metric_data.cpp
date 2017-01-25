@@ -36,30 +36,33 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatch::CloudWatchClient cw_client;
-
-    Aws::CloudWatch::Model::Dimension dimension;
-    dimension.SetName("UNIQUE_PAGES");
-    dimension.SetValue("URLS");
-
-    Aws::CloudWatch::Model::MetricDatum datum;
-    datum.SetMetricName("PAGES_VISITED");
-    datum.SetUnit(Aws::CloudWatch::Model::StandardUnit::None);
-    datum.SetValue(dataPointValue);
-    datum.AddDimensions(dimension);
-
-    Aws::CloudWatch::Model::PutMetricDataRequest putMetricDataRequest;
-    putMetricDataRequest.SetNamespace("SITE/TRAFFIC");
-    putMetricDataRequest.AddMetricData(datum);
-
-    auto putMetricDataOutcome = cw_client.PutMetricData(putMetricDataRequest);
-    if(!putMetricDataOutcome.IsSuccess())
     {
-        std::cout << "Failed to put sample metric data:" << putMetricDataOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully put sample metric data" << std::endl;
+        Aws::CloudWatch::CloudWatchClient cw_client;
+
+        Aws::CloudWatch::Model::Dimension dimension;
+        dimension.SetName("UNIQUE_PAGES");
+        dimension.SetValue("URLS");
+
+        Aws::CloudWatch::Model::MetricDatum datum;
+        datum.SetMetricName("PAGES_VISITED");
+        datum.SetUnit(Aws::CloudWatch::Model::StandardUnit::None);
+        datum.SetValue(dataPointValue);
+        datum.AddDimensions(dimension);
+
+        Aws::CloudWatch::Model::PutMetricDataRequest putMetricDataRequest;
+        putMetricDataRequest.SetNamespace("SITE/TRAFFIC");
+        putMetricDataRequest.AddMetricData(datum);
+
+        auto putMetricDataOutcome = cw_client.PutMetricData(putMetricDataRequest);
+        if (!putMetricDataOutcome.IsSuccess())
+        {
+            std::cout << "Failed to put sample metric data:" << putMetricDataOutcome.GetError().GetMessage() <<
+            std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully put sample metric data" << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

@@ -47,21 +47,25 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::UpdateAccessKeyRequest updateAccessKeyRequest;
-    updateAccessKeyRequest.SetUserName(userName);
-    updateAccessKeyRequest.SetAccessKeyId(accessKeyId);
-    updateAccessKeyRequest.SetStatus(status);
-
-    auto updateAccessKeyOutcome = iamClient.UpdateAccessKey(updateAccessKeyRequest);
-    if(updateAccessKeyOutcome.IsSuccess())
     {
-        std::cout << "Successfully updated status of access key " << accessKeyId << " for user " << userName << std::endl;
-    }
-    else
-    {
-        std::cout << "Error updated status of access key " << accessKeyId << " for user " << userName << ": " << updateAccessKeyOutcome.GetError().GetMessage() << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::UpdateAccessKeyRequest updateAccessKeyRequest;
+        updateAccessKeyRequest.SetUserName(userName);
+        updateAccessKeyRequest.SetAccessKeyId(accessKeyId);
+        updateAccessKeyRequest.SetStatus(status);
+
+        auto updateAccessKeyOutcome = iamClient.UpdateAccessKey(updateAccessKeyRequest);
+        if (updateAccessKeyOutcome.IsSuccess())
+        {
+            std::cout << "Successfully updated status of access key " << accessKeyId << " for user " << userName <<
+            std::endl;
+        }
+        else
+        {
+            std::cout << "Error updated status of access key " << accessKeyId << " for user " << userName << ": " <<
+            updateAccessKeyOutcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

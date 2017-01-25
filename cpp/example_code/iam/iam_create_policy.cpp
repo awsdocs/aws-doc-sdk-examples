@@ -46,7 +46,11 @@ static const char* const POLICY_TEMPLATE =
 Aws::String BuildSamplePolicyDocument(const Aws::String& resourceArn)
 {
     char policyBuffer[512];
+#ifdef WIN32
     sprintf_s(policyBuffer, POLICY_TEMPLATE, resourceArn.c_str(), resourceArn.c_str());
+#else
+    sprintf(policyBuffer, POLICY_TEMPLATE, resourceArn.c_str(), resourceArn.c_str());
+#endif // WIN32
 
     return Aws::String(policyBuffer);
 }
@@ -68,20 +72,23 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::CreatePolicyRequest createPolicyRequest;
-    createPolicyRequest.SetPolicyName(policyName);
-    createPolicyRequest.SetPolicyDocument(BuildSamplePolicyDocument(resourceArn));
-
-    auto createPolicyOutcome = iamClient.CreatePolicy(createPolicyRequest);
-    if(!createPolicyOutcome.IsSuccess())
     {
-        std::cout << "Error creating policy " << policyName << ": " << createPolicyOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully created policy " << policyName << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::CreatePolicyRequest createPolicyRequest;
+        createPolicyRequest.SetPolicyName(policyName);
+        createPolicyRequest.SetPolicyDocument(BuildSamplePolicyDocument(resourceArn));
+
+        auto createPolicyOutcome = iamClient.CreatePolicy(createPolicyRequest);
+        if (!createPolicyOutcome.IsSuccess())
+        {
+            std::cout << "Error creating policy " << policyName << ": " <<
+            createPolicyOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully created policy " << policyName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

@@ -35,20 +35,23 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::DeleteAccessKeyRequest deleteAccessKeyRequest;
-    deleteAccessKeyRequest.SetUserName(userName);
-    deleteAccessKeyRequest.SetAccessKeyId(accessKeyId);
-
-    auto deleteAccessKeyOutcome = iamClient.DeleteAccessKey(deleteAccessKeyRequest);
-    if(!deleteAccessKeyOutcome.IsSuccess())
     {
-        std::cout << "Error deleting access key " << accessKeyId << " from user " << userName << ": " << deleteAccessKeyOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted access key " << accessKeyId << " for IAM user " << userName << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::DeleteAccessKeyRequest deleteAccessKeyRequest;
+        deleteAccessKeyRequest.SetUserName(userName);
+        deleteAccessKeyRequest.SetAccessKeyId(accessKeyId);
+
+        auto deleteAccessKeyOutcome = iamClient.DeleteAccessKey(deleteAccessKeyRequest);
+        if (!deleteAccessKeyOutcome.IsSuccess())
+        {
+            std::cout << "Error deleting access key " << accessKeyId << " from user " << userName << ": " <<
+            deleteAccessKeyOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted access key " << accessKeyId << " for IAM user " << userName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

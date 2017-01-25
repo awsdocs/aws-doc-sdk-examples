@@ -32,22 +32,27 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    // disable retries so that bad urls don't hang the exe via retry loop
-    Aws::Client::ClientConfiguration client_cfg;
-    client_cfg.retryStrategy = Aws::MakeShared<Aws::Client::DefaultRetryStrategy>(
-            "sqs_delete_queue", 0);
-    Aws::SQS::SQSClient sqs(client_cfg);
+    {
+        // disable retries so that bad urls don't hang the exe via retry loop
+        Aws::Client::ClientConfiguration client_cfg;
+        client_cfg.retryStrategy = Aws::MakeShared<Aws::Client::DefaultRetryStrategy>(
+                "sqs_delete_queue", 0);
+        Aws::SQS::SQSClient sqs(client_cfg);
 
-    Aws::SQS::Model::DeleteQueueRequest dq_req;
-    dq_req.SetQueueUrl(queue_url);
+        Aws::SQS::Model::DeleteQueueRequest dq_req;
+        dq_req.SetQueueUrl(queue_url);
 
-    auto dq_out = sqs.DeleteQueue(dq_req);
-    if(dq_out.IsSuccess()) {
-        std::cout << "Successfully deleted queue with url " << queue_url <<
+        auto dq_out = sqs.DeleteQueue(dq_req);
+        if (dq_out.IsSuccess())
+        {
+            std::cout << "Successfully deleted queue with url " << queue_url <<
             std::endl;
-    } else {
-        std::cout << "Error deleting queue " << queue_url << ": " <<
+        }
+        else
+        {
+            std::cout << "Error deleting queue " << queue_url << ": " <<
             dq_out.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

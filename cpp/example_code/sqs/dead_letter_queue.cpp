@@ -54,23 +54,28 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs;
+    {
+        Aws::SQS::SQSClient sqs;
 
-    Aws::String redrivePolicy = MakeRedrivePolicy(dlq_arn, max_msg);
+        Aws::String redrivePolicy = MakeRedrivePolicy(dlq_arn, max_msg);
 
-    Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
-    sqa_req.SetQueueUrl(src_queue_url);
-    sqa_req.AddAttributes(Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
-            redrivePolicy);
+        Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
+        sqa_req.SetQueueUrl(src_queue_url);
+        sqa_req.AddAttributes(Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
+                              redrivePolicy);
 
-    auto sqa_out = sqs.SetQueueAttributes(sqa_req);
-    if(sqa_out.IsSuccess()) {
-        std::cout << "Successfully set dead letter queue for queue  " <<
-            src_queue_url  << " to " << dlq_arn << std::endl;
-    } else {
-        std::cout << "Error setting dead letter queue for queue " <<
+        auto sqa_out = sqs.SetQueueAttributes(sqa_req);
+        if (sqa_out.IsSuccess())
+        {
+            std::cout << "Successfully set dead letter queue for queue  " <<
+            src_queue_url << " to " << dlq_arn << std::endl;
+        }
+        else
+        {
+            std::cout << "Error setting dead letter queue for queue " <<
             src_queue_url << ": " << sqa_out.GetError().GetMessage() <<
             std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

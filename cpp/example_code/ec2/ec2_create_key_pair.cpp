@@ -35,19 +35,21 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::EC2::EC2Client ec2_client;
-
-    Aws::EC2::Model::CreateKeyPairRequest createKeyPairRequest;
-    createKeyPairRequest.SetKeyName(keyPairName);
-
-    auto createKeyPairOutcome = ec2_client.CreateKeyPair(createKeyPairRequest);
-    if(!createKeyPairOutcome.IsSuccess())
     {
-        std::cout << "Failed to create key pair:" << createKeyPairOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully created key pair named " << keyPairName << std::endl;
+        Aws::EC2::EC2Client ec2_client;
+
+        Aws::EC2::Model::CreateKeyPairRequest createKeyPairRequest;
+        createKeyPairRequest.SetKeyName(keyPairName);
+
+        auto createKeyPairOutcome = ec2_client.CreateKeyPair(createKeyPairRequest);
+        if (!createKeyPairOutcome.IsSuccess())
+        {
+            std::cout << "Failed to create key pair:" << createKeyPairOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully created key pair named " << keyPairName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

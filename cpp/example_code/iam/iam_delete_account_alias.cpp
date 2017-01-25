@@ -34,19 +34,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::DeleteAccountAliasRequest deleteAccountAliasRequest;
-    deleteAccountAliasRequest.SetAccountAlias(accountAlias);
-
-    auto deleteAccountAliasOutcome = iamClient.DeleteAccountAlias(deleteAccountAliasRequest);
-    if(!deleteAccountAliasOutcome.IsSuccess())
     {
-        std::cout << "Error deleting account alias " << accountAlias << ": " << deleteAccountAliasOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted account alias " << accountAlias << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::DeleteAccountAliasRequest deleteAccountAliasRequest;
+        deleteAccountAliasRequest.SetAccountAlias(accountAlias);
+
+        auto deleteAccountAliasOutcome = iamClient.DeleteAccountAlias(deleteAccountAliasRequest);
+        if (!deleteAccountAliasOutcome.IsSuccess())
+        {
+            std::cout << "Error deleting account alias " << accountAlias << ": " <<
+            deleteAccountAliasOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted account alias " << accountAlias << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

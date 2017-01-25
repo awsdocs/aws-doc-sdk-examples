@@ -34,18 +34,23 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs;
+    {
+        Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::SendMessageRequest sm_req;
-    sm_req.SetQueueUrl(queue_url);
-    sm_req.SetMessageBody(msg_body);
+        Aws::SQS::Model::SendMessageRequest sm_req;
+        sm_req.SetQueueUrl(queue_url);
+        sm_req.SetMessageBody(msg_body);
 
-    auto sm_out = sqs.SendMessage(sm_req);
-    if(sm_out.IsSuccess()) {
-        std::cout << "Successfully sent message to " << queue_url << std::endl;
-    } else {
-        std::cout << "Error sending message to " << queue_url << ": " <<
-           sm_out.GetError().GetMessage() << std::endl;
+        auto sm_out = sqs.SendMessage(sm_req);
+        if (sm_out.IsSuccess())
+        {
+            std::cout << "Successfully sent message to " << queue_url << std::endl;
+        }
+        else
+        {
+            std::cout << "Error sending message to " << queue_url << ": " <<
+            sm_out.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

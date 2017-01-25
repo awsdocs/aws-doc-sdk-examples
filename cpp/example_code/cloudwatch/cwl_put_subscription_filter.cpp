@@ -39,22 +39,25 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
-
-    Aws::CloudWatchLogs::Model::PutSubscriptionFilterRequest putSubscriptionFilterRequest;
-    putSubscriptionFilterRequest.SetFilterName(filterName);
-    putSubscriptionFilterRequest.SetFilterPattern(filterPattern);
-    putSubscriptionFilterRequest.SetLogGroupName(logGroupName);
-    putSubscriptionFilterRequest.SetDestinationArn(destinationArn);
-
-    auto putSubscriptionFilterOutcome = cwl_client.PutSubscriptionFilter(putSubscriptionFilterRequest);
-    if(!putSubscriptionFilterOutcome.IsSuccess())
     {
-        std::cout << "Failed to create cloudwatch logs subscription filter " << filterName << ": " << putSubscriptionFilterOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully created cloudwatch logs subscription filter " << filterName << std::endl;
+        Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
+
+        Aws::CloudWatchLogs::Model::PutSubscriptionFilterRequest putSubscriptionFilterRequest;
+        putSubscriptionFilterRequest.SetFilterName(filterName);
+        putSubscriptionFilterRequest.SetFilterPattern(filterPattern);
+        putSubscriptionFilterRequest.SetLogGroupName(logGroupName);
+        putSubscriptionFilterRequest.SetDestinationArn(destinationArn);
+
+        auto putSubscriptionFilterOutcome = cwl_client.PutSubscriptionFilter(putSubscriptionFilterRequest);
+        if (!putSubscriptionFilterOutcome.IsSuccess())
+        {
+            std::cout << "Failed to create cloudwatch logs subscription filter " << filterName << ": " <<
+            putSubscriptionFilterOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully created cloudwatch logs subscription filter " << filterName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

@@ -35,25 +35,30 @@ int main(int argc, char** argv)
     const Aws::String bucket_name = argv[1];
     std::cout << "Objects in S3 bucket: " << bucket_name << std::endl;
 
-    Aws::S3::S3Client s3_client;
+    {
+        Aws::S3::S3Client s3_client;
 
-    Aws::S3::Model::ListObjectsRequest objects_request;
-    objects_request.WithBucket(bucket_name);
+        Aws::S3::Model::ListObjectsRequest objects_request;
+        objects_request.WithBucket(bucket_name);
 
-    auto list_objects_outcome = s3_client.ListObjects(objects_request);
+        auto list_objects_outcome = s3_client.ListObjects(objects_request);
 
-    if(list_objects_outcome.IsSuccess()) {
-        Aws::Vector<Aws::S3::Model::Object> object_list =
-            list_objects_outcome.GetResult().GetContents();
+        if (list_objects_outcome.IsSuccess())
+        {
+            Aws::Vector<Aws::S3::Model::Object> object_list =
+                    list_objects_outcome.GetResult().GetContents();
 
-        for (auto const& s3_object: object_list) {
-            std::cout << "* " << s3_object.GetKey() << std::endl;
+            for (auto const &s3_object: object_list)
+            {
+                std::cout << "* " << s3_object.GetKey() << std::endl;
+            }
         }
-    }
-    else {
-         std::cout << "ListObjects error: " <<
-             list_objects_outcome.GetError().GetExceptionName() << " " <<
-             list_objects_outcome.GetError().GetMessage() << std::endl;
+        else
+        {
+            std::cout << "ListObjects error: " <<
+            list_objects_outcome.GetError().GetExceptionName() << " " <<
+            list_objects_outcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

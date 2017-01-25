@@ -33,21 +33,26 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs;
+    {
+        Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
-    sqa_req.SetQueueUrl(queue_url);
-    sqa_req.AddAttributes(
-            Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
-            poll_time);
+        Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
+        sqa_req.SetQueueUrl(queue_url);
+        sqa_req.AddAttributes(
+                Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
+                poll_time);
 
-    auto sqa_out = sqs.SetQueueAttributes(sqa_req);
-    if(sqa_out.IsSuccess()) {
-        std::cout << "Successfully updated long polling time for queue " <<
-            queue_url  << " to " << poll_time << std::endl;
-    } else {
-        std::cout << "Error updating long polling time for queue " << queue_url
+        auto sqa_out = sqs.SetQueueAttributes(sqa_req);
+        if (sqa_out.IsSuccess())
+        {
+            std::cout << "Successfully updated long polling time for queue " <<
+            queue_url << " to " << poll_time << std::endl;
+        }
+        else
+        {
+            std::cout << "Error updating long polling time for queue " << queue_url
             << ": " << sqa_out.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

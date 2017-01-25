@@ -35,20 +35,24 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::UpdateUserRequest updateUserRequest;
-    updateUserRequest.SetUserName(oldUserName);
-    updateUserRequest.SetNewUserName(newUserName);
-
-    auto updateUserOutcome = iamClient.UpdateUser(updateUserRequest);
-    if(updateUserOutcome.IsSuccess())
     {
-        std::cout << "IAM user " << oldUserName << " successfully updated with new user name " << newUserName << std::endl;
-    }
-    else
-    {
-        std::cout << "Error updating user name for IAM user " << oldUserName << ":" << updateUserOutcome.GetError().GetMessage() << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::UpdateUserRequest updateUserRequest;
+        updateUserRequest.SetUserName(oldUserName);
+        updateUserRequest.SetNewUserName(newUserName);
+
+        auto updateUserOutcome = iamClient.UpdateUser(updateUserRequest);
+        if (updateUserOutcome.IsSuccess())
+        {
+            std::cout << "IAM user " << oldUserName << " successfully updated with new user name " << newUserName <<
+            std::endl;
+        }
+        else
+        {
+            std::cout << "Error updating user name for IAM user " << oldUserName << ":" <<
+            updateUserOutcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

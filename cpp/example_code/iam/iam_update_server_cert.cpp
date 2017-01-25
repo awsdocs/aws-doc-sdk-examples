@@ -35,20 +35,24 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::UpdateServerCertificateRequest updateServerCertificateRequest;
-    updateServerCertificateRequest.SetServerCertificateName(oldCertName);
-    updateServerCertificateRequest.SetNewServerCertificateName(newCertName);
-
-    auto updateServerCertificateOutcome = iamClient.UpdateServerCertificate(updateServerCertificateRequest);
-    if(updateServerCertificateOutcome.IsSuccess())
     {
-        std::cout << "Server certificate " << oldCertName << " successfully renamed as " << newCertName << std::endl;
-    }
-    else
-    {
-        std::cout << "Error changing name of server certificate " << oldCertName << " to " << newCertName << ":" << updateServerCertificateOutcome.GetError().GetMessage() << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::UpdateServerCertificateRequest updateServerCertificateRequest;
+        updateServerCertificateRequest.SetServerCertificateName(oldCertName);
+        updateServerCertificateRequest.SetNewServerCertificateName(newCertName);
+
+        auto updateServerCertificateOutcome = iamClient.UpdateServerCertificate(updateServerCertificateRequest);
+        if (updateServerCertificateOutcome.IsSuccess())
+        {
+            std::cout << "Server certificate " << oldCertName << " successfully renamed as " << newCertName <<
+            std::endl;
+        }
+        else
+        {
+            std::cout << "Error changing name of server certificate " << oldCertName << " to " << newCertName << ":" <<
+            updateServerCertificateOutcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

@@ -32,18 +32,23 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::SQS::SQSClient sqs;
+    {
+        Aws::SQS::SQSClient sqs;
 
-    Aws::SQS::Model::GetQueueUrlRequest gqu_req;
-    gqu_req.SetQueueName(queue_name);
+        Aws::SQS::Model::GetQueueUrlRequest gqu_req;
+        gqu_req.SetQueueName(queue_name);
 
-    auto gqu_out = sqs.GetQueueUrl(gqu_req);
-    if(gqu_out.IsSuccess()) {
-        std::cout << "Queue " << queue_name << " has url " <<
+        auto gqu_out = sqs.GetQueueUrl(gqu_req);
+        if (gqu_out.IsSuccess())
+        {
+            std::cout << "Queue " << queue_name << " has url " <<
             gqu_out.GetResult().GetQueueUrl() << std::endl;
-    } else {
-        std::cout << "Error getting url for queue " << queue_name << ": " <<
+        }
+        else
+        {
+            std::cout << "Error getting url for queue " << queue_name << ": " <<
             gqu_out.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

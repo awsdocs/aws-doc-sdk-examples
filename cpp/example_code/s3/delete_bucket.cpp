@@ -36,20 +36,24 @@ int main(int argc, char** argv)
     const Aws::String bucket_name = argv[1];
     std::cout << "Deleting S3 bucket: " << bucket_name << std::endl;
 
-    Aws::S3::S3Client s3_client;
+    {
+        Aws::S3::S3Client s3_client;
 
-    Aws::S3::Model::DeleteBucketRequest bucket_request;
-    bucket_request.WithBucket(bucket_name);
+        Aws::S3::Model::DeleteBucketRequest bucket_request;
+        bucket_request.WithBucket(bucket_name);
 
-    auto delete_bucket_outcome = s3_client.DeleteBucket(bucket_request);
+        auto delete_bucket_outcome = s3_client.DeleteBucket(bucket_request);
 
-    if(delete_bucket_outcome.IsSuccess()) {
-        std::cout << "Done!" << std::endl;
-    }
-    else {
-        std::cout << "DeleteBucket error: " <<
+        if (delete_bucket_outcome.IsSuccess())
+        {
+            std::cout << "Done!" << std::endl;
+        }
+        else
+        {
+            std::cout << "DeleteBucket error: " <<
             delete_bucket_outcome.GetError().GetExceptionName() << std::endl <<
             delete_bucket_outcome.GetError().GetMessage() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

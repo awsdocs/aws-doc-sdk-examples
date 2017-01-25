@@ -34,19 +34,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatch::CloudWatchClient cw_client;
-
-    Aws::CloudWatch::Model::DeleteAlarmsRequest deleteAlarmsRequest;
-    deleteAlarmsRequest.AddAlarmNames(alarmName);
-
-    auto deleteAlarmsOutcome = cw_client.DeleteAlarms(deleteAlarmsRequest);
-    if(!deleteAlarmsOutcome.IsSuccess())
     {
-        std::cout << "Failed to delete cloudwatch alarm:" << deleteAlarmsOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted cloudwatch alarm " << alarmName << std::endl;
+        Aws::CloudWatch::CloudWatchClient cw_client;
+
+        Aws::CloudWatch::Model::DeleteAlarmsRequest deleteAlarmsRequest;
+        deleteAlarmsRequest.AddAlarmNames(alarmName);
+
+        auto deleteAlarmsOutcome = cw_client.DeleteAlarms(deleteAlarmsRequest);
+        if (!deleteAlarmsOutcome.IsSuccess())
+        {
+            std::cout << "Failed to delete cloudwatch alarm:" << deleteAlarmsOutcome.GetError().GetMessage() <<
+            std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted cloudwatch alarm " << alarmName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

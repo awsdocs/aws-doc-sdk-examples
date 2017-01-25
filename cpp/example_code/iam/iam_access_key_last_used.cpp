@@ -35,20 +35,24 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::GetAccessKeyLastUsedRequest getAccessKeyLastUsedRequest;
-    getAccessKeyLastUsedRequest.SetAccessKeyId(accessKeyId);
-
-    auto getAccessKeyLastUsedOutcome = iamClient.GetAccessKeyLastUsed(getAccessKeyLastUsedRequest);
-    if(!getAccessKeyLastUsedOutcome.IsSuccess())
     {
-        std::cout << "Error querying last used time for access key " << accessKeyId << ":" << getAccessKeyLastUsedOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        auto lastUsedTimeString = getAccessKeyLastUsedOutcome.GetResult().GetAccessKeyLastUsed().GetLastUsedDate().ToGmtString(Aws::Utils::DateFormat::ISO_8601);
-        std::cout << "Access key " << accessKeyId << " last used at time " << lastUsedTimeString << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::GetAccessKeyLastUsedRequest getAccessKeyLastUsedRequest;
+        getAccessKeyLastUsedRequest.SetAccessKeyId(accessKeyId);
+
+        auto getAccessKeyLastUsedOutcome = iamClient.GetAccessKeyLastUsed(getAccessKeyLastUsedRequest);
+        if (!getAccessKeyLastUsedOutcome.IsSuccess())
+        {
+            std::cout << "Error querying last used time for access key " << accessKeyId << ":" <<
+            getAccessKeyLastUsedOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            auto lastUsedTimeString = getAccessKeyLastUsedOutcome.GetResult().GetAccessKeyLastUsed().GetLastUsedDate().ToGmtString(
+                    Aws::Utils::DateFormat::ISO_8601);
+            std::cout << "Access key " << accessKeyId << " last used at time " << lastUsedTimeString << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

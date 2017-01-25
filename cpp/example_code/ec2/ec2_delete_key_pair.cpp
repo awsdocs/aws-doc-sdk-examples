@@ -34,19 +34,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::EC2::EC2Client ec2_client;
-
-    Aws::EC2::Model::DeleteKeyPairRequest deleteKeyPairRequest;
-    deleteKeyPairRequest.SetKeyName(keyPairName);
-
-    auto deleteKeyPairOutcome = ec2_client.DeleteKeyPair(deleteKeyPairRequest);
-    if(!deleteKeyPairOutcome.IsSuccess())
     {
-        std::cout << "Failed to delete key pair " << keyPairName << ":" << deleteKeyPairOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted key pair named " << keyPairName << std::endl;
+        Aws::EC2::EC2Client ec2_client;
+
+        Aws::EC2::Model::DeleteKeyPairRequest deleteKeyPairRequest;
+        deleteKeyPairRequest.SetKeyName(keyPairName);
+
+        auto deleteKeyPairOutcome = ec2_client.DeleteKeyPair(deleteKeyPairRequest);
+        if (!deleteKeyPairOutcome.IsSuccess())
+        {
+            std::cout << "Failed to delete key pair " << keyPairName << ":" <<
+            deleteKeyPairOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted key pair named " << keyPairName << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

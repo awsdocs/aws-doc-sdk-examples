@@ -50,25 +50,27 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::CloudWatchEvents::CloudWatchEventsClient cwe_client;
-
-    Aws::CloudWatchEvents::Model::PutEventsRequestEntry eventEntry;
-    eventEntry.SetDetail(MakeDetails(eventKey, eventValue));
-    eventEntry.SetDetailType("sampleSubmitted");
-    eventEntry.AddResources(resourceArn);
-    eventEntry.SetSource("aws-sdk-cpp-cloudwatch-example");
-
-    Aws::CloudWatchEvents::Model::PutEventsRequest putEventsRequest;
-    putEventsRequest.AddEntries(eventEntry);
-
-    auto putEventsOutcome = cwe_client.PutEvents(putEventsRequest);
-    if (!putEventsOutcome.IsSuccess())
     {
-        std::cout << "Failed to post cloudwatch event: " << putEventsOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully posted cloudwatch event" << std::endl;
+        Aws::CloudWatchEvents::CloudWatchEventsClient cwe_client;
+
+        Aws::CloudWatchEvents::Model::PutEventsRequestEntry eventEntry;
+        eventEntry.SetDetail(MakeDetails(eventKey, eventValue));
+        eventEntry.SetDetailType("sampleSubmitted");
+        eventEntry.AddResources(resourceArn);
+        eventEntry.SetSource("aws-sdk-cpp-cloudwatch-example");
+
+        Aws::CloudWatchEvents::Model::PutEventsRequest putEventsRequest;
+        putEventsRequest.AddEntries(eventEntry);
+
+        auto putEventsOutcome = cwe_client.PutEvents(putEventsRequest);
+        if (!putEventsOutcome.IsSuccess())
+        {
+            std::cout << "Failed to post cloudwatch event: " << putEventsOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully posted cloudwatch event" << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

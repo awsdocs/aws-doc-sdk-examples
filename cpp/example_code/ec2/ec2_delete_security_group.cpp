@@ -34,19 +34,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::EC2::EC2Client ec2_client;
-
-    Aws::EC2::Model::DeleteSecurityGroupRequest deleteSecurityGroupRequest;
-    deleteSecurityGroupRequest.SetGroupId(groupId);
-
-    auto deleteSecurityGroupOutcome = ec2_client.DeleteSecurityGroup(deleteSecurityGroupRequest);
-    if(!deleteSecurityGroupOutcome.IsSuccess())
     {
-        std::cout << "Failed to delete security group " << groupId << ":" << deleteSecurityGroupOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        std::cout << "Successfully deleted security group " << groupId << std::endl;
+        Aws::EC2::EC2Client ec2_client;
+
+        Aws::EC2::Model::DeleteSecurityGroupRequest deleteSecurityGroupRequest;
+        deleteSecurityGroupRequest.SetGroupId(groupId);
+
+        auto deleteSecurityGroupOutcome = ec2_client.DeleteSecurityGroup(deleteSecurityGroupRequest);
+        if (!deleteSecurityGroupOutcome.IsSuccess())
+        {
+            std::cout << "Failed to delete security group " << groupId << ":" <<
+            deleteSecurityGroupOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "Successfully deleted security group " << groupId << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);

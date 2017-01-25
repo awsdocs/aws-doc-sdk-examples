@@ -35,22 +35,25 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    Aws::IAM::IAMClient iamClient;
-
-    Aws::IAM::Model::CreateAccessKeyRequest createAccessKeyRequest;
-    createAccessKeyRequest.SetUserName(userName);
-
-    auto createAccessKeyOutcome = iamClient.CreateAccessKey(createAccessKeyRequest);
-    if(!createAccessKeyOutcome.IsSuccess())
     {
-        std::cout << "Error creating access key for IAM user " << userName << ":" << createAccessKeyOutcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
-        const auto& accessKey = createAccessKeyOutcome.GetResult().GetAccessKey();
-        std::cout << "Successfully created access key for IAM user " << userName << std::endl;
-        std::cout << "  aws_access_key_id = " << accessKey.GetAccessKeyId() << std::endl;
-        std::cout << "  aws_secret_access_key = " << accessKey.GetSecretAccessKey() << std::endl;
+        Aws::IAM::IAMClient iamClient;
+
+        Aws::IAM::Model::CreateAccessKeyRequest createAccessKeyRequest;
+        createAccessKeyRequest.SetUserName(userName);
+
+        auto createAccessKeyOutcome = iamClient.CreateAccessKey(createAccessKeyRequest);
+        if (!createAccessKeyOutcome.IsSuccess())
+        {
+            std::cout << "Error creating access key for IAM user " << userName << ":" <<
+            createAccessKeyOutcome.GetError().GetMessage() << std::endl;
+        }
+        else
+        {
+            const auto &accessKey = createAccessKeyOutcome.GetResult().GetAccessKey();
+            std::cout << "Successfully created access key for IAM user " << userName << std::endl;
+            std::cout << "  aws_access_key_id = " << accessKey.GetAccessKeyId() << std::endl;
+            std::cout << "  aws_secret_access_key = " << accessKey.GetSecretAccessKey() << std::endl;
+        }
     }
 
     Aws::ShutdownAPI(options);
