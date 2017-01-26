@@ -18,9 +18,6 @@ import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.Download;
 import com.amazonaws.services.s3.transfer.MultipleFileDownload;
 import java.io.File;
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Download objects to an Amazon S3 bucket using S3 TransferManager.
@@ -40,8 +37,9 @@ public class XferMgrDownload
         try {
             MultipleFileDownload xfer = xfer_mgr.downloadDirectory(
                     bucket_name, key_prefix, new File(dir_path));
-            // this is a demo function that shows the transfer progress
+            // loop with xfer.isDone() or block with xfer.waitForCompletion()
             XferMgrProgress.showTransferProgress(xfer);
+            XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
@@ -59,8 +57,9 @@ public class XferMgrDownload
         TransferManager xfer_mgr = new TransferManager();
         try {
             Download xfer = xfer_mgr.download(bucket_name, key_name, f);
-            // this is a demo function that shows the transfer progress
+            // loop with xfer.isDone() or block with xfer.waitForCompletion()
             XferMgrProgress.showTransferProgress(xfer);
+            XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);

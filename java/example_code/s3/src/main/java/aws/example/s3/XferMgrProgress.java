@@ -12,13 +12,31 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
-
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.Transfer;
 import com.amazonaws.services.s3.transfer.Transfer.TransferState;
 import com.amazonaws.services.s3.transfer.TransferProgress;
 
 public class XferMgrProgress
 {
+    // waits for the transfer to complete, catching any exceptions that occur.
+    public static void waitForCompletion(Transfer xfer)
+    {
+        try {
+            xfer.waitForCompletion();
+        } catch (AmazonServiceException e) {
+            System.err.println("Amazon service error: " + e.getMessage());
+            System.exit(1);
+        } catch (AmazonClientException e) {
+            System.err.println("Amazon client error: " + e.getMessage());
+            System.exit(1);
+        } catch (InterruptedException e) {
+            System.err.println("Transfer interrupted: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+
     // Prints progress while waiting for the download to finish.
     public static void showTransferProgress(Transfer xfer)
     {

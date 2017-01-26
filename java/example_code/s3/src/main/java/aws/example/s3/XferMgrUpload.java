@@ -39,14 +39,14 @@ public class XferMgrUpload
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadDirectory(bucket_name,
                     key_prefix, new File(dir_path), recursive);
-            // this is a demo function that shows the transfer progress
+            // loop with xfer.isDone() or block with xfer.waitForCompletion()
             XferMgrProgress.showTransferProgress(xfer);
+            XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
-        System.out.println("");
     }
 
     public static void uploadFileList(String[] file_paths, String bucket_name,
@@ -65,8 +65,9 @@ public class XferMgrUpload
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadFileList(bucket_name,
                     key_prefix, new File("."), files);
-            // this is a demo function that shows the transfer progress
+            // loop with xfer.isDone() or block with xfer.waitForCompletion()
             XferMgrProgress.showTransferProgress(xfer);
+            XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
@@ -91,12 +92,13 @@ public class XferMgrUpload
         TransferManager xfer_mgr = new TransferManager();
         try {
             Upload xfer = xfer_mgr.upload(bucket_name, key_name, f);
-            // this is a demo function that shows the transfer progress
-            XferMgrProgress.showTransferProgress(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
+        // loop with xfer.isDone() or block with xfer.waitForCompletion()
+        XferMgrProgress.showTransferProgress(xfer);
+        XferMgrProgress.waitForCompletion(xfer);
         xfer_mgr.shutdownNow();
     }
 
