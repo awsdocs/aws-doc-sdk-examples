@@ -39,7 +39,7 @@ func main() {
 		UserName: &os.Args[1],
 	})
 
-	if awserr, ok := err.(awserr.Error); ok && awserr.Code() == "NoSuchEntity" {
+	if awserr, ok := err.(awserr.Error); ok && awserr.Code() == iam.ErrCodeNoSuchEntityException {
 		result, err := svc.CreateUser(&iam.CreateUserInput{
 			UserName: &os.Args[1],
 		})

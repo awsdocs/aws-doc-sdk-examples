@@ -57,7 +57,7 @@ func main() {
 		// exists so we can give a more direct error message from the CLI.
 		if aerr, ok := err.(awserr.Error); ok {
 			switch aerr.Code() {
-			case "NoSuchBucket":
+			case s3.ErrCodeNoSuchBucket:
 				exitErrorf("Bucket %q does not exist.", bucket)
 			case "NoSuchBucketPolicy":
 				exitErrorf("Bucket %q does not have a policy.", bucket)
