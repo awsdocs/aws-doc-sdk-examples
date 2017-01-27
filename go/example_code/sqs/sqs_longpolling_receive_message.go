@@ -57,7 +57,7 @@ func main() {
 		QueueName: aws.String(name),
 	})
 	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "AWS.SimpleQueueService.NonExistentQueue" {
+		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == sqs.ErrCodeQueueDoesNotExist {
 			exitErrorf("Unable to find queue %q.", name)
 		}
 		exitErrorf("Unable to queue %q, %v.", name, err)

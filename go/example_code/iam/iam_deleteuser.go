@@ -40,7 +40,7 @@ func main() {
 	})
 
 	// If the user does not exist than we will log an error.
-	if awserr, ok := err.(awserr.Error); ok && awserr.Code() == "NoSuchEntity" {
+	if awserr, ok := err.(awserr.Error); ok && awserr.Code() == iam.ErrCodeNoSuchEntityException {
 		fmt.Printf("User %s does not exist\n", os.Args[1])
 		return
 	} else if err != nil {

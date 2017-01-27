@@ -51,7 +51,7 @@ func main() {
 		Bucket: aws.String(bucket),
 	})
 	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "NoSuchBucket" {
+		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == s3.ErrCodeNoSuchBucket {
 			// Special error handling for the when the bucket doesn't
 			// exists so we can give a more direct error message from the CLI.
 			exitErrorf("Bucket %q does not exist", bucket)
