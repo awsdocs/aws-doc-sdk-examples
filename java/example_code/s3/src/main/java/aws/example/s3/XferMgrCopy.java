@@ -53,7 +53,7 @@ public class XferMgrCopy
             "              If a destination key name is not given, the object\n" +
             "              will be copied with the same name.\n\n" +
             "Examples:\n" +
-            "    Copy my_photos/cat_happy.png public_photos/funny_cat.png\n\n" +
+            "    Copy my_photos/cat_happy.png public_photos/funny_cat.png\n" +
             "    Copy my_photos/cat_sad.png public_photos\n\n";
 
         if (args.length < 2) {

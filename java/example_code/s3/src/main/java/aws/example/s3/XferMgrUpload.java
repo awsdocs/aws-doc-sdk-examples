@@ -39,8 +39,9 @@ public class XferMgrUpload
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadDirectory(bucket_name,
                     key_prefix, new File(dir_path), recursive);
-            // loop with xfer.isDone() or block with xfer.waitForCompletion()
+            // loop with Transfer.isDone()
             XferMgrProgress.showTransferProgress(xfer);
+            // or block with Transfer.waitForCompletion()
             XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
@@ -65,8 +66,9 @@ public class XferMgrUpload
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadFileList(bucket_name,
                     key_prefix, new File("."), files);
-            // loop with xfer.isDone() or block with xfer.waitForCompletion()
+            // loop with Transfer.isDone()
             XferMgrProgress.showTransferProgress(xfer);
+            // or block with Transfer.waitForCompletion()
             XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
@@ -92,13 +94,14 @@ public class XferMgrUpload
         TransferManager xfer_mgr = new TransferManager();
         try {
             Upload xfer = xfer_mgr.upload(bucket_name, key_name, f);
+            // loop with Transfer.isDone()
+            XferMgrProgress.showTransferProgress(xfer);
+            //  or block with Transfer.waitForCompletion()
+            XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
-        // loop with xfer.isDone() or block with xfer.waitForCompletion()
-        XferMgrProgress.showTransferProgress(xfer);
-        XferMgrProgress.waitForCompletion(xfer);
         xfer_mgr.shutdownNow();
     }
 
@@ -106,7 +109,7 @@ public class XferMgrUpload
     {
         final String USAGE = "\n" +
             "Usage:\n" +
-            "    Upload [--recursive] [--pause] <s3_path> <local_paths>\n\n" +
+            "    XferMgrUpload [--recursive] [--pause] <s3_path> <local_paths>\n\n" +
             "Where:\n" +
             "    --recursive - Only applied if local_path is a directory.\n" +
             "                  Copies the contents of the directory recursively.\n\n" +
@@ -116,8 +119,10 @@ public class XferMgrUpload
             "    local_paths - One or more local paths to upload to S3. These can be files\n" +
             "                  or directories. Globs are permitted (*.xml, etc.)\n\n" +
             "Examples:\n" +
-            "    Copy my_photos/cat_happy.png public_photos/funny_cat.png\n\n" +
-            "    Copy my_photos/cat_sad.png public_photos\n\n";
+            "    XferMgrUpload public_photos/cat_happy.png my_photos/funny_cat.png\n" +
+            "    XferMgrUpload public_photos my_photos/cat_sad.png\n" +
+            "    XferMgrUpload public_photos my_photos/cat*.png\n" +
+            "    XferMgrUpload public_photos my_photos\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -161,8 +166,7 @@ public class XferMgrUpload
            }
            else if (f.isDirectory()) {
               dirs_to_copy.add(args[cur_arg]);
-           }
-           else {
+           } else {
               files_to_copy.add(args[cur_arg]);
            }
            cur_arg += 1;

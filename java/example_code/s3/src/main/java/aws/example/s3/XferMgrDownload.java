@@ -37,8 +37,9 @@ public class XferMgrDownload
         try {
             MultipleFileDownload xfer = xfer_mgr.downloadDirectory(
                     bucket_name, key_prefix, new File(dir_path));
-            // loop with xfer.isDone() or block with xfer.waitForCompletion()
+            // loop with Transfer.isDone()
             XferMgrProgress.showTransferProgress(xfer);
+            // or block with Transfer.waitForCompletion()
             XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
@@ -57,8 +58,9 @@ public class XferMgrDownload
         TransferManager xfer_mgr = new TransferManager();
         try {
             Download xfer = xfer_mgr.download(bucket_name, key_name, f);
-            // loop with xfer.isDone() or block with xfer.waitForCompletion()
+            // loop with Transfer.isDone()
             XferMgrProgress.showTransferProgress(xfer);
+            // or block with Transfer.waitForCompletion()
             XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
@@ -71,7 +73,7 @@ public class XferMgrDownload
     {
         final String USAGE = "\n" +
             "Usage:\n" +
-            "    Download [--recursive] [--pause] <s3_path> <local_paths>\n\n" +
+            "    XferMgrDownload [--recursive] [--pause] <s3_path> <local_paths>\n\n" +
             "Where:\n" +
             "    --recursive - Only applied if local_path is a directory.\n" +
             "                  Copies the contents of the directory recursively.\n\n" +
