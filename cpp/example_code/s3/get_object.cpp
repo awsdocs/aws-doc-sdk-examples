@@ -46,18 +46,15 @@ int main(int argc, char** argv)
 
         auto get_object_outcome = s3_client.GetObject(object_request);
 
-        if (get_object_outcome.IsSuccess())
-        {
+        if (get_object_outcome.IsSuccess()) {
             Aws::OFStream local_file;
             local_file.open(key_name.c_str(), std::ios::out | std::ios::binary);
             local_file << get_object_outcome.GetResult().GetBody().rdbuf();
             std::cout << "Done!" << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "GetObject error: " <<
-            get_object_outcome.GetError().GetExceptionName() << " " <<
-            get_object_outcome.GetError().GetMessage() << std::endl;
+                get_object_outcome.GetError().GetExceptionName() << " " <<
+                get_object_outcome.GetError().GetMessage() << std::endl;
         }
     }
 

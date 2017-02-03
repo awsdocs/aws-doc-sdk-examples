@@ -22,7 +22,7 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
+    if (argc != 2) {
         std::cout << "Usage: get_queue_url <queue_name>" << std::endl;
         return 1;
     }

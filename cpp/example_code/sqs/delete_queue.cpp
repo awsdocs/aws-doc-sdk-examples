@@ -22,7 +22,7 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
+    if (argc != 2) {
         std::cout << "Usage: delete_queue <queue_url>" << std::endl;
         return 1;
     }
@@ -35,7 +35,8 @@ int main(int argc, char** argv)
     {
         // disable retries so that bad urls don't hang the exe via retry loop
         Aws::Client::ClientConfiguration client_cfg;
-        client_cfg.retryStrategy = Aws::MakeShared<Aws::Client::DefaultRetryStrategy>(
+        client_cfg.retryStrategy =
+            Aws::MakeShared<Aws::Client::DefaultRetryStrategy>(
                 "sqs_delete_queue", 0);
         Aws::SQS::SQSClient sqs(client_cfg);
 
@@ -43,15 +44,12 @@ int main(int argc, char** argv)
         dq_req.SetQueueUrl(queue_url);
 
         auto dq_out = sqs.DeleteQueue(dq_req);
-        if (dq_out.IsSuccess())
-        {
+        if (dq_out.IsSuccess()) {
             std::cout << "Successfully deleted queue with url " << queue_url <<
-            std::endl;
-        }
-        else
-        {
+                std::endl;
+        } else {
             std::cout << "Error deleting queue " << queue_url << ": " <<
-            dq_out.GetError().GetMessage() << std::endl;
+                dq_out.GetError().GetMessage() << std::endl;
         }
     }
 

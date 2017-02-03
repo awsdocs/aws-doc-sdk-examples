@@ -48,15 +48,12 @@ int main(int argc, char** argv)
 
         auto delete_object_outcome = s3_client.DeleteObject(object_request);
 
-        if (delete_object_outcome.IsSuccess())
-        {
+        if (delete_object_outcome.IsSuccess()) {
             std::cout << "Done!" << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "DeleteObject error: " <<
-            delete_object_outcome.GetError().GetExceptionName() << " " <<
-            delete_object_outcome.GetError().GetMessage() << std::endl;
+                delete_object_outcome.GetError().GetExceptionName() << " " <<
+                delete_object_outcome.GetError().GetMessage() << std::endl;
         }
     }
 

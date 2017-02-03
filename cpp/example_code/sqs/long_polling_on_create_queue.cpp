@@ -22,9 +22,9 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3) {
+    if (argc != 3) {
         std::cout << "Usage: long_polling_on_create_queue <queue_name> " <<
-            "<long_poll_time_in_seconds>" << std::endl;
+            "<poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
@@ -40,19 +40,16 @@ int main(int argc, char** argv)
         Aws::SQS::Model::CreateQueueRequest cq_req;
         cq_req.SetQueueName(queue_name);
         cq_req.AddAttributes(
-                Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
-                poll_time);
+            Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
+            poll_time);
 
         auto cq_out = sqs.CreateQueue(cq_req);
-        if (cq_out.IsSuccess())
-        {
-            std::cout << "Successfully created long-polled queue " << queue_name <<
-            std::endl;
-        }
-        else
-        {
-            std::cout << "Error creating long-polled queue " << queue_name << ": "
-            << cq_out.GetError().GetMessage() << std::endl;
+        if (cq_out.IsSuccess()) {
+            std::cout << "Successfully created queue " << queue_name
+                << std::endl;
+        } else {
+            std::cout << "Error creating queue " << queue_name <<
+                ": " << cq_out.GetError().GetMessage() << std::endl;
         }
     }
 
