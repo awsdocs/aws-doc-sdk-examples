@@ -39,15 +39,12 @@ int main(int argc, char** argv)
         gqu_req.SetQueueName(queue_name);
 
         auto gqu_out = sqs.GetQueueUrl(gqu_req);
-        if (gqu_out.IsSuccess())
-        {
+        if (gqu_out.IsSuccess()) {
             std::cout << "Queue " << queue_name << " has url " <<
             gqu_out.GetResult().GetQueueUrl() << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "Error getting url for queue " << queue_name << ": " <<
-            gqu_out.GetError().GetMessage() << std::endl;
+                gqu_out.GetError().GetMessage() << std::endl;
         }
     }
 
