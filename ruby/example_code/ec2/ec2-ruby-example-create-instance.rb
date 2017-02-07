@@ -11,6 +11,7 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk'
+require 'base64'
 
 # User code that's executed when the instance starts
 script = ''
