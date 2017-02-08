@@ -14,8 +14,8 @@ AWS SDK for JavaScript examples
 
 These are examples for the AWS SDK for JavaScript public documentation.
 
-Prerequsites
-============
+Prerequisites
+=============
 
 To build and run these examples, you'll need:
 
@@ -29,7 +29,15 @@ Running the examples
 To run the examples, you'll need to copy your local credentials file into the same directory
 as the example files. For more information about how to set up your local credentials file,
 see `Loading Credentials in Node.js from a
-JSON File<http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-json-file.html>`_
+JSON File <http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-json-file.html>`_
 in the *AWS SDK for JavaScript Developer Guide*.
 
 The Node.js examples are all run from the command line.
+
+Documentation
+=============
+
+You can find detailed documentation for the AWS SDK for JavaScript at:
+
+- `AWS SDK for JavaScript Developer Guide <http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide>`_
+- `AWS SDK for JavaScript API Reference <http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html>`_
