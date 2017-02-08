@@ -34,6 +34,13 @@ in the *AWS SDK for JavaScript Developer Guide*.
 
 The Node.js examples are all run from the command line.
 
+SDK Downloads
+=============
+
+You can download minified and non-minified distributable versions of the current AWS SDK for JavaScript at:
+
+`https://github.com/aws/aws-sdk-js/tree/master/dist <https://github.com/aws/aws-sdk-js/tree/master/dist>`_
+
 Documentation
 =============
 
