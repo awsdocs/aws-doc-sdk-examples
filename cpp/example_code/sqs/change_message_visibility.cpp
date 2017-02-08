@@ -34,14 +34,14 @@ void ChangeMessageVisibility(
     rm_req.SetMaxNumberOfMessages(1);
 
     auto rm_out = sqs.ReceiveMessage(rm_req);
-    if(!rm_out.IsSuccess()) {
+    if (!rm_out.IsSuccess()) {
         std::cout << "Error receiving message from queue " << queue_url << ": "
             << rm_out.GetError().GetMessage() << std::endl;
         return;
     }
 
     const auto& messages = rm_out.GetResult().GetMessages();
-    if(messages.size() == 0) {
+    if (messages.size() == 0) {
         std::cout << "No messages received from queue " << queue_url <<
             std::endl;
         return;
@@ -58,7 +58,7 @@ void ChangeMessageVisibility(
     cmv_req.SetReceiptHandle(message.GetReceiptHandle());
     cmv_req.SetVisibilityTimeout(visibility_timeout);
     auto cmv_out = sqs.ChangeMessageVisibility(cmv_req);
-    if(cmv_out.IsSuccess()) {
+    if (cmv_out.IsSuccess()) {
         std::cout << "Successfully changed visibility of message " <<
             message.GetMessageId() << " from queue " << queue_url << std::endl;
     } else {
@@ -74,7 +74,7 @@ void ChangeMessageVisibility(
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3) {
+    if (argc != 3) {
         std::cout << "Usage: change_message_visibility <queue_url> " <<
             "<visibility_timeout_in_seconds>" << std::endl;
         return 1;

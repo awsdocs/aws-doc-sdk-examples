@@ -44,15 +44,12 @@ int main(int argc, char** argv)
 
         auto delete_bucket_outcome = s3_client.DeleteBucket(bucket_request);
 
-        if (delete_bucket_outcome.IsSuccess())
-        {
+        if (delete_bucket_outcome.IsSuccess()) {
             std::cout << "Done!" << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "DeleteBucket error: " <<
-            delete_bucket_outcome.GetError().GetExceptionName() << std::endl <<
-            delete_bucket_outcome.GetError().GetMessage() << std::endl;
+                delete_bucket_outcome.GetError().GetExceptionName() << std::endl
+                << delete_bucket_outcome.GetError().GetMessage() << std::endl;
         }
     }
 

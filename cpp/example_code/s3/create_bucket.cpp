@@ -42,15 +42,12 @@ int main(int argc, char** argv)
 
         auto create_bucket_outcome = s3_client.CreateBucket(bucket_request);
 
-        if (create_bucket_outcome.IsSuccess())
-        {
+        if (create_bucket_outcome.IsSuccess()) {
             std::cout << "Done!" << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "CreateBucket error: " <<
-            create_bucket_outcome.GetError().GetExceptionName() << std::endl <<
-            create_bucket_outcome.GetError().GetMessage() << std::endl;
+                create_bucket_outcome.GetError().GetExceptionName() << std::endl
+                << create_bucket_outcome.GetError().GetMessage() << std::endl;
         }
     }
 

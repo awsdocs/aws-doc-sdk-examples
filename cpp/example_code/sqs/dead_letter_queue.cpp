@@ -38,7 +38,7 @@ Aws::String MakeRedrivePolicy(const Aws::String& dlq_arn, int max_msg)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 4) {
+    if (argc != 4) {
         std::cout << "Usage: dead_letter_queue <source_queue_url> " <<
             "<dead_letter_queue_arn> <max_messages>" << std::endl;
         return 1;
@@ -61,17 +61,15 @@ int main(int argc, char** argv)
 
         Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
         sqa_req.SetQueueUrl(src_queue_url);
-        sqa_req.AddAttributes(Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
-                              redrivePolicy);
+        sqa_req.AddAttributes(
+            Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
+            redrivePolicy);
 
         auto sqa_out = sqs.SetQueueAttributes(sqa_req);
-        if (sqa_out.IsSuccess())
-        {
+        if (sqa_out.IsSuccess()) {
             std::cout << "Successfully set dead letter queue for queue  " <<
             src_queue_url << " to " << dlq_arn << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "Error setting dead letter queue for queue " <<
             src_queue_url << ": " << sqa_out.GetError().GetMessage() <<
             std::endl;

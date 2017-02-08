@@ -57,6 +57,10 @@ documentation.
 * **Make sure that the code can be built and run**. There's nothing more frustrating in developer
   documentation than code examples that don't work. Build the code and test it before submitting it!
 
+* **Do not include personal account data, keys or IDs in your examples**. Code should obtain access
+  keys from the standard SDK credentials and config files, use environment variables or external
+  data files, or query the user for this information.
+
 * **Format code lines to 80 characters**. Long lines can be enclosed in a scrollable box for HTML,
   but in a PDF build, long lines will often spill off of the side of the page, making the code
   unreadable. If your code includes long text strings, consider breaking these into smaller chunks

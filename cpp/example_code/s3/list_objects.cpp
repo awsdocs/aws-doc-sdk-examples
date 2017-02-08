@@ -43,21 +43,17 @@ int main(int argc, char** argv)
 
         auto list_objects_outcome = s3_client.ListObjects(objects_request);
 
-        if (list_objects_outcome.IsSuccess())
-        {
+        if (list_objects_outcome.IsSuccess()) {
             Aws::Vector<Aws::S3::Model::Object> object_list =
-                    list_objects_outcome.GetResult().GetContents();
+                list_objects_outcome.GetResult().GetContents();
 
-            for (auto const &s3_object: object_list)
-            {
+            for (auto const &s3_object: object_list) {
                 std::cout << "* " << s3_object.GetKey() << std::endl;
             }
-        }
-        else
-        {
+        } else {
             std::cout << "ListObjects error: " <<
-            list_objects_outcome.GetError().GetExceptionName() << " " <<
-            list_objects_outcome.GetError().GetMessage() << std::endl;
+                list_objects_outcome.GetError().GetExceptionName() << " " <<
+                list_objects_outcome.GetError().GetMessage() << std::endl;
         }
     }
 

@@ -13,9 +13,9 @@
 */
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
-#include <aws/sqs/model/DeleteMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
+#include <aws/sqs/model/DeleteMessageRequest.h>
 #include <iostream>
 
 void ReceiveMessage(const Aws::String& queue_url)
@@ -33,14 +33,14 @@ void ReceiveMessage(const Aws::String& queue_url)
     rm_req.SetMaxNumberOfMessages(1);
 
     auto rm_out = sqs.ReceiveMessage(rm_req);
-    if(!rm_out.IsSuccess()) {
+    if (!rm_out.IsSuccess()) {
         std::cout << "Error receiving message from queue " << queue_url << ": "
             << rm_out.GetError().GetMessage() << std::endl;
         return;
     }
 
     const auto& messages = rm_out.GetResult().GetMessages();
-    if(messages.size() == 0) {
+    if (messages.size() == 0) {
         std::cout << "No messages received from queue " << queue_url <<
             std::endl;
         return;
@@ -57,7 +57,7 @@ void ReceiveMessage(const Aws::String& queue_url)
     dm_req.SetReceiptHandle(message.GetReceiptHandle());
 
     auto dm_out = sqs.DeleteMessage(dm_req);
-    if(dm_out.IsSuccess()) {
+    if (dm_out.IsSuccess()) {
         std::cout << "Successfully deleted message " << message.GetMessageId()
             << " from queue " << queue_url << std::endl;
     } else {
@@ -73,7 +73,7 @@ void ReceiveMessage(const Aws::String& queue_url)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
+    if (argc != 2) {
         std::cout << "Usage: receive_message <queue_url>" << std::endl;
         return 1;
     }
