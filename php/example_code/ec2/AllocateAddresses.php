@@ -14,7 +14,7 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\EC2\EC2Client;
+use Aws\Ec2\Ec2Client;
 
 /**
  * Allocate and associate Address
@@ -23,7 +23,7 @@ use Aws\EC2\EC2Client;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$ec2Client = new EC2Client([
+$ec2Client = new Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
@@ -42,4 +42,4 @@ $result = $ec2Client->associateAddress(array(
     'AllocationId' => $allocation->get('AllocationId')
 ));
 
-print_r($result);
+var_dump($result);

@@ -14,7 +14,7 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\EC2\EC2Client;
+use Aws\Ec2\Ec2Client;
 
 /**
  * Delete a Key Pair
@@ -23,7 +23,7 @@ use Aws\EC2\EC2Client;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$ec2Client = new EC2Client([
+$ec2Client = new Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
@@ -34,5 +34,6 @@ $keyPairName = 'my-keypair';
 $result = $ec2Client->deleteKeyPair(array(
     'KeyName' => $keyPairName
 ));
-print_r($result);
+
+var_dump($result);
 
