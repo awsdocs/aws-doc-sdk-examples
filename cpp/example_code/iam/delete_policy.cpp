@@ -12,51 +12,42 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeletePolicyRequest.h>
-
 #include <iostream>
 
 /**
- * Deletes an IAM policy based on command line input; only works for policies that have not been associated with other resources
- * To delete a policy in the non-trivial case, use the DeletePolicy operation within the aws-cpp-sdk-access-management high level sdk
+ * Deletes an IAM policy based on command line input; only works for policies
+ * that have not been associated with other resources To delete a policy in the
+ * non-trivial case, use the DeletePolicy operation within the
+ * aws-cpp-sdk-access-management high level sdk
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: iam_delete_policy <policy_arn>" << std::endl;
         return 1;
     }
 
-    Aws::String policyArn(argv[1]);
-
+    Aws::String policy_arn(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
 
-        Aws::IAM::Model::DeletePolicyRequest deletePolicyRequest;
-        deletePolicyRequest.SetPolicyArn(policyArn);
+        Aws::IAM::Model::DeletePolicyRequest request;
+        request.SetPolicyArn(policy_arn);
 
-        auto deletePolicyOutcome = iamClient.DeletePolicy(deletePolicyRequest);
-        if (!deletePolicyOutcome.IsSuccess())
-        {
-            std::cout << "Error deleting policy with arn " << policyArn << ": " <<
-            deletePolicyOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted policy with arn " << policyArn << std::endl;
+        auto outcome = iam.DeletePolicy(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error deleting policy with arn " << policy_arn << ": "
+                << outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully deleted policy with arn " << policy_arn
+                << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

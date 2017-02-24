@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListAccountAliasesRequest.h>
 #include <aws/iam/model/ListAccountAliasesResult.h>
-
 #include <iostream>
 
 /**
@@ -28,55 +26,41 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iam_client;
-
-        Aws::IAM::Model::ListAccountAliasesRequest listAccountAliasesRequest;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::ListAccountAliasesRequest request;
 
         bool done = false;
         bool header = false;
-        while (!done)
-        {
-            auto listAccountAliasesOutcome = iam_client.ListAccountAliases(listAccountAliasesRequest);
-            if (!listAccountAliasesOutcome.IsSuccess())
-            {
-                std::cout << "Failed to list account aliases: " << listAccountAliasesOutcome.GetError().GetMessage() <<
-                std::endl;
+        while (!done) {
+            auto outcome = iam.ListAccountAliases(request);
+            if (!outcome.IsSuccess()) {
+                std::cout << "Failed to list account aliases: " <<
+                    outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            const auto &aliases = listAccountAliasesOutcome.GetResult().GetAccountAliases();
-            if (!header)
-            {
-                if (aliases.size() == 0)
-                {
+            const auto &aliases = outcome.GetResult().GetAccountAliases();
+            if (!header) {
+                if (aliases.size() == 0) {
                     std::cout << "Account has no aliases" << std::endl;
                     break;
                 }
-
                 std::cout << std::left << std::setw(32) << "Alias" << std::endl;
                 header = true;
             }
 
-            for (const auto &alias : aliases)
-            {
+            for (const auto &alias : aliases) {
                 std::cout << std::left << std::setw(32) << alias << std::endl;
             }
 
-            if (listAccountAliasesOutcome.GetResult().GetIsTruncated())
-            {
-                listAccountAliasesRequest.SetMarker(listAccountAliasesOutcome.GetResult().GetMarker());
-            }
-            else
-            {
+            if (outcome.GetResult().GetIsTruncated()) {
+                request.SetMarker(outcome.GetResult().GetMarker());
+            } else {
                 done = true;
             }
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

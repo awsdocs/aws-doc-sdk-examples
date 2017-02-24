@@ -24,45 +24,36 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: iam_get_policy <policy_arn>" << std::endl;
         return 1;
     }
 
-    Aws::String policyArn(argv[1]);
-
+    Aws::String policy_arn(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
 
-        Aws::IAM::Model::GetPolicyRequest getPolicyRequest;
-        getPolicyRequest.SetPolicyArn(policyArn);
+        Aws::IAM::Model::GetPolicyRequest request;
+        request.SetPolicyArn(policy_arn);
 
-        auto getPolicyOutcome = iamClient.GetPolicy(getPolicyRequest);
-        if (!getPolicyOutcome.IsSuccess())
-        {
-            std::cout << "Error getting policy " << policyArn << ": " << getPolicyOutcome.GetError().GetMessage() <<
-            std::endl;
-        }
-        else
-        {
-            const auto &policy = getPolicyOutcome.GetResult().GetPolicy();
-
-            std::cout << "Name: " << policy.GetPolicyName() << std::endl
-            << "ID: " << policy.GetPolicyId() << std::endl
-            << "Arn: " << policy.GetArn() << std::endl
-            << "Description: " << policy.GetDescription() << std::endl
-            << "CreateDate: " << policy.GetCreateDate().ToGmtString(Aws::Utils::DateFormat::ISO_8601) << std::endl;
+        auto outcome = iam.GetPolicy(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error getting policy " << policy_arn << ": " <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            const auto &policy = outcome.GetResult().GetPolicy();
+            std::cout << "Name: " << policy.GetPolicyName() << std::endl <<
+                "ID: " << policy.GetPolicyId() << std::endl << "Arn: " <<
+                policy.GetArn() << std::endl << "Description: " <<
+                policy.GetDescription() << std::endl << "CreateDate: " <<
+                policy.GetCreateDate().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 
