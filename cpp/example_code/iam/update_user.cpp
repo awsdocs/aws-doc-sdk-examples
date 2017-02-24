@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/UpdateUserRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,40 +21,36 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: iam_update_user <old_user_name> <new_user_name>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: iam_update_user <old_user_name> <new_user_name>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String oldUserName(argv[1]);
-    Aws::String newUserName(argv[2]);
+    Aws::String old_name(argv[1]);
+    Aws::String new_name(argv[2]);
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
 
-        Aws::IAM::Model::UpdateUserRequest updateUserRequest;
-        updateUserRequest.SetUserName(oldUserName);
-        updateUserRequest.SetNewUserName(newUserName);
+        Aws::IAM::Model::UpdateUserRequest request;
+        request.SetUserName(old_name);
+        request.SetNewUserName(new_name);
 
-        auto updateUserOutcome = iamClient.UpdateUser(updateUserRequest);
-        if (updateUserOutcome.IsSuccess())
-        {
-            std::cout << "IAM user " << oldUserName << " successfully updated with new user name " << newUserName <<
-            std::endl;
-        }
-        else
-        {
-            std::cout << "Error updating user name for IAM user " << oldUserName << ":" <<
-            updateUserOutcome.GetError().GetMessage() << std::endl;
+        auto outcome = iam.UpdateUser(request);
+        if (outcome.IsSuccess()) {
+            std::cout << "IAM user " << old_name <<
+                " successfully updated with new user name " << new_name <<
+                std::endl;
+        } else {
+            std::cout << "Error updating user name for IAM user " << old_name <<
+                ":" << outcome.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

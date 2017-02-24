@@ -12,45 +12,41 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateUserRequest.h>
 #include <aws/iam/model/CreateUserResult.h>
 #include <aws/iam/model/GetUserRequest.h>
 #include <aws/iam/model/GetUserResult.h>
-
 #include <iostream>
 
-void CreateUser(const Aws::String& userName)
+void CreateUser(const Aws::String& user_name)
 {
-    Aws::IAM::IAMClient iamClient;
+    Aws::IAM::IAMClient iam;
 
-    Aws::IAM::Model::GetUserRequest getUserRequest;
-    getUserRequest.SetUserName(userName);
+    Aws::IAM::Model::GetUserRequest get_request;
+    get_request.SetUserName(user_name);
 
-    auto getUserOutcome = iamClient.GetUser(getUserRequest);
-    if(getUserOutcome.IsSuccess())
-    {
-        std::cout << "IAM user " << userName << " already exists" << std::endl;
+    auto get_outcome = iam.GetUser(get_request);
+    if(get_outcome.IsSuccess()) {
+        std::cout << "IAM user " << user_name << " already exists" << std::endl;
         return;
-    }
-    else if (getUserOutcome.GetError().GetErrorType() != Aws::IAM::IAMErrors::NO_SUCH_ENTITY)
-    {
-        std::cout << "Error checking existence of IAM user " << userName << ":" << getUserOutcome.GetError().GetMessage() << std::endl;
-        return;
-    }
-
-    Aws::IAM::Model::CreateUserRequest createUserRequest;
-    createUserRequest.SetUserName(userName);
-
-    auto createUserOutcome = iamClient.CreateUser(createUserRequest);
-    if(!createUserOutcome.IsSuccess())
-    {
-        std::cout << "Error creating IAM user " << userName << ":" << createUserOutcome.GetError().GetMessage() << std::endl;
+    } else if (get_outcome.GetError().GetErrorType() !=
+            Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
+        std::cout << "Error checking existence of IAM user " << user_name << ":"
+            << get_outcome.GetError().GetMessage() << std::endl;
         return;
     }
 
-    std::cout << "Successfully created IAM user " << userName << std::endl;
+    Aws::IAM::Model::CreateUserRequest create_request;
+    create_request.SetUserName(user_name);
+
+    auto create_outcome = iam.CreateUser(create_request);
+    if(!create_outcome.IsSuccess()) {
+        std::cout << "Error creating IAM user " << user_name << ":" <<
+            create_outcome.GetError().GetMessage() << std::endl;
+        return;
+    }
+    std::cout << "Successfully created IAM user " << user_name << std::endl;
 }
 
 /**
@@ -58,23 +54,17 @@ void CreateUser(const Aws::String& userName)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: iam_create_user <user_name>" << std::endl;
         return 1;
     }
 
-    Aws::String userName(argv[1]);
+    Aws::String user_name(argv[1]);
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
-    CreateUser(userName);
-
+    CreateUser(user_name);
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

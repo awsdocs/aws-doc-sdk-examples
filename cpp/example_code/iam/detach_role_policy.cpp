@@ -20,80 +20,81 @@
 
 #include <iostream>
 
-void DetachRolePolicy(const Aws::String& roleName, const Aws::String& policyArn)
+void DetachRolePolicy(const Aws::String& role_name, const Aws::String& policy_arn)
 {
-    Aws::IAM::IAMClient iam_client;
+    Aws::IAM::IAMClient iam;
 
-    Aws::IAM::Model::ListAttachedRolePoliciesRequest listAttachedRolePoliciesRequest;
-    listAttachedRolePoliciesRequest.SetRoleName(roleName);
+    Aws::IAM::Model::ListAttachedRolePoliciesRequest list_request;
+    list_request.SetRoleName(role_name);
 
     bool done = false;
     bool attached = false;
-    while(!done)
-    {
-        auto listAttachedRolePoliciesOutcome = iam_client.ListAttachedRolePolicies(listAttachedRolePoliciesRequest);
-        if(!listAttachedRolePoliciesOutcome.IsSuccess())
-        {
-            std::cout << "Failed to list attached policies of role " << roleName << ": " << listAttachedRolePoliciesOutcome.GetError().GetMessage() << std::endl;
+    while(!done) {
+        auto list_outcome = iam.ListAttachedRolePolicies(list_request);
+        if(!list_outcome.IsSuccess()) {
+            std::cout << "Failed to list attached policies of role " <<
+                role_name << ": " << list_outcome.GetError().GetMessage() <<
+                std::endl;
             return;
         }
 
-        const auto& policies = listAttachedRolePoliciesOutcome.GetResult().GetAttachedPolicies();
-        attached = std::any_of(policies.cbegin(), policies.cend(), [=](const Aws::IAM::Model::AttachedPolicy& policy){ return policy.GetPolicyArn() == policyArn; });
-        if(attached)
-        {
+        const auto& policies = list_outcome.GetResult().GetAttachedPolicies();
+        attached = std::any_of(
+                policies.cbegin(), policies.cend(),
+                [=](const Aws::IAM::Model::AttachedPolicy& policy){
+                    return policy.GetPolicyArn() == policy_arn;});
+        if(attached) {
             break;
         }
 
-        done = !listAttachedRolePoliciesOutcome.GetResult().GetIsTruncated();
-        listAttachedRolePoliciesRequest.SetMarker(listAttachedRolePoliciesOutcome.GetResult().GetMarker());
+        done = !list_outcome.GetResult().GetIsTruncated();
+        list_request.SetMarker(list_outcome.GetResult().GetMarker());
     }
 
-    if(!attached)
-    {
-        std::cout << "Policy " << policyArn << " is not attached to role " << roleName << std::endl;
+    if(!attached) {
+        std::cout << "Policy " << policy_arn << " is not attached to role " <<
+            role_name << std::endl;
         return;
     }
 
-    Aws::IAM::Model::DetachRolePolicyRequest detachRolePolicyRequest;
-    detachRolePolicyRequest.SetRoleName(roleName);
-    detachRolePolicyRequest.SetPolicyArn(policyArn);
+    Aws::IAM::Model::DetachRolePolicyRequest detach_request;
+    detach_request.SetRoleName(role_name);
+    detach_request.SetPolicyArn(policy_arn);
 
-    auto detachRolePolicyOutcome = iam_client.DetachRolePolicy(detachRolePolicyRequest);
-    if(!detachRolePolicyOutcome.IsSuccess())
+    auto detach_outcome = iam.DetachRolePolicy(detach_request);
+    if(!detach_outcome.IsSuccess())
     {
-        std::cout << "Failed to detach policy " << policyArn << " from role " << roleName << ": " << detachRolePolicyOutcome.GetError().GetMessage() << std::endl;
+        std::cout << "Failed to detach policy " << policy_arn << " from role "
+            << role_name << ": " << detach_outcome.GetError().GetMessage() <<
+            std::endl;
         return;
     }
 
-    std::cout << "Successfully detached policy " << policyArn << " from role " << roleName << std::endl;
+    std::cout << "Successfully detached policy " << policy_arn << " from role "
+        << role_name << std::endl;
 }
-
-static const char* SAMPLE_POLICY_ARN = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
 
 /**
  * Detaches a policy from a role, based on command line input
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: iam_detach_role_policy <role_name> <policy_arn>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: iam_detach_role_policy <role_name> <policy_arn>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String roleName(argv[1]);
-    Aws::String policyArn = argv[2];
+    Aws::String role_name(argv[1]);
+    Aws::String policy_arn = argv[2];
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    DetachRolePolicy(roleName, policyArn);
+    DetachRolePolicy(role_name, policy_arn);
 
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-
-
 

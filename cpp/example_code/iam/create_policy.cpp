@@ -12,13 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreatePolicyRequest.h>
 #include <aws/iam/model/CreatePolicyResult.h>
-
 #include <iostream>
-
 
 static const char* const POLICY_TEMPLATE =
     "{"
@@ -43,15 +40,14 @@ static const char* const POLICY_TEMPLATE =
     "   ]"
     "}";
 
-Aws::String BuildSamplePolicyDocument(const Aws::String& resourceArn)
+Aws::String BuildSamplePolicyDocument(const Aws::String& rsrc_arn)
 {
     char policyBuffer[512];
 #ifdef WIN32
-    sprintf_s(policyBuffer, POLICY_TEMPLATE, resourceArn.c_str(), resourceArn.c_str());
+    sprintf_s(policyBuffer, POLICY_TEMPLATE, rsrc_arn.c_str(), rsrc_arn.c_str());
 #else
-    sprintf(policyBuffer, POLICY_TEMPLATE, resourceArn.c_str(), resourceArn.c_str());
+    sprintf(policyBuffer, POLICY_TEMPLATE, rsrc_arn.c_str(), rsrc_arn.c_str());
 #endif // WIN32
-
     return Aws::String(policyBuffer);
 }
 
@@ -60,41 +56,35 @@ Aws::String BuildSamplePolicyDocument(const Aws::String& resourceArn)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
-    {
-        std::cout << "Usage: iam_create_policy <policy_name> <resource_arn>" << std::endl;
+    if(argc != 3) {
+        std::cout << "Usage: iam_create_policy <policy_name> <resource_arn>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String policyName(argv[1]);
-    Aws::String resourceArn(argv[2]);
+    Aws::String policy_name(argv[1]);
+    Aws::String rsrc_arn(argv[2]);
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
 
-        Aws::IAM::Model::CreatePolicyRequest createPolicyRequest;
-        createPolicyRequest.SetPolicyName(policyName);
-        createPolicyRequest.SetPolicyDocument(BuildSamplePolicyDocument(resourceArn));
+        Aws::IAM::Model::CreatePolicyRequest request;
+        request.SetPolicyName(policy_name);
+        request.SetPolicyDocument(BuildSamplePolicyDocument(rsrc_arn));
 
-        auto createPolicyOutcome = iamClient.CreatePolicy(createPolicyRequest);
-        if (!createPolicyOutcome.IsSuccess())
-        {
-            std::cout << "Error creating policy " << policyName << ": " <<
-            createPolicyOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully created policy " << policyName << std::endl;
+        auto outcome = iam.CreatePolicy(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error creating policy " << policy_name << ": " <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully created policy " << policy_name <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

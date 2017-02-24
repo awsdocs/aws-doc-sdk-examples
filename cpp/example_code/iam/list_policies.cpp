@@ -12,14 +12,12 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListPoliciesRequest.h>
 #include <aws/iam/model/ListPoliciesResult.h>
-
 #include <iostream>
 
-static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
+static const char* DATE_FORMAT = "%Y-%m-%d";
 
 /**
  * Lists all iam policies
@@ -30,57 +28,45 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iam_client;
-
-        Aws::IAM::Model::ListPoliciesRequest listPoliciesRequest;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::ListPoliciesRequest request;
 
         bool done = false;
         bool header = false;
-        while (!done)
-        {
-            auto listPoliciesOutcome = iam_client.ListPolicies(listPoliciesRequest);
-            if (!listPoliciesOutcome.IsSuccess())
-            {
-                std::cout << "Failed to list iam policies: " << listPoliciesOutcome.GetError().GetMessage() <<
-                std::endl;
+        while (!done) {
+            auto outcome = iam.ListPolicies(request);
+            if (!outcome.IsSuccess()) {
+                std::cout << "Failed to list iam policies: " <<
+                    outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header)
-            {
-                std::cout << std::left << std::setw(55) << "Name"
-                << std::setw(30) << "ID"
-                << std::setw(80) << "Arn"
-                << std::setw(64) << "Description"
-                << std::setw(12) << "CreateDate" << std::endl;
+            if (!header) {
+                std::cout << std::left << std::setw(55) << "Name" <<
+                    std::setw(30) << "ID" << std::setw(80) << "Arn" <<
+                    std::setw(64) << "Description" << std::setw(12) <<
+                    "CreateDate" << std::endl;
                 header = true;
             }
 
-            const auto &policies = listPoliciesOutcome.GetResult().GetPolicies();
-            for (const auto &policy : policies)
-            {
-                std::cout << std::left << std::setw(55) << policy.GetPolicyName()
-                << std::setw(30) << policy.GetPolicyId()
-                << std::setw(80) << policy.GetArn()
-                << std::setw(64) << policy.GetDescription()
-                << std::setw(12) << policy.GetCreateDate().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
+            const auto &policies = outcome.GetResult().GetPolicies();
+            for (const auto &policy : policies) {
+                std::cout << std::left << std::setw(55) <<
+                    policy.GetPolicyName() << std::setw(30) <<
+                    policy.GetPolicyId() << std::setw(80) << policy.GetArn() <<
+                    std::setw(64) << policy.GetDescription() << std::setw(12) <<
+                    policy.GetCreateDate().ToGmtString(DATE_FORMAT) <<
+                    std::endl;
             }
 
-            if (listPoliciesOutcome.GetResult().GetIsTruncated())
-            {
-                listPoliciesRequest.SetMarker(listPoliciesOutcome.GetResult().GetMarker());
-            }
-            else
-            {
+            if (outcome.GetResult().GetIsTruncated()) {
+                request.SetMarker(outcome.GetResult().GetMarker());
+            } else {
                 done = true;
             }
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

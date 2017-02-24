@@ -24,43 +24,34 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: iam_get_server_cert <cert_name>" << std::endl;
         return 1;
     }
 
-    Aws::String certName(argv[1]);
-
+    Aws::String cert_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::GetServerCertificateRequest request;
+        request.SetServerCertificateName(cert_name);
 
-        Aws::IAM::Model::GetServerCertificateRequest getServerCertificateRequest;
-        getServerCertificateRequest.SetServerCertificateName(certName);
-
-        auto getServerCertificateOutcome = iamClient.GetServerCertificate(getServerCertificateRequest);
-        if (!getServerCertificateOutcome.IsSuccess())
-        {
-            std::cout << "Error getting server certificate " << certName << ": " <<
-            getServerCertificateOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            const auto &certificate = getServerCertificateOutcome.GetResult().GetServerCertificate();
-
-            std::cout << "Name: " << certificate.GetServerCertificateMetadata().GetServerCertificateName() << std::endl
-            << "Body: " << certificate.GetCertificateBody() << std::endl
-            << "Chain: " << certificate.GetCertificateChain() << std::endl;
+        auto outcome = iam.GetServerCertificate(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error getting server certificate " << cert_name <<
+                ": " << outcome.GetError().GetMessage() << std::endl;
+        } else {
+            const auto &certificate = outcome.GetResult().GetServerCertificate();
+            std::cout << "Name: " <<
+                certificate.GetServerCertificateMetadata().GetServerCertificateName()
+                << std::endl << "Body: " << certificate.GetCertificateBody() <<
+                std::endl << "Chain: " << certificate.GetCertificateChain() <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

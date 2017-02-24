@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeleteAccountAliasRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,39 +21,32 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
-        std::cout << "Usage: iam_delete_account_alias <account_alias>" << std::endl;
+    if(argc != 2) {
+        std::cout << "Usage: iam_delete_account_alias <account_alias>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String accountAlias(argv[1]);
-
+    Aws::String alias_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
 
-        Aws::IAM::Model::DeleteAccountAliasRequest deleteAccountAliasRequest;
-        deleteAccountAliasRequest.SetAccountAlias(accountAlias);
+        Aws::IAM::Model::DeleteAccountAliasRequest request;
+        request.SetAccountAlias(alias_name);
 
-        auto deleteAccountAliasOutcome = iamClient.DeleteAccountAlias(deleteAccountAliasRequest);
-        if (!deleteAccountAliasOutcome.IsSuccess())
-        {
-            std::cout << "Error deleting account alias " << accountAlias << ": " <<
-            deleteAccountAliasOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted account alias " << accountAlias << std::endl;
+        auto outcome = iam.DeleteAccountAlias(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error deleting account alias " << alias_name << ": "
+                << outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully deleted account alias " << alias_name <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

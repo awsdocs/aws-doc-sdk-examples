@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeleteAccessKeyRequest.h>
-
 #include <iostream>
 
 /**
@@ -25,39 +23,35 @@ int main(int argc, char** argv)
 {
     if(argc != 3)
     {
-        std::cout << "Usage: iam_delete_access_key <user_name> <access_key_id>" << std::endl;
+        std::cout << "Usage: iam_delete_access_key <user_name> <access_key_id>"
+            << std::endl;
         return 1;
     }
 
-    Aws::String userName(argv[1]);
-    Aws::String accessKeyId(argv[2]);
-
+    Aws::String user_name(argv[1]);
+    Aws::String key_id(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
 
-        Aws::IAM::Model::DeleteAccessKeyRequest deleteAccessKeyRequest;
-        deleteAccessKeyRequest.SetUserName(userName);
-        deleteAccessKeyRequest.SetAccessKeyId(accessKeyId);
+        Aws::IAM::Model::DeleteAccessKeyRequest request;
+        request.SetUserName(user_name);
+        request.SetAccessKeyId(key_id);
 
-        auto deleteAccessKeyOutcome = iamClient.DeleteAccessKey(deleteAccessKeyRequest);
-        if (!deleteAccessKeyOutcome.IsSuccess())
-        {
-            std::cout << "Error deleting access key " << accessKeyId << " from user " << userName << ": " <<
-            deleteAccessKeyOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted access key " << accessKeyId << " for IAM user " << userName << std::endl;
+        auto outcome = iam.DeleteAccessKey(request);
+
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error deleting access key " << key_id << " from user "
+                << user_name << ": " << outcome.GetError().GetMessage() <<
+                std::endl;
+        } else {
+            std::cout << "Successfully deleted access key " << key_id << " for
+                IAM user " << user_name << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

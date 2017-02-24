@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetAccessKeyLastUsedRequest.h>
 #include <aws/iam/model/GetAccessKeyLastUsedResult.h>
-
 #include <iostream>
 
 /**
@@ -24,41 +22,38 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
-        std::cout << "Usage: iam_access_key_last_used <access_key_id>" << std::endl;
+    if(argc != 2) {
+        std::cout << "Usage: iam_access_key_last_used <access_key_id>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String accessKeyId(argv[1]);
-
+    Aws::String key_id(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::GetAccessKeyLastUsedRequest request;
 
-        Aws::IAM::Model::GetAccessKeyLastUsedRequest getAccessKeyLastUsedRequest;
-        getAccessKeyLastUsedRequest.SetAccessKeyId(accessKeyId);
+        request.SetAccessKeyId(key_id);
 
-        auto getAccessKeyLastUsedOutcome = iamClient.GetAccessKeyLastUsed(getAccessKeyLastUsedRequest);
-        if (!getAccessKeyLastUsedOutcome.IsSuccess())
-        {
-            std::cout << "Error querying last used time for access key " << accessKeyId << ":" <<
-            getAccessKeyLastUsedOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            auto lastUsedTimeString = getAccessKeyLastUsedOutcome.GetResult().GetAccessKeyLastUsed().GetLastUsedDate().ToGmtString(
-                    Aws::Utils::DateFormat::ISO_8601);
-            std::cout << "Access key " << accessKeyId << " last used at time " << lastUsedTimeString << std::endl;
+        auto outcome = iam.GetAccessKeyLastUsed(request);
+
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error querying last used time for access key " <<
+                key_id << ":" << outcome.GetError().GetMessage() << std::endl;
+        } else {
+            auto lastUsedTimeString =
+                outcome.GetResult()
+                       .GetAccessKeyLastUsed()
+                       .GetLastUsedDate()
+                       .ToGmtString(Aws::Utils::DateFormat::ISO_8601);
+            std::cout << "Access key " << key_id << " last used at time " <<
+                lastUsedTimeString << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

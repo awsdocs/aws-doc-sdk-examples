@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccountAliasRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,39 +21,31 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
-        std::cout << "Usage: iam_create_account_alias <alias_name>" << std::endl;
+    if(argc != 2) {
+        std::cout << "Usage: iam_create_account_alias <alias_name>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String aliasName(argv[1]);
-
+    Aws::String alias_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::CreateAccountAliasRequest request;
+        request.SetAccountAlias(alias_name);
 
-        Aws::IAM::Model::CreateAccountAliasRequest createAccountAliasRequest;
-        createAccountAliasRequest.SetAccountAlias(aliasName);
-
-        auto createAccountAliasOutcome = iamClient.CreateAccountAlias(createAccountAliasRequest);
-        if (!createAccountAliasOutcome.IsSuccess())
-        {
-            std::cout << "Error creating account alias " << aliasName << ": " <<
-            createAccountAliasOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully created account alias " << aliasName << std::endl;
+        auto outcome = iam.CreateAccountAlias(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error creating account alias " << alias_name << ": "
+                << outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully created account alias " << alias_name <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

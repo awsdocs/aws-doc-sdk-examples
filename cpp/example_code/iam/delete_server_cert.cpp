@@ -12,51 +12,38 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeleteServerCertificateRequest.h>
-
 #include <iostream>
-
 
 /**
  * Deletes an IAM server certificate, based on command line input
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: iam_delete_server_cert <cert_name>" << std::endl;
         return 1;
     }
 
-    Aws::String certName(argv[1]);
-
+    Aws::String cert_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::IAM::IAMClient iamClient;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::DeleteServerCertificateRequest request;
+        request.SetServerCertificateName(cert_name);
 
-        Aws::IAM::Model::DeleteServerCertificateRequest deleteServerCertificateRequest;
-        deleteServerCertificateRequest.SetServerCertificateName(certName);
-
-        auto deleteServerCertificateOutcome = iamClient.DeleteServerCertificate(deleteServerCertificateRequest);
-        if (!deleteServerCertificateOutcome.IsSuccess())
-        {
-            std::cout << "Error deleting server certificate " << certName << ": " <<
-            deleteServerCertificateOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted server certificate " << certName << std::endl;
+        auto outcome = iam.DeleteServerCertificate(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Error deleting server certificate " << cert_name <<
+                ": " << outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully deleted server certificate " << cert_name
+                << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

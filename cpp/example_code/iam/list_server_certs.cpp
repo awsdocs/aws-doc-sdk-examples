@@ -12,14 +12,12 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListServerCertificatesRequest.h>
 #include <aws/iam/model/ListServerCertificatesResult.h>
-
 #include <iostream>
 
-static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
+static const char* DATE_FORMAT = "%Y-%m-%d";
 
 /**
  * Lists all server certificates associated with an account
@@ -30,57 +28,49 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
 
     {
-        Aws::IAM::IAMClient iam_client;
-
-        Aws::IAM::Model::ListServerCertificatesRequest listServerCertificatesRequest;
+        Aws::IAM::IAMClient iam;
+        Aws::IAM::Model::ListServerCertificatesRequest request;
 
         bool done = false;
         bool header = false;
-        while (!done)
-        {
-            auto listServerCertificatesOutcome = iam_client.ListServerCertificates(listServerCertificatesRequest);
-            if (!listServerCertificatesOutcome.IsSuccess())
-            {
+        while (!done) {
+            auto outcome = iam.ListServerCertificates(request);
+            if (!outcome.IsSuccess()) {
                 std::cout << "Failed to list server certificates: " <<
-                listServerCertificatesOutcome.GetError().GetMessage() << std::endl;
+                    outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header)
-            {
-                std::cout << std::left << std::setw(55) << "Name"
-                << std::setw(30) << "ID"
-                << std::setw(80) << "Arn"
-                << std::setw(14) << "UploadDate"
-                << std::setw(14) << "ExpirationDate" << std::endl;
+            if (!header) {
+                std::cout << std::left << std::setw(55) << "Name" <<
+                    std::setw(30) << "ID" << std::setw(80) << "Arn" <<
+                    std::setw(14) << "UploadDate" << std::setw(14) <<
+                    "ExpirationDate" << std::endl;
                 header = true;
             }
 
-            const auto &certificates = listServerCertificatesOutcome.GetResult().GetServerCertificateMetadataList();
-            for (const auto &certificate : certificates)
-            {
-                std::cout << std::left << std::setw(55) << certificate.GetServerCertificateName()
-                << std::setw(30) << certificate.GetServerCertificateId()
-                << std::setw(80) << certificate.GetArn()
-                << std::setw(14) << certificate.GetUploadDate().ToGmtString(SIMPLE_DATE_FORMAT_STR)
-                << std::setw(14) << certificate.GetExpiration().ToGmtString(SIMPLE_DATE_FORMAT_STR) << std::endl;
+            const auto &certificates =
+                outcome.GetResult().GetServerCertificateMetadataList();
+
+            for (const auto &certificate : certificates) {
+                std::cout << std::left << std::setw(55) <<
+                    certificate.GetServerCertificateName() << std::setw(30) <<
+                    certificate.GetServerCertificateId() << std::setw(80) <<
+                    certificate.GetArn() << std::setw(14) <<
+                    certificate.GetUploadDate().ToGmtString(DATE_FORMAT) <<
+                    std::setw(14) <<
+                    certificate.GetExpiration().ToGmtString(DATE_FORMAT) <<
+                    std::endl;
             }
 
-            if (listServerCertificatesOutcome.GetResult().GetIsTruncated())
-            {
-                listServerCertificatesRequest.SetMarker(listServerCertificatesOutcome.GetResult().GetMarker());
-            }
-            else
-            {
+            if (outcome.GetResult().GetIsTruncated()) {
+                request.SetMarker(outcome.GetResult().GetMarker());
+            } else {
                 done = true;
             }
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 
