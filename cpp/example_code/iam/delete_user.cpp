@@ -21,7 +21,6 @@
 void DeleteUser(const Aws::String& user_name)
 {
     Aws::IAM::IAMClient iam;
-
     Aws::IAM::Model::GetUserRequest gu_req;
     gu_req.SetUserName(user_name);
 

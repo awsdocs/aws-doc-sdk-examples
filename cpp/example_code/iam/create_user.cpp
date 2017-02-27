@@ -22,7 +22,6 @@
 void CreateUser(const Aws::String& user_name)
 {
     Aws::IAM::IAMClient iam;
-
     Aws::IAM::Model::GetUserRequest get_request;
     get_request.SetUserName(user_name);
 
