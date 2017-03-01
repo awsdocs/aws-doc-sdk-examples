@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$client = CloudWatchClient::factory([
+$client = new CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2010-08-01'
