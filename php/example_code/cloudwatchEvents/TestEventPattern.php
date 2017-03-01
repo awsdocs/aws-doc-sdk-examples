@@ -18,13 +18,13 @@ use Aws\CloudWatchEvents\CloudWatchEventsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Test Event Pattern
+ * Test event pattern
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$client = CloudWatchEventsClient::factory([
+$client = new CloudWatchEventsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2015-10-07'
