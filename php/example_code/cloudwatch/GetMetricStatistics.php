@@ -18,7 +18,7 @@ use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
 
 /**
- * Describe Alarms in CloudWatch
+ * Get Metric Statistics
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
@@ -31,11 +31,18 @@ $client = CloudWatchClient::factory([
 ]);
 
 try {
-    $result = $client->describeAlarms([
-    ]);
-    foreach ($result['MetricAlarms'] as $alarm) {
-        echo $alarm['AlarmName'] . "\n";
-    }
+    $result = $client->getMetricStatistics(array(
+        'Namespace' => 'string',
+        'MetricName' => 'CloudWatchTests',
+        //StartTime : mixed type: string (date format)|int (unix timestamp)|\DateTime
+        'StartTime' => strtotime('-1 days'),
+        //EndTime : mixed type: string (date format)|int (unix timestamp)|\DateTime
+        'EndTime' => strtotime('now'),
+        //The granularity, in seconds, of the returned datapoints. Period must be at least 60 seconds and must be a multiple of 60. The default value is 60
+        'Period' => 3000,
+        'Statistics' => array('Maximum', 'Minimum'),
+    ));
+    var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());

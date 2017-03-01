@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 require 'vendor/autoload.php';
+
 use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
 
@@ -24,23 +24,23 @@ use Aws\Exception\AwsException;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$alarmName = "<ALARM-NAME>";
+$alarmName = "<ALARM_NAME>";
 
 $client = CloudWatchClient::factory([
-        'profile' => 'default',
-        'region'  => 'us-east-1',
-        'version' => '2010-08-01'
+    'profile' => 'default',
+    'region' => 'us-west-2',
+    'version' => '2010-08-01'
 ]);
 
 try {
     $result = $client->describeAlarmHistory([
         'AlarmName' => $alarmName
     ]);
-    echo "Alarm History for ".$alarmName.":\n";
-    foreach ($result['AlarmHistoryItems'] as $alarm){
-        echo $alarm['Timestamp']." ".$alarm['HistoryItemType']."\n";
+    echo "Alarm History for " . $alarmName . ":\n";
+    foreach ($result['AlarmHistoryItems'] as $alarm) {
+        echo $alarm['Timestamp'] . " " . $alarm['HistoryItemType'] . "\n";
     }
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }

@@ -18,7 +18,7 @@ use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
 
 /**
- * Describe Alarms in CloudWatch
+ * Put Metric Data
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
@@ -31,11 +31,19 @@ $client = CloudWatchClient::factory([
 ]);
 
 try {
-    $result = $client->describeAlarms([
-    ]);
-    foreach ($result['MetricAlarms'] as $alarm) {
-        echo $alarm['AlarmName'] . "\n";
-    }
+    $result = $client->putMetricData(array(
+        'Namespace' => 'string',
+        'MetricData' => array(
+            array(
+                'MetricName' => 'string',
+                //Timestamp : mixed type: string (date format)|int (unix timestamp)|\DateTime
+                'Timestamp' => time(),
+                'Value' => integer,
+                'Unit' => 'Kilobytes'
+            )
+        )
+    ));
+    var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
