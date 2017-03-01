@@ -17,7 +17,7 @@ require 'vendor/autoload.php';
 use Aws\Ec2\Ec2Client;
 
 /**
- * Modify VPC Endpoint
+ * Describe VPC Endpoint
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
