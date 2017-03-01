@@ -26,7 +26,7 @@ use Aws\Exception\AwsException;
 
 $alarmName = "<ALARM_NAME>";
 
-$client = CloudWatchClient::factory([
+$client = new CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2010-08-01'
