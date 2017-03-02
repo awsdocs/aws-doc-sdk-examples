@@ -37,12 +37,12 @@ $policyName = 'AmazonDynamoDBFullAccess';
 $policyArn = 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess';
 
 try {
-    $attachedGroupPolicies = $client->getIterator('ListAttachedRolePolicies', ([
+    $attachedRolePolicies = $client->getIterator('ListAttachedRolePolicies', ([
         'RoleName' => $roleName,
     ]));
-    if (count($attachedGroupPolicies) > 0) {
-        foreach ($attachedGroupPolicies as $attachedGroupPolicy) {
-            if ($attachedGroupPolicy['PolicyName'] == $policyName) {
+    if (count($attachedRolePolicies) > 0) {
+        foreach ($attachedRolePolicies as $attachedRolePolicy) {
+            if ($attachedRolePolicy['PolicyName'] == $policyName) {
                 echo $policyName . " is already attached to this role. \n";
                 exit();
             }
