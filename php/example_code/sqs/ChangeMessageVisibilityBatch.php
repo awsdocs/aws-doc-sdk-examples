@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueUrl = "https://sqs.us-west-2.amazonaws.com/531188675838/test2";
+$queueUrl = "QUEUE_URL";
 
 $client = new SqsClient([
     'profile' => 'default',
