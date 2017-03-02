@@ -14,30 +14,30 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
-use Aws\Exception\AwsException;
+use Aws\Ec2\Ec2Client;
 
 /**
- * Enable Alarm Actions in CloudWatch
+ * Create & Configure Security Group
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
-    'profile' => 'default',
+$ec2Client = new Ec2Client([
     'region' => 'us-west-2',
-    'version' => '2010-08-01'
+    'version' => '2016-11-15',
+    'profile' => 'default'
 ]);
 
-try {
-    $result = $client->enableAlarmActions([
-        'AlarmNames' => array($alarmName) //REQUIRED
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
-}
+// Create the security group
+$securityGroupName = 'my-security-group';
+$result = $ec2Client->createSecurityGroup(array(
+    'GroupId' => $securityGroupName,
+
+));
+
+// Get the security group ID (optional)
+$securityGroupId = $result->get('GroupId');
+
+echo "Security Group ID: " . $securityGroupId . '\n';
+

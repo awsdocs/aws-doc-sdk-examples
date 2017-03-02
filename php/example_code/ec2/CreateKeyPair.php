@@ -14,30 +14,31 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
-use Aws\Exception\AwsException;
+use Aws\Ec2\Ec2Client;
 
 /**
- * Enable Alarm Actions in CloudWatch
+ * Create a Key Pair
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
-    'profile' => 'default',
+$ec2Client = new Ec2Client([
     'region' => 'us-west-2',
-    'version' => '2010-08-01'
+    'version' => '2016-11-15',
+    'profile' => 'default'
 ]);
 
-try {
-    $result = $client->enableAlarmActions([
-        'AlarmNames' => array($alarmName) //REQUIRED
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
-}
+$keyPairName = 'my-keypair';
+
+$result = $ec2Client->createKeyPair(array(
+    'KeyName' => $keyPairName
+));
+
+// Save the private key
+$saveKeyLocation = getenv('HOME') . "/.ssh/{$keyPairName}.pem";
+file_put_contents($saveKeyLocation, $result['keyMaterial']);
+
+// Update the key's permissions so it can be used with SSH
+chmod($saveKeyLocation, 0600);
+

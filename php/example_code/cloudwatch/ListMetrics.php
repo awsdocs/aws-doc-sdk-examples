@@ -18,13 +18,11 @@ use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
 
 /**
- * Enable Alarm Actions in CloudWatch
+ * List Metrics in CloudWatch
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
-
-$alarmName = "<ALARM_NAME>";
 
 $client = new CloudWatchClient([
     'profile' => 'default',
@@ -33,9 +31,7 @@ $client = new CloudWatchClient([
 ]);
 
 try {
-    $result = $client->enableAlarmActions([
-        'AlarmNames' => array($alarmName) //REQUIRED
-    ]);
+    $result = $client->listMetrics();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

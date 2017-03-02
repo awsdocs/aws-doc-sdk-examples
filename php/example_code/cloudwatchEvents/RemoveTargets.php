@@ -14,27 +14,26 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
+use Aws\CloudWatchEvents\CloudWatchEventsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Enable Alarm Actions in CloudWatch
+ * Remove Targets
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
+$client = new CloudWatchEventsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
-    'version' => '2010-08-01'
+    'version' => '2015-10-07'
 ]);
 
 try {
-    $result = $client->enableAlarmActions([
-        'AlarmNames' => array($alarmName) //REQUIRED
+    $result = $client->removeTargets([
+        'Ids' => ['myCloudWatchEventsTarget'], // REQUIRED
+        'Rule' => 'DEMO_EVENT', // REQUIRED
     ]);
     var_dump($result);
 } catch (AwsException $e) {

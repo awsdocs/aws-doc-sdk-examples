@@ -14,30 +14,25 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
-use Aws\Exception\AwsException;
+use Aws\Ec2\Ec2Client;
 
 /**
- * Enable Alarm Actions in CloudWatch
+ * Terminate Instances
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
-    'profile' => 'default',
+$ec2Client = new Ec2Client([
     'region' => 'us-west-2',
-    'version' => '2010-08-01'
+    'version' => '2016-11-15',
+    'profile' => 'default'
 ]);
 
-try {
-    $result = $client->enableAlarmActions([
-        'AlarmNames' => array($alarmName) //REQUIRED
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
-}
+$result = $ec2Client->terminateInstances(array(
+    'DryRun' => true || false,
+    // InstanceIds is required
+    'InstanceIds' => array('InstanceId1', 'InstanceId2'),
+));
+
+var_dump($result);
