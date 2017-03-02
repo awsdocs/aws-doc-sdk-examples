@@ -12,32 +12,32 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 require 'vendor/autoload.php';
+
 use Aws\Sqs\SqsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Get SQS Queue URL
+ * Get SQS queue url
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$QUEUE_NAME = "<SQS QUEUE NAME>";
+$queueName = "SQS_QUEUE_NAME";
 
-$client = SqsClient::factory(array(
-    'region'  => 'us-west-2',
+$client = new SqsClient([
+    'profile' => 'default',
+    'region' => 'us-west-2',
     'version' => '2012-11-05'
-));
+]);
 
 try {
     $result = $client->getQueueUrl([
-        'QueueName' => $QUEUE_NAME // REQUIRED
+        'QueueName' => $queueName // REQUIRED
     ]);
-    echo $result->get('QueueUrl')."\n";
-}catch (AwsException $e) {
+    var_dump($result);
+} catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    error_log($e->getMessage());
 }

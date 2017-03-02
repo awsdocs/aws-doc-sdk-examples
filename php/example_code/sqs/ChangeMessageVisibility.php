@@ -18,13 +18,13 @@ use Aws\Sqs\SqsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Changes the visibility timeout of a specified message in a queue to a new value
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
+$queueUrl = "QUEUE_URL";
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -33,14 +33,22 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
+    $result = $client->receiveMessage(array(
+        'AttributeNames' => ['SentTimestamp'],
+        'MaxNumberOfMessages' => 1,
+        'MessageAttributeNames' => ['All'],
+        'QueueUrl' => $queueUrl, // REQUIRED
     ));
-    var_dump($result);
+    if ($result->get('Messages') != null) {
+        $result = $client->changeMessageVisibility([
+            'QueueUrl' => $queueUrl, // REQUIRED
+            'ReceiptHandle' => $result->get('Messages')[0]['ReceiptHandle'], // REQUIRED
+            'VisibilityTimeout' => 36000, // REQUIRED
+        ]);
+        var_dump($result);
+    } else {
+        echo "No messages in queue \n";
+    }
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());

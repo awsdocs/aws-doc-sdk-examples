@@ -18,13 +18,11 @@ use Aws\Sqs\SqsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Receive SQS Queue with Long Polling
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
-
-$queueName = "SQS_QUEUE_NAME";
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -32,14 +30,28 @@ $client = new SqsClient([
     'version' => '2012-11-05'
 ]);
 
+$params = [
+    'DelaySeconds' => 10,
+    'MessageAttributes' => [
+        "Title" => [
+            'DataType' => "String",
+            'StringValue' => "The Hitchhiker's Guide to the Galaxy"
+        ],
+        "Author" => [
+            'DataType' => "String",
+            'StringValue' => "Douglas Adams."
+        ],
+        "WeeksOn" => [
+            'DataType' => "Number",
+            'StringValue' => "6"
+        ]
+    ],
+    'MessageBody' => "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+    'QueueUrl' => 'QUEUE_URL'
+];
+
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
-    ));
+    $result = $client->sendMessage($params);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
