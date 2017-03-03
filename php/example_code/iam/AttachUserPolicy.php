@@ -30,7 +30,7 @@ $client = new IamClient([
     'version' => '2010-05-08'
 ]);
 
-$userName = 'agshasha';
+$userName = 'USER_NAME';
 
 $policyName = 'AmazonDynamoDBFullAccess';
 
