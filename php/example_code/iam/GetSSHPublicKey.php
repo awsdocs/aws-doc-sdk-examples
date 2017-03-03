@@ -14,32 +14,28 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Iam\IamClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Retrieves the specified SSH public key, including metadata about the key.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
-
-$client = new SqsClient([
+$client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
-    'version' => '2012-11-05'
+    'version' => '2010-05-08'
 ]);
 
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
-    ));
+    $result = $client->getSSHPublicKey([
+        'Encoding' => 'SSH', // REQUIRED
+        'SSHPublicKeyId' => 'SSH_PUBLIC_KEY_ID', // REQUIRED
+        'UserName' => 'IAM_USER_NAME', // REQUIRED
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

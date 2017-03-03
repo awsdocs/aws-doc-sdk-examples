@@ -18,13 +18,13 @@ use Aws\Sqs\SqsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Receive SQS message
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
+$queueUrl = "QUEUE_URL";
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -33,14 +33,22 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
+    $result = $client->receiveMessage(array(
+        'AttributeNames' => ['SentTimestamp'],
+        'MaxNumberOfMessages' => 1,
+        'MessageAttributeNames' => ['All'],
+        'QueueUrl' => $queueUrl, // REQUIRED
+        'WaitTimeSeconds' => 0,
     ));
-    var_dump($result);
+    if (count($result->get('Messages')) > 0) {
+        var_dump($result->get('Messages')[0]);
+        $result = $client->deleteMessage([
+            'QueueUrl' => $queueUrl, // REQUIRED
+            'ReceiptHandle' => $result->get('Messages')[0]['ReceiptHandle'] // REQUIRED
+        ]);
+    } else {
+        echo "No messages in queue. \n";
+    }
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());

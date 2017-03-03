@@ -14,32 +14,30 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Put bucket accelerate configuration
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
+$bucketName = 'BUCKET_NAME';
 
-$client = new SqsClient([
-    'profile' => 'default',
+$client = new S3Client([
     'region' => 'us-west-2',
-    'version' => '2012-11-05'
+    'version' => '2006-03-01'
 ]);
 
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
-    ));
+    $result = $client->putBucketAccelerateConfiguration([
+        'AccelerateConfiguration' => [ // REQUIRED
+            'Status' => 'Enabled',
+        ],
+        'Bucket' => $bucketName, // REQUIRED
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

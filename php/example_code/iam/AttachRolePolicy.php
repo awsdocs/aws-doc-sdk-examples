@@ -14,31 +14,45 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Iam\IamClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Attaches policy to the specified role
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
-
-$client = new SqsClient([
+$client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
-    'version' => '2012-11-05'
+    'version' => '2010-05-08'
 ]);
 
+$roleName = 'ROLE_NAME';
+
+$policyName = 'AmazonDynamoDBFullAccess';
+
+$policyArn = 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess';
+
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
+    $attachedRolePolicies = $client->getIterator('ListAttachedRolePolicies', ([
+        'RoleName' => $roleName,
+    ]));
+    if (count($attachedRolePolicies) > 0) {
+        foreach ($attachedRolePolicies as $attachedRolePolicy) {
+            if ($attachedRolePolicy['PolicyName'] == $policyName) {
+                echo $policyName . " is already attached to this role. \n";
+                exit();
+            }
+        }
+    }
+    $result = $client->attachRolePolicy(array(
+        // RoleName is required
+        'RoleName' => $roleName,
+        // PolicyArn is required
+        'PolicyArn' => $policyArn
     ));
     var_dump($result);
 } catch (AwsException $e) {

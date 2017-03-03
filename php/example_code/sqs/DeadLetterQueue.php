@@ -18,13 +18,13 @@ use Aws\Sqs\SqsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Enable Dead Letter Queue
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
+$queueUrl = "QUEUE_URL";
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -33,13 +33,12 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
-    ));
+    $result = $client->setQueueAttributes([
+        'Attributes' => [
+            'RedrivePolicy' => "{\"deadLetterTargetArn\":\"DEAD_LETTER_QUEUE_ARN\",\"maxReceiveCount\":\"10\"}"
+        ],
+        'QueueUrl' => $queueUrl // REQUIRED
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

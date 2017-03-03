@@ -14,31 +14,28 @@
  */
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Iam\IamClient;
 use Aws\Exception\AwsException;
 
 /**
- * Create SQS Queue
+ * Delete a policy version
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$queueName = "SQS_QUEUE_NAME";
-
-$client = new SqsClient([
+$client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
-    'version' => '2012-11-05'
+    'version' => '2010-05-08'
 ]);
 
 try {
-    $result = $client->createQueue(array(
-        'QueueName' => $queueName,
-        'Attributes' => array(
-            'DelaySeconds' => 5,
-            'MaximumMessageSize' => 4096, // 4 KB
-        ),
+    $result = $client->deletePolicyVersion(array(
+        // PolicyArn is required
+        'PolicyArn' => 'string',
+        // VersionId is required
+        'VersionId' => 'string',
     ));
     var_dump($result);
 } catch (AwsException $e) {
