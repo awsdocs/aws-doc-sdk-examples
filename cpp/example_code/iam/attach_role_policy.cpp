@@ -27,11 +27,9 @@ void AttachRolePolicy(
     list_request.SetRoleName(role_name);
 
     bool done = false;
-    while(!done)
-    {
+    while(!done) {
         auto list_outcome = iam.ListAttachedRolePolicies(list_request);
-        if(!list_outcome.IsSuccess())
-        {
+        if(!list_outcome.IsSuccess()) {
             std::cout << "Failed to list attached policies of role " <<
                 role_name << ": " << list_outcome.GetError().GetMessage() <<
                 std::endl;
@@ -42,8 +40,7 @@ void AttachRolePolicy(
         if (std::any_of(policies.cbegin(), policies.cend(),
                 [=](const Aws::IAM::Model::AttachedPolicy& policy){
                     return policy.GetPolicyArn() == policy_arn;
-                }))
-        {
+                })) {
             std::cout << "Policy " << policy_arn <<
                 " is already attached to role " << role_name << std::endl;
             return;
@@ -76,8 +73,7 @@ static const char* SAMPLE_POLICY_ARN =
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2 || argc >= 4)
-    {
+    if(argc < 2 || argc >= 4) {
         std::cout << "Usage: iam_attach_role_policy <role_name> [policy_arn]" <<
             std::endl;
         return 1;

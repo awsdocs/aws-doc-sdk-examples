@@ -29,6 +29,7 @@ int main(int argc, char** argv)
     Aws::String cert_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
     {
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::DeleteServerCertificateRequest request;

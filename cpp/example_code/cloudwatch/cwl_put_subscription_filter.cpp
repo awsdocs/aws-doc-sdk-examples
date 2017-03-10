@@ -12,12 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/logs/CloudWatchLogsClient.h>
 #include <aws/logs/model/PutSubscriptionFilterRequest.h>
-
 #include <aws/core/utils/Outcome.h>
-
 #include <iostream>
 
 /**
@@ -25,45 +22,37 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 5)
-    {
-        std::cout << "Usage: cwe_put_subscription_filter <filter_name> <filter_pattern> <log_group_name> <lambda_function_arn>" << std::endl;
+    if (argc != 5) {
+        std::cout << "Usage: " << std::endl << "  cwe_put_subscription_filter "
+            << "<filter_name> <filter_pattern> <log_group_name> " <<
+            "<lambda_function_arn>" << std::endl;
         return 1;
     }
 
-    Aws::String filterName(argv[1]);
-    Aws::String filterPattern(argv[2]);
-    Aws::String logGroupName(argv[3]);
-    Aws::String destinationArn(argv[4]);
-
+    Aws::String filter_name(argv[1]);
+    Aws::String filter_pattern(argv[2]);
+    Aws::String log_group(argv[3]);
+    Aws::String dest_arn(argv[4]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
-
-        Aws::CloudWatchLogs::Model::PutSubscriptionFilterRequest putSubscriptionFilterRequest;
-        putSubscriptionFilterRequest.SetFilterName(filterName);
-        putSubscriptionFilterRequest.SetFilterPattern(filterPattern);
-        putSubscriptionFilterRequest.SetLogGroupName(logGroupName);
-        putSubscriptionFilterRequest.SetDestinationArn(destinationArn);
-
-        auto putSubscriptionFilterOutcome = cwl_client.PutSubscriptionFilter(putSubscriptionFilterRequest);
-        if (!putSubscriptionFilterOutcome.IsSuccess())
-        {
-            std::cout << "Failed to create cloudwatch logs subscription filter " << filterName << ": " <<
-            putSubscriptionFilterOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully created cloudwatch logs subscription filter " << filterName << std::endl;
+        Aws::CloudWatchLogs::CloudWatchLogsClient cwl;
+        Aws::CloudWatchLogs::Model::PutSubscriptionFilterRequest request;
+        request.SetFilterName(filter_name);
+        request.SetFilterPattern(filter_pattern);
+        request.SetLogGroupName(log_group);
+        request.SetDestinationArn(dest_arn);
+        auto outcome = cwl.PutSubscriptionFilter(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to create cloudwatch logs subscription filter "
+                << filter_name << ": " << outcome.GetError().GetMessage() <<
+                std::endl;
+        } else {
+            std::cout << "Successfully created cloudwatch logs subscription " <<
+                "filter " << filter_name << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

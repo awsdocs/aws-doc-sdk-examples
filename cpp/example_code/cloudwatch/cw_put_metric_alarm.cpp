@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,56 +21,48 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3)
-    {
-        std::cout << "Usage: cw_put_metric_alarm <alarm_name> <instance_id>" << std::endl;
+    if (argc != 3) {
+        std::cout << "Usage:" << "  cw_put_metric_alarm " <<
+            "<alarm_name> <instance_id>" << std::endl;
         return 1;
     }
 
-    Aws::String alarmName(argv[1]);
+    Aws::String alarm_name(argv[1]);
     Aws::String instanceId(argv[2]);
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatch::CloudWatchClient cw_client;
-
-        Aws::CloudWatch::Model::PutMetricAlarmRequest putMetricAlarmRequest;
-        putMetricAlarmRequest.SetAlarmName(alarmName);
-        putMetricAlarmRequest.SetComparisonOperator(Aws::CloudWatch::Model::ComparisonOperator::GreaterThanThreshold);
-        putMetricAlarmRequest.SetEvaluationPeriods(1);
-        putMetricAlarmRequest.SetMetricName("CPUUtilization");
-        putMetricAlarmRequest.SetNamespace("AWS/EC2");
-        putMetricAlarmRequest.SetPeriod(60);
-        putMetricAlarmRequest.SetStatistic(Aws::CloudWatch::Model::Statistic::Average);
-        putMetricAlarmRequest.SetThreshold(70.0);
-        putMetricAlarmRequest.SetActionsEnabled(false);
-        putMetricAlarmRequest.SetAlarmDescription("Alarm when server CPU exceeds 70%");
-        putMetricAlarmRequest.SetUnit(Aws::CloudWatch::Model::StandardUnit::Seconds);
+        Aws::CloudWatch::CloudWatchClient cw;
+        Aws::CloudWatch::Model::PutMetricAlarmRequest request;
+        request.SetAlarmName(alarm_name);
+        request.SetComparisonOperator(
+                Aws::CloudWatch::Model::ComparisonOperator::GreaterThanThreshold);
+        request.SetEvaluationPeriods(1);
+        request.SetMetricName("CPUUtilization");
+        request.SetNamespace("AWS/EC2");
+        request.SetPeriod(60);
+        request.SetStatistic(Aws::CloudWatch::Model::Statistic::Average);
+        request.SetThreshold(70.0);
+        request.SetActionsEnabled(false);
+        request.SetAlarmDescription("Alarm when server CPU exceeds 70%");
+        request.SetUnit(Aws::CloudWatch::Model::StandardUnit::Seconds);
 
         Aws::CloudWatch::Model::Dimension dimension;
         dimension.SetName("InstanceId");
         dimension.SetValue(instanceId);
 
-        putMetricAlarmRequest.AddDimensions(dimension);
+        request.AddDimensions(dimension);
 
-        auto putMetricAlarmOutcome = cw_client.PutMetricAlarm(putMetricAlarmRequest);
-        if (!putMetricAlarmOutcome.IsSuccess())
-        {
-            std::cout << "Failed to create cloudwatch alarm:" << putMetricAlarmOutcome.GetError().GetMessage() <<
-            std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully created cloudwatch alarm " << alarmName << std::endl;
+        auto outcome = cw.PutMetricAlarm(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to create cloudwatch alarm:" <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully created cloudwatch alarm " << alarm_name
+                << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

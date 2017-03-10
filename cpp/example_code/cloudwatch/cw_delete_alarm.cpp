@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DeleteAlarmsRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,37 +21,30 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2)
-    {
+    if (argc != 2) {
         std::cout << "Usage: cw_delete_alarm <alarm_name>" << std::endl;
         return 1;
     }
 
-    Aws::String alarmName(argv[1]);
-
+    Aws::String alarm_name(argv[1]);
     Aws::SDKOptions options;
+
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatch::CloudWatchClient cw_client;
+        Aws::CloudWatch::CloudWatchClient cw;
+        Aws::CloudWatch::Model::DeleteAlarmsRequest request;
+        request.AddAlarmNames(alarm_name);
 
-        Aws::CloudWatch::Model::DeleteAlarmsRequest deleteAlarmsRequest;
-        deleteAlarmsRequest.AddAlarmNames(alarmName);
-
-        auto deleteAlarmsOutcome = cw_client.DeleteAlarms(deleteAlarmsRequest);
-        if (!deleteAlarmsOutcome.IsSuccess())
-        {
-            std::cout << "Failed to delete cloudwatch alarm:" << deleteAlarmsOutcome.GetError().GetMessage() <<
-            std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted cloudwatch alarm " << alarmName << std::endl;
+        auto outcome = cw.DeleteAlarms(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to delete cloudwatch alarm:" <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully deleted cloudwatch alarm " << alarm_name
+                << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

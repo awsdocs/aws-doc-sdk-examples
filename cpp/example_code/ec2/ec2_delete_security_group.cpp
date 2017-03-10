@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,39 +21,29 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: ec2_delete_security_group <group_id>" << std::endl;
         return 1;
     }
 
     Aws::String groupId = argv[1];
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::EC2::EC2Client ec2_client;
+        Aws::EC2::EC2Client ec2;
+        Aws::EC2::Model::DeleteSecurityGroupRequest request;
+        request.SetGroupId(groupId);
 
-        Aws::EC2::Model::DeleteSecurityGroupRequest deleteSecurityGroupRequest;
-        deleteSecurityGroupRequest.SetGroupId(groupId);
-
-        auto deleteSecurityGroupOutcome = ec2_client.DeleteSecurityGroup(deleteSecurityGroupRequest);
-        if (!deleteSecurityGroupOutcome.IsSuccess())
-        {
+        auto outcome = ec2.DeleteSecurityGroup(request);
+        if (!outcome.IsSuccess()) {
             std::cout << "Failed to delete security group " << groupId << ":" <<
-            deleteSecurityGroupOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted security group " << groupId << std::endl;
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully deleted security group " << groupId <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

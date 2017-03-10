@@ -12,13 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/core/utils/Outcome.h>
-
 #include <aws/logs/CloudWatchLogsClient.h>
 #include <aws/logs/model/DescribeSubscriptionFiltersRequest.h>
 #include <aws/logs/model/DescribeSubscriptionFiltersResult.h>
-
 #include <iostream>
 #include <iomanip>
 
@@ -29,61 +26,53 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: cw_describe_subscription_filters <log_group_name>" << std::endl;
+        std::cout << "Usage:" << std::endl <<
+            "  cw_describe_subscription_filters <log_group_name>" << std::endl;
         return 1;
     }
 
-    Aws::String logGroupName(argv[1]);
-
+    Aws::String log_group(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
-
-        Aws::CloudWatchLogs::Model::DescribeSubscriptionFiltersRequest describeSubscriptionFiltersRequest;
-        describeSubscriptionFiltersRequest.SetLogGroupName(logGroupName);
-        describeSubscriptionFiltersRequest.SetLimit(1);
+        Aws::CloudWatchLogs::CloudWatchLogsClient cwl;
+        Aws::CloudWatchLogs::Model::DescribeSubscriptionFiltersRequest request;
+        request.SetLogGroupName(log_group);
+        request.SetLimit(1);
 
         bool done = false;
         bool header = false;
-        while (!done)
-        {
-            auto describeSubscriptionFiltersOutcome = cwl_client.DescribeSubscriptionFilters(
-                    describeSubscriptionFiltersRequest);
-            if (!describeSubscriptionFiltersOutcome.IsSuccess())
-            {
-                std::cout << "Failed to describe cloudwatch subscription filters for log group " << logGroupName <<
-                ": " << describeSubscriptionFiltersOutcome.GetError().GetMessage() << std::endl;
+        while (!done) {
+            auto outcome = cwl.DescribeSubscriptionFilters(
+                    request);
+            if (!outcome.IsSuccess()) {
+                std::cout << "Failed to describe cloudwatch subscription filters "
+                    << "for log group " << log_group << ": " <<
+                    outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header)
-            {
-                std::cout << std::left << std::setw(32) << "Name"
-                << std::setw(64) << "FilterPattern"
-                << std::setw(64) << "DestinationArn" << std::endl;
+            if (!header) {
+                std::cout << std::left << std::setw(32) << "Name" <<
+                    std::setw(64) << "FilterPattern" << std::setw(64) <<
+                    "DestinationArn" << std::endl;
                 header = true;
             }
 
-            const auto &filters = describeSubscriptionFiltersOutcome.GetResult().GetSubscriptionFilters();
-            for (const auto &filter : filters)
-            {
-                std::cout << std::left << std::setw(32) << filter.GetFilterName()
-                << std::setw(64) << filter.GetFilterPattern()
-                << std::setw(64) << filter.GetDestinationArn() << std::endl;
+            const auto &filters = outcome.GetResult().GetSubscriptionFilters();
+            for (const auto &filter : filters) {
+                std::cout << std::left << std::setw(32) <<
+                    filter.GetFilterName() << std::setw(64) <<
+                    filter.GetFilterPattern() << std::setw(64) <<
+                    filter.GetDestinationArn() << std::endl;
             }
 
-            const auto &nextToken = describeSubscriptionFiltersOutcome.GetResult().GetNextToken();
-            describeSubscriptionFiltersRequest.SetNextToken(nextToken);
-            done = nextToken.empty();
+            const auto &next_token = outcome.GetResult().GetNextToken();
+            request.SetNextToken(next_token);
+            done = next_token.empty();
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

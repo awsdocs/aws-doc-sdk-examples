@@ -64,7 +64,6 @@ int main(int argc, char** argv)
 
     Aws::String policy_name(argv[1]);
     Aws::String rsrc_arn(argv[2]);
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 

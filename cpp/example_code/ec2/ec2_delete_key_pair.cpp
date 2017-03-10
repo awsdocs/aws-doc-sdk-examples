@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteKeyPairRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,39 +21,28 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: ec2_delete_key_pair <key_pair_name>" << std::endl;
         return 1;
     }
 
-    Aws::String keyPairName = argv[1];
-
+    Aws::String pair_name = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::EC2::EC2Client ec2_client;
-
-        Aws::EC2::Model::DeleteKeyPairRequest deleteKeyPairRequest;
-        deleteKeyPairRequest.SetKeyName(keyPairName);
-
-        auto deleteKeyPairOutcome = ec2_client.DeleteKeyPair(deleteKeyPairRequest);
-        if (!deleteKeyPairOutcome.IsSuccess())
-        {
-            std::cout << "Failed to delete key pair " << keyPairName << ":" <<
-            deleteKeyPairOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted key pair named " << keyPairName << std::endl;
+        Aws::EC2::EC2Client ec2;
+        Aws::EC2::Model::DeleteKeyPairRequest request;
+        request.SetKeyName(pair_name);
+        auto outcome = ec2.DeleteKeyPair(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to delete key pair " << pair_name << ":" <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully deleted key pair named " << pair_name <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

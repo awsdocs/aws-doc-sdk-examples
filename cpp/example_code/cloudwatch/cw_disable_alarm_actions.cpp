@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DisableAlarmActionsRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,39 +21,33 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2)
-    {
-        std::cout << "Usage: cw_disable_alarm_actions <alarm_name>" << std::endl;
+    if (argc != 2) {
+        std::cout << "Usage: cw_disable_alarm_actions <alarm_name>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::String alarmName(argv[1]);
-
+    Aws::String alarm_name(argv[1]);
     Aws::SDKOptions options;
-    Aws::InitAPI(options);
 
+    Aws::InitAPI(options);
     {
-        Aws::CloudWatch::CloudWatchClient cw_client;
+        Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::DisableAlarmActionsRequest disableAlarmActionsRequest;
-        disableAlarmActionsRequest.AddAlarmNames(alarmName);
+        disableAlarmActionsRequest.AddAlarmNames(alarm_name);
 
-        auto disableAlarmActionsOutcome = cw_client.DisableAlarmActions(disableAlarmActionsRequest);
-        if (!disableAlarmActionsOutcome.IsSuccess())
-        {
-            std::cout << "Failed to disable actions for alarm " << alarmName << ": " <<
-            disableAlarmActionsOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully disabled actions for alarm " << alarmName << std::endl;
+        auto disableAlarmActionsOutcome = cw.DisableAlarmActions(disableAlarmActionsRequest);
+        if (!disableAlarmActionsOutcome.IsSuccess()) {
+            std::cout << "Failed to disable actions for alarm " << alarm_name <<
+                ": " << disableAlarmActionsOutcome.GetError().GetMessage() <<
+                std::endl;
+        } else {
+            std::cout << "Successfully disabled actions for alarm " <<
+                alarm_name << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

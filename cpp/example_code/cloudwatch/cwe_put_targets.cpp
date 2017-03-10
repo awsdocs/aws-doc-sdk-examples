@@ -12,13 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/events/CloudWatchEventsClient.h>
 #include <aws/events/model/PutTargetsRequest.h>
 #include <aws/events/model/PutTargetsResult.h>
-
 #include <aws/core/utils/Outcome.h>
-
 #include <iostream>
 
 /**
@@ -28,42 +25,39 @@ int main(int argc, char** argv)
 {
     if (argc != 4)
     {
-        std::cout << "Usage: cwe_put_targets <rule_name> <lambda_function_arn> <target_id>" << std::endl;
+        std::cout << "Usage:" << std::cout << "  cwe_put_targets " <<
+            "<rule_name> <lambda_function_arn> <target_id>" << std::endl;
         return 1;
     }
 
-    Aws::String ruleName(argv[1]);
-    Aws::String lambdaArn(argv[2]);
-    Aws::String targetId(argv[3]);
-
+    Aws::String rule_name(argv[1]);
+    Aws::String lambda_arn(argv[2]);
+    Aws::String target_id(argv[3]);
     Aws::SDKOptions options;
-    Aws::InitAPI(options);
 
+    Aws::InitAPI(options);
     {
-        Aws::CloudWatchEvents::CloudWatchEventsClient cwe_client;
+        Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
 
         Aws::CloudWatchEvents::Model::Target target;
-        target.SetArn(lambdaArn);
-        target.SetId(targetId);
+        target.SetArn(lambda_arn);
+        target.SetId(target_id);
 
-        Aws::CloudWatchEvents::Model::PutTargetsRequest putTargetsRequest;
-        putTargetsRequest.SetRule(ruleName);
-        putTargetsRequest.AddTargets(target);
+        Aws::CloudWatchEvents::Model::PutTargetsRequest request;
+        request.SetRule(rule_name);
+        request.AddTargets(target);
 
-        auto putTargetsOutcome = cwe_client.PutTargets(putTargetsRequest);
-        if (!putTargetsOutcome.IsSuccess())
-        {
-            std::cout << "Failed to create cloudwatch events target for rule " << ruleName << ": " <<
-            putTargetsOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully created cloudwatch events target for rule " << ruleName << std::endl;
+        auto putTargetsOutcome = cwe.PutTargets(request);
+        if (!putTargetsOutcome.IsSuccess()) {
+            std::cout << "Failed to create cloudwatch events target for rule "
+                << rule_name << ": " <<
+                putTargetsOutcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully created cloudwatch events target for rule "
+                << rule_name << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

@@ -32,9 +32,9 @@ int main(int argc, char** argv)
     Aws::String policy_arn(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
     {
         Aws::IAM::IAMClient iam;
-
         Aws::IAM::Model::DeletePolicyRequest request;
         request.SetPolicyArn(policy_arn);
 

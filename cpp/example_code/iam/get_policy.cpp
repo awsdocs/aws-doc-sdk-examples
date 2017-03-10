@@ -35,7 +35,6 @@ int main(int argc, char** argv)
 
     {
         Aws::IAM::IAMClient iam;
-
         Aws::IAM::Model::GetPolicyRequest request;
         request.SetPolicyArn(policy_arn);
 

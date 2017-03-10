@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateKeyPairRequest.h>
 #include <aws/ec2/model/CreateKeyPairResponse.h>
-
 #include <iostream>
 
 /**
@@ -24,38 +22,30 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: ec2_create_key_pair <key_pair_name>" << std::endl;
         return 1;
     }
 
-    Aws::String keyPairName = argv[1];
-
+    Aws::String pair_name = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::EC2::EC2Client ec2_client;
+        Aws::EC2::EC2Client ec2;
 
-        Aws::EC2::Model::CreateKeyPairRequest createKeyPairRequest;
-        createKeyPairRequest.SetKeyName(keyPairName);
+        Aws::EC2::Model::CreateKeyPairRequest request;
+        request.SetKeyName(pair_name);
 
-        auto createKeyPairOutcome = ec2_client.CreateKeyPair(createKeyPairRequest);
-        if (!createKeyPairOutcome.IsSuccess())
-        {
-            std::cout << "Failed to create key pair:" << createKeyPairOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully created key pair named " << keyPairName << std::endl;
+        auto outcome = ec2.CreateKeyPair(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to create key pair:" <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully created key pair named " << pair_name <<
+                std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

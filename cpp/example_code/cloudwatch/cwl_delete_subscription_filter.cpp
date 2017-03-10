@@ -12,12 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/core/utils/Outcome.h>
-
 #include <aws/logs/CloudWatchLogsClient.h>
 #include <aws/logs/model/DeleteSubscriptionFilterRequest.h>
-
 #include <iostream>
 
 /**
@@ -27,39 +24,32 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        std::cout << "Usage: cw_delete_subscription_filter <filter_name> <log_group_name>" << std::endl;
+        std::cout << "Usage: " << std::endl << "  cw_delete_subscription_filter "
+            << "<filter_name> <log_group_name>" << std::endl;
         return 1;
     }
 
-    Aws::String filterName(argv[1]);
-    Aws::String logGroupName(argv[2]);
-
+    Aws::String filter_name(argv[1]);
+    Aws::String log_group(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatchLogs::CloudWatchLogsClient cwl_client;
+        Aws::CloudWatchLogs::CloudWatchLogsClient cwl;
+        Aws::CloudWatchLogs::Model::DeleteSubscriptionFilterRequest request;
+        request.SetFilterName(filter_name);
+        request.SetLogGroupName(log_group);
 
-        Aws::CloudWatchLogs::Model::DeleteSubscriptionFilterRequest deleteSubscriptionFilterRequest;
-        deleteSubscriptionFilterRequest.SetFilterName(filterName);
-        deleteSubscriptionFilterRequest.SetLogGroupName(logGroupName);
-
-        auto deleteSubscriptionFilterOutcome = cwl_client.DeleteSubscriptionFilter(deleteSubscriptionFilterRequest);
-        if (!deleteSubscriptionFilterOutcome.IsSuccess())
-        {
-            std::cout << "Failed to delete cloudwatch log subscription filter " << filterName << ": " <<
-            deleteSubscriptionFilterOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted cloudwatch logs subscription filter " << filterName << std::endl;
+        auto outcome = cwl.DeleteSubscriptionFilter(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to delete cloudwatch log subscription filter "
+                << filter_name << ": " << outcome.GetError().GetMessage() <<
+                std::endl;
+        } else {
+            std::cout << "Successfully deleted cloudwatch logs subscription " <<
+                "filter " << filter_name << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

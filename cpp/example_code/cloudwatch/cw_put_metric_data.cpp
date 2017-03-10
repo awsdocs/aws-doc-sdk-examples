@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricDataRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,21 +21,19 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2)
-    {
-        std::cout << "Usage: cw_put_metric_data <data_point_value>" << std::endl;
+    if (argc != 2) {
+        std::cout << "Usage: cw_put_metric_data <data_point_value>" <<
+            std::endl;
         return 1;
     }
 
-    Aws::StringStream valueStream(argv[1]);
-    double dataPointValue = 1.0;
-    valueStream >> dataPointValue;
-
+    Aws::StringStream value_stream(argv[1]);
+    double data_point = 1.0;
+    value_stream >> data_point;
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatch::CloudWatchClient cw_client;
+        Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::Dimension dimension;
         dimension.SetName("UNIQUE_PAGES");
@@ -46,29 +42,22 @@ int main(int argc, char** argv)
         Aws::CloudWatch::Model::MetricDatum datum;
         datum.SetMetricName("PAGES_VISITED");
         datum.SetUnit(Aws::CloudWatch::Model::StandardUnit::None);
-        datum.SetValue(dataPointValue);
+        datum.SetValue(data_point);
         datum.AddDimensions(dimension);
 
-        Aws::CloudWatch::Model::PutMetricDataRequest putMetricDataRequest;
-        putMetricDataRequest.SetNamespace("SITE/TRAFFIC");
-        putMetricDataRequest.AddMetricData(datum);
+        Aws::CloudWatch::Model::PutMetricDataRequest request;
+        request.SetNamespace("SITE/TRAFFIC");
+        request.AddMetricData(datum);
 
-        auto putMetricDataOutcome = cw_client.PutMetricData(putMetricDataRequest);
-        if (!putMetricDataOutcome.IsSuccess())
-        {
-            std::cout << "Failed to put sample metric data:" << putMetricDataOutcome.GetError().GetMessage() <<
-            std::endl;
-        }
-        else
-        {
+        auto outcome = cw.PutMetricData(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to put sample metric data:" <<
+                outcome.GetError().GetMessage() << std::endl;
+        } else {
             std::cout << "Successfully put sample metric data" << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

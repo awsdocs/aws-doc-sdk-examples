@@ -12,10 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/ReleaseAddressRequest.h>
-
 #include <iostream>
 
 /**
@@ -23,42 +21,34 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2)
-    {
+    if(argc != 2) {
         std::cout << "Usage: ec2_release_address <allocation_id>" << std::endl;
         return 1;
     }
 
-    Aws::String allocationId = argv[1];
-
+    Aws::String allocation_id = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::Client::ClientConfiguration config;
         config.region = Aws::Region::US_WEST_2;
 
-        Aws::EC2::EC2Client ec2_client(config);
+        Aws::EC2::EC2Client ec2(config);
 
-        Aws::EC2::Model::ReleaseAddressRequest releaseAddressRequest;
-        releaseAddressRequest.SetAllocationId(allocationId);
+        Aws::EC2::Model::ReleaseAddressRequest request;
+        request.SetAllocationId(allocation_id);
 
-        auto releaseAddressOutcome = ec2_client.ReleaseAddress(releaseAddressRequest);
-        if (!releaseAddressOutcome.IsSuccess())
-        {
-            std::cout << "Failed to release elastic ip address " << allocationId << ":" <<
-            releaseAddressOutcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully released elastic ip address " << allocationId << std::endl;
+        auto outcome = ec2.ReleaseAddress(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to release elastic ip address " <<
+                allocation_id << ":" << outcome.GetError().GetMessage() <<
+                std::endl;
+        } else {
+            std::cout << "Successfully released elastic ip address " <<
+                allocation_id << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

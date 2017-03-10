@@ -62,8 +62,7 @@ void DetachRolePolicy(const Aws::String& role_name, const Aws::String& policy_ar
     detach_request.SetPolicyArn(policy_arn);
 
     auto detach_outcome = iam.DetachRolePolicy(detach_request);
-    if(!detach_outcome.IsSuccess())
-    {
+    if(!detach_outcome.IsSuccess()) {
         std::cout << "Failed to detach policy " << policy_arn << " from role "
             << role_name << ": " << detach_outcome.GetError().GetMessage() <<
             std::endl;
@@ -87,14 +86,10 @@ int main(int argc, char** argv)
 
     Aws::String role_name(argv[1]);
     Aws::String policy_arn = argv[2];
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     DetachRolePolicy(role_name, policy_arn);
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

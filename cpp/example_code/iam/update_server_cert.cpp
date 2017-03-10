@@ -30,7 +30,6 @@ int main(int argc, char** argv)
 
     Aws::String old_name(argv[1]);
     Aws::String new_name(argv[2]);
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 

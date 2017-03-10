@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/ListMetricsRequest.h>
 #include <aws/monitoring/model/ListMetricsResult.h>
-
 #include <iostream>
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
@@ -26,78 +24,66 @@ static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
  */
 int main(int argc, char** argv)
 {
-    if (argc > 3)
-    {
-        std::cout << "Usage: cw_list_metrics [metric_name] [metric_namespace]" << std::endl;
+    if (argc > 3) {
+        std::cout << "Usage: cw_list_metrics [metric_name] [metric_namespace]"
+            << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::CloudWatch::CloudWatchClient cw_client;
+        Aws::CloudWatch::CloudWatchClient cw;
+        Aws::CloudWatch::Model::ListMetricsRequest request;
 
-        Aws::CloudWatch::Model::ListMetricsRequest listMetricsRequest;
-        if (argc > 1)
-        {
-            listMetricsRequest.SetMetricName(argv[1]);
+        if (argc > 1) {
+            request.SetMetricName(argv[1]);
         }
 
-        if (argc > 2)
-        {
-            listMetricsRequest.SetNamespace(argv[2]);
+        if (argc > 2) {
+            request.SetNamespace(argv[2]);
         }
 
         bool done = false;
         bool header = false;
-        while (!done)
-        {
-            auto listMetricsOutcome = cw_client.ListMetrics(listMetricsRequest);
-            if (!listMetricsOutcome.IsSuccess())
-            {
-                std::cout << "Failed to list cloudwatch metrics:" << listMetricsOutcome.GetError().GetMessage() <<
-                std::endl;
+        while (!done) {
+            auto outcome = cw.ListMetrics(request);
+            if (!outcome.IsSuccess()) {
+                std::cout << "Failed to list cloudwatch metrics:" <<
+                    outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header)
-            {
-                std::cout << std::left << std::setw(48) << "MetricName"
-                << std::setw(32) << "Namespace"
-                << "DimensionNameValuePairs" << std::endl;
+            if (!header) {
+                std::cout << std::left << std::setw(48) << "MetricName" <<
+                    std::setw(32) << "Namespace" << "DimensionNameValuePairs" <<
+                    std::endl;
                 header = true;
             }
 
-            const auto &metrics = listMetricsOutcome.GetResult().GetMetrics();
-            for (const auto &metric : metrics)
-            {
-                std::cout << std::left << std::setw(48) << metric.GetMetricName()
-                << std::setw(32) << metric.GetNamespace();
+            const auto &metrics = outcome.GetResult().GetMetrics();
+            for (const auto &metric : metrics) {
+                std::cout << std::left << std::setw(48) <<
+                    metric.GetMetricName() << std::setw(32) <<
+                    metric.GetNamespace();
                 const auto &dimensions = metric.GetDimensions();
-                for (auto iter = dimensions.cbegin(); iter != dimensions.cend(); ++iter)
-                {
+                for (auto iter = dimensions.cbegin();
+                        iter != dimensions.cend(); ++iter) {
                     const auto &dimkv = *iter;
                     std::cout << dimkv.GetName() << " = " << dimkv.GetValue();
-                    if (iter + 1 != dimensions.cend())
-                    {
+                    if (iter + 1 != dimensions.cend()) {
                         std::cout << ", ";
                     }
                 }
-
                 std::cout << std::endl;
             }
 
-            const auto &nextToken = listMetricsOutcome.GetResult().GetNextToken();
-            listMetricsRequest.SetNextToken(nextToken);
-            done = nextToken.empty();
+            const auto &next_token = outcome.GetResult().GetNextToken();
+            request.SetNextToken(next_token);
+            done = next_token.empty();
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

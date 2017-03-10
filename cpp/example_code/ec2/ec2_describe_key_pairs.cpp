@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeKeyPairsRequest.h>
 #include <aws/ec2/model/DescribeKeyPairsResponse.h>
-
 #include <iostream>
 
 /**
@@ -26,36 +24,27 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::EC2::EC2Client ec2_client;
+        Aws::EC2::EC2Client ec2;
+        Aws::EC2::Model::DescribeKeyPairsRequest request;
 
-        Aws::EC2::Model::DescribeKeyPairsRequest describeKeyPairsRequest;
+        auto outcome = ec2.DescribeKeyPairs(request);
+        if (outcome.IsSuccess()) {
+            std::cout << std::left << std::setw(32) << "Name" << std::setw(64)
+                << "Fingerprint" << std::endl;
 
-        auto describeKeyPairsOutcome = ec2_client.DescribeKeyPairs(describeKeyPairsRequest);
-        if (describeKeyPairsOutcome.IsSuccess())
-        {
-            std::cout << std::left << std::setw(32) << "Name"
-            << std::setw(64) << "Fingerprint" << std::endl;
-
-            const auto &key_pairs = describeKeyPairsOutcome.GetResult().GetKeyPairs();
-            for (const auto &key_pair : key_pairs)
-            {
+            const auto &key_pairs = outcome.GetResult().GetKeyPairs();
+            for (const auto &key_pair : key_pairs) {
                 std::cout << std::left << std::setw(32) << key_pair.GetKeyName()
-                << std::setw(64) << key_pair.GetKeyFingerprint() << std::endl;
+                    << std::setw(64) << key_pair.GetKeyFingerprint() <<
+                    std::endl;
             }
-        }
-        else
-        {
-            std::cout << "Failed to describe key pairs:" << describeKeyPairsOutcome.GetError().GetMessage() <<
-            std::endl;
+        } else {
+            std::cout << "Failed to describe key pairs:" <<
+                outcome.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

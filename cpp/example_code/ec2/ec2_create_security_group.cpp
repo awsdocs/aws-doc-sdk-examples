@@ -12,24 +12,23 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/AuthorizeSecurityGroupIngressRequest.h>
 #include <aws/ec2/model/CreateSecurityGroupRequest.h>
 #include <aws/ec2/model/CreateSecurityGroupResponse.h>
-
 #include <iostream>
 
-void BuildSampleIngressRule(Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& request)
+void BuildSampleIngressRule(
+        Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& request)
 {
-    Aws::EC2::Model::IpRange ipRange;
-    ipRange.SetCidrIp("0.0.0.0/0");
+    Aws::EC2::Model::IpRange ip_range;
+    ip_range.SetCidrIp("0.0.0.0/0");
 
     Aws::EC2::Model::IpPermission permission1;
     permission1.SetIpProtocol("tcp");
     permission1.SetToPort(80);
     permission1.SetFromPort(80);
-    permission1.AddIpRanges(ipRange);
+    permission1.AddIpRanges(ip_range);
 
     request.AddIpPermissions(permission1);
 
@@ -37,41 +36,44 @@ void BuildSampleIngressRule(Aws::EC2::Model::AuthorizeSecurityGroupIngressReques
     permission2.SetIpProtocol("tcp");
     permission2.SetToPort(22);
     permission2.SetFromPort(22);
-    permission2.AddIpRanges(ipRange);
+    permission2.AddIpRanges(ip_range);
 
     request.AddIpPermissions(permission2);
 }
 
-void CreateSecurityGroup(const Aws::String& groupName, const Aws::String& description, const Aws::String& vpcId)
+void CreateSecurityGroup(const Aws::String& group_name, const Aws::String& description, const Aws::String& vpc_id)
 {
-    Aws::EC2::EC2Client ec2_client;
+    Aws::EC2::EC2Client ec2;
 
-    Aws::EC2::Model::CreateSecurityGroupRequest createSecurityGroupRequest;
-    createSecurityGroupRequest.SetGroupName(groupName);
-    createSecurityGroupRequest.SetDescription(description);
-    createSecurityGroupRequest.SetVpcId(vpcId);
+    Aws::EC2::Model::CreateSecurityGroupRequest request;
+    request.SetGroupName(group_name);
+    request.SetDescription(description);
+    request.SetVpcId(vpc_id);
 
-    auto createSecurityGroupOutcome = ec2_client.CreateSecurityGroup(createSecurityGroupRequest);
-    if(!createSecurityGroupOutcome.IsSuccess())
+    auto outcome = ec2.CreateSecurityGroup(request);
+    if(!outcome.IsSuccess())
     {
-        std::cout << "Failed to create security group:" << createSecurityGroupOutcome.GetError().GetMessage() << std::endl;
+        std::cout << "Failed to create security group:" <<
+            outcome.GetError().GetMessage() << std::endl;
         return;
     }
 
-    std::cout << "Successfully created security group named " << groupName << std::endl;
+    std::cout << "Successfully created security group named " << group_name <<
+        std::endl;
 
-    Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorizeRequest;
-    authorizeRequest.SetGroupName(groupName);
-    BuildSampleIngressRule(authorizeRequest);
-
-    auto authorizeSecurityGroupIngressOutcome = ec2_client.AuthorizeSecurityGroupIngress(authorizeRequest);
-    if(!authorizeSecurityGroupIngressOutcome.IsSuccess())
-    {
-        std::cout << "Failed to set ingress policy for security group " << groupName << ":" << authorizeSecurityGroupIngressOutcome.GetError().GetMessage() << std::endl;
+    Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorize_request;
+    authorize_request.SetGroupName(group_name);
+    BuildSampleIngressRule(authorize_request);
+    auto ingress_request = ec2.AuthorizeSecurityGroupIngress(authorize_request);
+    if(!ingress_request.IsSuccess()) {
+        std::cout << "Failed to set ingress policy for security group " <<
+            group_name << ":" << ingress_request.GetError().GetMessage() <<
+            std::endl;
         return;
     }
 
-    std::cout << "Successfully added ingress policy to security group " << groupName << std::endl;
+    std::cout << "Successfully added ingress policy to security group " <<
+        group_name << std::endl;
 }
 
 /**
@@ -81,23 +83,18 @@ int main(int argc, char** argv)
 {
     if(argc != 4)
     {
-        std::cout << "Usage: ec2_create_security_group <group_name> <group_description> <vpc_id>" << std::endl;
+        std::cout << "Usage: ec2_create_security_group <group_name> " <<
+            "<group_description> <vpc_id>" << std::endl;
         return 1;
     }
 
-    Aws::String groupName = argv[1];
-    Aws::String groupDescription = argv[2];
-    Aws::String vpcId = argv[3];
-
+    Aws::String group_name = argv[1];
+    Aws::String group_desc = argv[2];
+    Aws::String vpc_id = argv[3];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
-    CreateSecurityGroup(groupName, groupDescription, vpcId);
-
+    CreateSecurityGroup(group_name, group_desc, vpc_id);
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeSecurityGroupsRequest.h>
 #include <aws/ec2/model/DescribeSecurityGroupsResponse.h>
-
 #include <iostream>
 
 /**
@@ -24,52 +22,44 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc > 2)
-    {
-        std::cout << "Usage: ec2_describe_security_groups [group_id]" << std::endl;
+    if(argc > 2) {
+        std::cout << "Usage: ec2_describe_security_groups [group_id]" <<
+            std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
-        Aws::EC2::EC2Client ec2_client;
+        Aws::EC2::EC2Client ec2;
+        Aws::EC2::Model::DescribeSecurityGroupsRequest request;
 
-        Aws::EC2::Model::DescribeSecurityGroupsRequest describeSecurityGroupsRequest;
-        if (argc == 2)
-        {
-            describeSecurityGroupsRequest.AddGroupIds(argv[1]);
+        if (argc == 2) {
+            request.AddGroupIds(argv[1]);
         }
 
-        auto describeSecurityGroupsOutcome = ec2_client.DescribeSecurityGroups(describeSecurityGroupsRequest);
-        if (describeSecurityGroupsOutcome.IsSuccess())
-        {
-            std::cout << std::left << std::setw(32) << "Name"
-            << std::setw(20) << "GroupId"
-            << std::setw(20) << "VpcId"
-            << std::setw(64) << "Description" << std::endl;
+        auto outcome = ec2.DescribeSecurityGroups(request);
 
-            const auto &securityGroups = describeSecurityGroupsOutcome.GetResult().GetSecurityGroups();
-            for (const auto &securityGroup : securityGroups)
-            {
-                std::cout << std::left << std::setw(32) << securityGroup.GetGroupName()
-                << std::setw(20) << securityGroup.GetGroupId()
-                << std::setw(20) << securityGroup.GetVpcId()
-                << std::setw(64) << securityGroup.GetDescription() << std::endl;
+        if (outcome.IsSuccess()) {
+            std::cout << std::left << std::setw(32) << "Name" << std::setw(20)
+                << "GroupId" << std::setw(20) << "VpcId" << std::setw(64) <<
+                "Description" << std::endl;
+
+            const auto &securityGroups = outcome.GetResult().GetSecurityGroups();
+
+            for (const auto &securityGroup : securityGroups) {
+                std::cout << std::left << std::setw(32) <<
+                    securityGroup.GetGroupName() << std::setw(20) <<
+                    securityGroup.GetGroupId() << std::setw(20) <<
+                    securityGroup.GetVpcId() << std::setw(64) <<
+                    securityGroup.GetDescription() << std::endl;
             }
-        }
-        else
-        {
+        } else {
             std::cout << "Failed to describe security groups:" <<
-            describeSecurityGroupsOutcome.GetError().GetMessage() << std::endl;
+                outcome.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 

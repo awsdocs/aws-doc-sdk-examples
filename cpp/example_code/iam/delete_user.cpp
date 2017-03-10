@@ -21,25 +21,24 @@
 void DeleteUser(const Aws::String& user_name)
 {
     Aws::IAM::IAMClient iam;
-    Aws::IAM::Model::GetUserRequest gu_req;
-    gu_req.SetUserName(user_name);
+    Aws::IAM::Model::GetUserRequest get_request;
+    get_request.SetUserName(user_name);
 
-    auto gu_out = iam.GetUser(gu_req);
-    if (!gu_out.IsSuccess()) {
-        if (gu_out.GetError().GetErrorType() ==
+    auto get_outcome = iam.GetUser(get_request);
+    if (!get_outcome.IsSuccess()) {
+        if (get_outcome.GetError().GetErrorType() ==
                 Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
             std::cout << "IAM user " << user_name << " does not exist" <<
                 std::endl;
         } else {
             std::cout << "Error checking existence of IAM user " << user_name <<
-                ": " << gu_out.GetError().GetMessage() << std::endl;
+                ": " << get_outcome.GetError().GetMessage() << std::endl;
         }
         return;
     }
 
     Aws::IAM::Model::DeleteUserRequest request;
     request.SetUserName(user_name);
-
     auto outcome = iam.DeleteUser(request);
     if(!outcome.IsSuccess()) {
         std::cout << "Error deleting IAM user " << user_name << ": " <<
@@ -63,14 +62,10 @@ int main(int argc, char** argv)
     }
 
     Aws::String user_name(argv[1]);
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     DeleteUser(user_name);
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

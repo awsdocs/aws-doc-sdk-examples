@@ -12,14 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeInstancesRequest.h>
 #include <aws/ec2/model/DescribeInstancesResponse.h>
-
 #include <iostream>
-
-
 
 /**
  * Describes all ec2 instances associated with an account
@@ -30,80 +26,68 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
 
     {
-        Aws::EC2::EC2Client ec2_client;
-
-        Aws::EC2::Model::DescribeInstancesRequest describeInstancesRequest;
-
+        Aws::EC2::EC2Client ec2;
+        Aws::EC2::Model::DescribeInstancesRequest request;
         bool header = false;
         bool done = false;
-        while (!done)
-        {
-            auto describeInstancesOutcome = ec2_client.DescribeInstances(describeInstancesRequest);
-            if (describeInstancesOutcome.IsSuccess())
-            {
-                if (!header)
-                {
-                    std::cout << std::left << std::setw(48) << "Name"
-                    << std::setw(20) << "ID"
-                    << std::setw(15) << "Ami"
-                    << std::setw(15) << "Type"
-                    << std::setw(15) << "State"
-                    << std::setw(15) << "Monitoring" << std::endl;
+        while (!done) {
+            auto outcome = ec2.DescribeInstances(request);
+            if (outcome.IsSuccess()) {
+                if (!header) {
+                    std::cout << std::left << std::setw(48) << "Name" <<
+                        std::setw(20) << "ID" << std::setw(15) << "Ami" <<
+                        std::setw(15) << "Type" << std::setw(15) << "State" <<
+                        std::setw(15) << "Monitoring" << std::endl;
                     header = true;
                 }
 
-                const auto &reservations = describeInstancesOutcome.GetResult().GetReservations();
-                for (const auto &reservation : reservations)
-                {
+                const auto &reservations =
+                    outcome.GetResult().GetReservations();
+
+                for (const auto &reservation : reservations) {
                     const auto &instances = reservation.GetInstances();
-                    for (const auto &instance : instances)
-                    {
-                        Aws::String instanceStateString = Aws::EC2::Model::InstanceStateNameMapper::GetNameForInstanceStateName(
-                                instance.GetState().GetName());
-                        Aws::String typeString = Aws::EC2::Model::InstanceTypeMapper::GetNameForInstanceType(
-                                instance.GetInstanceType());
-                        Aws::String monitoringString = Aws::EC2::Model::MonitoringStateMapper::GetNameForMonitoringState(
-                                instance.GetMonitoring().GetState());
-                        Aws::String nameString = "Unknown";
+                    for (const auto &instance : instances) {
+                        Aws::String instanceStateString =
+                            Aws::EC2::Model::InstanceStateNameMapper::GetNameForInstanceStateName(
+                                    instance.GetState().GetName());
+
+                        Aws::String type_string =
+                            Aws::EC2::Model::InstanceTypeMapper::GetNameForInstanceType(
+                                    instance.GetInstanceType());
+
+                        Aws::String monitor_str =
+                            Aws::EC2::Model::MonitoringStateMapper::GetNameForMonitoringState(
+                                    instance.GetMonitoring().GetState());
+                        Aws::String name = "Unknown";
 
                         const auto &tags = instance.GetTags();
-                        auto nameIter = std::find_if(tags.cbegin(), tags.cend(), [](const Aws::EC2::Model::Tag &tag)
-                            { return tag.GetKey() == "Name"; });
-                        if (nameIter != tags.cend())
-                        {
-                            nameString = nameIter->GetValue();
+                        auto nameIter = std::find_if(tags.cbegin(), tags.cend(),
+                                [](const Aws::EC2::Model::Tag &tag) {
+                                return tag.GetKey() == "Name"; });
+                        if (nameIter != tags.cend()) {
+                            name = nameIter->GetValue();
                         }
-                        std::cout << std::setw(48) << nameString
-                        << std::setw(20) << instance.GetInstanceId()
-                        << std::setw(15) << instance.GetImageId()
-                        << std::setw(15) << typeString
-                        << std::setw(15) << instanceStateString
-                        << std::setw(15) << monitoringString << std::endl;
+                        std::cout << std::setw(48) << name << std::setw(20) <<
+                            instance.GetInstanceId() << std::setw(15) <<
+                            instance.GetImageId() << std::setw(15) << type_string
+                            << std::setw(15) << instanceStateString <<
+                            std::setw(15) << monitor_str << std::endl;
                     }
                 }
 
-                if (describeInstancesOutcome.GetResult().GetNextToken().size() > 0)
-                {
-                    describeInstancesRequest.SetNextToken(describeInstancesOutcome.GetResult().GetNextToken());
-                }
-                else
-                {
+                if (outcome.GetResult().GetNextToken().size() > 0) {
+                    request.SetNextToken(outcome.GetResult().GetNextToken());
+                } else {
                     done = true;
                 }
-            }
-            else
-            {
-                std::cout << "Failed to describe ec2 instances:" << describeInstancesOutcome.GetError().GetMessage() <<
-                std::endl;
+            } else {
+                std::cout << "Failed to describe ec2 instances:" <<
+                    outcome.GetError().GetMessage() << std::endl;
                 done = true;
             }
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
-
-
 
