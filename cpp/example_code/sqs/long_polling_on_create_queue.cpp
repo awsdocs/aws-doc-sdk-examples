@@ -33,28 +33,25 @@ int main(int argc, char** argv)
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::SQS::SQSClient sqs;
 
-        Aws::SQS::Model::CreateQueueRequest cq_req;
-        cq_req.SetQueueName(queue_name);
-        cq_req.AddAttributes(
+        Aws::SQS::Model::CreateQueueRequest request;
+        request.SetQueueName(queue_name);
+        request.AddAttributes(
             Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
             poll_time);
 
-        auto cq_out = sqs.CreateQueue(cq_req);
-        if (cq_out.IsSuccess()) {
-            std::cout << "Successfully created queue " << queue_name
-                << std::endl;
+        auto outcome = sqs.CreateQueue(request);
+        if (outcome.IsSuccess()) {
+            std::cout << "Successfully created queue " << queue_name <<
+                std::endl;
         } else {
-            std::cout << "Error creating queue " << queue_name <<
-                ": " << cq_out.GetError().GetMessage() << std::endl;
+            std::cout << "Error creating queue " << queue_name << ": " <<
+                outcome.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

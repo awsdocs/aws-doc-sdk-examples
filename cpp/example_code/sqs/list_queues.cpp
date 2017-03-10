@@ -11,7 +11,6 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ListQueuesRequest.h>
@@ -25,7 +24,6 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::SQS::SQSClient sqs;
 
@@ -43,7 +41,6 @@ int main(int argc, char** argv)
                 lq_out.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
 }
 

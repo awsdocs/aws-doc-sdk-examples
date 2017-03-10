@@ -29,18 +29,18 @@ void ChangeMessageVisibility(
 
     Aws::SQS::SQSClient sqs(client_config);
 
-    Aws::SQS::Model::ReceiveMessageRequest rm_req;
-    rm_req.SetQueueUrl(queue_url);
-    rm_req.SetMaxNumberOfMessages(1);
+    Aws::SQS::Model::ReceiveMessageRequest receive_request;
+    receive_request.SetQueueUrl(queue_url);
+    receive_request.SetMaxNumberOfMessages(1);
 
-    auto rm_out = sqs.ReceiveMessage(rm_req);
-    if (!rm_out.IsSuccess()) {
+    auto receive_outcome = sqs.ReceiveMessage(receive_request);
+    if (!receive_outcome.IsSuccess()) {
         std::cout << "Error receiving message from queue " << queue_url << ": "
-            << rm_out.GetError().GetMessage() << std::endl;
+            << receive_outcome.GetError().GetMessage() << std::endl;
         return;
     }
 
-    const auto& messages = rm_out.GetResult().GetMessages();
+    const auto& messages = receive_outcome.GetResult().GetMessages();
     if (messages.size() == 0) {
         std::cout << "No messages received from queue " << queue_url <<
             std::endl;
@@ -53,18 +53,18 @@ void ChangeMessageVisibility(
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
 
-    Aws::SQS::Model::ChangeMessageVisibilityRequest cmv_req;
-    cmv_req.SetQueueUrl(queue_url);
-    cmv_req.SetReceiptHandle(message.GetReceiptHandle());
-    cmv_req.SetVisibilityTimeout(visibility_timeout);
-    auto cmv_out = sqs.ChangeMessageVisibility(cmv_req);
-    if (cmv_out.IsSuccess()) {
+    Aws::SQS::Model::ChangeMessageVisibilityRequest request;
+    request.SetQueueUrl(queue_url);
+    request.SetReceiptHandle(message.GetReceiptHandle());
+    request.SetVisibilityTimeout(visibility_timeout);
+    auto outcome = sqs.ChangeMessageVisibility(request);
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully changed visibility of message " <<
             message.GetMessageId() << " from queue " << queue_url << std::endl;
     } else {
         std::cout << "Error changing visibility of message " <<
             message.GetMessageId() << " from queue " << queue_url << ": " <<
-            cmv_out.GetError().GetMessage() << std::endl;
+            outcome.GetError().GetMessage() << std::endl;
     }
 }
 
@@ -81,16 +81,12 @@ int main(int argc, char** argv)
     }
 
     Aws::String queue_url = argv[1];
-
     int visibility_timeout = 0;
     Aws::StringStream ss(argv[2]);
     ss >> visibility_timeout;
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     ChangeMessageVisibility(queue_url, visibility_timeout);
-
     Aws::ShutdownAPI(options);
 
     return 0;
