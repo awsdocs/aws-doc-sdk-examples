@@ -58,19 +58,19 @@ int main(int argc, char** argv)
 
         Aws::String redrivePolicy = MakeRedrivePolicy(queue_arn, max_msg);
 
-        Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
-        sqa_req.SetQueueUrl(src_queue_url);
-        sqa_req.AddAttributes(
+        Aws::SQS::Model::SetQueueAttributesRequest request;
+        request.SetQueueUrl(src_queue_url);
+        request.AddAttributes(
             Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
             redrivePolicy);
 
-        auto sqa_out = sqs.SetQueueAttributes(sqa_req);
-        if (sqa_out.IsSuccess()) {
+        auto outcome = sqs.SetQueueAttributes(request);
+        if (outcome.IsSuccess()) {
             std::cout << "Successfully set dead letter queue for queue  " <<
             src_queue_url << " to " << queue_arn << std::endl;
         } else {
             std::cout << "Error setting dead letter queue for queue " <<
-            src_queue_url << ": " << sqa_out.GetError().GetMessage() <<
+            src_queue_url << ": " << outcome.GetError().GetMessage() <<
             std::endl;
         }
     }
