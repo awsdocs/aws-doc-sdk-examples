@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.DeleteServerCertificateRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.identitymanagement.model.DeleteServerCertificateRe
  * Deletes an IAM server certificate
  */
 public class DeleteServerCertificate {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -35,15 +33,20 @@ public class DeleteServerCertificate {
             System.exit(1);
         }
 
-        String certificateName = args[0];
+        String cert_name = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
-        DeleteServerCertificateRequest request = new DeleteServerCertificateRequest()
-            .withServerCertificateName(certificateName);
+        DeleteServerCertificateRequest request =
+            new DeleteServerCertificateRequest()
+                .withServerCertificateName(cert_name);
 
-        DeleteServerCertificateResult response = iam.deleteServerCertificate(request);
+        DeleteServerCertificateResult response =
+            iam.deleteServerCertificate(request);
 
-        System.out.println("Successfully deleted server certificate " + certificateName);
+        System.out.println("Successfully deleted server certificate " +
+                cert_name);
     }
 }
+

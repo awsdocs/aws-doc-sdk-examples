@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.DetachRolePolicyRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.identitymanagement.model.DetachRolePolicyResult;
  * Detaches a policy from a role
  */
 public class DetachRolePolicy {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -35,17 +33,20 @@ public class DetachRolePolicy {
             System.exit(1);
         }
 
-        String roleName = args[0];
-        String policyArn = args[1];
+        String role_name = args[0];
+        String policy_arn = args[1];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         DetachRolePolicyRequest request = new DetachRolePolicyRequest()
-            .withRoleName(roleName)
-            .withPolicyArn(policyArn);
+            .withRoleName(role_name)
+            .withPolicyArn(policy_arn);
 
         DetachRolePolicyResult response = iam.detachRolePolicy(request);
 
-        System.out.println("Successfully detached policy " + policyArn + " from role " + roleName);
+        System.out.println("Successfully detached policy " + policy_arn +
+                " from role " + role_name);
     }
 }
+

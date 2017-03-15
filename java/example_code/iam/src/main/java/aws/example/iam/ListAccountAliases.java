@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.ListAccountAliasesRequest;
@@ -23,15 +22,16 @@ import com.amazonaws.services.identitymanagement.model.ListAccountAliasesResult;
  * Lists all aliases associated with an AWS account
  */
 public class ListAccountAliases {
-
     public static void main(String[] args) {
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
 
         while(!done) {
-            ListAccountAliasesRequest request = new ListAccountAliasesRequest();
+            ListAccountAliasesRequest request =
+                new ListAccountAliasesRequest();
 
             ListAccountAliasesResult response = iam.listAccountAliases();
 
@@ -47,3 +47,4 @@ public class ListAccountAliases {
         }
     }
 }
+

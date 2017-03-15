@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.DeleteAccessKeyRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.identitymanagement.model.DeleteAccessKeyResult;
  * Deletes an access key from an IAM user
  */
 public class DeleteAccessKey {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -36,16 +34,19 @@ public class DeleteAccessKey {
         }
 
         String username = args[0];
-        String accessKey = args[1];
+        String access_key = args[1];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         DeleteAccessKeyRequest request = new DeleteAccessKeyRequest()
-            .withAccessKeyId(accessKey)
+            .withAccessKeyId(access_key)
             .withUserName(username);
 
         DeleteAccessKeyResult response = iam.deleteAccessKey(request);
 
-        System.out.println("Successfully deleted access key " + accessKey + " from user " + username);
+        System.out.println("Successfully deleted access key " + access_key +
+                " from user " + username);
     }
 }
+

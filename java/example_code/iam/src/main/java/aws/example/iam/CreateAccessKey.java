@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.CreateAccessKeyRequest;
@@ -37,7 +36,8 @@ public class CreateAccessKey {
 
         String user = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         CreateAccessKeyRequest request = new CreateAccessKeyRequest()
             .withUserName(user);
@@ -47,3 +47,4 @@ public class CreateAccessKey {
         System.out.println("Created access key: " + response.getAccessKey());
     }
 }
+

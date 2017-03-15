@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.DeleteAccountAliasRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.identitymanagement.model.DeleteAccountAliasResult;
  * Deletes an alias from an AWS account
  */
 public class DeleteAccountAlias {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -35,15 +33,16 @@ public class DeleteAccountAlias {
             System.exit(1);
         }
 
-        String accountAlias = args[0];
+        String alias = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         DeleteAccountAliasRequest request = new DeleteAccountAliasRequest()
-            .withAccountAlias(accountAlias);
+            .withAccountAlias(alias);
 
         DeleteAccountAliasResult response = iam.deleteAccountAlias(request);
 
-        System.out.println("Successfully deleted account alias " + accountAlias);
+        System.out.println("Successfully deleted account alias " + alias);
     }
 }

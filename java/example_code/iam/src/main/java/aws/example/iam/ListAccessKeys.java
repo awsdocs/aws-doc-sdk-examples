@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.AccessKeyMetadata;
@@ -24,7 +23,6 @@ import com.amazonaws.services.identitymanagement.model.ListAccessKeysResult;
  * List all access keys associated with an IAM user
  */
 public class ListAccessKeys {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -38,25 +36,29 @@ public class ListAccessKeys {
 
         String username = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
 
-        while(!done) {
+        while (!done) {
             ListAccessKeysRequest request = new ListAccessKeysRequest()
                 .withUserName(username);
 
             ListAccessKeysResult response = iam.listAccessKeys(request);
 
-            for(AccessKeyMetadata metadata : response.getAccessKeyMetadata()) {
-                System.out.format("Retrieved access key %s", metadata.getAccessKeyId());
+            for (AccessKeyMetadata metadata :
+                    response.getAccessKeyMetadata()) {
+                System.out.format("Retrieved access key %s",
+                        metadata.getAccessKeyId());
             }
 
             request.setMarker(response.getMarker());
 
-            if(!response.getIsTruncated()) {
+            if (!response.getIsTruncated()) {
                 done = true;
             }
         }
     }
 }
+

@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 package aws.example.iam;
-
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.AttachRolePolicyRequest;
@@ -26,7 +25,8 @@ import java.util.stream.Collectors;
 
 public class AttachRolePolicy {
 
-    public static final String POLICY_ARN = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
+    public static final String POLICY_ARN =
+        "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
 
     public static void main(String[] args) {
         final String USAGE =
@@ -38,39 +38,49 @@ public class AttachRolePolicy {
             System.exit(1);
         }
 
-        String roleName = args[0];
+        String role_name = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
-        ListAttachedRolePoliciesRequest request = new ListAttachedRolePoliciesRequest()
-            .withRoleName(roleName);
+        ListAttachedRolePoliciesRequest request =
+            new ListAttachedRolePoliciesRequest()
+                .withRoleName(role_name);
 
-        List<AttachedPolicy> matchingPolicies = new ArrayList<>();
+        List<AttachedPolicy> matching_policies = new ArrayList<>();
 
         boolean done = false;
 
         while(!done) {
-            ListAttachedRolePoliciesResult response = iam.listAttachedRolePolicies(request);
-            matchingPolicies.addAll(response.getAttachedPolicies().stream().filter(p -> p.getPolicyName().equals(roleName)).collect(Collectors.toList()));
+            ListAttachedRolePoliciesResult response =
+                iam.listAttachedRolePolicies(request);
+
+            matching_policies.addAll(
+                    response.getAttachedPolicies()
+                            .stream()
+                            .filter(p -> p.getPolicyName().equals(role_name))
+                            .collect(Collectors.toList()));
 
             if(!response.getIsTruncated()) {
                 done = true;
             }
-
             request.setMarker(response.getMarker());
         }
 
-        if (matchingPolicies.size() > 0) {
-            System.out.println(roleName + " policy is already attached to this role.");
+        if (matching_policies.size() > 0) {
+            System.out.println(role_name +
+                    " policy is already attached to this role.");
             return;
         }
 
-        AttachRolePolicyRequest attachRolePolicyRequest = new AttachRolePolicyRequest()
-            .withRoleName(roleName)
-            .withPolicyArn(POLICY_ARN);
+        AttachRolePolicyRequest attach_request =
+            new AttachRolePolicyRequest()
+                .withRoleName(role_name)
+                .withPolicyArn(POLICY_ARN);
 
-        iam.attachRolePolicy(attachRolePolicyRequest);
-
-        System.out.println("Successfully attached policy " + POLICY_ARN + " to role " + roleName);
+        iam.attachRolePolicy(attach_request);
+        System.out.println("Successfully attached policy " + POLICY_ARN +
+                " to role " + role_name);
     }
 }
+

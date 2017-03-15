@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.DeleteConflictException;
@@ -24,7 +23,6 @@ import com.amazonaws.services.identitymanagement.model.DeleteUserRequest;
  * resources
  */
 public class DeleteUser {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -38,7 +36,8 @@ public class DeleteUser {
 
         String username = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         DeleteUserRequest request = new DeleteUserRequest()
             .withUserName(username);
@@ -46,10 +45,12 @@ public class DeleteUser {
         try {
             iam.deleteUser(request);
         } catch (DeleteConflictException e) {
-            System.out.println("Unable to delete user. Verify user is not associated with any resources");
+            System.out.println("Unable to delete user. Verify user is not" +
+                    " associated with any resources");
             throw e;
         }
 
         System.out.println("Successfully deleted IAM user " + username);
     }
 }
+

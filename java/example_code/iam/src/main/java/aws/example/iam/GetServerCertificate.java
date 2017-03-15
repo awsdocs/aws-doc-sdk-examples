@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.GetServerCertificateRequest;
@@ -35,15 +34,18 @@ public class GetServerCertificate {
             System.exit(1);
         }
 
-        String certificateName = args[0];
+        String cert_name = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         GetServerCertificateRequest request = new GetServerCertificateRequest()
-            .withServerCertificateName(certificateName);
+                    .withServerCertificateName(cert_name);
 
         GetServerCertificateResult response = iam.getServerCertificate(request);
 
-        System.out.format("Successfully retrieved certificate with body %s", response.getServerCertificate().getCertificateBody());
+        System.out.format("Successfully retrieved certificate with body %s",
+                response.getServerCertificate().getCertificateBody());
     }
 }
+

@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 package aws.example.iam;
-
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.GetAccessKeyLastUsedRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.identitymanagement.model.GetAccessKeyLastUsedResul
  * Displays the time that an access key was last used
  */
 public class AccessKeyLastUsed {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -35,15 +33,18 @@ public class AccessKeyLastUsed {
             System.exit(1);
         }
 
-        String accessKeyId = args[0];
+        String access_id = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         GetAccessKeyLastUsedRequest request = new GetAccessKeyLastUsedRequest()
-            .withAccessKeyId(accessKeyId);
+            .withAccessKeyId(access_id);
 
         GetAccessKeyLastUsedResult response = iam.getAccessKeyLastUsed(request);
 
-        System.out.println("Access key was last used at: " + response.getAccessKeyLastUsed().getLastUsedDate());
+        System.out.println("Access key was last used at: " +
+                response.getAccessKeyLastUsed().getLastUsedDate());
     }
 }
+

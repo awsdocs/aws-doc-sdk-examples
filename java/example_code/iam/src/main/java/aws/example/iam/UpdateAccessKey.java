@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.UpdateAccessKeyRequest;
@@ -36,18 +35,22 @@ public class UpdateAccessKey {
         }
 
         String username = args[0];
-        String accessKeyId = args[1];
+        String access_id = args[1];
         String status = args[2];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         UpdateAccessKeyRequest request = new UpdateAccessKeyRequest()
-            .withAccessKeyId(accessKeyId)
+            .withAccessKeyId(access_id)
             .withUserName(username)
             .withStatus(status);
 
         UpdateAccessKeyResult response = iam.updateAccessKey(request);
 
-        System.out.printf("Successfully updated status of access key %s to status %s for user %s", accessKeyId, status, username);
+        System.out.printf(
+                "Successfully updated status of access key %s to" +
+                "status %s for user %s", access_id, status, username);
     }
 }
+

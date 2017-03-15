@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.ListUsersRequest;
@@ -24,16 +23,15 @@ import com.amazonaws.services.identitymanagement.model.User;
  * Lists all IAM users
  */
 public class ListUsers {
-
     public static void main(String[] args) {
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
 
         while(!done) {
             ListUsersRequest request = new ListUsersRequest();
-
             ListUsersResult response = iam.listUsers(request);
 
             for(User user : response.getUsers()) {
@@ -48,3 +46,4 @@ public class ListUsers {
         }
     }
 }
+

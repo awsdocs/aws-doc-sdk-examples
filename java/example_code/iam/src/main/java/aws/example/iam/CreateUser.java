@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.CreateUserRequest;
@@ -37,13 +36,16 @@ public class CreateUser {
 
         String username = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         CreateUserRequest request = new CreateUserRequest()
             .withUserName(username);
 
         CreateUserResult response = iam.createUser(request);
 
-        System.out.println("Successfully created user: " + response.getUser().getUserName());
+        System.out.println("Successfully created user: " +
+                response.getUser().getUserName());
     }
 }
+

@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.CreatePolicyRequest;
@@ -58,16 +57,19 @@ public class CreatePolicy {
             System.exit(1);
         }
 
-        String policyName = args[0];
+        String policy_name = args[0];
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         CreatePolicyRequest request = new CreatePolicyRequest()
-            .withPolicyName(policyName)
+            .withPolicyName(policy_name)
             .withPolicyDocument(POLICY_DOCUMENT);
 
         CreatePolicyResult response = iam.createPolicy(request);
 
-        System.out.println("Successfully created policy: " + response.getPolicy().getPolicyName());
+        System.out.println("Successfully created policy: " +
+                response.getPolicy().getPolicyName());
     }
 }
+

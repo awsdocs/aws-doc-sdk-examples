@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package iam.src.main.java.aws.example.iam;
-
+package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.ListServerCertificatesRequest;
@@ -24,20 +23,24 @@ import com.amazonaws.services.identitymanagement.model.ServerCertificateMetadata
  * Lists all server certificates associated with an AWS account
  */
 public class ListServerCertificates {
-
     public static void main(String[] args) {
 
-        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam =
+            AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
 
         while(!done) {
-            ListServerCertificatesRequest request = new ListServerCertificatesRequest();
+            ListServerCertificatesRequest request =
+                new ListServerCertificatesRequest();
 
-            ListServerCertificatesResult response = iam.listServerCertificates(request);
+            ListServerCertificatesResult response =
+                iam.listServerCertificates(request);
 
-            for(ServerCertificateMetadata metadata : response.getServerCertificateMetadataList()) {
-                System.out.printf("Retrieved server certificate %s", metadata.getServerCertificateName());
+            for(ServerCertificateMetadata metadata :
+                    response.getServerCertificateMetadataList()) {
+                System.out.printf("Retrieved server certificate %s",
+                        metadata.getServerCertificateName());
             }
 
             request.setMarker(response.getMarker());
@@ -48,3 +51,4 @@ public class ListServerCertificates {
         }
     }
 }
+
