@@ -15,7 +15,6 @@
 package aws.example.iam;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
-import com.amazonaws.services.identitymanagement.model.ListAccountAliasesRequest;
 import com.amazonaws.services.identitymanagement.model.ListAccountAliasesResult;
 
 /**
@@ -27,23 +26,10 @@ public class ListAccountAliases {
         final AmazonIdentityManagement iam =
             AmazonIdentityManagementClientBuilder.defaultClient();
 
-        boolean done = false;
+        ListAccountAliasesResult response = iam.listAccountAliases();
 
-        while(!done) {
-            ListAccountAliasesRequest request =
-                new ListAccountAliasesRequest();
-
-            ListAccountAliasesResult response = iam.listAccountAliases();
-
-            for (String alias : response.getAccountAliases()) {
-                System.out.printf("Retrieved account alias %s", alias);
-            }
-
-            request.setMarker(response.getMarker());
-
-            if(request.getMarker() == null) {
-                done = true;
-            }
+        for (String alias : response.getAccountAliases()) {
+            System.out.printf("Retrieved account alias %s", alias);
         }
     }
 }

@@ -79,6 +79,7 @@ public class AttachRolePolicy {
                 .withPolicyArn(POLICY_ARN);
 
         iam.attachRolePolicy(attach_request);
+
         System.out.println("Successfully attached policy " + POLICY_ARN +
                 " to role " + role_name);
     }

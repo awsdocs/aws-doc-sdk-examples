@@ -23,7 +23,7 @@ import com.amazonaws.services.identitymanagement.model.CreatePolicyResult;
  */
 public class CreatePolicy {
 
-    public static final String POLICY_DOCUMENT=
+    public static final String POLICY_DOCUMENT =
         "{" +
         "  \"Version\": \"2012-10-17\"," +
         "  \"Statement\": [" +
