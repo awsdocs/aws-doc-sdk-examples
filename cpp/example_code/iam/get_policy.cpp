@@ -12,11 +12,9 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetPolicyRequest.h>
 #include <aws/iam/model/GetPolicyResult.h>
-
 #include <iostream>
 
 /**
