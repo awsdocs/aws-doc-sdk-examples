@@ -19,7 +19,6 @@ import com.amazonaws.services.sqs.model.AmazonSQSException;
 import com.amazonaws.services.sqs.model.GetQueueAttributesRequest;
 import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
 import com.amazonaws.services.sqs.model.SetQueueAttributesRequest;
-import java.util.Date;
 
 public class DeadLetterQueues
 {
