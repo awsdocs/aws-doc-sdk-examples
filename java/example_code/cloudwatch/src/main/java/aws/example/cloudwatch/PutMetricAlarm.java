@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 import com.amazonaws.services.cloudwatch.model.ComparisonOperator;
@@ -27,7 +26,6 @@ import com.amazonaws.services.cloudwatch.model.Statistic;
  * Creates a new CloudWatch alarm based on CPU utilization for an instance
  */
 public class PutMetricAlarm {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -42,7 +40,8 @@ public class PutMetricAlarm {
         String alarmName = args[0];
         String instanceId = args[1];
 
-        final AmazonCloudWatch cloudWatch = AmazonCloudWatchClientBuilder.defaultClient();
+        final AmazonCloudWatch cw =
+            AmazonCloudWatchClientBuilder.defaultClient();
 
         Dimension dimension = new Dimension()
             .withName("InstanceId")
@@ -50,7 +49,8 @@ public class PutMetricAlarm {
 
         PutMetricAlarmRequest request = new PutMetricAlarmRequest()
             .withAlarmName(alarmName)
-            .withComparisonOperator(ComparisonOperator.GreaterThanThreshold)
+            .withComparisonOperator(
+                ComparisonOperator.GreaterThanThreshold)
             .withEvaluationPeriods(1)
             .withMetricName("CPUUtilization")
             .withNamespace("AWS/EC2")
@@ -58,13 +58,15 @@ public class PutMetricAlarm {
             .withStatistic(Statistic.Average)
             .withThreshold(70.0)
             .withActionsEnabled(false)
-            .withAlarmDescription("Alarm when server CPU utilization exceeds 70%")
+            .withAlarmDescription(
+                "Alarm when server CPU utilization exceeds 70%")
             .withUnit(StandardUnit.Seconds)
             .withDimensions(dimension);
 
-        PutMetricAlarmResult response = cloudWatch.putMetricAlarm(request);
+        PutMetricAlarmResult response = cw.putMetricAlarm(request);
 
-        System.out.printf("Successfully created alarm with name %s", alarmName);
+        System.out.printf(
+            "Successfully created alarm with name %s", alarmName);
 
     }
 }

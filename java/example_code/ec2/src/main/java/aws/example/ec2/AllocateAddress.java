@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.AllocateAddressRequest;
@@ -25,36 +24,44 @@ import com.amazonaws.services.ec2.model.DomainType;
 /**
  * Allocates an elastic IP address for an EC2 instance
  */
-public class AllocateAddress {
-
-    public static void main(String[] args) {
-
+public class AllocateAddress
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
             "To run this example, supply an instance id\n" +
-            "Ex: AllocateAddress <instance-id>\n";
+            "Ex: AllocateAddress <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String instanceId = args[0];
+        String instance_id = args[0];
 
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        AllocateAddressRequest allocateAddressRequest = new AllocateAddressRequest()
+        AllocateAddressRequest allocate_request = new AllocateAddressRequest()
             .withDomain(DomainType.Vpc);
 
-        AllocateAddressResult allocateAddressResponsee = ec2.allocateAddress(allocateAddressRequest);
+        AllocateAddressResult allocate_response =
+            ec2.allocateAddress(allocate_request);
 
-        String allocationId = allocateAddressResponsee.getAllocationId();
+        String allocation_id = allocate_response.getAllocationId();
 
-        AssociateAddressRequest request = new AssociateAddressRequest()
-            .withInstanceId(instanceId)
-            .withAllocationId(allocationId);
+        AssociateAddressRequest associate_request =
+            new AssociateAddressRequest()
+                .withInstanceId(instance_id)
+                .withAllocationId(allocation_id);
 
-        AssociateAddressResult response = ec2.associateAddress(request);
+        AssociateAddressResult associate_response =
+            ec2.associateAddress(associate_request);
 
-        System.out.printf("Successfully associated elastic ip address %s with instance %s", response.getAssociationId(), instanceId);
+        System.out.printf(
+            "Successfully associated Elastic IP address %s " +
+            "with instance %s",
+            associate_response.getAssociationId(),
+            instance_id);
     }
 }
+

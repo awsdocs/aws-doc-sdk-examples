@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.logs.AWSLogs;
 import com.amazonaws.services.logs.AWSLogsClientBuilder;
 import com.amazonaws.services.logs.model.PutSubscriptionFilterRequest;
@@ -23,33 +22,44 @@ import com.amazonaws.services.logs.model.PutSubscriptionFilterResult;
  * Creates a CloudWatch Logs subscription filter.
  */
 public class PutSubscriptionFilter {
-
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a filter name, filter pattern, log group name and lambda function arn\n" +
-            "Ex: PutSubscriptionFilter <filter-name> <filter pattern> <log-group-name> <lambda-function-arn>\n";
+            "To run this example, supply:\n" +
+            "* a filter name\n" +
+            "* filter pattern\n" +
+            "* log group name\n" +
+            "* lambda function arn\n\n" +
+            "Ex: PutSubscriptionFilter <filter-name> \\\n" +
+            "                          <filter pattern> \\\n" +
+            "                          <log-group-name> \\\n" +
+            "                          <lambda-function-arn>\n";
 
         if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String filterName = args[0];
-        String filterPattern = args[1];
-        String logGroupName = args[2];
-        String lambdaFunctionArn = args[3];
+        String filter = args[0];
+        String pattern = args[1];
+        String log_group = args[2];
+        String function_arn = args[3];
 
-        final AWSLogs cloudWatchLogs = AWSLogsClientBuilder.defaultClient();
+        final AWSLogs cwl = AWSLogsClientBuilder.defaultClient();
 
-        PutSubscriptionFilterRequest request = new PutSubscriptionFilterRequest()
-            .withFilterName(filterName)
-            .withFilterPattern(filterPattern)
-            .withLogGroupName(logGroupName)
-            .withDestinationArn(lambdaFunctionArn);
+        PutSubscriptionFilterRequest request =
+            new PutSubscriptionFilterRequest()
+                .withFilterName(filter)
+                .withFilterPattern(pattern)
+                .withLogGroupName(log_group)
+                .withDestinationArn(function_arn);
 
-        PutSubscriptionFilterResult response = cloudWatchLogs.putSubscriptionFilter(request);
+        PutSubscriptionFilterResult response =
+            cwl.putSubscriptionFilter(request);
 
-        System.out.printf("Successfully created CloudWatch logs subscription filter %s", filterName);
+        System.out.printf(
+            "Successfully created CloudWatch logs subscription filter %s",
+            filter);
     }
 }
+

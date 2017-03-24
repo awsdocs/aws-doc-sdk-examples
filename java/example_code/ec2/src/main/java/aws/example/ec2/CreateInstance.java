@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.CreateTagsRequest;
@@ -26,10 +25,10 @@ import com.amazonaws.services.ec2.model.Tag;
 /**
  * Creates an EC2 instance
  */
-public class CreateInstance {
-
-    public static void main(String[] args) {
-
+public class CreateInstance
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
             "To run this example, supply an instance name and AMI image id\n" +
             "Ex: CreateInstance <instance-name> <ami-image-id>\n";
@@ -39,30 +38,33 @@ public class CreateInstance {
             System.exit(1);
         }
 
-        String instanceName = args[0];
-        String amiImageId = args[1];
+        String name = args[0];
+        String ami_id = args[1];
 
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        RunInstancesRequest runInstancesRequest = new RunInstancesRequest()
-            .withImageId(amiImageId)
+        RunInstancesRequest run_request = new RunInstancesRequest()
+            .withImageId(ami_id)
             .withInstanceType(InstanceType.T1Micro)
             .withMaxCount(1)
             .withMinCount(1);
 
-        RunInstancesResult runInstanceResponse = ec2.runInstances(runInstancesRequest);
+        RunInstancesResult run_response = ec2.runInstances(run_request);
 
-        String instanceId = runInstanceResponse.getReservation().getReservationId();
+        String instance_id = run_response.getReservation().getReservationId();
 
-        Tag nameTag = new Tag()
+        Tag tag = new Tag()
             .withKey("Name")
-            .withValue(instanceName);
+            .withValue(name);
 
-        CreateTagsRequest createTagsRequest = new CreateTagsRequest()
-            .withTags(nameTag);
+        CreateTagsRequest tag_request = new CreateTagsRequest()
+            .withTags(tag);
 
-        CreateTagsResult createTagsResponse = ec2.createTags(createTagsRequest);
+        CreateTagsResult tag_response = ec2.createTags(tag_request);
 
-        System.out.printf("Successfully started EC2 instance %s based on AMI %s", instanceId, amiImageId);
+        System.out.printf(
+            "Successfully started EC2 instance %s based on AMI %s",
+            instance_id, ami_id);
     }
 }
+

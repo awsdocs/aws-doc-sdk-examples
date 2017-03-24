@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>aws.example.sqs</groupId>
-  <artifactId>sqsexamples</artifactId>
+  <artifactId>aws-sqs-examples</artifactId>
   <packaging>jar</packaging>
   <version>1.0</version>
   <name>Amazon SQS Examples</name>
@@ -16,7 +16,7 @@
       <dependency>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk-bom</artifactId>
-        <version>1.11.77</version>
+        <version>1.11.106</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

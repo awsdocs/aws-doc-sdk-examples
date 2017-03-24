@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.AvailabilityZone;
@@ -24,23 +23,34 @@ import com.amazonaws.services.ec2.model.Region;
 /**
  * Describes all regions and zones
  */
-public class DescribeRegionsAndZones {
-
-    public static void main(String[] args) {
-
+public class DescribeRegionsAndZones
+{
+    public static void main(String[] args)
+    {
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        DescribeRegionsResult response = ec2.describeRegions();
+        DescribeRegionsResult regions_response = ec2.describeRegions();
 
-        for(Region region : response.getRegions()) {
-            System.out.printf("Found region %s with endpoint %s", region.getRegionName(), region.getEndpoint());
+        for(Region region : regions_response.getRegions()) {
+            System.out.printf(
+                "Found region %s " +
+                "with endpoint %s",
+                region.getRegionName(),
+                region.getEndpoint());
         }
 
-        DescribeAvailabilityZonesResult describeAvailabilityZonesResponse = ec2.describeAvailabilityZones();
+        DescribeAvailabilityZonesResult zones_response =
+            ec2.describeAvailabilityZones();
 
-        for(AvailabilityZone zone : describeAvailabilityZonesResponse.getAvailabilityZones()) {
-            System.out.printf("Found availability zone %s with status %s in region %s",
-                              zone.getRegionName(), zone.getState(), zone.getRegionName());
+        for(AvailabilityZone zone : zones_response.getAvailabilityZones()) {
+            System.out.printf(
+                "Found availability zone %s " +
+                "with status %s " +
+                "in region %s",
+                zone.getRegionName(),
+                zone.getState(),
+                zone.getRegionName());
         }
     }
 }
+

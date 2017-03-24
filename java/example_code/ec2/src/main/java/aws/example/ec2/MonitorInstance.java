@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DryRunResult;
@@ -24,64 +23,77 @@ import com.amazonaws.services.ec2.model.UnmonitorInstancesRequest;
 /**
  * Toggles detailed monitoring for an EC2 instance
  */
-public class MonitorInstance {
-
-    public static void monitorInstance(String instanceId) {
-
+public class MonitorInstance
+{
+    public static void monitorInstance(String instance_id)
+    {
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        DryRunSupportedRequest<MonitorInstancesRequest> monitorInstancesDryRun = () -> {
+        DryRunSupportedRequest<MonitorInstancesRequest> dry_request =
+            () -> {
             MonitorInstancesRequest request = new MonitorInstancesRequest()
-                .withInstanceIds(instanceId);
+                .withInstanceIds(instance_id);
 
             return request.getDryRunRequest();
         };
 
-        DryRunResult dryRunResponse = ec2.dryRun(monitorInstancesDryRun);
+        DryRunResult dry_response = ec2.dryRun(dry_request);
 
-        if(!dryRunResponse.isSuccessful()) {
-            System.out.printf("Failed dry run to enable monitoring on instance %s", instanceId);
-            throw dryRunResponse.getDryRunResponse();
+        if (!dry_response.isSuccessful()) {
+            System.out.printf(
+                "Failed dry run to enable monitoring on instance %s",
+                instance_id);
+
+            throw dry_response.getDryRunResponse();
         }
 
         MonitorInstancesRequest request = new MonitorInstancesRequest()
-                .withInstanceIds(instanceId);
+                .withInstanceIds(instance_id);
 
             ec2.monitorInstances(request);
 
-            System.out.printf("Successfully enabled monitoring for instance %s", instanceId);
+            System.out.printf(
+                "Successfully enabled monitoring for instance %s",
+                instance_id);
     }
 
-    public static void unmonitorInstance(String instanceId) {
-
+    public static void unmonitorInstance(String instance_id)
+    {
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        DryRunSupportedRequest<UnmonitorInstancesRequest> unmonitorInstancesDryRun = () -> {
+        DryRunSupportedRequest<UnmonitorInstancesRequest> dry_request =
+            () -> {
             UnmonitorInstancesRequest request = new UnmonitorInstancesRequest()
-                .withInstanceIds(instanceId);
+                .withInstanceIds(instance_id);
 
             return request.getDryRunRequest();
         };
 
-        DryRunResult dryRunResponse = ec2.dryRun(unmonitorInstancesDryRun);
+        DryRunResult dry_response = ec2.dryRun(dry_request);
 
-        if(!dryRunResponse.isSuccessful()) {
-            System.out.printf("Failed dry run to disable monitoring on instance %s", instanceId);
-            throw dryRunResponse.getDryRunResponse();
+        if (!dry_response.isSuccessful()) {
+            System.out.printf(
+                "Failed dry run to disable monitoring on instance %s",
+                instance_id);
+
+            throw dry_response.getDryRunResponse();
         }
 
         UnmonitorInstancesRequest request = new UnmonitorInstancesRequest()
-                .withInstanceIds(instanceId);
+            .withInstanceIds(instance_id);
 
             ec2.unmonitorInstances(request);
 
-            System.out.printf("Successfully disabled monitoring for instance %s", instanceId);
+            System.out.printf(
+                "Successfully disabled monitoring for instance %s",
+                instance_id);
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args)
+    {
         final String USAGE =
-            "To run this example, supply an instance id and a monitoring status\n" +
+            "To run this example, supply an instance id and a monitoring " +
+            "status\n" +
             "Ex: MonitorInstance <instance-id> <true|false>\n";
 
         if (args.length != 2) {
@@ -89,13 +101,14 @@ public class MonitorInstance {
             System.exit(1);
         }
 
-        String instanceId = args[0];
-        boolean enableMonitoring = Boolean.valueOf(args[1]);
+        String instance_id = args[0];
+        boolean monitor = Boolean.valueOf(args[1]);
 
-        if(enableMonitoring) {
-            monitorInstance(instanceId);
+        if (monitor) {
+            monitorInstance(instance_id);
         } else {
-            unmonitorInstance(instanceId);
+            unmonitorInstance(instance_id);
         }
     }
 }
+

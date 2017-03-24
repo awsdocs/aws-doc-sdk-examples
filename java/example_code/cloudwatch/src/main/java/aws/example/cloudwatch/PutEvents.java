@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.cloudwatchevents.AmazonCloudWatchEvents;
 import com.amazonaws.services.cloudwatchevents.AmazonCloudWatchEventsClientBuilder;
 import com.amazonaws.services.cloudwatchevents.model.PutEventsRequest;
@@ -24,8 +23,8 @@ import com.amazonaws.services.cloudwatchevents.model.PutEventsResult;
  * Puts a sample CloudWatch event
  */
 public class PutEvents {
-    
-    public static String EVENT_DETAILS = "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
+    public static String EVENT_DETAILS =
+        "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
 
     public static void main(String[] args) {
 
@@ -38,22 +37,24 @@ public class PutEvents {
             System.exit(1);
         }
 
-        String resourceArn = args[0];
+        String resource_arn = args[0];
 
 
-        final AmazonCloudWatchEvents cloudWatchEvents = AmazonCloudWatchEventsClientBuilder.defaultClient();
+        final AmazonCloudWatchEvents cwe =
+            AmazonCloudWatchEventsClientBuilder.defaultClient();
 
-        PutEventsRequestEntry putEventsRequestEntry = new PutEventsRequestEntry()
+        PutEventsRequestEntry request_entry = new PutEventsRequestEntry()
             .withDetail(EVENT_DETAILS)
             .withDetailType("sampleSubmitted")
-            .withResources(resourceArn)
+            .withResources(resource_arn)
             .withSource("aws-sdk-java-cloudwatch-example");
 
         PutEventsRequest request = new PutEventsRequest()
-            .withEntries(putEventsRequestEntry);
+            .withEntries(request_entry);
 
-        PutEventsResult response = cloudWatchEvents.putEvents(request);
+        PutEventsResult response = cwe.putEvents(request);
 
         System.out.println("Successfully put CloudWatch event");
     }
 }
+

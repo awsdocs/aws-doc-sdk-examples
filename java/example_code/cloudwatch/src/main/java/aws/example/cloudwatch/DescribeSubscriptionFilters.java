@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.logs.AWSLogs;
 import com.amazonaws.services.logs.AWSLogsClientBuilder;
 import com.amazonaws.services.logs.model.DescribeSubscriptionFiltersRequest;
@@ -36,24 +35,28 @@ public class DescribeSubscriptionFilters {
             System.exit(1);
         }
 
-        String logGroupName = args[0];
+        String log_group = args[0];
 
-        final AWSLogs cloudWatchLogs = AWSLogsClientBuilder.defaultClient();
-
+        final AWSLogs logs = AWSLogsClientBuilder.defaultClient();
         boolean done = false;
 
         while(!done) {
-            DescribeSubscriptionFiltersRequest request = new DescribeSubscriptionFiltersRequest()
-                .withLogGroupName(logGroupName)
-                .withLimit(1);
+            DescribeSubscriptionFiltersRequest request =
+                new DescribeSubscriptionFiltersRequest()
+                    .withLogGroupName(log_group)
+                    .withLimit(1);
 
-            DescribeSubscriptionFiltersResult response = cloudWatchLogs.describeSubscriptionFilters(request);
+            DescribeSubscriptionFiltersResult response =
+                logs.describeSubscriptionFilters(request);
 
             for(SubscriptionFilter filter : response.getSubscriptionFilters()) {
-                System.out.printf("Retrieved filter with name %s, pattern %s and destination arn %s",
-                                  filter.getFilterName(),
-                                  filter.getFilterPattern(),
-                                  filter.getDestinationArn());
+                System.out.printf(
+                    "Retrieved filter with name %s, " +
+                    "pattern %s " +
+                    "and destination arn %s",
+                    filter.getFilterName(),
+                    filter.getFilterPattern(),
+                    filter.getDestinationArn());
             }
 
             request.setNextToken(response.getNextToken());
@@ -64,3 +67,4 @@ public class DescribeSubscriptionFilters {
         }
     }
 }
+

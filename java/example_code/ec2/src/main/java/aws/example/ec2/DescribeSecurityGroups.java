@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsRequest;
@@ -23,10 +22,10 @@ import com.amazonaws.services.ec2.model.SecurityGroup;
 /**
  * Describes all security groups
  */
-public class DescribeSecurityGroups {
-
-    public static void main(String[] args) {
-
+public class DescribeSecurityGroups
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
             "To run this example, supply a group id\n" +
             "Ex: DescribeSecurityGroups <group-id>\n";
@@ -36,18 +35,26 @@ public class DescribeSecurityGroups {
             System.exit(1);
         }
 
-        String groupId = args[0];
+        String group_id = args[0];
 
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        DescribeSecurityGroupsRequest request = new DescribeSecurityGroupsRequest()
-            .withGroupIds(groupId);
+        DescribeSecurityGroupsRequest request =
+            new DescribeSecurityGroupsRequest()
+                .withGroupIds(group_id);
 
-        DescribeSecurityGroupsResult response = ec2.describeSecurityGroups(request);
+        DescribeSecurityGroupsResult response =
+            ec2.describeSecurityGroups(request);
 
         for(SecurityGroup group : response.getSecurityGroups()) {
-            System.out.printf("Found security group with id %s, vpc id %s and description %s",
-                              group.getGroupId(), group.getVpcId(), group.getDescription());
+            System.out.printf(
+                "Found security group with id %s, " +
+                "vpc id %s " +
+                "and description %s",
+                group.getGroupId(),
+                group.getVpcId(),
+                group.getDescription());
         }
     }
 }
+

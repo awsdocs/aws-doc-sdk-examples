@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
@@ -24,27 +23,30 @@ import com.amazonaws.services.ec2.model.Reservation;
 /**
  * Describes all EC2 instances associated with an AWS account
  */
-public class DescribeInstances {
-
-    public static void main(String[] args) {
-
+public class DescribeInstances
+{
+    public static void main(String[] args)
+    {
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
-
         boolean done = false;
 
         while(!done) {
             DescribeInstancesRequest request = new DescribeInstancesRequest();
-
             DescribeInstancesResult response = ec2.describeInstances(request);
 
             for(Reservation reservation : response.getReservations()) {
                 for(Instance instance : reservation.getInstances()) {
-                    System.out.printf("Found reservation with id %s, AMI %s, type %s, state %s and monitoring state %s",
-                                      instance.getInstanceId(),
-                                      instance.getImageId(),
-                                      instance.getInstanceType(),
-                                      instance.getState().getName(),
-                                      instance.getMonitoring().getState());
+                    System.out.printf(
+                        "Found reservation with id %s, " +
+                        "AMI %s, " +
+                        "type %s, " +
+                        "state %s " +
+                        "and monitoring state %s",
+                        instance.getInstanceId(),
+                        instance.getImageId(),
+                        instance.getInstanceType(),
+                        instance.getState().getName(),
+                        instance.getMonitoring().getState());
                 }
             }
 
@@ -56,3 +58,4 @@ public class DescribeInstances {
         }
     }
 }
+

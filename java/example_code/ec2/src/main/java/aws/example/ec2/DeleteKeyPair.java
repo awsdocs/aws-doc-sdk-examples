@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DeleteKeyPairRequest;
@@ -22,10 +21,10 @@ import com.amazonaws.services.ec2.model.DeleteKeyPairResult;
 /**
  * Deletes a key pair.
  */
-public class DeleteKeyPair {
-
-    public static void main(String[] args) {
-
+public class DeleteKeyPair
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
             "To run this example, supply a key pair name\n" +
             "Ex: DeleteKeyPair <key-pair-name>\n";
@@ -35,15 +34,17 @@ public class DeleteKeyPair {
             System.exit(1);
         }
 
-        String keyPairName = args[0];
+        String key_name = args[0];
 
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
         DeleteKeyPairRequest request = new DeleteKeyPairRequest()
-            .withKeyName(keyPairName);
+            .withKeyName(key_name);
 
         DeleteKeyPairResult response = ec2.deleteKeyPair(request);
 
-        System.out.printf("Successfully deleted key pair named %s", keyPairName);
+        System.out.printf(
+            "Successfully deleted key pair named %s", key_name);
     }
 }
+
