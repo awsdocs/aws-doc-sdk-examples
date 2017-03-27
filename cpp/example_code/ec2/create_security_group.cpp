@@ -41,7 +41,9 @@ void BuildSampleIngressRule(
     request.AddIpPermissions(permission2);
 }
 
-void CreateSecurityGroup(const Aws::String& group_name, const Aws::String& description, const Aws::String& vpc_id)
+void CreateSecurityGroup(
+        const Aws::String& group_name, const Aws::String& description,
+        const Aws::String& vpc_id)
 {
     Aws::EC2::EC2Client ec2;
 
@@ -64,7 +66,10 @@ void CreateSecurityGroup(const Aws::String& group_name, const Aws::String& descr
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorize_request;
     authorize_request.SetGroupName(group_name);
     BuildSampleIngressRule(authorize_request);
-    auto ingress_request = ec2.AuthorizeSecurityGroupIngress(authorize_request);
+
+    auto ingress_request = ec2.AuthorizeSecurityGroupIngress(
+            authorize_request);
+
     if(!ingress_request.IsSuccess()) {
         std::cout << "Failed to set ingress policy for security group " <<
             group_name << ":" << ingress_request.GetError().GetMessage() <<

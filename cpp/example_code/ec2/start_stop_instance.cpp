@@ -71,13 +71,15 @@ void StopInstance(const Aws::String& instance_id)
         std::cout << "Failed to stop instance " << instance_id << ": " <<
             outcome.GetError().GetMessage() << std::endl;
     } else {
-        std::cout << "Successfully stopped instance " << instance_id << std::endl;
+        std::cout << "Successfully stopped instance " << instance_id <<
+            std::endl;
     }
 }
 
 void PrintUsage()
 {
-    std::cout << "Usage: ec2_start_stop_instance <instance_id> <start|stop>" << std::endl;
+    std::cout << "Usage: ec2_start_stop_instance <instance_id> <start|stop>" <<
+        std::endl;
 }
 
 /**

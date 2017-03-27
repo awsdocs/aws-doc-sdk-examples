@@ -40,9 +40,9 @@ void EnableMonitoring(const Aws::String& instance_id)
     request.SetDryRun(false);
     auto monitorInstancesOutcome = ec2.MonitorInstances(request);
     if (!monitorInstancesOutcome.IsSuccess()) {
-        std::cout << "Failed to enable monitoring on instance " << instance_id <<
-            ": " << monitorInstancesOutcome.GetError().GetMessage() <<
-            std::endl;
+        std::cout << "Failed to enable monitoring on instance " <<
+            instance_id << ": " <<
+            monitorInstancesOutcome.GetError().GetMessage() << std::endl;
     } else {
         std::cout << "Successfully enabled monitoring on instance " <<
             instance_id << std::endl;
@@ -59,9 +59,12 @@ void DisableMonitoring(const Aws::String& instance_id)
 
     auto undry_run_outcome = ec2.UnmonitorInstances(unrequest);
     assert(!undry_run_outcome.IsSuccess());
-    if (undry_run_outcome.GetError().GetErrorType() != Aws::EC2::EC2Errors::DRY_RUN_OPERATION)
+    if (undry_run_outcome.GetError().GetErrorType() !=
+            Aws::EC2::EC2Errors::DRY_RUN_OPERATION)
     {
-        std::cout << "Failed dry run to disable monitoring on instance " << instance_id << ": " << undry_run_outcome.GetError().GetMessage() << std::endl;
+        std::cout << "Failed dry run to disable monitoring on instance " <<
+            instance_id << ": " << undry_run_outcome.GetError().GetMessage() <<
+            std::endl;
         return;
     }
 
@@ -69,11 +72,14 @@ void DisableMonitoring(const Aws::String& instance_id)
     auto unmonitorInstancesOutcome = ec2.UnmonitorInstances(unrequest);
     if (!unmonitorInstancesOutcome.IsSuccess())
     {
-        std::cout << "Failed to disable monitoring on instance " << instance_id << ": " << unmonitorInstancesOutcome.GetError().GetMessage() << std::endl;
+        std::cout << "Failed to disable monitoring on instance " << instance_id
+            << ": " << unmonitorInstancesOutcome.GetError().GetMessage() <<
+            std::endl;
     }
     else
     {
-        std::cout << "Successfully disable monitoring on instance " << instance_id << std::endl;
+        std::cout << "Successfully disable monitoring on instance " <<
+            instance_id << std::endl;
     }
 }
 
@@ -83,7 +89,8 @@ void DisableMonitoring(const Aws::String& instance_id)
 int main(int argc, char** argv)
 {
     if (argc != 3) {
-        std::cout << "Usage: ec2_monitor_instance <instance_id> <true|false>" << std::endl;
+        std::cout << "Usage: ec2_monitor_instance <instance_id> <true|false>" <<
+            std::endl;
         return 1;
     }
 

@@ -45,7 +45,8 @@ int main(int argc, char** argv)
                 << "GroupId" << std::setw(20) << "VpcId" << std::setw(64) <<
                 "Description" << std::endl;
 
-            const auto &securityGroups = outcome.GetResult().GetSecurityGroups();
+            const auto &securityGroups =
+                outcome.GetResult().GetSecurityGroups();
 
             for (const auto &securityGroup : securityGroups) {
                 std::cout << std::left << std::setw(32) <<
