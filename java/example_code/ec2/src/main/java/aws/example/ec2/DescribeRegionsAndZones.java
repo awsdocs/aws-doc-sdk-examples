@@ -15,10 +15,10 @@
 package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
-import com.amazonaws.services.ec2.model.AvailabilityZone;
-import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
 import com.amazonaws.services.ec2.model.Region;
+import com.amazonaws.services.ec2.model.AvailabilityZone;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 
 /**
  * Describes all regions and zones
@@ -47,7 +47,7 @@ public class DescribeRegionsAndZones
                 "Found availability zone %s " +
                 "with status %s " +
                 "in region %s",
-                zone.getRegionName(),
+                zone.getZoneName(),
                 zone.getState(),
                 zone.getRegionName());
         }

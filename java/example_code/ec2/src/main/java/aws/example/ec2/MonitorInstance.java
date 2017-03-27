@@ -15,10 +15,10 @@
 package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
-import com.amazonaws.services.ec2.model.DryRunResult;
-import com.amazonaws.services.ec2.model.DryRunSupportedRequest;
 import com.amazonaws.services.ec2.model.MonitorInstancesRequest;
 import com.amazonaws.services.ec2.model.UnmonitorInstancesRequest;
+import com.amazonaws.services.ec2.model.DryRunResult;
+import com.amazonaws.services.ec2.model.DryRunSupportedRequest;
 
 /**
  * Toggles detailed monitoring for an EC2 instance
@@ -50,11 +50,11 @@ public class MonitorInstance
         MonitorInstancesRequest request = new MonitorInstancesRequest()
                 .withInstanceIds(instance_id);
 
-            ec2.monitorInstances(request);
+        ec2.monitorInstances(request);
 
-            System.out.printf(
-                "Successfully enabled monitoring for instance %s",
-                instance_id);
+        System.out.printf(
+            "Successfully enabled monitoring for instance %s",
+            instance_id);
     }
 
     public static void unmonitorInstance(String instance_id)
@@ -82,11 +82,11 @@ public class MonitorInstance
         UnmonitorInstancesRequest request = new UnmonitorInstancesRequest()
             .withInstanceIds(instance_id);
 
-            ec2.unmonitorInstances(request);
+        ec2.unmonitorInstances(request);
 
-            System.out.printf(
-                "Successfully disabled monitoring for instance %s",
-                instance_id);
+        System.out.printf(
+            "Successfully disabled monitoring for instance %s",
+            instance_id);
     }
 
     public static void main(String[] args)
