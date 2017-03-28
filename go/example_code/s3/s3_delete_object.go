@@ -23,8 +23,21 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+// Deletes the specified object in the specified S3 Bucket in the region configured in the shared config
+// or AWS_REGION environment variable.
+//
+// Usage:
+//    go run s3_delete_object BUCKET_NAME OBJECT_NAME
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
+	if len(os.Args) != 3 {
+		exitErrorf("Bucket and object name required\nUsage: %s bucket_name object_name",
+			os.Args[0])
+	}
+
+	bucket := os.Args[1]
+	obj := os.Args[2]
+
+	// Inititalize a session that the SDK uses to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -33,17 +46,20 @@ func main() {
 	// Create S3 service client
 	svc := s3.New(sess)
 
-	result, err := svc.ListBuckets(nil)
+	// Delete the item
+	_, err := svc.DeleteObject(&s3.DeleteObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj)})
 
 	if err != nil {
-		exitErrorf("Unable to list buckets, %v", err)
+		exitErrorf("Unable to delete object %q from bucket %q, %v", obj, bucket, err)
 	}
 
-	fmt.Println("Buckets:")
+	err = svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(obj),
+	})
 
-	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s\n",
-			aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
+	if err != nil {
+		exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
 	}
 }
 

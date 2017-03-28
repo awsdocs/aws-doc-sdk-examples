@@ -23,8 +23,20 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+// Lists the items in the specified S3 Bucket in the region configured in the shared config
+// or AWS_REGION environment variable.
+//
+// Usage:
+//    go run s3_list_objects.go BUCKET_NAME
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
+	if len(os.Args) != 2 {
+		exitErrorf("Bucket name required\nUsage: %s bucket_name",
+			os.Args[0])
+	}
+
+	bucket := os.Args[1]
+
+	// Inititalize a session that the SDK uses to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -33,18 +45,23 @@ func main() {
 	// Create S3 service client
 	svc := s3.New(sess)
 
-	result, err := svc.ListBuckets(nil)
+	// Get the list of items
+	resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
 
 	if err != nil {
-		exitErrorf("Unable to list buckets, %v", err)
+		exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
 	}
 
-	fmt.Println("Buckets:")
-
-	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s\n",
-			aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
+	for _, item := range resp.Contents {
+		fmt.Println("Name:         ", *item.Key)
+		fmt.Println("Last modified:", *item.LastModified)
+		fmt.Println("Size:         ", *item.Size)
+		fmt.Println("Storage class:", *item.StorageClass)
+		fmt.Println("")
 	}
+
+	fmt.Println("Found", len(resp.Contents), "items in bucket", bucket)
+	fmt.Println("")
 }
 
 func exitErrorf(msg string, args ...interface{}) {

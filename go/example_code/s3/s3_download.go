@@ -21,30 +21,50 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
+// Downloads an item from an S3 Bucket in the region configured in the shared config
+// or AWS_REGION environment variable.
+//
+// Usage:
+//    go run s3_download.go BUCKET ITEM
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
+	if len(os.Args) != 3 {
+		exitErrorf("Bucket and item names required\nUsage: %s bucket_name item_name",
+			os.Args[0])
+	}
+
+	bucket := os.Args[1]
+	item := os.Args[2]
+
+	// Inititalize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
-	// Create S3 service client
-	svc := s3.New(sess)
-
-	result, err := svc.ListBuckets(nil)
+	file, err := os.Create(item)
 
 	if err != nil {
-		exitErrorf("Unable to list buckets, %v", err)
+		exitErrorf("Unable to open file %q, %v", err)
 	}
 
-	fmt.Println("Buckets:")
+	defer file.Close()
 
-	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s\n",
-			aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
+	downloader := s3manager.NewDownloader(sess)
+
+	numBytes, err := downloader.Download(file,
+		&s3.GetObjectInput{
+			Bucket: aws.String(bucket),
+			Key:    aws.String(item),
+		})
+
+	if err != nil {
+		exitErrorf("Unable to download item %q, %v", item, err)
 	}
+
+	fmt.Println("Downloaded", file.Name(), numBytes, "bytes")
 }
 
 func exitErrorf(msg string, args ...interface{}) {

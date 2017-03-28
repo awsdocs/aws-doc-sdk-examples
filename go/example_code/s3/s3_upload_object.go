@@ -27,12 +27,13 @@ import (
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_create_bucket BUCKET_NAME
+//    go run s3_upload_object.go BUCKET_NAME FILENAME
 func main() {
 	if len(os.Args) != 3 {
 		exitErrorf("bucket and file name required\nUsage: %s bucket_name filename",
 			os.Args[0])
 	}
+
 	bucket := os.Args[1]
 	filename := os.Args[2]
 
@@ -43,9 +44,11 @@ func main() {
 	}))
 
 	file, err := os.Open(filename)
+
 	if err != nil {
 		exitErrorf("Unable to open file %q, %v", err)
 	}
+
 	defer file.Close()
 
 	// Setup the S3 Upload Manager. Also see the SDK doc for the Upload Manager
@@ -70,6 +73,7 @@ func main() {
 		// each part.
 		Body: file,
 	})
+
 	if err != nil {
 		// Print the error and exit.
 		exitErrorf("Unable to upload %q to %q, %v", filename, bucket, err)
