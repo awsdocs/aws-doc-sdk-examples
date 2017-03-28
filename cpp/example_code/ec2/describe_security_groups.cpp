@@ -41,19 +41,22 @@ int main(int argc, char** argv)
         auto outcome = ec2.DescribeSecurityGroups(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << std::left << std::setw(32) << "Name" << std::setw(20)
-                << "GroupId" << std::setw(20) << "VpcId" << std::setw(64) <<
-                "Description" << std::endl;
+            std::cout << std::left <<
+                std::setw(32) << "Name" <<
+                std::setw(20) << "GroupId" <<
+                std::setw(20) << "VpcId" <<
+                std::setw(64) << "Description" << std::endl;
 
             const auto &securityGroups =
                 outcome.GetResult().GetSecurityGroups();
 
             for (const auto &securityGroup : securityGroups) {
-                std::cout << std::left << std::setw(32) <<
-                    securityGroup.GetGroupName() << std::setw(20) <<
-                    securityGroup.GetGroupId() << std::setw(20) <<
-                    securityGroup.GetVpcId() << std::setw(64) <<
-                    securityGroup.GetDescription() << std::endl;
+                std::cout << std::left <<
+                    std::setw(32) << securityGroup.GetGroupName() <<
+                    std::setw(20) << securityGroup.GetGroupId() <<
+                    std::setw(20) << securityGroup.GetVpcId() <<
+                    std::setw(64) << securityGroup.GetDescription() <<
+                    std::endl;
             }
         } else {
             std::cout << "Failed to describe security groups:" <<

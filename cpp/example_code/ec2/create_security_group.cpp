@@ -13,13 +13,13 @@
 */
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
-#include <aws/ec2/model/AuthorizeSecurityGroupIngressRequest.h>
 #include <aws/ec2/model/CreateSecurityGroupRequest.h>
 #include <aws/ec2/model/CreateSecurityGroupResponse.h>
+#include <aws/ec2/model/AuthorizeSecurityGroupIngressRequest.h>
 #include <iostream>
 
 void BuildSampleIngressRule(
-        Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& request)
+        Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& authorize_request)
 {
     Aws::EC2::Model::IpRange ip_range;
     ip_range.SetCidrIp("0.0.0.0/0");
@@ -30,7 +30,7 @@ void BuildSampleIngressRule(
     permission1.SetFromPort(80);
     permission1.AddIpRanges(ip_range);
 
-    request.AddIpPermissions(permission1);
+    authorize_request.AddIpPermissions(permission1);
 
     Aws::EC2::Model::IpPermission permission2;
     permission2.SetIpProtocol("tcp");
@@ -38,7 +38,7 @@ void BuildSampleIngressRule(
     permission2.SetFromPort(22);
     permission2.AddIpRanges(ip_range);
 
-    request.AddIpPermissions(permission2);
+    authorize_request.AddIpPermissions(permission2);
 }
 
 void CreateSecurityGroup(
@@ -46,15 +46,15 @@ void CreateSecurityGroup(
         const Aws::String& vpc_id)
 {
     Aws::EC2::EC2Client ec2;
-
     Aws::EC2::Model::CreateSecurityGroupRequest request;
+
     request.SetGroupName(group_name);
     request.SetDescription(description);
     request.SetVpcId(vpc_id);
 
     auto outcome = ec2.CreateSecurityGroup(request);
-    if(!outcome.IsSuccess())
-    {
+
+    if (!outcome.IsSuccess()) {
         std::cout << "Failed to create security group:" <<
             outcome.GetError().GetMessage() << std::endl;
         return;
@@ -64,7 +64,9 @@ void CreateSecurityGroup(
         std::endl;
 
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorize_request;
+
     authorize_request.SetGroupName(group_name);
+
     BuildSampleIngressRule(authorize_request);
 
     auto ingress_request = ec2.AuthorizeSecurityGroupIngress(

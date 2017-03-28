@@ -32,7 +32,6 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         Aws::EC2::EC2Client ec2;
-
         Aws::EC2::Model::CreateKeyPairRequest request;
         request.SetKeyName(pair_name);
 
@@ -41,8 +40,8 @@ int main(int argc, char** argv)
             std::cout << "Failed to create key pair:" <<
                 outcome.GetError().GetMessage() << std::endl;
         } else {
-            std::cout << "Successfully created key pair named " << pair_name <<
-                std::endl;
+            std::cout << "Successfully created key pair named " <<
+                pair_name << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

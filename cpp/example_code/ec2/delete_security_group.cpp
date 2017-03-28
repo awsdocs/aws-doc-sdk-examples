@@ -32,12 +32,13 @@ int main(int argc, char** argv)
     {
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DeleteSecurityGroupRequest request;
-        request.SetGroupId(groupId);
 
+        request.SetGroupId(groupId);
         auto outcome = ec2.DeleteSecurityGroup(request);
+
         if (!outcome.IsSuccess()) {
-            std::cout << "Failed to delete security group " << groupId << ":" <<
-                outcome.GetError().GetMessage() << std::endl;
+            std::cout << "Failed to delete security group " << groupId <<
+                ":" << outcome.GetError().GetMessage() << std::endl;
         } else {
             std::cout << "Successfully deleted security group " << groupId <<
                 std::endl;

@@ -22,7 +22,6 @@
 void EnableMonitoring(const Aws::String& instance_id)
 {
     Aws::EC2::EC2Client ec2;
-
     Aws::EC2::Model::MonitorInstancesRequest request;
     request.AddInstanceIds(instance_id);
     request.SetDryRun(true);
@@ -52,7 +51,6 @@ void EnableMonitoring(const Aws::String& instance_id)
 void DisableMonitoring(const Aws::String& instance_id)
 {
     Aws::EC2::EC2Client ec2;
-
     Aws::EC2::Model::Unrequest unrequest;
     unrequest.AddInstanceIds(instance_id);
     unrequest.SetDryRun(true);
@@ -60,8 +58,7 @@ void DisableMonitoring(const Aws::String& instance_id)
     auto undry_run_outcome = ec2.UnmonitorInstances(unrequest);
     assert(!undry_run_outcome.IsSuccess());
     if (undry_run_outcome.GetError().GetErrorType() !=
-            Aws::EC2::EC2Errors::DRY_RUN_OPERATION)
-    {
+            Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cout << "Failed dry run to disable monitoring on instance " <<
             instance_id << ": " << undry_run_outcome.GetError().GetMessage() <<
             std::endl;
@@ -70,14 +67,11 @@ void DisableMonitoring(const Aws::String& instance_id)
 
     unrequest.SetDryRun(false);
     auto unmonitorInstancesOutcome = ec2.UnmonitorInstances(unrequest);
-    if (!unmonitorInstancesOutcome.IsSuccess())
-    {
+    if (!unmonitorInstancesOutcome.IsSuccess()) {
         std::cout << "Failed to disable monitoring on instance " << instance_id
             << ": " << unmonitorInstancesOutcome.GetError().GetMessage() <<
             std::endl;
-    }
-    else
-    {
+    } else {
         std::cout << "Successfully disable monitoring on instance " <<
             instance_id << std::endl;
     }

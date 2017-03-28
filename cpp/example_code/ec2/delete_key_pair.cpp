@@ -32,11 +32,13 @@ int main(int argc, char** argv)
     {
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DeleteKeyPairRequest request;
+
         request.SetKeyName(pair_name);
         auto outcome = ec2.DeleteKeyPair(request);
+
         if (!outcome.IsSuccess()) {
-            std::cout << "Failed to delete key pair " << pair_name << ":" <<
-                outcome.GetError().GetMessage() << std::endl;
+            std::cout << "Failed to delete key pair " << pair_name <<
+                ":" << outcome.GetError().GetMessage() << std::endl;
         } else {
             std::cout << "Successfully deleted key pair named " << pair_name <<
                 std::endl;
