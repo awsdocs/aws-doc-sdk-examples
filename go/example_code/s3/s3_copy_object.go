@@ -23,8 +23,22 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+// Copies the item in the bucket to another bucket.
+//
+// Usage:
+//    go run s3_copy_object.go BUCKET ITEM OTHER_BUCKET
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
+	if len(os.Args) != 4 {
+		exitErrorf("Bucket, item, and other bucket names required\nUsage: go run s3_copy_object bucket item other-bucket")
+	}
+
+	bucket := os.Args[1]
+	item := os.Args[2]
+	other := os.Args[3]
+
+	source := bucket + "/" + item
+
+	// Inititalize a session that the SDK uses to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -33,18 +47,21 @@ func main() {
 	// Create S3 service client
 	svc := s3.New(sess)
 
-	result, err := svc.ListBuckets(nil)
+	// Copy the item
+	_, err := svc.CopyObject(&s3.CopyObjectInput{Bucket: aws.String(other), CopySource: aws.String(source), Key: aws.String(item)})
 
 	if err != nil {
-		exitErrorf("Unable to list buckets, %v", err)
+		exitErrorf("Unable to copy item from bucket %q to bucket %q, %v", bucket, other, err)
 	}
 
-	fmt.Println("Buckets:")
+	// Wait to see if the item got copied
+	err = svc.WaitUntilObjectExists(&s3.HeadObjectInput{Bucket: aws.String(other), Key: aws.String(item)})
 
-	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s\n",
-			aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
+	if err != nil {
+		exitErrorf("Error occurred while waiting for item %q to be copied to bucket %q, %v", bucket, item, other, err)
 	}
+
+	fmt.Printf("Item %q successfully copied from bucket %q to bucket %q\n", item, bucket, other)
 }
 
 func exitErrorf(msg string, args ...interface{}) {

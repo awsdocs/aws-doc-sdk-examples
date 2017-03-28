@@ -23,8 +23,21 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+// Restores an object in an S3 Bucket in the region configured in the shared config
+// or AWS_REGION environment variable.
+//
+// Usage:
+//    go run s3_restore_object.go BUCKET_NAME OBJECT_NAME
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
+	if len(os.Args) != 3 {
+		exitErrorf("Bucket name and object name required\nUsage: %s bucket_name object_name",
+			os.Args[0])
+	}
+
+	bucket := os.Args[1]
+	obj := os.Args[2]
+
+	// Inititalize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -33,18 +46,14 @@ func main() {
 	// Create S3 service client
 	svc := s3.New(sess)
 
-	result, err := svc.ListBuckets(nil)
+	// Restore the object from Glacier for up to 30 days
+	_, err := svc.RestoreObject(&s3.RestoreObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj), RestoreRequest: &s3.RestoreRequest{Days: aws.Int64(30)}})
 
 	if err != nil {
-		exitErrorf("Unable to list buckets, %v", err)
+		exitErrorf("Could not restore %s in bucket %s, %v", obj, bucket, err)
 	}
 
-	fmt.Println("Buckets:")
-
-	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s\n",
-			aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
-	}
+	fmt.Printf("%q should be restored to %q in about 4 hours\n", obj, bucket)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
