@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>aws.example.s3</groupId>
-  <artifactId>s3examples</artifactId>
+  <groupId>aws.example.cloudwatch</groupId>
+  <artifactId>aws-cloudwatch-examples</artifactId>
   <packaging>jar</packaging>
   <version>1.0</version>
-  <name>Amazon S3 Examples</name>
+  <name>Amazon Cloudwatch Examples</name>
   <url>http://maven.apache.org</url>
   <properties>
      <maven.compiler.source>1.7</maven.compiler.source>
@@ -25,7 +25,19 @@
   <dependencies>
     <dependency>
       <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-s3</artifactId>
+      <artifactId>aws-java-sdk-cloudwatch</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-cloudwatchmetrics</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-events</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-logs</artifactId>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

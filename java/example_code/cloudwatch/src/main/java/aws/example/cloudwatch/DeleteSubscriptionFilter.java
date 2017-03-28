@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.logs.AWSLogs;
 import com.amazonaws.services.logs.AWSLogsClientBuilder;
 import com.amazonaws.services.logs.model.DeleteSubscriptionFilterRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.logs.model.DeleteSubscriptionFilterResult;
  * Deletes a CloudWatch Logs subscription filter.
  */
 public class DeleteSubscriptionFilter {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -35,17 +33,22 @@ public class DeleteSubscriptionFilter {
             System.exit(1);
         }
 
-        String filterName = args[0];
-        String logGroupName = args[1];
+        String filter = args[0];
+        String log_group = args[1];
 
-        final AWSLogs cloudWatchLogs = AWSLogsClientBuilder.defaultClient();
+        final AWSLogs logs = AWSLogsClientBuilder.defaultClient();
 
-        DeleteSubscriptionFilterRequest request = new DeleteSubscriptionFilterRequest()
-            .withFilterName(filterName)
-            .withLogGroupName(logGroupName);
+        DeleteSubscriptionFilterRequest request =
+            new DeleteSubscriptionFilterRequest()
+                .withFilterName(filter)
+                .withLogGroupName(log_group);
 
-        DeleteSubscriptionFilterResult response = cloudWatchLogs.deleteSubscriptionFilter(request);
+        DeleteSubscriptionFilterResult response =
+            logs.deleteSubscriptionFilter(request);
 
-        System.out.printf("Successfully deleted CloudWatch logs subscription filter %s", filterName);
+        System.out.printf(
+            "Successfully deleted CloudWatch logs subscription filter %s",
+            filter);
     }
 }
+

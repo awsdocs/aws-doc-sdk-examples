@@ -19,15 +19,15 @@ import com.amazonaws.services.sqs.model.AmazonSQSException;
 import com.amazonaws.services.sqs.model.GetQueueAttributesRequest;
 import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
 import com.amazonaws.services.sqs.model.SetQueueAttributesRequest;
-import java.util.Date;
 
 public class DeadLetterQueues
 {
     public static void main(String[] args)
     {
         if (args.length != 2) {
-            system.println("Usage: DeadLetterQueues <src_queue_name> <dl_queue_name>");
-            system.exit(1);
+            System.out.println(
+                "Usage: DeadLetterQueues <src_queue_name> <dl_queue_name>");
+            System.exit(1);
         }
 
         String src_queue_name = args[0];
@@ -64,7 +64,7 @@ public class DeadLetterQueues
         String dl_queue_arn = queue_attrs.getAttributes().get("QueueArn");
 
         // Set dead letter queue with redrive policy on source queue.
-        String src_queue_url = sqs.getQueueUrl(SOURCE_QUEUE_NAME)
+        String src_queue_url = sqs.getQueueUrl(src_queue_name)
                                   .getQueueUrl();
 
         SetQueueAttributesRequest request = new SetQueueAttributesRequest()

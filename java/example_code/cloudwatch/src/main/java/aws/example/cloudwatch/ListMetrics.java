@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 import com.amazonaws.services.cloudwatch.model.ListMetricsRequest;
@@ -36,22 +35,24 @@ public class ListMetrics {
             System.exit(1);
         }
 
-        String metricName = args[0];
-        String metricNamespace = args[1];
+        String name = args[0];
+        String namespace = args[1];
 
-        final AmazonCloudWatch cloudWatch = AmazonCloudWatchClientBuilder.defaultClient();
+        final AmazonCloudWatch cw =
+            AmazonCloudWatchClientBuilder.defaultClient();
 
         boolean done = false;
 
         while(!done) {
             ListMetricsRequest request = new ListMetricsRequest()
-                .withMetricName(metricName)
-                .withNamespace(metricNamespace);
+                .withMetricName(name)
+                .withNamespace(namespace);
 
-            ListMetricsResult response = cloudWatch.listMetrics(request);
+            ListMetricsResult response = cw.listMetrics(request);
 
             for(Metric metric : response.getMetrics()) {
-                System.out.printf("Retrieved metric %s", metric.getMetricName());
+                System.out.printf(
+                    "Retrieved metric %s", metric.getMetricName());
             }
 
             request.setNextToken(response.getNextToken());
@@ -62,3 +63,4 @@ public class ListMetrics {
         }
     }
 }
+

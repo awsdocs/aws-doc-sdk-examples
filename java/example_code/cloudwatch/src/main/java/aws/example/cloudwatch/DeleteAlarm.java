@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 import com.amazonaws.services.cloudwatch.model.DeleteAlarmsRequest;
@@ -23,7 +22,6 @@ import com.amazonaws.services.cloudwatch.model.DeleteAlarmsResult;
  * Deletes a CloudWatch alarm
  */
 public class DeleteAlarm {
-
     public static void main(String[] args) {
 
         final String USAGE =
@@ -35,15 +33,17 @@ public class DeleteAlarm {
             System.exit(1);
         }
 
-        String alarmName = args[0];
+        String alarm_name = args[0];
 
-        final AmazonCloudWatch cloudWatch = AmazonCloudWatchClientBuilder.defaultClient();
+        final AmazonCloudWatch cw =
+            AmazonCloudWatchClientBuilder.defaultClient();
 
         DeleteAlarmsRequest request = new DeleteAlarmsRequest()
-            .withAlarmNames(alarmName);
+            .withAlarmNames(alarm_name);
 
-        DeleteAlarmsResult response = cloudWatch.deleteAlarms(request);
+        DeleteAlarmsResult response = cw.deleteAlarms(request);
 
-        System.out.printf("Successfully deleted alarm %s", alarmName);
+        System.out.printf("Successfully deleted alarm %s", alarm_name);
     }
 }
+

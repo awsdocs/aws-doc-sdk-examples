@@ -12,24 +12,23 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
-import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
-import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressResult;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest;
 import com.amazonaws.services.ec2.model.CreateSecurityGroupResult;
+import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
+import com.amazonaws.services.ec2.model.AuthorizeSecurityGroupIngressResult;
 import com.amazonaws.services.ec2.model.IpPermission;
 import com.amazonaws.services.ec2.model.IpRange;
 
 /**
  * Creates an EC2 security group.
  */
-public class CreateSecurityGroup {
-
-    public static void main(String[] args) {
-
+public class CreateSecurityGroup
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
             "To run this example, supply a group name, group description and vpc id\n" +
             "Ex: CreateSecurityGroup <group-name> <group-description> <vpc-id>\n";
@@ -39,43 +38,51 @@ public class CreateSecurityGroup {
             System.exit(1);
         }
 
-        String groupName = args[0];
-        String groupDescription = args[1];
-        String vpcId = args[2];
+        String group_name = args[0];
+        String group_desc = args[1];
+        String vpc_id = args[2];
 
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        CreateSecurityGroupRequest createSecurityGroupRequest = new CreateSecurityGroupRequest()
-            .withGroupName(groupName)
-            .withDescription(groupDescription)
-            .withVpcId(vpcId);
+        CreateSecurityGroupRequest create_request = new
+            CreateSecurityGroupRequest()
+                .withGroupName(group_name)
+                .withDescription(group_desc)
+                .withVpcId(vpc_id);
 
-        CreateSecurityGroupResult createSecurityGroupResponse = ec2.createSecurityGroup(createSecurityGroupRequest);
+        CreateSecurityGroupResult create_response =
+            ec2.createSecurityGroup(create_request);
 
-        System.out.printf("Successfully created security group named %s", groupName);
+        System.out.printf(
+            "Successfully created security group named %s",
+            group_name);
 
-        IpRange ipRange = new IpRange()
+        IpRange ip_range = new IpRange()
             .withCidrIp("0.0.0.0/0");
 
-        IpPermission ipPermission = new IpPermission()
+        IpPermission ip_perm = new IpPermission()
             .withIpProtocol("tcp")
             .withToPort(80)
             .withFromPort(80)
-            .withIpv4Ranges(ipRange);
+            .withIpv4Ranges(ip_range);
 
-        IpPermission ipPermission2 = new IpPermission()
+        IpPermission ip_perm2 = new IpPermission()
             .withIpProtocol("tcp")
             .withToPort(22)
             .withFromPort(22)
-            .withIpv4Ranges(ipRange);
+            .withIpv4Ranges(ip_range);
 
-        AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest()
-            .withGroupName(groupName)
-            .withIpPermissions(ipPermission, ipPermission2);
+        AuthorizeSecurityGroupIngressRequest auth_request = new
+            AuthorizeSecurityGroupIngressRequest()
+                .withGroupName(group_name)
+                .withIpPermissions(ip_perm, ip_perm2);
 
-        AuthorizeSecurityGroupIngressResult authorizeSecurityGroupIngressResponse =
-            ec2.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+        AuthorizeSecurityGroupIngressResult auth_response =
+            ec2.authorizeSecurityGroupIngress(auth_request);
 
-        System.out.printf("Successfully added ingress policy to security group %s", groupName);
+        System.out.printf(
+            "Successfully added ingress policy to security group %s",
+            group_name);
     }
 }
+

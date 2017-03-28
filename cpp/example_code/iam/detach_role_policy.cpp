@@ -12,12 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DetachRolePolicyRequest.h>
 #include <aws/iam/model/ListAttachedRolePoliciesRequest.h>
 #include <aws/iam/model/ListAttachedRolePoliciesResult.h>
-
 #include <iostream>
 
 void DetachRolePolicy(const Aws::String& role_name, const Aws::String& policy_arn)

@@ -25,7 +25,8 @@ import java.util.Date;
 public class VisibilityTimeout
 {
     // Change the visibility timeout for a single message
-    public ChangeMessageVisibilitySingle(String queue_url, timeout)
+    public static void changeMessageVisibilitySingle(
+            String queue_url, int timeout)
     {
         AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
@@ -39,7 +40,8 @@ public class VisibilityTimeout
     }
 
     // Change the visibility timeout for multiple messages.
-    public ChangMessageVisibilityMultiple(String queue_url, timeout)
+    public static void changeMessageVisibilityMultiple(
+            String queue_url, int timeout)
     {
         AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
@@ -67,9 +69,7 @@ public class VisibilityTimeout
 
     public static void main(String[] args)
     {
-        private static final String queue_name = "testQueue" +
-            new Date().getTime();
-
+        final String queue_name = "testQueue" + new Date().getTime();
         AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         // first, create a queue (unless it exists already)
@@ -81,7 +81,7 @@ public class VisibilityTimeout
             }
         }
 
-        String queue_url = sqs.getQueueUrl(queue_name).getQueueUrl();
+        final String queue_url = sqs.getQueueUrl(queue_name).getQueueUrl();
 
         // Send some messages to the queue
         for (int i = 0; i < 20; i++) {
@@ -89,10 +89,10 @@ public class VisibilityTimeout
         }
 
         // change visibility timeout (single)
-        ChangeMessageVisibilitySingle(queue_url, 3600)
+        changeMessageVisibilitySingle(queue_url, 3600);
 
         // change visibility timeout (multiple)
-        ChangeMessageVisibilityMultiple(queue_url, 2000)
+        changeMessageVisibilityMultiple(queue_url, 2000);
     }
 }
 

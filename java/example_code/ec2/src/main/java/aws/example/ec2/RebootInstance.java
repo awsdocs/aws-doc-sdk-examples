@@ -12,38 +12,39 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package ec2;
-
+package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
-import com.amazonaws.services.ec2.model.CreateKeyPairRequest;
-import com.amazonaws.services.ec2.model.CreateKeyPairResult;
+import com.amazonaws.services.ec2.model.RebootInstancesRequest;
+import com.amazonaws.services.ec2.model.RebootInstancesResult;
 
 /**
- * Creates an EC2 key pair
+ * Reboots and EC2 instance
  */
-public class CreateKeyPair {
-
-    public static void main(String[] args) {
-
+public class RebootInstance
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
-            "To run this example, supply a key pair name\n" +
-            "Ex: CreateKeyPair <key-pair-name>\n";
+            "To run this example, supply an instance id\n" +
+            "Ex: RebootInstnace <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String keyPairName = args[0];
+        String instance_id = args[0];
 
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-        CreateKeyPairRequest request = new CreateKeyPairRequest()
-            .withKeyName(keyPairName);
+        RebootInstancesRequest request = new RebootInstancesRequest()
+            .withInstanceIds(instance_id);
 
-        CreateKeyPairResult response = ec2.createKeyPair(request);
+        RebootInstancesResult response = ec2.rebootInstances(request);
 
-        System.out.printf("Successfulyl created key pair named %s", keyPairName);
+        System.out.printf(
+            "Successfully rebooted instance %s", instance_id);
     }
 }
+

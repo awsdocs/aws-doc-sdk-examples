@@ -12,8 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cloudwatch.src.main.java.aws.example.cloudwatch;
-
+package aws.example.cloudwatch;
 import com.amazonaws.services.cloudwatchevents.AmazonCloudWatchEvents;
 import com.amazonaws.services.cloudwatchevents.AmazonCloudWatchEventsClientBuilder;
 import com.amazonaws.services.cloudwatchevents.model.PutRuleRequest;
@@ -36,19 +35,22 @@ public class PutRule {
             System.exit(1);
         }
 
-        String ruleName = args[0];
-        String roleArn = args[1];
+        String rule_name = args[0];
+        String role_arn = args[1];
 
-        final AmazonCloudWatchEvents cloudWatchEvents = AmazonCloudWatchEventsClientBuilder.defaultClient();
+        final AmazonCloudWatchEvents cwe =
+            AmazonCloudWatchEventsClientBuilder.defaultClient();
 
         PutRuleRequest request = new PutRuleRequest()
-            .withName(ruleName)
-            .withRoleArn(roleArn)
+            .withName(rule_name)
+            .withRoleArn(role_arn)
             .withScheduleExpression("rate(5 minutes)")
             .withState(RuleState.ENABLED);
 
-        PutRuleResult response = cloudWatchEvents.putRule(request);
+        PutRuleResult response = cwe.putRule(request);
 
-        System.out.printf("Successfully created CloudWatch events rule %s with arn %s", ruleName, response.getRuleArn());
+        System.out.printf(
+            "Successfully created CloudWatch events rule %s with arn %s",
+            rule_name, response.getRuleArn());
     }
 }
