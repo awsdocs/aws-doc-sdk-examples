@@ -22,12 +22,10 @@ import com.amazonaws.services.cloudwatchevents.model.PutEventsResult;
 /**
  * Puts a sample CloudWatch event
  */
-public class PutEvents {
-    public static String EVENT_DETAILS =
-        "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
-
-    public static void main(String[] args) {
-
+public class PutEvents
+{
+    public static void main(String[] args)
+    {
         final String USAGE =
             "To run this example, supply a resource arn\n" +
             "Ex: PutEvents <resource-arn>\n";
@@ -39,9 +37,11 @@ public class PutEvents {
 
         String resource_arn = args[0];
 
-
         final AmazonCloudWatchEvents cwe =
             AmazonCloudWatchEventsClientBuilder.defaultClient();
+
+        final String EVENT_DETAILS =
+            "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
 
         PutEventsRequestEntry request_entry = new PutEventsRequestEntry()
             .withDetail(EVENT_DETAILS)
