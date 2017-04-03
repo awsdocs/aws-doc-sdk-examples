@@ -43,19 +43,25 @@ int main(int argc, char** argv)
             }
 
             if (!header) {
-                std::cout << std::left << std::setw(32) << "Name" <<
-                    std::setw(64) << "Arn" << std::setw(64) << "Description" <<
-                    std::setw(20) << "LastUpdated" << std::endl;
+                std::cout << std::left <<
+                    std::setw(32) << "Name" <<
+                    std::setw(64) << "Arn" <<
+                    std::setw(64) << "Description" <<
+                    std::setw(20) << "LastUpdated" <<
+                    std::endl;
                 header = true;
             }
 
             const auto &alarms = outcome.GetResult().GetMetricAlarms();
             for (const auto &alarm : alarms) {
-                std::cout << std::left << std::setw(32) << alarm.GetAlarmName()
-                    << std::setw(64) << alarm.GetAlarmArn() << std::setw(64) <<
-                    alarm.GetAlarmDescription() << std::setw(20) <<
-                    alarm.GetAlarmConfigurationUpdatedTimestamp().ToGmtString(SIMPLE_DATE_FORMAT_STR)
-                    << std::endl;
+                std::cout << std::left <<
+                    std::setw(32) << alarm.GetAlarmName() <<
+                    std::setw(64) << alarm.GetAlarmArn() <<
+                    std::setw(64) << alarm.GetAlarmDescription() <<
+                    std::setw(20) <<
+                    alarm.GetAlarmConfigurationUpdatedTimestamp().ToGmtString(
+                        SIMPLE_DATE_FORMAT_STR) <<
+                    std::endl;
             }
 
             const auto &next_token = outcome.GetResult().GetNextToken();
