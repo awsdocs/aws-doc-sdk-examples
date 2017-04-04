@@ -20,13 +20,13 @@ bucket_name = 'my-bucket'
 
 # Create the bucket policy
 bucket_policy = {
-    'Version': '2012-10-17,
+    'Version': '2012-10-17',
     'Statement': [{
         'Sid': 'AddPerm',
         'Effect': 'Allow',
         'Principal': '*',
         'Action': ['s3:GetObject'],
-        'Resource': [bucket_name]
+        'Resource': "arn:aws:s3:::%s/*" % bucket_name
     }]
 }
 

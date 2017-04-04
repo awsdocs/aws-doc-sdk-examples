@@ -21,5 +21,5 @@ iam = boto3.client('iam')
 iam.update_access_key(
     AccessKeyId='ACCESS_KEY_ID',
     Status='Active',
-    UserName='USER_NAME'
+    UserName='IAM_USER_NAME'
 )
