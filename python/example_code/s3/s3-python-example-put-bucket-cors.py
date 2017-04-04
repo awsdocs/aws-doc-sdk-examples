@@ -20,7 +20,7 @@ s3 = boto3.client('s3')
 cors_configuration = {
     'CORSRules': [{
         'AllowedHeaders': ['Authorization'],
-        'AllowedMethods': [],
+        'AllowedMethods': ['GET', 'PUT'],
         'AllowedOrigins': ['*'],
         'ExposeHeaders': ['GET', 'PUT'],
         'MaxAgeSeconds': 3000

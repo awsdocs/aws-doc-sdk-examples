@@ -14,8 +14,8 @@ import sys
 import boto3
 from botocore.exceptions import ClientError
 
-instance_id = sys.argv[3]
-action = sys.argv[2].upper()
+instance_id = sys.argv[2]
+action = sys.argv[1].upper()
 
 ec2 = boto3.client('ec2')
 
