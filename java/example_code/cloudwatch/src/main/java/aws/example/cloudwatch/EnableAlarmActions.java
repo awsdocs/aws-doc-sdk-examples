@@ -42,10 +42,10 @@ public class EnableAlarmActions {
         EnableAlarmActionsRequest request = new EnableAlarmActionsRequest()
             .withAlarmNames(alarm);
 
-        EnableAlarmActionsResult response =
-            cw.enableAlarmActions(request);
+        EnableAlarmActionsResult response = cw.enableAlarmActions(request);
 
         System.out.printf(
             "Successfully enabled actions on alarm %s", alarm);
     }
 }
+

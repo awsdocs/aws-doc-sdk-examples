@@ -32,8 +32,8 @@ int main(int argc, char** argv)
         if (outcome.IsSuccess()) {
             std::cout << std::left << std::setw(20) << "InstanceId" <<
                 std::setw(15) << "Public IP" << std::setw(10) << "Domain" <<
-                std::setw(20) << "Allocation ID" << std::setw(25) << "NIC ID" <<
-                std::endl;
+                std::setw(20) << "Allocation ID" << std::setw(25) <<
+                "NIC ID" << std::endl;
 
             const auto &addresses = outcome.GetResult().GetAddresses();
             for (const auto &address : addresses)

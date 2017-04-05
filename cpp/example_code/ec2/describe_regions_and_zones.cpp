@@ -12,13 +12,11 @@
    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
-
 #include <aws/ec2/EC2Client.h>
-#include <aws/ec2/model/DescribeAvailabilityZonesRequest.h>
-#include <aws/ec2/model/DescribeAvailabilityZonesResponse.h>
 #include <aws/ec2/model/DescribeRegionsRequest.h>
 #include <aws/ec2/model/DescribeRegionsResponse.h>
-
+#include <aws/ec2/model/DescribeAvailabilityZonesRequest.h>
+#include <aws/ec2/model/DescribeAvailabilityZonesResponse.h>
 #include <iostream>
 
 /**
@@ -34,15 +32,15 @@ int main(int argc, char** argv)
         Aws::EC2::Model::DescribeRegionsRequest request;
         auto outcome = ec2.DescribeRegions(request);
         if (outcome.IsSuccess()) {
-            std::cout << std::left << std::setw(32) << "RegionName" <<
+            std::cout << std::left <<
+                std::setw(32) << "RegionName" <<
                 std::setw(64) << "Endpoint" << std::endl;
 
             const auto &regions = outcome.GetResult().GetRegions();
-            for (const auto &region : regions)
-            {
-                std::cout << std::left << std::setw(32) <<
-                    region.GetRegionName() << std::setw(64) <<
-                    region.GetEndpoint() << std::endl;
+            for (const auto &region : regions) {
+                std::cout << std::left <<
+                    std::setw(32) << region.GetRegionName() <<
+                    std::setw(64) << region.GetEndpoint() << std::endl;
             }
         } else {
             std::cout << "Failed to describe regions:" <<
@@ -54,9 +52,10 @@ int main(int argc, char** argv)
         auto describe_outcome = ec2.DescribeAvailabilityZones(describe_request);
 
         if (describe_outcome.IsSuccess()) {
-            std::cout << std::left << std::setw(32) << "ZoneName" <<
-                std::setw(20) << "State" << std::setw(32) << "Region" <<
-                std::endl;
+            std::cout << std::left <<
+                std::setw(32) << "ZoneName" <<
+                std::setw(20) << "State" <<
+                std::setw(32) << "Region" << std::endl;
 
             const auto &zones =
                 describe_outcome.GetResult().GetAvailabilityZones();
@@ -65,9 +64,10 @@ int main(int argc, char** argv)
                 Aws::String stateString =
                     Aws::EC2::Model::AvailabilityZoneStateMapper::GetNameForAvailabilityZoneState(
                             zone.GetState());
-                std::cout << std::left << std::setw(32) << zone.GetZoneName() <<
-                    std::setw(20) << stateString << std::setw(32) <<
-                    zone.GetRegionName() << std::endl;
+                std::cout << std::left <<
+                    std::setw(32) << zone.GetZoneName() <<
+                    std::setw(20) << stateString <<
+                    std::setw(32) << zone.GetRegionName() << std::endl;
             }
         } else {
             std::cout << "Failed to describe availability zones:" <<

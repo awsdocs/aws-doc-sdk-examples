@@ -13,35 +13,35 @@
 */
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
-#include <aws/ec2/model/DescribeKeyPairsRequest.h>
-#include <aws/ec2/model/DescribeKeyPairsResponse.h>
+#include <aws/ec2/model/CreateKeyPairRequest.h>
+#include <aws/ec2/model/CreateKeyPairResponse.h>
 #include <iostream>
 
 /**
- * Describes all instance key pairs
+ * Creates an ec2 key pair based on command line input
  */
 int main(int argc, char** argv)
 {
+    if(argc != 2) {
+        std::cout << "Usage: ec2_create_key_pair <key_pair_name>" << std::endl;
+        return 1;
+    }
+
+    Aws::String pair_name = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
         Aws::EC2::EC2Client ec2;
-        Aws::EC2::Model::DescribeKeyPairsRequest request;
+        Aws::EC2::Model::CreateKeyPairRequest request;
+        request.SetKeyName(pair_name);
 
-        auto outcome = ec2.DescribeKeyPairs(request);
-        if (outcome.IsSuccess()) {
-            std::cout << std::left << std::setw(32) << "Name" << std::setw(64)
-                << "Fingerprint" << std::endl;
-
-            const auto &key_pairs = outcome.GetResult().GetKeyPairs();
-            for (const auto &key_pair : key_pairs) {
-                std::cout << std::left << std::setw(32) << key_pair.GetKeyName()
-                    << std::setw(64) << key_pair.GetKeyFingerprint() <<
-                    std::endl;
-            }
-        } else {
-            std::cout << "Failed to describe key pairs:" <<
+        auto outcome = ec2.CreateKeyPair(request);
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to create key pair:" <<
                 outcome.GetError().GetMessage() << std::endl;
+        } else {
+            std::cout << "Successfully created key pair named " <<
+                pair_name << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

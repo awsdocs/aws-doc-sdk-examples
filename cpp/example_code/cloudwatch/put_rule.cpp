@@ -42,10 +42,10 @@ int main(int argc, char** argv)
         request.SetState(Aws::CloudWatchEvents::Model::RuleState::ENABLED);
 
         auto outcome = cwe.PutRule(request);
-        if (!outcome.IsSuccess())
-        {
-            std::cout << "Failed to create cloudwatch events rule " << rule_name
-                << ": " << outcome.GetError().GetMessage() << std::endl;
+        if (!outcome.IsSuccess()) {
+            std::cout << "Failed to create cloudwatch events rule " <<
+                rule_name << ": " << outcome.GetError().GetMessage() <<
+                std::endl;
         } else {
             std::cout << "Successfully created cloudwatch events rule " <<
                 rule_name << " with resulting Arn " <<

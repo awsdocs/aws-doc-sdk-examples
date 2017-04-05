@@ -13,32 +13,34 @@
 */
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
-#include <aws/ec2/model/DeleteKeyPairRequest.h>
+#include <aws/ec2/model/DeleteSecurityGroupRequest.h>
 #include <iostream>
 
 /**
- * Deletes an ec2 key pair based on command line input
+ * Deletes a security group based on command line input
  */
 int main(int argc, char** argv)
 {
     if(argc != 2) {
-        std::cout << "Usage: ec2_delete_key_pair <key_pair_name>" << std::endl;
+        std::cout << "Usage: ec2_delete_security_group <group_id>" << std::endl;
         return 1;
     }
 
-    Aws::String pair_name = argv[1];
+    Aws::String groupId = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
         Aws::EC2::EC2Client ec2;
-        Aws::EC2::Model::DeleteKeyPairRequest request;
-        request.SetKeyName(pair_name);
-        auto outcome = ec2.DeleteKeyPair(request);
+        Aws::EC2::Model::DeleteSecurityGroupRequest request;
+
+        request.SetGroupId(groupId);
+        auto outcome = ec2.DeleteSecurityGroup(request);
+
         if (!outcome.IsSuccess()) {
-            std::cout << "Failed to delete key pair " << pair_name << ":" <<
-                outcome.GetError().GetMessage() << std::endl;
+            std::cout << "Failed to delete security group " << groupId <<
+                ":" << outcome.GetError().GetMessage() << std::endl;
         } else {
-            std::cout << "Successfully deleted key pair named " << pair_name <<
+            std::cout << "Successfully deleted security group " << groupId <<
                 std::endl;
         }
     }
