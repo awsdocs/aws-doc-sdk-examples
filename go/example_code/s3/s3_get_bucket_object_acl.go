@@ -22,16 +22,17 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-// Gets the ACL for a bucket
+// Gets the ACL for a bucket object
 //
 // Usage:
-//    go run s3_get_bucket_acl.go BUCKET
+//    go run s3_get_bucket_object_acl.go BUCKET OBJECT
 func main() {
-	if len(os.Args) != 2 {
-		exitErrorf("Bucket name required\nUsage: go run", os.Args[0], "BUCKET")
+	if len(os.Args) != 3 {
+		exitErrorf("Bucket and object names required\nUsage: go run", os.Args[0], "BUCKET OBJECT")
 	}
 
 	bucket := os.Args[1]
+	key := os.Args[2]
 
 	// Initialize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
@@ -43,7 +44,7 @@ func main() {
 	svc := s3.New(sess)
 
 	// Get bucket ACL
-	result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
+	result, err := svc.GetObjectAcl(&s3.GetObjectAclInput{Bucket: &bucket, Key: &key})
 
 	if err != nil {
 		exitErrorf(err.Error())
