@@ -27,16 +27,14 @@ import (
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_delete_objects BUCKET_NAME Object1...ObjectN
+//    go run s3_delete_objects BUCKET_NAME
 func main() {
-	if len(os.Args) < 3 {
-		exitErrorf("Bucket name and at least one object name required\nUsage: %s bucket_name object_name*",
+	if len(os.Args) != 2 {
+		exitErrorf("Bucket name required\nUsage: %s BUCKET",
 			os.Args[0])
 	}
 
 	bucket := os.Args[1]
-	objects := os.Args[2:]
-	num_objs := len(objects)
 
 	// Inititalize a session that the SDK uses to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
@@ -47,20 +45,29 @@ func main() {
 	// Create S3 service client
 	svc := s3.New(sess)
 
+	// Get the list of objects
+	resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
+
+	if err != nil {
+		exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
+	}
+
+	num_objs := len(resp.Contents)
+
 	// Create Delete object with slots for the objects to delete
 	var items s3.Delete
 	var objs = make([]*s3.ObjectIdentifier, num_objs)
 
-	for i, k := range objects {
+	for i, o := range resp.Contents {
 		// Add objects from command line to array
-		objs[i] = &s3.ObjectIdentifier{Key: aws.String(k)}
+		objs[i] = &s3.ObjectIdentifier{Key: aws.String(*o.Key)}
 	}
 
 	// Add list of objects to delete to Delete object
 	items.SetObjects(objs)
 
 	// Delete the items
-	_, err := svc.DeleteObjects(&s3.DeleteObjectsInput{Bucket: &bucket, Delete: &items})
+	_, err = svc.DeleteObjects(&s3.DeleteObjectsInput{Bucket: &bucket, Delete: &items})
 
 	if err != nil {
 		exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
