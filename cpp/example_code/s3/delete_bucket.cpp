@@ -22,9 +22,6 @@
  */
 int main(int argc, char** argv)
 {
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-
     if(argc < 2) {
         std::cout << std::endl <<
             "To run this example, supply the name of a bucket to delete!" <<
@@ -36,6 +33,8 @@ int main(int argc, char** argv)
     const Aws::String bucket_name = argv[1];
     std::cout << "Deleting S3 bucket: " << bucket_name << std::endl;
 
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
     {
         Aws::S3::S3Client s3_client;
 
