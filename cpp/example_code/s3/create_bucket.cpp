@@ -21,14 +21,18 @@
 int main(int argc, char** argv)
 {
     if(argc < 2) {
-        std::cout << std::endl <<
-            "To run this example, supply the name of a bucket to create!" <<
-            std::endl << "Ex: create_bucket <unique-bucket-name>" << std::endl
-            << std::endl;
+        std::cout << "create_bucket - create an S3 bucket" << std::endl
+                  << "\nUsage:" << std::endl
+                  << "  create_bucket <bucket>" << std::endl
+                  << "\nWhere:" << std::endl
+                  << "  bucket - the bucket to create" << std::endl
+                  << "\nExample:" << std::endl
+                  << "  create_bucket testbucket\n" << std::endl << std::endl;
         exit(1);
     }
 
     const Aws::String bucket_name = argv[1];
+
     std::cout << "Creating S3 bucket: " << bucket_name << std::endl;
 
     Aws::SDKOptions options;
@@ -44,9 +48,9 @@ int main(int argc, char** argv)
         if (outcome.IsSuccess()) {
             std::cout << "Done!" << std::endl;
         } else {
-            std::cout << "CreateBucket error: " <<
-                outcome.GetError().GetExceptionName() << std::endl <<
-                outcome.GetError().GetMessage() << std::endl;
+            std::cout << "CreateBucket error: "
+                      << outcome.GetError().GetExceptionName() << std::endl
+                      << outcome.GetError().GetMessage() << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

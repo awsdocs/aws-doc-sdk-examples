@@ -28,14 +28,14 @@ int main(int argc, char** argv)
                   << "\nWhere:" << std::endl
                   << "  bucket - the bucket to get the policy from.\n" << std::endl
                   << "  region - AWS region for the bucket" << std::endl
-                  << "           (optional, default: us-west-2)" << std::endl
+                  << "           (optional, default: us-east-1)" << std::endl
                   << "\nExample:" << std::endl
                   << "  get_bucket_policy testbucket" << std::endl << std::endl;
         exit(1);
     }
 
     const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc == 3) ? argv[2] : "us-west-2";
+    const Aws::String user_region = (argc == 3) ? argv[2] : "us-east-1";
     std::cout << "Getting policy for bucket: " << bucket_name << std::endl;
 
     Aws::SDKOptions options;

@@ -33,7 +33,7 @@ int main(int argc, char** argv)
                   << "  bucket    - the bucket to set the website configuration for."
                   << std::endl
                   << "  region    - AWS region for the bucket" << std::endl
-                  << "              (optional, default: us-west-2)" << std::endl
+                  << "              (optional, default: us-east-1)" << std::endl
                   << "  index_doc - the index page" << std::endl
                   << "              (optional, default: index.html)" << std::endl
                   << "  error_doc - the error page" << std::endl
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
     }
 
     const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc >= 3) ? argv[2] : "us-west-2";
+    const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
     const Aws::String index_suffix = (argc >= 4) ? argv[3] : "index.html";
     const Aws::String error_key = (argc >= 5) ? argv[4] : "404.html";
 

@@ -23,35 +23,45 @@
 int main(int argc, char** argv)
 {
     if(argc < 2) {
-        std::cout << std::endl <<
-            "To run this example, supply the name of a bucket to delete!" <<
-            std::endl << "Ex: delete_bucket <bucket-name>" << std::endl
-            << std::endl;
+        std::cout << "delete_bucket - delete an S3 bucket" << std::endl
+                  << "\nUsage:" << std::endl
+                  << "  delete_bucket <bucket> [region]" << std::endl
+                  << "\nWhere:" << std::endl
+                  << "  bucket - the bucket to delete" << std::endl
+                  << "  region - AWS region for the bucket" << std::endl
+                  << "           (optional, default: us-east-1)" << std::endl
+                  << "\nNote! This will actually delete the bucket that you specify!"
+                  << std::endl
+                  << "\nExample:" << std::endl
+                  << "  delete_bucket testbucket\n" << std::endl << std::endl;
         exit(1);
     }
 
     const Aws::String bucket_name = argv[1];
+    const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
+
     std::cout << "Deleting S3 bucket: " << bucket_name << std::endl;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::S3::S3Client s3_client;
+        Aws::Client::ClientConfiguration config;
+        config.region = user_region;
+        Aws::S3::S3Client s3_client(config);
 
         Aws::S3::Model::DeleteBucketRequest bucket_request;
-        bucket_request.WithBucket(bucket_name);
+        bucket_request.SetBucket(bucket_name);
 
-        auto delete_bucket_outcome = s3_client.DeleteBucket(bucket_request);
+        auto outcome = s3_client.DeleteBucket(bucket_request);
 
-        if (delete_bucket_outcome.IsSuccess()) {
+        if (outcome.IsSuccess()) {
             std::cout << "Done!" << std::endl;
         } else {
-            std::cout << "DeleteBucket error: " <<
-                delete_bucket_outcome.GetError().GetExceptionName() << std::endl
-                << delete_bucket_outcome.GetError().GetMessage() << std::endl;
+            std::cout << "DeleteBucket error: "
+                      << outcome.GetError().GetExceptionName() << " - "
+                      << outcome.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
 }
 

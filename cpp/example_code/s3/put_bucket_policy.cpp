@@ -31,7 +31,7 @@ int main(int argc, char** argv)
                   << "\nWhere:" << std::endl
                   << "  bucket - the bucket to set the policy on." << std::endl
                   << "  region - AWS region for the bucket" << std::endl
-                  << "           (optional, default: us-west-2)" << std::endl
+                  << "           (optional, default: us-east-1)" << std::endl
                   << "\nNote! A *public-read* policy will be set." << std::endl
                   << "\nExample:" << std::endl
                   << "  set_bucket_policy testbucket\n" << std::endl;
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     }
 
     const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc == 3) ? argv[2] : "us-west-2";
+    const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
     const Aws::String policy_string =
         "{\n"
         "  \"Version\":\"2012-10-17\",\n"
