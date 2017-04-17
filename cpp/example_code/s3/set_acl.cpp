@@ -15,8 +15,8 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/AccessControlPolicy.h>
 #include <aws/s3/model/GetBucketAclRequest.h>
-#include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/PutBucketAclRequest.h>
+#include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/PutObjectAclRequest.h>
 #include <aws/s3/model/Grantee.h>
 #include <aws/s3/model/Permission.h>

@@ -51,11 +51,13 @@ void GetAclForBucket(Aws::String bucket_name, Aws::String user_region)
     auto outcome = s3_client.GetBucketAcl(request);
 
     if (outcome.IsSuccess()) {
-        Aws::Vector<Aws::S3::Model::Grant> grants = outcome.GetResult().GetGrants();
+        Aws::Vector<Aws::S3::Model::Grant> grants =
+            outcome.GetResult().GetGrants();
         for (auto it = grants.begin(); it != grants.end(); it++) {
             Aws::S3::Model::Grant grant = *it;
             std::cout << grant.GetGrantee().GetDisplayName() << ": "
-                      << GetPermissionString(grant.GetPermission()) << std::endl;
+                      << GetPermissionString(grant.GetPermission())
+                      << std::endl;
         }
     } else {
         std::cout << "GetBucketAcl error: "
@@ -81,11 +83,13 @@ void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
     auto outcome = s3_client.GetObjectAcl(request);
 
     if (outcome.IsSuccess()) {
-        Aws::Vector<Aws::S3::Model::Grant> grants = outcome.GetResult().GetGrants();
+        Aws::Vector<Aws::S3::Model::Grant> grants =
+            outcome.GetResult().GetGrants();
         for (auto it = grants.begin(); it != grants.end(); it++) {
             Aws::S3::Model::Grant grant = *it;
             std::cout << grant.GetGrantee().GetDisplayName() << ": "
-                      << GetPermissionString(grant.GetPermission()) << std::endl;
+                      << GetPermissionString(grant.GetPermission())
+                      << std::endl;
         }
     } else {
         std::cout << "GetObjectAcl error: "
@@ -132,5 +136,4 @@ int main(int argc, char** argv)
     }
     Aws::ShutdownAPI(options);
 }
-
 
