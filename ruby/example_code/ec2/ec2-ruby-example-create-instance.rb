@@ -32,10 +32,6 @@ instance = ec2.create_instances({
     availability_zone: 'us-west-2a'
   },
   subnet_id: 'SUBNET_ID',
-  network_interfaces: [{
-    device_index: 0,
-    associate_public_ip_address: true
-  }],
   iam_instance_profile: {
     arn: 'arn:aws:iam::' + 'ACCOUNT_ID' + ':instance-profile/aws-opsworks-ec2-role'
   }
