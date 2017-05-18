@@ -30,7 +30,7 @@ import (
 //    go run s3_create_bucket BUCKET_NAME
 func main() {
 	if len(os.Args) != 2 {
-		exitErrorf("You must supply a bucket name\nUsage: %s bucket_name", os.Args[0])
+		exitErrorf("Bucket name missing!\nUsage: %s bucket_name", os.Args[0])
 	}
 
 	bucket := os.Args[1]
