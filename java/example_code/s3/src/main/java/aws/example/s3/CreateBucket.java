@@ -73,7 +73,7 @@ public class CreateBucket
         System.out.format("\nCreating S3 bucket: %s\n", bucket_name);
         Bucket b = createBucket(bucket_name);
         if (b == null) {
-            System.out.println("Error creating bucket!\n");
+            System.out.println("Error creating bucket.\n");
         } else {
             System.out.println("Done!\n");
         }
