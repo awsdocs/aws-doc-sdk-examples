@@ -42,7 +42,7 @@ public class CreateBucket
         final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         Bucket b = null;
         if (s3.doesBucketExist(bucket_name)) {
-            System.out.format("Bucket %s already exists!\n", bucket_name);
+            System.out.format("Bucket %s already exists.\n", bucket_name);
             b = getBucket(bucket_name);
         } else {
             try {
@@ -73,7 +73,7 @@ public class CreateBucket
         System.out.format("\nCreating S3 bucket: %s\n", bucket_name);
         Bucket b = createBucket(bucket_name);
         if (b == null) {
-            System.out.println("Error creating bucket.\n");
+            System.out.println("Error creating bucket!\n");
         } else {
             System.out.println("Done!\n");
         }
