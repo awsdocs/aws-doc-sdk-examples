@@ -30,15 +30,8 @@ public class ListVaults
 {
     public static void main(String[] args)
     {
-        if (args.length < 1) {
-            System.out.println("You must supply an AWS account ID for this operation!");
-            System.exit(1);
-        }
-
-        final String account_id = args[0];
-
         final AmazonGlacier glacier = AmazonGlacierClientBuilder.defaultClient();
-        ListVaultsRequest request = new ListVaultsRequest(account_id);
+        ListVaultsRequest request = new ListVaultsRequest();
 
         boolean list_complete = false;
         int total_vaults = 0;
