@@ -14,7 +14,7 @@
 package aws.example.glacier;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.glacier.AmazonGlacier;
-import com.amazonaws.services.glacier.AmazonGlacierClient;
+import com.amazonaws.services.glacier.AmazonGlacierClientBuilder;
 import com.amazonaws.services.glacier.model.ListVaultsRequest;
 import com.amazonaws.services.glacier.model.ListVaultsResult;
 import com.amazonaws.services.glacier.model.DescribeVaultOutput;
@@ -30,9 +30,15 @@ public class ListVaults
 {
     public static void main(String[] args)
     {
-        final AmazonGlacier glacier = new AmazonGlacierClient();
+        if (args.length < 1) {
+            System.out.println("You must supply an AWS account ID for this operation!");
+            System.exit(1);
+        }
 
-        ListVaultsRequest request = new ListVaultsRequest();
+        final String account_id = args[0];
+
+        final AmazonGlacier glacier = AmazonGlacierClientBuilder.defaultClient();
+        ListVaultsRequest request = new ListVaultsRequest(account_id);
 
         boolean list_complete = false;
         int total_vaults = 0;
@@ -40,19 +46,21 @@ public class ListVaults
         while (!list_complete) {
             ListVaultsResult result = glacier.listVaults(request);
             List<DescribeVaultOutput> vault_list = result.getVaultList();
-            if (vault_list.size() > 0) {
-                total_vaults += vault_list.size();
-                for (DescribeVaultOutput v: vault_list) {
-                    System.out.println("* " + v.getVaultName());
-                }
-                // check to see if there are more vaults to retrieve.
-                request.setMarker(result.getMarker());
+            for (DescribeVaultOutput v: vault_list) {
+                total_vaults += 1;
+                System.out.println("* " + v.getVaultName());
+            }
+            // check for further results.
+            String marker = result.getMarker();
+            if (marker != null) {
+                request.setMarker(marker);
             } else {
-                if (total_vaults == 0) {
-                    System.out.println("? No vaults were found.");
-                }
                 list_complete = true;
             }
+        }
+
+        if (total_vaults == 0) {
+            System.out.println("  no vaults found.");
         }
     }
 }
