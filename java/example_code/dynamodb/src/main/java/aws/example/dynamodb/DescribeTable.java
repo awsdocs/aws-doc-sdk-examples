@@ -13,7 +13,8 @@
 */
 package aws.example.dynamodb;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughputDescription;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
@@ -47,7 +48,7 @@ public class DescribeTable
         String table_name = args[0];
         System.out.format("Getting description for %s\n\n", table_name);
 
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
             TableDescription table_info =
