@@ -13,7 +13,7 @@
 */
 package aws.example.s3;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.AmazonServiceException;
 import java.nio.file.Paths;
 
@@ -43,7 +43,7 @@ public class PutObject
         String key_name = Paths.get(file_path).getFileName().toString();
 
         System.out.format("Uploading %s to S3 bucket %s...\n", file_path, bucket_name);
-        final AmazonS3 s3 = new AmazonS3Client();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         try {
             s3.putObject(bucket_name, key_name, file_path);
         } catch (AmazonServiceException e) {

@@ -14,7 +14,7 @@
 package aws.example.s3;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import java.io.File;
@@ -47,7 +47,7 @@ public class GetObject
         String key_name = args[1];
 
         System.out.format("Downloading %s from S3 bucket %s...\n", key_name, bucket_name);
-        final AmazonS3 s3 = new AmazonS3Client();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         try {
             S3Object o = s3.getObject(bucket_name, key_name);
             S3ObjectInputStream s3is = o.getObjectContent();

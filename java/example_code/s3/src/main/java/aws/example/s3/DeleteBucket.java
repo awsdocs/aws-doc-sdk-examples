@@ -14,7 +14,7 @@
 package aws.example.s3;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ListVersionsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -48,7 +48,7 @@ public class DeleteBucket
         String bucket_name = args[0];
 
         System.out.println("Deleting S3 bucket: " + bucket_name);
-        final AmazonS3 s3 = new AmazonS3Client();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
 
         try {
             System.out.println(" - removing objects from bucket");
