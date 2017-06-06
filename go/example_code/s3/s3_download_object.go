@@ -15,13 +15,13 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
 // Downloads an item from an S3 Bucket in the region configured in the shared config
@@ -30,44 +30,44 @@ import (
 // Usage:
 //    go run s3_download_object.go BUCKET ITEM
 func main() {
-	if len(os.Args) != 3 {
-		exitErrorf("Bucket and item names required\nUsage: %s bucket_name item_name",
-			os.Args[0])
-	}
+    if len(os.Args) != 3 {
+        exitErrorf("Bucket and item names required\nUsage: %s bucket_name item_name",
+            os.Args[0])
+    }
 
-	bucket := os.Args[1]
-	item := os.Args[2]
+    bucket := os.Args[1]
+    item := os.Args[2]
 
-	// Inititalize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Inititalize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	file, err := os.Create(item)
+    file, err := os.Create(item)
 
-	if err != nil {
-		exitErrorf("Unable to open file %q, %v", err)
-	}
+    if err != nil {
+        exitErrorf("Unable to open file %q, %v", err)
+    }
 
-	defer file.Close()
+    defer file.Close()
 
-	downloader := s3manager.NewDownloader(sess)
+    downloader := s3manager.NewDownloader(sess)
 
-	numBytes, err := downloader.Download(file,
-		&s3.GetObjectInput{
-			Bucket: aws.String(bucket),
-			Key:    aws.String(item),
-		})
+    numBytes, err := downloader.Download(file,
+        &s3.GetObjectInput{
+            Bucket: aws.String(bucket),
+            Key:    aws.String(item),
+        })
 
-	if err != nil {
-		exitErrorf("Unable to download item %q, %v", item, err)
-	}
+    if err != nil {
+        exitErrorf("Unable to download item %q, %v", item, err)
+    }
 
-	fmt.Println("Downloaded", file.Name(), numBytes, "bytes")
+    fmt.Println("Downloaded", file.Name(), numBytes, "bytes")
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

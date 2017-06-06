@@ -13,8 +13,8 @@
 */
 
 resp, err := svc.UpdateService((&ecs.UpdateServiceInput{}).
-	SetService("myService").
-	SetDeploymentConfiguration((&ecs.DeploymentConfiguration{}).
-		SetMinimumHealthyPercent(80),
-	),
+    SetService("myService").
+    SetDeploymentConfiguration((&ecs.DeploymentConfiguration{}).
+        SetMinimumHealthyPercent(80),
+    ),
 )

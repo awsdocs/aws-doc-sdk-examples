@@ -15,14 +15,14 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"os"
+    "flag"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ec2"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/awserr"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/ec2"
 )
 
 // Creates a new security group with the given name and description for
@@ -32,91 +32,91 @@ import (
 // Usage:
 //    go run ec2_describe_security_groups.go -n name -d description -vpc vpcID
 func main() {
-	var name, desc, vpcID string
-	flag.StringVar(&name, "n", "", "Group Name")
-	flag.StringVar(&desc, "d", "", "Group Description")
-	flag.StringVar(&vpcID, "vpc", "", "(Optional) VPC ID to associate security group with")
-	flag.Parse()
+    var name, desc, vpcID string
+    flag.StringVar(&name, "n", "", "Group Name")
+    flag.StringVar(&desc, "d", "", "Group Description")
+    flag.StringVar(&vpcID, "vpc", "", "(Optional) VPC ID to associate security group with")
+    flag.Parse()
 
-	if len(name) == 0 || len(desc) == 0 {
-		flag.PrintDefaults()
-		exitErrorf("Group name and description require")
-	}
+    if len(name) == 0 || len(desc) == 0 {
+        flag.PrintDefaults()
+        exitErrorf("Group name and description require")
+    }
 
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create an EC2 service client.
-	svc := ec2.New(sess)
+    // Create an EC2 service client.
+    svc := ec2.New(sess)
 
-	// If the VPC ID wasn't provided in the CLI retrieve the first in the account.
-	if len(vpcID) == 0 {
-		// Get a list of VPCs so we can associate the group with the first VPC.
-		result, err := svc.DescribeVpcs(nil)
-		if err != nil {
-			exitErrorf("Unable to describe VPCs, %v", err)
-		}
-		if len(result.Vpcs) == 0 {
-			exitErrorf("No VPCs found to associate security group with.")
-		}
-		vpcID = aws.StringValue(result.Vpcs[0].VpcId)
-	}
+    // If the VPC ID wasn't provided in the CLI retrieve the first in the account.
+    if len(vpcID) == 0 {
+        // Get a list of VPCs so we can associate the group with the first VPC.
+        result, err := svc.DescribeVpcs(nil)
+        if err != nil {
+            exitErrorf("Unable to describe VPCs, %v", err)
+        }
+        if len(result.Vpcs) == 0 {
+            exitErrorf("No VPCs found to associate security group with.")
+        }
+        vpcID = aws.StringValue(result.Vpcs[0].VpcId)
+    }
 
-	// Create the security group with the VPC, name and description.
-	createRes, err := svc.CreateSecurityGroup(&ec2.CreateSecurityGroupInput{
-		GroupName:   aws.String(name),
-		Description: aws.String(desc),
-		VpcId:       aws.String(vpcID),
-	})
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			switch aerr.Code() {
-			case "InvalidVpcID.NotFound":
-				exitErrorf("Unable to find VPC with ID %q.", vpcID)
-			case "InvalidGroup.Duplicate":
-				exitErrorf("Security group %q already exists.", name)
-			}
-		}
-		exitErrorf("Unable to create security group %q, %v", name, err)
-	}
-	fmt.Printf("Created security group %s with VPC %s.\n",
-		aws.StringValue(createRes.GroupId), vpcID)
+    // Create the security group with the VPC, name and description.
+    createRes, err := svc.CreateSecurityGroup(&ec2.CreateSecurityGroupInput{
+        GroupName:   aws.String(name),
+        Description: aws.String(desc),
+        VpcId:       aws.String(vpcID),
+    })
+    if err != nil {
+        if aerr, ok := err.(awserr.Error); ok {
+            switch aerr.Code() {
+            case "InvalidVpcID.NotFound":
+                exitErrorf("Unable to find VPC with ID %q.", vpcID)
+            case "InvalidGroup.Duplicate":
+                exitErrorf("Security group %q already exists.", name)
+            }
+        }
+        exitErrorf("Unable to create security group %q, %v", name, err)
+    }
+    fmt.Printf("Created security group %s with VPC %s.\n",
+        aws.StringValue(createRes.GroupId), vpcID)
 
-	// Add permissions to the security group
-	_, err = svc.AuthorizeSecurityGroupIngress(&ec2.AuthorizeSecurityGroupIngressInput{
-		GroupName: aws.String(name),
-		IpPermissions: []*ec2.IpPermission{
-			// Can use setters to simplify seting multiple values without the
-			// needing to use aws.String or associated helper utilities.
-			(&ec2.IpPermission{}).
-				SetIpProtocol("tcp").
-				SetFromPort(80).
-				SetToPort(80).
-				SetIpRanges([]*ec2.IpRange{
-					{CidrIp: aws.String("0.0.0.0/0")},
-				}),
-			(&ec2.IpPermission{}).
-				SetIpProtocol("tcp").
-				SetFromPort(22).
-				SetToPort(22).
-				SetIpRanges([]*ec2.IpRange{
-					(&ec2.IpRange{}).
-						SetCidrIp("0.0.0.0/0"),
-				}),
-		},
-	})
-	if err != nil {
-		exitErrorf("Unable to set security group %q ingress, %v", name, err)
-	}
+    // Add permissions to the security group
+    _, err = svc.AuthorizeSecurityGroupIngress(&ec2.AuthorizeSecurityGroupIngressInput{
+        GroupName: aws.String(name),
+        IpPermissions: []*ec2.IpPermission{
+            // Can use setters to simplify seting multiple values without the
+            // needing to use aws.String or associated helper utilities.
+            (&ec2.IpPermission{}).
+                SetIpProtocol("tcp").
+                SetFromPort(80).
+                SetToPort(80).
+                SetIpRanges([]*ec2.IpRange{
+                    {CidrIp: aws.String("0.0.0.0/0")},
+                }),
+            (&ec2.IpPermission{}).
+                SetIpProtocol("tcp").
+                SetFromPort(22).
+                SetToPort(22).
+                SetIpRanges([]*ec2.IpRange{
+                    (&ec2.IpRange{}).
+                        SetCidrIp("0.0.0.0/0"),
+                }),
+        },
+    })
+    if err != nil {
+        exitErrorf("Unable to set security group %q ingress, %v", name, err)
+    }
 
-	fmt.Println("Successfully set security group ingress")
+    fmt.Println("Successfully set security group ingress")
 
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

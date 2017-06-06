@@ -15,11 +15,11 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Allows person with EMAIL address PERMISSION access to BUCKET
@@ -28,78 +28,78 @@ import (
 // Usage:
 //    go run s3_put_bucket_acl.go BUCKET EMAIL [PERMISSION]
 func main() {
-	if len(os.Args) < 3 {
-		exitErrorf("Bucket name and email address required; permission optional (READ if omitted)\nUsage: go run", os.Args[0], "BUCKET EMAIL [PERMISSION]")
-	}
+    if len(os.Args) < 3 {
+        exitErrorf("Bucket name and email address required; permission optional (READ if omitted)\nUsage: go run", os.Args[0], "BUCKET EMAIL [PERMISSION]")
+    }
 
-	bucket := os.Args[1]
-	address := os.Args[2]
+    bucket := os.Args[1]
+    address := os.Args[2]
 
-	permission := "READ"
+    permission := "READ"
 
-	if len(os.Args) == 4 {
-		permission = os.Args[3]
+    if len(os.Args) == 4 {
+        permission = os.Args[3]
 
-		if !(permission == "FULL_CONTROL" || permission == "WRITE" || permission == "WRITE_ACP" || permission == "READ" || permission == "READ_ACP") {
-			fmt.Println("Illegal permission value. It must be one of:")
-			fmt.Println("FULL_CONTROL, WRITE, WRITE_ACP, READ, or READ_ACP")
-			os.Exit(1)
-		}
-	}
+        if !(permission == "FULL_CONTROL" || permission == "WRITE" || permission == "WRITE_ACP" || permission == "READ" || permission == "READ_ACP") {
+            fmt.Println("Illegal permission value. It must be one of:")
+            fmt.Println("FULL_CONTROL, WRITE, WRITE_ACP, READ, or READ_ACP")
+            os.Exit(1)
+        }
+    }
 
-	user_type := "AmazonCustomerByEmail"
+    user_type := "AmazonCustomerByEmail"
 
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create S3 service client
-	svc := s3.New(sess)
+    // Create S3 service client
+    svc := s3.New(sess)
 
-	// Get existing ACL
-	result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
+    // Get existing ACL
+    result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
 
-	if err != nil {
-		exitErrorf(err.Error())
-	}
+    if err != nil {
+        exitErrorf(err.Error())
+    }
 
-	owner := *result.Owner.DisplayName
-	owner_id := *result.Owner.ID
+    owner := *result.Owner.DisplayName
+    owner_id := *result.Owner.ID
 
-	// Existing grants
-	grants := result.Grants
+    // Existing grants
+    grants := result.Grants
 
-	// Create new grantee to add to grants
-	var new_grantee s3.Grantee = s3.Grantee{EmailAddress: &address, Type: &user_type}
-	var new_grant s3.Grant = s3.Grant{Grantee: &new_grantee, Permission: &permission}
+    // Create new grantee to add to grants
+    var new_grantee s3.Grantee = s3.Grantee{EmailAddress: &address, Type: &user_type}
+    var new_grant s3.Grant = s3.Grant{Grantee: &new_grantee, Permission: &permission}
 
-	// Add them to the grants
-	grants = append(grants, &new_grant)
+    // Add them to the grants
+    grants = append(grants, &new_grant)
 
-	params := &s3.PutBucketAclInput{
-		Bucket: &bucket,
-		AccessControlPolicy: &s3.AccessControlPolicy{
-			Grants: grants,
-			Owner: &s3.Owner{
-				DisplayName: &owner,
-				ID:          &owner_id,
-			},
-		},
-	}
+    params := &s3.PutBucketAclInput{
+        Bucket: &bucket,
+        AccessControlPolicy: &s3.AccessControlPolicy{
+            Grants: grants,
+            Owner: &s3.Owner{
+                DisplayName: &owner,
+                ID:          &owner_id,
+            },
+        },
+    }
 
-	// Set bucket ACL
-	_, err = svc.PutBucketAcl(params)
+    // Set bucket ACL
+    _, err = svc.PutBucketAcl(params)
 
-	if err != nil {
-		exitErrorf(err.Error())
-	}
+    if err != nil {
+        exitErrorf(err.Error())
+    }
 
-	fmt.Println("Congratulations. You gave user with email address", address, permission, "permission to bucket", bucket)
+    fmt.Println("Congratulations. You gave user with email address", address, permission, "permission to bucket", bucket)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

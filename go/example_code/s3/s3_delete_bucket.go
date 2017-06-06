@@ -15,12 +15,12 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Deletes an S3 Bucket in the region configured in the shared config
@@ -29,46 +29,46 @@ import (
 // Usage:
 //    go run s3_delete_bucket BUCKET_NAME
 func main() {
-	if len(os.Args) != 2 {
-		exitErrorf("bucket name required\nUsage: %s bucket_name", os.Args[0])
-	}
+    if len(os.Args) != 2 {
+        exitErrorf("bucket name required\nUsage: %s bucket_name", os.Args[0])
+    }
 
-	bucket := os.Args[1]
+    bucket := os.Args[1]
 
-	// Initialize a session that the SDK uses to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK uses to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create S3 service client
-	svc := s3.New(sess)
+    // Create S3 service client
+    svc := s3.New(sess)
 
-	// Delete the S3 Bucket
-	// It must be empty or else the call fails
-	_, err := svc.DeleteBucket(&s3.DeleteBucketInput{
-		Bucket: aws.String(bucket),
-	})
+    // Delete the S3 Bucket
+    // It must be empty or else the call fails
+    _, err := svc.DeleteBucket(&s3.DeleteBucketInput{
+        Bucket: aws.String(bucket),
+    })
 
-	if err != nil {
-		exitErrorf("Unable to delete bucket %q, %v", bucket, err)
-	}
+    if err != nil {
+        exitErrorf("Unable to delete bucket %q, %v", bucket, err)
+    }
 
-	// Wait until bucket is deleted before finishing
-	fmt.Printf("Waiting for bucket %q to be deleted...\n", bucket)
+    // Wait until bucket is deleted before finishing
+    fmt.Printf("Waiting for bucket %q to be deleted...\n", bucket)
 
-	err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
-		Bucket: aws.String(bucket),
-	})
+    err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
+        Bucket: aws.String(bucket),
+    })
 
-	if err != nil {
-		exitErrorf("Error occurred while waiting for bucket to be deleted, %v", bucket)
-	}
+    if err != nil {
+        exitErrorf("Error occurred while waiting for bucket to be deleted, %v", bucket)
+    }
 
-	fmt.Printf("Bucket %q successfully deleted\n", bucket)
+    fmt.Printf("Bucket %q successfully deleted\n", bucket)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

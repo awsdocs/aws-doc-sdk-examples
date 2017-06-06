@@ -15,12 +15,12 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Lists the items in the specified S3 Bucket in the region configured in the shared config
@@ -29,42 +29,42 @@ import (
 // Usage:
 //    go run s3_list_objects.go BUCKET_NAME
 func main() {
-	if len(os.Args) != 2 {
-		exitErrorf("Bucket name required\nUsage: %s bucket_name",
-			os.Args[0])
-	}
+    if len(os.Args) != 2 {
+        exitErrorf("Bucket name required\nUsage: %s bucket_name",
+            os.Args[0])
+    }
 
-	bucket := os.Args[1]
+    bucket := os.Args[1]
 
-	// Inititalize a session that the SDK uses to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Inititalize a session that the SDK uses to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create S3 service client
-	svc := s3.New(sess)
+    // Create S3 service client
+    svc := s3.New(sess)
 
-	// Get the list of items
-	resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
+    // Get the list of items
+    resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
 
-	if err != nil {
-		exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
-	}
+    if err != nil {
+        exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
+    }
 
-	for _, item := range resp.Contents {
-		fmt.Println("Name:         ", *item.Key)
-		fmt.Println("Last modified:", *item.LastModified)
-		fmt.Println("Size:         ", *item.Size)
-		fmt.Println("Storage class:", *item.StorageClass)
-		fmt.Println("")
-	}
+    for _, item := range resp.Contents {
+        fmt.Println("Name:         ", *item.Key)
+        fmt.Println("Last modified:", *item.LastModified)
+        fmt.Println("Size:         ", *item.Size)
+        fmt.Println("Storage class:", *item.StorageClass)
+        fmt.Println("")
+    }
 
-	fmt.Println("Found", len(resp.Contents), "items in bucket", bucket)
-	fmt.Println("")
+    fmt.Println("Found", len(resp.Contents), "items in bucket", bucket)
+    fmt.Println("")
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

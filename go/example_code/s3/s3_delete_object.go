@@ -15,12 +15,12 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Deletes the specified object in the specified S3 Bucket in the region configured in the shared config
@@ -29,41 +29,41 @@ import (
 // Usage:
 //    go run s3_delete_object BUCKET_NAME OBJECT_NAME
 func main() {
-	if len(os.Args) != 3 {
-		exitErrorf("Bucket and object name required\nUsage: %s bucket_name object_name",
-			os.Args[0])
-	}
+    if len(os.Args) != 3 {
+        exitErrorf("Bucket and object name required\nUsage: %s bucket_name object_name",
+            os.Args[0])
+    }
 
-	bucket := os.Args[1]
-	obj := os.Args[2]
+    bucket := os.Args[1]
+    obj := os.Args[2]
 
-	// Inititalize a session that the SDK uses to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Inititalize a session that the SDK uses to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create S3 service client
-	svc := s3.New(sess)
+    // Create S3 service client
+    svc := s3.New(sess)
 
-	// Delete the item
-	_, err := svc.DeleteObject(&s3.DeleteObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj)})
+    // Delete the item
+    _, err := svc.DeleteObject(&s3.DeleteObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj)})
 
-	if err != nil {
-		exitErrorf("Unable to delete object %q from bucket %q, %v", obj, bucket, err)
-	}
+    if err != nil {
+        exitErrorf("Unable to delete object %q from bucket %q, %v", obj, bucket, err)
+    }
 
-	err = svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String(obj),
-	})
+    err = svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
+        Bucket: aws.String(bucket),
+        Key:    aws.String(obj),
+    })
 
-	if err != nil {
-		exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
-	}
+    if err != nil {
+        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
+    }
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

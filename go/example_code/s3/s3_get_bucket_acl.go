@@ -15,11 +15,11 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Gets the ACL for a bucket
@@ -27,41 +27,41 @@ import (
 // Usage:
 //    go run s3_get_bucket_acl.go BUCKET
 func main() {
-	if len(os.Args) != 2 {
-		exitErrorf("Bucket name required\nUsage: go run", os.Args[0], "BUCKET")
-	}
+    if len(os.Args) != 2 {
+        exitErrorf("Bucket name required\nUsage: go run", os.Args[0], "BUCKET")
+    }
 
-	bucket := os.Args[1]
+    bucket := os.Args[1]
 
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create S3 service client
-	svc := s3.New(sess)
+    // Create S3 service client
+    svc := s3.New(sess)
 
-	// Get bucket ACL
-	result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
+    // Get bucket ACL
+    result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
 
-	if err != nil {
-		exitErrorf(err.Error())
-	}
+    if err != nil {
+        exitErrorf(err.Error())
+    }
 
-	fmt.Println("Owner:", *result.Owner.DisplayName)
+    fmt.Println("Owner:", *result.Owner.DisplayName)
 
-	fmt.Println("Grants")
+    fmt.Println("Grants")
 
-	for _, g := range result.Grants {
-		fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
-		fmt.Println("  Type:      ", *g.Grantee.Type)
-		fmt.Println("  Permission:", *g.Permission)
-		fmt.Println("")
-	}
+    for _, g := range result.Grants {
+        fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
+        fmt.Println("  Type:      ", *g.Grantee.Type)
+        fmt.Println("  Permission:", *g.Permission)
+        fmt.Println("")
+    }
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }
