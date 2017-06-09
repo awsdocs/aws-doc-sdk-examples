@@ -51,8 +51,13 @@ int main(int argc, char** argv)
         auto outcome = s3_client.GetBucketPolicy(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Policy: " << std::endl <<
-                outcome.GetResult().GetPolicy() << std::endl;
+            Aws::StringStream policyStream;
+            Aws::String line;
+            while (outcome.GetResult().GetPolicy()) {
+                outcome.GetResult().GetPolicy() >> line;
+                policyStream << line;
+            }
+            std::cout << "Policy: " << std::endl << policyStream.str() << std::endl;
         } else {
             std::cout << "GetBucketPolicy error: " <<
                 outcome.GetError().GetExceptionName() << std::endl <<
@@ -61,4 +66,3 @@ int main(int argc, char** argv)
     }
     Aws::ShutdownAPI(options);
 }
-
