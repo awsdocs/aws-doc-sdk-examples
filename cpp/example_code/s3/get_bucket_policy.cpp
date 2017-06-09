@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 
         if (outcome.IsSuccess()) {
             std::cout << "Policy: " << std::endl <<
-                outcome.GetResult().GetPolicy() << std::endl;
+                outcome.GetResult().GetPolicy().rdbuf() << std::endl;
         } else {
             std::cout << "GetBucketPolicy error: " <<
                 outcome.GetError().GetExceptionName() << std::endl <<
