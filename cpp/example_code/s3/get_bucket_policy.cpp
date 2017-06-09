@@ -52,10 +52,10 @@ int main(int argc, char** argv)
 
         if (outcome.IsSuccess()) {
             Aws::StringStream policyStream;
-			Aws::String line;
+	    Aws::String line;
             while (outcome.GetResult().GetPolicy()) {
                 outcome.GetResult().GetPolicy() >> line;
-				policyStream << line;
+		policyStream << line;
             }
             std::cout << "Policy: " << std::endl << policyStream.str() << std::endl;
         } else {
