@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 
         if (outcome.IsSuccess()) {
             Aws::String policyString;
-            while (!outcome.GetResult().GetPolicy().eof()) {
+            while (outcome.GetResult().GetPolicy()) {
                 Aws::String tmp;
                 outcome.GetResult().GetPolicy() >> tmp;
                 policyString += tmp; 
