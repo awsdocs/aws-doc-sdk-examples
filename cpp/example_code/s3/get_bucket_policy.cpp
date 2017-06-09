@@ -22,16 +22,16 @@ int main(int argc, char** argv)
 {
     if(argc < 2) {
         std::cout << "delete_bucket_policy - delete the policy on an S3 bucket"
-            << std::endl
-            << "\nUsage:" << std::endl
-            << "  get_bucket_policy <bucket> [region]\n" << std::endl
-            << "\nWhere:" << std::endl
-            << "  bucket - the bucket to get the policy from.\n" << std::endl
-            << "  region - AWS region for the bucket" << std::endl
-            << "           (optional, default: us-east-1)" << std::endl
-            << "\nExample:" << std::endl
-            << "  get_bucket_policy testbucket" << std::endl << std::endl;
-       exit(1);
+                  << std::endl
+                  << "\nUsage:" << std::endl
+                  << "  get_bucket_policy <bucket> [region]\n" << std::endl
+                  << "\nWhere:" << std::endl
+                  << "  bucket - the bucket to get the policy from.\n" << std::endl
+                  << "  region - AWS region for the bucket" << std::endl
+                  << "           (optional, default: us-east-1)" << std::endl
+                  << "\nExample:" << std::endl
+                  << "  get_bucket_policy testbucket" << std::endl << std::endl;
+        exit(1);
     }
 
     const Aws::String bucket_name = argv[1];
