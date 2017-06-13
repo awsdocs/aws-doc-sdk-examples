@@ -55,13 +55,13 @@ void StopInstance(const Aws::String& instance_id)
     request.AddInstanceIds(instance_id);
     request.SetDryRun(true);
 
-    auto outcome = ec2.StopInstances(request);
-    assert(!outcome.IsSuccess());
+    auto dry_run_outcome = ec2.StopInstances(request);
+    assert(!dry_run_outcome.IsSuccess());
 
-    if (outcome.GetError().GetErrorType() !=
+    if (dry_run_outcome.GetError().GetErrorType() !=
             Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cout << "Failed dry run to stop instance " << instance_id << ": "
-            << outcome.GetError().GetMessage() << std::endl;
+            << dry_run_outcome.GetError().GetMessage() << std::endl;
         return;
     }
 

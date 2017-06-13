@@ -15,7 +15,7 @@
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/MonitorInstancesRequest.h>
 #include <aws/ec2/model/MonitorInstancesResponse.h>
-#include <aws/ec2/model/Unrequest.h>
+#include <aws/ec2/model/UnmonitorInstancesRequest.h>
 #include <aws/ec2/model/UnmonitorInstancesResponse.h>
 #include <iostream>
 
@@ -51,7 +51,7 @@ void EnableMonitoring(const Aws::String& instance_id)
 void DisableMonitoring(const Aws::String& instance_id)
 {
     Aws::EC2::EC2Client ec2;
-    Aws::EC2::Model::Unrequest unrequest;
+    Aws::EC2::Model::UnmonitorInstancesRequest unrequest;
     unrequest.AddInstanceIds(instance_id);
     unrequest.SetDryRun(true);
 
