@@ -7,9 +7,9 @@
 
     http://aws.amazon.com/apache2.0/
 
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations under the License.
 */
 #include <aws/core/auth/AWSCredentialsProviderChain.h>
 #include <aws/s3-encryption/S3EncryptionClient.h>
@@ -23,14 +23,24 @@ using namespace Aws::S3::Model;
 using namespace Aws::S3Encryption;
 using namespace Aws::S3Encryption::Materials;
 
-static const char* const KEY = "<your_key_here>";
-static const char* const BUCKET = "<your_bucket_here>";
-static const char* const MASTER_KEY_ID = "<your_master_key_id_here>";
 
-int main()
+int main(int argc, char** argv)
 {
+    if (argc < 4) {
+        std::cout << std::endl <<
+            "To run this example, supply the name (key) of an S3 object,\n"
+            "the bucket name that it's contained within,\n"
+            "and the master key id created from IAM\n\n"
+            "Ex: s3Encryption <objectname> <bucketname> <master_key_id>\n";
+        exit(1);
+    }
+
+    const Aws::String KEY = argv[1];
+    const Aws::String BUCKET = argv[2];
+    const Aws::String MASTER_KEY_ID = argv[3];
+
     Aws::SDKOptions options;
-   	options.loggingOptions.logLevel = 
+    options.loggingOptions.logLevel = 
         Aws::Utils::Logging::LogLevel::Trace;
 
     Aws::InitAPI(options);
@@ -40,15 +50,15 @@ int main()
         auto credentials = 
             Aws::MakeShared<Aws::Auth::DefaultAWSCredentialsProviderChain>("");
 
-		#ifdef UNDER_MACOS
-            CryptoConfiguration cryptoConfiguration(
-                    StorageMethod::INSTRUCTION_FILE, 
-                    CryptoMode::ENCRYPTION_ONLY);
-        #else
-            CryptoConfiguration cryptoConfiguration(
-                    StorageMethod::INSTRUCTION_FILE, 
-                    CryptoMode::STRICT_AUTHENTICATED_ENCRYPTION);
-        #endif
+#ifdef UNDER_MACOS
+        CryptoConfiguration cryptoConfiguration(
+                StorageMethod::INSTRUCTION_FILE, 
+                CryptoMode::ENCRYPTION_ONLY);
+#else
+        CryptoConfiguration cryptoConfiguration(
+                StorageMethod::INSTRUCTION_FILE, 
+                CryptoMode::STRICT_AUTHENTICATED_ENCRYPTION);
+#endif
 
         //construct S3 encryption client
         S3EncryptionClient encryptionClient(kmsMaterials, 
@@ -62,15 +72,13 @@ int main()
         createBucketRequest.SetACL(BucketCannedACL::private_);
         CreateBucketOutcome createBucketOutcome = 
             encryptionClient.CreateBucket(createBucketRequest);
-        if (!createBucketOutcome.IsSuccess())
-        {
+
+        if (!createBucketOutcome.IsSuccess()) {
             std::cout << "Bucket Creation failed: "
                 << createBucketOutcome.GetError().GetMessage()
                 << std::endl;
             exit(-1);
-        }
-        else
-        {
+        } else {
             std::cout << "Bucket Creation succ!\n";
         }
 
@@ -81,12 +89,9 @@ int main()
 
         auto putObjectOutcome = encryptionClient.PutObject(putObjectRequest);
 
-        if (putObjectOutcome.IsSuccess())
-        {
+        if (putObjectOutcome.IsSuccess()) {
             std::cout << "Put object succeeded" << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "Error while putting Object " 
                 << putObjectOutcome.GetError().GetExceptionName() 
                 << " " 
@@ -100,13 +105,10 @@ int main()
             .WithKey(KEY);
 
         auto getObjectOutcome = encryptionClient.GetObject(getRequest);
-        if (getObjectOutcome.IsSuccess())
-        {
+        if (getObjectOutcome.IsSuccess()) {
             std::cout << "Successfully retrieved object with avalue: " << std::endl;
             std::cout << getObjectOutcome.GetResult().GetBody().rdbuf() << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "Error while getting object " 
                 << getObjectOutcome.GetError().GetExceptionName() 
                 << " " 

@@ -1,5 +1,17 @@
+#   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+#   This file is licensed under the Apache License, Version 2.0 (the "License").
+#   You may not use this file except in compliance with the License. A copy of
+#   the License is located at
+
+#   http://aws.amazon.com/apache2.0/
+
+#   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+#   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+#   specific language governing permissions and limitations under the License.
+
 cmake_minimum_required(VERSION 3.2)
-project(s3encryption)
+project(s3Encryption)
 
 find_package(AWSSDK)
 
@@ -29,15 +41,15 @@ if (APPLE)
 endif()
 
 link_directories("${AWSSDK_LIB_DIR}")
-add_executable(s3encryption s3Encryption.cpp)
+add_executable(s3Encryption s3Encryption.cpp)
 
 if (WIN32)
     add_definitions(-DUSE_IMPORT_EXPORT)
-    target_link_libraries(s3encryption ${OUTPUT})
-    target_include_directories(s3encryption PUBLIC ${AWSSDK_INCLUDE_DIR})
+    target_link_libraries(s3Encryption ${OUTPUT})
+    target_include_directories(s3Encryption PUBLIC ${AWSSDK_INCLUDE_DIR})
 else()
-    target_link_libraries(s3encryption ${DEPS_LIBRARIES})
-    target_include_directories(s3encryption PRIVATE ${DEPS_INCLUDE_DIRS})
-    target_compile_options(s3encryption PRIVATE ${DEPS_CFLAGS_OTHER})
+    target_link_libraries(s3Encryption ${DEPS_LIBRARIES})
+    target_include_directories(s3Encryption PRIVATE ${DEPS_INCLUDE_DIRS})
+    target_compile_options(s3Encryption PRIVATE ${DEPS_CFLAGS_OTHER})
 endif()
 
