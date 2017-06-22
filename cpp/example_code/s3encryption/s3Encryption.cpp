@@ -27,7 +27,7 @@ using namespace Aws::S3Encryption::Materials;
 int main(int argc, char** argv)
 {
     if (argc < 4) {
-        std::cout << std::endl <<
+        std::cout << "\n" <<
             "To run this example, supply the name (key) of an S3 object,\n"
             "the bucket name that it's contained within,\n"
             "and the master key id created from IAM\n\n"
@@ -76,7 +76,7 @@ int main(int argc, char** argv)
         if (!createBucketOutcome.IsSuccess()) {
             std::cout << "Bucket Creation failed: "
                 << createBucketOutcome.GetError().GetMessage()
-                << std::endl;
+                << "\n";
             exit(-1);
         } else {
             std::cout << "Bucket Creation succ!\n";
@@ -90,13 +90,13 @@ int main(int argc, char** argv)
         auto putObjectOutcome = encryptionClient.PutObject(putObjectRequest);
 
         if (putObjectOutcome.IsSuccess()) {
-            std::cout << "Put object succeeded" << std::endl;
+            std::cout << "Put object succeeded\n";
         } else {
             std::cout << "Error while putting Object " 
                 << putObjectOutcome.GetError().GetExceptionName() 
                 << " " 
                 << putObjectOutcome.GetError().GetMessage() 
-                << std::endl;
+                << "\n";
         }
 
         //get an encrypted object from S3
@@ -106,14 +106,14 @@ int main(int argc, char** argv)
 
         auto getObjectOutcome = encryptionClient.GetObject(getRequest);
         if (getObjectOutcome.IsSuccess()) {
-            std::cout << "Successfully retrieved object with avalue: " << std::endl;
-            std::cout << getObjectOutcome.GetResult().GetBody().rdbuf() << std::endl;
+            std::cout << "Successfully retrieved object with avalue: \n";
+            std::cout << getObjectOutcome.GetResult().GetBody().rdbuf() << "\n";
         } else {
             std::cout << "Error while getting object " 
                 << getObjectOutcome.GetError().GetExceptionName() 
                 << " " 
                 << getObjectOutcome.GetError().GetMessage() 
-                << std::endl;
+                << "\n";
         }
     }
     Aws::ShutdownAPI(options);
