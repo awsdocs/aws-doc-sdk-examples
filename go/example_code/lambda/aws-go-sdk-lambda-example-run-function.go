@@ -61,12 +61,12 @@ func main() {
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
-	client := lambda.New(sess, &aws.Config{Region: aws.String("us-west-2")})
+    client := lambda.New(sess, &aws.Config{Region: aws.String("us-west-2")})
 
-	// Get the 10 most recent items
-	request := getItemsRequest{"time", "descending", 10}
+    // Get the 10 most recent items
+    request := getItemsRequest{"time", "descending", 10}
 
-	payload, err := json.Marshal(request)
+    payload, err := json.Marshal(request)
 
 	if err != nil {
 		fmt.Println("Error marshalling MyGetItemsFunction request")
