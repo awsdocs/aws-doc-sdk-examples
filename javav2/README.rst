@@ -101,7 +101,7 @@ Once you've set the variable, you can execute ``run_example.sh`` as shown::
 
     ./run_example.sh S3BucketOps
 
-This will run the `S3BucketOps <example_code/s3/src/main/java/aws/example/s3/S3BucketOps.java>`_
+This will run the `S3BucketOps <example_code/s3/src/main/java/com/example/s3/S3BucketOps.java>`_
 example (assuming that you've built the examples first!).
 
 .. _maven: https://maven.apache.org/
