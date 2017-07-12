@@ -15,6 +15,7 @@
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListPoliciesRequest.h>
 #include <aws/iam/model/ListPoliciesResult.h>
+#include <iomanip>
 #include <iostream>
 
 static const char* DATE_FORMAT = "%Y-%m-%d";

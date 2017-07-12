@@ -62,8 +62,8 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
         std::cout << "Successfully deleted message " << message.GetMessageId()
             << " from queue " << queue_url << std::endl;
     } else {
-        std::cout << "Error deleting message " << message.GetMessageId() << "
-            from queue " << queue_url << ": " <<
+        std::cout << "Error deleting message " << message.GetMessageId()
+            << " from queue " << queue_url << ": " <<
             delete_outcome.GetError().GetMessage() << std::endl;
     }
 }

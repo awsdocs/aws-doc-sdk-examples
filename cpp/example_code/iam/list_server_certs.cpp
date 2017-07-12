@@ -15,6 +15,7 @@
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListServerCertificatesRequest.h>
 #include <aws/iam/model/ListServerCertificatesResult.h>
+#include <iomanip>
 #include <iostream>
 
 static const char* DATE_FORMAT = "%Y-%m-%d";

@@ -26,8 +26,8 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage:" << std::endl <<
-            "  cw_describe_subscription_filters <log_group_name>" << std::endl;
+        std::cout << "Usage: describe_subscription_filters <log_group_name>"
+            << std::endl;
         return 1;
     }
 

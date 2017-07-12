@@ -71,7 +71,7 @@ void CreateAlarmAndEnableActions(
 int main(int argc, char** argv)
 {
     if (argc != 4) {
-        std::cout << "Usage:" << std::endl << "  cw_enable_alarm_actions" <<
+        std::cout << "Usage: enable_alarm_actions" <<
             " <alarm_name> <instance_id> <alarm_action_arn>" << std::endl;
         return 1;
     }

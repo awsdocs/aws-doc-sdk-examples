@@ -15,6 +15,7 @@
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeKeyPairsRequest.h>
 #include <aws/ec2/model/DescribeKeyPairsResponse.h>
+#include <iomanip>
 #include <iostream>
 
 /**

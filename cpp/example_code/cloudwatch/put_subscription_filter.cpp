@@ -23,7 +23,7 @@
 int main(int argc, char** argv)
 {
     if (argc != 5) {
-        std::cout << "Usage: " << std::endl << "  cwe_put_subscription_filter "
+        std::cout << "Usage: put_subscription_filter "
             << "<filter_name> <filter_pattern> <log_group_name> " <<
             "<lambda_function_arn>" << std::endl;
         return 1;
