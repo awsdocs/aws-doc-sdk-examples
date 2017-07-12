@@ -47,8 +47,8 @@ int main(int argc, char** argv)
                 << user_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         } else {
-            std::cout << "Successfully deleted access key " << key_id << " for
-                IAM user " << user_name << std::endl;
+            std::cout << "Successfully deleted access key " << key_id
+                << " for IAM user " << user_name << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

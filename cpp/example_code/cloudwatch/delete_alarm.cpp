@@ -22,7 +22,7 @@
 int main(int argc, char** argv)
 {
     if (argc != 2) {
-        std::cout << "Usage: cw_delete_alarm <alarm_name>" << std::endl;
+        std::cout << "Usage: delete_alarm <alarm_name>" << std::endl;
         return 1;
     }
 

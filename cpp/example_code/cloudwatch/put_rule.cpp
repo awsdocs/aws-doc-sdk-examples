@@ -24,7 +24,7 @@
 int main(int argc, char** argv)
 {
     if (argc != 3) {
-        std::cout << "Usage: cwe_put_rule <rule_name> <role_arn>" << std::endl;
+        std::cout << "Usage: put_rule <rule_name> <role_arn>" << std::endl;
         return 1;
     }
 

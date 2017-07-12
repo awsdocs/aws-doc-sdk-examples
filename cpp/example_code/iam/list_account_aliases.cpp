@@ -15,6 +15,7 @@
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListAccountAliasesRequest.h>
 #include <aws/iam/model/ListAccountAliasesResult.h>
+#include <iomanip>
 #include <iostream>
 
 /**
