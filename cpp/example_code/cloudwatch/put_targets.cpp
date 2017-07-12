@@ -25,8 +25,8 @@ int main(int argc, char** argv)
 {
     if (argc != 4)
     {
-        std::cout << "Usage:" << std::cout << "  cwe_put_targets " <<
-            "<rule_name> <lambda_function_arn> <target_id>" << std::endl;
+        std::cout << "Usage: put_targets <rule_name>" <<
+            " <lambda_function_arn> <target_id>" << std::endl;
         return 1;
     }
 

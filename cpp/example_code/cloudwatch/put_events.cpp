@@ -35,7 +35,7 @@ Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
 int main(int argc, char** argv)
 {
     if (argc != 4) {
-        std::cout << "Usage:" << std::endl << "  cwe_put_events " <<
+        std::cout << "Usage: put_events " <<
             "<resource_arn> <sample_key> <sample_value>" << std::endl;
         return 1;
     }

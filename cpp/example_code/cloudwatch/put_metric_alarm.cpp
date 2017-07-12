@@ -22,7 +22,7 @@
 int main(int argc, char** argv)
 {
     if (argc != 3) {
-        std::cout << "Usage:" << "  cw_put_metric_alarm " <<
+        std::cout << "Usage: put_metric_alarm " <<
             "<alarm_name> <instance_id>" << std::endl;
         return 1;
     }

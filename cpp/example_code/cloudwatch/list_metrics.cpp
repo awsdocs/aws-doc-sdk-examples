@@ -15,6 +15,7 @@
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/ListMetricsRequest.h>
 #include <aws/monitoring/model/ListMetricsResult.h>
+#include <iomanip>
 #include <iostream>
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
@@ -25,7 +26,7 @@ static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 int main(int argc, char** argv)
 {
     if (argc > 3) {
-        std::cout << "Usage: cw_list_metrics [metric_name] [metric_namespace]"
+        std::cout << "Usage: list_metrics [metric_name] [metric_namespace]"
             << std::endl;
         return 1;
     }

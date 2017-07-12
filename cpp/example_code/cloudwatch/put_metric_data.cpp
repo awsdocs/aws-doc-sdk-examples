@@ -22,7 +22,7 @@
 int main(int argc, char** argv)
 {
     if (argc != 2) {
-        std::cout << "Usage: cw_put_metric_data <data_point_value>" <<
+        std::cout << "Usage: put_metric_data <data_point_value>" <<
             std::endl;
         return 1;
     }

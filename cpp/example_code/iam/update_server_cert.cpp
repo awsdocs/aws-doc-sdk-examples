@@ -41,8 +41,8 @@ int main(int argc, char** argv)
 
         auto outcome = iam.UpdateServerCertificate(request);
         if (outcome.IsSuccess()) {
-            std::cout << "Server certificate " << old_name << " successfully
-                renamed as " << new_name << std::endl;
+            std::cout << "Server certificate " << old_name
+                << " successfully renamed as " << new_name << std::endl;
         } else {
             std::cout << "Error changing name of server certificate " <<
                 old_name << " to " << new_name << ":" <<
