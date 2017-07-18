@@ -4,3 +4,6 @@ README.html
 *.swp
 .DS_Store
 launch.json
+.classpath
+.project
+.settings
