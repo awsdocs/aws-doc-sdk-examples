@@ -13,7 +13,7 @@
 cmake_minimum_required(VERSION 3.2)
 project(s3Encryption)
 
-find_package(AWSSDK)
+find_package(AWSSDK REQUIRED)
 
 Message(STATUS "AWSSDK_LIB_DIR: ${AWSSDK_LIB_DIR}")
 Message(STATUS "AWSSDK_INC_DIR: ${AWSSDK_INCLUDE_DIR}")
