@@ -30,10 +30,8 @@ int main(int argc, char** argv)
 
     Aws::String queue_url = argv[1];
     Aws::String msg_body = argv[2];
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::SQS::SQSClient sqs;
 
@@ -50,9 +48,7 @@ int main(int argc, char** argv)
                 sm_out.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

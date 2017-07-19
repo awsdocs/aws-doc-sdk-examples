@@ -58,14 +58,8 @@ rescue Aws::IAM::Errors::EntityAlreadyExists
 end
 
 # Delete the user.
-puts "\nDeleting user's login profile, if it exists..."
-
-# You must delete the user's login profile before deleting the user.
-iam.delete_login_profile({ user_name: changed_user_name })
-
 puts "\nDeleting user..."
 iam.delete_user({ user_name: changed_user_name })
 
 puts "\nUser names after deleting user..."
 list_user_names(iam)
-

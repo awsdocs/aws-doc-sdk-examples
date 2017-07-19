@@ -13,7 +13,8 @@
 */
 package aws.example.dynamodb;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.ListTablesResult;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ListTables
     {
         System.out.println("Your DynamoDB tables:\n");
 
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         boolean more_tables = true;
         while(more_tables) {
@@ -38,8 +39,6 @@ public class ListTables
                 ListTablesResult table_list = null;
                 if (last_name == null) {
                     table_list = ddb.listTables();
-                } else {
-                    table_list = ddb.listTables(last_name);
                 }
 
                 List<String> table_names = table_list.getTableNames();

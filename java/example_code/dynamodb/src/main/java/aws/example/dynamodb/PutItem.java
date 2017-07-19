@@ -13,7 +13,8 @@ specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class PutItem
             item_values.put(field[0], new AttributeValue(field[1]));
         }
 
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
             ddb.putItem(table_name, item_values);

@@ -13,8 +13,8 @@
 */
 
 resp, err := svc.PutObject((&s3.PutObject{}).
-	SetBucket("myBucket").
-	SetKey("myKey").
-	SetBody(strings.NewReader("object body")).
-	SetWebsiteRedirectLocation("https://example.com/something"),
+    SetBucket("myBucket").
+    SetKey("myKey").
+    SetBody(strings.NewReader("object body")).
+    SetWebsiteRedirectLocation("https://example.com/something"),
 )

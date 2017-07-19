@@ -13,7 +13,8 @@
 */
 package aws.example.dynamodb;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeAction;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
@@ -92,7 +93,7 @@ public class UpdateItem
                         new AttributeValue(field[1]), AttributeAction.PUT));
         }
 
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
             ddb.updateItem(table_name, item_key, updated_values);

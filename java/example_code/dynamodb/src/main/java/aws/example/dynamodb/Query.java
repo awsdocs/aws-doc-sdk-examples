@@ -12,7 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.AmazonServiceException;
 
@@ -57,7 +58,7 @@ public class Query
         ProvisionedThroughput table_throughput = new ProvisionedThroughput(
               read_capacity, write_capacity);
 
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
             ddb.updateTable(table_name, table_throughput);

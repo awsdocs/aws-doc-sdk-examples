@@ -13,9 +13,9 @@
 */
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
-#include <aws/sqs/model/DeleteMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
+#include <aws/sqs/model/DeleteMessageRequest.h>
 #include <iostream>
 
 void ReceiveMessage(const Aws::String& queue_url, int wait_time)
@@ -28,19 +28,19 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
 
     Aws::SQS::SQSClient sqs(client_cfg);
 
-    Aws::SQS::Model::ReceiveMessageRequest rm_req;
-    rm_req.SetQueueUrl(queue_url);
-    rm_req.SetMaxNumberOfMessages(1);
-    rm_req.SetWaitTimeSeconds(wait_time);
+    Aws::SQS::Model::ReceiveMessageRequest request;
+    request.SetQueueUrl(queue_url);
+    request.SetMaxNumberOfMessages(1);
+    request.SetWaitTimeSeconds(wait_time);
 
-    auto rm_out = sqs.ReceiveMessage(rm_req);
-    if (!rm_out.IsSuccess()) {
+    auto outcome = sqs.ReceiveMessage(request);
+    if (!outcome.IsSuccess()) {
         std::cout << "Error receiving message from queue " << queue_url << ": "
-            << rm_out.GetError().GetMessage() << std::endl;
+            << outcome.GetError().GetMessage() << std::endl;
         return;
     }
 
-    const auto& messages = rm_out.GetResult().GetMessages();
+    const auto& messages = outcome.GetResult().GetMessages();
     if (messages.size() == 0) {
         std::cout << "No messages received from queue " << queue_url <<
             std::endl;
@@ -53,18 +53,18 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
 
-    Aws::SQS::Model::DeleteMessageRequest dm_req;
-    dm_req.SetQueueUrl(queue_url);
-    dm_req.SetReceiptHandle(message.GetReceiptHandle());
+    Aws::SQS::Model::DeleteMessageRequest delete_request;
+    delete_request.SetQueueUrl(queue_url);
+    delete_request.SetReceiptHandle(message.GetReceiptHandle());
 
-    auto dm_out = sqs.DeleteMessage(dm_req);
-    if (dm_out.IsSuccess()) {
+    auto delete_outcome = sqs.DeleteMessage(delete_request);
+    if (delete_outcome.IsSuccess()) {
         std::cout << "Successfully deleted message " << message.GetMessageId()
             << " from queue " << queue_url << std::endl;
     } else {
-        std::cout << "Error deleting message " << message.GetMessageId() <<
-            " from queue " << queue_url << ": " <<
-            dm_out.GetError().GetMessage() << std::endl;
+        std::cout << "Error deleting message " << message.GetMessageId() << "
+            from queue " << queue_url << ": " <<
+            delete_outcome.GetError().GetMessage() << std::endl;
     }
 }
 
@@ -88,11 +88,8 @@ int main(int argc, char** argv)
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     ReceiveMessage(queue_url, wait_time);
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

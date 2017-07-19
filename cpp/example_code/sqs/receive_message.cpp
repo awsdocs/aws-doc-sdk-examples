@@ -79,14 +79,10 @@ int main(int argc, char** argv)
     }
 
     Aws::String queue_url = argv[1];
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     ReceiveMessage(queue_url);
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

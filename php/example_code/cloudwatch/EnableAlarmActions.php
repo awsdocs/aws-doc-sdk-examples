@@ -12,13 +12,13 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 require 'vendor/autoload.php';
+
 use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
 
 /**
- * Enable Alarm actions in CloudWatch
+ * Enable Alarm Actions in CloudWatch
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
@@ -26,18 +26,18 @@ use Aws\Exception\AwsException;
 
 $alarmName = "<ALARM_NAME>";
 
-$client = CloudWatchClient::factory([
-        'profile' => 'default',
-        'region'  => 'us-east-1',
-        'version' => '2010-08-01'
+$client = new CloudWatchClient([
+    'profile' => 'default',
+    'region' => 'us-west-2',
+    'version' => '2010-08-01'
 ]);
 
 try {
     $result = $client->enableAlarmActions([
         'AlarmNames' => array($alarmName) //REQUIRED
     ]);
-    print_r($result);
-}catch (AwsException $e) {
+    var_dump($result);
+} catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }

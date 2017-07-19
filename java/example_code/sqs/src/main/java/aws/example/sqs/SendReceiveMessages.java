@@ -12,8 +12,7 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.amazonaws;
-
+package aws.example.sqs;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.AmazonSQSException;
@@ -22,7 +21,6 @@ import com.amazonaws.services.sqs.model.Message;
 import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
 import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
-
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class SendReceiveMessages
         final AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         try {
-            CreateQueueResult cq_result = sqs.createQueue(QUEUE_NAME);
+            CreateQueueResult create_result = sqs.createQueue(QUEUE_NAME);
         } catch (AmazonSQSException e) {
             if (!e.getErrorCode().equals("QueueAlreadyExists")) {
                 throw e;
@@ -44,15 +42,15 @@ public class SendReceiveMessages
 
         String queueUrl = sqs.getQueueUrl(QUEUE_NAME).getQueueUrl();
 
-        SendMessageRequest cm_request = new SendMessageRequest()
+        SendMessageRequest send_msg_request = new SendMessageRequest()
                 .withQueueUrl(queueUrl)
                 .withMessageBody("hello world")
                 .withDelaySeconds(5);
-        sqs.sendMessage(cm_request);
+        sqs.sendMessage(send_msg_request);
 
 
         // Send multiple messages to the queue
-        SendMessageBatchRequest smb_request = new SendMessageBatchRequest()
+        SendMessageBatchRequest send_batch_request = new SendMessageBatchRequest()
                 .withQueueUrl(queueUrl)
                 .withEntries(
                         new SendMessageBatchRequestEntry(
@@ -60,7 +58,7 @@ public class SendReceiveMessages
                         new SendMessageBatchRequestEntry(
                                 "msg_2", "Hello from message 2")
                                 .withDelaySeconds(10));
-        sqs.sendMessageBatch(smb_request);
+        sqs.sendMessageBatch(send_batch_request);
 
         // receive messages from the queue
         List<Message> messages = sqs.receiveMessage(queueUrl).getMessages();

@@ -14,9 +14,8 @@ specific language governing permissions and limitations under the License.
 package aws.example.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.policy.Action;
 import com.amazonaws.auth.policy.Policy;
 import com.amazonaws.auth.policy.Principal;
 import com.amazonaws.auth.policy.Resource;
@@ -36,43 +35,57 @@ import java.util.List;
 */
 public class SetBucketPolicy
 {
-   // Loads a JSON-formatted policy from a file, verifying it with the Policy
-   // class.
-   private static String getBucketPolicyFromFile(String policy_file) {
-      StringBuilder file_text = new StringBuilder();
-      try {
-         List<String> lines = Files.readAllLines(
+    // Loads a JSON-formatted policy from a file, verifying it with the Policy
+    // class.
+    private static String getBucketPolicyFromFile(String policy_file)
+    {
+        StringBuilder file_text = new StringBuilder();
+        try {
+            List<String> lines = Files.readAllLines(
             Paths.get(policy_file), Charset.forName("UTF-8"));
-         for (String line : lines) {
-            file_text.append(line);
-         }
-      } catch (IOException e) {
-         System.out.format("Problem reading file: \"%s\"", policy_file);
-         System.out.println(e.getMessage());
-      }
+            for (String line : lines) {
+                file_text.append(line);
+            }
+        } catch (IOException e) {
+            System.out.format("Problem reading file: \"%s\"", policy_file);
+            System.out.println(e.getMessage());
+        }
 
-      // Verify the policy by trying to load it into a Policy object.
-      Policy bucket_policy = null;
-      try {
-         bucket_policy = Policy.fromJson(file_text.toString());
-      } catch (IllegalArgumentException e) {
-         System.out.format("Invalid policy text in file: \"%s\"", policy_file);
-         System.out.println(e.getMessage());
-      }
+        // Verify the policy by trying to load it into a Policy object.
+        Policy bucket_policy = null;
+        try {
+            bucket_policy = Policy.fromJson(file_text.toString());
+        } catch (IllegalArgumentException e) {
+            System.out.format("Invalid policy text in file: \"%s\"",
+                    policy_file);
+            System.out.println(e.getMessage());
+        }
 
-      return bucket_policy.toJson();
-   }
+        return bucket_policy.toJson();
+    }
 
-   // Sets a public read policy on the bucket.
-   private static String getPublicReadPolicy(String bucket_name) {
-      Policy bucket_policy = new Policy().withStatements(
-         new Statement(Statement.Effect.Allow)
-               .withPrincipals(Principal.AllUsers)
-               .withActions(S3Actions.GetObject)
-               .withResources(new Resource(
-               "arn:aws:s3:::" + bucket_name + "/*")));
-      return bucket_policy.toJson();
-   }
+    // Sets a public read policy on the bucket.
+    public static String getPublicReadPolicy(String bucket_name)
+    {
+        Policy bucket_policy = new Policy().withStatements(
+            new Statement(Statement.Effect.Allow)
+                .withPrincipals(Principal.AllUsers)
+                .withActions(S3Actions.GetObject)
+                .withResources(new Resource(
+                    "arn:aws:s3:::" + bucket_name + "/*")));
+        return bucket_policy.toJson();
+    }
+
+    public static void setBucketPolicy(String bucket_name, String policy_text)
+    {
+        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        try {
+            s3.setBucketPolicy(bucket_name, policy_text);
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+            System.exit(1);
+        }
+    }
 
    public static void main(String[] args)
    {
@@ -110,13 +123,7 @@ public class SetBucketPolicy
       System.out.println("----");
       System.out.format("On S3 bucket: \"%s\"\n", bucket_name);
 
-      final AmazonS3 s3 = new AmazonS3Client();
-      try {
-         s3.setBucketPolicy(bucket_name, policy_text);
-      } catch (AmazonServiceException e) {
-         System.err.println(e.getErrorMessage());
-         System.exit(1);
-      }
+      setBucketPolicy(bucket_name, policy_text);
 
       System.out.println("Done!");
    }

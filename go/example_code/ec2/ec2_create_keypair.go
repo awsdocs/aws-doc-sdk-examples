@@ -15,14 +15,14 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
+    "fmt"
+    "os"
+    "path/filepath"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ec2"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/awserr"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/ec2"
 )
 
 // Creates a new EC2 key pair for the name provided.
@@ -30,38 +30,38 @@ import (
 // Usage:
 //    go run ec2_create_keypair.go KEY_PAIR_NAME
 func main() {
-	if len(os.Args) != 2 {
-		exitErrorf("pair name required\nUsage: %s key_pair_name",
-			filepath.Base(os.Args[0]))
-	}
-	pairName := os.Args[1]
+    if len(os.Args) != 2 {
+        exitErrorf("pair name required\nUsage: %s key_pair_name",
+            filepath.Base(os.Args[0]))
+    }
+    pairName := os.Args[1]
 
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create an EC2 service client.
-	svc := ec2.New(sess)
+    // Create an EC2 service client.
+    svc := ec2.New(sess)
 
-	// Creates a new  key pair with the given name
-	result, err := svc.CreateKeyPair(&ec2.CreateKeyPairInput{
-		KeyName: aws.String(pairName),
-	})
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "InvalidKeyPair.Duplicate" {
-			exitErrorf("Keypair %q already exists.", pairName)
-		}
-		exitErrorf("Unable to create key pair: %s, %v.", pairName, err)
-	}
+    // Creates a new  key pair with the given name
+    result, err := svc.CreateKeyPair(&ec2.CreateKeyPairInput{
+        KeyName: aws.String(pairName),
+    })
+    if err != nil {
+        if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "InvalidKeyPair.Duplicate" {
+            exitErrorf("Keypair %q already exists.", pairName)
+        }
+        exitErrorf("Unable to create key pair: %s, %v.", pairName, err)
+    }
 
-	fmt.Printf("Created key pair %q %s\n%s\n",
-		*result.KeyName, *result.KeyFingerprint,
-		*result.KeyMaterial)
+    fmt.Printf("Created key pair %q %s\n%s\n",
+        *result.KeyName, *result.KeyFingerprint,
+        *result.KeyMaterial)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }

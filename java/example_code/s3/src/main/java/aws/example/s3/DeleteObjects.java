@@ -14,7 +14,7 @@
 package aws.example.s3;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import java.util.Arrays;
 
@@ -49,7 +49,7 @@ public class DeleteObjects
             System.out.println(" * " + k);
         }
 
-        final AmazonS3 s3 = new AmazonS3Client();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         try {
             DeleteObjectsRequest dor = new DeleteObjectsRequest(bucket_name)
                 .withKeys(object_keys);

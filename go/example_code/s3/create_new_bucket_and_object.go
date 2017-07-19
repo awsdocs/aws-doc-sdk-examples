@@ -12,6 +12,24 @@
    specific language governing permissions and limitations under the License.
 */
 
+package main
+
+import (
+    "fmt"
+    "os"
+
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+)
+
+// Downloads an item from an S3 Bucket in the region configured in the shared config
+// or AWS_REGION environment variable.
+//
+// Usage:
+//    go run s3_download.go BUCKET ITEM
+func main() {
+
     bucket := "myBucket"
     key := "TestFile.txt"
 
@@ -40,3 +58,4 @@
     }
 
     log.Printf("Successfully created bucket %s and uploaded data with key %s\n", bucket, key)
+}

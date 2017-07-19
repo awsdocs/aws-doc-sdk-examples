@@ -22,7 +22,7 @@ ec2 = Aws::EC2::Client.new(region: 'us-east-1')
 
 security_group_name = "my-security-group"
 vpc_id = "VPC-ID" # For example, "vpc-1234ab56".
-security_group_created? = false # Used later to determine whether it's okay to delete the security group.
+security_group_created = false # Used later to determine whether it's okay to delete the security group.
 
 # Create a security group.
 begin
@@ -60,15 +60,15 @@ begin
     ]
   })
 
-  security_group_created? = true
+  security_group_created = true
 rescue Aws::EC2::Errors::InvalidGroupDuplicate
-  puts "A security group with the name '#{security_group_name}' already exists." 
+  puts "A security group with the name '#{security_group_name}' already exists."
 end
 
 # Get information about your security groups.
 
-# This function gets information about an individual IP permission. 
-# The code is identical for calling ip_permissions and ip_permissions_egress later, 
+# This function gets information about an individual IP permission.
+# The code is identical for calling ip_permissions and ip_permissions_egress later,
 #   so making a function out of it to reduce duplicated code.
 def describe_ip_permission(ip_permission)
   puts "-" * 22
@@ -96,7 +96,7 @@ def describe_ip_permission(ip_permission)
   if ip_permission.user_id_group_pairs.count > 0
     puts "User ID Group Pairs:"
     ip_permission.user_id_group_pairs.each do |user_id_group_pair|
-      puts "  ." * 7    
+      puts "  ." * 7
       puts "  Group ID: #{user_id_group_pair.group_id}"
       puts "  Group Name: #{user_id_group_pair.group_name}"
       puts "  Peering Status: #{user_id_group_pair.peering_status}"
@@ -130,7 +130,7 @@ describe_security_groups_result.security_groups.each do |security_group|
     security_group.ip_permissions_egress.each do |ip_permission|
       describe_ip_permission(ip_permission)
     end
-  end 
+  end
   if security_group.tags.count > 0
     puts "=" * 22
     puts "Tags:"
@@ -141,8 +141,6 @@ describe_security_groups_result.security_groups.each do |security_group|
 end
 
 # Delete the security group if it was created earlier.
-if security_group_created?
+if security_group_created
   ec2.delete_security_group({ group_id: create_security_group_result.group_id })
-end  
-
-
+end

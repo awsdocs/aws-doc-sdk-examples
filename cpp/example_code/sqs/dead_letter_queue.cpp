@@ -17,10 +17,10 @@
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <iostream>
 
-Aws::String MakeRedrivePolicy(const Aws::String& dlq_arn, int max_msg)
+Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
 {
     Aws::Utils::Json::JsonValue redrive_arn_entry;
-    redrive_arn_entry.AsString(dlq_arn);
+    redrive_arn_entry.AsString(queue_arn);
 
     Aws::Utils::Json::JsonValue max_msg_entry;
     max_msg_entry.AsInteger(max_msg);
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     }
 
     Aws::String src_queue_url = argv[1];
-    Aws::String dlq_arn = argv[2];
+    Aws::String queue_arn = argv[2];
 
     Aws::StringStream ss(argv[3]);
     int max_msg = 1;
@@ -53,31 +53,28 @@ int main(int argc, char** argv)
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::SQS::SQSClient sqs;
 
-        Aws::String redrivePolicy = MakeRedrivePolicy(dlq_arn, max_msg);
+        Aws::String redrivePolicy = MakeRedrivePolicy(queue_arn, max_msg);
 
-        Aws::SQS::Model::SetQueueAttributesRequest sqa_req;
-        sqa_req.SetQueueUrl(src_queue_url);
-        sqa_req.AddAttributes(
+        Aws::SQS::Model::SetQueueAttributesRequest request;
+        request.SetQueueUrl(src_queue_url);
+        request.AddAttributes(
             Aws::SQS::Model::QueueAttributeName::RedrivePolicy,
             redrivePolicy);
 
-        auto sqa_out = sqs.SetQueueAttributes(sqa_req);
-        if (sqa_out.IsSuccess()) {
+        auto outcome = sqs.SetQueueAttributes(request);
+        if (outcome.IsSuccess()) {
             std::cout << "Successfully set dead letter queue for queue  " <<
-            src_queue_url << " to " << dlq_arn << std::endl;
+            src_queue_url << " to " << queue_arn << std::endl;
         } else {
             std::cout << "Error setting dead letter queue for queue " <<
-            src_queue_url << ": " << sqa_out.GetError().GetMessage() <<
+            src_queue_url << ": " << outcome.GetError().GetMessage() <<
             std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
-
     return 0;
 }
 

@@ -30,7 +30,7 @@ client.put_object({
   body: 'Hello World',
 })
 
-# Accessing an object in the buket with unauthorize request
+# Accessing an object in the bucket with unauthorize request
 bucket_path = "http://#{bucket}.s3-us-west-2.amazonaws.com/"
 resp = Net::HTTP.get(URI(bucket_path))
 puts "Content of unsigned request to #{bucket_path}:\n\n#{resp}\n\n"

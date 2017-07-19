@@ -25,20 +25,20 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    if(argc < 3) {
+    if(argc < 4) {
         std::cout << std::endl <<
-            "To run this example, supply the name of an S3 bucket and object to"
-            << std::endl << "upload to it." << std::endl << std::endl <<
-            "Ex: put_object <bucketname> <filename>\n" << std::endl;
+            "To run this example, supply the name of an S3 bucket, destination key, and file to upload."
+            << std::endl << std::endl <<
+            "Ex: put_object <bucketname> <keyname> <filename>" << std::endl;
         exit(1);
     }
 
     const Aws::String bucket_name = argv[1];
     const Aws::String key_name = argv[2];
-    const Aws::String dir_name = ".";
+    const Aws::String file_name = argv[3];
 
-    std::cout << "Uploading " << key_name << " to S3 bucket: " <<
-        bucket_name << std::endl;
+    std::cout << "Uploading " << file_name << " to S3 bucket " <<
+        bucket_name << " at key " << key_name << std::endl;
 
     {
         Aws::S3::S3Client s3_client;
@@ -46,8 +46,9 @@ int main(int argc, char** argv)
         Aws::S3::Model::PutObjectRequest object_request;
         object_request.WithBucket(bucket_name).WithKey(key_name);
 
-        auto input_data = Aws::MakeShared<Aws::FStream>(key_name.c_str(),
-                dir_name.c_str(), std::ios_base::in);
+        // Binary files must also have the std::ios_base::bin flag or'ed in
+        auto input_data = Aws::MakeShared<Aws::FStream>("PutObjectInputStream",
+                file_name.c_str(), std::ios_base::in);
 
         object_request.SetBody(input_data);
 

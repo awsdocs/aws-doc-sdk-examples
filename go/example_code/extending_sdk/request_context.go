@@ -12,11 +12,11 @@
    specific language governing permissions and limitations under the License.
 */
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
 
-	// SQS ReceiveMessage
-	params := &sqs.ReceiveMessageInput{ ... }
-	req, resp := s.ReceiveMessageRequest(params)
-	req.HTTPRequest = req.HTTPRequest.WithContext(ctx)
-	err := req.Send()
+    // SQS ReceiveMessage
+    params := &sqs.ReceiveMessageInput{ ... }
+    req, resp := s.ReceiveMessageRequest(params)
+    req.HTTPRequest = req.HTTPRequest.WithContext(ctx)
+    err := req.Send()

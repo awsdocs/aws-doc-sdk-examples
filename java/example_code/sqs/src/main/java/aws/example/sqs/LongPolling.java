@@ -12,13 +12,13 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.amazonaws;
+package aws.example.sqs;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.AmazonSQSException;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
-import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
 import com.amazonaws.services.sqs.model.SetQueueAttributesRequest;
+import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
 
 public class LongPolling
 {
@@ -40,12 +40,12 @@ public class LongPolling
         final AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         // Enable long polling when creating a queue
-        CreateQueueRequest cq_request = new CreateQueueRequest()
+        CreateQueueRequest create_request = new CreateQueueRequest()
                 .withQueueName(queue_name)
                 .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "20");
 
         try {
-            sqs.createQueue(cq_request);
+            sqs.createQueue(create_request);
         } catch (AmazonSQSException e) {
             if (!e.getErrorCode().equals("QueueAlreadyExists")) {
                 throw e;
@@ -53,16 +53,16 @@ public class LongPolling
         }
 
         // Enable long polling on an existing queue
-        SetQueueAttributesRequest sqa_request = new SetQueueAttributesRequest()
+        SetQueueAttributesRequest set_attrs_request = new SetQueueAttributesRequest()
                 .withQueueUrl(queue_url)
                 .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "20");
-        sqs.setQueueAttributes(sqa_request);
+        sqs.setQueueAttributes(set_attrs_request);
 
         // Enable long polling on a message receipt
-        ReceiveMessageRequest rm_request = new ReceiveMessageRequest()
+        ReceiveMessageRequest receive_request = new ReceiveMessageRequest()
                 .withQueueUrl(queue_url)
                 .withWaitTimeSeconds(20);
-        sqs.receiveMessage(rm_request);
+        sqs.receiveMessage(receive_request);
     }
 }
 

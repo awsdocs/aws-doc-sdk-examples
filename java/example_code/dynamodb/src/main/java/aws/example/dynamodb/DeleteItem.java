@@ -12,11 +12,11 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.dynamodb;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.AmazonServiceException;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Delete an item from a DynamoDB table.
@@ -59,7 +59,7 @@ public class DeleteItem
 
         key_to_get.put("Name", new AttributeValue(name));
 
-        final AmazonDynamoDBClient ddb = new AmazonDynamoDBClient();
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
             ddb.deleteItem(table_name, key_to_get);

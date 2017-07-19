@@ -15,14 +15,14 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
+    "fmt"
+    "os"
+    "path/filepath"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ec2"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/awserr"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/ec2"
 )
 
 // Releases an Elastic IP address allocation ID. If the address is associated
@@ -31,37 +31,37 @@ import (
 // Usage:
 //    go run ec2_release_address.go ALLOCATION_ID
 func main() {
-	if len(os.Args) != 2 {
-		exitErrorf("allocation ID required\nUsage: %s allocation_id",
-			filepath.Base(os.Args[0]))
-	}
-	allocationID := os.Args[1]
+    if len(os.Args) != 2 {
+        exitErrorf("allocation ID required\nUsage: %s allocation_id",
+            filepath.Base(os.Args[0]))
+    }
+    allocationID := os.Args[1]
 
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create an EC2 service client.
-	svc := ec2.New(sess)
+    // Create an EC2 service client.
+    svc := ec2.New(sess)
 
-	// Attempt to release the Elastic IP address.
-	_, err := svc.ReleaseAddress(&ec2.ReleaseAddressInput{
-		AllocationId: aws.String(allocationID),
-	})
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "InvalidAllocationID.NotFound" {
-			exitErrorf("Allocation ID %s does not exist", allocaitonID)
-		}
-		exitErrorf("Unable to release IP address for allocation %s, %v",
-			allocationID, err)
-	}
+    // Attempt to release the Elastic IP address.
+    _, err := svc.ReleaseAddress(&ec2.ReleaseAddressInput{
+        AllocationId: aws.String(allocationID),
+    })
+    if err != nil {
+        if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "InvalidAllocationID.NotFound" {
+            exitErrorf("Allocation ID %s does not exist", allocaitonID)
+        }
+        exitErrorf("Unable to release IP address for allocation %s, %v",
+            allocationID, err)
+    }
 
-	fmt.Printf("Successfully released allocation ID %s\n", allocationID)
+    fmt.Printf("Successfully released allocation ID %s\n", allocationID)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
+    fmt.Fprintf(os.Stderr, msg+"\n", args...)
+    os.Exit(1)
 }
