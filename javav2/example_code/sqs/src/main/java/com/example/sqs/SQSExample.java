@@ -23,10 +23,7 @@ import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlResponse;
 import software.amazon.awssdk.services.sqs.model.ListQueuesRequest;
-<<<<<<< HEAD
-=======
 import software.amazon.awssdk.services.sqs.model.ListQueuesResponse;
->>>>>>> 729a5613e0a90681f8cc42422894eb48c40b154d
 import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequest;
@@ -55,15 +52,10 @@ public class SQSExample {
         System.out.println("\nList Queues");
         String prefix = "que";
         ListQueuesRequest listQueuesRequest = ListQueuesRequest.builder().queueNamePrefix(prefix).build();
-<<<<<<< HEAD
-        sqsClient.listQueues(listQueuesRequest);
-
-=======
         ListQueuesResponse listQueuesResponse = sqsClient.listQueues(listQueuesRequest);
-        for (String url : listQResp.queueUrls()) {
+        for (String url : listQueuesResponse.queueUrls()) {
         	System.out.println(url);
         }
->>>>>>> 729a5613e0a90681f8cc42422894eb48c40b154d
 
         System.out.println("\nSend message");
         sqsClient.sendMessage(SendMessageRequest.builder()
