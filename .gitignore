@@ -5,3 +5,6 @@ README.html
 .DS_Store
 launch.json
 .idea
+.classpath
+.project
+.settings
