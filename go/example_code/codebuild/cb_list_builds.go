@@ -22,19 +22,11 @@ import (
 	"os"
 )
 
-// Builds a CodeBuild project in the region configured in the shared config
+// Lists the CodeBuild builds for all projects in the region configured in the shared config
 //
 // Usage:
-//    go run cb_build_project PROJECT
+//    go run cb_list_builds
 func main() {
-	// Requires one argument, the name of the project.
-	if len(os.Args) != 2 {
-		exitErrorf("Project name required\nUsage: %s PROJECT",
-			os.Args[0])
-	}
-
-	project := os.Args[1]
-
 	// Initialize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
@@ -44,14 +36,21 @@ func main() {
 	// Create CodeBuild service client
 	svc := codebuild.New(sess)
 
-	// Build the project
-	_, err := svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
+	// Get the list of builds
+	names, err := svc.ListBuilds(&codebuild.ListBuildsInput{SortOrder: aws.String("ASCENDING")})
 
 	if err != nil {
-		exitErrorf("Got error building project: %v", err)
+		exitErrorf("Got error listing build names: %v", err)
 	}
 
-	fmt.Printf("Started build for project %q\n", project)
+	builds, err := svc.BatchGetBuilds(&codebuild.BatchGetBuildsInput{Ids: names.Ids})
+
+	for _, build := range builds.Builds {
+		fmt.Printf("Project: %s\n", aws.StringValue(build.ProjectName))
+		fmt.Printf("Phase:   %s\n", aws.StringValue(build.CurrentPhase))
+		fmt.Printf("Status:  %s\n", aws.StringValue(build.BuildStatus))
+		fmt.Println("")
+	}
 }
 
 func exitErrorf(msg string, args ...interface {}) {
