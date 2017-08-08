@@ -11,20 +11,14 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk'
-require 'os'
-
-if OS.windows?
-  Aws.use_bundled_cert!
-end
 
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
-resp = client.list_projects({sort_by: "NAME", # accepts NAME, CREATED_TIME, LAST_MODIFIED_TIME
-                             sort_order: "ASCENDING" # accepts ASCENDING, DESCENDING
-                            })
+resp = client.list_projects({
+  sort_by: 'NAME', # accepts NAME, CREATED_TIME, LAST_MODIFIED_TIME
+  sort_order: 'ASCENDING' # accepts ASCENDING, DESCENDING
+})
 
-resp.projects.each do |p|
-      puts p
-end
+resp.projects.each { |p| puts p }
 
 puts

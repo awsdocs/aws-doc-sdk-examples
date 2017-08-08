@@ -11,28 +11,21 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk'
-require 'os'
 
-if OS.windows?
-  Aws.use_bundled_cert!
-end
-
-# main
 project_name = ''
 
 if ARGV.length != 1
   puts 'You must supply the name of the project to build'
   exit 1
 else
-      project_name = ARGV[0]
+  project_name = ARGV[0]
 end
 
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
 begin
   resp = client.start_build({project_name: project_name, })
-
-  puts 'Building project'
-rescue Exception => ex
+  puts 'Building project ' + project_name
+rescue StandardError => ex
   puts 'Error building project: ' + ex.message
 end

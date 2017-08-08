@@ -11,56 +11,15 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk'
-require 'os'
-
-if OS.windows?
-  Aws.use_bundled_cert!
-end
 
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
-resp = client.list_builds({sort_order: 'ASCENDING', })
+build_list = client.list_builds({sort_order: 'ASCENDING', })
 
-r = client.batch_get_builds({ids: resp.ids})
+builds = client.batch_get_builds({ids: build_list.ids})
 
-r.builds.each do |bld|
-  puts 'Project:    ' + bld.project_name
-  puts 'Start time: ' + bld.start_time.utc.strftime('%m/%d/%Y %H:%M %p')
-
-  if bld.end_time != nil
-    puts 'End time:   ' + bld.end_time.utc.strftime('%m/%d/%Y %H:%M %p')
-  else
-    puts 'End time:   N/A'
-  end
-
-  puts 'Phase:      ' + bld.current_phase
-  puts 'Status:     ' + bld.build_status
-
-  puts 'Phases:'
-  bld.phases.each do |p|
-    puts '  Phase: ' + p.phase_type #=> String, one of "SUBMITTED", "PROVISIONING", "DOWNLOAD_SOURCE", "INSTALL", "PRE_BUILD", "BUILD", "POST_BUILD", "UPLOAD_ARTIFACTS", "FINALIZING", "COMPLETED"
-
-    if p.phase_status != nil
-      puts '  Status: ' + p.phase_status #=> String, one of "SUCCEEDED", "FAILED", "FAULT", "TIMED_OUT", "IN_PROGRESS", "STOPPED"
-    else
-      puts '  Status: unknown'
-    end
-
-    if p.duration_in_seconds != nil
-      puts '  Duration (seconds): ' + p.duration_in_seconds.to_s #=> Integer
-    else
-      puts '  Duration (seconds): unknown'
-    end
-
-    if p.contexts != nil && !p.contexts.empty?
-      puts '  Contexts:'
-
-      p.contexts.each do |c|
-        puts '    Status code: ' + c.status_code
-        puts '    Message:     ' + c.message
-      end
-    end
-
-    puts
-  end
+builds.builds.each do |build|
+  puts 'Project:    ' + build.project_name
+  puts 'Phase:      ' + build.current_phase
+  puts 'Status:     ' + build.build_status
 end
