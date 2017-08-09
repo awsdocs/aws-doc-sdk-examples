@@ -23,9 +23,6 @@ import (
 )
 
 // Lists a CodeBuild projects in the region configured in the shared config
-//
-// Usage:
-//    go run cb_list_projects
 func main() {
 	// Initialize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
@@ -43,15 +40,11 @@ func main() {
 			SortOrder: aws.String("ASCENDING", )})
 
 	if err != nil {
-		exitErrorf("Got error listing projects: %v", err)
+		fmt.Println("Got error listing projects: ", err)
+		os.Exit(1)
 	}
 
 	for _, p := range result.Projects {
 		fmt.Println(*p)
 	}
-}
-
-func exitErrorf(msg string, args ...interface {}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
 }

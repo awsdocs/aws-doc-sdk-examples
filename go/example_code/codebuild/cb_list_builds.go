@@ -23,9 +23,6 @@ import (
 )
 
 // Lists the CodeBuild builds for all projects in the region configured in the shared config
-//
-// Usage:
-//    go run cb_list_builds
 func main() {
 	// Initialize a session that the SDK will use to load configuration,
 	// credentials, and region from the shared config file. (~/.aws/config).
@@ -40,10 +37,17 @@ func main() {
 	names, err := svc.ListBuilds(&codebuild.ListBuildsInput{SortOrder: aws.String("ASCENDING")})
 
 	if err != nil {
-		exitErrorf("Got error listing build names: %v", err)
+		fmt.Println("Got error listing builds: ", err)
+		os.Exit(1)
 	}
 
+	// Get information about each build
 	builds, err := svc.BatchGetBuilds(&codebuild.BatchGetBuildsInput{Ids: names.Ids})
+
+	if err != nil {
+		fmt.Println("Got error getting builds: ", err)
+		os.Exit(1)
+	}
 
 	for _, build := range builds.Builds {
 		fmt.Printf("Project: %s\n", aws.StringValue(build.ProjectName))
@@ -51,9 +55,4 @@ func main() {
 		fmt.Printf("Status:  %s\n", aws.StringValue(build.BuildStatus))
 		fmt.Println("")
 	}
-}
-
-func exitErrorf(msg string, args ...interface {}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
 }

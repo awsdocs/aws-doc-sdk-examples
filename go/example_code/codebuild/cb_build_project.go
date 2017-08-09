@@ -23,14 +23,11 @@ import (
 )
 
 // Builds a CodeBuild project in the region configured in the shared config
-//
-// Usage:
-//    go run cb_build_project PROJECT
 func main() {
 	// Requires one argument, the name of the project.
 	if len(os.Args) != 2 {
-		exitErrorf("Project name required\nUsage: %s PROJECT",
-			os.Args[0])
+		fmt.Println("Project name required!")
+		os.Exit(1)
 	}
 
 	project := os.Args[1]
@@ -48,13 +45,9 @@ func main() {
 	_, err := svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
 
 	if err != nil {
-		exitErrorf("Got error building project: %v", err)
+		fmt.Println("Got error building project: ", err)
+		os.Exit(1)
 	}
 
 	fmt.Printf("Started build for project %q\n", project)
-}
-
-func exitErrorf(msg string, args ...interface {}) {
-	fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	os.Exit(1)
 }
