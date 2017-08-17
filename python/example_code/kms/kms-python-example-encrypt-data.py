@@ -12,13 +12,12 @@
 
 import boto3
 import base64
-import binascii
 
-# Decrypt data
+# Encrypt data
 #
-# Replace the fictitious blob with a valid blob
+# Replace the fictitious key ARN with a valid key ID
 
-keyId = 'arn:aws:kms:us-west-2:188580781645:key/cd6b2911-8ed2-4783-87d9-499af9a13af4'
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 text = '1234567890'
 text_64 = base64.b64encode(text)
