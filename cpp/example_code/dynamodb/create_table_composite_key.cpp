@@ -66,26 +66,23 @@ int main(int argc, char** argv)
 
 		Aws::DynamoDB::Model::CreateTableRequest req;
 
-		Aws::Vector<Aws::DynamoDB::Model::AttributeDefinition> attrs;
 		Aws::DynamoDB::Model::AttributeDefinition hk1, hk2;
 		hk1.WithAttributeName("Language").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
-		attrs.push_back(hk1);
+		req.AddAttributeDefinitions(hk1);
 		hk2.WithAttributeName("Greeting").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
-		attrs.push_back(hk2);
-		req.SetAttributeDefinitions(attrs);
+		req.AddAttributeDefinitions(hk2);
 
-		Aws::Vector<Aws::DynamoDB::Model::KeySchemaElement> keyschs;
 		Aws::DynamoDB::Model::KeySchemaElement kse1, kse2;
 		kse1.WithAttributeName("Language").WithKeyType(Aws::DynamoDB::Model::KeyType::HASH);
-		keyschs.push_back(kse1);
+		req.AddKeySchema(kse1);
 		kse2.WithAttributeName("Greeting").WithKeyType(Aws::DynamoDB::Model::KeyType::RANGE);
-		keyschs.push_back(kse2);
-		req.SetKeySchema(keyschs);
+		req.AddKeySchema(kse2);
+
 
 		Aws::DynamoDB::Model::ProvisionedThroughput thruput;
 		thruput.WithReadCapacityUnits(5);  
 		thruput.WithWriteCapacityUnits(5);
-		req.WithProvisionedThroughput(thruput);
+		req.SetProvisionedThroughput(thruput);
 
 		req.SetTableName(table);
 

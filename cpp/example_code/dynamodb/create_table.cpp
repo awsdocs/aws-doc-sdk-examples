@@ -69,9 +69,9 @@ int main(int argc, char** argv)
 		Aws::DynamoDB::Model::ProvisionedThroughput thruput;
 		thruput.SetReadCapacityUnits(5);  
 		thruput.SetWriteCapacityUnits(5);
-		req.WithProvisionedThroughput(thruput);
+		req.SetProvisionedThroughput(thruput);
 
-		req.WithTableName(table);
+		req.SetTableName(table);
 
 		const Aws::DynamoDB::Model::CreateTableOutcome result = dynamoClient.CreateTable(req);
 		if (result.IsSuccess()) {

@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 		"    table - the table to delete.\n"
 		"    region- optional region\n\n"
 		"Example:\n"
-		"    delete\n\n"
+		"    delete_table HelloTable us-east-2\n\n"
 		"**Warning** This program will actually delete the table\n"
 		"            that you specify!\n";
 
@@ -61,10 +61,10 @@ int main(int argc, char** argv)
 		const Aws::DynamoDB::Model::DeleteTableOutcome result = dynamoClient.DeleteTable(dtr);
 		if (result.IsSuccess()) {
 			std::cout << "Table \"" << result.GetResult().GetTableDescription().GetTableName() <<
-				" was created!\n";
+				" was deleted!\n";
 		}
 		else {
-			std::cout << "Failed to create table: " << result.GetError().GetMessage();
+			std::cout << "Failed to delete table: " << result.GetError().GetMessage();
 		}
 	}
 	Aws::ShutdownAPI(options);
