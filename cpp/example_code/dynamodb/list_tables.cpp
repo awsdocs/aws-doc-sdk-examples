@@ -47,6 +47,7 @@ int main(int argc, char** argv)
 			}
 			for (const auto s : lto.GetResult().GetTableNames())
 				std::cout << s << std::endl;
+            ltr.SetExclusiveStartTableName(lto.GetResult().GetLastEvaluatedTableName());
 			moreTables = !ltr.GetExclusiveStartTableName().empty();
 		}
 	}

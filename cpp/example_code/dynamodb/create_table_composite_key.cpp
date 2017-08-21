@@ -78,10 +78,8 @@ int main(int argc, char** argv)
 		kse2.WithAttributeName("Greeting").WithKeyType(Aws::DynamoDB::Model::KeyType::RANGE);
 		req.AddKeySchema(kse2);
 
-
 		Aws::DynamoDB::Model::ProvisionedThroughput thruput;
-		thruput.WithReadCapacityUnits(5);  
-		thruput.WithWriteCapacityUnits(5);
+		thruput.WithReadCapacityUnits(5).WithWriteCapacityUnits(5);
 		req.SetProvisionedThroughput(thruput);
 
 		req.SetTableName(table);
