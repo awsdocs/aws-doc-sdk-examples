@@ -38,18 +38,18 @@ int main(int argc, char** argv)
 
 		Aws::DynamoDB::Model::ListTablesRequest ltr;
 		ltr.SetLimit(50);
-		bool moreTables = true;
-		while (moreTables) {
-			Aws::DynamoDB::Model::ListTablesOutcome lto = dynamoClient.ListTables(ltr);
-			if (!lto.IsSuccess()) {
+		do
+		{
+			const Aws::DynamoDB::Model::ListTablesOutcome& lto = dynamoClient.ListTables(ltr);
+			if (!lto.IsSuccess())
+			{
 				std::cout << "Error: " << lto.GetError().GetMessage() << std::endl;
 				return 1;
 			}
-			for (const auto s : lto.GetResult().GetTableNames())
+			for (const auto& s : lto.GetResult().GetTableNames())
 				std::cout << s << std::endl;
-            ltr.SetExclusiveStartTableName(lto.GetResult().GetLastEvaluatedTableName());
-			moreTables = !ltr.GetExclusiveStartTableName().empty();
-		}
+			ltr.SetExclusiveStartTableName(lto.GetResult().GetLastEvaluatedTableName());
+		} while(!ltr.GetExclusiveStartTableName().empty());
 	}
 	Aws::ShutdownAPI(options);
 	return 0;

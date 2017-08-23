@@ -33,30 +33,31 @@ specific language governing permissions and limitations under the License.
 */
 int main(int argc, char** argv)
 {
-	const Aws::String USAGE = "\n" \
-		"Usage:\n" 
-		"    update_item <table> <name> <fld:val> ..\n\n" 
-		"Where:\n" 
-		"    table    - the table to put the item in.\n" 
-		"    name     - a name to update\n" 
+	const std::string USAGE = "\n" \
+		"Usage:\n"
+		"    update_item <table> <name> <fld:val> ..\n\n"
+		"Where:\n"
+		"    table    - the table to put the item in.\n"
+		"    name     - a name to update\n"
 		"    fld:val  - field name:new updated value pairs\n\n"
-		"Additional fields can be specified by appending them to the end of the\n" 
-		"input.\n\n" 
-		"Examples:\n" 
-		"    update_item SiteColors text default:000000 bold:b22222\n" 
+		"Additional fields can be specified by appending them to the end of the\n"
+		"input.\n\n"
+		"Examples:\n"
+		"    update_item SiteColors text default:000000 bold:b22222\n"
 		"    update_item SiteColors background default:eeeeee code:d3d3d3\n\n";
 
-	if (argc < 3) {
+	if (argc < 3)
+	{
 		std::cout << USAGE;
 		return 1;
 	}
 
-	const Aws::String table(argv[1]);
-	const Aws::String name(argv[2]);
-
 	Aws::SDKOptions options;
 	Aws::InitAPI(options);
 	{
+		const Aws::String table(argv[1]);
+		const Aws::String name(argv[2]);
+
 		Aws::Client::ClientConfiguration clientConfig;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -67,23 +68,28 @@ int main(int argc, char** argv)
 		av.SetS(name);
 		uir.AddKey("Name", av);
 
-		for (int x = 3; x < argc; x++) {
+		for (int x = 3; x < argc; x++)
+		{
 			const Aws::String arg(argv[x]);
-			Aws::Vector<Aws::String> flds = Aws::Utils::StringUtils::Split(arg, ':');
-			if (flds.size() == 2) {
+			const Aws::Vector<Aws::String>& flds = Aws::Utils::StringUtils::Split(arg, ':');
+			if (flds.size() == 2)
+			{
 				Aws::DynamoDB::Model::AttributeValue val;
 				val.SetS(flds[1]);
 				Aws::DynamoDB::Model::AttributeValueUpdate avu;
 				avu.SetValue(val);
 				uir.AddAttributeUpdates(flds[0], avu);
-			} else {
+			}
+			else
+			{
 				std::cout << "Invalid argument: " << arg << std::endl << USAGE;
 				return 1;
 			}
 		}
 
-		const Aws::DynamoDB::Model::UpdateItemOutcome result = dynamoClient.UpdateItem(uir);
-		if (!result.IsSuccess()) {
+		const Aws::DynamoDB::Model::UpdateItemOutcome& result = dynamoClient.UpdateItem(uir);
+		if (!result.IsSuccess())
+		{
 			std::cout << result.GetError().GetMessage() << std::endl;
 			return 1;
 		}

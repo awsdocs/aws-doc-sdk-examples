@@ -37,48 +37,52 @@ int main(int argc, char** argv)
 		"Example:\n"
 		"    describe_table HelloTable\n";
 
-	if (argc < 2) {
+	if (argc < 2)
+	{
 		std::cout << USAGE;
 		return 1;
 	}
 
-	const Aws::String table(argv[1]);
-	const Aws::String region(argc > 1 ? argv[2] : "");
 	Aws::SDKOptions options;
 
 	Aws::InitAPI(options);
 	{
+		const Aws::String table(argv[1]);
+		const Aws::String region(argc > 1 ? argv[2] : "");
+
 		Aws::Client::ClientConfiguration clientConfig;
-		if(!region.empty()) 
+		if (!region.empty())
 			clientConfig.region = region;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
 		Aws::DynamoDB::Model::DescribeTableRequest dtr;
 		dtr.SetTableName(table);
 
-		const Aws::DynamoDB::Model::DescribeTableOutcome result = dynamoClient.DescribeTable(dtr);
+		const Aws::DynamoDB::Model::DescribeTableOutcome& result = dynamoClient.DescribeTable(dtr);
 
-		if (result.IsSuccess()) {
-			const Aws::DynamoDB::Model::TableDescription td = result.GetResult().GetTable();
+		if (result.IsSuccess())
+		{
+			const Aws::DynamoDB::Model::TableDescription& td = result.GetResult().GetTable();
 			std::cout << "Table name  : " << td.GetTableName() << std::endl;
 			std::cout << "Table ARN   : " << td.GetTableArn() << std::endl;
 			std::cout << "Status      : " << Aws::DynamoDB::Model::TableStatusMapper::GetNameForTableStatus(td.GetTableStatus()) << std::endl;
 			std::cout << "Item count  : " << td.GetItemCount() << std::endl;
 			std::cout << "Size (bytes): " << td.GetTableSizeBytes() << std::endl;
 
-			const Aws::DynamoDB::Model::ProvisionedThroughputDescription ptd = td.GetProvisionedThroughput();
+			const Aws::DynamoDB::Model::ProvisionedThroughputDescription& ptd = td.GetProvisionedThroughput();
 			std::cout << "Throughput" << std::endl;
 			std::cout << "  Read Capacity : " << ptd.GetReadCapacityUnits() << std::endl;
 			std::cout << "  Write Capacity: " << ptd.GetWriteCapacityUnits() << std::endl;
 
-			const Aws::Vector<Aws::DynamoDB::Model::AttributeDefinition> ad = td.GetAttributeDefinitions();
+			const Aws::Vector<Aws::DynamoDB::Model::AttributeDefinition>& ad = td.GetAttributeDefinitions();
 			std::cout << "Attributes" << std::endl;
-			for (const auto a : ad)
-				std::cout << "  " << a.GetAttributeName() << " (" << 
-				  Aws::DynamoDB::Model::ScalarAttributeTypeMapper::GetNameForScalarAttributeType(a.GetAttributeType()) << 
-				  ")" << std::endl;
+			for (const auto& a : ad)
+				std::cout << "  " << a.GetAttributeName() << " (" <<
+				Aws::DynamoDB::Model::ScalarAttributeTypeMapper::GetNameForScalarAttributeType(a.GetAttributeType()) <<
+				")" << std::endl;
 		}
-		else {
+		else
+		{
 			std::cout << "Failed to describe table: " << result.GetError().GetMessage();
 		}
 	}

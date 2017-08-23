@@ -25,7 +25,7 @@ specific language governing permissions and limitations under the License.
 /**
 * Create a DynamoDB table.
 *
-* Takes the name of the table to create. The table will contain a 
+* Takes the name of the table to create. The table will contain a
 * composite key, "Language" (hash) and "Greeting" (range).
 *
 *
@@ -34,7 +34,7 @@ specific language governing permissions and limitations under the License.
 */
 int main(int argc, char** argv)
 {
-	const Aws::String USAGE = "\n" \
+	const std::string USAGE = "\n" \
 		"Usage:\n"
 		"    create_table_composite_key <table> <optional:region>\n\n"
 		"Where:\n"
@@ -43,34 +43,36 @@ int main(int argc, char** argv)
 		"Example:\n"
 		"    create_table_composite_key HelloTable us-west-2\n";
 
-	if (argc < 2) {
-		std::cout << USAGE; 
+	if (argc < 2)
+	{
+		std::cout << USAGE;
 		return 1;
 	}
 
-	const Aws::String table(argv[1]);
-	const Aws::String region(argc > 2 ? argv[2] : "");
 	Aws::SDKOptions options;
 
 	Aws::InitAPI(options);
 	{
+		const Aws::String table(argv[1]);
+		const Aws::String region(argc > 2 ? argv[2] : "");
+
 		Aws::Client::ClientConfiguration clientConfig;
-		if(!region.empty()) 
+		if (!region.empty())
 			clientConfig.region = region;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
-		std::cout << "Creating table " << table << 
+		std::cout << "Creating table " << table <<
 			" with a composite primary key:\n" \
 			"* Language - partition key\n" \
 			"* Greeting - sort key\n";
 
 		Aws::DynamoDB::Model::CreateTableRequest req;
 
-		Aws::DynamoDB::Model::AttributeDefinition hk1, hk2;
-		hk1.WithAttributeName("Language").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
-		req.AddAttributeDefinitions(hk1);
-		hk2.WithAttributeName("Greeting").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
-		req.AddAttributeDefinitions(hk2);
+		Aws::DynamoDB::Model::AttributeDefinition hashKey1, hashKey2;
+		hashKey1.WithAttributeName("Language").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+		req.AddAttributeDefinitions(hashKey1);
+		hashKey2.WithAttributeName("Greeting").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+		req.AddAttributeDefinitions(hashKey2);
 
 		Aws::DynamoDB::Model::KeySchemaElement kse1, kse2;
 		kse1.WithAttributeName("Language").WithKeyType(Aws::DynamoDB::Model::KeyType::HASH);
@@ -84,11 +86,14 @@ int main(int argc, char** argv)
 
 		req.SetTableName(table);
 
-		const Aws::DynamoDB::Model::CreateTableOutcome result = dynamoClient.CreateTable(req);
-		if (result.IsSuccess()) {
-			std::cout << "Table \"" << result.GetResult().GetTableDescription().GetTableName() << 
+		const Aws::DynamoDB::Model::CreateTableOutcome& result = dynamoClient.CreateTable(req);
+		if (result.IsSuccess())
+		{
+			std::cout << "Table \"" << result.GetResult().GetTableDescription().GetTableName() <<
 				"\" was created!\n";
-        } else {
+		}
+		else
+		{
 			std::cout << "Failed to create table:" << result.GetError().GetMessage();
 		}
 	}

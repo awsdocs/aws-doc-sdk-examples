@@ -31,8 +31,8 @@ specific language governing permissions and limitations under the License.
 */
 int main(int argc, char** argv)
 {
-	const Aws::String USAGE = \
-		"Usage:\n" 
+	const std::string USAGE = \
+		"Usage:\n"
 		"    put_item <table> <name> [field=value ...]\n\n"
 		"Where:\n"
 		"    table    - the table to put the item in.\n"
@@ -43,17 +43,19 @@ int main(int argc, char** argv)
 		"Example:\n"
 		"    put_item Cellists Pau Language=ca Born=1876\n";
 
-	if (argc < 2) {
+	if (argc < 2)
+	{
 		std::cout << USAGE;
 		return 1;
 	}
 
-	const Aws::String table(argv[1]);
-	const Aws::String name(argv[2]);
 	Aws::SDKOptions options;
 
 	Aws::InitAPI(options);
 	{
+		const Aws::String table(argv[1]);
+		const Aws::String name(argv[2]);
+
 		Aws::Client::ClientConfiguration clientConfig;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -64,21 +66,26 @@ int main(int argc, char** argv)
 		av.SetS(name);
 		pir.AddItem("Name", av);
 
-		for (int x = 3; x < argc; x++) {
+		for (int x = 3; x < argc; x++)
+		{
 			const Aws::String arg(argv[x]);
-			Aws::Vector<Aws::String> flds = Aws::Utils::StringUtils::Split(arg, ':');
-			if (flds.size() == 2) {
+			const Aws::Vector<Aws::String>& flds = Aws::Utils::StringUtils::Split(arg, ':');
+			if (flds.size() == 2)
+			{
 				Aws::DynamoDB::Model::AttributeValue val;
 				val.SetS(flds[1]);
 				pir.AddItem(flds[0], val);
-			} else {
+			}
+			else
+			{
 				std::cout << "Invalid argument: " << arg << std::endl << USAGE;
 				return 1;
-			}	
+			}
 		}
 
 		const Aws::DynamoDB::Model::PutItemOutcome result = dynamoClient.PutItem(pir);
-		if (!result.IsSuccess()) {
+		if (!result.IsSuccess())
+		{
 			std::cout << result.GetError().GetMessage() << std::endl;
 			return 1;
 		}

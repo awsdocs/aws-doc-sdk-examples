@@ -21,7 +21,7 @@ specific language governing permissions and limitations under the License.
 /**
 * Delete a DynamoDB table.
 *
-* Takes the name of the table to delete. 
+* Takes the name of the table to delete.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/credentials.html
@@ -39,31 +39,35 @@ int main(int argc, char** argv)
 		"**Warning** This program will actually delete the table\n"
 		"            that you specify!\n";
 
-	if (argc < 2) {
+	if (argc < 2)
+	{
 		std::cout << USAGE;
 		return 1;
 	}
 
-	const Aws::String table(argv[1]);
-	const Aws::String region(argc > 1 ? argv[2] : "");
 	Aws::SDKOptions options;
 
 	Aws::InitAPI(options);
 	{
+		const Aws::String table(argv[1]);
+		const Aws::String region(argc > 1 ? argv[2] : "");
+
 		Aws::Client::ClientConfiguration clientConfig;
-		if(!region.empty()) 
+		if (!region.empty())
 			clientConfig.region = region;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
 		Aws::DynamoDB::Model::DeleteTableRequest dtr;
 		dtr.SetTableName(table);
 
-		const Aws::DynamoDB::Model::DeleteTableOutcome result = dynamoClient.DeleteTable(dtr);
-		if (result.IsSuccess()) {
+		const Aws::DynamoDB::Model::DeleteTableOutcome& result = dynamoClient.DeleteTable(dtr);
+		if (result.IsSuccess())
+		{
 			std::cout << "Table \"" << result.GetResult().GetTableDescription().GetTableName() <<
 				" was deleted!\n";
 		}
-		else {
+		else
+		{
 			std::cout << "Failed to delete table: " << result.GetError().GetMessage();
 		}
 	}

@@ -32,31 +32,33 @@ specific language governing permissions and limitations under the License.
 */
 int main(int argc, char** argv)
 {
-    const Aws::String USAGE = "\n" \
-        "Usage:\n" 
-        "    get_item <table> <name> [projection_expression]\n\n" 
-        "Where:\n" 
-        "    table - the table to get an item from.\n" 
-        "    name  - the item to get.\n\n" 
-        "You can add an optional projection expression (a quote-delimited,\n" 
-        "comma-separated list of attributes to retrieve) to limit the\n" 
-        "fields returned from the table.\n\n" 
-        "Example:\n" 
-        "    get_item HelloTable World\n" 
-        "    get_item SiteColors text \"default, bold\"\n";
+	const std::string USAGE = "\n" \
+		"Usage:\n"
+		"    get_item <table> <name> [projection_expression]\n\n"
+		"Where:\n"
+		"    table - the table to get an item from.\n"
+		"    name  - the item to get.\n\n"
+		"You can add an optional projection expression (a quote-delimited,\n"
+		"comma-separated list of attributes to retrieve) to limit the\n"
+		"fields returned from the table.\n\n"
+		"Example:\n"
+		"    get_item HelloTable World\n"
+		"    get_item SiteColors text \"default, bold\"\n";
 
-    if (argc < 2) {
+	if (argc < 2)
+	{
 		std::cout << USAGE;
 		return 1;
 	}
 
-	const Aws::String table(argv[1]);
-	const Aws::String name(argv[2]);
-	const Aws::String projection(argc > 3 ? argv[3] : "");
 	Aws::SDKOptions options;
 
 	Aws::InitAPI(options);
 	{
+		const Aws::String table(argv[1]);
+		const Aws::String name(argv[2]);
+		const Aws::String projection(argc > 3 ? argv[3] : "");
+
 		Aws::Client::ClientConfiguration clientConfig;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -65,24 +67,29 @@ int main(int argc, char** argv)
 		if (!projection.empty())
 			req.SetProjectionExpression(projection);
 
-		Aws::DynamoDB::Model::AttributeValue hk;
-		hk.SetS(name);
-		req.AddKey("Name", hk);
+		Aws::DynamoDB::Model::AttributeValue haskKey;
+		haskKey.SetS(name);
+		req.AddKey("Name", haskKey);
 
 		req.SetTableName(table);
 
-		const Aws::DynamoDB::Model::GetItemOutcome result = dynamoClient.GetItem(req);
-		if (result.IsSuccess()) {
-			Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> item = result.GetResult().GetItem();
-			if(item.size() > 0) { 
-				for (const auto i : item)
+		const Aws::DynamoDB::Model::GetItemOutcome& result = dynamoClient.GetItem(req);
+		if (result.IsSuccess())
+		{
+			const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& item = result.GetResult().GetItem();
+			if (item.size() > 0)
+			{
+				for (const auto& i : item)
 					std::cout << i.first << ": " << i.second.GetS() << std::endl;
-			} else {
+			}
+			else
+			{
 				std::cout << "No item found with the key " << name << std::endl;
 			}
 
 		}
-		else {
+		else
+		{
 			std::cout << "Failed to get item: " << result.GetError().GetMessage();
 		}
 	}
