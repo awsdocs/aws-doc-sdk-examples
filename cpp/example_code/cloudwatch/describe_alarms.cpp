@@ -16,6 +16,7 @@
 #include <aws/monitoring/model/DescribeAlarmsRequest.h>
 #include <aws/monitoring/model/DescribeAlarmsResult.h>
 #include <iostream>
+#include <iomanip>
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 

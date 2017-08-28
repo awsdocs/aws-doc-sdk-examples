@@ -16,6 +16,7 @@
 #include <aws/monitoring/model/ListMetricsRequest.h>
 #include <aws/monitoring/model/ListMetricsResult.h>
 #include <iostream>
+#include <iomanip>
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 
@@ -24,8 +25,9 @@ static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
  */
 int main(int argc, char** argv)
 {
-    if (argc > 3) {
-        std::cout << "Usage: cw_list_metrics [metric_name] [metric_namespace]"
+    if (argc > 3)
+    {
+        std::cout << "Usage: list_metrics [metric_name] [metric_namespace]"
             << std::endl;
         return 1;
     }
@@ -36,25 +38,30 @@ int main(int argc, char** argv)
         Aws::CloudWatch::CloudWatchClient cw;
         Aws::CloudWatch::Model::ListMetricsRequest request;
 
-        if (argc > 1) {
+        if (argc > 1)
+        {
             request.SetMetricName(argv[1]);
         }
 
-        if (argc > 2) {
+        if (argc > 2)
+        {
             request.SetNamespace(argv[2]);
         }
 
         bool done = false;
         bool header = false;
-        while (!done) {
+        while (!done)
+        {
             auto outcome = cw.ListMetrics(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to list cloudwatch metrics:" <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header) {
+            if (!header)
+            {
                 std::cout << std::left << std::setw(48) << "MetricName" <<
                     std::setw(32) << "Namespace" << "DimensionNameValuePairs" <<
                     std::endl;
@@ -62,16 +69,19 @@ int main(int argc, char** argv)
             }
 
             const auto &metrics = outcome.GetResult().GetMetrics();
-            for (const auto &metric : metrics) {
+            for (const auto &metric : metrics)
+            {
                 std::cout << std::left << std::setw(48) <<
                     metric.GetMetricName() << std::setw(32) <<
                     metric.GetNamespace();
                 const auto &dimensions = metric.GetDimensions();
                 for (auto iter = dimensions.cbegin();
-                        iter != dimensions.cend(); ++iter) {
+                    iter != dimensions.cend(); ++iter)
+                {
                     const auto &dimkv = *iter;
                     std::cout << dimkv.GetName() << " = " << dimkv.GetValue();
-                    if (iter + 1 != dimensions.cend()) {
+                    if (iter + 1 != dimensions.cend())
+                    {
                         std::cout << ", ";
                     }
                 }

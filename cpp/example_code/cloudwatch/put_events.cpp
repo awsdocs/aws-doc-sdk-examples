@@ -34,19 +34,21 @@ Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
  */
 int main(int argc, char** argv)
 {
-    if (argc != 4) {
-        std::cout << "Usage:" << std::endl << "  cwe_put_events " <<
+    if (argc != 4)
+    {
+        std::cout << "Usage:" << std::endl << "  put_events " <<
             "<resource_arn> <sample_key> <sample_value>" << std::endl;
         return 1;
     }
 
-    Aws::String resource_arn(argv[1]);
-    Aws::String event_key(argv[2]);
-    Aws::String event_value(argv[3]);
     Aws::SDKOptions options;
 
     Aws::InitAPI(options);
     {
+        Aws::String resource_arn(argv[1]);
+        Aws::String event_key(argv[2]);
+        Aws::String event_value(argv[3]);
+
         Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
 
         Aws::CloudWatchEvents::Model::PutEventsRequestEntry event_entry;
@@ -59,10 +61,13 @@ int main(int argc, char** argv)
         request.AddEntries(event_entry);
 
         auto outcome = cwe.PutEvents(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to post cloudwatch event: " <<
                 outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully posted cloudwatch event" << std::endl;
         }
     }

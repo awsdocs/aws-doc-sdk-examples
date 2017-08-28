@@ -21,28 +21,33 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2) {
-        std::cout << "Usage: cw_disable_alarm_actions <alarm_name>" <<
+    if (argc != 2)
+    {
+        std::cout << "Usage: disable_alarm_actions <alarm_name>" <<
             std::endl;
         return 1;
     }
 
-    Aws::String alarm_name(argv[1]);
     Aws::SDKOptions options;
 
     Aws::InitAPI(options);
     {
+        Aws::String alarm_name(argv[1]);
+
         Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::DisableAlarmActionsRequest disableAlarmActionsRequest;
         disableAlarmActionsRequest.AddAlarmNames(alarm_name);
 
         auto disableAlarmActionsOutcome = cw.DisableAlarmActions(disableAlarmActionsRequest);
-        if (!disableAlarmActionsOutcome.IsSuccess()) {
+        if (!disableAlarmActionsOutcome.IsSuccess())
+        {
             std::cout << "Failed to disable actions for alarm " << alarm_name <<
                 ": " << disableAlarmActionsOutcome.GetError().GetMessage() <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully disabled actions for alarm " <<
                 alarm_name << std::endl;
         }

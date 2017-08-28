@@ -30,13 +30,17 @@ int main(int argc, char** argv)
         Aws::SQS::Model::ListQueuesRequest lq_req;
 
         auto lq_out = sqs.ListQueues(lq_req);
-        if (lq_out.IsSuccess()) {
+        if (lq_out.IsSuccess())
+        {
             std::cout << "Queue Urls:" << std::endl << std::endl;
             const auto &queue_urls = lq_out.GetResult().GetQueueUrls();
-            for (const auto &iter : queue_urls) {
+            for (const auto &iter : queue_urls)
+            {
                 std::cout << " " << iter << std::endl;
             }
-        } else {
+        }
+        else
+        {
             std::cout << "Error listing queues: " <<
                 lq_out.GetError().GetMessage() << std::endl;
         }

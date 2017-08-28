@@ -1,0 +1,13 @@
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/long_polling_on_create_queue.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/change_message_visibility.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/list_queues.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/create_queue.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/send_message.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/long_polling_on_existing_queue.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/get_queue_url.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/receive_message.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/delete_queue.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/long_polling_on_message_receipt.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/dead_letter_queue.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/battalio/Source/Repos/aws-doc-sdk-examples/cpp/example_code/sqs/build/CMakeFiles/ZERO_CHECK.dir

@@ -23,39 +23,40 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         std::cout << "put_website_config - set the website configuration for an S3 bucket"
-                  << std::endl
-                  << "\nUsage:" << std::endl
-                  << "  set_website_config <bucket> [region] [index_doc] [error_doc]\n"
-                  << std::endl
-                  << "\nWhere:" << std::endl
-                  << "  bucket    - the bucket to set the website configuration for."
-                  << std::endl
-                  << "  region    - AWS region for the bucket" << std::endl
-                  << "              (optional, default: us-east-1)" << std::endl
-                  << "  index_doc - the index page" << std::endl
-                  << "              (optional, default: index.html)" << std::endl
-                  << "  error_doc - the error page" << std::endl
-                  << "              (optional, default: 404.html)" << std::endl
-                  << "\nExample:" << std::endl
-                  << "  set_website_config testbucket index.html\n" << std::endl;
+            << std::endl
+            << "\nUsage:" << std::endl
+            << "  set_website_config <bucket> [region] [index_doc] [error_doc]\n"
+            << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket    - the bucket to set the website configuration for."
+            << std::endl
+            << "  region    - AWS region for the bucket" << std::endl
+            << "              (optional, default: us-east-1)" << std::endl
+            << "  index_doc - the index page" << std::endl
+            << "              (optional, default: index.html)" << std::endl
+            << "  error_doc - the error page" << std::endl
+            << "              (optional, default: 404.html)" << std::endl
+            << "\nExample:" << std::endl
+            << "  set_website_config testbucket index.html\n" << std::endl;
         exit(1);
     }
-
-    const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
-    const Aws::String index_suffix = (argc >= 4) ? argv[3] : "index.html";
-    const Aws::String error_key = (argc >= 5) ? argv[4] : "404.html";
-
-    std::cout << "Setting website configuration for bucket: "
-              << bucket_name << std::endl
-              << "  with index suffix: " << index_suffix << std::endl
-              << "  and error key: " << error_key << std::endl;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        const Aws::String bucket_name = argv[1];
+        const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
+        const Aws::String index_suffix = (argc >= 4) ? argv[3] : "index.html";
+        const Aws::String error_key = (argc >= 5) ? argv[4] : "404.html";
+
+        std::cout << "Setting website configuration for bucket: "
+            << bucket_name << std::endl
+            << "  with index suffix: " << index_suffix << std::endl
+            << "  and error key: " << error_key << std::endl;
+
         Aws::Client::ClientConfiguration config;
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
@@ -76,12 +77,15 @@ int main(int argc, char** argv)
 
         auto outcome = s3_client.PutBucketWebsite(request);
 
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "Done!" << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "PutBucketWebsite error: "
-                      << outcome.GetError().GetExceptionName() << std::endl
-                      << outcome.GetError().GetMessage() << std::endl;
+                << outcome.GetError().GetExceptionName() << std::endl
+                << outcome.GetError().GetMessage() << std::endl;
         }
     }
     Aws::ShutdownAPI(options);
