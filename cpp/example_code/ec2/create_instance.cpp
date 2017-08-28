@@ -29,7 +29,8 @@ void StartInstance(const Aws::String& instanceName, const Aws::String& ami_id)
     run_request.SetMaxCount(1);
 
     auto run_outcome = ec2.RunInstances(run_request);
-    if (!run_outcome.IsSuccess()) {
+    if (!run_outcome.IsSuccess())
+    {
         std::cout << "Failed to start ec2 instance " << instanceName <<
             " based on ami " << ami_id << ":" <<
             run_outcome.GetError().GetMessage() << std::endl;
@@ -37,7 +38,8 @@ void StartInstance(const Aws::String& instanceName, const Aws::String& ami_id)
     }
 
     const auto& instances = run_outcome.GetResult().GetInstances();
-    if (instances.size() == 0) {
+    if (instances.size() == 0)
+    {
         std::cout << "Failed to start ec2 instance " << instanceName <<
             " based on ami " << ami_id << ":" <<
             run_outcome.GetError().GetMessage() << std::endl;
@@ -55,7 +57,8 @@ void StartInstance(const Aws::String& instanceName, const Aws::String& ami_id)
     create_request.AddTags(name_tag);
 
     auto create_outcome = ec2.CreateTags(create_request);
-    if (!create_outcome.IsSuccess()) {
+    if (!create_outcome.IsSuccess())
+    {
         std::cout << "Failed to tag ec2 instance " << instance_id <<
             " with name " << instanceName << ":" <<
             create_outcome.GetError().GetMessage() << std::endl;
@@ -71,17 +74,20 @@ void StartInstance(const Aws::String& instanceName, const Aws::String& ami_id)
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         std::cout << "Usage: ec2_create_instance <instance_name> <ami_image_id>"
             << std::endl;
         return 1;
     }
 
-    Aws::String instanceName = argv[1];
-    Aws::String ami_id = argv[2];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    StartInstance(instanceName, ami_id);
+    {
+        Aws::String instanceName = argv[1];
+        Aws::String ami_id = argv[2];
+        StartInstance(instanceName, ami_id);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

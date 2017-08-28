@@ -27,7 +27,8 @@ void AllocateAndAssociateAddress(const Aws::String& instance_id)
     request.SetDomain(Aws::EC2::Model::DomainType::vpc);
 
     auto outcome = ec2.AllocateAddress(request);
-    if(!outcome.IsSuccess()) {
+    if (!outcome.IsSuccess())
+    {
         std::cout << "Failed to allocate elastic ip address:" <<
             outcome.GetError().GetMessage() << std::endl;
         return;
@@ -40,7 +41,8 @@ void AllocateAndAssociateAddress(const Aws::String& instance_id)
     associate_request.SetAllocationId(allocation_id);
 
     auto associate_outcome = ec2.AssociateAddress(associate_request);
-    if(!associate_outcome.IsSuccess()) {
+    if (!associate_outcome.IsSuccess())
+    {
         std::cout << "Failed to associate elastic ip address" << allocation_id
             << " with instance " << instance_id << ":" <<
             associate_outcome.GetError().GetMessage() << std::endl;
@@ -56,15 +58,19 @@ void AllocateAndAssociateAddress(const Aws::String& instance_id)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
+    if (argc != 2)
+    {
         std::cout << "Usage: ec2_allocate_address <instance_id>" << std::endl;
         return 1;
     }
 
-    Aws::String instance_id = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    AllocateAndAssociateAddress(instance_id);
+    {
+        Aws::String instance_id = argv[1];
+
+        AllocateAndAssociateAddress(instance_id);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }
