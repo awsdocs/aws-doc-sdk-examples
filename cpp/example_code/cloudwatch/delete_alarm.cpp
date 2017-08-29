@@ -21,25 +21,29 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2) {
+    if (argc != 2)
+    {
         std::cout << "Usage: cw_delete_alarm <alarm_name>" << std::endl;
         return 1;
     }
 
-    Aws::String alarm_name(argv[1]);
     Aws::SDKOptions options;
-
     Aws::InitAPI(options);
     {
+        Aws::String alarm_name(argv[1]);
+
         Aws::CloudWatch::CloudWatchClient cw;
         Aws::CloudWatch::Model::DeleteAlarmsRequest request;
         request.AddAlarmNames(alarm_name);
 
         auto outcome = cw.DeleteAlarms(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to delete cloudwatch alarm:" <<
                 outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully deleted cloudwatch alarm " << alarm_name
                 << std::endl;
         }

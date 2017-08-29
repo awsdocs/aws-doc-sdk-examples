@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: ec2_create_key_pair <key_pair_name>" << std::endl;
+        std::cout << "Usage: create_key_pair <key_pair_name>" << std::endl;
         return 1;
     }
 

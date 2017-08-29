@@ -60,7 +60,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: ec2_allocate_address <instance_id>" << std::endl;
+        std::cout << "Usage: allocate_address <instance_id>" << std::endl;
         return 1;
     }
 

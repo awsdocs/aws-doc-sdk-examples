@@ -22,17 +22,18 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_access_key_last_used <access_key_id>" <<
+    if (argc != 2)
+    {
+        std::cout << "Usage: access_key_last_used <access_key_id>" <<
             std::endl;
         return 1;
     }
 
-    Aws::String key_id(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String key_id(argv[1]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::GetAccessKeyLastUsedRequest request;
 
@@ -40,15 +41,18 @@ int main(int argc, char** argv)
 
         auto outcome = iam.GetAccessKeyLastUsed(request);
 
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error querying last used time for access key " <<
                 key_id << ":" << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             auto lastUsedTimeString =
                 outcome.GetResult()
-                       .GetAccessKeyLastUsed()
-                       .GetLastUsedDate()
-                       .ToGmtString(Aws::Utils::DateFormat::ISO_8601);
+                .GetAccessKeyLastUsed()
+                .GetLastUsedDate()
+                .ToGmtString(Aws::Utils::DateFormat::ISO_8601);
             std::cout << "Access key " << key_id << " last used at time " <<
                 lastUsedTimeString << std::endl;
         }

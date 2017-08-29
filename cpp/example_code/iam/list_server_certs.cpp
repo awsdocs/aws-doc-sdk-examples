@@ -16,6 +16,7 @@
 #include <aws/iam/model/ListServerCertificatesRequest.h>
 #include <aws/iam/model/ListServerCertificatesResult.h>
 #include <iostream>
+#include <iomanip> 
 
 static const char* DATE_FORMAT = "%Y-%m-%d";
 
@@ -26,22 +27,24 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListServerCertificatesRequest request;
 
         bool done = false;
         bool header = false;
-        while (!done) {
+        while (!done)
+        {
             auto outcome = iam.ListServerCertificates(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to list server certificates: " <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header) {
+            if (!header)
+            {
                 std::cout << std::left << std::setw(55) << "Name" <<
                     std::setw(30) << "ID" << std::setw(80) << "Arn" <<
                     std::setw(14) << "UploadDate" << std::setw(14) <<
@@ -52,7 +55,8 @@ int main(int argc, char** argv)
             const auto &certificates =
                 outcome.GetResult().GetServerCertificateMetadataList();
 
-            for (const auto &certificate : certificates) {
+            for (const auto &certificate : certificates)
+            {
                 std::cout << std::left << std::setw(55) <<
                     certificate.GetServerCertificateName() << std::setw(30) <<
                     certificate.GetServerCertificateId() << std::setw(80) <<
@@ -63,9 +67,12 @@ int main(int argc, char** argv)
                     std::endl;
             }
 
-            if (outcome.GetResult().GetIsTruncated()) {
+            if (outcome.GetResult().GetIsTruncated())
+            {
                 request.SetMarker(outcome.GetResult().GetMarker());
-            } else {
+            }
+            else
+            {
                 done = true;
             }
         }

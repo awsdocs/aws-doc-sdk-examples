@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: ec2_delete_security_group <group_id>" << std::endl;
+        std::cout << "Usage: delete_security_group <group_id>" << std::endl;
         return 1;
     }
 

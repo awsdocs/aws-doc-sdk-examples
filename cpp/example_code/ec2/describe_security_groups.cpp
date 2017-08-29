@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 {
     if (argc > 2)
     {
-        std::cout << "Usage: ec2_describe_security_groups [group_id]" <<
+        std::cout << "Usage: describe_security_groups [group_id]" <<
             std::endl;
         return 1;
     }

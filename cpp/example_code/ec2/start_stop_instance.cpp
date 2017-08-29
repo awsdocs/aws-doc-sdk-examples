@@ -86,7 +86,7 @@ void StopInstance(const Aws::String& instance_id)
 
 void PrintUsage()
 {
-    std::cout << "Usage: ec2_start_stop_instance <instance_id> <start|stop>" <<
+    std::cout << "Usage: start_stop_instance <instance_id> <start|stop>" <<
         std::endl;
 }
 

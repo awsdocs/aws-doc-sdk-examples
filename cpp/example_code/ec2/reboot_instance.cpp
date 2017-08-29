@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: ec2_reboot_instance <instance_id>" << std::endl;
+        std::cout << "Usage: reboot_instance <instance_id>" << std::endl;
         return 1;
     }
 

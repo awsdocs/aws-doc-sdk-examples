@@ -26,11 +26,14 @@ void CreateUser(const Aws::String& user_name)
     get_request.SetUserName(user_name);
 
     auto get_outcome = iam.GetUser(get_request);
-    if(get_outcome.IsSuccess()) {
+    if (get_outcome.IsSuccess())
+    {
         std::cout << "IAM user " << user_name << " already exists" << std::endl;
         return;
-    } else if (get_outcome.GetError().GetErrorType() !=
-            Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
+    }
+    else if (get_outcome.GetError().GetErrorType() !=
+        Aws::IAM::IAMErrors::NO_SUCH_ENTITY)
+    {
         std::cout << "Error checking existence of IAM user " << user_name << ":"
             << get_outcome.GetError().GetMessage() << std::endl;
         return;
@@ -40,7 +43,8 @@ void CreateUser(const Aws::String& user_name)
     create_request.SetUserName(user_name);
 
     auto create_outcome = iam.CreateUser(create_request);
-    if(!create_outcome.IsSuccess()) {
+    if (!create_outcome.IsSuccess())
+    {
         std::cout << "Error creating IAM user " << user_name << ":" <<
             create_outcome.GetError().GetMessage() << std::endl;
         return;
@@ -53,17 +57,19 @@ void CreateUser(const Aws::String& user_name)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_create_user <user_name>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: create_user <user_name>" << std::endl;
         return 1;
     }
 
-    Aws::String user_name(argv[1]);
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    CreateUser(user_name);
-    Aws::ShutdownAPI(options);
+    {
+        Aws::String user_name(argv[1]);
+
+        CreateUser(user_name);
+    }Aws::ShutdownAPI(options);
     return 0;
 }
 

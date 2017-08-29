@@ -25,12 +25,16 @@ void DeleteUser(const Aws::String& user_name)
     get_request.SetUserName(user_name);
 
     auto get_outcome = iam.GetUser(get_request);
-    if (!get_outcome.IsSuccess()) {
+    if (!get_outcome.IsSuccess())
+    {
         if (get_outcome.GetError().GetErrorType() ==
-                Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
+            Aws::IAM::IAMErrors::NO_SUCH_ENTITY)
+        {
             std::cout << "IAM user " << user_name << " does not exist" <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error checking existence of IAM user " << user_name <<
                 ": " << get_outcome.GetError().GetMessage() << std::endl;
         }
@@ -40,7 +44,8 @@ void DeleteUser(const Aws::String& user_name)
     Aws::IAM::Model::DeleteUserRequest request;
     request.SetUserName(user_name);
     auto outcome = iam.DeleteUser(request);
-    if(!outcome.IsSuccess()) {
+    if (!outcome.IsSuccess())
+    {
         std::cout << "Error deleting IAM user " << user_name << ": " <<
             outcome.GetError().GetMessage() << std::endl;
         return;
@@ -56,15 +61,19 @@ void DeleteUser(const Aws::String& user_name)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_delete_user <user_name>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: delete_user <user_name>" << std::endl;
         return 1;
     }
 
-    Aws::String user_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    DeleteUser(user_name);
+    {
+        Aws::String user_name(argv[1]);
+
+        DeleteUser(user_name);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

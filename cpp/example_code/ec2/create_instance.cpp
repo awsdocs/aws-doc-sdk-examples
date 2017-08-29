@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        std::cout << "Usage: ec2_create_instance <instance_name> <ami_image_id>"
+        std::cout << "Usage: create_instance <instance_name> <ami_image_id>"
             << std::endl;
         return 1;
     }

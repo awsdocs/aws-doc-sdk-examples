@@ -92,7 +92,7 @@ int main(int argc, char** argv)
 {
     if (argc != 4)
     {
-        std::cout << "Usage: ec2_create_security_group <group_name> " <<
+        std::cout << "Usage: create_security_group <group_name> " <<
             "<group_description> <vpc_id>" << std::endl;
         return 1;
     }

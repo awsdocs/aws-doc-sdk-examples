@@ -18,27 +18,27 @@
 #include <iostream>
 
 static const char* const POLICY_TEMPLATE =
-    "{"
-    "  \"Version\": \"2012-10-17\","
-    "  \"Statement\": ["
-    "    {"
-    "        \"Effect\": \"Allow\","
-    "        \"Action\": \"logs:CreateLogGroup\","
-    "        \"Resource\": \"%s\""
-    "    },"
-    "    {"
-    "        \"Effect\": \"Allow\","
-    "        \"Action\": ["
-    "            \"dynamodb:DeleteItem\","
-    "            \"dynamodb:GetItem\","
-    "            \"dynamodb:PutItem\","
-    "            \"dynamodb:Scan\","
-    "            \"dynamodb:UpdateItem\""
-    "       ],"
-    "       \"Resource\": \"%s\""
-    "    }"
-    "   ]"
-    "}";
+"{"
+"  \"Version\": \"2012-10-17\","
+"  \"Statement\": ["
+"    {"
+"        \"Effect\": \"Allow\","
+"        \"Action\": \"logs:CreateLogGroup\","
+"        \"Resource\": \"%s\""
+"    },"
+"    {"
+"        \"Effect\": \"Allow\","
+"        \"Action\": ["
+"            \"dynamodb:DeleteItem\","
+"            \"dynamodb:GetItem\","
+"            \"dynamodb:PutItem\","
+"            \"dynamodb:Scan\","
+"            \"dynamodb:UpdateItem\""
+"       ],"
+"       \"Resource\": \"%s\""
+"    }"
+"   ]"
+"}";
 
 Aws::String BuildSamplePolicyDocument(const Aws::String& rsrc_arn)
 {
@@ -56,18 +56,19 @@ Aws::String BuildSamplePolicyDocument(const Aws::String& rsrc_arn)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3) {
-        std::cout << "Usage: iam_create_policy <policy_name> <resource_arn>" <<
+    if (argc != 3)
+    {
+        std::cout << "Usage: create_policy <policy_name> <resource_arn>" <<
             std::endl;
         return 1;
     }
 
-    Aws::String policy_name(argv[1]);
-    Aws::String rsrc_arn(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String policy_name(argv[1]);
+        Aws::String rsrc_arn(argv[2]);
+
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::CreatePolicyRequest request;
@@ -75,10 +76,13 @@ int main(int argc, char** argv)
         request.SetPolicyDocument(BuildSamplePolicyDocument(rsrc_arn));
 
         auto outcome = iam.CreatePolicy(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error creating policy " << policy_name << ": " <<
                 outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully created policy " << policy_name <<
                 std::endl;
         }

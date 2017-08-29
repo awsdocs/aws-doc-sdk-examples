@@ -92,7 +92,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        std::cout << "Usage: ec2_monitor_instance <instance_id> <true|false>" <<
+        std::cout << "Usage: monitor_instance <instance_id> <true|false>" <<
             std::endl;
         return 1;
     }
