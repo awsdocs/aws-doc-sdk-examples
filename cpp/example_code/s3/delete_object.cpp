@@ -32,15 +32,15 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    const Aws::String bucket_name = argv[1];
-    const Aws::String key_name = argv[2];
-
-    std::cout << "Deleting" << key_name << " from S3 bucket: " <<
-        bucket_name << std::endl;
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        const Aws::String bucket_name = argv[1];
+        const Aws::String key_name = argv[2];
+
+        std::cout << "Deleting" << key_name << " from S3 bucket: " <<
+            bucket_name << std::endl;
+
         Aws::S3::S3Client s3_client;
 
         Aws::S3::Model::DeleteObjectRequest object_request;
