@@ -71,16 +71,15 @@ func main() {
     }
 
     for _, user := range result.Users {
-        if *user_ptr == "" {
-            fmt.Println("Username:   " + *user.Username)
-            fmt.Println("")
-        } else {
-            fmt.Println("Username:   " + *user.Username)
+        fmt.Println("Username:   " + *user.Username)
+
+        if *user_ptr != "" {
             fmt.Println("Firstname:  " + *user.GivenName)
             fmt.Println("Lastname:   " + *user.Surname)
             fmt.Println("Email:      " + *user.EmailAddress)
             fmt.Println("Root folder " + *user.RootFolderId)
-            fmt.Println("")
         }
+
+        fmt.Println("")
     }
 }
