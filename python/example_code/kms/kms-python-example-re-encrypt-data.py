@@ -13,7 +13,7 @@ from __future__ import print_function
 
 import boto3
 
-# Re-ecrypt data
+# Re-encrypt data key
 
 blob = b'\x01\x02\x02...'
 

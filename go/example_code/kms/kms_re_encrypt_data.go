@@ -32,7 +32,7 @@ func main() {
 	// Create KMS service client
 	svc := kms.New(sess)
 
-	// Encrypt data
+	// Encrypt data key
 	//
 	// Replace the fictitious key ARN with a valid key ID
 
@@ -41,7 +41,7 @@ func main() {
     // Encrypted data
 	blob := []byte{...}
 
-	// Encrypt the data
+	// Re-encrypt the data key
 	result, err := svc.ReEncrypt(&kms.ReEncryptInput{CiphertextBlob: blob, DestinationKeyId: &keyId})
 
 	if err != nil {
