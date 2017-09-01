@@ -12,7 +12,7 @@
 
 require 'aws-sdk'
 
-# Encrypt data
+# Encrypt data key
 #
 # Replace the fictitious key ARN with a valid key ID
 

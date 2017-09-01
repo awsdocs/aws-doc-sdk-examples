@@ -33,7 +33,7 @@ func main() {
 	// Create KMS service client
 	svc := kms.New(sess)
 
-	// Encrypt data
+	// Encrypt data key
 	//
 	// Replace the fictitious key ARN with a valid key ID
 
@@ -41,7 +41,7 @@ func main() {
 
 	text := "1234567890"
 
-	// Encrypt the data
+	// Encrypt the data key
 	result, err := svc.Encrypt(&kms.EncryptInput{
 		KeyId: aws.String(keyId),
 		Plaintext: []byte(text),

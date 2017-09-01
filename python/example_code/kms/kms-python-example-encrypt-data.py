@@ -13,7 +13,7 @@
 import boto3
 import base64
 
-# Encrypt data
+# Encrypt data key
 #
 # Replace the fictitious key ARN with a valid key ID
 

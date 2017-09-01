@@ -12,7 +12,7 @@
 
 import boto3
 
-# Re-ecrypt data
+# Re-encrypt data key
 
 blob = '\x01\x02\x02\...'
 
