@@ -9,22 +9,24 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+from __future__ import print_function
 
 import boto3
 
 # Re-encrypt data key
 
-blob = '\x01\x02\x02\...'
+blob = b'\x01\x02\x02...'
 
 # Replace the fictitious key ARN with a valid key ID
 
-destinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+destination_key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+region_name = 'us-west-2'
 
-client = boto3.client('kms')
+client = boto3.client('kms', region_name=region_name)
 
 response = client.re_encrypt(
     CiphertextBlob=blob,
-    DestinationKeyId=destinationKeyId,
+    DestinationKeyId=destination_key_id,
 )
 
-print(response)
+print('New ciphertext:', response['CiphertextBlob'])
