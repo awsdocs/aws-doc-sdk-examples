@@ -9,6 +9,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+from __future__ import print_function
 
 import boto3
 
@@ -17,9 +18,10 @@ import boto3
 # a CMK is fine for our purposes.
 # For larger amounts of data,
 # use the CMK to encrypt a data encryption key (DEK).
+region_name = 'us-west-2'
 
-client = boto3.client('kms')
+client = boto3.client('kms', region_name=region_name)
 
 response = client.create_key()
 
-print(response['KeyMetadata']['Arn'])
+print('Created CMK ARN:', response['KeyMetadata']['Arn'])

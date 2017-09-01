@@ -9,26 +9,25 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-
-import boto3
+from __future__ import print_function
 import base64
 
+import boto3
+
 # Encrypt data
-#
+
 # Replace the fictitious key ARN with a valid key ID
 
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+region_name = 'us-west-2'
+
+client = boto3.client('kms', region_name=region_name)
 
 text = '1234567890'
-text_64 = base64.b64encode(text)
-bytes_64 = bytearray()
-bytes_64.extend(text)
-
-client = boto3.client('kms')
 
 response = client.encrypt(
-    KeyId=keyId,
-    Plaintext=bytes_64,
+    KeyId=key_id,
+    Plaintext=text,
 )
 
-print(response)
+print('Encrypted ciphertext:', response['CiphertextBlob'])
