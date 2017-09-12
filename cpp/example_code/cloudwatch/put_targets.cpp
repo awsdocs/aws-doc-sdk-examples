@@ -25,18 +25,18 @@ int main(int argc, char** argv)
 {
     if (argc != 4)
     {
-        std::cout << "Usage:" << std::cout << "  cwe_put_targets " <<
+        std::cout << "Usage:" << std::endl << "  put_targets " <<
             "<rule_name> <lambda_function_arn> <target_id>" << std::endl;
         return 1;
     }
 
-    Aws::String rule_name(argv[1]);
-    Aws::String lambda_arn(argv[2]);
-    Aws::String target_id(argv[3]);
     Aws::SDKOptions options;
-
     Aws::InitAPI(options);
     {
+        Aws::String rule_name(argv[1]);
+        Aws::String lambda_arn(argv[2]);
+        Aws::String target_id(argv[3]);
+
         Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
 
         Aws::CloudWatchEvents::Model::Target target;
@@ -48,11 +48,14 @@ int main(int argc, char** argv)
         request.AddTargets(target);
 
         auto putTargetsOutcome = cwe.PutTargets(request);
-        if (!putTargetsOutcome.IsSuccess()) {
+        if (!putTargetsOutcome.IsSuccess())
+        {
             std::cout << "Failed to create cloudwatch events target for rule "
                 << rule_name << ": " <<
                 putTargetsOutcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout <<
                 "Successfully created cloudwatch events target for rule "
                 << rule_name << std::endl;

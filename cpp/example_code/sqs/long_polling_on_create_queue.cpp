@@ -22,18 +22,19 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         std::cout << "Usage: long_polling_on_create_queue <queue_name> " <<
             "<poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queue_name = argv[1];
-    Aws::String poll_time = argv[2];
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String queue_name = argv[1];
+        Aws::String poll_time = argv[2];
+
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::CreateQueueRequest request;
@@ -43,10 +44,13 @@ int main(int argc, char** argv)
             poll_time);
 
         auto outcome = sqs.CreateQueue(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "Successfully created queue " << queue_name <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error creating queue " << queue_name << ": " <<
                 outcome.GetError().GetMessage() << std::endl;
         }

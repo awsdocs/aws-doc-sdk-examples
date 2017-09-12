@@ -38,30 +38,30 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
-    const Aws::String policy_string =
-        "{\n"
-        "  \"Version\":\"2012-10-17\",\n"
-        "  \"Statement\":[\n"
-        "   {\n"
-        "     \"Sid\": \"1\",\n"
-        "     \"Effect\": \"Allow\",\n"
-        "     \"Principal\": {\"AWS\":\"*\"},\n"
-        "     \"Action\": [\"s3:GetObject\"],\n"
-        "     \"Resource\": [\"arn:aws:s3:::" + bucket_name + "/*\"]\n"
-        "   }]\n"
-        "}";
-
-    std::cout << "Setting policy:" << std::endl
-              << "----" << std::endl
-              << policy_string << std::endl
-              << "----" << std::endl
-              << "On S3 bucket: " << bucket_name << std::endl;
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        const Aws::String bucket_name = argv[1];
+        const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
+        const Aws::String policy_string =
+            "{\n"
+            "  \"Version\":\"2012-10-17\",\n"
+            "  \"Statement\":[\n"
+            "   {\n"
+            "     \"Sid\": \"1\",\n"
+            "     \"Effect\": \"Allow\",\n"
+            "     \"Principal\": {\"AWS\":\"*\"},\n"
+            "     \"Action\": [\"s3:GetObject\"],\n"
+            "     \"Resource\": [\"arn:aws:s3:::" + bucket_name + "/*\"]\n"
+            "   }]\n"
+            "}";
+
+        std::cout << "Setting policy:" << std::endl
+            << "----" << std::endl
+            << policy_string << std::endl
+            << "----" << std::endl
+            << "On S3 bucket: " << bucket_name << std::endl;
+
         Aws::Client::ClientConfiguration config;
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);

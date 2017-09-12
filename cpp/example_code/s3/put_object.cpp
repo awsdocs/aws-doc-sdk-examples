@@ -22,47 +22,53 @@
  */
 int main(int argc, char** argv)
 {
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-
-    if(argc < 4) {
+    if (argc < 4)
+    {
         std::cout << std::endl <<
             "To run this example, supply the name of an S3 bucket, destination key, and file to upload."
             << std::endl << std::endl <<
-            "Ex: put_object <bucketname> <keyname> <filename>" << std::endl;
+            "Ex: put_object <bucketname> <keyname> <filename> <optional:region>" << std::endl;
         exit(1);
     }
 
-    const Aws::String bucket_name = argv[1];
-    const Aws::String key_name = argv[2];
-    const Aws::String file_name = argv[3];
-
-    std::cout << "Uploading " << file_name << " to S3 bucket " <<
-        bucket_name << " at key " << key_name << std::endl;
-
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
     {
-        Aws::S3::S3Client s3_client;
+        const Aws::String bucket_name = argv[1];
+        const Aws::String key_name = argv[2];
+        const Aws::String file_name = argv[3];
+        const Aws::String region(argc > 4 ? argv[4] : "");
+
+        std::cout << "Uploading " << file_name << " to S3 bucket " <<
+            bucket_name << " at key " << key_name << std::endl;
+
+        Aws::Client::ClientConfiguration clientConfig;
+        if (!region.empty())
+            clientConfig.region = region;
+        Aws::S3::S3Client s3_client(clientConfig);
 
         Aws::S3::Model::PutObjectRequest object_request;
         object_request.WithBucket(bucket_name).WithKey(key_name);
 
         // Binary files must also have the std::ios_base::bin flag or'ed in
         auto input_data = Aws::MakeShared<Aws::FStream>("PutObjectInputStream",
-                file_name.c_str(), std::ios_base::in);
+            file_name.c_str(), std::ios_base::in | std::ios_base::binary);
 
         object_request.SetBody(input_data);
 
         auto put_object_outcome = s3_client.PutObject(object_request);
 
-        if (put_object_outcome.IsSuccess()) {
+        if (put_object_outcome.IsSuccess())
+        {
             std::cout << "Done!" << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "PutObject error: " <<
                 put_object_outcome.GetError().GetExceptionName() << " " <<
                 put_object_outcome.GetError().GetMessage() << std::endl;
         }
     }
-
     Aws::ShutdownAPI(options);
 }
 

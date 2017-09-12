@@ -34,14 +34,16 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
     request.SetWaitTimeSeconds(wait_time);
 
     auto outcome = sqs.ReceiveMessage(request);
-    if (!outcome.IsSuccess()) {
+    if (!outcome.IsSuccess())
+    {
         std::cout << "Error receiving message from queue " << queue_url << ": "
             << outcome.GetError().GetMessage() << std::endl;
         return;
     }
 
     const auto& messages = outcome.GetResult().GetMessages();
-    if (messages.size() == 0) {
+    if (messages.size() == 0)
+    {
         std::cout << "No messages received from queue " << queue_url <<
             std::endl;
         return;
@@ -58,12 +60,15 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
     delete_request.SetReceiptHandle(message.GetReceiptHandle());
 
     auto delete_outcome = sqs.DeleteMessage(delete_request);
-    if (delete_outcome.IsSuccess()) {
+    if (delete_outcome.IsSuccess())
+    {
         std::cout << "Successfully deleted message " << message.GetMessageId()
             << " from queue " << queue_url << std::endl;
-    } else {
-        std::cout << "Error deleting message " << message.GetMessageId() << "
-            from queue " << queue_url << ": " <<
+    }
+    else
+    {
+        std::cout << "Error deleting message " << message.GetMessageId() << 
+            " from queue " << queue_url << ": " <<
             delete_outcome.GetError().GetMessage() << std::endl;
     }
 }
@@ -74,21 +79,24 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         std::cout << "Usage: long_polling_on_message_receipt <queue_url> " <<
-           "<long_poll_time_in_seconds>" << std::endl;
+            "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queue_url = argv[1];
-
-    int wait_time = 1;
-    Aws::StringStream ss(argv[2]);
-    ss >> wait_time;
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    ReceiveMessage(queue_url, wait_time);
+    {
+        Aws::String queue_url = argv[1];
+
+        int wait_time = 1;
+        Aws::StringStream ss(argv[2]);
+        ss >> wait_time;
+
+        ReceiveMessage(queue_url, wait_time);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

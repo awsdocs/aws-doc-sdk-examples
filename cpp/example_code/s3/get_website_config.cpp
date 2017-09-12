@@ -20,29 +20,30 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         std::cout << "get_website_config - get the website configuration for an S3 bucket"
-                  << std::endl
-                  << "\nUsage:" << std::endl
-                  << "  get_website_config <bucket> [region]" << std::endl
-                  << "\nWhere:" << std::endl
-                  << "  bucket - the bucket name" << std::endl
-                  << "  region - AWS region for the bucket" << std::endl
-                  << "           (optional, default: us-east-1)" << std::endl
-                  << "\nExample:" << std::endl
-                  << "  get_website_config testbucket" << std::endl << std::endl;
+            << std::endl
+            << "\nUsage:" << std::endl
+            << "  get_website_config <bucket> [region]" << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket - the bucket name" << std::endl
+            << "  region - AWS region for the bucket" << std::endl
+            << "           (optional, default: us-east-1)" << std::endl
+            << "\nExample:" << std::endl
+            << "  get_website_config testbucket" << std::endl << std::endl;
         exit(1);
     }
-
-    const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc == 3) ? argv[2] : "us-east-1";
-
-    std::cout << "Getting website configuration for bucket: " << bucket_name
-              << std::endl;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        const Aws::String bucket_name = argv[1];
+        const Aws::String user_region = (argc == 3) ? argv[2] : "us-east-1";
+
+        std::cout << "Getting website configuration for bucket: " << bucket_name
+            << std::endl;
+
         Aws::Client::ClientConfiguration config;
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
@@ -52,17 +53,20 @@ int main(int argc, char** argv)
 
         auto outcome = s3_client.GetBucketWebsite(request);
 
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "  Index page: "
-                      << outcome.GetResult().GetIndexDocument().GetSuffix()
-                      << std::endl
-                      << "  Error page: "
-                      << outcome.GetResult().GetErrorDocument().GetKey()
-                      << std::endl;
-        } else {
+                << outcome.GetResult().GetIndexDocument().GetSuffix()
+                << std::endl
+                << "  Error page: "
+                << outcome.GetResult().GetErrorDocument().GetKey()
+                << std::endl;
+        }
+        else
+        {
             std::cout << "GetBucketWebsite error: "
-                      << outcome.GetError().GetExceptionName() << " - "
-                      << outcome.GetError().GetMessage() << std::endl;
+                << outcome.GetError().GetExceptionName() << " - "
+                << outcome.GetError().GetMessage() << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

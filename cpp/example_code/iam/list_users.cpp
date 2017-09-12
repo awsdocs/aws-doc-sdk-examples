@@ -16,6 +16,7 @@
 #include <aws/iam/model/ListUsersRequest.h>
 #include <aws/iam/model/ListUsersResult.h>
 #include <iostream>
+#include <iomanip> 
 
 static const char* DATE_FORMAT = "%Y-%m-%d";
 
@@ -26,7 +27,6 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListUsersRequest request;
@@ -36,13 +36,15 @@ int main(int argc, char** argv)
         while (!done)
         {
             auto outcome = iam.ListUsers(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to list iam users:" <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header) {
+            if (!header)
+            {
                 std::cout << std::left << std::setw(32) << "Name" <<
                     std::setw(30) << "ID" << std::setw(64) << "Arn" <<
                     std::setw(20) << "CreateDate" << std::endl;
@@ -50,16 +52,20 @@ int main(int argc, char** argv)
             }
 
             const auto &users = outcome.GetResult().GetUsers();
-            for (const auto &user : users) {
+            for (const auto &user : users)
+            {
                 std::cout << std::left << std::setw(32) << user.GetUserName() <<
                     std::setw(30) << user.GetUserId() << std::setw(64) <<
                     user.GetArn() << std::setw(20) <<
                     user.GetCreateDate().ToGmtString(DATE_FORMAT) << std::endl;
             }
 
-            if (outcome.GetResult().GetIsTruncated()) {
+            if (outcome.GetResult().GetIsTruncated())
+            {
                 request.SetMarker(outcome.GetResult().GetMarker());
-            } else {
+            }
+            else
+            {
                 done = true;
             }
         }

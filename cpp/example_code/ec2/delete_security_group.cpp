@@ -21,25 +21,30 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: ec2_delete_security_group <group_id>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: delete_security_group <group_id>" << std::endl;
         return 1;
     }
 
-    Aws::String groupId = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String groupId = argv[1];
+
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DeleteSecurityGroupRequest request;
 
         request.SetGroupId(groupId);
         auto outcome = ec2.DeleteSecurityGroup(request);
 
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to delete security group " << groupId <<
                 ":" << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully deleted security group " << groupId <<
                 std::endl;
         }

@@ -21,27 +21,31 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_delete_account_alias <account_alias>" <<
+    if (argc != 2)
+    {
+        std::cout << "Usage: delete_account_alias <account_alias>" <<
             std::endl;
         return 1;
     }
 
-    Aws::String alias_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String alias_name(argv[1]);
+
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::DeleteAccountAliasRequest request;
         request.SetAccountAlias(alias_name);
 
-        auto outcome = iam.DeleteAccountAlias(request);
-        if (!outcome.IsSuccess()) {
+        const auto outcome = iam.DeleteAccountAlias(request);
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error deleting account alias " << alias_name << ": "
                 << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully deleted account alias " << alias_name <<
                 std::endl;
         }

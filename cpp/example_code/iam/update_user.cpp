@@ -21,18 +21,19 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3) {
-        std::cout << "Usage: iam_update_user <old_user_name> <new_user_name>" <<
+    if (argc != 3)
+    {
+        std::cout << "Usage: update_user <old_user_name> <new_user_name>" <<
             std::endl;
         return 1;
     }
 
-    Aws::String old_name(argv[1]);
-    Aws::String new_name(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String old_name(argv[1]);
+        Aws::String new_name(argv[2]);
+
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::UpdateUserRequest request;
@@ -40,11 +41,14 @@ int main(int argc, char** argv)
         request.SetNewUserName(new_name);
 
         auto outcome = iam.UpdateUser(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "IAM user " << old_name <<
                 " successfully updated with new user name " << new_name <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error updating user name for IAM user " << old_name <<
                 ":" << outcome.GetError().GetMessage() << std::endl;
         }
