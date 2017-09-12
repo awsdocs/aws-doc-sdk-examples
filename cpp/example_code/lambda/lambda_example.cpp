@@ -1,15 +1,8 @@
-#define USE_WINDOWS_DLL_SEMANTICS
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/core/utils/logging/DefaultLogSystem.h>
 #include <aws/core/utils/logging/AWSLogging.h>
 #include <aws/core/utils/HashingUtils.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/CreateRoleRequest.h>
-#include <aws/iam/model/CreateRoleResult.h>
-#include <aws/iam/model/GetRoleRequest.h>
-#include <aws/iam/model/GetRoleResult.h>
-#include <aws/iam/model/AttachRolePolicyRequest.h>
 #include <aws/lambda/LambdaClient.h>
 #include <aws/lambda/model/CreateFunctionRequest.h>
 #include <aws/lambda/model/DeleteFunctionRequest.h>
@@ -19,7 +12,6 @@
 #include <iostream>
 
 static const char* ALLOCATION_TAG = "helloLambdaWorld";
-static const char* LAMBDA_FUNCTION_NAME = "helloLambdaWorld";
 
 static std::shared_ptr<Aws::Lambda::LambdaClient> m_client;
 
@@ -61,15 +53,15 @@ static void CreateFunction(Aws::String functionName, Aws::String handler,
     }
 }
 
-void ListFunctions()
+
+void DeleteFunction(Aws::String functionName)
 {
-    Aws::Lambda::Model::ListFunctionsRequest listFunctionsRequest;
-    auto listFunctionsOutcome = m_client->ListFunctions(listFunctionsRequest);
-    auto functions = listFunctionsOutcome.GetResult().GetFunctions();
-    std::cout << functions.size() << " function(s):" << std::endl;
-    for(const auto& item : functions)
-        std::cout << item.GetFunctionName() << std::endl;
-    std::cout << std::endl;
+    Aws::Lambda::Model::DeleteFunctionRequest deleteFunctionRequest;
+    deleteFunctionRequest.SetFunctionName(functionName);
+    auto outcome = m_client->DeleteFunction(deleteFunctionRequest);
+    if (!outcome.IsSuccess())
+        std::cout << "\nDeleteFunction error:\n"
+        << outcome.GetError().GetMessage() << "\n\n";
 }
 
 void InvokeFunction(Aws::String functionName)
@@ -80,9 +72,9 @@ void InvokeFunction(Aws::String functionName)
     invokeRequest.SetLogType(Aws::Lambda::Model::LogType::Tail);
     std::shared_ptr<Aws::IOStream> payload = Aws::MakeShared<Aws::StringStream>("FunctionTest");
     Aws::Utils::Json::JsonValue jsonPayload;
-    jsonPayload.WithString("key1", "rhubarb pie");
-    jsonPayload.WithString("key2", "monster truck");
-    jsonPayload.WithString("key3", "running on empty");
+    jsonPayload.WithString("key1", "value1");
+    jsonPayload.WithString("key2", "value2");
+    jsonPayload.WithString("key3", "value3");
     *payload << jsonPayload.WriteReadable();
     invokeRequest.SetBody(payload);
     invokeRequest.SetContentType("application/javascript");
@@ -107,17 +99,16 @@ void InvokeFunction(Aws::String functionName)
     }
 }
 
-
-void DeleteFunction(Aws::String functionName)
+void ListFunctions()
 {
-    Aws::Lambda::Model::DeleteFunctionRequest deleteFunctionRequest;
-    deleteFunctionRequest.SetFunctionName(functionName);
-    auto outcome = m_client->DeleteFunction(deleteFunctionRequest);
-    if (!outcome.IsSuccess())
-        std::cout << "\nDeleteFunction error:\n"
-        << outcome.GetError().GetMessage() << "\n\n";
+    Aws::Lambda::Model::ListFunctionsRequest listFunctionsRequest;
+    auto listFunctionsOutcome = m_client->ListFunctions(listFunctionsRequest);
+    auto functions = listFunctionsOutcome.GetResult().GetFunctions();
+    std::cout << functions.size() << " function(s):" << std::endl;
+    for(const auto& item : functions)
+        std::cout << item.GetFunctionName() << std::endl;
+    std::cout << std::endl;
 }
-
 
 int main(int argc, char **argv)
 {
@@ -126,7 +117,7 @@ int main(int argc, char **argv)
         "Description\n"
         "     This sample creates a function from a zip file, lists available functions,\n"
         "     invokes the newly created function, and then deletes the function.\n"
-        "     The fucntion should take three arguments and return a string, see \n"
+        "     The function should take three arguments and return a string, see \n\n"
         "     http://docs.aws.amazon.com/lambda/latest/dg/get-started-create-function.html.\n\n"
         "Usage:\n"
         "     lambda_example name handler runtime rolearn zipfile <region>\n\n"
@@ -139,15 +130,14 @@ int main(int argc, char **argv)
         "    zipfile- zip file containign function and other dependencies\n"
         "    region - optional region, e.g. us-east-2\n\n"
         "Example:\n"
-        "    create_function helloLambdaWorld helloLambdaWorld.handler python2_7 ***arn*** helloLambdaWorld.zip\n\n"
-        "**Warning** This program will actually delete the table\n"
-        "            that you specify!\n";
+        "    create_function helloLambdaWorld helloLambdaWorld.handler python2_7 ***arn*** helloLambdaWorld.zip\n\n";
 
     if (argc < 5)
     {
         std::cout << USAGE;
         return 1;
     }
+    // Enable logging to help diagnose service issues
     const bool logging = false;
 
     Aws::SDKOptions options;
@@ -171,7 +161,6 @@ int main(int argc, char **argv)
             clientConfig.region = region;
         m_client = Aws::MakeShared<Aws::Lambda::LambdaClient>(ALLOCATION_TAG, clientConfig);
 
-        // arn:aws:iam::640773029566:role/AWSSdkCppLambdaSample_Role
         CreateFunction(functionName, functionHandler, functionRuntime, functionRoleARN, functionZipFile);
 
         ListFunctions();
