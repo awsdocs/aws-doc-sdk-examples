@@ -73,7 +73,7 @@ public class upload_user_doc {
 		return map;
 	}
 
-	private static int start_doc_upload(AmazonWorkDocs workDocs, String uploadUrl, String doc) throws Exception {
+	private static int start_doc_upload(String uploadUrl, String doc) throws Exception {
 		URL url = new URL(uploadUrl);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);
@@ -132,7 +132,7 @@ public class upload_user_doc {
 		}
 
 		try {
-			rc = start_doc_upload(workDocs, uploadUrl, doc);
+			rc = start_doc_upload(uploadUrl, doc);
 
 			if (rc != 200) {
 				System.out.println("Error code uploading: " + rc);
