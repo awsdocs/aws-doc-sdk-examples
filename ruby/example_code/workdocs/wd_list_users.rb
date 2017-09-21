@@ -12,10 +12,10 @@
 
 require 'aws-sdk'
 
+client = Aws::WorkDocs::Client.new(region: 'us-west-2')
+
 # Set to the OrganizationId of your WorkDocs site
 orgId = 'd-123456789c'
-
-client = Aws::WorkDocs::Client.new(region: 'us-west-2')
 
 resp = client.describe_users({
   organization_id: orgId,

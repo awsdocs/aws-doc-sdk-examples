@@ -29,13 +29,13 @@ def get_user_folder(client, orgId, user_email)
   return root_folder
 end
 
+client = Aws::WorkDocs::Client.new(region: 'us-west-2')
+
 # Set to the email address of a user
 user_email = 'someone@somewhere'
 
 # Set to the OrganizationId of your WorkDocs site.
 orgId = 'd-123456789c'
-
-client = Aws::WorkDocs::Client.new(region: 'us-west-2')
 
 user_folder = get_user_folder(client, orgId, user_email)
 
