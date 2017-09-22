@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         const Aws::String bucket_name = "unicode-test";
-        const Aws::WString key_name = L"Ⓢ③Ⓢ③Ⓒⓛⓘ.txt";
+        const Aws::WString key_name = L"unicode-Ⓢ③Ⓢ③Ⓒⓛⓘ.txt";
         const Aws::String region = "us-west-2";
 
         std::cout << "Downloading " << key_name.c_str() << " from S3 bucket: " <<
