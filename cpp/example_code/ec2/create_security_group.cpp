@@ -19,7 +19,7 @@
 #include <iostream>
 
 void BuildSampleIngressRule(
-        Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& authorize_request)
+    Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& authorize_request)
 {
     Aws::EC2::Model::IpRange ip_range;
     ip_range.SetCidrIp("0.0.0.0/0");
@@ -42,8 +42,8 @@ void BuildSampleIngressRule(
 }
 
 void CreateSecurityGroup(
-        const Aws::String& group_name, const Aws::String& description,
-        const Aws::String& vpc_id)
+    const Aws::String& group_name, const Aws::String& description,
+    const Aws::String& vpc_id)
 {
     Aws::EC2::EC2Client ec2;
     Aws::EC2::Model::CreateSecurityGroupRequest request;
@@ -54,7 +54,8 @@ void CreateSecurityGroup(
 
     auto outcome = ec2.CreateSecurityGroup(request);
 
-    if (!outcome.IsSuccess()) {
+    if (!outcome.IsSuccess())
+    {
         std::cout << "Failed to create security group:" <<
             outcome.GetError().GetMessage() << std::endl;
         return;
@@ -70,9 +71,10 @@ void CreateSecurityGroup(
     BuildSampleIngressRule(authorize_request);
 
     auto ingress_request = ec2.AuthorizeSecurityGroupIngress(
-            authorize_request);
+        authorize_request);
 
-    if(!ingress_request.IsSuccess()) {
+    if (!ingress_request.IsSuccess())
+    {
         std::cout << "Failed to set ingress policy for security group " <<
             group_name << ":" << ingress_request.GetError().GetMessage() <<
             std::endl;
@@ -88,19 +90,22 @@ void CreateSecurityGroup(
  */
 int main(int argc, char** argv)
 {
-    if(argc != 4)
+    if (argc != 4)
     {
-        std::cout << "Usage: ec2_create_security_group <group_name> " <<
+        std::cout << "Usage: create_security_group <group_name> " <<
             "<group_description> <vpc_id>" << std::endl;
         return 1;
     }
 
-    Aws::String group_name = argv[1];
-    Aws::String group_desc = argv[2];
-    Aws::String vpc_id = argv[3];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    CreateSecurityGroup(group_name, group_desc, vpc_id);
+    {
+        Aws::String group_name = argv[1];
+        Aws::String group_desc = argv[2];
+        Aws::String vpc_id = argv[3];
+
+        CreateSecurityGroup(group_name, group_desc, vpc_id);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

@@ -24,25 +24,29 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_delete_policy <policy_arn>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: delete_policy <policy_arn>" << std::endl;
         return 1;
     }
 
-    Aws::String policy_arn(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String policy_arn(argv[1]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::DeletePolicyRequest request;
         request.SetPolicyArn(policy_arn);
 
         auto outcome = iam.DeletePolicy(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error deleting policy with arn " << policy_arn << ": "
                 << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully deleted policy with arn " << policy_arn
                 << std::endl;
         }

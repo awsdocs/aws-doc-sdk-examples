@@ -22,7 +22,7 @@ if i.exists?
     puts "#{id} is terminated, so you cannot stop it"
   when 64  # stopping
     puts "#{id} is stopping, so it will be stopped in a bit"
-  when 89  # stopped
+  when 80  # stopped
     puts "#{id} is already stopped"
   else
     i.stop

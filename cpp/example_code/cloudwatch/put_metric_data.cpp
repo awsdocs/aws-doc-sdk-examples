@@ -21,18 +21,20 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2) {
+    if (argc != 2)
+    {
         std::cout << "Usage: put_metric_data <data_point_value>" <<
             std::endl;
         return 1;
     }
 
-    Aws::StringStream value_stream(argv[1]);
-    double data_point = 1.0;
-    value_stream >> data_point;
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::StringStream value_stream(argv[1]);
+        double data_point = 1.0;
+        value_stream >> data_point;
+
         Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::Dimension dimension;
@@ -50,10 +52,13 @@ int main(int argc, char** argv)
         request.AddMetricData(datum);
 
         auto outcome = cw.PutMetricData(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to put sample metric data:" <<
                 outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully put sample metric data" << std::endl;
         }
     }

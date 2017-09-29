@@ -21,18 +21,19 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         std::cout << "Usage: long_polling_on_existing_queue <queue_url> " <<
             "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queue_url = argv[1];
-    Aws::String poll_time = argv[2];
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String queue_url = argv[1];
+        Aws::String poll_time = argv[2];
+
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::SetQueueAttributesRequest request;
@@ -42,10 +43,13 @@ int main(int argc, char** argv)
             poll_time);
 
         auto outcome = sqs.SetQueueAttributes(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "Successfully updated long polling time for queue " <<
                 queue_url << " to " << poll_time << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error updating long polling time for queue " <<
                 queue_url << ": " << outcome.GetError().GetMessage() <<
                 std::endl;

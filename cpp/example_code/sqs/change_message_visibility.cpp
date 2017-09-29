@@ -19,7 +19,7 @@
 #include <iostream>
 
 void ChangeMessageVisibility(
-        const Aws::String& queue_url, int visibility_timeout)
+    const Aws::String& queue_url, int visibility_timeout)
 {
     // Let's make sure the request timeout is larger than the maximum possible
     // long poll time so that valid ReceiveMesage requests don't fail on long
@@ -34,14 +34,16 @@ void ChangeMessageVisibility(
     receive_request.SetMaxNumberOfMessages(1);
 
     auto receive_outcome = sqs.ReceiveMessage(receive_request);
-    if (!receive_outcome.IsSuccess()) {
+    if (!receive_outcome.IsSuccess())
+    {
         std::cout << "Error receiving message from queue " << queue_url << ": "
             << receive_outcome.GetError().GetMessage() << std::endl;
         return;
     }
 
     const auto& messages = receive_outcome.GetResult().GetMessages();
-    if (messages.size() == 0) {
+    if (messages.size() == 0)
+    {
         std::cout << "No messages received from queue " << queue_url <<
             std::endl;
         return;
@@ -58,10 +60,13 @@ void ChangeMessageVisibility(
     request.SetReceiptHandle(message.GetReceiptHandle());
     request.SetVisibilityTimeout(visibility_timeout);
     auto outcome = sqs.ChangeMessageVisibility(request);
-    if (outcome.IsSuccess()) {
+    if (outcome.IsSuccess())
+    {
         std::cout << "Successfully changed visibility of message " <<
             message.GetMessageId() << " from queue " << queue_url << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Error changing visibility of message " <<
             message.GetMessageId() << " from queue " << queue_url << ": " <<
             outcome.GetError().GetMessage() << std::endl;
@@ -74,19 +79,22 @@ void ChangeMessageVisibility(
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         std::cout << "Usage: change_message_visibility <queue_url> " <<
             "<visibility_timeout_in_seconds>" << std::endl;
         return 1;
     }
 
-    Aws::String queue_url = argv[1];
-    int visibility_timeout = 0;
-    Aws::StringStream ss(argv[2]);
-    ss >> visibility_timeout;
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    ChangeMessageVisibility(queue_url, visibility_timeout);
+    {
+        Aws::String queue_url = argv[1];
+        int visibility_timeout = 0;
+        Aws::StringStream ss(argv[2]);
+        ss >> visibility_timeout;
+        ChangeMessageVisibility(queue_url, visibility_timeout);
+    }
     Aws::ShutdownAPI(options);
 
     return 0;

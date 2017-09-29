@@ -20,27 +20,28 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         std::cout << "delete_bucket_policy - delete the policy on an S3 bucket"
-                  << std::endl
-                  << "\nUsage:" << std::endl
-                  << "  get_bucket_policy <bucket> [region]\n" << std::endl
-                  << "\nWhere:" << std::endl
-                  << "  bucket - the bucket to get the policy from.\n" << std::endl
-                  << "  region - AWS region for the bucket" << std::endl
-                  << "           (optional, default: us-east-1)" << std::endl
-                  << "\nExample:" << std::endl
-                  << "  get_bucket_policy testbucket" << std::endl << std::endl;
+            << std::endl
+            << "\nUsage:" << std::endl
+            << "  get_bucket_policy <bucket> [region]\n" << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket - the bucket to get the policy from.\n" << std::endl
+            << "  region - AWS region for the bucket" << std::endl
+            << "           (optional, default: us-east-1)" << std::endl
+            << "\nExample:" << std::endl
+            << "  get_bucket_policy testbucket" << std::endl << std::endl;
         exit(1);
     }
-
-    const Aws::String bucket_name = argv[1];
-    const Aws::String user_region = (argc == 3) ? argv[2] : "us-east-1";
-    std::cout << "Getting policy for bucket: " << bucket_name << std::endl;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        const Aws::String bucket_name = argv[1];
+        const Aws::String user_region = (argc == 3) ? argv[2] : "us-east-1";
+        std::cout << "Getting policy for bucket: " << bucket_name << std::endl;
+
         Aws::Client::ClientConfiguration config;
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
@@ -50,15 +51,19 @@ int main(int argc, char** argv)
 
         auto outcome = s3_client.GetBucketPolicy(request);
 
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             Aws::StringStream policyStream;
             Aws::String line;
-            while (outcome.GetResult().GetPolicy()) {
+            while (outcome.GetResult().GetPolicy())
+            {
                 outcome.GetResult().GetPolicy() >> line;
                 policyStream << line;
             }
             std::cout << "Policy: " << std::endl << policyStream.str() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "GetBucketPolicy error: " <<
                 outcome.GetError().GetExceptionName() << std::endl <<
                 outcome.GetError().GetMessage() << std::endl;

@@ -22,25 +22,29 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_get_server_cert <cert_name>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: get_server_cert <cert_name>" << std::endl;
         return 1;
     }
 
-    Aws::String cert_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String cert_name(argv[1]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::GetServerCertificateRequest request;
         request.SetServerCertificateName(cert_name);
 
         auto outcome = iam.GetServerCertificate(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error getting server certificate " << cert_name <<
                 ": " << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             const auto &certificate = outcome.GetResult().GetServerCertificate();
             std::cout << "Name: " <<
                 certificate.GetServerCertificateMetadata().GetServerCertificateName()

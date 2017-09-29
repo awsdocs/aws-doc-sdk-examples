@@ -23,17 +23,17 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
+    if (argc != 3)
+    {
         std::cout << "Usage: put_rule <rule_name> <role_arn>" << std::endl;
         return 1;
     }
 
-    Aws::String rule_name(argv[1]);
-    Aws::String role_arn(argv[2]);
     Aws::SDKOptions options;
-
     Aws::InitAPI(options);
     {
+        Aws::String rule_name(argv[1]);
+        Aws::String role_arn(argv[2]);
         Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
         Aws::CloudWatchEvents::Model::PutRuleRequest request;
         request.SetName(rule_name);
@@ -42,11 +42,14 @@ int main(int argc, char** argv)
         request.SetState(Aws::CloudWatchEvents::Model::RuleState::ENABLED);
 
         auto outcome = cwe.PutRule(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to create cloudwatch events rule " <<
                 rule_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully created cloudwatch events rule " <<
                 rule_name << " with resulting Arn " <<
                 outcome.GetResult().GetRuleArn() << std::endl;

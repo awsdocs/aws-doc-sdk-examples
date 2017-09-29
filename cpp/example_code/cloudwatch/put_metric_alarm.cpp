@@ -21,22 +21,24 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 3) {
-        std::cout << "Usage: put_metric_alarm " <<
+    if (argc != 3)
+    {
+        std::cout << "Usage:" << "  put_metric_alarm " <<
             "<alarm_name> <instance_id>" << std::endl;
         return 1;
     }
 
-    Aws::String alarm_name(argv[1]);
-    Aws::String instanceId(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String alarm_name(argv[1]);
+        Aws::String instanceId(argv[2]);
+
         Aws::CloudWatch::CloudWatchClient cw;
         Aws::CloudWatch::Model::PutMetricAlarmRequest request;
         request.SetAlarmName(alarm_name);
         request.SetComparisonOperator(
-                Aws::CloudWatch::Model::ComparisonOperator::GreaterThanThreshold);
+            Aws::CloudWatch::Model::ComparisonOperator::GreaterThanThreshold);
         request.SetEvaluationPeriods(1);
         request.SetMetricName("CPUUtilization");
         request.SetNamespace("AWS/EC2");
@@ -54,10 +56,13 @@ int main(int argc, char** argv)
         request.AddDimensions(dimension);
 
         auto outcome = cw.PutMetricAlarm(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to create cloudwatch alarm:" <<
                 outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully created cloudwatch alarm " << alarm_name
                 << std::endl;
         }

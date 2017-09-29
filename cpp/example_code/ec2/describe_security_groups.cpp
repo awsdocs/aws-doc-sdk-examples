@@ -17,14 +17,16 @@
 #include <aws/ec2/model/DescribeSecurityGroupsResponse.h>
 #include <iomanip>
 #include <iostream>
+#include <iomanip>
 
 /**
  * Describes all ec2 security groups, or a specific group
  */
 int main(int argc, char** argv)
 {
-    if(argc > 2) {
-        std::cout << "Usage: ec2_describe_security_groups [group_id]" <<
+    if (argc > 2)
+    {
+        std::cout << "Usage: describe_security_groups [group_id]" <<
             std::endl;
         return 1;
     }
@@ -35,13 +37,15 @@ int main(int argc, char** argv)
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DescribeSecurityGroupsRequest request;
 
-        if (argc == 2) {
+        if (argc == 2)
+        {
             request.AddGroupIds(argv[1]);
         }
 
         auto outcome = ec2.DescribeSecurityGroups(request);
 
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << std::left <<
                 std::setw(32) << "Name" <<
                 std::setw(20) << "GroupId" <<
@@ -51,7 +55,8 @@ int main(int argc, char** argv)
             const auto &securityGroups =
                 outcome.GetResult().GetSecurityGroups();
 
-            for (const auto &securityGroup : securityGroups) {
+            for (const auto &securityGroup : securityGroups)
+            {
                 std::cout << std::left <<
                     std::setw(32) << securityGroup.GetGroupName() <<
                     std::setw(20) << securityGroup.GetGroupId() <<
@@ -59,7 +64,9 @@ int main(int argc, char** argv)
                     std::setw(64) << securityGroup.GetDescription() <<
                     std::endl;
             }
-        } else {
+        }
+        else
+        {
             std::cout << "Failed to describe security groups:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }

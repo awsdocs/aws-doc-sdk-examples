@@ -17,6 +17,7 @@
 #include <aws/iam/model/ListAccountAliasesResult.h>
 #include <iomanip>
 #include <iostream>
+#include <iomanip> 
 
 /**
  * Lists all account aliases associated with an AWS account
@@ -25,24 +26,27 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListAccountAliasesRequest request;
 
         bool done = false;
         bool header = false;
-        while (!done) {
+        while (!done)
+        {
             auto outcome = iam.ListAccountAliases(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to list account aliases: " <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
             const auto &aliases = outcome.GetResult().GetAccountAliases();
-            if (!header) {
-                if (aliases.size() == 0) {
+            if (!header)
+            {
+                if (aliases.size() == 0)
+                {
                     std::cout << "Account has no aliases" << std::endl;
                     break;
                 }
@@ -50,13 +54,17 @@ int main(int argc, char** argv)
                 header = true;
             }
 
-            for (const auto &alias : aliases) {
+            for (const auto &alias : aliases)
+            {
                 std::cout << std::left << std::setw(32) << alias << std::endl;
             }
 
-            if (outcome.GetResult().GetIsTruncated()) {
+            if (outcome.GetResult().GetIsTruncated())
+            {
                 request.SetMarker(outcome.GetResult().GetMarker());
-            } else {
+            }
+            else
+            {
                 done = true;
             }
         }

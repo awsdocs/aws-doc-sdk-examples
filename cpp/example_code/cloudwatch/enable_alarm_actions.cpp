@@ -18,14 +18,14 @@
 #include <iostream>
 
 void CreateAlarmAndEnableActions(
-        const Aws::String& alarm_name, const Aws::String& instanceId,
-        const Aws::String& actionArn)
+    const Aws::String& alarm_name, const Aws::String& instanceId,
+    const Aws::String& actionArn)
 {
     Aws::CloudWatch::CloudWatchClient cw;
     Aws::CloudWatch::Model::PutMetricAlarmRequest request;
     request.SetAlarmName(alarm_name);
     request.SetComparisonOperator(
-            Aws::CloudWatch::Model::ComparisonOperator::GreaterThanThreshold);
+        Aws::CloudWatch::Model::ComparisonOperator::GreaterThanThreshold);
     request.SetEvaluationPeriods(1);
     request.SetMetricName("CPUUtilization");
     request.SetNamespace("AWS/EC2");
@@ -43,7 +43,8 @@ void CreateAlarmAndEnableActions(
     request.AddDimensions(dimension);
 
     auto outcome = cw.PutMetricAlarm(request);
-    if (!outcome.IsSuccess()) {
+    if (!outcome.IsSuccess())
+    {
         std::cout << "Failed to create cloudwatch alarm:" <<
             outcome.GetError().GetMessage() << std::endl;
         return;
@@ -53,7 +54,8 @@ void CreateAlarmAndEnableActions(
     enable_request.AddAlarmNames(alarm_name);
 
     auto enable_outcome = cw.EnableAlarmActions(enable_request);
-    if (!enable_outcome.IsSuccess()) {
+    if (!enable_outcome.IsSuccess())
+    {
         std::cout << "Failed to enable alarm actions:" <<
             enable_outcome.GetError().GetMessage() << std::endl;
         return;
@@ -70,18 +72,22 @@ void CreateAlarmAndEnableActions(
  */
 int main(int argc, char** argv)
 {
-    if (argc != 4) {
-        std::cout << "Usage: enable_alarm_actions" <<
+    if (argc != 4)
+    {
+        std::cout << "Usage:" << std::endl << "  enable_alarm_actions" <<
             " <alarm_name> <instance_id> <alarm_action_arn>" << std::endl;
         return 1;
     }
 
-    Aws::String alarm_name(argv[1]);
-    Aws::String instanceId(argv[2]);
-    Aws::String actionArn(argv[3]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    CreateAlarmAndEnableActions(alarm_name, instanceId, actionArn);
+    {
+        Aws::String alarm_name(argv[1]);
+        Aws::String instanceId(argv[2]);
+        Aws::String actionArn(argv[3]);
+
+        CreateAlarmAndEnableActions(alarm_name, instanceId, actionArn);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

@@ -17,6 +17,7 @@
 #include <aws/ec2/model/DescribeAddressesResponse.h>
 #include <iomanip>
 #include <iostream>
+#include <iomanip>
 
 /**
  * Describes all elastic IP addresses
@@ -25,12 +26,12 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DescribeAddressesRequest request;
         auto outcome = ec2.DescribeAddresses(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << std::left << std::setw(20) << "InstanceId" <<
                 std::setw(15) << "Public IP" << std::setw(10) << "Domain" <<
                 std::setw(20) << "Allocation ID" << std::setw(25) <<
@@ -41,7 +42,7 @@ int main(int argc, char** argv)
             {
                 Aws::String domainString =
                     Aws::EC2::Model::DomainTypeMapper::GetNameForDomainType(
-                            address.GetDomain());
+                        address.GetDomain());
 
                 std::cout << std::left << std::setw(20) <<
                     address.GetInstanceId() << std::setw(15) <<

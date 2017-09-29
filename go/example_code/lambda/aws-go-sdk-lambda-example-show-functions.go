@@ -27,10 +27,11 @@ func main() {
 		os.Exit(0)
 	}
 
-	fmt.Println("Function/Description:")
+	fmt.Println("Functions:")
 
 	for _, f := range result.Functions {
-		fmt.Printf("* %s: %s\n",
-			aws.StringValue(f.FunctionName), aws.StringValue(f.Description))
+		fmt.Println("Name:        " + aws.StringValue(f.FunctionName))
+		fmt.Println("Description: " + aws.StringValue(f.Description))
+		fmt.Println("")
 	}
 }

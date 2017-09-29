@@ -21,19 +21,19 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3)
+    if (argc != 3)
     {
-        std::cout << "Usage: iam_delete_access_key <user_name> <access_key_id>"
+        std::cout << "Usage: delete_access_key <user_name> <access_key_id>"
             << std::endl;
         return 1;
     }
 
-    Aws::String user_name(argv[1]);
-    Aws::String key_id(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String user_name(argv[1]);
+        Aws::String key_id(argv[2]);
+
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::DeleteAccessKeyRequest request;
@@ -42,11 +42,14 @@ int main(int argc, char** argv)
 
         auto outcome = iam.DeleteAccessKey(request);
 
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error deleting access key " << key_id << " from user "
                 << user_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully deleted access key " << key_id
                 << " for IAM user " << user_name << std::endl;
         }

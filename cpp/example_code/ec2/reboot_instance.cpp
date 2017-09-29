@@ -27,8 +27,9 @@ void RebootInstance(const Aws::String& instanceId)
     auto dry_run_outcome = ec2.RebootInstances(request);
     assert(!dry_run_outcome.IsSuccess());
 
-    if(dry_run_outcome.GetError().GetErrorType()
-            != Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
+    if (dry_run_outcome.GetError().GetErrorType()
+        != Aws::EC2::EC2Errors::DRY_RUN_OPERATION)
+    {
         std::cout << "Failed dry run to reboot instance " << instanceId << ": "
             << dry_run_outcome.GetError().GetMessage() << std::endl;
         return;
@@ -36,10 +37,13 @@ void RebootInstance(const Aws::String& instanceId)
 
     request.SetDryRun(false);
     auto outcome = ec2.RebootInstances(request);
-    if(!outcome.IsSuccess()) {
+    if (!outcome.IsSuccess())
+    {
         std::cout << "Failed to reboot instance " << instanceId << ": " <<
             outcome.GetError().GetMessage() << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Successfully rebooted instance " << instanceId <<
             std::endl;
     }
@@ -50,15 +54,19 @@ void RebootInstance(const Aws::String& instanceId)
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: ec2_reboot_instance <instance_id>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: reboot_instance <instance_id>" << std::endl;
         return 1;
     }
 
-    Aws::String instanceId = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    RebootInstance(instanceId);
+    {
+        Aws::String instanceId = argv[1];
+
+        RebootInstance(instanceId);
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

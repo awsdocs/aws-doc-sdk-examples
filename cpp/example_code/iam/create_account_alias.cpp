@@ -21,26 +21,30 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_create_account_alias <alias_name>" <<
+    if (argc != 2)
+    {
+        std::cout << "Usage: create_account_alias <alias_name>" <<
             std::endl;
         return 1;
     }
 
-    Aws::String alias_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String alias_name(argv[1]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::CreateAccountAliasRequest request;
         request.SetAccountAlias(alias_name);
 
         auto outcome = iam.CreateAccountAlias(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error creating account alias " << alias_name << ": "
                 << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully created account alias " << alias_name <<
                 std::endl;
         }
