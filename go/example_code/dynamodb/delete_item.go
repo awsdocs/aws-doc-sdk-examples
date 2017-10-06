@@ -16,7 +16,6 @@ package main
 
 import (
     "fmt"
-    "os"
 
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
@@ -27,26 +26,31 @@ func main() {
     // Initialize a session in us-west-2 that the SDK will use to load configuration,
     // and credentials from the shared config file ~/.aws/config.
     sess, err := session.NewSession(&aws.Config{
-        Region:aws.String("us-west-2")},
+        Region: aws.String("us-west-2")},
     )
 
     // Create DynamoDB client
     svc := dynamodb.New(sess)
 
-    // Get the list of tables
-    result, err := svc.ListTables(&dynamodb.ListTablesInput{})
+    input := &dynamodb.DeleteItemInput{
+        Key: map[string]*dynamodb.AttributeValue{
+            "year": {
+                N: aws.String("2015"),
+            },
+            "title": {
+                S: aws.String("The Big New Movie"),
+            },
+        },
+        TableName: aws.String("MyMovies"),
+    }
+
+    _, err = svc.DeleteItem(input)
 
     if err != nil {
-        fmt.Println(err)
-        os.Exit(1)
+        fmt.Println("Got error calling DeleteItem")
+        fmt.Println(err.Error())
+        return
     }
 
-    fmt.Println("Tables:")
-    fmt.Println("")
-
-    for _, n := range result.TableNames {
-        fmt.Println(*n)
-    }
-
-    fmt.Println("")
+    fmt.Println("Deleted 'The Big New Movie' (2015)")
 }
