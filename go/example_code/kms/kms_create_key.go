@@ -15,12 +15,12 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/kms"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/kms"
 
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 )
 
 // Create a customer master key (CMK)
@@ -30,29 +30,29 @@ import (
 // use the CMK to encrypt a data encryption key (DEK).
 
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create KMS service client
-	svc := kms.New(sess)
+    // Create KMS service client
+    svc := kms.New(sess)
 
-	// Create the key
-	result, err := svc.CreateKey(&kms.CreateKeyInput{
-		Tags: []*kms.Tag{
-			{
-				TagKey:   aws.String("CreatedBy"),
-				TagValue: aws.String("ExampleUser"),
-			},
-		},
-	})
+    // Create the key
+    result, err := svc.CreateKey(&kms.CreateKeyInput{
+        Tags: []*kms.Tag{
+            {
+                TagKey:   aws.String("CreatedBy"),
+                TagValue: aws.String("ExampleUser"),
+            },
+        },
+    })
 
-	if err != nil {
-		fmt.Println("Got error creating key: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error creating key: ", err)
+        os.Exit(1)
+    }
 
-	fmt.Println("ARN: " + *result.KeyMetadata.Arn)
+    fmt.Println("ARN: " + *result.KeyMetadata.Arn)
 }

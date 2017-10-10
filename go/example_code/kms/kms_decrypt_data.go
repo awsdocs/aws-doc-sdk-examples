@@ -15,35 +15,35 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/kms"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/kms"
 
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 )
 
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create KMS service client
-	svc := kms.New(sess)
+    // Create KMS service client
+    svc := kms.New(sess)
 
-	// Encrypted data
-	blob := []byte{...}
+    // Encrypted data
+    blob := []byte{...}
 
-	// Decrypt the data
-	result, err := svc.Decrypt(&kms.DecryptInput{CiphertextBlob: blob})
+    // Decrypt the data
+    result, err := svc.Decrypt(&kms.DecryptInput{CiphertextBlob: blob})
 
-	if err != nil {
-		fmt.Println("Got error decrypting data: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error decrypting data: ", err)
+        os.Exit(1)
+    }
 
-	blob_string := string(result.Plaintext)
+    blob_string := string(result.Plaintext)
 
-	fmt.Println(blob_string)
+    fmt.Println(blob_string)
 }

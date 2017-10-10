@@ -15,36 +15,36 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/codebuild"
-	"fmt"
-	"os"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/codebuild"
+    "fmt"
+    "os"
 )
 
 // Lists a CodeBuild projects in the region configured in the shared config
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create CodeBuild service client
-	svc := codebuild.New(sess)
+    // Create CodeBuild service client
+    svc := codebuild.New(sess)
 
-	// Get the list of projects
-	result, err := svc.ListProjects(
-		&codebuild.ListProjectsInput{
-			SortBy:    aws.String("NAME"),
-			SortOrder: aws.String("ASCENDING", )})
+    // Get the list of projects
+    result, err := svc.ListProjects(
+        &codebuild.ListProjectsInput{
+            SortBy:    aws.String("NAME"),
+            SortOrder: aws.String("ASCENDING", )})
 
-	if err != nil {
-		fmt.Println("Got error listing projects: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error listing projects: ", err)
+        os.Exit(1)
+    }
 
-	for _, p := range result.Projects {
-		fmt.Println(*p)
-	}
+    for _, p := range result.Projects {
+        fmt.Println(*p)
+    }
 }

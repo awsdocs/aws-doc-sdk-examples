@@ -15,40 +15,40 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/kms"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/kms"
 
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 )
 
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create KMS service client
-	svc := kms.New(sess)
+    // Create KMS service client
+    svc := kms.New(sess)
 
-	// Encrypt data key
-	//
-	// Replace the fictitious key ARN with a valid key ID
+    // Encrypt data key
+    //
+    // Replace the fictitious key ARN with a valid key ID
 
-	keyId := "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+    keyId := "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
 
     // Encrypted data
-	blob := []byte{...}
+    blob := []byte{...}
 
-	// Re-encrypt the data key
-	result, err := svc.ReEncrypt(&kms.ReEncryptInput{CiphertextBlob: blob, DestinationKeyId: &keyId})
+    // Re-encrypt the data key
+    result, err := svc.ReEncrypt(&kms.ReEncryptInput{CiphertextBlob: blob, DestinationKeyId: &keyId})
 
-	if err != nil {
-		fmt.Println("Got error re-encrypting data: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error re-encrypting data: ", err)
+        os.Exit(1)
+    }
 
-	fmt.Println("Blob (base-64 byte array):")
-	fmt.Println(result.CiphertextBlob)
+    fmt.Println("Blob (base-64 byte array):")
+    fmt.Println(result.CiphertextBlob)
 }

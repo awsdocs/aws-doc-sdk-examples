@@ -48,7 +48,7 @@ const (
     //The email body for recipients with non-HTML email clients.
     TextBody = "This email was sent with Amazon SES using the AWS SDK for Go."
     
-	// The character encoding for the email.
+    // The character encoding for the email.
     CharSet = "UTF-8"
 )
 
@@ -113,7 +113,7 @@ func main() {
             // Message from an error.
             fmt.Println(err.Error())
         }
-	
+    
         return
     }
     

@@ -15,39 +15,39 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/codebuild"
-	"fmt"
-	"os"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/codebuild"
+    "fmt"
+    "os"
 )
 
 // Builds a CodeBuild project in the region configured in the shared config
 func main() {
-	// Requires one argument, the name of the project.
-	if len(os.Args) != 2 {
-		fmt.Println("Project name required!")
-		os.Exit(1)
-	}
+    // Requires one argument, the name of the project.
+    if len(os.Args) != 2 {
+        fmt.Println("Project name required!")
+        os.Exit(1)
+    }
 
-	project := os.Args[1]
+    project := os.Args[1]
 
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create CodeBuild service client
-	svc := codebuild.New(sess)
+    // Create CodeBuild service client
+    svc := codebuild.New(sess)
 
-	// Build the project
-	_, err := svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
+    // Build the project
+    _, err := svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
 
-	if err != nil {
-		fmt.Println("Got error building project: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error building project: ", err)
+        os.Exit(1)
+    }
 
-	fmt.Printf("Started build for project %q\n", project)
+    fmt.Printf("Started build for project %q\n", project)
 }

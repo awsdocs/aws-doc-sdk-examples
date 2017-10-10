@@ -15,44 +15,44 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/codebuild"
-	"fmt"
-	"os"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/codebuild"
+    "fmt"
+    "os"
 )
 
 // Lists the CodeBuild builds for all projects in the region configured in the shared config
 func main() {
-	// Initialize a session that the SDK will use to load configuration,
-	// credentials, and region from the shared config file. (~/.aws/config).
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK will use to load configuration,
+    // credentials, and region from the shared config file. (~/.aws/config).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create CodeBuild service client
-	svc := codebuild.New(sess)
+    // Create CodeBuild service client
+    svc := codebuild.New(sess)
 
-	// Get the list of builds
-	names, err := svc.ListBuilds(&codebuild.ListBuildsInput{SortOrder: aws.String("ASCENDING")})
+    // Get the list of builds
+    names, err := svc.ListBuilds(&codebuild.ListBuildsInput{SortOrder: aws.String("ASCENDING")})
 
-	if err != nil {
-		fmt.Println("Got error listing builds: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error listing builds: ", err)
+        os.Exit(1)
+    }
 
-	// Get information about each build
-	builds, err := svc.BatchGetBuilds(&codebuild.BatchGetBuildsInput{Ids: names.Ids})
+    // Get information about each build
+    builds, err := svc.BatchGetBuilds(&codebuild.BatchGetBuildsInput{Ids: names.Ids})
 
-	if err != nil {
-		fmt.Println("Got error getting builds: ", err)
-		os.Exit(1)
-	}
+    if err != nil {
+        fmt.Println("Got error getting builds: ", err)
+        os.Exit(1)
+    }
 
-	for _, build := range builds.Builds {
-		fmt.Printf("Project: %s\n", aws.StringValue(build.ProjectName))
-		fmt.Printf("Phase:   %s\n", aws.StringValue(build.CurrentPhase))
-		fmt.Printf("Status:  %s\n", aws.StringValue(build.BuildStatus))
-		fmt.Println("")
-	}
+    for _, build := range builds.Builds {
+        fmt.Printf("Project: %s\n", aws.StringValue(build.ProjectName))
+        fmt.Printf("Phase:   %s\n", aws.StringValue(build.CurrentPhase))
+        fmt.Printf("Status:  %s\n", aws.StringValue(build.BuildStatus))
+        fmt.Println("")
+    }
 }
