@@ -14,7 +14,7 @@
 # 1. Enable an action for an Amazon CloudWatch alarm.
 # 2. Disable all actions for an alarm.
 
-require 'aws-sdk'
+require 'aws-sdk-cloudwatch'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

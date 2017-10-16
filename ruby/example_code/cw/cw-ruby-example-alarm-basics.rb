@@ -15,7 +15,7 @@
 # 2. Create an alarm.
 # 3. Delete the alarm.
 
-require 'aws-sdk'
+require 'aws-sdk-cloudwatch'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

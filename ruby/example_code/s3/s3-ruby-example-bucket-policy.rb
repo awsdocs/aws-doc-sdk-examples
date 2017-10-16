@@ -18,7 +18,7 @@
 #  5. Remove the policy from the bucket.
 #  6. Delete the bucket.
 
-require 'aws-sdk'
+require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 
 s3 = Aws::S3::Client.new(region: "us-west-2")
 

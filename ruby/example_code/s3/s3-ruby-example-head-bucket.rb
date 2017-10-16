@@ -10,7 +10,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk'
+require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 
 bucket_exists = false
 client = Aws::S3::Client.new(region: 'us-west-2')

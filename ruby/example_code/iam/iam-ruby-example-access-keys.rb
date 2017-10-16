@@ -17,7 +17,7 @@
 # 4. Deactivate access keys.
 # 5. Delete the access key.
 
-require 'aws-sdk'
+require 'aws-sdk-iam'  # v2: require 'aws-sdk'
 
 iam = Aws::IAM::Client.new(region: 'us-east-1')
 

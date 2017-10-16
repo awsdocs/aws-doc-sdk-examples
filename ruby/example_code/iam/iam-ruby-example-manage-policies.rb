@@ -17,7 +17,7 @@
 # 4. List policies attached to the role.
 # 5. Detach the policy from the role.
 
-require 'aws-sdk'
+require 'aws-sdk-iam'  # v2: require 'aws-sdk'
 
 iam = Aws::IAM::Client.new(region: 'us-east-1')
 

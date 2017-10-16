@@ -15,7 +15,7 @@
 # 2. Get information about available key pairs.
 # 3. Delete the key pair.
 
-require 'aws-sdk'
+require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 
 ec2 = Aws::EC2::Client.new(region: 'us-east-1')
 

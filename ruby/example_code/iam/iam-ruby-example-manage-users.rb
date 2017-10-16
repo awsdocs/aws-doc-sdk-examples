@@ -16,7 +16,7 @@
 # 3. Update the user's name.
 # 4. Delete the user.
 
-require 'aws-sdk'
+require 'aws-sdk-iam'  # v2: require 'aws-sdk'
 
 iam = Aws::IAM::Client.new(region: 'us-east-1')
 

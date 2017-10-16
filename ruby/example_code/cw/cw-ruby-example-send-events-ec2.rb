@@ -65,7 +65,7 @@
 =end
 #    Make a note of the AWS IAM service role ARN, as you will need it later in the code.
 
-require 'aws-sdk'
+require 'aws-sdk-cloudwatch'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

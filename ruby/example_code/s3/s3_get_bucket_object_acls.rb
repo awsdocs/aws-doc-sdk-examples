@@ -1,4 +1,4 @@
-require 'aws-sdk'
+require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 require 'os'
 
 # Required on Windows

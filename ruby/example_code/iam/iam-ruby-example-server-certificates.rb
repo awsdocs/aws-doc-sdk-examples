@@ -15,7 +15,7 @@
 # 2. Delete the server certificate.
 # 3. List information about any remaining server certificates.
 
-require 'aws-sdk'
+require 'aws-sdk-iam'  # v2: require 'aws-sdk'
 
 iam = Aws::IAM::Client.new(region: 'us-east-1')
 

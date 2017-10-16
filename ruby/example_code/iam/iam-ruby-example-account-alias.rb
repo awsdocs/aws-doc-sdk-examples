@@ -15,7 +15,7 @@
 # 2. Create an account alias.
 # 3. Delete the account alias.
 
-require 'aws-sdk'
+require 'aws-sdk-iam'  # v2: require 'aws-sdk'
 
 iam = Aws::IAM::Client.new(region: 'us-east-1')
 

@@ -16,7 +16,7 @@
 # 3. Display information about the message.
 # 4. Delete the message from the queue.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 

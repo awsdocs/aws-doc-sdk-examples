@@ -10,7 +10,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-dynamodb'
+require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
 
 # Create dynamodb client in us-west-2 region
 dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')

@@ -16,7 +16,7 @@
 # 3. Get information about security groups.
 # 4. Delete the security group.
 
-require 'aws-sdk'
+require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 
 ec2 = Aws::EC2::Client.new(region: 'us-east-1')
 

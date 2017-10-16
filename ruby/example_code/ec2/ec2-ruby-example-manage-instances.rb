@@ -17,7 +17,7 @@
 # 4. Enable detailed monitoring for the instance.
 # 5. Get information about available instances.
 
-require 'aws-sdk'
+require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

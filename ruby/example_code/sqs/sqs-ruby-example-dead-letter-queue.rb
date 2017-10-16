@@ -14,7 +14,7 @@
 # 1. Create a queue representing a dead letter queue.
 # 2. Associate the dead letter queue with an existing queue.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

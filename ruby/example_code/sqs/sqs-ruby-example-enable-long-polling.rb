@@ -15,7 +15,7 @@
 # 2. Set long polling for an existing queue.
 # 3. Set long polling when receiving messages for a queue.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 

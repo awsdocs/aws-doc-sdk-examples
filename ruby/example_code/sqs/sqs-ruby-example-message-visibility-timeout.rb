@@ -12,7 +12,7 @@
 
 # Demonstrates how to specify the time interval during which messages to a queue are not visible after being received.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 

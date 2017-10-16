@@ -14,7 +14,7 @@
 # 1. Send custom metrics to Amazon CloudWatch.
 # 2. Get information about custom metrics.
 
-require 'aws-sdk'
+require 'aws-sdk-cloudwatch'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

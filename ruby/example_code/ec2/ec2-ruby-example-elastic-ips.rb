@@ -16,7 +16,7 @@
 # 2. Get information about addresses associated with the instance. 
 # 4. Release the address.
 
-require 'aws-sdk'
+require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 
 ec2 = Aws::EC2::Client.new(region: 'us-east-1')
 

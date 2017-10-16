@@ -10,7 +10,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-ses'
+require 'aws-sdk-ses'  # v2: require 'aws-sdk'
 
 # Replace sender@example.com with your "From" address.
 # This address must be verified with Amazon SES.

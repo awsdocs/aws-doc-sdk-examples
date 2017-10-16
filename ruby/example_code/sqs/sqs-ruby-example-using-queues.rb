@@ -16,7 +16,7 @@
 # 3. Get the queue's URL.
 # 4. Delete the queue.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 

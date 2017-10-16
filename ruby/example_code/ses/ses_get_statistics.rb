@@ -10,7 +10,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-ses'
+require 'aws-sdk-ses'  # v2: require 'aws-sdk'
 
 # Create a new SES resource in the us-west-2 region.
 # Replace us-west-2 with the AWS Region you're using for Amazon SES.
