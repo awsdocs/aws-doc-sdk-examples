@@ -10,11 +10,12 @@ namespace NETRekognitionConsole
     {
         static void IdentifyFaces(string filename)
         {
+            // Using USWest2, not the default region
             AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
 
             DetectFacesRequest dfr = new DetectFacesRequest();
 
-            // Read image bytes and add to request
+            // Request needs image butes, so read and add to request
             Amazon.Rekognition.Model.Image img = new Amazon.Rekognition.Model.Image();
             byte[] data = null;
             using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
@@ -26,24 +27,31 @@ namespace NETRekognitionConsole
             dfr.Image = img;
             var outcome = rekoClient.DetectFaces(dfr);
 
-            // Create copy of image we can modify to highlight faces
+            // Load a bitmap to modify with face bounding box rectangles
             System.Drawing.Bitmap facesHighlighted = new System.Drawing.Bitmap(filename);
             Pen pen = new Pen(Color.Black, 3);
 
+            // Create a graphics context
             using (var graphics = Graphics.FromImage(facesHighlighted))
             {
                 foreach (var fd in outcome.FaceDetails)
                 {
+                    // Get the bounding box
                     BoundingBox bb = fd.BoundingBox;
                     Console.WriteLine("Bounding box = (" + fd.BoundingBox.Left + ", " + fd.BoundingBox.Top + ", " +
                         fd.BoundingBox.Height + ", " + fd.BoundingBox.Width + ")");
+                    // Draw the rectangle using the bounding box values
+                    // They are percentages so scale them to picture
                     graphics.DrawRectangle(pen, x: facesHighlighted.Width * bb.Left,
                         y: facesHighlighted.Height * bb.Top,
                         width: facesHighlighted.Width * bb.Width,
                         height: facesHighlighted.Height * bb.Height);
                 }
             }
-            facesHighlighted.Save(filename.Replace(Path.GetExtension(filename), "_faces.png"), System.Drawing.Imaging.ImageFormat.Png);
+            // Save the image with highlights as PNG
+            string fileout = filename.Replace(Path.GetExtension(filename), "_faces.png");
+            facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
+            Console.WriteLine(">>> Faces highlighted in file " + fileout);
         }
 
         static void Main(string[] args)
