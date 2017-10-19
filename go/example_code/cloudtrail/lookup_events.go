@@ -65,24 +65,24 @@ func main() {
     fmt.Println("")
 
     for _, event := range resp.Events {
-		if showEvents {
-			fmt.Println("Event:")
-			fmt.Println(aws.StringValue(event.CloudTrailEvent))
-			fmt.Println("")
-		}
+        if showEvents {
+            fmt.Println("Event:")
+            fmt.Println(aws.StringValue(event.CloudTrailEvent))
+            fmt.Println("")
+        }
 
-		fmt.Println("Name    ", aws.StringValue(event.EventName))
-		fmt.Println("ID:     ", aws.StringValue(event.EventId))
-		fmt.Println("Source: ", aws.StringValue(event.EventSource))
-		fmt.Println("Time:   ", aws.TimeValue(event.EventTime))
-		fmt.Println("User:   ", aws.StringValue(event.Username))
-		fmt.Println("Resourcs:")
+        fmt.Println("Name    ", aws.StringValue(event.EventName))
+        fmt.Println("ID:     ", aws.StringValue(event.EventId))
+        fmt.Println("Source: ", aws.StringValue(event.EventSource))
+        fmt.Println("Time:   ", aws.TimeValue(event.EventTime))
+        fmt.Println("User:   ", aws.StringValue(event.Username))
+        fmt.Println("Resourcs:")
 
-		for _, resource := range event.Resources {
-			fmt.Println("  Name:", aws.StringValue(resource.ResourceName))
-			fmt.Println("  Type:", aws.StringValue(resource.ResourceType))
-		}
+        for _, resource := range event.Resources {
+            fmt.Println("  Name:", aws.StringValue(resource.ResourceName))
+            fmt.Println("  Type:", aws.StringValue(resource.ResourceType))
+        }
 
-		fmt.Println("")
+        fmt.Println("")
     }
 }

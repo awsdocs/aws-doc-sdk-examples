@@ -45,8 +45,8 @@ func main() {
     fmt.Println("")
 
     for _, trail := range resp.TrailList {
-		fmt.Println("Trail name:  " + *trail.Name)
-		fmt.Println("Bucket name: " + *trail.S3BucketName)
-		fmt.Println("")
+        fmt.Println("Trail name:  " + *trail.Name)
+        fmt.Println("Bucket name: " + *trail.S3BucketName)
+        fmt.Println("")
     }
 }
