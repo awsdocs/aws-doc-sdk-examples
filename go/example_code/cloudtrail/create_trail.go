@@ -31,7 +31,6 @@ func main() {
     // Get trail name, bucket name, and optional region
     trailNamePtr := flag.String("n", "", "The name of the trail")
     bucketPtr := flag.String("b", "", "the name of bucket to which the trails are uploaded")
-    regionPtr := flag.String("r", "us-west-2", "The region for the trail.")
 
     // Option to add CloudTrail policy to bucket
     addPolicyPtr := flag.Bool("p", false, "Whether to add the CloudTrail policy to the bucket")
@@ -40,7 +39,6 @@ func main() {
 
     trailName := *trailNamePtr
     bucketName := *bucketPtr
-    regionName := *regionPtr
     addPolicy := *addPolicyPtr
 
     if trailName == "" || bucketName == "" {
@@ -51,7 +49,7 @@ func main() {
     // Initialize a session in us-west-2 that the SDK will use to load configuration,
     // and credentials from the shared config file ~/.aws/config.
     sess, err := session.NewSession(&aws.Config{
-        Region: aws.String(regionName)},
+        Region: aws.String("us-west-2")},
     )
 
     if addPolicy {

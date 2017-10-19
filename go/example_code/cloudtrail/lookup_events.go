@@ -28,15 +28,12 @@ import (
 func main() {
     // Trail name required
     trailNamePtr := flag.String("n", "", "The name of the trail to delete")
-    // Optional region
-    regionPtr := flag.String("r", "us-west-2", "The region for the trail.")
 
     // Option to show event
     showEventsPtr := flag.Bool("s", false, "Whether to show the event")
 
     flag.Parse()
 
-    regionName := *regionPtr
     trailName := *trailNamePtr
     showEvents := *showEventsPtr
 
@@ -48,7 +45,7 @@ func main() {
     // Initialize a session in us-west-2 that the SDK will use to load configuration,
     // and credentials from the shared config file ~/.aws/config.
     sess, err := session.NewSession(&aws.Config{
-        Region: aws.String(regionName)},
+        Region: aws.String("us-west-2")},
     )
 
     // Create CloudTrail client

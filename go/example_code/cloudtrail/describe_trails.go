@@ -15,7 +15,6 @@
 package main
 
 import (
-    "flag"
     "fmt"
     "os"
 
@@ -25,17 +24,10 @@ import (
 )
 
 func main() {
-    // Optional region
-    regionPtr := flag.String("r", "us-west-2", "The region for the trail.")
-
-    flag.Parse()
-
-    regionName := *regionPtr
-
     // Initialize a session in us-west-2 that the SDK will use to load configuration,
     // and credentials from the shared config file ~/.aws/config.
     sess, err := session.NewSession(&aws.Config{
-        Region: aws.String(regionName)},
+        Region: aws.String("us-west-2")},
     )
 
     // Create CloudTrail client
