@@ -15,31 +15,30 @@
 package main
 
 import (
-    "encoding/json"
-    "flag"
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/cloudtrail"
     "github.com/aws/aws-sdk-go/service/sts"
+
+    "encoding/json"
+    "flag"
+    "fmt"
+    "os"
 )
 
 func main() {
-    // Get trail name, bucket name, and optional region
-    trailNamePtr := flag.String("n", "", "The name of the trail")
-    bucketPtr := flag.String("b", "", "the name of bucket to which the trails are uploaded")
+    // Get required trail name and bucket name
+    var trailName string
+    flag.StringVar(&trailName, "n", "", "The name of the trail")
+    var bucketName string
+    flag.StringVar(&bucketName, "b", "", "the name of bucket to which the trails are uploaded")
 
     // Option to add CloudTrail policy to bucket
-    addPolicyPtr := flag.Bool("p", false, "Whether to add the CloudTrail policy to the bucket")
+    var addPolicy bool
+    flag.BoolVar(&addPolicy, "p", false, "Whether to add the CloudTrail policy to the bucket")
 
     flag.Parse()
-
-    trailName := *trailNamePtr
-    bucketName := *bucketPtr
-    addPolicy := *addPolicyPtr
 
     if trailName == "" || bucketName == "" {
         fmt.Println("You must supply a trail name and bucket name.")
@@ -47,7 +46,7 @@ func main() {
     }
 
     // Initialize a session in us-west-2 that the SDK will use to load configuration,
-    // and credentials from the shared config file ~/.aws/config.
+    // and credentials from the shared credentials file ~/.aws/config.
     sess, err := session.NewSession(&aws.Config{
         Region: aws.String("us-west-2")},
     )
@@ -57,7 +56,6 @@ func main() {
         input := &sts.GetCallerIdentityInput{}
 
         result, err := svc.GetCallerIdentity(input)
-
         if err != nil {
             fmt.Println("Got error snarfing caller identity:")
             fmt.Println(err.Error())
@@ -96,7 +94,6 @@ func main() {
         }
 
         policy, err := json.Marshal(s3Policy)
-
         if err != nil {
             fmt.Println("Error marshalling request")
             os.Exit(0)
@@ -110,7 +107,6 @@ func main() {
             Bucket: aws.String(bucketName),
             Policy: aws.String(string(policy)),
         })
-
         if err != nil {
             fmt.Print("Got error adding bucket policy:")
             fmt.Print(err.Error())
@@ -129,7 +125,6 @@ func main() {
     }
 
     _, err = svc.CreateTrail(input)
-
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())

@@ -15,27 +15,26 @@
 package main
 
 import (
-    "flag"
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudtrail"
+
+    "flag"
+    "fmt"
+    "os"
     "time"
 )
 
 func main() {
     // Trail name required
-    trailNamePtr := flag.String("n", "", "The name of the trail to delete")
+    var trailName string
+    flag.StringVar(&trailname, "n", "", "The name of the trail to delete")
 
     // Option to show event
-    showEventsPtr := flag.Bool("s", false, "Whether to show the event")
+    var showEvent bool
+    flag.BoolVar (&showEvent, "s", false, "Whether to show the event")
 
     flag.Parse()
-
-    trailName := *trailNamePtr
-    showEvents := *showEventsPtr
 
     if trailName == "" {
         fmt.Println("You must supply a trail name")
@@ -43,7 +42,7 @@ func main() {
     }
 
     // Initialize a session in us-west-2 that the SDK will use to load configuration,
-    // and credentials from the shared config file ~/.aws/config.
+    // and credentials from the shared credentials file ~/.aws/config.
     sess, err := session.NewSession(&aws.Config{
         Region: aws.String("us-west-2")},
     )
@@ -54,7 +53,6 @@ func main() {
     input := &cloudtrail.LookupEventsInput{EndTime: aws.Time(time.Now())}
 
     resp, err := svc.LookupEvents(input)
-
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
