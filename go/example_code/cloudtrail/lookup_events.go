@@ -28,7 +28,7 @@ import (
 func main() {
     // Trail name required
     var trailName string
-    flag.StringVar(&trailname, "n", "", "The name of the trail to delete")
+    flag.StringVar(&trailname, "n", "", "The name of the trail")
 
     // Option to show event
     var showEvent bool
@@ -71,9 +71,9 @@ func main() {
 
         fmt.Println("Name    ", aws.StringValue(event.EventName))
         fmt.Println("ID:     ", aws.StringValue(event.EventId))
-        fmt.Println("Source: ", aws.StringValue(event.EventSource))
         fmt.Println("Time:   ", aws.TimeValue(event.EventTime))
         fmt.Println("User:   ", aws.StringValue(event.Username))
+
         fmt.Println("Resourcs:")
 
         for _, resource := range event.Resources {
