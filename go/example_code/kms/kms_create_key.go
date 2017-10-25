@@ -30,11 +30,11 @@ import (
 // use the CMK to encrypt a data encryption key (DEK).
 
 func main() {
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create KMS service client
     svc := kms.New(sess)
