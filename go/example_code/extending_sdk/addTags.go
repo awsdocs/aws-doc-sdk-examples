@@ -54,7 +54,7 @@ func main() {
             TagSet: []*s3.Tag{
                 {
                     Key:   aws.String(tagName1),
-                    Value: aws.String(tagValue`),
+                    Value: aws.String(tagValue),
                 },
                 {
                     Key:   aws.String(tagName2),
