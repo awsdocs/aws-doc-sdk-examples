@@ -40,9 +40,9 @@ func main() {
     // and expose HTTP requests/responses
     svc := dynamodb.New(sess, aws.NewConfig().WithLogLevel(aws.LogDebugWithHTTPBody))
 
-    // Add "timeoutHeader" header with value of 10
+    // Add "CustomHeader" header with value of 10
     svc.Handlers.Send.PushFront(func(r *request.Request) {
-        r.HTTPRequest.Header.Set("timeoutHeader", fmt.Sprintf("%d", 10))
+        r.HTTPRequest.Header.Set("CustomHeader", fmt.Sprintf("%d", 10))
     })
 
     // Call ListTables just to see HTTP request/response
