@@ -46,6 +46,6 @@ func main() {
     })
 
     // Call ListTables just to see HTTP request/response
-    // The request should have the timeoutHeader set to 10
+    // The request should have the CustomHeader set to 10
     _, _ = svc.ListTables(&dynamodb.ListTablesInput{})
 }
