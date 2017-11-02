@@ -19,13 +19,16 @@ item = 'my_item'
 key = '0a1b2c3d-1234-5678-z9y8-abcdef123456'
 iv = 'abcdef123456abcdef123456abcd1234'
 
+# Create S3 client
 client = Aws::S3::Client.new(region: region)
 
+# Get item contents as a string
 resp = client.get_object(bucket: bucket, key: item)
 blob = resp.body.read
 blob_string = blob.unpack('H*')
 cipher_text = blob_string[0].scan(/../).map { |x| x.hex }.pack('c*')
 
+# Decrypt the item
 decipher = OpenSSL::Cipher::AES256.new :CBC
 decipher.decrypt
 
