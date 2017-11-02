@@ -11,7 +11,6 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
-
 require 'base64'
 require 'openssl'
 
@@ -21,13 +20,16 @@ item = 'my_item'
 pk_file = 'private_key_file.pem'
 pwd = 'mary had a little lamb'
 
+# Create S3 client
 client = Aws::S3::Client.new(region: region)
 
+# Get item contents as string
 resp = client.get_object(bucket: bucket, key: item)
 blob = resp.body.read
 blob_string = blob.unpack('H*')
 cipher_text = blob_string[0].scan(/../).map { |x| x.hex }.pack('c*')
 
+# Decrypt the string using private key
 private_key = OpenSSL::PKey::RSA.new(File.read(pk_file),pwd)
 decoded_text = private_key.private_decrypt(Base64.decode64(cipher_text))
 

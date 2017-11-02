@@ -10,12 +10,9 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-core'  # In v2: require 'aws-sdk'
-
 require 'openssl'
 
 pass_phrase = 'mary had a little lamb'
-
 key = OpenSSL::PKey::RSA.new 2048
 
 # public key saved as public_key.pem

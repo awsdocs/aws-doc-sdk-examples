@@ -29,4 +29,4 @@ resp = client.create_key({
   ],
 })
 
-puts 'ARN: ' + resp.key_metadata.arn
+puts resp.key_metadata.key_id

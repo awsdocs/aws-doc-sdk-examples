@@ -10,19 +10,17 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-iam' # To get user ARN; In v2: require 'aws-sdk'
-require 'aws-sdk-s3'
+require 'aws-sdk-s3' # In v2: require 'aws-sdk'
 
 region = 'us-west-2'
 bucket = 'my_bucket'
 
-# Get ARN of current user
-iam = Aws::IAM::Resource.new(region: region)
-user = iam.current_user
-arn = user.arn
-
-s3 = Aws::S3::Client.new(region: region)
-
+# Require server-side 256-bit AES cipher to upload item to bucket
+# To require server-side KMS cipher,
+# Change:
+#   's3:x-amz-server-side-encryption': 'AES256'
+# To:
+#   's3:x-amz-server-side-encryption': 'KMS'
 policy = {
   'Version': '2012-10-17',
   'Id': 'PutObjPolicy',
@@ -54,6 +52,10 @@ policy = {
   ]
 }.to_json
 
+# Create S3 client
+s3 = Aws::S3::Client.new(region: region)
+
+# Apply bucket policy
 s3.put_bucket_policy(
   bucket: bucket,
   policy: policy

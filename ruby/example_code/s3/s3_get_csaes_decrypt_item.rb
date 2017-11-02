@@ -11,18 +11,17 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
-
 require 'openssl'
 
 region = 'us-west-2'
-bucket_name = 'my_bucket'
+bucket = 'my_bucket'
 item = 'my_item'
-key_id = '0a1b2c3d-1234-5678-z9y8-abcdef123456'
+key = '0a1b2c3d-1234-5678-z9y8-abcdef123456'
 iv = 'abcdef123456abcdef123456abcd1234'
 
 client = Aws::S3::Client.new(region: region)
 
-resp = client.get_object(bucket: bucket_name, key: item)
+resp = client.get_object(bucket: bucket, key: item)
 blob = resp.body.read
 blob_string = blob.unpack('H*')
 cipher_text = blob_string[0].scan(/../).map { |x| x.hex }.pack('c*')
@@ -31,7 +30,7 @@ decipher = OpenSSL::Cipher::AES256.new :CBC
 decipher.decrypt
 
 decipher.iv = iv.scan(/../).map { |x| x.hex }.pack('c*')
-decipher.key = key_id
+decipher.key = key
 plain_text = decipher.update(cipher_text) + decipher.final
 
 puts plain_text

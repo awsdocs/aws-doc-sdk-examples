@@ -13,18 +13,17 @@
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
 region = 'us-west-2'
-bucket_name = 'my_bucket'
+bucket = 'my_bucket'
 item = 'my_item'
 
-client = Aws::S3::Client.new(region: region)
-
-# Get file content as string
+# Get file IO
 file = File.open(item, "rb")
-contents = file.read
-file.close
 
 # Get just the filename to use as key
 name = File.basename(item)
+
+# Create S3 client
+client = Aws::S3::Client.new(region: region)
 
 # Encrypt item with 256-bit AES on server
 resp = client.put_object({
@@ -34,5 +33,7 @@ resp = client.put_object({
   server_side_encryption: 'AES256',
 })
 
-puts 'Added item to bucket'
+# Close file
+file.close
 
+puts 'Added item ' + name ' to bucket ' + bucket

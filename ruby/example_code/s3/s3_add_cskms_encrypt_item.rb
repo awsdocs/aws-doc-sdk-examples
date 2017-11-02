@@ -13,9 +13,9 @@
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
 region = 'us-west-2'
-bucket_name = 'my_bucket'
+bucket = 'my_bucket'
 item = 'my_item'
-key_id = '0a1b2c3d-1234-5678-z9y8-abcdef123456'
+key = '0a1b2c3d-1234-5678-z9y8-abcdef123456'
 
 # Get file content as string
 file = File.open(item, "rb")
@@ -25,7 +25,7 @@ file.close
 kms = Aws::KMS::Client.new(region: region)
 
 resp = kms.encrypt({
-  key_id: key_id,
+  key_id: key,
   plaintext: contents,
 })
 
@@ -36,6 +36,8 @@ client = Aws::S3::Client.new(region: region)
 
 resp = client.put_object({
   body: blob,
-  bucket: bucket_name,
-  key: name,
+  bucket: bucket,
+  key: item,
 })
+
+puts 'Added encrypted item ' + item + ' to bucket ' + bucket

@@ -13,12 +13,12 @@
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
 region = 'us-west-2'
-bucket_name = 'my_bucket'
+bucket = 'my_bucket'
 item = 'my_item'
 
 client = Aws::S3::Client.new(region: region)
 
-resp = client.get_object(bucket: bucket_name, key: item)
+resp = client.get_object(bucket: bucket, key: item)
 blob = resp.body.read
 
 kms = Aws::KMS::Client.new(region: region)
