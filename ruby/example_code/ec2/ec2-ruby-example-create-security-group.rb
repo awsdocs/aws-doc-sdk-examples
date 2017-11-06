@@ -15,10 +15,10 @@ require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
 
 sg = ec2.create_security_group({
-    group_name: 'MyGroovySecurityGroup',
-    description: 'Security group for MyGroovyInstance',
-    vpc_id: VPC_ID
-  })
+  group_name: 'MyGroovySecurityGroup',
+  description: 'Security group for MyGroovyInstance',
+  vpc_id: 'VPC_ID'
+})
 
 sg.authorize_egress({
   ip_permissions: [{
@@ -27,6 +27,7 @@ sg.authorize_egress({
     to_port: 22,
     ip_ranges: [{
       cidr_ip: '0.0.0.0/0'
+    }]
   }]
 })
 
