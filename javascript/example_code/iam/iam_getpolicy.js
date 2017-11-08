@@ -14,8 +14,8 @@
 
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
+// Set the region 
+AWS.config.update({region: 'REGION'});
 
 // Create the IAM service object
 var iam = new AWS.IAM({apiVersion: '2010-05-08'});
@@ -26,8 +26,8 @@ var params = {
 
 iam.getPolicy(params, function(err, data) {
   if (err) {
-    throw err;
+    console.log("Error", err);
   } else {
-    console.log(params.PolicyArn + ' - ' + data.Policy.Description);
+    console.log("Success", data.Policy.Description);
   }
 });

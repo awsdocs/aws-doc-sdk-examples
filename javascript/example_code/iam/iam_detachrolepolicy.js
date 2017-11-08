@@ -14,8 +14,8 @@
 
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
+// Set the region 
+AWS.config.update({region: 'REGION'});
 
 // Create the IAM service object
 var iam = new AWS.IAM({apiVersion: '2010-05-08'});
@@ -24,38 +24,26 @@ var paramsRoleList = {
   RoleName: process.argv[2]
 };
 
-var policyName = 'AmazonDynamoDBFullAccess';
-var policyArn = 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess';
-
-iam.listAttachedRolePolicies(paramsRoleList).eachPage(function(err, data, done) {
+iam.listAttachedRolePolicies(paramsRoleList, function(err, data) {
   if (err) {
-    throw err;
-  }
-  var foundPolicy = false;
-  if (data && data.AttachedPolicies) {
-    data.AttachedPolicies.forEach(function(rolePolicy) {
-      if (rolePolicy.PolicyName !== policyName) {
-        return;
-      }
-      foundPolicy = true;
-      var params = {
-        PolicyArn: policyArn,
-        RoleName: process.argv[2]
-      };
-      iam.detachRolePolicy(params, function(err, data) {
-        if (err) {
-          console.error('Unable to detach policy from role.');
-          throw err;
-        } else {
-          console.log('Policy detached from role successfully.');
-          process.exit();
-        }
-      });
-    });
-    if (!foundPolicy) {
-      done();
-    }
+    console.log("Error", err);
   } else {
-    console.log('Policy was not attached to the role.');
+    var myRolePolicies = data.AttachedPolicies;
+    myRolePolicies.forEach(function (val, index, array) {
+      if (myRolePolicies[index].PolicyName === 'AmazonDynamoDBFullAccess') {
+        var params = {
+          PolicyArn: 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
+          RoleName: process.argv[2]
+        };
+        iam.detachRolePolicy(params, function(err, data) {
+          if (err) {
+            console.log("Unable to detach policy from role", err);
+          } else {
+            console.log("Policy detached from role successfully");
+            process.exit();
+          }
+        });
+      }
+    });
   }
 });

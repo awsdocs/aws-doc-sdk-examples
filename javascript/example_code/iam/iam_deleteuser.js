@@ -14,8 +14,8 @@
 
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
+// Set the region 
+AWS.config.update({region: 'REGION'});
 
 // Create the IAM service object
 var iam = new AWS.IAM({apiVersion: '2010-05-08'});
@@ -26,14 +26,13 @@ var params = {
 
 iam.getUser(params, function(err, data) {
   if (err && err.code === 'NoSuchEntity') {
-    console.error("User " + process.argv[2] + " does not exist.");
-    throw err;
+    console.log("User " + process.argv[2] + " does not exist");
   } else {
     iam.deleteUser(params, function(err, data) {
       if (err) {
-        throw err;
+        console.log("Error", err);
       } else {
-        console.log("User " + process.argv[2] + " deleted.");
+        console.log("Success", data);
       }
     });
   }

@@ -14,16 +14,16 @@
 
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Load the credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
+// Set the region 
+AWS.config.update({region: 'REGION'});
 
 // Create the IAM service object
 var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
 iam.createAccountAlias({AccountAlias: process.argv[2]}, function(err, data) {
   if (err) {
-    throw err;
+    console.log("Error", err);
   } else {
-    console.log('Account alias ' + process.argv[2] + ' created.');
+    console.log("Success", data);
   }
 });
