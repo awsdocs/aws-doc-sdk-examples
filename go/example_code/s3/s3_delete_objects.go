@@ -15,19 +15,19 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    
+    "fmt"
+    "os"
 )
 
 // Deletes all of the objects in the specified S3 Bucket in the region configured in the shared config
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_delete_objects BUCKET_NAME
+//    go run s3_delete_objects BUCKET
 func main() {
     if len(os.Args) != 2 {
         exitErrorf("Bucket name required\nUsage: %s BUCKET",
@@ -36,44 +36,55 @@ func main() {
 
     bucket := os.Args[1]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // Initialize a session that the SDK uses to load 
+    // credentials from the shared credentials file (~/.aws/credentials).
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
     // Create S3 service client
     svc := s3.New(sess)
 
     // Get the list of objects
-    resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
+    // Note that if the bucket has more than 1000 objects,
+    // we have to run this multiple times
+    hasMoreObjects := true
+    // Keep track of how many objects we delete
+    totalObjects := 0
 
-    if err != nil {
-        exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
+    for hasMoreObjects {
+        resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
+
+        if err != nil {
+            exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
+        }
+
+        numObjs := len(resp.Contents)
+        totalObjects += numObjs
+
+        // Create Delete object with slots for the objects to delete
+        var items s3.Delete
+        var objs= make([]*s3.ObjectIdentifier, numObjs)
+
+        for i, o := range resp.Contents {
+            // Add objects from command line to array
+            objs[i] = &s3.ObjectIdentifier{Key: aws.String(*o.Key)}
+        }
+
+        // Add list of objects to delete to Delete object
+        items.SetObjects(objs)
+
+        // Delete the items
+        _, err = svc.DeleteObjects(&s3.DeleteObjectsInput{Bucket: &bucket, Delete: &items})
+
+        if err != nil {
+            exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
+        }
+
+        hasMoreObjects = *resp.IsTruncated
     }
 
-    num_objs := len(resp.Contents)
-
-    // Create Delete object with slots for the objects to delete
-    var items s3.Delete
-    var objs = make([]*s3.ObjectIdentifier, num_objs)
-
-    for i, o := range resp.Contents {
-        // Add objects from command line to array
-        objs[i] = &s3.ObjectIdentifier{Key: aws.String(*o.Key)}
-    }
-
-    // Add list of objects to delete to Delete object
-    items.SetObjects(objs)
-
-    // Delete the items
-    _, err = svc.DeleteObjects(&s3.DeleteObjectsInput{Bucket: &bucket, Delete: &items})
-
-    if err != nil {
-        exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
-    }
-
-    fmt.Println("Deleted", num_objs, "object(s) from bucket", bucket)
+    fmt.Println("Deleted", totalObjects, "object(s) from bucket", bucket)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
