@@ -15,13 +15,12 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "path/filepath"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
+    "path/filepath"
 )
 
 // Sets the bucket's website configuration. Allows setting the index suffix,
@@ -31,12 +30,13 @@ import (
 // that configuration
 //
 // Usage:
-//    go run s3_set_bucekt_website.go BUCKET_NAME INDEX_PAGE ERROR_PAGE
+//    go run s3_set_bucket_website.go BUCKET_NAME INDEX_PAGE ERROR_PAGE
 func main() {
     if len(os.Args) != 3 {
         exitErrorf("bucket name and index suffix page required\nUsage: %s bucket_name index_page [error_page]",
             filepath.Base(os.Args[0]))
     }
+
     bucket := fromArgs(os.Args, 1)
     indexSuffix := fromArgs(os.Args, 2)
     errorPage := fromArgs(os.Args, 3)
@@ -69,7 +69,7 @@ func main() {
 
     // Set the website configuration on the bucket. Replacing any existing
     // configuration.
-    _, err := svc.PutBucketWebsite(&params)
+    _, err = svc.PutBucketWebsite(&params)
     if err != nil {
         exitErrorf("Unable to set bucket %q website configuration, %v",
             bucket, err)

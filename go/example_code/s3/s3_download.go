@@ -40,12 +40,11 @@ func main() {
 
     // Initialize a session in us-west-2 that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
+    sess, _ := session.NewSession(&aws.Config{
         Region: aws.String("us-west-2")},
     )
 
     file, err := os.Create(item)
-
     if err != nil {
         exitErrorf("Unable to open file %q, %v", err)
     }
@@ -59,7 +58,6 @@ func main() {
             Bucket: aws.String(bucket),
             Key:    aws.String(item),
         })
-
     if err != nil {
         exitErrorf("Unable to download item %q, %v", item, err)
     }

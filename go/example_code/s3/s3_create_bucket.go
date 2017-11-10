@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Creates an S3 Bucket in the region configured in the shared config
@@ -45,10 +44,9 @@ func main() {
     svc := s3.New(sess)
 
     // Create the S3 Bucket
-    _, err := svc.CreateBucket(&s3.CreateBucketInput{
+    _, err = svc.CreateBucket(&s3.CreateBucketInput{
         Bucket: aws.String(bucket),
     })
-
     if err != nil {
         exitErrorf("Unable to create bucket %q, %v", bucket, err)
     }
@@ -59,7 +57,6 @@ func main() {
     err = svc.WaitUntilBucketExists(&s3.HeadBucketInput{
         Bucket: aws.String(bucket),
     })
-
     if err != nil {
         exitErrorf("Error occurred while waiting for bucket to be created, %v", bucket)
     }

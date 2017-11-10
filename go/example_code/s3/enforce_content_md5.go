@@ -14,12 +14,15 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "encoding/base64"
+    "fmt"
+    "crypto/md5"
+    "strings"
+    "time"
+    "net/http"
 )
 
 // Downloads an item from an S3 Bucket in the region configured in the shared config
@@ -31,19 +34,25 @@ func main() {
     h := md5.New()
     content := strings.NewReader("")
     content.WriteTo(h)
-    svc := s3.New(
-        session.New(),
-        &aws.Config{Region: aws.String("us-west-2")},
+
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
     )
 
-    r, _ := svc.PutObjectRequest(&s3.PutObjectInput{
+    // Create S3 service client
+    svc := s3.New(sess)
+
+    resp, _ := svc.PutObjectRequest(&s3.PutObjectInput{
         Bucket: aws.String("testBucket"),
         Key:    aws.String("testKey"),
     })
 
     md5s := base64.StdEncoding.EncodeToString(h.Sum(nil))
-    r.HTTPRequest.Header.Set("Content-MD5", md5s)
-    url, err := r.Presign(15 * time.Minute)
+    resp.HTTPRequest.Header.Set("Content-MD5", md5s)
+
+    url, err := resp.Presign(15 * time.Minute)
     if err != nil {
         fmt.Println("error presigning request", err)
         return
@@ -56,6 +65,6 @@ func main() {
         return
     }
 
-    resp, err := http.DefaultClient.Do(req)
-    fmt.Println(resp, err)
+    defClient, err := http.DefaultClient.Do(req)
+    fmt.Println(defClient, err)
 }

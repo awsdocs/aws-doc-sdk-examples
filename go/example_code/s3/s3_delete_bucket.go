@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Deletes an S3 Bucket in the region configured in the shared config
@@ -46,10 +45,9 @@ func main() {
 
     // Delete the S3 Bucket
     // It must be empty or else the call fails
-    _, err := svc.DeleteBucket(&s3.DeleteBucketInput{
+    _, err = svc.DeleteBucket(&s3.DeleteBucketInput{
         Bucket: aws.String(bucket),
     })
-
     if err != nil {
         exitErrorf("Unable to delete bucket %q, %v", bucket, err)
     }
@@ -60,7 +58,6 @@ func main() {
     err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
         Bucket: aws.String(bucket),
     })
-
     if err != nil {
         exitErrorf("Error occurred while waiting for bucket to be deleted, %v", bucket)
     }

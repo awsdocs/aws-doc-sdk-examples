@@ -15,13 +15,12 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "path/filepath"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
+    "path/filepath"
 )
 
 // Deletes the bucket's website configuration. Allows setting the index suffix,
@@ -38,6 +37,7 @@ func main() {
         exitErrorf("bucket name required\nUsage: %s bucket_name",
             filepath.Base(os.Args[0]))
     }
+
     bucket := os.Args[1]
 
     // Initialize a session in us-west-2 that the SDK will use to load
@@ -52,7 +52,7 @@ func main() {
     // Deletes the website configuration on the bucket. Will return successfully
     // when the website configuration was deleted, or if the bucket does not
     // have a website configuration.
-    _, err := svc.DeleteBucketWebsite(&s3.DeleteBucketWebsiteInput{
+    _, err = svc.DeleteBucketWebsite(&s3.DeleteBucketWebsiteInput{
         Bucket: aws.String(bucket),
     })
     if err != nil {
