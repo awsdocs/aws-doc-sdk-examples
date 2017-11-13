@@ -12,28 +12,20 @@
 
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
-region = 'us-west-2'
-bucket = 'my_bucket'
-item = 'my_item'
-
-# Get file IO
-file = File.open(item, "rb")
-
-# Get just the filename to use as key
-name = File.basename(item)
-
 # Create S3 client
-client = Aws::S3::Client.new(region: region)
+client = Aws::S3::Client.new(region: 'us-west-2')
 
-# Encrypt item with KMS on server
-resp = client.put_object({
-  body: contents,
-  bucket: bucket,
-  key: name,
-  server_side_encryption: 'aws:kms',
+# Set default encryption on bucket
+resp = client.put_bucket_encryption({
+  bucket: 'my_bucket',
+  server_side_encryption_configuration: {
+    rules: [
+      {
+        apply_server_side_encryption_by_default:
+          {
+            sse_algorithm: 'AES256',
+          },
+      },
+    ],
+  },
 })
-
-# Close file
-file.close
-
-puts 'Added item ' + name ' to bucket ' + bucket
