@@ -10,19 +10,26 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3' # In v2: require 'aws-sdk'
+require 'aws-sdk-s3'
+require 'openssl'
 
-# Create S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
+bucket = 'my_bucket'
+item = 'my_item'
+key_file = 'private_key.pem'
+passphrase = 'Mary had a little lamb'
 
-# Set default encryption on bucket
-client.put_bucket_encryption(
-  bucket: 'my_bucket',
-  server_side_encryption_configuration: {
-    rules: [{
-      apply_server_side_encryption_by_default: {
-        sse_algorithm: 'AES256'
-      }
-    }]
-  }
-)
+begin
+  private_key = File.binread(key_file)
+  key = OpenSSL::PKey::RSA.new(private_key, passphrase)
+
+  # encryption client
+  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
+
+  resp = enc_client.get_object(bucket: bucket, key: item)
+
+  puts resp.body.read
+rescue StandardError => ex
+  puts 'Could not get item'
+  puts 'Error message:'
+  puts ex.message
+end

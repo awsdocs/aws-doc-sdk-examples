@@ -12,15 +12,9 @@
 
 require 'aws-sdk-s3' # In v2: require 'aws-sdk'
 
-region = 'us-west-2'
 bucket = 'my_bucket'
 
 # Require server-side 256-bit AES cipher to upload item to bucket
-# To require server-side KMS cipher,
-# Change:
-#   's3:x-amz-server-side-encryption': 'AES256'
-# To:
-#   's3:x-amz-server-side-encryption': 'KMS'
 policy = {
   'Version': '2012-10-17',
   'Id': 'PutObjPolicy',
@@ -53,7 +47,7 @@ policy = {
 }.to_json
 
 # Create S3 client
-s3 = Aws::S3::Client.new(region: region)
+s3 = Aws::S3::Client.new(region: 'us-west-2')
 
 # Apply bucket policy
 s3.put_bucket_policy(

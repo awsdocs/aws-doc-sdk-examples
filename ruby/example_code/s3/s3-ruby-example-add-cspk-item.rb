@@ -10,30 +10,36 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
-require 'base64'
+require 'aws-sdk-s3'
 require 'openssl'
 
 bucket = 'my_bucket'
 item = 'my_item'
-pk_file = 'public_key_file.pem'
+key_file = 'public_key.pem'
 
 # Get file content as string
-contents = File.read(item)
+file = File.open(item, "rb")
+contents = file.read
+file.close
 
-# Encrypt item using public key
-public_key = OpenSSL::PKey::RSA.new(File.read(pk_file))
-encrypted_string = Base64.encode64(public_key.public_encrypt(contents))
+public_key = IO.read(key_file)
 
-# Create S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
+key = OpenSSL::PKey::RSA.new(public_key)
 
-# Upload encrypted item to bucket
-client.put_object(
-  body: encrypted_string,
-  bucket: bucket,
-  key: item
-)
+begin
+  # encryption client
+  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
 
-puts 'Added encrypted item ' + item + ' to bucket ' + bucket
-puts 'using public key from ' + pk_file
+  # Add encrypted item to bucket
+  resp = enc_client.put_object({
+    body: contents,
+    bucket: bucket,
+    key: item_name,
+  })
+
+  puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
+rescue StandardError => err
+  puts 'Could not add item'
+  puts 'Error:'
+  puts ex.message
+end

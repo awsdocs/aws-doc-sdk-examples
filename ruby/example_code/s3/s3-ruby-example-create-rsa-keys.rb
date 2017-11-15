@@ -10,19 +10,26 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3' # In v2: require 'aws-sdk'
+require 'aws-sdk-core'
+require 'openssl'
 
-# Create S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
+public_key = 'public_key.pem'
+private_key = 'private_key.pem'
+pass_phrase = 'Mary had a little lamb'
 
-# Set default encryption on bucket
-client.put_bucket_encryption(
-  bucket: 'my_bucket',
-  server_side_encryption_configuration: {
-    rules: [{
-      apply_server_side_encryption_by_default: {
-        sse_algorithm: 'AES256'
-      }
-    }]
-  }
-)
+key = OpenSSL::PKey::RSA.new(1024)
+
+# public key
+open public_key, 'w' do |io| io.write key.public_key.to_pem end
+
+cipher = OpenSSL::Cipher.new 'AES-128-CBC'
+
+key_secure = key.export cipher, pass_phrase
+
+# private key protected by pass phrase
+open private_key, 'w' do |io|
+  io.write key_secure
+end
+
+puts 'Saved public key to  ' + public_key
+puts 'Saved private key to ' + private_key

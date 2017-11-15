@@ -12,13 +12,13 @@
 
 require 'aws-sdk-kms'  # v2: require 'aws-sdk'
 
-# Create a customer master key (CMK)
-# Since we are only encrypting small amounts of data (4 KiB or less) directly,
+# Create a customer master key (CMK).
+# As long we are only encrypting small amounts of data (4 KiB or less) directly,
 # a CMK is fine for our purposes.
 # For larger amounts of data,
 # use the CMK to encrypt a data encryption key (DEK).
 
-client = Aws::KMS::Client.new(region: 'us-west-2')
+client = Aws::KMS::Client.new
 
 resp = client.create_key({
   tags: [

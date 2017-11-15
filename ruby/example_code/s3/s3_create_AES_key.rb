@@ -10,19 +10,14 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3' # In v2: require 'aws-sdk'
+require 'openssl'
 
-# Create S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
+# Default key file name
+key_file = 'aes_key.bin'
 
-# Set default encryption on bucket
-client.put_bucket_encryption(
-  bucket: 'my_bucket',
-  server_side_encryption_configuration: {
-    rules: [{
-      apply_server_side_encryption_by_default: {
-        sse_algorithm: 'AES256'
-      }
-    }]
-  }
-)
+# Create key and save it in aes_key.bin
+key = OpenSSL::Cipher::AES256.new(:CBC).random_key
+
+File.binwrite(key_file, key)
+
+puts 'Saved 256-bit AES key in ' + key_file
