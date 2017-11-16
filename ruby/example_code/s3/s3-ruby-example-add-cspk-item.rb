@@ -18,11 +18,8 @@ item = 'my_item'
 key_file = 'public_key.pem'
 
 # Get file content as string
-file = File.open(item, "rb")
-contents = file.read
-file.close
-
-public_key = IO.read(key_file)
+contents = File.read(item)
+public_key = File.read(key_file)
 
 key = OpenSSL::PKey::RSA.new(public_key)
 
@@ -31,11 +28,11 @@ begin
   enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
 
   # Add encrypted item to bucket
-  resp = enc_client.put_object({
+  enc_client.put_object(
     body: contents,
     bucket: bucket,
-    key: item_name,
-  })
+    key: item_name
+  )
 
   puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
 rescue StandardError => err
