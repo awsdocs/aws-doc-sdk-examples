@@ -15,25 +15,25 @@ require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 region = 'us-west-2'
 bucket = 'my_bucket'
 item = 'my_item'
+key_file = 'my_kms_key'
 
-# Get file IO
-file = File.open(item, "rb")
+# Get file contents as string
+contents = File.read(item)
 
-# Get just the filename to use as key
-name = File.basename(item)
+# Get the KMS key from the file
+key = File.read(key_file)
 
 # Create S3 client
 client = Aws::S3::Client.new(region: region)
 
 # Encrypt item with KMS on server
-resp = client.put_object({
+client.put_object(
   body: contents,
   bucket: bucket,
   key: name,
-  server_side_encryption: 'KMS',
-})
+  server_side_encryption: 'aws:kms',
+  ssekms_key_id: key
+)
 
-# Close file
-file.close
-
-puts 'Added item ' + name ' to bucket ' + bucket
+puts 'Added item ' + item + ' to bucket ' + bucket
+puts 'with KMS key from ' + key_file

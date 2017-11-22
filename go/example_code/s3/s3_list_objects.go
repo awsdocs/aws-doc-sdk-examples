@@ -15,16 +15,14 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
-// Lists the items in the specified S3 Bucket in the region configured in the shared config
-// or AWS_REGION environment variable.
+// Lists the items in the specified S3 Bucket
 //
 // Usage:
 //    go run s3_list_objects.go BUCKET_NAME
@@ -47,7 +45,6 @@ func main() {
 
     // Get the list of items
     resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
-
     if err != nil {
         exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
     }

@@ -15,16 +15,15 @@
 package main
 
 import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/awserr"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
     "bytes"
     "encoding/json"
     "fmt"
     "os"
     "path/filepath"
-
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/awserr"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Prints the policy for a bucket. If the bucket doesn't exist, or there was
@@ -37,6 +36,7 @@ func main() {
         exitErrorf("bucket name required\nUsage: %s bucket_name",
             filepath.Base(os.Args[0]))
     }
+    
     bucket := os.Args[1]
 
     // Initialize a session in us-west-2 that the SDK will use to load

@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Restores an object in an S3 Bucket in the region configured in the shared config
@@ -47,8 +46,7 @@ func main() {
     svc := s3.New(sess)
 
     // Restore the object from Glacier for up to 30 days
-    _, err := svc.RestoreObject(&s3.RestoreObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj), RestoreRequest: &s3.RestoreRequest{Days: aws.Int64(30)}})
-
+    _, err = svc.RestoreObject(&s3.RestoreObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj), RestoreRequest: &s3.RestoreRequest{Days: aws.Int64(30)}})
     if err != nil {
         exitErrorf("Could not restore %s in bucket %s, %v", obj, bucket, err)
     }

@@ -14,28 +14,26 @@ require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 require 'base64'
 require 'openssl'
 
-region = 'us-west-2'
 bucket = 'my_bucket'
 item = 'my_item'
 pk_file = 'public_key_file.pem'
 
 # Get file content as string
-file = File.open(item, "rb")
-contents = file.read
-file.close
+contents = File.read(item)
 
-# Encrypty item using public key
+# Encrypt item using public key
 public_key = OpenSSL::PKey::RSA.new(File.read(pk_file))
 encrypted_string = Base64.encode64(public_key.public_encrypt(contents))
 
 # Create S3 client
-client = Aws::S3::Client.new(region: region)
+client = Aws::S3::Client.new(region: 'us-west-2')
 
 # Upload encrypted item to bucket
-resp = client.put_object({
+client.put_object(
   body: encrypted_string,
   bucket: bucket,
-  key: item,
-})
+  key: item
+)
 
 puts 'Added encrypted item ' + item + ' to bucket ' + bucket
+puts 'using public key from ' + pk_file

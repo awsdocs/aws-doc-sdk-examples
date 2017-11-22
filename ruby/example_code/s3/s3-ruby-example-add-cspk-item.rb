@@ -10,26 +10,33 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
+require 'aws-sdk-s3'
+require 'openssl'
 
 bucket = 'my_bucket'
 item = 'my_item'
-key_file = 'aes_key.bin'
+key_file = 'public_key.pem'
 
-# Get contents of item
+# Get file content as string
 contents = File.read(item)
+public_key = File.read(key_file)
 
-# Get AES key from related filename
-key = File.binread(key_file)
+key = OpenSSL::PKey::RSA.new(public_key)
 
-# Create S3 encryption client
-client = Aws::S3::Encryption::Client.new(region: 'us-west-2', encryption_key: key)
+begin
+  # encryption client
+  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
 
-# Add encrypted item to bucket
-client.put_object(
-  bucket: bucket,
-  key: item,
-  body: contents
-)
+  # Add encrypted item to bucket
+  enc_client.put_object(
+    body: contents,
+    bucket: bucket,
+    key: item_name
+  )
 
-puts 'Added encrypted item ' + item + ' to bucket ' + bucket
+  puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
+rescue StandardError => err
+  puts 'Could not add item'
+  puts 'Error:'
+  puts ex.message
+end

@@ -15,23 +15,23 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/awserr"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
-// Retrievs the bucket's website configuration.
+// Retrieves the bucket's website configuration.
 //
 // Usage:
-//    go run s3_get_bucekt_website.go BUCKET_NAME
+//    go run s3_get_bucket_website.go BUCKET_NAME
 func main() {
     if len(os.Args) != 2 {
         exitErrorf("bucket name required\nUsage: %s bucket_name", os.Args[0])
     }
+    
     bucket := os.Args[1]
 
     // Initialize a session in us-west-2 that the SDK will use to load

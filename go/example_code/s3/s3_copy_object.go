@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Copies the item in the bucket to another bucket.
@@ -48,15 +47,13 @@ func main() {
     svc := s3.New(sess)
 
     // Copy the item
-    _, err := svc.CopyObject(&s3.CopyObjectInput{Bucket: aws.String(other), CopySource: aws.String(source), Key: aws.String(item)})
-
+    _, err = svc.CopyObject(&s3.CopyObjectInput{Bucket: aws.String(other), CopySource: aws.String(source), Key: aws.String(item)})
     if err != nil {
         exitErrorf("Unable to copy item from bucket %q to bucket %q, %v", bucket, other, err)
     }
 
     // Wait to see if the item got copied
     err = svc.WaitUntilObjectExists(&s3.HeadObjectInput{Bucket: aws.String(other), Key: aws.String(item)})
-
     if err != nil {
         exitErrorf("Error occurred while waiting for item %q to be copied to bucket %q, %v", bucket, item, other, err)
     }

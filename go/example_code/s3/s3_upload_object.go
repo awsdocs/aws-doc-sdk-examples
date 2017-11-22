@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    "fmt"
+    "os"
 )
 
 // Creates a S3 Bucket in the region configured in the shared config
@@ -37,19 +36,18 @@ func main() {
     bucket := os.Args[1]
     filename := os.Args[2]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
-
     file, err := os.Open(filename)
-
     if err != nil {
         exitErrorf("Unable to open file %q, %v", err)
     }
 
     defer file.Close()
+
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Setup the S3 Upload Manager. Also see the SDK doc for the Upload Manager
     // for more information on configuring part size, and concurrency.
@@ -63,17 +61,16 @@ func main() {
         Bucket: aws.String(bucket),
 
         // Can also use the `filepath` standard library package to modify the
-        // filename as need for an S3 object key. Such as turning abolute path
+        // filename as need for an S3 object key. Such as turning absolute path
         // to a relative path.
         Key: aws.String(filename),
 
-        // The file to be uploaded. io.ReadSeeker is prefered as the Uploader
+        // The file to be uploaded. io.ReadSeeker is preferred as the Uploader
         // will be able to optimize memory when uploading large content. io.Reader
         // is supported, but will require buffering of the reader's bytes for
         // each part.
         Body: file,
     })
-
     if err != nil {
         // Print the error and exit.
         exitErrorf("Unable to upload %q to %q, %v", filename, bucket, err)

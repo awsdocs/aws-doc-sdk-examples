@@ -15,14 +15,13 @@
 package main
 
 import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
     "flag"
     "fmt"
     "os"
     "strings"
-
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Configures CORS rules for a bucket by setting the allowed
@@ -38,9 +37,11 @@ func main() {
     // Setup the CLI options and validation
     flag.StringVar(&bucket, "b", "", "Bucket to set CORS on, (required)")
     flag.Parse()
+
     if len(bucket) == 0 {
         exitErrorf("-b <bucket> Bucket name required")
     }
+    
     methods := filterMethods(flag.Args())
 
     // Initialize a session in us-west-2 that the SDK will use to load
@@ -71,7 +72,7 @@ func main() {
         },
     }
 
-    _, err := svc.PutBucketCors(&params)
+    _, err = svc.PutBucketCors(&params)
     if err != nil {
         // Print the error message
         exitErrorf("Unable to set Bucket %q's CORS, %v", bucket, err)

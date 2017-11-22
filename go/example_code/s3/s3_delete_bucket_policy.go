@@ -15,14 +15,13 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "path/filepath"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/awserr"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
+    "path/filepath"
 )
 
 // Deletes the policy on a bucket. If the bucket doesn't exist, or there was
@@ -47,7 +46,7 @@ func main() {
     svc := s3.New(sess)
 
     // Call S3 to delete the policy on the bucket.
-    _, err := svc.DeleteBucketPolicy(&s3.DeleteBucketPolicyInput{
+    _, err = svc.DeleteBucketPolicy(&s3.DeleteBucketPolicyInput{
         Bucket: aws.String(bucket),
     })
     if err != nil {

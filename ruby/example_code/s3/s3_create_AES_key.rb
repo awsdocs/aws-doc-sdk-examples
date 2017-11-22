@@ -10,26 +10,14 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
+require 'openssl'
 
-bucket = 'my_bucket'
-item = 'my_item'
+# Default key file name
 key_file = 'aes_key.bin'
 
-# Get contents of item
-contents = File.read(item)
+# Create key and save it in aes_key.bin
+key = OpenSSL::Cipher::AES256.new(:CBC).random_key
 
-# Get AES key from related filename
-key = File.binread(key_file)
+File.binwrite(key_file, key)
 
-# Create S3 encryption client
-client = Aws::S3::Encryption::Client.new(region: 'us-west-2', encryption_key: key)
-
-# Add encrypted item to bucket
-client.put_object(
-  bucket: bucket,
-  key: item,
-  body: contents
-)
-
-puts 'Added encrypted item ' + item + ' to bucket ' + bucket
+puts 'Saved 256-bit AES key in ' + key_file

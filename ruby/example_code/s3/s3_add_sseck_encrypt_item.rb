@@ -14,22 +14,31 @@ require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
 bucket = 'my_bucket'
 item = 'my_item'
-key_file = 'aes_key.bin'
+key_file = 'my_aes_key_file'
+md5_file = 'my_md5_file'
 
-# Get contents of item
+# Get file contents as a string
 contents = File.read(item)
 
-# Get AES key from related filename
-key = File.binread(key_file)
+# Get key from key file
+key = File.binread(key_file) # use File.read for KMS key
 
-# Create S3 encryption client
-client = Aws::S3::Encryption::Client.new(region: 'us-west-2', encryption_key: key)
+# Get md5 value from file
+md5 = File.binread(md5_file)
 
-# Add encrypted item to bucket
+# Create S3 client
+client = Aws::S3::Client.new(region: 'us-west-2')
+
+# Encrypt item with user-supplied AES key on server
 client.put_object(
+  body: contents,
   bucket: bucket,
   key: item,
-  body: contents
+  sse_customer_algorithm: 'AES256', # use aws:kms for KMS key
+  sse_customer_key: key,
+  sse_customer_key_md5: md5
 )
 
-puts 'Added encrypted item ' + item + ' to bucket ' + bucket
+puts 'Added item ' + item + ' to bucket ' + bucket
+puts 'with AES key from ' + key_file
+puts 'and MD5 from ' + md5_file
