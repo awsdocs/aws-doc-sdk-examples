@@ -14,17 +14,14 @@ require 'aws-sdk-s3'
 
 bucket = 'my_bucket'
 item = 'my_item'
-key_file = 'my_key_file'
-
-# Get key from related filename
-key = File.read(key_file)
+key_id = 'd8daec4f-63cf-4d3d-bb64-20ad15929cf6'
 
 # Create KMS client
 kms = Aws::KMS::Client.new
 
 # Create S3 encryption client
 client = Aws::S3::Encryption::Client.new(
-  kms_key_id: key,
+  kms_key_id: key_id,
   kms_client: kms,
 )
 
