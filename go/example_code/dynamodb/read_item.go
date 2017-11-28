@@ -46,7 +46,7 @@ func main() {
     svc := dynamodb.New(sess)
 
     result, err := svc.GetItem(&dynamodb.GetItemInput{
-        TableName: aws.String("MyMovies"),
+        TableName: aws.String("Movies"),
         Key: map[string]*dynamodb.AttributeValue{
             "year": {
                 N: aws.String("2015"),
