@@ -1,6 +1,6 @@
-all: target/sdk-s3-examples-1.0.jar
+all: target/sdk-dynamodb-examples-1.0.jar
 
-target/sdk-s3-examples-1.0.jar: src/main/java/com/example/s3/*.java
+target/sdk-dynamodb-examples-1.0.jar: src/main/java/com/example/dynamodb/*.java
 	mvn package
 
 clean:
