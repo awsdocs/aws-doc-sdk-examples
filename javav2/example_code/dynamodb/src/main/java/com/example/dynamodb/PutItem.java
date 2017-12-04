@@ -12,7 +12,7 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.AmazonServiceException;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
@@ -95,7 +95,7 @@ public class PutItem
             System.err.format("Error: The table \"%s\" can't be found.\n", table_name);
             System.err.println("Be sure that it exists and that you've typed its name correctly!");
             System.exit(1);
-        } catch (AmazonServiceException e) {
+        } catch (S3Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }

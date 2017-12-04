@@ -14,7 +14,7 @@
  */
 package com.example.s3;
 
-import software.amazon.awssdk.async.AsyncRequestProvider;
+import software.amazon.awssdk.core.async.AsyncRequestProvider;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;

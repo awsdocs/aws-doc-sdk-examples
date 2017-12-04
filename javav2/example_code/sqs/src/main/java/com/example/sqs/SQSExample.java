@@ -14,7 +14,7 @@
  */
 package com.example.sqs;
 
-import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.core.regions.Region;
 import software.amazon.awssdk.services.sqs.SQSClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;

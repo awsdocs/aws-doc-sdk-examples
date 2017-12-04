@@ -21,8 +21,8 @@ import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awssdk.AmazonServiceException;
-import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.core.regions.Region;
 
 /**
  * Query a DynamoDB table.
@@ -84,7 +84,7 @@ public class Query
         try {
         	QueryResponse response = ddb.query(queryReq);
         	System.out.println(response.count());
-        } catch (AmazonServiceException e) {
+        } catch (S3Exception e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
