@@ -5,4 +5,4 @@ if [[ -z $* ]] ; then
 fi
 export CLASSPATH=target/sdk-ec2-examples-1.0.jar:$JAVA_SDK_HOME
 echo "## Running $1..."
-java com.example.ec2.$@
+mvn exec:java -Dexec.mainClass="com.example.ec2.$@"

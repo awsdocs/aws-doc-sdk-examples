@@ -5,4 +5,4 @@ if [[ -z $* ]] ; then
 fi
 export CLASSPATH=target/sdk-dynamodb-examples-1.0.jar:$JAVA_SDK_HOME
 echo "## Running $1..."
-java com.example.dynamodb.$@
+mvn exec:java -Dexec.mainClass="com.example.dynamodb.$@"

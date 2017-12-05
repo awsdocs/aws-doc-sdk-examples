@@ -5,4 +5,4 @@ if [[ -z $* ]] ; then
 fi
 export CLASSPATH=target/sdk-s3-examples-1.0.jar:$JAVA_SDK_HOME
 echo "## Running $1..."
-java com.example.s3.$@
+mvn exec:java -Dexec.mainClass="com.example.s3.$@"
