@@ -56,6 +56,17 @@ public class SQSExample {
         for (String url : listQueuesResponse.queueUrls()) {
         	System.out.println(url);
         }
+        
+        // List queues with filters
+        String name_prefix = "queue";
+        ListQueuesRequest filterListRequest = ListQueuesRequest.builder()
+        		.queueNamePrefix(name_prefix).build();
+
+        ListQueuesResponse listQueuesFilteredResponse = sqsClient.listQueues(filterListRequest);
+        System.out.println("Queue URLs with prefix: " + name_prefix);
+        for (String url : listQueuesFilteredResponse.queueUrls()) {
+            System.out.println(url);
+        }
 
         System.out.println("\nSend message");
         sqsClient.sendMessage(SendMessageRequest.builder()
