@@ -1,6 +1,7 @@
 #!/bin/bash
 if [[ -z $* ]] ; then
     echo 'Supply the name of one of the example classes as an argument.'
+    echo 'If there are arguments to the class, put them in quotes after the class name.'
     exit 1
 fi
 export CLASSPATH=target/sdk-workdocs-examples-1.0.jar:$JAVA_SDK_HOME

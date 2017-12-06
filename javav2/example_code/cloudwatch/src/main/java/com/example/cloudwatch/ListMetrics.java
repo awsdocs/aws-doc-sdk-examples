@@ -26,7 +26,7 @@ public class ListMetrics {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a metric name and metric namespace\n" +
+            "To run this example, supply a metric namespace\n" +
             "Ex: ListMetrics <metric-namespace>\n";
 
         if (args.length != 1) {
