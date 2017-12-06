@@ -11,35 +11,31 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-sess, err := session.NewSession()
-if err != nil {
-    fmt.Println("failed to create session,", err)
-    return
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go_/service/cloudwatch"
+
+    "fmt"
+    "os"
+)
+
+func main() {
+    sess, err := session.NewSession()
+    if err != nil {
+        fmt.Println("failed to create session,", err)
+        os.Exit(1)
+    }
+
+    svc := cloudwatch.New(sess, &aws.Config{Region: aws.String("us-west-2")})
+
+    resp, err := svc.DescribeAlarms(nil)
+    if err != nil {
+        fmt.Println(err.Error())
+        os.Exit(1)
+    }
+
+    fmt.Println(resp)
 }
-
-svc := cloudwatch.New(sess)
-
-params := &cloudwatch.DescribeAlarmsInput{
-    ActionPrefix:    aws.String("ActionPrefix"),
-    AlarmNamePrefix: aws.String("AlarmNamePrefix"),
-    AlarmNames: []*string{
-        aws.String("AlarmName"), // Required
-        // More values...
-    },
-    MaxRecords: aws.Int64(1),
-    NextToken:  aws.String("NextToken"),
-    StateValue: aws.String("ALARM"),
-}
-resp, err := svc.DescribeAlarms(params)
-
-if err != nil {
-    // Print the error, cast err to awserr.Error to get the Code and
-    // Message from an error.
-    fmt.Println(err.Error())
-    return
-}
-
-//TODO: show token handling?
-// Pretty-print the response data.
-fmt.Println(resp)

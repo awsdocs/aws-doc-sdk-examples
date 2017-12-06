@@ -11,32 +11,44 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-sess, err := session.NewSession()
-if err != nil {
-    fmt.Println("failed to create session,", err)
-    return
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go_/service/cloudwatch"
+
+    "fmt"
+    "os"
+)
+
+func main() {
+    // Must have one arg, the name of the alarm
+    if len(os.Args) != 2 {
+        fmt.Println("You must supply an alarm name")
+        os.Exit(1)
+    }
+
+    alarmName := os.Args[1]
+
+    sess, err := session.NewSession()
+    if err != nil {
+        fmt.Println("failed to create session,", err)
+        os.Exit(1)
+    }
+
+    svc := cloudwatch.New(sess, &aws.Config{Region: aws.String("us-west-2")})
+
+    params := &cloudwatch.DescribeAlarmHistoryInput{
+        AlarmName: aws.String(alarmName),
+
+    }
+    
+    resp, err := svc.DescribeAlarmHistory(params)
+    if err != nil {
+        fmt.Println(err.Error())
+        os.Exit(1)
+    }
+
+    fmt.Println(resp)
 }
-
-svc := cloudwatch.New(sess)
-
-params := &cloudwatch.DescribeAlarmHistoryInput{
-    AlarmName:       aws.String("AlarmName"),
-    EndDate:         aws.Time(time.Now()),
-    HistoryItemType: aws.String("StateUpdate"),
-    MaxRecords:      aws.Int64(1),
-    NextToken:       aws.String("NextToken"),
-    StartDate:       aws.Time(time.Now()),
-}
-resp, err := svc.DescribeAlarmHistory(params)
-
-if err != nil {
-    // Print the error, cast err to awserr.Error to get the Code and
-    // Message from an error.
-    fmt.Println(err.Error())
-    return
-}
-
-//TODO: Show storing NextToken from response 
-// Pretty-print the response data.
-fmt.Println(resp)
