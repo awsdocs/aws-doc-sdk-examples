@@ -12,7 +12,7 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.AmazonServiceException;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
@@ -76,7 +76,7 @@ public class CreateTable
         try {
             CreateTableResponse response = ddb.createTable(request);
             System.out.println(response.tableDescription().tableName());
-        } catch (AmazonServiceException e) {
+        } catch (S3Exception e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

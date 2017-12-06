@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 
-import software.amazon.awssdk.AmazonServiceException;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 /**
  * Update a DynamoDB table (change provisioned throughput).
@@ -71,7 +71,7 @@ public class UpdateTable
         
         try {
             ddb.updateTable(request);
-        } catch (AmazonServiceException e) {
+        } catch (S3Exception e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

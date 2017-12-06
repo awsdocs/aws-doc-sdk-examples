@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemResponse;
 import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
-import software.amazon.awssdk.AmazonServiceException;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.util.HashMap;
 
 /**
@@ -72,7 +72,7 @@ public class DeleteItem
 
         try {
         	ddb.deleteItem(deleteReq);
-        } catch (AmazonServiceException e) {
+        } catch (S3Exception e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

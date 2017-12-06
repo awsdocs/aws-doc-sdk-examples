@@ -92,17 +92,16 @@ run, we've included a ``bash`` script, ``run_example.sh``, that you can use on L
 (or on Windows by using `Cygwin <https://www.cygwin.com/>`_, `MingW <http://www.mingw.org/>`_, or
 `Bash on Ubuntu on Windows <https://msdn.microsoft.com/en-us/commandline/wsl/about>`_).
 
-To use the script, set the path to the Java SDK directory in the ``JAVA_SDK_HOME`` environment
-variable. For example::
-
-    export JAVA_SDK_HOME=/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Once you've set the variable, you can execute ``run_example.sh`` as shown::
+You can execute ``run_example.sh`` as shown::
 
     ./run_example.sh S3BucketOps
 
 This will run the `S3BucketOps <example_code/s3/src/main/java/com/example/s3/S3BucketOps.java>`_
 example (assuming that you've built the examples first!).
+
+If the example requires arguments, pass the argument list in quotes::
+
+  ./run_example.sh S3BucketOps "<arg1> <arg2> <arg3>"
 
 .. _maven: https://maven.apache.org/
 .. _javasdk: https://aws.amazon.com/sdk-for-java/
