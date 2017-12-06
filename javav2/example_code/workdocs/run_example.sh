@@ -1,0 +1,11 @@
+#!/bin/bash
+if [[ -z $* ]] ; then
+    echo 'Supply the name of one of the example classes as an argument.'
+    exit 1
+fi
+export CLASSPATH=target/sdk-workdocs-examples-1.0.jar:$JAVA_SDK_HOME
+export className=$1
+echo "## Running $className..."
+shift
+echo "## arguments $@..."
+mvn exec:java -Dexec.mainClass="com.example.workdocs.$className" -Dexec.args="$@"
