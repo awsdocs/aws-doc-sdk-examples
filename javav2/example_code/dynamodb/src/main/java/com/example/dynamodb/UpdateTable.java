@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
 
 /**
  * Update a DynamoDB table (change provisioned throughput).
@@ -56,22 +56,22 @@ public class UpdateTable
                 table_name);
         System.out.format("Read capacity : %d\n", read_capacity);
         System.out.format("Write capacity : %d\n", write_capacity);
-        
+
         ProvisionedThroughput table_throughput = ProvisionedThroughput.builder()
         		.readCapacityUnits(read_capacity)
         		.writeCapacityUnits(write_capacity)
         		.build();
 
         DynamoDBClient ddb = DynamoDBClient.create();
-        
+
         UpdateTableRequest request = UpdateTableRequest.builder()
         		.provisionedThroughput(table_throughput)
         		.tableName(table_name)
         		.build();
-        
+
         try {
             ddb.updateTable(request);
-        } catch (S3Exception e) {
+        } catch (DynamoDBException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
@@ -79,4 +79,3 @@ public class UpdateTable
         System.out.println("Done!");
     }
 }
-

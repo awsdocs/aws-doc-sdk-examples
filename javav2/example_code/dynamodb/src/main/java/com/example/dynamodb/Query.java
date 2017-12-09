@@ -21,7 +21,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
 import software.amazon.awssdk.core.regions.Region;
 
 /**
@@ -42,8 +42,8 @@ public class Query
             "    Query <table> <partitionkey> <partitionkeyvalue>\n\n" +
             "Where:\n" +
             "    table - the table to put the item in.\n" +
-            "    read  - the new read capacity of the table.\n" +
-            "    write - the new write capacity of the table.\n\n" +
+            "    partitionkey  - partition key name of the table.\n" +
+            "    partitionkeyvalue - value of the partition key that should match.\n\n" +
             "Example:\n" +
             "    Query GreetingsTable Language eng \n";
 
@@ -63,32 +63,31 @@ public class Query
 
         Region region = Region.US_WEST_2;
         DynamoDBClient ddb = DynamoDBClient.builder().region(region).build();
-        
+
         //set up an alias for the partition key name in case it's a reserved word
         HashMap<String,String> attrNameAlias =
                 new HashMap<String,String>();
         attrNameAlias.put(partition_alias, partition_key_name);
-        
-        //set up mapping of the partition name with the value 
+
+        //set up mapping of the partition name with the value
         HashMap<String, AttributeValue> attrValues =
                 new HashMap<String,AttributeValue>();
         attrValues.put(":"+partition_key_name, AttributeValue.builder().s(partition_key_val).build());
-        
+
         QueryRequest queryReq = QueryRequest.builder()
         		.tableName(table_name)
         		.keyConditionExpression(partition_alias + " = :" + partition_key_name)
         		.expressionAttributeNames(attrNameAlias)
         		.expressionAttributeValues(attrValues)
         		.build();
-        
+
         try {
         	QueryResponse response = ddb.query(queryReq);
         	System.out.println(response.count());
-        } catch (S3Exception e) {
+        } catch (DynamoDBException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         System.out.println("Done!");
     }
 }
-

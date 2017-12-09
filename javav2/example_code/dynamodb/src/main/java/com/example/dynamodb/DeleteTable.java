@@ -12,7 +12,7 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
 
 import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
 import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
@@ -51,18 +51,17 @@ public class DeleteTable
         System.out.format("Deleting table %s...\n", table_name);
 
         DynamoDBClient ddb = DynamoDBClient.create();
-        
+
         DeleteTableRequest request = DeleteTableRequest.builder()
         		.tableName(table_name)
         		.build();
 
         try {
             ddb.deleteTable(request);
-        } catch (S3Exception e) {
+        } catch (DynamoDBException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
         System.out.println("Done!");
     }
 }
-

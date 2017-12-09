@@ -12,7 +12,7 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
@@ -95,7 +95,7 @@ public class UpdateItem
             		.action(AttributeAction.PUT)
             		.build());
         }
-        
+
         UpdateItemRequest request = UpdateItemRequest.builder()
         		.tableName(table_name)
         		.key(item_key)
@@ -109,11 +109,10 @@ public class UpdateItem
         } catch (ResourceNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        } catch (S3Exception e) {
+        } catch (DynamoDBException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("Done!");
     }
 }
-
