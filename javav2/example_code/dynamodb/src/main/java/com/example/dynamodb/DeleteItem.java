@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemResponse;
 import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
 import java.util.HashMap;
 
 /**
@@ -55,14 +55,14 @@ public class DeleteItem
         String name = args[1];
 
         System.out.format("Deleting item \"%s\" from %s\n", name, table_name);
-        
+
         HashMap<String,AttributeValue> key_to_get =
                 new HashMap<String,AttributeValue>();
 
             key_to_get.put("Name", AttributeValue.builder()
             		.s(name)
             		.build());
-            
+
         DeleteItemRequest deleteReq = DeleteItemRequest.builder()
         		.tableName(table_name)
         		.key(key_to_get)
@@ -72,7 +72,7 @@ public class DeleteItem
 
         try {
         	ddb.deleteItem(deleteReq);
-        } catch (S3Exception e) {
+        } catch (DynamoDBException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
@@ -80,4 +80,3 @@ public class DeleteItem
         System.out.println("Done!");
     }
 }
-
