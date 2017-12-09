@@ -25,6 +25,7 @@ def user_has_admin_policy(user, admin_access)
       return true
     end
   end
+  
   false
 end
 
@@ -73,23 +74,38 @@ def user_has_admin_from_group(client, user, admin_access)
     user_name: user.user_name
   )
 
-  has_admin = false
-
   resp.groups.each do |group|
     has_admin_policy = group_has_admin_policy(client, group, admin_access)
+    if has_admin_policy
+      return true
+    end
+
     has_attached_policy = group_has_attached_policy(client, group, admin_access)
-    has_admin = has_admin_policy || has_attached_policy
+    if has_attached_policy
+      return true
+    end
   end
 
-  has_admin
+  false
 end
 
 def is_user_admin(client, user, admin_access)
   has_admin_policy = user_has_admin_policy(user, admin_access)
-  has_attached_admin_policy = user_has_attached_policy(user, admin_access)
-  has_admin_from_group = user_has_admin_from_group(client, user, admin_access)
+  if has_admin_policy
+    return true
+  end
 
-  has_admin_policy || has_attached_admin_policy || has_admin_from_group
+  has_attached_admin_policy = user_has_attached_policy(user, admin_access)
+  if has_attached_admin_policy
+    return true
+  end
+
+  has_admin_from_group = user_has_admin_from_group(client, user, admin_access)
+  if has_admin_from_group
+    return true
+  end
+
+  false
 end
 
 def get_admin_count(client, users, admin_access)
@@ -133,7 +149,7 @@ while more_users
   users = details.user_detail_list
 
   num_users += users.count
-  more_admins = print_user_info(client, users, access_admin)
+  more_admins = get_admin_count(client, users, access_admin)
   num_admins += more_admins
 
   more_users = details.is_truncated
