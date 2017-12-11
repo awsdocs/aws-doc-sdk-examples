@@ -14,7 +14,14 @@
 package aws.example.dynamodb;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import com.amazonaws.services.dynamodbv2.model.QueryRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
+import com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException;
+
+import java.util.HashMap;
+
 import com.amazonaws.AmazonServiceException;
 
 /**
@@ -30,15 +37,15 @@ public class Query
 {
     public static void main(String[] args)
     {
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    Query <table> <read> <write>\n\n" +
-            "Where:\n" +
-            "    table - the table to put the item in.\n" +
-            "    read  - the new read capacity of the table.\n" +
-            "    write - the new write capacity of the table.\n\n" +
-            "Example:\n" +
-            "    Query HelloTable 16 10\n";
+    	final String USAGE = "\n" +
+                "Usage:\n" +
+                "    Query <table> <partitionkey> <partitionkeyvalue>\n\n" +
+                "Where:\n" +
+                "    table - the table to put the item in.\n" +
+                "    partitionkey  - partition key name of the table.\n" +
+                "    partitionkeyvalue - value of the partition key that should match.\n\n" +
+                "Example:\n" +
+                "    Query GreetingsTable Language eng \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -46,23 +53,35 @@ public class Query
         }
 
         String table_name = args[0];
-        Long read_capacity = Long.parseLong(args[1]);
-        Long write_capacity = Long.parseLong(args[2]);
+        String partition_key_name = args[1];
+        String partition_key_val = args[2];
+        String partition_alias = "#a";
 
-        System.out.format(
-                "Updating %s with new provisioned throughput values\n",
-                table_name);
-        System.out.format("Read capacity : %d\n", read_capacity);
-        System.out.format("Write capacity : %d\n", write_capacity);
-
-        ProvisionedThroughput table_throughput = new ProvisionedThroughput(
-              read_capacity, write_capacity);
+        System.out.format("Querying %s", table_name);
+        System.out.println("");
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
+        //set up an alias for the partition key name in case it's a reserved word
+        HashMap<String,String> attrNameAlias =
+                new HashMap<String,String>();
+        attrNameAlias.put(partition_alias, partition_key_name);
+
+        //set up mapping of the partition name with the value
+        HashMap<String, AttributeValue> attrValues =
+                new HashMap<String,AttributeValue>();
+        attrValues.put(":"+partition_key_name, new AttributeValue().withS(partition_key_val));
+
+        QueryRequest queryReq = new QueryRequest()
+        		.withTableName(table_name)
+        		.withKeyConditionExpression(partition_alias + " = :" + partition_key_name)
+        		.withExpressionAttributeNames(attrNameAlias)
+        		.withExpressionAttributeValues(attrValues);
+
         try {
-            ddb.updateTable(table_name, table_throughput);
-        } catch (AmazonServiceException e) {
+        	QueryResult response = ddb.query(queryReq);
+        	System.out.println(response.getCount());
+        } catch (AmazonDynamoDBException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }

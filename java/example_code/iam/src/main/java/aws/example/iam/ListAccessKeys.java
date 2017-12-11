@@ -40,10 +40,10 @@ public class ListAccessKeys {
             AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
+        ListAccessKeysRequest request = new ListAccessKeysRequest()
+                .withUserName(username);
 
         while (!done) {
-            ListAccessKeysRequest request = new ListAccessKeysRequest()
-                .withUserName(username);
 
             ListAccessKeysResult response = iam.listAccessKeys(request);
 

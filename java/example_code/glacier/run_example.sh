@@ -1,9 +1,12 @@
 #!/bin/bash
 if [[ -z $* ]] ; then
-    echo 'Supply the name of one of the example classes (ex: ListVaults) as an argument.'
+    echo 'Supply the name of one of the example classes as an argument.'
+    echo 'If there are arguments to the class, put them in quotes after the class name.'
     exit 1
 fi
-export CLASSPATH=target/glacierexamples-1.0.jar:$JAVA_SDK_HOME/lib/*:$JAVA_SDK_HOME/third-party/lib/*
-echo "## Running $1..."
-java aws.example.glacier.$@
-
+export CLASSPATH=target/aws-glacier-examples-1.0.jar
+export className=$1
+echo "## Running $className..."
+shift
+echo "## arguments $@..."
+mvn exec:java -Dexec.mainClass="aws.example.glacier.$className" -Dexec.args="$@" -Dexec.cleanupDaemonThreads=false

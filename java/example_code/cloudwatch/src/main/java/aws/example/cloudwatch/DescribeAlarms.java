@@ -30,9 +30,9 @@ public class DescribeAlarms {
             AmazonCloudWatchClientBuilder.defaultClient();
 
         boolean done = false;
+        DescribeAlarmsRequest request = new DescribeAlarmsRequest();
 
         while(!done) {
-            DescribeAlarmsRequest request = new DescribeAlarmsRequest();
 
             DescribeAlarmsResult response = cw.describeAlarms(request);
 

@@ -29,9 +29,9 @@ public class ListUsers {
             AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
+        ListUsersRequest request = new ListUsersRequest();
 
         while(!done) {
-            ListUsersRequest request = new ListUsersRequest();
             ListUsersResult response = iam.listUsers(request);
 
             for(User user : response.getUsers()) {

@@ -15,6 +15,7 @@ package aws.example.dynamodb;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.model.ListTablesRequest;
 import com.amazonaws.services.dynamodbv2.model.ListTablesResult;
 import java.util.List;
 
@@ -31,16 +32,24 @@ public class ListTables
         System.out.println("Your DynamoDB tables:\n");
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
+        
+        ListTablesRequest request;
 
         boolean more_tables = true;
-        while(more_tables) {
-            String last_name = null;
-            try {
-                ListTablesResult table_list = null;
-                if (last_name == null) {
-                    table_list = ddb.listTables();
-                }
+        String last_name = null;
 
+        while(more_tables) {
+            try {
+                if (last_name == null) {
+                	request = new ListTablesRequest().withLimit(10);
+                }
+                else {
+                	request = new ListTablesRequest()
+                			.withLimit(10)
+                			.withExclusiveStartTableName(last_name);
+                }
+                
+                ListTablesResult table_list = ddb.listTables(request);
                 List<String> table_names = table_list.getTableNames();
 
                 if (table_names.size() > 0) {
@@ -56,6 +65,7 @@ public class ListTables
                 if (last_name == null) {
                     more_tables = false;
                 }
+                
             } catch (AmazonServiceException e) {
                 System.err.println(e.getErrorMessage());
                 System.exit(1);
