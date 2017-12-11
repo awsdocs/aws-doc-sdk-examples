@@ -15,9 +15,9 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/iam"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/iam"
 
     "fmt"
     "os"
@@ -140,7 +140,6 @@ func main() {
 
     numUsers := 0
     numAdmins := 0
-    adminName := "AdministratorAccess"
 
     // Get list of users
     user := "User"
@@ -151,6 +150,9 @@ func main() {
         fmt.Println(err.Error())
         os.Exit(1)
     }
+
+    // The policy name that indicates administrator access
+    adminName := "AdministratorAccess"
 
     // Wade through resulting users
     for _, user := range resp.UserDetailList {
