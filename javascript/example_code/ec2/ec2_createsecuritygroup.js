@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -14,8 +14,8 @@
 
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
-AWS.config.update({region: 'REGION'});
+// Load credentials and set region from JSON file
+AWS.config.loadFromPath('./config.json');
 
 // Create EC2 service object
 var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
@@ -29,45 +29,44 @@ ec2.describeVpcs(function(err, data) {
      console.log("Cannot retrieve a VPC", err);
    } else {
      vpc = data.Vpcs[0].VpcId;
-   }
-});
-
-var paramsSecurityGroup = {
-   Description: 'Node.js SDK Example',
-   GroupName: 'sdk-example',
-   VpcId: vpc
-};
-
-// Create the instance
-ec2.createSecurityGroup(paramsSecurityGroup, function(err, data) {
-   if (err) {
-      console.log("Error", err);
-   } else {
-      var SecurityGroupId = data.GroupId;
-      console.log("Success", SecurityGroupId);
-      var paramsIngress = {
+     var paramsSecurityGroup = {
+        Description: 'Node.js SDK Example',
         GroupName: 'sdk-example',
-        IpPermissions:[
-           {
-              IpProtocol: "tcp",
-              FromPort: 80,
-              ToPort: 80,
-              IpRanges: [{"CidrIp":"0.0.0.0/0"}]
-          },
-          {
-              IpProtocol: "tcp",
-              FromPort: 22,
-              ToPort: 22,
-              IpRanges: [{"CidrIp":"0.0.0.0/0"}]
-          }
-        ]
-      };
-      ec2.authorizeSecurityGroupIngress(paramsIngress, function(err, data) {
+        VpcId: vpc
+     };
+     // Create the instance
+     ec2.createSecurityGroup(paramsSecurityGroup, function(err, data) {
         if (err) {
-          console.log("Error", err);
+           console.log("Error", err);
         } else {
-          console.log("Ingress Successfully Set", data);
+           var SecurityGroupId = data.GroupId;
+           console.log("Success", SecurityGroupId);
+           var paramsIngress = {
+             GroupName: 'sdk-example',
+             IpPermissions:[
+                {
+                   IpProtocol: "tcp",
+                   FromPort: 80,
+                   ToPort: 80,
+                   IpRanges: [{"CidrIp":"0.0.0.0/0"}]
+               },
+               {
+                   IpProtocol: "tcp",
+                   FromPort: 22,
+                   ToPort: 22,
+                   IpRanges: [{"CidrIp":"0.0.0.0/0"}]
+               }
+             ]
+           };
+           ec2.authorizeSecurityGroupIngress(paramsIngress, function(err, data) {
+             if (err) {
+               console.log("Error", err);
+             } else {
+               console.log("Ingress Successfully Set", data);
+             }
+          });
         }
      });
+
    }
 });
