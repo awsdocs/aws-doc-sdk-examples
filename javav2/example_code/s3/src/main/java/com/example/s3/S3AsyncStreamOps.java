@@ -14,9 +14,10 @@
  */
 package com.example.s3;
 
-import software.amazon.awssdk.async.AsyncResponseHandler;
+import software.amazon.awssdk.core.async.AsyncResponseHandler;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.utils.FunctionalUtils;
 
 import java.nio.file.Paths;
@@ -29,7 +30,7 @@ public class S3AsyncStreamOps {
 
 	public static void main(String[] args) {
     	S3AsyncClient client = S3AsyncClient.create();
-      final CompletableFuture<Void> futureGet = client.getObject(
+      final CompletableFuture<GetObjectResponse> futureGet = client.getObject(
                 GetObjectRequest.builder()
                                 .bucket(BUCKET)
                                 .key(KEY)

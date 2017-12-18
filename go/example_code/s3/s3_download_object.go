@@ -19,11 +19,13 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    
     "fmt"
     "os"
 )
 
-// Downloads an item from an S3 Bucket
+// Downloads an item from an S3 Bucket in the region configured in the shared config
+// or AWS_REGION environment variable.
 //
 // Usage:
 //    go run s3_download_object.go BUCKET ITEM
@@ -45,7 +47,7 @@ func main() {
 
     // Initialize a session in us-west-2 that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
+    sess, _ := session.NewSession(&aws.Config{
         Region: aws.String("us-west-2")},
     )
 

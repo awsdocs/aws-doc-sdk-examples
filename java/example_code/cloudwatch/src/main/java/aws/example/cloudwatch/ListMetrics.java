@@ -41,13 +41,13 @@ public class ListMetrics {
         final AmazonCloudWatch cw =
             AmazonCloudWatchClientBuilder.defaultClient();
 
+        ListMetricsRequest request = new ListMetricsRequest()
+                .withMetricName(name)
+                .withNamespace(namespace);
+        
         boolean done = false;
 
         while(!done) {
-            ListMetricsRequest request = new ListMetricsRequest()
-                .withMetricName(name)
-                .withNamespace(namespace);
-
             ListMetricsResult response = cw.listMetrics(request);
 
             for(Metric metric : response.getMetrics()) {

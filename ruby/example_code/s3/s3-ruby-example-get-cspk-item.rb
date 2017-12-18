@@ -10,13 +10,19 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3'
+require 'aws-sdk-s3' # v2: require 'aws-sdk'
 require 'openssl'
+
+if empty?(ARGV)
+  puts 'You must supply a pass phrase'
+  exit 1
+end
+
+pass_phrase = ARGV[0]
 
 bucket = 'my_bucket'
 item = 'my_item'
 key_file = 'private_key.pem'
-passphrase = 'Mary had a little lamb'
 
 begin
   private_key = File.binread(key_file)

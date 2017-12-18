@@ -29,10 +29,10 @@ public class ListServerCertificates {
             AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
-
-        while(!done) {
-            ListServerCertificatesRequest request =
+        ListServerCertificatesRequest request =
                 new ListServerCertificatesRequest();
+        
+        while(!done) {
 
             ListServerCertificatesResult response =
                 iam.listServerCertificates(request);

@@ -1,9 +1,12 @@
 #!/bin/bash
 if [[ -z $* ]] ; then
-    echo 'Supply the name of one of the example classes (ex: ListBuckets) as an argument.'
+    echo 'Supply the name of one of the example classes as an argument.'
+    echo 'If there are arguments to the class, put them in quotes after the class name.'
     exit 1
 fi
-export CLASSPATH=target/aws-ec2-examples-1.0.jar:$JAVA_SDK_HOME/lib/*:$JAVA_SDK_HOME/third-party/lib/*
-echo "## Running $1..."
-java aws.example.ec2.$@
-
+export CLASSPATH=target/aws-ec2-examples-1.0.jar
+export className=$1
+echo "## Running $className..."
+shift
+echo "## arguments $@..."
+mvn exec:java -Dexec.mainClass="aws.example.ec2.$className" -Dexec.args="$@" -Dexec.cleanupDaemonThreads=false

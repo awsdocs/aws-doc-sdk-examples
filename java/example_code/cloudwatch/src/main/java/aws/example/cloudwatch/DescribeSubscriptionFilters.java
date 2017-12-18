@@ -40,11 +40,12 @@ public class DescribeSubscriptionFilters {
         final AWSLogs logs = AWSLogsClientBuilder.defaultClient();
         boolean done = false;
 
-        while(!done) {
-            DescribeSubscriptionFiltersRequest request =
+        DescribeSubscriptionFiltersRequest request =
                 new DescribeSubscriptionFiltersRequest()
                     .withLogGroupName(log_group)
                     .withLimit(1);
+        
+        while(!done) {
 
             DescribeSubscriptionFiltersResult response =
                 logs.describeSubscriptionFilters(request);
