@@ -12,12 +12,17 @@
 
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
+# Require key as command-line argument
+if empty?(ARGV)
+  puts 'You must supply the key as a string'
+  exit 1
+end
+
+encoded_string = ARGV[0]
+key = encoded_string.unpack("m*")[0]
+
 bucket = 'my_bucket'
 item = 'my_item'
-key_file = 'aes_key.bin'
-
-# Get AES key
-key = File.binread(key_file)
 
 # Create S3 encryption client
 client = Aws::S3::Encryption::Client.new(region: 'us-west-2', encryption_key: key)

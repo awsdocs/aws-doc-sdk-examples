@@ -11,16 +11,23 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
+require 'digest/md5'
+
+# Require key as command-line argument
+if empty?(ARGV)
+  puts 'You must supply the key'
+  exit 1
+end
+
+encoded_string = ARGV[0]
+key = encoded_string.unpack("m*")[0]
+md5 = Digest::MD5.digest(key)
 
 bucket = 'my_bucket'
 item = 'my_item'
-key_file = 'aes_key.bin'
 
 # Get contents of item
 contents = File.read(item)
-
-# Get AES key from related filename
-key = File.binread(key_file)
 
 # Create S3 encryption client
 client = Aws::S3::Encryption::Client.new(region: 'us-west-2', encryption_key: key)

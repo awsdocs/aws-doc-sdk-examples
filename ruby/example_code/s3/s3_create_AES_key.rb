@@ -12,12 +12,14 @@
 
 require 'openssl'
 
-# Default key file name
-key_file = 'aes_key.bin'
+# Create key
+cipher = OpenSSL::Cipher::AES.new(128, :CBC)
+cipher.encrypt
+key = cipher.random_key
 
-# Create key and save it in aes_key.bin
-key = OpenSSL::Cipher::AES256.new(:CBC).random_key
+# Convert it to text and display the text value
+encoded_string = Base64.encode64(key)
+puts encoded_string
 
-File.binwrite(key_file, key)
-
-puts 'Saved 256-bit AES key in ' + key_file
+# To decode the encoded string:
+#   key = encodd_string.unpack("m*")[0]
