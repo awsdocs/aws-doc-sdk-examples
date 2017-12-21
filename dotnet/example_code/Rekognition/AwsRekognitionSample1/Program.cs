@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿/*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -14,6 +15,9 @@
 *******************************************************************************/
 
 using System;
+=======
+﻿using System;
+>>>>>>> eric-wave1
 using System.Drawing;
 using System.IO;
 using Amazon.Rekognition;
