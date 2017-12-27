@@ -42,32 +42,94 @@ namespace NETRekognitionConsole
             dfr.Image = img;
             var outcome = rekoClient.DetectFaces(dfr);
 
-            // Load a bitmap to modify with face bounding box rectangles
-            System.Drawing.Bitmap facesHighlighted = new System.Drawing.Bitmap(filename);
-            Pen pen = new Pen(Color.Black, 3);
-
-            // Create a graphics context
-            using (var graphics = Graphics.FromImage(facesHighlighted))
+            if (outcome.FaceDetails.Count > 0)
             {
-                foreach (var fd in outcome.FaceDetails)
+                // Load a bitmap to modify with face bounding box rectangles
+                System.Drawing.Bitmap facesHighlighted = new System.Drawing.Bitmap(filename);
+                Pen pen = new Pen(Color.Black, 3);
+
+                // Create a graphics context
+                using (var graphics = Graphics.FromImage(facesHighlighted))
                 {
-                    // Get the bounding box
-                    BoundingBox bb = fd.BoundingBox;
-                    Console.WriteLine("Bounding box = (" + fd.BoundingBox.Left + ", " + fd.BoundingBox.Top + ", " +
-                        fd.BoundingBox.Height + ", " + fd.BoundingBox.Width + ")");
-                    // Draw the rectangle using the bounding box values
-                    // They are percentages so scale them to picture
-                    graphics.DrawRectangle(pen, x: facesHighlighted.Width * bb.Left,
-                        y: facesHighlighted.Height * bb.Top,
-                        width: facesHighlighted.Width * bb.Width,
-                        height: facesHighlighted.Height * bb.Height);
+                    foreach (var fd in outcome.FaceDetails)
+                    {
+                        // Get the bounding box
+                        BoundingBox bb = fd.BoundingBox;
+                        Console.WriteLine("Bounding box = (" + bb.Left + ", " + bb.Top + ", " +
+                            bb.Height + ", " + bb.Width + ")");
+                        // Draw the rectangle using the bounding box values
+                        // They are percentages so scale them to picture
+                        graphics.DrawRectangle(pen, x: facesHighlighted.Width * bb.Left,
+                            y: facesHighlighted.Height * bb.Top,
+                            width: facesHighlighted.Width * bb.Width,
+                            height: facesHighlighted.Height * bb.Height);
+                    }
                 }
+                // Save the image with highlights as PNG
+                string fileout = filename.Replace(Path.GetExtension(filename), "_faces.png");
+                facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
+                Console.WriteLine(">>> " + outcome.FaceDetails.Count + " face(s) highlighted in file " + fileout);
             }
-            // Save the image with highlights as PNG
-            string fileout = filename.Replace(Path.GetExtension(filename), "_faces.png");
-            facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
-            Console.WriteLine(">>> Faces highlighted in file " + fileout);
+            else
+                Console.WriteLine(">>> No faces found");
         }
+
+        static void IdentifyCelebretyFaces(string filename)
+        {
+            // Using USWest2, not the default region
+            AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
+
+            RecognizeCelebritiesRequest dfr = new RecognizeCelebritiesRequest();
+
+            // Request needs image butes, so read and add to request
+            Amazon.Rekognition.Model.Image img = new Amazon.Rekognition.Model.Image();
+            byte[] data = null;
+            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                data = new byte[fs.Length];
+                fs.Read(data, 0, (int)fs.Length);
+            }
+            img.Bytes = new MemoryStream(data);
+            dfr.Image = img;
+            var outcome = rekoClient.RecognizeCelebrities(dfr);
+
+            if (outcome.CelebrityFaces.Count > 0)
+            {
+
+                // Load a bitmap to modify with face bounding box rectangles
+                System.Drawing.Bitmap facesHighlighted = new System.Drawing.Bitmap(filename);
+                Pen pen = new Pen(Color.Black, 3);
+                Font drawFont = new Font("Arial", 12);
+
+                // Create a graphics context
+                using (var graphics = Graphics.FromImage(facesHighlighted))
+                {
+                    foreach (var fd in outcome.CelebrityFaces)
+                    {
+                        // Get the bounding box
+                        BoundingBox bb = fd.Face.BoundingBox;
+                        Console.WriteLine("Bounding box = (" + bb.Left + ", " + bb.Top + ", " +
+                            bb.Height + ", " + bb.Width + ")");
+                        // Draw the rectangle using the bounding box values
+                        // They are percentages so scale them to picture
+                        graphics.DrawRectangle(pen, x: facesHighlighted.Width * bb.Left,
+                            y: facesHighlighted.Height * bb.Top,
+                            width: facesHighlighted.Width * bb.Width,
+                            height: facesHighlighted.Height * bb.Height);
+                        graphics.DrawString(fd.Name, drawFont, Brushes.White, facesHighlighted.Width * bb.Left,
+                            facesHighlighted.Height * bb.Top + facesHighlighted.Height * bb.Height);
+                    }
+                }
+                // Save the image with highlights as PNG
+                string fileout = filename.Replace(Path.GetExtension(filename), "_celebrityfaces.png");
+                facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
+                Console.WriteLine(">>> " + outcome.CelebrityFaces.Count + " celebrity face(s) highlighted in file " + fileout);
+            }
+            else
+                Console.WriteLine(">>> No celebrity faces found");
+
+        }
+
 
         static void Main(string[] args)
         {
@@ -85,6 +147,7 @@ namespace NETRekognitionConsole
             }
             var filename = System.IO.Path.Combine(Environment.CurrentDirectory, args[0]);
             IdentifyFaces(filename);
+            IdentifyCelebretyFaces(filename);
         }
     }
 }
