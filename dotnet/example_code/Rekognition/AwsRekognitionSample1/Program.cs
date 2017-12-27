@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿/*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -13,11 +12,8 @@
 * KIND, either express or implied. See the License for the specific
 * language governing permissions and limitations under the License.
 *******************************************************************************/
-
 using System;
-=======
 ﻿using System;
->>>>>>> eric-wave1
 using System.Drawing;
 using System.IO;
 using Amazon.Rekognition;
