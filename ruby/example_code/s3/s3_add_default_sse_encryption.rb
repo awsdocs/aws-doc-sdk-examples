@@ -12,6 +12,14 @@
 
 require 'aws-sdk-s3' # In v2: require 'aws-sdk'
 
+# Get the key from the command line
+if empty?(ARGV)
+  puts 'You must supply a key'
+  exit 1
+end
+
+key = ARGV[0]
+
 # Create S3 client
 client = Aws::S3::Client.new(region: 'us-west-2')
 
@@ -21,7 +29,8 @@ client.put_bucket_encryption(
   server_side_encryption_configuration: {
     rules: [{
       apply_server_side_encryption_by_default: {
-        sse_algorithm: 'AES256'
+        sse_algorithm: 'aws:kms',
+        kms_master_key_id: key
       }
     }]
   }

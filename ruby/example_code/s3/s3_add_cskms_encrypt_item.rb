@@ -12,9 +12,16 @@
 
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
+# Get the key from the command line
+if empty?(ARGV)
+  puts 'You must supply a key'
+  exit 1
+end
+
+key = ARGV[0]
+
 bucket = 'my_bucket'
 item = 'my_item'
-key_id = 'a1bcde2f-12ab-3c4d-aa99-09ab12345cd6'
 
 # Get file content as string
 contents = File.read(item)
@@ -24,7 +31,7 @@ kms = Aws::KMS::Client.new
 
 # Create encryption client
 client = Aws::S3::Encryption::Client.new(
-  kms_key_id: key_id,
+  kms_key_id: key,
   kms_client: kms
 )
 

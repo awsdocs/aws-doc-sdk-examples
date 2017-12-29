@@ -14,7 +14,7 @@ require 'aws-sdk-s3' # In v2: require 'aws-sdk'
 
 bucket = 'my_bucket'
 
-# Require server-side 256-bit AES cipher to upload item to bucket
+# Require server-side KMS encryption to upload item to bucket
 policy = {
   'Version': '2012-10-17',
   'Id': 'PutObjPolicy',
@@ -27,7 +27,7 @@ policy = {
       'Resource': 'arn:aws:s3:::' + bucket + '/*',
       'Condition': {
         'StringNotEquals': {
-          's3:x-amz-server-side-encryption': 'AES256'
+          's3:x-amz-server-side-encryption': 'aws:kms'
         }
       }
     },
