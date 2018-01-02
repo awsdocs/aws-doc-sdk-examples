@@ -74,7 +74,7 @@ namespace NETRekognitionConsole
                 Console.WriteLine(">>> No faces found");
         }
 
-        static void IdentifyCelebretyFaces(string filename)
+        static void IdentifyCelebrityFaces(string filename)
         {
             // Using USWest2, not the default region
             AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
@@ -147,7 +147,7 @@ namespace NETRekognitionConsole
             }
             var filename = System.IO.Path.Combine(Environment.CurrentDirectory, args[0]);
             IdentifyFaces(filename);
-            IdentifyCelebretyFaces(filename);
+            IdentifyCelebrityFaces(filename);
         }
     }
 }
