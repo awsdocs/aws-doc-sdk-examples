@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+import software.amazon.awssdk.services.iam.model.StatusType;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyResponse;
 
@@ -38,14 +39,26 @@ public class UpdateAccessKey {
         String username = args[0];
         String access_id = args[1];
         String status = args[2];
+        
+        StatusType statusType;
 
+        if (status.toLowerCase().equalsIgnoreCase("active")) {
+        	statusType = StatusType.ACTIVE;
+        }
+        else if (status.toLowerCase().equalsIgnoreCase("inactive")) {
+        	statusType = StatusType.INACTIVE;
+        }
+        else {
+        	statusType = StatusType.UNKNOWN_TO_SDK_VERSION;
+        }
+       
         Region region = Region.AWS_GLOBAL;
         IAMClient iam = IAMClient.builder().region(region).build();
 
         UpdateAccessKeyRequest request = UpdateAccessKeyRequest.builder()
             .accessKeyId(access_id)
             .userName(username)
-            .status(status)
+            .status(statusType)
             .build();
 
         UpdateAccessKeyResponse response = iam.updateAccessKey(request);
