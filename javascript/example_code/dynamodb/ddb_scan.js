@@ -26,7 +26,6 @@ var params = {
     ':e' : {N: '09'},
     ':topic' : {S: 'PHRASE'}
    },
- KeyConditionExpression: 'Season = :s and Episode > :e',
  ProjectionExpression: 'Episode, Title, Subtitle',
  FilterExpression: 'contains (Subtitle, :topic)',
  TableName: 'EPISODES_TABLE'
