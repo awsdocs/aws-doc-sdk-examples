@@ -127,7 +127,6 @@ namespace NETRekognitionConsole
             }
             else
                 Console.WriteLine(">>> No celebrity faces found");
-
         }
 
 
@@ -145,7 +144,7 @@ namespace NETRekognitionConsole
                     "   Rekodemo image01.png\n");
                 return;
             }
-            var filename = System.IO.Path.Combine(Environment.CurrentDirectory, args[0]);
+            var filename = args[0];
             IdentifyFaces(filename);
             IdentifyCelebrityFaces(filename);
         }
