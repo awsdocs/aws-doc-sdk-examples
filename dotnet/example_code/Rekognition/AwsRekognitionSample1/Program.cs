@@ -129,7 +129,6 @@ namespace NETRekognitionConsole
                 Console.WriteLine(">>> No celebrity faces found");
         }
 
-
         static void Main(string[] args)
         {
             if (args.Length != 1)
