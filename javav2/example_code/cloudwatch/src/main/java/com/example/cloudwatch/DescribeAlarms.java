@@ -26,7 +26,7 @@ public class DescribeAlarms {
 
     public static void main(String[] args) {
 
-    	CloudWatchClient cw = CloudWatchClient.builder().build();
+        CloudWatchClient cw = CloudWatchClient.builder().build();
 
         boolean done = false;
         String new_token = null;

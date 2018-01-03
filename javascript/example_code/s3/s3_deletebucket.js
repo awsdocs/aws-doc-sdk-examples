@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -17,27 +17,19 @@ var AWS = require('aws-sdk');
 // Set the region
 AWS.config.update({region: 'REGION'});
 
-// Create DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+// Create S3 service object
+s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
-var params = {
-  ExpressionAttributeValues: {
-    ':s': {N: '2'},
-    ':e' : {N: '09'},
-    ':topic' : {S: 'PHRASE'}
-   },
- ProjectionExpression: 'Episode, Title, Subtitle',
- FilterExpression: 'contains (Subtitle, :topic)',
- TableName: 'EPISODES_TABLE'
+// Create params for S3.createBucket
+var bucketParams = {
+  Bucket : 'BUCKET_NAME',
 };
 
-ddb.scan(params, function(err, data) {
+// call S3 to create the bucket
+s3.deleteBucket(bucketParams, function(err, data) {
   if (err) {
     console.log("Error", err);
   } else {
-    //console.log("Success", data.Items);
-    data.Items.forEach(function(element, index, array) {
-      console.log(element.Title.S + " (" + element.Subtitle.S + ")");
-    });
+    console.log("Success", data);
   }
 });

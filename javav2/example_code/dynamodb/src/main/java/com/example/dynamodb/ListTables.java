@@ -33,14 +33,19 @@ public class ListTables
 
         DynamoDBClient ddb = DynamoDBClient.create();
 
-        ListTablesRequest request = ListTablesRequest.builder().build();
-
         boolean more_tables = true;
+        String last_name = null;
+
         while(more_tables) {
-            String last_name = null;
             try {
                 ListTablesResponse response = null;
                 if (last_name == null) {
+                	ListTablesRequest request = ListTablesRequest.builder().build();
+                    response = ddb.listTables(request);
+                }
+                else {
+                	ListTablesRequest request = ListTablesRequest.builder()
+                			.exclusiveStartTableName(last_name).build();
                     response = ddb.listTables(request);
                 }
 
