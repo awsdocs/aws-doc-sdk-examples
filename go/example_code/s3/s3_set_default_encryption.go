@@ -43,13 +43,9 @@ func main() {
 
     // Encrypt with KMS by default
     defEnc := &s3.ServerSideEncryptionByDefault{KMSMasterKeyID: aws.String(key), SSEAlgorithm: aws.String(s3.ServerSideEncryptionAwsKms)}
-
     rule := &s3.ServerSideEncryptionRule{ApplyServerSideEncryptionByDefault: defEnc}
-
     rules := []*s3.ServerSideEncryptionRule{rule}
-
     serverConfig := &s3.ServerSideEncryptionConfiguration{Rules: rules}
-
     input := &s3.PutBucketEncryptionInput{Bucket: aws.String(bucket), ServerSideEncryptionConfiguration: serverConfig}
 
     _, err := svc.PutBucketEncryption(input)
