@@ -22,7 +22,7 @@ var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 
 //var params = {};
 
-// Create the instance
+// Describe key pairs
 ec2.describeKeyPairs(function(err, data) {
    if (err) {
       console.log("Error", err);
