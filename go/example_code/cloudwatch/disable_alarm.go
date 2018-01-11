@@ -15,35 +15,41 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
+
+    "fmt"
+    "os"
 )
 
-// Usage:
-// go run main.go <alarm name>
 func main() {
-    // Load session from shared config.
+    if len(os.Args) != 2 {
+        fmt.Println("You must supply an alarm name")
+        os.Exit(1)
+    }
+
+    name := os.Args[1]
+
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create new cloudwatch client.
+    // Create new CloudWatch client.
     svc := cloudwatch.New(sess)
 
-    // This will disable the alarm.
-    result, err := svc.DisableAlarmActions(&cloudwatch.DisableAlarmActionsInput{
+    // Disable the alarm.
+    _, err := svc.DisableAlarmActions(&cloudwatch.DisableAlarmActionsInput{
         AlarmNames: []*string{
-            &os.Args[1],
+            aws.String(name),
         },
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return
     }
 
-    fmt.Println("Success", result)
+    fmt.Println("Success")
 }

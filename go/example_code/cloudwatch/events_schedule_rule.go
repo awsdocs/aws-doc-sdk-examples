@@ -15,17 +15,17 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchevents"
+
+    "fmt"
 )
 
-// Usage:
-// go run main.go
 func main() {
-    // Load session from shared config.
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -38,11 +38,10 @@ func main() {
         RoleArn:            aws.String("IAM_ROLE_ARN"),
         ScheduleExpression: aws.String("rate(5 minutes)"),
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return
     }
 
-    fmt.Println("Success", result)
+    fmt.Println("Rule ARN:", result.RuleArn)
 }

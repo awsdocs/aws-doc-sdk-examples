@@ -16,26 +16,30 @@ package main
 import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go_/service/cloudwatch"
+    "github.com/aws/aws-sdk-go/service/cloudwatch"
 
     "fmt"
     "os"
 )
 
 func main() {
-    sess, err := session.NewSession()
-    if err != nil {
-        fmt.Println("failed to create session,", err)
-        os.Exit(1)
-    }
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-    svc := cloudwatch.New(sess, &aws.Config{Region: aws.String("us-west-2")})
+    svc := cloudwatch.New(sess)
 
     resp, err := svc.DescribeAlarms(nil)
     if err != nil {
+        fmt.Println("Got error getting alarm descriptions:")
         fmt.Println(err.Error())
         os.Exit(1)
     }
 
-    fmt.Println(resp)
+    for _, alarm := range resp.MetricAlarms {
+        fmt.Println(*alarm.AlarmName)
+    }
 }

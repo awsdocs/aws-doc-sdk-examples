@@ -15,35 +15,44 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
+
+    "fmt"
+    "os"
 )
 
-// Usage:
-// go run main.go
 func main() {
-    // Load session from shared config.
+    if len(os.Args) != 4 {
+        fmt.Println("You must supply a metric name, namespace, and dimensions")
+        os.Exit(1)
+    }
+
+    metric := os.Args[1]
+    namespace := os.Args[2]
+    dimensions := os.Args[3]
+    
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create new cloudwatch client.
+    // Create CloudWatch client
     svc := cloudwatch.New(sess)
 
-    // This will disable the alarm.
+    // Disable the alarm
     result, err := svc.ListMetrics(&cloudwatch.ListMetricsInput{
-        MetricName: aws.String("IncomingLogEvents"),
-        Namespace:  aws.String("AWS/Logs"),
+        MetricName: aws.String(metric),
+        Namespace:  aws.String(namespace),
         Dimensions: []*cloudwatch.DimensionFilter{
             &cloudwatch.DimensionFilter{
-                Name: aws.String("LogGroupName"),
+                Name: aws.String(name),
             },
         },
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return

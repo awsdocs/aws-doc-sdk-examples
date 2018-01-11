@@ -15,17 +15,27 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
+
+    "fmt"
 )
 
-// Usage:
-// go run main.go
 func main() {
-    // Load session from shared config.
+    if len(os.Args) != 4 {
+        fmt.Println("You must supply a metric name, dimension, value, and namespace")
+        os.Exit(1)
+    }
+
+    metric := os.Args[1]
+        dimensions := os.Args[3]
+    namespace := os.Args[2]
+
+    
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -37,18 +47,18 @@ func main() {
     result, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
         MetricData: []*cloudwatch.MetricDatum{
             &cloudwatch.MetricDatum{
-                MetricName: aws.String("PAGES_VISITED"),
+                MetricName: aws.String(metric),
                 Unit:       aws.String(cloudwatch.StandardUnitNone),
                 Value:      aws.Float64(1.0),
                 Dimensions: []*cloudwatch.Dimension{
                     &cloudwatch.Dimension{
-                        Name:  aws.String("UNIQUE_PAGES"),
-                        Value: aws.String("URLS"),
+                        Name:  aws.String(dimension),
+                        Value: aws.String(value),
                     },
                 },
             },
         },
-        Namespace: aws.String("SITE/TRAFFIC"),
+        Namespace: aws.String(namespace),
     })
 
     if err != nil {
