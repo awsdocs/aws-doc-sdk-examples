@@ -24,7 +24,7 @@ var params = {
    KeyName: 'primary-key-pair'
 };
 
-// Create the instance
+// Create key pair
 ec2.createKeyPair(params, function(err, data) {
    if (err) {
       console.log("Error", err);
