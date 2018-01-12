@@ -25,10 +25,6 @@ import (
 )
 
 func main() {
-    // Set stack name, template url
-    stackName := "my-groovy-stack"
-    templateUrl := "https://my-groovy-bucket.s3.us-west-2.amazonaws.com/my-groovy-template"
-
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
     // and configuration from the shared configuration file ~/.aws/config.
@@ -36,28 +32,21 @@ func main() {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create CloudFormation client in region
+    // Create CloudFormation client
     svc := cloudformation.New(sess)
 
-    input := &cloudformation.CreateStackInput{TemplateURL: aws.String(templateUrl), StackName: aws.String(stackName)}
+    // We skip DELETE_COMPLETE:
+    var filter = []*string{aws.String("CREATE_IN_PROGRESS"), aws.String("CREATE_FAILED"), aws.String("CREATE_COMPLETE"), aws.String("ROLLBACK_IN_PROGRESS"), aws.String("ROLLBACK_FAILED"), aws.String("ROLLBACK_COMPLETE"), aws.String("DELETE_IN_PROGRESS"), aws.String("DELETE_FAILED"), aws.String("UPDATE_IN_PROGRESS"), aws.String("UPDATE_COMPLETE_CLEANUP_IN_PROGRESS"), aws.String("UPDATE_COMPLETE"), aws.String("UPDATE_ROLLBACK_IN_PROGRESS"), aws.String("UPDATE_ROLLBACK_FAILED"), aws.String("UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS"), aws.String("UPDATE_ROLLBACK_COMPLETE"), aws.String("REVIEW_IN_PROGRESS")}
+    input := &cloudformation.ListStacksInput{StackStatusFilter: filter}
 
-    _, err := svc.CreateStack(input)
+    resp, err := svc.ListStacks(input)
     if err != nil {
-        fmt.Println("Got error creating stack:")
+        fmt.Println("Got error listing stacks:")
         fmt.Println(err.Error())
         os.Exit(1)
     }
 
-    fmt.Println("Waiting for stack to be created")
-
-    // Wait until stack is created
-    desInput := &cloudformation.DescribeStacksInput{StackName: aws.String(stackName)}
-    err = svc.WaitUntilStackCreateComplete(desInput)
-    if err != nil {
-        fmt.Println("Got error waiting for stack to be created")
-        fmt.Println(err)
-        os.Exit(1)
+    for _, stack := range resp.StackSummaries {
+        fmt.Println(*stack.StackName + ", Status: " + *stack.StackStatus)
     }
-
-    fmt.Println("Created stack " + stackName)
 }

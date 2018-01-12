@@ -24,14 +24,11 @@ import (
     "os"
 )
 
+// Deletes the stack
+//
+// Usage:
+//    go run CfnDeleteStack.go [-r REGION] -s STACK_NAME
 func main() {
-    // Set stack name, template url
-    stackName := "my-groovy-stack"
-    templateUrl := "https://my-groovy-bucket.s3.us-west-2.amazonaws.com/my-groovy-template"
-
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file ~/.aws/credentials
-    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -39,25 +36,23 @@ func main() {
     // Create CloudFormation client in region
     svc := cloudformation.New(sess)
 
-    input := &cloudformation.CreateStackInput{TemplateURL: aws.String(templateUrl), StackName: aws.String(stackName)}
-
-    _, err := svc.CreateStack(input)
+    // Delete the stack as it was just a test
+    delInput := &cloudformation.DeleteStackInput{StackName: aws.String("my-groovy-stack")}
+    _, err := svc.DeleteStack(delInput)
     if err != nil {
-        fmt.Println("Got error creating stack:")
+        fmt.Println("Got error deleting stack:")
         fmt.Println(err.Error())
         os.Exit(1)
     }
 
-    fmt.Println("Waiting for stack to be created")
-
     // Wait until stack is created
-    desInput := &cloudformation.DescribeStacksInput{StackName: aws.String(stackName)}
-    err = svc.WaitUntilStackCreateComplete(desInput)
+    desInput := &cloudformation.DescribeStacksInput{StackName: aws.String("my-groovy-stack")}
+    err = svc.WaitUntilStackDeleteComplete(desInput)
     if err != nil {
-        fmt.Println("Got error waiting for stack to be created")
+        fmt.Println("Got error waiting for stack to be deleted")
         fmt.Println(err)
         os.Exit(1)
     }
 
-    fmt.Println("Created stack " + stackName)
+    fmt.Println("Deleted stack my-groovy-stack")
 }
