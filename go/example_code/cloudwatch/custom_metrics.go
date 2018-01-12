@@ -29,9 +29,8 @@ func main() {
     }
 
     metric := os.Args[1]
-        dimensions := os.Args[3]
+    dimensions := os.Args[3]
     namespace := os.Args[2]
-
     
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
@@ -60,7 +59,6 @@ func main() {
         },
         Namespace: aws.String(namespace),
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return
