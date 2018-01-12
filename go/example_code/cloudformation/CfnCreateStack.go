@@ -15,13 +15,13 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/cloudformation"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/cloudformation"
 
-	"flag"
-	"fmt"
-	"os"
+    "flag"
+    "fmt"
+    "os"
 )
 
 // Creates the stack from the template in the specified S3 Bucket in the region
@@ -31,40 +31,40 @@ import (
 func main() {
     bucketPtr := flag.String("b", "", "The bucket from which the template is retrieved")
     nukePtr := flag.Bool("d", true, "Whether to delete the stack when we are done")
-	regionPtr := flag.String("r", "us-west-2", "The region containing the bucket")
+    regionPtr := flag.String("r", "us-west-2", "The region containing the bucket")
     stackPtr := flag.String("s", "", "The name of the stack")
-	templatePtr := flag.String("t", "", "The CloudFormation template")
+    templatePtr := flag.String("t", "", "The CloudFormation template")
 
-	flag.Parse()
+    flag.Parse()
 
     bucket := *bucketPtr
     nuke := *nukePtr
-	region := *regionPtr
-	stack := *stackPtr
+    region := *regionPtr
+    stack := *stackPtr
     template := *templatePtr
 
     // Make sure we have a bucket, template, and stack name
-	if bucket == "" || template == "" || stack == "" {
-	    fmt.Println("You must supply a bucket name, template name, and stack name")
-	    os.Exit(1)
+    if bucket == "" || template == "" || stack == "" {
+        fmt.Println("You must supply a bucket name, template name, and stack name")
+        os.Exit(1)
     }
 
-	// Construct the URL for the template
-	// The format is:
-	// https://BUCKET.s3.REGION.amazonaws.com/TEMPLATE
-	url := "https://" + bucket + ".s3." + region + ".amazonaws.com/" + template
+    // Construct the URL for the template
+    // The format is:
+    // https://BUCKET.s3.REGION.amazonaws.com/TEMPLATE
+    url := "https://" + bucket + ".s3." + region + ".amazonaws.com/" + template
 
-	// Initialize a session that the SDK uses to load
-	// credentials from the shared credentials file. (~/.aws/credentials).
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file. (~/.aws/credentials).
     sess := session.Must(session.NewSession(&aws.Config{Region: regionPtr}))
 
-	// Create CloudFormation client in region
+    // Create CloudFormation client in region
     svc := cloudformation.New(sess)
 
-	// Create stack
+    // Create stack
     fmt.Println("Creating the stack")
 
-	input := &cloudformation.CreateStackInput{TemplateURL: aws.String(url), StackName: stackPtr}
+    input := &cloudformation.CreateStackInput{TemplateURL: aws.String(url), StackName: stackPtr}
 
     _, err := svc.CreateStack(input)
     if err != nil {
