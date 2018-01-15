@@ -9,5 +9,4 @@ export className=$1
 echo "## Running $className..."
 shift
 echo "## arguments $@..."
-mvn exec:java -Dexec.mainClass="com.example.pinpoint.$className" -Dexec.args="$@"
-
+mvn exec:java -Dexec.mainClass="com.example.pinpoint.$className" -Dexec.args="$@" -Dexec.cleanupDaemonThreads=false
