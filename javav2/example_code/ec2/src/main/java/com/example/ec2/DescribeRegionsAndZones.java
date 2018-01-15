@@ -36,6 +36,7 @@ public class DescribeRegionsAndZones
                 "with endpoint %s",
                 region.regionName(),
                 region.endpoint());
+            System.out.println();
         }
 
         DescribeAvailabilityZonesResponse zones_response =
@@ -49,6 +50,8 @@ public class DescribeRegionsAndZones
                 zone.zoneName(),
                 zone.state(),
                 zone.regionName());
+            System.out.println();
+
         }
     }
 }
