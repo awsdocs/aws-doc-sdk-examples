@@ -23,7 +23,7 @@ public class CreateSegment {
 	public static void main(String[] args) {
 		final String USAGE = "\n" +
                 "CreateSegment - create a segment \n\n" +
-                "Usage: CreateApp <appId>\n\n" +
+                "Usage: CreateSegment <appId>\n\n" +
                 "Where:\n" +
                 "  appId - the ID the application to create a segment for.\n\n";
 

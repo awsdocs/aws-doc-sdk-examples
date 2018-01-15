@@ -13,10 +13,13 @@ import com.amazonaws.services.pinpoint.model.ImportJobResponse;
 public class ImportSegment {
 	public static void main(String[] args) {
 		final String USAGE = "\n" +
-                "CreateSegment - create a segment \n\n" +
-                "Usage: CreateApp <appId>\n\n" +
+                "ImportSegment - create a segment \n\n" +
+                "Usage: ImportSegment <appId> <bucket> <key> <roleArn> \n\n" +
                 "Where:\n" +
-                "  appId - the ID the application to create a segment for.\n\n";
+                "  appId - the ID the application to create a segment for.\n\n" +
+                "  bucket - name of the s3 bucket that contains the segment definitons.\n\n" + 
+                "  key - key of the s3 object " + 
+                "  roleArn - ARN of the role that allows pinpoint to access S3";
 
         if (args.length < 1) {
             System.out.println(USAGE);
