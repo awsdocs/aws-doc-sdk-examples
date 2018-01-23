@@ -14,7 +14,7 @@ require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 require 'digest/md5'
 
 # Require key as command-line argument
-if empty?(ARGV)
+if ARGV.empty?()
   puts 'You must supply the key'
   exit 1
 end

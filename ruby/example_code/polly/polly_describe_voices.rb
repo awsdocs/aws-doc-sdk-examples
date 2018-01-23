@@ -10,32 +10,24 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-s3' # v2: require 'aws-sdk'
-require 'openssl'
-
-if ARGV.empty?()
-  puts 'You must supply a pass phrase'
-  exit 1
-end
-
-pass_phrase = ARGV[0]
-
-bucket = 'my_bucket'
-item = 'my_item'
-key_file = 'private_key.pem'
+require 'aws-sdk-polly'  # In v2: require 'aws-sdk'
 
 begin
-  private_key = File.binread(key_file)
-  key = OpenSSL::PKey::RSA.new(private_key, passphrase)
+  # Create an Amazon Polly client using
+  # credentials from the shared credentials file ~/.aws/credentials
+  # and the configuration (region) from the shared configuration file ~/.aws/config
+  polly = Aws::Polly::Client.new
+  
+  # Get US English voices
+  resp = polly.describe_voices(language_code: 'en-US')
 
-  # encryption client
-  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
-
-  resp = enc_client.get_object(bucket: bucket, key: item)
-
-  puts resp.body.read
+  resp.voices.each do |v|
+    puts v.name
+    puts '  ' + v.gender
+    puts
+  end
 rescue StandardError => ex
-  puts 'Could not get item'
+  puts 'Could not get voices'
   puts 'Error message:'
   puts ex.message
 end

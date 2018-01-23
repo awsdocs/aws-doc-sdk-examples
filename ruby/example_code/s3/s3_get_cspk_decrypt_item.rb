@@ -15,7 +15,7 @@ require 'base64'
 require 'openssl'
 
 # Require a pass phrase as command-line argument
-if empty?(ARGV)
+if ARGV.empty?()
   puts 'You must supply a pass phrase'
   exit 1
 end

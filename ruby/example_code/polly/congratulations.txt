@@ -1,0 +1,1 @@
+Congratulations. You have successfully built this working demo of Amazon Polly in Go. Have fun building voice enabled apps with Amazon Polly (that's me!), and always look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS.

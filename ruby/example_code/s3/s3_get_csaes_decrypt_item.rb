@@ -13,7 +13,7 @@
 require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
 
 # Require key as command-line argument
-if empty?(ARGV)
+if ARGV.empty?()
   puts 'You must supply the key as a string'
   exit 1
 end
