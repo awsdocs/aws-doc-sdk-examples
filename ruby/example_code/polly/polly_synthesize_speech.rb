@@ -23,15 +23,6 @@ begin
 
   # Open file and get the contents as a string
   if File.exist?(filename)
-    # Get just the file name
-    #  abc/xyz.txt -> xyx.txt
-    name = File.basename(filename)
-
-    # Split up name so we get just the xyz part
-    parts = name.split('.')
-    first_part = parts[0]
-    mp3_file = first_part + '.mp3'
-
     contents = IO.read(filename)
   else
     puts 'No such file: ' + filename
@@ -50,6 +41,15 @@ begin
   })
 
   # Save output
+  # Get just the file name
+  #  abc/xyz.txt -> xyx.txt
+  name = File.basename(filename)
+
+  # Split up name so we get just the xyz part
+  parts = name.split('.')
+  first_part = parts[0]
+  mp3_file = first_part + '.mp3'
+
   IO.copy_stream(resp.audio_stream, mp3_file)
 
   puts 'Wrote MP3 content to: ' + mp3_file
