@@ -30,14 +30,14 @@ public class DescribeInstances
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
         boolean done = false;
 
+        DescribeInstancesRequest request = new DescribeInstancesRequest();
         while(!done) {
-            DescribeInstancesRequest request = new DescribeInstancesRequest();
             DescribeInstancesResult response = ec2.describeInstances(request);
 
             for(Reservation reservation : response.getReservations()) {
                 for(Instance instance : reservation.getInstances()) {
                     System.out.printf(
-                        "Found reservation with id %s, " +
+                        "Found instance with id %s, " +
                         "AMI %s, " +
                         "type %s, " +
                         "state %s " +
