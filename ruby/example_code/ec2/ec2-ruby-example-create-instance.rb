@@ -38,10 +38,10 @@ instance = ec2.create_instances({
 })
 
 # Wait for the instance to be created, running, and passed status checks
-ec2.client.wait_until(:instance_status_ok, {instance_ids: [instance[0].id]})
+ec2.client.wait_until(:instance_status_ok, {instance_ids: instance.map(&:id)})
 
 # Name the instance 'MyGroovyInstance' and give it the Group tag 'MyGroovyGroup'
 instance.create_tags({ tags: [{ key: 'Name', value: 'MyGroovyInstance' }, { key: 'Group', value: 'MyGroovyGroup' }]})
 
-puts instance.id
-puts instance.public_ip_address
+puts instance.map(&:id)[0]
+puts instance.map(&:public_ip_address)[0]
