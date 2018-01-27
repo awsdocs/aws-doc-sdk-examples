@@ -16,6 +16,7 @@ import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.Copy;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 
 /**
  * Copy an object from one Amazon S3 bucket to another using S3 TransferManager.
@@ -32,7 +33,7 @@ public class XferMgrCopy
         System.out.println("     to s3 object: " + to_bucket);
         System.out.println("        in bucket: " + to_key);
 
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             Copy xfer = xfer_mgr.copy(from_bucket, from_key, to_bucket, to_key);
             // loop with Transfer.isDone()

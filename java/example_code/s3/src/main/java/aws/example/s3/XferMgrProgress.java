@@ -19,6 +19,7 @@ import com.amazonaws.event.ProgressListener;
 import com.amazonaws.services.s3.transfer.Transfer;
 import com.amazonaws.services.s3.transfer.Transfer.TransferState;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.TransferProgress;
 import com.amazonaws.services.s3.transfer.Upload;
 import com.amazonaws.services.s3.transfer.MultipleFileUpload;
@@ -144,7 +145,7 @@ public class XferMgrProgress
         }
 
         File f = new File(file_path);
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             Upload u = xfer_mgr.upload(bucket_name, key_name, f);
             // print an empty progress bar...
