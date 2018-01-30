@@ -64,7 +64,7 @@ public class S3ObjectOperations {
         
         // List all objects in bucket 
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
-        		.bucket("sootest-lambda")
+        		.bucket(bucket)
         		.maxKeys(2)
         		.build();
         
