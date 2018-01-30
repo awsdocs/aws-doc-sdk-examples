@@ -16,6 +16,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 
 /**
  * List your Amazon S3 buckets.
@@ -25,6 +27,7 @@ import java.util.List;
  */
 public class ListBuckets
 {
+	private static final Logger log = LogManager.getLogger(ListBuckets.class);
     public static void main(String[] args)
     {
         final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();

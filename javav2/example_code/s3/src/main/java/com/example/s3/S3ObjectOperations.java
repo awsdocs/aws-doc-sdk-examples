@@ -30,8 +30,12 @@ import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
+import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Paginator;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.StreamingResponseHandler;
 
@@ -57,12 +61,31 @@ public class S3ObjectOperations {
         // Multipart Upload a file
         String multipartKey = "multiPartKey";
         multipartUpload(bucket, multipartKey);
+        
+        // List all objects in bucket 
+        ListObjectsV2Request listReq = ListObjectsV2Request.builder()
+        		.bucket("sootest-lambda")
+        		.maxKeys(2)
+        		.build();
+        
+        ListObjectsV2Paginator listRes = s3.listObjectsV2Iterable(listReq);
+        // Dealing with ListObjectsV2Response pages
+        listRes.stream()
+                 .flatMap(r -> r.contents().stream())
+                 .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
+        // Helper method to work with paginated collection of items directly
+        listRes.contents().stream()
+                 .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
+
+        // Don't want to use fancy stream. Use simple for loop
+        for (S3Object content : listRes.contents()) {
+            System.out.println(" Key: " + content.key() + " size = " + content.size());
+        }
 
         // Get Object
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
                      StreamingResponseHandler.toFile(Paths.get("myfile.out")));
-
 
         // Delete Object
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
@@ -71,7 +94,6 @@ public class S3ObjectOperations {
         // Delete Object
         deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
         s3.deleteObject(deleteObjectRequest);
-
 
         deleteBucket(bucket);
     }

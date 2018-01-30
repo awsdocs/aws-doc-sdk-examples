@@ -52,7 +52,7 @@ public class DeleteBucketPolicy
     		  .bucket(bucket_name)
     		  .build();
       try {
-         s3.deleteBucketPolicy(null);
+         s3.deleteBucketPolicy(delReq);
       } catch (S3Exception e) {
          System.err.println(e.getErrorMessage());
          System.exit(1);
