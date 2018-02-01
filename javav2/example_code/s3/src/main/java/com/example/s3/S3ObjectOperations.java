@@ -31,7 +31,6 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
-import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
@@ -108,6 +107,8 @@ public class S3ObjectOperations {
                                                                  .locationConstraint(region.value())
                                                                  .build())
                                 .build());
+        
+        System.out.println(bucket);
     }
 
     private static void deleteBucket(String bucket) {
