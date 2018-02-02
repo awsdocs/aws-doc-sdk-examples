@@ -24,7 +24,8 @@ import (
 
 // Gets the ACL for a bucket object
 //
-// Usage: go run s3_get_bucket_object_acl.go BUCKET OBJECT
+// Usage:
+//     go run s3_get_bucket_object_acl.go BUCKET OBJECT
 func main() {
     if len(os.Args) != 3 {
         exitErrorf("Bucket and object names required\nUsage: go run", os.Args[0], "BUCKET OBJECT")
@@ -44,13 +45,12 @@ func main() {
 
     // Get bucket ACL
     result, err := svc.GetObjectAcl(&s3.GetObjectAclInput{Bucket: &bucket, Key: &key})
-
     if err != nil {
         exitErrorf(err.Error())
     }
 
     fmt.Println("Owner:", *result.Owner.DisplayName)
-
+    fmt.Println("")
     fmt.Println("Grants")
 
     for _, g := range result.Grants {
