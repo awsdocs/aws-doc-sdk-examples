@@ -45,7 +45,7 @@ func main() {
             fmt.Println("FULL_CONTROL, WRITE, WRITE_ACP, READ, or READ_ACP")
             os.Exit(1)
 
-}
+        }
     }
 
     userType := "AmazonCustomerByEmail"
