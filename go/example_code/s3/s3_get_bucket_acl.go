@@ -24,7 +24,8 @@ import (
 
 // Gets the ACL for a bucket
 //
-// Usage: go run s3_get_bucket_acl.go BUCKET
+// Usage:
+//     go run s3_get_bucket_acl.go BUCKET
 func main() {
     if len(os.Args) != 2 {
         exitErrorf("Bucket name required\nUsage: go run", os.Args[0], "BUCKET")
@@ -32,8 +33,7 @@ func main() {
 
     bucket := os.Args[1]
 
-    // Initialize a session in us-west-2 that the SDK uses to load
-    // credentials from the shared credentials file ~/.aws/credentials
+    // Initialize a session that loads credentials from the shared credentials file ~/.aws/credentials
     // and the region from the shared configuratin file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,

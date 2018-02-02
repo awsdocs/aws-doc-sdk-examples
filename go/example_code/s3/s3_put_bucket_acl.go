@@ -44,16 +44,17 @@ func main() {
             fmt.Println("Illegal permission value. It must be one of:")
             fmt.Println("FULL_CONTROL, WRITE, WRITE_ACP, READ, or READ_ACP")
             os.Exit(1)
-        }
+
+}
     }
 
     userType := "AmazonCustomerByEmail"
 
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // Initialize a session that loads credentials from the shared credentials file ~/.aws/credentials
+    // and the region from the shared configuratin file ~/.aws/config.
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
     // Create S3 service client
     svc := s3.New(sess)
