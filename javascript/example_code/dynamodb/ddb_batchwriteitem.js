@@ -14,7 +14,7 @@
 
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the region
 AWS.config.update({region: 'REGION'});
 
 // Create DynamoDB service object
@@ -30,7 +30,9 @@ var params = {
                "ATTRIBUTE_1": { "S": "ATTRIBUTE_1_VALUE" },
                "ATTRIBUTE_2": { "N": "ATTRIBUTE_2_VALUE" }
            }
-         },
+         }
+       },
+       {
          PutRequest: {
            Item: {
              "KEY": { "N": "KEY_VALUE" },
