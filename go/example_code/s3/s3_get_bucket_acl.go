@@ -54,12 +54,12 @@ func main() {
 
     for _, g := range result.Grants {
         // If we add a canned ACL, the name is nil
-	if g.Grantee.DisplayName == nil {
-	    fmt.Println("  Grantee:    EVERYONE")
-	} else {
+        if g.Grantee.DisplayName == nil {
+            fmt.Println("  Grantee:    EVERYONE")
+        } else {
             fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
-	}
-	
+        }
+    
         fmt.Println("  Type:      ", *g.Grantee.Type)
         fmt.Println("  Permission:", *g.Permission)
         fmt.Println("")

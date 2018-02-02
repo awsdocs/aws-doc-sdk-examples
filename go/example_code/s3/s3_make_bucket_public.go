@@ -15,11 +15,11 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
 
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 )
 
 func exitErrorf(msg string, args ...interface{}) {
@@ -32,36 +32,36 @@ func exitErrorf(msg string, args ...interface{}) {
 // Usage:
 //    go run s3_make_bucket_public.go BUCKET
 func main() {
-	if len(os.Args) < 2 {
-		exitErrorf("Bucket name required.\nUsage: go run", os.Args[0], "BUCKET")
-	}
+    if len(os.Args) < 2 {
+        exitErrorf("Bucket name required.\nUsage: go run", os.Args[0], "BUCKET")
+    }
 
-	bucket := os.Args[1]
+    bucket := os.Args[1]
 
-	// private | public-read | public-read-write | authenticated-read
-	// See https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL for details
-	acl := "public-read"
+    // private | public-read | public-read-write | authenticated-read
+    // See https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL for details
+    acl := "public-read"
 
-	// Initialize a session that the SDK uses to load
-	// credentials from the shared credentials file ~/.aws/credentials
-	// and region from the shared configuration file ~/.aws/config.
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and region from the shared configuration file ~/.aws/config.
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	// Create S3 service client
-	svc := s3.New(sess)
+    // Create S3 service client
+    svc := s3.New(sess)
 
-	params := &s3.PutBucketAclInput{
-		Bucket: &bucket,
-		ACL: &acl,
-	}
+    params := &s3.PutBucketAclInput{
+        Bucket: &bucket,
+        ACL: &acl,
+    }
 
-	// Set bucket ACL
-	_, err := svc.PutBucketAcl(params)
-	if err != nil {
-		exitErrorf(err.Error())
-	}
+    // Set bucket ACL
+    _, err := svc.PutBucketAcl(params)
+    if err != nil {
+        exitErrorf(err.Error())
+    }
 
-	fmt.Println("Bucket " + bucket + " is now public")
+    fmt.Println("Bucket " + bucket + " is now public")
 }
