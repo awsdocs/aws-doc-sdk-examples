@@ -44,17 +44,22 @@ func main() {
 
     // Get bucket ACL
     result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
-
     if err != nil {
         exitErrorf(err.Error())
     }
 
     fmt.Println("Owner:", *result.Owner.DisplayName)
-
+    fmt.Println("")
     fmt.Println("Grants")
 
     for _, g := range result.Grants {
-        fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
+        // If we add a canned ACL, the name is nil
+	if g.Grantee.DisplayName == nil {
+	    fmt.Println("  Grantee:    EVERYONE")
+	} else {
+            fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
+	}
+	
         fmt.Println("  Type:      ", *g.Grantee.Type)
         fmt.Println("  Permission:", *g.Permission)
         fmt.Println("")
