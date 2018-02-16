@@ -54,5 +54,5 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("ARN: " + *result.KeyMetadata.Arn)
+    fmt.Println(*result.KeyMetadata.KeyId)
 }
