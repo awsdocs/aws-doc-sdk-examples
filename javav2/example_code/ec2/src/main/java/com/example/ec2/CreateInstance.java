@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+import java.net.URI;
+
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.EC2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
