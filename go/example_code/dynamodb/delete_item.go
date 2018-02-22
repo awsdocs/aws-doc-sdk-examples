@@ -44,7 +44,7 @@ func main() {
         TableName: aws.String("Movies"),
     }
 
-    _, err := svc.DeleteItem(input)
+    _, err = svc.DeleteItem(input)
 
     if err != nil {
         fmt.Println("Got error calling DeleteItem")
