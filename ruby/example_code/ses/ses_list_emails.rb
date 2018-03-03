@@ -30,4 +30,5 @@ ids.identities.each do |email|
   # Display email addresses that have been verified
   if status == "Success"
     puts email
+  end
 end
