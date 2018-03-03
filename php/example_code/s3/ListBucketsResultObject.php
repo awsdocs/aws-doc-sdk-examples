@@ -12,31 +12,37 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
-use Aws\Exception\AwsException;
+use Aws\S3\S3Client;
 
 /**
- * Deletes a user
+ * Working with Result objects.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
  */
 
-$client = new IamClient([
-    'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2010-05-08'
-]);
+// Use the us-east-2 region and latest version of each client.
+$sharedConfig = [
+    'region'  => 'us-east-2',
+    'version' => 'latest'
+];
 
-try {
-    $result = $client->deleteUser(array(
-        // UserName is required
-        'UserName' => 'string'
-    ));
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
+// Create an SDK class used to share configuration across clients.
+$sdk = new Aws\Sdk($sharedConfig);
+
+// Use an Aws\Sdk class to create the S3Client object.
+$s3 = $sdk->createS3();
+$result = $s3->listBuckets();
+
+foreach ($result['Buckets'] as $bucket) {
+    echo $bucket['Name'] . "\n";
 }
+
+// Convert the result object to a PHP array
+$array = $result->toArray();
+
+// Get the name of each bucket
+$names = $result->search('Buckets[].Name');
