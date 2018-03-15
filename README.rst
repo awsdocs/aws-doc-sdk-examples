@@ -35,7 +35,7 @@ the AWS service abbreviation ("s3" for `Amazon S3 <https://aws.amazon.com/s3>`_ 
 How examples are used in the documentation
 ==========================================
 
-Examples are written for either execution in a browser script or in Node.js, usually depending on the use case for each. The two cenarios typically differ in how you supply credentials to the code. These differences are described in the Developer
+Examples are written for either execution in a browser script or in Node.js, usually depending on the use case for each. The two scenarios typically differ in how you supply credentials to the code. These differences are described in the Developer
 Guide at <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html>`_
 
 
