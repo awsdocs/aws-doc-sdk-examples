@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -30,7 +30,6 @@ begin
   })
 
   puts 'Email sent to ' + email_address
-end
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error

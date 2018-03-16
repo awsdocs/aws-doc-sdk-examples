@@ -9,3 +9,4 @@ launch.json
 .project
 .settings
 Gemfile
+Gemfile.lock

@@ -1,4 +1,4 @@
-.. Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -28,23 +28,15 @@ Building and running examples
 Within each of the language-scoped directories, you'll find a **README** file that explains how to
 build and run the examples contained within it.
 
-The example code itself is present in the ``example_code`` subdirectory, and is organized further by
+The example code itself is is organized by
 the AWS service abbreviation ("s3" for `Amazon S3 <https://aws.amazon.com/s3>`_ examples, and so on).
 
 
 How examples are used in the documentation
 ==========================================
 
-Examples are automatically included within each developer guide by ``build_docs.py`` (present in
-each documentation project), which clones this repository and then copies files from the appropriate
-``example_code`` directory into the ``doc_build`` directory prior to building.
-
-Within a guide's source-files, examples are referenced using Sphinx's `literalinclude
-<http://www.sphinx-doc.org/en/stable/markup/code.html#includes>`_ directive. For example::
-
-   .. literalinclude:: example_code/s3/src/main/java/aws/example/s3/CreateBucket.java
-      :lines: 43-50
-      :dedent: 8
+Examples are written for either execution in a browser script or in Node.js, usually depending on the use case for each. The two scenarios typically differ in how you supply credentials to the code. These differences are described in the Developer
+Guide at <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html>`_
 
 
 Submitting code for use in AWS documentation
@@ -95,10 +87,9 @@ documentation.
 Copyright and License
 =====================
 
-All content in this repository, unless otherwise stated, is Copyright © 2010-2017, Amazon Web
+All content in this repository, unless otherwise stated, is Copyright © 2010-2018, Amazon Web
 Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
 license, version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full
 license text is provided in the ``LICENSE`` file accompanying this repository.
-
