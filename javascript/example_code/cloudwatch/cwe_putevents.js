@@ -11,7 +11,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
      
-   ABOUT THIS SAMPLE: This sample is intended for Node.js execution as part of the Developer Guide topic at
+   ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
    https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html 
 */
 
