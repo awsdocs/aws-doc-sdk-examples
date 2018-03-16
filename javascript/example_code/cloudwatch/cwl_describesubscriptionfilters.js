@@ -10,6 +10,9 @@
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
+     
+   ABOUT THIS SAMPLE: This sample is intended for Node.js execution as part of the Developer Guide topic at
+   https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html 
 */
 
 // Load the AWS SDK for Node.js
