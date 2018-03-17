@@ -10,40 +10,32 @@
  *
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License. 
+ * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/examples/s3-examples-creating-buckets.html
- *
+ * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/service/s3-multipart-upload.html
+ * 
  */
 
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
+use Aws\S3\MultipartUploader;
+use Aws\Exception\MultipartUploadException;
 
-/**
- * Create an Amazon S3 bucket.
- *
- * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v2/guide/credentials.html
- */
-
-$BUCKET_NAME='<BUCKET-NAME>';
-
-//Create a S3Client
+// Create a S3Client
 $s3Client = new S3Client([
     'region' => 'us-west-2',
     'version' => '2006-03-01'
 ]);
 
-//Creating S3 Bucket
-try {
-    $result = $s3Client->createBucket([
-        'Bucket' => $BUCKET_NAME,
-    ]);
-}catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
-}
+
+$source = '/path/to/large/file.zip';
+$uploader = new MultipartUploader($s3Client, $source, [
+    'bucket' => 'your-bucket',
+    'key'    => 'my-file.zip',
+]);
+
+$promise = $uploader->promise();
+	
