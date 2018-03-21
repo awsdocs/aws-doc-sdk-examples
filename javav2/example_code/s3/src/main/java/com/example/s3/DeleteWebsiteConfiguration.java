@@ -36,7 +36,7 @@ public class DeleteWebsiteConfiguration
         try {
             s3.deleteBucketWebsite(delReq);
         } catch (S3Exception e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.out.println("Failed to delete website configuration!");
             System.exit(1);
         }

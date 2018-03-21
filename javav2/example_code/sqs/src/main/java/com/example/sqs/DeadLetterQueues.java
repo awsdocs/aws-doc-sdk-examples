@@ -50,7 +50,7 @@ public class DeadLetterQueues
         try {
             sqs.createQueue(request);
         } catch (SQSException e) {
-            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+            if (!e.errorCode().equals("QueueAlreadyExists")) {
                 throw e;
             }
         }
@@ -62,7 +62,7 @@ public class DeadLetterQueues
         try {
             sqs.createQueue(dlrequest);
         } catch (SQSException e) {
-            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+            if (!e.errorCode().equals("QueueAlreadyExists")) {
                 throw e;
             }
         }

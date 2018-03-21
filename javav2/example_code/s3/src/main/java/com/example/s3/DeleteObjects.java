@@ -58,7 +58,7 @@ public class DeleteObjects
             		.build();
             s3.deleteObjects(dor);
         } catch (S3Exception e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");

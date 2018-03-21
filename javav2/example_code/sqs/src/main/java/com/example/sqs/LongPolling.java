@@ -52,7 +52,7 @@ public class LongPolling
         try {
             sqs.createQueue(create_request);
         } catch (SQSException e) {
-            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+            if (!e.errorCode().equals("QueueAlreadyExists")) {
                 throw e;
             }
         }

@@ -77,7 +77,7 @@ public class CreateTable
             CreateTableResponse response = ddb.createTable(request);
             System.out.println(response.tableDescription().tableName());
         } catch (DynamoDBException e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");

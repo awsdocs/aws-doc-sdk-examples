@@ -49,7 +49,7 @@ public class GetAcl
                         grant.permission());
             }
         } catch (S3Exception e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.exit(1);
         }
     }
@@ -75,7 +75,7 @@ public class GetAcl
                         grant.permission());
             }
         } catch (S3Exception e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.exit(1);
         }
     }
