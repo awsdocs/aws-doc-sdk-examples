@@ -1,57 +1,56 @@
-# Contributing Guidelines
+# Guidelines for contributing
 
-Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional 
-documentation, we greatly value feedback and contributions from our community.
+Thank you for your interest in contributing to AWS documentation! We greatly value feedback and contributions from our community.
 
-Please read through this document before submitting any issues or pull requests to ensure we have all the necessary 
-information to effectively respond to your bug report or contribution.
+Please read through this document before you submit any pull requests or issues. It will help us work together more effectively.
 
+## What to expect when you contribute
 
-## Reporting Bugs/Feature Requests
+When you submit a pull request, our team is notified and will respond as quickly as we can. We'll do our best to work with you to ensure that your pull request adheres to our style and standards. If we merge your pull request, we might make additional edits later for style or clarity.
 
-We welcome you to use the GitHub issue tracker to report bugs or suggest features.
+The AWS documentation source files on GitHub aren't published directly to the official documentation website. If we merge your pull request, we'll publish your changes to the documentation website as soon as we can, but they won't appear immediately or automatically.
 
-When filing an issue, please check [existing open](https://github.com/awsdocs/aws-doc-sdk-examples/issues), or [recently closed](https://github.com/awsdocs/aws-doc-sdk-examplese/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aclosed%20), issues to make sure somebody else hasn't already 
-reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
+We look forward to receiving your pull requests for:
 
-* A reproducible test case or series of steps
-* The version of our code being used
-* Any modifications you've made relevant to the bug
-* Anything unusual about your environment or deployment
+* New content you'd like to contribute (such as new code samples or tutorials)
+* Inaccuracies in the content
+* Information gaps in the content that need more detail to be complete
+* Typos or grammatical errors
+* Suggested rewrites that improve clarity and reduce confusion
 
+**Note:** We all write differently, and you might not like how we've written or organized something currently. We want that feedback. But please be sure that your request for a rewrite is supported by the previous criteria. If it isn't, we might decline to merge it.
 
-## Contributing via Pull Requests
-Contributions via pull requests are much appreciated. Before sending us a pull request, please ensure that:
+## How to contribute
 
-1. You are working against the latest source on the *master* branch.
-2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
-3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
+To contribute, send us a pull request. For small changes, such as fixing a typo or adding a link, you can use the [GitHub Edit Button](https://blog.github.com/2011-04-26-forking-with-the-edit-button/). For larger changes:
 
-To send us a pull request, please:
+1. [Fork the repository](https://help.github.com/articles/fork-a-repo/).
+2. In your fork, make your change in a branch that's based on this repo's **master** branch.
+3. Commit the change to your fork, using a clear and descriptive commit message.
+4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/), answering any questions in the pull request form.
 
-1. Fork the repository.
-2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
-3. Ensure local tests pass.
-4. Commit to your fork using clear commit messages.
-5. Send us a pull request, answering any default questions in the pull request interface.
-6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
+Before you send us a pull request, please be sure that:
 
-GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and 
-[creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+1. You're working from the latest source on the **master** branch.
+2. You check [existing open](https://github.com/awsdocs/aws-doc-sdk-examples/pulls), and [recently closed](https://github.com/awsdocs/aws-doc-sdk-examples/pulls?q=is%3Apr+is%3Aclosed), pull requests to be sure that someone else hasn't already addressed the problem.
+3. You [create an issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new) before working on a contribution that will take a significant amount of your time.
 
+For contributions that will take a significant amount of time, [open a new issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new) to pitch your idea before you get started. Explain the problem and describe the content you want to see added to the documentation. Let us know if you'll write it yourself or if you'd like us to help. We'll discuss your proposal with you and let you know whether we're likely to accept it. We don't want you to spend a lot of time on a contribution that might be outside the scope of the documentation or that's already in the works.
 
 ## Finding contributions to work on
-Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels ((enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any ['help wanted'](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) issues is a great place to start. 
 
+If you'd like to contribute, but don't have a project in mind, look at the [open issues](https://github.com/awsdocs/aws-doc-sdk-examples/issues) in this repository for some ideas. Any issues with the [help wanted](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) or [enhancement](https://github.com/awsdocs/aws-doc-sdk-examples/labels/enhancement) labels are a great place to start.
 
-## Code of Conduct
-This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct). 
-For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact 
-opensource-codeofconduct@amazon.com with any additional questions or comments.
+In addition to written content, we really appreciate new examples and code samples for our documentation, such as examples for different platforms or environments, and code samples in additional languages.
 
+## Code of conduct
+
+This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct). For more information, see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact [opensource-codeofconduct@amazon.com](mailto:opensource-codeofconduct@amazon.com) with any additional questions or comments.
+
+## Security issue notifications
+
+If you discover a potential security issue, please notify AWS Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public issue on GitHub.
 
 ## Licensing
 
-See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/LICENSE) file for our project's licensing. We will ask you confirm the licensing of your contribution.
-
-We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
+See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/LICENSE) file for this project's licensing. We will ask you to confirm the licensing of your contribution. We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
