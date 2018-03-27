@@ -52,7 +52,7 @@ func main() {
     })
     if err != nil {
         if aerr, ok := err.(awserr.Error); ok && aerr.Code() == "InvalidAllocationID.NotFound" {
-            exitErrorf("Allocation ID %s does not exist", allocaitonID)
+            exitErrorf("Allocation ID %s does not exist", allocationID)
         }
         exitErrorf("Unable to release IP address for allocation %s, %v",
             allocationID, err)
