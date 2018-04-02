@@ -67,7 +67,7 @@ public class S3ObjectOperations {
         		.maxKeys(2)
         		.build();
         
-        ListObjectsV2Paginator listRes = s3.listObjectsV2Iterable(listReq);
+        ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
         // Dealing with ListObjectsV2Response pages
         listRes.stream()
                  .flatMap(r -> r.contents().stream())
