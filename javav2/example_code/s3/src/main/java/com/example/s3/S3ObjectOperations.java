@@ -31,10 +31,11 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
-import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Paginator;
+import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.StreamingResponseHandler;
 
@@ -60,11 +61,35 @@ public class S3ObjectOperations {
         // Multipart Upload a file
         String multipartKey = "multiPartKey";
         multipartUpload(bucket, multipartKey);
-        
+
         // List all objects in bucket 
+
+        // Use manual pagination
+        ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
+        		.bucket(bucket)
+        		.maxKeys(1)
+        		.build();
+        
+        boolean done = false;
+        while (!done) {
+        	ListObjectsV2Response listObjResponse = s3.listObjectsV2(listObjectsReqManual);
+        	for (S3Object content : listObjResponse.contents()) {
+        		System.out.println(content.key());
+        	}
+
+            if (listObjResponse.nextContinuationToken() == null) {
+                done = true;
+            }
+
+            listObjectsReqManual = listObjectsReqManual.toBuilder()
+            		.continuationToken(listObjResponse.nextContinuationToken())
+            		.build();
+        }
+        
+        // Use auto pagination
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
         		.bucket(bucket)
-        		.maxKeys(2)
+        		.maxKeys(1)
         		.build();
         
         ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
@@ -84,7 +109,7 @@ public class S3ObjectOperations {
 
         // Get Object
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
-                     StreamingResponseHandler.toFile(Paths.get("myfile.out")));
+                     StreamingResponseHandler.toFile(Paths.get("multiPartKey")));
 
         // Delete Object
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();

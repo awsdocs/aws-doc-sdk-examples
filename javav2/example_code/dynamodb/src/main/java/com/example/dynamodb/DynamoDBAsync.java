@@ -23,22 +23,24 @@ import java.util.concurrent.CompletableFuture;
 
 public class DynamoDBAsync {
 
-    public static void main(String[] args) {
-    	// Creates a default async client with credentials and regions loaded from the environment
-    	DynamoDBAsyncClient client = DynamoDBAsyncClient.create();
-    	CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
-    	                                                                                    .limit(5)
-    	                                                                                    .build());
-    	// Map the response to another CompletableFuture containing just the table names
-    	CompletableFuture<List<String>> tableNames = response.thenApply(ListTablesResponse::tableNames);
-    	// When future is complete (either successfully or in error) handle the response
-    	tableNames.whenComplete((tables, err) -> {
-    	    if (tables != null) {
-    	        tables.forEach(System.out::println);
-    	    } else {
-    	        // Handle error
-    	        err.printStackTrace();
-    	    }
-    	});
+    public static void main(String[] args) throws InterruptedException {
+        // Creates a default async client with credentials and regions loaded from the environment
+        DynamoDBAsyncClient client = DynamoDBAsyncClient.create();
+        CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
+                                                                                            .limit(5)
+                                                                                            .build());
+        // Map the response to another CompletableFuture containing just the table names
+        CompletableFuture<List<String>> tableNames = response.thenApply(ListTablesResponse::tableNames);
+        // When future is complete (either successfully or in error) handle the response
+        tableNames.whenComplete((tables, err) -> {
+            if (tables != null) {
+                tables.forEach(System.out::println);
+            } else {
+                // Handle error
+                err.printStackTrace();
+            }
+        });
+        
+        Thread.sleep(3_000);
     }
 }
