@@ -26,6 +26,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDBAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesPublisher;
+import io.reactivex.Flowable;
 
 public class AsyncPagination {
 
@@ -53,11 +54,13 @@ public class AsyncPagination {
         case "auto": 
             AutoPagination();
             AutoPaginationOnCollection();
+            useThirdPartySubscriber();
             break;
         default: 
             ManualPagination();
             AutoPagination();
             AutoPaginationOnCollection();
+            useThirdPartySubscriber();
         }
     }
     
@@ -174,6 +177,21 @@ public class AsyncPagination {
         // As the above code is non-blocking, make sure your application doesn't end immediately
         // For this example, I am using Thread.sleep to wait for all pages to get delivered
         Thread.sleep(3_000);
+    }
+    
+    private static void useThirdPartySubscriber() {
+        System.out.println("running AutoPagination - using third party subscriber...\n");
+
+        DynamoDBAsyncClient asyncClient = DynamoDBAsyncClient.create();
+        ListTablesPublisher publisher = asyncClient.listTablesPaginator(ListTablesRequest.builder()
+                                                                                         .build());
+
+        // The Flowable class has many helper methods that work with any reactive streams compatible publisher implementation
+        List<String> tables = Flowable.fromPublisher(publisher)
+                                      .flatMapIterable(ListTablesResponse::tableNames)
+                                      .toList()
+                                      .blockingGet();
+        System.out.println(tables);
     }
 }
 

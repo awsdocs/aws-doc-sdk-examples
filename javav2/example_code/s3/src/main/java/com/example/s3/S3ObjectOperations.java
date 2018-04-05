@@ -66,31 +66,31 @@ public class S3ObjectOperations {
 
         // Use manual pagination
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
-        		.bucket(bucket)
-        		.maxKeys(1)
-        		.build();
+                .bucket(bucket)
+                .maxKeys(1)
+                .build();
         
         boolean done = false;
         while (!done) {
-        	ListObjectsV2Response listObjResponse = s3.listObjectsV2(listObjectsReqManual);
-        	for (S3Object content : listObjResponse.contents()) {
-        		System.out.println(content.key());
-        	}
+            ListObjectsV2Response listObjResponse = s3.listObjectsV2(listObjectsReqManual);
+            for (S3Object content : listObjResponse.contents()) {
+                System.out.println(content.key());
+            }
 
             if (listObjResponse.nextContinuationToken() == null) {
                 done = true;
             }
 
             listObjectsReqManual = listObjectsReqManual.toBuilder()
-            		.continuationToken(listObjResponse.nextContinuationToken())
-            		.build();
+                    .continuationToken(listObjResponse.nextContinuationToken())
+                    .build();
         }
         
         // Use auto pagination
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
-        		.bucket(bucket)
-        		.maxKeys(1)
-        		.build();
+                .bucket(bucket)
+                .maxKeys(1)
+                .build();
         
         ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
         // Dealing with ListObjectsV2Response pages
