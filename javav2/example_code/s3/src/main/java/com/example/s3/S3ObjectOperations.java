@@ -86,14 +86,14 @@ public class S3ObjectOperations {
                     .build();
         }
         
-        // Use auto pagination
+        // Build the list ojbects request
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
                 .build();
         
         ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
-        // Dealing with ListObjectsV2Response pages
+        // Process response pages
         listRes.stream()
                  .flatMap(r -> r.contents().stream())
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
@@ -102,7 +102,7 @@ public class S3ObjectOperations {
         listRes.contents().stream()
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
-        // Don't want to use fancy stream. Use simple for loop
+        // Use simple for loop if stream is not necessary 
         for (S3Object content : listRes.contents()) {
             System.out.println(" Key: " + content.key() + " size = " + content.size());
         }

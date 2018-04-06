@@ -95,7 +95,7 @@ public class AsyncPagination {
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(listTablesRequest);
 
-        //use a for-loop for simple use cases
+        // Use a for-loop for simple use cases
         CompletableFuture<Void> future = publisher.forEach(response -> response.tableNames()
                                                                                .forEach(System.out::println));
         
@@ -110,7 +110,7 @@ public class AsyncPagination {
             @Override
             public void onSubscribe(Subscription s) {
                 subscription = s;
-                // request method should be called to demand data. Here we request a single page
+                // Request method should be called to demand data. Here we request a single page
                 subscription.request(1);
             }
 
@@ -123,7 +123,7 @@ public class AsyncPagination {
 
             @Override
             public void onError(Throwable t) {
-                // called when an error has occurred while processing the requests
+                // Called when an error has occurred while processing the requests
             }
 
             @Override
