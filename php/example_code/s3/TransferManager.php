@@ -55,7 +55,7 @@ $manager = new \Aws\S3\Transfer($client, $source, $dest);
 
 //toggle to transfer asynchronously 
 if (async) {
-	// Initiate the transfer and get a promise
+    // Initiate the transfer and get a promise
     $promise = $manager->promise();
 
     // Do something when the transfer is complete using the then() method
@@ -64,6 +64,7 @@ if (async) {
     });
 }
 else {
-	// Perform the transfer synchronously
-    $manager->transfer();	
+    // Perform the transfer synchronously
+    $manager->transfer();
+
 }
