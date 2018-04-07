@@ -42,7 +42,7 @@ public class AllocateAddress
         EC2Client ec2 = EC2Client.create();
 
         AllocateAddressRequest allocate_request = AllocateAddressRequest.builder()
-            .domain(DomainType.Vpc)
+            .domain(DomainType.VPC)
             .build();
 
         AllocateAddressResponse allocate_response =

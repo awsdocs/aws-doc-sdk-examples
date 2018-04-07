@@ -88,7 +88,7 @@ public class CreateTableCompositeKey
         try {
             CreateTableResponse result = ddb.createTable(request);
         } catch (DynamoDBException e) {
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");

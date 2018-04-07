@@ -30,7 +30,6 @@ begin
   })
 
   puts 'Email sent to ' + email_address
-end
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error

@@ -9,3 +9,7 @@ launch.json
 .project
 .settings
 Gemfile
+Gemfile.lock
+.gitignore
+.metadata
+.recommenders

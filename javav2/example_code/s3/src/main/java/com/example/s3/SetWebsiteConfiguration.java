@@ -51,7 +51,7 @@ public class SetWebsiteConfiguration
             System.out.format(
                 "Failed to set website configuration for bucket '%s'!\n",
                 bucket_name);
-            System.err.println(e.getErrorMessage());
+            System.err.println(e.errorMessage());
             System.exit(1);
         }
     }

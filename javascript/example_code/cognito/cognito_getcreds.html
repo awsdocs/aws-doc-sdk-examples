@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Amazon Cognito Credenials Example</title>
+<meta charset="utf-8">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.213.1.min.js"></script>
+
+</head>
+
+<body>
+    <div id="results">data</div>
+	<script type="application/javascript">
+		// Initialize the Amazon Cognito credentials provider
+		AWS.config.region = 'REGION'; // Region
+		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+			IdentityPoolId: 'IDENTITY_POOL_ID',
+		});
+		
+
+var getIdParams = {
+IdentityPoolId: 'IDENTITY_POOL_ID',
+AccountId: 'AWS_ACCOUNT_ID'
+};
+
+var cognitoidentity = new AWS.CognitoIdentity({apiVersion: '2014-06-30'});
+
+cognitoidentity.getId(getIdParams, function(err, data) {
+  if (err) {
+    results.innerHTML = "Error" + err;
+  } else {
+	results.innerHTML =  "Cognito Identity ID is " + data.IdentityId; 
+  }
+});   
+	</script>
+</body>
+</html>

@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
+ * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/getting-started/basic-usage.html
  *
  */

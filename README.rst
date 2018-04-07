@@ -28,23 +28,15 @@ Building and running examples
 Within each of the language-scoped directories, you'll find a **README** file that explains how to
 build and run the examples contained within it.
 
-The example code itself is present in the ``example_code`` subdirectory, and is organized further by
+The example code itself is is organized by
 the AWS service abbreviation ("s3" for `Amazon S3 <https://aws.amazon.com/s3>`_ examples, and so on).
 
 
 How examples are used in the documentation
 ==========================================
 
-Examples are automatically included within each developer guide by ``build_docs.py`` (present in
-each documentation project), which clones this repository and then copies files from the appropriate
-``example_code`` directory into the ``doc_build`` directory prior to building.
-
-Within a guide's source-files, examples are referenced using Sphinx's `literalinclude
-<http://www.sphinx-doc.org/en/stable/markup/code.html#includes>`_ directive. For example::
-
-   .. literalinclude:: example_code/s3/src/main/java/aws/example/s3/CreateBucket.java
-      :lines: 43-50
-      :dedent: 8
+Examples are written for either execution in a browser script or in Node.js, usually depending on the use case for each. The two scenarios typically differ in how you supply credentials to the code. These differences are described in the Developer
+Guide at <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html>`_
 
 
 Submitting code for use in AWS documentation
