@@ -30,6 +30,7 @@ use Aws\S3\S3Client;
 
 //Create a S3Client
 $s3Client = new S3Client([
+    'profile' => 'default',
     'region' => 'us-east-2',
     'version' => 'latest'
 ]);

@@ -47,6 +47,7 @@ $key = basename($argv[2]);
 try{
     //Create a S3Client
     $s3Client = new S3Client([
+        'profile' => 'default',
         'region' => 'us-west-2',
         'version' => '2006-03-01'
     ]);
