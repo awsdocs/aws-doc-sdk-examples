@@ -24,6 +24,7 @@ use Aws\Exception\AwsException;
 
 // Create an S3 client
 $client = new \Aws\S3\S3Client([
+    'profile' => 'default',
     'region'  => 'us-west-2',
     'version' => '2006-03-01',
 ]);
