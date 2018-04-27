@@ -20,6 +20,7 @@ import (
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 
     "fmt"
+    "os"
 )
 
 func main() {
@@ -29,9 +30,9 @@ func main() {
     }
 
     metric := os.Args[1]
-    dimensions := os.Args[3]
+    dimension := os.Args[3]
     namespace := os.Args[2]
-    
+
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
     // and configuration from the shared configuration file ~/.aws/config.
@@ -51,8 +52,8 @@ func main() {
                 Value:      aws.Float64(1.0),
                 Dimensions: []*cloudwatch.Dimension{
                     &cloudwatch.Dimension{
-                        Name:  aws.String(dimension),
-                        Value: aws.String(value),
+                        Name:  aws.String("dimension"),
+                        Value: aws.String(dimension),
                     },
                 },
             },
