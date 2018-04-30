@@ -24,6 +24,19 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>bom</artifactId>
+      <version>2.0.0-preview-9</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -39,7 +52,12 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>dynamodb</artifactId>
-      <version>2.0.0-preview-5</version>
     </dependency>
+    <!-- third party subscriber implementation for reactive streams -->
+    <dependency>
+       <groupId>io.reactivex.rxjava2</groupId>
+       <artifactId>rxjava</artifactId>
+       <version>2.1.9</version>
+   </dependency>
   </dependencies>
 </project>

@@ -69,31 +69,31 @@ public class WorkflowWorker {
         for (HistoryEvent event : events) {
             System.out.println("  " + event);
             switch(event.eventType()) {
-                case "WorkflowExecutionStarted":
+                case WORKFLOW_EXECUTION_STARTED:
                     workflow_input =
                         event.workflowExecutionStartedEventAttributes()
                              .input();
                     break;
-                case "ActivityTaskScheduled":
+                case ACTIVITY_TASK_SCHEDULED:
                     scheduled_activities++;
                     break;
-                case "ScheduleActivityTaskFailed":
+                case SCHEDULE_ACTIVITY_TASK_FAILED:
                     scheduled_activities--;
                     break;
-                case "ActivityTaskStarted":
+                case ACTIVITY_TASK_STARTED:
                     scheduled_activities--;
                     open_activities++;
                     break;
-                case "ActivityTaskCompleted":
+                case ACTIVITY_TASK_COMPLETED:
                     open_activities--;
                     activity_completed = true;
                     result = event.activityTaskCompletedEventAttributes()
                                   .result();
                     break;
-                case "ActivityTaskFailed":
+                case ACTIVITY_TASK_FAILED:
                     open_activities--;
                     break;
-                case "ActivityTaskTimedOut":
+                case ACTIVITY_TASK_TIMED_OUT:
                     open_activities--;
                     break;
             }
@@ -103,7 +103,7 @@ public class WorkflowWorker {
         if (activity_completed) {
             decisions.add(
                 Decision.builder()
-                    .decisionType(DecisionType.CompleteWorkflowExecution)
+                    .decisionType(DecisionType.COMPLETE_WORKFLOW_EXECUTION)
                     .completeWorkflowExecutionDecisionAttributes(
                         CompleteWorkflowExecutionDecisionAttributes.builder()
                             .result(result)
@@ -124,7 +124,7 @@ public class WorkflowWorker {
 
                 decisions.add(
                         Decision.builder()
-                            .decisionType(DecisionType.ScheduleActivityTask)
+                            .decisionType(DecisionType.SCHEDULE_ACTIVITY_TASK)
                             .scheduleActivityTaskDecisionAttributes(attrs).build());
             } else {
                 // an instance of HelloActivity is already scheduled or running. Do nothing, another

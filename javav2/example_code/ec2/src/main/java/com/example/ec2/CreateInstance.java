@@ -13,9 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import java.net.URI;
 
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.EC2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
@@ -47,7 +45,7 @@ public class CreateInstance
 
         RunInstancesRequest run_request = RunInstancesRequest.builder()
             .imageId(ami_id)
-            .instanceType(InstanceType.T1Micro)
+            .instanceType(InstanceType.T1_MICRO)
             .maxCount(1)
             .minCount(1)
             .build();
@@ -73,7 +71,7 @@ public class CreateInstance
                 instance_id, ami_id);
         }
         catch (EC2Exception e) {
-        	System.err.println(e.getErrorMessage());
+        	System.err.println(e.errorMessage());
         	System.exit(1);
         }
         System.out.println("Done!");

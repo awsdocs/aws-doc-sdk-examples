@@ -11,6 +11,10 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
+ *
+ * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/examples/s3-examples-configuring-a-bucket.html
+ *
  */
 require 'vendor/autoload.php';
 
@@ -27,6 +31,7 @@ use Aws\Exception\AwsException;
 $bucketName = 'BUCKET_NAME';
 
 $client = new S3Client([
+    'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2006-03-01'
 ]);

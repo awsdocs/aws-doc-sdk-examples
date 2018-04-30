@@ -103,7 +103,7 @@ public class VisibilityTimeout
         try {
             CreateQueueResponse cq_result = sqs.createQueue(createRequest);
         } catch (SQSException e) {
-            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+            if (!e.errorCode().equals("QueueAlreadyExists")) {
                 throw e;
             }
         }

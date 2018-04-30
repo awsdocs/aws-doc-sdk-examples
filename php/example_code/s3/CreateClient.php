@@ -11,6 +11,10 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
+ *
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/getting-started/basic-usage.html
+ *
  */
 
 require 'vendor/autoload.php';
@@ -27,6 +31,7 @@ use Aws\S3\S3Client;
 
 //Create a S3Client
 $s3 = new Aws\S3\S3Client([
+    'profile' => 'default',
     'version' => 'latest',
     'region'  => 'us-east-1'
 ]);

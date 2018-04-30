@@ -41,7 +41,7 @@ public class SendReceiveMessages
         			.build();
             CreateQueueResponse create_result = sqs.createQueue(request);
         } catch (SQSException e) {
-            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
+            if (!e.errorCode().equals("QueueAlreadyExists")) {
                 throw e;
             }
         }

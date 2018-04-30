@@ -27,6 +27,7 @@ use Aws\Exception\AwsException;
 $bucketName = 'BUCKET_NAME';
 
 $client = new S3Client([
+    'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2006-03-01'
 ]);
