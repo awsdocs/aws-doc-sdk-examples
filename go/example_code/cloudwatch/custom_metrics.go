@@ -23,15 +23,6 @@ import (
 )
 
 func main() {
-    if len(os.Args) != 4 {
-        fmt.Println("You must supply a metric name, dimension, value, and namespace")
-        os.Exit(1)
-    }
-
-    metric := os.Args[1]
-    dimensions := os.Args[3]
-    namespace := os.Args[2]
-    
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
     // and configuration from the shared configuration file ~/.aws/config.
@@ -42,27 +33,64 @@ func main() {
     // Create new cloudwatch client.
     svc := cloudwatch.New(sess)
 
-    // This will disable the alarm.
-    result, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
+    _, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
+        Namespace: aws.String("Site/Traffic"),
         MetricData: []*cloudwatch.MetricDatum{
             &cloudwatch.MetricDatum{
-                MetricName: aws.String(metric),
-                Unit:       aws.String(cloudwatch.StandardUnitNone),
-                Value:      aws.Float64(1.0),
+                MetricName: aws.String("UniqueVisitors"),
+                Unit:       aws.String("Count"),
+                Value:      aws.Float64(5885.0),
                 Dimensions: []*cloudwatch.Dimension{
                     &cloudwatch.Dimension{
-                        Name:  aws.String(dimension),
-                        Value: aws.String(value),
+                        Name:  aws.String("SiteName"),
+                        Value: aws.String("example.com"),
+                    },
+                },
+            },
+            &cloudwatch.MetricDatum{
+                MetricName: aws.String("UniqueVisits"),
+                Unit:       aws.String("Count"),
+                Value:      aws.Float64(8628.0),
+                Dimensions: []*cloudwatch.Dimension{
+                    &cloudwatch.Dimension{
+                        Name:  aws.String("SiteName"),
+                        Value: aws.String("example.com"),
+                    },
+                },
+            },
+            &cloudwatch.MetricDatum{
+                MetricName: aws.String("PageViews"),
+                Unit:       aws.String("Count"),
+                Value:      aws.Float64(18057.0),
+                Dimensions: []*cloudwatch.Dimension{
+                    &cloudwatch.Dimension{
+                        Name:  aws.String("PageURL"),
+                        Value: aws.String("my-page.html"),
                     },
                 },
             },
         },
-        Namespace: aws.String(namespace),
     })
     if err != nil {
-        fmt.Println("Error", err)
+        fmt.Println("Error adding metrics:", err.Error())
         return
     }
 
-    fmt.Println("Success", result)
+    // Get information about metrics
+    result, err := svc.ListMetrics(&cloudwatch.ListMetricsInput{
+        Namespace: aws.String("Site/Traffic"),
+    })
+    if err != nil {
+        fmt.Println("Error getting metrics:", err.Error())
+        return
+    }
+
+    for _, metric := range result.Metrics {
+        fmt.Println(*metric.MetricName)
+
+        for _, dim := range metric.Dimensions {
+            fmt.Println(*dim.Name + ":", *dim.Value)
+            fmt.Println()
+        }
+    }
 }
