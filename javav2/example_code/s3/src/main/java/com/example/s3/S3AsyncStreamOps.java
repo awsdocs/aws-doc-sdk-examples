@@ -14,7 +14,7 @@
  */
 package com.example.s3;
 
-import software.amazon.awssdk.core.async.AsyncResponseHandler;
+import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -35,7 +35,7 @@ public class S3AsyncStreamOps {
                                 .bucket(BUCKET)
                                 .key(KEY)
                                 .build(),
-                AsyncResponseHandler.toFile(Paths.get("myfile.out")));
+                AsyncResponseTransformer.toFile(Paths.get("myfile.out")));
       futureGet.whenComplete((resp, err) -> {
             try {
                 if (resp != null) {

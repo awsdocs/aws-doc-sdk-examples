@@ -25,7 +25,7 @@ import software.amazon.awssdk.services.sqs.model.SetQueueAttributesResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SQSClient;
 
 public class DeadLetterQueues

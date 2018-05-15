@@ -25,6 +25,19 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencyManagement>
+   <dependencies>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>bom</artifactId>
+      <version>2.0.0-preview-10-SNAPSHOT</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+   </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -35,7 +48,6 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>s3</artifactId>
-      <version>2.0.0-preview-9</version>
     </dependency>
   </dependencies>
 </project>
