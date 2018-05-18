@@ -133,7 +133,7 @@ var params = {
         "DeblockFilter": "DISABLED",
         "DenoiseFilter": "DISABLED",
         "TimecodeSource": "EMBEDDED",
-        "FileInput": "S3://INPUT_BUCKET_AND_FILE_NAME"
+        "FileInput": "s3://INPUT_BUCKET_AND_FILE_NAME"
       }
     ],
     "TimecodeConfig": {
