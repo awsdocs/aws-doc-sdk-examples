@@ -51,7 +51,7 @@ public class CreateInstance
 
         RunInstancesResult run_response = ec2.runInstances(run_request);
 
-        String instance_id = run_response.getReservation().getReservationId();
+        String reservation_id = run_response.getReservation().getReservationId();
 
         Tag tag = new Tag()
             .withKey("Name")
@@ -64,7 +64,7 @@ public class CreateInstance
 
         System.out.printf(
             "Successfully started EC2 instance %s based on AMI %s",
-            instance_id, ami_id);
+            reservation_id, ami_id);
     }
 }
 
