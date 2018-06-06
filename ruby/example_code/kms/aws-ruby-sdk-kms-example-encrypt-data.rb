@@ -12,7 +12,7 @@
 
 require 'aws-sdk-kms'  # v2: require 'aws-sdk'
 
-# Encrypt data key
+# ARN of the customer master key (CMK).
 #
 # Replace the fictitious key ARN with a valid key ID
 
