@@ -5,6 +5,7 @@ project(dynamodb-examples)
 find_package(aws-sdk-cpp)
 
 set(EXAMPLES "")
+list(APPEND EXAMPLES "batch_get_item")
 list(APPEND EXAMPLES "create_table")
 list(APPEND EXAMPLES "create_table_composite_key")
 list(APPEND EXAMPLES "delete_item")

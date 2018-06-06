@@ -40,7 +40,7 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Found",len(resp.TrailList),"trail(s) in", regionName)
+    fmt.Println("Found",len(resp.TrailList),"trail(s) in", "us-west-2")
     fmt.Println("")
 
     for _, trail := range resp.TrailList {
