@@ -43,7 +43,7 @@ try {
                        ]);
     // output AssumedRole credentials, you can use these credentials
     // to initiate a new AWS Service client with the IAM Role's permissions
-    var_dump($result[Credentials);
+    var_dump($result[Credentials]);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
