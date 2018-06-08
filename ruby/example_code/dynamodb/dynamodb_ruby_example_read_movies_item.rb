@@ -23,8 +23,8 @@ key = {
 params = {
     table_name: 'Movies',
     key: {
-        year: year,
-        title: title
+        year: key[:year],
+        title: key[:title]
     }
 }
 
