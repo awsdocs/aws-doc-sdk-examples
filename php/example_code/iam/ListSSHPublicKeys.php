@@ -21,7 +21,7 @@ use Aws\Exception\AwsException;
  * Returns information about the SSH public keys associated with the specified IAM user
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $client = new IamClient([

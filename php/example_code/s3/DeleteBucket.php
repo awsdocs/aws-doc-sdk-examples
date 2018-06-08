@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * Delete an Amazon S3 bucket.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  *
  * ++ Warning ++ This code will actually delete the bucket that you specify, as
  *               well as any objects within it!
