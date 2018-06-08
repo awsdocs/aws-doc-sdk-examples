@@ -12,35 +12,25 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-working-with-certs.html
- *
  */
+
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
-use Aws\Exception\AwsException;
+use Aws\MediaConvert\MediaConvertClient;
+
 
 /**
- * Get server certificate
+ * Creating an Amazon Elemental MediaConvert Client.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-$client = new IamClient([
+//Create a MediaConvert Client
+$client = new Aws\MediaConvert\MediaConvertClient([
     'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2010-05-08'
+    'version' => '2017-08-29',
+    'region'  => 'us-east-1'
 ]);
 
-try {
-    $result = $client->getServerCertificate(array(
-        // ServerCertificateName is required
-        'ServerCertificateName' => 'string',
-    ));
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
-}
+var_dump($client);

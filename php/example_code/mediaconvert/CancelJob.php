@@ -12,35 +12,36 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-working-with-certs.html
+ * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/emc-examples-jobs.html
  *
  */
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
+use Aws\MediaConvert\MediaConvertClient;
 use Aws\Exception\AwsException;
 
 /**
- * Get server certificate
+ * Cancel a Job for AWS Elemental MediaConvert.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-$client = new IamClient([
+//Create an AWSMediaConvert client object with your account specific endpoint. 
+$mediaConvertClient = new MediaConvertClient([
+    'version' => '2017-08-29',
+    'region'  => 'us-east-1',
     'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2010-05-08'
-]);
+    'endpoint' => 'ACCOUNT_ENDPOINT'
+]); 
 
 try {
-    $result = $client->getServerCertificate(array(
-        // ServerCertificateName is required
-        'ServerCertificateName' => 'string',
-    ));
-    var_dump($result);
-} catch (AwsException $e) {
+    $result = $mediaConvertClient -> cancelJob([
+       'Id' => 'JOB_ID', // REQUIRED The Job ID of the job to be cancelled.
+   ]);    
+}catch (AwsException $e) {
     // output error message if fails
-    error_log($e->getMessage());
+    echo $e->getMessage();
+    echo "\n";
 }
