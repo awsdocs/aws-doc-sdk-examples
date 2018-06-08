@@ -25,7 +25,7 @@ use Aws\S3\S3Client;
  * Working with Result objects.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 // Use the us-east-2 region and latest version of each client.

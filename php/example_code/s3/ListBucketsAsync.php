@@ -25,7 +25,7 @@ use Aws\S3\S3Client;
  * List your Amazon S3 buckets. Asynchronous Requests
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 //Create a S3Client
