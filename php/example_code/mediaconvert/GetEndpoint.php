@@ -43,8 +43,8 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-$single_endpoint_url = $result['Endpoints'][0]['Url'];
 
+$single_endpoint_url = $result['Endpoints'][0]['Url'];
 
 print("Your endpoint is " . $single_endpoint_url);
 
