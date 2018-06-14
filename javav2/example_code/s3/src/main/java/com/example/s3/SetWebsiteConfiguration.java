@@ -19,7 +19,7 @@ import software.amazon.awssdk.services.s3.model.IndexDocument;
 import software.amazon.awssdk.services.s3.model.PutBucketWebsiteRequest;
 import software.amazon.awssdk.services.s3.model.WebsiteConfiguration;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 
 /**
  * Set the website configuration for an S3 bucket.

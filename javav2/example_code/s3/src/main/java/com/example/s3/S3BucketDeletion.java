@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.util.Random;
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
@@ -84,7 +84,7 @@ public class S3BucketDeletion {
         for (int i = 0; i < 5; i++) {
             try {
                 s3.putObject(PutObjectRequest.builder().bucket(bucket).key("key" + i).build(),
-                             RequestBody.of(getRandomByteBuffer(10_000)));
+                             RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }

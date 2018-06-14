@@ -25,6 +25,7 @@
       </plugin>
     </plugins>
   </build>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -35,7 +36,7 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>workdocs</artifactId>
-      <version>2.0.0-preview-9</version>
+      <version>2.0.0-preview-10</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
