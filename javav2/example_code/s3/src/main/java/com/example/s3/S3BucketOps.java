@@ -44,7 +44,7 @@ public class S3BucketOps {
         // List buckets
         ListBucketsRequest listBucketsRequest = ListBucketsRequest.builder().build();
         ListBucketsResponse listBucketsResponse = s3.listBuckets(listBucketsRequest);
-	    listBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
+        listBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
 	    
         // Delete empty bucket
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
