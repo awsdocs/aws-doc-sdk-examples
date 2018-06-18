@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.ListServerCertificatesRequest;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesResponse;
 import software.amazon.awssdk.services.iam.model.ServerCertificateMetadata;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**

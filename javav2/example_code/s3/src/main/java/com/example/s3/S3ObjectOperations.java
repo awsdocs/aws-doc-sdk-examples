@@ -86,7 +86,7 @@ public class S3ObjectOperations {
                     .build();
         }
         
-        // Build the list ojbects request
+        // Build the list objects request
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
