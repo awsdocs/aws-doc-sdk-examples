@@ -16,7 +16,7 @@ package com.example.iam;
 import software.amazon.awssdk.services.iam.model.GetPolicyRequest;
 import software.amazon.awssdk.services.iam.model.GetPolicyResponse;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**

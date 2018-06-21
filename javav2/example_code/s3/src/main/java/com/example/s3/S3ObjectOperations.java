@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Paths;
 import java.util.Random;
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CompletedMultipartUpload;
@@ -37,7 +37,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.core.sync.StreamingResponseHandler;
+import software.amazon.awssdk.core.sync.ResponseTransformer;
 
 public class S3ObjectOperations {
 
@@ -55,7 +55,7 @@ public class S3ObjectOperations {
         // Put Object
         s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
                                      .build(),
-                     RequestBody.of(getRandomByteBuffer(10_000)));
+                     RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
 
 
         // Multipart Upload a file
@@ -86,7 +86,7 @@ public class S3ObjectOperations {
                     .build();
         }
         
-        // Build the list ojbects request
+        // Build the list objects request
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
@@ -109,7 +109,7 @@ public class S3ObjectOperations {
 
         // Get Object
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
-                     StreamingResponseHandler.toFile(Paths.get("multiPartKey")));
+        		ResponseTransformer.toFile(Paths.get("multiPartKey")));
 
         // Delete Object
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
@@ -159,13 +159,13 @@ public class S3ObjectOperations {
         UploadPartRequest uploadPartRequest1 = UploadPartRequest.builder().bucket(bucketName).key(key)
                                                                 .uploadId(uploadId)
                                                                 .partNumber(1).build();
-        String etag1 = s3.uploadPart(uploadPartRequest1, RequestBody.of(getRandomByteBuffer(5 * MB))).eTag();
+        String etag1 = s3.uploadPart(uploadPartRequest1, RequestBody.fromByteBuffer(getRandomByteBuffer(5 * MB))).eTag();
         CompletedPart part1 = CompletedPart.builder().partNumber(1).eTag(etag1).build();
 
         UploadPartRequest uploadPartRequest2 = UploadPartRequest.builder().bucket(bucketName).key(key)
                                                                 .uploadId(uploadId)
                                                                 .partNumber(2).build();
-        String etag2 = s3.uploadPart(uploadPartRequest2, RequestBody.of(getRandomByteBuffer(3 * MB))).eTag();
+        String etag2 = s3.uploadPart(uploadPartRequest2, RequestBody.fromByteBuffer(getRandomByteBuffer(3 * MB))).eTag();
         CompletedPart part2 = CompletedPart.builder().partNumber(2).eTag(etag2).build();
 
 

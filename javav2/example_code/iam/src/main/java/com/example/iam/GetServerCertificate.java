@@ -15,7 +15,7 @@ package com.example.iam;
 import software.amazon.awssdk.services.iam.model.GetServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.GetServerCertificateResponse;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**

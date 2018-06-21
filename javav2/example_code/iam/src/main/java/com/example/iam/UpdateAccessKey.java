@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.StatusType;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyResponse;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**

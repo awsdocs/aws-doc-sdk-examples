@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.AccessKeyMetadata;
 import software.amazon.awssdk.services.iam.model.ListAccessKeysRequest;
 import software.amazon.awssdk.services.iam.model.ListAccessKeysResponse;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**

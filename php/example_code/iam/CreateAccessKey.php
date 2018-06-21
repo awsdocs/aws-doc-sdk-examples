@@ -36,9 +36,16 @@ $client = new IamClient([
 
 try {
     $result = $client->createAccessKey([
-        'UserName' => 'IAM_USER_NAME',
+        'UserName' => 'AWS_Game',
     ]);
-    var_dump($result);
+    $keyID = $result['AccessKey']['AccessKeyId'];
+    $createDate = $result['AccessKey']['CreateDate'];
+    $userName = $result['AccessKey']['UserName'];
+    $status = $result['AccessKey']['Status'];    
+    // $secretKey = $result['AccessKey']['SecretAccessKey']
+    echo "<p>AccessKey " . $keyID . " created on " . $createDate ."</p>"; 
+    echo "<p>Username: " . $userName ."</p>"; 
+    echo "<p>Status: " . $status ."</p>"; 
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());

@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.ListUsersRequest;
 import software.amazon.awssdk.services.iam.model.ListUsersResponse;
 import software.amazon.awssdk.services.iam.model.User;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**
