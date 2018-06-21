@@ -26,7 +26,7 @@ use Aws\Exception\AwsException;
  * Create an Amazon S3 bucket.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v2/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $BUCKET_NAME='<BUCKET-NAME>';
