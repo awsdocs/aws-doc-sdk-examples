@@ -36,7 +36,7 @@ $client = new IamClient([
 
 try {
     $result = $client->createAccessKey([
-        'UserName' => 'AWS_Game',
+        'UserName' => 'IAM_USER_NAME',
     ]);
     $keyID = $result['AccessKey']['AccessKeyId'];
     $createDate = $result['AccessKey']['CreateDate'];
