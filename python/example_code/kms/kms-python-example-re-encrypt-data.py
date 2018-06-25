@@ -26,7 +26,7 @@ client = boto3.client('kms', region_name=region_name)
 
 response = client.re_encrypt(
     CiphertextBlob=blob,
-    DestinationKeyId=destination_key_id,
+    DestinationKeyId=destination_key_id
 )
 
 print('New ciphertext:', response['CiphertextBlob'])

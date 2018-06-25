@@ -27,7 +27,7 @@ text = '1234567890'
 
 response = client.encrypt(
     KeyId=key_id,
-    Plaintext=text,
+    Plaintext=text
 )
 
 print('Encrypted ciphertext:', response['CiphertextBlob'])
