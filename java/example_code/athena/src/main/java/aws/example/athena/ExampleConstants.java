@@ -2,7 +2,7 @@ package aws.example.athena;
 
 public class ExampleConstants {
 
-	public static final int CLIENT_EXECUTION_TIMEOUT = 10;
+	public static final int CLIENT_EXECUTION_TIMEOUT = 100000;
 	public static final String ATHENA_OUTPUT_BUCKET = "s3://my-athena-bucket";
 	// This is querying a table created by the getting started tutorial in Athena
 	public static final String ATHENA_SAMPLE_QUERY = "SELECT elb_name, "
