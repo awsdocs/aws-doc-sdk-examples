@@ -13,6 +13,5 @@ public class ExampleConstants {
 			+ " ORDER BY 2 DESC limit 10;";
 	public static final long SLEEP_AMOUNT_IN_MS = 1000;
 	public static final String ATHENA_DEFAULT_DATABASE = "default";
-	public static final Object QUERY_STATE_CANCELLED = "CANCELLED";
 
 }

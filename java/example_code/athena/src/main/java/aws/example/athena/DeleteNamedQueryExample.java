@@ -31,15 +31,15 @@ public class DeleteNamedQueryExample
     {
         // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
-        AmazonAthena client = factory.createClient();
+        AmazonAthena athenaClient = factory.createClient();
 
-        String sampleNamedQueryId = getNamedQueryId(client);
+        String sampleNamedQueryId = getNamedQueryId(athenaClient);
 
         // Create the delete named query request
         DeleteNamedQueryRequest deleteNamedQueryRequest = new DeleteNamedQueryRequest()
                 .withNamedQueryId(sampleNamedQueryId);
 
         // Delete the named query
-        DeleteNamedQueryResult deleteNamedQueryResult = client.deleteNamedQuery(deleteNamedQueryRequest);
+        DeleteNamedQueryResult deleteNamedQueryResult = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
     }
 }

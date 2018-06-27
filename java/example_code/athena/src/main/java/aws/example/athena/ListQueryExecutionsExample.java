@@ -17,13 +17,13 @@ public class ListQueryExecutionsExample
   {
       // Build an Athena client
       AthenaClientFactory factory = new AthenaClientFactory();
-      AmazonAthena client = factory.createClient();
+      AmazonAthena athenaClient = factory.createClient();
 
       // Build the request
       ListQueryExecutionsRequest listQueryExecutionsRequest = new ListQueryExecutionsRequest();
 
       // Get the list results.
-      ListQueryExecutionsResult listQueryExecutionsResult = client.listQueryExecutions(listQueryExecutionsRequest);
+      ListQueryExecutionsResult listQueryExecutionsResult = athenaClient.listQueryExecutions(listQueryExecutionsRequest);
 
       // Process the results.
       boolean hasMoreResults = true;
@@ -35,7 +35,7 @@ public class ListQueryExecutionsExample
 
           //If nextToken is not null, then there are more results. Get the next page of results.
           if (listQueryExecutionsResult.getNextToken() != null) {
-              listQueryExecutionsResult = client.listQueryExecutions(
+              listQueryExecutionsResult = athenaClient.listQueryExecutions(
                       listQueryExecutionsRequest.withNextToken(listQueryExecutionsResult.getNextToken()));
           }
           else {
