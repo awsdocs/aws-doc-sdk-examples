@@ -23,7 +23,7 @@ sns.publish(params, (err, data) => {
         console.log(err.stack);
         return;
     }
-    console.log(`Message ${params.message} send sent to the topic ${params.topicArn}`);
+    console.log(`Message ${params.message} sent to the topic ${params.topicArn}`);
     console.log(data);
 });
 
