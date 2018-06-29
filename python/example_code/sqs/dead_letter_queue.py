@@ -15,7 +15,6 @@ import json
 
 import boto3
 
-
 # Create SQS client
 sqs = boto3.client('sqs')
 

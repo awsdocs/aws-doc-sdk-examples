@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 
 /**
  * Query a DynamoDB table.

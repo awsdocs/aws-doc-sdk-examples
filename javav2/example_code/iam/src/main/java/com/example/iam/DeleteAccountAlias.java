@@ -16,7 +16,7 @@ package com.example.iam;
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasRequest;
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasResponse;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 
 /**

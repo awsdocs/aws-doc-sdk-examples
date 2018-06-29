@@ -15,16 +15,11 @@ require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
 # Create dynamodb client in us-west-2 region
 dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')
 
-key = {
-    year: 2015,
-    title: 'The Big New Movie'
-}
-
 params = {
     table_name: 'Movies',
     key: {
-        year: year,
-        title: title
+        year: 2015,
+        title: 'The Big New Movie'
     }
 }
 

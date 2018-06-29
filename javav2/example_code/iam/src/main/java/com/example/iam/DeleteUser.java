@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 import software.amazon.awssdk.services.iam.model.DeleteConflictException;
 import software.amazon.awssdk.services.iam.model.DeleteUserRequest;

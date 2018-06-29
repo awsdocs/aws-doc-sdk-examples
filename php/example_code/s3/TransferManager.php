@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- *  https://docs.aws.amazon.com/aws-sdk-php/v3/guide/service/s3-transfer.html
+ *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-transfer.html
  *
  */
 
@@ -24,6 +24,7 @@ use Aws\Exception\AwsException;
 
 // Create an S3 client
 $client = new \Aws\S3\S3Client([
+    'profile' => 'default',
     'region'  => 'us-west-2',
     'version' => '2006-03-01',
 ]);
@@ -55,7 +56,7 @@ $manager = new \Aws\S3\Transfer($client, $source, $dest);
 
 //toggle to transfer asynchronously 
 if (async) {
-	// Initiate the transfer and get a promise
+    // Initiate the transfer and get a promise
     $promise = $manager->promise();
 
     // Do something when the transfer is complete using the then() method
@@ -64,6 +65,7 @@ if (async) {
     });
 }
 else {
-	// Perform the transfer synchronously
-    $manager->transfer();	
+    // Perform the transfer synchronously
+    $manager->transfer();
+
 }

@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/examples/s3-examples-creating-buckets.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
 
@@ -26,7 +26,7 @@ use Aws\Exception\AwsException;
  * Put an Object inside Amazon S3 Bucket.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $USAGE = "\n" .
@@ -47,6 +47,7 @@ $key = basename($argv[2]);
 try{
     //Create a S3Client
     $s3Client = new S3Client([
+        'profile' => 'default',
         'region' => 'us-west-2',
         'version' => '2006-03-01'
     ]);

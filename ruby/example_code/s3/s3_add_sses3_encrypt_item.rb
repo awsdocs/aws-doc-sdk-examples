@@ -12,14 +12,6 @@
 
 require 'aws-sdk-s3' # In v2: require 'aws-sdk'
 
-# Get the key from the command line
-if ARGV.empty?()
-  puts 'You must supply a key'
-  exit 1
-end
-
-key = ARGV[0]
-
 bucket = 'my_bucket'
 item = 'my_item'
 
@@ -34,8 +26,7 @@ client.put_object(
   body: contents,
   bucket: bucket,
   key: item,
-  server_side_encryption: 'aws:kms',
-  ssekms_key_id: key
+  server_side_encryption: 'aws:kms'
 )
 
 puts 'Added item ' + name + ' to bucket ' + bucket

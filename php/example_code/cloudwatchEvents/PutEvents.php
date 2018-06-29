@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/examples/cw-examples-sending-events.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-sending-events.html
  *
  */
 require 'vendor/autoload.php';
@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  * Put Events
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $client = new CloudWatchEventsClient([

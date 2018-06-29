@@ -14,7 +14,7 @@
  */
 package com.example.iam;
 
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IAMClient;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedRequest;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedResponse;

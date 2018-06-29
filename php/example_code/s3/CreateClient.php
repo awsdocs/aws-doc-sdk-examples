@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
 
@@ -26,11 +26,12 @@ use Aws\S3\S3Client;
  * Creating an Amazon S3 client.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 //Create a S3Client
 $s3 = new Aws\S3\S3Client([
+    'profile' => 'default',
     'version' => 'latest',
     'region'  => 'us-east-1'
 ]);

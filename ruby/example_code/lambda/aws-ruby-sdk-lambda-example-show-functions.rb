@@ -14,7 +14,9 @@ require 'aws-sdk-lambda'  # v2: require 'aws-sdk'
 
 client = Aws::Lambda::Client.new(region: 'us-west-2')
 
-client.list_functions.each do |function|
+client.list_functions.functions.each do |function|
   puts 'Name: ' + function.function_name
   puts 'ARN:  ' + function.function_arn
   puts 'Role: ' + function.role
+  puts
+end

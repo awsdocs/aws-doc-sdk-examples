@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/examples/s3-examples-configuring-a-bucket.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-configuring-a-bucket.html
  *
  */
 require 'vendor/autoload.php';
@@ -25,12 +25,13 @@ use Aws\Exception\AwsException;
  * Put bucket cors
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $bucketName = 'BUCKET_NAME';
 
 $client = new S3Client([
+    'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2006-03-01'
 ]);

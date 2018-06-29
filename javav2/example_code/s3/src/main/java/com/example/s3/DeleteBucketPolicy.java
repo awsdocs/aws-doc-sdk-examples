@@ -14,7 +14,7 @@ specific language governing permissions and limitations under the License.
 package com.example.s3;
 
 import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.core.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteBucketPolicyRequest;
 

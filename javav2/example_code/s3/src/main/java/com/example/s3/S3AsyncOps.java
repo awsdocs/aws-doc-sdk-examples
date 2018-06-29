@@ -14,7 +14,7 @@
  */
 package com.example.s3;
 
-import software.amazon.awssdk.core.async.AsyncRequestProvider;
+import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
@@ -35,7 +35,7 @@ public class S3AsyncOps {
                                 .bucket(BUCKET)
                                 .key(KEY)
                                 .build(),
-                AsyncRequestProvider.fromFile(Paths.get("myfile.in"))
+                AsyncRequestBody.fromFile(Paths.get("myfile.in"))
         );
         future.whenComplete((resp, err) -> {
             try {

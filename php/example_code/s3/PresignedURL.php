@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- *  https://docs.aws.amazon.com/aws-sdk-php/v3/guide/service/s3-presigned-url.html
+ *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-presigned-url.html
  *
  */
 
@@ -24,6 +24,7 @@ use Aws\Exception\AwsException;
 
 //Creating a presigned request
 $s3Client = new Aws\S3\S3Client([
+    'profile' => 'default',
     'region'  => 'us-east-1',
     'version' => '2006-03-01',
 ]);

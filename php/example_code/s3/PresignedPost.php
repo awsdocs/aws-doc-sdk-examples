@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- *  https://docs.aws.amazon.com/aws-sdk-php/v3/guide/service/s3-presigned-post.html
+ *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-presigned-post.html
  *
  */
 
@@ -23,6 +23,7 @@ use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 
 $client = new \Aws\S3\S3Client([
+    'profile' => 'default',
     'version' => 'latest',
     'region' => 'us-west-2',
 ]);

@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * Get/Download an Object from Amazon S3.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $USAGE = "\n" .
@@ -42,6 +42,7 @@ $key = $argv[2];
 try{
     //Create a S3Client
     $s3Client = new S3Client([
+        'profile' => 'default',
         'region' => 'us-west-2',
         'version' => '2006-03-01'
     ]);
