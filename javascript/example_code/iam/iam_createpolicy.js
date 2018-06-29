@@ -17,7 +17,7 @@ var myManagedPolicy = {
         {
             "Effect": "Allow",
             "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:us-west-2:617985816162:*"
+            "Resource": "ARN"
         },
         {
             "Effect": "Allow",
@@ -28,7 +28,7 @@ var myManagedPolicy = {
                 "dynamodb:Scan",
                 "dynamodb:UpdateItem"
             ],
-            "Resource": "arn:aws:dynamodb:us-west-2:617985816162:table/*"
+            "Resource": "ARN"
         }
     ]
 };
