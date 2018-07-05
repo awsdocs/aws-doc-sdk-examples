@@ -17,13 +17,13 @@ public class ListNamedQueryExample
     {
         // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
-        AmazonAthena client = factory.createClient();
+        AmazonAthena athenaClient = factory.createClient();
 
         // Build the request
         ListNamedQueriesRequest listNamedQueriesRequest = new ListNamedQueriesRequest();
 
         // Get the list results.
-        ListNamedQueriesResult listNamedQueriesResult = client.listNamedQueries(listNamedQueriesRequest);
+        ListNamedQueriesResult listNamedQueriesResult = athenaClient.listNamedQueries(listNamedQueriesRequest);
 
         // Process the results.
         boolean hasMoreResults = true;
@@ -34,7 +34,7 @@ public class ListNamedQueryExample
             
             // If nextToken is not null,  there are more results. Get the next page of results.
             if (listNamedQueriesResult.getNextToken() != null) {
-                listNamedQueriesResult = client.listNamedQueries(
+                listNamedQueriesResult = athenaClient.listNamedQueries(
                         listNamedQueriesRequest.withNextToken(listNamedQueriesResult.getNextToken()));
             }
             else {

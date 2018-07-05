@@ -26,7 +26,7 @@ namespace AWS.Samples
     public partial class Program
     {
         /**********************************************************
-         * IAM Role: arn:aws:iam::183097958410:role/ec2-sample-role
+         * IAM Role: arn:aws:iam::123456789012:role/ec2-sample-role
          * Based on  AmazonEC2FullAccess Policy shown below.
          *
          * {

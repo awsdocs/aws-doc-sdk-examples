@@ -27,19 +27,19 @@ public class StartQueryExample
   {
       // Build an AmazonAthena client
       AthenaClientFactory factory = new AthenaClientFactory();
-      AmazonAthena client = factory.createClient();
+      AmazonAthena athenaClient = factory.createClient();
 
-      String queryExecutionId = submitAthenaQuery(client);
+      String queryExecutionId = submitAthenaQuery(athenaClient);
 
-      waitForQueryToComplete(client, queryExecutionId);
+      waitForQueryToComplete(athenaClient, queryExecutionId);
 
-      processResultRows(client, queryExecutionId);
+      processResultRows(athenaClient, queryExecutionId);
   }
 
   /**
    * Submits a sample query to Athena and returns the execution ID of the query.
    */
-  private static String submitAthenaQuery(AmazonAthena client)
+  private static String submitAthenaQuery(AmazonAthena athenaClient)
   {
       // The QueryExecutionContext allows us to set the Database.
       QueryExecutionContext queryExecutionContext = new QueryExecutionContext().withDatabase(ExampleConstants.ATHENA_DEFAULT_DATABASE);
@@ -56,7 +56,7 @@ public class StartQueryExample
               .withQueryExecutionContext(queryExecutionContext)
               .withResultConfiguration(resultConfiguration);
 
-      StartQueryExecutionResult startQueryExecutionResult = client.startQueryExecution(startQueryExecutionRequest);
+      StartQueryExecutionResult startQueryExecutionResult = athenaClient.startQueryExecution(startQueryExecutionRequest);
       return startQueryExecutionResult.getQueryExecutionId();
   }
 
@@ -65,7 +65,7 @@ public class StartQueryExample
    * interval of time. If a query fails or is cancelled, then it will throw an exception.
    */
 
-       private static void waitForQueryToComplete(AmazonAthena client, String queryExecutionId) throws InterruptedException
+       private static void waitForQueryToComplete(AmazonAthena athenaClient, String queryExecutionId) throws InterruptedException
   {
       GetQueryExecutionRequest getQueryExecutionRequest = new GetQueryExecutionRequest()
               .withQueryExecutionId(queryExecutionId);
@@ -73,7 +73,7 @@ public class StartQueryExample
       GetQueryExecutionResult getQueryExecutionResult = null;
       boolean isQueryStillRunning = true;
       while (isQueryStillRunning) {
-          getQueryExecutionResult = client.getQueryExecution(getQueryExecutionRequest);
+          getQueryExecutionResult = athenaClient.getQueryExecution(getQueryExecutionRequest);
           String queryState = getQueryExecutionResult.getQueryExecution().getStatus().getState();
           if (queryState.equals(QueryExecutionState.FAILED.toString())) {
               throw new RuntimeException("Query Failed to run with Error Message: " + getQueryExecutionResult.getQueryExecution().getStatus().getStateChangeReason());
@@ -97,7 +97,7 @@ public class StartQueryExample
    * The query must be in a completed state before the results can be retrieved and
    * paginated. The first row of results are the column headers.
    */
-  private static void processResultRows(AmazonAthena client, String queryExecutionId)
+  private static void processResultRows(AmazonAthena athenaClient, String queryExecutionId)
   {
       GetQueryResultsRequest getQueryResultsRequest = new GetQueryResultsRequest()
               // Max Results can be set but if its not set,
@@ -106,7 +106,7 @@ public class StartQueryExample
               // .withMaxResults(1000)
               .withQueryExecutionId(queryExecutionId);
 
-      GetQueryResultsResult getQueryResultsResult = client.getQueryResults(getQueryResultsRequest);
+      GetQueryResultsResult getQueryResultsResult = athenaClient.getQueryResults(getQueryResultsRequest);
       List<ColumnInfo> columnInfoList = getQueryResultsResult.getResultSet().getResultSetMetadata().getColumnInfo();
 
       while (true) {
@@ -119,7 +119,7 @@ public class StartQueryExample
           if (getQueryResultsResult.getNextToken() == null) {
               break;
           }
-          getQueryResultsResult = client.getQueryResults(
+          getQueryResultsResult = athenaClient.getQueryResults(
                   getQueryResultsRequest.withNextToken(getQueryResultsResult.getNextToken()));
       }
   }

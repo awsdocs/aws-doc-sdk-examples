@@ -15,7 +15,7 @@ public class CreateNamedQueryExample
   {
       // Build an Athena client
       AthenaClientFactory factory = new AthenaClientFactory();
-      AmazonAthena client = factory.createClient();
+      AmazonAthena athenaClient = factory.createClient();
 
       // Create the named query request.
       CreateNamedQueryRequest createNamedQueryRequest = new CreateNamedQueryRequest()
@@ -25,6 +25,6 @@ public class CreateNamedQueryExample
               .withName("SampleQuery2");
 
       // Call Athena to create the named query. If it fails, an exception is thrown.
-      CreateNamedQueryResult createNamedQueryResult = client.createNamedQuery(createNamedQueryRequest);
+      CreateNamedQueryResult createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
   }
 }
