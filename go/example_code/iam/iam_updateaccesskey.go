@@ -34,7 +34,7 @@ func main() {
     // Create a IAM service client.
     svc := iam.New(sess)
 
-    _, err := svc.UpdateAccessKey(&iam.UpdateAccessKeyInput{
+    _, err = svc.UpdateAccessKey(&iam.UpdateAccessKeyInput{
         AccessKeyId: aws.String("ACCESS_KEY_ID"),
         Status:      aws.String(iam.StatusTypeActive),
         UserName:    aws.String("USER_NAME"),

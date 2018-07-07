@@ -34,7 +34,7 @@ func main() {
     // Create a IAM service client.
     svc := iam.New(sess)
 
-    _, err := svc.UpdateServerCertificate(&iam.UpdateServerCertificateInput{
+    _, err = svc.UpdateServerCertificate(&iam.UpdateServerCertificateInput{
         ServerCertificateName:    aws.String("CERTIFICATE_NAME"),
         NewServerCertificateName: aws.String("NEW_CERTIFICATE_NAME"),
     })
