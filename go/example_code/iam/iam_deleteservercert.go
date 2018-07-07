@@ -34,7 +34,7 @@ func main() {
     // Create a IAM service client.
     svc := iam.New(sess)
 
-    _, err := svc.DeleteServerCertificate(&iam.DeleteServerCertificateInput{
+    _, err = svc.DeleteServerCertificate(&iam.DeleteServerCertificateInput{
         ServerCertificateName: aws.String("CERTIFICATE_NAME"),
     })
     if err != nil {
