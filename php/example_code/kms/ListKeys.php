@@ -42,8 +42,8 @@ $marker = null;
 try {
     $result = $KmsClient->listKeys([
         'Limit' => $limit,
-		'Marker' => $marker,
-	]);
+        'Marker' => $marker,
+    ]);
     var_dump($result);
 }catch (AwsException $e) {
     // output error message if fails

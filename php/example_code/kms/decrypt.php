@@ -41,7 +41,7 @@ $encryptedMessage = 'Place your cipher text blob here';
 try {
     $result = $KmsClient->decrypt([
         'CiphertextBlob' => $encryptedMessage,
-	]);
+    ]);
     var_dump($result);
 }catch (AwsException $e) {
     // output error message if fails

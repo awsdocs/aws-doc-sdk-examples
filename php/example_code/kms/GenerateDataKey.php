@@ -43,7 +43,7 @@ $keySpec = 'AES_256';
 try {
     $result = $KmsClient->generateDataKey([
         'KeyId' => $keyId, 
-		'KeySpec' => $keySpec,
+        'KeySpec' => $keySpec,
     ]);
     var_dump($result);
 }catch (AwsException $e) {

@@ -42,8 +42,8 @@ $encryptedMessage = 'Place your cipher text blob here';
 try {
     $result = $KmsClient->rencrypt([
         'CiphertextBlob' => $encryptedMessage,
-		'DestinationKeyId' => $keyID,
-	]);
+        'DestinationKeyId' => $keyID,
+    ]);
     var_dump($result);
 }catch (AwsException $e) {
     // output error message if fails

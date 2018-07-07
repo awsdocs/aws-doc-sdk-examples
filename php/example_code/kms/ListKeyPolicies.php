@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
- *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-keys.html
+ *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
 
@@ -37,12 +37,15 @@ $KmsClient = new Aws\Kms\KmsClient([
 ]);
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-$message = pack('c*',1,2,3,4,5,6,7,8,9,0);
+$limit = 10;
+$marker = null;
+
 
 try {
-    $result = $KmsClient->encrypt([
+    $result = $KmsClient->listKeyPolicies([
         'KeyId' => $keyId, 
-        'Plaintext' => $message,
+        'Limit' => $limit,
+        'Marker' => $marker,
     ]);
     var_dump($result);
 }catch (AwsException $e) {
