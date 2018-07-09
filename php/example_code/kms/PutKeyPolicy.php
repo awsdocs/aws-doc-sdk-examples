@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
- *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-keys.html
+ *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
 
@@ -36,18 +36,31 @@ $KmsClient = new Aws\Kms\KmsClient([
     'region'  => 'us-east-1'
 ]);
 
-//Creates a customer master key (CMK) in the caller's AWS account.
-$desc = "Key for protecting critical data";
-
-try {
-    $result = $KmsClient->createKey([
-        'Description' => $desc,
-        'Tags' => [
-            [
-                'TagKey' => 'CreatedBy',
-                'TagValue' => 'ExampleUser',
-            ],
-        ], 
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$policyName = "default";
+$policy = "{" +
+          "  \"Version\": \"2012-10-17\"," +
+          "  \"Statement\": [{" +
+          "    \"Sid\": \"Allow access for ExampleUser\"," +
+          "    \"Effect\": \"Allow\"," +
+          // Replace the following user ARN with one for a real user.
+          "    \"Principal\": {\"AWS\": \"arn:aws:iam::111122223333:user/ExampleUser\"}," +
+          "    \"Action\": [" +
+          "      \"kms:Encrypt\"," +
+          "      \"kms:GenerateDataKey*\"," +
+          "      \"kms:Decrypt\"," +
+          "      \"kms:DescribeKey\"," +
+          "      \"kms:ReEncrypt*\"" +
+          "    ]," +
+          "    \"Resource\": \"*\"" +
+          "  }]" +
+          "}";
+    
+try 
+    $result = $KmsClient->putKeyPolicy([
+        'KeyId' => $keyId, 
+        'Policy' => $policy,
+        'PolicyName' => $policyName,
     ]);
     var_dump($result);
 }catch (AwsException $e) {

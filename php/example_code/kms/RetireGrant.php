@@ -13,14 +13,14 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
- *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-client.html
+ *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-grants.html
  *
  */
 
 require 'vendor/autoload.php';
 
 use Aws\Kms\KmsClient;
-
+use Aws\Exception\AwsException;
 
 /**
  * Creating an Amazon KMS client.
@@ -36,15 +36,32 @@ $KmsClient = new Aws\Kms\KmsClient([
     'region'  => 'us-east-1'
 ]);
 
-// The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
-// Use the us-west-2 region and latest version of each client.
-$sharedConfig = [
-    'region'  => 'us-west-2',
-    'version' => 'latest'
-];
+$grantToken = Place your grant token here;
 
-// Create an SDK class used to share configuration across clients.
-$sdk = new Aws\Sdk($sharedConfig);
 
-// Create an Amazon Kms client using the shared configuration data.
-$client = $sdk->createKms();
+try {
+    $result = $KmsClient->retireGrant([
+        'GrantToken' => $grantToken,
+    ]);
+    var_dump($result);
+}catch (AwsException $e) {
+    // output error message if fails
+    echo $e->getMessage();
+    echo "\n";
+}
+
+//Can also identify grant to retire by a combination of the grant ID and the Amazon Resource Name (ARN) of the customer master key (CMK)
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$grantId = 'Unique identifier of the grant returned during CreateGrant operation'
+
+try {
+    $result = $KmsClient->retireGrant([
+        'GrantId' => $grantToken,
+        'KeyId' =>  $keyId,
+    ]);
+    var_dump($result);
+}catch (AwsException $e) {
+    // output error message if fails
+    echo $e->getMessage();
+    echo "\n";
+}
