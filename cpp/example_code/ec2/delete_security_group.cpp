@@ -14,6 +14,7 @@
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
+#include <iomanip>
 #include <iostream>
 
 /**

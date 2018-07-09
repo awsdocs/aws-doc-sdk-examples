@@ -15,6 +15,7 @@
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DescribeAlarmsRequest.h>
 #include <aws/monitoring/model/DescribeAlarmsResult.h>
+#include <iomanip>
 #include <iostream>
 #include <iomanip>
 
