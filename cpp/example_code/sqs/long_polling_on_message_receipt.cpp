@@ -69,6 +69,7 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
     {
         std::cout << "Error deleting message " << message.GetMessageId() << 
             " from queue " << queue_url << ": " <<
+
             delete_outcome.GetError().GetMessage() << std::endl;
     }
 }

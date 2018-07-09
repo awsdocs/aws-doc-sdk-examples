@@ -25,4 +25,3 @@ foreach(EXAMPLE IN LISTS EXAMPLES)
     target_link_libraries(${EXAMPLE} aws-cpp-sdk-monitoring aws-cpp-sdk-events aws-cpp-sdk-logs)
 endforeach()
 
-
