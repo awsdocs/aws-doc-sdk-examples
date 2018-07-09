@@ -18,6 +18,7 @@ import (
     "fmt"
     "os"
 
+    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/awserr"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/iam"
@@ -35,7 +36,7 @@ func main() {
     // Create a IAM service client.
     svc := iam.New(sess)
 
-    _, err := svc.GetUser(&iam.GetUserInput{
+    _, err = svc.GetUser(&iam.GetUserInput{
         UserName: &os.Args[1],
     })
 
