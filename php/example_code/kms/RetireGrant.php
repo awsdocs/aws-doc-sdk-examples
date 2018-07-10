@@ -36,7 +36,7 @@ $KmsClient = new Aws\Kms\KmsClient([
     'region'  => 'us-east-1'
 ]);
 
-$grantToken = Place your grant token here;
+$grantToken = 'Place your grant token here';
 
 
 try {

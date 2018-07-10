@@ -38,14 +38,13 @@ $KmsClient = new Aws\Kms\KmsClient([
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $limit = 10;
-$marker = null;
+
 
 
 try {
     $result = $KmsClient->listKeyPolicies([
         'KeyId' => $keyId, 
         'Limit' => $limit,
-        'Marker' => $marker,
     ]);
     var_dump($result);
 }catch (AwsException $e) {
