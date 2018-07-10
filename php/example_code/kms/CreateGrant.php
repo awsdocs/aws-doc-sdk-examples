@@ -38,7 +38,7 @@ $KmsClient = new Aws\Kms\KmsClient([
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
-$operation =  ['Encrypt', 'Decrypt',], // A list of operations that the grant allows.
+$operation =  ['Encrypt', 'Decrypt']; // A list of operations that the grant allows.
 
 
 try {

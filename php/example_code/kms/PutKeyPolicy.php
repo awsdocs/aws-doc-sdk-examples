@@ -38,29 +38,26 @@ $KmsClient = new Aws\Kms\KmsClient([
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $policyName = "default";
-$policy = "{" +
-          "  \"Version\": \"2012-10-17\"," +
-          "  \"Statement\": [{" +
-          "    \"Sid\": \"Allow access for ExampleUser\"," +
-          "    \"Effect\": \"Allow\"," +
-          // Replace the following user ARN with one for a real user.
-          "    \"Principal\": {\"AWS\": \"arn:aws:iam::111122223333:user/ExampleUser\"}," +
-          "    \"Action\": [" +
-          "      \"kms:Encrypt\"," +
-          "      \"kms:GenerateDataKey*\"," +
-          "      \"kms:Decrypt\"," +
-          "      \"kms:DescribeKey\"," +
-          "      \"kms:ReEncrypt*\"" +
-          "    ]," +
-          "    \"Resource\": \"*\"" +
-          "  }]" +
-          "}";
+
     
-try 
+try {
     $result = $KmsClient->putKeyPolicy([
         'KeyId' => $keyId, 
-        'Policy' => $policy,
-        'PolicyName' => $policyName,
+        'PolicyName' => $policyName, 
+        'Policy' => '{ 
+            "Version": "2012-10-17", 
+            "Id": "custom-policy-2016-12-07", 
+            "Statement": [ 
+                { 
+                "Sid": "Enable IAM User Permissions", 
+                "Effect": "Allow", 
+                "Principal": 
+                   { "AWS": "arn:aws:iam::111122223333:user/ExampleUser" }, 
+                "Action": "kms:*", 
+                "Resource": "*" } 
+            ]            
+        } ', 
+    ]);
     ]);
     var_dump($result);
 }catch (AwsException $e) {

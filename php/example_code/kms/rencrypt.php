@@ -40,9 +40,9 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $encryptedMessage = 'Place your cipher text blob here';
 
 try {
-    $result = $KmsClient->rencrypt([
+    $result = $KmsClient->reEncrypt([
         'CiphertextBlob' => $encryptedMessage,
-        'DestinationKeyId' => $keyID,
+        'DestinationKeyId' => $keyId,
     ]);
     var_dump($result);
 }catch (AwsException $e) {

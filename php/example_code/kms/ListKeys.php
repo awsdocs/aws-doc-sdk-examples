@@ -37,12 +37,11 @@ $KmsClient = new Aws\Kms\KmsClient([
 ]);
 
 $limit = 10;
-$marker = null;
+
 
 try {
     $result = $KmsClient->listKeys([
         'Limit' => $limit,
-        'Marker' => $marker,
     ]);
     var_dump($result);
 }catch (AwsException $e) {
