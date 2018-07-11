@@ -14,7 +14,8 @@
 # Import the AWS SDK for python
 import boto3
 
-# List users with the IAM service resource
+
+# Option 1: List users with the IAM service resource
 resource = boto3.resource('iam')
 
 for user in resource.users.all():
@@ -24,7 +25,7 @@ for user in resource.users.all():
     )
 
 
-# List users with the IAM client
+# Option 2: List users with the IAM client
 client = boto3.client('iam')
 
 done = False
