@@ -22,3 +22,18 @@ for user in resource.users.all():
         user.user_name, 
         user.create_date)
     )
+
+
+# List users with the IAM client
+client = boto3.client('iam')
+
+done = False
+while(not done):
+    for user in client.list_users()['Users']:
+        print("User {} created on {}".format(
+            user['UserName'], 
+            user['CreateDate']
+        )
+    )
+    if not client.list_users()['IsTruncated']:
+        done = True
