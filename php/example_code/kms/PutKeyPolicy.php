@@ -48,16 +48,26 @@ try {
             "Version": "2012-10-17", 
             "Id": "custom-policy-2016-12-07", 
             "Statement": [ 
-                { 
-                "Sid": "Enable IAM User Permissions", 
+                { "Sid": "Enable IAM User Permissions", 
                 "Effect": "Allow", 
                 "Principal": 
                    { "AWS": "arn:aws:iam::111122223333:user/ExampleUser" }, 
-                "Action": "kms:*", 
-                "Resource": "*" } 
+                "Action": [ "kms:*" ], 
+                "Resource": "*" }, 
+                { "Sid": "Enable IAM User Permissions", 
+                "Effect": "Allow", 
+                "Principal":                 
+                   { "AWS": "arn:aws:iam::111122223333:user/ExampleUser" }, 
+                "Action": [
+                    "kms:Encrypt*",
+                    "kms:GenerateDataKey*",
+                    "kms:Decrypt*",
+                    "kms:DescribeKey*",
+                    "kms:ReEncrypt*"
+                ], 
+                "Resource": "*" }                 
             ]            
-        } ', 
-    ]);
+        } ' 
     ]);
     var_dump($result);
 }catch (AwsException $e) {
