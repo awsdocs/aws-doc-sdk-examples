@@ -2,29 +2,29 @@
 using Amazon.Polly;
 using Amazon.Polly.Model;
 
-namespace PollySamples
+namespace PollySamples1
 {
     class ListLexiconsSample
     {
         public static void ListLexicons()
         {
-            AmazonPollyClient client = new AmazonPollyClient();
+            var client = new AmazonPollyClient();
 
-            ListLexiconsRequest listLexiconsRequest = new ListLexiconsRequest();
+            var listLexiconsRequest = new ListLexiconsRequest();
 
             try
             {
                 String nextToken;
                 do
                 {
-                    ListLexiconsResponse listLexiconsResponse = client.ListLexicons(listLexiconsRequest);
+                    var listLexiconsResponse = client.ListLexicons(listLexiconsRequest);
                     nextToken = listLexiconsResponse.NextToken;
                     listLexiconsResponse.NextToken = nextToken;
 
                     Console.WriteLine("All voices: ");
-                    foreach (LexiconDescription lexiconDescription in listLexiconsResponse.Lexicons)
+                    foreach (var lexiconDescription in listLexiconsResponse.Lexicons)
                     {
-                        LexiconAttributes attributes = lexiconDescription.Attributes;
+                        var attributes = lexiconDescription.Attributes;
                         Console.WriteLine("Name: " + lexiconDescription.Name
                             + ", Alphabet: " + attributes.Alphabet
                             + ", LanguageCode: " + attributes.LanguageCode

@@ -2,7 +2,7 @@
 using Amazon.Polly;
 using Amazon.Polly.Model;
 
-namespace PollySamples
+namespace PollySamples1
 {
     class PutLexiconSample
     {
@@ -16,8 +16,8 @@ namespace PollySamples
             "</lexicon>";
         String LEXICON_NAME = "SampleLexicon";
 
-            AmazonPollyClient client = new AmazonPollyClient();
-            PutLexiconRequest putLexiconRequest = new PutLexiconRequest()
+            var client = new AmazonPollyClient();
+            var putLexiconRequest = new PutLexiconRequest()
             {
                 Name = LEXICON_NAME,
                 Content = LEXICON_CONTENT

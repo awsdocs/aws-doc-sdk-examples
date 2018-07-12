@@ -2,7 +2,7 @@
 using Amazon.Polly;
 using Amazon.Polly.Model;
 
-namespace PollySamples
+namespace PollySamples1
 {
     class GetLexiconSample
     {
@@ -10,15 +10,15 @@ namespace PollySamples
         {
             String LEXICON_NAME = "SampleLexicon";
 
-            AmazonPollyClient client = new AmazonPollyClient();
-            GetLexiconRequest getLexiconRequest = new GetLexiconRequest()
+            var client = new AmazonPollyClient();
+            var getLexiconRequest = new GetLexiconRequest()
             {
                 Name = LEXICON_NAME
             };
 
             try
             {
-                GetLexiconResponse getLexiconResponse = client.GetLexicon(getLexiconRequest);
+                var getLexiconResponse = client.GetLexicon(getLexiconRequest);
                 Console.WriteLine("Lexicon:\n Name: {0}\nContent: {1}", getLexiconResponse.Lexicon.Name,
                     getLexiconResponse.Lexicon.Content);
             }
