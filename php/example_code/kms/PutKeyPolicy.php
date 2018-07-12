@@ -51,7 +51,7 @@ try {
                 { "Sid": "Enable IAM User Permissions", 
                 "Effect": "Allow", 
                 "Principal": 
-                   { "AWS": "arn:aws:iam::111122223333:user/ExampleUser" }, 
+                   { "AWS": "arn:aws:iam::111122223333:user/root" }, 
                 "Action": [ "kms:*" ], 
                 "Resource": "*" }, 
                 { "Sid": "Enable IAM User Permissions", 
