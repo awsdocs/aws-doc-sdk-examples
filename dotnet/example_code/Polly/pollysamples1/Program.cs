@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PollySamples
+namespace PollySamples1
 {
     class Program
     {

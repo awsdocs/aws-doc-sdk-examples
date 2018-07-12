@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1A0C1722-F609-49F4-8B49-EF3E013EE8E5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PollySamples</RootNamespace>
-    <AssemblyName>PollySamples</AssemblyName>
+    <RootNamespace>PollySamples1</RootNamespace>
+    <AssemblyName>PollySamples1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

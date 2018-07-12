@@ -2,7 +2,7 @@
 using Amazon.Polly;
 using Amazon.Polly.Model;
 
-namespace PollySamples
+namespace PollySamples1
 {
     class DeleteLexiconSample
     {
@@ -10,8 +10,8 @@ namespace PollySamples
         {
             String LEXICON_NAME = "SampleLexicon";
 
-            AmazonPollyClient client = new AmazonPollyClient();
-            DeleteLexiconRequest deleteLexiconRequest = new DeleteLexiconRequest()
+            var client = new AmazonPollyClient();
+            var deleteLexiconRequest = new DeleteLexiconRequest()
             {
                 Name = LEXICON_NAME
             };
