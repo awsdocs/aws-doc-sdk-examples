@@ -15,8 +15,8 @@ AWS SDK for C++ Documentation Examples
 This is a collection of examples for the AWS SDK for C++ public documentation.
 
 
-Prerequsites
-============
+Prerequisites
+=============
 
 To build and run these examples, you'll need:
 

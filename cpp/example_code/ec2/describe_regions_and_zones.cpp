@@ -17,6 +17,7 @@
 #include <aws/ec2/model/DescribeRegionsResponse.h>
 #include <aws/ec2/model/DescribeAvailabilityZonesRequest.h>
 #include <aws/ec2/model/DescribeAvailabilityZonesResponse.h>
+#include <iomanip>
 #include <iostream>
 #include <iomanip>
 

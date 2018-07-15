@@ -18,6 +18,7 @@ import (
     "fmt"
     "os"
 
+    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/iam"
 )
@@ -40,7 +41,7 @@ func main() {
 
     // Paginate through all role policies. If our role exists on any role
     // policy we will stop iterating to detach the role.
-    err := svc.ListAttachedRolePoliciesPages(
+    err = svc.ListAttachedRolePoliciesPages(
         &iam.ListAttachedRolePoliciesInput{
             RoleName: &os.Args[1],
         },
