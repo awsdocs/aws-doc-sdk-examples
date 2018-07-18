@@ -10,8 +10,8 @@ AWS.config.update({region: 'us-west-2'});
 
 // Create publish parameters
 var params = {
-  Message: 'This is David sending another text message from programming code.', /* required */
-  TopicArn: 'TOPIC_ARN',
+  message: 'This is David sending another text message from programming code.', /* required */
+  topicArn: 'TOPIC_ARN',
 };
 
 // Create promise and SNS service object
