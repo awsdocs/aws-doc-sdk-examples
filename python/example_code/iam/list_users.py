@@ -11,13 +11,30 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+# Import the AWS SDK for python
 import boto3
 
 
-# Create IAM client
-iam = boto3.client('iam')
+# Option 1: List users with the IAM service resource
+resource = boto3.resource('iam')
 
-# List users with the pagination interface
-paginator = iam.get_paginator('list_users')
-for response in paginator.paginate():
-    print(response)
+for user in resource.users.all():
+    print("User {} created on {}".format(
+        user.user_name, 
+        user.create_date)
+    )
+
+
+# Option 2: List users with the IAM client
+client = boto3.client('iam')
+
+done = False
+while(not done):
+    for user in client.list_users()['Users']:
+        print("User {} created on {}".format(
+            user['UserName'], 
+            user['CreateDate']
+        )
+    )
+    if not client.list_users()['IsTruncated']:
+        done = True
