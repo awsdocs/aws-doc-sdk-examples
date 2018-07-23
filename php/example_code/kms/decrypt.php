@@ -36,13 +36,14 @@ $KmsClient = new Aws\Kms\KmsClient([
     'region'  => 'us-east-2'
 ]);
 
-$encryptedMessage = 'Place your cipher text blob here';
+$ciphertext = 'Place your cipher text blob here';
 
 try {
     $result = $KmsClient->decrypt([
-        'CiphertextBlob' => $encryptedMessage,
+        'CiphertextBlob' => $ciphertext,
     ]);
-    var_dump($result);
+    $plaintext = $result['Plaintext'];
+    var_dump($plaintext);
 }catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();

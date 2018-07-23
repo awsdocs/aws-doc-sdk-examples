@@ -15,6 +15,7 @@
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/ListMetricsRequest.h>
 #include <aws/monitoring/model/ListMetricsResult.h>
+#include <iomanip>
 #include <iostream>
 #include <iomanip>
 
