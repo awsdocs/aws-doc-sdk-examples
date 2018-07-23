@@ -15,13 +15,13 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    
+    "fmt"
+    "os"
 )
 
 // Deletes all of the objects in the specified S3 Bucket in the region configured in the shared config
