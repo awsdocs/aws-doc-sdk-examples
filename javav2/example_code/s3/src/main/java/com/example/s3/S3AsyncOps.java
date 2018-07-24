@@ -47,8 +47,10 @@ public class S3AsyncOps {
                 }
             } finally {
                 // Lets the application shut down. Only close the client when you are completely done with it.
-                FunctionalUtils.invokeSafely(client::close);
+                client.close();
             }
         });
+       
+        future.join();
     }
 }
