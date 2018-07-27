@@ -30,8 +30,8 @@ public class XferMgrCopy
             String to_bucket, String to_key) {
         System.out.println("Copying s3 object: " + from_key);
         System.out.println("      from bucket: " + from_bucket);
-        System.out.println("     to s3 object: " + to_bucket);
-        System.out.println("        in bucket: " + to_key);
+        System.out.println("     to s3 object: " + to_key);
+        System.out.println("        in bucket: " + to_bucket);
 
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {

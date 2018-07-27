@@ -15,6 +15,7 @@
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeSecurityGroupsRequest.h>
 #include <aws/ec2/model/DescribeSecurityGroupsResponse.h>
+#include <iomanip>
 #include <iostream>
 #include <iomanip>
 
