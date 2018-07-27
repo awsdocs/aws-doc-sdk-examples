@@ -12,8 +12,8 @@
 IAM JSON Policies 
 #################
 
-This is a collection of example `IAM policies<https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html>`_ for AWS services. Each file is formatted in JSON. 
+This is a collection of example `IAM policies <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html>`_ for AWS services. Each file is formatted in JSON. 
 
-For more examples see the `IAM User Guide - Example Policies<https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html>`_
+For more examples see the `IAM User Guide - Example Policies <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html>`_
 
 
