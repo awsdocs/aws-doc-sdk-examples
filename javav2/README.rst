@@ -14,8 +14,8 @@ AWS SDK for Java 2.0 Documentation Examples
 
 These are examples for the `AWS SDK for Java public documentation <javasdk-docs_>`_.
 
-Prerequsites
-============
+Prerequisites
+=============
 
 To build and run these examples, you'll need:
 

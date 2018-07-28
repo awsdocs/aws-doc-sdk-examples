@@ -40,13 +40,13 @@ func main() {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create new cloudwatch client.
+    // Create new CloudWatch client.
     svc := cloudwatch.New(sess)
 
     // Create a metric alarm that reboots an instance if its CPU utilization is
-    // greate than 70.0%.
+    // greater than 70.0%.
     _, err := svc.PutMetricAlarm(&cloudwatch.PutMetricAlarmInput{
-        AlarmName:          aws.String(name)
+        AlarmName:          aws.String(name),
         ComparisonOperator: aws.String(cloudwatch.ComparisonOperatorGreaterThanThreshold),
         EvaluationPeriods:  aws.Int64(1),
         MetricName:         aws.String("CPUUtilization"),
@@ -64,7 +64,7 @@ func main() {
             aws.String(fmt.Sprintf("arn:aws:swf:us-east-1:%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", instance)),
         },
         Dimensions: []*cloudwatch.Dimension{
-            &cloudwatch.Dimension{
+            {
                 Name:  aws.String("InstanceId"),
                 Value: aws.String(value),
             },

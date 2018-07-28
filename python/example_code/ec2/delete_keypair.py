@@ -10,8 +10,8 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import boto3
 
+import boto3
 
 ec2 = boto3.client('ec2')
 response = ec2.delete_key_pair(KeyName='KEY_PAIR_NAME')

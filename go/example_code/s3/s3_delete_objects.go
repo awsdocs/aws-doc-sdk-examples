@@ -18,6 +18,8 @@ import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    
     "fmt"
     "os"
 )
@@ -29,8 +31,7 @@ import (
 //    go run s3_delete_objects BUCKET
 func main() {
     if len(os.Args) != 2 {
-        exitErrorf("Bucket name required\nUsage: %s BUCKET",
-            os.Args[0])
+        exitErrorf("Bucket name required\nUsage: %s BUCKET", os.Args[0])
     }
 
     bucket := os.Args[1]
@@ -44,44 +45,17 @@ func main() {
     // Create S3 service client
     svc := s3.New(sess)
 
-    // Get the list of objects
-    // Note that if the bucket has more than 1000 objects,
-    // we have to run this multiple times
-    hasMoreObjects := true
-    // Keep track of how many objects we delete
-    totalObjects := 0
+    // Setup BatchDeleteIterator to iterate through a list of objects.
+    iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
+        Bucket: aws.String(bucket),
+    })
 
-    for hasMoreObjects {
-        resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
-        if err != nil {
-            exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
-        }
-
-        numObjs := len(resp.Contents)
-        totalObjects += numObjs
-
-        // Create Delete object with slots for the objects to delete
-        var items s3.Delete
-        var objs= make([]*s3.ObjectIdentifier, numObjs)
-
-        for i, o := range resp.Contents {
-            // Add objects from command line to array
-            objs[i] = &s3.ObjectIdentifier{Key: aws.String(*o.Key)}
-        }
-
-        // Add list of objects to delete to Delete object
-        items.SetObjects(objs)
-
-        // Delete the items
-        _, err = svc.DeleteObjects(&s3.DeleteObjectsInput{Bucket: &bucket, Delete: &items})
-        if err != nil {
-            exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
-        }
-
-        hasMoreObjects = *resp.IsTruncated
+    // Traverse iterator deleting each object
+    if err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter); err != nil {
+        exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
     }
 
-    fmt.Println("Deleted", totalObjects, "object(s) from bucket", bucket)
+    fmt.Printf("Deleted object(s) from bucket: %s", bucket)
 }
 
 func exitErrorf(msg string, args ...interface{}) {

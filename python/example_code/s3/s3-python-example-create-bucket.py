@@ -10,8 +10,8 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import boto3
 
+import boto3
 
 s3 = boto3.client('s3')
 s3.create_bucket(Bucket='my-bucket')
