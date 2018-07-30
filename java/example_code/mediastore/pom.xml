@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>aws.example.iam</groupId>
-  <artifactId>aws-iam-examples</artifactId>
+  <groupId>aws.example.mediastore</groupId>
+  <artifactId>aws-mediastore-examples</artifactId>
   <packaging>jar</packaging>
   <version>1.0</version>
-  <name>Amazon IAM Examples</name>
+  <name>AWS Elemental MediaStore Examples</name>
   <url>http://maven.apache.org</url>
   <properties>
      <maven.compiler.source>1.8</maven.compiler.source>
@@ -16,7 +16,7 @@
       <dependency>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk-bom</artifactId>
-        <version>1.11.245</version>
+        <version>1.11.360</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -25,14 +25,11 @@
   <dependencies>
     <dependency>
       <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-iam</artifactId>
+      <artifactId>aws-java-sdk-mediastore</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-mediastoredata</artifactId>
     </dependency>
   </dependencies>
 </project>
-

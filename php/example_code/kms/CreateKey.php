@@ -42,12 +42,6 @@ $desc = "Key for protecting critical data";
 try {
     $result = $KmsClient->createKey([
         'Description' => $desc,
-        'Tags' => [
-            [
-                'TagKey' => 'CreatedBy',
-                'TagValue' => 'ExampleUser',
-            ],
-        ], 
     ]);
     var_dump($result);
 }catch (AwsException $e) {

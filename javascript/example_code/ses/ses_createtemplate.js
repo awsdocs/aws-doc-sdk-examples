@@ -25,7 +25,7 @@ var templatePromise = new AWS.SES({apiVersion: '2010-12-01'}).createTemplate(par
 templatePromise.then(
   function(data) {
     console.log(data);
-  }).switch(
+  }).catch(
     function(err) {
     console.error(err, err.stack);
   });
