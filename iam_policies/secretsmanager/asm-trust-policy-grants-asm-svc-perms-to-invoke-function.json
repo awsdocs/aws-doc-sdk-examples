@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Id": "default",
+  "Statement": [
+    {
+      "Sid": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "secretsmanager.amazonaws.com"
+      },
+      "Action": "lambda:InvokeFunction",
+      "Resource": "<arn of the Lambda function that this trust policy is attached to - must match exactly>"
+    }
+  ]
+}

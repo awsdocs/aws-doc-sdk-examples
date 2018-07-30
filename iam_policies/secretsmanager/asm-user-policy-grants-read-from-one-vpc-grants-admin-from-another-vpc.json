@@ -1,0 +1,46 @@
+{
+    "Id": "example-policy-2",
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Allow administrative actions from ONLY vpc-12345678",
+            "Effect": "Allow",
+            "Principal": {"AWS": "123456789012"},
+            "Action": [
+                "secretsmangaer:Create*",
+                "secretsmanager:Put*",
+                "secretsmanager:Update*",
+                "secretsmanager:Delete*","secretsmanager:Restore*",
+                "secretsmanager:RotateSecret","secretsmanager:CancelRotate*",
+                "secretsmanager:TagResource","secretsmanager:UntagResource"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:sourceVpc": "vpc-12345678"
+                }
+            }
+        },
+        {
+            "Sid": "Allow secret value access from ONLY vpc-2b2b2b2b",
+            "Effect": "Allow",
+            "Principal": {"AWS": "111122223333"},
+            "Action": ["secretsmanager:GetSecretValue"],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:sourceVpc": "vpc-2b2b2b2b"
+                }
+            }
+        },
+        {
+            "Sid": "Allow read actions from everywhere",
+            "Effect": "Allow",
+            "Principal": {"AWS": "111122223333"},
+            "Action": [
+                "secretsmanager:Describe*","secretsmanager:List*","kms:GetRandomPassword"
+            ],
+            "Resource": "*",
+        }
+    ]
+}
