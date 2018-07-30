@@ -38,7 +38,7 @@ SDK Downloads
 You can download the current AWS SDK for PHP with Composer via Packagist under the aws/aws-sdk-php package.
 
 Please see the `Installation section of the AWS SDK for PHP User Guide  <https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_installation.html>`_
- for more detailed information about installing the SDK through Composer and other means.
+for more detailed information about installing the SDK through Composer and other means.
 
 
 Documentation
