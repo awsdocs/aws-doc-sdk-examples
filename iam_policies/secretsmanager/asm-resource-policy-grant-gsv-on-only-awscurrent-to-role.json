@@ -3,9 +3,9 @@
   "Statement" : [
     {
       "Effect": "Allow",
-      "Principal": {"AWS": "&region-arn;iam::123456789012:root" },
+      "Principal": {"AWS": "&region-arn;iam::123456789012:role/EC2RoleToAccessSecrets",
       "Action": "secretsmanager:GetSecretValue",
-      "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:prod/ServerA-a1b2c3",
+      "Resource": "*"
       "Condition": {
         "ForAnyValue:StringEquals": {
           "secretsmanager:VersionStage" : "AWSCURRENT"

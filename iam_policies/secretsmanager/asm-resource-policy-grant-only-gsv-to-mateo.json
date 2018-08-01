@@ -1,0 +1,11 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {"AWS": "&region-arn;iam::123456789012:user/mateo" },
+            "Action": "secretsmanager:GetSecretValue",
+            "Resource": "*"
+        }
+    ]
+}
