@@ -15,7 +15,7 @@
 package com.example.dynamodb;
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.services.dynamodb.DynamoDBAsyncClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.utils.FunctionalUtils;
@@ -27,7 +27,7 @@ public class DynamoDBAsync {
 
     public static void main(String[] args) throws InterruptedException {
         // Creates a default async client with credentials and regions loaded from the environment
-        DynamoDBAsyncClient client = DynamoDBAsyncClient.create();
+        DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
         CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
                                                                                             .build());
                 
