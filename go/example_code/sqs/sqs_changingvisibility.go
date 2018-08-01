@@ -59,8 +59,8 @@ func main() {
       return
    }
 
-   // 10 hour timeout
-   duration := int64(36000)
+   // 20 seconds timeout
+   duration := int64(20)
    resultVisibility, err := svc.ChangeMessageVisibility(&sqs.ChangeMessageVisibilityInput{
       ReceiptHandle:     result.Messages[0].ReceiptHandle,
       QueueUrl:          &qURL,
