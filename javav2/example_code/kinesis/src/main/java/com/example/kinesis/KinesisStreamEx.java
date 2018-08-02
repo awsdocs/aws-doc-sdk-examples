@@ -213,7 +213,7 @@ public class KinesisStreamEx {
         }
     }
 
-    private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:052958737983:stream/foobar/consumer/shorea-consumer:1525898737";
+    private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/your/stream/consumer:1234567890";
     
     public static void main(String[] args) {
         KinesisAsyncClient clientTest = KinesisAsyncClient.builder()
