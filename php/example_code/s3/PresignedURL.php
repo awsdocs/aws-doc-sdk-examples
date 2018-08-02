@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
 //Creating a presigned request
 $s3Client = new Aws\S3\S3Client([
     'profile' => 'default',
-    'region'  => 'us-east-1',
+    'region'  => 'us-east-2',
     'version' => '2006-03-01',
 ]);
 
