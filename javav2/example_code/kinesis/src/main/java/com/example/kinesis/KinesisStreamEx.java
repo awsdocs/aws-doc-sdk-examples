@@ -213,7 +213,7 @@ public class KinesisStreamEx {
         }
     }
 
-    private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/your/stream/consumer:1234567890";
+    private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
     
     public static void main(String[] args) {
         KinesisAsyncClient clientTest = KinesisAsyncClient.builder()
@@ -222,7 +222,7 @@ public class KinesisStreamEx {
                 				.put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, true)
                 				.put(SdkHttpConfigurationOption.PROTOCOL, Protocol.HTTP2)
                 				.build()))
-                .endpointOverride(URI.create("https://SET-KINESIS-ENDPOINT.corp.amazon.com")).region(Region.US_EAST_1)
+                .region(Region.US_EAST_1)
                 .credentialsProvider(ProfileCredentialsProvider.create("kinesis")).build();
         
         KinesisAsyncClient client = KinesisAsyncClient.create();
