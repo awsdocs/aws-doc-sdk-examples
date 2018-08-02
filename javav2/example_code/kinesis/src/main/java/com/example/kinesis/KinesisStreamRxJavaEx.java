@@ -26,6 +26,7 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.model.ShardIteratorType;
+import software.amazon.awssdk.services.kinesis.model.StartingPosition;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardEvent;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardRequest;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHandler;
@@ -70,7 +71,7 @@ public class KinesisStreamRxJavaEx {
 
     public static void main(String[] args) {
         KinesisAsyncClient client = KinesisAsyncClient.builder()
-                .asyncHttpClient(NettyNioAsyncHttpClient.builder()
+                .httpClient(NettyNioAsyncHttpClient.builder()
                         .buildWithDefaults(AttributeMap.builder()
                                 .put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, true)
                                 .put(SdkHttpConfigurationOption.PROTOCOL, Protocol.HTTP2)
@@ -81,7 +82,8 @@ public class KinesisStreamRxJavaEx {
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
                 .consumerARN(CONSUMER_ARN)
                 .shardId("shardId-000000000000")
-                .startingPosition(ShardIteratorType.LATEST).build();
+                .startingPosition(StartingPosition.builder().type(ShardIteratorType.LATEST).build())
+                .build();
         
         responseHandlerBuilder_RxJava(client, request).join();
 

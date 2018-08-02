@@ -17,6 +17,7 @@ package com.example.kinesis;
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -29,8 +30,8 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.model.ShardIteratorType;
-import software.amazon.awssdk.services.kinesis.model.ShardSubscriptionEventStream;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardEvent;
+import software.amazon.awssdk.services.kinesis.model.SubscribeToShardEventStream;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardRequest;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponse;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHandler;
@@ -125,18 +126,18 @@ public class KinesisStreamEx {
             }
  
             @Override
-            public void onEventStream(SdkPublisher<ShardSubscriptionEventStream> publisher) {
+            public void onEventStream(SdkPublisher<SubscribeToShardEventStream> publisher) {
                 publisher
                     // Filter to only SubscribeToShardEvents
                     .filter(SubscribeToShardEvent.class)
                     // Flat map into a publisher of just records
-                    .flatMap(SubscribeToShardEvent::records)
+                    .flatMapIterable(SubscribeToShardEvent::records)
                     // Limit to 1000 total records
                     .limit(1000)
                     // Batch records into lists of 25
                     .buffer(25)
                     // Print out each record batch
-                    .forEach(batch -> System.out.println("Record Batch - " + batch));
+                    .subscribe(batch -> System.out.println("Record Batch - " + batch));
             }
  
             @Override
@@ -148,6 +149,7 @@ public class KinesisStreamEx {
             public void exceptionOccurred(Throwable throwable) {
                 System.err.println("Error during stream - " + throwable.getMessage());
             }
+
         };
         return client.subscribeToShard(request, responseHandler);
     }
@@ -180,7 +182,7 @@ public class KinesisStreamEx {
     /**
      * Simple subscriber implementation that prints events and cancels the subscription after 100 events.
      */
-    private static class MySubscriber implements Subscriber<ShardSubscriptionEventStream> {
+    private static class MySubscriber implements Subscriber<SubscribeToShardEventStream> {
  
         private Subscription subscription;
         private AtomicInteger eventCount = new AtomicInteger(0);
@@ -192,7 +194,7 @@ public class KinesisStreamEx {
         }
  
         @Override
-        public void onNext(ShardSubscriptionEventStream shardSubscriptionEventStream) {
+        public void onNext(SubscribeToShardEventStream shardSubscriptionEventStream) {
             System.out.println("Received event " + shardSubscriptionEventStream);
             if (eventCount.incrementAndGet() >= 100) {
                 // You can cancel the subscription at any time if you wish to stop receiving events.
@@ -216,7 +218,7 @@ public class KinesisStreamEx {
     
     public static void main(String[] args) {
         KinesisAsyncClient clientTest = KinesisAsyncClient.builder()
-                .asyncHttpClient(NettyNioAsyncHttpClient.builder()
+                .httpClient(NettyNioAsyncHttpClient.builder()
                 		.buildWithDefaults(AttributeMap.builder()
                 				.put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, true)
                 				.put(SdkHttpConfigurationOption.PROTOCOL, Protocol.HTTP2)
@@ -229,7 +231,7 @@ public class KinesisStreamEx {
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
                 .consumerARN(CONSUMER_ARN)
                 .shardId("shardId-000000000000")
-                .startingPosition(ShardIteratorType.LATEST).build();
+                .startingPosition(s -> s.type(ShardIteratorType.LATEST)).build();
         
         responseHandlerBuilder_Subscriber(client, request).join();
 
