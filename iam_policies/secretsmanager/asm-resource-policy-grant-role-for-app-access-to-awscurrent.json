@@ -1,8 +1,8 @@
 {
-  "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
-  " Effect": "Allow",
-  "Principal":  {"AWS": "&region-arn;iam::123456789012:role/EncryptionApp" },</emphasis>
-  "Action": ["secretsmanager:GetSecret"],
-  "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
-  "Resource": "*"
+    "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
+    "Effect": "Allow",
+    "Principal":  {"AWS": "arn:aws:iam::123456789012:role/EncryptionApp" },
+    "Action": ["secretsmanager:GetSecret"],
+    "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
+    "Resource": "*"
 }

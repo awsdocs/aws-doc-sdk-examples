@@ -3,7 +3,7 @@
   "Statement" : [
     {
       "Effect": "Allow",
-      "Principal": {"AWS": "&region-arn;iam::123456789012:role/EC2RoleToAccessSecrets",
+      "Principal": {"AWS": "arn:aws:iam::123456789012:role/EC2RoleToAccessSecrets",
       "Action": "secretsmanager:GetSecretValue",
       "Resource": "*"
       "Condition": {
