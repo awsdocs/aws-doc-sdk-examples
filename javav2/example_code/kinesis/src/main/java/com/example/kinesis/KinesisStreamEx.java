@@ -222,8 +222,8 @@ public class KinesisStreamEx {
                 				.put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, true)
                 				.put(SdkHttpConfigurationOption.PROTOCOL, Protocol.HTTP2)
                 				.build()))
-                .endpointOverride(URI.create("https://aws-kinesis-alpha.corp.amazon.com")).region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create("kinesis-alpha")).build();
+                .endpointOverride(URI.create("https://SET-KINESIS-ENDPOINT.corp.amazon.com")).region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create("kinesis")).build();
         
         KinesisAsyncClient client = KinesisAsyncClient.create();
         
