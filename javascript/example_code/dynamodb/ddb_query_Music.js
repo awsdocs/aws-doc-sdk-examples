@@ -5,8 +5,9 @@
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
-AWS.config.update({region: 'eu-west-1'});
+
+AWS.config.update({region: 'REGION'}); // look in .aws/config or .aws\config
+// REGION for Europe 'eu-west-1' and for the USA 'us-east-1' and 'us-west-2'
 
 // Create DynamoDB service object
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
