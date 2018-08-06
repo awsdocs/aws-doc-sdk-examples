@@ -7,7 +7,7 @@ AWS.config.update({region: 'eu-west-1'});
 var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 var params = {
-    TableName : "Movies",
+    TableName : "EPISODES_TABLE",
     KeySchema: [       
         { AttributeName: "year", KeyType: "HASH"},  //Partition key
         { AttributeName: "title", KeyType: "RANGE" }  //Sort key
