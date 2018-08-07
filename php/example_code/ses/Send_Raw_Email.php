@@ -32,9 +32,6 @@ $recipient = 'recipient@example.com';
 // Specify a configuration set.
 $configset = 'ConfigSet';
 
-// Replace us-west-2 with the AWS Region you're using for Amazon SES.
-$region = 'us-west-2'; 
-
 $subject = 'List of customers to contact';
 
 $htmlbody = <<<EOD
@@ -56,10 +53,11 @@ EOD;
 $att = 'path/to/customers-to-contact.xlsx';
 
 // Create an SesClient.
-$client = SesClient::factory(array(
-    'version'=> 'latest',     
-    'region' => $region
-));
+$client = new SesClient([
+    'profile' => 'default',
+    'region' => 'us-west-2',
+    'version' => '2010-12-01'
+]);
 
 // Create a new PHPMailer object.
 $mail = new PHPMailer;
