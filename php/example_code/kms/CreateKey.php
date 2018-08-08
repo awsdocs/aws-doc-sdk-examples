@@ -33,7 +33,7 @@ use Aws\Exception\AwsException;
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 //Creates a customer master key (CMK) in the caller's AWS account.
@@ -44,7 +44,7 @@ try {
         'Description' => $desc,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
