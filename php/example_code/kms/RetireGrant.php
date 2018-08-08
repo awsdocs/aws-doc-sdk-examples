@@ -33,7 +33,7 @@ use Aws\Exception\AwsException;
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $grantToken = 'Place your grant token here';
@@ -44,7 +44,7 @@ try {
         'GrantToken' => $grantToken,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
@@ -57,10 +57,10 @@ $grantId = 'Unique identifier of the grant returned during CreateGrant operation
 try {
     $result = $KmsClient->retireGrant([
         'GrantId' => $grantToken,
-        'KeyId' =>  $keyId,
+        'KeyId' => $keyId,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";

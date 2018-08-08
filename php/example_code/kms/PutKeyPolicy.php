@@ -33,17 +33,17 @@ use Aws\Exception\AwsException;
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $policyName = "default";
 
-    
+
 try {
     $result = $KmsClient->putKeyPolicy([
-        'KeyId' => $keyId, 
-        'PolicyName' => $policyName, 
+        'KeyId' => $keyId,
+        'PolicyName' => $policyName,
         'Policy' => '{ 
             "Version": "2012-10-17", 
             "Id": "custom-policy-2016-12-07", 
@@ -67,10 +67,10 @@ try {
                 ], 
                 "Resource": "*" }                 
             ]            
-        } ' 
+        } '
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
