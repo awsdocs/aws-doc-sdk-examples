@@ -1,9 +1,6 @@
 <?php
 
-// Replace path_to_sdk_inclusion with the path to the SDK as described in 
-// http://docs.aws.amazon.com/aws-sdk-php/v3/guide/getting-started/basic-usage.html
-define('REQUIRED_FILE','path_to_sdk_inclusion'); 
-                                                  
+                                                 
 // Replace sender@example.com with your "From" address. 
 // This address must be verified with Amazon SES.
 define('SENDER', 'sender@example.com');           
@@ -17,9 +14,6 @@ define('RECIPIENT', 'recipient@example.com');
 // 'ConfigurationSetName' => CONFIGSET argument below.
 define('CONFIGSET','ConfigSet');
 
-// Replace us-west-2 with the AWS Region you're using for Amazon SES.
-define('REGION','us-west-2'); 
-
 define('SUBJECT','Amazon SES test (AWS SDK for PHP)');
 
 define('HTMLBODY','<h1>AWS Amazon Simple Email Service Test Email</h1>'.
@@ -30,15 +24,16 @@ define('TEXTBODY','This email was send with Amazon SES using the AWS SDK for PHP
 
 define('CHARSET','UTF-8');
 
-require REQUIRED_FILE;
+require 'vendor/autoload.php';
 
 use Aws\Ses\SesClient;
 use Aws\Ses\Exception\SesException;
 
-$client = SesClient::factory(array(
-    'version'=> 'latest',     
-    'region' => REGION
-));
+$client = new SesClient([
+    'profile' => 'default',
+    'region' => 'us-west-2',
+    'version' => '2010-12-01'
+]);
 
 try {
      $result = $client->sendEmail([
