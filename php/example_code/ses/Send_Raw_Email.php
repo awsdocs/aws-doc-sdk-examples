@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
- 
+
 require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -22,12 +22,12 @@ use Aws\Ses\Exception\SesException;
 
 // Replace sender@example.com with your "From" address. 
 // This address must be verified with Amazon SES.
-$sender = 'sender@example.com';           
+$sender = 'sender@example.com';
 $sendername = 'Sender Name';
 
 // Replace recipient@example.com with a "To" address. If your account 
 // is still in the sandbox, this address must be verified.
-$recipient = 'recipient@example.com';    
+$recipient = 'recipient@example.com';
 
 // Specify a configuration set.
 $configset = 'ConfigSet';
@@ -88,11 +88,11 @@ try {
     ]);
     // If the message was sent, show the message ID.
     $messageId = $result->get('MessageId');
-    echo("Email sent! Message ID: $messageId"."\n");
+    echo("Email sent! Message ID: $messageId" . "\n");
 } catch (SesException $error) {
     // If the message was not sent, show a message explaining what went wrong.
     echo("The email was not sent. Error message: "
-         .$error->getAwsErrorMessage()."\n");
+        . $error->getAwsErrorMessage() . "\n");
 }
 
 ?>

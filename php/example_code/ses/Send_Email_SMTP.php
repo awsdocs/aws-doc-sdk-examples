@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
- 
+
 
 // Modify the path in the require statement below to refer to the 
 // location of your Composer autoload.php file.
@@ -39,11 +39,11 @@ $mail->Username = 'smtp_username';
 
 // Replace smtp_password with your Amazon SES SMTP password.
 $mail->Password = 'smtp_password';
-    
+
 // Specify a configuration set. If you do not want to use a configuration
 // set, comment or remove the next line.
 $mail->addCustomHeader('X-SES-CONFIGURATION-SET', 'ConfigSet');
- 
+
 // If you're using Amazon SES in a region other than US West (Oregon), 
 // replace email-smtp.us-west-2.amazonaws.com with the Amazon SES SMTP  
 // endpoint in the appropriate region.
@@ -75,9 +75,9 @@ $mail->isHTML(true);
 $mail->AltBody = "Email Test\r\nThis email was sent through the 
     Amazon SES SMTP interface using the PHPMailer class.";
 
-if(!$mail->send()) {
-    echo "Email not sent. " , $mail->ErrorInfo , PHP_EOL;
+if (!$mail->send()) {
+    echo "Email not sent. ", $mail->ErrorInfo, PHP_EOL;
 } else {
-    echo "Email sent!" , PHP_EOL;
+    echo "Email sent!", PHP_EOL;
 }
 ?>
