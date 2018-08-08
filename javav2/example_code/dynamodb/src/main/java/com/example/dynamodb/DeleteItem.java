@@ -16,8 +16,8 @@ package com.example.dynamodb;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemResponse;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import java.util.HashMap;
 
 /**
@@ -68,11 +68,11 @@ public class DeleteItem
         		.key(key_to_get)
         		.build();
 
-        DynamoDBClient ddb = DynamoDBClient.create();
+        DynamoDbClient ddb = DynamoDbClient.create();
 
         try {
         	ddb.deleteItem(deleteReq);
-        } catch (DynamoDBException e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.errorMessage());
             System.exit(1);
         }

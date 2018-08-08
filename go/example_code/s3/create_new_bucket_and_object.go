@@ -26,7 +26,7 @@ import (
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_download.go BUCKET ITEM
+//    go run s3_download.go
 func main() {
     bucket := "myBucket"
     key := "TestFile.txt"

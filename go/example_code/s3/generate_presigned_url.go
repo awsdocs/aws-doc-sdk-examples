@@ -24,7 +24,7 @@ import (
 // Downloads an item from an S3 Bucket
 //
 // Usage:
-//    go run s3_download.go BUCKET ITEM
+//    go run s3_download.go
 func main() {
     // Initialize a session in us-west-2 that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.

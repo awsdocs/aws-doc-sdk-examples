@@ -29,7 +29,7 @@ import (
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_download.go BUCKET ITEM
+//    go run s3_download.go
 func main() {
     h := md5.New()
     content := strings.NewReader("")

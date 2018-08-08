@@ -12,8 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import java.util.HashMap;
@@ -85,7 +85,7 @@ public class GetItem
                 .build();
         }
 
-        DynamoDBClient ddb = DynamoDBClient.create();
+        DynamoDbClient ddb = DynamoDbClient.create();
 
         try {
             Map<String,AttributeValue> returned_item =
@@ -99,7 +99,7 @@ public class GetItem
             } else {
                 System.out.format("No item found with the key %s!\n", name);
             }
-        } catch (DynamoDBException e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.errorMessage());
             System.exit(1);
         }

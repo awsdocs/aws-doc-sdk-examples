@@ -31,7 +31,7 @@ sqs.receiveMessage(params, function(err, data) {
     var visibilityParams = {
       QueueUrl: queueURL,
       ReceiptHandle: data.Messages[0].ReceiptHandle,
-      VisibilityTimeout: 36000 // 10 hour timeout
+      VisibilityTimeout: 20 // 20 second timeout
     };
     sqs.changeMessageVisibility(visibilityParams, function(err, data) {
       if (err) {

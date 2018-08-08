@@ -16,12 +16,12 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.ConditionalOperator;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.QueryResponse;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.regions.Region;
 
 /**
@@ -62,7 +62,7 @@ public class Query
 
 
         Region region = Region.US_WEST_2;
-        DynamoDBClient ddb = DynamoDBClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
 
         //set up an alias for the partition key name in case it's a reserved word
         HashMap<String,String> attrNameAlias =
@@ -84,7 +84,7 @@ public class Query
         try {
         	QueryResponse response = ddb.query(queryReq);
         	System.out.println(response.count());
-        } catch (DynamoDBException e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.errorMessage());
             System.exit(1);
         }
