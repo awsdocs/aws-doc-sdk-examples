@@ -32,7 +32,7 @@ import (
 // Usage:
 //    go run s3_set_bucket_website.go BUCKET_NAME INDEX_PAGE ERROR_PAGE
 func main() {
-    if len(os.Args) != 3 {
+    if len(os.Args) != 4 {
         exitErrorf("bucket name and index suffix page required\nUsage: %s bucket_name index_page [error_page]",
             filepath.Base(os.Args[0]))
     }

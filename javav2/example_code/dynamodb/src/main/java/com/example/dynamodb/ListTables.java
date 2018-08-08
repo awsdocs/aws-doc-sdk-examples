@@ -12,10 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class ListTables
     {
         System.out.println("Your DynamoDB tables:\n");
 
-        DynamoDBClient ddb = DynamoDBClient.create();
+        DynamoDbClient ddb = DynamoDbClient.create();
 
         boolean more_tables = true;
         String last_name = null;
@@ -64,7 +64,7 @@ public class ListTables
                 if (last_name == null) {
                     more_tables = false;
                 }
-            } catch (DynamoDBException e) {
+            } catch (DynamoDbException e) {
                 System.err.println(e.errorMessage());
                 System.exit(1);
             }

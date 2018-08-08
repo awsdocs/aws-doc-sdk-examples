@@ -22,7 +22,7 @@ var params = {
     "All"
  ],
  QueueUrl: queueURL,
- VisibilityTimeout: 0,
+ VisibilityTimeout: 20,
  WaitTimeSeconds: 0
 };
 

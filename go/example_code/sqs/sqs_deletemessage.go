@@ -43,7 +43,7 @@ func main() {
         },
         QueueUrl:            &qURL,
         MaxNumberOfMessages: aws.Int64(1),
-        VisibilityTimeout:   aws.Int64(36000),  // 10 hours
+        VisibilityTimeout:   aws.Int64(20),  // 20 seconds
         WaitTimeSeconds:     aws.Int64(0),
     })
 

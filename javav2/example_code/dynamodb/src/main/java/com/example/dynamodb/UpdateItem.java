@@ -12,13 +12,13 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,14 +102,14 @@ public class UpdateItem
         		.attributeUpdates(updated_values)
         		.build();
 
-        DynamoDBClient ddb = DynamoDBClient.create();
+        DynamoDbClient ddb = DynamoDbClient.create();
 
         try {
             ddb.updateItem(request);
         } catch (ResourceNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        } catch (DynamoDBException e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
