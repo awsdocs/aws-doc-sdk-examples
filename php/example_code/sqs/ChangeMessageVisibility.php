@@ -43,7 +43,7 @@ try {
         $result = $client->changeMessageVisibility([
             'QueueUrl' => $queueUrl, // REQUIRED
             'ReceiptHandle' => $result->get('Messages')[0]['ReceiptHandle'], // REQUIRED
-            'VisibilityTimeout' => 36000, // REQUIRED
+            'VisibilityTimeout' => 3600, // REQUIRED
         ]);
         var_dump($result);
     } else {
