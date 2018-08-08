@@ -34,8 +34,8 @@ import software.amazon.awssdk.utils.AttributeMap;
 
 public class KinesisStreamRxJavaEx {
 
-    private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:052958737983:stream/foobar/consumer/shorea-consumer:1525898737";
-    
+    private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
+
     /**
      * Uses RxJava via the onEventStream lifecycle method. This gives you full access to the publisher which can be used
      * to create an Rx Flowable.
@@ -70,15 +70,15 @@ public class KinesisStreamRxJavaEx {
     }
 
     public static void main(String[] args) {
-        KinesisAsyncClient client = KinesisAsyncClient.builder()
-                .httpClient(NettyNioAsyncHttpClient.builder()
-                        .buildWithDefaults(AttributeMap.builder()
-                                .put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, true)
-                                .put(SdkHttpConfigurationOption.PROTOCOL, Protocol.HTTP2)
-                                .build()))
-                .endpointOverride(URI.create("https://aws-kinesis-alpha.corp.amazon.com")).region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create("kinesis-alpha")).build();
         
+    	
+    	
+    	
+    	
+    	
+ 
+        KinesisAsyncClient client = KinesisAsyncClient.create();
+
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
                 .consumerARN(CONSUMER_ARN)
                 .shardId("shardId-000000000000")
