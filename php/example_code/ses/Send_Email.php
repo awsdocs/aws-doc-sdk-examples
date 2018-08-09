@@ -1,16 +1,16 @@
 <?php
 
 
-// Replace sender@example.com with your "From" address. 
+// Replace sender@example.com with your "From" address.
 // This address must be verified with Amazon SES.
 define('SENDER', 'sender@example.com');
 
-// Replace recipient@example.com with a "To" address. If your account 
+// Replace recipient@example.com with a "To" address. If your account
 // is still in the sandbox, this address must be verified.
 define('RECIPIENT', 'recipient@example.com');
 
 // Specify a configuration set. If you do not want to use a configuration
-// set, comment the following variable, and the 
+// set, comment the following variable, and the
 // 'ConfigurationSetName' => CONFIGSET argument below.
 define('CONFIGSET', 'ConfigSet');
 
@@ -65,9 +65,6 @@ try {
     ]);
     $messageId = $result->get('MessageId');
     echo("Email sent! Message ID: $messageId" . "\n");
-
 } catch (SesException $error) {
     echo("The email was not sent. Error message: " . $error->getAwsErrorMessage() . "\n");
 }
-
-?>
