@@ -10,7 +10,7 @@
  *
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License. 
+ * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
@@ -43,7 +43,7 @@ try {
     $result = $s3Client->createBucket([
         'Bucket' => $BUCKET_NAME,
     ]);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";

@@ -35,7 +35,7 @@ $USAGE = "\n" .
     "\n" .
     "Ex: php PutObject.php <bucketname> <filename>\n";
 
-if (count($argv) <= 2){
+if (count($argv) <= 2) {
     echo $USAGE;
     exit();
 }
@@ -44,7 +44,7 @@ $bucket = $argv[1];
 $file_Path = $argv[2];
 $key = basename($argv[2]);
 
-try{
+try {
     //Create a S3Client
     $s3Client = new S3Client([
         'profile' => 'default',
@@ -55,7 +55,7 @@ try{
         'Bucket'     => $bucket,
         'Key'        => $key,
         'SourceFile' => $file_Path,
-    ]);    
+    ]);
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
