@@ -30,28 +30,19 @@ $SesClient = new Aws\SES\SESClient([
     'region'  => 'us-east-2'
 ]);
 
-$rule_name = 'Rule_Name';
-$rule_set_name = 'Rule_Set_Name';
-$lambda_arn = 'Amazon Resource Name (ARN) of the AWS Lambda function';
-$sns_topic_arn = 'Amazon Resource Name (ARN) of the Amazon SNS topic';
-
+$filter_name = 'FilterName';
+$ip_address_range =  '10.0.0.1/24';
 
 try {
-    $result = $SesClient->updateReceiptRule([
-        'Rule' => [
-            'Actions' => [
-               'LambdaAction' => [
-                    'FunctionArn' => $lambda_arn,
-                    'TopicArn' => $sns_topic_arn,
-                ],
-            ],
-            'Enabled' => true,
-            'Name' => $rule_name,
-            'ScanEnabled' => false,
-            'TlsPolicy' => 'Require',
+    $result = $SesClient->createReceiptFilter([
+    'Filter' => [
+        'IpFilter' => [
+            'Cidr' => $ip_address_range,
+            'Policy' => 'Block|Allow',
         ],
-        'RuleSetName' =>  $rule_set_name,
-     ]);
+        'Name' => $filter_name,
+    ],
+        ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
