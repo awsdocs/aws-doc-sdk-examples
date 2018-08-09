@@ -33,7 +33,8 @@ $client = new S3Client([
 ]);
 
 try {
-    $result = $client->putBucketLifecycle([
+    $result = $client->putBucketLifecycle(
+        [
             'Bucket' => $bucketName, // REQUIRED
             'LifecycleConfiguration' => [
                 'Rules' => [ // REQUIRED

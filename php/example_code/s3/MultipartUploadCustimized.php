@@ -14,7 +14,7 @@
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
- * 
+ *
  */
 
 require 'vendor/autoload.php';
@@ -42,11 +42,11 @@ $uploader = new MultipartUploader($s3Client, $source, [
         $command['CacheControl'] = 'max-age=3600';
     },
     'before_upload' => function (\Aws\Command $command) {
-       // $command is an UploadPart operation
-       $command['RequestPayer'] = 'requester';
+        // $command is an UploadPart operation
+        $command['RequestPayer'] = 'requester';
     },
     'before_complete' => function (\Aws\Command $command) {
-       // $command is a CompleteMultipartUpload operation
-       $command['RequestPayer'] = 'requester';
+        // $command is a CompleteMultipartUpload operation
+        $command['RequestPayer'] = 'requester';
     },
 ]);

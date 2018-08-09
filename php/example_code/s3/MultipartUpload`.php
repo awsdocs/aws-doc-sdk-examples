@@ -14,7 +14,7 @@
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
- * 
+ *
  */
 
 require 'vendor/autoload.php';
@@ -31,7 +31,7 @@ $s3Client = new S3Client([
     'version' => '2006-03-01'
 ]);
 
-// Use Multipart Upload  
+// Use Multipart Upload
 $source = '/path/to/large/file.zip';
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',
@@ -44,4 +44,3 @@ try {
 } catch (MultipartUploadException $e) {
     echo $e->getMessage() . "\n";
 }
-
