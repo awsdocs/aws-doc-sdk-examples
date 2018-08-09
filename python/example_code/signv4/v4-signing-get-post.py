@@ -96,7 +96,7 @@ signed_headers = 'content-type;host;x-amz-date;x-amz-target'
 
 # Step 6: Create payload hash. In this example, the payload (body of
 # the request) contains the request parameters.
-payload_hash = hashlib.sha256(('').encode('utf-8')).hexdigest()
+payload_hash = hashlib.sha256(request_parameters.encode('utf-8')).hexdigest()
 
 # Step 7: Combine elements to create canonical request
 canonical_request = method + '\n' + canonical_uri + '\n' + canonical_querystring + '\n' + canonical_headers + '\n' + signed_headers + '\n' + payload_hash

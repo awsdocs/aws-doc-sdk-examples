@@ -31,16 +31,16 @@ use Aws\Exception\AwsException;
 //Create an AWSMediaConvert client object with your account specific endpoint. 
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
-    'region'  => 'us-east-2',
+    'region' => 'us-east-2',
     'profile' => 'default',
     'endpoint' => 'ACCOUNT_ENDPOINT'
-]); 
+]);
 
 try {
-    $result = $mediaConvertClient -> cancelJob([
-       'Id' => 'JOB_ID', // REQUIRED The Job ID of the job to be cancelled.
-   ]);    
-}catch (AwsException $e) {
+    $result = $mediaConvertClient->cancelJob([
+        'Id' => 'JOB_ID', // REQUIRED The Job ID of the job to be cancelled.
+    ]);
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
