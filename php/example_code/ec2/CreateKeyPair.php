@@ -45,4 +45,3 @@ file_put_contents($saveKeyLocation, $result['keyMaterial']);
 
 // Update the key's permissions so it can be used with SSH
 chmod($saveKeyLocation, 0600);
-

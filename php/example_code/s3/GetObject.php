@@ -31,7 +31,7 @@ $USAGE = "\n" .
     "\n" .
     "Ex: php GetObject.php <bucketname> <filename>\n";
 
-if (count($argv) <= 2){
+if (count($argv) <= 2) {
     echo $USAGE;
     exit();
 }
@@ -39,7 +39,7 @@ if (count($argv) <= 2){
 $bucket = $argv[1];
 $key = $argv[2];
 
-try{
+try {
     //Create a S3Client
     $s3Client = new S3Client([
         'profile' => 'default',

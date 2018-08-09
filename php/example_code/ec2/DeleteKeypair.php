@@ -40,4 +40,3 @@ $result = $ec2Client->deleteKeyPair(array(
 ));
 
 var_dump($result);
-
