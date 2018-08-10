@@ -31,7 +31,7 @@ begin
     sqs.change_message_visibility({
       queue_url: queue_url,
       receipt_handle: message.receipt_handle,
-      visibility_timeout: 20 # This message will not be visible for 20 seconds after first receipt.
+      visibility_timeout: 30 # This message will not be visible for 30 seconds after first receipt.
     })    
   end  
 
