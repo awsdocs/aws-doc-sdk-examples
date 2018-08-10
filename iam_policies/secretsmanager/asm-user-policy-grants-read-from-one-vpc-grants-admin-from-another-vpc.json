@@ -7,7 +7,7 @@
             "Effect": "Allow",
             "Principal": {"AWS": "123456789012"},
             "Action": [
-                "secretsmangaer:Create*",
+                "secretsmanager:Create*",
                 "secretsmanager:Put*",
                 "secretsmanager:Update*",
                 "secretsmanager:Delete*","secretsmanager:Restore*",
@@ -38,7 +38,9 @@
             "Effect": "Allow",
             "Principal": {"AWS": "111122223333"},
             "Action": [
-                "secretsmanager:Describe*","secretsmanager:List*","kms:GetRandomPassword"
+                "secretsmanager:Describe*",
+				"secretsmanager:List*",
+				"kms:GetRandomPassword"
             ],
             "Resource": "*",
         }

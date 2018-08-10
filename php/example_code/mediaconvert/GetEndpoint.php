@@ -32,13 +32,13 @@ use Aws\Exception\AwsException;
 $client = new Aws\MediaConvert\MediaConvertClient([
     'profile' => 'default',
     'version' => '2017-08-29',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-2'
 ]);
 
 //retrieve endpoint
 try {
     $result = $client->describeEndpoints([]);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
@@ -48,11 +48,10 @@ $single_endpoint_url = $result['Endpoints'][0]['Url'];
 
 print("Your endpoint is " . $single_endpoint_url);
 
-//Create an AWSMediaConvert client object with the endpoint URL that you retrieved: 
+//Create an AWSMediaConvert client object with the endpoint URL that you retrieved:
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
-    'region'  => 'us-east-1',
+    'region' => 'us-east-2',
     'profile' => 'default',
     'endpoint' => $single_endpoint_url
-]); 
-
+]);

@@ -18,7 +18,6 @@ require 'vendor/autoload.php';
 
 use Aws\MediaConvert\MediaConvertClient;
 
-
 /**
  * Creating an Amazon Elemental MediaConvert Client.
  *
@@ -30,7 +29,7 @@ use Aws\MediaConvert\MediaConvertClient;
 $client = new Aws\MediaConvert\MediaConvertClient([
     'profile' => 'default',
     'version' => '2017-08-29',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-2'
 ]);
 
 var_dump($client);

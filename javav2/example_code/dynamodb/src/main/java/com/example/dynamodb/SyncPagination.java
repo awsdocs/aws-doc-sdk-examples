@@ -14,7 +14,7 @@
  */
 package com.example.dynamodb;
 
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
@@ -56,7 +56,7 @@ public class SyncPagination {
     private static void ManualPagination() {
         System.out.println("running ManualPagination...\n");
         
-        final DynamoDBClient client = DynamoDBClient.create();
+        final DynamoDbClient client = DynamoDbClient.create();
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         boolean done = false;
         while (!done) {
@@ -77,7 +77,7 @@ public class SyncPagination {
     private static void AutoPagination() {
         System.out.println("running AutoPagination...\n");
 
-        final DynamoDBClient client = DynamoDBClient.create();
+        final DynamoDbClient client = DynamoDbClient.create();
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
 
         ListTablesIterable responses = client.listTablesPaginator(listTablesRequest);
@@ -108,7 +108,7 @@ public class SyncPagination {
     private static void AutoPaginationWithResume() {
         System.out.println("running AutoPagination with resume in case of errors...\n");
 
-        final DynamoDBClient client = DynamoDBClient.create();
+        final DynamoDbClient client = DynamoDbClient.create();
 
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesIterable responses = client.listTablesPaginator(listTablesRequest);
@@ -121,10 +121,7 @@ public class SyncPagination {
             }
         } catch (Exception exception) {
             if (lastSuccessfulPage != null) {
-                // We have captured the last page sent by the service and can use it to resume the operation
-                ListTablesIterable resumedResponses = responses.resume(lastSuccessfulPage);
-                // Use the resumed result object to print the remaining table names
-                resumedResponses.tableNames().forEach(System.out::println);
+            	System.out.println(exception.getMessage());
             }
         }
     }

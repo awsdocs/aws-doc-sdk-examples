@@ -28,23 +28,23 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create an AWSMediaConvert client object with your account specific endpoint. 
+//Create an AWSMediaConvert client object with your account specific endpoint.
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
-    'region'  => 'us-east-1',
+    'region' => 'us-east-2',
     'profile' => 'default',
     'endpoint' => 'ACCOUNT_ENDPOINT'
-]); 
+]);
 
 try {
-    $result = $mediaConvertClient -> listJobs([
-    'MaxResults' => 20,
-    'Order' => 'ASCENDING',
-    'Queue' => 'QUEUE_ARN',
-    'Status' => 'SUBMITTED',
-    // 'NextToken' => '<string>', //OPTIONAL To retrieve the twenty next most recent jobs
-]);
-}catch (AwsException $e) {
+    $result = $mediaConvertClient->listJobs([
+        'MaxResults' => 20,
+        'Order' => 'ASCENDING',
+        'Queue' => 'QUEUE_ARN',
+        'Status' => 'SUBMITTED',
+        // 'NextToken' => '<string>', //OPTIONAL To retrieve the twenty next most recent jobs
+    ]);
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";

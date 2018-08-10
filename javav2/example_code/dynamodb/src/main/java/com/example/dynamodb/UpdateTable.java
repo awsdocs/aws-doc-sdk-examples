@@ -13,11 +13,11 @@
 */
 package com.example.dynamodb;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 /**
  * Update a DynamoDB table (change provisioned throughput).
@@ -62,7 +62,7 @@ public class UpdateTable
         		.writeCapacityUnits(write_capacity)
         		.build();
 
-        DynamoDBClient ddb = DynamoDBClient.create();
+        DynamoDbClient ddb = DynamoDbClient.create();
 
         UpdateTableRequest request = UpdateTableRequest.builder()
         		.provisionedThroughput(table_throughput)
@@ -71,7 +71,7 @@ public class UpdateTable
 
         try {
             ddb.updateTable(request);
-        } catch (DynamoDBException e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.errorMessage());
             System.exit(1);
         }

@@ -21,8 +21,8 @@ import java.util.concurrent.ExecutionException;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import software.amazon.awssdk.core.pagination.async.SdkPublisher;
-import software.amazon.awssdk.services.dynamodb.DynamoDBAsyncClient;
+import software.amazon.awssdk.core.async.SdkPublisher;
+import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesPublisher;
@@ -68,7 +68,7 @@ public class AsyncPagination {
         System.out.println("running ManualPagination...\n");
         
         // Creates a default async client with credentials and regions loaded from the environment
-        DynamoDBAsyncClient client = DynamoDBAsyncClient.create();
+        DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
         CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
                                                                                             .build());
         // Map the response to another CompletableFuture containing just the table names
@@ -90,7 +90,7 @@ public class AsyncPagination {
         System.out.println("running AutoPagination...\n");
 
         // Creates a default client with credentials and regions loaded from the environment
-        final DynamoDBAsyncClient asyncClient = DynamoDBAsyncClient.create();
+        final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
         
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(listTablesRequest);
@@ -141,7 +141,7 @@ public class AsyncPagination {
         System.out.println("running AutoPagination - iterating on item collection...\n");
 
         // Creates a default client with credentials and regions loaded from the environment
-        final DynamoDBAsyncClient asyncClient = DynamoDBAsyncClient.create();
+        final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
         
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesPublisher listTablesPublisher = asyncClient.listTablesPaginator(listTablesRequest);
@@ -182,7 +182,7 @@ public class AsyncPagination {
     private static void useThirdPartySubscriber() {
         System.out.println("running AutoPagination - using third party subscriber...\n");
 
-        DynamoDBAsyncClient asyncClient = DynamoDBAsyncClient.create();
+        DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(ListTablesRequest.builder()
                                                                                          .build());
 

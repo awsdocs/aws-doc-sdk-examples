@@ -12,8 +12,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDBException;
-import software.amazon.awssdk.services.dynamodb.DynamoDBClient;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
@@ -71,12 +71,12 @@ public class CreateTable
         		.tableName(table_name)
         		.build();
 
-        DynamoDBClient ddb = DynamoDBClient.create();
+        DynamoDbClient ddb = DynamoDbClient.create();
 
         try {
             CreateTableResponse response = ddb.createTable(request);
             System.out.println(response.tableDescription().tableName());
-        } catch (DynamoDBException e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.errorMessage());
             System.exit(1);
         }

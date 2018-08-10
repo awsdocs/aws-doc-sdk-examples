@@ -40,4 +40,3 @@ $result = $ec2Client->deleteSecurityGroup(array(
 ));
 
 var_dump($result);
-

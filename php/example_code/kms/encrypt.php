@@ -33,19 +33,19 @@ use Aws\Exception\AwsException;
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-2'
 ]);
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-$message = pack('c*',1,2,3,4,5,6,7,8,9,0);
+$message = pack('c*', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
 
 try {
     $result = $KmsClient->encrypt([
-        'KeyId' => $keyId, 
+        'KeyId' => $keyId,
         'Plaintext' => $message,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";

@@ -13,3 +13,5 @@ Gemfile.lock
 .gitignore
 .metadata
 .recommenders
+php/example_code/Find_replace_confirm changes.py
+*.phar

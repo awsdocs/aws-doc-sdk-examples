@@ -21,7 +21,6 @@ require 'vendor/autoload.php';
 
 use Aws\Kms\KmsClient;
 
-
 /**
  * Creating an Amazon KMS client.
  *
@@ -33,13 +32,13 @@ use Aws\Kms\KmsClient;
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-2'
 ]);
 
 // The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
 // Use the us-west-2 region and latest version of each client.
 $sharedConfig = [
-    'region'  => 'us-west-2',
+    'region' => 'us-west-2',
     'version' => 'latest'
 ];
 

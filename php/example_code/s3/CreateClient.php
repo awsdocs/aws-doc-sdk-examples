@@ -21,7 +21,6 @@ require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 
-
 /**
  * Creating an Amazon S3 client.
  *
@@ -33,7 +32,7 @@ use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'profile' => 'default',
     'version' => 'latest',
-    'region'  => 'us-east-1'
+    'region'  => 'us-east-2'
 ]);
 
 // The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
