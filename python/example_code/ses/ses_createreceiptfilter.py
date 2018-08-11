@@ -23,7 +23,7 @@ response = ses.create_receipt_filter(
     'NAME'     : 'NAME',
     'IpFilter' : {
       'Cidr'   : 'IP_ADDRESS_OR_RANGE',
-      'Policy' : 'ALLOW' | 'BLOCK'
+      'Policy' : 'Allow' | 'Block'
     }
   }
 )
