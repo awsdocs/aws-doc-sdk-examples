@@ -25,13 +25,13 @@ import (
 
 func main() {
     if len(os.Args) != 4 {
-        fmt.Println("You must supply a metric name, namespace, and dimensions")
+        fmt.Println("You must supply a metric name, namespace, and dimension name")
         os.Exit(1)
     }
 
     metric := os.Args[1]
     namespace := os.Args[2]
-    dimensions := os.Args[3]
+    dimension := os.Args[3]
     
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
@@ -49,7 +49,7 @@ func main() {
         Namespace:  aws.String(namespace),
         Dimensions: []*cloudwatch.DimensionFilter{
             &cloudwatch.DimensionFilter{
-                Name: aws.String(name),
+                Name: aws.String(dimension),
             },
         },
     })
