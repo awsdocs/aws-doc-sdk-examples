@@ -63,7 +63,7 @@ try {
             'Data' => $subject,
         ],
     ],
-            ]);
+]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
