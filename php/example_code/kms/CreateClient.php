@@ -21,7 +21,6 @@ require 'vendor/autoload.php';
 
 use Aws\Kms\KmsClient;
 
-
 /**
  * Creating an Amazon KMS client.
  *
