@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.DeleteAccountAliasRequest;
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Deletes an alias from an AWS account
@@ -37,7 +37,7 @@ public class DeleteAccountAlias {
         String alias = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
         
         DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
             .accountAlias(alias).build();

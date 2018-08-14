@@ -14,7 +14,7 @@
  */
 package com.example.ec2;
 
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.AssociateAddressRequest;
@@ -39,7 +39,7 @@ public class AllocateAddress
 
         String instance_id = args[0];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         AllocateAddressRequest allocate_request = AllocateAddressRequest.builder()
             .domain(DomainType.VPC)

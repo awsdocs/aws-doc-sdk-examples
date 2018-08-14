@@ -14,7 +14,7 @@
  */
 package com.example.iam;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateResponse;
 
@@ -38,7 +38,7 @@ public class UpdateServerCertificate {
         String new_name = args[1];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         UpdateServerCertificateRequest request =
             UpdateServerCertificateRequest.builder()

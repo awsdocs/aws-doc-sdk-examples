@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Creates an access key for an IAM user
@@ -38,7 +38,7 @@ public class CreateAccessKey {
         String user = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
             .userName(user).build();

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
@@ -41,7 +41,7 @@ public class CreateSecurityGroup
         String group_desc = args[1];
         String vpc_id = args[2];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         CreateSecurityGroupRequest create_request = CreateSecurityGroupRequest.builder()
                 .groupName(group_name)

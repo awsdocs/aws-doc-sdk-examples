@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 
@@ -24,7 +24,7 @@ public class StartStopInstance
 {
     public static void startInstance(String instance_id)
     {
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         StartInstancesRequest request = StartInstancesRequest.builder()
             .instanceIds(instance_id).build();
@@ -36,7 +36,7 @@ public class StartStopInstance
 
     public static void stopInstance(String instance_id)
     {
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         StopInstancesRequest request = StopInstancesRequest.builder()
             .instanceIds(instance_id).build();

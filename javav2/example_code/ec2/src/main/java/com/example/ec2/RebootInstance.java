@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesResponse;
 
@@ -35,7 +35,7 @@ public class RebootInstance
 
         String instance_id = args[0];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         RebootInstancesRequest request = RebootInstancesRequest.builder()
             .instanceIds(instance_id).build();

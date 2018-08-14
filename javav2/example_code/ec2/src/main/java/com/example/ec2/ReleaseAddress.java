@@ -14,7 +14,7 @@
  */
 package com.example.ec2;
 
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressRequest;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 
@@ -36,7 +36,7 @@ public class ReleaseAddress
 
         String alloc_id = args[0];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         ReleaseAddressRequest request = ReleaseAddressRequest.builder()
             .allocationId(alloc_id).build();

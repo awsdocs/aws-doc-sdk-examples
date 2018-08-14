@@ -85,7 +85,7 @@ public class Query
         	QueryResponse response = ddb.query(queryReq);
         	System.out.println(response.count());
         } catch (DynamoDbException e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("Done!");

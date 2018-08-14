@@ -14,7 +14,7 @@
  */
 package com.example.iam;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.AttachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.AttachedPolicy;
 import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesRequest;
@@ -41,7 +41,7 @@ public class AttachRolePolicy {
         String role_name = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         List<AttachedPolicy> matching_policies = new ArrayList<>();
 

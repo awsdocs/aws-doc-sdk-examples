@@ -100,7 +100,7 @@ public class GetItem
                 System.out.format("No item found with the key %s!\n", name);
             }
         } catch (DynamoDbException e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
     }

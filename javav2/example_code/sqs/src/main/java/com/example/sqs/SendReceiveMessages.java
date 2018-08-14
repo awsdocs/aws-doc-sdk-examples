@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SQSException;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.Message;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequestEntry;
@@ -33,17 +34,16 @@ public class SendReceiveMessages
 
     public static void main(String[] args)
     {
-        SQSClient sqs = SQSClient.builder().build();
+    	SqsClient sqs = SqsClient.builder().build();
 
         try {
         	CreateQueueRequest request = CreateQueueRequest.builder()
         			.queueName(QUEUE_NAME)
         			.build();
             CreateQueueResponse create_result = sqs.createQueue(request);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
+        		
         }
 
         GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()

@@ -22,6 +22,7 @@ import software.amazon.awssdk.services.sqs.model.SQSException;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
 import java.util.ArrayList;
@@ -102,10 +103,10 @@ public class VisibilityTimeout
         		.build();
         try {
             CreateQueueResponse cq_result = sqs.createQueue(createRequest);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
+        	
+        	
         }
 
         GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()

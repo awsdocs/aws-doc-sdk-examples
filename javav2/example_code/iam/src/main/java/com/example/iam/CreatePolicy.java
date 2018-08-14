@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.CreatePolicyRequest;
 import software.amazon.awssdk.services.iam.model.CreatePolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Creates a fixed policy with a provided policy name.
@@ -61,7 +61,7 @@ public class CreatePolicy {
         String policy_name = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         CreatePolicyRequest request = CreatePolicyRequest.builder()
             .policyName(policy_name)
