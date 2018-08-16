@@ -65,7 +65,7 @@ public class ListTables
                     more_tables = false;
                 }
             } catch (DynamoDbException e) {
-                System.err.println(e.errorMessage());
+                System.err.println(e.getMessage());
                 System.exit(1);
             }
         }

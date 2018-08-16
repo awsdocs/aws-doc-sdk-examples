@@ -16,7 +16,7 @@ var bucketParams = {
   Bucket : 'BUCKET_NAME',
 };
 
-// call S3 to create the bucket
+// call S3 to delete the bucket
 s3.deleteBucket(bucketParams, function(err, data) {
   if (err) {
     console.log("Error", err);

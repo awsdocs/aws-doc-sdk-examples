@@ -14,7 +14,7 @@
  */
 package com.example.iam;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.DeleteAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.DeleteAccessKeyResponse;
 
@@ -37,7 +37,7 @@ public class DeleteAccessKey {
         String access_key = args[1];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
             .accessKeyId(access_key)

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
 
@@ -24,7 +24,7 @@ public class MonitorInstance
 {
     public static void monitorInstance(String instance_id)
     {
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
                 .instanceIds(instance_id).build();
@@ -38,7 +38,7 @@ public class MonitorInstance
 
     public static void unmonitorInstance(String instance_id)
     {
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
             .instanceIds(instance_id).build();

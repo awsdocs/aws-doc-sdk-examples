@@ -14,13 +14,13 @@
  */
 package com.example.ec2;
 
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Tag;
 import software.amazon.awssdk.services.ec2.model.CreateTagsRequest;
-import software.amazon.awssdk.services.ec2.model.EC2Exception;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 
 /**
  * Creates an EC2 instance
@@ -41,7 +41,7 @@ public class CreateInstance
         String name = args[0];
         String ami_id = args[1];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         RunInstancesRequest run_request = RunInstancesRequest.builder()
             .imageId(ami_id)
@@ -70,8 +70,8 @@ public class CreateInstance
                 "Successfully started EC2 instance %s based on AMI %s",
                 instance_id, ami_id);
         }
-        catch (EC2Exception e) {
-        	System.err.println(e.errorMessage());
+        catch (Ec2Exception e) {
+        	System.err.println(e.getMessage());
         	System.exit(1);
         }
         System.out.println("Done!");

@@ -14,7 +14,7 @@
  */
 package com.example.ec2;
 
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
 
@@ -36,7 +36,7 @@ public class CreateKeyPair
 
         String key_name = args[0];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         CreateKeyPairRequest request = CreateKeyPairRequest.builder()
             .keyName(key_name).build();

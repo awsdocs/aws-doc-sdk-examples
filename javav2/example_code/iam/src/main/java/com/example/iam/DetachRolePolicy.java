@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.DetachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Detaches a policy from a role
@@ -38,7 +38,7 @@ public class DetachRolePolicy {
         String policy_arn = args[1];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
             .roleName(role_name)

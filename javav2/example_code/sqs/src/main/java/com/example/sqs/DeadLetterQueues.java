@@ -13,12 +13,13 @@
  * limitations under the License.
  */
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.model.SQSException;
+import software.amazon.awssdk.services.sqs.model.SqsException;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesResponse;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesResponse;
 
@@ -49,10 +50,9 @@ public class DeadLetterQueues
         // Create source queue
         try {
             sqs.createQueue(request);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
+        	
         }
 
         CreateQueueRequest dlrequest = CreateQueueRequest.builder()
@@ -61,11 +61,11 @@ public class DeadLetterQueues
         // Create dead-letter queue
         try {
             sqs.createQueue(dlrequest);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
+        	
         }
+        
         
         GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
         		.queueName(dl_queue_name)
@@ -78,7 +78,7 @@ public class DeadLetterQueues
         GetQueueAttributesResponse queue_attrs = sqs.getQueueAttributes(
                 GetQueueAttributesRequest.builder()
                 .queueUrl(dl_queue_url)
-                .attributeNames("QueueArn").build());
+                .attributeNames(QueueAttributeName.QUEUE_ARN).build());
 
         String dl_queue_arn = queue_attrs.attributes().get(QueueAttributeName.QUEUE_ARN);
 
@@ -90,8 +90,8 @@ public class DeadLetterQueues
         String src_queue_url = sqs.getQueueUrl(getRequestSource)
                                   .queueUrl();
 
-        HashMap<String, String> attributes = new HashMap<String, String>();
-        attributes.put("RedrivePolicy", "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
+        HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
+        attributes.put(QueueAttributeName.REDRIVE_POLICY, "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
                 + dl_queue_arn + "\"}");
         
         SetQueueAttributesRequest setAttrRequest = SetQueueAttributesRequest.builder()

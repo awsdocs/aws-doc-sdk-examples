@@ -87,7 +87,7 @@ public class DescribeTable
                 }
             }
         } catch (DynamoDbException e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("\nDone!");

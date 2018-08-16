@@ -15,7 +15,7 @@
 package com.example.iam;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedRequest;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedResponse;
 
@@ -37,7 +37,7 @@ public class AccessKeyLastUsed {
         String access_id = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         GetAccessKeyLastUsedRequest request = GetAccessKeyLastUsedRequest.builder()
             .accessKeyId(access_id).build();
