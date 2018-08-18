@@ -28,7 +28,7 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
 
@@ -38,7 +38,7 @@ int main(int argc, char ** argv)
 
     if (ls_out.IsSuccess())
     {
-      std::cout << "Subscriptions list " << ls_out << std::endl;
+      //std::cout << "Subscriptions list " << ls_out.GetResult().GetSubscriptions() << std::endl;
     }
     else
     {

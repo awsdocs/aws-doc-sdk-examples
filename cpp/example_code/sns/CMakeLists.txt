@@ -7,8 +7,9 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
+set (CMAKE_CXX_STANDARD 11)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.2)
 project(sns-examples)
 
 # Locate the aws sdk for c++ package.
@@ -34,6 +35,5 @@ list(APPEND EXAMPLES "unsubscribe")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-	target_link_libraries(${EXAMPLE} aws-cpp-sdk-sns)
+	target_link_libraries(${EXAMPLE} aws-cpp-sdk-sns aws-cpp-sdk-core)
 endforeach()
-

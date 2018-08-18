@@ -28,7 +28,7 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
     Aws::String sms_type = argv[1];
@@ -40,11 +40,11 @@ int main(int argc, char ** argv)
 
     if (ssmst_out.IsSuccess())
     {
-      std::cout << "SMS Type set successfully " << ssmst_out.GetResult() << std::endl;
+      std::cout << "SMS Type set successfully " << std::endl;
     }
     else
     {
-      std::cout << "Error while setting SMS Type " << gsmst_out.GetError().GetMessage()
+      std::cout << "Error while setting SMS Type " << ssmst_out.GetError().GetMessage()
         << std::endl;
     }
   }

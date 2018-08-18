@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
     Aws::String protocol = argv[1];
@@ -39,13 +39,13 @@ int main(int argc, char ** argv)
     Aws::SNS::Model::SubscribeRequest s_req;
     s_req.SetTopicArn(topic_arn);
     s_req.SetProtocol(protocol);
-    s_req.SetEndPoint(endpoint)
+    s_req.SetEndpoint(endpoint);
 
     auto s_out = sns.Subscribe(s_req);
 
     if (s_out.IsSuccess())
     {
-      std::cout << "Subscribed successfully " << s_out.GetResult() << std::endl;
+      std::cout << "Subscribed successfully " << std::endl;
     }
     else
     {

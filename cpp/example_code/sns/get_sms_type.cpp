@@ -28,18 +28,18 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
 
     Aws::SNS::Model::GetSMSAttributesRequest gsmst_req;
-    gsmst_req.AddAttributes("DefaultSMSStype");
+    gsmst_req.AddAttributes("DefaultSMStype");
 
     auto gsmst_out = sns.GetSMSAttributes(gsmst_req);
 
     if (gsmst_out.IsSuccess())
     {
-      std::cout << "SMS Type " << gsmst_out.GetResult() << std::endl;
+      std::cout << "SMS Type " << std::endl;
     }
     else
     {

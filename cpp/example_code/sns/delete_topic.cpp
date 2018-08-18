@@ -12,7 +12,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/DeleteTopicRequest.h>
-#include <aws/sns/model/DeleteTopicResult.h>
 #include <iostream>
 
 /**
@@ -23,28 +22,28 @@ int main(int argc, char ** argv)
 {
   if (argc != 2)
   {
-    std::cout << "Usage: delete_topic <topic_name>" << std::endl;
+    std::cout << "Usage: delete_topic <topic_arn>" << std::endl;
     return 1;
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
-    Aws::String topic_name = argv[1];
+    Aws::String topic_arn = argv[1];
     Aws::SNS::SNSClient sns;
 
     Aws::SNS::Model::DeleteTopicRequest dt_req;
-    dt_req.SetTopicName(topic_name);
+    dt_req.SetTopicArn(topic_arn);
 
     auto dt_out = sns.DeleteTopic(dt_req);
 
     if (dt_out.IsSuccess())
     {
-      std::cout << "Successfully deleted topic " << topic_name << std::endl;
+      std::cout << "Successfully deleted topic " << topic_arn << std::endl;
     }
     else
     {
-      std::cout << "Error deleting topic " << topic_name << ":" <<
+      std::cout << "Error deleting topic " << topic_arn << ":" <<
         dt_out.GetError().GetMessage() << std::endl;
     }
   }

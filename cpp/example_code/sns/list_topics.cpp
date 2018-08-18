@@ -28,7 +28,7 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
 
@@ -38,9 +38,9 @@ int main(int argc, char ** argv)
 
     if (lt_out.IsSuccess())
     {
-      std::cout << "Topics list " << lt_out << std::endl;
+      std::cout << "Topics list " << lt_out.GetResult().GetTopics() << std::endl;
     }
-    elte
+    else
     {
       std::cout << "Error listing topics " << lt_out.GetError().GetMessage() <<
         std::endl;

@@ -28,7 +28,7 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
     Aws::String topic_arn = argv[1];
@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
 
     if (gta_out.IsSuccess())
     {
-      std::cout << "Topic Attributes " << gta_out.GetResult() << std::endl;
+      std::cout << "Topic Attributes " <<< gta_out.GetResult().GetAttributes() << std::endl;
     }
     else
     {

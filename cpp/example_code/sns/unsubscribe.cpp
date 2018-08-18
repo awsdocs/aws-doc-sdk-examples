@@ -11,8 +11,7 @@
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
-#include <aws/sns/model/SubscribeRequest.h>
-#include <aws/sns/model/SubscribeResult.h>
+#include <aws/sns/model/UnsubscribeRequest.h>
 #include <iostream>
 
 /**
@@ -28,19 +27,19 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
     Aws::String subscription_arn = argv[1];
 
-    Aws::SNS::Model::SubscribeRequest s_req;
-    s_req.AddAttributes("SubscriptionArn", subscription_arn);
+    Aws::SNS::Model::UnsubscribeRequest s_req;
+    s_req.SetSubscriptionArn(subscription_arn);
 
-    auto s_out = sns.Subscribe(s_req);
+    auto s_out = sns.Unsubscribe(s_req);
 
     if (s_out.IsSuccess())
     {
-      std::cout << "Subscribed successfully " << s_out.GetResult() << std::endl;
+      std::cout << "Subscribed successfully " << std::endl;
     }
     else
     {

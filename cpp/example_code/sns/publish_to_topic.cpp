@@ -28,21 +28,21 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
     Aws::String message = argv[1];
-    Aws::String topic_arn = argv[2]
+    Aws::String topic_arn = argv[2];
 
     Aws::SNS::Model::PublishRequest psms_req;
-    psms_req.AddMessageAttributes("Message", message);
-    psms_req.AddMessageAttributes("TopicArn", phone_number_value)
+    psms_req.SetMessage(message);
+    psms_req.SetTopicArn(topic_arn);
 
     auto psms_out = sns.Publish(psms_req);
 
     if (psms_out.IsSuccess())
     {
-      std::cout << "Message published successfully " << psms_out.GetResult() << std::endl;
+      std::cout << "Message published successfully " << std::endl;
     }
     else
     {

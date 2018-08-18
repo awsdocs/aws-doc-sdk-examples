@@ -28,13 +28,13 @@ int main(int argc, char ** argv)
   }
 
   Aws::SDKOptions options;
-  AWS::InitAPI(options);
+  Aws::InitAPI(options);
   {
     Aws::String topic_name = argv[1];
     Aws::SNS::SNSClient sns;
 
     Aws::SNS::Model::CreateTopicRequest ct_req;
-    ct_req.SetTopicName(topic_name);
+    ct_req.SetName(topic_name);
 
     auto ct_out = sns.CreateTopic(ct_req);
 
