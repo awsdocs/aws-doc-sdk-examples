@@ -23,7 +23,7 @@ public class ClientConfiguration {
 	public static void main(String[] args) {
 		// If configured with an httpClientBuilder, the SDK will manage the lifecycle of the HTTP client
         // and it will be shutdown when the client is shut down.
-		KinesisAsyncClient client = KinesisAsyncClient.builder()
+        KinesisAsyncClient client = KinesisAsyncClient.builder()
                           .httpClientBuilder(NettyNioAsyncHttpClient.builder()
                                                                     .maxConcurrency(100)
                                                                     .maxPendingConnectionAcquires(10_000))
