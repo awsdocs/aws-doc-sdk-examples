@@ -35,7 +35,7 @@ $client = new CloudWatchClient([
 try {
     $result = $client->setAlarmState(array(
         'AlarmName' => $alarmName, //REQUIRED
-        'StateValue' => 'OK', //REQUIRED. Allowed Values : OK | ALARM | INSUFFICIENT_DATA 
+        'StateValue' => 'OK', //REQUIRED. Allowed Values : OK | ALARM | INSUFFICIENT_DATA
         'StateReason' => 'Testing Sample Code' //REQUIRED
     ));
     var_dump($result);

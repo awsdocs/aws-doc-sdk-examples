@@ -15,9 +15,10 @@
 package com.example.sqs;
 import java.util.HashMap;
 
-import software.amazon.awssdk.services.sqs.SQSClient;
-import software.amazon.awssdk.services.sqs.model.SQSException;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
@@ -38,11 +39,11 @@ public class LongPolling
         String queue_name = args[0];
         String queue_url = args[1];
 
-        SQSClient sqs = SQSClient.builder().build();
+        SqsClient sqs = SqsClient.builder().build();
 
         // Enable long polling when creating a queue
-        HashMap<String, String> attributes = new HashMap<String, String>();
-        attributes.put("ReceiveMessageWaitTimeSeconds", "20");
+        HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
+        attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
         
         CreateQueueRequest create_request = CreateQueueRequest.builder()
                 .queueName(queue_name)
@@ -51,10 +52,8 @@ public class LongPolling
 
         try {
             sqs.createQueue(create_request);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
         }
 
         // Enable long polling on an existing queue

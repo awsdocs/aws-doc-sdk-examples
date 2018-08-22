@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.DeleteServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.DeleteServerCertificateResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Deletes an IAM server certificate
@@ -37,7 +37,7 @@ public class DeleteServerCertificate {
         String cert_name = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
         
         DeleteServerCertificateRequest request =
             DeleteServerCertificateRequest.builder()

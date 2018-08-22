@@ -1,73 +1,72 @@
 <?php
-
-
-// Replace sender@example.com with your "From" address. 
-// This address must be verified with Amazon SES.
-define('SENDER', 'sender@example.com');
-
-// Replace recipient@example.com with a "To" address. If your account 
-// is still in the sandbox, this address must be verified.
-define('RECIPIENT', 'recipient@example.com');
-
-// Specify a configuration set. If you do not want to use a configuration
-// set, comment the following variable, and the 
-// 'ConfigurationSetName' => CONFIGSET argument below.
-define('CONFIGSET', 'ConfigSet');
-
-define('SUBJECT', 'Amazon SES test (AWS SDK for PHP)');
-
-define('HTMLBODY', '<h1>AWS Amazon Simple Email Service Test Email</h1>' .
-    '<p>This email was sent with <a href="https://aws.amazon.com/ses/">' .
-    'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-php/">' .
-    'AWS SDK for PHP</a>.</p>');
-define('TEXTBODY', 'This email was send with Amazon SES using the AWS SDK for PHP.');
-
-define('CHARSET', 'UTF-8');
+/**
+ * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ *
+ *
+ *
+ */
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient;
-use Aws\Ses\Exception\SesException;
+use Aws\SES\SESClient;
+use Aws\Exception\AwsException;
 
-$client = new SesClient([
+//Create a SESClient
+$SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2010-12-01'
+    'version' => '2010-12-01',
+    'region'  => 'us-east-2'
 ]);
 
+$html_body = '<h1>AWS Amazon Simple Email Service Test Email</h1>'.
+                  '<p>This email was sent with <a href="https://aws.amazon.com/ses/">'.
+                  'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-php/">'.
+                  'AWS SDK for PHP</a>.</p>';
+$subject = 'Amazon SES test (AWS SDK for PHP)';
+$plaintext_body = 'This email was send with Amazon SES using the AWS SDK for PHP.' ;
+$sender_email = 'email_address';
+$verified_recipeint_emails = ['email_address'];
+$char_set = 'UTF-8';
+
 try {
-    $result = $client->sendEmail([
+    $result = $SesClient->sendEmail([
         'Destination' => [
-            'ToAddresses' => [
-                RECIPIENT,
-            ],
+            'ToAddresses' => $verified_recipeint_emails,
         ],
+        'ReplyToAddresses' => [$sender_email],
+        'Source' => $sender_email,
         'Message' => [
-            'Body' => [
-                'Html' => [
-                    'Charset' => CHARSET,
-                    'Data' => HTMLBODY,
-                ],
-                'Text' => [
-                    'Charset' => CHARSET,
-                    'Data' => TEXTBODY,
-                ],
+        
+        'Body' => [
+            'Html' => [
+                'Charset' => $char_set,
+                'Data' => $html_body,
             ],
-            'Subject' => [
-                'Charset' => CHARSET,
-                'Data' => SUBJECT,
+            'Text' => [
+                'Charset' => $char_set,
+                'Data' => $plaintext_body,
             ],
         ],
-        'Source' => SENDER,
-        // If you are not using a configuration set, comment or delete the
-        // following line
-        'ConfigurationSetName' => CONFIGSET,
-    ]);
-    $messageId = $result->get('MessageId');
-    echo("Email sent! Message ID: $messageId" . "\n");
-
-} catch (SesException $error) {
-    echo("The email was not sent. Error message: " . $error->getAwsErrorMessage() . "\n");
+        'Subject' => [
+            'Charset' => $char_set,
+            'Data' => $subject,
+        ],
+    ],
+]);
+    var_dump($result);
+} catch (AwsException $e) {
+    // output error message if fails
+    echo $e->getMessage();
+    echo "\n";
 }
-
-?>

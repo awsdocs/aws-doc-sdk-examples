@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
 
@@ -24,7 +24,7 @@ public class DescribeAddresses
 {
     public static void main(String[] args)
     {
-        EC2Client ec2 = EC2Client.create();
+    	Ec2Client ec2 = Ec2Client.create();
 
         DescribeAddressesResponse response = ec2.describeAddresses();
 

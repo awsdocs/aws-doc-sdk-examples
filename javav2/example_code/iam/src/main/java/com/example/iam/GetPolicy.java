@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.GetPolicyRequest;
 import software.amazon.awssdk.services.iam.model.GetPolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Gets an IAM policy's details
@@ -38,7 +38,7 @@ public class GetPolicy {
         String policy_arn = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         GetPolicyRequest request = GetPolicyRequest.builder()
             .policyArn(policy_arn).build();

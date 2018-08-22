@@ -12,7 +12,7 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.dynamodb;
+package com.example.dynamodbasync;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -96,7 +96,7 @@ public class AsyncPagination {
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(listTablesRequest);
 
         // Use a for-loop for simple use cases
-        CompletableFuture<Void> future = publisher.forEach(response -> response.tableNames()
+        CompletableFuture<Void> future = publisher.subscribe(response -> response.tableNames()
                                                                                .forEach(System.out::println));
         
         future.get();
@@ -148,7 +148,7 @@ public class AsyncPagination {
         SdkPublisher<String> publisher = listTablesPublisher.tableNames();
 
         // Use forEach
-        CompletableFuture<Void> future = publisher.forEach(System.out::println);
+        CompletableFuture<Void> future = publisher.subscribe(System.out::println);
         future.get();
 
         // Use subscriber

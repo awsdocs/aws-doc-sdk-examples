@@ -44,4 +44,3 @@ $result = $ec2Client->createSecurityGroup(array(
 $securityGroupId = $result->get('GroupId');
 
 echo "Security Group ID: " . $securityGroupId . '\n';
-

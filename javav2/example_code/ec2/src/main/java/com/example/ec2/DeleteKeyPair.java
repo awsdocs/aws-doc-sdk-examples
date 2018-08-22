@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 
@@ -35,7 +35,7 @@ public class DeleteKeyPair
 
         String key_name = args[0];
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         DeleteKeyPairRequest request = DeleteKeyPairRequest.builder()
             .keyName(key_name)

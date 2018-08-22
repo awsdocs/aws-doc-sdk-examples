@@ -72,7 +72,7 @@ public class UpdateTable
         try {
             ddb.updateTable(request);
         } catch (DynamoDbException e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
 

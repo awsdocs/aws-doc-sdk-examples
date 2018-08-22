@@ -14,7 +14,7 @@
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
- * 
+ *
  */
 
 require 'vendor/autoload.php';

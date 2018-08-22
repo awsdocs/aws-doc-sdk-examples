@@ -14,7 +14,7 @@
  */
 package com.example.iam;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.UpdateUserRequest;
 import software.amazon.awssdk.services.iam.model.UpdateUserResponse;
 
@@ -38,7 +38,7 @@ public class UpdateUser {
         String new_name = args[1];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         UpdateUserRequest request = UpdateUserRequest.builder()
             .userName(cur_name)

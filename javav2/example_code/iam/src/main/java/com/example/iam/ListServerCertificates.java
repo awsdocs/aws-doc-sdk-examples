@@ -18,7 +18,7 @@ import software.amazon.awssdk.services.iam.model.ListServerCertificatesResponse;
 import software.amazon.awssdk.services.iam.model.ServerCertificateMetadata;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Lists all server certificates associated with an AWS account
@@ -27,7 +27,7 @@ public class ListServerCertificates {
     public static void main(String[] args) {
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         boolean done = false;
         String new_marker = null;

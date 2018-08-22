@@ -54,7 +54,7 @@ $dest = '/path/to/destination/dir';
 // Create a default transfer object
 $manager = new \Aws\S3\Transfer($client, $source, $dest);
 
-//toggle to transfer asynchronously 
+//toggle to transfer asynchronously
 if (async) {
     // Initiate the transfer and get a promise
     $promise = $manager->promise();
@@ -63,9 +63,7 @@ if (async) {
     $promise->then(function () {
         echo 'Done!';
     });
-}
-else {
+} else {
     // Perform the transfer synchronously
     $manager->transfer();
-
 }

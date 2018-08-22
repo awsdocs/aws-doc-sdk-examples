@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.iam.model.CreateAccountAliasRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccountAliasResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Creates an alias for an AWS Account
@@ -37,7 +37,7 @@ public class CreateAccountAlias {
         String alias = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         CreateAccountAliasRequest request = CreateAccountAliasRequest.builder()
             .accountAlias(alias).build();

@@ -18,7 +18,7 @@ import software.amazon.awssdk.services.iam.model.UpdateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Updates the status of an IAM user's access key
@@ -53,7 +53,7 @@ public class UpdateAccessKey {
         }
        
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         UpdateAccessKeyRequest request = UpdateAccessKeyRequest.builder()
             .accessKeyId(access_id)

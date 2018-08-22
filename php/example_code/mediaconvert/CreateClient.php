@@ -18,7 +18,6 @@ require 'vendor/autoload.php';
 
 use Aws\MediaConvert\MediaConvertClient;
 
-
 /**
  * Creating an Amazon Elemental MediaConvert Client.
  *

@@ -16,7 +16,7 @@ import software.amazon.awssdk.services.iam.model.GetServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.GetServerCertificateResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 
 /**
  * Gets a server certificate
@@ -37,7 +37,7 @@ public class GetServerCertificate {
         String cert_name = args[0];
 
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         GetServerCertificateRequest request = GetServerCertificateRequest.builder()
                     .serverCertificateName(cert_name).build();
