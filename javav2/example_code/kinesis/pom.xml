@@ -18,7 +18,7 @@
     <dependency>
       <artifactId>netty-nio-client</artifactId>
       <groupId>software.amazon.awssdk</groupId>
-    <version>2.0.0</version>
-</dependency>
+      <version>2.0.0</version>
+   </dependency>
   </dependencies>
 </project>
