@@ -31,7 +31,7 @@ $SesClient = new Aws\SES\SESClient([
 
 $template_name = 'Template_Name';
 $sender_email = 'email_address';
-$verified_recipeint_emails = ['email_address'];
+$recipeint_emails = ['email_address'];
 
 
 try {

@@ -36,8 +36,9 @@ $html_body = '<h1>AWS Amazon Simple Email Service Test Email</h1>'.
 $subject = 'Amazon SES test (AWS SDK for PHP)';
 $plaintext_body = 'This email was send with Amazon SES using the AWS SDK for PHP.' ;
 $sender_email = 'email_address';
-$verified_recipeint_emails = ['email_address'];
+$recipeint_emails = ['email_address'];
 $char_set = 'UTF-8';
+$configuration_set = 'ConfigSet';
 
 try {
     $result = $SesClient->sendEmail([
@@ -63,6 +64,9 @@ try {
             'Data' => $subject,
         ],
     ],
+    // If you aren't using a configuration set, comment or delete the
+    // following line
+    'ConfigurationSetName' => $configuration_set,
 ]);
     var_dump($result);
 } catch (AwsException $e) {
