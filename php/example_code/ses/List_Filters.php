@@ -13,7 +13,6 @@
  * specific language governing permissions and limitations under the License.
  *
  *
- *
  * This will add to the rule an action to call an AWS Lambda function
  * and notify an Amazon SNS topic
  */
