@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the 
- *  
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the
+ *
  */
 
 require 'vendor/autoload.php';
@@ -46,7 +46,7 @@ try {
         'PartitionKey' => $shardKey
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
