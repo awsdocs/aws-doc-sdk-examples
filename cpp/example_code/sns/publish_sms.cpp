@@ -42,7 +42,7 @@ int main(int argc, char ** argv)
 
     if (psms_out.IsSuccess())
     {
-      std::cout << "Message published successfully " << psms_out.GetResult().GetMessageId
+      std::cout << "Message published successfully " << psms_out.GetResult().GetMessageId()
         << std::endl;
     }
     else

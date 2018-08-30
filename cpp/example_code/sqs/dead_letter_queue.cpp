@@ -29,7 +29,7 @@ Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
     policy_map.WithObject("deadLetterTargetArn", redrive_arn_entry);
     policy_map.WithObject("maxReceiveCount", max_msg_entry);
 
-    return policy_map.WriteReadable();
+    return policy_map.View().WriteReadable();
 }
 
 /**

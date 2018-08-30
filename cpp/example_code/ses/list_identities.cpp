@@ -29,11 +29,13 @@ int main(int argc, char **argv)
 
     Aws::SES::Model::ListIdentitiesRequest li_req;
 
-    if (argv[1] == "EmailAddress")
+    const Aws::String identityType = argv[1];
+
+    if (identityType == "EmailAddress")
     {
       li_req.SetIdentityType(Aws::SES::Model::IdentityType::EmailAddress);
     }
-    else if (argv[1] == "Domain")
+    else if (identityType == "Domain")
     {
       li_req.SetIdentityType(Aws::SES::Model::IdentityType::Domain);
     }

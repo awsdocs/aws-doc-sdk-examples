@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/glacier/GlacierClient.h>
 #include <aws/glacier/model/CreateVaultRequest.h>
 #include <aws/glacier/model/CreateVaultResult.h>

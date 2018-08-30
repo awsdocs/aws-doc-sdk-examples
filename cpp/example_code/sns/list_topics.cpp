@@ -21,7 +21,7 @@
 
 int main(int argc, char ** argv)
 {
-  if (argc != 2)
+  if (argc != 1)
   {
     std::cout << "Usage: list_topics" << std::endl;
     return 1;
@@ -38,7 +38,11 @@ int main(int argc, char ** argv)
 
     if (lt_out.IsSuccess())
     {
-      std::cout << "Topics list " << lt_out.GetResult().GetTopics() << std::endl;
+      std::cout << "Topics list:" << std::endl;
+      for (auto const &topic : lt_out.GetResult().GetTopics())
+      {
+        std::cout << "  * " << topic.GetTopicArn() << std::endl;
+      }
     }
     else
     {

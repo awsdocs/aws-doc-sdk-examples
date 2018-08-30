@@ -12,9 +12,9 @@
 
 cmake_minimum_required(VERSION 3.2)
 project(s3Encryption)
-set(CMAKE_CXX_STANDARD 17) # The SDK is built with C++11, but the application can use a later standard
+set(CMAKE_CXX_STANDARD 11) # The SDK is built with C++11, but the application can use a later standard
 
-find_package(aws-cpp-sdk-s3-encryption)
+find_package(aws-sdk-cpp)
 
 if (WIN32)
 # Link to shared libraries.
@@ -29,4 +29,5 @@ add_executable(s3Encryption s3Encryption.cpp)
 target_link_libraries(s3Encryption
     aws-cpp-sdk-s3-encryption
     aws-cpp-sdk-s3
+    aws-cpp-sdk-kms
     aws-cpp-sdk-core)
