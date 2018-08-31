@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
- *
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the 
+ *  
  */
 
 require 'vendor/autoload.php';
@@ -32,21 +32,22 @@ use Aws\Exception\AwsException;
 $KinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
-    'region'  => 'us-east-2'
+    'region'  => 'us-east-1'
 ]);
 
 $name = "my_stream_name";
 $content = "The data blob can be any type of data; for example, a segment from a log file, geographic/location data, website clickstream data, and so on.";
-$shardKey = "Unicode strings, with a maximum length limit of 256 characters for each key.";
+$groupID = "input to a hash function that maps the partition key (and associated data) to a specific shard";
 
 try {
-    $result = $KinesisClient->ListShards([
+    $result = $KinesisClient->PutRecord([
         'Data' => $content,
         'StreamName' =>  $name,
-        'PartitionKey' => $shardKey
+        'PartitionKey' => $groupID
     ]);
+    print("<p>ShardID = " . $result["ShardId"] . "</p>");
     var_dump($result);
-} catch (AwsException $e) {
+}catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
