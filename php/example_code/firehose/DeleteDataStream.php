@@ -39,7 +39,7 @@ $name = "my_stream_name";
 
 try {
     $result = $FirehoseClient->deleteDeliveryStream([
-        'DeliveryStreamName' =>  $name, 
+        'DeliveryStreamName' =>  $name,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
