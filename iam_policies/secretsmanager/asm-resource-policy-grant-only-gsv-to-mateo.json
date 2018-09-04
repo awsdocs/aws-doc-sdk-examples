@@ -3,7 +3,7 @@
     "Statement": [
         {
             "Effect": "Allow",
-            "Principal": {"AWS": arn:aws:iam::123456789012:user/mateo" },
+            "Principal": {"AWS": "arn:aws:iam::123456789012:user/mateo" },
             "Action": "secretsmanager:GetSecretValue",
             "Resource": "*"
         }
