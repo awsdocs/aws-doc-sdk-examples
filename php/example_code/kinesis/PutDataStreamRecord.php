@@ -36,7 +36,7 @@ $KinesisClient = new Aws\Kinesis\KinesisClient([
 ]);
 
 $name = "my_stream_name";
-$content = "The data blob can be any type of data; for example, a segment from a log file, geographic/location data, website clickstream data, and so on.";
+$content = '{"ticker_symbol":"QXZ", "sector":"HEALTHCARE", "change":-0.05, "price":84.51}';
 $groupID = "input to a hash function that maps the partition key (and associated data) to a specific shard";
 
 try {
