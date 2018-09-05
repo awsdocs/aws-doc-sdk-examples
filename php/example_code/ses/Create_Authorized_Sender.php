@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  
+ *
  *
  *
  */
@@ -22,15 +22,15 @@ require 'vendor/autoload.php';
 use Aws\SES\SESClient;
 use Aws\Exception\AwsException;
 
-
 //Create a SESClient
 $SesClient = new SesClient([
-    'profile' => 'awssdkphp', 
+    'profile' => 'awssdkphp',
     'version' => '2010-12-01',
     'region'  => 'us-east-1'
 ]);
 
 $identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
+$other_aws_account = "0123456789012";
 $policy = "{
   \"Id\":\"ExampleAuthorizationPolicy\",
   \"Version\":\"2012-10-17\",
@@ -38,11 +38,9 @@ $policy = "{
     {
       \"Sid\":\"AuthorizeAccount\",
       \"Effect\":\"Allow\",
-      \"Resource\":" . $identity . ",
+      \"Resource\":\"" . $identity . "\",
       \"Principal\":{
-        \"AWS\":[ " . $other_as
-          \"123456789012\"
-        ]
+        \"AWS\":[ \"" . $other_aws_account . "\" ]
       },
       \"Action\":[
         \"SES:SendEmail\",
@@ -60,7 +58,7 @@ try {
         'PolicyName' => $name,
 ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
