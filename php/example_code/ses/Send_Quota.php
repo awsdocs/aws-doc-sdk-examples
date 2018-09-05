@@ -13,8 +13,8 @@
  * specific language governing permissions and limitations under the License.
  *
  *
- * This will add to the rule an action to call an AWS Lambda function
- * and notify an Amazon SNS topic
+ *
+ *
  */
 
 require 'vendor/autoload.php';
@@ -23,19 +23,19 @@ use Aws\SES\SESClient;
 use Aws\Exception\AwsException;
 
 //Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region'  => 'us-east-1'
 ]);
 
-$filter_name = 'FilterName';
-
 try {
-    $result = $SesClient->deleteReceiptFilter([
-            'FilterName' => $filter_name,
-
-        ]);
+    $result = $SesClient->getSendQuota([
+]);
+    $send_limit = $result["Max24HourSend"];
+    $sent = $result["SentLast24Hours"];
+    $available = $send_limit - $sent;
+    print("<p>You can send " . $available . " more messages in the next 24 hours.</p>");
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
