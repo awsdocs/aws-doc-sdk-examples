@@ -20,12 +20,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use Aws\Ses\SesClient;
 use Aws\Ses\Exception\SesException;
 
-// Replace sender@example.com with your "From" address. 
+// Replace sender@example.com with your "From" address.
 // This address must be verified with Amazon SES.
 $sender = 'sender@example.com';
 $sendername = 'Sender Name';
 
-// Replace recipient@example.com with a "To" address. If your account 
+// Replace recipient@example.com with a "To" address. If your account
 // is still in the sandbox, this address must be verified.
 $recipient = 'recipient@example.com';
 
@@ -49,7 +49,7 @@ Hello,
 Please see the attached file for a list of customers to contact.
 EOD;
 
-// The full path to the file that will be attached to the email. 
+// The full path to the file that will be attached to the email.
 $att = 'path/to/customers-to-contact.xlsx';
 
 // Create an SesClient.
@@ -94,5 +94,3 @@ try {
     echo("The email was not sent. Error message: "
         . $error->getAwsErrorMessage() . "\n");
 }
-
-?>
