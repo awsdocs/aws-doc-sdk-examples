@@ -36,7 +36,7 @@ $FirehoseClient = new Aws\Firehose\FirehoseClient([
 ]);
 
 $name = "my_stream_name";
-$content = "The data blob can be any type of data; for example, a segment from a log file, geographic/location data, website clickstream data, and so on.";
+$content = "\"ticker_symbol\":\"QXZ\", \"sector\":\"HEALTHCARE\", \"change\":-0.05, \"price\":84.51}";
 
 try {
     $result = $FirehoseClient->putRecord([
