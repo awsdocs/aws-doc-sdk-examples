@@ -36,7 +36,7 @@ $FirehoseClient = new Aws\Firehose\FirehoseClient([
 ]);
 
 $name = "my_stream_name";
-$content = "\"ticker_symbol\":\"QXZ\", \"sector\":\"HEALTHCARE\", \"change\":-0.05, \"price\":84.51}";
+$content = '"ticker_symbol":"QXZ", "sector":"HEALTHCARE", "change":-0.05, "price":84.51}';
 
 try {
     $result = $FirehoseClient->putRecord([
