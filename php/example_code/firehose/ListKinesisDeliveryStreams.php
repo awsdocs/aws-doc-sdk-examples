@@ -22,7 +22,7 @@ use Aws\Firehose\FirehoseClient;
 use Aws\Exception\AwsException;
 
 /**
- * Creating an Amazon Kinesis Firehose client.
+ * ist existing Amazon Kinesis Firehose Delivery Streams that use a Kinesis Data Stream as output.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -32,7 +32,7 @@ use Aws\Exception\AwsException;
 $FirehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 

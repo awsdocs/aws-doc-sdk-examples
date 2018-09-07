@@ -22,7 +22,7 @@ use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
 
 /**
- * Creating an Amazon Kinesis client.
+ * Add a data blob to an existing Amazon Kinesis Data Stream.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html

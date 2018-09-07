@@ -22,7 +22,7 @@ use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
 
 /**
- * Creating an Amazon Kinesis client.
+ * List existing shards for current Amazon Kinesis Data Stream.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -32,14 +32,14 @@ use Aws\Exception\AwsException;
 $KinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = "my_stream_name";
 
 try {
     $result = $KinesisClient->ListShards([
-        'StreamName' =>  $name,
+        'StreamName' => $name,
     ]);
     var_dump($result);
 } catch (AwsException $e) {

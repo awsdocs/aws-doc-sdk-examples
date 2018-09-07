@@ -22,7 +22,8 @@ use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
 
 /**
- * Creating an Amazon Kinesis client.
+ * Updating number of shareds in an Amazon Kinesis Data Stream.
+ * Remember you can only increase shareds to be double current shard count.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -32,7 +33,7 @@ use Aws\Exception\AwsException;
 $KinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = "my_stream_name";
@@ -42,7 +43,7 @@ $totalshards = 4;
 try {
     $result = $KinesisClient->UpdateShardCount([
         'ScalingType' => 'UNIFORM_SCALING',
-        'StreamName' =>  $name,
+        'StreamName' => $name,
         'TargetShardCount' => $totalshards
     ]);
     var_dump($result);

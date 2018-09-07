@@ -22,7 +22,7 @@ use Aws\Firehose\FirehoseClient;
 use Aws\Exception\AwsException;
 
 /**
- * Creating an Amazon Kinesis Firehose client.
+ * Creating an S3 Amazon Kinesis Firehose Delivery Stream.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -32,7 +32,7 @@ use Aws\Exception\AwsException;
 $FirehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = "my_S3_stream_name";
@@ -42,14 +42,14 @@ $s3Role = 'arn:aws:iam::0123456789:policy/Role';
 
 try {
     $result = $FirehoseClient->createDeliveryStream([
-        'DeliveryStreamName' =>  $name,
+        'DeliveryStreamName' => $name,
         'DeliveryStreamType' => $stream_type,
         'S3DestinationConfiguration' => [
-        'BucketARN' => $s3bucket,
-        'CloudWatchLoggingOptions' => [
-            'Enabled' => false,
-        ],
-        'RoleARN' => $s3Role
+            'BucketARN' => $s3bucket,
+            'CloudWatchLoggingOptions' => [
+                'Enabled' => false,
+            ],
+            'RoleARN' => $s3Role
         ],
     ]);
     var_dump($result);
