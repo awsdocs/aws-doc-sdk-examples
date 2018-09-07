@@ -24,37 +24,17 @@ use Aws\Exception\AwsException;
 
 //Create a SESClient
 $SesClient = new SesClient([
-    'profile' => 'awssdkphp',
+    'profile' => 'default',
     'version' => '2010-12-01',
     'region'  => 'us-east-1'
 ]);
 
 $identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
-$other_aws_account = "0123456789012";
-$policy = "{
-  \"Id\":\"ExampleAuthorizationPolicy\",
-  \"Version\":\"2012-10-17\",
-  \"Statement\":[
-    {
-      \"Sid\":\"AuthorizeAccount\",
-      \"Effect\":\"Allow\",
-      \"Resource\":\"" . $identity . "\",
-      \"Principal\":{
-        \"AWS\":[ \"" . $other_aws_account . "\" ]
-      },
-      \"Action\":[
-        \"SES:SendEmail\",
-        \"SES:SendRawEmail\"
-      ]
-    }
-  ]
-}";
 $name = "policyName";
 
 try {
-    $result = $SesClient->putIdentityPolicy([
+    $result = $SesClient->getIdentityPolicies([
         'Identity' => $identity,
-        'Policy' => $policy,
         'PolicyName' => $name,
 ]);
     var_dump($result);

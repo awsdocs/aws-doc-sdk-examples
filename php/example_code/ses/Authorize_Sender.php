@@ -23,28 +23,40 @@ use Aws\SES\SESClient;
 use Aws\Exception\AwsException;
 
 //Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region' => 'us-east-2'
+    'region'  => 'us-east-1'
 ]);
 
-$template_name = 'Template_Name';
-$sender_email = 'email_address';
-$recipeint_emails = ['email_address'];
-
+$identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
+$other_aws_account = "0123456789";
+$policy = "{
+ 'Id':'ExampleAuthorizationPolicy',
+ 'Version':'2012-10-17',
+ 'Statement':[
+    {
+     'Sid':'AuthorizeAccount',
+     'Effect':'Allow',
+     'Resource':'" . $identity . "',
+     'Principal':{
+       'AWS':['" . $other_aws_account . "' ]
+      },
+     'Action':[
+       'SES:SendEmail',
+       'SES:SendRawEmail'
+      ]
+    }
+  ]
+}";
+$name = "policyName";
 
 try {
-    $result = $SesClient->sendTemplatedEmail([
-        'Destination' => [
-            'ToAddresses' => $verified_recipeint_emails,
-        ],
-        'ReplyToAddresses' => [$sender_email],
-        'Source' => $sender_email,
-
-        'Template' => $template_name,
-        'TemplateData' => '{ }'
-    ]);
+    $result = $SesClient->putIdentityPolicy([
+        'Identity' => $identity,
+        'Policy' => $policy,
+        'PolicyName' => $name,
+]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
