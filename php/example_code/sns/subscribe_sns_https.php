@@ -42,7 +42,7 @@ try {
     $result = $SnSclient->subscribe([
         'Protocol' => $protocol,
         'Endpoint' => $endpoint,
-        'ReturnSubscriptionArn' => true ,
+        'ReturnSubscriptionArn' => true,
         'TopicArn' => $topic,
     ]);
     var_dump($result);
