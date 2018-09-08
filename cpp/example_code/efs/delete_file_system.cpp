@@ -10,9 +10,9 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/elasticfilesystem/EFSClient.h>
 #include <aws/elasticfilesystem/model/DeleteFileSystemRequest.h>
-#include <aws/elasticfilesystem/model/DeleteFileSystemResult.h>
 #include <iostream>
 
 /**

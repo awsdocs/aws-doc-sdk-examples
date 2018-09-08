@@ -25,5 +25,5 @@ list(APPEND EXAMPLES "create_mount_target")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-  target_link_libraries(${EXAMPLE} aws-cpp-sdk-efs aws-cpp-sdk-core)
+  target_link_libraries(${EXAMPLE} aws-cpp-sdk-elasticfilesystem aws-cpp-sdk-core)
 endforeach()
