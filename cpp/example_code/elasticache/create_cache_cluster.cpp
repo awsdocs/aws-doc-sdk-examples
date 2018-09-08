@@ -18,9 +18,10 @@
 
 int main(int argc, char ** argv)
 {
-  if (argc != 2)
+  if (argc != 5)
   {
-    std::cout << "Usage: create_cache_cluster <cluster_id>" << std::endl;
+    std::cout << "Usage: create_cache_cluster <cluster_id> <engine> <cache_node_type>"
+                 "<num_cache_nodes>" << std::endl;
     return 1;
   }
 
@@ -28,12 +29,18 @@ int main(int argc, char ** argv)
   Aws::InitAPI(options);
   {
     Aws::String cluster_id(argv[1]);
+    Aws::String engine(argv[2]);
+    Aws::String cache_node_type(argv[3]);
+    int num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt64(argv[4]);
 
     Aws::ElastiCache::ElastiCacheClient elasticache;
 
     Aws::ElastiCache::Model::CreateCacheClusterRequest ccc_req;
 
     ccc_req.SetCacheClusterId(cluster_id);
+    ccc_req.SetEngine(engine);
+    ccc_req.SetCacheNodeType(cache_node_type);
+    ccc_req.SetNumCacheNodes(num_cache_nodes);
 
     auto ccc_out = elasticache.CreateCacheCluster(ccc_req);
 

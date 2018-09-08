@@ -34,7 +34,7 @@ int main(int argc, char ** argv)
     Aws::ElastiCache::ElastiCacheClient elasticache;
 
     Aws::ElastiCache::Model::AddTagsToResourceRequest attr_req;
-    Aws::ElastiCache::Model::Tags tags;
+    Aws::ElastiCache::Model::Tag tags;
 
     tags.SetKey(tag_key);
     tags.SetValue(tag_value);
