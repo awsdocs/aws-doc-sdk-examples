@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 
       for (auto val: ddbc_out.GetResult().GetDBClusters())
       {
-        std::cout << " " << val << std::endl;
+        std::cout << " " << val.GetDBClusterIdentifier() << std::endl;
       }
     }
 
