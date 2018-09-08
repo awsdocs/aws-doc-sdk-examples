@@ -10,6 +10,8 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
+#include <aws/core/utils/StringUtils.h>
 #include <aws/codebuild/CodeBuildClient.h>
 #include <aws/codebuild/model/ListBuildsRequest.h>
 #include <aws/codebuild/model/ListBuildsResult.h>
@@ -31,12 +33,24 @@ int main(int argc, char **argv)
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
-    Aws::String sort_order_type(argv[1]);
     Aws::CodeBuild::CodeBuildClient codebuild;
 
     Aws::CodeBuild::Model::ListBuildsRequest lb_req;
     Aws::CodeBuild::Model::BatchGetBuildsRequest bgb_req;
-    lb_req.SetSortOrder(sort_order_type);
+
+    if (Aws::Utils::StringUtils::CaselessCompare(argv[1], "ASCENDING"))
+    {
+      lb_req.SetSortOrder(Aws::CodeBuild::Model::SortOrderType::ASCENDING);
+    }
+    else if(Aws::Utils::StringUtils::CaselessCompare(argv[1], "DESCENDING"))
+    {
+      lb_req.SetSortOrder(Aws::CodeBuild::Model::SortOrderType::DESCENDING);
+    }
+    else
+    {
+      lb_req.SetSortOrder(Aws::CodeBuild::Model::SortOrderType::NOT_SET);
+    }
+
 
     auto lb_out = codebuild.ListBuilds(lb_req);
 

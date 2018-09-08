@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/codebuild/CodeBuildClient.h>
 #include <aws/codebuild/model/StartBuildRequest.h>
 #include <aws/codebuild/model/StartBuildResult.h>

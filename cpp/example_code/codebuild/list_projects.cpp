@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/codebuild/CodeBuildClient.h>
 #include <aws/codebuild/model/ListProjectsRequest.h>
 #include <aws/codebuild/model/ListProjectsResult.h>
@@ -54,7 +55,7 @@ int main(int argc, char **argv)
       std::cout << "Successfully listing projects";
       for (auto val : lp_out.GetResult().GetProjects())
       {
-        cout << " " << val << std::endl;
+        std::cout << " " << val << std::endl;
       }
     }
 
