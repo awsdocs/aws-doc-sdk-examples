@@ -26,7 +26,7 @@ Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
     Aws::Utils::Json::JsonValue detail_map;
     detail_map.WithObject(key, value_entry);
 
-    return detail_map.WriteReadable();
+    return detail_map.View().WriteReadable();
 }
 
 /**

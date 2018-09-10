@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/glacier/GlacierClient.h>
 #include <aws/glacier/model/UploadArchiveRequest.h>
 #include <aws/glacier/model/UploadArchiveResult.h>
@@ -35,13 +36,13 @@ int main(int argc, char **argv)
 
     Aws::Glacier::GlacierClient glacier;
 
-    Aws::Glacier::Model::CreateVaultRequest ua_req;
+    Aws::Glacier::Model::UploadArchiveRequest ua_req;
     ua_req.SetVaultName(vault_name);
     ua_req.SetAccountId(account_id);
     ua_req.SetArchiveDescription(archive_description);
 
 
-    auto ua_out = ses.UploadArchive(ua_req);
+    auto ua_out = glacier.UploadArchive(ua_req);
 
     if (ua_out.IsSuccess())
     {

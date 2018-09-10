@@ -76,7 +76,9 @@ int main(int argc, char **argv)
     {
       receipt_rule.AddRecipients(argv[i]);
     }
-    receipt_rule.SetActions(receipt_actions);
+    Aws::Vector<Aws::SES::Model::ReceiptAction> receiptActionList;
+    receiptActionList.emplace_back(receipt_actions);
+    receipt_rule.SetActions(receiptActionList);
 
     crr_req.SetRuleSetName(rule_set_name);
     crr_req.SetRule(receipt_rule);

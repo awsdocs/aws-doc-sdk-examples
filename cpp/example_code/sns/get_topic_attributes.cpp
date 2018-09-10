@@ -40,7 +40,11 @@ int main(int argc, char ** argv)
 
     if (gta_out.IsSuccess())
     {
-      std::cout << "Topic Attributes " <<< gta_out.GetResult().GetAttributes() << std::endl;
+      std::cout << "Topic Attributes:" << std::endl;
+      for (auto const &attribute : gta_out.GetResult().GetAttributes())
+      {
+        std::cout << "  * " << attribute.first << " : " << attribute.second << std::endl;
+      }
     }
     else
     {
