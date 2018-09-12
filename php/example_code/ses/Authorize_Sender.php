@@ -39,9 +39,9 @@ $policy = <<<EOT
     {
       "Sid":"AuthorizeAccount",
       "Effect":"Allow",
-      "Resource":"$identity ",
+      "Resource":"$identity",
       "Principal":{
-        "AWS":[ " $other_aws_account " ]
+        "AWS":[ "$other_aws_account" ]
       },
       "Action":[
         "SES:SendEmail",
