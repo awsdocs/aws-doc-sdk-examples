@@ -37,7 +37,7 @@ Aws::S3::Model::Permission GetPermission(Aws::String access)
 }
 
 void SetAclForBucket(Aws::String bucket_name, Aws::String email,
-        Aws::String access, Aws::String user_region)
+    Aws::String access, Aws::String user_region)
 {
     std::cout << "Setting ACL for bucket: " << bucket_name << std::endl;
 
@@ -50,24 +50,27 @@ void SetAclForBucket(Aws::String bucket_name, Aws::String email,
 
     auto get_outcome = s3_client.GetBucketAcl(get_request);
 
-    if (get_outcome.IsSuccess()) {
+    if (get_outcome.IsSuccess())
+    {
         Aws::S3::Model::Grantee grantee;
         grantee.SetEmailAddress(email);
         Aws::S3::Model::PutBucketAclRequest put_request;
         put_request.SetBucket(bucket_name);
         s3_client.PutBucketAcl(put_request);
-    } else {
+    }
+    else
+    {
         std::cout << "GetBucketAcl error: "
-                  << get_outcome.GetError().GetExceptionName() << " - "
-                  << get_outcome.GetError().GetMessage() << std::endl;
+            << get_outcome.GetError().GetExceptionName() << " - "
+            << get_outcome.GetError().GetMessage() << std::endl;
     }
 }
 
 void SetAclForObject(Aws::String bucket_name, Aws::String object_key,
-        Aws::String email, Aws::String access, Aws::String user_region)
+    Aws::String email, Aws::String access, Aws::String user_region)
 {
     std::cout << "Setting ACL for object: " << object_key << std::endl
-              << "             in bucket: " << bucket_name << std::endl;
+        << "             in bucket: " << bucket_name << std::endl;
 
     Aws::Client::ClientConfiguration config;
     config.region = user_region;
@@ -79,17 +82,20 @@ void SetAclForObject(Aws::String bucket_name, Aws::String object_key,
 
     auto get_outcome = s3_client.GetObjectAcl(get_request);
 
-    if (get_outcome.IsSuccess()) {
+    if (get_outcome.IsSuccess())
+    {
         Aws::S3::Model::Grantee grantee;
         grantee.SetEmailAddress(email);
         Aws::S3::Model::PutObjectAclRequest put_request;
         put_request.SetBucket(bucket_name);
         put_request.SetKey(object_key);
         s3_client.PutObjectAcl(put_request);
-    } else {
+    }
+    else
+    {
         std::cout << "GetObjectAcl error: "
-                  << get_outcome.GetError().GetExceptionName() << " - "
-                  << get_outcome.GetError().GetMessage() << std::endl;
+            << get_outcome.GetError().GetExceptionName() << " - "
+            << get_outcome.GetError().GetMessage() << std::endl;
     }
 }
 
@@ -98,49 +104,56 @@ void SetAclForObject(Aws::String bucket_name, Aws::String object_key,
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         std::cout << "set_acl - get the access control list (ACL) for" << std::endl
-                  << "          an S3 bucket (or object)" << std::endl
-                  << "\nUsage:" << std::endl
-                  << "  set_acl <bucket>/[object] <email> <access> [region]" << std::endl
-                  << "\nWhere:" << std::endl
-                  << "  bucket - the bucket name" << std::endl
-                  << "  object - the object name" << std::endl
-                  << "           (optional, if specified, the ACL will be retrieved" << std::endl
-                  << "            for the named object instead of the bucket)" << std::endl
-                  << "  email  - email of user to set permission for" << std::endl
-                  << "  access - type of access to set" << std::endl
-                  << "  region - AWS region for the bucket" << std::endl
-                  << "           (optional, default: us-east-1)" << std::endl
-                  << "\nExample:" << std::endl
-                  << "  set_acl testbucket" << std::endl << std::endl;
+            << "          an S3 bucket (or object)" << std::endl
+            << "\nUsage:" << std::endl
+            << "  set_acl <bucket>/[object] <email> <access> [region]" << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket - the bucket name" << std::endl
+            << "  object - the object name" << std::endl
+            << "           (optional, if specified, the ACL will be retrieved" << std::endl
+            << "            for the named object instead of the bucket)" << std::endl
+            << "  email  - email of user to set permission for" << std::endl
+            << "  access - type of access to set" << std::endl
+            << "  region - AWS region for the bucket" << std::endl
+            << "           (optional, default: us-east-1)" << std::endl
+            << "\nExample:" << std::endl
+            << "  set_acl testbucket" << std::endl << std::endl;
         exit(1);
-    }
-
-    int cur_arg = 1;
-    const Aws::String s3_path = argv[cur_arg++];
-    const Aws::String email = argv[cur_arg++];
-    const Aws::String access = argv[cur_arg++];
-    const Aws::String user_region = (argc > cur_arg) ? argv[cur_arg] : "us-east-1";
-
-    size_t slash_pos = s3_path.find_first_of('/');
-
-    Aws::String bucket_name = "";
-    Aws::String object_key = "";
-
-    if (slash_pos == std::string::npos) {
-        bucket_name = s3_path;
-    } else {
-        bucket_name = s3_path.substr(0, slash_pos);
-        object_key = s3_path.substr(slash_pos, std::string::npos);
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (object_key == "") {
+        int cur_arg = 1;
+        const Aws::String s3_path = argv[cur_arg++];
+        const Aws::String email = argv[cur_arg++];
+        const Aws::String access = argv[cur_arg++];
+        const Aws::String user_region = (argc > cur_arg) ? argv[cur_arg] : "us-east-1";
+
+        size_t slash_pos = s3_path.find_first_of('/');
+
+        Aws::String bucket_name = "";
+        Aws::String object_key = "";
+
+        if (slash_pos == std::string::npos)
+        {
+            bucket_name = s3_path;
+        }
+        else
+        {
+            bucket_name = s3_path.substr(0, slash_pos);
+            object_key = s3_path.substr(slash_pos, std::string::npos);
+        }
+
+        if (object_key == "")
+        {
             SetAclForBucket(bucket_name, email, access, user_region);
-        } else {
+        }
+        else
+        {
             SetAclForObject(bucket_name, object_key, email, access, user_region);
         }
     }

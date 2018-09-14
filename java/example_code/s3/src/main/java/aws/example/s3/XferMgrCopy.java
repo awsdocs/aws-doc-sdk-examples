@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -16,6 +16,7 @@ import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.Copy;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 
 /**
  * Copy an object from one Amazon S3 bucket to another using S3 TransferManager.
@@ -29,10 +30,10 @@ public class XferMgrCopy
             String to_bucket, String to_key) {
         System.out.println("Copying s3 object: " + from_key);
         System.out.println("      from bucket: " + from_bucket);
-        System.out.println("     to s3 object: " + to_bucket);
-        System.out.println("        in bucket: " + to_key);
+        System.out.println("     to s3 object: " + to_key);
+        System.out.println("        in bucket: " + to_bucket);
 
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             Copy xfer = xfer_mgr.copy(from_bucket, from_key, to_bucket, to_key);
             // loop with Transfer.isDone()

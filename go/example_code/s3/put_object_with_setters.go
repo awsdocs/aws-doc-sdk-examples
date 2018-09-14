@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,10 +11,29 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-resp, err := svc.PutObject((&s3.PutObject{}).
-    SetBucket("myBucket").
-    SetKey("myKey").
-    SetBody(strings.NewReader("object body")).
-    SetWebsiteRedirectLocation("https://example.com/something"),
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "strings"
 )
+
+func main() {
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, _ := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+
+    // Create S3 service client
+    svc := s3.New(sess)
+
+    svc.PutObject((&s3.PutObjectInput{}).
+        SetBucket("myBucket").
+        SetKey("myKey").
+        SetBody(strings.NewReader("object body")).
+        SetWebsiteRedirectLocation("https://example.com/something"),
+    )
+}

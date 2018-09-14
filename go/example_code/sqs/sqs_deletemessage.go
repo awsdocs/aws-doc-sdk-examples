@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -43,7 +43,7 @@ func main() {
         },
         QueueUrl:            &qURL,
         MaxNumberOfMessages: aws.Int64(1),
-        VisibilityTimeout:   aws.Int64(0),
+        VisibilityTimeout:   aws.Int64(20),  // 20 seconds
         WaitTimeSeconds:     aws.Int64(0),
     })
 

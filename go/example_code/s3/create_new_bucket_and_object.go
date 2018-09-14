@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,26 +15,32 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "log"
+    "strings"
 )
 
 // Downloads an item from an S3 Bucket in the region configured in the shared config
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_download.go BUCKET ITEM
+//    go run s3_download.go
 func main() {
-
     bucket := "myBucket"
     key := "TestFile.txt"
 
-    svc := s3.New(session.New(&aws.Config{Region: aws.String("us-west-2")}))
-    result, err := svc.CreateBucket(&s3.CreateBucketInput{
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+
+    // Create S3 service client
+    svc := s3.New(sess)
+
+    _, err = svc.CreateBucket(&s3.CreateBucketInput{
         Bucket: &bucket,
     })
     if err != nil {
@@ -47,7 +53,7 @@ func main() {
         return
     }
 
-    uploadResult, err := svc.PutObject(&s3.PutObjectInput{
+    _, err = svc.PutObject(&s3.PutObjectInput{
         Body:   strings.NewReader("Hello World!"),
         Bucket: &bucket,
         Key:    &key,

@@ -15,7 +15,9 @@
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DescribeAlarmsRequest.h>
 #include <aws/monitoring/model/DescribeAlarmsResult.h>
+#include <iomanip>
 #include <iostream>
+#include <iomanip>
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 
@@ -25,7 +27,6 @@ static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
-
     Aws::InitAPI(options);
     {
         Aws::CloudWatch::CloudWatchClient cw;
@@ -34,15 +35,18 @@ int main(int argc, char** argv)
 
         bool done = false;
         bool header = false;
-        while (!done) {
+        while (!done)
+        {
             auto outcome = cw.DescribeAlarms(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to describe cloudwatch alarms:" <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header) {
+            if (!header)
+            {
                 std::cout << std::left <<
                     std::setw(32) << "Name" <<
                     std::setw(64) << "Arn" <<
@@ -53,7 +57,8 @@ int main(int argc, char** argv)
             }
 
             const auto &alarms = outcome.GetResult().GetMetricAlarms();
-            for (const auto &alarm : alarms) {
+            for (const auto &alarm : alarms)
+            {
                 std::cout << std::left <<
                     std::setw(32) << alarm.GetAlarmName() <<
                     std::setw(64) << alarm.GetAlarmArn() <<

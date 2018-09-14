@@ -15,7 +15,9 @@
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListAccessKeysRequest.h>
 #include <aws/iam/model/ListAccessKeysResult.h>
+#include <iomanip>
 #include <iostream>
+#include <iomanip> 
 
 static const char* DATE_FORMAT = "%Y-%m-%d";
 
@@ -24,31 +26,35 @@ static const char* DATE_FORMAT = "%Y-%m-%d";
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_list_access_keys <user_name>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: list_access_keys <user_name>" << std::endl;
         return 1;
     }
 
-    Aws::String userName(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String userName(argv[1]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListAccessKeysRequest request;
         request.SetUserName(userName);
 
         bool done = false;
         bool header = false;
-        while (!done) {
+        while (!done)
+        {
             auto outcome = iam.ListAccessKeys(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to list access keys for user " << userName
                     << ": " << outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header) {
+            if (!header)
+            {
                 std::cout << std::left << std::setw(32) << "UserName" <<
                     std::setw(30) << "KeyID" << std::setw(20) << "Status" <<
                     std::setw(20) << "CreateDate" << std::endl;
@@ -56,19 +62,23 @@ int main(int argc, char** argv)
             }
 
             const auto &keys = outcome.GetResult().GetAccessKeyMetadata();
-            for (const auto &key : keys) {
+            for (const auto &key : keys)
+            {
                 Aws::String statusString =
                     Aws::IAM::Model::StatusTypeMapper::GetNameForStatusType(
-                            key.GetStatus());
+                        key.GetStatus());
                 std::cout << std::left << std::setw(32) << key.GetUserName() <<
                     std::setw(30) << key.GetAccessKeyId() << std::setw(20) <<
                     statusString << std::setw(20) <<
                     key.GetCreateDate().ToGmtString(DATE_FORMAT) << std::endl;
             }
 
-            if (outcome.GetResult().GetIsTruncated()) {
+            if (outcome.GetResult().GetIsTruncated())
+            {
                 request.SetMarker(outcome.GetResult().GetMarker());
-            } else {
+            }
+            else
+            {
                 done = true;
             }
         }

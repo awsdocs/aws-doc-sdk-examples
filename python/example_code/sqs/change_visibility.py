@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 import boto3
-
 
 # Create SQS client
 sqs = boto3.client('sqs')
@@ -38,6 +37,6 @@ receipt_handle = message['ReceiptHandle']
 sqs.change_message_visibility(
     QueueUrl=queue_url,
     ReceiptHandle=receipt_handle,
-    VisibilityTimeout=36000
+    VisibilityTimeout=3600
 )
 print('Received and changed visibilty timeout of message: %s' % message)

@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,17 +15,17 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
+    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Gets the ACL for a bucket
 //
 // Usage:
-//    go run s3_get_bucket_acl.go BUCKET
+//     go run s3_get_bucket_acl.go BUCKET
 func main() {
     if len(os.Args) != 2 {
         exitErrorf("Bucket name required\nUsage: go run", os.Args[0], "BUCKET")
@@ -33,8 +33,8 @@ func main() {
 
     bucket := os.Args[1]
 
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
+    // Initialize a session that loads credentials from the shared credentials file ~/.aws/credentials
+    // and the region from the shared configuratin file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -44,17 +44,22 @@ func main() {
 
     // Get bucket ACL
     result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{Bucket: &bucket})
-
     if err != nil {
         exitErrorf(err.Error())
     }
 
     fmt.Println("Owner:", *result.Owner.DisplayName)
-
+    fmt.Println("")
     fmt.Println("Grants")
 
     for _, g := range result.Grants {
-        fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
+        // If we add a canned ACL, the name is nil
+        if g.Grantee.DisplayName == nil {
+            fmt.Println("  Grantee:    EVERYONE")
+        } else {
+            fmt.Println("  Grantee:   ", *g.Grantee.DisplayName)
+        }
+    
         fmt.Println("  Type:      ", *g.Grantee.Type)
         fmt.Println("  Permission:", *g.Permission)
         fmt.Println("")

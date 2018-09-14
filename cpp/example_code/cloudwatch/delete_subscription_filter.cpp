@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        std::cout << "Usage: " << std::endl << "  cw_delete_subscription_filter "
+        std::cout << "Usage: delete_subscription_filter "
             << "<filter_name> <log_group_name>" << std::endl;
         return 1;
     }

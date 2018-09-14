@@ -27,10 +27,11 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    Aws::String queue_name = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String queue_name = argv[1];
+
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::GetQueueUrlRequest gqu_req;

@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,6 +15,7 @@ package aws.example.s3;
 import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
 import com.amazonaws.services.s3.transfer.MultipleFileUpload;
 import java.io.File;
@@ -35,7 +36,7 @@ public class XferMgrUpload
         System.out.println("directory: " + dir_path + (recursive ?
                     " (recursive)" : "") + (pause ? " (pause)" : ""));
 
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadDirectory(bucket_name,
                     key_prefix, new File(dir_path), recursive);
@@ -62,7 +63,7 @@ public class XferMgrUpload
             files.add(new File(path));
         }
 
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadFileList(bucket_name,
                     key_prefix, new File("."), files);
@@ -91,7 +92,7 @@ public class XferMgrUpload
         }
 
         File f = new File(file_path);
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             Upload xfer = xfer_mgr.upload(bucket_name, key_name, f);
             // loop with Transfer.isDone()

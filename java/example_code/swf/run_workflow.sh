@@ -1,13 +1,12 @@
-# Examples without the -cp option
-export CLASSPATH='target/helloswf-1.0.jar:/path/to/sdk/libs/*'
-java aws.example.helloswf.HelloTypes
-java aws.example.helloswf.ActivityWorker &
-java aws.example.helloswf.WorkflowWorker &
-java aws.example.helloswf.WorkflowStarter
-
-# An example of running with input data.
-java aws.example.helloswf.WorkflowStarter "Thelonious"
-
-# Examples with the -cp option
-java -cp target/helloswf-1.0.jar:/path/to/sdk/libs/* aws.example.helloswf.HelloTypes
-
+#!/bin/bash
+if [[ -z $* ]] ; then
+    echo 'Supply the name of one of the example classes as an argument.'
+    echo 'If there are arguments to the class, put them in quotes after the class name.'
+    exit 1
+fi
+export CLASSPATH=target/helloswf-1.0.jar
+export className=$1
+echo "## Running $className..."
+shift
+echo "## arguments $@..."
+mvn exec:java -Dexec.mainClass="aws.example.helloswf.$className" -Dexec.args="$@" -Dexec.cleanupDaemonThreads=false

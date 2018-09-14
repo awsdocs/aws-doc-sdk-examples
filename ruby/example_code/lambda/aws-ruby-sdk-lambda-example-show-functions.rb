@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -10,11 +10,13 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk'
+require 'aws-sdk-lambda'  # v2: require 'aws-sdk'
 
 client = Aws::Lambda::Client.new(region: 'us-west-2')
 
-client.list_functions.each do |function|
+client.list_functions.functions.each do |function|
   puts 'Name: ' + function.function_name
   puts 'ARN:  ' + function.function_arn
   puts 'Role: ' + function.role
+  puts
+end

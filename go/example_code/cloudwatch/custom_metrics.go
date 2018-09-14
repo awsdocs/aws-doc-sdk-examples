@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,17 +15,17 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
+
+    "fmt"
 )
 
-// Usage:
-// go run main.go
 func main() {
-    // Load session from shared config.
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -33,28 +33,64 @@ func main() {
     // Create new cloudwatch client.
     svc := cloudwatch.New(sess)
 
-    // This will disable the alarm.
-    result, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
+    _, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
+        Namespace: aws.String("Site/Traffic"),
         MetricData: []*cloudwatch.MetricDatum{
             &cloudwatch.MetricDatum{
-                MetricName: aws.String("PAGES_VISITED"),
-                Unit:       aws.String(cloudwatch.StandardUnitNone),
-                Value:      aws.Float64(1.0),
+                MetricName: aws.String("UniqueVisitors"),
+                Unit:       aws.String("Count"),
+                Value:      aws.Float64(5885.0),
                 Dimensions: []*cloudwatch.Dimension{
                     &cloudwatch.Dimension{
-                        Name:  aws.String("UNIQUE_PAGES"),
-                        Value: aws.String("URLS"),
+                        Name:  aws.String("SiteName"),
+                        Value: aws.String("example.com"),
+                    },
+                },
+            },
+            &cloudwatch.MetricDatum{
+                MetricName: aws.String("UniqueVisits"),
+                Unit:       aws.String("Count"),
+                Value:      aws.Float64(8628.0),
+                Dimensions: []*cloudwatch.Dimension{
+                    &cloudwatch.Dimension{
+                        Name:  aws.String("SiteName"),
+                        Value: aws.String("example.com"),
+                    },
+                },
+            },
+            &cloudwatch.MetricDatum{
+                MetricName: aws.String("PageViews"),
+                Unit:       aws.String("Count"),
+                Value:      aws.Float64(18057.0),
+                Dimensions: []*cloudwatch.Dimension{
+                    &cloudwatch.Dimension{
+                        Name:  aws.String("PageURL"),
+                        Value: aws.String("my-page.html"),
                     },
                 },
             },
         },
-        Namespace: aws.String("SITE/TRAFFIC"),
     })
-
     if err != nil {
-        fmt.Println("Error", err)
+        fmt.Println("Error adding metrics:", err.Error())
         return
     }
 
-    fmt.Println("Success", result)
+    // Get information about metrics
+    result, err := svc.ListMetrics(&cloudwatch.ListMetricsInput{
+        Namespace: aws.String("Site/Traffic"),
+    })
+    if err != nil {
+        fmt.Println("Error getting metrics:", err.Error())
+        return
+    }
+
+    for _, metric := range result.Metrics {
+        fmt.Println(*metric.MetricName)
+
+        for _, dim := range metric.Dimensions {
+            fmt.Println(*dim.Name + ":", *dim.Value)
+            fmt.Println()
+        }
+    }
 }

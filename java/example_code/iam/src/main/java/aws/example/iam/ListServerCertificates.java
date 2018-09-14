@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -29,10 +29,10 @@ public class ListServerCertificates {
             AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
-
-        while(!done) {
-            ListServerCertificatesRequest request =
+        ListServerCertificatesRequest request =
                 new ListServerCertificatesRequest();
+        
+        while(!done) {
 
             ListServerCertificatesResult response =
                 iam.listServerCertificates(request);

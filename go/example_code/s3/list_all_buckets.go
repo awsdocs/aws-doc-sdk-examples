@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,8 +11,25 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-    svc := s3.New(session.New(&aws.Config{Region: aws.String("us-west-2")}))
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "log"
+)
+
+func main() {
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+
+    // Create S3 service client
+    svc := s3.New(sess)
+
     result, err := svc.ListBuckets(&s3.ListBucketsInput{})
     if err != nil {
         log.Println("Failed to list buckets", err)
@@ -20,6 +37,8 @@
     }
 
     log.Println("Buckets:")
+
     for _, bucket := range result.Buckets {
         log.Printf("%s : %s\n", aws.StringValue(bucket.Name), bucket.CreationDate)
     }
+}

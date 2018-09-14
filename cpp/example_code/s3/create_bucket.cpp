@@ -20,24 +20,25 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         std::cout << "create_bucket - create an S3 bucket" << std::endl
-                  << "\nUsage:" << std::endl
-                  << "  create_bucket <bucket>" << std::endl
-                  << "\nWhere:" << std::endl
-                  << "  bucket - the bucket to create" << std::endl
-                  << "\nExample:" << std::endl
-                  << "  create_bucket testbucket\n" << std::endl << std::endl;
+            << "\nUsage:" << std::endl
+            << "  create_bucket <bucket>" << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket - the bucket to create" << std::endl
+            << "\nExample:" << std::endl
+            << "  create_bucket testbucket\n" << std::endl << std::endl;
         exit(1);
     }
-
-    const Aws::String bucket_name = argv[1];
-
-    std::cout << "Creating S3 bucket: " << bucket_name << std::endl;
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        const Aws::String bucket_name = argv[1];
+
+        std::cout << "Creating S3 bucket: " << bucket_name << std::endl;
+
         Aws::S3::S3Client s3_client;
 
         Aws::S3::Model::CreateBucketRequest request;
@@ -45,12 +46,15 @@ int main(int argc, char** argv)
 
         auto outcome = s3_client.CreateBucket(request);
 
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "Done!" << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "CreateBucket error: "
-                      << outcome.GetError().GetExceptionName() << std::endl
-                      << outcome.GetError().GetMessage() << std::endl;
+                << outcome.GetError().GetExceptionName() << std::endl
+                << outcome.GetError().GetMessage() << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

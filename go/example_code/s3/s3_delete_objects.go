@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,65 +15,47 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    
+    "fmt"
+    "os"
 )
 
 // Deletes all of the objects in the specified S3 Bucket in the region configured in the shared config
 // or AWS_REGION environment variable.
 //
 // Usage:
-//    go run s3_delete_objects BUCKET_NAME
+//    go run s3_delete_objects BUCKET
 func main() {
     if len(os.Args) != 2 {
-        exitErrorf("Bucket name required\nUsage: %s BUCKET",
-            os.Args[0])
+        exitErrorf("Bucket name required\nUsage: %s BUCKET", os.Args[0])
     }
 
     bucket := os.Args[1]
 
-    // Inititalize a session that the SDK uses to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, _ := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create S3 service client
     svc := s3.New(sess)
 
-    // Get the list of objects
-    resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
+    // Setup BatchDeleteIterator to iterate through a list of objects.
+    iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
+        Bucket: aws.String(bucket),
+    })
 
-    if err != nil {
-        exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
-    }
-
-    num_objs := len(resp.Contents)
-
-    // Create Delete object with slots for the objects to delete
-    var items s3.Delete
-    var objs = make([]*s3.ObjectIdentifier, num_objs)
-
-    for i, o := range resp.Contents {
-        // Add objects from command line to array
-        objs[i] = &s3.ObjectIdentifier{Key: aws.String(*o.Key)}
-    }
-
-    // Add list of objects to delete to Delete object
-    items.SetObjects(objs)
-
-    // Delete the items
-    _, err = svc.DeleteObjects(&s3.DeleteObjectsInput{Bucket: &bucket, Delete: &items})
-
-    if err != nil {
+    // Traverse iterator deleting each object
+    if err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter); err != nil {
         exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
     }
 
-    fmt.Println("Deleted", num_objs, "object(s) from bucket", bucket)
+    fmt.Printf("Deleted object(s) from bucket: %s", bucket)
 }
 
 func exitErrorf(msg string, args ...interface{}) {

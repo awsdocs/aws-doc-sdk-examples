@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,14 +15,13 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "path/filepath"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/awserr"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
+    "path/filepath"
 )
 
 // Deletes the policy on a bucket. If the bucket doesn't exist, or there was
@@ -37,17 +36,17 @@ func main() {
     }
     bucket := os.Args[1]
 
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create S3 service client
     svc := s3.New(sess)
 
     // Call S3 to delete the policy on the bucket.
-    _, err := svc.DeleteBucketPolicy(&s3.DeleteBucketPolicyInput{
+    _, err = svc.DeleteBucketPolicy(&s3.DeleteBucketPolicyInput{
         Bucket: aws.String(bucket),
     })
     if err != nil {

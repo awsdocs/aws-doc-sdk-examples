@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -16,7 +16,7 @@
 # 3. Get the queue's URL.
 # 4. Delete the queue.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 

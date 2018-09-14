@@ -29,7 +29,7 @@ Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
     policy_map.WithObject("deadLetterTargetArn", redrive_arn_entry);
     policy_map.WithObject("maxReceiveCount", max_msg_entry);
 
-    return policy_map.WriteReadable();
+    return policy_map.View().WriteReadable();
 }
 
 /**
@@ -38,22 +38,23 @@ Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
  */
 int main(int argc, char** argv)
 {
-    if (argc != 4) {
+    if (argc != 4)
+    {
         std::cout << "Usage: dead_letter_queue <source_queue_url> " <<
             "<dead_letter_queue_arn> <max_messages>" << std::endl;
         return 1;
     }
 
-    Aws::String src_queue_url = argv[1];
-    Aws::String queue_arn = argv[2];
-
-    Aws::StringStream ss(argv[3]);
-    int max_msg = 1;
-    ss >> max_msg;
-
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String src_queue_url = argv[1];
+        Aws::String queue_arn = argv[2];
+
+        Aws::StringStream ss(argv[3]);
+        int max_msg = 1;
+        ss >> max_msg;
+
         Aws::SQS::SQSClient sqs;
 
         Aws::String redrivePolicy = MakeRedrivePolicy(queue_arn, max_msg);
@@ -65,13 +66,16 @@ int main(int argc, char** argv)
             redrivePolicy);
 
         auto outcome = sqs.SetQueueAttributes(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "Successfully set dead letter queue for queue  " <<
-            src_queue_url << " to " << queue_arn << std::endl;
-        } else {
+                src_queue_url << " to " << queue_arn << std::endl;
+        }
+        else
+        {
             std::cout << "Error setting dead letter queue for queue " <<
-            src_queue_url << ": " << outcome.GetError().GetMessage() <<
-            std::endl;
+                src_queue_url << ": " << outcome.GetError().GetMessage() <<
+                std::endl;
         }
     }
     Aws::ShutdownAPI(options);

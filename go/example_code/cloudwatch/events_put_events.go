@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,17 +15,17 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchevents"
+
+    "fmt"
 )
 
-// Usage:
-// go run main.go
 func main() {
-    // Load session from shared config.
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -45,11 +45,10 @@ func main() {
             },
         },
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return
     }
 
-    fmt.Println("Success", result)
+    fmt.Println("Ingested events:", result.Entries)
 }

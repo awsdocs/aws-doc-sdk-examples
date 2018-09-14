@@ -15,7 +15,9 @@
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListPoliciesRequest.h>
 #include <aws/iam/model/ListPoliciesResult.h>
+#include <iomanip>
 #include <iostream>
+#include <iomanip> 
 
 static const char* DATE_FORMAT = "%Y-%m-%d";
 
@@ -26,22 +28,24 @@ int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListPoliciesRequest request;
 
         bool done = false;
         bool header = false;
-        while (!done) {
+        while (!done)
+        {
             auto outcome = iam.ListPolicies(request);
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Failed to list iam policies: " <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            if (!header) {
+            if (!header)
+            {
                 std::cout << std::left << std::setw(55) << "Name" <<
                     std::setw(30) << "ID" << std::setw(80) << "Arn" <<
                     std::setw(64) << "Description" << std::setw(12) <<
@@ -50,7 +54,8 @@ int main(int argc, char** argv)
             }
 
             const auto &policies = outcome.GetResult().GetPolicies();
-            for (const auto &policy : policies) {
+            for (const auto &policy : policies)
+            {
                 std::cout << std::left << std::setw(55) <<
                     policy.GetPolicyName() << std::setw(30) <<
                     policy.GetPolicyId() << std::setw(80) << policy.GetArn() <<
@@ -59,9 +64,12 @@ int main(int argc, char** argv)
                     std::endl;
             }
 
-            if (outcome.GetResult().GetIsTruncated()) {
+            if (outcome.GetResult().GetIsTruncated())
+            {
                 request.SetMarker(outcome.GetResult().GetMarker());
-            } else {
+            }
+            else
+            {
                 done = true;
             }
         }

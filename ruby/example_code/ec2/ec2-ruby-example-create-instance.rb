@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -10,7 +10,7 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk'
+require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 require 'base64'
 
 # User code that's executed when the instance starts
@@ -38,7 +38,7 @@ instance = ec2.create_instances({
 })
 
 # Wait for the instance to be created, running, and passed status checks
-ec2.client.wait_until(:instance_status_ok, {instance_ids: [instance[0].id]})
+ec2.client.wait_until(:instance_status_ok, {instance_ids: [instance.first.id]})
 
 # Name the instance 'MyGroovyInstance' and give it the Group tag 'MyGroovyGroup'
 instance.create_tags({ tags: [{ key: 'Name', value: 'MyGroovyInstance' }, { key: 'Group', value: 'MyGroovyGroup' }]})

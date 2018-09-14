@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -15,7 +15,7 @@
 # 2. Set long polling for an existing queue.
 # 3. Set long polling when receiving messages for a queue.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 

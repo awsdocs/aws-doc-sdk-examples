@@ -21,29 +21,34 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 3) {
+    if (argc != 3)
+    {
         std::cout <<
-            "Usage: iam_update_server_cert <old_cert_name> <new_cert_name>"
+            "Usage: update_server_cert <old_cert_name> <new_cert_name>"
             << std::endl;
         return 1;
     }
 
-    Aws::String old_name(argv[1]);
-    Aws::String new_name(argv[2]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String old_name(argv[1]);
+        Aws::String new_name(argv[2]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::UpdateServerCertificateRequest request;
         request.SetServerCertificateName(old_name);
         request.SetNewServerCertificateName(new_name);
 
         auto outcome = iam.UpdateServerCertificate(request);
-        if (outcome.IsSuccess()) {
-            std::cout << "Server certificate " << old_name << " successfully
-                renamed as " << new_name << std::endl;
-        } else {
+        if (outcome.IsSuccess())
+        {
+            std::cout << "Server certificate " << old_name
+                << " successfully renamed as " << new_name
+                << std::endl;
+        }
+        else
+        {
             std::cout << "Error changing name of server certificate " <<
                 old_name << " to " << new_name << ":" <<
                 outcome.GetError().GetMessage() << std::endl;

@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -17,7 +17,7 @@
 # 4. Enable detailed monitoring for the instance.
 # 5. Get information about available instances.
 
-require 'aws-sdk'
+require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

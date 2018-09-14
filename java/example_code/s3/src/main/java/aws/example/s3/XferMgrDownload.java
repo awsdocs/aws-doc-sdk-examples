@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,6 +15,7 @@ package aws.example.s3;
 import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Download;
 import com.amazonaws.services.s3.transfer.MultipleFileDownload;
 import java.io.File;
@@ -33,7 +34,8 @@ public class XferMgrDownload
         System.out.println("downloading to directory: " + dir_path +
               (pause ?  " (pause)" : ""));
 
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
+        
         try {
             MultipleFileDownload xfer = xfer_mgr.downloadDirectory(
                     bucket_name, key_prefix, new File(dir_path));
@@ -55,7 +57,7 @@ public class XferMgrDownload
               (pause ? " (pause)" : ""));
 
         File f = new File(file_path);
-        TransferManager xfer_mgr = new TransferManager();
+        TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             Download xfer = xfer_mgr.download(bucket_name, key_name, f);
             // loop with Transfer.isDone()

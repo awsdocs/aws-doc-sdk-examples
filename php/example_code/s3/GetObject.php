@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * Get/Download an Object from Amazon S3.
  *
  * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/credentials.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 $USAGE = "\n" .
@@ -31,7 +31,7 @@ $USAGE = "\n" .
     "\n" .
     "Ex: php GetObject.php <bucketname> <filename>\n";
 
-if (count($argv) <= 2){
+if (count($argv) <= 2) {
     echo $USAGE;
     exit();
 }
@@ -39,9 +39,10 @@ if (count($argv) <= 2){
 $bucket = $argv[1];
 $key = $argv[2];
 
-try{
+try {
     //Create a S3Client
     $s3Client = new S3Client([
+        'profile' => 'default',
         'region' => 'us-west-2',
         'version' => '2006-03-01'
     ]);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -29,9 +29,9 @@ public class ListUsers {
             AmazonIdentityManagementClientBuilder.defaultClient();
 
         boolean done = false;
+        ListUsersRequest request = new ListUsersRequest();
 
         while(!done) {
-            ListUsersRequest request = new ListUsersRequest();
             ListUsersResult response = iam.listUsers(request);
 
             for(User user : response.getUsers()) {

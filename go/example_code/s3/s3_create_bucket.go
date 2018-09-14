@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Creates an S3 Bucket in the region configured in the shared config
@@ -35,20 +34,19 @@ func main() {
 
     bucket := os.Args[1]
 
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create S3 service client
     svc := s3.New(sess)
 
     // Create the S3 Bucket
-    _, err := svc.CreateBucket(&s3.CreateBucketInput{
+    _, err = svc.CreateBucket(&s3.CreateBucketInput{
         Bucket: aws.String(bucket),
     })
-
     if err != nil {
         exitErrorf("Unable to create bucket %q, %v", bucket, err)
     }
@@ -59,7 +57,6 @@ func main() {
     err = svc.WaitUntilBucketExists(&s3.HeadBucketInput{
         Bucket: aws.String(bucket),
     })
-
     if err != nil {
         exitErrorf("Error occurred while waiting for bucket to be created, %v", bucket)
     }

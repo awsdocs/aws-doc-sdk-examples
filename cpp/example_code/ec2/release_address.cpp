@@ -21,15 +21,17 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: ec2_release_address <allocation_id>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: release_address <allocation_id>" << std::endl;
         return 1;
     }
 
-    Aws::String allocation_id = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String allocation_id = argv[1];
+
         Aws::Client::ClientConfiguration config;
         config.region = Aws::Region::US_WEST_2;
 
@@ -39,11 +41,14 @@ int main(int argc, char** argv)
         request.SetAllocationId(allocation_id);
 
         auto outcome = ec2.ReleaseAddress(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to release elastic ip address " <<
                 allocation_id << ":" << outcome.GetError().GetMessage() <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully released elastic ip address " <<
                 allocation_id << std::endl;
         }

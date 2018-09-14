@@ -16,7 +16,7 @@
       <dependency>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk-bom</artifactId>
-        <version>1.11.106</version>
+        <version>1.11.261</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -32,6 +32,11 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      	<groupId>org.bouncycastle</groupId>
+        <artifactId>bcprov-jdk16</artifactId>
+        <version>1.45</version>
     </dependency>
   </dependencies>
 </project>

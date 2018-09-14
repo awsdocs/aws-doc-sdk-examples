@@ -5,7 +5,7 @@
   <artifactId>aws-iam-examples</artifactId>
   <packaging>jar</packaging>
   <version>1.0</version>
-  <name>Amazon Cloudwatch Examples</name>
+  <name>Amazon IAM Examples</name>
   <url>http://maven.apache.org</url>
   <properties>
      <maven.compiler.source>1.8</maven.compiler.source>
@@ -16,7 +16,7 @@
       <dependency>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk-bom</artifactId>
-        <version>1.11.106</version>
+        <version>1.11.245</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

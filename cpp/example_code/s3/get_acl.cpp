@@ -18,8 +18,10 @@
 #include <aws/s3/model/Permission.h>
 #include <aws/s3/model/Grant.h>
 
-Aws::String GetPermissionString(const Aws::S3::Model::Permission p) {
-    switch(p) {
+Aws::String GetPermissionString(const Aws::S3::Model::Permission p)
+{
+    switch (p)
+    {
     case Aws::S3::Model::Permission::NOT_SET:
         return "NOT_SET";
     case Aws::S3::Model::Permission::FULL_CONTROL:
@@ -50,27 +52,31 @@ void GetAclForBucket(Aws::String bucket_name, Aws::String user_region)
 
     auto outcome = s3_client.GetBucketAcl(request);
 
-    if (outcome.IsSuccess()) {
+    if (outcome.IsSuccess())
+    {
         Aws::Vector<Aws::S3::Model::Grant> grants =
             outcome.GetResult().GetGrants();
-        for (auto it = grants.begin(); it != grants.end(); it++) {
+        for (auto it = grants.begin(); it != grants.end(); it++)
+        {
             Aws::S3::Model::Grant grant = *it;
             std::cout << grant.GetGrantee().GetDisplayName() << ": "
-                      << GetPermissionString(grant.GetPermission())
-                      << std::endl;
+                << GetPermissionString(grant.GetPermission())
+                << std::endl;
         }
-    } else {
+    }
+    else
+    {
         std::cout << "GetBucketAcl error: "
-                  << outcome.GetError().GetExceptionName() << " - "
-                  << outcome.GetError().GetMessage() << std::endl;
+            << outcome.GetError().GetExceptionName() << " - "
+            << outcome.GetError().GetMessage() << std::endl;
     }
 }
 
 void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
-        Aws::String user_region)
+    Aws::String user_region)
 {
     std::cout << "Retrieving ACL for object: " << object_key << std::endl
-              << "                in bucket: " << bucket_name << std::endl;
+        << "                in bucket: " << bucket_name << std::endl;
 
     Aws::Client::ClientConfiguration config;
     config.region = user_region;
@@ -82,19 +88,23 @@ void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
 
     auto outcome = s3_client.GetObjectAcl(request);
 
-    if (outcome.IsSuccess()) {
+    if (outcome.IsSuccess())
+    {
         Aws::Vector<Aws::S3::Model::Grant> grants =
             outcome.GetResult().GetGrants();
-        for (auto it = grants.begin(); it != grants.end(); it++) {
+        for (auto it = grants.begin(); it != grants.end(); it++)
+        {
             Aws::S3::Model::Grant grant = *it;
             std::cout << grant.GetGrantee().GetDisplayName() << ": "
-                      << GetPermissionString(grant.GetPermission())
-                      << std::endl;
+                << GetPermissionString(grant.GetPermission())
+                << std::endl;
         }
-    } else {
+    }
+    else
+    {
         std::cout << "GetObjectAcl error: "
-                  << outcome.GetError().GetExceptionName() << " - "
-                  << outcome.GetError().GetMessage() << std::endl;
+            << outcome.GetError().GetExceptionName() << " - "
+            << outcome.GetError().GetMessage() << std::endl;
     }
 }
 
@@ -103,34 +113,38 @@ void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
  */
 int main(int argc, char** argv)
 {
-    if(argc < 2) {
+    if (argc < 2)
+    {
         std::cout << "get_acl - get the access control list (ACL) for" << std::endl
-                  << "          an S3 bucket (or object)" << std::endl
-                  << "\nUsage:" << std::endl
-                  << "  get_acl <bucket> [object] [region]" << std::endl
-                  << "\nWhere:" << std::endl
-                  << "  bucket - the bucket name" << std::endl
-                  << "  object - the object name" << std::endl
-                  << "           (optional, if specified, the ACL will be retrieved" << std::endl
-                  << "            for the named object instead of the bucket)" << std::endl
-                  << "  region - AWS region for the bucket" << std::endl
-                  << "           (optional, default: us-east-1)" << std::endl
-                  << "\nExample:" << std::endl
-                  << "  get_acl testbucket" << std::endl << std::endl;
+            << "          an S3 bucket (or object)" << std::endl
+            << "\nUsage:" << std::endl
+            << "  get_acl <bucket> [object] [region]" << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket - the bucket name" << std::endl
+            << "  object - the object name" << std::endl
+            << "           (optional, if specified, the ACL will be retrieved" << std::endl
+            << "            for the named object instead of the bucket)" << std::endl
+            << "  region - AWS region for the bucket" << std::endl
+            << "           (optional, default: us-east-1)" << std::endl
+            << "\nExample:" << std::endl
+            << "  get_acl testbucket" << std::endl << std::endl;
         exit(1);
     }
-
-    int cur_arg = 1;
-    const Aws::String bucket_name = argv[cur_arg++];
-    const Aws::String object_key = (argc >= 4) ? argv[cur_arg++] : "";
-    const Aws::String user_region = (argc > cur_arg) ? argv[cur_arg] : "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (object_key == "") {
+        int cur_arg = 1;
+        const Aws::String bucket_name = argv[cur_arg++];
+        const Aws::String object_key = (argc >= 4) ? argv[cur_arg++] : "";
+        const Aws::String user_region = (argc > cur_arg) ? argv[cur_arg] : "us-east-1";
+
+        if (object_key == "")
+        {
             GetAclForBucket(bucket_name, user_region);
-        } else {
+        }
+        else
+        {
             GetAclForObject(bucket_name, object_key, user_region);
         }
     }

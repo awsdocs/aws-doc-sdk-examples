@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,13 +15,12 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "path/filepath"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
+    "path/filepath"
 )
 
 // Sets the bucket's website configuration. Allows setting the index suffix,
@@ -31,21 +30,22 @@ import (
 // that configuration
 //
 // Usage:
-//    go run s3_set_bucekt_website.go BUCKET_NAME INDEX_PAGE ERROR_PAGE
+//    go run s3_set_bucket_website.go BUCKET_NAME INDEX_PAGE ERROR_PAGE
 func main() {
-    if len(os.Args) != 3 {
+    if len(os.Args) != 4 {
         exitErrorf("bucket name and index suffix page required\nUsage: %s bucket_name index_page [error_page]",
             filepath.Base(os.Args[0]))
     }
+
     bucket := fromArgs(os.Args, 1)
     indexSuffix := fromArgs(os.Args, 2)
     errorPage := fromArgs(os.Args, 3)
 
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create S3 service client
     svc := s3.New(sess)
@@ -69,7 +69,7 @@ func main() {
 
     // Set the website configuration on the bucket. Replacing any existing
     // configuration.
-    _, err := svc.PutBucketWebsite(&params)
+    _, err = svc.PutBucketWebsite(&params)
     if err != nil {
         exitErrorf("Unable to set bucket %q website configuration, %v",
             bucket, err)

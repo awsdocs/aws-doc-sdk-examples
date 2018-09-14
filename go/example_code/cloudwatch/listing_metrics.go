@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,35 +15,44 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
+
+    "fmt"
+    "os"
 )
 
-// Usage:
-// go run main.go
 func main() {
-    // Load session from shared config.
+    if len(os.Args) != 4 {
+        fmt.Println("You must supply a metric name, namespace, and dimension name")
+        os.Exit(1)
+    }
+
+    metric := os.Args[1]
+    namespace := os.Args[2]
+    dimension := os.Args[3]
+    
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create new cloudwatch client.
+    // Create CloudWatch client
     svc := cloudwatch.New(sess)
 
-    // This will disable the alarm.
+    // Disable the alarm
     result, err := svc.ListMetrics(&cloudwatch.ListMetricsInput{
-        MetricName: aws.String("IncomingLogEvents"),
-        Namespace:  aws.String("AWS/Logs"),
+        MetricName: aws.String(metric),
+        Namespace:  aws.String(namespace),
         Dimensions: []*cloudwatch.DimensionFilter{
             &cloudwatch.DimensionFilter{
-                Name: aws.String("LogGroupName"),
+                Name: aws.String(dimension),
             },
         },
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return

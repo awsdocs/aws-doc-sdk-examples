@@ -21,25 +21,29 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: iam_delete_server_cert <cert_name>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: delete_server_cert <cert_name>" << std::endl;
         return 1;
     }
 
-    Aws::String cert_name(argv[1]);
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String cert_name(argv[1]);
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::DeleteServerCertificateRequest request;
         request.SetServerCertificateName(cert_name);
 
-        auto outcome = iam.DeleteServerCertificate(request);
-        if (!outcome.IsSuccess()) {
+        const auto outcome = iam.DeleteServerCertificate(request);
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Error deleting server certificate " << cert_name <<
                 ": " << outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully deleted server certificate " << cert_name
                 << std::endl;
         }

@@ -22,26 +22,31 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2) {
+    if (argc != 2)
+    {
         std::cout << "Usage: create_queue <queue_name>" << std::endl;
         return 1;
     }
 
-    Aws::String queue_name = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String queue_name = argv[1];
+
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::CreateQueueRequest cq_req;
         cq_req.SetQueueName(queue_name);
 
         auto cq_out = sqs.CreateQueue(cq_req);
-        if (cq_out.IsSuccess()) {
+        if (cq_out.IsSuccess())
+        {
             std::cout << "Successfully created queue " << queue_name << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error creating queue " << queue_name << ": " <<
-            cq_out.GetError().GetMessage() << std::endl;
+                cq_out.GetError().GetMessage() << std::endl;
         }
     }
     Aws::ShutdownAPI(options);

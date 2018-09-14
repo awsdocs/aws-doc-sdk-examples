@@ -22,15 +22,17 @@
  */
 int main(int argc, char** argv)
 {
-    if (argc != 2) {
+    if (argc != 2)
+    {
         std::cout << "Usage: delete_queue <queue_url>" << std::endl;
         return 1;
     }
 
-    Aws::String queue_url = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String queue_url = argv[1];
+
         // disable retries so that bad urls don't hang the exe via retry loop
         Aws::Client::ClientConfiguration client_cfg;
         client_cfg.retryStrategy =
@@ -42,10 +44,13 @@ int main(int argc, char** argv)
         dq_req.SetQueueUrl(queue_url);
 
         auto dq_out = sqs.DeleteQueue(dq_req);
-        if (dq_out.IsSuccess()) {
+        if (dq_out.IsSuccess())
+        {
             std::cout << "Successfully deleted queue with url " << queue_url <<
                 std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error deleting queue " << queue_url << ": " <<
                 dq_out.GetError().GetMessage() << std::endl;
         }

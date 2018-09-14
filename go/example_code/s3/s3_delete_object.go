@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,12 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Deletes the specified object in the specified S3 Bucket in the region configured in the shared config
@@ -37,18 +36,17 @@ func main() {
     bucket := os.Args[1]
     obj := os.Args[2]
 
-    // Inititalize a session that the SDK uses to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create S3 service client
     svc := s3.New(sess)
 
     // Delete the item
-    _, err := svc.DeleteObject(&s3.DeleteObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj)})
-
+    _, err = svc.DeleteObject(&s3.DeleteObjectInput{Bucket: aws.String(bucket), Key: aws.String(obj)})
     if err != nil {
         exitErrorf("Unable to delete object %q from bucket %q, %v", obj, bucket, err)
     }
@@ -57,10 +55,11 @@ func main() {
         Bucket: aws.String(bucket),
         Key:    aws.String(obj),
     })
-
     if err != nil {
         exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
     }
+
+    fmt.Printf("Object %q successfully deleted\n", obj)
 }
 
 func exitErrorf(msg string, args ...interface{}) {

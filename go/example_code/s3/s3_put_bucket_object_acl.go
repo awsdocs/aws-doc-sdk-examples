@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,11 +15,11 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
+    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    "fmt"
+    "os"
 )
 
 // Allows person with EMAIL address PERMISSION access to BUCKET OBJECT
@@ -48,10 +48,8 @@ func main() {
         }
     }
 
-    user_type := "AmazonCustomerByEmail"
-
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
+    // Initialize a session that loads credentials from the shared credentials file ~/.aws/credentials
+    // and the region from the shared configuratin file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -61,23 +59,23 @@ func main() {
 
     // Get existing ACL
     result, err := svc.GetObjectAcl(&s3.GetObjectAclInput{Bucket: &bucket, Key: &key})
-
     if err != nil {
         exitErrorf(err.Error())
     }
 
     owner := *result.Owner.DisplayName
-    owner_id := *result.Owner.ID
+    ownerId := *result.Owner.ID
 
     // Existing grants
     grants := result.Grants
 
     // Create new grantee to add to grants
-    var new_grantee s3.Grantee = s3.Grantee{EmailAddress: &address, Type: &user_type}
-    var new_grant s3.Grant = s3.Grant{Grantee: &new_grantee, Permission: &permission}
+    userType := "AmazonCustomerByEmail"
+    var newGrantee = s3.Grantee{EmailAddress: &address, Type: &userType}
+    var newGrant = s3.Grant{Grantee: &newGrantee, Permission: &permission}
 
     // Add them to the grants
-    grants = append(grants, &new_grant)
+    grants = append(grants, &newGrant)
 
     params := &s3.PutObjectAclInput{
         Bucket: &bucket,
@@ -86,14 +84,13 @@ func main() {
             Grants: grants,
             Owner: &s3.Owner{
                 DisplayName: &owner,
-                ID:          &owner_id,
+                ID:          &ownerId,
             },
         },
     }
 
     // Set bucket ACL
     _, err = svc.PutObjectAcl(params)
-
     if err != nil {
         exitErrorf(err.Error())
     }

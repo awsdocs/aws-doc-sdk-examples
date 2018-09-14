@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,6 +15,7 @@ package aws.example.s3;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.AmazonServiceException;
+import java.io.File;
 import java.nio.file.Paths;
 
 /**
@@ -45,7 +46,7 @@ public class PutObject
         System.out.format("Uploading %s to S3 bucket %s...\n", file_path, bucket_name);
         final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         try {
-            s3.putObject(bucket_name, key_name, file_path);
+            s3.putObject(bucket_name, key_name, new File(file_path));
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);

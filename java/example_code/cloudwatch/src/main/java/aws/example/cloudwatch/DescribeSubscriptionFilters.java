@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -40,11 +40,12 @@ public class DescribeSubscriptionFilters {
         final AWSLogs logs = AWSLogsClientBuilder.defaultClient();
         boolean done = false;
 
-        while(!done) {
-            DescribeSubscriptionFiltersRequest request =
+        DescribeSubscriptionFiltersRequest request =
                 new DescribeSubscriptionFiltersRequest()
                     .withLogGroupName(log_group)
                     .withLimit(1);
+        
+        while(!done) {
 
             DescribeSubscriptionFiltersResult response =
                 logs.describeSubscriptionFilters(request);

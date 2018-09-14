@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -42,11 +42,11 @@ func main() {
         exitErrorf("Queue name required")
     }
 
-    // Initialize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create a SQS service client.
     svc := sqs.New(sess)
@@ -75,7 +75,7 @@ func main() {
         exitErrorf("Unable to update queue %q, %v.", name, err)
     }
 
-    fmt.Printf("Succesffuly updated queue %q.\n", name)
+    fmt.Printf("Successfully updated queue %q.\n", name)
 }
 
 func exitErrorf(msg string, args ...interface{}) {

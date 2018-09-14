@@ -15,7 +15,9 @@
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeKeyPairsRequest.h>
 #include <aws/ec2/model/DescribeKeyPairsResponse.h>
+#include <iomanip>
 #include <iostream>
+#include <iomanip>
 
 /**
  * Describes all instance key pairs
@@ -29,18 +31,22 @@ int main(int argc, char** argv)
         Aws::EC2::Model::DescribeKeyPairsRequest request;
 
         auto outcome = ec2.DescribeKeyPairs(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << std::left <<
                 std::setw(32) << "Name" <<
                 std::setw(64) << "Fingerprint" << std::endl;
 
             const auto &key_pairs = outcome.GetResult().GetKeyPairs();
-            for (const auto &key_pair : key_pairs) {
+            for (const auto &key_pair : key_pairs)
+            {
                 std::cout << std::left <<
                     std::setw(32) << key_pair.GetKeyName() <<
                     std::setw(64) << key_pair.GetKeyFingerprint() << std::endl;
             }
-        } else {
+        }
+        else
+        {
             std::cout << "Failed to describe key pairs:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }

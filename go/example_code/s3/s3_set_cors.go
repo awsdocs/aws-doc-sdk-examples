@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,14 +15,13 @@
 package main
 
 import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
     "flag"
     "fmt"
     "os"
     "strings"
-
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
 )
 
 // Configures CORS rules for a bucket by setting the allowed
@@ -38,16 +37,18 @@ func main() {
     // Setup the CLI options and validation
     flag.StringVar(&bucket, "b", "", "Bucket to set CORS on, (required)")
     flag.Parse()
+
     if len(bucket) == 0 {
         exitErrorf("-b <bucket> Bucket name required")
     }
+    
     methods := filterMethods(flag.Args())
 
-    // Inititalize a session that the SDK will use to load configuration,
-    // credentials, and region from the shared config file. (~/.aws/config).
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
     // Create S3 service client
     svc := s3.New(sess)
@@ -71,7 +72,7 @@ func main() {
         },
     }
 
-    _, err := svc.PutBucketCors(&params)
+    _, err = svc.PutBucketCors(&params)
     if err != nil {
         // Print the error message
         exitErrorf("Unable to set Bucket %q's CORS, %v", bucket, err)

@@ -1,4 +1,4 @@
-.. Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -14,8 +14,8 @@ AWS SDK for Java Documentation Examples
 
 These are examples for the `AWS SDK for Java public documentation <javasdk-docs_>`_.
 
-Prerequsites
-============
+Prerequisites
+=============
 
 To build and run these examples, you'll need:
 
@@ -107,4 +107,3 @@ example (assuming that you've built the examples first!).
 .. _maven: https://maven.apache.org/
 .. _javasdk: https://aws.amazon.com/sdk-for-java/
 .. _javasdk-docs: http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/
-

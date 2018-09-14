@@ -19,7 +19,7 @@
 void PrintUsage()
 {
     std::cout <<
-        "Usage: iam_update_access_key <user_name> <access_key_id> <Active|Inactive>"
+        "Usage: update_access_key <user_name> <access_key_id> <Active|Inactive>"
         << std::endl;
 }
 
@@ -29,26 +29,27 @@ void PrintUsage()
  */
 int main(int argc, char** argv)
 {
-    if(argc != 4) {
-        PrintUsage();
-        return 1;
-    }
-
-    Aws::String user_name(argv[1]);
-    Aws::String accessKeyId(argv[2]);
-
-    auto status =
-        Aws::IAM::Model::StatusTypeMapper::GetStatusTypeForName(argv[3]);
-
-    if (status == Aws::IAM::Model::StatusType::NOT_SET) {
+    if (argc != 4)
+    {
         PrintUsage();
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
     {
+        Aws::String user_name(argv[1]);
+        Aws::String accessKeyId(argv[2]);
+
+        auto status =
+            Aws::IAM::Model::StatusTypeMapper::GetStatusTypeForName(argv[3]);
+
+        if (status == Aws::IAM::Model::StatusType::NOT_SET)
+        {
+            PrintUsage();
+            return 1;
+        }
+
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::UpdateAccessKeyRequest request;
         request.SetUserName(user_name);
@@ -56,10 +57,13 @@ int main(int argc, char** argv)
         request.SetStatus(status);
 
         auto outcome = iam.UpdateAccessKey(request);
-        if (outcome.IsSuccess()) {
+        if (outcome.IsSuccess())
+        {
             std::cout << "Successfully updated status of access key " <<
                 accessKeyId << " for user " << user_name << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Error updated status of access key " << accessKeyId <<
                 " for user " << user_name << ": " <<
                 outcome.GetError().GetMessage() << std::endl;

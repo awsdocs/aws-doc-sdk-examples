@@ -1,0 +1,22 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+           "Sid" : "Stmt1DescribeSecret",  
+           "Effect": "Allow",
+           "Action": [ "secretsmanager:DescribeSecret" ],
+           "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*"
+        },
+        {
+            "Sid" : "Stmt2GetSecretValue",  
+            "Effect": "Allow",
+            "Action": [ "secretsmanager:GetSecretValue" ],
+            "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*",
+            "Condition" : { 
+                "ForAnyValue:StringLike" : {
+                    "secretsmanager:VersionStage" : "AWSCURRENT" 
+                } 
+            }
+        }
+    ]
+}

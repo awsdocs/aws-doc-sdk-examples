@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -13,7 +13,7 @@
 */
 package aws.example.s3;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 /**
@@ -43,7 +43,7 @@ public class CopyObject
 
         System.out.format("Copying object %s from bucket %s to %s\n",
                 object_key, from_bucket, to_bucket);
-        final AmazonS3 s3 = new AmazonS3Client();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         try {
             s3.copyObject(from_bucket, object_key, to_bucket, object_key);
         } catch (AmazonServiceException e) {

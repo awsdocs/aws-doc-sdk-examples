@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -65,7 +65,7 @@
 =end
 #    Make a note of the AWS IAM service role ARN, as you will need it later in the code.
 
-require 'aws-sdk'
+require 'aws-sdk-cloudwatch'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!

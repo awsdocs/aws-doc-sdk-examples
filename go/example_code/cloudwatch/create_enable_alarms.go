@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -15,29 +15,38 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
+
+    "fmt"
+    "os"
 )
 
-// Usage:
-// go run main.go <customer id> <instance id> <alarm name>
 func main() {
-    // Load session from shared config.
+    if len(os.Args) != 4 {
+        fmt.Println("You must supply an instance name, value, and alarm name")
+        os.Exit(1)
+    }
+
+    instance := os.Args[1]
+    value := os.Args[2]
+    name := os.Args[3]
+    
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create new cloudwatch client.
+    // Create new CloudWatch client.
     svc := cloudwatch.New(sess)
 
-    // Create a metric alarm that will reboot an instance if its CPU utilization is
-    // greate than 70.0%.
+    // Create a metric alarm that reboots an instance if its CPU utilization is
+    // greater than 70.0%.
     _, err := svc.PutMetricAlarm(&cloudwatch.PutMetricAlarmInput{
-        AlarmName:          &os.Args[3],
+        AlarmName:          aws.String(name),
         ComparisonOperator: aws.String(cloudwatch.ComparisonOperatorGreaterThanThreshold),
         EvaluationPeriods:  aws.Int64(1),
         MetricName:         aws.String("CPUUtilization"),
@@ -52,16 +61,15 @@ func main() {
         // This is apart of the default workflow actions. This one will reboot the instance, if the
         // alarm is triggered.
         AlarmActions: []*string{
-            aws.String(fmt.Sprintf("arn:aws:swf:us-east-1:%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", os.Args[1])),
+            aws.String(fmt.Sprintf("arn:aws:swf:us-east-1:%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", instance)),
         },
         Dimensions: []*cloudwatch.Dimension{
-            &cloudwatch.Dimension{
+            {
                 Name:  aws.String("InstanceId"),
-                Value: &os.Args[2],
+                Value: aws.String(value),
             },
         },
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return
@@ -70,10 +78,9 @@ func main() {
     // This will enable the alarm to our instance.
     result, err := svc.EnableAlarmActions(&cloudwatch.EnableAlarmActionsInput{
         AlarmNames: []*string{
-            &os.Args[3],
+            aws.String(name),
         },
     })
-
     if err != nil {
         fmt.Println("Error", err)
         return

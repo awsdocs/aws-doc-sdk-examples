@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -12,7 +12,7 @@
 
 # Demonstrates how to specify the time interval during which messages to a queue are not visible after being received.
 
-require 'aws-sdk'
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-east-1')
 
@@ -31,7 +31,7 @@ begin
     sqs.change_message_visibility({
       queue_url: queue_url,
       receipt_handle: message.receipt_handle,
-      visibility_timeout: 36000 # This message will not be visible for 10 hours (10 hours * 60 minutes * 60 seconds) after first receipt.
+      visibility_timeout: 30 # This message will not be visible for 30 seconds after first receipt.
     })    
   end  
 

@@ -1,0 +1,13 @@
+- Compile dependencies:
+aws-java-sdk-1.11.227
+aws-java-sdk-core-1.11.227
+aws-java-sdk-stepfunctions-1.11.227
+
+- Runtime dependencies:
+commons-logging-1.2.jar
+httpclient-4.5.3.jar
+httpcore-4.4.8.jar
+jackson-annotations-2.9.0.jar
+jackson-core-2.9.2.jar
+jackson-databind-2.9.2.jar
+joda-time-2.9.9.jar

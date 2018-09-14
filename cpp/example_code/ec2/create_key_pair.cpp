@@ -22,24 +22,29 @@
  */
 int main(int argc, char** argv)
 {
-    if(argc != 2) {
-        std::cout << "Usage: ec2_create_key_pair <key_pair_name>" << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "Usage: create_key_pair <key_pair_name>" << std::endl;
         return 1;
     }
 
-    Aws::String pair_name = argv[1];
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String pair_name = argv[1];
+
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::CreateKeyPairRequest request;
         request.SetKeyName(pair_name);
 
         auto outcome = ec2.CreateKeyPair(request);
-        if (!outcome.IsSuccess()) {
+        if (!outcome.IsSuccess())
+        {
             std::cout << "Failed to create key pair:" <<
                 outcome.GetError().GetMessage() << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Successfully created key pair named " <<
                 pair_name << std::endl;
         }

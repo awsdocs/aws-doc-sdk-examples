@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -12,14 +12,41 @@
    specific language governing permissions and limitations under the License.
 */
 
-    svc := dynamodb.New(session.New(&aws.Config{Region: aws.String("us-west-2")}))
+package main
+
+import (
+    "fmt"
+    "os"
+
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/dynamodb"
+)
+
+func main() {
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+
+    // Create DynamoDB client
+    svc := dynamodb.New(sess)
+
+    // Get the list of tables
     result, err := svc.ListTables(&dynamodb.ListTablesInput{})
+
     if err != nil {
-        log.Println(err)
-        return
+        fmt.Println(err)
+        os.Exit(1)
     }
 
-    log.Println("Tables:")
-    for _, table := range result.TableNames {
-        log.Println(*table)
+    fmt.Println("Tables:")
+    fmt.Println("")
+
+    for _, n := range result.TableNames {
+        fmt.Println(*n)
     }
+
+    fmt.Println("")
+}
