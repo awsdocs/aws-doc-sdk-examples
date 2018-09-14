@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
- *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
+ *  ABOUT THIS PHP SAMPLE: This sample demonstrates how to retrieve a secreat from
+ * from Secrets manager. It is accessible from the Secrets Manager Console.
  *
  */
 
@@ -35,7 +35,7 @@ use Aws\Exception\AwsException;
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
-    'region' => 'us-east-1'
+    'region' => 'us-east-1',
 ]);
 
 $secret_name = 'SecretName';
@@ -46,10 +46,10 @@ try {
     ]);
     print("Retrieved secret: " . $result['Name']);
 } catch (AwsException $e) {
-    echo $e->getMessage();
-    echo "\n";
-    /*
-     $error = ??;
+    //echo $e->getMessage();
+    //echo "\n";
+
+    $error = $e->getAwsErrorCode();
     if ($error == 'DecryptionFailureException') {
         // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
         // Deal with the exception here, and/or rethrow at your discretion.
@@ -74,12 +74,12 @@ try {
     } else {
         // Decrypts secret using the associated KMS CMK.
         // Depending on whether the secret is a string or binary, one of these fields will be populated.
-        if($result['SecretString']){
+        if ($result['SecretString']) {
             $secret = $result['SecretString'];
         } else {
             $decoded_secret = base64_decode($result['SecretBinary']);
         }
     }
-    */
+
 
 }
