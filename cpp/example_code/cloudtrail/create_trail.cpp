@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/CreateTrailRequest.h>
 #include <aws/cloudtrail/model/CreateTrailResult.h>

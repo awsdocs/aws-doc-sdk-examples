@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/DeleteTrailRequest.h>
 #include <aws/cloudtrail/model/DeleteTrailResult.h>
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
     Aws::CloudTrail::Model::DeleteTrailRequest dt_req;
     dt_req.SetName(trail_name);
 
-    auto dt_out = ct.CreateTrail(ct_req);
+    auto dt_out = ct.DeleteTrail(dt_req);
 
     if (dt_out.IsSuccess())
     {

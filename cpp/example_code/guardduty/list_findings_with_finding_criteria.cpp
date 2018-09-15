@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/guardduty/GuardDutyClient.h>
 #include <aws/guardduty/model/ListFindingsRequest.h>
 #include <aws/guardduty/model/ListFindingsResult.h>
@@ -37,7 +38,7 @@ int main(int argc, char ** argv)
     Aws::String condition_val(argv[2]);
     Aws::String criteria_val(argv[3]);
 
-    Aws::GuardDuty::Condition condition;
+    Aws::GuardDuty::Model::Condition condition;
     Aws::GuardDuty::GuardDutyClient gd;
     Aws::GuardDuty::Model::ListFindingsRequest lffc_req;
     Aws::GuardDuty::Model::FindingCriteria finding_criteria;
@@ -48,7 +49,7 @@ int main(int argc, char ** argv)
     lffc_req.SetFindingCriteria(finding_criteria);
     lffc_req.SetMaxResults(10);
 
-    auto lffc_out = gd.ListFindingsRequest(lffc_req);
+    auto lffc_out = gd.ListFindings(lffc_req);
 
     if (lffc_out.IsSuccess())
     {

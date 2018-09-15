@@ -7,13 +7,11 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-set (CMAKE_CXX_STANDARD 11)
-
 cmake_minimum_required(VERSION 3.2)
 project(glacier-examples)
 
 # Locate the aws sdk for c++ package.
-find_package(aws-sdk-cpp)
+find_package(AWSSDK REQUIRED COMPONENTS glacier)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_vault")
@@ -23,5 +21,5 @@ list(APPEND EXAMPLES "upload_archive")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-  target_link_libraries(${EXAMPLE} aws-cpp-sdk-glacier aws-cpp-sdk-core)
+  target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()

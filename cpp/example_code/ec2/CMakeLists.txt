@@ -7,12 +7,11 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-cmake_minimum_required(VERSION 2.8)
-set (CMAKE_CXX_STANDARD 11)
+cmake_minimum_required(VERSION 3.2)
 project(ec2-examples)
 
 # Locate the aws sdk for c++ package.
-find_package(aws-sdk-cpp)
+find_package(AWSSDK REQUIRED COMPONENTS ec2)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_instance")
@@ -34,7 +33,7 @@ list(APPEND EXAMPLES "delete_security_group")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
     add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-    target_link_libraries(${EXAMPLE} aws-cpp-sdk-ec2 aws-cpp-sdk-core)
+    target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()
 
 
