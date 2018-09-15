@@ -1,4 +1,4 @@
-#   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 #   This file is licensed under the Apache License, Version 2.0 (the "License").
 #   You may not use this file except in compliance with the License. A copy of
@@ -11,11 +11,10 @@
 #   specific language governing permissions and limitations under the License.
 
 cmake_minimum_required(VERSION 3.2)
-set (CMAKE_CXX_STANDARD 11)
 project(lambda-example)
 
 # Locate the aws sdk for c++ package.
-find_package(aws-sdk-cpp)
+find_package(AWSSDK REQUIRED COMPONENTS lambda)
 
 # The executables to build.
 set(EXAMPLES "")
@@ -24,5 +23,5 @@ list(APPEND EXAMPLES "lambda_example")
 # The executables to build
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-  target_link_libraries(${EXAMPLE} aws-cpp-sdk-lambda aws-cpp-sdk-core)
+  target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()

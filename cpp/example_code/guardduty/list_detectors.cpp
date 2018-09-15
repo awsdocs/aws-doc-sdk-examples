@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/guardduty/GuardDutyClient.h>
 #include <aws/guardduty/model/ListDetectorsRequest.h>
 #include <aws/guardduty/model/ListDetectorsResult.h>
