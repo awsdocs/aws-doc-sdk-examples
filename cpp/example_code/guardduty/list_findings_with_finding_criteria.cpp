@@ -49,7 +49,7 @@ int main(int argc, char ** argv)
     lffc_req.SetFindingCriteria(finding_criteria);
     lffc_req.SetMaxResults(10);
 
-    auto lffc_out = gd.ListFindingsRequest(lffc_req);
+    auto lffc_out = gd.ListFindings(lffc_req);
 
     if (lffc_out.IsSuccess())
     {

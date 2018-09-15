@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.2)
 project(ebs-examples)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS ebs)
+find_package(AWSSDK REQUIRED COMPONENTS elasticbeanstalk ec2)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "describe_volumes")

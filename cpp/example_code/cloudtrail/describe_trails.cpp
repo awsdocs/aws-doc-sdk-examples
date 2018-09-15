@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/DescribeTrailsRequest.h>
 #include <aws/cloudtrail/model/DescribeTrailsResult.h>
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
 
       for (auto val: dt_out.GetResult().GetTrailList())
       {
-        std::cout << val << std::endl;
+        std::cout << val.GetName() << std::endl;
       }
     }
 

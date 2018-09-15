@@ -43,7 +43,7 @@ int main(int argc, char ** argv)
 
     if (av_out.IsSuccess())
     {
-      std::cout << "Successfully attached volume at: " << av_out.GetResult().GetAttachTime()
+      std::cout << "Successfully attached volume at: " << av_out.GetResult().GetAttachTime().ToGmtString(Aws::Utils::DateFormat::RFC822)
                 << std::endl;
     }
     else

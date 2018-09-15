@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
 
     if (av_out.IsSuccess())
     {
-      std::cout << "Successfully create volume at: " << av_out.GetResult().GetCreateTime()
+      std::cout << "Successfully create volume at: " << av_out.GetResult().GetCreateTime().ToGmtString(Aws::Utils::DateFormat::RFC822)
                 << " with volume id: " << av_out.GetResult().GetVolumeId() << std::endl;
     }
     else

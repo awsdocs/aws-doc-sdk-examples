@@ -30,9 +30,6 @@ int main(int argc, char ** argv)
 
     Aws::EC2::Model::DescribeVolumesRequest dv_req;
 
-    dv_req.SetResourceName(name);
-    dv_req.AddTags(tags);
-
     auto dv_out = ec2.DescribeVolumes(dv_req);
 
     if (dv_out.IsSuccess())
@@ -40,7 +37,7 @@ int main(int argc, char ** argv)
       std::cout << "Successfully describing volumes as:";
       for (auto val: dv_out.GetResult().GetVolumes())
       {
-        std::cout << " " << val;
+        std::cout << " " << val.GetVolumeId();
       }
       std::cout << std::endl;
     }

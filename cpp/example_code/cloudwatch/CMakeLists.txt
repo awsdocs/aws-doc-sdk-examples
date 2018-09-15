@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.2)
 project(cloudwatch-examples)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS cloudwatch)
+find_package(AWSSDK REQUIRED COMPONENTS monitoring events logs)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "describe_alarms")
@@ -31,6 +31,6 @@ list(APPEND EXAMPLES "put_subscription_filter")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
     add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-    target_link_libraries(${EXAMPLE} ${AWSSDK_LINL_LIBRARIES})
+    target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()
 

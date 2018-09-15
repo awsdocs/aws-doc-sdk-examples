@@ -10,6 +10,7 @@
 */
 
 #include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/LookupEventsRequest.h>
 #include <aws/cloudtrail/model/LookupEventsResult.h>
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
 
       for (auto val: le_out.GetResult().GetEvents())
       {
-        std::cout << " " << val << std::endl;
+        std::cout << " " << val.GetEventName() << std::endl;
       }
     }
 
