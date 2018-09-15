@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample demonstrates how to retrieve a secreat from
+ *  ABOUT THIS PHP SAMPLE: This sample demonstrates how to retrieve a secret from
  * from Secrets manager. It is accessible from the Secrets Manager Console.
  *
  */
@@ -58,7 +58,6 @@ try {
         // An error occurred on the server side.
         // Deal with the exception here, and/or rethrow at your discretion.
         throw $e;
-
     } elseif ($error == 'InvalidParameterException') {
         // You provided an invalid value for a parameter.
         // Deal with the exception here, and/or rethrow at your discretion.
@@ -79,7 +78,8 @@ try {
         } else {
             $decoded_secret = base64_decode($result['SecretBinary']);
         }
+
+        // Your code goes here
+
     }
-
-
 }
