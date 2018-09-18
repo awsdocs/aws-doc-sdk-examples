@@ -11,6 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+import json
 import boto3
 
 # Create IAM client
@@ -35,17 +36,14 @@ new_policy['Statement'][1]['Effect'] = 'Allow'
 new_policy['Statement'][1]['Action'] = ['S3:*']
 new_policy['Statement'][1]['Resource'] = ['*']
 
-#stringify and replace single quotes with double quotes
-final_policy = str(new_policy).replace('\'','"')
-
 print('Creating New IAM Policy Version of Policy ' + policy_arn + ' with the follwing statements: \n\r')
-print(final_policy + '\n\r')
+print(json.dumps(new_policy) + '\n\r')
 
 try:
     # Get default version of policy
     create_policy_version_response = iam.create_policy_version(
         PolicyArn=policy_arn,
-        PolicyDocument=final_policy,
+        PolicyDocument=json.dumps(new_policy),
         SetAsDefault=True
     )
 
