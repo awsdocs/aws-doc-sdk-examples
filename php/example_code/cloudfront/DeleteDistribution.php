@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- * 
+ *
  *
  */
 
@@ -34,17 +34,30 @@ use Aws\Exception\AwsException;
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $id = 'E1A2B3C4D5E';
 
 try {
-    $result = $client -> deleteDistribution([
-       'Id' => $id, //REQUIRED       
-   ]); 
-   var_dump($result);
-}catch (AwsException $e) {
+    $result = $client->getDistribution([
+        'Id' => $id,
+    ]);
+} catch (AwsException $e) {
+    // output error message if fails
+    echo $e->getMessage();
+    echo "\n";
+}
+
+$ETag = $result["ETag"];
+
+try {
+    $result = $client->deleteDistribution([
+        'Id' => $id,
+        'IfMatch' => $ETag
+    ]);
+    var_dump($result);
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
