@@ -37,117 +37,120 @@ $client = new Aws\CloudFront\CloudFrontClient([
     'region' => 'us-east-2'
 ]);
 
-
-$alias = [
-    'Quantity' => 0,
-];
-$cache = [
-    'Quantity' => 0,
-];
+$originName = 'Name to identify the S3 bucket';
+$s3BucketURL = '<bucket-name>.s3.amazonaws.com';
+$callerReference = 'unique string';
+$comment = 'Created by AWS SDK for PHP';
 $cacheBehavior = [
 
     'AllowedMethods' => [
         'CachedMethods' => [
-            'Items' => ['HEAD', 'GET'], // REQUIRED
-            'Quantity' => 2, // REQUIRED
+            'Items' => ['HEAD', 'GET'],
+            'Quantity' => 2,
         ],
-        'Items' => ['HEAD', 'GET'], // REQUIRED
-        'Quantity' => 2, // REQUIRED
+        'Items' => ['HEAD', 'GET'],
+        'Quantity' => 2,
     ],
     'Compress' => false,
     'DefaultTTL' => 0,
     'FieldLevelEncryptionId' => '',
-    'ForwardedValues' => [ // REQUIRED
-        'Cookies' => [ // REQUIRED
-            'Forward' => 'none', // REQUIRED
+    'ForwardedValues' => [
+        'Cookies' => [
+            'Forward' => 'none',
         ],
         'Headers' => [
-            'Quantity' => 0, // REQUIRED
+            'Quantity' => 0,
         ],
-        'QueryString' => false, // REQUIRED
+        'QueryString' => false,
         'QueryStringCacheKeys' => [
-            'Quantity' => 0, // REQUIRED
+            'Quantity' => 0,
         ],
     ],
     'LambdaFunctionAssociations' => ['Quantity' => 0],
     'MaxTTL' => 0,
-    'MinTTL' => 0, // REQUIRED
+    'MinTTL' => 0,
     'SmoothStreaming' => false,
-    'TargetOriginId' => 'S3-Bucket', // REQUIRED
-    'TrustedSigners' => [ // REQUIRED
-        'Enabled' => false, // REQUIRED
-        'Quantity' => 0, // REQUIRED
+    'TargetOriginId' => $originName,
+    'TrustedSigners' => [
+        'Enabled' => false,
+        'Quantity' => 0,
     ],
-    'ViewerProtocolPolicy' => 'allow-all', // REQUIRED
+    'ViewerProtocolPolicy' => 'allow-all',
 ];
-
-$callerReference = 'string'; // REQUIRED
-$comment = 'Created by AWS SDK for PHP'; // REQUIRED
-$customError = [
-    'Quantity' => 0, // REQUIRED
-];
-$enabled = true;
-$httpVersion = 'http1.1';
-$IPV6 = false;
-$logging = [
-    'Bucket' => '', // REQUIRED
-    'Enabled' => false, // REQUIRED
-    'IncludeCookies' => false, // REQUIRED
-    'Prefix' => '', // REQUIRED
-];
-$priceClass = 'PriceClass_100';
-$restrictions = [
-    'GeoRestriction' => [ // REQUIRED
-        'Quantity' => 0, // REQUIRED
-        'RestrictionType' => 'none', // REQUIRED
-    ],
-];
-$viewerCert = [
-    'CertificateSource' => 'cloudfront',
-    'CloudFrontDefaultCertificate' => true,
-    'MinimumProtocolVersion' => 'TLSv1',
-];
-$webACLid = '';
-
-// $rootObject = '<string>';
+$enabled = false;
 $origin = [
     'Items' => [
         [
-            'DomainName' => '<<REPLACE>>.s3.amazonaws.com', // REQUIRED
-            'Id' => 'S3-Bucket', // REQUIRED
+            'DomainName' => $s3BucketURL,
+            'Id' => $originName,
             'OriginPath' => '',
             'CustomHeaders' => ['Quantity' => 0],
             'S3OriginConfig' => ['OriginAccessIdentity' => ''],
 
         ],
     ],
-    'Quantity' => 1, // REQUIRED
+    'Quantity' => 1,
 ];
 
+/*
+ * $cache = [
+ *     'Quantity' => 0,
+ * ];
+ * $rootObject = '<string>';
+ * $alias = [
+ *     'Quantity' => 0,
+ * ];
+ * $customError = [
+ *     'Quantity' => 0, 
+ * ];
+ * $httpVersion = 'http1.1';
+ * $IPV6 = false;
+ * $logging = [
+ *     'Bucket' => '', 
+ *     'Enabled' => false, 
+ *     'IncludeCookies' => false, 
+ *     'Prefix' => '', 
+ * ];
+ * $priceClass = 'PriceClass_100';
+ * $restrictions = [
+ *     'GeoRestriction' => [ 
+ *         'Quantity' => 0, 
+ *         'RestrictionType' => 'none', 
+ *     ],
+ * ];
+ * $viewerCert = [
+ *     'CertificateSource' => 'cloudfront',
+ *     'CloudFrontDefaultCertificate' => true,
+ *     'MinimumProtocolVersion' => 'TLSv1',
+ * ];
+ * $webACLid = '';
+*/
+
+
 $distribution = [
-    'CacheBehaviors' => $cache, //REQUIRED //PHP
-    'CallerReference' => $callerReference, // REQUIRED
-    'Comment' => $comment, // REQUIRED
-    'DefaultCacheBehavior' => $cacheBehavior, // REQUIRED //PHP
-    // 'DefaultRootObject' => $rootObject,
-    'Enabled' => $enabled, // REQUIRED
-    'Origins' => $origin, // REQUIRED //PHP
-    'Aliases' => $alias, //PHP
-    'CustomErrorResponses' => $customError, //PHP
-    'HttpVersion' => $httpVersion,
-    'IsIPV6Enabled' => $IPV6,
-    'Logging' => $logging, //PHP
-    'PriceClass' => $priceClass,
-    'Restrictions' => $restrictions, //PHP
-    'ViewerCertificate' => $viewerCert,
-    'WebACLId' => $webACLid,
+    'CallerReference' => $callerReference,
+    'Comment' => $comment,
+    'DefaultCacheBehavior' => $cacheBehavior,
+    'Enabled' => $enabled,
+    'Origins' => $origin,
+    //'CacheBehaviors' => $cache, 
+    //'DefaultRootObject' => $rootObject,
+    //'Aliases' => $alias, 
+    //'CustomErrorResponses' => $customError, 
+    //'HttpVersion' => $httpVersion,
+    //'IsIPV6Enabled' => $IPV6,
+    //'Logging' => $logging, 
+    //'PriceClass' => $priceClass,
+    //'Restrictions' => $restrictions, 
+    //'ViewerCertificate' => $viewerCert,
+    //'WebACLId' => $webACLid,
 ];
 
 try {
     $result = $client->createDistribution([
         'DistributionConfig' => $distribution, //REQUIRED
     ]);
-    var_dump(result);
+    var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
