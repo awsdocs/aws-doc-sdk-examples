@@ -23,28 +23,19 @@ use Aws\SES\SESClient;
 use Aws\Exception\AwsException;
 
 //Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region' => 'us-east-2'
+    'region' => 'us-east-1'
 ]);
 
-$template_name = 'Template_Name';
-$sender_email = 'email_address';
-$recipeint_emails = ['email_address'];
-
-
 try {
-    $result = $SesClient->sendTemplatedEmail([
-        'Destination' => [
-            'ToAddresses' => $verified_recipeint_emails,
-        ],
-        'ReplyToAddresses' => [$sender_email],
-        'Source' => $sender_email,
-
-        'Template' => $template_name,
-        'TemplateData' => '{ }'
+    $result = $SesClient->getSendQuota([
     ]);
+    $send_limit = $result["Max24HourSend"];
+    $sent = $result["SentLast24Hours"];
+    $available = $send_limit - $sent;
+    print("<p>You can send " . $available . " more messages in the next 24 hours.</p>");
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

@@ -27,7 +27,7 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $rule_name = 'Rule_Name';
@@ -40,7 +40,7 @@ try {
     $result = $SesClient->updateReceiptRule([
         'Rule' => [
             'Actions' => [
-               'LambdaAction' => [
+                'LambdaAction' => [
                     'FunctionArn' => $lambda_arn,
                     'TopicArn' => $sns_topic_arn,
                 ],
@@ -50,8 +50,8 @@ try {
             'ScanEnabled' => false,
             'TlsPolicy' => 'Require',
         ],
-        'RuleSetName' =>  $rule_set_name,
-     ]);
+        'RuleSetName' => $rule_set_name,
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
