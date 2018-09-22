@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 
 
 /**
- * Creating an Amazon CloudFront Distribution.
+ * Delete an Amazon CloudFront Distribution that has been disabled.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html

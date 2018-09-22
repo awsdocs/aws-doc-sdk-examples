@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 
 
 /**
- * Creating an Amazon CloudFront Distribution.
+ * Updating an Amazon CloudFront Distribution.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
