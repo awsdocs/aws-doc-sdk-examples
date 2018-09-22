@@ -49,22 +49,8 @@ try {
         'DeliveryStreamName' => $name,
         'DeliveryStreamType' => $stream_type,
         'ElasticsearchDestinationConfiguration' => [
-            'CloudWatchLoggingOptions' => [
-                'Enabled' => true,
-                'LogGroupName' => '<string>',
-                'LogStreamName' => '<string>',
-            ],
             'DomainARN' => $esDomainARN,
             'IndexName' => $esIndex,
-            'IndexRotationPeriod' => 'OneDay',
-            'ProcessingConfiguration' => [
-                'Enabled' => false,
-                'Processors' => [],
-            ],
-            'RetryOptions' => [
-                'DurationInSeconds' => 300,
-            ],
-            'S3BackupMode' => 'FailedDocumentsOnly',
             'RoleARN' => $esRole,
             'S3Configuration' => [
 
@@ -74,11 +60,6 @@ try {
                 ],
                 'RoleARN' => $s3Role,
 
-
-                'CompressionFormat' => 'UNCOMPRESSED',
-                'EncryptionConfiguration' => [
-                    'NoEncryptionConfig' => 'NoEncryption',
-                ],
             ],
 
             'TypeName' => $esType,
