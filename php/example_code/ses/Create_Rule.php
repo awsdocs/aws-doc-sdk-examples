@@ -34,7 +34,7 @@ $rule_set_name = 'Rule_Set_Name';
 $s3_bucket = 'Bucket_Name';
 
 try {
-    $result = $SesClient->createReceiptRuleSet([
+    $result = $SesClient->createReceiptRule([
         'Rule' => [
             'Actions' => [
                 [
@@ -46,8 +46,10 @@ try {
             'Name' => $rule_name,
             'ScanEnabled' => true,
             'TlsPolicy' => 'Optional',
+            'Recipients' => ['<string>', ...]
         ],
         'RuleSetName' =>  $rule_set_name,
+        
      ]);
     var_dump($result);
 } catch (AwsException $e) {

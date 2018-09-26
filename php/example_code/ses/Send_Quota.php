@@ -26,12 +26,13 @@ use Aws\Exception\AwsException;
 $SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-1'
+
 ]);
 
 try {
     $result = $SesClient->getSendQuota([
-]);
+    ]);
     $send_limit = $result["Max24HourSend"];
     $sent = $result["SentLast24Hours"];
     $available = $send_limit - $sent;

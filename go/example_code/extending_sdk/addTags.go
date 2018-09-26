@@ -35,7 +35,7 @@ func main() {
     tagValue2 := "MyTestStack"
     
     // Initialize a session in us-west-2 that the SDK will use to load credentials
-    // from the shared credentials file. (~/.aws/ccredentials).
+    // from the shared credentials file. (~/.aws/credentials).
     sess, err := session.NewSession(&aws.Config{
         Region: aws.String("us-west-2")},
     )
@@ -54,7 +54,7 @@ func main() {
             TagSet: []*s3.Tag{
                 {
                     Key:   aws.String(tagName1),
-                    Value: aws.String(tagValue),
+                    Value: aws.String(tagValue1),
                 },
                 {
                     Key:   aws.String(tagName2),

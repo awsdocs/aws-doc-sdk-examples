@@ -26,12 +26,12 @@ use Aws\Exception\AwsException;
 $SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-1'
 ]);
 
 try {
     $result = $SesClient->getSendStatistics([
-]);
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
