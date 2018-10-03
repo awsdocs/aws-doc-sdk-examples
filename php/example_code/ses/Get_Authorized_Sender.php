@@ -26,7 +26,7 @@ use Aws\Exception\AwsException;
 $SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-1'
 ]);
 
 $identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
@@ -36,7 +36,7 @@ try {
     $result = $SesClient->getIdentityPolicies([
         'Identity' => $identity,
         'PolicyName' => $name,
-]);
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
