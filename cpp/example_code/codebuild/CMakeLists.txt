@@ -7,13 +7,12 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-set (CMAKE_CXX_STANDARD 11)
-
 cmake_minimum_required(VERSION 3.2)
 project(codebuild-examples)
+set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(aws-sdk-cpp)
+find_package(AWSSDK REQUIRED COMPONENTS codebuild)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "build_project")
