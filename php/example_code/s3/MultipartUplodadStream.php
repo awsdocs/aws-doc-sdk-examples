@@ -32,7 +32,6 @@ $s3Client = new S3Client([
     'version' => '2006-03-01'
 ]);
 
-
 //Using stream instead of file path
 $source = fopen('/path/to/large/file.zip', 'rb');
 $uploader = new MultipartUploader($s3Client, $source, [
