@@ -12,6 +12,7 @@
 
 cmake_minimum_required(VERSION 3.2)
 project(s3Encryption)
+set (CMAKE_CXX_STANDARD 11)
 
 find_package(AWSSDK REQUIRED COMPONENTS s3-encryption)
 

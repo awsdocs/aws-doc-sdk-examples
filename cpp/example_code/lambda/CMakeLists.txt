@@ -12,6 +12,7 @@
 
 cmake_minimum_required(VERSION 3.2)
 project(lambda-example)
+set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
 find_package(AWSSDK REQUIRED COMPONENTS lambda)
