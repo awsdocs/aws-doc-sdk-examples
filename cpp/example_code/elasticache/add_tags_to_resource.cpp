@@ -18,7 +18,7 @@
 
 int main(int argc, char ** argv)
 {
-  if (argc != 3)
+  if (argc != 4)
   {
     std::cout << "Usage: add_tags <resource_name> <tag_key> <tag_value>" << std::endl;
     return 1;
