@@ -28,7 +28,7 @@ use Aws\Exception\AwsException;
  *               well as any objects within it!
  */
 
-$BUCKET_NAME='<BUCKET-NAME>';
+$BUCKET_NAME = '<BUCKET-NAME>';
 
 //Create a S3Client
 $s3Client = new S3Client([
@@ -60,7 +60,7 @@ try {
 try {
     $versions = $s3Client->listObjectVersions([
         'Bucket' => $BUCKET_NAME
-        ])->getPath('Versions');
+    ])->getPath('Versions');
     echo "Keys retrieved!\n";
     foreach ($versions as $version) {
         echo $version['Key'] . "\n";

@@ -26,22 +26,22 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $filter_name = 'FilterName';
-$ip_address_range =  '10.0.0.1/24';
+$ip_address_range = '10.0.0.1/24';
 
 try {
     $result = $SesClient->createReceiptFilter([
-    'Filter' => [
-        'IpFilter' => [
-            'Cidr' => $ip_address_range,
-            'Policy' => 'Block|Allow',
+        'Filter' => [
+            'IpFilter' => [
+                'Cidr' => $ip_address_range,
+                'Policy' => 'Block|Allow',
+            ],
+            'Name' => $filter_name,
         ],
-        'Name' => $filter_name,
-    ],
-        ]);
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

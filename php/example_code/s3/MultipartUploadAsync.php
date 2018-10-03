@@ -35,7 +35,7 @@ $s3Client = new S3Client([
 $source = '/path/to/large/file.zip';
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',
-    'key'    => 'my-file.zip',
+    'key' => 'my-file.zip',
 ]);
 
 $promise = $uploader->promise();

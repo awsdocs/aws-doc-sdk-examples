@@ -38,7 +38,6 @@ $KmsClient = new Aws\Kms\KmsClient([
 
 $limit = 10;
 
-
 try {
     $result = $KmsClient->listKeys([
         'Limit' => $limit,

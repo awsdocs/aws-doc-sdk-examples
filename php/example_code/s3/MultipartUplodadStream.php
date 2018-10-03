@@ -16,7 +16,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
  *
  */
- 
+
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
@@ -31,12 +31,11 @@ $s3Client = new S3Client([
     'version' => '2006-03-01'
 ]);
 
-
 //Using stream instead of file path
 $source = fopen('/path/to/large/file.zip', 'rb');
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',
-    'key'    => 'my-file.zip',
+    'key' => 'my-file.zip',
 ]);
 
 do {

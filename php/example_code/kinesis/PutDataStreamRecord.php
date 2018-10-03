@@ -32,7 +32,7 @@ use Aws\Exception\AwsException;
 $KinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-1'
 ]);
 
 $name = "my_stream_name";
@@ -42,7 +42,7 @@ $groupID = "input to a hash function that maps the partition key (and associated
 try {
     $result = $KinesisClient->PutRecord([
         'Data' => $content,
-        'StreamName' =>  $name,
+        'StreamName' => $name,
         'PartitionKey' => $groupID
     ]);
     print("<p>ShardID = " . $result["ShardId"] . "</p>");
