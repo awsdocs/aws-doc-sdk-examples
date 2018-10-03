@@ -39,6 +39,7 @@ $KinesisClient = new Aws\Kinesis\KinesisClient([
 $name = "my_stream_name";
 $totalshards = 4;
 
+
 try {
     $result = $KinesisClient->UpdateShardCount([
         'ScalingType' => 'UNIFORM_SCALING',
