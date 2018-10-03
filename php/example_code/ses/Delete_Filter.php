@@ -26,16 +26,16 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $filter_name = 'FilterName';
 
 try {
     $result = $SesClient->deleteReceiptFilter([
-            'FilterName' => $filter_name,
+        'FilterName' => $filter_name,
 
-        ]);
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
