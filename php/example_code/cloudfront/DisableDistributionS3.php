@@ -62,13 +62,13 @@ $distribution = [
     'DefaultRootObject' => $currentConfig["DefaultRootObject"],
     'Enabled' => $enabled, // REQUIRED
     'Origins' => $currentConfig["Origins"], // REQUIRED 
-    'Aliases' => $currentConfig["Aliases"], 
-    'CustomErrorResponses' => $currentConfig["CustomErrorResponses"], 
+    'Aliases' => $currentConfig["Aliases"],
+    'CustomErrorResponses' => $currentConfig["CustomErrorResponses"],
     'HttpVersion' => $currentConfig["HttpVersion"],
     'IsIPV6Enabled' => $currentConfig["IsIPV6Enabled"],
-    'Logging' => $currentConfig["Logging"], 
+    'Logging' => $currentConfig["Logging"],
     'PriceClass' => $currentConfig["PriceClass"],
-    'Restrictions' => $currentConfig["Restrictions"], 
+    'Restrictions' => $currentConfig["Restrictions"],
     'ViewerCertificate' => $currentConfig["ViewerCertificate"],
     'WebACLId' => $currentConfig["WebACLId"],
 ];

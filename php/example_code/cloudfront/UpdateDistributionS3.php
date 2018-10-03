@@ -73,7 +73,6 @@ $distribution = [
 ];
 
 
-
 try {
     $result = $client->updateDistribution([
         'DistributionConfig' => $distribution,
