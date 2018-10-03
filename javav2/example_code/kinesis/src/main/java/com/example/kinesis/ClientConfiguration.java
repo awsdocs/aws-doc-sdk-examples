@@ -36,7 +36,7 @@ public class ClientConfiguration {
                 .maxPendingConnectionAcquires(10_000)
                 .build();
         
-        KinesisAsyncClient client2 = KinesisAsyncClient.builder()
+        KinesisAsyncClient kinesisClient = KinesisAsyncClient.builder()
         		.httpClient(httpClient)
         		.build();
         

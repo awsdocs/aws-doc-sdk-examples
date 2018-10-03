@@ -62,7 +62,7 @@ func main() {
         exitErrorf("Unable to create queue %q, %v.", name, err)
     }
 
-    fmt.Printf("Succesffuly created queue %q. URL: %s\n", name,
+    fmt.Printf("Successfully created queue %q. URL: %s\n", name,
         aws.StringValue(result.QueueUrl))
 }
 

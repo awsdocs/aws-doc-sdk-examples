@@ -75,7 +75,7 @@ void InvokeFunction(Aws::String functionName)
     jsonPayload.WithString("key1", "value1");
     jsonPayload.WithString("key2", "value2");
     jsonPayload.WithString("key3", "value3");
-    *payload << jsonPayload.WriteReadable();
+    *payload << jsonPayload.View().WriteReadable();
     invokeRequest.SetBody(payload);
     invokeRequest.SetContentType("application/javascript");
     auto outcome = m_client->Invoke(invokeRequest);

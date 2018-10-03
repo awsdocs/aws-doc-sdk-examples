@@ -75,7 +75,7 @@ func main() {
         exitErrorf("Unable to update queue %q, %v.", name, err)
     }
 
-    fmt.Printf("Succesffuly updated queue %q.\n", name)
+    fmt.Printf("Successfully updated queue %q.\n", name)
 }
 
 func exitErrorf(msg string, args ...interface{}) {
