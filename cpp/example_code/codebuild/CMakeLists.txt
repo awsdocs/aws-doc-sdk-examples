@@ -23,5 +23,5 @@ list(APPEND EXAMPLES "list_projects")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-  target_link_libraries(${EXAMPLE} aws-cpp-sdk-codebuild aws-cpp-sdk-core)
+  target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()

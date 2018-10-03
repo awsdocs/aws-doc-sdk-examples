@@ -25,6 +25,6 @@ list(APPEND EXAMPLES "delete_volume")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-  target_link_libraries(${EXAMPLE} aws-cpp-sdk-storagegateway aws-cpp-sdk-core)
+  target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()
 
