@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-$BUCKET_NAME='<BUCKET-NAME>';
+$BUCKET_NAME = '<BUCKET-NAME>';
 
 //Create a S3Client
 $s3Client = new S3Client([

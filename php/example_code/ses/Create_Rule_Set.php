@@ -26,15 +26,15 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = 'Rule_Set_Name';
 
 try {
     $result = $SesClient->createReceiptRuleSet([
-        'RuleSetName' =>  $name,
-     ]);
+        'RuleSetName' => $name,
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

@@ -12,39 +12,31 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
+ *
+ *
  *
  */
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient;
+use Aws\SES\SESClient;
 use Aws\Exception\AwsException;
 
-/**
- * Add a data blog to an existing Amazon Kinesis Firehose Delivery Stream.
- *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
-
-//Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+//Create a SESClient
+$SesClient = new SesClient([
     'profile' => 'default',
-    'version' => '2015-08-04',
-    'region' => 'us-east-2'
+    'version' => '2010-12-01',
+    'region'  => 'us-east-1'
 ]);
 
-$name = "my_stream_name";
-$content = '{"ticker_symbol":"QXZ", "sector":"HEALTHCARE", "change":-0.05, "price":84.51}';
+$identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
+$name = "policyName";
 
 try {
-    $result = $FirehoseClient->putRecord([
-        'DeliveryStreamName' => $name,
-        'Record' => [
-            'Data' => $content,
-        ],
-    ]);
+    $result = $SesClient->getIdentityPolicies([
+        'Identity' => $identity,
+        'PolicyName' => $name,
+]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

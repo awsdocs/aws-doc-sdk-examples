@@ -43,9 +43,9 @@ try {
     $userName = $result['AccessKey']['UserName'];
     $status = $result['AccessKey']['Status'];
     // $secretKey = $result['AccessKey']['SecretAccessKey']
-    echo "<p>AccessKey " . $keyID . " created on " . $createDate ."</p>";
-    echo "<p>Username: " . $userName ."</p>";
-    echo "<p>Status: " . $status ."</p>";
+    echo "<p>AccessKey " . $keyID . " created on " . $createDate . "</p>";
+    echo "<p>Username: " . $userName . "</p>";
+    echo "<p>Status: " . $status . "</p>";
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());

@@ -42,3 +42,4 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
+

@@ -13,8 +13,8 @@
  * specific language governing permissions and limitations under the License.
  *
  *
- * This will add to the rule an action to call an AWS Lambda function
- * and notify an Amazon SNS topic
+ *
+ *
  */
 
 require 'vendor/autoload.php';
@@ -23,25 +23,19 @@ use Aws\SES\SESClient;
 use Aws\Exception\AwsException;
 
 //Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region' => 'us-east-2'
+    'region'  => 'us-east-1'
 ]);
 
-$filter_name = 'FilterName';
-$ip_address_range = '10.0.0.1/24';
+$identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
+
 
 try {
-    $result = $SesClient->createReceiptFilter([
-        'Filter' => [
-            'IpFilter' => [
-                'Cidr' => $ip_address_range,
-                'Policy' => 'Block|Allow',
-            ],
-            'Name' => $filter_name,
-        ],
-    ]);
+    $result = $SesClient->listIdentityPolicies([
+        'Identity' => $identity,
+]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

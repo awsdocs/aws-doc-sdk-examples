@@ -31,13 +31,13 @@ $client = new StsClient([
     'version' => 'latest'
 ]);
 
-$roleToAssumeArn='arn:aws:iam::123456789012:role/RoleName';
+$roleToAssumeArn = 'arn:aws:iam::123456789012:role/RoleName';
 
 try {
     $result = $client->assumeRole([
-                           'RoleArn' => $roleToAssumeArn,
-                           'RoleSessionName' => 'session1'
-                       ]);
+        'RoleArn' => $roleToAssumeArn,
+        'RoleSessionName' => 'session1'
+    ]);
     // output AssumedRole credentials, you can use these credentials
     // to initiate a new AWS Service client with the IAM Role's permissions
     var_dump($result[Credentials]);

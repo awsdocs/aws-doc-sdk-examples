@@ -31,7 +31,7 @@ use Aws\S3\S3Client;
 // Use the us-east-2 region and latest version of each client.
 $sharedConfig = [
     'profile' => 'default',
-    'region'  => 'us-east-2',
+    'region' => 'us-east-2',
     'version' => 'latest'
 ];
 
