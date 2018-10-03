@@ -49,7 +49,7 @@ try {
     // Save object to a file.
     $result = $s3Client->getObject(array(
         'Bucket' => $bucket,
-        'Key'    => $key,
+        'Key' => $key,
         'SaveAs' => $key
     ));
 } catch (S3Exception $e) {

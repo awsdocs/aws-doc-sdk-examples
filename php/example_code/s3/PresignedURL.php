@@ -25,13 +25,13 @@ use Aws\Exception\AwsException;
 //Creating a presigned request
 $s3Client = new Aws\S3\S3Client([
     'profile' => 'default',
-    'region'  => 'us-east-2',
+    'region' => 'us-east-2',
     'version' => '2006-03-01',
 ]);
 
 $cmd = $s3Client->getCommand('GetObject', [
     'Bucket' => 'my-bucket',
-    'Key'    => 'testKey'
+    'Key' => 'testKey'
 ]);
 
 $request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
@@ -39,13 +39,13 @@ $request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
 //Creating a presigned URL
 $cmd = $s3Client->getCommand('GetObject', [
     'Bucket' => 'my-bucket',
-    'Key'    => 'testKey'
+    'Key' => 'testKey'
 ]);
 
 $request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
 
 // Get the actual presigned-url
-$presignedUrl = (string) $request->getUri();
+$presignedUrl = (string)$request->getUri();
 
 //Getting the URL to an object
 $url = $s3Client->getObjectUrl('my-bucket', 'my-key');

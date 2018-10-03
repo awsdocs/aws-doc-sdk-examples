@@ -35,7 +35,7 @@ try {
     $resp = $s3Client->getBucketWebsite([
         'Bucket' => $bucket
     ]);
-    echo "Succeed in retrieving website configuration for bucket: ". $bucket ."\n";
+    echo "Succeed in retrieving website configuration for bucket: " . $bucket . "\n";
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
@@ -69,7 +69,7 @@ try {
     $resp = $s3Client->deleteBucketWebsite([
         'Bucket' => $bucket
     ]);
-    echo "Succeed in deleting policy for bucket: ". $bucket ."\n";
+    echo "Succeed in deleting policy for bucket: " . $bucket . "\n";
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
