@@ -32,13 +32,13 @@ use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'profile' => 'default',
     'version' => 'latest',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 // The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
 // Use the us-west-2 region and latest version of each client.
 $sharedConfig = [
-    'region'  => 'us-west-2',
+    'region' => 'us-west-2',
     'version' => 'latest'
 ];
 

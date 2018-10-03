@@ -35,7 +35,7 @@ $s3Client = new S3Client([
 //Copy objects within S3
 $copier = new MultipartCopy($s3Client, '/bucket/key?versionId=foo', [
     'bucket' => 'your-bucket',
-    'key'    => 'my-file.zip',
+    'key' => 'my-file.zip',
 ]);
 
 try {

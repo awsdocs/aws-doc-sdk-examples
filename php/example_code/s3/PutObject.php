@@ -52,8 +52,8 @@ try {
         'version' => '2006-03-01'
     ]);
     $result = $s3Client->putObject([
-        'Bucket'     => $bucket,
-        'Key'        => $key,
+        'Bucket' => $bucket,
+        'Key' => $key,
         'SourceFile' => $file_Path,
     ]);
 } catch (S3Exception $e) {
