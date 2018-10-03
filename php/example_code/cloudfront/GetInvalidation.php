@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- * 
+ *
  *
  */
 
@@ -34,19 +34,19 @@ use Aws\Exception\AwsException;
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $distributionId = 'E1A2B3C4D5E';
 $invalidationID = 'I1A2B3C4D5E6F7G';
 
 try {
-    $result = $client -> getInvalidation([
+    $result = $client->getInvalidation([
         'DistributionId' => $distributionId,
         'Id' => $invalidationID,
-   ]); 
-   var_dump($result);
-}catch (AwsException $e) {
+    ]);
+    var_dump($result);
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
