@@ -1,3 +1,5 @@
+package aws.example.workdocs;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -25,9 +27,9 @@ import com.amazonaws.services.workdocs.model.InitiateDocumentVersionUploadResult
 import com.amazonaws.services.workdocs.model.UploadMetadata;
 import com.amazonaws.services.workdocs.model.User;
 
-public class download_user_doc {
+public class DownloadUserDoc {
 
-	private static String get_user_folder(AmazonWorkDocs workDocs, String orgId, String user) throws Exception {
+	private static String getUserFolder(AmazonWorkDocs workDocs, String orgId, String user) throws Exception {
 		String user_folder = "";
 		List<User> wdUsers = new ArrayList<>();
 		DescribeUsersRequest request = new DescribeUsersRequest();
@@ -62,12 +64,12 @@ public class download_user_doc {
 		return user_folder;
 	}
 
-	private static Map<String, String> get_doc_info(AmazonWorkDocs workDocs, String orgId, String user, String docName) throws Exception {
+	private static Map<String, String> getDocInfo(AmazonWorkDocs workDocs, String orgId, String user, String docName) throws Exception {
 		// Java code: http://docs.aws.amazon.com/workdocs/latest/developerguide/download-documents.html
 		Map<String, String> map = new HashMap<String, String>();
-		String folderId = get_user_folder(workDocs, orgId, user);
+		String folderId = getUserFolder(workDocs, orgId, user);
 
-        if (folderId == "") {
+        if ("".equals(folderId)) {
             System.out.println("Could not get user folder");
         } else {
 
@@ -93,7 +95,7 @@ public class download_user_doc {
 		return map;
 	}
 
-	private static String get_download_doc_url(AmazonWorkDocs workDocs, String docId, String versionId, String doc) {
+	private static String getDownloadDocUrl(AmazonWorkDocs workDocs, String docId, String versionId, String doc) {
 		GetDocumentVersionRequest request = new GetDocumentVersionRequest();
 		request.setDocumentId(docId);
 		request.setVersionId(versionId);
@@ -107,7 +109,7 @@ public class download_user_doc {
 		// Create default client
 		AmazonWorkDocs workDocs = AmazonWorkDocsClientBuilder.defaultClient();
 
-        // Set to the OrganizationId of your WorkDocs site.
+		// Set to the OrganizationId of your WorkDocs site.
 		String orgId = "d-123456789c";
 
 		// Set to the email address of a real user
@@ -116,10 +118,15 @@ public class download_user_doc {
 		// Set to the name of the doc
 		String workdocsName = "test.txt";
 
-        // Set to the full path to the doc
-		String saveDocFullName = "C:\\test.txt";
+		// Set to the full path to the doc
+		String saveDocFullName;
+		if(System.getProperty("os.name").contains("win")) {
+		  saveDocFullName = "C:\\test.txt";
+		} else {
+		  saveDocFullName = "/tmp/test.txt";
+		}
 
-		Map<String, String> map = get_doc_info(workDocs, orgId, userEmail, workdocsName);
+		Map<String, String> map = getDocInfo(workDocs, orgId, userEmail, workdocsName);
 
 		if (map.isEmpty()) {
 			System.out.println("Could not get info about workdoc " + workdocsName);
@@ -129,12 +136,12 @@ public class download_user_doc {
 		String doc_id = map.get("doc_id");
 		String version_id = map.get("version_id");
 
-		if (doc_id == "" || version_id == "") {
+		if ("".equals(doc_id) || "".equals(version_id)) {
 			System.out.println("Could not get info about workdoc " + workdocsName);
 			return;
 		}
 
-		String downloadUrl = get_download_doc_url(workDocs, doc_id, version_id, workdocsName);
+		String downloadUrl = getDownloadDocUrl(workDocs, doc_id, version_id, workdocsName);
 
 		GetDocumentVersionRequest request = new GetDocumentVersionRequest();
 		request.setDocumentId(doc_id);
@@ -143,13 +150,12 @@ public class download_user_doc {
 
 		// Get doc from provided URL
 		URL doc_url = new URL(downloadUrl);
-        URLConnection url_conn = doc_url.openConnection();
+		URLConnection url_conn = doc_url.openConnection();
 
 		final Path destination = Paths.get(saveDocFullName);
 
 		try (final InputStream in = url_conn.getInputStream();) {
 		    Files.copy(in, destination);
-
 		    System.out.println("Downloaded " + workdocsName + " to: "+ saveDocFullName);
 		}
 	}
