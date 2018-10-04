@@ -13,6 +13,7 @@
 */
 package aws.example.s3;
 
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -237,7 +238,7 @@ public class S3Encrypt
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.EncryptionOnly))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.EncryptionOnly).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
@@ -257,7 +258,7 @@ public class S3Encrypt
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
@@ -278,7 +279,7 @@ public class S3Encrypt
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
