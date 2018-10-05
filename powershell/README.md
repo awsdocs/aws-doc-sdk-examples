@@ -1,4 +1,4 @@
-# POWERSHELL SCRIPT 
+# POWERSHELL SCRIPTS
 
 execute above scripts by running 
 
