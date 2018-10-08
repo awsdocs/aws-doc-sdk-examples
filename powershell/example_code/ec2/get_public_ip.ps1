@@ -11,21 +11,48 @@
 # language governing permissions and limitations under the License.
 
 # passing instance id as a parameter
+
 param (
     [string]$id = ""
 )
 
+Clear-History
+
+# For no parameter passed
+if($id -eq ""){
+    Write-Host "Listing the public ip of all the running instances"
+}
+
+Function Get-Ip($ip){
+    # aws cli must be installed
+
+    $ipString = aws ec2 describe-instances --instance-ids $id --query 'Reservations[].Instances[].PublicIpAddress';
+    $Array = @();
+
+    # Removing unwanted characters and adding them to array
+    # return array 
+    forEach($ip In $ipString){
+        if ($ip -eq "[" -or $ip -eq "]"){
+            continue;
+        }else{
+            $ipString = $ip -replace '"' , "";
+            $ipString = $ipString -replace ',' , "";
+            $ip =  $ipString.Trim();
+            $Array += $ip;
+        }
+
+    }
+    return $Array;
+}
 
 Try
 {
-    # aws cli must be installed
-    $ipString = aws ec2 describe-instances --instance-ids $id --query 'Reservations[].Instances[].PublicIpAddress' 
-    $ipString = $ipString[1]
-    $ipString = $ipString -replace '"' , ""
-    $ip =  $ipString.Trim()
-    Write-Host $ip
+    Get-Ip($ip);
+
+    
 }
 Catch
 {
-    Write-host $_.Exception.Message
+    Write-Host "Failed";
+    Write-host $_.Exception.Message;
 }
