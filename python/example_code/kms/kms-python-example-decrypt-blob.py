@@ -32,7 +32,7 @@ print('Decrypted plaintext:', response['Plaintext'])
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[AWS Key Management Service (KMS)]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
 #snippet-sourceauthor:[AWS]

@@ -38,7 +38,7 @@ var_dump($client);
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]

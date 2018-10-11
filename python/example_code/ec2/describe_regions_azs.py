@@ -27,7 +27,7 @@ print('Availability Zones:', response['AvailabilityZones'])
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[Amazon EC2]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
 #snippet-sourceauthor:[AWS]

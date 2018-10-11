@@ -28,7 +28,7 @@ s3.upload_file(filename, bucket_name, filename)
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[Amazon S3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
 #snippet-sourceauthor:[AWS]

@@ -41,7 +41,7 @@ print('AssumedRole Identity: ' + sts_assumed_role.get_caller_identity()['Arn'])
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[AWS Security Token Service (STS)]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
 #snippet-sourceauthor:[AWS]
