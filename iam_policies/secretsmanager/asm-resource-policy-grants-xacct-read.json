@@ -1,3 +1,13 @@
+ 
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-service:[AWS Secrets Manager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 {
     "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
     "Effect": "Allow",
