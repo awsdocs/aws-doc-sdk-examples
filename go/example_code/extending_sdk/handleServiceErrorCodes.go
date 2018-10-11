@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [Doug-AWS]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 // +build example
 
 package main
