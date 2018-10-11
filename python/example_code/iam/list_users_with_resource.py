@@ -24,4 +24,15 @@ for user in users:
     print("User {} created on {}".format(
         user.user_name,
         user.create_date
-    ))
+    )) 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

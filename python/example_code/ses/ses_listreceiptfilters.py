@@ -19,3 +19,15 @@ ses = boto3.client('ses')
 response = ses.list_receipt_filters()
 
 print(response)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

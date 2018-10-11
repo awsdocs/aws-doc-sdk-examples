@@ -32,3 +32,15 @@ response = client.re_encrypt(
 )
 
 print('New ciphertext:', response['CiphertextBlob'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

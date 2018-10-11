@@ -21,3 +21,15 @@ iam = boto3.client('iam')
 paginator = iam.get_paginator('list_access_keys')
 for response in paginator.paginate(UserName='IAM_USER_NAME'):
     print(response)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

@@ -21,3 +21,15 @@ iam = boto3.client('iam')
 iam.delete_user(
     UserName='IAM_USER_NAME'
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

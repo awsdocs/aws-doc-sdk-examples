@@ -33,3 +33,15 @@ response = cloudwatch_events.put_events(
     ]
 )
 print(response['Entries'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

@@ -26,3 +26,15 @@ except botocore.exceptions.ClientError as e:
         print("The object does not exist.")
     else:
         raise
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

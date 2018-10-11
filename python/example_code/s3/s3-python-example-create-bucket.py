@@ -15,3 +15,15 @@ import boto3
 
 s3 = boto3.client('s3')
 s3.create_bucket(Bucket='my-bucket')
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

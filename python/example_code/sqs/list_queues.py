@@ -20,3 +20,15 @@ sqs = boto3.client('sqs')
 response = sqs.list_queues()
 
 print(response['QueueUrls'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

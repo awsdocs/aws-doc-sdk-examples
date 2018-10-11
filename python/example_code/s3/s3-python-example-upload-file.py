@@ -23,3 +23,15 @@ bucket_name = 'my-bucket'
 # Uploads the given file using a managed uploader, which will split up large
 # files automatically and upload parts in parallel.
 s3.upload_file(filename, bucket_name, filename)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

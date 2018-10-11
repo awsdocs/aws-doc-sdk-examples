@@ -34,3 +34,15 @@ cloudwatch.put_metric_data(
     ],
     Namespace='SITE/TRAFFIC'
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

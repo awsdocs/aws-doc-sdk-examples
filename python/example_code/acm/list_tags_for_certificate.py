@@ -23,3 +23,15 @@ response = acm.list_tags_for_certificate(
 )
 for tag in response['Tags']:
     print(tag)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

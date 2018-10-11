@@ -41,3 +41,15 @@ sqs.delete_message(
     ReceiptHandle=receipt_handle
 )
 print('Received and deleted message: %s' % message)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

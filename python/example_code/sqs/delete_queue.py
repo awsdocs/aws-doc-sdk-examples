@@ -18,3 +18,15 @@ sqs = boto3.client('sqs')
 
 # Delete SQS queue
 sqs.delete_queue(QueueUrl='SQS_QUEUE_URL')
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

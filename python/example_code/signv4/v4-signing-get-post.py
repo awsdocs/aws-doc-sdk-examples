@@ -141,3 +141,15 @@ r = requests.post(endpoint, data=request_parameters, headers=headers)
 print('\nRESPONSE++++++++++++++++++++++++++++++++++++')
 print('Response code: %d\n' % r.status_code)
 print(r.text)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

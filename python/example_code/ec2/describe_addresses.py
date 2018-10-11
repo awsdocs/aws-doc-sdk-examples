@@ -19,3 +19,15 @@ filters = [
 ]
 response = ec2.describe_addresses(Filters=filters)
 print(response)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

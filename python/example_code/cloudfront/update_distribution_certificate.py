@@ -63,3 +63,15 @@ distribution_config['ViewerCertificate']['Certificate']=new_cert_arn
 
 cf.update_distribution(DistributionConfig=distribution_config, \
 Id=distribution_id,IfMatch=distribution_etag)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

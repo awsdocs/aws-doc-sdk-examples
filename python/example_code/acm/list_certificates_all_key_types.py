@@ -34,3 +34,15 @@ Includes={
 ):
     for certificate in response['CertificateSummaryList']:
         print(certificate)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

@@ -22,3 +22,15 @@ paginator = acm.get_paginator('list_certificates')
 for response in paginator.paginate():
     for certificate in response['CertificateSummaryList']:
         print(certificate)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

@@ -22,3 +22,15 @@ cloudwatch_logs.delete_subscription_filter(
     filterName='FILTER_NAME',
     logGroupName='LOG_GROUP',
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

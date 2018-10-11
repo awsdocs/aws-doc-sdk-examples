@@ -23,3 +23,15 @@ for response in paginator.paginate(Dimensions=[{'Name': 'LogGroupName'}],
                                    MetricName='IncomingLogEvents',
                                    Namespace='AWS/Logs'):
     print(response['Metrics'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

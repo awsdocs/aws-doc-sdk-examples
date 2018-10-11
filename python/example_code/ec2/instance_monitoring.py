@@ -21,3 +21,15 @@ if sys.argv[1] == 'ON':
 else:
     response = ec2.unmonitor_instances(InstanceIds=['INSTANCE_ID'])
 print(response)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+
