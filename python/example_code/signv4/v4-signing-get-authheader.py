@@ -135,11 +135,11 @@ print('Response code: %d\n' % r.status_code)
 print(r.text)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[v4-signing-get-authheader shows how to make a request using the Amazon DynamoDB query API. The request makes a POST request and passes values to AWS in the body of the request. Authentication information is passed using the Authorization request header.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[AWS Signature Version 4 Signing Process]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[9/20/2018]
 #snippet-sourceauthor:[AWS]
 

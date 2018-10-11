@@ -136,11 +136,11 @@ print('Response code: %d\n' % r.status_code)
 print(r.text)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[v4-signing-get-querystring shows how to make a request using the IAM query API. The request makes a GET request and passes parameters and signing information using the query string.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[AWS Signature Version 4 Signing Process]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[9/20/2018]
 #snippet-sourceauthor:[AWS]
 
