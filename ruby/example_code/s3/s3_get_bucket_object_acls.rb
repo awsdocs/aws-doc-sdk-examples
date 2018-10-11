@@ -1,3 +1,10 @@
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Ruby]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[<<snippet or full-example>>]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
 require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 require 'os'
 
