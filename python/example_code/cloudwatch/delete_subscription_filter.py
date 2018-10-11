@@ -27,7 +27,7 @@ cloudwatch_logs.delete_subscription_filter(
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-service:[Amazon Cloudwatch]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
 #snippet-sourceauthor:[AWS]
