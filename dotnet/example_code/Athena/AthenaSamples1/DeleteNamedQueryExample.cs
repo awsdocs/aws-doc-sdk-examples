@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [ebattalio]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
