@@ -51,3 +51,15 @@ $array = $result->toArray();
 
 // Get the name of each bucket
 $names = $result->search('Buckets[].Name');
+ 
+
+//snippet-sourceauthor: [jschwarzwalder]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[09/20/2018]
+

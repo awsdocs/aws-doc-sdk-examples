@@ -57,3 +57,15 @@ $formAttributes = $postObject->getFormAttributes();
 // the constructor, the provided JSON policy, your AWS access key ID, and an
 // auth signature.
 $formInputs = $postObject->getFormInputs();
+ 
+
+//snippet-sourceauthor: [jschwarzwalder]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[09/20/2018]
+

@@ -45,3 +45,15 @@ file_put_contents($saveKeyLocation, $result['keyMaterial']);
 
 // Update the key's permissions so it can be used with SSH
 chmod($saveKeyLocation, 0600);
+ 
+
+//snippet-sourceauthor: [jschwarzwalder]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[09/20/2018]
+

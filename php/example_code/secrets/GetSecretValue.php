@@ -80,4 +80,15 @@ if (isset($result['SecretString'])) {
     $secret = base64_decode($result['SecretBinary']);
 }
 
-// Your code goes here;
+// Your code goes here; 
+
+//snippet-sourceauthor: [jschwarzwalder]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[09/20/2018]
+
