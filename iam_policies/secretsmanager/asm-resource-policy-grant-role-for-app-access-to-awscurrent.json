@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [bisdavid]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 {
     "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
     "Effect": "Allow",
