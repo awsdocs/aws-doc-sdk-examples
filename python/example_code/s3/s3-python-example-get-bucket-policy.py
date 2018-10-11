@@ -19,3 +19,13 @@ s3 = boto3.client('s3')
 # Call to S3 to retrieve the policy for the given bucket
 result = s3.get_bucket_policy(Bucket='my-bucket')
 print(result)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

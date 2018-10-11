@@ -21,3 +21,13 @@ cloudwatch = boto3.client('cloudwatch')
 paginator = cloudwatch.get_paginator('describe_alarms')
 for response in paginator.paginate(StateValue='INSUFFICIENT_DATA'):
     print(response['MetricAlarms'])
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

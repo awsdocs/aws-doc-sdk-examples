@@ -31,4 +31,13 @@ for distributionlist in paginator.paginate():
         print("Certificate ARN: " + distribution['ViewerCertificate']['Certificate'])
       print("")
   else:    
-    print("Error - No CloudFront Distributions Detected.")
+    print("Error - No CloudFront Distributions Detected.") 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

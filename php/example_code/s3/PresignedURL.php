@@ -49,3 +49,13 @@ $presignedUrl = (string)$request->getUri();
 
 //Getting the URL to an object
 $url = $s3Client->getObjectUrl('my-bucket', 'my-key');
+ 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[<<ADD SERVICE>>]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+

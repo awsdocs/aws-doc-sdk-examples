@@ -32,3 +32,13 @@ for finding in findings['FindingIds']:
     finddetail = gd.get_findings(DetectorId=detectorid,FindingIds=[finding])
     print(finddetail)
     print("\n")
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

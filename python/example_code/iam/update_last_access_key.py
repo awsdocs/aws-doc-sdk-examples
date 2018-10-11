@@ -23,3 +23,13 @@ iam.update_access_key(
     Status='Active',
     UserName='IAM_USER_NAME'
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

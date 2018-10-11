@@ -133,3 +133,13 @@ r = requests.get(request_url, headers=headers)
 print('\nRESPONSE++++++++++++++++++++++++++++++++++++')
 print('Response code: %d\n' % r.status_code)
 print(r.text)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

@@ -94,3 +94,13 @@ try {
     echo("The email was not sent. Error message: "
         . $error->getAwsErrorMessage() . "\n");
 }
+ 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[<<ADD SERVICE>>]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+

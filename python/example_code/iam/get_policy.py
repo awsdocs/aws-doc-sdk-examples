@@ -22,3 +22,13 @@ response = iam.get_policy(
     PolicyArn='arn:aws:iam::aws:policy/AWSLambdaExecute'
 )
 print(response['Policy'])
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+
