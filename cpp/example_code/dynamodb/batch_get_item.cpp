@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [tapasweni-pathak]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 // BatchGetItem.cpp : Defines the entry point for the console application.
 //
 #include <aws/core/Aws.h>
