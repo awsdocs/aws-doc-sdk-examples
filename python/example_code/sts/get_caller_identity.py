@@ -21,11 +21,11 @@ identity = sts.get_caller_identity()
 print('Default Credential Provider Chain Identity: ' + identity['Arn'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_caller_identity demonstrates how to retrieve the AWS account, AWS Arn and UserID for the current IAM Identity]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Security Token Service (STS)]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[10/11/2018]
 #snippet-sourceauthor:[AWS]
 
