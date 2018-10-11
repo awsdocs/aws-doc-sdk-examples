@@ -19,3 +19,13 @@ s3 = boto3.client('s3')
 # Call S3 to retrieve CORS configuration for selected bucket
 result = s3.get_bucket_cors(Bucket='my-bucket')
 
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

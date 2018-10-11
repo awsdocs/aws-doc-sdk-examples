@@ -36,3 +36,13 @@ bucket_policy = json.dumps(bucket_policy)
 
 # Set the new policy on the given bucket
 s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

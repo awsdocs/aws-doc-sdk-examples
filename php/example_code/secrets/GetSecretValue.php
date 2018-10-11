@@ -80,4 +80,13 @@ if (isset($result['SecretString'])) {
     $secret = base64_decode($result['SecretBinary']);
 }
 
-// Your code goes here;
+// Your code goes here; 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[<<ADD SERVICE>>]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+

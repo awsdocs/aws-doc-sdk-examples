@@ -23,3 +23,13 @@ sqs.set_queue_attributes(
     QueueUrl=queue_url,
     Attributes={'ReceiveMessageWaitTimeSeconds': '20'}
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

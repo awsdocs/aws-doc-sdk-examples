@@ -21,3 +21,13 @@ cloudwatch = boto3.client('cloudwatch')
 cloudwatch.delete_alarms(
   AlarmNames=['Web_Server_CPU_Utilization'],
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

@@ -18,3 +18,13 @@ s3 = boto3.client('s3')
 
 # Call S3 to delete the website policy for the given bucket
 s3.delete_bucket_website(Bucket='my-bucket')
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

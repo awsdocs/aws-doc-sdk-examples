@@ -16,3 +16,13 @@ import boto3
 ec2 = boto3.client('ec2')
 response = ec2.delete_key_pair(KeyName='KEY_PAIR_NAME')
 print(response)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[<<ADD SERVICE>>]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+
