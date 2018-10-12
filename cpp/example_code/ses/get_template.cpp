@@ -3,9 +3,9 @@
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Email Service]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[tapasweni-pathak]
 
 
 /*
