@@ -39,6 +39,6 @@ var_dump($result);
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[9/20/18]
 //snippet-sourceauthor:[AWS]
 

@@ -48,6 +48,6 @@ try {
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Email Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[9/20/18]
 //snippet-sourceauthor:[AWS]
 

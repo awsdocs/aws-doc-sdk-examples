@@ -57,6 +57,6 @@ try {
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service (KMS)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[9/20/18]
 //snippet-sourceauthor:[AWS]
 

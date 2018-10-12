@@ -73,11 +73,11 @@ def get_secret():
             
     # Your code goes here.  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[secrets_manager demonstrates how to retrieve a secret from AWS Secrets Manager]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Secrets Manager]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[9/25/18]
 #snippet-sourceauthor:[AWS]
 

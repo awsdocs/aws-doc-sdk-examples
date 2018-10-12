@@ -58,6 +58,6 @@ $names = $result->search('Buckets[].Name');
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[9/20/18]
 //snippet-sourceauthor:[AWS]
 
