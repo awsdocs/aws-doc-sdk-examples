@@ -34,7 +34,7 @@ response = client.re_encrypt(
 print('New ciphertext:', response['CiphertextBlob'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[kms-python-example-re-encrypt-key demonstrates how to re-encrypt plain text with the same CMK used to decrypt the original encrypted text.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

@@ -29,7 +29,7 @@ response = client.create_key()
 print('Created CMK ARN:', response['KeyMetadata']['Arn'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[kms-python-example-create-key demonstrates how to create a customer master key with AWS Key Management Service]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]
