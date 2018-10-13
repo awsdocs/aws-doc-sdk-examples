@@ -49,7 +49,7 @@ or, if you have ``make``, you can simply type::
    make
 
 to begin the build process. Maven will download any dependencies (such as components of the AWS SDK
-for Java) that it needs for building.
+for Java) that it needs for building.So make sure you are connected with internet before running this command.
 
 Once the examples have been built, you can run them to see them in action.
 
