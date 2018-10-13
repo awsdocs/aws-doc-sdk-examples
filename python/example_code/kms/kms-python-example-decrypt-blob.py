@@ -29,7 +29,7 @@ response = client.decrypt(
 print('Decrypted plaintext:', response['Plaintext'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[kms-python-example-decrypt-key  demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Key Management Service (KMS)]
