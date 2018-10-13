@@ -1,3 +1,13 @@
+ 
+//snippet-sourcedescription:[secrets_getsecretvalue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-service:[AWS Secrets Manager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/25/18]
+//snippet-sourceauthor:[AWS]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

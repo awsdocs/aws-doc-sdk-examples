@@ -22,3 +22,13 @@ iam.delete_access_key(
     AccessKeyId='ACCESS_KEY_ID',
     UserName='IAM_USER_NAME'
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[AWS Identity and Access Management (IAM)]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

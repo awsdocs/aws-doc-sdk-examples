@@ -44,3 +44,13 @@ $result = $ec2Client->createSecurityGroup(array(
 $securityGroupId = $result->get('GroupId');
 
 echo "Security Group ID: " . $securityGroupId . '\n';
+ 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon EC2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/20/18]
+//snippet-sourceauthor:[AWS]
+

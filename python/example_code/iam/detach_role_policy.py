@@ -22,3 +22,13 @@ iam.detach_role_policy(
     PolicyArn='arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
     RoleName='AmazonDynamoDBFullAccess'
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[AWS Identity and Access Management (IAM)]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

@@ -174,4 +174,13 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[AWS Elemental MediaConvert]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/20/18]
+//snippet-sourceauthor:[AWS]
+

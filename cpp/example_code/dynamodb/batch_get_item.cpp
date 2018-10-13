@@ -1,3 +1,13 @@
+ 
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[<<ADD SERVICE>>]
+//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 // BatchGetItem.cpp : Defines the entry point for the console application.
 //
 #include <aws/core/Aws.h>

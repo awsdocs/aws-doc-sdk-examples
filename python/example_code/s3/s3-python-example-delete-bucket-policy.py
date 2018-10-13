@@ -18,3 +18,13 @@ s3 = boto3.client('s3')
 
 # Call S3 to delete the policy for the given bucket
 s3.delete_bucket_policy(Bucket='my-bucket')
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon S3]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

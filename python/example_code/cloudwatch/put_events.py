@@ -33,3 +33,13 @@ response = cloudwatch_events.put_events(
     ]
 )
 print(response['Entries'])
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon Cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

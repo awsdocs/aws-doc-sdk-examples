@@ -24,3 +24,13 @@ cloudwatch_logs.put_subscription_filter(
     filterPattern='ERROR',
     logGroupName='LOG_GROUP',
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon Cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

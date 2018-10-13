@@ -80,4 +80,13 @@ if (isset($result['SecretString'])) {
     $secret = base64_decode($result['SecretBinary']);
 }
 
-// Your code goes here;
+// Your code goes here; 
+
+//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[AWS Secrets Manager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/25/18]
+//snippet-sourceauthor:[AWS]
+

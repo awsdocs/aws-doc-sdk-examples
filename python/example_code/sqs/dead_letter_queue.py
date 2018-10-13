@@ -34,3 +34,13 @@ sqs.set_queue_attributes(
         'RedrivePolicy': json.dumps(redrive_policy)
     }
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon Simple Queue Service]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

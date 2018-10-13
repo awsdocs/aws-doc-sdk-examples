@@ -29,4 +29,13 @@ if distributions['DistributionList']['Quantity'] > 0:
       print("Certificate: " + distribution['ViewerCertificate']['Certificate'])
     print("")
 else:    
-  print("Error - No CloudFront Distributions Detected.")
+  print("Error - No CloudFront Distributions Detected.") 
+
+#snippet-sourcedescription:[list_distributions demonstrates how to list Amazon CloudFront distributions]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon CloudFront]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[9/30/18]
+#snippet-sourceauthor:[AWS]
+

@@ -16,3 +16,13 @@ import boto3
 ec2 = boto3.client('ec2')
 response = ec2.describe_key_pairs()
 print(response)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon EC2]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

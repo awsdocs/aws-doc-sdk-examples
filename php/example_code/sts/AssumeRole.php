@@ -45,3 +45,13 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
+ 
+
+//snippet-sourcedescription:[AssumeRole demonstrates how to how to retrieve an assumed role that you can use for cross-account or federation access to an AWS resource.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[AWS Security Token Service (STS)]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[6/8/2018]
+//snippet-sourceauthor:[AWS]
+

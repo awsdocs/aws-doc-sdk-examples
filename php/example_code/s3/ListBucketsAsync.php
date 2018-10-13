@@ -52,3 +52,13 @@ $promise
         echo 'Encountered an error: ' . $reason->getMessage();
     });
 }
+ 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon S3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/20/18]
+//snippet-sourceauthor:[AWS]
+

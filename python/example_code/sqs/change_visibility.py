@@ -40,3 +40,13 @@ sqs.change_message_visibility(
     VisibilityTimeout=3600
 )
 print('Received and changed visibilty timeout of message: %s' % message)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon Simple Queue Service]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

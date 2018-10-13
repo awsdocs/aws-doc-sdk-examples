@@ -29,3 +29,13 @@ cors_configuration = {
 
 # Set the new CORS configuration on the selected bucket
 s3.put_bucket_cors(Bucket='my-bucket', CORSConfiguration=cors_configuration)
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon S3]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

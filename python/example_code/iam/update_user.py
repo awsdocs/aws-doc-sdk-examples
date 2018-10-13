@@ -22,3 +22,13 @@ iam.update_user(
     UserName='IAM_USER_NAME',
     NewUserName='NEW_IAM_USER_NAME'
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[AWS Identity and Access Management (IAM)]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

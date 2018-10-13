@@ -32,3 +32,13 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
         Encoding = 'SSH',
     )
     print(ssh_public_key_response['SSHPublicKey']['SSHPublicKeyBody'])
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[AWS Identity and Access Management (IAM)]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

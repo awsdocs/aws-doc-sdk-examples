@@ -1,3 +1,13 @@
+ 
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon Cloudwatch]
+//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

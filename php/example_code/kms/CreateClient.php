@@ -47,3 +47,13 @@ $sdk = new Aws\Sdk($sharedConfig);
 
 // Create an Amazon Kms client using the shared configuration data.
 $client = $sdk->createKms();
+ 
+
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[Code Sample]
+//snippet-service:[AWS Key Management Service (KMS)]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/20/18]
+//snippet-sourceauthor:[AWS]
+

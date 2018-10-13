@@ -21,3 +21,13 @@ cloudwatch = boto3.client('cloudwatch')
 cloudwatch.disable_alarm_actions(
   AlarmNames=['Web_Server_CPU_Utilization'],
 )
+ 
+
+#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[Amazon Cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[AWS]
+

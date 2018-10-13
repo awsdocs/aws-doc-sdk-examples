@@ -133,3 +133,13 @@ r = requests.get(request_url, headers=headers)
 print('\nRESPONSE++++++++++++++++++++++++++++++++++++')
 print('Response code: %d\n' % r.status_code)
 print(r.text)
+ 
+
+#snippet-sourcedescription:[v4-signing-get-authheader shows how to make a request using the Amazon DynamoDB query API. The request makes a POST request and passes values to AWS in the body of the request. Authentication information is passed using the Authorization request header.]
+#snippet-keyword:[Python]
+#snippet-keyword:[Code Sample]
+#snippet-service:[AWS Signature Version 4 Signing Process]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[9/20/2018]
+#snippet-sourceauthor:[AWS]
+
