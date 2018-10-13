@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [tapasweni-pathak]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

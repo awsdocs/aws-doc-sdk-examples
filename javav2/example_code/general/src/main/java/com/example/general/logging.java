@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [soo-aws]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 package com.example.general;
 
 import org.apache.logging.log4j.Logger;

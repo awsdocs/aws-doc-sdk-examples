@@ -21,3 +21,15 @@ cloudwatch_logs = boto3.client('logs')
 paginator = cloudwatch_logs.get_paginator('describe_subscription_filters')
 for response in paginator.paginate(logGroupName='GROUP_NAME'):
     print(response['subscriptionFilters'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

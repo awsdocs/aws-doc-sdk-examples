@@ -27,3 +27,15 @@ client = boto3.client('kms', region_name=region_name)
 response = client.create_key()
 
 print('Created CMK ARN:', response['KeyMetadata']['Arn'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

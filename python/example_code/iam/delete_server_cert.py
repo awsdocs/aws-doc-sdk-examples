@@ -21,3 +21,15 @@ iam = boto3.client('iam')
 iam.delete_server_certificate(
     ServerCertificateName='CERTIFICATE_NAME'
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

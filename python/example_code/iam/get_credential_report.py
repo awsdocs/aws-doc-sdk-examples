@@ -19,3 +19,15 @@ client = boto3.client('iam')
 response = client.get_credential_report()
 print(response)
 
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

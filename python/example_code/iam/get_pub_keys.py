@@ -32,3 +32,15 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
         Encoding = 'SSH',
     )
     print(ssh_public_key_response['SSHPublicKey']['SSHPublicKeyBody'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

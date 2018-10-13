@@ -21,3 +21,15 @@ iam = boto3.client('iam')
 iam.create_account_alias(
     AccountAlias='ALIAS'
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

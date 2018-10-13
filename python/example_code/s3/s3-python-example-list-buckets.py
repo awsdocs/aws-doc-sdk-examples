@@ -24,3 +24,15 @@ buckets = [bucket['Name'] for bucket in response['Buckets']]
 
 # Print out the bucket list
 print("Bucket List: %s" % buckets)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

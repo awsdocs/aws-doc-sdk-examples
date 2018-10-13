@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [bisdavid]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 {
     "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
     "Effect": "Allow",

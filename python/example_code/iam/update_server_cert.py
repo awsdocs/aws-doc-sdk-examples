@@ -22,3 +22,15 @@ iam.update_server_certificate(
     ServerCertificateName='CERTIFICATE_NAME',
     NewServerCertificateName='NEW_CERTIFICATE_NAME'
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

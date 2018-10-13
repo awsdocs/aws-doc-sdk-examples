@@ -21,3 +21,15 @@ iam = boto3.client('iam')
 paginator = iam.get_paginator('list_account_aliases')
 for response in paginator.paginate():
     print(response['AccountAliases'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

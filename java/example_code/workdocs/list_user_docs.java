@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [soo-aws]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 import java.util.ArrayList;
 import java.util.List;
 

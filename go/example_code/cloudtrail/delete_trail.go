@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [Doug-AWS]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 2018
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

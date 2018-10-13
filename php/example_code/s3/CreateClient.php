@@ -47,3 +47,15 @@ $sdk = new Aws\Sdk($sharedConfig);
 
 // Create an Amazon S3 client using the shared configuration data.
 $client = $sdk->createS3();
+ 
+
+//snippet-sourceauthor: [jschwarzwalder]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[09/20/2018]
+

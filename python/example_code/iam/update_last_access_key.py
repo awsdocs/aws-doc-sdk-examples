@@ -23,3 +23,15 @@ iam.update_access_key(
     Status='Active',
     UserName='IAM_USER_NAME'
 )
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

@@ -1,3 +1,13 @@
+//snippet-sourceauthor: [tapasweni-pathak]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[N/A]
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/core/utils/logging/DefaultLogSystem.h>

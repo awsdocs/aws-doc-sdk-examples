@@ -23,3 +23,15 @@ response = iam.get_access_key_last_used(
 )
 
 print(response['AccessKeyLastUsed'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

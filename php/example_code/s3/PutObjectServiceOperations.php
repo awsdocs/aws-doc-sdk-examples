@@ -56,3 +56,15 @@ $result = $s3Client->getObject([
 
 // Print the body of the result by indexing into the result object.
 echo $result['Body'];
+ 
+
+//snippet-sourceauthor: [jschwarzwalder]
+
+//snippet-sourcedescription:[Description]
+
+//snippet-service:[AWSService]
+
+//snippet-sourcetype:[full example]
+
+//snippet-sourcedate:[09/20/2018]
+

@@ -39,3 +39,15 @@ except acm.exceptions.RequestInProgressException as e:
 except:
     print('There was an error.')
     exit(1)
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

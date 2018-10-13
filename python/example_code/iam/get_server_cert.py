@@ -20,3 +20,15 @@ iam = boto3.client('iam')
 # Get the server certificate
 response = iam.get_server_certificate(ServerCertificateName='CERTIFICATE_NAME')
 print(response['ServerCertificate'])
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+

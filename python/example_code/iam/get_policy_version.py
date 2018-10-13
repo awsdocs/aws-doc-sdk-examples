@@ -39,3 +39,15 @@ for statement in policy_document['Statement']:
     print(statement)
 
 print("\n\rUnformatted Policy Document: \n\r" + str(policy_document))
+ 
+
+#snippet-sourceauthor: [jschwarzwalder]
+
+#snippet-sourcedescription:[Description]
+
+#snippet-service:[AWSService]
+
+#snippet-sourcetype:[full example]
+
+#snippet-sourcedate:[N/A]
+
