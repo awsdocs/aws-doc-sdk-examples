@@ -34,7 +34,7 @@ response = sqs.receive_message(
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[long_polling_receive_message.py demonstrates how to retrieve a message from a specified queue with a 20 second delay to reduce the number of empty responses returned.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

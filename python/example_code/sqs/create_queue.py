@@ -28,7 +28,7 @@ response = sqs.create_queue(
 print(response['QueueUrl'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[create_queue.py demonstrates how to create a new FIFO queue with Amazon SQS.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

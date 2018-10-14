@@ -22,7 +22,7 @@ response = sqs.list_queues()
 print(response['QueueUrls'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_queues.py demonstrates how to list your current list of queues.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

@@ -67,9 +67,10 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
+
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ChangeMessageVisibilityBatch.php demonstrates how to change the visibility timeout of a up to 10 messages in a queue to an hour.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

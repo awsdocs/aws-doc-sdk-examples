@@ -51,7 +51,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[LongPollingReceiveMessage.php demonstrates how to retrieve a message from a specified queue with a 20 second delay to reduce the number of empty responses returned.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
