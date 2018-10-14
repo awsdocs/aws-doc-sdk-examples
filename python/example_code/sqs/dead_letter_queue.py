@@ -36,7 +36,7 @@ sqs.set_queue_attributes(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[dead_letter_queue.py demonstrates how to send messages to a Dead Letter Queue for use when debugging.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Simple Queue Service]

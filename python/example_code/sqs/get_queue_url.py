@@ -22,7 +22,7 @@ response = sqs.get_queue_url(QueueName='SQS_QUEUE_NAME')
 print(response['QueueUrl'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_queue_url.py demonstrates how to demonstrates how to return the URL of an existing Amazon SQS queue.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Simple Queue Service]

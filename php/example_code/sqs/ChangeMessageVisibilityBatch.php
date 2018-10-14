@@ -51,7 +51,7 @@ try {
             array_push($entries, [
                 'Id' => 'unique_is_msg' . $i, // REQUIRED
                 'ReceiptHandle' => $messages[$i]['ReceiptHandle'], // REQUIRED
-                'VisibilityTimeout' => 36000
+                'VisibilityTimeout' => 3600
             ]);
         }
         $result = $client->changeMessageVisibilityBatch([
@@ -69,7 +69,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ChangeMessageVisibilityBatch.php demonstrates how to change the visibility timeout of a up to 10 messages in a queue to an hour.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]

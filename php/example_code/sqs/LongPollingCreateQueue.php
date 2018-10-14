@@ -50,7 +50,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[LongPollingCreateQueue.php demonstrates how to create a queue with a default 20 second to wait between retieving messages. This will reduce the number of empty responses returned and thus your bill.]
+#snippet-keyword:[Python]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]

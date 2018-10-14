@@ -50,7 +50,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[LongPollingSetQueueAttributes.php demonstrates how to set the default number of seconds to wait between retieving a message to reduce the number of empty responses returned and thus your bill.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]

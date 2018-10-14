@@ -43,7 +43,7 @@ sqs.delete_message(
 print('Received and deleted message: %s' % message)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[receive_message.py demonstrates how to retrieve up to 10 messages from a specified queue]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Simple Queue Service]

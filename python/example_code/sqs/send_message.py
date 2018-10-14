@@ -45,7 +45,7 @@ response = sqs.send_message(
 print(response['MessageId'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[send_message.py demonstrates how to deliever a message to the specified queue]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Simple Queue Service]
