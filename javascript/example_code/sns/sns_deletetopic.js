@@ -3,8 +3,8 @@
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]
 
 

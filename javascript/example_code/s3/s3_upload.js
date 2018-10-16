@@ -4,8 +4,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]
 
 

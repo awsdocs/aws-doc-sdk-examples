@@ -4,8 +4,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]
 
 
