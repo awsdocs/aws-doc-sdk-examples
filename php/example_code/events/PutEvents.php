@@ -22,7 +22,7 @@ use Aws\CloudWatchEvents\CloudWatchEventsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Put Targets
+ * Put Events
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -35,12 +35,14 @@ $client = new CloudWatchEventsClient([
 ]);
 
 try {
-    $result = $client->putTargets([
-        'Rule' => 'DEMO_EVENT', // REQUIRED
-        'Targets' => [ // REQUIRED
+    $result = $client->putEvents([
+        'Entries' => [ // REQUIRED
             [
-                'Arn' => 'LAMBDA_FUNCTION_ARN', // REQUIRED
-                'Id' => 'myCloudWatchEventsTarget' // REQUIRED
+                'Detail' => '<string>',
+                'DetailType' => '<string>',
+                'Resources' => ['<string>'],
+                'Source' => '<string>',
+                'Time' => time()
             ],
         ],
     ]);
@@ -54,7 +56,8 @@ try {
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon CloudWatch Events]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/20/18]
 //snippet-sourceauthor:[AWS]

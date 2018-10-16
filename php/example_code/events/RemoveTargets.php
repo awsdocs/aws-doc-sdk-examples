@@ -18,7 +18,7 @@ use Aws\CloudWatchEvents\CloudWatchEventsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Enable Rule
+ * Remove Targets
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -31,8 +31,9 @@ $client = new CloudWatchEventsClient([
 ]);
 
 try {
-    $result = $client->enableRule([
-        'Name' => 'DEMO_EVENT', // REQUIRED
+    $result = $client->removeTargets([
+        'Ids' => ['myCloudWatchEventsTarget'], // REQUIRED
+        'Rule' => 'DEMO_EVENT', // REQUIRED
     ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -44,7 +45,8 @@ try {
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon CloudWatch Events]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/20/18]
 //snippet-sourceauthor:[AWS]
