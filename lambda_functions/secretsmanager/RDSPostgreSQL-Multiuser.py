@@ -1,11 +1,12 @@
-#snippet-sourceauthor: [bisdavid]
-
-#snippet-sourcedescription:[Lambda rotation for AWS Secrets Manager]
-
-#snippet-service:[AWS Secrets Manager]
-
-#snippet-sourcetype:[full example]
-
+#snippet-sourceauthor: [aws]
+#snippet-sourcedescription:[Lambda rotation for AWS Secrets Manager - RDS PostgreSQL with separate Master secret]
+#snippet-service:[secretsmanager]
+#snippet-keyword:[rotation function]
+#snippet-keyword:[python]
+#snippet-keyword:[RDS PostgreSQL]
+#snippet-keyword:[AWS Lambda]
+#snippet-keyword:[AWS Secrets Manager]
+#snippet-sourcetype:[full-example]
 #snippet-sourcedate:[8/22/2018]
 
 # Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
