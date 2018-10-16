@@ -12,32 +12,43 @@
    specific language governing permissions and limitations under the License.
 */
 
-    func main() {
-        svc := ec2.New(session.New())
-        opts := &ec2.CreateImageInput{
-            Description: aws.String("image description"),
-            InstanceId:  aws.String("i-abcdef12"),
-            Name:        aws.String("image name"),
-            BlockDeviceMappings: []*ec2.BlockDeviceMapping{
-                &ec2.BlockDeviceMapping{
-                    DeviceName: aws.String("/dev/sda1"),
-                    NoDevice:    aws.String(""),
-                },
-                &ec2.BlockDeviceMapping{
-                    DeviceName: aws.String("/dev/sdb"),
-                    NoDevice:    aws.String(""),
-                },
-                &ec2.BlockDeviceMapping{
-                    DeviceName: aws.String("/dev/sdc"),
-                    NoDevice:    aws.String(""),
-                },
+func main() {
+    svc := ec2.New(session.New())
+    
+    opts := &ec2.CreateImageInput{
+        Description: aws.String("image description"),
+        InstanceId:  aws.String("i-abcdef12"),
+        Name:        aws.String("image name"),
+        BlockDeviceMappings: []*ec2.BlockDeviceMapping{
+            &ec2.BlockDeviceMapping{
+                DeviceName: aws.String("/dev/sda1"),
+                NoDevice:    aws.String(""),
             },
-        }
-        resp, err := svc.CreateImage(opts)
-        if err != nil {
-            fmt.Println(err)
-            return
-        }
-
-        fmt.Println("success", resp)
+            &ec2.BlockDeviceMapping{
+                DeviceName: aws.String("/dev/sdb"),
+                NoDevice:    aws.String(""),
+            },
+            &ec2.BlockDeviceMapping{
+                DeviceName: aws.String("/dev/sdc"),
+                NoDevice:    aws.String(""),
+            },
+        },
     }
+    resp, err := svc.CreateImage(opts)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    fmt.Println("success", resp)
+}
+// Tags for sample catalog:
+
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Creates an Amazon EC2 instance without a block device.]
+//snippet-keyword:[Amazon EC2]
+//snippet-keyword:[CreateImage function]
+//snippet-keyword:[Go]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]

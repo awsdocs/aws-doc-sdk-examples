@@ -51,3 +51,13 @@ func main() {
 
     fmt.Printf("Started build for project %q\n", project)
 }
+// Tags for sample catalog:
+
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Builds the AWS CodeBuild project specified on the command line.]
+//snippet-keyword:[AWS CodeBuild]
+//snippet-keyword:[StartBuild function]
+//snippet-keyword:[Go]
+//snippet-service:[codebuild]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]

@@ -49,3 +49,13 @@ func main() {
         fmt.Println("")
     }
 }
+// Tags for sample catalog:
+
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Lists the AWS CloudTrail trails.]
+//snippet-keyword:[AWS CloudTrail]
+//snippet-keyword:[DescribeTrails function]
+//snippet-keyword:[Go]
+//snippet-service:[cloudtrail]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]

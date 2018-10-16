@@ -48,3 +48,13 @@ func main() {
         fmt.Println(*p)
     }
 }
+// Tags for sample catalog:
+
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Lists the names of up to 100 of your AWS CodeBuild projects.]
+//snippet-keyword:[AWS CodeBuild]
+//snippet-keyword:[ListProjects function]
+//snippet-keyword:[Go]
+//snippet-service:[codebuild]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
