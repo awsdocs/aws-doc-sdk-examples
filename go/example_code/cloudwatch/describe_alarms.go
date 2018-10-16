@@ -43,3 +43,13 @@ func main() {
         fmt.Println(*alarm.AlarmName)
     }
 }
+// Tags for sample catalog:
+
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Describes the Amazon Cloudwatch alarms.]
+//snippet-keyword:[Amazon CloudWatch]
+//snippet-keyword:[DescribeAlarms function]
+//snippet-keyword:[Go]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]

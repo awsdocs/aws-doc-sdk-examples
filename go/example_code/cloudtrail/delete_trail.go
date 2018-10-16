@@ -54,3 +54,13 @@ func main() {
 
     fmt.Println("Successfully deleted trail", trailName)
 }
+// Tags for sample catalog:
+
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Deletes an AWS CloudTrail trail.]
+//snippet-keyword:[AWS CloudTrail]
+//snippet-keyword:[DeleteTrail function]
+//snippet-keyword:[Go]
+//snippet-service:[cloudtrail]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
