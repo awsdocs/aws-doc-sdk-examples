@@ -63,6 +63,6 @@ $mediaConvertClient = new MediaConvertClient([
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-service:[mediaconvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/20/18]
+//snippet-sourcedate:[2018-09-20]
 //snippet-sourceauthor:[jschwarzwalder]
 

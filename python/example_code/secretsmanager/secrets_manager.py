@@ -79,6 +79,6 @@ def get_secret():
 #snippet-keyword:[AWS Secrets Manager]
 #snippet-service:[secretsmanager]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[9/25/18]
+#snippet-sourcedate:[2018-09-25]
 #snippet-sourceauthor:[jschwarzwalder]
 

@@ -60,6 +60,6 @@ try {
 //snippet-keyword:[AWS Key Management Service (KMS)]
 //snippet-service:[kms]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/20/18]
+//snippet-sourcedate:[2018-09-20]
 //snippet-sourceauthor:[jschwarzwalder]
 
