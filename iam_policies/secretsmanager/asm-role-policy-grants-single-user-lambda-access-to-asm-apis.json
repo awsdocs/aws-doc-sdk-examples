@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[This IAM role policy enables a Lambda rotation function to rotate the associated secret. It does not use a separate Master secret.]
 //snippet-keyword:[IAM Policy]
+//snippet-keyword:[Role Policy]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
 //snippet-service:[secretsmanager]
