@@ -30,5 +30,5 @@ for response in paginator.paginate(UserName='IAM_USER_NAME'):
 #snippet-service:[iam]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

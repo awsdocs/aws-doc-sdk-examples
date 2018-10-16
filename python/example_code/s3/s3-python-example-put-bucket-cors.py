@@ -38,5 +38,5 @@ s3.put_bucket_cors(Bucket='my-bucket', CORSConfiguration=cors_configuration)
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

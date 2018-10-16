@@ -30,5 +30,5 @@ for response in paginator.paginate(logGroupName='GROUP_NAME'):
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

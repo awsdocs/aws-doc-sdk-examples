@@ -27,5 +27,5 @@ s3.delete_bucket_policy(Bucket='my-bucket')
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

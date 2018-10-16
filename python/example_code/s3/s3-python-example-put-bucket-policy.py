@@ -45,5 +45,5 @@ s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

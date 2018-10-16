@@ -38,5 +38,5 @@ else:
 #snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[9/30/18]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

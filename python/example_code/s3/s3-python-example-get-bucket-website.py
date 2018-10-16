@@ -27,5 +27,5 @@ result = s3.get_bucket_website(Bucket='my-bucket')
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

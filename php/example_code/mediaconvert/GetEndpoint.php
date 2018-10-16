@@ -64,5 +64,5 @@ $mediaConvertClient = new MediaConvertClient([
 //snippet-service:[mediaconvert]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/20/18]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[jschwarzwalder]
 

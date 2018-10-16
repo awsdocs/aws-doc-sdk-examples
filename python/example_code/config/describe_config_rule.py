@@ -36,5 +36,5 @@ except ClientError as e:
 #snippet-service:[config]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

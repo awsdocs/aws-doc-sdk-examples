@@ -32,5 +32,5 @@ s3.upload_file(filename, bucket_name, filename)
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

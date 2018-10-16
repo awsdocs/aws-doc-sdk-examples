@@ -89,5 +89,5 @@ if (isset($result['SecretString'])) {
 //snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/25/18]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[jschwarzwalder]
 

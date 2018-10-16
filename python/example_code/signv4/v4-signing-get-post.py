@@ -149,5 +149,5 @@ print(r.text)
 #snippet-service:[AWS Signature Version 4 Signing Process]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[9/20/2018]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

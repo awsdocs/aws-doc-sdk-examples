@@ -46,5 +46,5 @@ cloudwatch.put_metric_alarm(
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

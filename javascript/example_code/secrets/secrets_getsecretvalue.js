@@ -6,7 +6,7 @@
 //snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/25/18]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[daviddeyo]
 
 
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

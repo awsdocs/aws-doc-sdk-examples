@@ -32,5 +32,5 @@ for tag in response['Tags']:
 #snippet-service:[acm]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

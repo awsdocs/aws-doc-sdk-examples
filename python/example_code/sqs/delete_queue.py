@@ -27,5 +27,5 @@ sqs.delete_queue(QueueUrl='SQS_QUEUE_URL')
 #snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

@@ -54,5 +54,5 @@ try {
 //snippet-service:[sts]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[6/8/2018]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[jschwarzwalder]
 

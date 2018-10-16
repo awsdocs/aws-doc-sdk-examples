@@ -53,5 +53,5 @@ echo "Security Group ID: " . $securityGroupId . '\n';
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/20/18]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[jschwarzwalder]
 

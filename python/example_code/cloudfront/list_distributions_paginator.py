@@ -40,5 +40,5 @@ for distributionlist in paginator.paginate():
 #snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[8/22/18]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

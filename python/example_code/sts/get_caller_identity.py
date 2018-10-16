@@ -28,5 +28,5 @@ print('Default Credential Provider Chain Identity: ' + identity['Arn'])
 #snippet-service:[sts]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[10/11/2018]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

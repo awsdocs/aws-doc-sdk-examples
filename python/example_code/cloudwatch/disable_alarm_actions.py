@@ -30,5 +30,5 @@ cloudwatch.disable_alarm_actions(
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

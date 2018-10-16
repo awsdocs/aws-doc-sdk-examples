@@ -32,5 +32,5 @@ print(response['QueueUrl'])
 #snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

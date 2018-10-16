@@ -41,5 +41,5 @@ print('New ciphertext:', response['CiphertextBlob'])
 #snippet-service:[kms]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

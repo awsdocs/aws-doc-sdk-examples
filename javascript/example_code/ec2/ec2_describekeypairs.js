@@ -6,7 +6,7 @@
 //snippet-service:[ec2]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[daviddeyo]
 
 
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

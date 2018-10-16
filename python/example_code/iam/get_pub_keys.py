@@ -41,5 +41,5 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
 #snippet-service:[iam]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

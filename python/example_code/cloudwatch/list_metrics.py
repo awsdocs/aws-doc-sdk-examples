@@ -32,5 +32,5 @@ for response in paginator.paginate(Dimensions=[{'Name': 'LogGroupName'}],
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

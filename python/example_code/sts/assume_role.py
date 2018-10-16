@@ -45,5 +45,5 @@ print('AssumedRole Identity: ' + sts_assumed_role.get_caller_identity()['Arn'])
 #snippet-service:[sts]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 
