@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[This IAM identity-based policy shows how to grant read-only access to a secret.]
 //snippet-keyword:[IAM Policy]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS Secrets Manager]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
