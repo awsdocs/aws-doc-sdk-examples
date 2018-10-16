@@ -3,6 +3,7 @@
 #snippet-service:[secretsmanager]
 #snippet-keyword:[rotation function]
 #snippet-keyword:[python]
+#snippet-keyword:[RDS MariaDB]
 #snippet-keyword:[AWS Lambda]
 #snippet-keyword:[AWS Secrets Manager]
 #snippet-sourcetype:[full-example]
