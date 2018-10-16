@@ -27,6 +27,6 @@ print('Default Credential Provider Chain Identity: ' + identity['Arn'])
 #snippet-keyword:[AWS Security Token Service (STS)]
 #snippet-service:[sts]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[10/11/2018]
+#snippet-sourcedate:[2018-10-11]
 #snippet-sourceauthor:[jschwarzwalder]
 
