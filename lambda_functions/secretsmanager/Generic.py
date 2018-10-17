@@ -6,7 +6,7 @@
 #snippet-keyword:[AWS Lambda]
 #snippet-keyword:[AWS Secrets Manager]
 #snippet-sourcetype:[full-example]
-##snippet-sourcedate:[2018-08-22]
+#snippet-sourcedate:[2018-08-22]
 
 
 # Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
