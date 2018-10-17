@@ -214,7 +214,7 @@ ry [$result = $mediaConvertClient->createJob([
     ]
 ]; 
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateJobTemplate.php demonstrates how to create template that can be used to create a MediaConvert Job.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
