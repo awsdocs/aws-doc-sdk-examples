@@ -33,13 +33,13 @@ for distributionlist in paginator.paginate():
   else:    
     print("Error - No CloudFront Distributions Detected.") 
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to list Amazon CloudFront distributions with the pagination interface]
+#snippet-sourcedescription:[list_distributions_paginator.py demonstrates how to list Amazon CloudFront distributions with the pagination interface.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon CloudFront]
 #snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[8/22/18]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourcedate:[2018-08-22]
+#snippet-sourceauthor:[walkerk1980]
 

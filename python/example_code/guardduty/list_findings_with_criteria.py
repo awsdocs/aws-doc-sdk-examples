@@ -34,13 +34,13 @@ for finding in findings['FindingIds']:
     print("\n")
  
 
-#snippet-sourcedescription:[list_findings_with_criteria lists Amazon GuardDuty findings for the specified detector ID.]
+#snippet-sourcedescription:[list_findings_with_criteria.py lists Amazon GuardDuty findings for the specified detector ID.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon GuardDuty]
 #snippet-service:[guardduty]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[6/1/2018]
+#snippet-sourcedate:[2018-06-01]
 #snippet-sourceauthor:[walkerk1980]
 

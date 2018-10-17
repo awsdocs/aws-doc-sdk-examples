@@ -138,10 +138,9 @@ print(r.text)
 
 #snippet-sourcedescription:[v4-signing-get-querystring shows how to make a request using the IAM query API. The request makes a GET request and passes parameters and signing information using the query string.]
 #snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Signature Version 4 Signing Process]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[9/20/2018]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourcedate:[2018-09-20]
+#snippet-sourceauthor:[AWS]
 
