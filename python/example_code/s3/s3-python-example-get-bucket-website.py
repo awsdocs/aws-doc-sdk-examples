@@ -20,7 +20,7 @@ s3 = boto3.client('s3')
 result = s3.get_bucket_website(Bucket='my-bucket')
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-get-bucket-website.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

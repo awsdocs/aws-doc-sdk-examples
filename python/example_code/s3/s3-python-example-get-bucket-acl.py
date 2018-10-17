@@ -21,7 +21,7 @@ result = s3.get_bucket_acl(Bucket='my-bucket')
 print(result)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-get-bucket-acl.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

@@ -54,7 +54,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[UpdateDataStreamShards.php demonstrates how to update the shards count of a Kinesis Data Streams stream. Remember you can only double your shard count when increasing. Also you may not scale down to more than half of your current shard count when decreasing. ]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

@@ -48,7 +48,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListKinesisDeliveryStreams.php demonstrates how to list all the existing Delivery Streams sending data to Kinesis Data Stream.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

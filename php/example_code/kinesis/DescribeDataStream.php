@@ -49,7 +49,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeDataStream.php demonstrates how to get the details about an existing Data Stream. This sample can be used to check `StreamStatus` to ensure it is ACTIVE before trying to use `PutRecords` operation. ]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

@@ -25,7 +25,7 @@ response = iam.create_access_key(
 print(response['AccessKey'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[create_access_key.py demonstrates how to create an access key for an IAM user given the user name.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

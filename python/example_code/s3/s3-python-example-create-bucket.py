@@ -17,7 +17,7 @@ s3 = boto3.client('s3')
 s3.create_bucket(Bucket='my-bucket')
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-create-bucket.py demonstrates how to create an new S3 bucket given a name to use for the bucket.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

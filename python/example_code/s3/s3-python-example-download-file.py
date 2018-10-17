@@ -28,7 +28,7 @@ except botocore.exceptions.ClientError as e:
         raise
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-download-file.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

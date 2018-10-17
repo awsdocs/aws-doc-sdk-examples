@@ -60,7 +60,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateS3DeliveryStream.php demonstrates how to establish a Delivery Stream that will put data into an existing Amazon S3 Bucket.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

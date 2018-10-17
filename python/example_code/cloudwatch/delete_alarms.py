@@ -23,7 +23,7 @@ cloudwatch.delete_alarms(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[delete_alarm.py demonstrates how to delete an array of cloudwatch alarms given the alarm names.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Cloudwatch]

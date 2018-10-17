@@ -45,7 +45,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+
+//snippet-sourcedescription:[Describe_Rule.php demonstrates how to once per second, return the details of the specified receipt rule.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
