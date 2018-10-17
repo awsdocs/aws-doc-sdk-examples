@@ -18,7 +18,7 @@ response = ec2.describe_key_pairs()
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_keypair.py demonstrates how to describe one or more of your Amazon EC2 key pairs.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

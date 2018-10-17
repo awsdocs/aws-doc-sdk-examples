@@ -42,7 +42,7 @@ $result = $ec2Client->runInstances(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[RunInstances.php demonstrates how to launch the specified number of instances using an AMI for which you have permissions.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

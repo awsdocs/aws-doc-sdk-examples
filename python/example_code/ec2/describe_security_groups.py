@@ -23,7 +23,7 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_security_groups.py demonstrates how to retrieve details about one or more of your EC2 security groups.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

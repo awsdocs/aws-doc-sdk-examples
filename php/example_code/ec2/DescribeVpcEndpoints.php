@@ -34,7 +34,7 @@ $result = $ec2Client->describeVpcEndpoints();
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeVpcEndpoints.php demonstrates how to describe one or more of your VPC endpoints.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

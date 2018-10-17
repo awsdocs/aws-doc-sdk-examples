@@ -37,7 +37,7 @@ $result = $ec2Client->deleteVpcEndpoints(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DeleteVpcEndpoints.php demonstrates how to delete one or more specified VPC endpoints.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

@@ -38,7 +38,7 @@ $result = $ec2Client->describeSecurityGroups();
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeSecurityGroups.php demonstrates how to retrieve details about one or more of your EC2 security groups.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

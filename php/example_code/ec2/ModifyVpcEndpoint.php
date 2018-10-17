@@ -39,7 +39,7 @@ $result = $ec2Client->modifyVpcEndpoint(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ModifyVpcEndpoint.php demonstrates how to modify attributes of a specified VPC endpoint.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

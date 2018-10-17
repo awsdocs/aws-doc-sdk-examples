@@ -23,11 +23,11 @@ for response in paginator.paginate(logGroupName='GROUP_NAME'):
     print(response['subscriptionFilters'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_subscription_filters.py demonstrates how to list the subscription filters for the specified log group.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Cloudwatch]
+#snippet-keyword:[Amazon Cloudwatch Logs]
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]

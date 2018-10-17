@@ -38,7 +38,7 @@ $result = $ec2Client->terminateInstances(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[TerminateInstances.php demonstrates how to shut down one or more instances.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

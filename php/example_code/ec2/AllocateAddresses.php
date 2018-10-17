@@ -49,7 +49,7 @@ $result = $ec2Client->associateAddress(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[AllocateAddress.php demonstrates how to allocates an elastic IP address for an EC2 instance.]
+//snippet-sourcedescription:[AllocateAddress.php demonstrates how to allocate and associate an elastic IP address for an EC2 instance.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
