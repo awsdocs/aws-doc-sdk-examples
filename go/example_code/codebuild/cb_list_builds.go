@@ -1,3 +1,12 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Displays information about your AWS CodeBuild project builds.]
+//snippet-keyword:[AWS CodeBuild]
+//snippet-keyword:[ListBuilds function]
+//snippet-keyword:[Go]
+//snippet-service:[codebuild]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -56,13 +65,3 @@ func main() {
         fmt.Println("")
     }
 }
-// Tags for sample catalog:
-
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Displays information about your AWS CodeBuild project builds.]
-//snippet-keyword:[AWS CodeBuild]
-//snippet-keyword:[ListBuilds function]
-//snippet-keyword:[Go]
-//snippet-service:[codebuild]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
