@@ -53,7 +53,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutRecordtoDeliveryStream.php demonstrates how to send data through Firehose Delivery Streams to your specified destination. After you create a Delivery Stream, use DescribeDeliveryStream to see if the Delivery Stream is active before sending data to it.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

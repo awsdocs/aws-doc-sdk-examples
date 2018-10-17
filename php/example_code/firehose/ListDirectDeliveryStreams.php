@@ -48,7 +48,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListDirectDeliveryStreams.php demonstrates how to list all the existing Delivery Streams  sending data to Amazon S3, Amazon ES, Amazon Redshift or Splunk.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

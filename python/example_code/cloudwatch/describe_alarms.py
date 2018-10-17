@@ -23,7 +23,7 @@ for response in paginator.paginate(StateValue='INSUFFICIENT_DATA'):
     print(response['MetricAlarms'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_alarms.py demonstrates how to list all cloudwatch alarm names.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

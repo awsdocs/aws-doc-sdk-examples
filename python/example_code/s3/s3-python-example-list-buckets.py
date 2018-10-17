@@ -26,7 +26,7 @@ buckets = [bucket['Name'] for bucket in response['Buckets']]
 print("Bucket List: %s" % buckets)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-list-buckets.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

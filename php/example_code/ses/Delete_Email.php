@@ -43,7 +43,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to delete a verified email address from the list of identities.]
+//snippet-sourcedescription:[Delete_Email.php demonstrates how to delete a verified email address from the list of identities.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

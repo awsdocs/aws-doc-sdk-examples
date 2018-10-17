@@ -45,7 +45,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[Describe_Rule.php demonstrates how to once per second, return the details of the specified receipt rule set.]
+//snippet-sourcedescription:[Describe_Rule.php demonstrates how to once per second, return the details of the specified receipt rule.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

@@ -31,7 +31,7 @@ cors_configuration = {
 s3.put_bucket_cors(Bucket='my-bucket', CORSConfiguration=cors_configuration)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-put-bucket-cors.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

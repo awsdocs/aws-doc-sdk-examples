@@ -59,7 +59,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[Update_Rule.php demonstrates how to update a receipt rule that sends incoming messages to an Amazon SNS topic using an AWS Lambda function, but you can also send messages to Amazon S3.]
+//snippet-sourcedescription:[Update_Rule.php demonstrates how to change an existing receipt rule that sends incoming messages to an Amazon SNS topic using an AWS Lambda function, but you can also send messages to Amazon S3.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
