@@ -36,7 +36,7 @@ cloudwatch.put_metric_data(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[put_metric_data.py demonstrates how to publish metric data points to Amazon CloudWatch. ]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Cloudwatch]

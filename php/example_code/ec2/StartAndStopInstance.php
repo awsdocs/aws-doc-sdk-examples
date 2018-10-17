@@ -50,7 +50,7 @@ if ($action == 'START') {
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[StartAndStopInstance.php demonstrates how to start and stop an Amazon EC2 instance.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

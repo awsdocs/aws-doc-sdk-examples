@@ -63,7 +63,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutMetricAlarm.php demonstrates how to create or update an alarm and associate it with the specified metric.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cloudwatch]

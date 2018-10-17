@@ -38,7 +38,7 @@ $result = $ec2Client->describeInstances();
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeInstances.php demonstrates how to retrieve details about your Amazon EC2 instances.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

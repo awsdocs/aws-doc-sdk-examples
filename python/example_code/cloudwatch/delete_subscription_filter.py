@@ -24,7 +24,7 @@ cloudwatch_logs.delete_subscription_filter(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[delete_subscription_filter.py demonstrates how to delete the specified subscription filter.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Cloudwatch]

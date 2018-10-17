@@ -45,7 +45,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[SetAlarmState.php demonstrates how to set Alarm State in CloudWatch.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cloudwatch]

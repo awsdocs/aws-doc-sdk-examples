@@ -53,7 +53,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutEvents.php demonstrates how to send an event that is matched to targets for handling.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

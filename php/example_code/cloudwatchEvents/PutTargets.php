@@ -51,7 +51,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutTargets.php demonstrates how to define a target to respond to an event.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

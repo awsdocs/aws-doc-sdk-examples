@@ -38,7 +38,7 @@ $result = $ec2Client->describeAvailabilityZones();
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeAvailabilityZones.php demonstrates how to describe the Availability Zones that are available to you.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

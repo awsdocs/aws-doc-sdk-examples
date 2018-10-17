@@ -24,7 +24,7 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[release_elastic_ip.py demonstrates how to release an elastic IP address for an EC2 instance.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

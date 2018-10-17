@@ -48,7 +48,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutRule.php demonstrates how to create or update the specified rule. Rules are enabled by default, or based on value of the state. You can disable a rule using DisableRule.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

@@ -26,10 +26,15 @@ cloudwatch_logs.put_subscription_filter(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[put_subscription_filter.py demonstrates how to creates or updates a subscription filter and associates it with the specified log group.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
+<<<<<<< HEAD
 #snippet-service:[Amazon Cloudwatch]
+=======
+#snippet-keyword:[Amazon Cloudwatch Logs]
+#snippet-service:[cloudwatch]
+>>>>>>> 75816ee5... adding descriptions for ec2 and cloudwatch PHP and Python Samples
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
 #snippet-sourceauthor:[AWS]

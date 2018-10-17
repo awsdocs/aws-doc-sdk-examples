@@ -18,7 +18,7 @@ response = ec2.delete_key_pair(KeyName='KEY_PAIR_NAME')
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[delete_keypair.py demonstrates how to delete a specified Amazon EC2 key pair.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

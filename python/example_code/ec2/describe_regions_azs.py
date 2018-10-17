@@ -24,7 +24,7 @@ response = ec2.describe_availability_zones()
 print('Availability Zones:', response['AvailabilityZones'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_regions_azs.py demonstrates how to describe AWS Regions and Availability Zones that are currently available to you.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

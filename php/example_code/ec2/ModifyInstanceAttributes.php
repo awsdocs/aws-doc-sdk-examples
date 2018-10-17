@@ -42,7 +42,7 @@ $result = $ec2Client->modifyInstanceAttribute(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ModifyInstanceAttribute.php demonstrates how to modify the specified attribute of the specified instance.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

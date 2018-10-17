@@ -42,7 +42,7 @@ $result = $ec2Client->rebootInstances(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[RebootInstances.php demonstrates how to request a reboot of one or more Amazon EC2 instances.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

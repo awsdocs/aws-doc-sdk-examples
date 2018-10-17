@@ -25,7 +25,7 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[delete_security_group.py demonstrates how to delete an EC2 security group.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

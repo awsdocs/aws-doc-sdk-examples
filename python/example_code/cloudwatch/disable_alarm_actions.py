@@ -23,7 +23,7 @@ cloudwatch.disable_alarm_actions(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[disable_alarm_actions.py demonstrates how to disable actions for specified alarms.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[Amazon Cloudwatch]

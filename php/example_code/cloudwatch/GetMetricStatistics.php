@@ -53,7 +53,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[GetMetricStatistics.php demonstrates how to get statistics for a specified metric.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cloudwatch]

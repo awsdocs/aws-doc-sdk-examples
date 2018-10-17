@@ -51,7 +51,7 @@ else:
         print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[starting__and_stopping_instances.py demonstrates how to start and stop an Amazon EC2 instance.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

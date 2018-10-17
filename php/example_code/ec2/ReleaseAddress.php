@@ -48,7 +48,7 @@ $result = $ec2Client->releaseAddress(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ReleaseAddress.php demonstrates how to release an elastic IP address for an EC2 instance.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

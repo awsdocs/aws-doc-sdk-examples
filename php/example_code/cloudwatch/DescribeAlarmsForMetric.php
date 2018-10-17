@@ -48,7 +48,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeAlarmsForMetric.php demonstrates how to retrieves the alarms for the specified metric.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cloudwatch]

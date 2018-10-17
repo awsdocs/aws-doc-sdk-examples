@@ -42,7 +42,7 @@ $result = $ec2Client->deleteSecurityGroup(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DeleteSecurityGroup.php demonstrates how to delete an EC2 security group.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

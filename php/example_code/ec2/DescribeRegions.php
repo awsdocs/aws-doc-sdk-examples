@@ -38,7 +38,7 @@ $result = $ec2Client->describeRegions();
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeRegions.php demonstrates how to describe AWS Regions that are currently available to you.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

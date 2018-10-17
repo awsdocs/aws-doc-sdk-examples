@@ -46,7 +46,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeAlarmHistory.php demonstrates how to retrieve the history for the specified alarm.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cloudwatch]

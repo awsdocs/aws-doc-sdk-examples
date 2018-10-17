@@ -31,7 +31,7 @@ except ClientError as e:
     print('Error', e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[rebooting.py demonstrates how to request a reboot of one or more Amazon EC2 instances.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

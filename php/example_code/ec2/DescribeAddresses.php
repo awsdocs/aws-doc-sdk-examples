@@ -34,7 +34,7 @@ $result = $ec2Client->describeAddresses();
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DescribeAddresses.php demonstrates how to describe one or more of your Elastic IP addresses. An Elastic IP address is for use in either the EC2-Classic platform or in a VPC.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
