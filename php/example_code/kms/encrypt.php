@@ -54,6 +54,7 @@ try {
 
 //snippet-sourcedescription:[encrypt demonstrates how to encrypt a string with an existing CMK using AWS KMS.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Key Management Service (KMS)]
 //snippet-service:[kms]

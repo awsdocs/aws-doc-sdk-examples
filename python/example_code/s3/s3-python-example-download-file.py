@@ -30,10 +30,11 @@ except botocore.exceptions.ClientError as e:
 
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon S3]
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[2018-06-25]
 #snippet-sourceauthor:[jschwarzwalder]
 

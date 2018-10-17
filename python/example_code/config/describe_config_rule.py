@@ -29,12 +29,13 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_config_rule.py demonstrates how to retrieve information about an existing config rule.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS Config]
 #snippet-service:[config]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourcedate:[2018-06-08]
+#snippet-sourceauthor:[walkerk1980]
 

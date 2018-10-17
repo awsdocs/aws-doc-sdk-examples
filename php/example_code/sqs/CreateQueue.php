@@ -53,6 +53,7 @@ try {
 
 //snippet-sourcedescription:[CreateQueue.php demonstrates how to create a new FIFO queue with Amazon SQS.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

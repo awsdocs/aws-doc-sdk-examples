@@ -24,12 +24,13 @@ response = ses.list_identities(
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[ses_listidentities.py demonstrates how to retrieve a list of emails or domains submitted in the current AWS Region, regardless of verification status.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Simple Email Service]
 #snippet-service:[ses]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourcedate:[2018-08-11]
+#snippet-sourceauthor:[tapasweni-pathak]
 

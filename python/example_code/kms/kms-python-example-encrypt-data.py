@@ -37,10 +37,11 @@ print('Encrypted ciphertext:', response['CiphertextBlob'])
 
 #snippet-sourcedescription:[kms-python-example-create-key demonstrates how to encrypt a string with an existing CMK using AWS KMS.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS Key Management Service (KMS)]
 #snippet-service:[kms]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[2018-06-25]
 #snippet-sourceauthor:[jschwarzwalder]
 

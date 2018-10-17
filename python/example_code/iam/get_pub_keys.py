@@ -36,6 +36,7 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
 
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS Identity and Access Management (IAM)]
 #snippet-service:[iam]

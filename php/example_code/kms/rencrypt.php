@@ -54,6 +54,7 @@ try {
 
 //snippet-sourcedescription:[rencrypt demonstrates how to re-encrypt plain text with the same CMK used to decrypt the original encrypted text.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Key Management Service (KMS)]
 //snippet-service:[kms]

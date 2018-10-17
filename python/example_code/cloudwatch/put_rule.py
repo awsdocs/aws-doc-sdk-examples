@@ -29,10 +29,11 @@ print(response['RuleArn'])
 
 #snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Cloudwatch]
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[2018-06-25]
 #snippet-sourceauthor:[jschwarzwalder]
 

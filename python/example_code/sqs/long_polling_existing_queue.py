@@ -27,10 +27,11 @@ sqs.set_queue_attributes(
 
 #snippet-sourcedescription:[long_polling_existing_queue.py demonstrates how to set the default number of seconds to wait between retieving a message to reduce the number of empty responses returned and thus your bill.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Simple Queue Service]
 #snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
+#snippet-sourcedate:[2018-08-01]
 #snippet-sourceauthor:[jschwarzwalder]
 

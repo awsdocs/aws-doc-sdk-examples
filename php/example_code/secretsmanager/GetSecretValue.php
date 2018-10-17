@@ -84,6 +84,7 @@ if (isset($result['SecretString'])) {
 
 //snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
 //snippet-service:[secretsmanager]

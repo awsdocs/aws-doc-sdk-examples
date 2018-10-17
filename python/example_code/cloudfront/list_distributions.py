@@ -33,6 +33,7 @@ else:
 
 #snippet-sourcedescription:[list_distributions demonstrates how to list Amazon CloudFront distributions]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon CloudFront]
 #snippet-service:[cloudfront]

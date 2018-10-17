@@ -47,6 +47,7 @@ try {
 
 //snippet-sourcedescription:[ListQueues.php demonstrates how to list your current list of queues.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

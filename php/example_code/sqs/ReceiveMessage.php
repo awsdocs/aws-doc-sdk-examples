@@ -61,6 +61,7 @@ try {
 
 //snippet-sourcedescription:[ReceiveMessage.php demonstrates how to retrieve up to 10 messages from a specified queue.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

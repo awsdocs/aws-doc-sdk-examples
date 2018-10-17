@@ -23,10 +23,11 @@ print('Default Credential Provider Chain Identity: ' + identity['Arn'])
 
 #snippet-sourcedescription:[get_caller_identity demonstrates how to retrieve the AWS account, AWS Arn and UserID for the current IAM Identity]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS Security Token Service (STS)]
 #snippet-service:[sts]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-10-11]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[walkerk1980]
 

@@ -52,6 +52,7 @@ try {
 
 //snippet-sourcedescription:[DeadLetterQueue.php demonstrates how to send messages to a Dead Letter Queue for use when debugging.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

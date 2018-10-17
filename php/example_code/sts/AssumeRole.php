@@ -49,6 +49,7 @@ try {
 
 //snippet-sourcedescription:[AssumeRole demonstrates how to how to retrieve an assumed role that you can use for cross-account or federation access to an AWS resource.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Security Token Service (STS)]
 //snippet-service:[sts]
