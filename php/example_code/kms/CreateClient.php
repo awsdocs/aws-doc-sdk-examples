@@ -49,7 +49,7 @@ $sdk = new Aws\Sdk($sharedConfig);
 $client = $sdk->createKms();
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateClient.php demonstrates how to create an AWS KMS client in PHP.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

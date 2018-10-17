@@ -52,7 +52,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[GenerateDataKey.php demonstrates how to generate a data key. This operation returns plaintext and encrypted copies of the data key that it creates.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

@@ -65,9 +65,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-?> 
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+
+//snippet-sourcedescription:[RetireGrant.php demonstrates how to retire a grant for an AWS KMS customer master key.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

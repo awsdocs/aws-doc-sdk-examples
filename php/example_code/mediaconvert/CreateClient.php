@@ -35,7 +35,7 @@ $client = new Aws\MediaConvert\MediaConvertClient([
 var_dump($client);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateClient.php demonstrates how to create a MediaConvert Client that you can use to manage jobs.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

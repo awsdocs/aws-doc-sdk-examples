@@ -51,7 +51,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[decrypt demonstrates how to demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
+//snippet-sourcedescription:[decrypt.php demonstrates how to demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

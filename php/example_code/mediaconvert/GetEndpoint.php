@@ -57,7 +57,7 @@ $mediaConvertClient = new MediaConvertClient([
 ]);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[GetEndpoint.php demonstrates how to retrieve a custom endpoint where you send your MediaConvert Job.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

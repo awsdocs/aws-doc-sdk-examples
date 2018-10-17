@@ -176,7 +176,7 @@ try {
     echo "\n";
 } 
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateJob.php demonstrates how to create a customized MediaConvert Job.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

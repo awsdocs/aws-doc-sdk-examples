@@ -51,7 +51,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[CreateKey demonstrates how to customer master key with AWS Key Management Service]
+//snippet-sourcedescription:[CreateKey.php demonstrates how to customer master key with AWS Key Management Service]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
