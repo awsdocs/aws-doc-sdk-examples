@@ -3,7 +3,7 @@
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[secretsmanager]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
