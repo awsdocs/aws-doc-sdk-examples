@@ -41,7 +41,7 @@ $result = $ec2Client->authorizeSecurityGroupIngress(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to add an ingress rule to a  EC2 security group.]
+//snippet-sourcedescription:[AuthorizeSecurityGroupIngress.php demonstrates how to add an ingress rule to a  EC2 security group.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

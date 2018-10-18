@@ -73,7 +73,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ErrorHandling.php demonstrates how to create a S3 Bucket Asynchronously with Errors Handled if something goes wrong.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
