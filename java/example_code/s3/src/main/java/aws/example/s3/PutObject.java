@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutObject.java demonstrates how to upload a file to an Amazon S3 bucket.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
+//snippet-keyword:[putObject]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -65,4 +63,3 @@ public class PutObject
         System.out.println("Done!");
     }
 }
-

@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[XferMgrDownload.java demonstrates how to download objects from an Amazon S3 bucket using S3 TransferManager.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
+//snippet-keyword:[TransferManager downloadDirectory]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -32,7 +30,7 @@ import com.amazonaws.services.s3.transfer.MultipleFileDownload;
 import java.io.File;
 
 /**
- * Download objects to an Amazon S3 bucket using S3 TransferManager.
+ * Download objects from an Amazon S3 bucket using S3 TransferManager.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -46,7 +44,7 @@ public class XferMgrDownload
               (pause ?  " (pause)" : ""));
 
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
-        
+
         try {
             MultipleFileDownload xfer = xfer_mgr.downloadDirectory(
                     bucket_name, key_prefix, new File(dir_path));
@@ -183,4 +181,3 @@ public class XferMgrDownload
         }
     }
 }
-
