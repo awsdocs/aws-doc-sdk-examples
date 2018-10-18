@@ -59,7 +59,7 @@ please read this section carefully so that we can work together more effectively
   typically only used for building examples, and are not included in documentation.
 
 * **Minimize the use of comments**. Code is ignored for translation, so comments in code are not
-  translated for the printed documentation's target language. Comments should not be needed in most
+  translated for the printed documentation's target language. We reccomend comments should not be needed in most
   code used for documentation, since the goal is clarity and ease of understanding. By making code
   self-explanatory, you'll make better code for documentation and reduce the need to add comments.
 
