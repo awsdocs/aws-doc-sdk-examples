@@ -43,7 +43,7 @@ foreach ($buckets['Buckets'] as $bucket) {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListBuckets.php demonstrates how to list the Amazon S3 Buckets in your account.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

@@ -96,7 +96,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[Send_Raw_Email.php demonstrates how to use the Amazon SES SendRawEmail operation to send highly customized messages to your recipients.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

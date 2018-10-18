@@ -49,7 +49,7 @@ $sdk = new Aws\Sdk($sharedConfig);
 $client = $sdk->createS3();
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateBucket.php demonstrates how to create an S3 Bucket.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

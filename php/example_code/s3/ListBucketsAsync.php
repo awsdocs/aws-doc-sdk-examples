@@ -54,7 +54,7 @@ $promise
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListBucketsAsync.php demonstrates how to asynchronously list your Amazon S3 buckets.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
