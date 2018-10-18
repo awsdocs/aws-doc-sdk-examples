@@ -47,7 +47,7 @@ file_put_contents($saveKeyLocation, $result['keyMaterial']);
 chmod($saveKeyLocation, 0600);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateKeyPair.php demonstrates how to create a 2048-bit RSA Amazon EC2 key pair.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

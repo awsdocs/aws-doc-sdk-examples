@@ -18,7 +18,7 @@ response = ec2.describe_instances()
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_instances.py demonstrates how to retrieve details about your Amazon EC2 instances.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

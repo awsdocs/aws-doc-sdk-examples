@@ -27,7 +27,7 @@ response = cloudwatch_events.put_rule(
 print(response['RuleArn'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[put_rule.py demonstrates how to create or update the specified rule. Rules are enabled by default, or based on value of the state. You can disable a rule using DisableRule.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

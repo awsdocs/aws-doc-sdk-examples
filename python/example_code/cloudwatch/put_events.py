@@ -35,7 +35,7 @@ response = cloudwatch_events.put_events(
 print(response['Entries'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[put_events.py demonstrates how to send an event that is matched to targets for handling.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

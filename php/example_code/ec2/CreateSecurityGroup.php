@@ -46,7 +46,7 @@ $securityGroupId = $result->get('GroupId');
 echo "Security Group ID: " . $securityGroupId . '\n';
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateSecurityGroup.php demonstrates how to create an EC2 security group.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

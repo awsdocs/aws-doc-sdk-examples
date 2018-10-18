@@ -50,7 +50,7 @@ if ($monitorInstance == 'ON') {
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[InstanceMonitoring.php demonstrates how to to manage detailed Amazon EC2 instance monitoring.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

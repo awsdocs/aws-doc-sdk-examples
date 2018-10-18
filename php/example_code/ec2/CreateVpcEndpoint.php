@@ -39,7 +39,7 @@ $result = $ec2Client->createVpcEndpoint(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ CreateVpcEndpoint.php demonstrates how to create a VPC endpoint for a specified service.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

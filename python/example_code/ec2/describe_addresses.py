@@ -21,7 +21,7 @@ response = ec2.describe_addresses(Filters=filters)
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_addresses.py demonstrates how to describe one or more of your Elastic IP addresses. An Elastic IP address is for use in either the EC2-Classic platform or in a VPC.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

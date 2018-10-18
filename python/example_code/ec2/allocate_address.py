@@ -25,7 +25,7 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[allocate_address.py demonstrates how to allocates an elastic IP address for an EC2 instance.]
+#snippet-sourcedescription:[allocate_address.py demonstrates how to allocate and associate an elastic IP address for an EC2 instance.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

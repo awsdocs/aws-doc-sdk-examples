@@ -18,7 +18,7 @@ response = ec2.create_key_pair(KeyName='KEY_PAIR_NAME')
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[create_keypair.py demonstrates how to create a 2048-bit RSA Amazon EC2 key pair.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

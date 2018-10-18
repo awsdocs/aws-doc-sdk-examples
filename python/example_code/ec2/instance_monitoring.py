@@ -23,7 +23,7 @@ else:
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[instance_monitoring.py demonstrates how to manage detailed Amazon EC2 instance monitoring.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
