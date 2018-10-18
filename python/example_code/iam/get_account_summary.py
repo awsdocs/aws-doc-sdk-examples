@@ -11,10 +11,10 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import boto
+import boto3
 
 # Create client
-iam = boto.connect_iam()
+iam = boto3.client('iam')
 
 # Get account overview summary
 summary = iam.get_account_summary()
