@@ -52,7 +52,7 @@ int main(int argc, char ** argv)
 
     if (urd_out.IsSuccess() and urn_out.IsSuccess())
     {
-      std::cout << "Successfully updated repository."
+      std::cout << "Congrulation! Successfully updated repository."
                 << std::endl;
     }
     else
