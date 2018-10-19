@@ -1,6 +1,6 @@
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[???.]
+//snippet-sourcedescription:[Deletes all of the items in an S3 bucket.]
 //snippet-keyword:[Amazon Simple Storage Service]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[s3manager.NewBatchDeleteWithClient function]
