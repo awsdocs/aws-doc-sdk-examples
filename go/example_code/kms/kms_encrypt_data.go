@@ -41,7 +41,7 @@ func main() {
 
     text := "1234567890"
 
-    // Encrypt the data key
+    // Encrypt the data
     result, err := svc.Encrypt(&kms.EncryptInput{
         KeyId: aws.String(keyId),
         Plaintext: []byte(text),
