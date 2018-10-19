@@ -39,18 +39,18 @@ $params = [
     'MessageAttributes' => [
         "Title" => [
             'DataType' => "String",
-            'StringValue' => "The Hitchhiker's Guide to the Galaxy"
+            'StringValue' => "*Your Title"
         ],
         "Author" => [
             'DataType' => "String",
-            'StringValue' => "Douglas Adams."
+            'StringValue' => "*Autor name*"
         ],
         "WeeksOn" => [
             'DataType' => "Number",
             'StringValue' => "6"
         ]
     ],
-    'MessageBody' => "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+    'MessageBody' => "Information about current NY Times fiction bestseller for week of 12/11/2016.",//This is dispose message
     'QueueUrl' => 'QUEUE_URL'
 ];
 
