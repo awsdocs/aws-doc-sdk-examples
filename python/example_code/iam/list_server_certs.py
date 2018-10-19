@@ -23,7 +23,7 @@ for response in paginator.paginate():
     print(response['ServerCertificateMetadataList'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_server_certs.py demonstrates how to list your IAM server certificates.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

@@ -22,7 +22,7 @@ response = iam.get_server_certificate(ServerCertificateName='CERTIFICATE_NAME')
 print(response['ServerCertificate'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_server_cert.py demonstrates how to  retrieve an IAM server certificate.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

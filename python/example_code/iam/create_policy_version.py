@@ -53,7 +53,7 @@ except Exception as e:
     print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[create_policy_version.py demonstrates how to create a new version of the specified managed policy.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

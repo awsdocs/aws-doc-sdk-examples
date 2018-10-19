@@ -26,7 +26,7 @@ for user in users:
         user.create_date
     )) 
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_users_with_resource.py demonstrates how to list your IAM users.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

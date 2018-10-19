@@ -23,7 +23,7 @@ for response in paginator.paginate(UserName='IAM_USER_NAME'):
     print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_access_keys.py demonstrates how to list your existing IAM access keys.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
