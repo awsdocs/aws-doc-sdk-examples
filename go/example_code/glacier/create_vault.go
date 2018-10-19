@@ -1,3 +1,12 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Creates a Glacier vault.]
+//snippet-keyword:[Amazon Glacier]
+//snippet-keyword:[CreateVault function]
+//snippet-keyword:[Go]
+//snippet-service:[glacier]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
