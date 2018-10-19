@@ -18,8 +18,8 @@ var params = {
          PutRequest: {
            Item: {
              "KEY": { "N": "KEY_VALUE" },
-               "ATTRIBUTE_1": { "S": "ATTRIBUTE_1_VALUE" },
-               "ATTRIBUTE_2": { "N": "ATTRIBUTE_2_VALUE" }
+             "ATTRIBUTE_1": { "S": "ATTRIBUTE_1_VALUE" },
+             "ATTRIBUTE_2": { "N": "ATTRIBUTE_2_VALUE" }
            }
          }
        },
@@ -27,8 +27,8 @@ var params = {
          PutRequest: {
            Item: {
              "KEY": { "N": "KEY_VALUE" },
-               "ATTRIBUTE_1": { "S": "ATTRIBUTE_1_VALUE" },
-               "ATTRIBUTE_2": { "N": "ATTRIBUTE_2_VALUE" }
+             "ATTRIBUTE_1": { "S": "ATTRIBUTE_1_VALUE" },
+             "ATTRIBUTE_2": { "N": "ATTRIBUTE_2_VALUE" }
            }
          }
        }
