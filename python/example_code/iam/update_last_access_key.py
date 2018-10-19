@@ -25,7 +25,7 @@ iam.update_access_key(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[update_last_access_key.py demonstrates how to update an IAM access key.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

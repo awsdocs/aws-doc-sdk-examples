@@ -23,7 +23,7 @@ iam.delete_account_alias(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[delete_account_alias.py demonstrates how to delete an alias for your IAM Account.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

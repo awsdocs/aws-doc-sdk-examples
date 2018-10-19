@@ -48,7 +48,7 @@ response = iam.create_policy(
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[create_policy.py demonstrates how to create a new managed policy for your AWS account.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

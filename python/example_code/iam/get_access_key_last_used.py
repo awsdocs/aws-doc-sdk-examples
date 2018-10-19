@@ -25,7 +25,7 @@ response = iam.get_access_key_last_used(
 print(response['AccessKeyLastUsed'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_access_key_last_used.py demonstrates how to retrieve when the specified access key was last used..]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

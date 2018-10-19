@@ -21,7 +21,7 @@ print(response)
 
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_credential_report.py demonstrates how to retrieve a credential report for the AWS account.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

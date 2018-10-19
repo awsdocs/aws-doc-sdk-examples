@@ -24,7 +24,7 @@ response = iam.get_policy(
 print(response['Policy'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_policy.py demonstrates how to retrieve an IAM Policy.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

@@ -40,7 +40,7 @@ except Exception as e:
     print(e)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[create_policy_version_from_file.py demonstrates how to create a new version of the specified managed policy by reading the policy from a file.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

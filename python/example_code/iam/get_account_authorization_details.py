@@ -18,3 +18,13 @@ iam = boto3.client('iam')
 
 account_details = iam.get_account_authorization_details()
 print(account_details)
+
+#snippet-sourcedescription:[get_account_summary.py demonstrates how to retrieve information information about your AWS account.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-10-19]
+#snippet-sourceauthor:[wendysegura]

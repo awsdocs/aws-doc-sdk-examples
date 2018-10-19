@@ -23,7 +23,7 @@ for response in paginator.paginate():
     print(response['AccountAliases'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_account_aliases.py demonstrates how to list your IAM account aliases.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

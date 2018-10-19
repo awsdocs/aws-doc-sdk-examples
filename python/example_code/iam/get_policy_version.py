@@ -41,7 +41,7 @@ for statement in policy_document['Statement']:
 print("\n\rUnformatted Policy Document: \n\r" + str(policy_document))
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_policy_version.py demonstrates how to retrieve details about the current version of an IAM policy.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

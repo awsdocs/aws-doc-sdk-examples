@@ -23,7 +23,7 @@ for response in paginator.paginate():
     print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_users.py demonstrates how to list your IAM users.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

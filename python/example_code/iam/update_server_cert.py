@@ -24,7 +24,7 @@ iam.update_server_certificate(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[update_server_cert.py demonstrates how to update an IAM server certificate.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

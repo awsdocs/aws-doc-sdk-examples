@@ -34,7 +34,7 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
     print(ssh_public_key_response['SSHPublicKey']['SSHPublicKeyBody'])
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_pub_keys.py demonstrates how to retrieve the specified SSH public key.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]

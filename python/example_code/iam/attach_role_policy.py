@@ -24,7 +24,7 @@ iam.attach_role_policy(
 )
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[attach_role_policy.py demonstrates how to attach an IAM policy to the specified User role.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[<<ADD SERVICE>>]
