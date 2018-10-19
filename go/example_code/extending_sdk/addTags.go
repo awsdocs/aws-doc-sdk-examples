@@ -1,3 +1,13 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Adds tags to an S3 bucket and displays its tags.]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[GetBucketTagging function]
+//snippet-keyword:[PutBucketTagging function]
+//snippet-keyword:[Go]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
