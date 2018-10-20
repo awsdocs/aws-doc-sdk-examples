@@ -15,7 +15,7 @@
 IAM JSON Policies 
 #################
 
-THE LICENSE FILE APPLIES TO ALL FILES IN THIS FOLDER.
+THE LICENSE FILE APPLIES TO ALL FILES IN THIS PROJECT'S FOLDER.
 
 These files are example IAM permission policies that show how to grant or deny permissions
 to the resources in your AWS accounts. These examples consist of both complete, ready-to-use
@@ -29,7 +29,7 @@ have any kind of explanation accompanying them. We recommend that you view these
 in the context of our documentation. There you'll find a description for the example, 
 often with an explanation of how the policy operates. 
 
-Each file is formatted as JSON. For more information, see `Introducing JSON <https://json.org>`.
+Each file is formated as JSON. For more information, see `Introducing JSON <https://json.org>`.
 
 For more information about IAM and the policy language, see `Policies and Permissions <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html>` in the IAM User Guide._
 
