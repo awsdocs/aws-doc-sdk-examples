@@ -47,7 +47,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[UpdateUser.php demonstrates how to to update an IAM user.]
+//snippet-sourcedescription:[UpdateUser.php demonstrates how to update an IAM user.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
