@@ -36,7 +36,7 @@ print(response)
 
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[remove_tags_from_certificate.py demonstrates how to remove one or more tags from an ACM certificate. ]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

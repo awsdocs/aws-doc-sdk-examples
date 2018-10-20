@@ -25,7 +25,7 @@ for tag in response['Tags']:
     print(tag)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_tags_for_certificate.py demonstrates how to list the tags that have been applied to the ACM certificate.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
