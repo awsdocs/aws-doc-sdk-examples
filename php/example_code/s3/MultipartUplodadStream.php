@@ -51,7 +51,7 @@ do {
 } while (!isset($result));
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[MultipartUplodadStream.php demonstrates how to send a large files to your S3 Bucket with a stream to minimize errors.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

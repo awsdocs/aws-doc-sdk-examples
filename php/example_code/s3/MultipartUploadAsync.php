@@ -41,7 +41,7 @@ $uploader = new MultipartUploader($s3Client, $source, [
 $promise = $uploader->promise();
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[MultipartUploadAsync.php demonstrates how to upload a file asynchronously.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

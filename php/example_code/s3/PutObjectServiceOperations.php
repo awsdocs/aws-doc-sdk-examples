@@ -58,7 +58,7 @@ $result = $s3Client->getObject([
 echo $result['Body'];
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutObjectServiceOperations.php demonstrates how to send a file (or object) to an S3 bucket with an actionable result object returned.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
