@@ -56,7 +56,7 @@ please read this section carefully so that we can work together more effectively
   consistent formatting in printed code.
 
   You can ignore this rule for makefiles, which may *require* the use of tabs, but these are
-  typically only used for building examples, and are not included in documentation.
+  typically only used for building examples, and are not included in documentation.carefully read this first.
 
 * **Minimize the use of comments**. Code is ignored for translation, so comments in code are not
   translated for the printed documentation's target language. Comments should not be needed in most
