@@ -16,6 +16,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-configuring-a-bucket.html
  *
  */
+
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
