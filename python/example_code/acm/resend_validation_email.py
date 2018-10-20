@@ -29,7 +29,7 @@ print(response)
 
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[resend_validation_email.py demonstrates how to resend the email that requests domain ownership validation.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Certificate Manager]

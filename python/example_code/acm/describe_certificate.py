@@ -24,7 +24,7 @@ response = acm.describe_certificate(
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[describe_certificate.py demonstrates how to retrieve detailed metadata about the specified ACM certificate.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Certificate Manager]

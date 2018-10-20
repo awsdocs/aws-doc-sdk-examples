@@ -41,7 +41,7 @@ except:
     exit(1)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[get_certificate.py demonstrates how to retrieve a certificate specified by an ARN and its certificate chain.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Certificate Manager]

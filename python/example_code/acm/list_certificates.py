@@ -24,7 +24,7 @@ for response in paginator.paginate():
         print(certificate)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_certificates.py demonstrates how to retrieve a list of certificate ARNs and domain names.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Certificate Manager]

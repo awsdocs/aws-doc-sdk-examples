@@ -46,7 +46,7 @@ print(response)
 
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[request_certificate_w_email_validation.py demonstrates how to request an ACM certificate for use with other AWS services.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Certificate Manager]
