@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 package aws.example.athena;
 
 import com.amazonaws.services.athena.AmazonAthena;

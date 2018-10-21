@@ -1,5 +1,4 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to create a CloudWatch Logs subscription filter.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cloudwatch]
@@ -7,8 +6,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -73,4 +70,3 @@ public class PutSubscriptionFilter {
             filter);
     }
 }
-

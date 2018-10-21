@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListAccountAliases.java demonstrates how to ...]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]

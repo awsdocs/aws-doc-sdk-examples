@@ -1,13 +1,10 @@
-
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[AthenaClientFactory.java demonstrates how to create and configure an Amazon Athena client]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 package aws.example.athena;
 
 import com.amazonaws.ClientConfiguration;
