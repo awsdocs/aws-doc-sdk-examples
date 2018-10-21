@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to ...]
+//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get a description of all security groups.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -67,4 +64,3 @@ public class DescribeSecurityGroups
         }
     }
 }
-

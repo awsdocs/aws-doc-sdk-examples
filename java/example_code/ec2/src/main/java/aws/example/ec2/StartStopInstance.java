@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[StartStopInstance.java demonstrates how to ...]
+//snippet-sourcedescription:[StartStopInstance.java demonstrates how to start or stop an EC2 instance.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -120,4 +117,3 @@ public class StartStopInstance
         }
     }
 }
-

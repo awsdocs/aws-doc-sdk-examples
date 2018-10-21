@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[MonitorInstance.java demonstrates how to ...]
+//snippet-sourcedescription:[MonitorInstance.java demonstrates how to toggle detailed monitoring for an EC2 instance.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -121,4 +118,3 @@ public class MonitorInstance
         }
     }
 }
-

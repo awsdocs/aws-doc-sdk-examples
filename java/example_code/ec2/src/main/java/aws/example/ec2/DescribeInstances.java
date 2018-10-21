@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[DescribeInstances.java demonstrates how to ...]
+//snippet-sourcedescription:[DescribeInstances.java demonstrates how to get a description of all EC2 instances associated with an AWS account.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -68,4 +65,3 @@ public class DescribeInstances
         }
     }
 }
-

@@ -1,13 +1,11 @@
- 
-//snippet-sourcedescription:[CreateInstance.java demonstrates how to ...]
+
+//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an EC2 instance.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -77,4 +75,3 @@ public class CreateInstance
             reservation_id, ami_id);
     }
 }
-
