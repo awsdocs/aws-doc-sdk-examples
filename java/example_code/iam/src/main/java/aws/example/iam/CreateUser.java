@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CreateUser.java demonstrates how to ...]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]

@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListDetectors.java demonstrates how to ...]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon GuardDuty]
