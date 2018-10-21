@@ -1,5 +1,4 @@
- 
-//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an EC2 security group.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
@@ -7,8 +6,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

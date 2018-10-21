@@ -1,5 +1,4 @@
- 
-//snippet-sourcedescription:[CreateKeyPair.java demonstrates how to ...]
+//snippet-sourcedescription:[CreateKeyPair.java demonstrates how to create an EC2 key pair.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
@@ -7,8 +6,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -59,4 +56,3 @@ public class CreateKeyPair
             key_name);
     }
 }
-
