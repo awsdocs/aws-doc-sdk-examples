@@ -1,5 +1,4 @@
- 
-//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to ...]
+//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to a role.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
@@ -7,8 +6,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -95,4 +92,3 @@ public class AttachRolePolicy {
                 " to role " + role_name);
     }
 }
-
