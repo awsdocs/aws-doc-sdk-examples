@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[CreatePolicy.java demonstrates how to ...]
+//snippet-sourcedescription:[CreatePolicy.java demonstrates how to create a fixed policy with a provided policy name.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -82,4 +79,3 @@ public class CreatePolicy {
                 response.getPolicy().getPolicyName());
     }
 }
-

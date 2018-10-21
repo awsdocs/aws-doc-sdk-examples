@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[ListAccessKeys.java demonstrates how to ...]
+//snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list all access keys associated with an IAM user.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -71,4 +68,3 @@ public class ListAccessKeys {
         }
     }
 }
-
