@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[UpdateItem.java demonstrates how to ...]
+//snippet-sourcedescription:[UpdateItem.java demonstrates how to update an item in a DynamoDB table.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -117,4 +114,3 @@ public class UpdateItem
         System.out.println("Done!");
     }
 }
-

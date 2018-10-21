@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[ListFindingsWithFindingCriteria.java demonstrates how to ...]
+//snippet-sourcedescription:[ListFindingsWithFindingCriteria.java demonstrates how to list all GuardDuty findings that match the specified finding criteria.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon GuardDuty]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-sourceauthor:[Keith Walker]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -38,11 +35,11 @@ public class ListFindingsWithFindingCriteria {
 
         AmazonGuardDuty guardduty =
             AmazonGuardDutyClientBuilder.defaultClient();
-        
+
         // Set detectorId to the detectorId returned by GuardDuty's
         // ListDetectors() for your current AWS Account/Region
         final String detectorId = "ceb03b04f96520a8884c959f3e95c25a";
-        
+
         FindingCriteria criteria = new FindingCriteria();
         Condition condition = new Condition();
 
@@ -56,9 +53,9 @@ public class ListFindingsWithFindingCriteria {
             ListFindingsRequest request = new ListFindingsRequest()
             		.withDetectorId(detectorId)
             		.withFindingCriteria(criteria);
-            
+
             ListFindingsResult response = guardduty.listFindings(request);
-            
+
             for (String finding : response.getFindingIds()) {
             	System.out.println("FindingId: " + finding);
             }
@@ -71,4 +68,3 @@ public class ListFindingsWithFindingCriteria {
 
     }
 }
-
