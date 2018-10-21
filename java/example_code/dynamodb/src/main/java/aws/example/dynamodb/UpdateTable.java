@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[UpdateTable.java demonstrates how to ...]
+//snippet-sourcedescription:[UpdateTable.java demonstrates how to update a DynamoDB table (change provisioned throughput).]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -79,4 +76,3 @@ public class UpdateTable
         System.out.println("Done!");
     }
 }
-

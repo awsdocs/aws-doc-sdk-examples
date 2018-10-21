@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[DeleteItem.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from a table in DynamoDB.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -81,4 +78,3 @@ public class DeleteItem
         System.out.println("Done!");
     }
 }
-
