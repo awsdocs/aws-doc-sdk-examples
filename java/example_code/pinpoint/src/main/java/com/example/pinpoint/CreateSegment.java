@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[CreateSegment.java demonstrates how to ...]
+//snippet-sourcedescription:[CreateSegment.java demonstrates how to create a segment for a campaign in Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mobiletargeting]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -43,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateSegment {
-	
+
 	public static void main(String[] args) {
 		final String USAGE = "\n" +
                 "CreateSegment - create a segment \n\n" +
@@ -56,14 +53,14 @@ public class CreateSegment {
             System.exit(1);
         }
         String appId = args[0];
-        
+
 		AmazonPinpoint pinpoint = AmazonPinpointClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
-		    			
+
     	SegmentResponse result = createSegment(pinpoint, appId);
     	System.out.println("Segment " + result.getName() + " created.");
     	System.out.println(result.getSegmentType());
 	}
-	
+
     public static SegmentResponse createSegment(AmazonPinpoint client, String appId) {
         Map<String, AttributeDimension> segmentAttributes = new HashMap<>();
         segmentAttributes.put("Team", new AttributeDimension().withAttributeType(AttributeType.INCLUSIVE).withValues("Lakers"));

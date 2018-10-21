@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[download_user_doc.java demonstrates how to ...]
+//snippet-sourcedescription:[download_user_doc.java demonstrates how to download a document from AWS Workdocs.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-sourceauthor:[Doug-AWS]
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;

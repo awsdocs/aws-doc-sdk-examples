@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[WorkflowWorker.java demonstrates how to ...]
+//snippet-sourcedescription:[WorkflowWorker.java demonstrates how to poll for a decision task in a task list.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
@@ -147,4 +144,3 @@ public class WorkflowWorker {
                 .withDecisions(decisions));
     }
 }
-

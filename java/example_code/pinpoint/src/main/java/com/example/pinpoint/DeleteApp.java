@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[DeleteApp.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteApp.java demonstrates how to delete an application in the Pinpoint dashboard.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mobiletargeting]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -44,15 +41,15 @@ public class DeleteApp {
 	    }
 
 	    String appID = args[0];
-	    
+
 	    System.out.println("Deleting application: " + appID);
-	    
+
 		AmazonPinpoint pinpoint = AmazonPinpointClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
 
 		DeleteAppRequest deleteRequest = new DeleteAppRequest()
 				.withApplicationId(appID);
-		
+
 		pinpoint.deleteApp(deleteRequest);
-	
+
 	}
 }

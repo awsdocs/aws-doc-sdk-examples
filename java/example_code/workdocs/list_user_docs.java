@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[list_user_docs.java demonstrates how to ...]
+//snippet-sourcedescription:[list_user_docs.java demonstrates how to list user docs for the current user.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 import java.util.ArrayList;
 import java.util.List;
 
