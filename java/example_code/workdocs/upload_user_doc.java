@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[upload_user_doc.java demonstrates how to ...]
+//snippet-sourcedescription:[upload_user_doc.java demonstrates how to upload a document to AWS Workdocs.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;

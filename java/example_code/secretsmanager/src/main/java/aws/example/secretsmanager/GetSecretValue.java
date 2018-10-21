@@ -1,13 +1,10 @@
- 
-//snippet-sourcedescription:[GetSecretValue.java demonstrates how to ...]
+//snippet-sourcedescription:[GetSecretValue.java demonstrates how to get the value of a secret from AWS Secrets Manager.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-sourceauthor:[Walker]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -31,18 +28,18 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.services.secretsmanager.*;
 import com.amazonaws.services.secretsmanager.model.*;
- 
+
 public class GetSecretValue {
   public static void main(String[] args) {
     getSecret();
   }
 
   public static void getSecret() {
-  
+
       String secretName = "testSecret";
       String endpoint = "secretsmanager.us-west-2.amazonaws.com";
       String region = "us-west-2";
-  
+
       AwsClientBuilder.EndpointConfiguration config = new AwsClientBuilder.EndpointConfiguration(endpoint, region);
       AWSSecretsManagerClientBuilder clientBuilder = AWSSecretsManagerClientBuilder.standard();
       clientBuilder.setEndpointConfiguration(config);
@@ -77,7 +74,7 @@ public class GetSecretValue {
           binarySecretData = getSecretValueResult.getSecretBinary();
           System.out.println(binarySecretData.toString());
       }
-      
+
   }
-  
+
 }
