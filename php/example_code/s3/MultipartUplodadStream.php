@@ -60,4 +60,3 @@ do {
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
 //snippet-sourceauthor:[jschwarzwalder]
-

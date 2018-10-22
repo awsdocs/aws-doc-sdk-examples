@@ -42,4 +42,3 @@ for distributionlist in paginator.paginate():
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-08-22]
 #snippet-sourceauthor:[walkerk1980]
-
