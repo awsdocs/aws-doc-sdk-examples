@@ -1,0 +1,11 @@
+{
+    "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
+    "Effect": "Allow",
+    "Principal":  {"AWS": "arn:aws:iam::123456789012:root"},
+    "Action": [
+        "secretsmanager:List*",
+        "secretsmanager:Describe*",
+        "secretsmanager:Get*"
+    ],
+    "Resource": "*"
+}
