@@ -36,7 +36,7 @@ var_dump($client);
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateClient.php demonstrates how to create a MediaConvert Client that you can use to manage jobs.]
+//snippet-sourcedescription:[CreateClient.php demonstrates how to create a AWS Elemental MediaConvert Client that you can use to manage jobs.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

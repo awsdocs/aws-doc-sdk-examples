@@ -50,7 +50,7 @@ $client = $sdk->createKms();
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateClient.php demonstrates how to create an AWS KMS client in PHP.]
+//snippet-sourcedescription:[CreateClient.php demonstrates how to create an AWS Key Management Service client in PHP.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

@@ -26,7 +26,7 @@ print(response['AccessKeyLastUsed'])
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[get_access_key_last_used.py demonstrates how to retrieve when the specified access key was last used..]
+#snippet-sourcedescription:[get_access_key_last_used.py demonstrates how to retrieve when the specified access key was last used.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

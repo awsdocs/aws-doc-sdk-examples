@@ -21,7 +21,7 @@ s3.delete_bucket_website(Bucket='BUCKET_NAME')
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[s3-python-example-delete-bucket-website.py demonstrates how to demonstrates how to delete an S3 bucket. Replace 'BUCKET_NAME' with name of your bucket.]
+#snippet-sourcedescription:[s3-python-example-delete-bucket-website.py demonstrates how to demonstrates how to delete an Amazon S3 bucket. Replace 'BUCKET_NAME' with name of your bucket.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

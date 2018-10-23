@@ -47,7 +47,7 @@ try {
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ListDataStreamShards.php demonstrates how to list the first 10 Data Streams from your AWS account in the selected region.]
+//snippet-sourcedescription:[ListDataStreamShards.php demonstrates how to list the first 10 Amazon Kinesis Data Streams from your AWS account in the selected region.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

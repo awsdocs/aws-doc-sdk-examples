@@ -78,7 +78,7 @@ try {
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[s3WebHost.php demonstrates how to turn an S3 bucket into a hosted website.]
+//snippet-sourcedescription:[s3WebHost.php demonstrates how to turn an Amazon S3 bucket into a hosted website.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

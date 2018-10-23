@@ -74,7 +74,7 @@ try {
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ErrorHandling.php demonstrates how to create a S3 Bucket Asynchronously with Errors Handled if something goes wrong.]
+//snippet-sourcedescription:[ErrorHandling.php demonstrates how to create a Amazon S3 Bucket Asynchronously with Errors Handled if something goes wrong.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

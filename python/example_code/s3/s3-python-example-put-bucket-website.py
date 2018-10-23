@@ -30,7 +30,7 @@ s3.put_bucket_website(
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[s3-python-example-put-bucket-website.py demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-put-bucket-website.py demonstrates how to turn an Amazon S3 bucket into a hosted website.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

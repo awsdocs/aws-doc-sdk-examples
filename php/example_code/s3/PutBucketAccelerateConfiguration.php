@@ -46,7 +46,7 @@ try {
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[PutBucketAccelerateConfiguration.php demonstrates how to configure bucket accelerate on an S3 bucket.]
+//snippet-sourcedescription:[PutBucketAccelerateConfiguration.php demonstrates how to configure bucket accelerate on an Amazon S3 bucket.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

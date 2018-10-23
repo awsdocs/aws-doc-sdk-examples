@@ -29,7 +29,7 @@ except botocore.exceptions.ClientError as e:
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[s3-python-example-download-file.py demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-download-file.py demonstrates how to how to download a file (or object) from an Amazon S3 bucket.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

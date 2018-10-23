@@ -21,7 +21,7 @@ s3.delete_bucket_policy(Bucket='my-bucket')
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[s3-python-example-delete-bucket-policy.py demonstrates how to ...]
+#snippet-sourcedescription:[s3-python-example-delete-bucket-policy.py demonstrates how to how to delete the policy for a specific Amazon S3 bucket.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

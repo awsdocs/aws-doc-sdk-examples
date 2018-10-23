@@ -60,7 +60,7 @@ $formInputs = $postObject->getFormInputs();
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[PresignedPost.php demonstrates how to presign a POST request so that a user can send items to your S3 bucket without having to sign into your AWS Account. This is often used in connection with a form.]
+//snippet-sourcedescription:[PresignedPost.php demonstrates how to presign a POST request so that a user can send items to your Amazon S3 bucket without having to sign into your AWS Account. This is often used in connection with a form.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

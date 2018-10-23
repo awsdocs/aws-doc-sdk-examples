@@ -30,7 +30,7 @@ print('Decrypted plaintext:', response['Plaintext'])
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[kms-python-example-decrypt-key  demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
+#snippet-sourcedescription:[kms-python-example-decrypt-key.py  demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]

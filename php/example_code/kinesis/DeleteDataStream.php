@@ -50,7 +50,7 @@ try {
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DeleteDataStream.php demonstrates how to delete a Kinesis Data Streams stream.]
+//snippet-sourcedescription:[DeleteDataStream.php demonstrates how to delete a Amazon Kinesis Data Streams stream.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
