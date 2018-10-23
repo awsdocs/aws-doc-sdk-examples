@@ -1,11 +1,17 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Lists your S3 buckets, creates a bucket, add an item to the bucket, copies and item to the bucket, and deletes items from a bucket.]
+#snippet-keyword:[Amazon Simple Storage Service]
+#snippet-keyword:[list_buckets method]
+#snippet-keyword:[create_bucket method]
+#snippet-keyword:[put_object method]
+#snippet-keyword:[list_objects_v2 method]
+#snippet-keyword:[copy_object method]
+#snippet-keyword:[delete_objects method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon S3]
 #snippet-service:[s3]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

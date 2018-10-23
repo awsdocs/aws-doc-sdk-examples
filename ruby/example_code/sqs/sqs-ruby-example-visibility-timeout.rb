@@ -1,11 +1,12 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
-#snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Polls for messages on an SQS quueue.]
 #snippet-keyword:[Amazon Simple Queue Service]
+#snippet-keyword:[QueuePoller.poll method]
+#snippet-keyword:[Ruby]
 #snippet-service:[sqs]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -29,6 +30,6 @@ Aws.config.update({region: 'us-west-2'})
 
 poller = Aws::SQS::QueuePoller.new(URL)
 
-poller.poll(timeout_visibility: timeout, idle_timeout: timeout + 1) do |msg|
+poller.poll(visibility_timeout: timeout, idle_timeout: timeout + 1) do |msg|
   do_something(msg)
 end

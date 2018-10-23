@@ -1,11 +1,17 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Lists the IAM users who have administrator access.]
+#snippet-keyword:[AWS Identity and Access Management]
+#snippet-keyword:[User.attached_managed_policies method]
+#snippet-keyword:[User.user_policy_list method]
+#snippet-keyword:[get_account_authorization_details method]
+#snippet-keyword:[list_attached_group_policies method]
+#snippet-keyword:[list_group_policies method]
+#snippet-keyword:[list_groups_for_user method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Identity and Access Management (IAM)]
 #snippet-service:[iam]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

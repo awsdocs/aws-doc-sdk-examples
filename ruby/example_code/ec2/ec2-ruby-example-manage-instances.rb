@@ -1,11 +1,17 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Stops, starts, and reboots an EC2 instance; monitors an instance, and displays information about the instances.]
+#snippet-keyword:[Amazon Elastic Compute Cloud]
+#snippet-keyword:[describe_instances method]
+#snippet-keyword:[monitor_instances method]
+#snippet-keyword:[reboot_instances method]
+#snippet-keyword:[start_instances method]
+#snippet-keyword:[stop_instances method]
+#snippet-keyword:[wait_until method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon EC2]
 #snippet-service:[ec2]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
