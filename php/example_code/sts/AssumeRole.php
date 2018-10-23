@@ -48,7 +48,7 @@ try {
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[AssumeRole demonstrates how to how to retrieve an assumed role that you can use for cross-account or federation access to an AWS resource.]
+//snippet-sourcedescription:[AssumeRole.php demonstrates how to how to retrieve an assumed role that you can use for cross-account or federation access to an AWS resource.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

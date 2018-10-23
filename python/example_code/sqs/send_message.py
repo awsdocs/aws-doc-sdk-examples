@@ -46,7 +46,7 @@ print(response['MessageId'])
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[send_message.py demonstrates how to deliver a message to the specified queue]
+#snippet-sourcedescription:[send_message.py demonstrates how to deliver a message to the specified queue.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
