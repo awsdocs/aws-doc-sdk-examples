@@ -43,7 +43,7 @@ try {
     error_log($e->getMessage());
 }
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListSubscriptions.php demonstrates how to list existing Amazon SNS subscriptions.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

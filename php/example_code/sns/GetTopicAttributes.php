@@ -22,7 +22,7 @@ use Aws\Sns\SnsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Deletes a SNS topic and all its subscriptions.
+ * Retrieve the message delivery status attributes for an Amazon SNS Topic.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -45,3 +45,12 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
+//snippet-sourcedescription:[GetTopicAttributes.php demonstrates how to retrieve the defaults for an AWS SNS Topic.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]

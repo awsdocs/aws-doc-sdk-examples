@@ -45,7 +45,7 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[Unsubscribe.php demonstrates how to remove an SNS subscription.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

@@ -42,3 +42,12 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
+//snippet-sourcedescription:[ListOptOut.php demonstrates how to list the phone numbers for which the users have selected to no longer recieve future text messages.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]

@@ -22,7 +22,7 @@ use Aws\Sns\SnsClient;
 use Aws\Exception\AwsException;
 
 /**
- * Set he type of SMS Message sent by default from the AWS SNS service.
+ * Set the type of SMS Message sent by default from the AWS SNS service.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -47,7 +47,7 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[SetSMSAttributes.php demonstrates how to update the default SMS type.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

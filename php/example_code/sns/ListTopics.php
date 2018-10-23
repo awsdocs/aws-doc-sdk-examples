@@ -42,7 +42,7 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListTopics.php demonstrates how to get a list of existing AWS SNS topics.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

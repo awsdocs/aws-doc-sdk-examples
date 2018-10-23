@@ -46,7 +46,7 @@ try {
     error_log($e->getMessage());
 }
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer recieve future text messages.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

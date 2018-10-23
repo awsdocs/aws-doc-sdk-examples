@@ -50,7 +50,7 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[SubscribeEmail.php demonstrates how to send a confirmation message to an email address.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
