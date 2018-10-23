@@ -27,9 +27,11 @@ for response in paginator.paginate(Dimensions=[{'Name': 'LogGroupName'}],
 
 #snippet-sourcedescription:[list_metrics.py demonstrates how to retrieve a list of published AWS CloudWatch metrics.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[Amazon Cloudwatch]
+#snippet-keyword:[Amazon Cloudwatch]
+#snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

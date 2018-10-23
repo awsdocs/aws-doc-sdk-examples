@@ -43,9 +43,11 @@ except:
 
 #snippet-sourcedescription:[get_certificate.py demonstrates how to retrieve a certificate specified by an ARN and its certificate chain.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[AWS Certificate Manager]
+#snippet-keyword:[AWS Certificate Manager]
+#snippet-service:[acm]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-09-05]
+#snippet-sourceauthor:[walkerk1980]
 

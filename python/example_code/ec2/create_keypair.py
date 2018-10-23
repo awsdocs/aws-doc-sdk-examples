@@ -20,9 +20,11 @@ print(response)
 
 #snippet-sourcedescription:[create_keypair.py demonstrates how to create a 2048-bit RSA Amazon EC2 key pair.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon EC2]
+#snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

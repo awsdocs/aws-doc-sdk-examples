@@ -48,9 +48,11 @@ print(response)
 
 #snippet-sourcedescription:[request_certificate_w_email_validation.py demonstrates how to request an ACM certificate for use with other AWS services.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[AWS Certificate Manager]
+#snippet-keyword:[AWS Certificate Manager]
+#snippet-service:[acm]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-09-05]
+#snippet-sourceauthor:[walkerk1980]
 

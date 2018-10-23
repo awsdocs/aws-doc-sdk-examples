@@ -38,9 +38,11 @@ Includes={
 
 #snippet-sourcedescription:[list_certificates_all_key_types.py demonstrates how to create a paginator for a specific operation. Here we show how to get a list of certificate ARNs and domain names with list_certificates. ]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[AWS Certificate Manager]
+#snippet-keyword:[AWS Certificate Manager]
+#snippet-service:[acm]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-09-05]
+#snippet-sourceauthor:[walkerk1980]
 

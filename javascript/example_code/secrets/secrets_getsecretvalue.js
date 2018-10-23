@@ -1,11 +1,12 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[secrets_getsecretvalue demonstrates how to retrieve a secret from AWS Secrets Manager]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/25/18]
+//snippet-sourceauthor:[daviddeyo]
 
 
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

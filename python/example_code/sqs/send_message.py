@@ -45,11 +45,13 @@ response = sqs.send_message(
 print(response['MessageId'])
  
 
-#snippet-sourcedescription:[send_message.py demonstrates how to deliever a message to the specified queue]
+#snippet-sourcedescription:[send_message.py demonstrates how to deliver a message to the specified queue]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon Simple Queue Service]
+#snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-08-01]
+#snippet-sourceauthor:[jschwarzwalder]
 

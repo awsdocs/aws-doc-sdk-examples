@@ -40,9 +40,11 @@ print('AssumedRole Identity: ' + sts_assumed_role.get_caller_identity()['Arn'])
 
 #snippet-sourcedescription:[assumerole demonstrates how to retrieve an assumed role that you can use for cross-account or federation access to an AWS resource.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[AWS Security Token Service (STS)]
+#snippet-service:[sts]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-09-17]
+#snippet-sourceauthor:[walkerk1980]
 

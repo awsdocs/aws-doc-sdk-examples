@@ -26,9 +26,11 @@ except ClientError as e:
 
 #snippet-sourcedescription:[release_elastic_ip.py demonstrates how to release an elastic IP address for an EC2 instance.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon EC2]
+#snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

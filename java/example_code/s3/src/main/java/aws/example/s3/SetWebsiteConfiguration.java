@@ -1,9 +1,10 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an S3 bucket.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[setBucketWebsiteConfiguration]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
@@ -84,4 +85,3 @@ public class SetWebsiteConfiguration
         setWebsiteConfig(bucket_name, index_doc, error_doc);
     }
 }
-

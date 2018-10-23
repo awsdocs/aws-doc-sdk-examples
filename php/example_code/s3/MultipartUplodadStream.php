@@ -17,6 +17,7 @@
  *
  */
 
+
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
@@ -52,9 +53,10 @@ do {
 
 //snippet-sourcedescription:[MultipartUplodadStream.php demonstrates how to send a large files to your S3 Bucket with a stream to minimize errors.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]

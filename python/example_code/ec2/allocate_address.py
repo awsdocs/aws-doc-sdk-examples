@@ -27,9 +27,11 @@ except ClientError as e:
 
 #snippet-sourcedescription:[allocate_address.py demonstrates how to allocate and associate an elastic IP address for an EC2 instance.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon EC2]
+#snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

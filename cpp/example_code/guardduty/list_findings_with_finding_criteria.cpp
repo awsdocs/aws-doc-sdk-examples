@@ -2,10 +2,11 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon GuardDuty]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon GuardDuty]
+//snippet-service:[guardduty]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[tapasweni-pathak]
 
 
 /*

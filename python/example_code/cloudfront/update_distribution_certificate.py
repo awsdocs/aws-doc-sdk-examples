@@ -65,11 +65,12 @@ cf.update_distribution(DistributionConfig=distribution_config, \
 Id=distribution_id,IfMatch=distribution_etag)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[update_distribution_certificate.py demonstrates how to update multiple Amazon CloudFront distributions.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[Amazon CloudFront]
+#snippet-keyword:[Amazon CloudFront]
+#snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
-
+#snippet-sourcedate:[2018-09-30]
+#snippet-sourceauthor:[walkerk1980]

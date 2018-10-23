@@ -48,9 +48,11 @@ echo "Security Group ID: " . $securityGroupId . '\n';
 
 //snippet-sourcedescription:[CreateSecurityGroup.php demonstrates how to create an EC2 security group.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

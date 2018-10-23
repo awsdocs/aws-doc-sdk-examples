@@ -23,11 +23,13 @@ response = ses.delete_identity(
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[ses_deleteidentity.py demonstrates how to elete a verified email or domain from the list of verified identities]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon Simple Email Service]
+#snippet-service:[ses]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-08-11]
+#snippet-sourceauthor:[tapasweni-pathak]
 

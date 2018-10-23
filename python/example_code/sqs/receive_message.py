@@ -45,9 +45,11 @@ print('Received and deleted message: %s' % message)
 
 #snippet-sourcedescription:[receive_message.py demonstrates how to retrieve up to 10 messages from a specified queue]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon Simple Queue Service]
+#snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-08-01]
+#snippet-sourceauthor:[jschwarzwalder]
 
