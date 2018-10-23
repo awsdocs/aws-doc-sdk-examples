@@ -1,13 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Runs a Lambda function.]
+//snippet-keyword:[AWS Lambda]
+//snippet-keyword:[Invoke function]
 //snippet-keyword:[Go]
-//snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-service:[lambda]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
  Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -25,14 +24,14 @@
 package main
 
 import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/lambda"
+    
     "encoding/json"
     "fmt"
     "os"
     "strconv"
-
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/lambda"
 )
 
 type getItemsRequest struct {
@@ -77,14 +76,12 @@ func main() {
     request := getItemsRequest{"time", "descending", 10}
 
     payload, err := json.Marshal(request)
-
     if err != nil {
         fmt.Println("Error marshalling MyGetItemsFunction request")
         os.Exit(0)
     }
 
     result, err := client.Invoke(&lambda.InvokeInput{FunctionName: aws.String("MyGetItemsFunction"), Payload: payload})
-
     if err != nil {
         fmt.Println("Error calling MyGetItemsFunction")
         os.Exit(0)
@@ -93,7 +90,6 @@ func main() {
     var resp getItemsResponse
 
     err = json.Unmarshal(result.Payload, &resp)
-
     if err != nil {
         fmt.Println("Error unmarshalling MyGetItemsFunction response")
         os.Exit(0)

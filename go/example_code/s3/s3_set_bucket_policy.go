@@ -1,13 +1,13 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Sets the policy for an S3 bucket.]
+//snippet-keyword:[Amazon Simple Storage Service]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[PutBucketPolicy function]
 //snippet-keyword:[Go]
-//snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

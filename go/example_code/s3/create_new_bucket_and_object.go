@@ -1,13 +1,15 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Creates an S3 bucket and adds an item to it.]
+//snippet-keyword:[Amazon Simple Storage Service]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[CreateBucket function]
+//snippet-keyword:[PutObject function]
+//snippet-keyword:[WaitUntilBucketExists function]
 //snippet-keyword:[Go]
-//snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

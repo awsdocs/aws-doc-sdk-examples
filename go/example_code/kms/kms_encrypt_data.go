@@ -1,13 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Encrypts a string using KMS.]
+//snippet-keyword:[AWS Key Management Service]
+//snippet-keyword:[Encrypt function]
 //snippet-keyword:[Go]
-//snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-service:[kms]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -51,7 +50,7 @@ func main() {
 
     text := "1234567890"
 
-    // Encrypt the data key
+    // Encrypt the data
     result, err := svc.Encrypt(&kms.EncryptInput{
         KeyId: aws.String(keyId),
         Plaintext: []byte(text),

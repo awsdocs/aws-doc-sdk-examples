@@ -1,13 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Describes your EC2 security groups.]
+//snippet-keyword:[Amazon Elastic Compute Cloud]
+//snippet-keyword:[DescribeSecurityGroups function]
 //snippet-keyword:[Go]
-//snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
