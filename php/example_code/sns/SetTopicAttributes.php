@@ -48,3 +48,12 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]

@@ -46,7 +46,7 @@ try {
     error_log($e->getMessage());
 }
 
-//snippet-sourcedescription:[CreateDeliveryStream.php demonstrates how to establish a Delivery Stream that will put data into a classic Kinesis Data Stream.]
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]

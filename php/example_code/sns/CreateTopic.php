@@ -34,11 +34,23 @@ $SnSclient = new SnsClient([
     'version' => '2010-03-31'
 ]);
 
+$topicname = 'myTopic';
+
 try {
-    $result = $SnSclient->listTopics([
+    $result = $SnSclient->createTopics([
+        'Name' => $topicname,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
+//snippet-sourcedescription:[CreateTopic.php demonstrates how to create a Topic.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
