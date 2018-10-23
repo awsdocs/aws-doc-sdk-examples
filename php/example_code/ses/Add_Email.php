@@ -43,6 +43,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[Add_Email.php demonstrates how to add an email address you can send from to your Amazon SES account. By verifying an email address, you demonstrate that you're the owner of that address, and that you want to allow Amazon SES to send email from that address.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -51,5 +52,5 @@ try {
 //snippet-service:[ses]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

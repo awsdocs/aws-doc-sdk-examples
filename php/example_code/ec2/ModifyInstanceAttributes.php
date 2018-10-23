@@ -42,6 +42,7 @@ $result = $ec2Client->modifyInstanceAttribute(array(
 var_dump($result);
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[ModifyInstanceAttribute.php demonstrates how to modify the specified attribute of the specified instance.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -50,5 +51,5 @@ var_dump($result);
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

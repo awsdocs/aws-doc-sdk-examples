@@ -96,6 +96,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[Send_Raw_Email.php demonstrates how to use the Amazon SES SendRawEmail operation to send highly customized messages to your recipients.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -104,5 +105,5 @@ try {
 //snippet-service:[ses]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

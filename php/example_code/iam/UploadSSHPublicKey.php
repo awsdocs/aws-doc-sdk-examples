@@ -42,6 +42,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[UploadSSHPublicKey.php demonstrates how upload a SSH public key and associate it with an IAM user. ]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -50,5 +51,5 @@ try {
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

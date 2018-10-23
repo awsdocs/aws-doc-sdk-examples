@@ -41,6 +41,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[List_Email.php demonstrates how to retrieve a list of email addresses submitted in the current AWS Region, regardless of verification status.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -49,5 +50,5 @@ try {
 //snippet-service:[ses]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

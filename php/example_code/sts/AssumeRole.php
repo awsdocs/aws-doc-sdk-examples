@@ -47,6 +47,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[AssumeRole demonstrates how to how to retrieve an assumed role that you can use for cross-account or federation access to an AWS resource.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -55,5 +56,5 @@ try {
 //snippet-service:[sts]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-08]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

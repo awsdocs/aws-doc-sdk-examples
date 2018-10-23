@@ -60,7 +60,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[CreateS3DeliveryStream.php demonstrates how to establish a Delivery Stream that will put data into an existing Amazon S3 Bucket.]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[CreateS3DeliveryStream.php demonstrates how to establish a Amazon Kinesis Firehose Delivery Stream that will put data into an existing Amazon S3 Bucket.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
@@ -68,5 +69,5 @@ try {
 //snippet-service:[firehose]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

@@ -50,6 +50,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[LongPollingCreateQueue.php demonstrates how to create a queue with a default 20 second to wait between retrieving messages. This will reduce the number of empty responses returned and thus your bill.]
 #snippet-keyword:[Python]
 //snippet-keyword:[PHP]
@@ -59,5 +60,5 @@ try {
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

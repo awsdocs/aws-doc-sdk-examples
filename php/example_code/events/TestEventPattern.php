@@ -67,7 +67,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[TestEventPattern.php demonstrates how to test whether the specified event pattern matches the provided event..]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[TestEventPattern.php demonstrates how to test whether the specified event pattern matches the provided event.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
@@ -75,5 +76,5 @@ try {
 //snippet-service:[events]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

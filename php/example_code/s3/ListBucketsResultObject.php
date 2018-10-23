@@ -53,6 +53,7 @@ $array = $result->toArray();
 $names = $result->search('Buckets[].Name');
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[ListBucketsResultObject.php demonstrates how to work with a result object by transforming it into an array.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -61,5 +62,5 @@ $names = $result->search('Buckets[].Name');
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

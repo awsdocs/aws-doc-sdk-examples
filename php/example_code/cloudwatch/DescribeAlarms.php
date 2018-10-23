@@ -46,7 +46,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[DescribeAlarms.php demonstrates how to list all cloudwatch alarm names.]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[DescribeAlarms.php demonstrates how to list all Amazon CloudWatch alarm names.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
@@ -54,5 +55,5 @@ try {
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

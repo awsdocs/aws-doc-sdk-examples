@@ -45,7 +45,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[SetAlarmState.php demonstrates how to set Alarm State in CloudWatch.]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[SetAlarmState.php demonstrates how to set Alarm State in Amazon CloudWatch.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
@@ -53,5 +54,5 @@ try {
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

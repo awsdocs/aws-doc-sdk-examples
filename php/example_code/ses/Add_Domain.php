@@ -43,6 +43,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[Add_Domain.php demonstrates how to add a sending domain to your Amazon SES account. By verifying a domain, you demonstrate that you're the owner of that domain. When you verify a domain, you allow Amazon SES to send email from any address on that domain.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -51,5 +52,5 @@ try {
 //snippet-service:[ses]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

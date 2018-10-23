@@ -51,6 +51,7 @@ $presignedUrl = (string)$request->getUri();
 $url = $s3Client->getObjectUrl('my-bucket', 'my-key');
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[PresignedURL.php demonstrates how to create a presigned url for an object in an S3 Bucket so you can give it to a user without them needing to authenticate to your AWS account.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -59,5 +60,5 @@ $url = $s3Client->getObjectUrl('my-bucket', 'my-key');
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

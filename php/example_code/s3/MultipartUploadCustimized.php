@@ -52,6 +52,7 @@ $uploader = new MultipartUploader($s3Client, $source, [
 ]);
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[MultipartUploadCustimized.php demonstrates how to set custom options on the CreateMultipartUpload, UploadPart, and CompleteMultipartUpload operations executed by the multipart uploader via callbacks passed to its constructor.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -60,5 +61,5 @@ $uploader = new MultipartUploader($s3Client, $source, [
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

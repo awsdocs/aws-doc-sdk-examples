@@ -59,6 +59,7 @@ try {
 }
  
 
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[Create_Rule.php demonstrates how to control your incoming email by adding a receipt rule to an existing receipt rule set. This example shows you how to create a receipt rule that sends incoming messages to an Amazon S3 bucket, but you can also send messages to Amazon SNS, and AWS Lambda.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
@@ -67,5 +68,5 @@ try {
 //snippet-service:[ses]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

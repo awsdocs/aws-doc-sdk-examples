@@ -49,7 +49,8 @@ try {
 }
  
 
-//snippet-sourcedescription:[DeleteDeliveryStream.php demonstrates how to delete a Delivery Stream and all the data you have sent to the Delivery Stream.]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[DeleteDeliveryStream.php demonstrates how to delete a Amazon Kinesis Firehose Delivery Stream and all the data you have sent to the Amazon Kinesis Firehose Delivery Stream.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
@@ -57,5 +58,5 @@ try {
 //snippet-service:[firehose]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 

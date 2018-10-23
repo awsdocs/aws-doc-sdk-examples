@@ -42,7 +42,8 @@ $result = $ec2Client->deleteSecurityGroup(array(
 var_dump($result);
  
 
-//snippet-sourcedescription:[DeleteSecurityGroup.php demonstrates how to delete an EC2 security group.]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[DeleteSecurityGroup.php demonstrates how to delete an Amazon EC2 security group.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
@@ -50,5 +51,5 @@ var_dump($result);
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
 
