@@ -31,9 +31,11 @@ print('Created CMK ARN:', response['KeyMetadata']['Arn'])
 
 #snippet-sourcedescription:[kms-python-example-create-key demonstrates how to create a customer master key with AWS Key Management Service]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[AWS Key Management Service (KMS)]
+#snippet-service:[kms]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

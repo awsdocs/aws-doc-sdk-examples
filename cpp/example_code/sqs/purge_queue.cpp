@@ -2,10 +2,11 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[tapasweni-pathak]
 
 
 /*

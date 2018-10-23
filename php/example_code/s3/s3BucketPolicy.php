@@ -73,9 +73,11 @@ try {
 
 //snippet-sourcedescription:[s3BucketPolicy.php demonstrates how to retrieve, replace and delete the policy for a specific S3 bucket.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

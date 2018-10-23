@@ -55,9 +55,11 @@ except Exception as e:
 
 #snippet-sourcedescription:[create_policy_version.py demonstrates how to create a new version of the specified managed policy.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

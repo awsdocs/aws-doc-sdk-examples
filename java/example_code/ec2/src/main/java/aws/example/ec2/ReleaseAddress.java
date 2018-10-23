@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[ReleaseAddress.java demonstrates how to release an elastic IP address.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

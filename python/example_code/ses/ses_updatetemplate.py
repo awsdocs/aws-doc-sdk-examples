@@ -28,11 +28,13 @@ response = ses.update_template(
 print(response)
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[ses_updatetemplate.py demonstrates how to change the content for a specific email template including the subject line, HTML body, and plain text,]]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon Simple Email Service]
+#snippet-service:[ses]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-08-11]
+#snippet-sourceauthor:[tapasweni-pathak]
 

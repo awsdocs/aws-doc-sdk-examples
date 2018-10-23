@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[UpdateUser.java demonstrates how to update an IAM user's username.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

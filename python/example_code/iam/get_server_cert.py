@@ -24,9 +24,11 @@ print(response['ServerCertificate'])
 
 #snippet-sourcedescription:[get_server_cert.py demonstrates how to  retrieve an IAM server certificate.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 

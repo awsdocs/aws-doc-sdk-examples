@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[PutTargets.java demonstrates how to create a CloudWatch event-routing rule target.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Cloudwatch]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

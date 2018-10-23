@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *
- *
+ * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
 
@@ -54,11 +54,13 @@ try {
 }
  
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[Create_Template.php demonstrates how to create an email template to send personalized email messages.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

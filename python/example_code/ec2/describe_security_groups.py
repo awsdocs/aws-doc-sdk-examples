@@ -25,9 +25,11 @@ except ClientError as e:
 
 #snippet-sourcedescription:[describe_security_groups.py demonstrates how to retrieve details about one or more of your EC2 security groups.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon EC2]
+#snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

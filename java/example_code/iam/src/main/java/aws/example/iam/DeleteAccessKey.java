@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[DeleteAccessKey.java demonstrates how to delete an access key from an IAM user.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

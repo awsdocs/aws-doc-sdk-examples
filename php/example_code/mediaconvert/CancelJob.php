@@ -49,9 +49,11 @@ try {
 
 //snippet-sourcedescription:[CancelJob.php demonstrates how to cancel an existing MediaConvert Job.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[AWS Elemental MediaConvert]
+//snippet-service:[mediaconvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

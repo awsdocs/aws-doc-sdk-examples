@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[DescribeInstances.java demonstrates how to get a description of all EC2 instances associated with an AWS account.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

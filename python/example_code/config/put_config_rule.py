@@ -40,11 +40,13 @@ except ClientError as e:
 
  
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[put_config_rule.py demonstrates how to add a config rule.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[AWS Config]
+#snippet-keyword:[AWS Config]
+#snippet-service:[config]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-08]
+#snippet-sourceauthor:[walkerk1980]
 

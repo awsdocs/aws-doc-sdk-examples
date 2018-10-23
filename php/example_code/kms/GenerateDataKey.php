@@ -54,9 +54,11 @@ try {
 
 //snippet-sourcedescription:[GenerateDataKey.php demonstrates how to generate a data key. This operation returns plaintext and encrypted copies of the data key that it creates.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[AWS Key Management Service (KMS)]
+//snippet-service:[kms]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

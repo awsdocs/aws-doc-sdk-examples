@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[DescribeAddresses.java demonstrates how to get information about all of the elastic IP addresses.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

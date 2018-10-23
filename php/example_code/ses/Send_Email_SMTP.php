@@ -84,9 +84,11 @@ if (!$mail->send()) {
 
 //snippet-sourcedescription:[Send_Email_SMTP.php demonstrates how to send email through the Amazon SES SMTP interface.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

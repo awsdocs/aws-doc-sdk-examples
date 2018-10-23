@@ -148,6 +148,6 @@ print(r.text)
 #snippet-keyword:[Code Sample]
 #snippet-service:[AWS Signature Version 4 Signing Process]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[9/20/2018]
+#snippet-sourcedate:[2018-09-20]
 #snippet-sourceauthor:[AWS]
 

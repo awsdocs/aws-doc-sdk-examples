@@ -1,13 +1,13 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[XferMgrProgress.java demonstrates how to use the S3 transfermanager to upload files to a bucket and show progress of the upload.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[TransferProgress]
+//snippet-keyword:[TransferManager]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -268,4 +268,3 @@ public class XferMgrProgress
         }
     }
 }
-

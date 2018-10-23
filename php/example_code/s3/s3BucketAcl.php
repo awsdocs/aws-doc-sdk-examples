@@ -81,9 +81,11 @@ try {
 
 //snippet-sourcedescription:[s3BucketAcl.php demonstrates how to set the permissions on a bucket using access control lists (ACL).]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

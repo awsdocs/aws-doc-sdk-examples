@@ -82,11 +82,13 @@ if (isset($result['SecretString'])) {
 
 // Your code goes here; 
 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-25]
+//snippet-sourceauthor:[jschwarzwalder]
 

@@ -19,9 +19,11 @@ s3.create_bucket(Bucket='my-bucket')
 
 #snippet-sourcedescription:[s3-python-example-create-bucket.py demonstrates how to create an new S3 bucket given a name to use for the bucket.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[Amazon S3]
+#snippet-service:[s3]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder]
 

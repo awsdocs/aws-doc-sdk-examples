@@ -50,9 +50,11 @@ var_dump($result);
 
 //snippet-sourcedescription:[ReleaseAddress.php demonstrates how to release an elastic IP address for an EC2 instance.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

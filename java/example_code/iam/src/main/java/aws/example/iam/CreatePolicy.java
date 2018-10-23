@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[CreatePolicy.java demonstrates how to create a fixed policy with a provided policy name.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

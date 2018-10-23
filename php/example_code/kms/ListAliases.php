@@ -52,9 +52,11 @@ try {
 
 //snippet-sourcedescription:[ListAliases.php demonstrates how to list aliases in the account and region.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[AWS Key Management Service (KMS)]
+//snippet-service:[kms]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

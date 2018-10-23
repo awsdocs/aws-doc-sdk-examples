@@ -12,7 +12,6 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
@@ -60,9 +59,10 @@ try {
 
 //snippet-sourcedescription:[PutBucketLifecycle.php demonstrates how to add a Lifecycle Configuration to an S3 bucket.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]

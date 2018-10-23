@@ -57,9 +57,11 @@ try {
 
 //snippet-sourcedescription:[ChangeMessageVisibility.php demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

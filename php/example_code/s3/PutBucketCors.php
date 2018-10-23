@@ -16,7 +16,6 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-configuring-a-bucket.html
  *
  */
-
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
@@ -61,9 +60,10 @@ try {
 
 //snippet-sourcedescription:[PutBucketCors.php demonstrates how to add CORS Rules to an S3 Bucket.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]

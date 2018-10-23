@@ -50,9 +50,11 @@ try {
 
 //snippet-sourcedescription:[PutRule.php demonstrates how to create or update the specified rule. Rules are enabled by default, or based on value of the state. You can disable a rule using DisableRule.]
 //snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder]
 

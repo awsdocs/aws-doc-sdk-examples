@@ -1,8 +1,9 @@
 //snippet-sourcedescription:[PutMetricAlarm.java demonstrates how to create a new CloudWatch alarm based on CPU utilization for an instance.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Cloudwatch]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*

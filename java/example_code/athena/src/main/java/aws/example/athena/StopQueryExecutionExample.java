@@ -2,7 +2,7 @@
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[athena]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 package aws.example.athena;

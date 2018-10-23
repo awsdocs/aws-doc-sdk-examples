@@ -2,10 +2,11 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Cloudwatch]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
 
 
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

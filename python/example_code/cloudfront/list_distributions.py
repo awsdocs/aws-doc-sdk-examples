@@ -31,11 +31,12 @@ if distributions['DistributionList']['Quantity'] > 0:
 else:    
   print("Error - No CloudFront Distributions Detected.") 
 
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-sourcedescription:[list_distributions.py demonstrates how to list Amazon CloudFront distributions.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[Amazon CloudFront]
+#snippet-keyword:[Amazon CloudFront]
+#snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
-
+#snippet-sourcedate:[2018-09-30]
+#snippet-sourceauthor:[walkerk1980]

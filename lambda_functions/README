@@ -1,15 +1,6 @@
-<<<<<<< HEAD:lambda_functions/secretsmanager/README
 The files in this folder contain the source code for the template Lambda rotation 
 functions provided by AWS Secrets Manager. Most services support both a single user
 version and a multi user version of the function.
 
 For details, see https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html
 in the AWS Secrets Manager User Guide.
-=======
-The files in this folder contain the source code for the template Lambda rotation 
-functions provided by AWS Secrets Manager. Most services support both a single user
-version and a multi user version of the function.
-
-For details, see http://bisdavid.aka.amazon.com/docs/mimirug/newdb/rotating-secrets.html
-in the AWS Secrets Manager User Guide.
->>>>>>> ea7e8cc8... moved all examples into example_code child folder per standard:lambda_functions/README

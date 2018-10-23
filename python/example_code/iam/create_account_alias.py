@@ -25,9 +25,11 @@ iam.create_account_alias(
 
 #snippet-sourcedescription:[create_account_alias.py demonstrates how to create an IAM account alias.]
 #snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourceauthor:[jschwarzwalder]
 
