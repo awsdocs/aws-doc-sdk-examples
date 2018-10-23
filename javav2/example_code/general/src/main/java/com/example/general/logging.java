@@ -1,4 +1,3 @@
- 
 //snippet-sourcedescription:[logging.java demonstrates how to ...]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
@@ -6,8 +5,6 @@
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 package com.example.general;
 
 import org.apache.logging.log4j.Logger;

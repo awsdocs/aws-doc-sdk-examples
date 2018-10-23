@@ -1,4 +1,3 @@
- 
 //snippet-sourcedescription:[list_user_docs.java demonstrates how to ...]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
@@ -6,8 +5,6 @@
 //snippet-sourcetype:[<<snippet or full-example>>]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 package com.example.workdocs;
 
 import java.util.ArrayList;
