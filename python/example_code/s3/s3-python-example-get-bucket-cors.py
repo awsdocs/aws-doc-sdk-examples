@@ -21,6 +21,7 @@ result = s3.get_bucket_cors(Bucket='my-bucket')
 
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[s3-python-example-get-bucket-cors.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -29,5 +30,5 @@ result = s3.get_bucket_cors(Bucket='my-bucket')
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

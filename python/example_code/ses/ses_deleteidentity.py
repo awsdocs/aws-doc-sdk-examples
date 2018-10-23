@@ -23,6 +23,7 @@ response = ses.delete_identity(
 print(response)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[ses_deleteidentity.py demonstrates how to elete a verified email or domain from the list of verified identities]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

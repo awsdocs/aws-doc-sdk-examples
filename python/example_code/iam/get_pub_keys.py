@@ -34,6 +34,7 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
     print(ssh_public_key_response['SSHPublicKey']['SSHPublicKeyBody'])
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[get_pub_keys.py demonstrates how to retrieve the specified SSH public key.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -42,5 +43,5 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
 #snippet-service:[iam]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

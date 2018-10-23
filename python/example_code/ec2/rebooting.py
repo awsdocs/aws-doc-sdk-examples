@@ -31,6 +31,7 @@ except ClientError as e:
     print('Error', e)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[rebooting.py demonstrates how to request a reboot of one or more Amazon EC2 instances.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -39,5 +40,5 @@ except ClientError as e:
 #snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

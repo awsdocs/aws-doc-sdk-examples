@@ -25,7 +25,8 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[allocate_address.py demonstrates how to allocate and associate an elastic IP address for an EC2 instance.]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[allocate_address.py demonstrates how to allocate and associate an elastic IP address for an Amazon EC2 instance.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
@@ -33,5 +34,5 @@ except ClientError as e:
 #snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

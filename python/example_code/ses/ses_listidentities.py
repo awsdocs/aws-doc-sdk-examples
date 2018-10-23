@@ -24,6 +24,7 @@ response = ses.list_identities(
 print(response)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[ses_listidentities.py demonstrates how to retrieve a list of emails or domains submitted in the current AWS Region, regardless of verification status.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

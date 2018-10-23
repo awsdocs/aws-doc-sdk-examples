@@ -34,6 +34,7 @@ for finding in findings['FindingIds']:
     print("\n")
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[list_findings_with_criteria.py lists Amazon GuardDuty findings for the specified detector ID.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

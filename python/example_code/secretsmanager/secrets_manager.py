@@ -73,6 +73,7 @@ def get_secret():
             
     # Your code goes here.  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[secrets_manager demonstrates how to retrieve a secret from AWS Secrets Manager]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -81,5 +82,5 @@ def get_secret():
 #snippet-service:[secretsmanager]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-09-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

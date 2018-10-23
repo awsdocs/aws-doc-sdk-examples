@@ -26,6 +26,7 @@ buckets = [bucket['Name'] for bucket in response['Buckets']]
 print("Bucket List: %s" % buckets)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[s3-python-example-list-buckets.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -34,5 +35,5 @@ print("Bucket List: %s" % buckets)
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

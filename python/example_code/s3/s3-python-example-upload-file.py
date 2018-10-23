@@ -25,6 +25,7 @@ bucket_name = 'my-bucket'
 s3.upload_file(filename, bucket_name, filename)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[s3-python-example-upload-file.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -33,5 +34,5 @@ s3.upload_file(filename, bucket_name, filename)
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

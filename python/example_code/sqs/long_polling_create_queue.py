@@ -25,6 +25,7 @@ response = sqs.create_queue(
 print(response['QueueUrl'])
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[<long_polling_create_queue.py demonstrates how to create a queue with a default 20 second to wait between retieving messages. This will reduce the number of empty responses returned and thus your bill.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -33,5 +34,5 @@ print(response['QueueUrl'])
 #snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-08-01]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

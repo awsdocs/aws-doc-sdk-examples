@@ -35,6 +35,7 @@ response = acm.add_tags_to_certificate(
 print(response)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[add_tags_to_certificate.py demonstrates how to add one or more tags to an ACM certificate. Tags are labels that you can use to identify and organize your AWS resources. ]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

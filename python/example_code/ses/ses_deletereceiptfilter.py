@@ -23,6 +23,7 @@ response = ses.delete_receipt_filter(
 print(response)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[ses_deletereceiptfilter.py demonstrates how to remove an existing filter for a specific IP address.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

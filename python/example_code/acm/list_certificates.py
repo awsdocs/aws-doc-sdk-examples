@@ -24,6 +24,7 @@ for response in paginator.paginate():
         print(certificate)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[list_certificates.py demonstrates how to retrieve a list of certificate ARNs and domain names.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

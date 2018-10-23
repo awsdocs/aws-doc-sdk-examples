@@ -25,7 +25,8 @@ except ClientError as e:
     print(e)
  
 
-#snippet-sourcedescription:[delete_security_group.py demonstrates how to delete an EC2 security group.]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[delete_security_group.py demonstrates how to delete an Amazon EC2 security group.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
@@ -33,5 +34,5 @@ except ClientError as e:
 #snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

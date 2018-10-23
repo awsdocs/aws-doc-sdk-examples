@@ -35,6 +35,7 @@ response = client.encrypt(
 print('Encrypted ciphertext:', response['CiphertextBlob'])
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[kms-python-example-create-key demonstrates how to encrypt a string with an existing CMK using AWS KMS.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -43,5 +44,5 @@ print('Encrypted ciphertext:', response['CiphertextBlob'])
 #snippet-service:[kms]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

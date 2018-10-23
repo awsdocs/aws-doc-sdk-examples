@@ -41,6 +41,7 @@ except:
     exit(1)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[get_certificate.py demonstrates how to retrieve a certificate specified by an ARN and its certificate chain.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

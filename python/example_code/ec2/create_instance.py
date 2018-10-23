@@ -23,3 +23,13 @@ try:
 
 except BaseException as exe:
     print(exe)
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[create_instance.py demonstrates how to create an Amazon EC2 instance.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-10-19]
+#snippet-sourceauthor:[Yajan]

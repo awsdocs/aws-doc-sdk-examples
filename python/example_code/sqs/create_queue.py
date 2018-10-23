@@ -28,6 +28,7 @@ response = sqs.create_queue(
 print(response['QueueUrl'])
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[create_queue.py demonstrates how to create a new FIFO queue with Amazon SQS.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -36,5 +37,5 @@ print(response['QueueUrl'])
 #snippet-service:[sqs]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-08-01]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 

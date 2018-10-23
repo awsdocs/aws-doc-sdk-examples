@@ -36,6 +36,7 @@ response = ses.send_templated_email(
 print(response)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[ses_sendtemplatedemail.py demonstrates how to send a templated email to recipients.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

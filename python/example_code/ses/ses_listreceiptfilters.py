@@ -21,6 +21,7 @@ response = ses.list_receipt_filters()
 print(response)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[ses_listreceiptfilters.py demonstrates how to list the IP address filters associated with your AWS account in the current AWS Region.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]

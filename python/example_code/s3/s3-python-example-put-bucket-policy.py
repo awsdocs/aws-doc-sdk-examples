@@ -38,6 +38,7 @@ bucket_policy = json.dumps(bucket_policy)
 s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
  
 
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[s3-python-example-put-bucket-policy.py demonstrates how to ...]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
@@ -46,5 +47,5 @@ s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
 #snippet-service:[s3]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-06-25]
-#snippet-sourceauthor:[jschwarzwalder]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
 
