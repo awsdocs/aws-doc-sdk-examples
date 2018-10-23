@@ -1,10 +1,16 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Updates a Ruby on Rails application.]
+#snippet-keyword:[AWS Elastic Beanstalk]
+#snippet-keyword:[create_application_version method]
+#snippet-keyword:[create_storage_location method]
+#snippet-keyword:[describe_application_versions method]
+#snippet-keyword:[describe_environments method]
+#snippet-keyword:[update_environment method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-service:[elasticbeanstalk]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -21,24 +27,24 @@ require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
 
 Aws.config.update({region: 'us-west-2'})
 
-elb = Aws::ElasticBeanstalk::Client.new
+eb = Aws::ElasticBeanstalk::Client.new
 s3 = Aws::S3::Client.new
 
 app_name = 'MyRailsApp'
 
 # Get S3 bucket containing app
-app_versions = elb.describe_application_versions({ application_name: app_name })
+app_versions = eb.describe_application_versions({ application_name: app_name })
 av = app_versions.application_versions[0]
 bucket = av.source_bundle.s3_bucket
 s3_key = av.source_bundle.s3_key
 
 # Get info on environment
-envs = elb.describe_environments({ application_name: app_name })
+envs = eb.describe_environments({ application_name: app_name })
 env = envs.environments[0]
 env_name = env.environment_name
 
 # Create new storage location
-resp = elb.create_storage_location()
+resp = eb.create_storage_location()
 
 puts "Created storage location in bucket #{resp.s3_bucket}"
 
@@ -69,7 +75,7 @@ resp = s3.put_object({
 date = Time.new
 today = date.day.to_s + "/" + date.month.to_s + "/" + date.year.to_s
 
-elb.create_application_version({
+eb.create_application_version({
   process: false,
   application_name: app_name,
   version_label: zip_file_basename,
@@ -80,7 +86,7 @@ elb.create_application_version({
   description: "Updated #{today}"
 })
 
-elb.update_environment({
+eb.update_environment({
   environment_name: env_name,
   version_label: zip_file_basename
 })

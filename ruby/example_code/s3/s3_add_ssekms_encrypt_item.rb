@@ -1,11 +1,12 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Adds an item to an S3 bucket and encrypts it on the server using a KMS key from a file.]
+#snippet-keyword:[Amazon Simple Storage Service]
+#snippet-keyword:[put_object method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon S3]
 #snippet-service:[s3]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

@@ -1,11 +1,12 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
-#snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Gets your SES send statistics.]
 #snippet-keyword:[Amazon Simple Email Service]
+#snippet-keyword:[get_send_statistics method]
+#snippet-keyword:[Ruby]
 #snippet-service:[ses]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

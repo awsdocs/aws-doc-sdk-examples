@@ -1,10 +1,13 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Enables an action for a CloudWatch alarm and then disables all actions for the alarm.]
+#snippet-keyword:[Amazon CloudWatch]
+#snippet-keyword:[disable_alarm_actions method]
+#snippet-keyword:[put_metric_alarm method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-service:[cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

@@ -1,10 +1,13 @@
-#snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Gets the name and description of an Elastic Beanstalk application and its URL.]
+#snippet-keyword:[AWS Elastic Beanstalk]
+#snippet-keyword:[describe_applications method]
+#snippet-keyword:[describe_environments method]
 #snippet-keyword:[Ruby]
-#snippet-keyword:[Code Sample]
-#snippet-service:[<<ADD SERVICE>>]
-#snippet-sourcetype:[<<snippet or full-example>>]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[AWS]
+#snippet-service:[elasticbeanstalk]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -19,14 +22,14 @@
 
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
 
-elb = Aws::ElasticBeanstalk::Client.new(region: 'us-west-2')
+eb = Aws::ElasticBeanstalk::Client.new(region: 'us-west-2')
       
-app = elb.describe_applications({application_names: [args[0]]})
+app = eb.describe_applications({application_names: [args[0]]})
 
 if app.exists?
   puts "Name:         #{app.application_name}"
   puts "Description:  #{app.description}"
 
-  envs = elb.describe_environments({application_name: app.application_name})
+  envs = eb.describe_environments({application_name: app.application_name})
   puts "URL:          #{envs.environments[0].cname}"
 end
