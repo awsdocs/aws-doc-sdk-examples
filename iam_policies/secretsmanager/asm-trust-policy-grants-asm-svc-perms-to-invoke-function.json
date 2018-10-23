@@ -1,0 +1,22 @@
+ 
+//snippet-sourcedescription:[This resource-based policy enables the AWS Secrets Manager service to invoke the Lambda rotation function.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {"Service": "secretsmanager.amazonaws.com"},
+            "Action": "lambda:InvokeFunction",
+            "Resource": "<arn_of_the_Lambda_rotation_function_that_this_trust_policy_is_attached_to>"
+        }
+    ]
+}
