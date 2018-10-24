@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[put_object_buffer.cpp demonstrates how to put an object into an Amazon S3 bucket using a buffered I/O stream.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]

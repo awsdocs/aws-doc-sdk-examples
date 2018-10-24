@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[put_object.cpp demonstrates how to put a file into an Amazon S3 bucket.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]

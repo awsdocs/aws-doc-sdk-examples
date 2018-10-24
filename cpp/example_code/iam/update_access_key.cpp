@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[update_access_keys.cpp demonstrates how to update the status of an IAM user's access key.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

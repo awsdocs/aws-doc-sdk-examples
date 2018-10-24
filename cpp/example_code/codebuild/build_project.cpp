@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[build_project.cpp demonstrates how to start building a project with AWS CodeBuild.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS CodeBuild]
+//snippet-keyword:[AWS CodeBuild]
+//snippet-service:[codebuild]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

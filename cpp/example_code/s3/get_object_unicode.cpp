@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[get_object_unicode.cpp demonstrates how to put a Unicode text file into an Amazon S3 bucket.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

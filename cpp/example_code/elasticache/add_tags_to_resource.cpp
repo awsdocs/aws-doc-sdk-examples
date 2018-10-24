@@ -1,9 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[add_tags_to_resource.cpp demonstrates how to add a cost allocation tag to an Amazon ElastiCache resource.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon ElastiCache]
+//snippet-service:[elaticache]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

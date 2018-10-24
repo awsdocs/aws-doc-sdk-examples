@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[list_file_shares.cpp demonstrates how to retrieve a list of the file shares for an AWS Storage Gateway resource.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS Storage Gateway]
+//snippet-keyword:[AWS Storage Gateway]
+//snippet-service:[storagegateway]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[delete_access_key.cpp demonstrates how to delete the AWS access key pair for an IAM user.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

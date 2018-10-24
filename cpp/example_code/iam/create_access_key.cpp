@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_access_key.cpp demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

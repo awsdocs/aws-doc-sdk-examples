@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_repository.cpp demonstrates how to create an AWS CodeCommit repository.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS CodeCommit]
+//snippet-keyword:[AWS CodeCommit]
+//snippet-service:[codecommit]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

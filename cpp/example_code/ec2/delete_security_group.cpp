@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[delete_security_group.cpp demonstrates how to delete an Amazon EC2 security group.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

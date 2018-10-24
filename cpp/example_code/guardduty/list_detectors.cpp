@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[list_detectors.cpp demonstrates how to list the detector IDs of enabled Amazon GuardDuty detectors.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]

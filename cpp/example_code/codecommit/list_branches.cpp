@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[list_branches.cpp demonstrates how to list the branches of an AWS CodeCommit repository.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS CodeCommit]
+//snippet-keyword:[AWS CodeCommit]
+//snippet-service:[codecommit]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

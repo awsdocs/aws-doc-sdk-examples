@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_pull_request.cpp demonstrates how to create a pull request with AWS CodeCommit.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS CodeCommit]
+//snippet-keyword:[AWS CodeCommit]
+//snippet-service:[codecommit]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

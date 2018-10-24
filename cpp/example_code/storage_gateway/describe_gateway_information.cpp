@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[describe_gateway_information.cpp demonstrates how to retrieve information pertaining to an AWS Storage Gateway resource.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS Storage Gateway]
+//snippet-keyword:[AWS Storage Gateway]
+//snippet-service:[storagegateway]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

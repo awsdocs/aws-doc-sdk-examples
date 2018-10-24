@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_nfs_file_share.cpp demonstrates how to create a Network File System (NFS) file share on an AWS Storage Gateway resource.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS Storage Gateway]
+//snippet-keyword:[AWS Storage Gateway]
+//snippet-service:[storagegateway]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

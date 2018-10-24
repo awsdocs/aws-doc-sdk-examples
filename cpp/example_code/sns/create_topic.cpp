@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_topic.cpp demonstrates how to create an Amazom SNS topic to which notifications can be published.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Notification Service]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

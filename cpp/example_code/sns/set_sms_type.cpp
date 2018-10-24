@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[set_sms_type.cpp demonstrates how to use Amazon SNS to set default SMS attributes.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Notification Service]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

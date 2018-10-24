@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[delete_alarm.cpp demonstrates how to delete an Amazon CloudWatch alarm.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
+//snippet-keyword:[Amazon CloudWatch]
 //snippet-service:[cloudwatch]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

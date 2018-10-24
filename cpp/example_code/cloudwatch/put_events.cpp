@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 

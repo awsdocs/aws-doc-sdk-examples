@@ -1,9 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_table.cpp demonstrates how to create an Amazon DynamoDB table.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
@@ -33,7 +34,7 @@ specific language governing permissions and limitations under the License.
 
 
 /**
-* Deletes a cloud watch alarm, based on command line input
+* Create an Amazon DynamoDB table.
 */
 int main(int argc, char** argv)
 {

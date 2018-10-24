@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[publish_to_topic.cpp demonstrates how to send a message to an Amazon SNS topic.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Notification Service]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

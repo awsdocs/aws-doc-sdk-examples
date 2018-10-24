@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_mount_target.cpp demonstrates how to create a mount target for an Amazon Elastic File System.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Elastic File System]
+//snippet-keyword:[Amazon Elastic File System]
+//snippet-service:[elasticfilesystem]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

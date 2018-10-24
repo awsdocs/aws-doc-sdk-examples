@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[delete_topic.cpp demonstrates how to delete an Amazon SNS topic and all its subscriptions.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Notification Service]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[update_file_system.cpp demonstrates how to update the configuration of an Amazon Elastic File System.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Elastic File System]
+//snippet-keyword:[Amazon Elastic File System]
+//snippet-service:[elasticfilesystem]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

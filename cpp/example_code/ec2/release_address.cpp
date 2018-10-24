@@ -1,10 +1,10 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[release_address.cpp demonstrates how to release an Amazon EC2 Elastic IP address.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
@@ -28,7 +28,7 @@
 #include <iostream>
 
 /**
- * Releases an elastic ip address based on command line input
+ * Releases an Elastic IP address based on command line input
  */
 int main(int argc, char** argv)
 {

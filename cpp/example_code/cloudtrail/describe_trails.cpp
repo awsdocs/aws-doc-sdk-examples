@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[describe_trails.cpp demonstrates how to retrieve information about an AWS CloudTrail resource.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CloudTrail]

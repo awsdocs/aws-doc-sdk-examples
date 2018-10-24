@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[create_trail.cpp demonstrates how to create an AWS CloudTrail resource using command-line input.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CloudTrail]
