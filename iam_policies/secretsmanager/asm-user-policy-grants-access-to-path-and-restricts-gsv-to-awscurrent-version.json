@@ -29,4 +29,4 @@
         }
     ]
 }
-//snippet-end:[snippet.secretsmanager.grants_principal_read_to_path_access_and_gsv_to_AWSCURRENT.iam]
+//snippet-end:[snippet.secretsmanager.grants_principal_read_access_to_path_and_gsv_to_AWSCURRENT.iam]
