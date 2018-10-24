@@ -1,4 +1,3 @@
-
 //snippet-sourcedescription:[This resource-based policy demonstrates how to grant access to retrieve only the secret value to an IAM user.]
 //snippet-keyword:[IAM Policy]
 //snippet-keyword:[Code Sample]
@@ -7,8 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
+//snippet-start:[snippet.secretsmanager.grants_gsv_to_specific_user.iam]
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -20,3 +18,4 @@
         }
     ]
 }
+//snippet-end:[snippet.secretsmanager.grants_gsv_to_specific_user.iam]

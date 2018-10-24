@@ -1,5 +1,4 @@
- 
-//snippet-sourcedescription:[This resource-based policy shows how to grantan IAM role access to retrieve only the AWSCURRENT version of the attached secret.]
+//snippet-sourcedescription:[This resource-based policy shows how to grant an IAM role access to retrieve only the AWSCURRENT version of the attached secret.]
 //snippet-keyword:[IAM Policy]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
@@ -7,13 +6,13 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
+//snippet-start:[snippet.secretsmanager.grants_role_gsv_only_AWSCURRENT.iam]
 {
     "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
     "Effect": "Allow",
     "Principal":  {"AWS": "arn:aws:iam::123456789012:role/EncryptionApp" },
-    "Action": ["secretsmanager:GetSecret"],
+    "Action": ["secretsmanager:GetSecretValue"],
     "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
     "Resource": "*"
 }
+//snippet-end:[snippet.secretsmanager.grants_role_gsv_only_AWSCURRENT.iam]

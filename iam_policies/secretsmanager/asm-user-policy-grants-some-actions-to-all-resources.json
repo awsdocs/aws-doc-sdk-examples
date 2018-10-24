@@ -1,4 +1,3 @@
- 
 //snippet-sourcedescription:[This IAM identity-based policy shows how to grant read-only access to a secret.]
 //snippet-keyword:[IAM Policy]
 //snippet-keyword:[Code Sample]
@@ -7,17 +6,17 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
+//snippet-start:[snippet.secretsmanager.grant_read-only_access_to_secret.iam]
 {
-     "Version": "2012-10-17",
-     "Statement": {
-         "Effect": "Allow",
-         "Action": [
-             "secretsmanager:Describe*",
-             "secretsmanager:Get*",
-             "secretsmanager:List*" 
-         ],
-         "Resource": "*"
-     }
- }
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": [
+            "secretsmanager:Describe*",
+            "secretsmanager:Get*",
+            "secretsmanager:List*" 
+        ],
+        "Resource": "*"
+    }
+}
+//snippet-end:[snippet.secretsmanager.grant_read-only_access_to_secret.iam]
