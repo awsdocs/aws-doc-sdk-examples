@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[s3_setbucketpolicy.js demonstrates how to set/replace an Amazon S3 bucket policy.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]

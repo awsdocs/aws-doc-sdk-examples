@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[sqs_longpolling_createqueue.js demonstrates how to create an Amazon SQS queue that waits for a message to arrive.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]

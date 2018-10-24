@@ -1,9 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[cwe_puttargets.js demonstrates how to add or update a target to an Amazon CloudWatch Events rule.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]

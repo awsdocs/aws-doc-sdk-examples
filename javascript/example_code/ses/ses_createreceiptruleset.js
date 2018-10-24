@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ses_createreceiptruleset.js demonstrates how to create an empty Amazon SES rule set.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
@@ -26,7 +26,7 @@ var newRulePromise = new AWS.SES({apiVersion: '2010-12-01'}).createReceiptRuleSe
 newRulePromise.then(
   function(data) {
     console.log(data);
-  }).catch
+  }).catch(
     function(err) {
     console.error(err, err.stack);
   });

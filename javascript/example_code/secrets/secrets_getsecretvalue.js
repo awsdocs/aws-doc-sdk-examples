@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[secrets_getsecretvalue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-sourcedescription:[secrets_getsecretvalue.js demonstrates how to retrieve a secret from AWS Secrets Manager.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]

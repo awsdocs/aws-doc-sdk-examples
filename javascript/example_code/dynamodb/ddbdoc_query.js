@@ -1,8 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ddbdoc_query.js demonstrates how to use a DocumentClient to retrieve items from an Amazon DynamoDB table.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]

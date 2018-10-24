@@ -1,8 +1,8 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatch alarms.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
+//snippet-keyword:[Amazon CloudWatch]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]

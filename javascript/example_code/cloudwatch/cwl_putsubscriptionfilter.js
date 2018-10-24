@@ -1,9 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[cwl_putsubscriptionfilter.js demonstrates how to create or update a subscription filter for an Amazon CloudWatch Logs group.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]

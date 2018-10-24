@@ -1,9 +1,9 @@
  
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[cwl_deletesubscriptionfilter.js demonstrates how to delete an Amazon CloudWatch Logs filter.]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[daviddeyo]
