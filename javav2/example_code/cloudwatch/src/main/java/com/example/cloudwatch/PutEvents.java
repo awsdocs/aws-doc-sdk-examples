@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[PutEvents.java demonstrates how to ...]
+//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample CloudWatch event.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -63,4 +63,3 @@ public class PutEvents
         System.out.println("Successfully put CloudWatch event");
     }
 }
-
