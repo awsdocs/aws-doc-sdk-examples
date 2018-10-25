@@ -11,9 +11,9 @@ class S3Controller {
   private getS3Bucket(): any {
     const bucket = new S3(
       {
-        accessKeyId: '############',
-        secretAccessKey: '########################',
-        region: ''
+        accessKeyId: '/* access key here */',
+        secretAccessKey: '/* secret key here */',
+        region: '/* region here */'
       }
     );
 
@@ -90,4 +90,3 @@ class S3Controller {
     });
   }
 }
-
