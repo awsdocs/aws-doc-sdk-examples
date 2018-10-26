@@ -1,13 +1,14 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Creates a stack with an SQS queue, SNS topic, and subscribes the queue to the topic.]
+//snippet-keyword:[CDK V0.13.0]
+//snippet-keyword:[sqs.Queue function]
+//snippet-keyword:[sns.Topic function]
+//snippet-keyword:[Topic.subscribeQueue function]
 //snippet-keyword:[TypeScript]
-//snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+//snippet-service:[cdk]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-26]
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -38,8 +39,11 @@ class HelloCdkStack extends cdk.Stack {
     }
 }
 
-const app = new cdk.App(process.argv);
+class MyApp extends cdk.App {
+    constructor() {
+        super();
+        new HelloCdkStack(this, 'hello-cdk');
+    }
+}
 
-new HelloCdkStack(app, 'HelloCdkStack');
-
-process.stdout.write(app.run());
+new MyApp().run();
