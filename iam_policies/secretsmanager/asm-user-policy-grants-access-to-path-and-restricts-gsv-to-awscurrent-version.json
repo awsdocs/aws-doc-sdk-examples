@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[snippet.secretsmanager.grants_principal_read_access_to_path_and_gsv_to_AWSCURRENT.iam]
+//snippet-start:[secretsmanager.iam_policy.grants_principal_read_access_to_path_and_gsv_to_awscurrent]
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -29,4 +29,4 @@
         }
     ]
 }
-//snippet-end:[snippet.secretsmanager.grants_principal_read_access_to_path_and_gsv_to_AWSCURRENT.iam]
+//snippet-end:[secretsmanager.iam_policy.grants_principal_read_access_to_path_and_gsv_to_awscurrent]

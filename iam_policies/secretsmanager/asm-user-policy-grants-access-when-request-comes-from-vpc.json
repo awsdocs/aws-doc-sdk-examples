@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[snippet.secretsmanager.grants_access_from_specified_vpc.iam]
+//snippet-start:[secretsmanager.iam_policy.grants_access_from_specified_vpc]
 {
     "Id": "example-policy-1",
     "Version": "2012-10-17",
@@ -33,4 +33,4 @@
 
     ]
 }
-//snippet-end:[snippet.secretsmanager.grants_access_from_specified_vpc.iam]
+//snippet-end:[secretsmanager.iam_policy.grants_access_from_specified_vpc]
