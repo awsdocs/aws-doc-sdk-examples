@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[secretsmanager.iam_policy.grants_role_gsv_to_AWSCURRENT]
+//snippet-start:[secretsmanager.iam_policy.grants_role_gsv_to_awscurrent]
 {
   "Version" : "2012-10-17",
   "Statement" : [
@@ -23,4 +23,4 @@
     }
   ]
 }
-//snippet-end:[secretsmanager.iam_policy.grants_role_gsv_to_AWSCURRENT]
+//snippet-end:[secretsmanager.iam_policy.grants_role_gsv_to_awscurrent]

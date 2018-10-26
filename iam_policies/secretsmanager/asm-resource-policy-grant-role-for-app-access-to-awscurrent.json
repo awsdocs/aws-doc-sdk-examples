@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[secretsmanager.iam_policy.grants_role_gsv_only_AWSCURRENT]
+//snippet-start:[secretsmanager.iam_policy.grants_role_gsv_only_awscurrent]
 {
     "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
     "Effect": "Allow",
@@ -15,4 +15,4 @@
     "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
     "Resource": "*"
 }
-//snippet-end:[secretsmanager.iam_policy.grants_role_gsv_only_AWSCURRENT]
+//snippet-end:[secretsmanager.iam_policy.grants_role_gsv_only_awscurrent]
