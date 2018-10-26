@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[set_acl.cpp demonstrates how to set the access control list permissions of an Amazon S3 bucket or bucket object.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

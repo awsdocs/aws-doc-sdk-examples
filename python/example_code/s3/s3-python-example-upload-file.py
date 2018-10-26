@@ -23,3 +23,16 @@ bucket_name = 'my-bucket'
 # Uploads the given file using a managed uploader, which will split up large
 # files automatically and upload parts in parallel.
 s3.upload_file(filename, bucket_name, filename)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[s3-python-example-upload-file.py demonstrates how to add a file (or object) to an Amazon S3 bucket.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon S3]
+#snippet-service:[s3]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[This resource-based policy demonstrates how to grant access to only the AWSCURRENT version of the attached secret. Permissions are granted to an IAM role.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[secretsmanager.iam_policy.grants_role_gsv_to_AWSCURRENT]
 {
   "Version" : "2012-10-17",
   "Statement" : [
@@ -14,3 +23,4 @@
     }
   ]
 }
+//snippet-end:[secretsmanager.iam_policy.grants_role_gsv_to_AWSCURRENT]

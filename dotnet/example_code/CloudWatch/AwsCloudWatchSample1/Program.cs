@@ -1,3 +1,15 @@
+ 
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 ﻿/*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * 

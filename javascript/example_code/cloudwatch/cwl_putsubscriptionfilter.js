@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[cwl_putsubscriptionfilter.js demonstrates how to create or update a subscription filter for an Amazon CloudWatch Logs group.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[PutRule.java demonstrates how to create a CloudWatch event-routing rule.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

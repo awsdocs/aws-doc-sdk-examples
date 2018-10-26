@@ -27,3 +27,16 @@ response = acm.resend_validation_email(
 print(response)
 
 
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[resend_validation_email.py demonstrates how to resend the email that requests domain ownership validation.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Certificate Manager]
+#snippet-service:[acm]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-09-05]
+#snippet-sourceauthor:[walkerk1980]
+

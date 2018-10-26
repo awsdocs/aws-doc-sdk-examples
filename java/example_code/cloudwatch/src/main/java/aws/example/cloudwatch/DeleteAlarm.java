@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[DeleteAlarm.java demonstrates how to delete a CloudWatch alarm.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -46,4 +54,3 @@ public class DeleteAlarm {
         System.out.printf("Successfully deleted alarm %s", alarm_name);
     }
 }
-

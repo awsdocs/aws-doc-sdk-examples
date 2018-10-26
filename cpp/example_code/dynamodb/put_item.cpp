@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[put_item.cpp demonstrates how to put an item into an Amazon DynamoDB table.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
 Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

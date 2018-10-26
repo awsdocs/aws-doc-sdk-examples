@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[delete_topic.cpp demonstrates how to delete an Amazon SNS topic and all its subscriptions.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-service:[sns]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").

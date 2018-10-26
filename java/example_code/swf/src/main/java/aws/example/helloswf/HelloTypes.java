@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[HelloTypes.java demonstrates how to register a domain, activity type and a workflow type.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[swf]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
@@ -81,4 +88,3 @@ public class HelloTypes {
         registerActivityType();
     }
 }
-

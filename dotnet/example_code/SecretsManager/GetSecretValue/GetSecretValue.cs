@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/25/18]
+//snippet-sourceauthor:[AWS]
+
 /*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *

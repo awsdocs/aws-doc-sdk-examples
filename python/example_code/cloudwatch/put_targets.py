@@ -28,3 +28,16 @@ response = cloudwatch_events.put_targets(
     ]
 )
 print(response)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[put_target.py demonstrates how to define a target to respond to an event.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon Cloudwatch]
+#snippet-service:[cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

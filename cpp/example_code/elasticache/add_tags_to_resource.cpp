@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[add_tags_to_resource.cpp demonstrates how to add a cost allocation tag to an Amazon ElastiCache resource.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon ElastiCache]
+//snippet-service:[elaticache]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").

@@ -1,3 +1,12 @@
+ 
+//snippet-sourcedescription:[sample.js demonstrates how to get started using the AWS SDK for JavaScript.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

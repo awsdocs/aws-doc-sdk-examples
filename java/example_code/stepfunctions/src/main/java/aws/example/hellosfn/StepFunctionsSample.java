@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[StepFunctionsSample.java demonstrates how to make basic requests to Amazon Step Functions.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[states]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

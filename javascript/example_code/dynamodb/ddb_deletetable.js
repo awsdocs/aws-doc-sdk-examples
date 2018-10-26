@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[ddb_deletetable.js demonstrates how to delete an Amazon DynamoDB table.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

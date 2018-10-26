@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[DeleteNamedQueryExample.java demonstrates how to delete a named query by using the named query ID.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 package aws.example.athena;
 
 import com.amazonaws.services.athena.AmazonAthena;

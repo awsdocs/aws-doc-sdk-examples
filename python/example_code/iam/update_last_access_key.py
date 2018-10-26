@@ -23,3 +23,16 @@ iam.update_access_key(
     Status='Active',
     UserName='IAM_USER_NAME'
 )
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[update_last_access_key.py demonstrates how to update an IAM access key.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

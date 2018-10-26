@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete a key pair.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -47,4 +55,3 @@ public class DeleteKeyPair
             "Successfully deleted key pair named %s", key_name);
     }
 }
-

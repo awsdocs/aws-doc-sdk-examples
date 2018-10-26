@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[ec2_createkeypair.js demonstrates how to create an RSA key pair for an Amazon EC2 instance.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

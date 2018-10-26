@@ -21,3 +21,16 @@ cloudwatch = boto3.client('cloudwatch')
 cloudwatch.delete_alarms(
   AlarmNames=['Web_Server_CPU_Utilization'],
 )
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[delete_alarm.py demonstrates how to delete an array of Amazon CloudWatch alarms given the alarm names.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon Cloudwatch]
+#snippet-service:[cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

@@ -1,3 +1,13 @@
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Creates a snapshot of an RDS instance.]
+#snippet-keyword:[Amazon Relational Database Service]
+#snippet-keyword:[db_instance method]
+#snippet-keyword:[DBInstance.create_snapshot method]
+#snippet-keyword:[Ruby]
+#snippet-service:[rds]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

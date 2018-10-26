@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[create_table_composite_key.cpp demonstrates how to create an Amazon DynamoDB table that has a composite key.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
 Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

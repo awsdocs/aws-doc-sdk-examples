@@ -1,3 +1,15 @@
+ 
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

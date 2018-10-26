@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[DeleteTable.java demonstrates how to delete a DynamoDB table.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -60,4 +67,3 @@ public class DeleteTable
         System.out.println("Done!");
     }
 }
-

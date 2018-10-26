@@ -23,3 +23,16 @@ try:
 except ClientError as e:
     print(e)
 
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[describe_config_rules.py demonstrates how to retrieve information about an array of AWS Config rules. ]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Config]
+#snippet-service:[config]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-08]
+#snippet-sourceauthor:[walkerk1980]
+

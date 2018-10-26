@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[DeleteSubscriptionFilter.java demonstrates how to delete a CloudWatch subscription filter.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -51,4 +59,3 @@ public class DeleteSubscriptionFilter {
             filter);
     }
 }
-

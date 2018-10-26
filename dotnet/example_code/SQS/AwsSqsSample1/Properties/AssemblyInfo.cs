@@ -1,3 +1,15 @@
+ 
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

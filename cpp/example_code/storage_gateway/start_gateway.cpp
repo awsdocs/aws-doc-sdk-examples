@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[start_gateway.cpp demonstrates how to start an AWS Storage Gateway resource that was previously shut down.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Storage Gateway]
+//snippet-service:[storagegateway]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -34,7 +45,7 @@ int main(int argc, char ** argv)
 
     sg.SetGatewayARN(gateway_arn);
 
-    auto sg_out = storagegatway.StartGateway(sg_req);
+    auto sg_out = storagegateway.StartGateway(sg_req);
 
     if (sg_out.IsSuccess())
     {

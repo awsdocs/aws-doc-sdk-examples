@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[describe_alarms.cpp demonstrates how to list Amazon CloudWatch alarms.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

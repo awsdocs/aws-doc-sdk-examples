@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to list CloudWatch subscription filters associated with a log group.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -44,7 +52,7 @@ public class DescribeSubscriptionFilters {
                 new DescribeSubscriptionFiltersRequest()
                     .withLogGroupName(log_group)
                     .withLimit(1);
-        
+
         while(!done) {
 
             DescribeSubscriptionFiltersResult response =
@@ -68,4 +76,3 @@ public class DescribeSubscriptionFilters {
         }
     }
 }
-

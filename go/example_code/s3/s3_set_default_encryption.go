@@ -1,3 +1,13 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Enables KMS server-side encryption on any objects added to to an S3 bucket.]
+//snippet-keyword:[Amazon Simple Storage Service]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[PutBucketEncryption function]
+//snippet-keyword:[Go]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

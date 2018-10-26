@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[CreateApp.java demonstrates how to create an application in the Pinpoint dashboard.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[mobiletargeting]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -36,18 +43,18 @@ public class CreateApp {
         }
 
         String appName = args[0];
-        
+
         System.out.println("Creating an application with name: " + appName);
-            
+
 		AmazonPinpoint pinpoint = AmazonPinpointClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
-		
+
 		CreateApplicationRequest appRequest = new CreateApplicationRequest()
 				.withName(appName);
-		
+
 		CreateAppRequest request = new CreateAppRequest();
 		request.withCreateApplicationRequest(appRequest);
 		CreateAppResult result = pinpoint.createApp(request);
-		
+
 		String appID = result.getApplicationResponse().getId();
 		System.out.println("Application " + appName + " has been created.");
 		System.out.println("App ID is: " + appID);

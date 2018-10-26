@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[list_queues.cpp demonstrates how to retrieve a list of Amazon SQS queues for an AWS account.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[upload_archive.cpp demonstrates how to upload an archive to an Amazon Glacier vault.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Glacier]
+//snippet-service:[glacier]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").

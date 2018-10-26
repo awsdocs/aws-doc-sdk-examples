@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[change_message_visibility.cpp demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

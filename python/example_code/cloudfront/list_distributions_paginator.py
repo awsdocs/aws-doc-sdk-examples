@@ -31,4 +31,15 @@ for distributionlist in paginator.paginate():
         print("Certificate ARN: " + distribution['ViewerCertificate']['Certificate'])
       print("")
   else:    
-    print("Error - No CloudFront Distributions Detected.")
+    print("Error - No CloudFront Distributions Detected.") 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[list_distributions_paginator.py demonstrates how to list Amazon CloudFront distributions with the pagination interface.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon CloudFront]
+#snippet-service:[cloudfront]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-08-22]
+#snippet-sourceauthor:[walkerk1980]
