@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of CloudWatch subscription filters associated with a log group.]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]

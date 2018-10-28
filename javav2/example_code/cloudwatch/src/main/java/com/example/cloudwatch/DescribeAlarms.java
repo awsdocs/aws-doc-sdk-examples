@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get a information about CloudWatch alarms.]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]

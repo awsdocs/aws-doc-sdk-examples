@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[PutRule.java demonstrates how to creates a CloudWatch event-routing rule.]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]

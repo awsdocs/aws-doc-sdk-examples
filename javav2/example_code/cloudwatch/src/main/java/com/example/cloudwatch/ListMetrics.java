@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[ListMetrics.java demonstrates how to list CloudWatch metrics.]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
