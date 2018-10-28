@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to ...]
+//snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to use the streaming operations of an S3 asynchronous client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -56,7 +56,7 @@ public class S3AsyncStreamOps {
                 client.close();
             }
         });
-      
+
       futureGet.join();
     }
 }

@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to delete the website configuration for an S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -70,4 +70,3 @@ public class DeleteWebsiteConfiguration
         System.out.println("Done!");
     }
 }
-

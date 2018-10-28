@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DeleteBucketPolicy.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteBucketPolicy.java demonstrates how to delete a policy from an S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -26,7 +26,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteBucketPolicyRequest;
 
 /**
-* Get the bucket policy from an existing S3 bucket.
+* Delete a bucket policy from an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -68,5 +68,3 @@ public class DeleteBucketPolicy
       System.out.println("Done!");
    }
 }
-
-

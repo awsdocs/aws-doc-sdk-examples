@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to ...]
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create S3 buckets, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -69,14 +69,14 @@ public class S3ObjectOperations {
         String multipartKey = "multiPartKey";
         multipartUpload(bucket, multipartKey);
 
-        // List all objects in bucket 
+        // List all objects in bucket
 
         // Use manual pagination
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
                 .build();
-        
+
         boolean done = false;
         while (!done) {
             ListObjectsV2Response listObjResponse = s3.listObjectsV2(listObjectsReqManual);
@@ -92,13 +92,13 @@ public class S3ObjectOperations {
                     .continuationToken(listObjResponse.nextContinuationToken())
                     .build();
         }
-        
+
         // Build the list objects request
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
                 .build();
-        
+
         ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
         // Process response pages
         listRes.stream()
@@ -109,7 +109,7 @@ public class S3ObjectOperations {
         listRes.contents().stream()
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
-        // Use simple for loop if stream is not necessary 
+        // Use simple for loop if stream is not necessary
         for (S3Object content : listRes.contents()) {
             System.out.println(" Key: " + content.key() + " size = " + content.size());
         }
@@ -139,7 +139,7 @@ public class S3ObjectOperations {
                                                                  .locationConstraint(region.value())
                                                                  .build())
                                 .build());
-        
+
         System.out.println(bucket);
     }
 

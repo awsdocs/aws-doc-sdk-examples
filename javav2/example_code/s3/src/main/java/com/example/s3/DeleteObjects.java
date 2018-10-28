@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DeleteObjects.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteObjects.java demonstrates how to delete multiple objects from an S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[s3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -71,4 +71,3 @@ public class DeleteObjects
         System.out.println("Done!");
     }
 }
-
