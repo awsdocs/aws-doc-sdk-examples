@@ -61,7 +61,7 @@ public class CreateContainer
     public static Container createContainer(String name) {
         final AWSMediaStore mediastore = AWSMediaStoreClientBuilder.defaultClient();
         final CreateContainerRequest request = new CreateContainerRequest()
-            .withContainerName(name);
+            .withContainerName(name.trim());
         try {
             final CreateContainerResult result = mediastore.createContainer(request);
             return result.getContainer();
