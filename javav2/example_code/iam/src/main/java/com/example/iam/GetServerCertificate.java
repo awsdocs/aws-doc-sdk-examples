@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to ...]
+//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about an IAM server certifcate.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -55,4 +55,3 @@ public class GetServerCertificate {
                 response.serverCertificate().certificateBody());
     }
 }
-

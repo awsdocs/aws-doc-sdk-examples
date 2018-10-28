@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DeleteUser.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an IAM user. This is only possible for users with no associated resources.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -60,4 +60,3 @@ public class DeleteUser {
         System.out.println("Successfully deleted IAM user " + username);
     }
 }
-

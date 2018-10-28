@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[ListAccessKeys.java demonstrates how to ...]
+//snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list all access keys associated with an IAM user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -80,4 +80,3 @@ public class ListAccessKeys {
         }
     }
 }
-

@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[ListAccountAliases.java demonstrates how to ...]
+//snippet-sourcedescription:[ListAccountAliases.java demonstrates how to list all aliases associated with an AWS account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -41,4 +41,3 @@ public class ListAccountAliases {
         }
     }
 }
-

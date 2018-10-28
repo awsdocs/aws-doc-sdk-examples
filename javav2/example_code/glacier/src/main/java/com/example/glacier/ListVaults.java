@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[ListVaults.java demonstrates how to ...]
+//snippet-sourcedescription:[ListVaults.java demonstrates how to list all the Amazon Glacier vaults.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[glacier]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -55,7 +55,7 @@ public class ListVaults
         				.build();
                 response = glacier.listVaults(request);
         	}
-        	
+
             List<DescribeVaultOutput> vault_list = response.vaultList();
             for (DescribeVaultOutput v: vault_list) {
                 total_vaults += 1;
@@ -73,4 +73,3 @@ public class ListVaults
         }
     }
 }
-

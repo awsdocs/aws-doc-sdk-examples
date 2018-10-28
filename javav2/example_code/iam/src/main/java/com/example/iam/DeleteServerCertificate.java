@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DeleteServerCertificate.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteServerCertificate.java demonstrates how to delete an IAM server certificate.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -45,7 +45,7 @@ public class DeleteServerCertificate {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
-        
+
         DeleteServerCertificateRequest request =
             DeleteServerCertificateRequest.builder()
                 .serverCertificateName(cert_name).build();
@@ -57,4 +57,3 @@ public class DeleteServerCertificate {
                 cert_name);
     }
 }
-

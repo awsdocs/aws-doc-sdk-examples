@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to ...]
+//snippet-sourcedescription:[ListUsers.java demonstrates how to list all IAM users.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -65,4 +65,3 @@ public class ListUsers {
         }
     }
 }
-

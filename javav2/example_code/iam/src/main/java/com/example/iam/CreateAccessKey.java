@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[CreateAccessKey.java demonstrates how to ...]
+//snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an IAM user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -55,4 +55,3 @@ public class CreateAccessKey {
         System.out.println("Created access key: " + response.accessKey());
     }
 }
-
