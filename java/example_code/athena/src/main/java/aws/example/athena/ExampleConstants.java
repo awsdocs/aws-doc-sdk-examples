@@ -4,7 +4,7 @@
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 package aws.example.athena;
 
 public class ExampleConstants {
