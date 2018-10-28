@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[AllocateAddress.java demonstrates how to ...]
+//snippet-sourcedescription:[AllocateAddress.java demonstrates how to allocate an elastic IP address for an EC2 instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -73,4 +73,3 @@ public class AllocateAddress
             instance_id);
     }
 }
-

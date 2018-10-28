@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to ...]
+//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete an EC2 key pair.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -54,4 +54,3 @@ public class DeleteKeyPair
             "Successfully deleted key pair named %s", key_name);
     }
 }
-

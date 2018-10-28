@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to ...]
+//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get information about all the EC2 security groups.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -63,4 +63,3 @@ public class DescribeSecurityGroups
         }
     }
 }
-

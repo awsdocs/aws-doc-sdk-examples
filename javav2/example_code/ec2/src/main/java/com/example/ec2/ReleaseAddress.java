@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[ReleaseAddress.java demonstrates how to ...]
+//snippet-sourcedescription:[ReleaseAddress.java demonstrates how to release an elastic IP address.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
@@ -54,4 +54,3 @@ public class ReleaseAddress
             "Successfully released elastic IP address %s", alloc_id);
     }
 }
-
