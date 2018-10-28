@@ -4,7 +4,7 @@
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2018-01-15]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
