@@ -18,7 +18,7 @@ sns = boto3.client('sns')
 
 # Publish a simple message to the specified SNS topic
 response = sns.publish(
-    TopicArn='My-TopicArn',    
+    TopicArn='my-topic-arn',    
     Message='Hello World!',    
 )
 
