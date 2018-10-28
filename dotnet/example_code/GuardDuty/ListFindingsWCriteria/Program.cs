@@ -1,15 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ListFindingsWCriteria example demonstrates how to list findings with criteria filters.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 /*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -38,15 +35,15 @@ namespace ListFindingsWCriteria
         static void Main(string[] args)
         {
             String detectorId = "cdc02b15f9f520a8882c959g3e95c24b";
-            
+
             FindingCriteria criteria = new FindingCriteria();
-            
+
             Condition condition = new Condition();
             condition.Eq.Add("Recon:EC2/PortProbeUnprotectedPort");
             condition.Eq.Add("Recon:EC2/Portscan");
-            
+
             criteria.Criterion.Add("type", condition);
-            
+
             using(var gdClient = new AmazonGuardDutyClient(RegionEndpoint.USWest2))
             {
 
@@ -55,7 +52,7 @@ namespace ListFindingsWCriteria
                     DetectorId = detectorId,
                     FindingCriteria = criteria,
                 };
-    
+
                 Task<ListFindingsResponse> response = gdClient.ListFindingsAsync(request);
                 response.Wait();
 
