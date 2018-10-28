@@ -1,14 +1,11 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DetectEntities.cs demonstrates how to detect entities in a given sample string using the Comprehend client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[comprehend]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 using System;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;
@@ -32,7 +29,7 @@ namespace ComprehendSamples1
             };
             var detectEntitiesResponse = comprehendClient.DetectEntities(detectEntitiesRequest);
             foreach (var e in detectEntitiesResponse.Entities)
-                Console.WriteLine("Text: {1}, Type: {1}, Score: {2}, BeginOffset: {3}, EndOffset: {4}", 
+                Console.WriteLine("Text: {1}, Type: {1}, Score: {2}, BeginOffset: {3}, EndOffset: {4}",
                     e.Text, e.Type, e.Score, e.BeginOffset, e.EndOffset);
             Console.WriteLine("Done");
         }
