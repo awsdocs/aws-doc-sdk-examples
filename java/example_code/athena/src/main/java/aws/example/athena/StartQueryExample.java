@@ -1,9 +1,10 @@
 //snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Athena for execution, wait till results are available, and then process the results.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2018-06-25]
 //snippet-sourceauthor:[soo-aws]
 package aws.example.athena;
 
