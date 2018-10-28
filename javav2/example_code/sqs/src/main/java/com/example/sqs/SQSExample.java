@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SQSExample.java demonstrates how to ...]
+//snippet-sourcedescription:[SQSExample.java demonstrates how to create, list and delete queues.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
@@ -63,7 +63,7 @@ public class SQSExample {
         for (String url : listQueuesResponse.queueUrls()) {
         	System.out.println(url);
         }
-        
+
         // List queues with filters
         String name_prefix = "queue";
         ListQueuesRequest filterListRequest = ListQueuesRequest.builder()

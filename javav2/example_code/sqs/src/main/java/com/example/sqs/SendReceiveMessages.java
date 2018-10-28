@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to ...]
+//snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to send multiple messages to a queue, check for those messages and delete the messages once received.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
@@ -50,7 +50,7 @@ public class SendReceiveMessages
             CreateQueueResponse create_result = sqs.createQueue(request);
         } catch (QueueNameExistsException e) {
         	throw e;
-        		
+
         }
 
         GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
@@ -99,4 +99,3 @@ public class SendReceiveMessages
         }
     }
 }
-

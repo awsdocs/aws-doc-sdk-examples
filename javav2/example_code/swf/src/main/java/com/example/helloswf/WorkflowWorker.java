@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[WorkflowWorker.java demonstrates how to ...]
+//snippet-sourcedescription:[WorkflowWorker.java demonstrates how to poll for a decision task in a task list.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
@@ -148,4 +148,3 @@ public class WorkflowWorker {
                 .build());
     }
 }
-

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ActivityWorker.java demonstrates how to ...]
+//snippet-sourcedescription:[ActivityWorker.java demonstrates how to implement an activity worker that polls for tasks in a task list and executes its task.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]

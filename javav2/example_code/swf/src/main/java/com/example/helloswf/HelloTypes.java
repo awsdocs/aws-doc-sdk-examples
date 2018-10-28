@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[HelloTypes.java demonstrates how to ...]
+//snippet-sourcedescription:[HelloTypes.java demonstrates how to register a domain, activity type and a workflow type.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
@@ -89,4 +89,3 @@ public class HelloTypes {
         registerActivityType();
     }
 }
-
