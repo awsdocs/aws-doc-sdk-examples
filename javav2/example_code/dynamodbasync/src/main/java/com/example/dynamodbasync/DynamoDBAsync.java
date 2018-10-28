@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[DynamoDBAsync.java demonstrates how to use the asynchronous DynamoDB client to list tables.]
-//snippet-keyword:[Java v2]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]

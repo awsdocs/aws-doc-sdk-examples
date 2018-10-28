@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[AsyncPagination.java demonstrates how to use auto pagination with the asynchronous DynamoDB client for responses with multiple pages of data.]
-//snippet-keyword:[Java v2]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]

@@ -1,10 +1,10 @@
 //snippet-sourcedescription:[logging.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 package com.example.general;
 
 import org.apache.logging.log4j.Logger;
