@@ -1,10 +1,10 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+
+//snippet-sourcedescription:[StopQueryExecutionExample.cs demonstrates how to run an example query, immediately stop the query, and check the status of the query to ensure that it was cancelled.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
@@ -49,7 +49,7 @@ namespace AthenaSamples1
             {
                 QueryExecutionId = sampleQueryExecutionId
             };
-            
+
 
             var getQueryExecutionResponse = athenaClient.GetQueryExecution(getQueryExecutionRequest);
             if (getQueryExecutionResponse.QueryExecution.Status.State == QueryExecutionState.CANCELLED)
