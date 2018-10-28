@@ -2,6 +2,7 @@
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Rekognition]
 //snippet-service:[rekognition]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
