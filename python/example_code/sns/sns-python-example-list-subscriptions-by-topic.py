@@ -17,7 +17,7 @@ import boto3
 sns = boto3.client('sns')
 
 # Call SNS to list the first 100 subscriptions for the specified topic
-response = sns.list_subscriptions_by_topic(TopicArn='arn:aws:sns:us-east-1:498728702374:new_posts')
+response = sns.list_subscriptions_by_topic(TopicArn='my-topic-arn')
 
 # Get a list of subscriptions from the response
 subscriptions = [subscription for subscription in response['Subscriptions']]
