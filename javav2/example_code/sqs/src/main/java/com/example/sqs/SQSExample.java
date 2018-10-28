@@ -22,7 +22,7 @@
 package com.example.sqs;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
@@ -43,7 +43,7 @@ public class SQSExample {
 
     public static void main(String[] args) {
         String queueName = "queue" + System.currentTimeMillis();
-        SQSClient sqsClient = SQSClient.builder().region(Region.US_WEST_2).build();
+        SqsClient sqsClient = SqsClient.builder().region(Region.US_WEST_2).build();
 
         System.out.println("\nCreate Queue");
         CreateQueueRequest createQueueRequest = CreateQueueRequest.builder().queueName(queueName).build();
