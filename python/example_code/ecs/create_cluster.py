@@ -12,13 +12,19 @@
 
 
 import boto3
+
+# Create ECS client
 try:
-  ecs_client = boto3.client('ecs', region_name='REGION')
-  response = ecs_client.create_cluster(clusterName='CLUSTER_NAME')
+  ecs_client = boto3.client('ecs')
+  
+  response = ecs_client.create_cluster(
+    clusterName='CLUSTER_NAME'
+  )
   print(response)
 
 except BaseException as exe:
     print(exe)
+    
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[create_cluster.py demonstrates how to create an Amazon ECS cluster.]
 #snippet-keyword:[Python]
