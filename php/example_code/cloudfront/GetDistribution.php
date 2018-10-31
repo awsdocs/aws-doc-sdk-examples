@@ -37,11 +37,11 @@ $client = new Aws\CloudFront\CloudFrontClient([
     'region' => 'us-east-2'
 ]);
 
-$id = 'E1A2B3C4D5E';
+$distributionId = 'E1A2B3C4D5E';
 
 try {
     $result = $client->getDistribution([
-        'Id' => $id, //REQUIRED
+        'Id' => $distributionId, //REQUIRED
     ]);
     print("<p>The Distribution " . $result['Distribution']['Id'] . " is currently " . $result['Distribution']['Status'] . "</p>");
     var_dump($result);
@@ -50,3 +50,15 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[GetDistribution.php demonstrates how to retrieve an Amazon CloudFront Distribution.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[getDistribution]
+//snippet-keyword:[Amazon CloudFront]
+//snippet-service:[cloudfront]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-30]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]

@@ -88,3 +88,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[DisableDistribution.php demonstrates how to disable an Amazon CloudFront Distribution so it can be deleted.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[updateDistribution]
+//snippet-keyword:[getDistribution]
+//snippet-keyword:[Amazon CloudFront]
+//snippet-service:[cloudfront]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-30]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]

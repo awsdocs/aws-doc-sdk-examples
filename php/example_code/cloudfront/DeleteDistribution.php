@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 
 
 /**
- * Removes an Amazon CloudFront Distribution.
+ * Delete an Amazon CloudFront Distribution that has been disabled.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -62,3 +62,15 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[DeleteDistribution.php demonstrates how to delete an Amazon CloudFront Distribution that has been disabled.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[deleteDistribution]
+//snippet-keyword:[Amazon CloudFront]
+//snippet-service:[cloudfront]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-30]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
