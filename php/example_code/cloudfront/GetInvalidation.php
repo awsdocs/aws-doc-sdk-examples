@@ -51,3 +51,15 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidated Amazon CloudFront Distribution.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[getInvalidation]
+//snippet-keyword:[Amazon CloudFront]
+//snippet-service:[cloudfront]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-30]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]

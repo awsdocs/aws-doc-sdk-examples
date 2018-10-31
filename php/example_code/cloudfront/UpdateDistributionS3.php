@@ -50,7 +50,6 @@ try {
     echo "\n";
 }
 
-$enabled = false;
 $currentConfig = $result["Distribution"]["DistributionConfig"];
 $ETag = $result["ETag"];
 
@@ -85,3 +84,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront Distribution and change any of the configurations. To make changes replace the $currentConfig value with a new value]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[updateDistribution]
+//snippet-keyword:[getDistribution]
+//snippet-keyword:[Amazon CloudFront]
+//snippet-service:[cloudfront]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-30]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
