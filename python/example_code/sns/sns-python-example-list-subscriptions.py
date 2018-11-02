@@ -20,7 +20,9 @@ sns = boto3.client('sns')
 response = sns.list_subscriptions()
 
 # Get a list of subscriptions from the response
-subscriptions = [subscription for subscription in response['Subscriptions']]
+subscriptions = []
+for subscription in response['Subscriptions']:
+    subscriptions.append(subscription)
 
 # Print out the subscriptions list
 print("Subscription List: %s" % subscriptions)
