@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>WS SDK for JavaScript - Browser Getting Started Application</title>
+<title>AWS SDK for JavaScript - Browser Getting Started Application</title>
 </head>
 
 <body>
@@ -48,6 +48,7 @@
 		    } else {
 			  audioSource.src = url;
 			  document.getElementById('result').innerHTML = "Speech ready to play.";
+			  document.getElementById('audioPlayback').load();
 		    }
 		  });
 		}
