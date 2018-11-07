@@ -83,7 +83,7 @@ begin
     # configuration_set_name: configsetname,
   )
 
-  puts 'Email sent to ' + email_address
+  puts 'Email sent to ' + recipient
 
 
 # If something goes wrong, display an error message.
