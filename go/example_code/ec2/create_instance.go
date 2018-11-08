@@ -7,7 +7,7 @@
 //snippet-keyword:[Go]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+//snippet-sourcedate:[2018-11-08]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -22,7 +22,25 @@
    specific language governing permissions and limitations under the License.
 */
 
-    svc := ec2.New(session.New(&aws.Config{Region: aws.String("us-west-2")}))
+package main
+
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/ec2"
+
+    "fmt"
+    "log"
+)
+
+func main() {
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+
+    // Create EC2 service client
+    svc := ec2.New(sess)
+
     // Specify the details of the instance that you want to create.
     runResult, err := svc.RunInstances(&ec2.RunInstancesInput{
         // An Amazon Linux AMI ID for t2.micro instances in the us-west-2 region
@@ -33,14 +51,14 @@
     })
 
     if err != nil {
-        log.Println("Could not create instance", err)
+        fmt.Println("Could not create instance", err)
         return
     }
 
-    log.Println("Created instance", *runResult.Instances[0].InstanceId)
+    fmt.Println("Created instance", *runResult.Instances[0].InstanceId)
 
     // Add tags to the created instance
-    _ , errtag := svc.CreateTags(&ec2.CreateTagsInput{
+    _, errtag := svc.CreateTags(&ec2.CreateTagsInput{
         Resources: []*string{runResult.Instances[0].InstanceId},
         Tags: []*ec2.Tag{
             {
@@ -54,4 +72,5 @@
         return
     }
 
-    log.Println("Successfully tagged instance")
+    fmt.Println("Successfully tagged instance")
+}
