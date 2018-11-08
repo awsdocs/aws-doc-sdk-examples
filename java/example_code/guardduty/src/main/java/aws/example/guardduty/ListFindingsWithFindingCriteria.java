@@ -4,7 +4,7 @@
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2018-06-26]
 //snippet-sourceauthor:[Keith Walker]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an EC2 security group.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -80,7 +80,7 @@ public class CreateSecurityGroup
             .ipv4Ranges(ip_range)
             .build();
 
-        AuthorizeSecurityGroupIngressRequest auth_request = 
+        AuthorizeSecurityGroupIngressRequest auth_request =
             AuthorizeSecurityGroupIngressRequest.builder()
                 .groupName(group_name)
                 .ipPermissions(ip_perm, ip_perm2)
@@ -94,4 +94,3 @@ public class CreateSecurityGroup
             group_name);
     }
 }
-

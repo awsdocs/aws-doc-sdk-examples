@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[snippet.secretsmanager.grants_admin_from_one_vpc_and_read_secret_value_only_from_another.iam]
+//snippet-start:[secretsmanager.iam_policy.grants_admin_from_one_vpc_and_read_secret_value_only_from_another]
 {
     "Id": "example-policy-2",
     "Version": "2012-10-17",
@@ -55,4 +55,4 @@
         }
     ]
 }
-//snippet-end:[snippet.secretsmanager.grants_admin_from_one_vpc_and_read_secret_value_only_from_another.iam]
+//snippet-end:[secretsmanager.iam_policy.grants_admin_from_one_vpc_and_read_secret_value_only_from_another]

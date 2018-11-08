@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[AccessKeyLastUsed.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[AccessKeyLastUsed.java demonstrates how to display the time that an access key was last used.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -55,4 +55,3 @@ public class AccessKeyLastUsed {
                 response.accessKeyLastUsed().lastUsedDate());
     }
 }
-

@@ -5,7 +5,7 @@
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

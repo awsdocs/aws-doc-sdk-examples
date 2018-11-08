@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[download_user_doc.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[download_user_doc.java demonstrates how to download a document from AWS Workdocs.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[workdocs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 package com.example.workdocs;
 
 import java.io.InputStream;
@@ -120,10 +120,10 @@ public class download_user_doc {
             System.out.println(USAGE);
             System.exit(1);
         }
-        
+
         String orgId = args[0];
         String userEmail = args[1];
-        
+
 		// Create default client
 		WorkDocsClient workDocs = WorkDocsClient.create();
 

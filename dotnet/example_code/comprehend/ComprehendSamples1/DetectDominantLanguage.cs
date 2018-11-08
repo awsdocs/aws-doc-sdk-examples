@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DetechDominantLanguage.cs demonstrates how to get the language code for the dominant language detected for a sample string.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon Comprehend]
+//snippet-service:[comprehend]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 using System;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;

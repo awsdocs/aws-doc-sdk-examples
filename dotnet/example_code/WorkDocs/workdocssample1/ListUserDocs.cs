@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to list user documents in a folder from Amazon Workdocs.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon WorkDocs]
+//snippet-service:[workdocs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +20,7 @@ namespace WorkdocsSample1
 {
     class ListUserDocs
     {
-        private static String GetUserFolderId(AmazonWorkDocsClient wdClient, String orgId, String user) 
+        private static String GetUserFolderId(AmazonWorkDocsClient wdClient, String orgId, String user)
         {
             var wdDescribeUsersRequest = new DescribeUsersRequest()
             {

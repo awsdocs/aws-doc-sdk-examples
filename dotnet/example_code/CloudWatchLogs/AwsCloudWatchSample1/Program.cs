@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[CloudWatchLogs example demonstrates how to create a log group in CloudWatch and upload log events.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 ﻿/*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -30,7 +28,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.IO;
- 
+
 using Amazon.CloudWatchLogs;
 using Amazon.CloudWatchLogs.Model;
 namespace AwsCloudWatchSample1
@@ -119,7 +117,7 @@ namespace AwsCloudWatchSample1
                 Console.WriteLine("Found " + results.Count.ToString() + " match records");
                 IEnumerator ie = results.GetEnumerator();
                 while (ie.MoveNext())
-                { 
+                {
                     MetricFilterMatchRecord mfmr = (MetricFilterMatchRecord)ie.Current;
                     Console.WriteLine("Event Message = " + mfmr.EventMessage);
                 }

@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[DeadLetterQueues.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[DeadLetterQueues.java demonstrates how to set a queue as a dead letter queue.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -50,7 +50,7 @@ public class DeadLetterQueues
         String dl_queue_name = args[1];
 
         SQSClient sqs = SQSClient.builder().region(Region.US_WEST_2).build();
-        
+
         CreateQueueRequest request = CreateQueueRequest.builder()
         		.queueName(src_queue_name).build();
 
@@ -59,21 +59,21 @@ public class DeadLetterQueues
             sqs.createQueue(request);
         } catch (QueueNameExistsException e) {
         	throw e;
-        	
+
         }
 
         CreateQueueRequest dlrequest = CreateQueueRequest.builder()
         		.queueName(dl_queue_name).build();
-        
+
         // Create dead-letter queue
         try {
             sqs.createQueue(dlrequest);
         } catch (QueueNameExistsException e) {
         	throw e;
-        	
+
         }
-        
-        
+
+
         GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
         		.queueName(dl_queue_name)
         		.build();
@@ -81,7 +81,7 @@ public class DeadLetterQueues
         // Get dead-letter queue ARN
         String dl_queue_url = sqs.getQueueUrl(getRequest)
                                  .queueUrl();
-        
+
         GetQueueAttributesResponse queue_attrs = sqs.getQueueAttributes(
                 GetQueueAttributesRequest.builder()
                 .queueUrl(dl_queue_url)
@@ -93,14 +93,14 @@ public class DeadLetterQueues
         GetQueueUrlRequest getRequestSource = GetQueueUrlRequest.builder()
         		.queueName(src_queue_name)
         		.build();
-        
+
         String src_queue_url = sqs.getQueueUrl(getRequestSource)
                                   .queueUrl();
 
         HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
         attributes.put(QueueAttributeName.REDRIVE_POLICY, "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
                 + dl_queue_arn + "\"}");
-        
+
         SetQueueAttributesRequest setAttrRequest = SetQueueAttributesRequest.builder()
                 .queueUrl(src_queue_url)
                 .attributes(attributes)
@@ -109,4 +109,3 @@ public class DeadLetterQueues
         SetQueueAttributesResponse setAttrResponse = sqs.setQueueAttributes(setAttrRequest);
     }
 }
-

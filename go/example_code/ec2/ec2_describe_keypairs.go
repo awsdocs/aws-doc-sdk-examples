@@ -24,11 +24,12 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
+    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/ec2"
+
+    "fmt"
+    "os"
 )
 
 // Returns a list of Key Pairs stored in EC2..

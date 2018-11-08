@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[list_users.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[list_users.java demonstrates how to list the users for an organization.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[workdocs]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 package com.example.workdocs;
 
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class list_users {
             System.out.println(USAGE);
             System.exit(1);
         }
-        
+
         String orgId = args[0];
-	        
+
 		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the values
 		WorkDocsClient workDocs = WorkDocsClient.create();
 
@@ -41,7 +41,7 @@ public class list_users {
 
 		do {
 			DescribeUsersResponse result;
-			
+
 			if(marker == null)
 			{
 				DescribeUsersRequest request = DescribeUsersRequest.builder()

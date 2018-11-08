@@ -56,7 +56,7 @@ func main() {
     svc := ec2.New(sess)
 
     // Attempt to release the Elastic IP address.
-    _, err := svc.ReleaseAddress(&ec2.ReleaseAddressInput{
+    _, err = svc.ReleaseAddress(&ec2.ReleaseAddressInput{
         AllocationId: aws.String(allocationID),
     })
     if err != nil {

@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[ExampleConstants.cs contains definitions for constants used in Athena examples.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 ﻿using System;
 
 namespace AthenaSamples1

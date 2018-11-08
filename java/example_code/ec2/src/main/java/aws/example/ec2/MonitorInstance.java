@@ -4,8 +4,8 @@
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-05-22]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[UsingBatchAPIs.cs demonstrates how to detect entities on a batch of strings using the Comprehend client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[comprehend]
+//snippet-keyword:[Amazon Comprehend]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 using System;
 using System.Collections.Generic;
 using Amazon.Comprehend;

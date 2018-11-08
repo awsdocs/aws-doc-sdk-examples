@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to use the Rx Java library to simplify processing of Kinesis streams.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[kinesis]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -48,7 +48,7 @@ public class KinesisStreamRxJavaEx {
      * to create an Rx Flowable.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
-    
+
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
             .builder()
             .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
@@ -60,9 +60,9 @@ public class KinesisStreamRxJavaEx {
                                         .subscribe(e -> System.out.println("Record batch = " + e)))
             .build();
         return client.subscribeToShard(request, responseHandler);
-    
+
     }
-    
+
     /**
      * Since a Flowable is also a publisher, the publisherTransformer method integrates nicely with RxJava. Note that
      * you must adapt to an SdkPublisher.
@@ -77,13 +77,13 @@ public class KinesisStreamRxJavaEx {
     }
 
     public static void main(String[] args) {
-        
-    	
-    	
-    	
-    	
-    	
- 
+
+
+
+
+
+
+
         KinesisAsyncClient client = KinesisAsyncClient.create();
 
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
@@ -91,12 +91,11 @@ public class KinesisStreamRxJavaEx {
                 .shardId("shardId-000000000000")
                 .startingPosition(StartingPosition.builder().type(ShardIteratorType.LATEST).build())
                 .build();
-        
+
         responseHandlerBuilder_RxJava(client, request).join();
 
         client.close();
     }
-    
-    
-}
 
+
+}

@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[S3BucketOps.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[S3BucketOps.java demonstrates how to create, list and delete S3 buckets.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -52,7 +52,7 @@ public class S3BucketOps {
         ListBucketsRequest listBucketsRequest = ListBucketsRequest.builder().build();
         ListBucketsResponse listBucketsResponse = s3.listBuckets(listBucketsRequest);
         listBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
-	    
+
         // Delete empty bucket
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
         s3.deleteBucket(deleteBucketRequest);

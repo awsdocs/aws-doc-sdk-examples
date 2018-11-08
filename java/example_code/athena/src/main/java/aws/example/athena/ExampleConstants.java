@@ -1,10 +1,11 @@
 //snippet-sourcedescription:[ExampleConstants.java demonstrates how to query a table created by the getting started tutorial in Athena]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-06-25]
+//snippet-sourceauthor:[soo-aws]
 package aws.example.athena;
 
 public class ExampleConstants {

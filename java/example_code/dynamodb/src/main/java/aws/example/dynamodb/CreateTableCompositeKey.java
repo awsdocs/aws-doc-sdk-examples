@@ -1,10 +1,11 @@
 //snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to ceate a DynamoDB table with a composite key.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

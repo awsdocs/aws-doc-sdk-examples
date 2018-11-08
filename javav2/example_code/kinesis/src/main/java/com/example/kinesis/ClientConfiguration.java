@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[ClientConfiguration.java demonstrates how to ...]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[ClientConfiguration.java demonstrates how to configure an HTTP client in the Kinesis asynchronous client.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-service:[kinesis]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -26,7 +26,7 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 
 public class ClientConfiguration {
-	
+
 	public static void main(String[] args) {
 		// If configured with an httpClientBuilder, the SDK will manage the lifecycle of the HTTP client
         // and it will be shutdown when the client is shut down.
@@ -42,11 +42,11 @@ public class ClientConfiguration {
                 .maxConcurrency(100)
                 .maxPendingConnectionAcquires(10_000)
                 .build();
-        
+
         KinesisAsyncClient kinesisClient = KinesisAsyncClient.builder()
         		.httpClient(httpClient)
         		.build();
-        
+
         httpClient.close();
 	}
 

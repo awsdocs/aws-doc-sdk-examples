@@ -55,7 +55,7 @@ func main() {
     svc := ec2.New(sess)
 
     // Delete the security group.
-    _, err := svc.DeleteSecurityGroup(&ec2.DeleteSecurityGroupInput{
+    _, err = svc.DeleteSecurityGroup(&ec2.DeleteSecurityGroupInput{
         GroupId: aws.String(groupID),
     })
     if err != nil {

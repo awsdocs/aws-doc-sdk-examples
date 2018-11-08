@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[mediastore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2018-11-06]
 //snippet-sourceauthor:[rhcarvalho]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -87,7 +87,7 @@ public class ListItems
     public static String getContainerEndpoint(String name) {
         final AWSMediaStore mediastore = AWSMediaStoreClientBuilder.defaultClient();
         final DescribeContainerRequest request = new DescribeContainerRequest()
-            .withContainerName(name);
+            .withContainerName(name.trim());
         try {
             final DescribeContainerResult result = mediastore.describeContainer(request);
             return result.getContainer().getEndpoint();

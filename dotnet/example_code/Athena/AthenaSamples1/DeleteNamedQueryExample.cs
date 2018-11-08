@@ -1,14 +1,12 @@
- 
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[DeleteNamedQueryExample.cs demonstrates how to delete a named query by using the named query ID.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
 //snippet-keyword:[Code Sample]
-//snippet-service:[<<ADD SERVICE>>]
-//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
-
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -51,7 +49,7 @@ namespace AthenaSamples1
         {
             // Create the NameQuery Request.
             CreateNamedQueryRequest createNamedQueryRequest = new CreateNamedQueryRequest()
-            { 
+            {
                 Database = ExampleConstants.ATHENA_DEFAULT_DATABASE,
                 QueryString = ExampleConstants.ATHENA_SAMPLE_QUERY,
                 Name = "SampleQueryName",

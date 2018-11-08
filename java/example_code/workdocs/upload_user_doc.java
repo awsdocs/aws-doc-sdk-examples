@@ -4,7 +4,7 @@
 //snippet-service:[workdocs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[Doug-AWS]
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
