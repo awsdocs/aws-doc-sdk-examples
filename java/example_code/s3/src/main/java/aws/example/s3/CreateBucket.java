@@ -5,7 +5,7 @@
 //snippet-keyword:[createBucket]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-05-17]
+//snippet-sourcedate:[2018-11-06]
 //snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

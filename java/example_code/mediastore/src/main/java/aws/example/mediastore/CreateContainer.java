@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[mediastore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-06]
+//snippet-sourcedate:[2018-11-06]
 //snippet-sourceauthor:[rhcarvalho]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -61,7 +61,7 @@ public class CreateContainer
     public static Container createContainer(String name) {
         final AWSMediaStore mediastore = AWSMediaStoreClientBuilder.defaultClient();
         final CreateContainerRequest request = new CreateContainerRequest()
-            .withContainerName(name);
+            .withContainerName(name.trim());
         try {
             final CreateContainerResult result = mediastore.createContainer(request);
             return result.getContainer();
