@@ -85,7 +85,7 @@ public class SetBucketPolicy
         			.build();
             s3.putBucketPolicy(policyReq);
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }

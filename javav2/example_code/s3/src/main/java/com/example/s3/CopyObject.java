@@ -66,7 +66,7 @@ public class CopyObject
         	CopyObjectResponse copyRes = s3.copyObject(copyReq);
         	System.out.println(copyRes.copyObjectResult().toString());
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");

@@ -43,7 +43,7 @@ public class S3BucketOps {
                 .builder()
                 .bucket(bucket)
                 .createBucketConfiguration(CreateBucketConfiguration.builder()
-                                                                    .locationConstraint(region.value())
+                                                                    .locationConstraint(region.id())
                                                                     .build())
                 .build();
         s3.createBucket(createBucketRequest);

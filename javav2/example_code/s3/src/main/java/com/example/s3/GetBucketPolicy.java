@@ -65,7 +65,7 @@ public class GetBucketPolicy
          GetBucketPolicyResponse policy_res = s3.getBucketPolicy(policyReq);
          policy_text = policy_res.policy();
       } catch (S3Exception e) {
-         System.err.println(e.errorMessage());
+         System.err.println(e.awsErrorDetails().errorMessage());
          System.exit(1);
       }
 

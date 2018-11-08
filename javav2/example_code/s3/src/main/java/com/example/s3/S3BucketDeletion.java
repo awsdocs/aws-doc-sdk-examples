@@ -82,7 +82,7 @@ public class S3BucketDeletion {
                                 .bucket(bucket)
                                 .createBucketConfiguration(
                                         CreateBucketConfiguration.builder()
-                                                                 .locationConstraint(region.value())
+                                                                 .locationConstraint(region.id())
                                                                  .build())
                                 .build());
     }

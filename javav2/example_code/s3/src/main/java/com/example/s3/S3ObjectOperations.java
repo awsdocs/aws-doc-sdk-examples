@@ -136,7 +136,7 @@ public class S3ObjectOperations {
                                 .bucket(bucket)
                                 .createBucketConfiguration(
                                         CreateBucketConfiguration.builder()
-                                                                 .locationConstraint(region.value())
+                                                                 .locationConstraint(region.id())
                                                                  .build())
                                 .build());
         
