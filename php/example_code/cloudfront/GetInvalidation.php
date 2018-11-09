@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 
 
 /**
- * Retrieve information about an invalidated Amazon CloudFront Distribution.
+ * Retrieve information about an invalidation issued for an Amazon CloudFront Distribution.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -53,7 +53,7 @@ try {
 }
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidated Amazon CloudFront Distribution.]
+//snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an  Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
