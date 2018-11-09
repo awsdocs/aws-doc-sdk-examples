@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 
 
 /**
- * Invalidates an Amazon CloudFront Distribution.
+ * Invalidates a cached object on the specified path of an Amazon CloudFront Distribution.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
@@ -59,7 +59,7 @@ try {
 }
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateInvalidation.php demonstrates how to invalidate an Amazon CloudFront Distribution.]
+//snippet-sourcedescription:[CreateInvalidation.php demonstrates how to invalidate cached objects in an Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
