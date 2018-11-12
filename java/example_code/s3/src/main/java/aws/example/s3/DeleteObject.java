@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[DeleteObject.java demonstrates how to delete an existing object.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[deleteObject]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -54,4 +63,3 @@ public class DeleteObject
         System.out.println("Done!");
     }
 }
-

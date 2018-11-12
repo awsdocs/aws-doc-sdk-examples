@@ -12,9 +12,9 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
+ * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
- *
- * This rule will save the received message to an Amazon S3 bucket.
  */
 
 require 'vendor/autoload.php';
@@ -26,7 +26,7 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $rule_name = 'Rule_Name';
@@ -34,7 +34,7 @@ $rule_set_name = 'Rule_Set_Name';
 $s3_bucket = 'Bucket_Name';
 
 try {
-    $result = $SesClient->createReceiptRuleSet([
+    $result = $SesClient->createReceiptRule([
         'Rule' => [
             'Actions' => [
                 [
@@ -46,8 +46,10 @@ try {
             'Name' => $rule_name,
             'ScanEnabled' => true,
             'TlsPolicy' => 'Optional',
+            'Recipients' => ['<string>', ...]
         ],
         'RuleSetName' =>  $rule_set_name,
+        
      ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -55,3 +57,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[Create_Rule.php demonstrates how to control your incoming email by adding a receipt rule to an existing receipt rule set. This example shows you how to create a receipt rule that sends incoming messages to an Amazon S3 bucket, but you can also send messages to Amazon SNS, and AWS Lambda.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

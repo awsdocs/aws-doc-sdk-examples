@@ -1,3 +1,13 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Deletes an SES email address.]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-keyword:[Amazon SES]
+//snippet-keyword:[DeleteVerifiedEmailAddress function]
+//snippet-keyword:[Go]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

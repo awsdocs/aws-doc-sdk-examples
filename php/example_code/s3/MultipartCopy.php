@@ -35,7 +35,7 @@ $s3Client = new S3Client([
 //Copy objects within S3
 $copier = new MultipartCopy($s3Client, '/bucket/key?versionId=foo', [
     'bucket' => 'your-bucket',
-    'key'    => 'my-file.zip',
+    'key' => 'my-file.zip',
 ]);
 
 try {
@@ -44,3 +44,16 @@ try {
 } catch (MultipartUploadException $e) {
     echo $e->getMessage() . "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[MultipartCopy.php demonstrates how to copy files sized 5 GB to 5 TB.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an S3 bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -39,19 +46,19 @@ public class SetWebsiteConfiguration
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-        
+
         PutBucketWebsiteRequest pubWebsiteReq = PutBucketWebsiteRequest.builder()
         		.bucket(bucket_name)
         		.websiteConfiguration(website_config)
         		.build();
-        
+
         try {
             s3.putBucketWebsite(pubWebsiteReq);
         } catch (S3Exception e) {
             System.out.format(
                 "Failed to set website configuration for bucket '%s'!\n",
                 bucket_name);
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
@@ -80,4 +87,3 @@ public class SetWebsiteConfiguration
         setWebsiteConfig(bucket_name, index_doc, error_doc);
     }
 }
-

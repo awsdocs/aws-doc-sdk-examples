@@ -24,4 +24,16 @@ for user in users:
     print("User {} created on {}".format(
         user.user_name,
         user.create_date
-    ))
+    )) 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[list_users_with_resource.py demonstrates how to list your IAM users.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

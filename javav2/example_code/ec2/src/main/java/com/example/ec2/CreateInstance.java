@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an EC2 instance.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -75,7 +82,6 @@ public class CreateInstance
         	System.exit(1);
         }
         System.out.println("Done!");
-        
+
     }
 }
-

@@ -37,3 +37,16 @@ cloudwatch.put_metric_alarm(
     ],
     Unit='Seconds'
 )
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[put_metric_alarm.py demonstrates how to create or update an alarm and associate it with the specified metric.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon Cloudwatch]
+#snippet-service:[cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

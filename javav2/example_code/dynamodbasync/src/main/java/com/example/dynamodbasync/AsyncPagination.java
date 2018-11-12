@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[AsyncPagination.java demonstrates how to use auto pagination with the asynchronous DynamoDB client for responses with multiple pages of data.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -31,7 +38,7 @@ import io.reactivex.Flowable;
 public class AsyncPagination {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        
+
         final String USAGE = "\n" +
                 "Usage:\n" +
                 "    AsynPagination <type>\n\n" +
@@ -39,34 +46,34 @@ public class AsyncPagination {
                 "    type - the type of pagination. (auto, manual or default) \n\n" +
                 "Example:\n" +
                 "    AsynPagination auto\n";
-        
+
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        
+
         String method = args[0];
-        
+
         switch (method.toLowerCase()) {
-        case "manual": 
+        case "manual":
             ManualPagination();
             break;
-        case "auto": 
+        case "auto":
             AutoPagination();
             AutoPaginationOnCollection();
             useThirdPartySubscriber();
             break;
-        default: 
+        default:
             ManualPagination();
             AutoPagination();
             AutoPaginationOnCollection();
             useThirdPartySubscriber();
         }
     }
-    
+
     private static void ManualPagination() throws InterruptedException {
         System.out.println("running ManualPagination...\n");
-        
+
         // Creates a default async client with credentials and regions loaded from the environment
         DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
         CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
@@ -82,23 +89,23 @@ public class AsyncPagination {
                 err.printStackTrace();
             }
         });
-        
+
         Thread.sleep(3_000);
     }
-    
+
     private static void AutoPagination() throws InterruptedException, ExecutionException {
         System.out.println("running AutoPagination...\n");
 
         // Creates a default client with credentials and regions loaded from the environment
         final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
-        
+
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(listTablesRequest);
 
         // Use a for-loop for simple use cases
         CompletableFuture<Void> future = publisher.subscribe(response -> response.tableNames()
                                                                                .forEach(System.out::println));
-        
+
         future.get();
 
         // Or subscribe method should be called to create a new Subscription.
@@ -136,13 +143,13 @@ public class AsyncPagination {
         // For this example, I am using Thread.sleep to wait for all pages to get delivered
         Thread.sleep(3_000);
     }
-    
+
     private static void AutoPaginationOnCollection() throws InterruptedException, ExecutionException {
         System.out.println("running AutoPagination - iterating on item collection...\n");
 
         // Creates a default client with credentials and regions loaded from the environment
         final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
-        
+
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesPublisher listTablesPublisher = asyncClient.listTablesPaginator(listTablesRequest);
         SdkPublisher<String> publisher = listTablesPublisher.tableNames();
@@ -178,7 +185,7 @@ public class AsyncPagination {
         // For this example, I am using Thread.sleep to wait for all pages to get delivered
         Thread.sleep(3_000);
     }
-    
+
     private static void useThirdPartySubscriber() {
         System.out.println("running AutoPagination - using third party subscriber...\n");
 
@@ -194,4 +201,3 @@ public class AsyncPagination {
         System.out.println(tables);
     }
 }
-

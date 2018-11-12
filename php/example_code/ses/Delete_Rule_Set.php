@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *
- *
+ * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
  */
 
@@ -26,18 +26,31 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = 'Rule_Set_Name';
 
 try {
     $result = $SesClient->deleteReceiptRuleSet([
-        'RuleSetName' =>  $name,
-     ]);
+        'RuleSetName' => $name,
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[Delete_Rule_Set.php demonstrates how to remove a specified receipt rule set that isn't currently disabled. This also deletes all of the receipt rules it contains.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

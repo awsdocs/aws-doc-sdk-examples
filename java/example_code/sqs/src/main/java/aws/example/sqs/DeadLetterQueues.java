@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to create and use a dead letter queue.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -76,4 +84,3 @@ public class DeadLetterQueues
         sqs.setQueueAttributes(request);
     }
 }
-

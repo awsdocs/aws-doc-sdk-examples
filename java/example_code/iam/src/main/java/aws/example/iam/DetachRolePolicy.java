@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[DetachRolePolicy.java demonstrates how to detache a policy from a role.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -49,4 +57,3 @@ public class DetachRolePolicy {
                 " from role " + role_name);
     }
 }
-

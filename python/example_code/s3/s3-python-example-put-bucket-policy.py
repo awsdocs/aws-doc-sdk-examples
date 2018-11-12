@@ -36,3 +36,16 @@ bucket_policy = json.dumps(bucket_policy)
 
 # Set the new policy on the given bucket
 s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[s3-python-example-put-bucket-policy.py demonstrates how to replace the policy for a specific Amazon S3 bucket.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon S3]
+#snippet-service:[s3]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

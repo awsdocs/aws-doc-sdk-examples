@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[list_user_docs.java demonstrates how to list user docs for the current user.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[workdocs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 package com.example.workdocs;
 
 import java.util.ArrayList;
@@ -16,11 +23,11 @@ public class list_user_docs {
 
 	private static String get_user_folder(WorkDocsClient workDocs, String orgId, String user) throws Exception {
 		List<User> wdUsers = new ArrayList<>();
-		
+
 
 		String marker = null;
 
-		do {			
+		do {
 			DescribeUsersResponse result;
 
 			if(marker == null) {
@@ -62,10 +69,10 @@ public class list_user_docs {
             System.out.println(USAGE);
             System.exit(1);
         }
-        
+
         String orgId = args[0];
         String userEmail = args[1];
-        
+
 		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the values
 		WorkDocsClient workDocs = WorkDocsClient.create();
 

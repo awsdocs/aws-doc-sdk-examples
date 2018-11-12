@@ -1,3 +1,13 @@
+//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/25/18]
+//snippet-sourceauthor:[AWS]
+
 /*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -12,61 +22,99 @@
 * KIND, either express or implied. See the License for the specific
 * language governing permissions and limitations under the License.
 *******************************************************************************/
+`/*
+ *	Use this code snippet in your app.
+ *	If you need more information about configurations or implementing the sample code, visit the AWS docs:
+ *	https://aws.amazon.com/developers/getting-started/net/
+ *
+ *	Make sure to include the following packages in your code.
+ *
+ *	using System;
+ *	using System.IO;
+ *
+ *	using Amazon;
+ *	using Amazon.SecretsManager;
+ *	using Amazon.SecretsManager.Model;
+ *
+ */
 
-using System;
-using Amazon;
-using Amazon.SecretsManager;
-using Amazon.SecretsManager.Model;
-using System.Threading.Tasks;
-using System.Threading;
+/*
+ * AWSSDK.SecretsManager version="3.3.0" targetFramework="net45"
+ */
 
-namespace SecretsManagerExample
+public static void GetSecret()
 {
-    class GetSecretValue
+    string secretName = "<<{{MySecretName}}>>";
+    string region = "<<{{MyRegionName}}>>";
+    string secret = "";
+
+    MemoryStream memoryStream = new MemoryStream();
+
+    IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
+
+    GetSecretValueRequest request = new GetSecretValueRequest();
+    request.SecretId = secretName;
+    request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
+
+    GetSecretValueResponse response = null;
+
+    // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
+    // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+    // We rethrow the exception by default.
+
+    try
     {
-        static void Main(string[] args)
-        {
-            var secretName = "TestSecret1";
-
-            var config = new AmazonSecretsManagerConfig();
-            config.RegionEndpoint = RegionEndpoint.USWest2;
-
-            var client = new AmazonSecretsManagerClient(config);
-
-            var secretValueRequest = new GetSecretValueRequest();
-            secretValueRequest.SecretId = secretName;
-
-            var secretValueResponse = GetSecretValueResponseAsync(client, secretValueRequest);
-            
-            if (secretValueResponse.Result.SecretString != null)
-            {
-                Console.WriteLine("Secret String: " + secretValueResponse.Result.SecretString);
-            }
-            else if (secretValueResponse.Result.SecretBinary !=null)
-            {
-                Console.WriteLine("SecretBinary saved to variable.");
-                var secretBinary = secretValueResponse.Result.SecretBinary;
-                //Do something with the SecretBinary in your code
-            }
-            else
-            {
-                Console.WriteLine("Secret String and Secret Binary are null.");
-                //Do something with the SecretString in your code
-            }
-        }
-        public static async Task<GetSecretValueResponse> GetSecretValueResponseAsync(AmazonSecretsManagerClient client, GetSecretValueRequest request)
-        {
-            try
-            {
-                var result = await client.GetSecretValueAsync(request);
-                return result;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                var result = new GetSecretValueResponse();
-                return result;
-            }
-        }
+        response = client.GetSecretValueAsync(request).Result;
     }
+    catch (DecryptionFailureException e)
+    {
+        // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw;
+    }
+    catch (InternalServiceErrorException e)
+    {
+        // An error occurred on the server side.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw;
+    }
+    catch (InvalidParameterException e)
+    {
+        // You provided an invalid value for a parameter.
+        // Deal with the exception here, and/or rethrow at your discretion
+        throw;
+    }
+    catch (InvalidRequestException e)
+    {
+        // You provided a parameter value that is not valid for the current state of the resource.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw;
+    }
+    catch (ResourceNotFoundException e)
+    {
+        // We can't find the resource that you asked for.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw;
+    }
+    catch (System.AggregateException ae)
+    {
+        // More than one of the above exceptions were triggered.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw;
+    }
+
+    // Decrypts secret using the associated KMS CMK.
+    // Depending on whether the secret is a string or binary, one of these fields will be populated.
+    if (response.SecretString != null)
+    {
+        secret = response.SecretString;
+    }
+    else
+    {
+        memoryStream = response.SecretBinary;
+        StreamReader reader = new StreamReader(memoryStream);
+        string decodedBinarySecret = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(reader.ReadToEnd()));
+    }
+
+    // Your code goes here.
 }

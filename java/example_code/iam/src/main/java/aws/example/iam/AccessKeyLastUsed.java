@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[AccessKeyLastUsed.java demonstrates how to get the time that an access key was last used.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -47,4 +55,3 @@ public class AccessKeyLastUsed {
                 response.getAccessKeyLastUsed().getLastUsedDate());
     }
 }
-

@@ -32,13 +32,13 @@ use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client([
     'profile' => 'default',
     'version' => 'latest',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 // The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
 // Use the us-west-2 region and latest version of each client.
 $sharedConfig = [
-    'region'  => 'us-west-2',
+    'region' => 'us-west-2',
     'version' => 'latest'
 ];
 
@@ -47,3 +47,16 @@ $sdk = new Aws\Sdk($sharedConfig);
 
 // Create an Amazon S3 client using the shared configuration data.
 $client = $sdk->createS3();
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[CreateBucket.php demonstrates how to create an Amazon S3 Bucket.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

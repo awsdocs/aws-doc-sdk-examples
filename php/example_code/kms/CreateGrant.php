@@ -40,7 +40,6 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 $operation = ['Encrypt', 'Decrypt']; // A list of operations that the grant allows.
 
-
 try {
     $result = $KmsClient->createGrant([
         'GranteePrincipal' => $granteePrincipal,
@@ -53,3 +52,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[CreateGrant.php demonstrates how to create a grant for an AWS Key Management Service customer master key.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Key Management Service (KMS)]
+//snippet-service:[kms]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

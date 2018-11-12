@@ -12,8 +12,8 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *
- *
+ * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
 
@@ -26,16 +26,16 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = 'Template_Name';
-$html_body = '<h1>AWS Amazon Simple Email Service Test Email</h1>'.
-                  '<p>This email was sent with <a href="https://aws.amazon.com/ses/">'.
-                  'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-php/">'.
-                  'AWS SDK for PHP</a>.</p>';
+$html_body = '<h1>AWS Amazon Simple Email Service Test Email</h1>' .
+    '<p>This email was sent with <a href="https://aws.amazon.com/ses/">' .
+    'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-php/">' .
+    'AWS SDK for PHP</a>.</p>';
 $subject = 'Amazon SES test (AWS SDK for PHP)';
-$plaintext_body = 'This email was send with Amazon SES using the AWS SDK for PHP.' ;
+$plaintext_body = 'This email was send with Amazon SES using the AWS SDK for PHP.';
 
 try {
     $result = $SesClient->createTemplate([
@@ -52,3 +52,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[Create_Template.php demonstrates how to create an email template to send personalized email messages.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

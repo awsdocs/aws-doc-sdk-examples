@@ -49,9 +49,22 @@ try {
     // Save object to a file.
     $result = $s3Client->getObject(array(
         'Bucket' => $bucket,
-        'Key'    => $key,
+        'Key' => $key,
         'SaveAs' => $key
     ));
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[GetObject.php demonstrates how to download a file (or object) from an Amazon S3 bucket.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

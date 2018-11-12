@@ -1,3 +1,12 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Deletes an Amazon EC2 key pair.]
+//snippet-keyword:[Amazon Elastic Compute Cloud]
+//snippet-keyword:[DeleteKeyPair function]
+//snippet-keyword:[Go]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -47,7 +56,7 @@ func main() {
     svc := ec2.New(sess)
 
     // Delete the key pair by name
-    _, err := svc.DeleteKeyPair(&ec2.DeleteKeyPairInput{
+    _, err = svc.DeleteKeyPair(&ec2.DeleteKeyPairInput{
         KeyName: aws.String(pairName),
     })
     if err != nil {

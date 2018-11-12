@@ -1,4 +1,4 @@
-.. Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -20,8 +20,8 @@ Prerequisites
 
 To build and run these examples, you'll need:
 
-* CMake (version 2.8+)
-* AWS SDK for C++ (downloaded, extracted and built on your machine)
+* CMake (version 3.2+)
+* AWS SDK for C++ (downloaded, extracted, built and installed on your machine)
 * AWS credentials, either configured in a local AWS credentials file or by setting the
   AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
 
@@ -33,11 +33,11 @@ To build the examples, create a build directory::
 
     mkdir s3_build
 
-Go into the directory and run ``cmake``, providing it with the path to where you built the SDK, and
+Go into the directory and run ``cmake``, providing it with the path to where you install the SDK if the path is not CMake awareness, and
 the path to the examples directory that you want to build. For example::
 
     cd s3_build
-    cmake -Daws-sdk-cpp_DIR=/path/to/aws_sdk_build/ ../example_code/s3
+    cmake -DCMAKE_PREFIX_PATH=/path/to/aws_sdk_installed/ ../example_code/s3
 
 Finally, run ``make`` in the build directory:
 

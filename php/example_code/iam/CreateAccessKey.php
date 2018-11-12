@@ -43,10 +43,23 @@ try {
     $userName = $result['AccessKey']['UserName'];
     $status = $result['AccessKey']['Status'];
     // $secretKey = $result['AccessKey']['SecretAccessKey']
-    echo "<p>AccessKey " . $keyID . " created on " . $createDate ."</p>";
-    echo "<p>Username: " . $userName ."</p>";
-    echo "<p>Status: " . $status ."</p>";
+    echo "<p>AccessKey " . $keyID . " created on " . $createDate . "</p>";
+    echo "<p>Username: " . $userName . "</p>";
+    echo "<p>Status: " . $status . "</p>";
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[CreateAccessKey.php demonstrates how to create an access key for an IAM user given the user name.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

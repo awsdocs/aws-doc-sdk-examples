@@ -32,3 +32,16 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
         Encoding = 'SSH',
     )
     print(ssh_public_key_response['SSHPublicKey']['SSHPublicKeyBody'])
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[get_pub_keys.py demonstrates how to retrieve the specified SSH public key.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

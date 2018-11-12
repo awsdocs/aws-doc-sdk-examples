@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[S3Encrypt.java demonstrates how to use various encryption settings in Amazon S3.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[AmazonS3Encryption]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -13,6 +22,7 @@
 */
 package aws.example.s3;
 
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -36,27 +46,27 @@ import javax.crypto.SecretKey;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  * This code also requires you to install the Unlimited Strength Java(TM) Cryptography Extension Policy Files (JCE)
- * You can install this from the oracle site: http://www.oracle.com 
+ * You can install this from the oracle site: http://www.oracle.com
  */
 public class S3Encrypt
 {
     public static final String BUCKET_NAME = "s3EncryptTestBucket"; //add your bucket name
     public static final String ENCRYPTED_KEY = "enc-key";
     public static final String NON_ENCRYPTED_KEY = "some-key";
-    
+
     public static void main(String[] args)
     {
         System.out.println("calling encryption with customer managed keys");
         S3Encrypt encrypt = new S3Encrypt();
-        
+
         try {
             //can change to call the other encryption methods
-            encrypt.authenticatedEncryption_CustomerManagedKey();            
+            encrypt.authenticatedEncryption_CustomerManagedKey();
         } catch (NoSuchAlgorithmException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     /**
      * Uses AES/GCM with AESWrap key wrapping to encrypt the key. Uses v2 metadata schema. Note that authenticated
      * encryption requires the bouncy castle provider to be on the classpath. Also, for authenticated encryption the size
@@ -70,7 +80,7 @@ public class S3Encrypt
                 .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption))
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
                 .build();
-        
+
         AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
@@ -237,7 +247,7 @@ public class S3Encrypt
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.EncryptionOnly))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.EncryptionOnly).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
@@ -257,7 +267,7 @@ public class S3Encrypt
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
@@ -278,7 +288,7 @@ public class S3Encrypt
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
@@ -295,4 +305,3 @@ public class S3Encrypt
         }
     }
 }
-

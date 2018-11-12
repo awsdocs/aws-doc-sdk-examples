@@ -35,7 +35,7 @@ try {
     $resp = $s3Client->getBucketWebsite([
         'Bucket' => $bucket
     ]);
-    echo "Succeed in retrieving website configuration for bucket: ". $bucket ."\n";
+    echo "Succeed in retrieving website configuration for bucket: " . $bucket . "\n";
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
@@ -69,9 +69,22 @@ try {
     $resp = $s3Client->deleteBucketWebsite([
         'Bucket' => $bucket
     ]);
-    echo "Succeed in deleting policy for bucket: ". $bucket ."\n";
+    echo "Succeed in deleting policy for bucket: " . $bucket . "\n";
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[s3WebHost.php demonstrates how to turn an Amazon S3 bucket into a hosted website.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[SynthesizeSpeechSample.cs demonstrates how to get a synthesized audio file as a stream of bytes from a text input.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Polly]
+//snippet-service:[polly]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;

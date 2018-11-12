@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[CreatePolicy.java demonstrates how to create a fixed policy with a provided policy name.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -72,4 +80,3 @@ public class CreatePolicy {
                 response.getPolicy().getPolicyName());
     }
 }
-

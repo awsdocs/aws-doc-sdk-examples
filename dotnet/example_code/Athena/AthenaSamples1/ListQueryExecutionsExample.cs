@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[ListQueryExecutionsExample.cs demonstrates how to obtain a list of query execution IDs.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿using System;
 using Amazon;
 using Amazon.Athena;

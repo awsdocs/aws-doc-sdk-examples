@@ -31,11 +31,10 @@ $s3Client = new S3Client([
     'version' => '2006-03-01'
 ]);
 
-
 $source = '/path/to/large/file.zip';
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',
-    'key'    => 'my-file.zip',
+    'key' => 'my-file.zip',
 ]);
 
 //Recover from errors
@@ -57,3 +56,16 @@ try {
     $params = $e->getState()->getId();
     $result = $s3Client->abortMultipartUpload($params);
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[MultipartUploadErrorHandeling.php demonstrates how to use UploadState  to resume an upload that failed to complete.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

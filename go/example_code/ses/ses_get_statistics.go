@@ -1,3 +1,13 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Gets statistics about SES.]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-keyword:[Amazon SES]
+//snippet-keyword:[GetSendStatistics function]
+//snippet-keyword:[Go]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -15,21 +25,22 @@
 package main
 
 import (
-    "fmt"
-    
     //go get -u github.com/aws/aws-sdk-go
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/ses"
     "github.com/aws/aws-sdk-go/aws/awserr"
+
+    "fmt"
 )
 
 func main() {
-    // Create a new session in the us-west-2 region.
-    // Replace us-west-2 with the AWS Region you're using for Amazon SES.
-    sess, err := session.NewSession(&aws.Config{
-        Region:aws.String("us-west-2")},
-    )
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
     // Create an SES session.
     svc := ses.New(sess)
@@ -37,25 +48,9 @@ func main() {
     // Attempt to send the email.
     result, err := svc.GetSendStatistics(nil)
     
-    // Display error messages if they occur.
+    // Display any error message
     if err != nil {
-        if aerr, ok := err.(awserr.Error); ok {
-            switch aerr.Code() {
-            case ses.ErrCodeMessageRejected:
-                fmt.Println(ses.ErrCodeMessageRejected, aerr.Error())
-            case ses.ErrCodeMailFromDomainNotVerifiedException:
-                fmt.Println(ses.ErrCodeMailFromDomainNotVerifiedException, aerr.Error())
-            case ses.ErrCodeConfigurationSetDoesNotExistException:
-                fmt.Println(ses.ErrCodeConfigurationSetDoesNotExistException, aerr.Error())
-            default:
-                fmt.Println(aerr.Error())
-            }
-        } else {
-            // Print the error, cast err to awserr.Error to get the Code and
-            // Message from an error.
-            fmt.Println(err.Error())
-        }
-    
+        fmt.Println(err.Error())
         return
     }
 

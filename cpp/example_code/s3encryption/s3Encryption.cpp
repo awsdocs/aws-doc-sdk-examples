@@ -1,3 +1,13 @@
+ 
+//snippet-sourcedescription:[s3Encryption.cpp demonstrates how to perform client-side encryption on an Amazon S3 bucket object using AWS KMS.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

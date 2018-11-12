@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enables actions on a CloudWatch alarm.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -48,4 +56,3 @@ public class EnableAlarmActions {
             "Successfully enabled actions on alarm %s", alarm);
     }
 }
-

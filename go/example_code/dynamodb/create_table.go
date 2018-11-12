@@ -1,3 +1,12 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Creates an Amazon DynamoDB table.]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-keyword:[CreateTable function]
+//snippet-keyword:[Go]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

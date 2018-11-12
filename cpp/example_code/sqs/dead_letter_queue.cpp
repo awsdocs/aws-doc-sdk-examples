@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[dead_letter_queue.cpp demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -29,7 +40,7 @@ Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
     policy_map.WithObject("deadLetterTargetArn", redrive_arn_entry);
     policy_map.WithObject("maxReceiveCount", max_msg_entry);
 
-    return policy_map.WriteReadable();
+    return policy_map.View().WriteReadable();
 }
 
 /**

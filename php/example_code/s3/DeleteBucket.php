@@ -28,7 +28,7 @@ use Aws\Exception\AwsException;
  *               well as any objects within it!
  */
 
-$BUCKET_NAME='<BUCKET-NAME>';
+$BUCKET_NAME = '<BUCKET-NAME>';
 
 //Create a S3Client
 $s3Client = new S3Client([
@@ -60,7 +60,7 @@ try {
 try {
     $versions = $s3Client->listObjectVersions([
         'Bucket' => $BUCKET_NAME
-        ])->getPath('Versions');
+    ])->getPath('Versions');
     echo "Keys retrieved!\n";
     foreach ($versions as $version) {
         echo $version['Key'] . "\n";
@@ -77,3 +77,16 @@ try {
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[DeleteBucket.php demonstrates how to delete an Amazon S3 bucket. Replace 'BUCKET_NAME' with name of your bucket.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

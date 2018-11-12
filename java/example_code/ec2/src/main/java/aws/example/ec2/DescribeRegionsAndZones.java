@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get a description of all regions and zones.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-05-22]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -53,4 +61,3 @@ public class DescribeRegionsAndZones
         }
     }
 }
-

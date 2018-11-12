@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[PutObject.java demonstrates how to upload a file to an AWS Elemental MediaStore container.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[mediastore]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-06]
+//snippet-sourceauthor:[rhcarvalho]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -93,7 +100,7 @@ public class PutObject
     public static String getContainerEndpoint(String name) {
         final AWSMediaStore mediastore = AWSMediaStoreClientBuilder.defaultClient();
         final DescribeContainerRequest request = new DescribeContainerRequest()
-            .withContainerName(name);
+            .withContainerName(name.trim());
         try {
             final DescribeContainerResult result = mediastore.describeContainer(request);
             return result.getContainer().getEndpoint();

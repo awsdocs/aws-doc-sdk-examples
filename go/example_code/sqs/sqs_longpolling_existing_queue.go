@@ -1,3 +1,14 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Enables long polling on an SQS queue.]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-keyword:[Amazon SQS]
+//snippet-keyword:[GetQueueUrl function]
+//snippet-keyword:[SetQueueAttributes function]
+//snippet-keyword:[Go]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -75,7 +86,7 @@ func main() {
         exitErrorf("Unable to update queue %q, %v.", name, err)
     }
 
-    fmt.Printf("Succesffuly updated queue %q.\n", name)
+    fmt.Printf("Successfully updated queue %q.\n", name)
 }
 
 func exitErrorf(msg string, args ...interface{}) {

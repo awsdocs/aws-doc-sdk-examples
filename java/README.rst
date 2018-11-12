@@ -75,10 +75,15 @@ Running the examples
 
 To run these examples, you'll need the AWS SDK for Java libraries in your ``CLASSPATH``::
 
-    export CLASSPATH=/path/to/aws-java-sdk/lib/*:/path/to/aws-java-sdk/third-party/lib/*
+    On Unix, run open the command line and execute:
+    export CLASSPATH="/path/to/aws-java-sdk/lib/*:/path/to/aws-java-sdk/third-party/lib/*:$CLASSPATH"
+
+    On Windows, open cmd and execute:
+    set CLASSPATH="path/to/aws-java-sdk/lib/*;path/to/aws-java-sdk/third-party/lib/*;%CLASSPATH%"
 
 Where ``/path/to/aws-java-sdk`` is the path to where you extracted the AWS Java SDK download (it
-contains the ``lib`` and ``third-party/lib`` directories).
+contains the ``lib`` and ``third-party/lib`` directories). For example, the path can be
+``/tmp/aws-java-sdk``, or ``C:\aws-java-sdk``.
 
 Once you set the ``CLASSPATH``, you can run a particular example like this::
 

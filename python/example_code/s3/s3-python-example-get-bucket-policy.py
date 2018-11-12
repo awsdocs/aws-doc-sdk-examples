@@ -19,3 +19,16 @@ s3 = boto3.client('s3')
 # Call to S3 to retrieve the policy for the given bucket
 result = s3.get_bucket_policy(Bucket='my-bucket')
 print(result)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[s3-python-example-get-bucket-policy.py	demonstrates how to list the Amazon S3 Buckets in your account.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon S3]
+#snippet-service:[s3]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

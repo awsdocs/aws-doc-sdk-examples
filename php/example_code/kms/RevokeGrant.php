@@ -39,7 +39,6 @@ $KmsClient = new Aws\Kms\KmsClient([
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $grantId = "grant1";
 
-
 try {
     $result = $KmsClient->revokeGrant([
         'KeyId' => $keyId,
@@ -51,3 +50,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[RevokeGrant.php demonstrates how to revoke a grant to an AWS Key Management Service customer master key.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Key Management Service (KMS)]
+//snippet-service:[kms]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

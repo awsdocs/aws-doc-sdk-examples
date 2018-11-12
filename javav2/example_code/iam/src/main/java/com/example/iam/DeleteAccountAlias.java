@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[DeleteAccountAlias.java demonstrates how to delete an alias from an AWS account.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -38,7 +45,7 @@ public class DeleteAccountAlias {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
-        
+
         DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
             .accountAlias(alias).build();
 

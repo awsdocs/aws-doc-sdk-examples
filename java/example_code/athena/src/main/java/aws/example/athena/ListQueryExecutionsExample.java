@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[ListQueryExecutionsExample.java demonstrates how to obtain a list of query execution IDs.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-25]
+//snippet-sourceauthor:[soo-aws]
 package aws.example.athena;
 
 import com.amazonaws.services.athena.AmazonAthena;
@@ -30,7 +38,7 @@ public class ListQueryExecutionsExample
       while (hasMoreResults) {
           List<String> queryExecutionIds = listQueryExecutionsResult.getQueryExecutionIds();
           // process queryExecutionIds.
-          
+
           System.out.println(queryExecutionIds);
 
           //If nextToken is not null, then there are more results. Get the next page of results.

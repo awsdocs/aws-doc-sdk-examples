@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[CreateNamedQueryExample.cs demonstrates how to create a named query.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿using System;
 using Amazon;
 using Amazon.Athena.Model;

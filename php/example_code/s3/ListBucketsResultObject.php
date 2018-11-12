@@ -31,7 +31,7 @@ use Aws\S3\S3Client;
 // Use the us-east-2 region and latest version of each client.
 $sharedConfig = [
     'profile' => 'default',
-    'region'  => 'us-east-2',
+    'region' => 'us-east-2',
     'version' => 'latest'
 ];
 
@@ -51,3 +51,16 @@ $array = $result->toArray();
 
 // Get the name of each bucket
 $names = $result->search('Buckets[].Name');
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[ListBucketsResultObject.php demonstrates how to work with a result object by transforming it into an array.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

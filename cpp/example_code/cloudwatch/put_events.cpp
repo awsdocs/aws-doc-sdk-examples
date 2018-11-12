@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -26,7 +37,7 @@ Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
     Aws::Utils::Json::JsonValue detail_map;
     detail_map.WithObject(key, value_entry);
 
-    return detail_map.WriteReadable();
+    return detail_map.View().WriteReadable();
 }
 
 /**

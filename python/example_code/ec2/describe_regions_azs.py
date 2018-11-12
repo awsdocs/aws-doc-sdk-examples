@@ -22,3 +22,16 @@ print('Regions:', response['Regions'])
 # Retrieves availability zones only for region of the ec2 object
 response = ec2.describe_availability_zones()
 print('Availability Zones:', response['AvailabilityZones'])
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[describe_regions_azs.py demonstrates how to describe AWS Regions and Availability Zones that are currently available to you.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon EC2]
+#snippet-service:[ec2]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

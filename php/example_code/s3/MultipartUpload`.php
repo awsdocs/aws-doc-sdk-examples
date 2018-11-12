@@ -35,7 +35,7 @@ $s3Client = new S3Client([
 $source = '/path/to/large/file.zip';
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',
-    'key'    => 'my-file.zip',
+    'key' => 'my-file.zip',
 ]);
 
 try {
@@ -44,3 +44,16 @@ try {
 } catch (MultipartUploadException $e) {
     echo $e->getMessage() . "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[MultipartUpload`.php demonstrates how to upload a large file to Amazon S3 with a MultipartUploader.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

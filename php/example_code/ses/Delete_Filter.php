@@ -12,9 +12,9 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
+ * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
- * This will add to the rule an action to call an AWS Lambda function
- * and notify an Amazon SNS topic
  */
 
 require 'vendor/autoload.php';
@@ -26,19 +26,32 @@ use Aws\Exception\AwsException;
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $filter_name = 'FilterName';
 
 try {
     $result = $SesClient->deleteReceiptFilter([
-            'FilterName' => $filter_name,
+        'FilterName' => $filter_name,
 
-        ]);
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[Delete_Filter.php demonstrates how to remove an existing filter for a specific IP address.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

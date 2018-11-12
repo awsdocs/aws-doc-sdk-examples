@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one Amazon S3 bucket to another.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -48,21 +55,20 @@ public class CopyObject
                 object_key, from_bucket, to_bucket);
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-        
+
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
         		.copySource(from_bucket + "/" + object_key)
         		.bucket(to_bucket)
         		.key(object_key)
         		.build();
-        
+
         try {
         	CopyObjectResponse copyRes = s3.copyObject(copyReq);
         	System.out.println(copyRes.copyObjectResult().toString());
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");
     }
 }
-

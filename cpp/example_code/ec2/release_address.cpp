@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[release_address.cpp demonstrates how to release an Amazon EC2 Elastic IP address.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -17,7 +28,7 @@
 #include <iostream>
 
 /**
- * Releases an elastic ip address based on command line input
+ * Releases an Elastic IP address based on command line input
  */
 int main(int argc, char** argv)
 {

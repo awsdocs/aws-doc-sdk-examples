@@ -1,3 +1,14 @@
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Creates an EC2 instance and adds tags to it.]
+#snippet-keyword:[Amazon Elastic Compute Cloud]
+#snippet-keyword:[create_instances method]
+#snippet-keyword:[wait_until method]
+#snippet-keyword:[Instance.create_tags method]
+#snippet-keyword:[Ruby]
+#snippet-service:[ec2]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
