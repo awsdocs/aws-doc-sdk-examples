@@ -35,9 +35,11 @@ $client = new SecretsManagerClient([
     'version' => '2017-10-17',
     'region' => 'us-west-2'
 ]);
+$secret_name = '<<{{MySecretName}}>>';
 
 try {
     $result = $client->listSecretVersionIds([
+        'SecretId' => $secret_name,
     ]);
     var_dump($result);
 }  catch (AwsException $e) {

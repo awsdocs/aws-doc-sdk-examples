@@ -43,7 +43,7 @@ $description = '<<Description>>';
 try {
     $result = $client->createSecret([
         'Description' => $description,
-        'SecretId' => $secret_name,
+        'Name' => $secret_name,
         'SecretString' => $secret,
     ]);
     var_dump($result);
