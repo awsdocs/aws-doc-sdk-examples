@@ -19,7 +19,7 @@ print(response)
 
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[describe_subnets.py demonstrates how to describe describe one or more of your Subnets.]
+# snippet-sourcedescription:[describe_subnets.py demonstrates how to describe one or more of your Subnets.]
 # snippet-keyword:[Python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
