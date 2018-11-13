@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.CertificateManager" Version="3.3.5.30" />
+    <PackageReference Include="AWSSDK.Core" Version="3.3.29.8" />
+  </ItemGroup>
+
+</Project>
