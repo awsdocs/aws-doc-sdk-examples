@@ -25,6 +25,8 @@ use Aws\Exception\AwsException;
 /**
  * Delete a label attached to a version of secret. 
  *
+ * Use ListSecretVersions.php to identify the VersionID for a Secret.
+ *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
