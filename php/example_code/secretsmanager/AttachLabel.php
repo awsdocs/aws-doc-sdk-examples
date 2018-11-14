@@ -23,7 +23,9 @@ use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
 /**
- * Add a staging label to a version of an AWS Secret Manager Secret. 
+ * Add a staging label to a version of an AWS Secret Manager Secret.  
+ *
+ * Use ListSecretVersions.php to identify the VersionID for a Secret.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
