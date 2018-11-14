@@ -26,6 +26,8 @@ use Aws\Exception\AwsException;
  * Create a secret rotation in AWS Secret Manager Secret that automatically 
  * rotates the secret every 30 days. 
  *
+ * Rotation Lambda Templates are available at https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-lambda_functions-secretsmanager.html 
+ *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
