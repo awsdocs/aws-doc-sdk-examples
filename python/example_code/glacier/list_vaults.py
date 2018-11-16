@@ -42,7 +42,7 @@ def main():
             print('{:3d}  {:12d}  {}'.format(vault['NumberOfArchives'], vault['SizeInBytes'], vault['VaultName']))
 
         # If no more vaults exist, exit loop, otherwise retrieve the next batch
-        if not marker:
+        if marker is None:
             break
 
         vaults, marker = list_vaults(iter_marker=marker)
