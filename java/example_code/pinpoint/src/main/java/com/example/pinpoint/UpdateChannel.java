@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[UpdateChannel.java demonstrates how to create a channel for an application in Pinpoint.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[mobiletargeting]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -25,10 +32,10 @@ import com.amazonaws.services.pinpoint.model.UpdateApnsChannelRequest;
 import com.amazonaws.services.pinpoint.model.UpdateApnsChannelResult;
 
 public class UpdateChannel {
-	
+
 	public static void main(String[] args) {
 		final String USAGE = "\n" +
-                "CreateChannel - create an application in pinpoint dashboard\n\n" +
+                "CreateChannel -  create a channel in pinpoint\n\n" +
                 "Usage: CreateChannel <appId>\n\n" +
                 "Where:\n" +
                 "  appId - the name of the application to create.\n\n";
@@ -38,34 +45,34 @@ public class UpdateChannel {
             System.exit(1);
         }
         String appId = args[0];
-        
+
 		AmazonPinpoint pinpoint = AmazonPinpointClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
-		
+
 		APNSChannelResponse getResponse = getApnsChannel(pinpoint, appId);
 		toggleApnsChannel(pinpoint, appId, getResponse);
 		getApnsChannel(pinpoint, appId);
 	}
-	
+
 	private static APNSChannelResponse getApnsChannel(AmazonPinpoint client, String appId) {
 		GetApnsChannelRequest request = new GetApnsChannelRequest()
 				.withApplicationId(appId);
-		
+
 		GetApnsChannelResult result = client.getApnsChannel(request);
 		APNSChannelResponse response = result.getAPNSChannelResponse();
 		System.out.println("Channel state: " + response.getEnabled());
 		return response;
 	}
-	
+
 	private static void toggleApnsChannel(AmazonPinpoint client, String appId, APNSChannelResponse getResponse) {
-		Boolean enabled = true; 
-		
+		Boolean enabled = true;
+
 		if (getResponse.getEnabled()) {
 			enabled = false;
 		}
-		
+
 		APNSChannelRequest request = new APNSChannelRequest()
 				.withEnabled(enabled);
-		
+
 		UpdateApnsChannelRequest updateRequest = new UpdateApnsChannelRequest()
 				.withAPNSChannelRequest(request)
 				.withApplicationId(appId);

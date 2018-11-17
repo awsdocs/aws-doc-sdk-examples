@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[iam_createpolicy.js demonstrates how to create a managed policy for an AWS account.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

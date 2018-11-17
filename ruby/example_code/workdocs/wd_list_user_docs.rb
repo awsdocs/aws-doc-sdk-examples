@@ -1,3 +1,13 @@
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Lists the documents for each of your WorkDocs users.]
+#snippet-keyword:[Amazon WorkDocs]
+#snippet-keyword:[describe_folder_contents method]
+#snippet-keyword:[describe_users method]
+#snippet-keyword:[Ruby]
+#snippet-service:[workdocs]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

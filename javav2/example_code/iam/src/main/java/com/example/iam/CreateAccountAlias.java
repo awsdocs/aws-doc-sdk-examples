@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[CreateAccountAlias.java demonstrates how to create an alias for an AWS account.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -47,4 +54,3 @@ public class CreateAccountAlias {
         System.out.println("Successfully created account alias: " + alias);
     }
 }
-

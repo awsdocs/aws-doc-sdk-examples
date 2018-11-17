@@ -1,3 +1,13 @@
+//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[9/25/18]
+//snippet-sourceauthor:[AWS]
+
 /*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -16,9 +26,9 @@
  *	Use this code snippet in your app.
  *	If you need more information about configurations or implementing the sample code, visit the AWS docs:
  *	https://aws.amazon.com/developers/getting-started/net/
- *	
+ *
  *	Make sure to include the following packages in your code.
- *	
+ *
  *	using System;
  *	using System.IO;
  *
@@ -31,7 +41,7 @@
 /*
  * AWSSDK.SecretsManager version="3.3.0" targetFramework="net45"
  */
- 
+
 public static void GetSecret()
 {
     string secretName = "<<{{MySecretName}}>>";

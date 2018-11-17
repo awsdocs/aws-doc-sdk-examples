@@ -1,3 +1,14 @@
+
+//snippet-sourcedescription:[Program.cs can be used to execute the other Athena examples in this solution.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 ﻿using System;
 
 namespace AthenaSamples1

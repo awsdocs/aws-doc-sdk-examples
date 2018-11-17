@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for messages in a queue.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -62,7 +69,7 @@ public class VisibilityTimeout
 
         List<ChangeMessageVisibilityBatchRequestEntry> entries =
             new ArrayList<ChangeMessageVisibilityBatchRequestEntry>();
-        
+
         ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
     			.queueUrl(queue_url)
     			.build();
@@ -71,7 +78,7 @@ public class VisibilityTimeout
         		.messages()
                 .get(0)
                 .receiptHandle();
-        
+
         entries.add(ChangeMessageVisibilityBatchRequestEntry.builder()
         		.id("unique_id_msg1")
         		.receiptHandle(receipt)
@@ -97,7 +104,7 @@ public class VisibilityTimeout
         SQSClient sqs = SQSClient.builder().build();
 
         // first, create a queue (unless it exists already)
-        
+
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
         		.queueName(queue_name)
         		.build();
@@ -105,8 +112,8 @@ public class VisibilityTimeout
             CreateQueueResponse cq_result = sqs.createQueue(createRequest);
         } catch (QueueNameExistsException e) {
         	throw e;
-        	
-        	
+
+
         }
 
         GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
@@ -130,4 +137,3 @@ public class VisibilityTimeout
         changeMessageVisibilityMultiple(queue_url, 2000);
     }
 }
-

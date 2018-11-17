@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[DescribeVoicesSample.cs demonstrates how to get information on all defined AWS Polly voices and all defined voices for a specific language.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Polly]
+//snippet-service:[polly]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿using System;
 using Amazon.Polly;
 using Amazon.Polly.Model;

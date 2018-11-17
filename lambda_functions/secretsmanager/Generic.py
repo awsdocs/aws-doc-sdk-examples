@@ -1,3 +1,14 @@
+#snippet-sourceauthor: [aws]
+#snippet-sourcedescription:[Generic - NOT READY TO USE - Lambda rotation for AWS Secrets Manager]
+#snippet-service:[secretsmanager]
+#snippet-keyword:[rotation function]
+#snippet-keyword:[python]
+#snippet-keyword:[AWS Lambda]
+#snippet-keyword:[AWS Secrets Manager]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-08-22]
+
+
 # Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 

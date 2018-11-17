@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an EC2 security group.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *

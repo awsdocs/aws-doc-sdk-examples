@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[verify_email_identity.cpp demonstrates how to send an Amazon SES verification email.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").

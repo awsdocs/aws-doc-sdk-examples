@@ -44,3 +44,16 @@ response = acm.request_certificate(
 
 print(response)
 
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[request_certificate_w_email_validation.py demonstrates how to request an AWS Certificate Manager certificate for use with other AWS services.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Certificate Manager]
+#snippet-service:[acm]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-09-05]
+#snippet-sourceauthor:[walkerk1980]
+

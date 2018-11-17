@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[DetectKeyPhrase demonstrates how to detect key phrases in a given string using the Comprehend client.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Comprehend]
+//snippet-service:[comprehend]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 using System;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;

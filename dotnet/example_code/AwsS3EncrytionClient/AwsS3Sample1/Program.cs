@@ -1,12 +1,21 @@
+//snippet-sourcedescription:[AwsS3EncryptionClient sample demonstrates how to use the S3 encryption client to encrypt and decrypt data when using S3 operations.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyname:[Amazon Simple Storage Service]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿/*******************************************************************************
 * Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-* 
+*
 * Licensed under the Apache License, Version 2.0 (the "License"). You may
 * not use this file except in compliance with the License. A copy of the
 * License is located at
-* 
+*
 * http://aws.amazon.com/apache2.0/
-* 
+*
 * or in the "license" file accompanying this file. This file is
 * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 * KIND, either express or implied. See the License for the specific
@@ -80,7 +89,7 @@ namespace GettingStartedGuide
                 // Show the key used to write the data has been persisted
                 CspParameters csp = new CspParameters();
                 cp.KeyContainerName = keyContainerName;
-                // Create a new instance of RSACryptoServiceProvider that accesses the key container 
+                // Create a new instance of RSACryptoServiceProvider that accesses the key container
                 // keyContainerName.
                 // If there is no key in the container one is created and stored.
                 // If a key exists that key is used.

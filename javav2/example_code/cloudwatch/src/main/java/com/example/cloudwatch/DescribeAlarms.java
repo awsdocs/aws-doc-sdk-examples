@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get a information about CloudWatch alarms.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -43,7 +50,7 @@ public class DescribeAlarms {
         				.build();
                 response = cw.describeAlarms(request);
         	}
-            
+
 
             for(MetricAlarm alarm : response.metricAlarms()) {
                 System.out.printf("Retrieved alarm %s", alarm.alarmName());
@@ -58,4 +65,3 @@ public class DescribeAlarms {
         }
     }
 }
-

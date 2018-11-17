@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an IAM user. This is only possible for users with no associated resources.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -53,4 +60,3 @@ public class DeleteUser {
         System.out.println("Successfully deleted IAM user " + username);
     }
 }
-

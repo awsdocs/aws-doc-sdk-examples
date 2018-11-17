@@ -21,3 +21,16 @@ iam = boto3.client('iam')
 paginator = iam.get_paginator('list_access_keys')
 for response in paginator.paginate(UserName='IAM_USER_NAME'):
     print(response)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[list_access_keys.py demonstrates how to list your existing IAM access keys.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Identity and Access Management (IAM)]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

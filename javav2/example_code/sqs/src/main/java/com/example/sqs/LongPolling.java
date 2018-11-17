@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling on a queue.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -44,7 +51,7 @@ public class LongPolling
         // Enable long polling when creating a queue
         HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
         attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
-        
+
         CreateQueueRequest create_request = CreateQueueRequest.builder()
                 .queueName(queue_name)
                 .attributes(attributes)
@@ -71,4 +78,3 @@ public class LongPolling
         sqs.receiveMessage(receive_request);
     }
 }
-

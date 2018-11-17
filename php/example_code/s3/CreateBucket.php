@@ -48,3 +48,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[CreateBucket.php demonstrates how to create an new Amazon S3 bucket given a name to use for the bucket.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

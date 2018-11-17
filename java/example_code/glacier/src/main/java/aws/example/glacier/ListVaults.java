@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[ListVaults.java demonstrates how to list your Amazon Glacier vaults.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Glacier]
+//snippet-service:[glacier]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -57,4 +65,3 @@ public class ListVaults
         }
     }
 }
-

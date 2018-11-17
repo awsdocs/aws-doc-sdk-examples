@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[delete_cache_cluster.cpp demonstrates how to delete an Amazon ElastiCache cluster.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon ElastiCache]
+//snippet-service:[elasticache]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -29,3 +29,16 @@ response = ses.create_receipt_filter(
 )
 
 print(response)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[ses_createreceiptfilter.py demonstrates how to allow or block emails from a specific IP address.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon Simple Email Service]
+#snippet-service:[ses]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-08-11]
+#snippet-sourceauthor:[tapasweni-pathak]
+

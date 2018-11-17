@@ -32,3 +32,16 @@ response = client.re_encrypt(
 )
 
 print('New ciphertext:', response['CiphertextBlob'])
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[kms-python-example-re-encrypt-key.py demonstrates how to re-encrypt plain text with the same CMK used to decrypt the original encrypted text.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Key Management Service (KMS)]
+#snippet-service:[kms]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

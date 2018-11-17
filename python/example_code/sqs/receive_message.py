@@ -41,3 +41,16 @@ sqs.delete_message(
     ReceiptHandle=receipt_handle
 )
 print('Received and deleted message: %s' % message)
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[receive_message.py demonstrates how to retrieve up to 10 messages from a specified queue.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon Simple Queue Service]
+#snippet-service:[sqs]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-08-01]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

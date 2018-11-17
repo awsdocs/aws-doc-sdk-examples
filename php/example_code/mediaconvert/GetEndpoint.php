@@ -55,3 +55,16 @@ $mediaConvertClient = new MediaConvertClient([
     'profile' => 'default',
     'endpoint' => $single_endpoint_url
 ]);
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[GetEndpoint.php demonstrates how to retrieve a custom endpoint where you send your AWS Elemental MediaConvert Job.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Elemental MediaConvert]
+//snippet-service:[mediaconvert]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

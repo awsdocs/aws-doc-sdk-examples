@@ -1,3 +1,15 @@
+
+//snippet-sourcedescription:[StartQueryExample.cs demonstrates how to submit a query to Athena for execution, wait until results are available and then process the results.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;

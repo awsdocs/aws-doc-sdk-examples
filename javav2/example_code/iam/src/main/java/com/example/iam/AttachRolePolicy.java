@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing IAM role.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -49,9 +56,9 @@ public class AttachRolePolicy {
         String new_marker = null;
 
         while(!done) {
-        	
+
         	ListAttachedRolePoliciesResponse response;
-        	
+
         	if (new_marker == null) {
         		ListAttachedRolePoliciesRequest request =
                         ListAttachedRolePoliciesRequest.builder()
@@ -97,4 +104,3 @@ public class AttachRolePolicy {
                 " to role " + role_name);
     }
 }
-

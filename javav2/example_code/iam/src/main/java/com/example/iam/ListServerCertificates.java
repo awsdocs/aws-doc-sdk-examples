@@ -1,3 +1,10 @@
+//snippet-sourcedescription:[ListServerCertificates.java demonstrates how to list all server certificates associated with an AWS account.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -34,14 +41,14 @@ public class ListServerCertificates {
 
         while(!done) {
         	ListServerCertificatesResponse response;
-        	
+
         	if (new_marker == null) {
-                ListServerCertificatesRequest request = 
+                ListServerCertificatesRequest request =
                 		ListServerCertificatesRequest.builder().build();
-                response = iam.listServerCertificates(request);        		
+                response = iam.listServerCertificates(request);
         	}
         	else {
-                ListServerCertificatesRequest request = 
+                ListServerCertificatesRequest request =
                 		ListServerCertificatesRequest.builder()
                 		.marker(new_marker).build();
                 response = iam.listServerCertificates(request);
@@ -62,4 +69,3 @@ public class ListServerCertificates {
         }
     }
 }
-

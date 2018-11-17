@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[SetBucketPolicy.java demonstrates how to create a Policy object and set it on an S3 bucket.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[setBucketPolicy]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
 Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -128,4 +137,3 @@ public class SetBucketPolicy
       System.out.println("Done!");
    }
 }
-

@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[put_rule.cpp demonstrates how to create an Amazon CloudWatch Events routing rule.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

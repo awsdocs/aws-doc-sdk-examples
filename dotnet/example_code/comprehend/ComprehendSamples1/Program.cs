@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[Program.cs can be used to run the examples in this ComprehendSamples1 solution.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Comprehend]
+//snippet-service:[comprehend]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;

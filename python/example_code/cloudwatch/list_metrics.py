@@ -23,3 +23,16 @@ for response in paginator.paginate(Dimensions=[{'Name': 'LogGroupName'}],
                                    MetricName='IncomingLogEvents',
                                    Namespace='AWS/Logs'):
     print(response['Metrics'])
+ 
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[list_metrics.py demonstrates how to retrieve a list of published AWS CloudWatch metrics.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon Cloudwatch]
+#snippet-service:[cloudwatch]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-06-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

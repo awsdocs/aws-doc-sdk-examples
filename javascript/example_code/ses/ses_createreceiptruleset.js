@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[ses_createreceiptruleset.js demonstrates how to create an empty Amazon SES rule set.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 
@@ -15,7 +26,7 @@ var newRulePromise = new AWS.SES({apiVersion: '2010-12-01'}).createReceiptRuleSe
 newRulePromise.then(
   function(data) {
     console.log(data);
-  }).catch
+  }).catch(
     function(err) {
     console.error(err, err.stack);
   });

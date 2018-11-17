@@ -1,3 +1,13 @@
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedescription:[Creates an RDS database.]
+//snippet-keyword:[CDK V0.13.0]
+//snippet-keyword:[ec2.VpcNetwork function]
+//snippet-keyword:[rds.DatabaseCluster function]
+//snippet-keyword:[TypeScript]
+//snippet-service:[cdk]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-10-26]
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -38,8 +48,11 @@ class MyRdsDbStack extends cdk.Stack {
   }
 }
 
-const app = new cdk.App(process.argv);
+class MyApp extends cdk.App {
+    constructor() {
+        super();
+        new MyRdsDbStack(this, 'hello-cdk');
+    }
+}
 
-new MyRdsDbStack(app, 'MyRdsDbStack');
-
-process.stdout.write(app.run());
+new MyApp().run();

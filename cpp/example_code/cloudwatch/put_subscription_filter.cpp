@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[put_subscription_filter.cpp demonstrates how to create an Amazon Cloudwatch Logs subscription filter.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

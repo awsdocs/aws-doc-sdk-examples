@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[emc_deletetemplate.js demonstrates how to delete a transcoding job template.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Elemental MediaConvert]
+//snippet-service:[mediaconvert]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
 // Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 

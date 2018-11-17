@@ -17,6 +17,7 @@
  *
  */
 
+
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
@@ -48,3 +49,15 @@ do {
         ]);
     }
 } while (!isset($result));
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[MultipartUplodadStream.php demonstrates how to send a large files to your Amazon S3 Bucket with a stream to minimize errors.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]

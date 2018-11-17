@@ -52,3 +52,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[UpdateDataStreamShards.php demonstrates how to update the shards count of a Amazon Kinesis Data Streams stream. Remember you can only double your shard count when increasing. Also you may not scale down to more than half of your current shard count when decreasing. ]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Kinesis]
+//snippet-service:[kinesis]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-20]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

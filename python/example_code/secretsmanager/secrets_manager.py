@@ -71,4 +71,16 @@ def get_secret():
         else:
             decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
             
-    # Your code goes here. 
+    # Your code goes here.  
+
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[secrets_manager.py demonstrates how to retrieve a secret from AWS Secrets Manager.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Secrets Manager]
+#snippet-service:[secretsmanager]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-09-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

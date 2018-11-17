@@ -1,3 +1,15 @@
+#snippet-sourceauthor: [aws]
+#snippet-sourcedescription:[Lambda rotation for AWS Secrets Manager - RDS Oracle without a separate Master secret]
+#snippet-service:[secretsmanager]
+#snippet-keyword:[rotation function]
+#snippet-keyword:[python]
+#snippet-keyword:[RDS Oracle]
+#snippet-keyword:[AWS Lambda]
+#snippet-keyword:[AWS Secrets Manager]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-08-22]
+
+
 # Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 

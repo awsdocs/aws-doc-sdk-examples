@@ -54,8 +54,9 @@ if __name__ == '__main__':
 # snippet-keyword:[Python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
-# snippet-keyword:[Amazon EKS]
+# snippet-keyword:[Amazon Elastic Container Service for Kubernetes (Amazon EKS)]
 # snippet-service:[eks]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-11-15]
 # snippet-sourceauthor:[scalwas (AWS)]
+
