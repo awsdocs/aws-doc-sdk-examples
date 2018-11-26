@@ -36,14 +36,14 @@ $html_body = '<h1>AWS Amazon Simple Email Service Test Email</h1>' .
 $subject = 'Amazon SES test (AWS SDK for PHP)';
 $plaintext_body = 'This email was send with Amazon SES using the AWS SDK for PHP.';
 $sender_email = 'email_address';
-$recipeint_emails = ['email_address'];
+$recipient_emails = ['email_address'];
 $char_set = 'UTF-8';
 $configuration_set = 'ConfigSet';
 
 try {
     $result = $SesClient->sendEmail([
         'Destination' => [
-            'ToAddresses' => $verified_recipeint_emails,
+            'ToAddresses' => $recipient_emails,
         ],
         'ReplyToAddresses' => [$sender_email],
         'Source' => $sender_email,
