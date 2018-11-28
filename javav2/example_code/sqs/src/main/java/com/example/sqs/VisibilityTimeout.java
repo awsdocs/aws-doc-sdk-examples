@@ -20,12 +20,11 @@
  * limitations under the License.
  */
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
-import software.amazon.awssdk.services.sqs.model.SQSException;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
@@ -42,7 +41,7 @@ public class VisibilityTimeout
     public static void changeMessageVisibilitySingle(
             String queue_url, int timeout)
     {
-    	SQSClient sqs = SQSClient.builder().build();
+    	SqsClient sqs = SqsClient.builder().build();
 
         // Get the receipt handle for the first message in the queue.
     	ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
@@ -65,7 +64,7 @@ public class VisibilityTimeout
     public static void changeMessageVisibilityMultiple(
             String queue_url, int timeout)
     {
-        SQSClient sqs = SQSClient.builder().build();
+    	SqsClient sqs = SqsClient.builder().build();
 
         List<ChangeMessageVisibilityBatchRequestEntry> entries =
             new ArrayList<ChangeMessageVisibilityBatchRequestEntry>();
@@ -101,7 +100,7 @@ public class VisibilityTimeout
     public static void main(String[] args)
     {
         final String queue_name = "testQueue" + new Date().getTime();
-        SQSClient sqs = SQSClient.builder().build();
+        SqsClient sqs = SqsClient.builder().build();
 
         // first, create a queue (unless it exists already)
 
