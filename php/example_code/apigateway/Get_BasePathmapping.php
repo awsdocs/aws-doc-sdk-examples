@@ -35,7 +35,7 @@ $domainName = 'example.com';
 try {
     $result = $APIGatClient->getBasePathMapping([
         'basePath' => $basePath,
-        'domainName' => $domainName,        
+        'domainName' => $domainName,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -53,6 +53,6 @@ try {
 //snippet-keyword:[Amazon API Gateway]
 //snippet-service:[apigateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2018-12-03]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

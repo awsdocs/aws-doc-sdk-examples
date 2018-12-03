@@ -34,9 +34,9 @@ $domainName = 'example.com';
 
 try {
     $result = $APIGatClient->getBasePathMapping([
-        'basePath' => $basePath
+        'basePath' => $basePath,
         'domainName' => $domainName,
-        'patchOperations' => [
+        'patchOperations' => 
         [
             'op' => 'move',
             'path' => '/admin',
@@ -58,6 +58,6 @@ try {
 //snippet-keyword:[Amazon API Gateway]
 //snippet-service:[apigateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2018-12-03]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 
