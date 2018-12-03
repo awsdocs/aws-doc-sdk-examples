@@ -34,9 +34,8 @@ $domainName = 'example.com';
 
 try {
     $result = $APIGatClient->getBasePathMapping([
-        'basePath' => $basePath
-        'domainName' => $domainName,
-        'patchOperations' => [
+        'basePath' => $basePath,
+        'domainName' => $domainName,        
     ]);
     var_dump($result);
 } catch (AwsException $e) {
