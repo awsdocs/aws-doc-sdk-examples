@@ -37,11 +37,6 @@ try {
         'basePath' => $basePath
         'domainName' => $domainName,
         'patchOperations' => [
-        [
-            'op' => 'move',
-            'path' => '/admin',
-            'value' => 'a1b2c3-admin',
-        ],
     ]);
     var_dump($result);
 } catch (AwsException $e) {

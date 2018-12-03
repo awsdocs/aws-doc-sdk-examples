@@ -29,19 +29,11 @@ $APIGatClient = new Aws\ApiGateway\ApiGatewayClient([
     'region' => 'us-east-2'
 ]);
 
-$basePath = '(none)';
 $domainName = 'example.com';
 
 try {
-    $result = $APIGatClient->getBasePathMapping([
-        'basePath' => $basePath
+    $result = $APIGatClient->getBasePathMappings([
         'domainName' => $domainName,
-        'patchOperations' => [
-        [
-            'op' => 'move',
-            'path' => '/admin',
-            'value' => 'a1b2c3-admin',
-        ],
     ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -49,9 +41,10 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+ 
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[Update_BasePathmapping.php demonstrates how to change the Base Path Mapping in API Gateway.]
+//snippet-sourcedescription:[List_BasePathmapping.php demonstrates how to list Base Path Mappings in a given domain in API Gateway.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
