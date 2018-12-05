@@ -36,12 +36,12 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 $secret = '{"username":"<<USERNAME>>","password":"<<PASSWORD>>"}';
 
 try {
     $result = $client->putSecretValue([
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
         'SecretString' => $secret,
     ]);
     var_dump($result);

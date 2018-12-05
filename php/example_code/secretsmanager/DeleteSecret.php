@@ -38,11 +38,11 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 
 try {
     $result = $client->deleteSecret([
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
