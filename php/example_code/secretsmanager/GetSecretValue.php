@@ -37,11 +37,11 @@ $client = new SecretsManagerClient([
     'region' => '<<{{MyRegionName}}>>',
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 
 try {
     $result = $client->getSecretValue([
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
     ]);
 
 } catch (AwsException $e) {

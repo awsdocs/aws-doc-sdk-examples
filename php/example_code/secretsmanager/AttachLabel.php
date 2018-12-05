@@ -38,14 +38,14 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 $version_tag = 'AWSCURRENT';
 $version_id = 'EXAMPLE1-90ab-cdef-fedc-ba987SECRET1';
 
 try {
     $result = $client->updateSecretVersionStage([
         'VersionStage' => $version_tag,
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
         'MoveToVersionId' => $version_id,
     ]);
     var_dump($result);

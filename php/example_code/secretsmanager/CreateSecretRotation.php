@@ -39,7 +39,7 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 $lambda_ARN = 'arn:aws:lambda:us-west-2:123456789012:function:MyTestDatabaseRotationLambda';
 $rules = ['AutomaticallyAfterDays' => 30];
 
@@ -47,7 +47,7 @@ try {
     $result = $client->rotateSecret([
         'RotationLambdaARN' => $lambda_ARN,
         'RotationRules' => $rules,
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
