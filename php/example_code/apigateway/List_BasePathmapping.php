@@ -23,7 +23,7 @@ use Aws\ApiGateway\ApiGatewayClient;
 use Aws\Exception\AwsException;
 
 //Create a ApiGatewayClient
-$APIGatClient = new Aws\ApiGateway\ApiGatewayClient([
+$client = new Aws\ApiGateway\ApiGatewayClient([
     'profile' => 'default',
     'version' => '2015-07-09',
     'region' => 'us-east-2'
@@ -32,15 +32,8 @@ $basePath = '(none)';
 $domainName = 'example.com';
 
 try {
-    $result = $APIGatClient->getBasePathMapping([
-        'basePath' => $basePath,
+    $result = $client->getBasePathMappings([
         'domainName' => $domainName,
-        'patchOperations' => [
-        [
-            'op' => 'move',
-            'path' => '/admin',
-            'value' => 'a1b2c3-admin',
-        ],
     ]);
     var_dump($result);
 } catch (AwsException $e) {
