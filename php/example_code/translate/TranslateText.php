@@ -22,7 +22,7 @@ use Aws\Translate\TranslateClient;
 use Aws\Exception\AwsException;
 
 /**
- * Translate an text from Arabic (ar), Chinese (Simplified) (zh)
+ * Translate a text from Arabic (ar), Chinese (Simplified) (zh)
  * French (fr), German (de), Portuguese (pt), or Spanish (es) 
  * into English (en) with Translate client.
  *
@@ -41,19 +41,19 @@ $client = new Aws\Translate\TranslateClient([
 // Arabic (ar), Chinese (Simplified) (zh), English (en)
 // French (fr), German (de), Portuguese (pt), or Spanish (es) 
 
-$current_language = 'es';
+$currentLanguage = 'es';
 
 // If the TargetLanguageCode is not "en", the SourceLanguageCode must be "en".
-$language_translate_to = 'en';
+$targetLanguage= 'en';
 
 
-$text_to_translate = 'El AWS SDK for PHP versión 3 permite a los desarrolladores de PHP utilizar Amazon Web Services en su código PHP y crear aplicaciones y software robustos utilizando servicios como Amazon S3, Amazon DynamoDB, Amazon Glacier, etc. Puede empezar rápidamente instalando el SDK mediante Composer (solicitando el paquete aws/aws-sdk-php) o descargando el archivo aws.zip o aws.phar independiente';
+$textToTranslate = 'El AWS SDK for PHP versión 3 permite a los desarrolladores de PHP utilizar Amazon Web Services en su código PHP y crear aplicaciones y software robustos utilizando servicios como Amazon S3, Amazon DynamoDB, Amazon Glacier, etc. Puede empezar rápidamente instalando el SDK mediante Composer (solicitando el paquete aws/aws-sdk-php) o descargando el archivo aws.zip o aws.phar independiente';
 
 try {
     $result = $client->translateText([
-        'SourceLanguageCode' => $current_language,
-        'TargetLanguageCode' => $language_translate_to, 
-        'Text' => $text_to_translate, 
+        'SourceLanguageCode' => $currentLanguage,
+        'TargetLanguageCode' => $targetLanguage, 
+        'Text' => $textToTranslate, 
     ]);
     var_dump($result);
 }catch (AwsException $e) {
