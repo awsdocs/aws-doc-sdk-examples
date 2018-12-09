@@ -39,7 +39,7 @@ try {
     echo "\n";
 } 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[GetFindings.php demonstrates how to return results from other AWS Security services like Amazon GuardDuty, Amazon Inspector, and  Amazon Macie.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[AWS Security Hub]

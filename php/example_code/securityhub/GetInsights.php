@@ -39,7 +39,7 @@ try {
     echo "\n";
 } 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[GetInsights.php demonstrates how to retrieve results from Insights created in AWS Security Hub.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[AWS Security Hub]
