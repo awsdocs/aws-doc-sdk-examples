@@ -43,7 +43,7 @@ try {
     echo "\n";
 } 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to ...]
+//snippet-sourcedescription:[InviteMembers.php demonstrates how create a member association with other AWS accounts from AWS Security Hub.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[AWS Security Hub]
