@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  
+ *
  *
  *
  */
@@ -27,7 +27,7 @@ use Aws\Exception\AwsException;
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',
     'version' => '2014-10-31',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $dbIdentifier = '<<{{db-identifier}}>>';
@@ -39,7 +39,7 @@ try {
         'DBSnapshotIdentifier' => $snapshotName,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
