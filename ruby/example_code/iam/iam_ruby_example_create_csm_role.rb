@@ -1,12 +1,14 @@
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Creates an access key and secret key for an IAM user.]
+#snippet-sourcedescription:[Creates an IAM role for client-side access to .]
 #snippet-keyword:[AWS Identity and Access Management]
-#snippet-keyword:[user method]
+#snippet-keyword:[attach_role_policy method]
+#snippet-keyword:[create_policy method]
+#snippet-keyword:[create_role method]
 #snippet-keyword:[Ruby]
 #snippet-service:[iam]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
+#snippet-sourcedate:[2018-12-11]
 # Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -18,6 +20,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+//snippet-start:[iam.ruby.create_csm_role]
 require 'aws-sdk-iam' # v2: require 'aws-sdk'
 
 role_name = 'AmazonCSM'
@@ -84,3 +87,4 @@ client.attach_role_policy(
     })
 
 puts 'Attached policy ' + role_name + 'policy to role: ' + role_name
+//snippet-end:[iam.ruby.create_csm_role]
