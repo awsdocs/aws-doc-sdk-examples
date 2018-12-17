@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  
+ *
  *
  *
  */
@@ -26,23 +26,23 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
- //Create a PollyClient
+
+//Create a PollyClient
 $client = new Aws\Polly\PollyClient([
-    'profile' => 'default', 
+    'profile' => 'default',
     'version' => '2016-06-10',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 
 try {
     $result = $client->listLexicons([]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[ListLexicons.php demonstrates how to list customized pronunciation lexicons from the current AWS region in your AWS account.]
 //snippet-keyword:[PHP]

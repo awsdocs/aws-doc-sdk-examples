@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  
+ *
  *
  *
  */
@@ -26,12 +26,12 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
- //Create a PollyClient
+
+//Create a PollyClient
 $client = new Aws\Polly\PollyClient([
-    'profile' => 'default', 
+    'profile' => 'default',
     'version' => '2016-06-10',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $taskId = 'ab01cd23-ef45-67gh-ij89-ab01cd23ef45';
@@ -41,11 +41,11 @@ try {
         'TaskId' => $taskId,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[GetSpeechTask.php demonstrates how to retrieve the status of a speech synthesis task, and link to the S3 bucket containing the speech file.]
 //snippet-keyword:[PHP]

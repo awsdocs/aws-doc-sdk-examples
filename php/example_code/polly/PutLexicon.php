@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  
+ *
  *
  *
  */
@@ -26,28 +26,28 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
- //Create a PollyClient
+
+//Create a PollyClient
 $client = new Aws\Polly\PollyClient([
-    'profile' => 'default', 
+    'profile' => 'default',
     'version' => '2016-06-10',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 $name = 'lexiconName';
 $PLS = '
-    <lexicon version="1.0" 
-          xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-          xsi:schemaLocation="http://www.w3.org/2005/01/pronunciation-lexicon 
-            http://www.w3.org/TR/2007/CR-pronunciation-lexicon-20071212/pls.xsd"
-          alphabet="ipa" 
-          xml:lang="en-US">
-      <lexeme>
-        <grapheme>W3C</grapheme>
-        <alias>World Wide Web Consortium</alias>
-      </lexeme>
-    </lexicon>';
+        <lexicon version="1.0" 
+              xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://www.w3.org/2005/01/pronunciation-lexicon 
+                http://www.w3.org/TR/2007/CR-pronunciation-lexicon-20071212/pls.xsd"
+              alphabet="ipa" 
+              xml:lang="en-US">
+                  <lexeme>
+                    <grapheme>W3C</grapheme>
+                    <alias>World Wide Web Consortium</alias>
+                  </lexeme>
+        </lexicon>';
 
 try {
     $result = $client->putLexicon([
@@ -55,11 +55,11 @@ try {
         'Content' => $PLS,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[PutLexicon.php demonstrates how to create a new pronunciation lexicon.]
 //snippet-keyword:[PHP]

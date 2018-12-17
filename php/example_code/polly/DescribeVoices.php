@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  
+ *
  *
  *
  */
@@ -26,12 +26,12 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
- //Create a PollyClient
+
+//Create a PollyClient
 $client = new Aws\Polly\PollyClient([
-    'profile' => 'default', 
+    'profile' => 'default',
     'version' => '2016-06-10',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
 
 try {
@@ -39,11 +39,11 @@ try {
         'LanguageCode' => 'en-GB',
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[DescribeVoices.php demonstrates how to retrieve a list of all available voice options for speech synthesis in the specified language.]
 //snippet-keyword:[PHP]
