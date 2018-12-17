@@ -30,7 +30,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$KinesisClient = new Aws\Kinesis\KinesisClient([
+$kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
     'region' => 'us-east-2'
@@ -41,7 +41,7 @@ $totalshards = 4;
 
 
 try {
-    $result = $KinesisClient->UpdateShardCount([
+    $result = $kinesisClient->UpdateShardCount([
         'ScalingType' => 'UNIFORM_SCALING',
         'StreamName' => $name,
         'TargetShardCount' => $totalshards

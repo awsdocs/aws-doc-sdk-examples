@@ -29,14 +29,14 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$KinesisClient = new Aws\Kinesis\KinesisClient([
+$kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
     'region' => 'us-east-2'
 ]);
 
 try {
-    $result = $KinesisClient->listStreams([
+    $result = $kinesisClient->listStreams([
     ]);
     var_dump($result);
 } catch (AwsException $e) {

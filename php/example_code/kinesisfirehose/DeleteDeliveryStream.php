@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+$firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
     'region' => 'us-east-2'
@@ -38,7 +38,7 @@ $FirehoseClient = new Aws\Firehose\FirehoseClient([
 $name = "my_stream_name";
 
 try {
-    $result = $FirehoseClient->deleteDeliveryStream([
+    $result = $firehoseClient->deleteDeliveryStream([
         'DeliveryStreamName' => $name,
     ]);
     var_dump($result);

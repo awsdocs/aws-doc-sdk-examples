@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$KinesisClient = new Aws\Kinesis\KinesisClient([
+$kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
     'region' => 'us-east-1'
@@ -40,7 +40,7 @@ $content = '{"ticker_symbol":"QXZ", "sector":"HEALTHCARE", "change":-0.05, "pric
 $groupID = "input to a hash function that maps the partition key (and associated data) to a specific shard";
 
 try {
-    $result = $KinesisClient->PutRecord([
+    $result = $kinesisClient->PutRecord([
         'Data' => $content,
         'StreamName' => $name,
         'PartitionKey' => $groupID

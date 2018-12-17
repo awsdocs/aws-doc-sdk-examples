@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$KinesisClient = new Aws\Kinesis\KinesisClient([
+$kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
     'region' => 'us-east-2'
@@ -40,7 +40,7 @@ $name = "my_stream_name";
 
 
 try {
-    $result = $KinesisClient->createStream([
+    $result = $kinesisClient->createStream([
         'ShardCount' => $shardCount,
         'StreamName' => $name,
     ]);

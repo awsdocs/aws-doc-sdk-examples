@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+$firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
     'region' => 'us-east-2'
@@ -37,7 +37,7 @@ $FirehoseClient = new Aws\Firehose\FirehoseClient([
 
 
 try {
-    $result = $FirehoseClient->listDeliveryStreams([
+    $result = $firehoseClient->listDeliveryStreams([
         'DeliveryStreamType' => 'DirectPut',
     ]);
     var_dump($result);
