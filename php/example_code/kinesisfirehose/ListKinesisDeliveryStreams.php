@@ -22,14 +22,14 @@ use Aws\Firehose\FirehoseClient;
 use Aws\Exception\AwsException;
 
 /**
- * ist existing Amazon Kinesis Firehose Delivery Streams that use a Kinesis Data Stream as output.
+ * List existing Amazon Kinesis Firehose Delivery Streams that use a Kinesis Data Stream as output.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 //Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+$firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
     'region' => 'us-east-2'
@@ -37,7 +37,7 @@ $FirehoseClient = new Aws\Firehose\FirehoseClient([
 
 
 try {
-    $result = $FirehoseClient->listDeliveryStreams([
+    $result = $firehoseClient->listDeliveryStreams([
         'DeliveryStreamType' => 'KinesisStreamAsSource',
     ]);
     var_dump($result);

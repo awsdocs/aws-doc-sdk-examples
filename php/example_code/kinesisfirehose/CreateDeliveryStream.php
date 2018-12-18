@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+$firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
     'region' => 'us-east-2'
@@ -41,7 +41,7 @@ $kinesis_stream = "arn:aws:kinesis:us-east-2:0123456789:stream/my_stream_name";
 $role = "arn:aws:iam::0123456789:policy/Role";
 
 try {
-    $result = $FirehoseClient->createDeliveryStream([
+    $result = $firehoseClient->createDeliveryStream([
         'DeliveryStreamName' => $name,
         'DeliveryStreamType' => $stream_type,
         'KinesisStreamSourceConfiguration' => [
