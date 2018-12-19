@@ -137,9 +137,10 @@ print(r.text)
  
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[v4-signing-get-querystring shows how to make a request using the IAM query API. The request makes a GET request and passes parameters and signing information using the query string.]
+#snippet-sourcedescription:[v4-signing-get-querystring.py shows how to make a request using the IAM query API. The request makes a GET request and passes parameters and signing information using the query string.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
+#snippet-keyword:[Amazon IAM]
 #snippet-service:[AWS Signature Version 4 Signing Process]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2018-09-20]
