@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,13 +22,15 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.put_metric_alarm.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
+//snippet-end:[cw.cpp.put_metric_alarm.inc]
 
 /**
- * Adds a cloud watch alarm to an instance based on CPU utilization
+ * Adds a CloudWatch alarm to an instance based on CPU utilization
  */
 int main(int argc, char** argv)
 {
@@ -45,6 +47,7 @@ int main(int argc, char** argv)
         Aws::String alarm_name(argv[1]);
         Aws::String instanceId(argv[2]);
 
+        // snippet-start:[cw.cpp.put_metric_alarm.code]
         Aws::CloudWatch::CloudWatchClient cw;
         Aws::CloudWatch::Model::PutMetricAlarmRequest request;
         request.SetAlarmName(alarm_name);
@@ -77,6 +80,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully created cloudwatch alarm " << alarm_name
                 << std::endl;
         }
+        // snippet-end:[cw.cpp.put_metric_alarm.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
