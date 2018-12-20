@@ -23,12 +23,10 @@
    specific language governing permissions and limitations under the License.
 */
 //snippet-start:[cw.cpp.put_metric_alarm.inc]
-//steveCalwasStart
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
-//steveCalwasEnd
 //snippet-end:[cw.cpp.put_metric_alarm.inc]
 
 /**
