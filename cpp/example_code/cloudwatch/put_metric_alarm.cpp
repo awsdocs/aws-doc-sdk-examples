@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -23,10 +23,12 @@
    specific language governing permissions and limitations under the License.
 */
 //snippet-start:[cw.cpp.put_metric_alarm.inc]
+//steveCalwasStart
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
+//steveCalwasEnd
 //snippet-end:[cw.cpp.put_metric_alarm.inc]
 
 /**
