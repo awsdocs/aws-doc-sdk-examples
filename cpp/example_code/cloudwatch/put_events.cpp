@@ -84,7 +84,7 @@ int main(int argc, char** argv)
         {
             std::cout << "Successfully posted cloudwatch event" << std::endl;
         }
-        //snippet-start:[cw.cpp.put_events.code]
+        //snippet-end:[cw.cpp.put_events.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
