@@ -22,12 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-//snippet-start:[uniqueTag]
+//snippet-start:[cw.cpp.put_metric_alarm.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
-//snippet-end:[uniqueTag]
+//snippet-end:[cw.cpp.put_metric_alarm.inc]
 
 /**
  * Adds a CloudWatch alarm to an instance based on CPU utilization
