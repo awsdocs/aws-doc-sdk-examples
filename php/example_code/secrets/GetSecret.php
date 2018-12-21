@@ -12,10 +12,11 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * If you need more information about configurations or implementing the sample code, visit the AWS docs:
- * https://aws.amazon.com/developers/getting-started/php/
+ *  ABOUT THIS PHP SAMPLE: This sample demonstrates how to retrieve a secret from
+ * from Secrets manager. It is accessible from the Secrets Manager Console.
  *
  */
+
 require 'vendor/autoload.php';
 
 use Aws\SecretsManager\SecretsManagerClient;
@@ -30,66 +31,55 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a Secrets Manager Client
+//Create a Secrets Manager Client
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
-    'region' => '<<{{MyRegionName}}>>',
+    'region' => 'us-east-1',
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secret_name = 'SecretName';
 
 try {
     $result = $client->getSecretValue([
-        'SecretId' => $secretName,
+        'SecretId' => $secret_name,
     ]);
-
+    print("Retrieved secret: " . $result['Name']);
 } catch (AwsException $e) {
+    //echo $e->getMessage();
+    //echo "\n";
+
     $error = $e->getAwsErrorCode();
     if ($error == 'DecryptionFailureException') {
         // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
         // Deal with the exception here, and/or rethrow at your discretion.
         throw $e;
-    }
-    if ($error == 'InternalServiceErrorException') {
+    } elseif ($error == 'InternalServiceErrorException') {
         // An error occurred on the server side.
         // Deal with the exception here, and/or rethrow at your discretion.
         throw $e;
-    }
-    if ($error == 'InvalidParameterException') {
+    } elseif ($error == 'InvalidParameterException') {
         // You provided an invalid value for a parameter.
         // Deal with the exception here, and/or rethrow at your discretion.
         throw $e;
-    }
-    if ($error == 'InvalidRequestException') {
+    } elseif ($error == 'InvalidRequestException') {
         // You provided a parameter value that is not valid for the current state of the resource.
         // Deal with the exception here, and/or rethrow at your discretion.
         throw $e;
-    }
-    if ($error == 'ResourceNotFoundException') {
-        // We can't find the resource that you asked for.
-        // Deal with the exception here, and/or rethrow at your discretion.
+    } elseif ($error == 'ResourceNotFoundException') {
+        # We can't find the resource that you asked for.
+        # Deal with the exception here, and/or rethrow at your discretion.
         throw $e;
+    } else {
+        // Decrypts secret using the associated KMS CMK.
+        // Depending on whether the secret is a string or binary, one of these fields will be populated.
+        if ($result['SecretString']) {
+            $secret = $result['SecretString'];
+        } else {
+            $decoded_secret = base64_decode($result['SecretBinary']);
+        }
+
+        // Your code goes here
+
     }
 }
-// Decrypts secret using the associated KMS CMK.
-// Depending on whether the secret is a string or binary, one of these fields will be populated.
-if (isset($result['SecretString'])) {
-    $secret = $result['SecretString'];
-} else {
-    $secret = base64_decode($result['SecretBinary']);
-}
-
-// Your code goes here; 
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-25]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
-
