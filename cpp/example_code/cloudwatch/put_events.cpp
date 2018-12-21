@@ -1,4 +1,4 @@
- 
+
 //snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
@@ -89,6 +89,4 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
-
-
 

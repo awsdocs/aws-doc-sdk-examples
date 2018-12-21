@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,14 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-//snippet-start:[cw.cpp.put_targets.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/CloudWatchEventsClient.h>
 #include <aws/events/model/PutTargetsRequest.h>
 #include <aws/events/model/PutTargetsResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_targets.inc]
 
 /**
  * Creates a cloud watch event routing rule target, based on command line input
@@ -50,7 +48,6 @@ int main(int argc, char** argv)
         Aws::String lambda_arn(argv[2]);
         Aws::String target_id(argv[3]);
 
-        // snippet-start:[cw.cpp.put_targets.code]
         Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
 
         Aws::CloudWatchEvents::Model::Target target;
@@ -74,7 +71,6 @@ int main(int argc, char** argv)
                 "Successfully created cloudwatch events target for rule "
                 << rule_name << std::endl;
         }
-        // snippet-end:[cw.cpp.put_targets.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
