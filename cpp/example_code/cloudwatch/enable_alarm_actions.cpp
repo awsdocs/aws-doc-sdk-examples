@@ -22,19 +22,16 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-//snippet-start:[cw.cpp.enable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/EnableAlarmActionsRequest.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
-//snippet-end:[cw.cpp.enable_alarm_actions.inc]
 
 void CreateAlarmAndEnableActions(
     const Aws::String& alarm_name, const Aws::String& instanceId,
     const Aws::String& actionArn)
 {
-    // snippet-start:[cw.cpp.enable_alarm_actions.code]
     Aws::CloudWatch::CloudWatchClient cw;
     Aws::CloudWatch::Model::PutMetricAlarmRequest request;
     request.SetAlarmName(alarm_name);
@@ -77,7 +74,6 @@ void CreateAlarmAndEnableActions(
 
     std::cout << "Successfully created alarm " << alarm_name <<
         " and enabled actions on it." << std::endl;
-    // snippet-end:[cw.cpp.enable_alarm_actions.code]
 }
 
 /**

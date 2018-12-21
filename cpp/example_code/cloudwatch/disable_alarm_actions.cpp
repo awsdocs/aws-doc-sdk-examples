@@ -22,15 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-//snippet-start:[cw.cpp.disable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DisableAlarmActionsRequest.h>
 #include <iostream>
-//snippet-end:[cw.cpp.disable_alarm_actions.inc]
 
 /**
- * Disable actions on a CloudWatch alarm based on command-line input
+ * Disables actions on a cloudwatch alarm, based on command line input
  */
 int main(int argc, char** argv)
 {
@@ -47,7 +45,6 @@ int main(int argc, char** argv)
     {
         Aws::String alarm_name(argv[1]);
 
-        //snippet-start:[cw.cpp.disable_alarm_actions.code]
         Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::DisableAlarmActionsRequest disableAlarmActionsRequest;
@@ -65,7 +62,6 @@ int main(int argc, char** argv)
             std::cout << "Successfully disabled actions for alarm " <<
                 alarm_name << std::endl;
         }
-        //snippet-end:[cw.cpp.disable_alarm_actions.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
