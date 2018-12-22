@@ -17,7 +17,7 @@
  *
  */
 //snippet-start:[cloudfront.php.createinvalidation.complete]
-//snippet-start:[cloudfront.php.creates3invalidation.import]
+//snippet-start:[cloudfront.php.createinvalidation.import]
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient;
@@ -60,8 +60,8 @@ try {
     echo "\n";
 }
 
-//snippet-end:[cloudfront.php.creates3invalidation.main]
-//snippet-start:[cloudfront.php.createinvalidation.complete]
+//snippet-end:[cloudfront.php.createinvalidation.main]
+//snippet-end:[cloudfront.php.createinvalidation.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[CreateInvalidation.php demonstrates how to invalidate cached objects in an Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]
