@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[cloudfront.php.disabledistribution.complete]
+//snippet-start:[cloudfront.php.disabledistribution.import]
 
 require 'vendor/autoload.php';
 
-use Aws\CloudFront\CloudFrontClient;
+use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[cloudfront.php.disabledistribution.import]
 
 
 /**
@@ -30,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a CloudFront Client
+//Create a CloudFront Client 
+//snippet-start:[cloudfront.php.disabledistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -88,7 +92,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+//snippet-end:[cloudfront.php.disabledistribution.main]
+//snippet-end:[cloudfront.php.disabledistribution.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[DisableDistribution.php demonstrates how to disable an Amazon CloudFront Distribution so it can be deleted.]
 //snippet-keyword:[PHP]
