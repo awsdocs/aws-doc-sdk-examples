@@ -23,7 +23,7 @@ require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[cloudfront.php.listtdistribution.import]
+//snippet-end:[cloudfront.php.listdistribution.import]
 
 
 /**
