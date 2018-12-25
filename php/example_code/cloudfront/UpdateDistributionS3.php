@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[cloudfront.php.updatedistribution.complete]
+//snippet-start:[cloudfront.php.updatedistribution.import]
 
 require 'vendor/autoload.php';
 
-use Aws\CloudFront\CloudFrontClient;
+use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[cloudfront.php.updatedistribution.import]
 
 
 /**
@@ -30,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a CloudFront Client
+//Create a CloudFront Client 
+//snippet-start:[cloudfront.php.updatedistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -84,7 +88,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+//snippet-end:[cloudfront.php.updatedistribution.main]
+//snippet-end:[cloudfront.php.updatedistribution.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront Distribution and change any of the configurations. To make changes replace the $currentConfig value with a new value]
 //snippet-keyword:[PHP]
