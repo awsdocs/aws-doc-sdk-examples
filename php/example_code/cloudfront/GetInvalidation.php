@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[cloudfront.php.getinvalidation.complete]
+//snippet-start:[cloudfront.php.getinvalidation.import]
 
 require 'vendor/autoload.php';
 
-use Aws\CloudFront\CloudFrontClient;
+use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[cloudfront.php.getinvalidation.import]
 
 
 /**
@@ -30,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a CloudFront Client
+//Create a CloudFront Client 
+//snippet-start:[cloudfront.php.getinvalidation.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -51,7 +55,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+//snippet-end:[cloudfront.php.getinvalidation.main]
+//snippet-end:[cloudfront.php.getinvalidation.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an  Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]
