@@ -37,6 +37,6 @@ print('Created CMK ARN:', response['KeyMetadata']['Arn'])
 #snippet-keyword:[AWS Key Management Service (KMS)]
 #snippet-service:[kms]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 
