@@ -54,6 +54,6 @@ print(response)
 #snippet-keyword:[AWS Certificate Manager]
 #snippet-service:[acm]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-09-05]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[walkerk1980]
 
