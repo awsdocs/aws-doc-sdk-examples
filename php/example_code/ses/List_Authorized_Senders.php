@@ -52,6 +52,6 @@ try {
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

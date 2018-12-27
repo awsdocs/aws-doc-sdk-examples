@@ -75,6 +75,6 @@ try {
 //snippet-keyword:[Amazon CloudWatch Events]
 //snippet-service:[events]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

@@ -54,6 +54,6 @@ try {
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

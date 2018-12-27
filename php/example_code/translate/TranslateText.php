@@ -73,5 +73,5 @@ try {
 //snippet-keyword:[Amazon Translate]
 //snippet-service:[translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-10-30]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
