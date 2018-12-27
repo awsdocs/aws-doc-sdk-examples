@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[cloudwatch.python.enable_alarm_actions.complete]
 
 import boto3
 
@@ -41,7 +42,8 @@ cloudwatch.put_metric_alarm(
     Unit='Seconds'
 )
  
-
+ 
+#snippet-end:[cloudwatch.python.enable_alarm_actions.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[enable_alarm_actions.py demonstrates how to enable actions for specified alarms.]
 #snippet-keyword:[Python]
@@ -50,6 +52,6 @@ cloudwatch.put_metric_alarm(
 #snippet-keyword:[Amazon Cloudwatch]
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 
