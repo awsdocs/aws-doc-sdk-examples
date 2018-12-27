@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[cloudfront.python.update_distribution_certificate.complete]
 
 import boto3
 import sys
@@ -64,7 +65,8 @@ distribution_config['ViewerCertificate']['Certificate']=new_cert_arn
 cf.update_distribution(DistributionConfig=distribution_config, \
 Id=distribution_id,IfMatch=distribution_etag)
  
-
+ 
+#snippet-end:[cloudfront.python.update_distribution_certificate.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[update_distribution_certificate.py demonstrates how to update multiple Amazon CloudFront distributions.]
 #snippet-keyword:[Python]
@@ -73,5 +75,5 @@ Id=distribution_id,IfMatch=distribution_etag)
 #snippet-keyword:[Amazon CloudFront]
 #snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-09-30]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[walkerk1980]

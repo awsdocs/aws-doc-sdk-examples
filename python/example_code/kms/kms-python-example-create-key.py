@@ -8,8 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
+# language governing permissions and limitations under the License. 
+# snippet-start:[kms.python.createkey.complete]
 
 from __future__ import print_function
 
@@ -28,6 +28,8 @@ response = client.create_key()
 
 print('Created CMK ARN:', response['KeyMetadata']['Arn'])
  
+ 
+#snippet-end:[kms.python.createkey.complete]
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[kms-python-example-create-key.py demonstrates how to create a customer master key with AWS Key Management Service]
@@ -37,6 +39,6 @@ print('Created CMK ARN:', response['KeyMetadata']['Arn'])
 #snippet-keyword:[AWS Key Management Service (KMS)]
 #snippet-service:[kms]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 
