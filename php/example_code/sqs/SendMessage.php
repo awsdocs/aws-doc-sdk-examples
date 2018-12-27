@@ -71,6 +71,6 @@ try {
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

@@ -57,6 +57,6 @@ try {
 //snippet-keyword:[Amazon Kinesis]
 //snippet-service:[kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 
