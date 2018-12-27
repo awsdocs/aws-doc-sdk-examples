@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[acm.python.describe_certificate.complete]
 
 import boto3
 
@@ -23,7 +24,8 @@ response = acm.describe_certificate(
 )
 print(response)
  
-
+ 
+#snippet-end:[acm.python.describe_certificate.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[describe_certificate.py demonstrates how to retrieve detailed metadata about the specified AWS Certificate Manager certificate.]
 #snippet-keyword:[Python]
