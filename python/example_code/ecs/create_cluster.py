@@ -9,7 +9,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-
+# snippet-start:[ecs.python.create_cluster.complete]
 
 import boto3
 
@@ -24,7 +24,8 @@ try:
 
 except BaseException as exe:
     print(exe)
-    
+
+#snippet-end:[ecs.python.create_cluster.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[create_cluster.py demonstrates how to create an Amazon ECS cluster.]
 #snippet-keyword:[Python]
@@ -33,5 +34,5 @@ except BaseException as exe:
 #snippet-keyword:[Amazon Elastic Container Service (ECS)]
 #snippet-service:[ecs]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-10-29]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[Evalle]
