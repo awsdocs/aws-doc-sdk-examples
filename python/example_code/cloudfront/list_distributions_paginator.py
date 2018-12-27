@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[cloudfront.python.list_distribution_certificate_paginator.complete]
 
 import boto3
 
@@ -32,7 +33,8 @@ for distributionlist in paginator.paginate():
       print("")
   else:    
     print("Error - No CloudFront Distributions Detected.") 
-
+ 
+#snippet-end:[cloudfront.python.list_distribution_certificate_paginator.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[list_distributions_paginator.py demonstrates how to list Amazon CloudFront distributions with the pagination interface.]
 #snippet-keyword:[Python]
@@ -41,5 +43,5 @@ for distributionlist in paginator.paginate():
 #snippet-keyword:[Amazon CloudFront]
 #snippet-service:[cloudfront]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-08-22]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[walkerk1980]
