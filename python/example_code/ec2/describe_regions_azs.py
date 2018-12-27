@@ -8,8 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
+# language governing permissions and limitations under the License. 
+# snippet-start:[ec2.python.describe_regions_azs.complete]
 
 import boto3
 
@@ -23,7 +23,8 @@ print('Regions:', response['Regions'])
 response = ec2.describe_availability_zones()
 print('Availability Zones:', response['AvailabilityZones'])
  
-
+ 
+#snippet-end:[ec2.python.describe_regions_azs.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[describe_regions_azs.py demonstrates how to describe AWS Regions and Availability Zones that are currently available to you.]
 #snippet-keyword:[Python]
@@ -32,6 +33,6 @@ print('Availability Zones:', response['AvailabilityZones'])
 #snippet-keyword:[Amazon EC2]
 #snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 
