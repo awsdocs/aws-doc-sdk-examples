@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[cloudwatch.python.describe_alarms.complete]
 
 import boto3
 
@@ -22,7 +23,8 @@ paginator = cloudwatch.get_paginator('describe_alarms')
 for response in paginator.paginate(StateValue='INSUFFICIENT_DATA'):
     print(response['MetricAlarms'])
  
-
+ 
+#snippet-end:[cloudwatch.python.describe_alarms.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[describe_alarms.py demonstrates how to list all Amazon CloudWatch alarm names.]
 #snippet-keyword:[Python]
@@ -31,6 +33,6 @@ for response in paginator.paginate(StateValue='INSUFFICIENT_DATA'):
 #snippet-keyword:[Amazon Cloudwatch]
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 
