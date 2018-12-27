@@ -8,8 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
+# language governing permissions and limitations under the License. 
+# snippet-start:[kms.python.encrypt.complete]
 
 from __future__ import print_function
 import base64
@@ -34,7 +34,8 @@ response = client.encrypt(
 
 print('Encrypted ciphertext:', response['CiphertextBlob'])
  
-
+ 
+#snippet-end:[kms.python.encrypt.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[kms-python-example-create-key.py demonstrates how to encrypt a string with an existing CMK using AWS Key Management Service.]
 #snippet-keyword:[Python]
