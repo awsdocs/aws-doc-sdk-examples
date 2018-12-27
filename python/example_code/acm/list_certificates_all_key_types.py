@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[acm.python.list_certificates_all_key_types.complete]
 
 import boto3
 
@@ -35,7 +36,8 @@ Includes={
     for certificate in response['CertificateSummaryList']:
         print(certificate)
  
-
+ 
+#snippet-end:[acm.python.list_certificates_all_key_types.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[list_certificates_all_key_types.py demonstrates how to create a paginator for a specific operation. Here we show how to get a list of certificate ARNs and domain names with list_certificates. ]
 #snippet-keyword:[Python]
