@@ -10,6 +10,8 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+# snippet-start:[guardduty.python.list_findings_with_criteria.complete]
+
 import boto3
 
 # Create GuardDuty client
@@ -33,7 +35,7 @@ for finding in findings['FindingIds']:
     print(finddetail)
     print("\n")
  
-
+#snippet-end:[guardduty.python.list_findings_with_criteria.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[list_findings_with_criteria.py lists Amazon GuardDuty findings for the specified detector ID.]
 #snippet-keyword:[Python]
@@ -42,6 +44,6 @@ for finding in findings['FindingIds']:
 #snippet-keyword:[Amazon GuardDuty]
 #snippet-service:[guardduty]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-01]
+#snippet-sourcedate:[2018-12-25]
 #snippet-sourceauthor:[walkerk1980]
 
