@@ -8,8 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
+# language governing permissions and limitations under the License. 
+# snippet-start:[sns.python.publish_to_phonenumber.complete]
 
 import boto3
 
@@ -24,7 +24,8 @@ response = sns.publish(
 
 # Print out the response
 print(response)
- 
+  
+#snippet-end:[sns.python.publish_to_phonenumber.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[sns-python-example-publich-to-phonenumber.py demonstrates how to send an SMS message to the specified phonenumber using AWS SNS.]
 #snippet-keyword:[Python]
@@ -33,5 +34,5 @@ print(response)
 #snippet-keyword:[Amazon Simple Notification Service]
 #snippet-service:[sns]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-10-28]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jasonhedges]
