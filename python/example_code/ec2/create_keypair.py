@@ -8,7 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[ec2.python.create_keypair.complete]
 
 
 import boto3
@@ -17,7 +18,8 @@ ec2 = boto3.client('ec2')
 response = ec2.create_key_pair(KeyName='KEY_PAIR_NAME')
 print(response)
  
-
+ 
+#snippet-end:[ec2.python.create_keypair.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[create_keypair.py demonstrates how to create a 2048-bit RSA Amazon EC2 key pair.]
 #snippet-keyword:[Python]
@@ -26,6 +28,6 @@ print(response)
 #snippet-keyword:[Amazon EC2]
 #snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 

@@ -16,6 +16,7 @@
 # Use this code snippet in your app.
 # If you need more information about configurations or implementing the sample code, visit the AWS docs:   
 # https://aws.amazon.com/developers/getting-started/python/
+# snippet-start:[secretsmanager.python.getvalue.complete]
 
 import boto3
 import base64
@@ -73,6 +74,7 @@ def get_secret():
             
     # Your code goes here.  
 
+#snippet-end:[secretsmanager.python.getvalue.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[secrets_manager.py demonstrates how to retrieve a secret from AWS Secrets Manager.]
 #snippet-keyword:[Python]
@@ -81,6 +83,6 @@ def get_secret():
 #snippet-keyword:[AWS Secrets Manager]
 #snippet-service:[secretsmanager]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-09-25]
+#snippet-sourcedate:[2018-12-25]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 

@@ -8,7 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[ec2.python.describe_addresses.complete]
 
 
 import boto3
@@ -20,7 +21,8 @@ filters = [
 response = ec2.describe_addresses(Filters=filters)
 print(response)
  
-
+ 
+#snippet-end:[ec2.python.describe_addresses.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[describe_addresses.py demonstrates how to describe one or more of your Elastic IP addresses. An Elastic IP address is for use in either the Amazon EC2-Classic platform or in a VPC.]
 #snippet-keyword:[Python]
@@ -29,6 +31,6 @@ print(response)
 #snippet-keyword:[Amazon EC2]
 #snippet-service:[ec2]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 
