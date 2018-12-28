@@ -43,6 +43,6 @@ var_dump($client);
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-service:[mediaconvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

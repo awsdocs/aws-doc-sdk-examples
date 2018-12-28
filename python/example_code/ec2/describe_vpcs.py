@@ -18,7 +18,7 @@ ec2 = boto3.client('ec2')
 response = ec2.describe_vpcs()
 print(response)
 
-# snippet-start:[ec2.python.describe_vpcs.complete]
+# snippet-end:[ec2.python.describe_vpcs.complete]
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe_vpcs.py demonstrates how to describe one or more of your Vpcs.]
 # snippet-keyword:[Python]

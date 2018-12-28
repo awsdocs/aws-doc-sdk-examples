@@ -65,13 +65,9 @@ try {
     echo "\n";
 }
 
-<<<<<<< HEAD
-//snippet-end:[cloudfront.php.creates3invalidation.main]
-//snippet-start:[cloudfront.php.createinvalidation.complete]
-=======
+
 //snippet-end:[cloudfront.php.createinvalidation.main]
 //snippet-end:[cloudfront.php.createinvalidation.complete] 
->>>>>>> upstream/master
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[CreateInvalidation.php demonstrates how to invalidate cached objects in an Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]
@@ -81,5 +77,5 @@ try {
 //snippet-keyword:[Amazon CloudFront]
 //snippet-service:[cloudfront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-10-30]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]

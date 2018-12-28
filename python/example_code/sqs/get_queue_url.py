@@ -10,7 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-
+# snippet-start:[sqs.python.get_queue_url.complete]
 import boto3
 
 # Create SQS client
@@ -20,16 +20,15 @@ sqs = boto3.client('sqs')
 response = sqs.get_queue_url(QueueName='SQS_QUEUE_NAME')
 
 print(response['QueueUrl'])
- 
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[get_queue_url.py demonstrates how to return the URL of an existing Amazon SQS queue.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Simple Queue Service]
-#snippet-service:[sqs]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-08-01]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
-
+# snippet-end:[sqs.python.get_queue_url.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[get_queue_url.py demonstrates how to return the URL of an existing Amazon SQS queue.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Simple Queue Service]
+# snippet-service:[sqs]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]

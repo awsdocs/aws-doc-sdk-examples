@@ -55,6 +55,6 @@ try {
 //snippet-keyword:[AWS Security Token Service (STS)]
 //snippet-service:[sts]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-08]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

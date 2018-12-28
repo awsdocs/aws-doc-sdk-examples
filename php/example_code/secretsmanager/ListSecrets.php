@@ -54,5 +54,5 @@ try {
 //snippet-keyword:[AWS Secrets Manager]
 //snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-08]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
