@@ -9,7 +9,8 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[cloudwatch.python.put_subscription_filter.complete]
 
 import boto3
 
@@ -25,7 +26,8 @@ cloudwatch_logs.put_subscription_filter(
     logGroupName='LOG_GROUP',
 )
  
-
+ 
+#snippet-end:[cloudwatch.python.put_subscription_filter.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[put_subscription_filter.py demonstrates how to creates or updates a subscription filter and associates it with the specified log group.]
 #snippet-keyword:[Python]
@@ -34,6 +36,6 @@ cloudwatch_logs.put_subscription_filter(
 #snippet-keyword:[Amazon Cloudwatch Logs]
 #snippet-service:[cloudwatch]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-06-25]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jschwarzwalder (AWS)]
 

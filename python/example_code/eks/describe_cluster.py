@@ -8,7 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License. 
+# snippet-start:[eks.python.describe_clusters.complete]
 
 import boto3
 
@@ -49,6 +50,7 @@ def main():
 if __name__ == '__main__':
     main()
 
+# snippet-end:[eks.python.describe_clusters.complete]
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe_clusters.py demonstrates how to retrieve information about an Amazon EKS cluster.]
 # snippet-keyword:[Python]

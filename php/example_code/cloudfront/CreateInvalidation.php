@@ -17,12 +17,13 @@
  *
  */
 //snippet-start:[cloudfront.php.createinvalidation.complete]
-//snippet-start:[cloudfront.php.creates3invalidation.import]
+//snippet-start:[cloudfront.php.createinvalidation.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudFront\CloudFrontClient;
+use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[cloudfront.php.creates3invalidation.import]
+
+//snippet-end:[cloudfront.php.createinvalidation.import]
 
 /**
  * Invalidates a cached object on the specified path of an Amazon CloudFront Distribution.
@@ -32,7 +33,11 @@ use Aws\Exception\AwsException;
  */
 
 //snippet-start:[cloudfront.php.createinvalidation.main]
+<<<<<<< HEAD
 //Create a CloudFront Client
+=======
+//Create a CloudFront Client 
+>>>>>>> upstream/master
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -60,8 +65,13 @@ try {
     echo "\n";
 }
 
+<<<<<<< HEAD
 //snippet-end:[cloudfront.php.creates3invalidation.main]
 //snippet-start:[cloudfront.php.createinvalidation.complete]
+=======
+//snippet-end:[cloudfront.php.createinvalidation.main]
+//snippet-end:[cloudfront.php.createinvalidation.complete] 
+>>>>>>> upstream/master
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[CreateInvalidation.php demonstrates how to invalidate cached objects in an Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]

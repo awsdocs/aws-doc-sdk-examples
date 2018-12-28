@@ -8,8 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
+# language governing permissions and limitations under the License. 
+#snippet-start:[kms.python.reencrypt.complete]
 
 from __future__ import print_function
 
@@ -33,7 +33,8 @@ response = client.re_encrypt(
 
 print('New ciphertext:', response['CiphertextBlob'])
  
-
+ 
+#snippet-end:[kms.python.reencrypt.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[kms-python-example-re-encrypt-key.py demonstrates how to re-encrypt plain text with the same CMK used to decrypt the original encrypted text.]
 #snippet-keyword:[Python]

@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[cloudfront.php.getdistribution.complete]
+//snippet-start:[cloudfront.php.getdistribution.import]
 
 require 'vendor/autoload.php';
 
-use Aws\CloudFront\CloudFrontClient;
+use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[cloudfront.php.getdistribution.import]
 
 
 /**
@@ -30,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a CloudFront Client
+//Create a CloudFront Client 
+//snippet-start:[cloudfront.php.getdistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -50,7 +54,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+//snippet-end:[cloudfront.php.getdistribution.main]
+//snippet-end:[cloudfront.php.getdistribution.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[GetDistribution.php demonstrates how to retrieve an Amazon CloudFront Distribution.]
 //snippet-keyword:[PHP]
