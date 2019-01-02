@@ -48,3 +48,4 @@ You can find detailed documentation for the AWS SDK for PHP at:
 
 - `AWS SDK for PHP Developer Guide <https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/welcome.html>`_
 - `AWS SDK for PHP API Reference <https://docs.aws.amazon.com/aws-sdk-php/v3/api/>`_
+
