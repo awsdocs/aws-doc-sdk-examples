@@ -21,8 +21,8 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 import cdk = require('@aws-cdk/cdk');
-import { WidgetServiceStack } from '../lib/my_widget_service-stack';
+import { MyWidgetServiceStack } from '../lib/my_widget_service-stack';
 
 const app = new cdk.App();
-new WidgetServiceStack(app, 'WidgetServiceStack');
+new MyWidgetServiceStack(app, 'MyWidgetServiceStack');
 app.run();
