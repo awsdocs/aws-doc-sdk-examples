@@ -1,4 +1,4 @@
-.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -74,7 +74,7 @@ please read this section carefully so that we can work together more effectively
 Copyright and License
 =====================
 
-All content in this repository, unless otherwise stated, is Copyright © 2010-2018, Amazon Web
+All content in this repository, unless otherwise stated, is Copyright © 2010-2019, Amazon Web
 Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
