@@ -1,4 +1,4 @@
-.. Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -48,3 +48,4 @@ You can find detailed documentation for the AWS SDK for PHP at:
 
 - `AWS SDK for PHP Developer Guide <https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/welcome.html>`_
 - `AWS SDK for PHP API Reference <https://docs.aws.amazon.com/aws-sdk-php/v3/api/>`_
+
