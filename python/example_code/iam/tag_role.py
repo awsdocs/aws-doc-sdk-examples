@@ -10,7 +10,10 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+# 
+# snippet-start:[iam.python.tag_role.complete]
 
+# Requires boto3 1.9.72
 import boto3
 
 
@@ -38,9 +41,10 @@ try:
     print(response)
 except Exception as e:
     print(e)
-
+    
+#snippet-end[iam.python.tag_role.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[attach_role_policy.py demonstrates how to Tag an IAM Role.]
+#snippet-sourcedescription:[tag_role.py demonstrates how to Tag an IAM Role.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
