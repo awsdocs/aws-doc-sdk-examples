@@ -22,7 +22,7 @@ require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-use Aws\S3\MultipartCopy;
+use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
 
 // Create a S3Client
@@ -59,5 +59,5 @@ do {
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2019-01-02]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
