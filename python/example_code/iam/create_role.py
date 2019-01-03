@@ -55,7 +55,7 @@ try:
 except Exception as e:
     print(e)
 
-#snippet-end:[iam.python.create_role.complete]
+#snippet-start:[iam.python.create_role.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[create_role.py demonstrates how to create an IAM Role.]
 #snippet-keyword:[Python]
