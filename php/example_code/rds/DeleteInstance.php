@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[rds.php.delete_instance.complete]
+//snippet-start:[rds.php.delete_instance.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient;
+use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[rds.php.delete_instance.import]
 
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
@@ -40,7 +43,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[rds.php.delete_instance.main]
+//snippet-end:[rds.php.delete_instance.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[DeleteInstance.php demonstrates how to delete an RDS database instance.]
 //snippet-keyword:[PHP]

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[rds.php.create_db_snapshot.complete]
+//snippet-start:[rds.php.create_db_snapshot.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient;
+use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[rds.php.create_db_snapshot.import]
 
 
 //Create a RDSClient
@@ -43,7 +46,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[rds.php.create_db_snapshot.main]
+//snippet-end:[rds.php.create_db_snapshot.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[CreateDBSnapshot.php demonstrates how to create a snapshot of your database which can be used for recovery in the future.]
 //snippet-keyword:[PHP]

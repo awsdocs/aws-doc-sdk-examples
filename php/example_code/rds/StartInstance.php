@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[rds.php.start_instance.complete]
+//snippet-start:[rds.php.start_instance.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient;
+use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[rds.php.start_instance.import]
 
 
 //Create a RDSClient
@@ -41,7 +44,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[rds.php.start_instance.main]
+//snippet-end:[rds.php.start_instance.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[StartInstance.php demonstrates how to start a RDS database instance that is currently stopped.]
 //snippet-keyword:[PHP]

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[rds.php.describe_events.complete]
+//snippet-start:[rds.php.describe_events.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient;
+use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[rds.php.describe_events.import]
 
 
 //Create a RDSClient
@@ -42,7 +45,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[rds.php.describe_events.main]
+//snippet-end:[rds.php.describe_events.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[DescribeEvents.php demonstrates how to retrieve the last hour of logs from an RDS database instance.]
 //snippet-keyword:[PHP]
