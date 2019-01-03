@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[securityhub.php.get_findings.complete]
+//snippet-start:[securityhub.php.get_findings.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecurityHub\SecurityHubClient;
+use Aws\SecurityHub\SecurityHubClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[securityhub.php.get_findings.import]
 
 
 //Create a Securty Hub Client
@@ -37,7 +40,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}  
+//snippet-end:[securityhub.php.get_findings.main]
+//snippet-end:[securityhub.php.get_findings.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[GetFindings.php demonstrates how to return results from other AWS Security services like Amazon GuardDuty, Amazon Inspector, and  Amazon Macie.]
 //snippet-keyword:[PHP]
