@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[polly.php.synthesize_speech.complete]
+//snippet-start:[polly.php.synthesize_speech.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Polly\PollyClient;
+use Aws\Polly\PollyClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[polly.php.synthesize_speech.import]
 
 /**
  * This code expects that you have AWS credentials set up per:
@@ -49,7 +52,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[polly.php.synthesize_speech.main]
+//snippet-end:[polly.php.synthesize_speech.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[SynthesizeSpeech.php demonstrates how to synthesize a speech and stream it for immediate download.]
 //snippet-keyword:[PHP]

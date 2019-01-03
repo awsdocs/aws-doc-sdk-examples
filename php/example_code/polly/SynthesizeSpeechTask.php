@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[polly.php.synthesize_speech_task.complete]
+//snippet-start:[polly.php.synthesize_speech_task.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Polly\PollyClient;
+use Aws\Polly\PollyClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[polly.php.synthesize_speech_task.import]
 
 /**
  * This code expects that you have AWS credentials set up per:
@@ -53,7 +56,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[polly.php.synthesize_speech_task.main]
+//snippet-end:[polly.php.synthesize_speech_task.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[SynthesizeSpeechTask.php demonstrates how to synthesize a speech and send it to the specified S3 bucket.]
 //snippet-keyword:[PHP]

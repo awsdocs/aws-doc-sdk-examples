@@ -16,11 +16,14 @@
  *
  *
  */
+//snippet-start:[polly.php.list_lexicon.complete]
+//snippet-start:[polly.php.list_lexicon.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Polly\PollyClient;
+use Aws\Polly\PollyClient; 
 use Aws\Exception\AwsException;
+//snippet-end:[polly.php.list_lexicon.import]
 
 /**
  * This code expects that you have AWS credentials set up per:
@@ -42,7 +45,9 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}
+} 
+//snippet-end:[polly.php.list_lexicon.main]
+//snippet-end:[polly.php.list_lexicon.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[ListLexicons.php demonstrates how to list customized pronunciation lexicons from the current AWS region in your AWS account.]
 //snippet-keyword:[PHP]
