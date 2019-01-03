@@ -54,7 +54,7 @@ int main(int argc, char** argv)
             auto outcome = cw.DescribeAlarms(request);
             if (!outcome.IsSuccess())
             {
-                std::cout << "Failed to describe cloudwatch alarms:" <<
+                std::cout << "Failed to describe CloudWatch alarms:" <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }

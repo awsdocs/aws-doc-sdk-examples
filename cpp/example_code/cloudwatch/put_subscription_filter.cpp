@@ -58,13 +58,13 @@ int main(int argc, char** argv)
         auto outcome = cwl.PutSubscriptionFilter(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to create cloudwatch logs subscription filter "
+            std::cout << "Failed to create CloudWatch logs subscription filter "
                 << filter_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         }
         else
         {
-            std::cout << "Successfully created cloudwatch logs subscription " <<
+            std::cout << "Successfully created CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
     }
