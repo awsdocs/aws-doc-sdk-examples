@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -22,13 +22,14 @@ def enable_detector(client, detector):
         DetectorId=detector,
         Enable=True
     )
+
 try:
     for region in regions_to_enable.split():
-    # Create GuardDuty client
-    gd = boto3.client(
-        service_name='guardduty',
-        region_name=region
-    )
+        # Create GuardDuty client
+        gd = boto3.client(
+            service_name='guardduty',
+            region_name=region
+        )
     
     #Get the GuardDuty Detector for the current AWS Region
     detector=gd.list_detectors()
@@ -54,7 +55,7 @@ try:
 except Exception as e:
     print(e)
 
-#snippet-end:[guardduty.python.enable_guardduty.complete]
+#snippet-start:[guardduty.python.enable_guardduty.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[enable_guardduty.py creates and or enables Amazon GuardDuty in the specified Regions.]
 #snippet-keyword:[Python]
