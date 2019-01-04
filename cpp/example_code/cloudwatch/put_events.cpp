@@ -1,4 +1,3 @@
- 
 //snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
@@ -10,7 +9,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,12 +21,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.put_events.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/CloudWatchEventsClient.h>
 #include <aws/events/model/PutEventsRequest.h>
 #include <aws/events/model/PutEventsResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
+//snippet-end:[cw.cpp.put_events.inc]
 
 Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
 {
@@ -60,6 +61,7 @@ int main(int argc, char** argv)
         Aws::String event_key(argv[2]);
         Aws::String event_value(argv[3]);
 
+        // snippet-start:[cw.cpp.put_events.code]
         Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
 
         Aws::CloudWatchEvents::Model::PutEventsRequestEntry event_entry;
@@ -81,10 +83,10 @@ int main(int argc, char** argv)
         {
             std::cout << "Successfully posted cloudwatch event" << std::endl;
         }
+        //snippet-end:[cw.cpp.put_events.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
-
 
 
