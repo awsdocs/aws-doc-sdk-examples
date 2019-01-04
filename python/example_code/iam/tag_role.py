@@ -42,7 +42,7 @@ try:
 except Exception as e:
     print(e)
     
-#snippet-end[iam.python.tag_role.complete]
+#snippet-end:[iam.python.tag_role.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[tag_role.py demonstrates how to Tag an IAM Role.]
 #snippet-keyword:[Python]

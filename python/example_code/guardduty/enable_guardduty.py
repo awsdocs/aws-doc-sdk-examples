@@ -10,6 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+#snippet-start:[guardduty.python.enable_guardduty.complete]
 import boto3
 
 regions_to_enable='us-east-1 us-west-2'
@@ -55,7 +56,7 @@ try:
 except Exception as e:
     print(e)
 
-#snippet-start:[guardduty.python.enable_guardduty.complete]
+#snippet-end:[guardduty.python.enable_guardduty.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[enable_guardduty.py creates and or enables Amazon GuardDuty in the specified Regions.]
 #snippet-keyword:[Python]
