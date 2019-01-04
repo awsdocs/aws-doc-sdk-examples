@@ -16,21 +16,22 @@
  *
  *
  */
-//snippet-start:[polly.php.synthesize_speech.complete]
-//snippet-start:[polly.php.synthesize_speech.import]
+// snippet-start:[polly.php.synthesize_speech.complete]
+// snippet-start:[polly.php.synthesize_speech.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Polly\PollyClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[polly.php.synthesize_speech.import]
+use Aws\Polly\PollyClient;
+
+// snippet-end:[polly.php.synthesize_speech.import]
 
 /**
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a PollyClient
+// Create a PollyClient
 $client = new Aws\Polly\PollyClient([
     'profile' => 'default',
     'version' => '2016-06-10',
@@ -52,17 +53,17 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
-//snippet-end:[polly.php.synthesize_speech.main]
-//snippet-end:[polly.php.synthesize_speech.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[SynthesizeSpeech.php demonstrates how to synthesize a speech and stream it for immediate download.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Polly]
-//snippet-service:[polly]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-16]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+}
+// snippet-end:[polly.php.synthesize_speech.main]
+// snippet-end:[polly.php.synthesize_speech.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[SynthesizeSpeech.php demonstrates how to synthesize a speech and stream it for immediate download.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Polly]
+// snippet-service:[polly]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-16]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

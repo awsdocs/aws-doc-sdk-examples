@@ -16,21 +16,22 @@
  *
  *
  */
-//snippet-start:[polly.php.describe_voices.complete]
-//snippet-start:[polly.php.describe_voices.import]
+// snippet-start:[polly.php.describe_voices.complete]
+// snippet-start:[polly.php.describe_voices.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Polly\PollyClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[polly.php.describe_voices.import]
+use Aws\Polly\PollyClient;
+
+// snippet-end:[polly.php.describe_voices.import]
 
 /**
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a PollyClient
+// Create a PollyClient
 $client = new Aws\Polly\PollyClient([
     'profile' => 'default',
     'version' => '2016-06-10',
@@ -46,17 +47,17 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
-//snippet-end:[polly.php.describe_voices.main]
-//snippet-end:[polly.php.describe_voices.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DescribeVoices.php demonstrates how to retrieve a list of all available voice options for speech synthesis in the specified language.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Polly]
-//snippet-service:[polly]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-16]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+}
+// snippet-end:[polly.php.describe_voices.main]
+// snippet-end:[polly.php.describe_voices.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DescribeVoices.php demonstrates how to retrieve a list of all available voice options for speech synthesis in the specified language.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Polly]
+// snippet-service:[polly]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-16]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 
