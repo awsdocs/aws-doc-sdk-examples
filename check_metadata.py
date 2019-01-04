@@ -12,7 +12,6 @@ def checkFile(directory, filePattern):
                 words = s.split()
             snippetStartCheck(words)
             snippets = s.split('snippet-')
-            #print(snippets)
             snippetAuthorCheck(snippets)
             snippetServiceCheck(snippets)
             snippetDescriptionCheck(snippets)
@@ -46,7 +45,7 @@ def checkFileStrings(directory, filePattern):
 def checkStringLength (word, filename):
     length = len(word)
     if  length == 40 or length == 20:
-        sys.exit ("String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
+        sys.exit ("WARNING -- String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
 
 
 def snippetStartCheck(words):
@@ -69,30 +68,31 @@ def snippetStartCheck(words):
             for end in snippettags:
                 if string.endswith(end):
                     match = True
-                    print("True: "+ string + " has matching end tag." )                
+                    #print("True: "+ string + " has matching end tag." )                
             if match == False:
-                sys.exit("ERROR" + string + "'s matching end tag not found.")                
+                sys.exit("ERROR -- " + string + "'s matching end tag not found.")                
     else: 
-        print("Snippet Start not detected")
+        #print("WARNING -- Snippet Start not detected")
+        return False
 
 def snippetAuthorCheck(words):
     author = 'sourceauthor:['
     matching = [s for s in words if author in s]
     if matching == []:
-        print("Missing snippet-sourceauthor:[Your Name]")
+        print("WARNING -- Missing snippet-sourceauthor:[Your Name]")
 
 def snippetServiceCheck(words):
     service = 'service:['
     matching = [s for s in words if service in s]
     if matching == []:
-        print("Missing snippet-service:[AWS service name]")
+        print("WARNING -- Missing snippet-service:[AWS service name]")
         print("Find a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html")
 
 def snippetDescriptionCheck(words):
     desc = 'sourcedescription:['
     matching = [s for s in words if desc in s]
     if matching == []:
-        print("Missing snippet-sourcedescription:[Filename demonstrates how to ... ]")
+        print("WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]")
 
 def snippetTypeCheck(words):
     author = 'sourcetype:['
@@ -108,14 +108,14 @@ def snippetTypeCheck(words):
             containsType = True
             break
     if not containsType:
-        print("Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
+        print("WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
         
 
 def snippetDateCheck(words):
     datetag = 'sourcedate:['
     matching = [s for s in words if datetag in s]
     if matching == []:
-        print("Missing snippet-sourcedate:[YYYY-MM-DD]")
+        print("WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]")
 
 def snippetKeywordCheck(words):
     snippetkeyword = 'keyword:['
@@ -123,7 +123,7 @@ def snippetKeywordCheck(words):
     # print(matching)
     codeSample = [s for s in words if 'keyword:[Code Sample]\n' in s]
     if not codeSample:
-        print("Missing snippet-keyword:[Code Sample]")
+        print("WARNING -- Missing snippet-keyword:[Code Sample]")
     keywordServiceName(matching)
     keywordLanguageCheck(matching)
     keywordSDKCheck(matching)
@@ -139,10 +139,10 @@ def keywordServiceName(words):
     if matching:
         containsServiceTag = True;
     if not containsServiceTag:
-        print("Missing snippet-keyword:[FULL SERVICE NAME]")
+        print("WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]")
 
 def keywordLanguageCheck(words):
-    languages = ['C++', '.NET', 'Go', 'Java', 'JavaScript', 'PHP', 'Python', 'Ruby','TypeScript' ]
+    languages = ['C++', 'C', '.NET', 'Go', 'Java', 'JavaScript', 'PHP', 'Python', 'Ruby','TypeScript' ]
     containsLanguageTag = False;
     for language in languages:
         languagekeyword = [s for s in words if 'keyword:[' + language + ']' in s]
@@ -150,7 +150,7 @@ def keywordLanguageCheck(words):
             containsLanguageTag = True;
             break
     if containsLanguageTag == False:
-        print("Missing snippet-keyword:[Language]")
+        print("WARNING -- Missing snippet-keyword:[Language]")
         print("Options include:")
         print(languages)
 
@@ -163,7 +163,7 @@ def keywordSDKCheck(words):
             containsSDKTag = True;
             break
     if containsSDKTag == False:
-        print("Missing snippet-keyword:[SDK Version used]")
+        print("WARNING -- Missing snippet-keyword:[SDK Version used]")
         print("Options include:")
         print(sdkVersions)
 
