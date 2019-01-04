@@ -28,7 +28,7 @@
 #include <aws/events/model/PutEventsResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_events.inc]
+//snippet-start:[cw.cpp.put_events.inc]
 
 Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
 {
