@@ -1,4 +1,4 @@
-import os, fnmatch
+import os, fnmatch, sys
 
 def checkFile(directory, filePattern):
     filecount = 0;
@@ -46,8 +46,7 @@ def checkFileStrings(directory, filePattern):
 def checkStringLength (word, filename):
     length = len(word)
     if  length == 40 or length == 20:
-        print ("String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
-        exit 1
+        sys.exit ("String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
 
 
 def snippetStartCheck(words):
@@ -72,8 +71,7 @@ def snippetStartCheck(words):
                     match = True
             print(str(match) + ": " + string + " has matching end tag." )
     else: 
-        print ("Snippet Start not detected")
-        exit 1
+        sys.exit ("Snippet Start not detected")
 
 def snippetAuthorCheck(words):
     author = 'sourceauthor:['
@@ -170,22 +168,22 @@ def keywordSDKCheck(words):
 
 print ('----------\n\nRun Tests\n')
 print ('----------\n\nAWS SDK for C++\n')
-checkFile( root, '*.cpp')
+checkFile( './', '*.cpp')
 print ('----------\n\nAWS SDK for .NET\n')
-checkFile( root, '*.cs')
+checkFile( './', '*.cs')
 print ('----------\n\nAWS SDK for Go\n')
-checkFile( root, '*.go')
+checkFile( './', '*.go')
 print ('----------\n\nAWS SDK for Java\n')
-checkFile( root, '*.java')
+checkFile( './', '*.java')
 print ('----------\n\nAWS SDK for JavaScript\n')
-checkFile( root, '*.js')
+checkFile( './', '*.js')
 print ('----------\n\nAWS SDK for PHP\n')
-checkFile( root, '*.php')
+checkFile( './', '*.php')
 print ('----------\n\nAWS SDK for Python\n')
-checkFile( root, '*.py')
+checkFile( './', '*.py')
 print ('----------\n\nAWS SDK for Ruby\n')
-checkFile( root, '*.rb')
+checkFile( './', '*.rb')
 print ('----------\n\nAWS SDK for TypeScript\n')
-checkFile( root, '*.ts')
+checkFile( './', '*.ts')
 
 
