@@ -47,6 +47,7 @@ def checkStringLength (word, filename):
     length = len(word)
     if  length == 40 or length == 20:
         print ("String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
+        exit 1
 
 
 def snippetStartCheck(words):
@@ -72,6 +73,7 @@ def snippetStartCheck(words):
             print(str(match) + ": " + string + " has matching end tag." )
     else: 
         print ("Snippet Start not detected")
+        exit 1
 
 def snippetAuthorCheck(words):
     author = 'sourceauthor:['
@@ -107,6 +109,7 @@ def snippetTypeCheck(words):
             break
     if not containsType:
         print("Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
+        
 
 def snippetDateCheck(words):
     datetag = 'sourcedate:['
@@ -166,6 +169,23 @@ def keywordSDKCheck(words):
 
 
 print ('----------\n\nRun Tests\n')
-checkFile( '', '*.*')
+print ('----------\n\nAWS SDK for C++\n')
+checkFile( root, '*.cpp')
+print ('----------\n\nAWS SDK for .NET\n')
+checkFile( root, '*.cs')
+print ('----------\n\nAWS SDK for Go\n')
+checkFile( root, '*.go')
+print ('----------\n\nAWS SDK for Java\n')
+checkFile( root, '*.java')
+print ('----------\n\nAWS SDK for JavaScript\n')
+checkFile( root, '*.js')
+print ('----------\n\nAWS SDK for PHP\n')
+checkFile( root, '*.php')
+print ('----------\n\nAWS SDK for Python\n')
+checkFile( root, '*.py')
+print ('----------\n\nAWS SDK for Ruby\n')
+checkFile( root, '*.rb')
+print ('----------\n\nAWS SDK for TypeScript\n')
+checkFile( root, '*.ts')
 
 
