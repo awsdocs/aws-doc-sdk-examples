@@ -22,12 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.change_message_visibility.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.change_message_visibility.inc]
 
 void ChangeMessageVisibility(
     const Aws::String& queue_url, int visibility_timeout)
@@ -66,6 +68,7 @@ void ChangeMessageVisibility(
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
 
+    // snippet-start:[sqs.cpp.change_message_visibility.code]
     Aws::SQS::Model::ChangeMessageVisibilityRequest request;
     request.SetQueueUrl(queue_url);
     request.SetReceiptHandle(message.GetReceiptHandle());
@@ -82,6 +85,7 @@ void ChangeMessageVisibility(
             message.GetMessageId() << " from queue " << queue_url << ": " <<
             outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[sqs.cpp.change_message_visibility.code]
 }
 
 /**

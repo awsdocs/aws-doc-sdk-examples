@@ -22,12 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.put_website_config.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/IndexDocument.h>
 #include <aws/s3/model/ErrorDocument.h>
 #include <aws/s3/model/WebsiteConfiguration.h>
 #include <aws/s3/model/PutBucketWebsiteRequest.h>
+//snippet-end:[s3.cpp.put_website_config.inc]
 
 /**
  * Set an Amazon S3 bucket website configuration.
@@ -72,6 +74,7 @@ int main(int argc, char** argv)
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
 
+        // snippet-start:[s3.cpp.put_website_config.code]
         Aws::S3::Model::IndexDocument index_doc;
         index_doc.SetSuffix(index_suffix);
 
@@ -98,6 +101,7 @@ int main(int argc, char** argv)
                 << outcome.GetError().GetExceptionName() << std::endl
                 << outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.put_website_config.code]
     }
     Aws::ShutdownAPI(options);
 }

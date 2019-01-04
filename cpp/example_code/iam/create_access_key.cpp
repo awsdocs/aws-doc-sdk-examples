@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.create_access_key.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccessKeyRequest.h>
 #include <aws/iam/model/CreateAccessKeyResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.create_access_key.inc]
 
 /**
  * Creates an access key for an iam user based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String user_name(argv[1]);
 
+        // snippet-start:[iam.cpp.create_access_key.code]
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::CreateAccessKeyRequest request;
@@ -64,6 +67,7 @@ int main(int argc, char** argv)
                 " aws_secret_access_key = " << accessKey.GetSecretAccessKey() <<
                 std::endl;
         }
+        // snippet-end:[iam.cpp.create_access_key.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

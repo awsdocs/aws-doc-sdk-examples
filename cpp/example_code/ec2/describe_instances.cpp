@@ -22,6 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.describe_instances.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeInstancesRequest.h>
@@ -29,6 +30,7 @@
 #include <iomanip>
 #include <iostream>
 #include <iomanip>
+//snippet-end:[ec2.cpp.describe_instances.inc]
 
 /**
  * Describes all ec2 instances associated with an account
@@ -38,6 +40,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[ec2.cpp.describe_instances.code]
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DescribeInstancesRequest request;
         bool header = false;
@@ -116,6 +119,7 @@ int main(int argc, char** argv)
                 done = true;
             }
         }
+        // snippet-end:[ec2.cpp.describe_instances.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

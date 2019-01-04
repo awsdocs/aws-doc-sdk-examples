@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.create_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreatePolicyRequest.h>
 #include <aws/iam/model/CreatePolicyResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.create_policy.inc]
 
 static const char* const POLICY_TEMPLATE =
 "{"
@@ -80,6 +82,7 @@ int main(int argc, char** argv)
         Aws::String policy_name(argv[1]);
         Aws::String rsrc_arn(argv[2]);
 
+        // snippet-start:[iam.cpp.create_policy.code]
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::CreatePolicyRequest request;
@@ -97,6 +100,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully created policy " << policy_name <<
                 std::endl;
         }
+        // snippet-end:[iam.cpp.create_policy.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
