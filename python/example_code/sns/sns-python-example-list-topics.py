@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -8,8 +8,8 @@
 #
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
+# language governing permissions and limitations under the License. 
+# snippet-start:[sns.python.list_topics.complete]
 
 import boto3
 
@@ -25,7 +25,8 @@ topics = [topic['TopicArn'] for topic in response['Topics']]
 # Print out the topic list
 print("Topic List: %s" % topics)
  
-
+ 
+#snippet-end:[sns.python.list_topics.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[sns-python-example-list-topics.py demonstrates how to retrieve a list of topics from AWS SNS.]
 #snippet-keyword:[Python]
@@ -34,5 +35,5 @@ print("Topic List: %s" % topics)
 #snippet-keyword:[Amazon Simple Notification Service]
 #snippet-service:[sns]
 #snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-10-26]
+#snippet-sourcedate:[2018-12-26]
 #snippet-sourceauthor:[jasonhedges]

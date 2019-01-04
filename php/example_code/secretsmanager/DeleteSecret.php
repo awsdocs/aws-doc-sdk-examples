@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -12,33 +12,37 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
+ *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient;
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
 /**
- * List existing Amazon Kinesis Firehose Delivery Streams that have specified output like AWS S3 or AWS Lambda.
+ * Delete a secret from AWS Secrets Manager. 
+ *
+ * Secret will remain for 30 days before deletion unless specified with 'RecoveryWindowInDays'.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+//Create a Secrets Manager Client
+$client = new SecretsManagerClient([
     'profile' => 'default',
-    'version' => '2015-08-04',
-    'region' => 'us-east-2'
+    'version' => '2017-10-17',
+    'region' => 'us-west-2'
 ]);
 
+$secretName = '<<{{MySecretName}}>>';
 
 try {
-    $result = $FirehoseClient->listDeliveryStreams([
-        'DeliveryStreamType' => 'DirectPut',
+    $result = $client->deleteSecret([
+        'SecretId' => $secretName,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -46,16 +50,14 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ListDirectDeliveryStreams.php demonstrates how to list all the existing Amazon Kinesis Firehose Delivery Streams sending data to Amazon S3, Amazon ES, Amazon Redshift or Splunk.]
+//snippet-sourcedescription:[DeleteSecret.php demonstrates how to delete a secret from AWS Secrets Manager. The secret will be deleted in 30 days unless you specify a differently. During this time use RestoreSecret to reactive the secret. ]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Kinesis Data Firehose]
-//snippet-service:[firehose]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-11-08]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
-

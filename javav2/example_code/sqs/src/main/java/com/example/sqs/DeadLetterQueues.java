@@ -20,7 +20,6 @@
  * limitations under the License.
  */
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.model.SqsException;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesResponse;
@@ -31,10 +30,9 @@ import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesResponse;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 
 public class DeadLetterQueues
 {
@@ -49,7 +47,7 @@ public class DeadLetterQueues
         String src_queue_name = args[0];
         String dl_queue_name = args[1];
 
-        SQSClient sqs = SQSClient.builder().region(Region.US_WEST_2).build();
+        SqsClient sqs = SqsClient.builder().region(Region.US_WEST_2).build();
 
         CreateQueueRequest request = CreateQueueRequest.builder()
         		.queueName(src_queue_name).build();

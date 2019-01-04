@@ -10,7 +10,7 @@
 #snippet-sourcedate:[2018-08-22]
 
 
-# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
 import boto3

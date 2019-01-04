@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,13 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.list_metrics.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/ListMetricsRequest.h>
 #include <aws/monitoring/model/ListMetricsResult.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip>
+//snippet-end:[cw.cpp.list_metrics.inc]
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 
@@ -47,6 +48,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[cw.cpp.list_metrics.code]
         Aws::CloudWatch::CloudWatchClient cw;
         Aws::CloudWatch::Model::ListMetricsRequest request;
 
@@ -104,6 +106,7 @@ int main(int argc, char** argv)
             request.SetNextToken(next_token);
             done = next_token.empty();
         }
+        // snippet-end:[cw.cpp.list_metrics.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

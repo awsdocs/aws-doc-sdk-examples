@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -12,51 +12,49 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
+ *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient;
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
 /**
- * Remove an existing Amazon Kinesis Firehose Delivery Stream.
+ * List versions of secrets available in the AWS Secrets Manager. 
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+//Create a Secrets Manager Client
+$client = new SecretsManagerClient([
     'profile' => 'default',
-    'version' => '2015-08-04',
-    'region' => 'us-east-2'
+    'version' => '2017-10-17',
+    'region' => 'us-west-2'
 ]);
-
-$name = "my_stream_name";
+$secretName = '<<{{MySecretName}}>>';
 
 try {
-    $result = $FirehoseClient->deleteDeliveryStream([
-        'DeliveryStreamName' => $name,
+    $result = $client->listSecretVersionIds([
+        'SecretId' => $secretName,
     ]);
     var_dump($result);
-} catch (AwsException $e) {
+}  catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
- 
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DeleteDeliveryStream.php demonstrates how to delete a Amazon Kinesis Firehose Delivery Stream and all the data you have sent to the Amazon Kinesis Firehose Delivery Stream.]
+//snippet-sourcedescription:[ListSecrets.php demonstrates how to list the versions of the secrets in the AWS Secrets Manager. ]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Kinesis Data Firehose]
-//snippet-service:[firehose]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-11-08]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
-
