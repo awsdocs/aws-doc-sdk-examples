@@ -16,18 +16,20 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-managing-users.html
  *
  */
+//snippet-start:[iam.php.get_user.complete]
+//snippet-start:[iam.php.get_user.import]
 require 'vendor/autoload.php';
 
 use Aws\Iam\IamClient;
 use Aws\Exception\AwsException;
-
+//snippet-end:[iam.php.get_user.import]
 /**
  * Get user
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+//snippet-start:[iam.php.get_user.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -45,6 +47,8 @@ try {
 }
  
 
+//snippet-end:[iam.php.get_user.main]
+//snippet-start:[iam.php.get_user.complete]
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 //snippet-sourcedescription:[GetUser.php demonstrates how to retrieves an IAM user.]
 //snippet-keyword:[PHP]
