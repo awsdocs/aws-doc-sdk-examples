@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -37,11 +37,11 @@ $client = new SecretsManagerClient([
     'region' => '<<{{MyRegionName}}>>',
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 
 try {
     $result = $client->getSecretValue([
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
     ]);
 
 } catch (AwsException $e) {

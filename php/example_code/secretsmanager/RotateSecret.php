@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -12,50 +12,50 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-sending-events.html
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
+ *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatchEvents\CloudWatchEventsClient;
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
 /**
- * Put Rule
+ * Immediately rotate a secret in an AWS Secret Manager Secret. 
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-$client = new CloudWatchEventsClient([
+//Create a Secrets Manager Client
+$client = new SecretsManagerClient([
     'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2015-10-07'
+    'version' => '2017-10-17',
+    'region' => 'us-west-2'
 ]);
 
+$secretName = '<<{{MySecretName}}>>';
+
 try {
-    $result = $client->putRule(array(
-        'Name' => 'DEMO_EVENT', // REQUIRED
-        'RoleArn' => 'IAM_ROLE_ARN',
-        'ScheduleExpression' => 'rate(5 minutes)',
-        'State' => 'ENABLED',
-    ));
+    $result = $client->rotateSecret([
+        'SecretId' => $secretName,
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
-    error_log($e->getMessage());
+    echo $e->getMessage();
+    echo "\n";
 }
- 
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[PutRule.php demonstrates how to create or update the specified rule. Rules are enabled by default, or based on value of the state. You can disable a rule using DisableRule.]
+//snippet-sourcedescription:[RotateSecret.php demonstrates how to immediately rotate a secret value in AWS Secrets Manager.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Events]
-//snippet-service:[events]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-11-08]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
-

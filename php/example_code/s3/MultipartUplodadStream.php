@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,7 +22,7 @@ require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-use Aws\S3\MultipartCopy;
+use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
 
 // Create a S3Client
@@ -59,5 +59,5 @@ do {
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2019-01-02]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]

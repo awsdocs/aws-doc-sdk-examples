@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a KinesisClient
-$FirehoseClient = new Aws\Firehose\FirehoseClient([
+$firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
     'region' => 'us-east-2'
@@ -45,7 +45,7 @@ $s3bucket = 'arn:aws:s3:::bucket_name';
 $s3Role = 'arn:aws:iam::0123456789:policy/Role';
 
 try {
-    $result = $FirehoseClient->createDeliveryStream([
+    $result = $firehoseClient->createDeliveryStream([
         'DeliveryStreamName' => $name,
         'DeliveryStreamType' => $stream_type,
         'ElasticsearchDestinationConfiguration' => [
@@ -81,6 +81,6 @@ try {
 //snippet-keyword:[Amazon Kinesis Data Firehose]
 //snippet-service:[firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2018-12-27]
 //snippet-sourceauthor:[jschwarzwalder (AWS)]
 

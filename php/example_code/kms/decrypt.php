@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -29,7 +29,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient
+// Create a KMSClient
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
@@ -45,14 +45,14 @@ try {
     $plaintext = $result['Plaintext'];
     var_dump($plaintext);
 } catch (AwsException $e) {
-    // output error message if fails
+    // Output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
  
 
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[decrypt.php demonstrates how to demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
+//snippet-sourcedescription:[decrypt.php demonstrates how to retrieve the plain text of a previously encrypted text using AWS Key Management Service.]
 //snippet-keyword:[PHP]
 //snippet-keyword:[AWS SDK for PHP v3]
 //snippet-keyword:[Code Sample]
