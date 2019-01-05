@@ -30,6 +30,7 @@
 #include <iostream>
 //snippet-end:[iam.cpp.create_policy.inc]
 
+//snippet-start:[iam.cpp.build_policy.code]
 static const char* const POLICY_TEMPLATE =
 "{"
 "  \"Version\": \"2012-10-17\","
@@ -63,6 +64,7 @@ Aws::String BuildSamplePolicyDocument(const Aws::String& rsrc_arn)
 #endif // WIN32
     return Aws::String(policyBuffer);
 }
+//snippet-end:[iam.cpp.build_policy.code]
 
 /**
  * Creates a fixed policy with name based on command line input

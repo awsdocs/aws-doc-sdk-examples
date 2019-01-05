@@ -29,7 +29,6 @@
 #include <aws/ec2/model/DescribeInstancesResponse.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip>
 //snippet-end:[ec2.cpp.describe_instances.inc]
 
 /**
