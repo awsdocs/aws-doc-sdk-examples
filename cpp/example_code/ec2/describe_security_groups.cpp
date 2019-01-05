@@ -22,13 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.describe_security_groups.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeSecurityGroupsRequest.h>
 #include <aws/ec2/model/DescribeSecurityGroupsResponse.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip>
+//snippet-end:[ec2.cpp.describe_security_groups.inc]
 
 /**
  * Describes all ec2 security groups, or a specific group
@@ -45,6 +46,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[ec2.cpp.describe_security_groups.code]
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DescribeSecurityGroupsRequest request;
 
@@ -81,6 +83,7 @@ int main(int argc, char** argv)
             std::cout << "Failed to describe security groups:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[ec2.cpp.describe_security_groups.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

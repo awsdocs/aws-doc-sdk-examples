@@ -22,12 +22,14 @@ This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
+//snippet-start:[dynamodb.cpp.update_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/UpdateItemRequest.h>
 #include <aws/dynamodb/model/UpdateItemResult.h>
 #include <iostream>
+//snippet-end:[dynamodb.cpp.update_item.inc]
 
 
 /**
@@ -69,6 +71,7 @@ int main(int argc, char** argv)
         const Aws::String table(argv[1]);
         const Aws::String name(argv[2]);
 
+        // snippet-start:[dynamodb.cpp.update_item.code]
         Aws::Client::ClientConfiguration clientConfig;
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -105,6 +108,7 @@ int main(int argc, char** argv)
             return 1;
         }
         std::cout << "Done!" << std::endl;
+        // snippet-end:[dynamodb.cpp.update_item.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

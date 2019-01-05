@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.get_object.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetObjectRequest.h>
 #include <fstream>
+//snippet-end:[s3.cpp.get_object.inc]
 
 /**
  * Get an object from an Amazon S3 bucket.
@@ -50,6 +52,7 @@ int main(int argc, char** argv)
         std::cout << "Downloading " << key_name << " from S3 bucket: " <<
             bucket_name << std::endl;
 
+        // snippet-start:[s3.cpp.get_object.code]
         Aws::S3::S3Client s3_client;
 
         Aws::S3::Model::GetObjectRequest object_request;
@@ -70,6 +73,7 @@ int main(int argc, char** argv)
                 get_object_outcome.GetError().GetExceptionName() << " " <<
                 get_object_outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.get_object.code]
     }
 
     Aws::ShutdownAPI(options);

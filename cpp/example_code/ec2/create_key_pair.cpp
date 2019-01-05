@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.create_key_pair.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateKeyPairRequest.h>
 #include <aws/ec2/model/CreateKeyPairResponse.h>
 #include <iostream>
+//snippet-end:[ec2.cpp.create_key_pair.inc]
 
 /**
  * Creates an ec2 key pair based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String pair_name = argv[1];
 
+        // snippet-start:[ec2.cpp.create_key_pair.code]
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::CreateKeyPairRequest request;
         request.SetKeyName(pair_name);
@@ -59,6 +62,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully created key pair named " <<
                 pair_name << std::endl;
         }
+        // snippet-end:[ec2.cpp.create_key_pair.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

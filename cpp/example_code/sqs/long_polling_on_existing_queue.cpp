@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.long_polling_on_existing-queue.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.long_polling_on_existing-queue.inc]
 
 /**
  * Modifies an sqs queue to have a long poll wait time, based on command line input
@@ -45,6 +47,7 @@ int main(int argc, char** argv)
         Aws::String queue_url = argv[1];
         Aws::String poll_time = argv[2];
 
+        // snippet-start:[sqs.cpp.long_polling_on_existing-queue.code]
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::SetQueueAttributesRequest request;
@@ -65,6 +68,7 @@ int main(int argc, char** argv)
                 queue_url << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         }
+        // snippet-end:[sqs.cpp.long_polling_on_existing-queue.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

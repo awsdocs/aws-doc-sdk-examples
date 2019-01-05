@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.create_queue.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/CreateQueueRequest.h>
 #include <aws/sqs/model/CreateQueueResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.create_queue.inc]
 
 /**
  * Creates an sqs queue based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String queue_name = argv[1];
 
+        // snippet-start:[sqs.cpp.create_queue.code]
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::CreateQueueRequest cq_req;
@@ -59,6 +62,7 @@ int main(int argc, char** argv)
             std::cout << "Error creating queue " << queue_name << ": " <<
                 cq_out.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[sqs.cpp.create_queue.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

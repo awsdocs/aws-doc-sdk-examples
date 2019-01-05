@@ -22,13 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.describe_addresses.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeAddressesRequest.h>
 #include <aws/ec2/model/DescribeAddressesResponse.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip>
+//snippet-end:[ec2.cpp.describe_addresses.inc]
 
 /**
  * Describes all elastic IP addresses
@@ -38,6 +39,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[ec2.cpp.describe_addresses.code]
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DescribeAddressesRequest request;
         auto outcome = ec2.DescribeAddresses(request);
@@ -67,6 +69,7 @@ int main(int argc, char** argv)
             std::cout << "Failed to describe elastic ip addresses:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[ec2.cpp.describe_addresses.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
