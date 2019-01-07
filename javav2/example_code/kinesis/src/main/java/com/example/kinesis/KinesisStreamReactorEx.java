@@ -32,6 +32,10 @@ import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHan
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ *
+ * @author Sergei @bsideup Egorov
+ */
 public class KinesisStreamReactorEx {
 
     private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
