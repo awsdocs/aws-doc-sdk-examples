@@ -32,9 +32,9 @@ squeezenet.export(‘squeezenet')
 
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_kinesis_integration.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+#snippet-sourcedescription:[deeplens_frameworks_mxnet.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
 #snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[AWS Lambda]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS DeepLens]
 #snippet-service:[deeplens]
