@@ -21,7 +21,7 @@
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
 #snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[complete]
+#snippet-start:[rekognition.python.rekognition-image-python-detect-labels.complete]
 
 import boto3
 
@@ -59,4 +59,4 @@ if __name__ == "__main__":
         print ("----------")
         print ()
 
-#snippet-end:[complete]
+#snippet-end:[rekognition.python.rekognition-image-python-detect-labels.complete]
