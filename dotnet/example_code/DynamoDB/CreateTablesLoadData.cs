@@ -5,7 +5,7 @@
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateTable, DeleteTable]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[YYYY-MM-DD]
+// snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[dynamodb.dotNET.CodeExample.CreateTable]
 
