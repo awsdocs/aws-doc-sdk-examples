@@ -51,7 +51,7 @@ def function_handler(event, context):
 #snippet-end:[greengrass.python.connector-cloudwatch-metrics-usage.complete]
 #
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the CloudWatch Metrics connector. https://docs.aws.amazon.com/greengrass/latest/developerguide/cloudwatch-metrics-connector.html ]
+#snippet-sourcedescription:[Sends an input message to the CloudWatch Metrics connector. <ulink url="https://docs.aws.amazon.com/greengrass/latest/developerguide/cloudwatch-metrics-connector.html">CloudWatch Metrics</ulink> ]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
