@@ -19,7 +19,7 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 import cdk = require('@aws-cdk/cdk');
-import { HelloCdkStack } from '../lib/HelloCdk-stack';
+import { HelloCdkStack } from '../lib/hello-cdk-stack';
 
 const app = new cdk.App();
 new HelloCdkStack(app, 'HelloCdkStack');
