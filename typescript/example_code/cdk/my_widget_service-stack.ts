@@ -3,7 +3,7 @@
 //snippet-comment:[and only works with widget_service.ts in the lib/ directory]
 //snippet-comment:[and widgets.js in the resources/ directory.]
 //snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Instantiates the stack in my_widget_service-stack.ts.]
+//snippet-sourcedescription:[Creates a stack for the WidgetService.]
 //snippet-keyword:[CDK V0.21.0]
 //snippet-keyword:[TypeScript]
 //snippet-service:[cdk]
@@ -20,11 +20,19 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-//snippet-start:[cdk.typescript.my_widget_service]
+//snippet-start:[cdk.typescript.my_widget_service-stack]
 import cdk = require('@aws-cdk/cdk');
-import { MyWidgetServiceStack } from '../lib/my_widget_service-stack';
+//snippet-start:[cdk.typescript.my_widget_service-stack.import]
+import widget_service = require('../lib/widget_service');
+//snippet-end:[cdk.typescript.my_widget_service-stack.import]
 
-const app = new cdk.App();
-new MyWidgetServiceStack(app, 'MyWidgetServiceStack');
-app.run();
-//snippet-end:[cdk.typescript.my_widget_service]
+export class MyWidgetServiceStack extends cdk.Stack {
+  constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
+    super(parent, name, props);
+
+    //snippet-start:[cdk.typescript.my_widget_service-stack.new_widget_service]
+    new widget_service.WidgetService(this, 'Widgets');
+    //snippet-end:[cdk.typescript.my_widget_service-stack.new_widget_service]
+  }
+}
+//snippet-end:[cdk.typescript.my_widget_service-stack]
