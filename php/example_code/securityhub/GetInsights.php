@@ -16,17 +16,18 @@
  *
  *
  */
-//snippet-start:[securityhub.php.get_insights.complete]
-//snippet-start:[securityhub.php.get_insights.import]
+// snippet-start:[securityhub.php.get_insights.complete]
+// snippet-start:[securityhub.php.get_insights.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecurityHub\SecurityHubClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[securityhub.php.get_insights.import]
+use Aws\SecurityHub\SecurityHubClient;
+
+// snippet-end:[securityhub.php.get_insights.import]
 
 
-//Create a Securty Hub Client
+// Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',
     'version' => '2018-10-26',
@@ -40,17 +41,17 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}  
-//snippet-end:[securityhub.php.get_insights.main]
-//snippet-end:[securityhub.php.get_insights.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[GetInsights.php demonstrates how to retrieve results from Insights created in AWS Security Hub.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[AWS Security Hub]
-//snippet-keyword:[Code Sample]
-//snippet-service:[securityhub]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-09]
-//snippet-sourceauthor:[AWS]
+}
+// snippet-end:[securityhub.php.get_insights.main]
+// snippet-end:[securityhub.php.get_insights.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GetInsights.php demonstrates how to retrieve results from Insights created in AWS Security Hub.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[AWS Security Hub]
+// snippet-keyword:[Code Sample]
+// snippet-service:[securityhub]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-09]
+// snippet-sourceauthor:[AWS]
 
