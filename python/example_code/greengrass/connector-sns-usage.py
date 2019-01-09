@@ -40,7 +40,7 @@ def function_handler(event, context):
 #snippet-end:[greengrass.python.connector-sns-usage.complete]
 #
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the SNS connector. https://docs.aws.amazon.com/greengrass/latest/developerguide/sns-connector.html ]
+#snippet-sourcedescription:[Sends an input message to the SNS connector. <ulink url="&url-gg-dev;sns-connector.html">SNS</ulink>]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
