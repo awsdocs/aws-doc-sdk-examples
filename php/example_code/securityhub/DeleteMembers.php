@@ -16,17 +16,18 @@
  *
  *
  */
-//snippet-start:[securityhub.php.delete_members.complete]
-//snippet-start:[securityhub.php.delete_members.import]
+// snippet-start:[securityhub.php.delete_members.complete]
+// snippet-start:[securityhub.php.delete_members.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecurityHub\SecurityHubClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[securityhub.php.delete_members.import]
+use Aws\SecurityHub\SecurityHubClient;
+
+// snippet-end:[securityhub.php.delete_members.import]
 
 
-//Create a Securty Hub Client
+// Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',
     'version' => '2018-10-26',
@@ -44,17 +45,17 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-}  
-//snippet-end:[securityhub.php.delete_members.main]
-//snippet-end:[securityhub.php.delete_members.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DeleteMembers.php demonstrates how to remove a member association with other AWS accounts from AWS Security Hub.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[AWS Security Hub]
-//snippet-keyword:[Code Sample]
-//snippet-service:[securityhub]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-09]
-//snippet-sourceauthor:[AWS]
+}
+// snippet-end:[securityhub.php.delete_members.main]
+// snippet-end:[securityhub.php.delete_members.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DeleteMembers.php demonstrates how to remove a member association with other AWS accounts from AWS Security Hub.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[AWS Security Hub]
+// snippet-keyword:[Code Sample]
+// snippet-service:[securityhub]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-09]
+// snippet-sourceauthor:[AWS]
 
