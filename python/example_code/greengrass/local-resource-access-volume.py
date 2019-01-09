@@ -42,8 +42,8 @@ def function_handler(event, context):
     return
 #snippet-end:[greengrass.python.local-resource-access-volume.complete]
 #
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Accesses a local volume resource. https://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html ]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.].]
+#snippet-sourcedescription:[Accesses a local volume resource. <ulink url="&url-gg-dev;lra-console.html">How to Configure Local Resource Access Using the AWS Management Console</ulink>]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
