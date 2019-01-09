@@ -37,7 +37,7 @@ $SnSclient = new SnsClient([
 $topicname = 'myTopic';
 
 try {
-    $result = $SnSclient->createTopics([
+    $result = $SnSclient->createTopic([
         'Name' => $topicname,
     ]);
     var_dump($result);
@@ -52,5 +52,5 @@ try {
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
+//snippet-sourcedate:[2019-01-09]
 //snippet-sourceauthor:[jschwarzwalder]
