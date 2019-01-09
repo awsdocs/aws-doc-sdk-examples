@@ -8,7 +8,7 @@
 //snippet-keyword:[TypeScript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
+//snippet-sourcedate:[2019-1-9]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -20,9 +20,11 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
+//snippet-start:[cdk.typescript.MyRdsDbStack]
 import cdk = require('@aws-cdk/cdk');
 import { MyRdsDbStack } from '../lib/MyRdsDbStack-stack';
 
 const app = new cdk.App();
 new MyRdsDbStack(app, 'MyRdsDbStack');
 app.run();
+//snippet-end:[cdk.typescript.MyRdsDbStack]

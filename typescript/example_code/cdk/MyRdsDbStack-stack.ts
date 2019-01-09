@@ -8,7 +8,7 @@
 //snippet-keyword:[TypeScript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
+//snippet-sourcedate:[2019-1-9]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -20,7 +20,7 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-
+//snippet-start:[cdk.typescript.MyRdsDbStack-stack]
 import cdk = require('@aws-cdk/cdk');
 import ec2 = require('@aws-cdk/aws-ec2');
 import rds = require('@aws-cdk/aws-rds');
@@ -48,3 +48,4 @@ export class MyRdsDbStack extends cdk.Stack {
     });
   }
 }
+//snippet-end:[cdk.typescript.MyRdsDbStack-stack]

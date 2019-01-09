@@ -1,4 +1,5 @@
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-comment:[This goes in the lib dir.]
 //snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
 //snippet-sourceauthor:[Doug-AWS]
 //snippet-sourcedescription:[Creates a stack with an SQS queue, SNS topic, and subscribes the queue to the topic.]
@@ -21,6 +22,7 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
+//snippet-start:[cdk.typescript.HelloCdk-stack]
 import cdk = require('@aws-cdk/cdk');
 import sns = require('@aws-cdk/aws-sns');
 import sqs = require('@aws-cdk/aws-sqs');
@@ -38,3 +40,4 @@ export class HelloCdkStack extends cdk.Stack {
         topic.subscribeQueue(queue);
     }
 }
+//snippet-end:[cdk.typescript.HelloCdk-stack]
