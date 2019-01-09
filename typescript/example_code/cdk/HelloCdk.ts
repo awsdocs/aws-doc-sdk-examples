@@ -1,9 +1,8 @@
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
+//snippet-comment:[This is a full sample when you include HelloCdk-stack.ts, which goes in the lib dir.]
 //snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Creates an S3 bucket with versioning enabled.]
+//snippet-sourcedescription:[Instantiates a stack using HelloCdk-stack]
 //snippet-keyword:[CDK V0.21.0]
-//snippet-keyword:[s3.Bucket function]
 //snippet-keyword:[TypeScript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[full-example]
@@ -19,17 +18,11 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-// snippet-start:[cdk.typescript.hello_cdk_stack.create_bucket]
 import cdk = require('@aws-cdk/cdk');
-import s3 = require('@aws-cdk/aws-s3');
 
-export class HelloCdkStack extends cdk.Stack {
-    constructor(parent: cdk.App, id: string, props?: cdk.StackProps) {
-        super(parent, id, props);
+import { HelloCdkStack } from '../lib/HelloCdk-stack';
 
-        new s3.Bucket(this, 'MyFirstBucket', {
-            versioned: true
-        });
-    }
-}
-// snippet-end:[cdk.typescript.hello_cdk_stack.create_bucket]
+const app = new cdk.App();
+new HelloCdkStack(app, 'HelloCdkStack');
+
+app.run();
