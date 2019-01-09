@@ -50,4 +50,4 @@ exports.main = async function(event, context) {
     }
   }
 }
-//snippet-end:[cdk.typescript.widgetsv1.exports_main]
+//snippet-end:[cdk.typescript.widgets.exports_main_v1]
