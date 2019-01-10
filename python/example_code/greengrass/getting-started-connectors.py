@@ -11,9 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 #
-# This sample is used in the AWS IoT Greengrass Developer Guide: 
-# https://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-console.html
-#
 #snippet-start:[greengrass.python.getting-started-connectors.complete]
 from __future__ import print_function
 import greengrasssdk
@@ -53,8 +50,9 @@ def build_request(event):
         "id": "request_" + str(random.randint(1,101))
     }
 #snippet-end:[greengrass.python.getting-started-connectors.complete]
+#
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector.]
+#snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector. https://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-console.html ]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]

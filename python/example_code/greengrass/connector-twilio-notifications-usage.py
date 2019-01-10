@@ -11,9 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 #
-# This sample is used in the AWS IoT Greengrass Developer Guide: 
-# https://docs.aws.amazon.com/greengrass/latest/developerguide/twilio-notifications-connector.html
-#
 #snippet-start:[greengrass.python.connector-twilio-notifications-usage.complete]
 import greengrasssdk
 import json
@@ -46,8 +43,9 @@ publish_basic_message()
 def function_handler(event, context):
     return
 #snippet-end:[greengrass.python.connector-twilio-notifications-usage.complete]
+#
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector.]
+#snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector. https://docs.aws.amazon.com/greengrass/latest/developerguide/twilio-notifications-connector.html ]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
