@@ -22,6 +22,7 @@ require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
+
 //snippet-end:[cloudfront.php.createinvalidation.import]
 
 /**
@@ -32,7 +33,7 @@ use Aws\Exception\AwsException;
  */
 
 //snippet-start:[cloudfront.php.createinvalidation.main]
-//Create a CloudFront Client 
+// Create a CloudFront Client
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -59,6 +60,7 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
 
 //snippet-end:[cloudfront.php.createinvalidation.main]
 //snippet-end:[cloudfront.php.createinvalidation.complete] 
