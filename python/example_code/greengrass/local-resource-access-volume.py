@@ -11,6 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 #
+# This sample is used in the AWS IoT Greengrass Developer Guide: 
+# https://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html
+#
 #snippet-start:[greengrass.python.local-resource-access-volume.complete]
 # Demonstrates a simple use case of local resource access.
 # This Lambda function writes a file "test" to a volume mounted inside
@@ -41,9 +44,8 @@ def function_handler(event, context):
         logging.error("Experiencing error :{}".format(e))
     return
 #snippet-end:[greengrass.python.local-resource-access-volume.complete]
-#
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.].]
-#snippet-sourcedescription:[Accesses a local volume resource. <ulink url="&url-gg-dev;lra-console.html">How to Configure Local Resource Access Using the AWS Management Console</ulink>]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[Accesses a local volume resource.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
