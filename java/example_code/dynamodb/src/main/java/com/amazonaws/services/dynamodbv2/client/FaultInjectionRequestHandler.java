@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.6489100b-8172-4dd6-a4c9-01339da74d35] 
+// snippet-start:[dynamodb.Java.CodeExample.FaultInjectionRequestHandler] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -128,4 +128,4 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
         // TODO Auto-generated method stub
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.6489100b-8172-4dd6-a4c9-01339da74d35]
+// snippet-end:[dynamodb.Java.CodeExample.FaultInjectionRequestHandler]

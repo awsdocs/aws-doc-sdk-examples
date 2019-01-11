@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.b7565911-f81a-4419-b85a-7178772a8fce] 
+// snippet-start:[dynamodb.Java.CodeExample.DynamoDBMapperQueryScanExample] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -535,4 +535,4 @@ public class DynamoDBMapperQueryScanExample {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.b7565911-f81a-4419-b85a-7178772a8fce]
+// snippet-end:[dynamodb.Java.CodeExample.DynamoDBMapperQueryScanExample]

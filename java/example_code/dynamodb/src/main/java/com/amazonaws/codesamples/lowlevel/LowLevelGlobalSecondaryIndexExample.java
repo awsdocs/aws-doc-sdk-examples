@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.ca489b9b-6254-4df4-b738-f7a21cc1ceb2] 
+// snippet-start:[dynamodb.Java.CodeExample.LowLevelGlobalSecondaryIndexExample] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -314,4 +314,4 @@ public class LowLevelGlobalSecondaryIndexExample {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.ca489b9b-6254-4df4-b738-f7a21cc1ceb2]
+// snippet-end:[dynamodb.Java.CodeExample.LowLevelGlobalSecondaryIndexExample]

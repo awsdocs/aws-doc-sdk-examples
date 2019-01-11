@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.bafc9270-9382-4be6-8fda-92a04b8fb11d] 
+// snippet-start:[dynamodb.Java.CodeExample.CreateTablesLoadData] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -386,4 +386,4 @@ public class CreateTablesLoadData {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.bafc9270-9382-4be6-8fda-92a04b8fb11d]
+// snippet-end:[dynamodb.Java.CodeExample.CreateTablesLoadData]

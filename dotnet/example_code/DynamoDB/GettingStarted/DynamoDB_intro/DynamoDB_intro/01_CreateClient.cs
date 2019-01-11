@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.dotNET.CodeExample.f65e5e08-68ac-4fee-b689-8d30bba878e9] 
+// snippet-start:[dynamodb.dotNET.CodeExample.01_CreateClient] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -106,4 +106,4 @@ namespace DynamoDB_intro
     }
   }
 }
-// snippet-end:[dynamodb.dotNET.CodeExample.f65e5e08-68ac-4fee-b689-8d30bba878e9]
+// snippet-end:[dynamodb.dotNET.CodeExample.01_CreateClient]

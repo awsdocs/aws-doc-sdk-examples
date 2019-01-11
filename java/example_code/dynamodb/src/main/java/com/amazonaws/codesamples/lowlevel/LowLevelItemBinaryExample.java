@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.f18bdd83-ef54-4c98-8789-7f1e0e465250] 
+// snippet-start:[dynamodb.Java.CodeExample.LowLevelItemBinaryExample] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -164,4 +164,4 @@ public class LowLevelItemBinaryExample {
         return new String(baos.toByteArray(), "UTF-8");
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.f18bdd83-ef54-4c98-8789-7f1e0e465250]
+// snippet-end:[dynamodb.Java.CodeExample.LowLevelItemBinaryExample]

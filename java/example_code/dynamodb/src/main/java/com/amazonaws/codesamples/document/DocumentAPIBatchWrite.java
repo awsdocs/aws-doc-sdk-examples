@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.59561a5b-53de-4ca9-926d-82a9661e185d] 
+// snippet-start:[dynamodb.Java.CodeExample.DocumentAPIBatchWrite] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -99,4 +99,4 @@ public class DocumentAPIBatchWrite {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.59561a5b-53de-4ca9-926d-82a9661e185d]
+// snippet-end:[dynamodb.Java.CodeExample.DocumentAPIBatchWrite]

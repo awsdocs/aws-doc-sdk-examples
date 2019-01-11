@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.761fc680-2696-4958-bd2c-07b05fa24c5e] 
+// snippet-start:[dynamodb.Java.CodeExample.MoviesLoadData] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -80,4 +80,4 @@ public class MoviesLoadData {
         }
         parser.close();
     }
-}// snippet-end:[dynamodb.Java.CodeExample.761fc680-2696-4958-bd2c-07b05fa24c5e]
+}// snippet-end:[dynamodb.Java.CodeExample.MoviesLoadData]

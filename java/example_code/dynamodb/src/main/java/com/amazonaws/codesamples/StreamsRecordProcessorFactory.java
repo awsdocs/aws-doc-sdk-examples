@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.741c1204-edd9-4745-8178-9e7bdf2fae98] 
+// snippet-start:[dynamodb.Java.CodeExample.StreamsRecordProcessorFactory] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,4 +43,4 @@ public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
     public IRecordProcessor createProcessor() {
         return new StreamsRecordProcessor(dynamoDBClient, tableName);
     }
-}// snippet-end:[dynamodb.Java.CodeExample.741c1204-edd9-4745-8178-9e7bdf2fae98]
+}// snippet-end:[dynamodb.Java.CodeExample.StreamsRecordProcessorFactory]

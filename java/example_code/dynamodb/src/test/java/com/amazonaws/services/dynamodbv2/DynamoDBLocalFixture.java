@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.78a8932a-66ea-440f-ab7e-905461d1439a] 
+// snippet-start:[dynamodb.Java.CodeExample.DynamoDBLocalFixture] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -83,4 +83,4 @@ public class DynamoDBLocalFixture {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.78a8932a-66ea-440f-ab7e-905461d1439a]
+// snippet-end:[dynamodb.Java.CodeExample.DynamoDBLocalFixture]

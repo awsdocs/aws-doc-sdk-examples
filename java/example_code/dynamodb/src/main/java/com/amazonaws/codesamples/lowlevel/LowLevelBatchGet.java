@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.51ee5095-597b-46e2-9229-403cf78c9741] 
+// snippet-start:[dynamodb.Java.CodeExample.LowLevelBatchGet] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -139,4 +139,4 @@ public class LowLevelBatchGet {
                 + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "] \n"));
         }
     }
-}// snippet-end:[dynamodb.Java.CodeExample.51ee5095-597b-46e2-9229-403cf78c9741]
+}// snippet-end:[dynamodb.Java.CodeExample.LowLevelBatchGet]

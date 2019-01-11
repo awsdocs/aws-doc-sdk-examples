@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.4ab79ddb-38d6-48d2-8c4b-b0c556f77780] 
+// snippet-start:[dynamodb.Java.CodeExample.StreamsAdapterDemo] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -166,4 +166,4 @@ public class StreamsAdapterDemo {
     }
 }
 
-// snippet-end:[dynamodb.Java.CodeExample.4ab79ddb-38d6-48d2-8c4b-b0c556f77780]
+// snippet-end:[dynamodb.Java.CodeExample.StreamsAdapterDemo]

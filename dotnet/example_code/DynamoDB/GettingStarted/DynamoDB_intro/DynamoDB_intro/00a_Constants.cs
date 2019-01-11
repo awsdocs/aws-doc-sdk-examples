@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.dotNET.CodeExample.07ec4c34-90cb-4b67-95e7-4303b7407a28] 
+// snippet-start:[dynamodb.dotNET.CodeExample.00a_Constants] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,6 +22,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
+
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.Model;
 
@@ -91,4 +92,4 @@ namespace DynamoDB_intro
     public const string movieDataPath = "./moviedata.json";
   }
 }
-// snippet-end:[dynamodb.dotNET.CodeExample.07ec4c34-90cb-4b67-95e7-4303b7407a28]
+// snippet-end:[dynamodb.dotNET.CodeExample.00a_Constants]
