@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.dotNET.CodeExample.a92cda2f-1756-479d-a6cf-0ecc1690eabc] 
+// snippet-start:[dynamodb.dotNET.CodeExample.d110b414-06ea-4e2f-b8cf-7cb292ca4f13] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -420,4 +420,4 @@ namespace com.amazonaws.codesamples
     }
 }
 
-// snippet-end:[dynamodb.dotNET.CodeExample.a92cda2f-1756-479d-a6cf-0ecc1690eabc]
+// snippet-end:[dynamodb.dotNET.CodeExample.d110b414-06ea-4e2f-b8cf-7cb292ca4f13]

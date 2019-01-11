@@ -7,7 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.dotNET.CodeExample.161099da-848c-4ddc-b833-e3bc18ae8609] 
+// snippet-start:[dynamodb.dotNET.CodeExample.07ec4c34-90cb-4b67-95e7-4303b7407a28] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -105,4 +105,4 @@ namespace DynamoDB_intro
     public const string movieDataPath = "./moviedata.json";
   }
 }
-// snippet-end:[dynamodb.dotNET.CodeExample.161099da-848c-4ddc-b833-e3bc18ae8609]
+// snippet-end:[dynamodb.dotNET.CodeExample.07ec4c34-90cb-4b67-95e7-4303b7407a28]
