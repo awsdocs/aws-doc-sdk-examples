@@ -23,7 +23,7 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ec2-example-key-pairs.html
-// snippet-start:[ec2.JavaScript.createKeyPair]
+// snippet-start:[ec2.JavaScript.keypairs.createKeyPair]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -44,4 +44,4 @@ ec2.createKeyPair(params, function(err, data) {
       console.log(JSON.stringify(data));
    }
 });
-// snippet-end:[ec2.JavaScript.createKeyPair]
+// snippet-end:[ec2.JavaScript.keypairs.createKeyPair]
