@@ -1,23 +1,27 @@
 import os, fnmatch, sys
 
-def checkFile(directory, filePattern):
+def checkFile(directory, filePattern, noWarn, quiet):
     filecount = 0;
     for path, dirs, files in os.walk(os.path.abspath(directory)):        
         for filename in fnmatch.filter(files, filePattern):
+            # Ignore this file
+            if filename == sys.argv[0]:
+                continue
             filecount += 1
             filepath = os.path.join(path, filename)
-            print("\nChecking File: " + filename + " in " + filepath)
+            if quiet == False:
+                print("\nChecking File: " + filename + " in " + filepath)
             with open(filepath) as f:
                 s = f.read()
                 words = s.split()
             snippetStartCheck(words)
             snippets = s.split('snippet-')
-            snippetAuthorCheck(snippets)
-            snippetServiceCheck(snippets)
-            snippetDescriptionCheck(snippets)
-            snippetTypeCheck(snippets)
-            snippetDateCheck(snippets)
-            snippetKeywordCheck(snippets)
+            snippetAuthorCheck(snippets, noWarn, quiet)
+            snippetServiceCheck(snippets, noWarn, quiet)
+            snippetDescriptionCheck(snippets, noWarn, quiet)
+            snippetTypeCheck(snippets, noWarn, quiet)
+            snippetDateCheck(snippets, noWarn, quiet)
+            snippetKeywordCheck(snippets, noWarn, quiet)
     print(str(filecount) + " files scanned in " + directory)
     print("")
 
@@ -33,7 +37,7 @@ def checkFileStrings(directory, filePattern):
                 words = s.split()
             snippetStartCheck(words)
             for word in words:
-                checkStringLength(word, filename)
+                checkStringLength(word, filename, noWarn, quiet)
                 wordcount +=1;
             f.close();
             print("File: " + filename + " has been scanned. " + str(wordcount) + " words found.")
@@ -42,10 +46,11 @@ def checkFileStrings(directory, filePattern):
     print("")
                 
                 
-def checkStringLength (word, filename):
+def checkStringLength (word, filename, noWarn, quiet):
     length = len(word)
     if  length == 40 or length == 20:
-        sys.exit ("WARNING -- String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
+        if noWarn == False:
+            sys.exit ("WARNING -- String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
 
 
 def snippetStartCheck(words):
@@ -71,30 +76,33 @@ def snippetStartCheck(words):
                     #print("True: "+ string + " has matching end tag." )                
             if match == False:
                 sys.exit("ERROR -- " + string + "'s matching end tag not found.")                
-    else: 
+    else:
         #print("WARNING -- Snippet Start not detected")
         return False
 
-def snippetAuthorCheck(words):
+def snippetAuthorCheck(words, noWarn, quiet):
     author = 'sourceauthor:['
     matching = [s for s in words if author in s]
     if matching == []:
-        print("WARNING -- Missing snippet-sourceauthor:[Your Name]")
+        if noWarn == False:
+            print("WARNING -- Missing snippet-sourceauthor:[Your Name]")
 
-def snippetServiceCheck(words):
+def snippetServiceCheck(words, noWarn, quiet):
     service = 'service:['
     matching = [s for s in words if service in s]
     if matching == []:
-        print("WARNING -- Missing snippet-service:[AWS service name]")
-        print("Find a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html")
+        if noWarn == False:
+            print("WARNING -- Missing snippet-service:[AWS service name]")
+            print("Find a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html")
 
-def snippetDescriptionCheck(words):
+def snippetDescriptionCheck(words, noWarn, quiet):
     desc = 'sourcedescription:['
     matching = [s for s in words if desc in s]
     if matching == []:
-        print("WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]")
+        if noWarn == False:
+            print("WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]")
 
-def snippetTypeCheck(words):
+def snippetTypeCheck(words, noWarn, quiet):
     author = 'sourcetype:['
     matching = [s for s in words if author in s]
     containsType = False
@@ -108,27 +116,30 @@ def snippetTypeCheck(words):
             containsType = True
             break
     if not containsType:
-        print("WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
+        if noWarn == False:
+            print("WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
         
 
-def snippetDateCheck(words):
+def snippetDateCheck(words, noWarn, quiet):
     datetag = 'sourcedate:['
     matching = [s for s in words if datetag in s]
     if matching == []:
-        print("WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]")
+        if noWarn == False:
+            print("WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]")
 
-def snippetKeywordCheck(words):
+def snippetKeywordCheck(words, noWarn, quiet):
     snippetkeyword = 'keyword:['
     matching = [s for s in words if snippetkeyword in s]
     # print(matching)
     codeSample = [s for s in words if 'keyword:[Code Sample]\n' in s]
     if not codeSample:
-        print("WARNING -- Missing snippet-keyword:[Code Sample]")
-    keywordServiceName(matching)
-    keywordLanguageCheck(matching)
-    keywordSDKCheck(matching)
+        if noWarn == False:
+            print("WARNING -- Missing snippet-keyword:[Code Sample]")
+    keywordServiceName(matching, noWarn, quiet)
+    keywordLanguageCheck(matching, noWarn, quiet)
+    keywordSDKCheck(matching, noWarn, quiet)
 
-def keywordServiceName(words):
+def keywordServiceName(words, noWarn, quiet):
     containsServiceTag = False;
     AWS = 'keyword:[AWS'
     matching = [s for s in words if AWS in s]
@@ -139,9 +150,10 @@ def keywordServiceName(words):
     if matching:
         containsServiceTag = True;
     if not containsServiceTag:
-        print("WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]")
+        if noWarn == False:
+            print("WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]")
 
-def keywordLanguageCheck(words):
+def keywordLanguageCheck(words, noWarn, quiet):
     languages = ['C++', 'C', '.NET', 'Go', 'Java', 'JavaScript', 'PHP', 'Python', 'Ruby','TypeScript' ]
     containsLanguageTag = False;
     for language in languages:
@@ -150,11 +162,12 @@ def keywordLanguageCheck(words):
             containsLanguageTag = True;
             break
     if containsLanguageTag == False:
-        print("WARNING -- Missing snippet-keyword:[Language]")
-        print("Options include:")
-        print(languages)
+        if noWarn == False:
+            print("WARNING -- Missing snippet-keyword:[Language]")
+            print("Options include:")
+            print(languages)
 
-def keywordSDKCheck(words):
+def keywordSDKCheck(words, noWarn, quiet):
     sdkVersions = ['AWS SDK for PHP v3', 'AWS SDK for Python (Boto3)', 'CDK V0.14.1' ]
     containsSDKTag = False;
     for sdk in sdkVersions:
@@ -163,29 +176,42 @@ def keywordSDKCheck(words):
             containsSDKTag = True;
             break
     if containsSDKTag == False:
-        print("WARNING -- Missing snippet-keyword:[SDK Version used]")
-        print("Options include:")
-        print(sdkVersions)
+        if noWarn == False:
+            print("WARNING -- Missing snippet-keyword:[SDK Version used]")
+            print("Options include:")
+            print(sdkVersions)
 
+# We allow two args:
+#     -w to suppress warnings
+#     -q to suppress name of file we are parsing (quiet mode)
+noWarn = False;
+quiet = False;
+
+i = 0;
+
+while i < len(sys.argv):
+    if sys.argv[i] == "-w":
+        noWarn = True
+    elif sys.argv[i] == "-q":
+        quiet = True
+    i += 1
 
 print ('----------\n\nRun Tests\n')
-print ('----------\n\nAWS SDK for C++\n')
-checkFile( './', '*.cpp')
-print ('----------\n\nAWS SDK for .NET\n')
-checkFile( './', '*.cs')
-print ('----------\n\nAWS SDK for Go\n')
-checkFile( './', '*.go')
-print ('----------\n\nAWS SDK for Java\n')
-checkFile( './', '*.java')
-print ('----------\n\nAWS SDK for JavaScript\n')
-checkFile( './', '*.js')
-print ('----------\n\nAWS SDK for PHP\n')
-checkFile( './', '*.php')
-print ('----------\n\nAWS SDK for Python\n')
-checkFile( './', '*.py')
-print ('----------\n\nAWS SDK for Ruby\n')
-checkFile( './', '*.rb')
-print ('----------\n\nAWS SDK for TypeScript\n')
-checkFile( './', '*.ts')
-
-
+print ('----------\n\nC++ Code Examples(*.cpp)\n')
+checkFile( './', '*.cpp', noWarn, quiet)
+print ('----------\n\nC# Code Examples (*.cs)\n')
+checkFile( './', '*.cs', noWarn, quiet)
+print ('----------\n\nGo Code Examples (*.go)\n')
+checkFile( './', '*.go', noWarn, quiet)
+print ('----------\n\nJava Code Examples (*.java)\n')
+checkFile( './', '*.java', noWarn, quiet)
+print ('----------\n\nJavaScript Code Examples (*.js)\n')
+checkFile( './', '*.js', noWarn, quiet)
+print ('----------\n\nPHP Code Examples (*.php)\n')
+checkFile( './', '*.php', noWarn, quiet)
+print ('----------\n\nPython Code Examples (*.py)\n')
+checkFile( './', '*.py', noWarn, quiet)
+print ('----------\n\nRuby Code Examples (*.rb)\n')
+checkFile( './', '*.rb', noWarn, quiet)
+print ('----------\n\nTypeScript Code Examples (*.ts)\n')
+checkFile( './', '*.ts', noWarn, quiet)
