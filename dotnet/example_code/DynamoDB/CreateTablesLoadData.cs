@@ -1,13 +1,13 @@
-// snippet-sourcedescription:[CreateTablesLoadData.cs demonstrates how to create a DynamoDB table ]
+// snippet-sourcedescription:[CreateTablesLoadData.cs demonstrates how to ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[dotNET]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[CreateTable, DeleteTable]
+// snippet-keyword:[ ]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.dotNET.CodeExample.CreateTable]
+// snippet-start:[dynamodb.dotNET.CodeExample.CreateTablesLoadData] 
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -534,5 +534,4 @@ namespace com.amazonaws.codesamples
         }
     }
 }
-
-// snippet-end:[dynamodb.dotNET.CodeExample.CreateTable]
+// snippet-end:[dynamodb.dotNET.CodeExample.CreateTablesLoadData]
