@@ -11,6 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 #
+# This sample is used in the AWS IoT Greengrass Developer Guide: 
+# https://docs.aws.amazon.com/greengrass/latest/developerguide/secrets-using.html
+#
 #snippet-start:[greengrass.python.secret-resource-access-staging-label.complete]
 import greengrasssdk
  
@@ -23,9 +26,8 @@ def function_handler(event, context):
     response = client.get_secret_value(SecretId='greengrass-MySecret-abc')
     raw_secret = response.get('SecretString')
 #snippet-end:[greengrass.python.secret-resource-access-staging-label.complete]
-#
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Accesses a specific version of a secret on the core. https://docs.aws.amazon.com/greengrass/latest/developerguide/secrets-using.html ]
+#snippet-sourcedescription:[Accesses a specific version of a secret on the core.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]

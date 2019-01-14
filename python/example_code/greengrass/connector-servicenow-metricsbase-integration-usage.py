@@ -11,6 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 #
+# This sample is used in the AWS IoT Greengrass Developer Guide: 
+# https://docs.aws.amazon.com/greengrass/latest/developerguide/servicenow-connector.html
+#
 #snippet-start:[greengrass.python.connector-servicenow-metricsbase-integration-usage.complete]
 import greengrasssdk
 import json
@@ -40,9 +43,8 @@ publish_basic_message()
 def function_handler(event, context):
     return
 #snippet-end:[greengrass.python.connector-servicenow-metricsbase-integration-usage.complete]
-#
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the  ServiceNow MetricBase Integration connector. https://docs.aws.amazon.com/greengrass/latest/developerguide/servicenow-connector.html ]
+#snippet-sourcedescription:[Sends an input message to the  ServiceNow MetricBase Integration connector.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]

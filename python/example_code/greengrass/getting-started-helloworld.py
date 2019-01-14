@@ -11,6 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 #
+# This sample is used in the AWS IoT Greengrass Developer Guide: 
+# https://docs.aws.amazon.com/greengrass/latest/developerguide/module3-I.html
+#
 #snippet-start:[greengrass.python.getting-started-helloworld.complete]
 import greengrasssdk
 import platform
@@ -34,9 +37,8 @@ greengrass_hello_world_run()
 def function_handler(event, context):
     return
 #snippet-end:[greengrass.python.getting-started-helloworld.complete]
-#
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:['Hello World' Lambda function sends MQTT messages. https://docs.aws.amazon.com/greengrass/latest/developerguide/module3-I.html ]
+#snippet-sourcedescription:['Hello World' Lambda function sends MQTT messages.]
 #snippet-keyword:[Python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
