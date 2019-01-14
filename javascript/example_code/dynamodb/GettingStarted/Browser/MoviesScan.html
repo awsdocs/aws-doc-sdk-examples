@@ -1,0 +1,64 @@
+<html>
+<head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+<script>
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: 'http://localhost:8000',
+  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  accessKeyId: "fakeMyKeyId",
+  // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  secretAccessKey: "fakeSecretAccessKey"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+function scanData() {
+    document.getElementById('textarea').innerHTML += "Scanning Movies table." + "\n";
+
+    var params = {
+        TableName: "Movies",
+        ProjectionExpression: "#yr, title, info.rating",
+        FilterExpression: "#yr between :start_yr and :end_yr",
+        ExpressionAttributeNames: {
+            "#yr": "year",
+        },
+        ExpressionAttributeValues: {
+            ":start_yr": 1950,
+            ":end_yr": 1959
+        }
+    };
+
+    docClient.scan(params, onScan);
+
+    function onScan(err, data) {
+        if (err) {
+            document.getElementById('textarea').innerHTML += "Unable to scan the table: " + "\n" + JSON.stringify(err, undefined, 2);
+        } else {
+            // Print all the movies
+            document.getElementById('textarea').innerHTML += "Scan succeeded. " + "\n";
+            data.Items.forEach(function(movie) {
+                document.getElementById('textarea').innerHTML += movie.year + ": " + movie.title + " - rating: " + movie.info.rating + "\n";
+            });
+
+            // Continue scanning if we have more movies (per scan 1MB limitation)
+            document.getElementById('textarea').innerHTML += "Scanning for more..." + "\n";
+            params.ExclusiveStartKey = data.LastEvaluatedKey;
+            docClient.scan(params, onScan);            
+        }
+    }
+}
+
+</script>
+</head>
+
+<body>
+<input id="scanData" type="button" value="Scan" onclick="scanData();" />
+<br><br>
+<textarea readonly id= "textarea" style="width:400px; height:800px"></textarea>
+
+</body>
+</html> 

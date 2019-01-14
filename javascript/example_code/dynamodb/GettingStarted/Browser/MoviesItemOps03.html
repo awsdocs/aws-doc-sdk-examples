@@ -1,0 +1,57 @@
+<html>
+<head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+<script>
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: 'http://localhost:8000',
+  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  accessKeyId: "fakeMyKeyId",
+  // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  secretAccessKey: "fakeSecretAccessKey"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+function updateItem() {
+    var table = "Movies";
+    var year = 2015;
+    var title = "The Big New Movie";
+
+    var params = {
+        TableName:table,
+        Key:{
+            "year": year,
+            "title": title
+        },
+        UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
+        ExpressionAttributeValues:{
+            ":r":5.5,
+            ":p":"Everything happens all at once.",
+            ":a":["Larry", "Moe", "Curly"]
+        },
+        ReturnValues:"UPDATED_NEW"
+    };
+
+    docClient.update(params, function(err, data) {
+        if (err) {
+            document.getElementById('textarea').innerHTML = "Unable to update item: " + "\n" + JSON.stringify(err, undefined, 2);
+        } else {
+            document.getElementById('textarea').innerHTML = "UpdateItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
+        }
+    });
+}
+
+</script>
+</head>
+
+<body>
+<input id="updateItem" type="button" value="Update Item" onclick="updateItem();" />
+<br><br>
+<textarea readonly id= "textarea" style="width:400px; height:800px"></textarea>
+
+</body>
+</html> 

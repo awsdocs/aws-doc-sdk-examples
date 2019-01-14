@@ -1,0 +1,68 @@
+<html>
+<head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+<script type="text/javascript">
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: 'http://localhost:8000',
+  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  accessKeyId: "fakeMyKeyId",
+  // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  secretAccessKey: "fakeSecretAccessKey"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+function processFile(evt) {
+    document.getElementById('textarea').innerHTML = "";
+    document.getElementById('textarea').innerHTML += "Importing movies into DynamoDB. Please wait..." + "\n";
+    var file = evt.target.files[0];
+    if (file) {
+        var r = new FileReader();
+        r.onload = function(e) {
+            var contents = e.target.result;
+            var allMovies = JSON.parse(contents);
+
+            allMovies.forEach(function (movie) {
+                document.getElementById('textarea').innerHTML += "Processing: " + movie.title + "\n";
+                var params = {
+                    TableName: "Movies",
+                    Item: {
+                        "year": movie.year,
+                        "title": movie.title,
+                        "info": movie.info
+                    }
+                };
+                docClient.put(params, function (err, data) {
+                    if (err) {
+                        document.getElementById('textarea').innerHTML += "Unable to add movie: " + count + movie.title + "\n";
+                        document.getElementById('textarea').innerHTML += "Error JSON: " + JSON.stringify(err) + "\n";
+                    } else {
+                        document.getElementById('textarea').innerHTML += "PutItem succeeded: " + movie.title + "\n";
+                        textarea.scrollTop = textarea.scrollHeight;
+                    }
+                });
+            });
+    };
+        r.readAsText(file);
+    } else {
+        alert("Could not read movie data file");
+    }
+}
+
+</script>
+</head>
+
+<body>
+<input type="file" id="fileinput" accept='application/json'/>
+<br><br>
+<textarea readonly id= "textarea" style="width:400px; height:800px"></textarea>
+
+<script>
+    document.getElementById('fileinput').addEventListener('change', processFile, false);
+</script>
+</body>
+</html>

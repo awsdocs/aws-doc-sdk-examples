@@ -1,0 +1,55 @@
+<html>
+<head>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+<script>
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: 'http://localhost:8000',
+  // accessKeyId default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  accessKeyId: "fakeMyKeyId",
+  // secretAccessKey default can be used while using the downloadable version of DynamoDB. 
+  // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  secretAccessKey: "fakeSecretAccessKey"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+function increaseRating() {
+    var table = "Movies";
+    var year = 2015;
+    var title = "The Big New Movie";
+
+    var params = {
+        TableName:table,
+        Key:{
+            "year": year,
+            "title": title
+        },
+        UpdateExpression: "set info.rating = info.rating + :val",
+        ExpressionAttributeValues:{
+            ":val":1
+        },
+        ReturnValues:"UPDATED_NEW"
+    };
+
+    docClient.update(params, function(err, data) {
+        if (err) {
+            document.getElementById('textarea').innerHTML = "Unable to update rating: " + "\n" + JSON.stringify(err, undefined, 2);
+        } else {
+            document.getElementById('textarea').innerHTML = "Increase Rating succeeded: " + "\n" + JSON.stringify(data, undefined, 2);
+        }
+    });
+}
+
+</script>
+</head>
+
+<body>
+<input id="increaseRating" type="button" value="Increase Rating" onclick="increaseRating();" />
+<br><br>
+<textarea readonly id= "textarea" style="width:400px; height:800px"></textarea>
+
+</body>
+</html> 
