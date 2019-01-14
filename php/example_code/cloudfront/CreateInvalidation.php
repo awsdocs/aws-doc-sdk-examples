@@ -34,6 +34,7 @@ use Aws\Exception\AwsException;
 
 //snippet-start:[cloudfront.php.createinvalidation.main]
 // Create a CloudFront Client
+
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
