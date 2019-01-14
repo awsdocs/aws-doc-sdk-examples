@@ -1,6 +1,6 @@
 import os, fnmatch, sys
 
-def checkFile(directory, filePattern, warn, filelocation):
+def checkFile(directory, filePattern, warn, quiet):
     filecount = 0;
     for path, dirs, files in os.walk(os.path.abspath(directory)):        
         for filename in fnmatch.filter(files, filePattern):
@@ -9,42 +9,52 @@ def checkFile(directory, filePattern, warn, filelocation):
                 continue
             wordcount = 0;
             filecount += 1
+            errors = []
             filepath = os.path.join(path, filename)
-            if warn == True:
-                print ("")
             if quiet == False:
                 print("\nChecking File: " + filepath)
             with open(filepath) as f:
                 s = f.read()
                 words = s.split()
             for word in words:
-                checkStringLength(word, warn, filepath)
+                checkStringLength(word, warn)
                 wordcount +=1;
-            snippetStartCheck(words)
+
+            # Check for mismatched Snippet start and end.    
             snippets = s.split('snippet-')
-            snippetAuthorCheck(snippets, warn, filepath)
-            snippetServiceCheck(snippets, warn, filepath)
-            snippetDescriptionCheck(snippets, warn, filepath)
-            snippetTypeCheck(snippets, warn, filepath)
-            snippetDateCheck(snippets, warn, filepath)
-            snippetKeywordCheck(snippets, warn, filepath)
+
+            # Check Metadata for optional metadata
+            errors.append(snippetStartCheck(words, filepath))
+            errors.append(snippetAuthorCheck(snippets, warn))
+            errors.append(snippetServiceCheck(snippets, warn))
+            errors.append(snippetDescriptionCheck(snippets, warn))
+            errors.append(snippetTypeCheck(snippets, warn))
+            errors.append(snippetDateCheck(snippets, warn))
+            errors.append(snippetKeywordCheck(snippets, warn))
             f.close()
-        
+            if quiet == False:
+                print(str(wordcount) + " words found.")
+            if warn == True:
+                # Filter to only warning messages
+                errors = list(filter(None, errors))
+                # print out file name, if warnings found
+                if len(errors) > 0 and quiet == True:
+                    print("\nChecking File: " + filepath)
+                for error in errors:
+                    if error:
+                        print(error)
     print(str(filecount) + " files scanned in " + directory)
     print("")
 
 
-def checkStringLength (word, warn, filelocation):
+def checkStringLength (word, warn):
     length = len(word)
     if  length == 40 or length == 20:
         if warn == True:            
-            print("WARNING -- " + word + " is " + str(length) + " characters long.")
-            if quiet == True:
-                print("  Found in " + filelocation)
-             
+            return "WARNING -- " + word + " is " + str(length) + " characters long"
 
 
-def snippetStartCheck(words):
+def snippetStartCheck(words, filelocation):
     #print (words)
     snippetStart = 'snippet-start:['
     snippetEnd = 'snippet-end:['
@@ -64,44 +74,36 @@ def snippetStartCheck(words):
             for end in snippettags:
                 if string.endswith(end):
                     match = True
-                    #print("True: "+ string + " has matching end tag." )                
+                    #return "True: "+ string + " has matching end tag." )                
             if match == False:
-                if quiet == True:
-                    print("  Found in " + filelocation)
+                print("ERROR -- Found in " + filelocation)
                 sys.exit("ERROR -- " + string + "'s matching end tag not found.")                
     else:
-        #print("WARNING -- Snippet Start not detected")
+        #return "WARNING -- Snippet Start not detected"
         return False
 
-def snippetAuthorCheck(words, warn, filelocation):
+def snippetAuthorCheck(words, warn):
     author = 'sourceauthor:['
     matching = [s for s in words if author in s]
     if matching == []:
         if warn == True:
-            print("WARNING -- Missing snippet-sourceauthor:[Your Name]")
-            if quiet == True:
-                print("  Found in " + filelocation)
+            return "WARNING -- Missing snippet-sourceauthor:[Your Name]"
 
-def snippetServiceCheck(words, warn, filelocation):
+def snippetServiceCheck(words, warn):
     service = 'service:['
     matching = [s for s in words if service in s]
     if matching == []:
         if warn == True:
-            print("WARNING -- Missing snippet-service:[AWS service name]")
-            if quiet == True:
-                print("  Found in " + filelocation)
-            print("Find a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html")
+            return "WARNING -- Missing snippet-service:[AWS service name] \nFind a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
 
-def snippetDescriptionCheck(words, warn, filelocation):
+def snippetDescriptionCheck(words, warn):
     desc = 'sourcedescription:['
     matching = [s for s in words if desc in s]
     if matching == []:
         if warn == True:
-            print("WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]")
-            if quiet == True:
-                print("  Found in " + filelocation)
+            return "WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]"
 
-def snippetTypeCheck(words, warn, filelocation):
+def snippetTypeCheck(words, warn):
     author = 'sourcetype:['
     matching = [s for s in words if author in s]
     containsType = False
@@ -116,35 +118,29 @@ def snippetTypeCheck(words, warn, filelocation):
             break
     if not containsType:
         if warn == True:
-            print("WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
-            if quiet == True:
-                print("  Found in " + filelocation)
+            return "WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]"
         
 
-def snippetDateCheck(words, warn, filelocation):
+def snippetDateCheck(words, warn):
     datetag = 'sourcedate:['
     matching = [s for s in words if datetag in s]
     if matching == []:
         if warn == True:
-            print("WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]")
-            if quiet == True:
-                print("  Found in " + filelocation)
+            return "WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]"
 
-def snippetKeywordCheck(words, warn, filelocation):
+def snippetKeywordCheck(words, warn):
     snippetkeyword = 'keyword:['
     matching = [s for s in words if snippetkeyword in s]
     # print(matching)
     codeSample = [s for s in words if 'keyword:[Code Sample]\n' in s]
     if not codeSample:
         if warn == True:
-            print("WARNING -- Missing snippet-keyword:[Code Sample]")
-            if quiet == True:
-                print("  Found in " + filelocation)
-    keywordServiceName(matching, warn, filelocation)
-    keywordLanguageCheck(matching, warn, filelocation)
-    keywordSDKCheck(matching, warn, filelocation)
+            return "WARNING -- Missing snippet-keyword:[Code Sample]"
+    keywordServiceName(matching, warn)
+    keywordLanguageCheck(matching, warn)
+    keywordSDKCheck(matching, warn)
 
-def keywordServiceName(words, warn, filelocation):
+def keywordServiceName(words, warn):
     containsServiceTag = False;
     AWS = 'keyword:[AWS'
     matching = [s for s in words if AWS in s]
@@ -156,11 +152,9 @@ def keywordServiceName(words, warn, filelocation):
         containsServiceTag = True;
     if not containsServiceTag:
         if warn == True:
-            print("WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]")
-            if quiet == True:
-                print("  Found in " + filelocation)
+            return "WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]"
 
-def keywordLanguageCheck(words, warn, filelocation):
+def keywordLanguageCheck(words, warn):
     languages = ['C++', 'C', '.NET', 'Go', 'Java', 'JavaScript', 'PHP', 'Python', 'Ruby','TypeScript' ]
     containsLanguageTag = False;
     for language in languages:
@@ -170,14 +164,10 @@ def keywordLanguageCheck(words, warn, filelocation):
             break
     if containsLanguageTag == False:
         if warn == True:
-            print("WARNING -- Missing snippet-keyword:[Language]")
-            if quiet == True:
-                print("  Found in " + filelocation)
-            print("Options include:")
-            print(languages)
+            return "WARNING -- Missing snippet-keyword:[Language] \nOptions include:" + ', '.join(languages)
             
 
-def keywordSDKCheck(words, warn, filelocation):
+def keywordSDKCheck(words, warn):
     sdkVersions = ['AWS SDK for PHP v3', 'AWS SDK for Python (Boto3)', 'CDK V0.14.1' ]
     containsSDKTag = False;
     for sdk in sdkVersions:
@@ -187,17 +177,13 @@ def keywordSDKCheck(words, warn, filelocation):
             break
     if containsSDKTag == False:
         if warn == True:
-            print("WARNING -- Missing snippet-keyword:[SDK Version used]")
-            if quiet == True:
-                print("  Found in " + filelocation)
-            print("Options include:")
-            print(sdkVersions)
+            return "WARNING -- Missing snippet-keyword:[SDK Version used] \nOptions include:" + ', '.join(sdkVersions)
 
 # We allow two args:
 #     -w to suppress warnings
 #     -q to suppress name of file we are parsing (quiet mode)
 warn = True;
-quiet = True;
+quiet = False;
 
 i = 0;
 
