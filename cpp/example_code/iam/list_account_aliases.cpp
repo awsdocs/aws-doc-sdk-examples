@@ -22,13 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.list_account_aliases.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListAccountAliasesRequest.h>
 #include <aws/iam/model/ListAccountAliasesResult.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip> 
+//snippet-end:[iam.cpp.list_account_aliases.inc]
 
 /**
  * Lists all account aliases associated with an AWS account
@@ -38,6 +39,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[iam.cpp.list_account_aliases.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListAccountAliasesRequest request;
 
@@ -79,6 +81,7 @@ int main(int argc, char** argv)
                 done = true;
             }
         }
+        // snippet-end:[iam.cpp.list_account_aliases.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

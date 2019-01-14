@@ -1,3 +1,4 @@
+ 
 //snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
@@ -28,7 +29,7 @@
 #include <aws/events/model/PutEventsResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-start:[cw.cpp.put_events.inc]
+//snippet-end:[cw.cpp.put_events.inc]
 
 Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
 {
@@ -76,16 +77,18 @@ int main(int argc, char** argv)
         auto outcome = cwe.PutEvents(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to post cloudwatch event: " <<
+            std::cout << "Failed to post CloudWatch event: " <<
                 outcome.GetError().GetMessage() << std::endl;
         }
         else
         {
-            std::cout << "Successfully posted cloudwatch event" << std::endl;
+            std::cout << "Successfully posted CloudWatch event" << std::endl;
         }
-        //snippet-end:[cw.cpp.put_events.code]
+        // snippet-end:[cw.cpp.put_events.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+
 

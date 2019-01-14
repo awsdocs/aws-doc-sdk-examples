@@ -29,7 +29,6 @@
 #include <aws/monitoring/model/DescribeAlarmsResult.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip>
 //snippet-end:[cw.cpp.describe_alarms.inc]
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
@@ -54,7 +53,7 @@ int main(int argc, char** argv)
             auto outcome = cw.DescribeAlarms(request);
             if (!outcome.IsSuccess())
             {
-                std::cout << "Failed to describe cloudwatch alarms:" <<
+                std::cout << "Failed to describe CloudWatch alarms:" <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }

@@ -72,12 +72,12 @@ int main(int argc, char** argv)
         auto outcome = cw.PutMetricAlarm(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to create cloudwatch alarm:" <<
+            std::cout << "Failed to create CloudWatch alarm:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }
         else
         {
-            std::cout << "Successfully created cloudwatch alarm " << alarm_name
+            std::cout << "Successfully created CloudWatch alarm " << alarm_name
                 << std::endl;
         }
         // snippet-end:[cw.cpp.put_metric_alarm.code]

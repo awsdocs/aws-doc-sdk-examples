@@ -22,6 +22,7 @@ This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
+//snippet-start:[dynamodb.cpp.create_table_composite_key.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
@@ -31,6 +32,7 @@ specific language governing permissions and limitations under the License.
 #include <aws/dynamodb/model/ProvisionedThroughput.h>
 #include <aws/dynamodb/model/ScalarAttributeType.h>
 #include <iostream>
+//snippet-end:[dynamodb.cpp.create_table_composite_key.inc]
 
 
 /**
@@ -67,6 +69,7 @@ int main(int argc, char** argv)
         const Aws::String table(argv[1]);
         const Aws::String region(argc > 2 ? argv[2] : "");
 
+        // snippet-start:[dynamodb.cpp.create_table_composite_key.code]
         Aws::Client::ClientConfiguration clientConfig;
         if (!region.empty())
             clientConfig.region = region;
@@ -107,6 +110,7 @@ int main(int argc, char** argv)
         {
             std::cout << "Failed to create table:" << result.GetError().GetMessage();
         }
+        // snippet-end:[dynamodb.cpp.create_table_composite_key.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

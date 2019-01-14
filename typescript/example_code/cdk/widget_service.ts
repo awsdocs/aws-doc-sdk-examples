@@ -4,7 +4,7 @@
 //snippet-comment:[and widgets.js in the resources/ directory.]
 //snippet-sourceauthor:[Doug-AWS]
 //snippet-sourcedescription:[Creates an S3 bucket, handler for HTTP requests, and API Gateway to Lambda functions.]
-//snippet-keyword:[CDK V0.14.1]
+//snippet-keyword:[CDK V0.21.0]
 //snippet-keyword:[ApiGateway.LambdaIntegration function]
 //snippet-keyword:[ApiGateway.RestApi function]
 //snippet-keyword:[Bucket.grantReadWrite function]
@@ -13,7 +13,7 @@
 //snippet-keyword:[TypeScript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-05]
+//snippet-sourcedate:[2019-1-9]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -25,7 +25,7 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-//snippet-start:[snippet.cdk.create_widget_service.ts]
+//snippet-start:[cdk.typescript.widget_service]
 import cdk = require('@aws-cdk/cdk');
 import apigateway = require('@aws-cdk/aws-apigateway');
 import lambda = require('@aws-cdk/aws-lambda');
@@ -59,6 +59,7 @@ export class WidgetService extends cdk.Construct {
 
     api.root.addMethod('GET', getWidgetsIntegration);   // GET /
 
+    //snippet-start:[cdk.typescript.widget_service.wire_up_functions]
     const widget = api.root.addResource('{name}');
 
     // Add new widget to bucket with: POST /{name}
@@ -73,6 +74,7 @@ export class WidgetService extends cdk.Construct {
     widget.addMethod('POST', postWidgetIntegration);    // POST /{name}
     widget.addMethod('GET', getWidgetIntegration);       // GET /{name}
     widget.addMethod('DELETE', deleteWidgetIntegration); // DELETE /{name}
+    //snippet-end:[cdk.typescript.widget_service.wire_up_functions]
   }
 }
-//snippet-end:[snippet.cdk.create_widget_service.ts]
+//snippet-end:[cdk.typescript.widget_service]

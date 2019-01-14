@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.get_queue_url.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/GetQueueUrlRequest.h>
 #include <aws/sqs/model/GetQueueUrlResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.get_queue_url.inc]
 
 /**
  * Gets the url associated with an sqs queue based on command line input
@@ -43,6 +45,7 @@ int main(int argc, char** argv)
     {
         Aws::String queue_name = argv[1];
 
+        // snippet-start:[sqs.cpp.get_queue_url.code]
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::GetQueueUrlRequest gqu_req;
@@ -56,6 +59,7 @@ int main(int argc, char** argv)
             std::cout << "Error getting url for queue " << queue_name << ": " <<
                 gqu_out.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[sqs.cpp.get_queue_url.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
