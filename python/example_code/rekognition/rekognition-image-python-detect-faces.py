@@ -11,12 +11,14 @@
 # language governing permissions and limitations under the License.
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-detect-labels.py demonstrates how to detect faces in an image loaded from an S3 Bucket.]
+#snippet-sourcedescription:[rekognition-image-python-detect-labels.py demonstrates how to detect faces in an image loaded from an S3 Bucket.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[DetectFaces]
+#snippet-keyword:[S3 Bucket]
+#snippet-keyword:[Image]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -26,6 +28,8 @@ import boto3
 import json
 
 if __name__ == "__main__":
+    # Change bucket to your S3 bucket that contains the image file.
+    # Change photo to your image file.
     photo='input.jpg'
     bucket='bucket'
     client=boto3.client('rekognition')

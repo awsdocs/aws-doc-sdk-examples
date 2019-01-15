@@ -17,6 +17,8 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[DetectText]
+#snippet-keyword:[S3 Bucket]
+#snippet-keyword:[Image]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -26,8 +28,10 @@ import boto3
 
 if __name__ == "__main__":
 
-    bucket='photo-label-detect'
-    photo='text.png'
+    # Change the value of bucket to the S3 bucket that contains your image file.
+    # Change the value of photo to your image file name.
+    bucket='bucket'
+    photo='photo'
 
     client=boto3.client('rekognition')
 

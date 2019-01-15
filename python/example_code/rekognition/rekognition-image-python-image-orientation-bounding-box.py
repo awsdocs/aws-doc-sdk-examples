@@ -17,6 +17,9 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[RecognizeCelebrities]
+#snippet-keyword:[Bounding Box]
+#snippet-keyword:[Local]
+#snippet-keyword:[Image]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -55,7 +58,8 @@ def ShowBoundingBoxPositions(imageHeight, imageWidth, box, rotation):
 
 if __name__ == "__main__":
 
-    photo='/Users/Shared/Photos/moviestars.jpg'
+    # Replace photo with the image file you want to use.
+    photo='moviestars.jpg'
     client=boto3.client('rekognition')
  
 

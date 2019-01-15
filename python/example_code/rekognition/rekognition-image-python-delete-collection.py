@@ -17,6 +17,7 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[DeleteCollection]
+#snippet-keyword:[Collection]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -29,6 +30,7 @@ from os import environ
 
 if __name__ == "__main__":
 
+    # Replace collectionId with the ID of the collection that you want to delete.
     collectionId='MyCollection'
     print('Attempting to delete collection ' + collectionId)
     client=boto3.client('rekognition')

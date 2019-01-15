@@ -17,6 +17,8 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[CompareFaces]
+#snippet-keyword:[Local]
+#snippet-keyword:[Image]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -27,6 +29,7 @@ import boto3
 
 if __name__ == "__main__":
 
+    # Replace sourceFile and targetFile with the image files you want to compare.
     sourceFile='source.jpg'
     targetFile='target.jpg'
     client=boto3.client('rekognition')

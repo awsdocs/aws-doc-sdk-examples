@@ -17,6 +17,7 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[DeleteFaces]
+#snippet-keyword:[Collection]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -27,7 +28,9 @@ import boto3
 
 if __name__ == "__main__":
 
-    #Change "xxxxxx..." to the ID of the face that you want to delete
+    # Change collectionID to the collection that contains the face.
+    # Change "xxxxxx..." to the ID of the face that you want to delete.
+
     collectionId='MyCollection'
     faces=[]
     faces.append("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")

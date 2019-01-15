@@ -11,22 +11,27 @@
 # language governing permissions and limitations under the License.
 
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-python-show-bounding-boxes-no-orientation.py demonstrates how to draw bounding boxes around faces in images with no bounding box information.]
+#snippet-sourcedescription:[rekognition-image-python-show-bounding-boxes-local.py demonstrates how to draw bounding boxes around faces in images. The image file is local.]
 #snippet-keyword:[Python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[DetectFaces]
+#snippet-keyword:[Bounding Box]
+#snippet-keyword:[Local]
+#snippet-keyword:[Image]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
 #snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[rekognition.python.rekognition-image-python-show-bounding-boxes-no-orientation.complete]
+#snippet-start:[rekognition.python.rekognition-image-python-show-bounding-boxes-local.complete]
 import boto3
 import io
 from PIL import Image, ImageDraw, ExifTags, ImageColor
 
 if __name__ == "__main__":
+
+    # Change photo to the path and filename of your image.
 
     photo='photo'
 
@@ -79,4 +84,4 @@ if __name__ == "__main__":
 
     image.show()
 
-#snippet-end:[rekognition.python.rekognition-image-python-show-bounding-boxes-no-orientation.complete]
+#snippet-end:[rekognition.python.rekognition-image-python-show-bounding-boxes-local.complete]

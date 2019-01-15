@@ -17,6 +17,7 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[DescribeCollection]
+#snippet-keyword:[Collection]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -29,6 +30,7 @@ from os import environ
 
 if __name__ == "__main__":
 
+    # Change collectionID to the name of the desired collection.
     collectionId='MyCollection'
     print('Attempting to describe collection ' + collectionId)
     client=boto3.client('rekognition')

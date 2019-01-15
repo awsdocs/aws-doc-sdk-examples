@@ -26,6 +26,8 @@ import boto3
 
 if __name__ == "__main__":
 
+    # Change the value of id to an ID value returned by RecognizeCelebrities or GetCelebrityRecognition
+
     id="nnnnnnnn"
 
     client=boto3.client('rekognition')

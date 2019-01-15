@@ -17,6 +17,8 @@
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]
 #snippet-keyword:[SearchFacesByImage]
+#snippet-keyword:[Collection]
+#snippet-keyword:[Image]
 #snippet-service:[rekognition]
 #snippet-sourcetype:[full-example]
 #snippet-sourcedate:[2019-01-3]
@@ -26,6 +28,7 @@ import boto3
 
 if __name__ == "__main__":
 
+    #Replace bucket, collectionId and fileName with your values.
     bucket='bucket'
     collectionId='MyCollection'
     fileName='input.jpg'
