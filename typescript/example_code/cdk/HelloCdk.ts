@@ -1,14 +1,12 @@
 //snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-comment:[This is a full sample when you include HelloCdk-stack.ts, which goes in the lib dir.]
 //snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Creates a stack with an SQS queue, SNS topic, and subscribes the queue to the topic.]
-//snippet-keyword:[CDK V0.13.0]
-//snippet-keyword:[sqs.Queue function]
-//snippet-keyword:[sns.Topic function]
-//snippet-keyword:[Topic.subscribeQueue function]
+//snippet-sourcedescription:[Instantiates a stack using HelloCdk-stack]
+//snippet-keyword:[CDK V0.21.0]
 //snippet-keyword:[TypeScript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-10-26]
+//snippet-sourcedate:[2019-1-9]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -20,30 +18,13 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-
+//snippet-start:[cdk.typescript.HelloCdk]
 import cdk = require('@aws-cdk/cdk');
-import sns = require('@aws-cdk/aws-sns');
-import sqs = require('@aws-cdk/aws-sqs');
 
-class HelloCdkStack extends cdk.Stack {
-    constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-        super(parent, name, props);
+import { HelloCdkStack } from '../lib/HelloCdk-stack';
 
-        const queue = new sqs.Queue(this, 'HelloCdkQueue', {
-            visibilityTimeoutSec: 300
-        });
+const app = new cdk.App();
+new HelloCdkStack(app, 'HelloCdkStack');
 
-        const topic = new sns.Topic(this, 'HelloCdkTopic');
-
-        topic.subscribeQueue(queue);
-    }
-}
-
-class MyApp extends cdk.App {
-    constructor() {
-        super();
-        new HelloCdkStack(this, 'hello-cdk');
-    }
-}
-
-new MyApp().run();
+app.run();
+//snippet-end:[cdk.typescript.HelloCdk]

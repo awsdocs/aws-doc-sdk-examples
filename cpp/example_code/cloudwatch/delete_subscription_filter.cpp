@@ -52,11 +52,11 @@ int main(int argc, char** argv)
 
         auto outcome = cwl.DeleteSubscriptionFilter(request);
         if (!outcome.IsSuccess()) {
-            std::cout << "Failed to delete cloudwatch log subscription filter "
+            std::cout << "Failed to delete CloudWatch log subscription filter "
                 << filter_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         } else {
-            std::cout << "Successfully deleted cloudwatch logs subscription " <<
+            std::cout << "Successfully deleted CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
     }

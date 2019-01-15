@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesPublisher;
 import io.reactivex.Flowable;
+import reactor.core.publisher.Flux;
 
 public class AsyncPagination {
 
@@ -62,12 +63,13 @@ public class AsyncPagination {
             AutoPagination();
             AutoPaginationOnCollection();
             useThirdPartySubscriber();
+            useThirdPartySubscriber_Reactor();
             break;
         default:
             ManualPagination();
             AutoPagination();
             AutoPaginationOnCollection();
-            useThirdPartySubscriber();
+            useThirdPartySubscriber_Reactor();
         }
     }
 
@@ -198,6 +200,21 @@ public class AsyncPagination {
                                       .flatMapIterable(ListTablesResponse::tableNames)
                                       .toList()
                                       .blockingGet();
+        System.out.println(tables);
+    }
+
+    private static void useThirdPartySubscriber_Reactor() {
+        System.out.println("running AutoPagination - using third party subscriber...\n");
+
+        DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
+        ListTablesPublisher publisher = asyncClient.listTablesPaginator(ListTablesRequest.builder()
+                                                                                         .build());
+
+        // The Flux class has many helper methods that work with any reactive streams compatible publisher implementation
+        List<String> tables = Flux.from(publisher)
+                                  .flatMapIterable(ListTablesResponse::tableNames)
+                                  .collectList()
+                                  .block();
         System.out.println(tables);
     }
 }

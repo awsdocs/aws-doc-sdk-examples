@@ -76,7 +76,7 @@ int main(int argc, char** argv)
         clientConfig.region = Aws::Region::US_WEST_2;
         Aws::Kinesis::KinesisClient kinesisClient(clientConfig);
 
-        Aws::Vector<Aws::String> animals{"dog", "cat", "owl", "horse", "stoat", "snake"};
+        Aws::Vector<Aws::String> animals{"dog", "cat", "mouse", "horse", "stoat", "snake"};
         Aws::Kinesis::Model::PutRecordsRequest putRecordsRequest;
         putRecordsRequest.SetStreamName(streamName);
         Aws::Vector<Aws::Kinesis::Model::PutRecordsRequestEntry> putRecordsRequestEntryList;

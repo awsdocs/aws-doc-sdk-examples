@@ -59,13 +59,13 @@ int main(int argc, char** argv)
         auto outcome = cwe.PutRule(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to create cloudwatch events rule " <<
+            std::cout << "Failed to create CloudWatch events rule " <<
                 rule_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         }
         else
         {
-            std::cout << "Successfully created cloudwatch events rule " <<
+            std::cout << "Successfully created CloudWatch events rule " <<
                 rule_name << " with resulting Arn " <<
                 outcome.GetResult().GetRuleArn() << std::endl;
         }

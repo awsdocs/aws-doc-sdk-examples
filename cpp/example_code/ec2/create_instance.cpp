@@ -22,15 +22,18 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.create_instance.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateTagsRequest.h>
 #include <aws/ec2/model/RunInstancesRequest.h>
 #include <aws/ec2/model/RunInstancesResponse.h>
 #include <iostream>
+//snippet-end:[ec2.cpp.create_instance.inc]
 
 void StartInstance(const Aws::String& instanceName, const Aws::String& ami_id)
 {
+    // snippet-start:[ec2.cpp.create_instance.code]
     Aws::EC2::EC2Client ec2;
 
     Aws::EC2::Model::RunInstancesRequest run_request;
@@ -56,6 +59,7 @@ void StartInstance(const Aws::String& instanceName, const Aws::String& ami_id)
             run_outcome.GetError().GetMessage() << std::endl;
         return;
     }
+    // snippet-end:[ec2.cpp.create_instance.code]
 
     auto instance_id = instances[0].GetInstanceId();
 

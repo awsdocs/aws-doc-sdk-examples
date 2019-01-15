@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.put_bucket_policy.inc]
 #include <cstdio>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutBucketPolicyRequest.h>
+//snippet-end:[s3.cpp.put_bucket_policy.inc]
 
 /**
  * Set an Amazon S3 bucket policy.
@@ -54,6 +56,7 @@ int main(int argc, char** argv)
     {
         const Aws::String bucket_name = argv[1];
         const Aws::String user_region = (argc >= 3) ? argv[2] : "us-east-1";
+        // snippet-start:[s3.cpp.put_bucket_policy01.code]
         const Aws::String policy_string =
             "{\n"
             "  \"Version\":\"2012-10-17\",\n"
@@ -66,6 +69,7 @@ int main(int argc, char** argv)
             "     \"Resource\": [\"arn:aws:s3:::" + bucket_name + "/*\"]\n"
             "   }]\n"
             "}";
+        // snippet-end:[s3.cpp.put_bucket_policy01.code]
 
         std::cout << "Setting policy:" << std::endl
             << "----" << std::endl
@@ -77,6 +81,7 @@ int main(int argc, char** argv)
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
 
+        // snippet-start:[s3.cpp.put_bucket_policy02.code]
         auto request_body = Aws::MakeShared<Aws::StringStream>("");
 		*request_body << policy_string;
 
@@ -93,6 +98,7 @@ int main(int argc, char** argv)
                       << outcome.GetError().GetExceptionName() << std::endl
                       << outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.put_bucket_policy02.code]
     }
     Aws::ShutdownAPI(options);
 }
