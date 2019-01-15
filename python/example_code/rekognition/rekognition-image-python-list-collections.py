@@ -49,4 +49,4 @@ if __name__ == "__main__":
 
     print('done...')     
 
-#snippet-start:[rekognition.python.rekognition-image-python-list-collections.complete]
+#snippet-end:[rekognition.python.rekognition-image-python-list-collections.complete]
