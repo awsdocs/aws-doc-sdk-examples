@@ -28,8 +28,8 @@ import ecs = require('@aws-cdk/aws-ecs');
 //snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
 export class MyEcsConstructStack extends cdk.Stack {
-  constructor(parent: cdk.App, id: string, props?: cdk.StackProps) {
-    super(parent, id, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     // snippet-start:[cdk.typescript.my_ecs_construct.create_fargate_service]
     const vpc = new ec2.VpcNetwork(this, 'MyVpc', {
