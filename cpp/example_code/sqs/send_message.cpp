@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.send_message.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SendMessageRequest.h>
 #include <aws/sqs/model/SendMessageResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.send_message.inc]
 
 /**
  * Sends a message to an sqs queue based on command line input
@@ -46,6 +48,7 @@ int main(int argc, char** argv)
         Aws::String queue_url = argv[1];
         Aws::String msg_body = argv[2];
 
+        // snippet-start:[sqs.cpp.send_message.code]
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::SendMessageRequest sm_req;
@@ -63,6 +66,7 @@ int main(int argc, char** argv)
             std::cout << "Error sending message to " << queue_url << ": " <<
                 sm_out.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[sqs.cpp.send_message.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.delete_account_alias.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeleteAccountAliasRequest.h>
 #include <iostream>
+//snippet-end:[iam.cpp.delete_account_alias.inc]
 
 /**
  * Deletes an alias from an AWS account, based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String alias_name(argv[1]);
 
+        // snippet-start:[iam.cpp.delete_account_alias.code]
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::DeleteAccountAliasRequest request;
@@ -60,6 +63,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully deleted account alias " << alias_name <<
                 std::endl;
         }
+        // snippet-end:[iam.cpp.delete_account_alias.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

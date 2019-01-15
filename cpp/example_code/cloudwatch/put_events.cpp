@@ -77,12 +77,12 @@ int main(int argc, char** argv)
         auto outcome = cwe.PutEvents(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to post cloudwatch event: " <<
+            std::cout << "Failed to post CloudWatch event: " <<
                 outcome.GetError().GetMessage() << std::endl;
         }
         else
         {
-            std::cout << "Successfully posted cloudwatch event" << std::endl;
+            std::cout << "Successfully posted CloudWatch event" << std::endl;
         }
         // snippet-end:[cw.cpp.put_events.code]
     }

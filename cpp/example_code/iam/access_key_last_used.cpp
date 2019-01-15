@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.access_key_last_used.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetAccessKeyLastUsedRequest.h>
 #include <aws/iam/model/GetAccessKeyLastUsedResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.access_key_last_used.inc]
 
 /**
  * Displays the time an access key was last used, based on command line input
@@ -45,6 +47,7 @@ int main(int argc, char** argv)
     {
         Aws::String key_id(argv[1]);
 
+        // snippet-start:[iam.cpp.access_key_last_used.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::GetAccessKeyLastUsedRequest request;
 
@@ -67,6 +70,7 @@ int main(int argc, char** argv)
             std::cout << "Access key " << key_id << " last used at time " <<
                 lastUsedTimeString << std::endl;
         }
+        // snippet-end:[iam.cpp.access_key_last_used.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

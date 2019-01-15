@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.update_user.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/UpdateUserRequest.h>
 #include <iostream>
+//snippet-end:[iam.cpp.update_user.inc]
 
 /**
  * Updates an iam user's name based on command line input
@@ -45,6 +47,7 @@ int main(int argc, char** argv)
         Aws::String old_name(argv[1]);
         Aws::String new_name(argv[2]);
 
+        // snippet-start:[iam.cpp.update_user.code]
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::UpdateUserRequest request;
@@ -63,6 +66,7 @@ int main(int argc, char** argv)
             std::cout << "Error updating user name for IAM user " << old_name <<
                 ":" << outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[iam.cpp.update_user.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

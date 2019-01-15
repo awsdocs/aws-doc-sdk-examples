@@ -1,0 +1,30 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+  <id>release</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}</directory>
+      <outputDirectory>/</outputDirectory>
+      <useDefaultExcludes>true</useDefaultExcludes>
+      <excludes>
+        <exclude>**/.project</exclude>
+        <exclude>**/.settings/**</exclude>
+        <exclude>**/.classpath</exclude>
+        <exclude>**/eclipse-bin/**</exclude>
+        <exclude>**/build/**</exclude>
+        <exclude>**/low-level-java/**</exclude>
+        <exclude>**/*.log</exclude>
+        <exclude>**/.git</exclude>
+        <exclude>**/Config</exclude>
+        <exclude>**/changelicense.sh</exclude>
+        <exclude>**/${project.build.directory}/**</exclude>
+        <exclude>**/src/assembly/**</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+</assembly>

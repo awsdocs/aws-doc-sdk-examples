@@ -22,9 +22,11 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.delete_bucket.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
+//snippet-end:[s3.cpp.delete_bucket.inc]
 
 /**
  * Delete an Amazon S3 bucket.
@@ -57,6 +59,7 @@ int main(int argc, char** argv)
 
         std::cout << "Deleting S3 bucket: " << bucket_name << std::endl;
 
+        // snippet-start:[s3.cpp.delete_bucket.code]
         Aws::Client::ClientConfiguration config;
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
@@ -76,6 +79,7 @@ int main(int argc, char** argv)
                 << outcome.GetError().GetExceptionName() << " - "
                 << outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.delete_bucket.code]
     }
     Aws::ShutdownAPI(options);
 }

@@ -57,7 +57,7 @@ int main(int argc, char** argv)
             auto outcome = cwl.DescribeSubscriptionFilters(
                     request);
             if (!outcome.IsSuccess()) {
-                std::cout << "Failed to describe cloudwatch subscription filters "
+                std::cout << "Failed to describe CloudWatch subscription filters "
                     << "for log group " << log_group << ": " <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
