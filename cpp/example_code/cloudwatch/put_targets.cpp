@@ -64,14 +64,14 @@ int main(int argc, char** argv)
         auto putTargetsOutcome = cwe.PutTargets(request);
         if (!putTargetsOutcome.IsSuccess())
         {
-            std::cout << "Failed to create cloudwatch events target for rule "
+            std::cout << "Failed to create CloudWatch events target for rule "
                 << rule_name << ": " <<
                 putTargetsOutcome.GetError().GetMessage() << std::endl;
         }
         else
         {
             std::cout <<
-                "Successfully created cloudwatch events target for rule "
+                "Successfully created CloudWatch events target for rule "
                 << rule_name << std::endl;
         }
         // snippet-end:[cw.cpp.put_targets.code]

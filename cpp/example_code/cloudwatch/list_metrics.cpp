@@ -69,7 +69,7 @@ int main(int argc, char** argv)
             auto outcome = cw.ListMetrics(request);
             if (!outcome.IsSuccess())
             {
-                std::cout << "Failed to list cloudwatch metrics:" <<
+                std::cout << "Failed to list CloudWatch metrics:" <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }

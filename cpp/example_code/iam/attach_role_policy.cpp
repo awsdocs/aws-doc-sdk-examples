@@ -22,6 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.attach_role_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/AttachRolePolicyRequest.h>
@@ -29,10 +30,12 @@
 #include <aws/iam/model/ListAttachedRolePoliciesResult.h>
 #include <iostream>
 #include <iomanip> 
+//snippet-end:[iam.cpp.attach_role_policy.inc]
 
 void AttachRolePolicy(
     const Aws::String& role_name, const Aws::String& policy_arn)
 {
+    // snippet-start:[iam.cpp.attach_role_policy.code]
     Aws::IAM::IAMClient iam;
 
     Aws::IAM::Model::ListAttachedRolePoliciesRequest list_request;
@@ -80,6 +83,7 @@ void AttachRolePolicy(
 
     std::cout << "Successfully attached policy " << policy_arn << " to role " <<
         role_name << std::endl;
+    // snippet-end:[iam.cpp.attach_role_policy.code]
 }
 
 static const char* SAMPLE_POLICY_ARN =

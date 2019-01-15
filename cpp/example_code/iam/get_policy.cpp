@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.get_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetPolicyRequest.h>
 #include <aws/iam/model/GetPolicyResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.get_policy.inc]
 
 /**
  * Gets an IAM policy's information, based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String policy_arn(argv[1]);
 
+        // snippet-start:[iam.cpp.get_policy.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::GetPolicyRequest request;
         request.SetPolicyArn(policy_arn);
@@ -64,6 +67,7 @@ int main(int argc, char** argv)
                 policy.GetCreateDate().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
                 << std::endl;
         }
+        // snippet-end:[iam.cpp.get_policy.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

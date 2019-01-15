@@ -59,7 +59,7 @@ void CreateAlarmAndEnableActions(
     auto outcome = cw.PutMetricAlarm(request);
     if (!outcome.IsSuccess())
     {
-        std::cout << "Failed to create cloudwatch alarm:" <<
+        std::cout << "Failed to create CloudWatch alarm:" <<
             outcome.GetError().GetMessage() << std::endl;
         return;
     }

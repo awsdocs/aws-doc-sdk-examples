@@ -22,9 +22,11 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.list_buckets.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/Bucket.h>
+//snippet-end:[s3.cpp.list_buckets.inc]
 
 /**
  * List your Amazon S3 buckets.
@@ -34,6 +36,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[s3.cpp.list_buckets.code]
         Aws::S3::S3Client s3_client;
         auto outcome = s3_client.ListBuckets();
 
@@ -55,6 +58,7 @@ int main(int argc, char** argv)
                 << outcome.GetError().GetExceptionName() << " - "
                 << outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.list_buckets.code]
     }
     Aws::ShutdownAPI(options);
 }
