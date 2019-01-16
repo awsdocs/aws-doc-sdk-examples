@@ -26,8 +26,8 @@ import ec2 = require('@aws-cdk/aws-ec2');
 import rds = require('@aws-cdk/aws-rds');
 
 export class MyRdsDbStack extends cdk.Stack {
-  constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-    super(parent, name, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     const vpc = new ec2.VpcNetwork(this, 'VPC');
 

@@ -27,8 +27,8 @@ import widget_service = require('../lib/widget_service');
 //snippet-end:[cdk.typescript.my_widget_service-stack.import]
 
 export class MyWidgetServiceStack extends cdk.Stack {
-  constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-    super(parent, name, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     //snippet-start:[cdk.typescript.my_widget_service-stack.new_widget_service]
     new widget_service.WidgetService(this, 'Widgets');
