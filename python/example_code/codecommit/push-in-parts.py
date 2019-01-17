@@ -9,7 +9,7 @@
 # snippet-keyword:[Python]
 # snippet-keyword:[AWS CodeCommit]
 # snippet-keyword:[Code Sample]
-# snippet-keyword:[none]
+# snippet-keyword:[Git]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2015-07-09]
 # snippet-sourceauthor:[AWS]
