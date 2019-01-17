@@ -47,4 +47,4 @@ exports.handler = function(event, context) {
         }
     });
 };
-# snippet-end:[codecommit.nodejs.MyCodeCommitFunction_js.complete]
+// snippet-end:[codecommit.nodejs.MyCodeCommitFunction_js.complete]
