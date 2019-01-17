@@ -25,7 +25,7 @@ use Aws\Rds\RdsClient;
 use Aws\Exception\AwsException;
 //snippet-end:[rds.php.stop_instance.import]
 
-
+//snippet-start:[rds.php.stop_instance.main]
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',

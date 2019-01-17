@@ -25,7 +25,7 @@ use Aws\Rds\RdsClient;
 use Aws\Exception\AwsException;
 //snippet-end:[rds.php.describe_events.import]
 
-
+//snippet-start:[rds.php.describe_events.main]
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',

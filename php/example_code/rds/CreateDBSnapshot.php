@@ -25,7 +25,7 @@ use Aws\Rds\RdsClient;
 use Aws\Exception\AwsException;
 //snippet-end:[rds.php.create_db_snapshot.import]
 
-
+//snippet-start:[rds.php.create_db_snapshot.main]
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',

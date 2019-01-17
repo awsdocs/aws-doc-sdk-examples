@@ -24,7 +24,7 @@ require 'vendor/autoload.php';
 use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
 //snippet-end:[rds.php.delete_instance.import]
-
+//snippet-start:[rds.php.delete_instance.main]
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',
