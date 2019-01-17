@@ -19,7 +19,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2016-03-07]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[codecommit.nodejs.MyCodeCommitFunction.js]
+// snippet-start:[codecommit.nodejs.MyCodeCommitFunction_js.complete]
 
 var aws = require('aws-sdk');
 var codecommit = new aws.CodeCommit({ apiVersion: '2015-04-13' });
@@ -47,4 +47,4 @@ exports.handler = function(event, context) {
         }
     });
 };
-# snippet-end:[codecommit.nodejs.MyCodeCommitFunction.js]
+# snippet-end:[codecommit.nodejs.MyCodeCommitFunction_js.complete]
