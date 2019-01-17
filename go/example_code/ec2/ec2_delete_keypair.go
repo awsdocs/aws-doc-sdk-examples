@@ -8,7 +8,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-03-16]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -56,7 +56,7 @@ func main() {
     svc := ec2.New(sess)
 
     // Delete the key pair by name
-    _, err := svc.DeleteKeyPair(&ec2.DeleteKeyPairInput{
+    _, err = svc.DeleteKeyPair(&ec2.DeleteKeyPairInput{
         KeyName: aws.String(pairName),
     })
     if err != nil {

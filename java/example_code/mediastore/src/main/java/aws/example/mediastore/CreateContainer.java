@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[CreateContainer.java demonstrates how to create an AWS Elemental MediaStore container.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[mediastore]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-11-06]
+//snippet-sourceauthor:[rhcarvalho]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -54,7 +61,7 @@ public class CreateContainer
     public static Container createContainer(String name) {
         final AWSMediaStore mediastore = AWSMediaStoreClientBuilder.defaultClient();
         final CreateContainerRequest request = new CreateContainerRequest()
-            .withContainerName(name);
+            .withContainerName(name.trim());
         try {
             final CreateContainerResult result = mediastore.createContainer(request);
             return result.getContainer();

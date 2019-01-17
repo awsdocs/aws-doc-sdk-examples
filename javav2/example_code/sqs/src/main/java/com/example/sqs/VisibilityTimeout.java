@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for messages in a queue.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +20,11 @@
  * limitations under the License.
  */
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
-import software.amazon.awssdk.services.sqs.model.SQSException;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
@@ -35,7 +41,7 @@ public class VisibilityTimeout
     public static void changeMessageVisibilitySingle(
             String queue_url, int timeout)
     {
-    	SQSClient sqs = SQSClient.builder().build();
+    	SqsClient sqs = SqsClient.builder().build();
 
         // Get the receipt handle for the first message in the queue.
     	ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
@@ -58,11 +64,11 @@ public class VisibilityTimeout
     public static void changeMessageVisibilityMultiple(
             String queue_url, int timeout)
     {
-        SQSClient sqs = SQSClient.builder().build();
+    	SqsClient sqs = SqsClient.builder().build();
 
         List<ChangeMessageVisibilityBatchRequestEntry> entries =
             new ArrayList<ChangeMessageVisibilityBatchRequestEntry>();
-        
+
         ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
     			.queueUrl(queue_url)
     			.build();
@@ -71,7 +77,7 @@ public class VisibilityTimeout
         		.messages()
                 .get(0)
                 .receiptHandle();
-        
+
         entries.add(ChangeMessageVisibilityBatchRequestEntry.builder()
         		.id("unique_id_msg1")
         		.receiptHandle(receipt)
@@ -94,10 +100,10 @@ public class VisibilityTimeout
     public static void main(String[] args)
     {
         final String queue_name = "testQueue" + new Date().getTime();
-        SQSClient sqs = SQSClient.builder().build();
+        SqsClient sqs = SqsClient.builder().build();
 
         // first, create a queue (unless it exists already)
-        
+
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
         		.queueName(queue_name)
         		.build();
@@ -105,8 +111,8 @@ public class VisibilityTimeout
             CreateQueueResponse cq_result = sqs.createQueue(createRequest);
         } catch (QueueNameExistsException e) {
         	throw e;
-        	
-        	
+
+
         }
 
         GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
@@ -130,4 +136,3 @@ public class VisibilityTimeout
         changeMessageVisibilityMultiple(queue_url, 2000);
     }
 }
-

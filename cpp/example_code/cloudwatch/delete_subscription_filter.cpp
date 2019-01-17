@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch Logs]
+//snippet-service:[logs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -18,7 +29,7 @@
 #include <iostream>
 
 /**
- * Deletes a cloud watch logs subscription filter, based on command line input
+ * Delete a CloudWatch Logs subscription filter based on command-line input
  */
 int main(int argc, char** argv)
 {
@@ -41,11 +52,11 @@ int main(int argc, char** argv)
 
         auto outcome = cwl.DeleteSubscriptionFilter(request);
         if (!outcome.IsSuccess()) {
-            std::cout << "Failed to delete cloudwatch log subscription filter "
+            std::cout << "Failed to delete CloudWatch log subscription filter "
                 << filter_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         } else {
-            std::cout << "Successfully deleted cloudwatch logs subscription " <<
+            std::cout << "Successfully deleted CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
     }

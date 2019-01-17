@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[ListMetrics.java demonstrates how to list CloudWatch metrics.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -43,9 +50,9 @@ public class ListMetrics {
         String next_token = null;
 
         while(!done) {
-        	
+
         	ListMetricsResponse response;
-        	
+
         	if (next_token == null) {
         		ListMetricsRequest request = ListMetricsRequest.builder()
         				.namespace(namespace)
@@ -58,7 +65,7 @@ public class ListMetrics {
                         .namespace(namespace)
                         .nextToken(next_token)
                         .build();
-        		
+
         		response = cw.listMetrics(request);
         	}
 
@@ -77,4 +84,3 @@ public class ListMetrics {
         }
     }
 }
-

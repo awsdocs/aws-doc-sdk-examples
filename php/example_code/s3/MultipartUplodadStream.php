@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -17,11 +17,12 @@
  *
  */
 
+
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-use Aws\S3\MultipartCopy;
+use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
 
 // Create a S3Client
@@ -48,3 +49,15 @@ do {
         ]);
     }
 } while (!isset($result));
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[MultipartUplodadStream.php demonstrates how to send a large files to your Amazon S3 Bucket with a stream to minimize errors.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2019-01-02]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]

@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -16,6 +16,7 @@
 # Use this code snippet in your app.
 # If you need more information about configurations or implementing the sample code, visit the AWS docs:   
 # https://aws.amazon.com/developers/getting-started/python/
+# snippet-start:[secretsmanager.python.getvalue.complete]
 
 import boto3
 import base64
@@ -71,4 +72,17 @@ def get_secret():
         else:
             decoded_binary_secret = base64.b64decode(get_secret_value_response['SecretBinary'])
             
-    # Your code goes here. 
+    # Your code goes here.  
+
+#snippet-end:[secretsmanager.python.getvalue.complete]
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourcedescription:[secrets_manager.py demonstrates how to retrieve a secret from AWS Secrets Manager.]
+#snippet-keyword:[Python]
+#snippet-keyword:[AWS SDK for Python (Boto3)]
+#snippet-keyword:[Code Sample]
+#snippet-keyword:[AWS Secrets Manager]
+#snippet-service:[secretsmanager]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-12-25]
+#snippet-sourceauthor:[jschwarzwalder (AWS)]
+

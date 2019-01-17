@@ -1,5 +1,15 @@
+//snippet-sourcedescription:[SetAcl.java demonstrates how to add an access policy to an existing S3 bucket or object.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[setBucketAcl]
+//snippet-keyword:[setObjectAcl]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -106,4 +116,3 @@ public class SetAcl
         System.out.println("Done!");
     }
 }
-

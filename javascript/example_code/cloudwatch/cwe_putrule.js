@@ -1,4 +1,15 @@
-// Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ 
+//snippet-sourcedescription:[cwe_putrule.js demonstrates how to create or update an Amazon CloudWatch Events rule.]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch Events]
+//snippet-service:[events]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[daviddeyo]
+
+
+// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at

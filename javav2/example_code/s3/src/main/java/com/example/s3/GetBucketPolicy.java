@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[GetBucketPolicy.java demonstrates how to get the bucket policy for an existing S3 bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -49,16 +56,16 @@ public class GetBucketPolicy
 
       Region region = Region.US_WEST_2;
       S3Client s3 = S3Client.builder().region(region).build();
-      
+
       GetBucketPolicyRequest policyReq = GetBucketPolicyRequest.builder()
     		  .bucket(bucket_name)
     		  .build();
-      
+
       try {
          GetBucketPolicyResponse policy_res = s3.getBucketPolicy(policyReq);
          policy_text = policy_res.policy();
       } catch (S3Exception e) {
-         System.err.println(e.errorMessage());
+         System.err.println(e.awsErrorDetails().errorMessage());
          System.exit(1);
       }
 
@@ -74,4 +81,3 @@ public class GetBucketPolicy
       System.out.println("Done!");
    }
 }
-

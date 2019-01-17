@@ -1,5 +1,15 @@
+//snippet-sourcedescription:[GetAcl.java demonstrates how to get the access control list (ACL) of an S3 bucket and an object.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[getBucketAcl]
+//snippet-keyword:[getObjectAcl]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -21,7 +31,7 @@ import com.amazonaws.services.s3.model.Grant;
 import java.util.List;
 
 /**
-* Add a bucket policy to an existing S3 bucket.
+* Retrieve the access control list of an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -96,4 +106,3 @@ public class GetAcl
         System.out.println("Done!");
     }
 }
-

@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to send multiple messages to a queue, check for those messages and delete the messages once received.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +21,6 @@
  */
 package com.example.sqs;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.SQSException;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
@@ -43,7 +49,7 @@ public class SendReceiveMessages
             CreateQueueResponse create_result = sqs.createQueue(request);
         } catch (QueueNameExistsException e) {
         	throw e;
-        		
+
         }
 
         GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
@@ -92,4 +98,3 @@ public class SendReceiveMessages
         }
     }
 }
-

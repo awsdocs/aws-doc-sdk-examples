@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[SQSExample.java demonstrates how to create, list and delete queues.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +22,7 @@
 package com.example.sqs;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
@@ -36,7 +43,7 @@ public class SQSExample {
 
     public static void main(String[] args) {
         String queueName = "queue" + System.currentTimeMillis();
-        SQSClient sqsClient = SQSClient.builder().region(Region.US_WEST_2).build();
+        SqsClient sqsClient = SqsClient.builder().region(Region.US_WEST_2).build();
 
         System.out.println("\nCreate Queue");
         CreateQueueRequest createQueueRequest = CreateQueueRequest.builder().queueName(queueName).build();
@@ -56,7 +63,7 @@ public class SQSExample {
         for (String url : listQueuesResponse.queueUrls()) {
         	System.out.println(url);
         }
-        
+
         // List queues with filters
         String name_prefix = "queue";
         ListQueuesRequest filterListRequest = ListQueuesRequest.builder()

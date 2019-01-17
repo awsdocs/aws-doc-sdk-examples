@@ -1,4 +1,13 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Sends a message to an SES email address.]
+#snippet-keyword:[Amazon Simple Email Service]
+#snippet-keyword:[send_email method]
+#snippet-keyword:[Ruby]
+#snippet-service:[ses]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -74,7 +83,7 @@ begin
     # configuration_set_name: configsetname,
   )
 
-  puts 'Email sent to ' + email_address
+  puts 'Email sent to ' + recipient
 
 
 # If something goes wrong, display an error message.

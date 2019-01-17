@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[S3BucketDeletion.java demonstrates how to delete an empty S3 bucket and an S3 bucket that contains objects.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +82,7 @@ public class S3BucketDeletion {
                                 .bucket(bucket)
                                 .createBucketConfiguration(
                                         CreateBucketConfiguration.builder()
-                                                                 .locationConstraint(region.value())
+                                                                 .locationConstraint(region.id())
                                                                  .build())
                                 .build());
     }

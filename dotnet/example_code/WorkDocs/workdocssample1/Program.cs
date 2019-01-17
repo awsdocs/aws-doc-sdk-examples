@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[Program.cs can be used to execute the WorkDocs examples in this solution.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon WorkDocs]
+//snippet-service:[workdocs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;

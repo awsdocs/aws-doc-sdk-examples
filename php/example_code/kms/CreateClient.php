@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -47,3 +47,16 @@ $sdk = new Aws\Sdk($sharedConfig);
 
 // Create an Amazon Kms client using the shared configuration data.
 $client = $sdk->createKms();
+ 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[CreateClient.php demonstrates how to create an AWS Key Management Service client in PHP.]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Key Management Service (KMS)]
+//snippet-service:[kms]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-12-27]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

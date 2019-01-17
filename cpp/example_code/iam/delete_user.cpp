@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[delete_user.cpp demonstrates how to delete an IAM user from an AWS account.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,16 +22,20 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.delete_user.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeleteUserRequest.h>
+//snippet-end:[iam.cpp.delete_user.inc]
 #include <aws/iam/model/GetUserRequest.h>
 #include <aws/iam/model/GetUserResult.h>
 #include <iostream>
 
 void DeleteUser(const Aws::String& user_name)
 {
+    // snippet-start:[iam.cpp.delete_user01.code]
     Aws::IAM::IAMClient iam;
+    // snippet-end:[iam.cpp.delete_user01.code]
     Aws::IAM::Model::GetUserRequest get_request;
     get_request.SetUserName(user_name);
 
@@ -41,6 +56,7 @@ void DeleteUser(const Aws::String& user_name)
         return;
     }
 
+    // snippet-start:[iam.cpp.delete_user02.code]
     Aws::IAM::Model::DeleteUserRequest request;
     request.SetUserName(user_name);
     auto outcome = iam.DeleteUser(request);
@@ -51,6 +67,7 @@ void DeleteUser(const Aws::String& user_name)
         return;
     }
     std::cout << "Successfully deleted IAM user " << user_name << std::endl;
+    // snippet-end:[iam.cpp.delete_user02.code]
 }
 
 /**

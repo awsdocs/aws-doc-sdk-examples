@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[set_acl.cpp demonstrates how to set the access control list permissions of an Amazon S3 bucket or bucket object.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,6 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.set_acl.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/AccessControlPolicy.h>
@@ -20,6 +32,7 @@
 #include <aws/s3/model/PutObjectAclRequest.h>
 #include <aws/s3/model/Grantee.h>
 #include <aws/s3/model/Permission.h>
+//snippet-end:[s3.cpp.set_acl.inc]
 
 Aws::S3::Model::Permission GetPermission(Aws::String access)
 {
@@ -45,6 +58,7 @@ void SetAclForBucket(Aws::String bucket_name, Aws::String email,
     config.region = user_region;
     Aws::S3::S3Client s3_client(config);
 
+    // snippet-start:[s3.cpp.set_acl_bucket.code]
     Aws::S3::Model::GetBucketAclRequest get_request;
     get_request.SetBucket(bucket_name);
 
@@ -64,6 +78,7 @@ void SetAclForBucket(Aws::String bucket_name, Aws::String email,
             << get_outcome.GetError().GetExceptionName() << " - "
             << get_outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[s3.cpp.set_acl_bucket.code]
 }
 
 void SetAclForObject(Aws::String bucket_name, Aws::String object_key,
@@ -76,6 +91,7 @@ void SetAclForObject(Aws::String bucket_name, Aws::String object_key,
     config.region = user_region;
     Aws::S3::S3Client s3_client(config);
 
+    // snippet-start:[s3.cpp.set_acl_object.code]
     Aws::S3::Model::GetObjectAclRequest get_request;
     get_request.SetBucket(bucket_name);
     get_request.SetKey(object_key);
@@ -97,6 +113,7 @@ void SetAclForObject(Aws::String bucket_name, Aws::String object_key,
             << get_outcome.GetError().GetExceptionName() << " - "
             << get_outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[s3.cpp.set_acl_object.code]
 }
 
 /**

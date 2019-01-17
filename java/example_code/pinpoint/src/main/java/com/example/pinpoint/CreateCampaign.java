@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[CreateCampaign.java demonstrates how to create a campaign for an application in Pinpoint.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[mobiletargeting]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -42,13 +49,13 @@ public class CreateCampaign {
         }
         String appId = args[0];
         String segmentId = args[1];
-        
+
 		AmazonPinpoint pinpoint = AmazonPinpointClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
     	CampaignResponse result = createCampaign(pinpoint, appId, segmentId);
     	System.out.println("Campaign " + result.getName() + " created.");
     	System.out.println(result.getDescription());
 	}
-	
+
 	public static CampaignResponse createCampaign(AmazonPinpoint client, String appId, String segmentId) {
         Schedule schedule = new Schedule()
                 .withStartTime("IMMEDIATE");

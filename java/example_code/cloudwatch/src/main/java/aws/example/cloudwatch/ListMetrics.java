@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[ListMetrics.java demonstrates how to list CloudWatch metrics.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cloudwatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -44,7 +52,7 @@ public class ListMetrics {
         ListMetricsRequest request = new ListMetricsRequest()
                 .withMetricName(name)
                 .withNamespace(namespace);
-        
+
         boolean done = false;
 
         while(!done) {
@@ -63,4 +71,3 @@ public class ListMetrics {
         }
     }
 }
-

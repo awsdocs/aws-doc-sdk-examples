@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -37,11 +37,11 @@ $client = new SecretsManagerClient([
     'region' => '<<{{MyRegionName}}>>',
 ]);
 
-$secret_name = '<<{{MySecretName}}>>';
+$secretName = '<<{{MySecretName}}>>';
 
 try {
     $result = $client->getSecretValue([
-        'SecretId' => $secret_name,
+        'SecretId' => $secretName,
     ]);
 
 } catch (AwsException $e) {
@@ -80,4 +80,16 @@ if (isset($result['SecretString'])) {
     $secret = base64_decode($result['SecretBinary']);
 }
 
-// Your code goes here;
+// Your code goes here; 
+
+//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
+//snippet-keyword:[PHP]
+//snippet-keyword:[AWS SDK for PHP v3]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-09-25]
+//snippet-sourceauthor:[jschwarzwalder (AWS)]
+

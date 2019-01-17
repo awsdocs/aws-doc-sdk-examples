@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[list_account_aliases.cpp demonstrates how to retrieve information about the aliases for an AWS account.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,13 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.list_account_aliases.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListAccountAliasesRequest.h>
 #include <aws/iam/model/ListAccountAliasesResult.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip> 
+//snippet-end:[iam.cpp.list_account_aliases.inc]
 
 /**
  * Lists all account aliases associated with an AWS account
@@ -27,6 +39,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[iam.cpp.list_account_aliases.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListAccountAliasesRequest request;
 
@@ -68,6 +81,7 @@ int main(int argc, char** argv)
                 done = true;
             }
         }
+        // snippet-end:[iam.cpp.list_account_aliases.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

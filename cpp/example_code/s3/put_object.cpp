@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[put_object.cpp demonstrates how to put a file into an Amazon S3 bucket.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[<<snippet or full-example>>]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.put_object.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
 #include <iostream>
 #include <fstream>
+//snippet-end:[s3.cpp.put_object.inc]
 
 /**
  * Put an object from an Amazon S3 bucket.
@@ -47,6 +60,7 @@ int main(int argc, char** argv)
             clientConfig.region = region;
         Aws::S3::S3Client s3_client(clientConfig);
 
+        // snippet-start:[s3.cpp.put_object.code]
         Aws::S3::Model::PutObjectRequest object_request;
         object_request.WithBucket(bucket_name).WithKey(key_name);
 
@@ -68,6 +82,7 @@ int main(int argc, char** argv)
                 put_object_outcome.GetError().GetExceptionName() << " " <<
                 put_object_outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.put_object.code]
     }
     Aws::ShutdownAPI(options);
 }

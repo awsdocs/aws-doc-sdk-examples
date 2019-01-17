@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to delete the website configuration for an S3 bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -36,7 +43,7 @@ public class DeleteWebsiteConfiguration
         try {
             s3.deleteBucketWebsite(delReq);
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.out.println("Failed to delete website configuration!");
             System.exit(1);
         }
@@ -63,4 +70,3 @@ public class DeleteWebsiteConfiguration
         System.out.println("Done!");
     }
 }
-

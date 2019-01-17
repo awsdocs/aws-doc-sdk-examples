@@ -1,4 +1,17 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Creates a policy, gets its ARN, attaches the policy to a role, lists the policies attached to a role, removes the policy from a role.]
+#snippet-keyword:[AWS Identity and Access Management]
+#snippet-keyword:[attach_role_policy method]
+#snippet-keyword:[create_policy method]
+#snippet-keyword:[detach_role_policy method]
+#snippet-keyword:[get_policy method]
+#snippet-keyword:[list_attached_role_policies method]
+#snippet-keyword:[Ruby]
+#snippet-service:[iam]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the

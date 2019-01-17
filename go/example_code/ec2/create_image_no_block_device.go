@@ -6,9 +6,9 @@
 //snippet-keyword:[Go]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+//snippet-sourcedate:[2018-11-08]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -21,23 +21,39 @@
    specific language governing permissions and limitations under the License.
 */
 
+package main
+
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/ec2"
+
+    "fmt"
+)
+
 func main() {
-    svc := ec2.New(session.New())
-    
+    // Load session from shared config
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+
+    // Create EC2 service client
+    svc := ec2.New(sess)
+
     opts := &ec2.CreateImageInput{
         Description: aws.String("image description"),
         InstanceId:  aws.String("i-abcdef12"),
         Name:        aws.String("image name"),
         BlockDeviceMappings: []*ec2.BlockDeviceMapping{
-            &ec2.BlockDeviceMapping{
+            {
                 DeviceName: aws.String("/dev/sda1"),
                 NoDevice:    aws.String(""),
             },
-            &ec2.BlockDeviceMapping{
+            {
                 DeviceName: aws.String("/dev/sdb"),
                 NoDevice:    aws.String(""),
             },
-            &ec2.BlockDeviceMapping{
+            {
                 DeviceName: aws.String("/dev/sdc"),
                 NoDevice:    aws.String(""),
             },
@@ -49,5 +65,5 @@ func main() {
         return
     }
 
-    fmt.Println("success", resp)
+    fmt.Println("ID: ", resp.ImageId)
 }

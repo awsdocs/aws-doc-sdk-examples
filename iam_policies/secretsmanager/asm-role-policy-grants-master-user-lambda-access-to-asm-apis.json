@@ -1,3 +1,14 @@
+//snippet-sourcedescription:[This IAM policy, when granted to an IAM role for a Lambda function, enables that function to rotate the associated secret with the credentials in the Master secret.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-keyword:[AWS Lambda]
+//snippet-keyword:[Role Policy]
+//snippet-service:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[secretsmanager.iam_policy.grants_access_to_master_secret_to_rotation_lambda]
 {
     "Statement": [
         {
@@ -40,3 +51,4 @@
         }
     ]
 }
+//snippet-end:[secretsmanager.iam_policy.grants_access_to_master_secret_to_rotation_lambda]

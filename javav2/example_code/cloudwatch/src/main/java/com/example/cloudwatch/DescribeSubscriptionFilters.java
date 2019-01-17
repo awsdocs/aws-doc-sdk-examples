@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of CloudWatch subscription filters associated with a log group.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -35,26 +42,26 @@ public class DescribeSubscriptionFilters {
         }
 
         String log_group = args[0];
-        
+
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder().build();
 
         boolean done = false;
         String new_token = null;
 
         while(!done) {
-        	
+
         	DescribeSubscriptionFiltersResponse response;
-        	
+
         	if (new_token == null) {
         		DescribeSubscriptionFiltersRequest request =
-                        DescribeSubscriptionFiltersRequest.builder() 
+                        DescribeSubscriptionFiltersRequest.builder()
                         .logGroupName(log_group)
                         .limit(1).build();
 
                     response = logs.describeSubscriptionFilters(request);
         	}
         	else {
-        		DescribeSubscriptionFiltersRequest request = 
+        		DescribeSubscriptionFiltersRequest request =
         				DescribeSubscriptionFiltersRequest.builder()
                         .nextToken(new_token)
                         .logGroupName(log_group)
@@ -62,7 +69,7 @@ public class DescribeSubscriptionFilters {
 
                     response = logs.describeSubscriptionFilters(request);
         	}
-            
+
 
             for(SubscriptionFilter filter : response.subscriptionFilters()) {
                 System.out.printf(
@@ -84,4 +91,3 @@ public class DescribeSubscriptionFilters {
         }
     }
 }
-

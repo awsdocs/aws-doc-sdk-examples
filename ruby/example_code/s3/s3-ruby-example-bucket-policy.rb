@@ -1,4 +1,18 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+#snippet-sourceauthor:[Doug-AWS]
+#snippet-sourcedescription:[Creates an S3 bucket, defines a bucket policy, adds the policy to the bucket, changes the policy, removes the policy from the bucket, and deletes the bucket.]
+#snippet-keyword:[Amazon Simple Storage Service]
+#snippet-keyword:[create_bucket method]
+#snippet-keyword:[delete_bucket method]
+#snippet-keyword:[delete_bucket_policy method]
+#snippet-keyword:[get_bucket_policy method]
+#snippet-keyword:[put_bucket_policy method]
+#snippet-keyword:[put_bucket_policy method]
+#snippet-keyword:[Ruby]
+#snippet-service:[s3]
+#snippet-sourcetype:[full-example]
+#snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the

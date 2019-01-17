@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[get_item.cpp demonstrates how to retrieve an item from an Amazon DynamoDB table.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -11,12 +22,14 @@ This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
+//snippet-start:[dynamodb.cpp.get_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/GetItemRequest.h>
 #include <iostream>
+//snippet-end:[dynamodb.cpp.get_item.inc]
 
 
 /**
@@ -59,6 +72,7 @@ int main(int argc, char** argv)
         const Aws::String name(argv[2]);
         const Aws::String projection(argc > 3 ? argv[3] : "");
 
+        // snippet-start:[dynamodb.cpp.get_item.code]
         Aws::Client::ClientConfiguration clientConfig;
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -92,6 +106,7 @@ int main(int argc, char** argv)
         {
             std::cout << "Failed to get item: " << result.GetError().GetMessage();
         }
+        // snippet-end:[dynamodb.cpp.get_item.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

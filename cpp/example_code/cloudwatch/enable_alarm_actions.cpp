@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[enable_alarm_actions.cpp demonstrates how to enable actions on an Amazon CloudWatch alarm.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,16 +22,19 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.enable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/EnableAlarmActionsRequest.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
+//snippet-end:[cw.cpp.enable_alarm_actions.inc]
 
 void CreateAlarmAndEnableActions(
     const Aws::String& alarm_name, const Aws::String& instanceId,
     const Aws::String& actionArn)
 {
+    // snippet-start:[cw.cpp.enable_alarm_actions.code]
     Aws::CloudWatch::CloudWatchClient cw;
     Aws::CloudWatch::Model::PutMetricAlarmRequest request;
     request.SetAlarmName(alarm_name);
@@ -45,7 +59,7 @@ void CreateAlarmAndEnableActions(
     auto outcome = cw.PutMetricAlarm(request);
     if (!outcome.IsSuccess())
     {
-        std::cout << "Failed to create cloudwatch alarm:" <<
+        std::cout << "Failed to create CloudWatch alarm:" <<
             outcome.GetError().GetMessage() << std::endl;
         return;
     }
@@ -63,6 +77,7 @@ void CreateAlarmAndEnableActions(
 
     std::cout << "Successfully created alarm " << alarm_name <<
         " and enabled actions on it." << std::endl;
+    // snippet-end:[cw.cpp.enable_alarm_actions.code]
 }
 
 /**

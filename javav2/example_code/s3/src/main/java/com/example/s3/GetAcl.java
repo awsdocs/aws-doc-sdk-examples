@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[GetAcl.java demonstrates how to the access control list (ACL) for an S3 bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -25,7 +32,7 @@ import software.amazon.awssdk.services.s3.model.Grant;
 import java.util.List;
 
 /**
-* Add a bucket policy to an existing S3 bucket.
+* Get the ACL for an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -38,7 +45,7 @@ public class GetAcl
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-        
+
         GetBucketAclRequest aclReq = GetBucketAclRequest.builder()
         		.bucket(bucket_name).build();
         try {
@@ -49,7 +56,7 @@ public class GetAcl
                         grant.permission());
             }
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
@@ -61,12 +68,12 @@ public class GetAcl
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-        
+
         GetObjectAclRequest aclReq = GetObjectAclRequest.builder()
         		.bucket(bucket_name)
         		.key(object_key)
         		.build();
-        
+
         try {
         	GetObjectAclResponse aclRes = s3.getObjectAcl(aclReq);
             List<Grant> grants = aclRes.grants();
@@ -75,7 +82,7 @@ public class GetAcl
                         grant.permission());
             }
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
@@ -111,4 +118,3 @@ public class GetAcl
         System.out.println("Done!");
     }
 }
-

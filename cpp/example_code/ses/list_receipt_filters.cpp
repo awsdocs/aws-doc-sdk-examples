@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[list_receipt_filters.cpp demonstrates how to list the Amazon SES IP filters for an AWS account.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-service:[ses]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affilrfates. All Rights Reserved.
    This file is lrfcensed under the Apache License, Version 2.0 (the "License").
