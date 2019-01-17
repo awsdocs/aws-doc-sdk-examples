@@ -9,7 +9,6 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
-
 # snippet-sourcedescription:[s3.rb demonstrates how to list, create, and delete a bucket in Amazon S3.]
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -55,6 +54,8 @@ begin
       location_constraint: region
     }
   })
+  
+  s3.wait_until(:bucket_exists, {bucket: bucket_name,})
 rescue Aws::S3::Errors::BucketAlreadyExists
   puts "Cannot create the bucket. " +
     "A bucket with the name '#{bucket_name}' already exists. Exiting."
@@ -66,6 +67,8 @@ list_my_buckets(s3)
 # Delete the bucket you just created.
 puts "\nDeleting the bucket named '#{bucket_name}'...\n\n"
 s3.delete_bucket(bucket: bucket_name)
+
+s3.wait_until(:bucket_not_exists, {bucket: bucket_name,})
 
 list_my_buckets(s3)
 # snippet-end:[s3.ruby.bucket_operations.list_create_delete]
