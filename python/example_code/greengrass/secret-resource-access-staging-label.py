@@ -21,9 +21,9 @@ import greengrasssdk
 client = greengrasssdk.client('secretsmanager')
  
 # This handler is called when the function is invoked
-# It uses the secretsmanager client to get the value of a secret
+# It uses the secretsmanager client to get the value of a specific secret version
 def function_handler(event, context):
-    response = client.get_secret_value(SecretId='greengrass-MySecret-abc')
+    response = client.get_secret_value(SecretId='greengrass-MySecret-abc', VersionStage='MyTargetLabel')
     raw_secret = response.get('SecretString')
 #snippet-end:[greengrass.python.secret-resource-access-staging-label.complete]
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
