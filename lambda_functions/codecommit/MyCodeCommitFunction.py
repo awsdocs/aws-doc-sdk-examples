@@ -19,7 +19,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2016-03-07]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[codecommit.python.MyCodeCommitFunction.py]
+# snippet-start:[codecommit.python.MyCodeCommitFunction.complete]
 
 import json
 import boto3
@@ -42,4 +42,4 @@ def lambda_handler(event, context):
         print('Error getting repository {}. Make sure it exists and that your repository is in the same region as this function.'.format(repository))
         raise e
 
-# snippet-end:[codecommit.python.MyCodeCommitFunction.py]
+# snippet-end:[codecommit.python.MyCodeCommitFunction.complete]
