@@ -1,5 +1,5 @@
 <!-- Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
+// Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.
 
 // ABOUT THIS BROWSER SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/browser-cognito-browser-creds.html
@@ -11,7 +11,6 @@
 <title>Amazon Cognito Credenials Example</title>
 <meta charset="utf-8">
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.244.1.min.js"></script>
-
 </head>
 
 <body>
@@ -21,27 +20,25 @@
     var IDENTITY_POOL_ID = 'Your Cognito identity pool ID';
     var ACCOUNT_ID = 'Your AWS account ID';
     var REGION = 'Your AWS region';
-		
-	
-  // Initialize the Amazon Cognito credentials provider
-  AWS.config.region = REGION; // Region
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: IDENTITY_POOL_ID,});
-		
 
-var getIdParams = {
-IdentityPoolId: IDENTITY_POOL_ID,
-AccountId: ACCOUNT_ID
-};
+    // Initialize the Amazon Cognito credentials provider
+    AWS.config.region = REGION; // Region
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: IDENTITY_POOL_ID,});
 
-var cognitoidentity = new AWS.CognitoIdentity({apiVersion: '2014-06-30'});
+    var getIdParams = {
+      IdentityPoolId: IDENTITY_POOL_ID,
+      AccountId: ACCOUNT_ID
+    };
 
-cognitoidentity.getId(getIdParams, function(err, data) {
-  if (err) {
-    results.innerHTML = "Error" + err;
-  } else {
-    results.innerHTML =  "Cognito Identity ID is " + data.IdentityId; 
-  }
-});   
-</script>
+    var cognitoidentity = new AWS.CognitoIdentity({apiVersion: '2014-06-30'});
+
+    cognitoidentity.getId(getIdParams, function(err, data) {
+      if (err) {
+        results.innerHTML = "Error" + err;
+      } else {
+        results.innerHTML =  "Cognito Identity ID is " + data.IdentityId;
+      }
+    });
+  </script>
 </body>
 </html>
