@@ -11,7 +11,6 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-
 // snippet-sourcedescription:[s3.go demonstrates how to list, create, and delete a bucket in Amazon S3.]
 // snippet-service:[s3]
 // snippet-keyword:[Go]
@@ -87,6 +86,13 @@ func createMyBucket(svc *s3.S3, bucketName string, region string) {
   if err != nil {
     exitErrorf("Unable to create bucket, %v", err)
   }
+  
+  // Wait until bucket is created before finishing
+  fmt.Printf("Waiting for bucket %q to be created...\n", bucketName)
+
+  err = svc.WaitUntilBucketExists(&s3.HeadBucketInput{
+    Bucket: aws.String(bucketName),
+  })
 }
 
 // Delete the bucket you just created.
@@ -100,6 +106,13 @@ func deleteMyBucket(svc *s3.S3, bucketName string) {
   if err != nil {
     exitErrorf("Unable to delete bucket, %v", err)
   }
+  
+  // Wait until bucket is deleted before finishing
+  fmt.Printf("Waiting for bucket %q to be deleted...\n", bucketName)
+
+  err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
+    Bucket: aws.String(bucketName),
+  })
 }
 
 // If there's an error, display it.
