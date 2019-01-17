@@ -13,7 +13,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2015-07-09]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[codecommit.python.push-in-parts.py]
+# snippet-start:[codecommit.python.push-in-parts.complete]
 
 
 #!/usr/bin/env python
@@ -236,4 +236,4 @@ parser.add_option("-c", "--clean",
 migration = RepositoryMigration()
 migration.migrate_repository_in_parts(options.localrepo, options.remoterepo, int(options.batchsize), options.clean)
 
-# snippet-end:[codecommit.python.push-in-parts.py]
+# snippet-end:[codecommit.python.push-in-parts.complete]
