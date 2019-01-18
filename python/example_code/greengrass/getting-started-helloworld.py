@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide: 
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/module3-I.html
 #
-#snippet-start:[greengrass.python.getting-started-helloworld.complete]
+# snippet-start:[greengrass.python.getting-started-helloworld.complete]
 import greengrasssdk
 import platform
 from threading import Timer
@@ -23,29 +23,29 @@ import time
 client = greengrasssdk.client('iot-data')
 my_platform = platform.platform()
 
-#snippet-start:[greengrass.python.helloworld-publish-to-one-topic]
+# snippet-start:[greengrass.python.helloworld-publish-to-one-topic]
 def greengrass_hello_world_run():
     if not my_platform:
         client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core.')
     else:
         client.publish(topic='hello/world', payload='Hello world! Sent from Greengrass Core running on platform: {}'.format(my_platform))
     Timer(5, greengrass_hello_world_run).start()
-#snippet-end:[greengrass.python.helloworld-publish-to-one-topic]
+# snippet-end:[greengrass.python.helloworld-publish-to-one-topic]
 
 greengrass_hello_world_run()
 
 def function_handler(event, context):
     return
-#snippet-end:[greengrass.python.getting-started-helloworld.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:['Hello World' Lambda function sends MQTT messages.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[iot-data client]
-#snippet-keyword:[publish]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-02]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.getting-started-helloworld.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:['Hello World' Lambda function sends MQTT messages.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[iot-data client]
+# snippet-keyword:[publish]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-02]
+# snippet-sourceauthor:[AWS]

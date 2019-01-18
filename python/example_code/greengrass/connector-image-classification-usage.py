@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide:
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/image-classification-connector.html
 #
-#snippet-start:[greengrass.python.connector-image-classification-usage.complete]
+# snippet-start:[greengrass.python.connector-image-classification-usage.complete]
 import logging
 from threading import Timer
 
@@ -67,18 +67,18 @@ infer()
 
 def function_handler(event, context):
     return
-#snippet-end:[greengrass.python.connector-image-classification-usage.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Invokes the local inference service.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Machine Learning SDK]
-#snippet-keyword:[inference client]
-#snippet-keyword:[invoke_inference_service]
-#snippet-keyword:[Greengrass connector]
-#snippet-keyword:[machine learning resource]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-03]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.connector-image-classification-usage.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Invokes the local inference service.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Machine Learning SDK]
+# snippet-keyword:[inference client]
+# snippet-keyword:[invoke_inference_service]
+# snippet-keyword:[Greengrass connector]
+# snippet-keyword:[machine learning resource]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-03]
+# snippet-sourceauthor:[AWS]

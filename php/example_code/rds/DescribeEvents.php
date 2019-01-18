@@ -16,16 +16,16 @@
  *
  *
  */
-//snippet-start:[rds.php.describe_events.complete]
-//snippet-start:[rds.php.describe_events.import]
+// snippet-start:[rds.php.describe_events.complete]
+// snippet-start:[rds.php.describe_events.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[rds.php.describe_events.import]
+// snippet-end:[rds.php.describe_events.import]
 
-
+// snippet-start:[rds.php.describe_events.main]
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',
@@ -46,15 +46,15 @@ try {
     echo $e->getMessage();
     echo "\n";
 } 
-//snippet-end:[rds.php.describe_events.main]
-//snippet-end:[rds.php.describe_events.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DescribeEvents.php demonstrates how to retrieve the last hour of logs from an RDS database instance.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Relational Database Service]
-//snippet-service:[rds]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-09]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[rds.php.describe_events.main]
+// snippet-end:[rds.php.describe_events.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DescribeEvents.php demonstrates how to retrieve the last hour of logs from an RDS database instance.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Relational Database Service]
+// snippet-service:[rds]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-09]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

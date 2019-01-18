@@ -16,16 +16,16 @@
  *
  *
  */
-//snippet-start:[rds.php.create_db_snapshot.complete]
-//snippet-start:[rds.php.create_db_snapshot.import]
+// snippet-start:[rds.php.create_db_snapshot.complete]
+// snippet-start:[rds.php.create_db_snapshot.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[rds.php.create_db_snapshot.import]
+// snippet-end:[rds.php.create_db_snapshot.import]
 
-
+// snippet-start:[rds.php.create_db_snapshot.main]
 //Create a RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',
@@ -47,16 +47,16 @@ try {
     echo $e->getMessage();
     echo "\n";
 } 
-//snippet-end:[rds.php.create_db_snapshot.main]
-//snippet-end:[rds.php.create_db_snapshot.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateDBSnapshot.php demonstrates how to create a snapshot of your database which can be used for recovery in the future.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Relational Database Service]
-//snippet-service:[rds]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-09]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[rds.php.create_db_snapshot.main]
+// snippet-end:[rds.php.create_db_snapshot.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[CreateDBSnapshot.php demonstrates how to create a snapshot of your database which can be used for recovery in the future.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Relational Database Service]
+// snippet-service:[rds]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-09]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

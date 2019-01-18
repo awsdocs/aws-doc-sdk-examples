@@ -51,13 +51,13 @@ try {
     echo "\n";
 }
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DeleteSecret.php demonstrates how to delete a secret from AWS Secrets Manager. The secret will be deleted in 30 days unless you specify a differently. During this time use RestoreSecret to reactive the secret. ]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-08]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DeleteSecret.php demonstrates how to delete a secret from AWS Secrets Manager. The secret will be deleted in 30 days unless you specify a differently. During this time use RestoreSecret to reactive the secret. ]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Secrets Manager]
+// snippet-service:[secretsmanager]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-11-08]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

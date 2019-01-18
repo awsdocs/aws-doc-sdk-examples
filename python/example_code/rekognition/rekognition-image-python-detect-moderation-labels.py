@@ -10,20 +10,20 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-python-detect-labels.py demonstrates how to detect unsafe content in an image loaded from an S3 Bucket.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Rekognition]
-#snippet-keyword:[DetectModerationLabels]
-#snippet-keyword:[S3 Bucket]
-#snippet-keyword:[Image]
-#snippet-service:[rekognition]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-3]
-#snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[rekognition.python.rekognition-image-python-detect-moderation-labels.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[rekognition-image-python-detect-labels.py demonstrates how to detect unsafe content in an image loaded from an S3 Bucket.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Rekognition]
+# snippet-keyword:[DetectModerationLabels]
+# snippet-keyword:[S3 Bucket]
+# snippet-keyword:[Image]
+# snippet-service:[rekognition]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-3]
+# snippet-sourceauthor:[reesch (AWS)]
+# snippet-start:[rekognition.python.rekognition-image-python-detect-moderation-labels.complete]
 import boto3
 
 if __name__ == "__main__":
@@ -41,4 +41,4 @@ if __name__ == "__main__":
         print (label['Name'] + ' : ' + str(label['Confidence']))
         print (label['ParentName'])
  
-#snippet-end:[rekognition.python.rekognition-image-python-detect-moderation-labels.complete]
+# snippet-end:[rekognition.python.rekognition-image-python-detect-moderation-labels.complete]

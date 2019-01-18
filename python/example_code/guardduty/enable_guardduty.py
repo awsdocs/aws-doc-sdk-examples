@@ -10,7 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-#snippet-start:[guardduty.python.enable_guardduty.complete]
+# snippet-start:[guardduty.python.enable_guardduty.complete]
 import boto3
 
 regions_to_enable='us-east-1 us-west-2'
@@ -56,14 +56,14 @@ try:
 except Exception as e:
     print(e)
 
-#snippet-end:[guardduty.python.enable_guardduty.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[enable_guardduty.py creates and or enables Amazon GuardDuty in the specified Regions.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon GuardDuty]
-#snippet-service:[guardduty]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-02]
-#snippet-sourceauthor:[walkerk1980]
+# snippet-end:[guardduty.python.enable_guardduty.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[enable_guardduty.py creates and or enables Amazon GuardDuty in the specified Regions.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon GuardDuty]
+# snippet-service:[guardduty]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-02]
+# snippet-sourceauthor:[walkerk1980]
