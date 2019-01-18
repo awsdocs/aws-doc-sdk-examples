@@ -14,13 +14,13 @@
 */
 
 //snippet-sourcedescription:[ec2_describekeypairs.js demonstrates how to retrieve information about one or more key pairs.]
+//snippet-service:[EC2]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ec2-example-key-pairs.html
