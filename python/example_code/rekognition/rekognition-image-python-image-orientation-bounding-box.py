@@ -10,21 +10,21 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-python-image-orientation-bounding-box.py demonstrates how to get face bounding box locations for celebrities recognized in an image.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Rekognition]
-#snippet-keyword:[RecognizeCelebrities]
-#snippet-keyword:[Bounding Box]
-#snippet-keyword:[Local]
-#snippet-keyword:[Image]
-#snippet-service:[rekognition]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-3]
-#snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[rekognition-image-python-image-orientation-bounding-box.py demonstrates how to get face bounding box locations for celebrities recognized in an image.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Rekognition]
+# snippet-keyword:[RecognizeCelebrities]
+# snippet-keyword:[Bounding Box]
+# snippet-keyword:[Local]
+# snippet-keyword:[Image]
+# snippet-service:[rekognition]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-3]
+# snippet-sourceauthor:[reesch (AWS)]
+# snippet-start:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
 import boto3
 import io
 from PIL import Image
@@ -102,5 +102,5 @@ if __name__ == "__main__":
 
         print()
 
-#snippet-end:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
+# snippet-end:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
     

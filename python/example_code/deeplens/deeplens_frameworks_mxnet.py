@@ -28,16 +28,16 @@ result = squeezenet(fake_image)
 # Now you can export the model. You can use a path if you want ‘models/squeezenet’.
 squeezenet.export(‘squeezenet')
 
-#snippet-end:[deeplens.python.deeplens_frameworks_mxnet.export_model_gluon_api]
+# snippet-end:[deeplens.python.deeplens_frameworks_mxnet.export_model_gluon_api]
 
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_frameworks_mxnet.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS Lambda]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS DeepLens]
-#snippet-service:[deeplens]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-07]
-#snippet-sourceauthor:[AWS]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_frameworks_mxnet.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS Lambda]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS DeepLens]
+# snippet-service:[deeplens]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]

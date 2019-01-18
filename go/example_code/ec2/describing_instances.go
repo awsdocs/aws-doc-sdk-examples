@@ -1,12 +1,13 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Describes your Amazon EC2 instances.]
-//snippet-keyword:[Amazon Elastic Compute Cloud]
-//snippet-keyword:[DescribeInstances function]
-//snippet-keyword:[Go]
-//snippet-service:[ec2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Describes your Amazon EC2 instances.]
+// snippet-keyword:[Amazon Elastic Compute Cloud]
+// snippet-keyword:[DescribeInstances function]
+// snippet-keyword:[Go]
+// snippet-service:[ec2]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

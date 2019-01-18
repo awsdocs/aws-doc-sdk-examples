@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide: 
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/module3-II.html
 #
-#snippet-start:[greengrass.python.getting-started-helloworldcounter.complete]
+# snippet-start:[greengrass.python.getting-started-helloworldcounter.complete]
 import greengrasssdk
 import platform
 import time
@@ -42,16 +42,16 @@ def function_handler(event, context):
         )
     time.sleep(20)
     return
-#snippet-end:[greengrass.python.getting-started-helloworldcounter.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:['Hello World Counter' Lambda function sends MQTT messages.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[iot-data client]
-#snippet-keyword:[publish]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-02]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.getting-started-helloworldcounter.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:['Hello World Counter' Lambda function sends MQTT messages.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[iot-data client]
+# snippet-keyword:[publish]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-02]
+# snippet-sourceauthor:[AWS]

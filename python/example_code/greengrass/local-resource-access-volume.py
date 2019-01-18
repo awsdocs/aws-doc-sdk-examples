@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide:
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/lra-console.html 
 #
-#snippet-start:[greengrass.python.local-resource-access-volume.complete]
+# snippet-start:[greengrass.python.local-resource-access-volume.complete]
 # Demonstrates a simple use case of local resource access.
 # This Lambda function writes a file "test" to a volume mounted inside
 # the Lambda environment under "/dest/LRAtest". Then it reads the file and 
@@ -43,17 +43,17 @@ def function_handler(event, context):
     except Exception as e:
         logging.error("Experiencing error :{}".format(e))
     return
-#snippet-end:[greengrass.python.local-resource-access-volume.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Accesses a local volume resource.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[iot-data client]
-#snippet-keyword:[publish]
-#snippet-keyword:[Local resource]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-02]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.local-resource-access-volume.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Accesses a local volume resource.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[iot-data client]
+# snippet-keyword:[publish]
+# snippet-keyword:[Local resource]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-02]
+# snippet-sourceauthor:[AWS]
