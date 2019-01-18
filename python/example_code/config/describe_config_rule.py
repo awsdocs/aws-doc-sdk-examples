@@ -30,15 +30,15 @@ except ClientError as e:
     print(e)
  
  
-#snippet-end:[config.python.describe_config_rule.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[describe_config_rule.py demonstrates how to retrieve information about an existing AWS Config rule.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Config]
-#snippet-service:[config]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[walkerk1980]
+# snippet-end:[config.python.describe_config_rule.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[describe_config_rule.py demonstrates how to retrieve information about an existing AWS Config rule.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Config]
+# snippet-service:[config]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[walkerk1980]
 

@@ -58,29 +58,26 @@ def snippetStartCheck(words, filelocation):
     #print (words)
     snippetStart = 'snippet-start:['
     snippetEnd = 'snippet-end:['
-    if any(snippetStart in word for word in words) :
-        matching = [s for s in words if snippetStart in s]
-        Endmatching = [s for s in words if snippetEnd in s]
-        #print(matching)
-        snippettags = []
-        for string in Endmatching: 
-            snippettags += string.split(snippetEnd)
-        if '//' in snippettags: snippettags.remove('//')
-        if '#' in snippettags: snippettags.remove('#')
-        #print(snippettags)
-        #print(Endmatching)
-        for string in matching:
-            match = False
-            for end in snippettags:
-                if string.endswith(end):
-                    match = True
-                    #return "True: "+ string + " has matching end tag." )                
-            if match == False:
+    snippetTags = set()
+    for s in words:
+        if snippetStart in s:
+            s = s.split('[')[1]
+            snippetTags.add(s)
+        elif snippetEnd in s:
+            s = s.split('[')[1]
+            if s in snippetTags:
+                snippetTags.remove(s)
+            else:
                 print("ERROR -- Found in " + filelocation)
-                sys.exit("ERROR -- " + string + "'s matching end tag not found.")                
-    else:
-        #return "WARNING -- Snippet Start not detected"
-        return False
+                sys.exit("ERROR -- " + s + "'s matching start tag not found.") 
+        
+    if len(snippetTags) > 0 : 
+        print("ERROR -- Found in " + filelocation)
+        print(*snippetTags, sep = ", ")
+        sys.exit("ERROR -- " + snippetTags.pop() + "'s matching end tag not found.")
+        
+                   
+
 
 def snippetAuthorCheck(words, warn):
     author = 'sourceauthor:['

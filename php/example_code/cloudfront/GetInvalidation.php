@@ -16,14 +16,14 @@
  *
  *
  */
-//snippet-start:[cloudfront.php.getinvalidation.complete]
-//snippet-start:[cloudfront.php.getinvalidation.import]
+// snippet-start:[cloudfront.php.getinvalidation.complete]
+// snippet-start:[cloudfront.php.getinvalidation.import]
 
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[cloudfront.php.getinvalidation.import]
+// snippet-end:[cloudfront.php.getinvalidation.import]
 
 
 /**
@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a CloudFront Client 
-//snippet-start:[cloudfront.php.getinvalidation.main]
+// snippet-start:[cloudfront.php.getinvalidation.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -56,16 +56,16 @@ try {
     echo "\n";
 }
  
-//snippet-end:[cloudfront.php.getinvalidation.main]
-//snippet-end:[cloudfront.php.getinvalidation.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an  Amazon CloudFront Distribution.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[getInvalidation]
-//snippet-keyword:[Amazon CloudFront]
-//snippet-service:[cloudfront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[cloudfront.php.getinvalidation.main]
+// snippet-end:[cloudfront.php.getinvalidation.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an  Amazon CloudFront Distribution.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[getInvalidation]
+// snippet-keyword:[Amazon CloudFront]
+// snippet-service:[cloudfront]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

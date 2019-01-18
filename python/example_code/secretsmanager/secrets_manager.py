@@ -74,15 +74,15 @@ def get_secret():
             
     # Your code goes here.  
 
-#snippet-end:[secretsmanager.python.getvalue.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[secrets_manager.py demonstrates how to retrieve a secret from AWS Secrets Manager.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Secrets Manager]
-#snippet-service:[secretsmanager]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-25]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-end:[secretsmanager.python.getvalue.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[secrets_manager.py demonstrates how to retrieve a secret from AWS Secrets Manager.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Secrets Manager]
+# snippet-service:[secretsmanager]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-25]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

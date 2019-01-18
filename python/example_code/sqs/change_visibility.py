@@ -42,14 +42,14 @@ sqs.change_message_visibility(
 print('Received and changed visibilty timeout of message: %s' % message)
  
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[change_visibility.py demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Simple Queue Service]
-#snippet-service:[sqs]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-08-01]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[change_visibility.py demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Simple Queue Service]
+# snippet-service:[sqs]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-08-01]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 
