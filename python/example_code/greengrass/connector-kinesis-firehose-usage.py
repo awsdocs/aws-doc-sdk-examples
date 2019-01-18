@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide:
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/kinesis-firehose-connector.html 
 #
-#snippet-start:[greengrass.python.connector-kinesis-firehose-usage.complete]
+# snippet-start:[greengrass.python.connector-kinesis-firehose-usage.complete]
 import greengrasssdk
 import time
 import json
@@ -40,17 +40,17 @@ publish_basic_message()
 
 def function_handler(event, context):
     return
-#snippet-end:[greengrass.python.connector-kinesis-firehose-usage.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the Kinesis Firehose connector.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[iot-data client]
-#snippet-keyword:[publish]
-#snippet-keyword:[Greengrass connector]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-02]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.connector-kinesis-firehose-usage.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Sends an input message to the Kinesis Firehose connector.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[iot-data client]
+# snippet-keyword:[publish]
+# snippet-keyword:[Greengrass connector]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-02]
+# snippet-sourceauthor:[AWS]

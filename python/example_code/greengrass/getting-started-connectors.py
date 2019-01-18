@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide: 
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-console.html
 #
-#snippet-start:[greengrass.python.getting-started-connectors.complete]
+# snippet-start:[greengrass.python.getting-started-connectors.complete]
 from __future__ import print_function
 import greengrasssdk
 import json
@@ -52,17 +52,17 @@ def build_request(event):
         },
         "id": "request_" + str(random.randint(1,101))
     }
-#snippet-end:[greengrass.python.getting-started-connectors.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[iot-data client]
-#snippet-keyword:[publish]
-#snippet-keyword:[Greengrass connector]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-03]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.getting-started-connectors.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[iot-data client]
+# snippet-keyword:[publish]
+# snippet-keyword:[Greengrass connector]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-03]
+# snippet-sourceauthor:[AWS]

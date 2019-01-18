@@ -10,19 +10,19 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-python-create-collection.py demonstrates how to create an Amazon Rekognition collection.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Rekognition]
-#snippet-keyword:[CreateCollection]
-#snippet-keyword:[Collection]
-#snippet-service:[rekognition]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-3]
-#snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[rekognition.python.rekognition-image-python-create-collection.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[rekognition-image-python-create-collection.py demonstrates how to create an Amazon Rekognition collection.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Rekognition]
+# snippet-keyword:[CreateCollection]
+# snippet-keyword:[Collection]
+# snippet-service:[rekognition]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-3]
+# snippet-sourceauthor:[reesch (AWS)]
+# snippet-start:[rekognition.python.rekognition-image-python-create-collection.complete]
 
 import boto3
 
@@ -40,6 +40,6 @@ if __name__ == "__main__":
     print('Status code: ' + str(response['StatusCode']))
     print('Done...')
 
-#snippet-end:[rekognition.python.rekognition-image-python-create-collection.complete]
+# snippet-end:[rekognition.python.rekognition-image-python-create-collection.complete]
     
     

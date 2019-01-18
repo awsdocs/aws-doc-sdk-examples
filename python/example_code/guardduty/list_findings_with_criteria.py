@@ -35,15 +35,15 @@ for finding in findings['FindingIds']:
     print(finddetail)
     print("\n")
  
-#snippet-end:[guardduty.python.list_findings_with_criteria.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[list_findings_with_criteria.py lists Amazon GuardDuty findings for the specified detector ID.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon GuardDuty]
-#snippet-service:[guardduty]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-25]
-#snippet-sourceauthor:[walkerk1980]
+# snippet-end:[guardduty.python.list_findings_with_criteria.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[list_findings_with_criteria.py lists Amazon GuardDuty findings for the specified detector ID.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon GuardDuty]
+# snippet-service:[guardduty]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-25]
+# snippet-sourceauthor:[walkerk1980]
 

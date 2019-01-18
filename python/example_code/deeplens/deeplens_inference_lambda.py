@@ -20,8 +20,8 @@ import awscam
 import cv2
 import greengrasssdk
 
-#snippet-end:[deeplens.python.deeplens_inference_lambda.import]
-#snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.import]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
 class LocalDisplay(Thread):
     """ Class for facilitating the local display of inference results
@@ -81,9 +81,9 @@ class LocalDisplay(Thread):
 
     def join(self):
         self.stop_request.set()
-#snippet-end:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
-#snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
 def infinite_infer_run():
     """ Entry point of the lambda function"""
     try:
@@ -126,9 +126,9 @@ def infinite_infer_run():
 
     except Exception as ex:
         client.publish(topic=iot_topic, payload='Error in cat-dog lambda: {}'.format(ex))
-#snippet-end:[deeplens.python.deeplens_inference_lambda.inference_loop]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.inference_loop]
 
-#snippet-start:[deeplens.python.deeplens_inference_lambda.inference_step]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.inference_step]
             # Get a frame from the video stream
             ret, frame = awscam.getLastFrame()
             if not ret:
@@ -156,9 +156,9 @@ def infinite_infer_run():
             for obj in top_k:
                 cloud_output[output_map[obj['label']]] = obj['prob']
             client.publish(topic=iot_topic, payload=json.dumps(cloud_output))
-#snippet-end:[deeplens.python.deeplens_inference_lambda.inference_step]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.inference_step]
 
-#snippet-start:[deeplens.python.deeplens_inference_lambda.complete]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.complete]
 #*****************************************************
 #                                                    *
 # Copyright 2018 Amazon.com, Inc. or its affiliates. *
@@ -293,16 +293,16 @@ def infinite_infer_run():
         client.publish(topic=iot_topic, payload='Error in cat-dog lambda: {}'.format(ex))
 
 infinite_infer_run()
-#snippet-end:[deeplens.python.deeplens_inference_lambda.complete]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.complete]
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS Greengrass SDK]
-#snippet-keyword:[AWS Lambda]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS DeepLens]
-#snippet-service:[deeplens]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-07]
-#snippet-sourceauthor:[AWS]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS Greengrass SDK]
+# snippet-keyword:[AWS Lambda]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS DeepLens]
+# snippet-service:[deeplens]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]

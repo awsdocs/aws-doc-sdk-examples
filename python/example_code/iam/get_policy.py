@@ -32,5 +32,5 @@ print(response['Policy'])
 # snippet-keyword:[AWS Identity and Access Management (IAM)]
 # snippet-service:[iam]
 # snippet-sourcetype:[full-example]
-# #snippet-sourcedate:[2018-12-26]
+# # snippet-sourcedate:[2018-12-26]
 # snippet-sourceauthor:[jschwarzwalder (AWS)]

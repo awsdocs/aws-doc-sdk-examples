@@ -24,15 +24,15 @@ iam.update_user(
 )
  
  
-#snippet-end:[iam.python.update_user.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[update_user.py demonstrates how to update an IAM user.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Identity and Access Management (IAM)]
-#snippet-service:[iam]
-#snippet-sourcetype:[full-example]
+# snippet-end:[iam.python.update_user.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[update_user.py demonstrates how to update an IAM user.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Identity and Access Management (IAM)]
+# snippet-service:[iam]
+# snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

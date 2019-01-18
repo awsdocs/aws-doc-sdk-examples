@@ -16,14 +16,14 @@
  *
  *
  */
-//snippet-start:[cloudfront.php.deletedistribution.complete]
-//snippet-start:[cloudfront.php.deletedistribution.import]
+// snippet-start:[cloudfront.php.deletedistribution.complete]
+// snippet-start:[cloudfront.php.deletedistribution.import]
 
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[cloudfront.php.deletedistribution.import]
+// snippet-end:[cloudfront.php.deletedistribution.import]
 
 
 /**
@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a CloudFront Client 
-//snippet-start:[cloudfront.php.deletedistribution.main]
+// snippet-start:[cloudfront.php.deletedistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -67,16 +67,16 @@ try {
     echo "\n";
 }
  
-//snippet-end:[cloudfront.php.deletedistribution.main]
-//snippet-end:[cloudfront.php.deletedistribution.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DeleteDistribution.php demonstrates how to delete an Amazon CloudFront Distribution that has been disabled.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[deleteDistribution]
-//snippet-keyword:[Amazon CloudFront]
-//snippet-service:[cloudfront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[cloudfront.php.deletedistribution.main]
+// snippet-end:[cloudfront.php.deletedistribution.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DeleteDistribution.php demonstrates how to delete an Amazon CloudFront Distribution that has been disabled.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[deleteDistribution]
+// snippet-keyword:[Amazon CloudFront]
+// snippet-service:[cloudfront]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

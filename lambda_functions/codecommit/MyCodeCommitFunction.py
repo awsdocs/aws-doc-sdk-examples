@@ -17,8 +17,8 @@
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GetRepository]
 # snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2016-03-07]
 # snippet-sourceauthor:[AWS]
+# snippet-sourcedate:[2016-03-07]
 # snippet-start:[codecommit.python.MyCodeCommitFunction.complete]
 
 import json
