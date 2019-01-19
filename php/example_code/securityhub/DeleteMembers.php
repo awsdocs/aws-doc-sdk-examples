@@ -26,7 +26,7 @@ use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.delete_members.import]
 
-
+// snippet-start:[securityhub.php.delete_members.main]
 // Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',

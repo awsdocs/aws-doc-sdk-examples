@@ -26,7 +26,7 @@ use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.get_findings.import]
 
-
+// snippet-start:[securityhub.php.get_findings.main]
 // Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',

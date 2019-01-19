@@ -26,7 +26,7 @@ use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.list_invitations.import]
 
-
+// snippet-start:[securityhub.php.list_invitations.main]
 // Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',
