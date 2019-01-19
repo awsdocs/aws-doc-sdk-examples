@@ -1,11 +1,15 @@
 import os, fnmatch, sys
 
-def checkFile(directory, filePattern, warn, quiet):
+def checkFile(directory, filePattern, warn, quiet, doNotScanFiles):
     filecount = 0;
     for path, dirs, files in os.walk(os.path.abspath(directory)):        
         for filename in fnmatch.filter(files, filePattern):
             # Ignore this file
             if filename == sys.argv[0]:
+                continue
+            if filename in doNotScanFiles:
+                if quiet == False:
+                    print("\nFile: " + filepath + ' is skipped')
                 continue
             wordcount = 0;
             filecount += 1
@@ -191,22 +195,29 @@ while i < len(sys.argv):
         quiet = True
     i += 1
 
+# Whitelist of files to never check
+# 
+doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt'}
+
+
 print ('----------\n\nRun Tests\n')
 print ('----------\n\nC++ Code Examples(*.cpp)\n')
-checkFile( './', '*.cpp', warn, quiet)
+checkFile( './', '*.cpp', warn, quiet, {})
 print ('----------\n\nC# Code Examples (*.cs)\n')
-checkFile( './', '*.cs', warn, quiet)
+checkFile( './', '*.cs', warn, quiet, doNotScan)
+# checkFile( './', '*.txt', warn, quiet, doNotScan)
 print ('----------\n\nGo Code Examples (*.go)\n')
-checkFile( './', '*.go', warn, quiet)
+checkFile( './', '*.go', warn, quiet, {})
 print ('----------\n\nJava Code Examples (*.java)\n')
-checkFile( './', '*.java', warn, quiet)
+checkFile( './', '*.java', warn, quiet, {})
 print ('----------\n\nJavaScript Code Examples (*.js)\n')
-checkFile( './', '*.js', warn, quiet)
+checkFile( './', '*.js', warn, quiet, {})
+checkFile( './', '*.html', warn, quiet, {})
 print ('----------\n\nPHP Code Examples (*.php)\n')
-checkFile( './', '*.php', warn, quiet)
+checkFile( './', '*.php', warn, quiet, {})
 print ('----------\n\nPython Code Examples (*.py)\n')
-checkFile( './', '*.py', warn, quiet)
+checkFile( './', '*.py', warn, quiet, {})
 print ('----------\n\nRuby Code Examples (*.rb)\n')
-checkFile( './', '*.rb', warn, quiet)
+checkFile( './', '*.rb', warn, quiet, {})
 print ('----------\n\nTypeScript Code Examples (*.ts)\n')
-checkFile( './', '*.ts', warn, quiet)
+checkFile( './', '*.ts', warn, quiet, {})
