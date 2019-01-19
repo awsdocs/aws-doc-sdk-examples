@@ -26,7 +26,7 @@ use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.enable_securityhub.import]
 
-
+// snippet-start:[securityhub.php.enable_securityhub.main]
 // Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',
@@ -42,7 +42,6 @@ try {
     echo $e->getMessage() . "\n";
 }
 // snippet-end:[securityhub.php.enable_securityhub.main]
-// snippet-end:[securityhub.php.enable_securityhub.complete]
 // snippet-end:[securityhub.php.enable_securityhub.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[EnableSecurityHub.php demonstrates how to to turn on AWS Security Hub.]

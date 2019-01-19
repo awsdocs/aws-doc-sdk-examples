@@ -26,7 +26,7 @@ use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.disable_securityhub.import]
 
-
+// snippet-start:[securityhub.php.disable_securityhub.main]
 // Create a Securty Hub Client
 $client = new Aws\SecurityHub\SecurityHubClient([
     'profile' => 'default',
