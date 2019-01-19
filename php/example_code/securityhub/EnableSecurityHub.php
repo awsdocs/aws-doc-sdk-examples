@@ -39,8 +39,7 @@ try {
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 // snippet-end:[securityhub.php.enable_securityhub.main]
 // snippet-end:[securityhub.php.enable_securityhub.complete]
