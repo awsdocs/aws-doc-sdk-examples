@@ -23,7 +23,6 @@
 // snippet-sourcedate:[2015-02-19]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.ConnectToCluster.complete]
-
 package connection;
 
 import java.sql.*;

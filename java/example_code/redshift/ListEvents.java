@@ -22,8 +22,8 @@
 // snippet-sourcedate:[2015-02-19]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.ListEvents.complete]
+import java.io.IOException;
 import java.util.Date;
-
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.redshift.AmazonRedshiftClient;
@@ -85,4 +85,5 @@ public class ListEvents {
         System.out.format("Message: %s\n", event.getMessage());
         System.out.format("Date: %s\n", event.getDate());
     }
-}// snippet-end:[redshift.java.ListEvents.complete]import java.io.IOException;
+}
+// snippet-end:[redshift.java.ListEvents.complete]
