@@ -1,4 +1,30 @@
+// snippet-sourcedescription:[rekognition-image-java-display-bounding-boxes.java demonstrates how to detect display bounding boxes around faces detected in an image loaded from an S3 Bucket.]
+// snippet-service:[rekognition]
+// snippet-keyword:[Java]
+// snippet-keyword:[Amazon Rekognition]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[DetectFaces]
+// snippet-keyword:[Bounding Box]
+// snippet-keyword:[S3 Bucket]
+// snippet-keyword:[Image]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-01-18]
+// snippet-sourceauthor:[reesch(AWS)]
+// snippet-start:[rekognition.java.rekognition-image-java-display-bounding-boxes.complete]
 
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 //Loads images, detects faces and draws bounding boxes.Determines exif orientation, if necessary.
 package com.amazonaws.samples;
 
@@ -25,9 +51,6 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 // Calls DetectFaces and displays a bounding box around each detected image.
 public class DisplayFaces extends JPanel {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     BufferedImage image;
@@ -121,3 +144,4 @@ public class DisplayFaces extends JPanel {
 
     }
 }
+// snippet-end:[rekognition.java.rekognition-image-java-display-bounding-boxes.complete]

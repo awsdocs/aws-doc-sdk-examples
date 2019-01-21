@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[rekognition-image-java-add-faces-to-collection.java demonstrates how to add faces, detected in an image, to an Amazon Rekognition collection.]
+// snippet-sourcedescription:[rekognition-collection-java-add-faces-to-collection.java demonstrates how to add faces, detected in an image, to an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Rekognition]
@@ -9,7 +9,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-01-18]
 // snippet-sourceauthor:[reesch(AWS)]
-// snippet-start:[rekognition.java.rekognition-image-java-add-faces-to-collection.complete]
+// snippet-start:[rekognition.java.rekognition-collection-java-add-faces-to-collection.complete]
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -26,7 +26,7 @@
 */
 
 
-package aws.example.rekognition.image;
+package aws.example.rekognition.collection;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
@@ -34,6 +34,7 @@ import com.amazonaws.services.rekognition.model.FaceRecord;
 import com.amazonaws.services.rekognition.model.Image;
 import com.amazonaws.services.rekognition.model.IndexFacesRequest;
 import com.amazonaws.services.rekognition.model.IndexFacesResult;
+import com.amazonaws.services.rekognition.model.QualityFilter;
 import com.amazonaws.services.rekognition.model.S3Object;
 import com.amazonaws.services.rekognition.model.UnindexedFace;
 import java.util.List;
@@ -81,4 +82,4 @@ public class AddFacesToCollection {
         }
     }
 }
-// snippet-end:[rekognition.java.rekognition-image-java-add-faces-to-collection.complete]
+// snippet-end:[rekognition.java.rekognition-collection-java-add-faces-to-collection.complete]

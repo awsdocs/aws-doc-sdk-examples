@@ -1,5 +1,4 @@
-
-// snippet-sourcedescription:[rekognition-image-java-list-faces-in-collection.java demonstrates how to list the faces in an Amazon Rekognition collection.]
+// snippet-sourcedescription:[rekognition-collection-java-list-faces-in-collection.java demonstrates how to list the faces in an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Rekognition]
@@ -25,7 +24,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-package aws.example.rekognition.image;
+package aws.example.rekognition.collection;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
 import com.amazonaws.services.rekognition.model.Face;
@@ -70,5 +69,5 @@ public class ListFacesInCollection {
    }
 
 }
-// snippet-end:[rekognition.java.rekognition-image-java-list-faces-in-collection.complete]
+// snippet-end:[rekognition.java.rekognition-collection-java-list-faces-in-collection.complete]
       

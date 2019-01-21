@@ -1,7 +1,7 @@
 //Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //PDX-License-Identifier: MIT-0 (For details, see https://github.com/awsdocs/amazon-rekognition-developer-guide/blob/master/LICENSE-SAMPLECODE.)
 
-// snippet-sourcedescription:[rekognition-image-java-search-face-matching-image-collection.java demonstrates how to search for matching faces in an Amazon Rekognition collection.]
+// snippet-sourcedescription:[rekognition-collection-java-search-face-matching-image-collection.java demonstrates how to search for matching faces in an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Rekognition]
@@ -12,7 +12,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-01-18]
 // snippet-sourceauthor:[reesch(AWS)]
-// snippet-start:[rekognition.java.rekognition-image-java-search-face-matching-image-collection.complete]
+// snippet-start:[rekognition.java.rekognition-collection-java-search-face-matching-image-collection.complete]
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -28,7 +28,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-package aws.example.rekognition.image;
+package aws.example.rekognition.collection;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
 import com.amazonaws.services.rekognition.model.FaceMatch;
@@ -76,7 +76,7 @@ public class SearchFaceMatchingImageCollection {
       }
    }
 }
-// snippet-end:[rekognition.java.rekognition-image-java-search-face-matching-image-collection.complete]
+// snippet-end:[rekognition.java.rekognition-collection-java-search-face-matching-image-collection.complete]
 
 
       
