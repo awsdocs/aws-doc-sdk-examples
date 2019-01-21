@@ -19,7 +19,7 @@
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
-//snippet-sourceauthor:[daviddeyo]
+//snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide//ec2-example-elastic-ip-addresses.html
