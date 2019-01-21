@@ -18,15 +18,15 @@ response = ec2.delete_key_pair(KeyName='KEY_PAIR_NAME')
 print(response)
  
  
-#snippet-end:[ec2.python.delete_keypair.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[delete_keypair.py demonstrates how to delete a specified Amazon EC2 key pair.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon EC2]
-#snippet-service:[ec2]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-end:[ec2.python.delete_keypair.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[delete_keypair.py demonstrates how to delete a specified Amazon EC2 key pair.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon EC2]
+# snippet-service:[ec2]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

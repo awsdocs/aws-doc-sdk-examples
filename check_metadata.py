@@ -1,11 +1,30 @@
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# This file is licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License. A copy of the
+# License is located at
+#
+# http://aws.amazon.com/apache2.0/
+#
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+# OF ANY KIND, either express or implied. See the License for the specific
+# language governing permissions and limitations under the License.
+# 
+# This script is used to validate metadata in the awsdocs/aws-doc-sdk-examples/ repository on Github.
+# 
+
 import os, fnmatch, sys
 
-def checkFile(directory, filePattern, warn, quiet):
+def checkFile(directory, filePattern, warn, quiet, doNotScanFiles):
     filecount = 0;
     for path, dirs, files in os.walk(os.path.abspath(directory)):        
         for filename in fnmatch.filter(files, filePattern):
             # Ignore this file
             if filename == sys.argv[0]:
+                continue
+            if filename in doNotScanFiles:
+                if quiet == False:
+                    print("\nFile: " + filepath + ' is skipped')
                 continue
             wordcount = 0;
             filecount += 1
@@ -58,29 +77,26 @@ def snippetStartCheck(words, filelocation):
     #print (words)
     snippetStart = 'snippet-start:['
     snippetEnd = 'snippet-end:['
-    if any(snippetStart in word for word in words) :
-        matching = [s for s in words if snippetStart in s]
-        Endmatching = [s for s in words if snippetEnd in s]
-        #print(matching)
-        snippettags = []
-        for string in Endmatching: 
-            snippettags += string.split(snippetEnd)
-        if '//' in snippettags: snippettags.remove('//')
-        if '#' in snippettags: snippettags.remove('#')
-        #print(snippettags)
-        #print(Endmatching)
-        for string in matching:
-            match = False
-            for end in snippettags:
-                if string.endswith(end):
-                    match = True
-                    #return "True: "+ string + " has matching end tag." )                
-            if match == False:
+    snippetTags = set()
+    for s in words:
+        if snippetStart in s:
+            s = s.split('[')[1]
+            snippetTags.add(s)
+        elif snippetEnd in s:
+            s = s.split('[')[1]
+            if s in snippetTags:
+                snippetTags.remove(s)
+            else:
                 print("ERROR -- Found in " + filelocation)
-                sys.exit("ERROR -- " + string + "'s matching end tag not found.")                
-    else:
-        #return "WARNING -- Snippet Start not detected"
-        return False
+                sys.exit("ERROR -- " + s + "'s matching start tag not found.") 
+        
+    if len(snippetTags) > 0 : 
+        print("ERROR -- Found in " + filelocation)
+        print(*snippetTags, sep = ", ")
+        sys.exit("ERROR -- " + snippetTags.pop() + "'s matching end tag not found.")
+        
+                   
+
 
 def snippetAuthorCheck(words, warn):
     author = 'sourceauthor:['
@@ -194,22 +210,29 @@ while i < len(sys.argv):
         quiet = True
     i += 1
 
+# Whitelist of files to never check
+# 
+doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt'}
+
+
 print ('----------\n\nRun Tests\n')
 print ('----------\n\nC++ Code Examples(*.cpp)\n')
-checkFile( './', '*.cpp', warn, quiet)
+checkFile( './', '*.cpp', warn, quiet, {})
 print ('----------\n\nC# Code Examples (*.cs)\n')
-checkFile( './', '*.cs', warn, quiet)
+checkFile( './', '*.cs', warn, quiet, doNotScan)
+# checkFile( './', '*.txt', warn, quiet, doNotScan)
 print ('----------\n\nGo Code Examples (*.go)\n')
-checkFile( './', '*.go', warn, quiet)
+checkFile( './', '*.go', warn, quiet, {})
 print ('----------\n\nJava Code Examples (*.java)\n')
-checkFile( './', '*.java', warn, quiet)
+checkFile( './', '*.java', warn, quiet, {})
 print ('----------\n\nJavaScript Code Examples (*.js)\n')
-checkFile( './', '*.js', warn, quiet)
+checkFile( './', '*.js', warn, quiet, {})
+checkFile( './', '*.html', warn, quiet, {})
 print ('----------\n\nPHP Code Examples (*.php)\n')
-checkFile( './', '*.php', warn, quiet)
+checkFile( './', '*.php', warn, quiet, {})
 print ('----------\n\nPython Code Examples (*.py)\n')
-checkFile( './', '*.py', warn, quiet)
+checkFile( './', '*.py', warn, quiet, {})
 print ('----------\n\nRuby Code Examples (*.rb)\n')
-checkFile( './', '*.rb', warn, quiet)
+checkFile( './', '*.rb', warn, quiet, {})
 print ('----------\n\nTypeScript Code Examples (*.ts)\n')
-checkFile( './', '*.ts', warn, quiet)
+checkFile( './', '*.ts', warn, quiet, {})

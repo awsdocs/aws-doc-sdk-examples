@@ -45,14 +45,14 @@ try {
 }
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[Get_BasePathmapping.php demonstrates how to view Base Path Mapping in API Gateway.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon API Gateway]
-//snippet-service:[apigateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-03]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[Get_BasePathmapping.php demonstrates how to view Base Path Mapping in API Gateway.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon API Gateway]
+// snippet-service:[apigateway]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-03]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 
