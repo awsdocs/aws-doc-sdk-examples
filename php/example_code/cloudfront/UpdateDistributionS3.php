@@ -16,14 +16,14 @@
  *
  *
  */
-//snippet-start:[cloudfront.php.updatedistribution.complete]
-//snippet-start:[cloudfront.php.updatedistribution.import]
+// snippet-start:[cloudfront.php.updatedistribution.complete]
+// snippet-start:[cloudfront.php.updatedistribution.import]
 
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[cloudfront.php.updatedistribution.import]
+// snippet-end:[cloudfront.php.updatedistribution.import]
 
 
 /**
@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a CloudFront Client 
-//snippet-start:[cloudfront.php.updatedistribution.main]
+// snippet-start:[cloudfront.php.updatedistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -89,17 +89,17 @@ try {
     echo "\n";
 }
  
-//snippet-end:[cloudfront.php.updatedistribution.main]
-//snippet-end:[cloudfront.php.updatedistribution.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront Distribution and change any of the configurations. To make changes replace the $currentConfig value with a new value]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[updateDistribution]
-//snippet-keyword:[getDistribution]
-//snippet-keyword:[Amazon CloudFront]
-//snippet-service:[cloudfront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[cloudfront.php.updatedistribution.main]
+// snippet-end:[cloudfront.php.updatedistribution.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront Distribution and change any of the configurations. To make changes replace the $currentConfig value with a new value]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[updateDistribution]
+// snippet-keyword:[getDistribution]
+// snippet-keyword:[Amazon CloudFront]
+// snippet-service:[cloudfront]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

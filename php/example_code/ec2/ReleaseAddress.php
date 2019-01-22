@@ -48,14 +48,14 @@ $result = $ec2Client->releaseAddress(array(
 var_dump($result);
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ReleaseAddress.php demonstrates how to release an elastic IP address for an Amazon EC2 instance.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[ReleaseAddress.php demonstrates how to release an elastic IP address for an Amazon EC2 instance.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon EC2]
+// snippet-service:[ec2]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

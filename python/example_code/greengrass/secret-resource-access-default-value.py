@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide: 
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/secrets-using.html
 #
-#snippet-start:[greengrass.python.secret-resource-access-default-value.complete]
+# snippet-start:[greengrass.python.secret-resource-access-default-value.complete]
 import greengrasssdk
  
 # Creating a Greengrass Core SDK client
@@ -25,17 +25,17 @@ client = greengrasssdk.client('secretsmanager')
 def function_handler(event, context):
     response = client.get_secret_value(SecretId='greengrass-MySecret-abc')
     raw_secret = response.get('SecretString')
-#snippet-end:[greengrass.python.secret-resource-access-default-value.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Accesses the current version of a secret on the core.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[secretsmanager client]
-#snippet-keyword:[get_secret_value]
-#snippet-keyword:[secret resource]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-03]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.secret-resource-access-default-value.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Accesses the current version of a secret on the core.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[secretsmanager client]
+# snippet-keyword:[get_secret_value]
+# snippet-keyword:[secret resource]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-03]
+# snippet-sourceauthor:[AWS]

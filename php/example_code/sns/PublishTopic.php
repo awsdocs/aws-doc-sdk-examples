@@ -47,12 +47,12 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
-//snippet-sourcedescription:[PublishTopic.php demonstrates how to send a message to an SNS Topic.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+// snippet-sourcedescription:[PublishTopic.php demonstrates how to send a message to an SNS Topic.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder]

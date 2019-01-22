@@ -46,12 +46,12 @@ try {
     error_log($e->getMessage());
 }
 
-//snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer recieve future text messages.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder]
+// snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer recieve future text messages.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder]

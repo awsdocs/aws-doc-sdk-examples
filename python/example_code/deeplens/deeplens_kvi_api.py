@@ -53,19 +53,19 @@ def greengrass_hello_world_run():
 greengrass_hello_world_run()
 
 
-#snippet-end:[deeplens.python.deeplens_kvi_api.intro]
+# snippet-end:[deeplens.python.deeplens_kvi_api.intro]
 
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_kinesis_integration.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Botocore)]
-#snippet-keyword:[AWS Lambda]
-#snippet-keyword:[AWS Kinesis]
-#snippet-keyword:[AWS Greengrass SDK]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS DeepLens]
-#snippet-service:[deeplens]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-07]
-#snippet-sourceauthor:[AWS]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_kinesis_integration.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Botocore)]
+# snippet-keyword:[AWS Lambda]
+# snippet-keyword:[AWS Kinesis]
+# snippet-keyword:[AWS Greengrass SDK]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS DeepLens]
+# snippet-service:[deeplens]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]

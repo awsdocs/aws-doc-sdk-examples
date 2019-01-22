@@ -42,14 +42,14 @@ try {
 }
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[RemoveTargets.php demonstrates how to remove the specified targets from the specified rule.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Events]
-//snippet-service:[events]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[RemoveTargets.php demonstrates how to remove the specified targets from the specified rule.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon CloudWatch Events]
+// snippet-service:[events]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

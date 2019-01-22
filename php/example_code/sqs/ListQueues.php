@@ -45,14 +45,14 @@ try {
 }
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ListQueues.php demonstrates how to list your current list of queues.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[ListQueues.php demonstrates how to list your current list of queues.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Queue Service]
+// snippet-service:[sqs]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

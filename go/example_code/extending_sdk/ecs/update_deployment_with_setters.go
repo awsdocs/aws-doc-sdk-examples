@@ -1,12 +1,12 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Uses chainable setters on nested fields in an API operation request.]
-//snippet-keyword:[Extending the SDK]
-//snippet-keyword:[UpdateService function]
-//snippet-keyword:[Go]
-//snippet-service:[aws-go-sdk]
-//snippet-sourcetype:[snippet]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Uses chainable setters on nested fields in an API operation request.]
+// snippet-keyword:[Extending the SDK]
+// snippet-keyword:[UpdateService function]
+// snippet-keyword:[Go]
+// snippet-service:[aws-go-sdk]
+// snippet-sourcetype:[snippet]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
