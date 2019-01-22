@@ -615,3 +615,4 @@ public class VideoDetect {
          
      }    
 }
+// snippet-end:[rekognition.java.rekognition-video-stored-detect-labels.complete]
