@@ -125,4 +125,6 @@ public class AddExampleEndpoints {
 
 }
 
-// snippet-start:[pinpoint.java.pinpoint_update_endpoints_batch.complete]
+// snippet-end:[pinpoint.java.pinpoint_update_endpoints_batch.complete]
+
+

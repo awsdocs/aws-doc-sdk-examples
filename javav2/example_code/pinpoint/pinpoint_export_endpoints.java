@@ -227,4 +227,4 @@ public class ExportEndpoints {
     }
 }
 
-// snippet-start:[pinpoint.java.pinpoint_export_endpoints.complete]
+// snippet-end:[pinpoint.java.pinpoint_export_endpoints.complete]
