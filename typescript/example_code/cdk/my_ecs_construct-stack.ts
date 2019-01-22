@@ -28,6 +28,7 @@ import ec2 = require('@aws-cdk/aws-ec2');
 import ecs = require('@aws-cdk/aws-ecs');
 // snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
+// snippet-start:[cdk.typescript.my_ecs_construct-stack.class]
 export class MyEcsConstructStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -51,6 +52,7 @@ export class MyEcsConstructStack extends cdk.Stack {
       publicLoadBalancer: true  // Default is false
     });
     // snippet-end:[cdk.typescript.my_ecs_construct.create_fargate_service]
+    // snippet-end:[cdk.typescript.my_ecs_construct-stack.class]
   }
 }
 // snippet-end:[cdk.typescript.my_ecs_construct-stack]
