@@ -14,7 +14,7 @@
 
 // snippet-sourcedescription:[pinpoint_send_voice_message_sms_voice_api demonstrates how to send a transactional voice message by using the SendVoiceMessage operation in the Amazon Pinpoint SMS and Voice API.]
 // snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[Java]
+// snippet-keyword:[JavaScript]
 // snippet-keyword:[Amazon Pinpoint SMS and Voice API]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SendVoiceMessage]
