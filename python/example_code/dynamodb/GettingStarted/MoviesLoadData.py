@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesLoadData] 
+# snippet-start:[dynamodb.python.codeexample.MoviesLoadData] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -47,4 +47,4 @@ with open("moviedata.json") as json_file:
                'info': info,
             }
         )
-# snippet-end:[dynamodb.Python.CodeExample.MoviesLoadData]
+# snippet-end:[dynamodb.python.codeexample.MoviesLoadData]

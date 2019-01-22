@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesItemOps03a] 
+# snippet-start:[dynamodb.python.codeexample.MoviesItemOps03a] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -66,4 +66,4 @@ response = table.get_item(
 item = response['Item']
 
 print(json.dumps(item, indent=4, cls=DecimalEncoder))
-# snippet-end:[dynamodb.Python.CodeExample.MoviesItemOps03a]
+# snippet-end:[dynamodb.python.codeexample.MoviesItemOps03a]

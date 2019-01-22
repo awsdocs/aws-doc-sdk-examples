@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesItemOps05] 
+# snippet-start:[dynamodb.python.codeexample.MoviesItemOps05] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -69,4 +69,4 @@ except ClientError as e:
 else:
     print("UpdateItem succeeded:")
     print(json.dumps(response, indent=4, cls=DecimalEncoder))
-# snippet-end:[dynamodb.Python.CodeExample.MoviesItemOps05]
+# snippet-end:[dynamodb.python.codeexample.MoviesItemOps05]

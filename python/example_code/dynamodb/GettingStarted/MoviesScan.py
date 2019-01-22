@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesScan] 
+# snippet-start:[dynamodb.python.codeexample.MoviesScan] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -68,4 +68,4 @@ while 'LastEvaluatedKey' in response:
 
     for i in response['Items']:
         print(json.dumps(i, cls=DecimalEncoder))
-# snippet-end:[dynamodb.Python.CodeExample.MoviesScan]
+# snippet-end:[dynamodb.python.codeexample.MoviesScan]

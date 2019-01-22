@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesItemOps03] 
+# snippet-start:[dynamodb.python.codeexample.MoviesItemOps03] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -60,4 +60,4 @@ response = table.update_item(
 
 print("UpdateItem succeeded:")
 print(json.dumps(response, indent=4, cls=DecimalEncoder))
-# snippet-end:[dynamodb.Python.CodeExample.MoviesItemOps03]
+# snippet-end:[dynamodb.python.codeexample.MoviesItemOps03]

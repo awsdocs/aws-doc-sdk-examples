@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesItemOps06] 
+# snippet-start:[dynamodb.python.codeexample.MoviesItemOps06] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -66,4 +66,4 @@ except ClientError as e:
 else:
     print("DeleteItem succeeded:")
     print(json.dumps(response, indent=4, cls=DecimalEncoder))
-# snippet-end:[dynamodb.Python.CodeExample.MoviesItemOps06]
+# snippet-end:[dynamodb.python.codeexample.MoviesItemOps06]
