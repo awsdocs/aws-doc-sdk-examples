@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_deletetemplate.js demonstrates how to delete a transcoding job template.]
+//snippet-sourcedescription:[emc_createjob.js demonstrates how to create a transcoding job.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
@@ -22,30 +22,24 @@
 //snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/emc-examples-templates.html
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/emc-examples-jobs.html
+//
+// NOTE:
+// This is part 1 of 3 for this example.
+// The first part is emc_createjob_config.js. (this file)
+// The second part is emc_createjob_define.js.
+// The third part is emc_createjob.js.
+//
 
-// snippet-start:[mediaconvert.JavaScript.templates.deleteJobTemplate]
-// Load the AWS SDK for Node.js
+
+// snippet-start:[mediaconvert.JavaScript.jobs.createJob_config]
+//
+// Part 1 of 3.
+//
+// Load the SDK for JavaScript
 var AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'us-west-2'});
-// Set the customer endpoint
-AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
-
-var params = {
-  Name: 'TEMPLATE_NAME'
-};
-
-// Create a promise on a MediaConvert object
-var deleteTemplatePromise = new AWS.MediaConvert({apiVersion: '2017-08-29'}).deleteJobTemplate(params).promise();
-
-// Handle promise's fulfilled/rejected status
-deleteTemplatePromise.then(
-  function(data) {
-    console.log("Success ", data);
-  },
-  function(err) {
-    console.log("Error", err);
-  }
-);
-// snippet-end:[mediaconvert.JavaScript.templates.deleteJobTemplate]
+// Set the custom endpoint for your acccount
+AWS.config.mediaconvert({endpoint: 'ACCOUNT_ENDPOINT'});
+// snippet-end:[mediaconvert.JavaScript.jobs.createJob_config]
