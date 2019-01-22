@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_create_jobtemplate.js demonstrates how to create a transcoding job template.]
+//snippet-sourcedescription:[emc_createjob.js demonstrates how to create a transcoding job.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
@@ -22,21 +22,25 @@
 //snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/emc-examples-templates.html
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/emc-examples-jobs.html
+//
+// NOTE:
+// This is part 2 of 3 for this example.
+// The first part is emc_createjob_config.js.
+// The second part is emc_createjob_define.js. (this file)
+// The third part is emc_createjob.js.
+//
 
-// snippet-start:[mediaconvert.JavaScript.templates.createJobTemplate]
-// Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-// Set the region 
-AWS.config.update({region: 'us-west-2'});
-// Set the custom endpoint for your acccount
-AWS.config.mediaconvert({endpoint: 'ACCOUNT_ENDPOINT'});
-
+// snippet-start:[mediaconvert.JavaScript.jobs.createJob_define]
+//
+// Part 2 of 3
+//
 var params = {
-  Category: 'YouTube Jobs',
-  Description: 'Final production transcode',
-  Name: 'DemoTemplate',
-  Queue: 'JOB_QUEUE_ARN',
+  "Queue": "JOB_QUEUE_ARN",
+  "UserMetadata": {
+    "Customer": "Amazon"
+  },
+  "Role": "IAM_ROLE_ARN",
   "Settings": {
     "OutputGroups": [
       {
@@ -44,7 +48,7 @@ var params = {
         "OutputGroupSettings": {
           "Type": "FILE_GROUP_SETTINGS",
           "FileGroupSettings": {
-            "Destination": "s3://BUCKET_NAME/"
+            "Destination": "s3://OUTPUT_BUCKET_NAME/"
           }
         },
         "Outputs": [
@@ -154,6 +158,7 @@ var params = {
         "DeblockFilter": "DISABLED",
         "DenoiseFilter": "DISABLED",
         "TimecodeSource": "EMBEDDED",
+        "FileInput": "s3://INPUT_BUCKET_AND_FILE_NAME"
       }
     ],
     "TimecodeConfig": {
@@ -161,17 +166,4 @@ var params = {
     }
   }
 };
-
-// Create a promise on a MediaConvert object
-var templatePromise = new AWS.MediaConvert({apiVersion: '2017-08-29'}).createJobTemplate(params).promise();
-
-// Handle promise's fulfilled/rejected status
-templatePromise.then(
-  function(data) {
-    console.log("Success!", data);
-  },
-  function(err) {
-    console.log("Error", err);
-  }
-);
-// snippet-end:[mediaconvert.JavaScript.templates.createJobTemplate]
+// snippet-end:[mediaconvert.JavaScript.jobs.createJob_define]
