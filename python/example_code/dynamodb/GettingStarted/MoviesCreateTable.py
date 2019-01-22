@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesCreateTable] 
+# snippet-start:[dynamodb.python.codeexample.MoviesCreateTable] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -58,4 +58,4 @@ table = dynamodb.create_table(
 )
 
 print("Table status:", table.table_status)
-# snippet-end:[dynamodb.Python.CodeExample.MoviesCreateTable]
+# snippet-end:[dynamodb.python.codeexample.MoviesCreateTable]

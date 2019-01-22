@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesQuery01] 
+# snippet-start:[dynamodb.python.codeexample.MoviesQuery01] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -50,4 +50,4 @@ response = table.query(
 
 for i in response['Items']:
     print(i['year'], ":", i['title'])
-# snippet-end:[dynamodb.Python.CodeExample.MoviesQuery01]
+# snippet-end:[dynamodb.python.codeexample.MoviesQuery01]

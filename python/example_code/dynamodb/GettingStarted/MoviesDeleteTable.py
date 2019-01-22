@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesDeleteTable] 
+# snippet-start:[dynamodb.python.codeexample.MoviesDeleteTable] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,4 +30,4 @@ dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="htt
 table = dynamodb.Table('Movies')
 
 table.delete()
-# snippet-end:[dynamodb.Python.CodeExample.MoviesDeleteTable]
+# snippet-end:[dynamodb.python.codeexample.MoviesDeleteTable]

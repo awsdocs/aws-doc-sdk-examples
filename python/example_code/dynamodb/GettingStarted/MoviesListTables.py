@@ -7,7 +7,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]
 # snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Python.CodeExample.MoviesListTables] 
+# snippet-start:[dynamodb.python.codeexample.MoviesListTables] 
 
 #
 #  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -29,4 +29,4 @@ dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="htt
 
 for table in dynamodb.tables.all():
     print(table);
-# snippet-end:[dynamodb.Python.CodeExample.MoviesListTables]
+# snippet-end:[dynamodb.python.codeexample.MoviesListTables]
