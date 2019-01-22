@@ -29,7 +29,7 @@ import boto3
 # environment variables or in a configuration file and will be discovered 
 # automatically by the boto3.client() function. For more information, see the 
 # Python SDK documentation: 
-# http://boto3.readthedocs.io/en/latest/reference/services/sts.html#client
+# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sts.html#client
 
 # create an STS client object that represents a live connection to the 
 # STS service
