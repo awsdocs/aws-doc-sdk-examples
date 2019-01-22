@@ -9,7 +9,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-01-18]
 // snippet-sourceauthor:[reesch(AWS)]
-// snippet-start:[rekognition.java.rekognition-image-java-list-faces-in-collection.complete]
+// snippet-start:[rekognition.java.rekognition-collection-java-list-faces-in-collection.complete]
 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -71,4 +71,5 @@ public class ListFacesInCollection {
 
 }
 // snippet-end:[rekognition.java.rekognition-collection-java-list-faces-in-collection.complete]
+
       
