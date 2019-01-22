@@ -57,6 +57,6 @@ s3_connection = S3Connection(
 bucket = s3_connection.get_bucket(bucket_name="BUCKET-NAME")
 objectlist = bucket.list()
 for obj in objectlist:
-    print obj.name
+    print(obj.name)
 
 # snippet-end:[iam.python.assume_role_with_mfa.complete]

@@ -70,7 +70,7 @@ request_parameters += "&SigninToken=" + signin_token["SigninToken"]
 request_url = "https://signin.aws.amazon.com/federation" + request_parameters
 
 # Send final URL to stdout
-print request_url
+print(request_url)
 
 # snippet-end:[iam.python.construct_url_federated_users.complete]
 
