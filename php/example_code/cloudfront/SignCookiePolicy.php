@@ -16,14 +16,14 @@
  * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
  *
  */
-// snippet-start:[cloudfront.php.signed_cookie.complete]
-// snippet-start:[cloudfront.php.signed_cookie.import]
+// snippet-start:[cloudfront.php.signed_cookie_policy.complete]
+// snippet-start:[cloudfront.php.signed_cookie_policy.import]
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient;
 use Aws\Exception\AwsException;
 
-// snippet-end:[cloudfront.php.signed_cookie.import]
+// snippet-end:[cloudfront.php.signed_cookie_policy.import]
 
 /**
  * Get a signed cookie for an Amazon CloudFront Distribution using a custom policy.
@@ -32,7 +32,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// snippet-start:[cloudfront.php.signed_cookie.main]
+// snippet-start:[cloudfront.php.signed_cookie_policy.main]
 // Create a CloudFront Client
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
@@ -66,8 +66,8 @@ $signedCookieCustomPolicy = $cloudFront->getSignedCookie([
 foreach ($signedCookieCustomPolicy as $name => $value) {
     setcookie($name, $value, 0, "", "example-distribution.cloudfront.net", true, true);
 }
-// snippet-end:[cloudfront.php.signed_cookie.main]
-// snippet-end:[cloudfront.php.signed_cookie.complete] 
+// snippet-end:[cloudfront.php.signed_cookie_policy.main]
+// snippet-end:[cloudfront.php.signed_cookie_policy.complete] 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[SignCookiePolicy.php demonstrates how to grant users access to your private content using signed cookies, a custom policy and an Amazon CloudFront Distribution.]
 // snippet-keyword:[PHP]
