@@ -25,6 +25,7 @@
 # snippet-sourceauthor:[reesch (AWS)]
 # snippet-start:[rekognition.python.rekognition-image-python-detect-labels.complete]
 
+
 import boto3
 
 if __name__ == "__main__":

@@ -35,8 +35,6 @@ if __name__ == "__main__":
     
     client=boto3.client('rekognition')
 
-    response=client.index_faces
-
     response=client.index_faces(CollectionId=collectionId,
                                 Image={'S3Object':{'Bucket':bucket,'Name':photo}},
                                 ExternalImageId=photo,
