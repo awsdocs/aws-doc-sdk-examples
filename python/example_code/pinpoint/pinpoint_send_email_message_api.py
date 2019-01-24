@@ -11,7 +11,7 @@
 # specific language governing permissions and limitations under the License.
 
 # snippet-sourcedescription:[pinpoint_send_email_message_api demonstrates how to send a transactional email by using the SendMessages operation in the Amazon Pinpoint API.]
-# snippet-service:[Amazon Pinpoint]
+# snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon Pinpoint]
 # snippet-keyword:[Code Sample]

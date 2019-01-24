@@ -18,7 +18,7 @@
 // snippet-keyword:[Amazon Pinpoint Email API]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SendEmail]
-// snippet-sourcetype:[full-example]
+// snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-20]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_send_email_message_email_api.complete]

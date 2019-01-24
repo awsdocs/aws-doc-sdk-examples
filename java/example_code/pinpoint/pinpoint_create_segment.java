@@ -18,7 +18,7 @@
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateSegment]
-// snippet-sourcetype:[full-example]
+// snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2018-08-07]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_create_segment.complete]

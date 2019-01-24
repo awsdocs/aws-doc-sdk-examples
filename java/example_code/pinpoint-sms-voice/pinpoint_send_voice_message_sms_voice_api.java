@@ -18,7 +18,7 @@
 // snippet-keyword:[Amazon Pinpoint SMS and Voice API]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SendVoiceMessage]
-// snippet-sourcetype:[full-example]
+// snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-20]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_send_voice_message_sms_voice_api.complete]

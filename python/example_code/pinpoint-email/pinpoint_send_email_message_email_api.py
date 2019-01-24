@@ -11,8 +11,8 @@
 # specific language governing permissions and limitations under the License.
 
 # snippet-sourcedescription:[pinpoint_send_email_message_email_api demonstrates how to send a transactional email message by using the SendEmail operation in the Amazon Pinpoint Email API.]
-# snippet-service:[Amazon Pinpoint]
-# snippet-keyword:[Java]
+# snippet-service:[mobiletargeting]
+# snippet-keyword:[Python]
 # snippet-keyword:[Amazon Pinpoint Email API]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[SendEmail]
@@ -22,7 +22,6 @@
 # snippet-start:[pinpoint.python.pinpoint_send_email_message_email_api.complete]
 
 import boto3
-from botocore.exceptions import ClientError
 
 # The AWS Region that you want to use to send the email. For a list of
 # AWS Regions where the Amazon Pinpoint Email API is available, see
@@ -126,10 +125,10 @@ try:
         ]
     )
 # Display an error if something goes wrong.
-except ClientError as e:
-    print(e.response['Error']['Message'])
+except Exception as e:
+    print("The message wasn't sent. Error message: \"" + e.response['Error']['Message'] + "\"")
 else:
-    print("Email sent!"),
+    print("Email sent!")
     print("Message ID: " + response['MessageId'])
 
 # snippet-end:[pinpoint.python.pinpoint_send_email_message_email_api.complete]

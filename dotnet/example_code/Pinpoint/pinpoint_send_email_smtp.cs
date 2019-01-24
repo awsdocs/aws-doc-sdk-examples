@@ -13,12 +13,11 @@
 */
 
 // snippet-sourcedescription:[pinpoint_send_email_smtp demonstrates how to send a transactional email message by using Amazon Pinpoint SMTP interface.]
-// snippet-service:[Amazon Pinpoint]
+// snippet-service:[mobiletargeting]
 // snippet-keyword:[dotnet]
 // snippet-keyword:[.NET]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[n/a]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-01-20]
 // snippet-sourceauthor:[AWS]

@@ -11,11 +11,10 @@
 # specific language governing permissions and limitations under the License.
 
 # snippet-sourcedescription:[pinpoint_send_email_smtp demonstrates how to send a transactional email by using the Amazon Pinpoint SMTP interface.]
-# snippet-service:[Amazon Pinpoint]
+# snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon Pinpoint]
 # snippet-keyword:[Code Sample]
-# snippet-keyword:[n/a]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-01-20]
 # snippet-sourceauthor:[AWS]
@@ -36,8 +35,7 @@ PORT = 587
 
 # Replace sender@example.com with your "From" address.
 # This address must be verified.
-SENDERNAME = 'Mary Major'
-SENDER = 'sender@example.com'
+SENDER = 'Mary Major <sender@example.com>'
 
 # Replace recipient@example.com with a "To" address. If your account
 # is still in the sandbox, this address has to be verified.
@@ -88,14 +86,15 @@ BODY_HTML = """<html>
 htmlPart = MIMEText(BODY_HTML, 'html')
 
 # The message tags that you want to apply to the email.
-TAG0 = "key0=value0";
+TAG0 = "key0=value0"
 TAG1 = "key1=value1"
 
 # Create message container. The correct MIME type is multipart/alternative.
 msg = MIMEMultipart('alternative')
 
 # Add sender and recipient addresses to the message
-msg['From'] = email.utilsmsg['To'] = RECIPIENT
+msg['From'] = SENDER
+msg['To'] = RECIPIENT
 msg['Cc'] = CCRECIPIENT
 msg['Bcc'] = BCCRECIPIENT
 
@@ -111,23 +110,19 @@ msg.add_header('X-SES-MESSAGE-TAGS',TAG1)
 
 # Open a new connection to the SMTP server and begin the SMTP conversation.
 try:
-    server = smtplib.SMTP(HOST, PORT)
-    server.ehlo()
-    server.starttls()
-    #stmplib docs recommend calling ehlo() before and after starttls()
-    server.ehlo()
-    server.login(USERNAME_SMTP, PASSWORD_SMTP)
-    #Uncomment the next line to send SMTP server responses to stdout
-    #server.set_debuglevel(1)
-    server.sendmail(SENDER, RECIPIENT, msg.as_string())
+    with smtplib.SMTP(HOST, PORT) as server:
+        server.ehlo()
+        server.starttls()
+        #stmplib docs recommend calling ehlo() before and after starttls()
+        server.ehlo()
+        server.login(USERNAME_SMTP, PASSWORD_SMTP)
+        #Uncomment the next line to send SMTP server responses to stdout
+        #server.set_debuglevel(1)
+        server.sendmail(SENDER, RECIPIENT, msg.as_string())
+        server.quit()
 except Exception as e:
-    # Display an error message if something goes wrong.
     print ("Error: ", e)
 else:
     print ("Email sent!")
-finally:
-    # Close the connection to the SMTP server, regardless of whether or not the
-    # message was sent
-    server.close()
 
 # snippet-end:[pinpoint.python.pinpoint_send_email_smtp.complete]

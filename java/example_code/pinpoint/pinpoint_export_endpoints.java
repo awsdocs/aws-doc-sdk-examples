@@ -18,8 +18,8 @@
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateExportJob]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-08-07]
+// snippet-sourcetype:[snippet]
+// snippet-sourcedate:[2019-01-20]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_export_endpoints.complete]
 
@@ -227,4 +227,4 @@ public class ExportEndpoints {
     }
 }
 
-// snippet-end:[pinpoint.java.pinpoint_export_endpoints.complete]
+// snippet-start:[pinpoint.java.pinpoint_export_endpoints.complete]

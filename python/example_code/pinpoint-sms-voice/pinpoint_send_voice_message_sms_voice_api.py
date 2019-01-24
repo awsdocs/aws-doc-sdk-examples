@@ -11,7 +11,7 @@
 # specific language governing permissions and limitations under the License.
 
 # snippet-sourcedescription:[pinpoint_send_voice_message_sms_voice_api demonstrates how to send a transactional voice message by using the SendVoiceMessage operation in the Amazon Pinpoint SMS and Voice API.]
-# snippet-service:[Amazon Pinpoint]
+# snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon Pinpoint SMS and Voice API]
 # snippet-keyword:[Code Sample]

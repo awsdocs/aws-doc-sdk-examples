@@ -11,7 +11,7 @@
 # specific language governing permissions and limitations under the License.
 
 # snippet-sourcedescription:[pinpoint_send_sms_message_api demonstrates how to send a transactional SMS message by using the SendMessages operation in the Amazon Pinpoint API.]
-# snippet-service:[Amazon Pinpoint]
+# snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon Pinpoint]
 # snippet-keyword:[Code Sample]
@@ -61,7 +61,7 @@ registeredKeyword = "myKeyword"
 senderId = "MySenderID"
 
 # Create a new client and specify a region.
-client = boto3.client('pinpoint',region_name=region])
+client = boto3.client('pinpoint',region_name=region)
 try:
     response = client.send_messages(
         ApplicationId=applicationId,
@@ -90,4 +90,3 @@ else:
             + response['MessageResponse']['Result'][destinationNumber]['MessageId'])
 
 # snippet-end:[pinpoint.python.pinpoint_send_sms_message_api.complete]
-

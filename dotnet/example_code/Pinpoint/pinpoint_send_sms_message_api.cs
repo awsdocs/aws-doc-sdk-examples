@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[pinpoint_send_sms_message_api demonstrates how to send a transactional SMS message by using the SendMessages operation in the Amazon Pinpoint API.]
-// snippet-service:[Amazon Pinpoint]
+// snippet-service:[mobiletargeting]
 // snippet-keyword:[dotnet]
 // snippet-keyword:[.NET]
 // snippet-keyword:[Amazon Pinpoint]
