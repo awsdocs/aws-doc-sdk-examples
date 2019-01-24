@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DocumentAPIScan] 
-
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIScan] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -69,4 +68,5 @@ public class DocumentAPIScan {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.DocumentAPIScan]
+
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIScan] 
