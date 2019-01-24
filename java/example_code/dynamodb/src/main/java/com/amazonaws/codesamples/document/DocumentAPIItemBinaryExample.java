@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DocumentAPIItemBinaryExample] 
-
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIItemBinaryExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -161,4 +160,5 @@ public class DocumentAPIItemBinaryExample {
         return result;
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DocumentAPIItemBinaryExample]
+
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIItemBinaryExample] 

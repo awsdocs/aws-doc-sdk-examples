@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.EnableDynamoDBAutoscaling] 
-
+// snippet-start:[dynamodb.java.codeexample.EnableDynamoDBAutoscaling] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -127,4 +126,5 @@ public class EnableDynamoDBAutoscaling {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.EnableDynamoDBAutoscaling]
+
+// snippet-end:[dynamodb.java.codeexample.EnableDynamoDBAutoscaling] 

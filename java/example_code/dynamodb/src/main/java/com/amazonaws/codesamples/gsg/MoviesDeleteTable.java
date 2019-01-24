@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.MoviesDeleteTable] 
-
+// snippet-start:[dynamodb.java.codeexample.MoviesDeleteTable] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -57,4 +56,5 @@ public class MoviesDeleteTable {
             System.err.println(e.getMessage());
         }
     }
-}// snippet-end:[dynamodb.Java.CodeExample.MoviesDeleteTable]
+}
+// snippet-end:[dynamodb.java.codeexample.MoviesDeleteTable] 
