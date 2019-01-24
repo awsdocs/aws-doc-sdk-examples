@@ -1,0 +1,52 @@
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# This file is licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+# http://aws.amazon.com/apache2.0/
+#
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+# snippet-sourcedescription:[ShareLogFiles-AssumeRole-ListBuckets demonstrates how to call AssumeRole and how to use the temporary security credentials returned to list all Amazon S3 buckets controlled by a specific AWS account.]
+# snippet-service:[cloudtrail]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS CloudTrail]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AssumeRole]
+# snippet-keyword:[GetBucket]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2015-10-01]
+# snippet-sourceauthor:[AWS]
+# snippet-start:[cloudtrail.python.ShareLogFiles-AssumeRole-ListBuckets.complete]
+
+import boto
+from boto.sts import STSConnection
+from boto.s3.connection import S3Connection
+
+# The calls to AWS STS AssumeRole must be signed using the access key ID and secret
+# access key of an IAM user or using existing temporary credentials. (You cannot call
+# AssumeRole using the access key for an account.) The credentials can be in 
+# environment variables or in a configuration file and will be discovered automatically
+# by the STSConnection() function. For more information, see the Python SDK 
+# documentation: http://boto.readthedocs.org/en/latest/boto_config_tut.html
+
+sts_connection = STSConnection()
+assumedRoleObject = sts_connection.assume_role(
+    role_arn="arn:aws:iam::account-of-role-to-assume:role/name-of-role",
+    role_session_name="AssumeRoleSession1"
+)
+
+# Use the temporary credentials returned by AssumeRole to call Amazon S3  
+# and list the bucket in the account that owns the role (the trusting account)
+s3_connection = S3Connection(
+    aws_access_key_id=assumedRoleObject.credentials.access_key,
+    aws_secret_access_key=assumedRoleObject.credentials.secret_key,
+    security_token=assumedRoleObject.credentials.session_token
+)
+bucket = s3_connection.get_bucket(bucketname)
+print bucket.name
+
+# snippet-end:[cloudtrail.python.ShareLogFiles-AssumeRole-ListBuckets.complete]
