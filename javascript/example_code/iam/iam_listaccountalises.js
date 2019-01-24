@@ -6,7 +6,7 @@
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
-//snippet-sourceauthor:[daviddeyo]
+//snippet-sourceauthor:[AWS-JSDG]
 
 
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
