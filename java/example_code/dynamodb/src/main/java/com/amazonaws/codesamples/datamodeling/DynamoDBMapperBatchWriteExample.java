@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DynamoDBMapperBatchWriteExample] 
-
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -394,4 +393,5 @@ public class DynamoDBMapperBatchWriteExample {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DynamoDBMapperBatchWriteExample]
+
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 

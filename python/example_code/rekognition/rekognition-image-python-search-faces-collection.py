@@ -13,19 +13,19 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-python-search-faces-collection.py demonstrates how to search for faces in a collection that match a face ID.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Rekognition]
-#snippet-keyword:[SearchFaces]
-#snippet-keyword:[Collection]
-#snippet-service:[rekognition]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-3]
-#snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[rekognition.python.rekognition-image-python-search-faces-collection.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[rekognition-image-python-search-faces-collection.py demonstrates how to search for faces in a collection that match a face ID.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Rekognition]
+# snippet-keyword:[SearchFaces]
+# snippet-keyword:[Collection]
+# snippet-service:[rekognition]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-3]
+# snippet-sourceauthor:[reesch (AWS)]
+# snippet-start:[rekognition.python.rekognition-image-python-search-faces-collection.complete]
 
 import boto3
 
@@ -52,4 +52,4 @@ if __name__ == "__main__":
             print ('FaceId:' + match['Face']['FaceId'])
             print ('Similarity: ' + "{:.2f}".format(match['Similarity']) + "%")
             print
-#snippet-end:[rekognition.python.rekognition-image-python-search-faces-collection.complete]
+# snippet-end:[rekognition.python.rekognition-image-python-search-faces-collection.complete]

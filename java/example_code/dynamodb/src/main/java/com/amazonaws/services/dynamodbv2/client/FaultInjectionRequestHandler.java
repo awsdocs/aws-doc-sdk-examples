@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.FaultInjectionRequestHandler] 
-
+// snippet-start:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -128,4 +127,5 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
         // TODO Auto-generated method stub
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.FaultInjectionRequestHandler]
+
+// snippet-end:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 

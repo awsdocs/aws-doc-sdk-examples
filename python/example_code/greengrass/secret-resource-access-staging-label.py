@@ -21,21 +21,21 @@ import greengrasssdk
 client = greengrasssdk.client('secretsmanager')
  
 # This handler is called when the function is invoked
-# It uses the secretsmanager client to get the value of a secret
+# It uses the secretsmanager client to get the value of a specific secret version
 def function_handler(event, context):
-    response = client.get_secret_value(SecretId='greengrass-MySecret-abc')
+    response = client.get_secret_value(SecretId='greengrass-MySecret-abc', VersionStage='MyTargetLabel')
     raw_secret = response.get('SecretString')
-#snippet-end:[greengrass.python.secret-resource-access-staging-label.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Accesses a specific version of a secret on the core.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS IoT Greengrass Core SDK]
-#snippet-keyword:[secretsmanager client]
-#snippet-keyword:[get_secret_value]
-#snippet-keyword:[Secret resource]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[snippet]
-#snippet-sourcedate:[2019-01-03]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.secret-resource-access-staging-label.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Accesses a specific version of a secret on the core.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS IoT Greengrass Core SDK]
+# snippet-keyword:[secretsmanager client]
+# snippet-keyword:[get_secret_value]
+# snippet-keyword:[Secret resource]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-01-03]
+# snippet-sourceauthor:[AWS]

@@ -1,16 +1,17 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-comment:[This goes in the lib dir.]
-//snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Creates a stack with an SQS queue, SNS topic, and subscribes the queue to the topic.]
-//snippet-keyword:[CDK V0.21.0]
-//snippet-keyword:[sqs.Queue function]
-//snippet-keyword:[sns.Topic function]
-//snippet-keyword:[Topic.subscribeQueue function]
-//snippet-keyword:[TypeScript]
-//snippet-service:[cdk]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-1-8]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-comment:[This goes in the lib dir.]
+// snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Creates a stack with an SQS queue, SNS topic, and subscribes the queue to the topic.]
+// snippet-keyword:[CDK V0.21.0]
+// snippet-keyword:[sqs.Queue function]
+// snippet-keyword:[sns.Topic function]
+// snippet-keyword:[Topic.subscribeQueue function]
+// snippet-keyword:[TypeScript]
+// snippet-service:[cdk]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-1-8]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -22,7 +23,7 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-//snippet-start:[cdk.typescript.HelloCdk-stack]
+// snippet-start:[cdk.typescript.HelloCdk-stack]
 import cdk = require('@aws-cdk/cdk');
 import sns = require('@aws-cdk/aws-sns');
 import sqs = require('@aws-cdk/aws-sqs');
@@ -40,4 +41,4 @@ export class HelloCdkStack extends cdk.Stack {
         topic.subscribeQueue(queue);
     }
 }
-//snippet-end:[cdk.typescript.HelloCdk-stack]
+// snippet-end:[cdk.typescript.HelloCdk-stack]

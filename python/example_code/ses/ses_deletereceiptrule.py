@@ -24,14 +24,14 @@ response = ses.delete_receipt_rule(
 print(response)
  
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[ses_deletereceiptrule.py demonstrates how to delete a specified receipt rule, provide the RuleName and RuleSetName.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Simple Email Service]
-#snippet-service:[ses]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-08-11]
-#snippet-sourceauthor:[tapasweni-pathak]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[ses_deletereceiptrule.py demonstrates how to delete a specified receipt rule, provide the RuleName and RuleSetName.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Simple Email Service]
+# snippet-service:[ses]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-08-11]
+# snippet-sourceauthor:[tapasweni-pathak]
 

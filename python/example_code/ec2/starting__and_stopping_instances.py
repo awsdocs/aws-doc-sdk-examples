@@ -51,15 +51,15 @@ else:
         print(e)
  
  
-#snippet-end:[ec2.python.starting__and_stopping_instances.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[starting__and_stopping_instances.py demonstrates how to start and stop an Amazon EC2 instance.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon EC2]
-#snippet-service:[ec2]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-end:[ec2.python.starting__and_stopping_instances.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[starting__and_stopping_instances.py demonstrates how to start and stop an Amazon EC2 instance.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon EC2]
+# snippet-service:[ec2]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

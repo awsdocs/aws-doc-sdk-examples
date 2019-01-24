@@ -1,13 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Creates a Lambda function.]
-//snippet-keyword:[AWS Lambda]
-//snippet-keyword:[CreateFunction function]
-//snippet-keyword:[Go]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Creates a Lambda function.]
+// snippet-keyword:[AWS Lambda]
+// snippet-keyword:[CreateFunction function]
+// snippet-keyword:[Go]
 // snippet-keyword:[Code Sample]
-//snippet-service:[lambda]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-1-11]
+// snippet-service:[lambda]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-1-11]
 /*
    Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -21,7 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-//snippet-start:[lambda.go.create_function.complete]
+// snippet-start:[lambda.go.create_function.complete]
 package main
 
 import (
@@ -98,4 +99,4 @@ func main() {
 
 	createFunction(zipFile, bucketName, functionName, handler, resourceArn, runtime)
 }
-//snippet-end:[lambda.go.create_function.complete]
+// snippet-end:[lambda.go.create_function.complete]

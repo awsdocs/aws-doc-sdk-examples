@@ -47,12 +47,12 @@ try {
 }
  
 
-//snippet-sourcedescription:[SetSMSAttributes.php demonstrates how to update the default SMS type.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder]
+// snippet-sourcedescription:[SetSMSAttributes.php demonstrates how to update the default SMS type.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder]

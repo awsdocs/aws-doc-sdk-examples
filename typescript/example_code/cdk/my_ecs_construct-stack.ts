@@ -1,14 +1,15 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-comment:[This is a full sample when you include my_ecs_construct.ts, which should be in the bin directory.]
-//snippet-comment:[This this should go in the lib directory.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Creates a Fargate service with versioning enabled.]
-//snippet-keyword:[CDK V0.21.0]
-//snippet-keyword:[ function]
-//snippet-keyword:[TypeScript]
-//snippet-service:[cdk]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-1-9]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-comment:[This is a full sample when you include my_ecs_construct.ts, which should be in the bin directory.]
+// snippet-comment:[This this should go in the lib directory.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Creates a Fargate service with versioning enabled.]
+// snippet-keyword:[CDK V0.21.0]
+// snippet-keyword:[ function]
+// snippet-keyword:[TypeScript]
+// snippet-service:[cdk]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-1-9]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -20,13 +21,14 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-//snippet-start:[cdk.typescript.my_ecs_construct-stack]
+// snippet-start:[cdk.typescript.my_ecs_construct-stack]
 import cdk = require('@aws-cdk/cdk');
-//snippet-start:[cdk.typescript.my_ecs_construct-stack.imports]
+// snippet-start:[cdk.typescript.my_ecs_construct-stack.imports]
 import ec2 = require('@aws-cdk/aws-ec2');
 import ecs = require('@aws-cdk/aws-ecs');
-//snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
+// snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
+// snippet-start:[cdk.typescript.my_ecs_construct-stack.class]
 export class MyEcsConstructStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -50,6 +52,7 @@ export class MyEcsConstructStack extends cdk.Stack {
       publicLoadBalancer: true  // Default is false
     });
     // snippet-end:[cdk.typescript.my_ecs_construct.create_fargate_service]
+    // snippet-end:[cdk.typescript.my_ecs_construct-stack.class]
   }
 }
-//snippet-end:[cdk.typescript.my_ecs_construct-stack]
+// snippet-end:[cdk.typescript.my_ecs_construct-stack]
