@@ -21,7 +21,6 @@
 # snippet-start:[pinpoint.python.pinpoint_send_email_smtp.complete]
 
 import smtplib
-import email.utils
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -119,7 +118,6 @@ try:
         #Uncomment the next line to send SMTP server responses to stdout
         #server.set_debuglevel(1)
         server.sendmail(SENDER, RECIPIENT, msg.as_string())
-        server.quit()
 except Exception as e:
     print ("Error: ", e)
 else:

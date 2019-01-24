@@ -29,7 +29,7 @@ var AWS = require('aws-sdk');
 
 // The AWS Region that you want to use to send the message. For a list of
 // AWS Regions where the Amazon Pinpoint API is available, see
-// https://alpha-docs-aws.amazon.com/pinpoint/latest/apireference/.
+// https://docs.aws.amazon.com/pinpoint/latest/apireference/.
 var aws_region = "us-east-1";
 
 // The phone number or short code to send the message from. The phone number
@@ -61,7 +61,7 @@ var registeredKeyword = "myKeyword";
 
 // The sender ID to use when sending the message. Support for sender ID
 // varies by country or region. For more information, see
-// https://alpha-docs-aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
+// https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
 var senderId = "MySenderID";
 
 // Specify that you're using a shared credentials file, and optionally specify
