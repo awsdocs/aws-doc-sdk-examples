@@ -12,37 +12,43 @@
 
 // To install stable release of RxJS: npm install rxjs
 // To install TypeStrong/ts-node: npm install -D ts-node
-// To install AWS SDK: npm install aws-sdkservice
+// To install AWS SDK: npm install aws-sdk
 
 // This CRUD API can be used in an Angular 2+ service
 // To create Angular service: ng generate service [Name of service]
 // Please refer to https://angular.io/tutorial/toh-pt4 for more information on Angular services
-// Can be implemented inside ReactJS or React Native components to easily manage asynchronous data streams 
+// Can be implemented inside ReactJS or React Native components to easily manage asynchronous data streams
 // Please see https://hackernoon.com/what-happens-when-you-use-rxjs-in-react-11ae5163fc0a for more information
 
-import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
+class FileUpload {
+  name: string;
+  url: string;
+
+  constructor(name: string, url: string) {
+    this.name = name;
+    this.url = url;
+  }
+  result: any[];
+}
 
 class S3Controller {
-
-  FOLDER = '/* s3-folder-name */'
+  FOLDER = '/* s3-folder-name */';
   BUCKET = '/* s3-bucket-name */';
 
-  private getS3Bucket(): any {
-    const bucket = new S3(
+  private static getS3Bucket(): any {
+    return new S3(
       {
         accessKeyId: '/* access key here */',
         secretAccessKey: '/* secret key here */',
         region: '/* region here */'
       }
     );
-
-    return bucket;
   }
 
-  uploadFile(file) {
+  public uploadFile(file) {
     const bucket = new S3(
       {
         accessKeyId: '/* access key here */',
@@ -68,7 +74,7 @@ class S3Controller {
     });
   }
 
-  getFiles(): Observable<Array<FileUpload>> {
+  public getFiles(): Observable<Array<FileUpload>> {
     const fileUploads = [];
 
     const params = {
@@ -76,17 +82,16 @@ class S3Controller {
       Prefix: this.FOLDER
     };
 
-    this.getS3Bucket().listObjects(params, function (err, data) {
+    S3Controller.getS3Bucket().listObjects(params, function (err, data) {
       if (err) {
         console.log('There was an error getting your files: ' + err);
         return;
       }
-
       console.log('Successfully get files.', data);
 
-      const fileDatas = data.Contents;
+      const fileDetails = data.Contents;
 
-      fileDatas.forEach(function (file) {
+      fileDetails.forEach((file) => {
         fileUploads.push(new FileUpload(
           file.Key,
           'https://s3.amazonaws.com/' + params.Bucket + '/' + file.Key
@@ -97,13 +102,13 @@ class S3Controller {
     return of(fileUploads);
   }
 
-  deleteFile(file: FileUpload) {
+  public deleteFile(file: FileUpload) {
     const params = {
       Bucket: this.BUCKET,
       Key: file.name
     };
 
-    this.getS3Bucket().deleteObject(params, function (err, data) {
+    S3Controller.getS3Bucket().deleteObject(params,  (err, data) => {
       if (err) {
         console.log('There was an error deleting your file: ', err.message);
         return;
