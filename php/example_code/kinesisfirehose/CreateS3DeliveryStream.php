@@ -60,14 +60,14 @@ try {
 }
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateS3DeliveryStream.php demonstrates how to establish a Amazon Kinesis Firehose Delivery Stream that will put data into an existing Amazon S3 Bucket.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Kinesis Data Firehose]
-//snippet-service:[firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[CreateS3DeliveryStream.php demonstrates how to establish a Amazon Kinesis Firehose Delivery Stream that will put data into an existing Amazon S3 Bucket.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Kinesis Data Firehose]
+// snippet-service:[firehose]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

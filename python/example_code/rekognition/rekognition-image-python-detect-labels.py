@@ -10,18 +10,21 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[rekognition-image-detect-labels.py demonstrates how to detect labels in an image loaded from an S3 Bucket.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Rekognition]
-#snippet-keyword:[DetectLabels]
-#snippet-service:[rekognition]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-3]
-#snippet-sourceauthor:[reesch (AWS)]
-#snippet-start:[rekognition.python.rekognition-image-python-detect-labels.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[rekognition-image-python-detect-labels.py demonstrates how to detect labels in an image loaded from an S3 Bucket.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Rekognition]
+# snippet-keyword:[DetectLabels]
+# snippet-keyword:[S3 Bucket]
+# snippet-keyword:[Image]
+# snippet-service:[rekognition]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-3]
+# snippet-sourceauthor:[reesch (AWS)]
+# snippet-start:[rekognition.python.rekognition-image-python-detect-labels.complete]
+
 
 import boto3
 
@@ -59,4 +62,4 @@ if __name__ == "__main__":
         print ("----------")
         print ()
 
-#snippet-end:[rekognition.python.rekognition-image-python-detect-labels.complete]
+# snippet-end:[rekognition.python.rekognition-image-python-detect-labels.complete]

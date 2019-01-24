@@ -37,7 +37,7 @@ $SnSclient = new SnsClient([
 $topicname = 'myTopic';
 
 try {
-    $result = $SnSclient->createTopics([
+    $result = $SnSclient->createTopic([
         'Name' => $topicname,
     ]);
     var_dump($result);
@@ -45,12 +45,12 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
-//snippet-sourcedescription:[CreateTopic.php demonstrates how to create a Topic.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+// snippet-sourcedescription:[CreateTopic.php demonstrates how to create a Topic.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-01-09]
+// snippet-sourceauthor:[jschwarzwalder]

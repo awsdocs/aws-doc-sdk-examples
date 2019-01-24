@@ -1,226 +1,49 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.amazonaws</groupId>
-    <version>1.0.0</version>
+    <groupId>aws.example.dynamodb</groupId>
     <artifactId>aws-dynamodb-examples</artifactId>
     <packaging>jar</packaging>
-    <name>AWS DynamoDB Examples</name>
-    <url>https://www.github.com/awslabs/aws-dynamodb-examples</url>
-    <properties>
-        <test.extra.jvm.opts>-javaagent:${basedir}/target/jamm-${jamm.version}.jar </test.extra.jvm.opts>
-        <default.test.jvm.opts>-Xms256m -Xmx1280m -XX:+HeapDumpOnOutOfMemoryError -ea ${test.extra.jvm.opts} </default.test.jvm.opts>
-        <mem.jvm.opts>-Xms256m -Xmx768m -ea -XX:+HeapDumpOnOutOfMemoryError ${test.extra.jvm.opts} </mem.jvm.opts>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dynamodb-local.port>8000</dynamodb-local.port>
-        <dynamodb-local.endpoint>http://localhost:${dynamodb-local.port}</dynamodb-local.endpoint>
-        <aws.java.sdk.version>[1.10.5.1, 2.0.0)</aws.java.sdk.version>
-        <slf4j.version>1.7.5</slf4j.version>
-        <aws.dynamodblocal.version>1.10.5.1</aws.dynamodblocal.version>
-        <amazon.kinesis-client-library.version>1.5.0</amazon.kinesis-client-library.version>
-        <amazon.kinesis-connectors.version>1.2.0</amazon.kinesis-connectors.version>
-        <dynamodb-streams-kinesis-adapter.version>1.0.0</dynamodb-streams-kinesis-adapter.version>
-        <maven.assembly.version>2.5.3</maven.assembly.version>
-        <maven.compiler.version>3.3</maven.compiler.version>
-        <maven.dependency.version>2.10</maven.dependency.version>
-        <maven.resources.version>2.7</maven.resources.version>
-        <maven.surefire.version>2.18.1</maven.surefire.version>
-        <exec.maven.plugin.version>1.4.0</exec.maven.plugin.version>
-        <commons.logging.version>1.1.1</commons.logging.version>
-        <sqlite4java.version>1.0.392</sqlite4java.version>
-        <hamcrest.version>1.3</hamcrest.version>
-    </properties>
-    <developers>
-        <developer>
-            <name>Michael Curtis</name>
-            <email>micurtis@amazon.com</email>
-        </developer>
-        <developer>
-            <name>Justin Panian</name>
-            <email>panianj@amazon.com</email>
-        </developer>
-        <developer>
-            <name>Alexander Patrikalakis</name>
-            <email>alexp@amazon.com</email>
-            <url>https://www.linkedin.com/in/amcpatrix/en</url>
-        </developer>
-    </developers>
-    <inceptionYear>2012</inceptionYear>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <!-- Libraries -->
+    <version>1.0</version>
+    <name>Amazon DynamoDB Examples</name>
+    <url>http://maven.apache.org</url>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>1.11.245</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-            <version>${aws.java.sdk.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-cloudwatch</artifactId>
-            <version>${aws.java.sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>amazon-kinesis-client</artifactId>
-            <version>${amazon.kinesis-client-library.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>amazon-kinesis-connectors</artifactId>
-            <version>${amazon.kinesis-connectors.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>dynamodb-streams-kinesis-adapter</artifactId>
-            <version>${dynamodb-streams-kinesis-adapter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>DynamoDBLocal</artifactId>
-            <version>${aws.dynamodblocal.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-                <version>${maven.compiler.version}</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven.resources.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven.dependency.version}</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
-    <profiles>
-        <profile>
-            <id>share</id>
-            <activation>
-                <file>
-                    <exists>src/assembly/component.xml</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>${maven.assembly.version}</version>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/assembly/component.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                                <phase>package</phase> <!-- bind to the packaging phase -->
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>start-dynamodb-local</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${exec.maven.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>initialize</phase>
-                                <configuration>
-                                    <executable>java</executable>
-                                    <arguments>
-                                        <argument>-cp</argument>
-                                        <classpath/>
-                                        <argument>-Dsqlite4java.library.path=${basedir}/target/dependencies</argument>
-                                        <argument>com.amazonaws.services.dynamodbv2.local.main.ServerRunner</argument>
-                                        <argument>-inMemory</argument>
-                                        <argument>-port</argument>
-                                        <argument>${dynamodb-local.port}</argument>
-                                    </arguments>
-                                </configuration>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-    <repositories>
-        <repository>
-            <id>dynamodblocal</id>
-            <name>AWS DynamoDB Local Release Repository</name>
-            <url>http://dynamodb-local.s3-website-us-west-2.amazonaws.com/release</url>
-        </repository>
-    </repositories>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-core</artifactId>
-                <version>${hamcrest.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.almworks.sqlite4java</groupId>
-                <artifactId>sqlite4java</artifactId>
-                <version>${sqlite4java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${commons.logging.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>
+

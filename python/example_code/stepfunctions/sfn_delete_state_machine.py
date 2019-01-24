@@ -29,13 +29,13 @@ print(response)
 
 
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[sfn_delete_state_machine.py demonstrates how to delete an existing statemachine]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Step Functions]
-#snippet-service:[states]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-10-26]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[sfn_delete_state_machine.py demonstrates how to delete an existing statemachine]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Step Functions]
+# snippet-service:[states]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-10-26]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]

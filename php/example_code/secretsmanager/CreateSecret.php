@@ -53,13 +53,13 @@ try {
     echo "\n";
 }
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateSecret.php demonstrates how to create a new secret in AWS Secrets Manager.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-08]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[CreateSecret.php demonstrates how to create a new secret in AWS Secrets Manager.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Secrets Manager]
+// snippet-service:[secretsmanager]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-11-08]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

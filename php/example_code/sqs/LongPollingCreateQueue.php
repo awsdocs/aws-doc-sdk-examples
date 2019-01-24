@@ -50,15 +50,15 @@ try {
 }
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[LongPollingCreateQueue.php demonstrates how to create a queue with a default 20 second to wait between retrieving messages. This will reduce the number of empty responses returned and thus your bill.]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[LongPollingCreateQueue.php demonstrates how to create a queue with a default 20 second to wait between retrieving messages. This will reduce the number of empty responses returned and thus your bill.]
 #snippet-keyword:[Python]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Queue Service]
+// snippet-service:[sqs]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

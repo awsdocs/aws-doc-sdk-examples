@@ -3,7 +3,7 @@
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CloudTrail]
-//snippet-service[cloudtrail]
+//snippet-service:[cloudtrail]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

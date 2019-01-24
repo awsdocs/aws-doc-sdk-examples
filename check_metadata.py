@@ -1,104 +1,127 @@
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# This file is licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License. A copy of the
+# License is located at
+#
+# http://aws.amazon.com/apache2.0/
+#
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+# OF ANY KIND, either express or implied. See the License for the specific
+# language governing permissions and limitations under the License.
+# 
+# This script is used to validate metadata in the awsdocs/aws-doc-sdk-examples/ repository on Github.
+# 
+
 import os, fnmatch, sys
 
-def checkFile(directory, filePattern):
-    filecount = 0;
-    for path, dirs, files in os.walk(os.path.abspath(directory)):        
+def checkFile(filePattern):
+    filepath = ""
+    filecount = 0
+    for path, dirs, files in os.walk(os.path.abspath(root)):        
         for filename in fnmatch.filter(files, filePattern):
+            # Ignore this file
+            if filename == sys.argv[0]:
+                continue
+            if filename in doNotScan:
+                if not quiet:
+                    print("\nFile: " + filepath + ' is skipped')
+                continue
+            wordcount = 0
             filecount += 1
+            errors = []
             filepath = os.path.join(path, filename)
-            print("\nChecking File: " + filename + " in " + filepath)
+            if not quiet:
+                print("\nChecking File: " + filepath)
             with open(filepath) as f:
                 s = f.read()
                 words = s.split()
-            snippetStartCheck(words)
+            for word in words:
+                checkStringLength(word)
+                wordcount +=1
+
+            # Check for mismatched Snippet start and end.    
             snippets = s.split('snippet-')
-            snippetAuthorCheck(snippets)
-            snippetServiceCheck(snippets)
-            snippetDescriptionCheck(snippets)
-            snippetTypeCheck(snippets)
-            snippetDateCheck(snippets)
-            snippetKeywordCheck(snippets)
-    print(str(filecount) + " files scanned in " + directory)
+
+            # Check Metadata for optional metadata
+            errors.append(snippetStartCheck(words, filepath))
+            errors.append(snippetAuthorCheck(snippets))
+            errors.append(snippetServiceCheck(snippets))
+            errors.append(snippetDescriptionCheck(snippets))
+            errors.append(snippetTypeCheck(snippets))
+            errors.append(snippetDateCheck(snippets))
+            errors.append(snippetKeywordCheck(snippets))
+            f.close()
+            if not quiet:
+                print(str(wordcount) + " words found.")
+            if warn:
+                # Filter to only warning messages
+                errors = list(filter(None, errors))
+                # print out file name, if warnings found
+                if len(errors) > 0 and quiet == True:
+                    print("\nChecking File: " + filepath)
+                for error in errors:
+                    if error:
+                        print(error)
+    print(str(filecount) + " files scanned in " + root)
     print("")
 
-def checkFileStrings(directory, filePattern):
-    filecount = 0;
-    for path, dirs, files in os.walk(os.path.abspath(directory)):        
-        for filename in fnmatch.filter(files, filePattern):
-            wordcount = 0;
-            filecount += 1
-            filepath = os.path.join(path, filename)
-            with open(filepath) as f:
-                s = f.read()
-                words = s.split()
-            snippetStartCheck(words)
-            for word in words:
-                checkStringLength(word, filename)
-                wordcount +=1;
-            f.close();
-            print("File: " + filename + " has been scanned. " + str(wordcount) + " words found.")
-            print("")
-    print(str(filecount) + " files scanned in " + directory)
-    print("")
-                
-                
-def checkStringLength (word, filename):
+
+def checkStringLength (word):
     length = len(word)
     if  length == 40 or length == 20:
-        sys.exit ("WARNING -- String found in " + filename + " \n" + word + " is " + str(length) + " characters long")
+        if warn:
+            return "WARNING -- " + word + " is " + str(length) + " characters long"
 
 
-def snippetStartCheck(words):
+def snippetStartCheck(words, filelocation):
     #print (words)
     snippetStart = 'snippet-start:['
     snippetEnd = 'snippet-end:['
-    if any(snippetStart in word for word in words) :
-        matching = [s for s in words if snippetStart in s]
-        Endmatching = [s for s in words if snippetEnd in s]
-        #print(matching)
-        snippettags = []
-        for string in Endmatching: 
-            snippettags += string.split(snippetEnd)
-        if '//' in snippettags: snippettags.remove('//')
-        if '#' in snippettags: snippettags.remove('#')
-        #print(snippettags)
-        #print(Endmatching)
-        for string in matching:
-            match = False
-            for end in snippettags:
-                if string.endswith(end):
-                    match = True
-                    #print("True: "+ string + " has matching end tag." )                
-            if match == False:
-                sys.exit("ERROR -- " + string + "'s matching end tag not found.")                
-    else: 
-        #print("WARNING -- Snippet Start not detected")
-        return False
+    snippetTags = set()
+    for s in words:
+        if snippetStart in s:
+            s = s.split('[')[1]
+            snippetTags.add(s)
+        elif snippetEnd in s:
+            s = s.split('[')[1]
+            if s in snippetTags:
+                snippetTags.remove(s)
+            else:
+                print("ERROR -- Found in " + filelocation)
+                sys.exit("ERROR -- " + s + "'s matching start tag not found.") 
+        
+    if len(snippetTags) > 0 : 
+        print("ERROR -- Found in " + filelocation)
+        print(snippetTags)
+        sys.exit("ERROR -- " + snippetTags.pop() + "'s matching end tag not found.")
 
 def snippetAuthorCheck(words):
     author = 'sourceauthor:['
     matching = [s for s in words if author in s]
-    if matching == []:
-        print("WARNING -- Missing snippet-sourceauthor:[Your Name]")
+    if not matching:
+        if warn:
+            return "WARNING -- Missing snippet-sourceauthor:[Your Name]"
 
 def snippetServiceCheck(words):
     service = 'service:['
     matching = [s for s in words if service in s]
-    if matching == []:
-        print("WARNING -- Missing snippet-service:[AWS service name]")
-        print("Find a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html")
+    if not matching:
+        if warn:
+            return "WARNING -- Missing snippet-service:[AWS service name] \nFind a list of AWS service names under AWS Service Namespaces in the General Reference Guide: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
 
 def snippetDescriptionCheck(words):
     desc = 'sourcedescription:['
     matching = [s for s in words if desc in s]
-    if matching == []:
-        print("WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]")
+    if not matching:
+        if warn:
+            return "WARNING -- Missing snippet-sourcedescription:[Filename demonstrates how to ... ]"
 
 def snippetTypeCheck(words):
     author = 'sourcetype:['
     matching = [s for s in words if author in s]
     containsType = False
-    if matching == []:
+    if not matching:
         containsType = False
     for match in matching:
         if match.startswith('sourcetype:[full-example'):
@@ -108,14 +131,16 @@ def snippetTypeCheck(words):
             containsType = True
             break
     if not containsType:
-        print("WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]")
+        if warn:
+            return "WARNING -- Missing snippet-sourcetype:[full-example] or snippet-sourcetype:[snippet]"
         
 
 def snippetDateCheck(words):
     datetag = 'sourcedate:['
     matching = [s for s in words if datetag in s]
-    if matching == []:
-        print("WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]")
+    if not matching:
+        if warn:
+            return "WARNING -- Missing snippet-sourcedate:[YYYY-MM-DD]"
 
 def snippetKeywordCheck(words):
     snippetkeyword = 'keyword:['
@@ -123,69 +148,89 @@ def snippetKeywordCheck(words):
     # print(matching)
     codeSample = [s for s in words if 'keyword:[Code Sample]\n' in s]
     if not codeSample:
-        print("WARNING -- Missing snippet-keyword:[Code Sample]")
+        if warn:
+            return "WARNING -- Missing snippet-keyword:[Code Sample]"
     keywordServiceName(matching)
     keywordLanguageCheck(matching)
     keywordSDKCheck(matching)
 
 def keywordServiceName(words):
-    containsServiceTag = False;
+    containsServiceTag = False
     AWS = 'keyword:[AWS'
     matching = [s for s in words if AWS in s]
     if matching:
-        containsServiceTag = True;
+        containsServiceTag = True
     Amazon = 'keyword:[Amazon'
     matching = [s for s in words if Amazon in s]
     if matching:
-        containsServiceTag = True;
+        containsServiceTag = True
     if not containsServiceTag:
-        print("WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]")
+        if warn:
+            return "WARNING -- Missing snippet-keyword:[FULL SERVICE NAME]"
 
 def keywordLanguageCheck(words):
     languages = ['C++', 'C', '.NET', 'Go', 'Java', 'JavaScript', 'PHP', 'Python', 'Ruby','TypeScript' ]
-    containsLanguageTag = False;
+    containsLanguageTag = False
     for language in languages:
         languagekeyword = [s for s in words if 'keyword:[' + language + ']' in s]
         if languagekeyword:
-            containsLanguageTag = True;
+            containsLanguageTag = True
             break
-    if containsLanguageTag == False:
-        print("WARNING -- Missing snippet-keyword:[Language]")
-        print("Options include:")
-        print(languages)
+    if not containsLanguageTag:
+        if warn:
+            return "WARNING -- Missing snippet-keyword:[Language] \nOptions include:" + ', '.join(languages)
+            
 
 def keywordSDKCheck(words):
     sdkVersions = ['AWS SDK for PHP v3', 'AWS SDK for Python (Boto3)', 'CDK V0.14.1' ]
-    containsSDKTag = False;
+    containsSDKTag = False
     for sdk in sdkVersions:
         sdkkeyword = [s for s in words if 'keyword:[' + sdk + ']']
         if sdkkeyword:
-            containsSDKTag = True;
+            containsSDKTag = True
             break
-    if containsSDKTag == False:
-        print("WARNING -- Missing snippet-keyword:[SDK Version used]")
-        print("Options include:")
-        print(sdkVersions)
+    if not containsSDKTag:
+        if warn:
+            return "WARNING -- Missing snippet-keyword:[SDK Version used] \nOptions include:" + ', '.join(sdkVersions)
 
+# We allow two args:
+#     -w to suppress warnings
+#     -q to suppress name of file we are parsing (quiet mode)
+warn = True
+quiet = False
+
+i = 0
+
+while i < len(sys.argv):
+    if sys.argv[i] == "-w":
+        warn = False
+    elif sys.argv[i] == "-q":
+        quiet = True
+    i += 1
+
+# Whitelist of files to never check
+# 
+doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py'}
+root = './'
 
 print ('----------\n\nRun Tests\n')
-print ('----------\n\nAWS SDK for C++\n')
-checkFile( './', '*.cpp')
-print ('----------\n\nAWS SDK for .NET\n')
-checkFile( './', '*.cs')
-print ('----------\n\nAWS SDK for Go\n')
-checkFile( './', '*.go')
-print ('----------\n\nAWS SDK for Java\n')
-checkFile( './', '*.java')
-print ('----------\n\nAWS SDK for JavaScript\n')
-checkFile( './', '*.js')
-print ('----------\n\nAWS SDK for PHP\n')
-checkFile( './', '*.php')
-print ('----------\n\nAWS SDK for Python\n')
-checkFile( './', '*.py')
-print ('----------\n\nAWS SDK for Ruby\n')
-checkFile( './', '*.rb')
-print ('----------\n\nAWS SDK for TypeScript\n')
-checkFile( './', '*.ts')
-
-
+print ('----------\n\nC++ Code Examples(*.cpp)\n')
+checkFile('*.cpp')
+print ('----------\n\nC# Code Examples (*.cs)\n')
+checkFile('*.cs')
+# checkFile( './', '*.txt', warn, quiet, doNotScan)
+print ('----------\n\nGo Code Examples (*.go)\n')
+checkFile('*.go')
+print ('----------\n\nJava Code Examples (*.java)\n')
+checkFile('*.java')
+print ('----------\n\nJavaScript Code Examples (*.js)\n')
+checkFile('*.js')
+checkFile('*.html')
+print ('----------\n\nPHP Code Examples (*.php)\n')
+checkFile('*.php')
+print ('----------\n\nPython Code Examples (*.py)\n')
+checkFile('*.py')
+print ('----------\n\nRuby Code Examples (*.rb)\n')
+checkFile('*.rb')
+print ('----------\n\nTypeScript Code Examples (*.ts)\n')
+checkFile('*.ts')

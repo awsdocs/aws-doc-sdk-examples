@@ -1,12 +1,13 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Creates an S3 bucket.]
-#snippet-keyword:[Amazon Simple Storage Service]
-#snippet-keyword:[Resource.create_bucket method]
-#snippet-keyword:[Ruby]
-#snippet-service:[s3]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Creates an S3 bucket.]
+# snippet-keyword:[Amazon Simple Storage Service]
+# snippet-keyword:[Resource.create_bucket method]
+# snippet-keyword:[Ruby]
+# snippet-service:[s3]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
