@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.MoviesItemOps01] 
-
+// snippet-start:[dynamodb.java.codeexample.MoviesItemOps01] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -72,4 +71,5 @@ public class MoviesItemOps01 {
 
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.MoviesItemOps01]
+
+// snippet-end:[dynamodb.java.codeexample.MoviesItemOps01] 
