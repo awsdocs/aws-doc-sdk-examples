@@ -29,7 +29,7 @@ const AWS = require('aws-sdk');
 
 // The AWS Region that you want to use to send the email. For a list of
 // AWS Regions where the Amazon Pinpoint API is available, see
-// https://alpha-docs-aws.amazon.com/pinpoint/latest/apireference/
+// https://docs.aws.amazon.com/pinpoint/latest/apireference/
 const aws_region = "us-west-2"
 
 // The "From" address. This address has to be verified in Amazon Pinpoint
