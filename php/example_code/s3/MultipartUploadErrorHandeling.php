@@ -16,14 +16,16 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
  *
  */
-
+// snippet-start:[s3.php.multipart_upload_errors.complete]
+// snippet-start:[s3.php.multipart_upload_errors.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
-
+// snippet-end:[s3.php.multipart_upload_errors.import]
+// snippet-start:[s3.php.multipart_upload_errors.main]
 // Create a S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
@@ -56,8 +58,8 @@ try {
     $params = $e->getState()->getId();
     $result = $s3Client->abortMultipartUpload($params);
 }
- 
-
+// snippet-end:[s3.php.multipart_upload_errors.main]
+// snippet-end:[s3.php.multipart_upload_errors.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[MultipartUploadErrorHandeling.php demonstrates how to use UploadState  to resume an upload that failed to complete.]
 // snippet-keyword:[PHP]
