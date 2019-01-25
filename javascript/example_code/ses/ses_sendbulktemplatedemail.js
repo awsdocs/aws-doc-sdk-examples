@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide//ses-examples-sending-email.html
+
+// snippet-start:[ses.JavaScript.email.sendBulkTemplatedEmail]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -67,3 +69,4 @@ sendPromise.then(
     function(err) {
     console.log(err, err.stack);
   });
+// snippet-end:[ses.JavaScript.email.sendBulkTemplatedEmail]
