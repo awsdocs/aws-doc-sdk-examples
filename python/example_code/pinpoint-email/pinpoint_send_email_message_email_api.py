@@ -22,6 +22,7 @@
 # snippet-start:[pinpoint.python.pinpoint_send_email_message_email_api.complete]
 
 import boto3
+from botocore.exceptions import ClientError
 
 # The AWS Region that you want to use to send the email. For a list of
 # AWS Regions where the Amazon Pinpoint Email API is available, see
@@ -34,12 +35,12 @@ SENDER = "Mary Major <sender@example.com>"
 
 # The addresses on the "To" line. If your Amazon Pinpoint account is in
 # the sandbox, these addresses also have to be verified.
-TOADDRESSES = [ "recipient@example.com" ]
+TOADDRESSES = ["recipient@example.com"]
 
 # CC and BCC addresses. If your account is in the sandbox, these
 # addresses have to be verified.
-CCADDRESSES = [ "cc_recipient1@example.com","cc_recipient2@example.com" ]
-BCCADDRESSES = [ "bcc_recipient@example.com" ]
+CCADDRESSES = ["cc_recipient1@example.com", "cc_recipient2@example.com"]
+BCCADDRESSES = ["bcc_recipient@example.com"]
 
 # The configuration set that you want to use to send the email.
 CONFIGURATION_SET = "ConfigSet"
@@ -51,11 +52,11 @@ SUBJECT = "Amazon Pinpoint Test (SDK for Python)"
 # content.
 BODY_TEXT = """Amazon Pinpoint Test (SDK for Python)
 -------------------------------------
-This email was sent with Amazon Pinpoint using the AWS SDK for Python (Boto3).
+This email was sent with Amazon Pinpoint using the AWS SDK for Python.
 For more information, see https:#aws.amazon.com/sdk-for-python/
             """
 
-# The body of the eamil for recipients whose email clients can display HTML
+# The body of the email for recipients whose email clients can display HTML
 # content.
 BODY_HTML = """<html>
 <head></head>
@@ -64,21 +65,21 @@ BODY_HTML = """<html>
   <p>This email was sent with
     <a href='https:#aws.amazon.com/pinpoint/'>Amazon Pinpoint</a> using the
     <a href='https:#aws.amazon.com/sdk-for-python/'>
-      AWS SDK for Python (Boto 3)</a>.</p>
+      AWS SDK for Python</a>.</p>
 </body>
 </html>
             """
 
 # The message tags that you want to apply to the email.
-TAG0 = { 'Name':'key0','Value':'value0' }
-TAG1 = { 'Name':'key1','Value':'value1' }
+TAG0 = {'Name': 'key0', 'Value': 'value0'}
+TAG1 = {'Name': 'key1', 'Value': 'value1'}
 
 # The character encoding that you want to use for the subject line and message
 # body of the email.
 CHARSET = "UTF-8"
 
 # Create a new Pinpoint resource and specify a region.
-client = boto3.client('pinpoint-email',region_name=AWS_REGION)
+client = boto3.client('pinpoint-email', region_name=AWS_REGION)
 
 # Send the email.
 try:
@@ -100,7 +101,7 @@ try:
         Content={
             # Create a new Simple message. If you need to include attachments,
             # you should send a RawMessage instead.
-            'Simple':{
+            'Simple': {
                 'Subject': {
                     'Charset': CHARSET,
                     'Data': SUBJECT,
@@ -117,7 +118,7 @@ try:
                 }
             }
         },
-        #The configuration set that you want to use when you send this message.
+        # The configuration set that you want to use when you send this message.
         ConfigurationSetName=CONFIGURATION_SET,
         EmailTags=[
             TAG0,
@@ -125,10 +126,9 @@ try:
         ]
     )
 # Display an error if something goes wrong.
-except Exception as e:
+except ClientError as e:
     print("The message wasn't sent. Error message: \"" + e.response['Error']['Message'] + "\"")
 else:
     print("Email sent!")
     print("Message ID: " + response['MessageId'])
-
 # snippet-end:[pinpoint.python.pinpoint_send_email_message_email_api.complete]

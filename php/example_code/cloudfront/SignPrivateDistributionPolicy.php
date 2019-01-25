@@ -63,7 +63,7 @@ $signedUrlCannedPolicy = $cloudFront->getSignedUrl([
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
     'key_pair_id' => '<CloudFront key pair id>'
 ]);
-foreach ($signedCookieCustomPolicy as $name => $value) {
+foreach ($signedUrlCannedPolicy  as $name => $value) {
     setcookie($name, $value, 0, "", "example-distribution.cloudfront.net", true, true);
 }
 // snippet-end:[cloudfront.php.private_distribution_policy.main]
