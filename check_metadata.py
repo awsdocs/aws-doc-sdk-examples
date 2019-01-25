@@ -222,7 +222,7 @@ while i < len(sys.argv):
 
 # Whitelist of files to never check
 # 
-doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py'}
+doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py', 'movie_data.json'}
 root = './'
 
 # Blacklist of words that should not in include in code samples
@@ -230,7 +230,13 @@ root = './'
 blacklist = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
 
 print ('----------\n\nRun Tests\n')
-print ('----------\n\nC++ Code Examples(*.cpp)\n')
+
+print ('----------\n\nC Code Examples (*.c)\n')
+checkFile('*.c')
+print ('----------\n\nCloudFormation and IAM Policy Code Examples (*.json) & (*.yaml)\n')
+checkFile('*.json')
+checkFile('*.yaml')
+print ('----------\n\nC++ Code Examples (*.cpp)\n')
 checkFile('*.cpp')
 print ('----------\n\nC# Code Examples (*.cs)\n')
 checkFile('*.cs')
