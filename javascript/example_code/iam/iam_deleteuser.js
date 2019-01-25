@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html
+
+// snippet-start:[iam.JavaScript.users.deleteUser]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -38,7 +40,7 @@ var params = {
 
 iam.getUser(params, function(err, data) {
   if (err && err.code === 'NoSuchEntity') {
-    console.log("User " + process.argv[2] + " does not exist");
+    console.log("User " + process.argv[2] + " does not exist.");
   } else {
     iam.deleteUser(params, function(err, data) {
       if (err) {
@@ -49,3 +51,4 @@ iam.getUser(params, function(err, data) {
     });
   }
 });
+// snippet-end:[iam.JavaScript.users.deleteUser]

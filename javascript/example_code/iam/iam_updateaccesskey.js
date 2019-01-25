@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html
+
+// snippet-start:[iam.JavaScript.keys.updateAccessKey]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -45,3 +47,4 @@ iam.updateAccessKey(params, function(err, data) {
     console.log("Success", data);
   }
 });
+// snippet-end:[iam.JavaScript.keys.updateAccessKey]

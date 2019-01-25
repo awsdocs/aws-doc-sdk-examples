@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-account-alises.html
+
+// snippet-start:[iam.JavaScript.alias.deleteAccountAlias]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -39,3 +41,4 @@ iam.deleteAccountAlias({AccountAlias: process.argv[2]}, function(err, data) {
     console.log("Success", data);
   }
 });
+// snippet-end:[iam.JavaScript.alias.deleteAccountAlias]
