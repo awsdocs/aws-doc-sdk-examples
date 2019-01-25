@@ -51,7 +51,7 @@ SUBJECT = "Amazon Pinpoint Test (SDK for Python)"
 # content.
 BODY_TEXT = """Amazon Pinpoint Test (SDK for Python)
 -------------------------------------
-This email was sent with Amazon Pinpoint using the AWS SDK for Python (Boto).
+This email was sent with Amazon Pinpoint using the AWS SDK for Python (Boto3).
 For more information, see https:#aws.amazon.com/sdk-for-python/
             """
 
