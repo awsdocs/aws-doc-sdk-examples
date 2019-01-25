@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html
+
+// snippet-start:[iam.JavaScript.users.updateUser]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -44,3 +46,4 @@ iam.updateUser(params, function(err, data) {
     console.log("Success", data);
   }
 });
+// snippet-end:[iam.JavaScript.users.updateUser]

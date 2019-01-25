@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html
+
+// snippet-start:[iam.JavaScript.users.getUser]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -49,3 +51,4 @@ iam.getUser(params, function(err, data) {
     console.log("User " + process.argv[2] + " already exists", data.User.UserId);
   }
 });
+// snippet-end:[iam.JavaScript.users.getUser]

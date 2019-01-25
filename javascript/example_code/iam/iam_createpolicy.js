@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-policies.html
+
+// snippet-start:[iam.JavaScript.policies.createPolicy]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -38,7 +40,7 @@ var myManagedPolicy = {
         {
             "Effect": "Allow",
             "Action": "logs:CreateLogGroup",
-            "Resource": "ARN"
+            "Resource": "RESOURCE_ARN"
         },
         {
             "Effect": "Allow",
@@ -49,14 +51,14 @@ var myManagedPolicy = {
                 "dynamodb:Scan",
                 "dynamodb:UpdateItem"
             ],
-            "Resource": "ARN"
+            "Resource": "RESOURCE_ARN"
         }
     ]
 };
 
 var params = {
   PolicyDocument: JSON.stringify(myManagedPolicy),
-  PolicyName: 'myDynamoDBPolicy', 
+  PolicyName: 'myDynamoDBPolicy',
 };
 
 iam.createPolicy(params, function(err, data) {
@@ -66,3 +68,4 @@ iam.createPolicy(params, function(err, data) {
     console.log("Success", data);
   }
 });
+// snippet-end:[iam.JavaScript.policies.createPolicy]
