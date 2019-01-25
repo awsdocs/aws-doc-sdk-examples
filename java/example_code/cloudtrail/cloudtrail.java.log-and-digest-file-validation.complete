@@ -16,7 +16,7 @@
 // snippet-keyword:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[none]
-// snippet-sourcetype:[full-example]
+// snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2015-10-01]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[cloudtrail.java.log-and-digest-file-validation.complete]
