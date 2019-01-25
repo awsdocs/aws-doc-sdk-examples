@@ -41,4 +41,4 @@ iam.createAccessKey({UserName: 'IAM_USER_NAME'}, function(err, data) {
     console.log("Success", data.AccessKey);
   }
 });
-// snippet-start:[iam.JavaScript.keys.createAccessKey]
+// snippet-end:[iam.JavaScript.keys.createAccessKey]
