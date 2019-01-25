@@ -1,7 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[Danilo Joksimovic (GitHub: djoksimo)]
 // snippet-sourcedescription:[Enables an S3 service to get, upload, and delete S3 files with the Rx.js library.]
-// snippet-keyword:[JavaScript]
+// snippet-keyword:[TypeScript]
 // snippet-service:[S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
