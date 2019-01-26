@@ -24,6 +24,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-receipt-rules.html
+
+// snippet-start:[ses.JavaScript.rules.deleteReceiptRule]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -46,3 +48,4 @@ newRulePromise.then(
     function(err) {
     console.error(err, err.stack);
   });
+// snippet-end:[ses.JavaScript.rules.deleteReceiptRule]
