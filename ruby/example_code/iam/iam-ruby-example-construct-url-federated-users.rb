@@ -19,7 +19,6 @@
 # snippet-sourcedate:[2019-01-22]
 # snippet-sourceauthor:[stephswo (AWS)]
 # snippet-start:[iam.ruby.construct-url-federated-users.complete]
-
 require 'rubygems'
 require 'json'
 require 'open-uri'
@@ -32,7 +31,7 @@ require 'aws-sdk'
 # and secret access key. The credentials can be in EC2 instance metadata 
 # or in environment variables and will be automatically discovered by
 # the default credentials provider in the AWS Ruby SDK. 
-sts = Aws::STS::Client.new()
+sts = Aws::STS::Client.new
 
 # The following call creates a temporary session that returns 
 # temporary security credentials and a session token.
@@ -88,6 +87,5 @@ issuer_param = "&Issuer=" + CGI.escape(issuer_url)
 destination_param = "&Destination=" + CGI.escape(console_url)
 login_url = signin_url + "?Action=login" + signin_token_param + 
 issuer_param + destination_param
-
-// snippet-end:[iam.ruby.construct-url-federated-users.complete]
+# snippet-end:[iam.ruby.construct-url-federated-users.complete]
 
