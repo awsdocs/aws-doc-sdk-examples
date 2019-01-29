@@ -108,6 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // snippet-service:[elastictranscoder]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[]
-// snippet-sourceauthor:[]
+// snippet-sourceauthor:[AWS]
 
 ?>

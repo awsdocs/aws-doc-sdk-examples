@@ -95,6 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // snippet-service:[elastictranscoder]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[]
-// snippet-sourceauthor:[]
+// snippet-sourceauthor:[AWS]
 
 ?>
