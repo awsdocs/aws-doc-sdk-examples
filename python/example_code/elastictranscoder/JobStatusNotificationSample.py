@@ -11,7 +11,7 @@
 # language governing permissions and limitations under the License.
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[JobStatusNotificationSample.py demonstrates how to TODO.]
+# snippet-sourcedescription:[JobStatusNotificationSample.py demonstrates how to create a notification handler for an Elastic Transcoder job.]
 # snippet-keyword:[Python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
