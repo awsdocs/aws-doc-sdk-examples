@@ -1,0 +1,35 @@
+//snippet-sourcedescription:[This IAM identity-based permission policy demonstrates how to grant a user access to transcoder and related services.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Elastic Transcoder]
+//snippet-service:[transcoder]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[transcoder.iam_policy.grants_attached_user_access_to_transcoder_and_related_services]
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Effect":"Allow",
+         "Action": [
+            "elastictranscoder:*",
+            "cloudfront:*",
+            "s3:List*",
+            "s3:Put*",
+            "s3:Get*",
+            "s3:*MultipartUpload*",
+            "iam:CreateRole",
+            "iam:PutRolePolicy",
+            "iam:GetRolePolicy",
+            "iam:List*",
+            "sns:CreateTopic",
+            "sns:List*"
+         ],
+         "Resource":[
+            "*"
+         ]
+      }
+   ]
+}
+//snippet-end:[transcoder.iam_policy.grants_attached_user_access_to_transcoder_and_related_services]
