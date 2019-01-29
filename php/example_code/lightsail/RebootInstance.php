@@ -49,8 +49,7 @@ try {
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 // snippet-end:[lightsail.php.reboot_instance.main]
 // snippet-end:[lightsail.php.reboot_instance.complete] 
