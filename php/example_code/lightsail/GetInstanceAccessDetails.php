@@ -55,8 +55,7 @@ try {
     $rsa_private_key = $result['accessDetails']['privateKey'];
 } catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 // snippet-end:[lightsail.php.get_instance_access_details.main]
 // snippet-end:[lightsail.php.get_instance_access_details.complete] 
