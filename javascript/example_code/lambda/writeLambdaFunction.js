@@ -84,4 +84,5 @@ Promise.all([myLeftPromise, myMiddlePromise, myRightPromise]).then(function(valu
     callback(null, slotResults);
 });
 
-};// snippet-end:[lambda.JavaScript.writeLambdaFunction.complete]
+};
+// snippet-end:[lambda.JavaScript.writeLambdaFunction.complete]
