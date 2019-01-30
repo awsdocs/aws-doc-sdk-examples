@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the Elastic Transcoder Developer Guide topic at
- *  https://alpha-docs-aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html
+ *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
  
