@@ -18,6 +18,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+# snippet-start:[elastictranscoder.ruby.create_sqs_notification_queue.import]
 require 'aws-sdk'
 require 'Thread'
 
@@ -76,3 +77,4 @@ class SqsQueueNotificationWorker
     end
   end
 end
+# snippet-end:[elastictranscoder.ruby.create_sqs_notification_queue.import]

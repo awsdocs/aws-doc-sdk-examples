@@ -18,6 +18,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+# snippet-start:[elastictranscoder.ruby.create_hls_job.import]
 require 'aws-sdk'
 require 'Digest'
 
@@ -106,4 +107,4 @@ job = transcoder_client.create_job(
   playlists: [ playlist ])[:job]
 
 puts 'HLS job has been created: ' + JSON.pretty_generate(job)
-
+# snippet-end:[elastictranscoder.ruby.create_hls_job.import]

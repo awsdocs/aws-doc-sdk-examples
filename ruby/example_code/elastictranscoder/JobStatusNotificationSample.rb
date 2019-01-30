@@ -18,6 +18,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+# snippet-start:[elastictranscoder.ruby.create_job_status_notification.import]
 require 'aws-sdk'
 require 'Digest'
 require_relative 'SqsQueueNotificationWorker'
@@ -76,4 +77,4 @@ notification_worker = SqsQueueNotificationWorker.new(region, sqs_queue_url)
 completion_handler = lambda { |notification| notification_worker.stop if (notification['jobId'] == job_id && ['COMPLETED', 'ERROR'].include?(notification['state'])) }
 notification_worker.add_handler(completion_handler)
 notification_worker.start()
-
+# snippet-end:[elastictranscoder.ruby.create_job_status_notification.import]
