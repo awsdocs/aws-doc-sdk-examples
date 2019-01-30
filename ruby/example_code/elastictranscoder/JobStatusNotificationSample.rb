@@ -19,10 +19,9 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 # snippet-start:[elastictranscoder.ruby.create_job_status_notification.import]
-require 'aws-sdk'
-require 'Digest'
+require 'aws-sdk-elastictranscoder'
+require 'openssl'
 require_relative 'SqsQueueNotificationWorker'
-
 
 # This is the ID of the Elastic Transcoder pipeline that was created when
 # setting up your AWS environment:
@@ -48,23 +47,23 @@ region = 'us-east-1'
 
 def create_elastic_transcoder_job(region, pipeline_id, input_key, preset_id, output_key_prefix)
   # Create the client for Elastic Transcoder.
-  transcoder_client = AWS::ElasticTranscoder::Client.new(region: region)
-  
+  transcoder_client = Aws::ElasticTranscoder::Client.new(region: region)
+
   # Setup the job input using the provided input key.
   input = { key: input_key }
-  
+
   # Setup the job input using the provided input key.
   output = {
-    key: Digest::SHA256.hexdigest(input_key.encode('UTF-8')),
+    key: OpenSSL::Digest::SHA256.new(input_key.encode('UTF-8')),
     preset_id: preset_id
   }
-  
+
   # Create a job on the specified pipeline and return the job ID.
   transcoder_client.create_job(
     pipeline_id: pipeline_id,
     input: input,
     output_key_prefix: output_key_prefix,
-    outputs: [ output ]
+    outputs: [output]
   )[:job][:id]
 end
 
@@ -76,5 +75,5 @@ puts 'Waiting for job to complete: ' + job_id
 notification_worker = SqsQueueNotificationWorker.new(region, sqs_queue_url)
 completion_handler = lambda { |notification| notification_worker.stop if (notification['jobId'] == job_id && ['COMPLETED', 'ERROR'].include?(notification['state'])) }
 notification_worker.add_handler(completion_handler)
-notification_worker.start()
+notification_worker.start
 # snippet-end:[elastictranscoder.ruby.create_job_status_notification.import]
