@@ -10,8 +10,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-// snippet-sourcedescription:[index.ts provides a 
-// hello script in TypeScript]
+// snippet-sourcedescription:[index.ts provides a hello script in TypeScript]
 // snippet-service:[codepipeline]
 // snippet-keyword:[TypeScript]
 // snippet-keyword:[AWS CodePipeline]
