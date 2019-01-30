@@ -64,6 +64,6 @@ for i in range(iterations):
 print()
 
 end = time.time()
-print('Total time: {} ms - Avg time: {} ms'.format(end - start, (end-start)/iterations))
+print('Total time: {} sec - Avg time: {} sec'.format(end - start, (end-start)/iterations))
 
 # snippet-end:[dynamodb.Python.TryDax.03-getitem-test] 
