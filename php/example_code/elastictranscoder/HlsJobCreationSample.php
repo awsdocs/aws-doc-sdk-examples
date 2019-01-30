@@ -16,7 +16,7 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
- 
+// snippet-start:[elastictranscoder.php.create_hls_job.import] 
 // Path to your PHP autoload.  If you are using a phar installation, this is the
 // path to your aws.phar file.
 require_once 'path/to/autoload.php';
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   echo json_encode($job, JSON_PRETTY_PRINT);
   echo '</PRE>';
 }
-
+// snippet-end:[elastictranscoder.php.create_hls_job.import]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[HlsJobCreationSample.php demonstrates how to create an HLS job.]
 // snippet-keyword:[PHP]

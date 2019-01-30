@@ -16,6 +16,7 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
+// snippet-start:[elastictranscoder.php.create_job_status_notification_handler.import]
 $tmp_path = '/tmp';
 
 # Get raw notification data from the POST.
@@ -44,7 +45,7 @@ if ($notification['Type'] == 'SubscriptionConfirmation') {
   # Write unknown notifications out to disk.
   file_put_contents("$tmp_path/unknown_notification.txt", "$data\n", FILE_APPEND | LOCK_EX);
 }
-
+// snippet-end:[elastictranscoder.php.create_job_status_notification_handler.import]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[JobStatusNotificationsSampleNotificationHandler.php demonstrates how to create a notification handler for an Elastic Transcoder job.]
 // snippet-keyword:[PHP]

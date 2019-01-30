@@ -16,7 +16,7 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
- 
+// snippet-start:[elastictranscoder.php.create_job_status_notification.import] 
 require 'path/to/autoload.php';
 
 use Aws\ElasticTranscoder\ElasticTranscoderClient;
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // which will allow the user to create an elastic transcoder job.
   echo "Create an Elastic Transcoder job and consume job status using notificaitons.<br><form action=\"http://ec2-23-22-149-62.compute-1.amazonaws.com/samples/JobStatusNotificationsSample.php\" method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\"https://w.amazon.com/index.php/User:Ramsdenj/Samples/Environment_Setup/Create_Elastic_Transcoder_Pipeline#Create_the_Pipeline\"> Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br><input type=\"submit\" value=\"Create Job\" /></form>";
 }
-
+// snippet-end:[elastictranscoder.php.create_job_status_notification.import]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[JobStatusNotificationSample.php demonstrates how to create an Elastic Transcoder job and consume job status using notificaitons.]
 // snippet-keyword:[PHP]
