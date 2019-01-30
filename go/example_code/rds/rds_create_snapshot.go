@@ -11,7 +11,7 @@
 // snippet-keyword:[Amazon RDS]
 // snippet-keyword:[CreateDBSnapshot function]
 // snippet-keyword:[Go]
-// snippet-service:[s3]
+// snippet-service:[rds]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-01-30]
