@@ -22,7 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start:[rds.go.describe_db_cluster_snapshots
+// snippet-start:[rds.go.describe_db_cluster_snapshots]
 package main
 
 import (
@@ -59,4 +59,4 @@ func exitErrorf(msg string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, msg+"\n", args...)
 	os.Exit(1)
 }
-// snippet-end:[rds.go.describe_db_cluster_snapshots
+// snippet-end:[rds.go.describe_db_cluster_snapshots]
