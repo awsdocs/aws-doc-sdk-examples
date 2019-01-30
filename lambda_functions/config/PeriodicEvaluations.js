@@ -106,4 +106,5 @@ function countResourceTypes(applicableResourceType, nextToken, count, callback) 
         }
     });
     return count;
-}// snippet-end:[config.javascript.PeriodicEvaluations.complete]
+}
+// snippet-end:[config.javascript.PeriodicEvaluations.complete]

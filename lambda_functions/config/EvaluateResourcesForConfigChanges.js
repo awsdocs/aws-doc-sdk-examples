@@ -155,4 +155,5 @@ exports.handler = (event, context, callback) => {
             }
         });
     });
-};// snippet-end:[config.javascript.EvaluateResourcesForConfigChanges.complete]
+};
+// snippet-end:[config.javascript.EvaluateResourcesForConfigChanges.complete]
