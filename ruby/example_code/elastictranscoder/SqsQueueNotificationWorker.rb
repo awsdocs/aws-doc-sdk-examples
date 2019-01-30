@@ -1,5 +1,5 @@
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[]
+# snippet-sourceauthor:[AWS]
 # snippet-sourcedescription:[Creates a queue for handling notifications for an Elastic Transcoder job.]
 # snippet-keyword:[Amazon Elastic Transcoder]
 # snippet-keyword:[Ruby]
