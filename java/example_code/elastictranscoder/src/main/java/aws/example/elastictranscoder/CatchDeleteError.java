@@ -5,7 +5,7 @@
 //snippet-service:[elastictranscoder]
 //snippet-sourcetype:[snippet]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[elastictranscoder.java.catch_delete_error.import]
 try {
    DeleteJobRequest request = new DeleteJobRequest(jobId);
    DeleteJobResult result = ET.deleteJob(request);
@@ -42,3 +43,4 @@ try {
       "such as not being able to access the network.");
       System.out.println("Error Message: " + ace.getMessage());
    }
+// snippet-end:[elastictranscoder.java.catch_delete_error.import]

@@ -5,7 +5,7 @@
 //snippet-service:[elastictranscoder]
 //snippet-sourcetype:[snippet]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[elastictranscoder.java.retry_request.import]
 currentRetry = 0
 DO
   set retry to false
@@ -39,3 +40,4 @@ DO
     currentRetry = currentRetry + 1
 
 WHILE (retry = true AND currentRetry < MaxNumberOfRetries)  // limit retries
+// snippet-end:[elastictranscoder.java.retry_request.import]

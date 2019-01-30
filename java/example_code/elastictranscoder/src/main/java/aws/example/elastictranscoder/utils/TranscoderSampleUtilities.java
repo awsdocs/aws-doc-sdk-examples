@@ -5,7 +5,7 @@
 //snippet-service:[elastictranscoder]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[elastictranscoder.java.sample_utilities.import]
 package com.amazonaws.services.elastictranscoder.samples.utils;
 
 import java.io.UnsupportedEncodingException;
@@ -58,3 +59,4 @@ public final class TranscoderSampleUtilities {
         return toHexString(digest.digest(inputKey.getBytes("UTF-8")));
     }
 }
+// snippet-end:[elastictranscoder.java.sample_utilities.import]

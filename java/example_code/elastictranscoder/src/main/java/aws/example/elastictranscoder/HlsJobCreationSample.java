@@ -5,7 +5,7 @@
 //snippet-service:[elastictranscoder]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[elastictranscoder.java.create_hls_job.import]
 package com.amazonaws.services.elastictranscoder.samples;
 
 import java.util.Arrays;
@@ -132,3 +133,4 @@ public class HlsJobCreationSample {
         return amazonElasticTranscoder.createJob(createJobRequest).getJob();
     }
 }
+// snippet-end:[elastictranscoder.java.create_hls_job.import]

@@ -5,7 +5,7 @@
 //snippet-service:[elastictranscoder]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
-//snippet-sourceauthor:[]
+//snippet-sourceauthor:[AWS]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[elastictranscoder.java.notification.import]
 package com.amazonaws.services.elastictranscoder.samples.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -139,3 +140,4 @@ public class Notification<MESSAGE_TYPE> {
                 + ", unsubscribeURL=" + unsubscribeURL + "]";
     }
 }
+// snippet-end:[elastictranscoder.java.notification.import]
