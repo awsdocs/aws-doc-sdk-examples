@@ -1,0 +1,348 @@
+// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// This file is licensed under the Apache License, Version 2.0 (the "License").
+// You may not use this file except in compliance with the License. A copy of
+// the License is located at
+//
+// http://aws.amazon.com/apache2.0/
+//
+// This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+
+// snippet-sourcedescription:[template-codepipeline-github-events-json.json provides a CloudFormation
+// template that creates a pipeline with a GitHub source and a CodeDeploy deployment. 
+// This template also creates the webhook for detecting push events.]
+//
+// snippet-service:[codepipeline]
+// snippet-keyword:[CloudFormation]
+// snippet-keyword:[AWS CodePipeline]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourceauthor:[AWS]
+// snippet-sourcedate:[2018-10-10]
+// snippet-start:[codepipeline.cloudformation.CodePipeline-github-events-json.complete]
+
+{
+    "Parameters": {
+        "BranchName": {
+            "Description": "GitHub branch name",
+            "Type": "String",
+            "Default": "master"
+        },
+        "RepositoryName": {
+            "Description": "GitHub repository name",
+            "Type": "String",
+            "Default": "test"
+        },
+        "GitHubOwner": {
+            "Type": "String"
+        },
+        "GitHubSecret": {
+            "Type": "String",
+            "NoEcho": true
+        },
+        "GitHubOAuthToken": {
+            "Type": "String",
+            "NoEcho": true
+        },
+        "ApplicationName": {
+            "Description": "CodeDeploy application name",
+            "Type": "String",
+            "Default": "DemoApplication"
+        },
+        "BetaFleet": {
+            "Description": "Fleet configured in CodeDeploy",
+            "Type": "String",
+            "Default": "DemoFleet"
+        }
+    },
+    "Resources": {
+        "CodePipelineArtifactStoreBucket": {
+            "Type": "AWS::S3::Bucket"
+        },
+        "CodePipelineArtifactStoreBucketPolicy": {
+            "Type": "AWS::S3::BucketPolicy",
+            "Properties": {
+                "Bucket": {
+                    "Ref": "CodePipelineArtifactStoreBucket"
+                },
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "DenyUnEncryptedObjectUploads",
+                            "Effect": "Deny",
+                            "Principal": "*",
+                            "Action": "s3:PutObject",
+                            "Resource": {
+                                "Fn::Join": [
+                                    "",
+                                    [
+                                        {
+                                            "Fn::GetAtt": [
+                                                "CodePipelineArtifactStoreBucket",
+                                                "Arn"
+                                            ]
+                                        },
+                                        "/*"
+                                    ]
+                                ]
+                            },
+                            "Condition": {
+                                "StringNotEquals": {
+                                    "s3:x-amz-server-side-encryption": "aws:kms"
+                                }
+                            }
+                        },
+                        {
+                            "Sid": "DenyInsecureConnections",
+                            "Effect": "Deny",
+                            "Principal": "*",
+                            "Action": "s3:*",
+                            "Resource": {
+                                "Fn::Join": [
+                                    "",
+                                    [
+                                        {
+                                            "Fn::GetAtt": [
+                                                "CodePipelineArtifactStoreBucket",
+                                                "Arn"
+                                            ]
+                                        },
+                                        "/*"
+                                    ]
+                                ]
+                            },
+                            "Condition": {
+                                "Bool": {
+                                    "aws:SecureTransport": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "AppPipelineWebhook": {
+            "Type": "AWS::CodePipeline::Webhook",
+            "Properties": {
+                "Authentication": "GITHUB_HMAC",
+                "AuthenticationConfiguration": {
+                    "SecretToken": {
+                        "Ref": "GitHubSecret"
+                    }
+                },
+                "Filters": [
+                    {
+                        "JsonPath": "$.ref",
+                        "MatchEquals": "refs/heads/{Branch}"
+                    }
+                ],
+                "TargetPipeline": {
+                    "Ref": "AppPipeline"
+                },
+                "TargetAction": "SourceAction",
+                "Name": "AppPipelineWebhook",
+                "TargetPipelineVersion": {
+                    "Fn::GetAtt": [
+                        "AppPipeline",
+                        "Version"
+                    ]
+                },
+                "RegisterWithThirdParty": true
+            }
+        },
+        "AppPipeline": {
+            "Type": "AWS::CodePipeline::Pipeline",
+            "Properties": {
+                "Name": "github-events-pipeline",
+                "RoleArn": {
+                    "Fn::GetAtt": [
+                        "CodePipelineServiceRole",
+                        "Arn"
+                    ]
+                },
+                "Stages": [
+                    {
+                        "Name": "Source",
+                        "Actions": [
+                            {
+                                "Name": "SourceAction",
+                                "ActionTypeId": {
+                                    "Category": "Source",
+                                    "Owner": "ThirdParty",
+                                    "Version": 1,
+                                    "Provider": "GitHub"
+                                },
+                                "OutputArtifacts": [
+                                    {
+                                        "Name": "SourceOutput"
+                                    }
+                                ],
+                                "Configuration": {
+                                    "Owner": {
+                                        "Ref": "GitHubOwner"
+                                    },
+                                    "Repo": {
+                                        "Ref": "RepositoryName"
+                                    },
+                                    "Branch": {
+                                        "Ref": "BranchName"
+                                    },
+                                    "OAuthToken": {
+                                        "Ref": "GitHubOAuthToken"
+                                    },
+                                    "PollForSourceChanges": false
+                                },
+                                "RunOrder": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Name": "Beta",
+                        "Actions": [
+                            {
+                                "Name": "BetaAction",
+                                "InputArtifacts": [
+                                    {
+                                        "Name": "SourceOutput"
+                                    }
+                                ],
+                                "ActionTypeId": {
+                                    "Category": "Deploy",
+                                    "Owner": "AWS",
+                                    "Version": 1,
+                                    "Provider": "CodeDeploy"
+                                },
+                                "Configuration": {
+                                    "ApplicationName": {
+                                        "Ref": "ApplicationName"
+                                    },
+                                    "DeploymentGroupName": {
+                                        "Ref": "BetaFleet"
+                                    }
+                                },
+                                "RunOrder": 1
+                            }
+                        ]
+                    }
+                ],
+                "ArtifactStore": {
+                    "Type": "S3",
+                    "Location": {
+                        "Ref": "CodePipelineArtifactStoreBucket"
+                    }
+                }
+            }
+        },
+        "CodePipelineServiceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "codepipeline.amazonaws.com"
+                                ]
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "AWS-CodePipeline-Service-3",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "codecommit:CancelUploadArchive",
+                                        "codecommit:GetBranch",
+                                        "codecommit:GetCommit",
+                                        "codecommit:GetUploadArchiveStatus",
+                                        "codecommit:UploadArchive"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "codedeploy:CreateDeployment",
+                                        "codedeploy:GetApplicationRevision",
+                                        "codedeploy:GetDeployment",
+                                        "codedeploy:GetDeploymentConfig",
+                                        "codedeploy:RegisterApplicationRevision"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "codebuild:BatchGetBuilds",
+                                        "codebuild:StartBuild"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "devicefarm:ListProjects",
+                                        "devicefarm:ListDevicePools",
+                                        "devicefarm:GetRun",
+                                        "devicefarm:GetUpload",
+                                        "devicefarm:CreateUpload",
+                                        "devicefarm:ScheduleRun"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "lambda:InvokeFunction",
+                                        "lambda:ListFunctions"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "iam:PassRole"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "elasticbeanstalk:*",
+                                        "ec2:*",
+                                        "elasticloadbalancing:*",
+                                        "autoscaling:*",
+                                        "cloudwatch:*",
+                                        "s3:*",
+                                        "sns:*",
+                                        "cloudformation:*",
+                                        "rds:*",
+                                        "sqs:*",
+                                        "ecs:*"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
+
+
+
+// snippet-end:[codepipeline.cloudformation.CodePipeline-github-events-json.complete]

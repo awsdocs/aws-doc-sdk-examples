@@ -10,7 +10,9 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-# snippet-sourcedescription:[MyCodePipelineFunction.py demonstrates how to use an AWS Lambda function to create or update a stack based on a supplied AWS CloudFormation template and Lambda execution role.]
+# snippet-sourcedescription:[MyCodePipelineFunction.py demonstrates how to use an AWS Lambda 
+# function to create or update a stack based on a supplied AWS CloudFormation template and 
+# Lambda execution role.]
 # snippet-service:[codepipeline]
 # snippet-keyword:[Python]
 # snippet-keyword:[AWS CodePipeline]
@@ -397,4 +399,4 @@ def lambda_handler(event, context):
     return "Complete."
 
 
-# snippet-end:[codecommit.python.MyCodeCommitFunction.complete]
+# snippet-end:[codepipeline.python.MyCodePipelineFunction.complete]
