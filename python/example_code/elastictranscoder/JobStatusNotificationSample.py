@@ -20,6 +20,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[]
 # snippet-sourceauthor:[AWS]
+# snippet-start:[elastictranscoder.python.create_job_status_notification.import]
 import boto.elastictranscoder
 from SqsQueueNotificationWorker import SqsQueueNotificationWorker, JobStatusNotificationHandler
 
@@ -111,4 +112,4 @@ if __name__ == '__main__':
     print 'Waiting for job to complete: ', job_id
     completion_handler.wait_for_completion()
     queue_worker.stop()
-
+# snippet-end:[elastictranscoder.python.create_job_status_notification.import]

@@ -20,6 +20,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[]
 # snippet-sourceauthor:[AWS]
+# snippet-start:[elastictranscoder.python.create_hls_job.import]
 import hashlib
 import json
 
@@ -107,4 +108,5 @@ create_job_request = {
 }
 create_job_result=transcoder_client.create_job(**create_job_request)
 print 'HLS job has been created: ', json.dumps(create_job_result['Job'], indent=4, sort_keys=True)
+# snippet-end:[elastictranscoder.python.create_hls_job.import]
 

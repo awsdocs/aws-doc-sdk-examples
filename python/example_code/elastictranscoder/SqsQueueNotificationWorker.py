@@ -20,6 +20,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[]
 # snippet-sourceauthor:[AWS]
+# snippet-start:[elastictranscoder.python.create_sqs_notification_queue.import]
 import boto.sqs
 
 import json
@@ -89,4 +90,4 @@ def poll_and_handle_messages(shutdown, region, queue_url, handlers, max_messages
 
             # Delete the message from the queue.
             queue.delete_message(message)
-
+# snippet-end:[elastictranscoder.python.create_sqs_notification_queue.import]
