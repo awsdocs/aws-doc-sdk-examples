@@ -8,6 +8,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
+//snippet-start:[directoryservice.java.directory_service_port_test.complete]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -284,5 +285,5 @@ namespace DirectoryServicePortTest
         }
     }
 }
-
+//snippet-end:[directoryservice.java.directory_service_port_test.complete]
 
