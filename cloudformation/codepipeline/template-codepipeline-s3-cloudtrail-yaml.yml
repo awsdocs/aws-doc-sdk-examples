@@ -10,11 +10,7 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-# snippet-sourcedescription:[template-codepipeline-s3-cloudtrail-yaml.yml provides a 
-# CloudFormation template that creates the CloudTrail bucket and trail used for 
-# change detection of push events. This template stack should be created along with 
-# the template-codepipeline-s3-events-yaml.yml template that creates the CodePipeline 
-# resources and the CloudWatch Events rule for change detection.]
+# snippet-sourcedescription:[template-codepipeline-s3-cloudtrail-yaml.yml provides a CloudFormation template that creates the CloudTrail bucket and trail used for change detection of push events. This template stack should be created along with the template-codepipeline-s3-events-yaml.yml template that creates the CodePipeline resources and the CloudWatch Events rule for change detection.]
 # snippet-service:[codepipeline]
 # snippet-keyword:[CloudFormation]
 # snippet-keyword:[AWS CodePipeline]

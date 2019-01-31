@@ -10,11 +10,7 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-# snippet-sourcedescription:[template-codepipeline-s3-events-yaml.yml provides a 
-# CloudFormation template that creates a pipeline with an S3 source and a CodeDeploy 
-# deployment. This template also creates the CloudWatch Events rule for detecting push 
-# events. This template stack should be created along with the template-codepipeline-s3-cloudtrail-yaml.yml 
-# template that creates the CloudTrail resources for change detection.]
+# snippet-sourcedescription:[template-codepipeline-s3-events-yaml.yml provides a CloudFormation template that creates a pipeline with an S3 source and a CodeDeploy deployment. This template also creates the CloudWatch Events rule for detecting push events. This template stack should be created along with the template-codepipeline-s3-cloudtrail-yaml.yml template that creates the CloudTrail resources for change detection.]
 # snippet-service:[codepipeline]
 # snippet-keyword:[CloudFormation]
 # snippet-keyword:[AWS CodePipeline]
