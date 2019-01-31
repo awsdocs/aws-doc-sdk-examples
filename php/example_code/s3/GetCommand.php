@@ -20,7 +20,7 @@
 // snippet-start:[s3.php.command_pool_get_command.import]
 use Aws\S3\S3Client;
 use Aws\CommandPool;
-// snippet-end:[s3.php.command_pool_get_command..import]
+// snippet-end:[s3.php.command_pool_get_command.import]
 /**
  * Use Command Pool to upload a file to an Amazon S3 bucket.
  *

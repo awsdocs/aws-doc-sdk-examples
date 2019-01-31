@@ -49,9 +49,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
-// snippet-start:[s3.php.create_bucket.complete]
-// snippet-start:[s3.php.create_bucket.main]
+
+// snippet-end:[s3.php.create_bucket.main] 
+// snippet-end:[s3.php.create_bucket.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateBucket.php demonstrates how to create an new Amazon S3 bucket given a name to use for the bucket.]
 // snippet-keyword:[PHP]

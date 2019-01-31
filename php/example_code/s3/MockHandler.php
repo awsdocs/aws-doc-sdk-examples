@@ -20,7 +20,7 @@
 // snippet-start:[s3.php.mock_handler.import]
 use Aws\Result;
 use Aws\MockHandler;
-// snippet-end:[s3.php.mock_handler..import]
+// snippet-end:[s3.php.mock_handler.import]
 /**
  * Create a MockHandler to list all the files in an Amazon S3 bucket.
  *

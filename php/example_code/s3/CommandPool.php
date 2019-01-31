@@ -26,7 +26,7 @@ use Aws\CommandPool;
 use Aws\CommandInterface;
 use Aws\ResultInterface;
 use GuzzleHttp\Promise\PromiseInterface;
-// snippet-end:[s3.php.command_pool..import]
+// snippet-end:[s3.php.command_pool.import]
 /**
  * Use Command Pool to upload a file to an Amazon S3 bucket.
  *

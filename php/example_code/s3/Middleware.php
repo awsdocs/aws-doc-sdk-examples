@@ -21,9 +21,9 @@
 use Aws\CommandInterface;
 use Aws\Middleware;
 use Psr\Http\Message\RequestInterface;
-// snippet-end:[s3.php.middleware..import]
+// snippet-end:[s3.php.middleware.import]
 /**
- * Use Command Pool to upload a file to an Amazon S3 bucket.
+ * Use Middleware to list files in an Amazon S3 bucket.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
