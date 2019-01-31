@@ -1,0 +1,34 @@
+//snippet-sourcedescription:[This IAM identity-based permission policy demonstrates how to grant a user permission to manage organizational agrements.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Artifact]
+//snippet-service:[artifact]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[artifact.iam_policy.grants_attached_user_access_to_manage_organizational_agreements]
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "artifact:AcceptAgreement",
+                "artifact:DownloadAgreement",
+                "artifact:TerminateAgreement"
+            ],
+            "Resource": [
+                "arn:aws:artifact::*:customer-agreement/*",
+                "arn:aws:artifact:::agreement/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "organizations:DescribeOrganization"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+//snippet-end:[artifact.iam_policy.grants_attached_user_access_to_manage_organizational_agreements]
