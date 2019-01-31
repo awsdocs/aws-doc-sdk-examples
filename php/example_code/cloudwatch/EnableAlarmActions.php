@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-using-alarm-actions.html
  *
+ *
+ *
  */
+// snippet-start:[cloudwatch.php.enable_alarm.complete]
+// snippet-start:[cloudwatch.php.enable_alarm.import]
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
+use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatch.php.enable_alarm.import]
 
 /**
  * Enable Alarm Actions in CloudWatch
@@ -29,8 +35,9 @@ use Aws\Exception\AwsException;
  */
 
 $alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
+ 
+// snippet-start:[cloudwatch.php.___.main]
+$client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2010-08-01'
@@ -46,7 +53,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[cloudwatch.php.enable_alarm.main]
+// snippet-end:[cloudwatch.php.enable_alarm.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[EnableAlarmActions.php demonstrates how to enable actions for specified alarms.]
 // snippet-keyword:[PHP]
