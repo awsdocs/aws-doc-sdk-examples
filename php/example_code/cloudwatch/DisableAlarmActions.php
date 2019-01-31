@@ -18,14 +18,14 @@
  *
  *
  */
-// snippet-start:[cloudwatch.php.describe_alarms_actions.complete]
-// snippet-start:[cloudwatch.php.describe_alarms_actions.import]
+// snippet-start:[cloudwatch.php.disable_alarms_actions.complete]
+// snippet-start:[cloudwatch.php.disable_alarms_actions.import]
 
 require 'vendor/autoload.php';
 
 use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
-// snippet-end:[cloudwatch.php.describe_alarms_actions.import]
+// snippet-end:[cloudwatch.php.disable_alarms_actions.import]
 
 /**
  * Disable Alarm Actions in CloudWatch
@@ -36,7 +36,7 @@ use Aws\Exception\AwsException;
 
 $alarmName = "<ALARM_NAME>";
  
-// snippet-start:[cloudwatch.php.___.main]
+// snippet-start:[cloudwatch.php.disable_alarms_actions.main]
 $client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -54,8 +54,8 @@ try {
 }
  
  
-// snippet-end:[cloudwatch.php.describe_alarms_actions.main]
-// snippet-end:[cloudwatch.php.describe_alarms_actions.complete]
+// snippet-end:[cloudwatch.php.disable_alarms_actions.main]
+// snippet-end:[cloudwatch.php.disable_alarms_actions.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DisableAlarmActions.php demonstrates how to disable actions for specified alarms.]
 // snippet-keyword:[PHP]
