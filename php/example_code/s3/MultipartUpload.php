@@ -25,15 +25,16 @@ use Aws\Exception\AwsException;
 use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
 // snippet-end:[s3.php.multipart_upload.import]
+
+// Create an S3Client
 // snippet-start:[s3.php.multipart_upload.main]
-// Create a S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2006-03-01'
 ]);
 
-// Use Multipart Upload
+// Use multipart upload
 $source = '/path/to/large/file.zip';
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',

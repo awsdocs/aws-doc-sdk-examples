@@ -50,7 +50,7 @@ do {
     }
 } while (!isset($result));
 
-//Abort a multipart-upload if failed
+//Abort a multipart upload if failed
 try {
     $result = $uploader->upload();
 } catch (MultipartUploadException $e) {
