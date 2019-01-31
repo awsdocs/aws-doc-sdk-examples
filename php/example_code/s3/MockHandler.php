@@ -13,7 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_commands.html
  *
  */
 // snippet-start:[s3.php.mock_handler.complete]
@@ -50,7 +50,7 @@ echo $result['foo']; // Outputs 'bar'
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]
-// snippet-keyword:[CommandPool]
+// snippet-keyword:[MockHandler]
 // snippet-service:[s3]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[]
