@@ -17,7 +17,7 @@
  *
  */
 // snippet-start:[apigateway.php.list_base_path_mapping.complete]
-// snippet-start:[apigateway.php.list_base_path_mapping_.import]
+// snippet-start:[apigateway.php.list_base_path_mapping.import]
 
 require 'vendor/autoload.php';
 

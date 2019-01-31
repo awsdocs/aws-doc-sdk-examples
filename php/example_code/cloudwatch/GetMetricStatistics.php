@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
  
-// snippet-start:[cloudwatch.php.___.main]
+// snippet-start:[cloudwatch.php.get_metric_stats.main]
 $client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',

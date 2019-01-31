@@ -24,7 +24,7 @@
 require 'vendor/autoload.php';
 
 use Aws\Ec2\Ec2Client;
-
+// snippet-end:[ec2.php.delete_security_group.import]
 /**
  * Delete a Security Group
  *

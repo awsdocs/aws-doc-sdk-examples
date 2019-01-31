@@ -36,7 +36,7 @@ use Aws\Exception\AwsException;
 
 $alarmName = "<ALARM_NAME>";
  
-// snippet-start:[cloudwatch.php.___.main]
+// snippet-start:[cloudwatch.php.enable_alarm.main]
 $client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
