@@ -86,4 +86,4 @@ public class ListEvents {
     }
 
 }
- // snippet-end:[redshift.java.ListEvents.complete]import java.io.IOException;
+ // snippet-end:[redshift.java.ListEvents.complete]
