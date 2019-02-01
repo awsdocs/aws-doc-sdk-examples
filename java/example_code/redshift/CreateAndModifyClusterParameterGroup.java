@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.amazonaws.services.redshift.model.*;
 
 
@@ -39,6 +40,7 @@ public class CreateAndModifyClusterParameterGroup {
     public static AmazonRedshift client;
     public static String clusterParameterGroupName = "parametergroup1";
     public static String clusterIdentifier = "***provide a cluster identifier***";
+
     public static String parameterGroupFamily = "redshift-1.0";
 
     public static void main(String[] args) throws IOException {

@@ -21,15 +21,15 @@
 // snippet-keyword:[DeleteClusterSnapshot]
 // snippet-keyword:[DescribeClusterSnapshots]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-30]
+
+// snippet-sourcedate:[2015-02-19]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndDescribeSnapshot.complete]
-
-package com.amazonaws.services.redshift;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 import com.amazonaws.services.redshift.model.*;
 

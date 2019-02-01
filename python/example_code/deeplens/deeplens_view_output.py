@@ -125,17 +125,17 @@ greengrass_infinite_infer_run()
 # Instead, the code is executed in an infinite loop for our example.
 def function_handler(event, context):
     return
-#snippet-end:[deeplens.python.deeplens_view_output.lambda_function]
+# snippet-end:[deeplens.python.deeplens_view_output.lambda_function]
 
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_view_output.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS GreenGrass SDK]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS DeepLens]
-#snippet-keyword:[AWS Lambda]
-#snippet-service:[deeplens]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-07]
-#snippet-sourceauthor:[AWS]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_view_output.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS GreenGrass SDK]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS DeepLens]
+# snippet-keyword:[AWS Lambda]
+# snippet-service:[deeplens]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]

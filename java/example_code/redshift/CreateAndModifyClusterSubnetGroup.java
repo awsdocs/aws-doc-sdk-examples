@@ -20,6 +20,7 @@
 // snippet-keyword:[CreateClusterSubnetGroup]
 // snippet-keyword:[DescribeClusterSubnetGroups]
 // snippet-sourcetype:[full-example]
+
 // snippet-sourcedate:[2019-02-01]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndModifyClusterSubnetGroup.complete]
@@ -35,6 +36,7 @@ public class CreateAndModifyClusterSubnetGroup {
 
     public static AmazonRedshift client;
     public static String clusterSubnetGroupName = "subnet-group-name";
+
     // You can use the VPC console to find subnet IDs to use.
     public static String subnetId1 = "***provide a subnet ID****";
     public static String subnetId2 = "***provide a subnet ID****";

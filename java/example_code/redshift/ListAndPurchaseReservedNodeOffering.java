@@ -38,6 +38,7 @@ public class ListAndPurchaseReservedNodeOffering {
 
     public static AmazonRedshift client;
     public static String nodeTypeToPurchase = "dc2.large";
+
     public static Double fixedPriceLimit = 10000.00;
     public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<ReservedNodeOffering>();
 
@@ -45,6 +46,7 @@ public class ListAndPurchaseReservedNodeOffering {
 
         // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
        client = AmazonRedshiftClientBuilder.defaultClient();
+
 
         try {
              listReservedNodes();

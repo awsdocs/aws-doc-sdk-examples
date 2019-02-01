@@ -28,7 +28,6 @@ package com.amazonaws.services.redshift;
 import java.util.Date;
 import java.io.IOException;
 
-
 import com.amazonaws.services.redshift.model.*;
 
 public class ListEvents {
@@ -43,7 +42,7 @@ public class ListEvents {
 
        client = AmazonRedshiftClientBuilder.defaultClient();
 
-        try {
+      try {
              listEvents();
         } catch (Exception e) {
             System.err.println("Operation failed: " + e.getMessage());
@@ -85,4 +84,6 @@ public class ListEvents {
         System.out.format("Message: %s\n", event.getMessage());
         System.out.format("Date: %s\n", event.getDate());
     }
-}// snippet-end:[redshift.java.ListEvents.complete]import java.io.IOException;
+
+}
+ // snippet-end:[redshift.java.ListEvents.complete]import java.io.IOException;

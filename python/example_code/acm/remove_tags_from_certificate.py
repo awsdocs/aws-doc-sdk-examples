@@ -37,15 +37,15 @@ print(response)
 
  
  
-#snippet-end:[acm.python.remove_tags_for_certificate.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[remove_tags_from_certificate.py demonstrates how to remove one or more tags from an AWS Certificate Manager certificate. ]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Certificate Manager]
-#snippet-service:[acm]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[walkerk1980]
+# snippet-end:[acm.python.remove_tags_for_certificate.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[remove_tags_from_certificate.py demonstrates how to remove one or more tags from an AWS Certificate Manager certificate. ]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Certificate Manager]
+# snippet-service:[acm]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[walkerk1980]
 

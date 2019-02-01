@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-work-with-alarms.html
  *
+ *
+ *
  */
+// snippet-start:[cloudwatch.php.delete_alarm.complete]
+// snippet-start:[cloudwatch.php.delete_alarm.import]
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
+use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatch.php.delete_alarm.import]
 
 /**
  * Delete Alarm in CloudWatch
@@ -29,8 +35,9 @@ use Aws\Exception\AwsException;
  */
 
 $alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
+ 
+// snippet-start:[cloudwatch.php.delete_alarm.main]
+$client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2010-08-01'
@@ -46,15 +53,17 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DeleteAlarms.php demonstrates how to delete an array of Amazon CloudWatch alarms given the alarm names.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[cloudwatch.php.delete_alarm.main]
+// snippet-end:[cloudwatch.php.delete_alarm.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DeleteAlarms.php demonstrates how to delete an array of Amazon CloudWatch alarms given the alarm names.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Cloudwatch]
+// snippet-service:[cloudwatch]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

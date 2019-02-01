@@ -14,7 +14,7 @@
 # This sample is used in the AWS IoT Greengrass Developer Guide: 
 # https://docs.aws.amazon.com/greengrass/latest/developerguide/lambda-functions.html#lambda-migrate-sdks
 #
-#snippet-start:[greengrass.python.iot-data-client-boto3.complete]
+# snippet-start:[greengrass.python.iot-data-client-boto3.complete]
 import boto3
         
 client = boto3.client('iot-data')
@@ -23,16 +23,16 @@ response = client.publish(
 	qos = 0,
 	payload = "Some payload".encode()
 )
-#snippet-end:[greengrass.python.iot-data-client-boto3.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[Instantiates the iot-data client from the AWS SDK.]
-#snippet-keyword:[Python]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS IoT Greengrass]
-#snippet-keyword:[AWS SDK]
-#snippet-keyword:[iot-data client]
-#snippet-keyword:[publish]
-#snippet-service:[greengrass]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-02]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[greengrass.python.iot-data-client-boto3.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[Instantiates the iot-data client from the AWS SDK.]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS IoT Greengrass]
+# snippet-keyword:[AWS SDK]
+# snippet-keyword:[iot-data client]
+# snippet-keyword:[publish]
+# snippet-service:[greengrass]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-02]
+# snippet-sourceauthor:[AWS]

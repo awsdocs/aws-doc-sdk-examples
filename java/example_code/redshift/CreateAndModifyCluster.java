@@ -10,8 +10,8 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- */
 
+ */
 // snippet-sourcedescription:[CreateAndModifyCluster demonstrates how to create and modify an Amazon Redshift cluster.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
@@ -28,14 +28,15 @@
 package com.amazonaws.services.redshift;
 
 import java.io.IOException;
-
 import com.amazonaws.services.redshift.AmazonRedshift;
 import com.amazonaws.services.redshift.AmazonRedshiftClientBuilder;
+
 import com.amazonaws.services.redshift.model.*;
 
 public class CreateAndModifyCluster {
 
     public static AmazonRedshift client;
+
     public static String clusterIdentifier = "***provide a cluster identifier***";
     public static long sleepTime = 20;
 
@@ -50,12 +51,14 @@ public class CreateAndModifyCluster {
             describeClusters();
             modifyCluster();
             describeClusters();
+
         } catch (Exception e) {
             System.err.println("Operation failed: " + e.getMessage());
         }
     }
 
     private static void createCluster() {
+
         CreateClusterRequest request = new CreateClusterRequest()
                 .withClusterIdentifier(clusterIdentifier)
                 .withMasterUsername("masteruser")
@@ -104,7 +107,8 @@ public class CreateAndModifyCluster {
         System.out.println("Wating for cluster to become available.");
         while (!clusterReady) {
             DescribeClustersResult result = client.describeClusters(new DescribeClustersRequest()
-                                                                            .withClusterIdentifier(clusterIdentifier));
+        .withClusterIdentifier(clusterIdentifier));
+
             String status = (result.getClusters()).get(0).getClusterStatus();
             if (status.equalsIgnoreCase("available")) {
                 clusterReady = true;
@@ -116,5 +120,5 @@ public class CreateAndModifyCluster {
         }
     }
 }
-// snippet-end:[redshift.java.CreateAndModifyCluster.complete]
 
+// snippet-end:[redshift.java.CreateAndModifyCluster.complete]

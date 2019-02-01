@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-sending-events.html
  *
+ *
+ *
  */
+// snippet-start:[cloudwatchevents.php.put_rule.complete]
+// snippet-start:[cloudwatchevents.php.put_rule.import]
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatchEvents\CloudWatchEventsClient;
+use Aws\CloudWatchEvents\CloudWatchEventsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatchevents.php.put_rule.import]
 
 /**
  * Put Rule
@@ -27,8 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
-$client = new CloudWatchEventsClient([
+ 
+// snippet-start:[cloudwatchevents.php.put_rule.main]
+$client = new Aws\cloudwatchevents\cloudwatcheventsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2015-10-07'
@@ -47,15 +54,17 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[PutRule.php demonstrates how to create or update the specified rule. Rules are enabled by default, or based on value of the state. You can disable a rule using DisableRule.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Events]
-//snippet-service:[events]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[cloudwatchevents.php.put_rule.main]
+// snippet-end:[cloudwatchevents.php.put_rule.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[PutRule.php demonstrates how to create or update the specified rule. Rules are enabled by default, or based on value of the state. You can disable a rule using DisableRule.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon CloudWatch Events]
+// snippet-service:[events]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

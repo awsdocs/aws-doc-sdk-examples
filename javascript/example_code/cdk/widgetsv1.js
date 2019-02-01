@@ -17,6 +17,11 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 //snippet-start:[cdk.typescript.widgets.exports_main_v1]
+const AWS = require('aws-sdk');
+const S3 = new AWS.S3();
+
+const bucketName = process.env.BUCKET;
+
 exports.main = async function(event, context) {
   try {
     var method = event.httpMethod;

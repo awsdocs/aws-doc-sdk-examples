@@ -1,4 +1,3 @@
- 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,16 +13,17 @@
 */
 
 //snippet-sourcedescription:[ec2_describekeypairs.js demonstrates how to retrieve information about one or more key pairs.]
+//snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ec2-example-key-pairs.html
+
 // snippet-start:[ec2.JavaScript.keypairs.describeKeyPair]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
@@ -33,9 +33,7 @@ AWS.config.update({region: 'REGION'});
 // Create EC2 service object
 var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 
-//var params = {};
-
-// Describe key pairs
+// Retrieve key pair descriptions; no params needed
 ec2.describeKeyPairs(function(err, data) {
    if (err) {
       console.log("Error", err);

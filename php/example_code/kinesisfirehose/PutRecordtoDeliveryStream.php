@@ -53,14 +53,14 @@ try {
 }
  
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[PutRecordtoDeliveryStream.php demonstrates how to send data through Amazon Kinesis Data Firehose Delivery Streams to your specified destination. After you create a Delivery Stream, use DescribeDeliveryStream to see if the Delivery Stream is active before sending data to it.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Kinesis Data Firehose]
-//snippet-service:[firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[PutRecordtoDeliveryStream.php demonstrates how to send data through Amazon Kinesis Data Firehose Delivery Streams to your specified destination. After you create a Delivery Stream, use DescribeDeliveryStream to see if the Delivery Stream is active before sending data to it.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Kinesis Data Firehose]
+// snippet-service:[firehose]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 
