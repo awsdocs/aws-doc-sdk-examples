@@ -34,7 +34,8 @@ AWS.config.update({region: 'REGION'});
 s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 var bucketParams = {Bucket: process.argv[2]};
-// call S3 to delete policy for selected bucket
+
+// call S3 to delete website configuration for selected bucket
 s3.deleteBucketWebsite(bucketParams, function(error, data) {
   if (error) {
     console.log("Error", err);
