@@ -21,43 +21,30 @@
 // snippet-keyword:[PurchaseReservedNodeOffering]
 // snippet-keyword:[ReservedNode]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2015-02-19]
+// snippet-sourcedate:[2019-01-31]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.ListAndPurchaseReservedNodeOffering.complete]
+
+package com.amazonaws.services.redshift;
+
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.PropertiesCredentials;
-import com.amazonaws.services.redshift.AmazonRedshiftClient;
-import com.amazonaws.services.redshift.model.DescribeReservedNodeOfferingsRequest;
-import com.amazonaws.services.redshift.model.DescribeReservedNodeOfferingsResult;
-import com.amazonaws.services.redshift.model.DescribeReservedNodesResult;
-import com.amazonaws.services.redshift.model.PurchaseReservedNodeOfferingRequest;
-import com.amazonaws.services.redshift.model.ReservedNode;
-import com.amazonaws.services.redshift.model.ReservedNodeAlreadyExistsException;
-import com.amazonaws.services.redshift.model.ReservedNodeOffering;
-import com.amazonaws.services.redshift.model.ReservedNodeOfferingNotFoundException;
-import com.amazonaws.services.redshift.model.ReservedNodeQuotaExceededException;
-
+import com.amazonaws.services.redshift.model.*;
 
 public class ListAndPurchaseReservedNodeOffering {
 
-    public static AmazonRedshiftClient client;
-    public static String nodeTypeToPurchase = "ds1.xlarge";
+    public static AmazonRedshift client;
+    public static String nodeTypeToPurchase = "dc2.large";
     public static Double fixedPriceLimit = 10000.00;
     public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<ReservedNodeOffering>();
 
     public static void main(String[] args) throws IOException {
 
-
-        AWSCredentials credentials = new PropertiesCredentials(
-                ListAndPurchaseReservedNodeOffering.class
-                .getResourceAsStream("AwsCredentials.properties"));
-
-        client = new AmazonRedshiftClient(credentials);
+        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+       client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
              listReservedNodes();

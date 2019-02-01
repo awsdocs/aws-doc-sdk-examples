@@ -20,33 +20,29 @@
 // snippet-keyword:[CreateClusterSubnetGroup]
 // snippet-keyword:[DescribeClusterSubnetGroups]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2015-02-19]
+// snippet-sourcedate:[2019-02-01]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndModifyClusterSubnetGroup.complete]
+package com.amazonaws.services.redshift;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.PropertiesCredentials;
-import com.amazonaws.services.redshift.AmazonRedshiftClient;
 import com.amazonaws.services.redshift.model.*;
 
 public class CreateAndModifyClusterSubnetGroup {
 
-    public static AmazonRedshiftClient client;
-    public static String clusterSubnetGroupName = "***provide a cluster subnet group name ****";
+    public static AmazonRedshift client;
+    public static String clusterSubnetGroupName = "subnet-group-name";
     // You can use the VPC console to find subnet IDs to use.
     public static String subnetId1 = "***provide a subnet ID****";
     public static String subnetId2 = "***provide a subnet ID****";
 
     public static void main(String[] args) throws IOException {
 
-        AWSCredentials credentials = new PropertiesCredentials(
-                CreateAndModifyClusterSubnetGroup.class
-                        .getResourceAsStream("AwsCredentials.properties"));
-
-        client = new AmazonRedshiftClient(credentials);
+        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+       client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
              createClusterSubnetGroup();
