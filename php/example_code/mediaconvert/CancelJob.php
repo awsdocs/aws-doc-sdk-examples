@@ -26,7 +26,6 @@ require 'vendor/autoload.php';
 use Aws\MediaConvert\MediaConvertClient;  
 use Aws\Exception\AwsException;
 // snippet-end:[mediaconvert.php.cancel_job.import]
-// snippet-end:[mediaconvert.php.cancel_job.import]
 
 /**
  * Cancel a Job for AWS Elemental MediaConvert.
@@ -57,8 +56,6 @@ try {
  
 // snippet-end:[mediaconvert.php.cancel_job.main]
 // snippet-end:[mediaconvert.php.cancel_job.complete] 
-// snippet-end:[mediaconvert.php.cancel_job.main]
-// snippet-end:[mediaconvert.php.cancel_job.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CancelJob.php demonstrates how to cancel an existing AWS Elemental MediaConvert Job.]
 // snippet-keyword:[PHP]
