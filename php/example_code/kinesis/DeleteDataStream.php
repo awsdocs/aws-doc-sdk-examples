@@ -14,12 +14,17 @@
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the
  *
+ *
+ *
  */
+// snippet-start:[kinesis.php.delete_data_stream.complete]
+// snippet-start:[kinesis.php.delete_data_stream.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient;
+use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kinesis.php.delete_data_stream.import]
 
 /**
  * Remove an existing Amazon Kinesis Data Stream.
@@ -28,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
+//Create a KinesisClient 
+// snippet-start:[kinesis.php.delete_data_stream.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
@@ -48,7 +54,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[kinesis.php.delete_data_stream.main]
+// snippet-end:[kinesis.php.delete_data_stream.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteDataStream.php demonstrates how to delete a Amazon Kinesis Data Streams stream.]
 // snippet-keyword:[PHP]

@@ -14,12 +14,17 @@
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the
  *
+ *
+ *
  */
+// snippet-start:[kinesis.php.update_data_stream_shards.complete]
+// snippet-start:[kinesis.php.update_data_stream_shards.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient;
+use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kinesis.php.update_data_stream_shards.import]
 
 /**
  * Updating number of shareds in an Amazon Kinesis Data Stream.
@@ -29,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
+//Create a KinesisClient 
+// snippet-start:[kinesis.php.update_data_stream_shards.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
@@ -53,7 +59,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[kinesis.php.update_data_stream_shards.main]
+// snippet-end:[kinesis.php.update_data_stream_shards.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[UpdateDataStreamShards.php demonstrates how to update the shards count of a Amazon Kinesis Data Streams stream. Remember you can only double your shard count when increasing. Also you may not scale down to more than half of your current shard count when decreasing. ]
 // snippet-keyword:[PHP]
