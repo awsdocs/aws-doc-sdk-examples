@@ -105,4 +105,4 @@ AWS.config.credentials.get(function(err) {
     }, 1000);
 });
 // snippet-end:[kinesis.JavaScript.kinesis-example.putRecords]
-// snippet-end:[kinesis.JavaScript.pageScroll.kinesis-example]
+// snippet-end:[kinesis.JavaScript.kinesis-example.complete]
