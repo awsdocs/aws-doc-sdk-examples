@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-managing-access-keys.html
  *
+ *
+ *
  */
+// snippet-start:[iam.php.delete_account_alias.complete]
+// snippet-start:[iam.php.delete_account_alias.import]
+
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
+use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[iam.php.delete_account_alias.import]
 
 /**
  * Delete access key
@@ -27,7 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+//Create an IAM Client
+// snippet-start:[iam.php.delete_account_alias.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -45,7 +53,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[iam.php.delete_account_alias.main]
+// snippet-end:[iam.php.delete_account_alias.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteAccessKey.php demonstrates how to delete access key.]
 // snippet-keyword:[PHP]
