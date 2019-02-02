@@ -15,11 +15,18 @@
  * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/emc-examples-jobs.html
  *
+ *
+ *
  */
+// snippet-start:[mediaconvert.php.cancel_job.complete]
+// snippet-start:[mediaconvert.php.cancel_job.import]
+
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;
+use Aws\MediaConvert\MediaConvertClient;  
 use Aws\Exception\AwsException;
+// snippet-end:[mediaconvert.php.cancel_job.import]
+// snippet-end:[mediaconvert.php.cancel_job.import]
 
 /**
  * Cancel a Job for AWS Elemental MediaConvert.
@@ -28,7 +35,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create an AWSMediaConvert client object with your account specific endpoint.
+//Create an AWSMediaConvert client object with your account specific endpoint. 
+// snippet-start:[mediaconvert.php.cancel_job.main]
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',
@@ -46,7 +54,11 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[mediaconvert.php.cancel_job.main]
+// snippet-end:[mediaconvert.php.cancel_job.complete] 
+// snippet-end:[mediaconvert.php.cancel_job.main]
+// snippet-end:[mediaconvert.php.cancel_job.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CancelJob.php demonstrates how to cancel an existing AWS Elemental MediaConvert Job.]
 // snippet-keyword:[PHP]
