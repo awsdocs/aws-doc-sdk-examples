@@ -14,12 +14,17 @@
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the
  *
+ *
+ *
  */
+// snippet-start:[kinesis.php.list_data_stream.complete]
+// snippet-start:[kinesis.php.list_data_stream.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient;
+use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kinesis.php.list_data_stream.import]
 
 /**
  * List existing Amazon Kinesis Data Streams.
@@ -28,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
+//Create a KinesisClient 
+// snippet-start:[kinesis.php.list_data_stream.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
@@ -45,7 +51,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[kinesis.php.list_data_stream.main]
+// snippet-end:[kinesis.php.list_data_stream.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListDataStreamShards.php demonstrates how to list the first 10 Amazon Kinesis Data Streams from your AWS account in the selected region.]
 // snippet-keyword:[PHP]

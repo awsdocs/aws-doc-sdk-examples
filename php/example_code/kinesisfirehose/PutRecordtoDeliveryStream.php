@@ -14,12 +14,17 @@
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the
  *
+ *
+ *
  */
+// snippet-start:[firehose.php.put_record_delivery_stream.complete]
+// snippet-start:[firehose.php.put_record_delivery_stream.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient;
+use Aws\Firehose\FirehoseClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[firehose.php.put_record_delivery_stream.import]
 
 /**
  * Add a data blog to an existing Amazon Kinesis Firehose Delivery Stream.
@@ -28,7 +33,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
+//Create a KinesisClient 
+// snippet-start:[firehose.php.put_record_delivery_stream.main]
 $firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
@@ -52,7 +58,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[firehose.php.put_record_delivery_stream.main]
+// snippet-end:[firehose.php.put_record_delivery_stream.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[PutRecordtoDeliveryStream.php demonstrates how to send data through Amazon Kinesis Data Firehose Delivery Streams to your specified destination. After you create a Delivery Stream, use DescribeDeliveryStream to see if the Delivery Stream is active before sending data to it.]
 // snippet-keyword:[PHP]

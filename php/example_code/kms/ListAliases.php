@@ -15,12 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-aliases.html
  *
+ *
+ *
  */
+// snippet-start:[kms.php.list_aliases.complete]
+// snippet-start:[kms.php.list_aliases.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient;
+use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kms.php.list_aliases.import]
 
 /**
  * Creating an Amazon KMS client.
@@ -29,8 +34,9 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient
-$KmsClient = new Aws\Kms\KmsClient([
+//Create a KMSClient 
+// snippet-start:[kms.php.list_aliases.main]
+KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
     'region' => 'us-east-2'
@@ -49,7 +55,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[kms.php.list_aliases.main]
+// snippet-end:[kms.php.list_aliases.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListAliases.php demonstrates how to list aliases in the account and region.]
 // snippet-keyword:[PHP]
