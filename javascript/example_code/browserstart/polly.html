@@ -67,10 +67,11 @@
             // Create presigned URL of synthesized speech file
             signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
             if (error) {
-            document.getElementById('result').innerHTML = error;
+                document.getElementById('result').innerHTML = error;
             } else {
-            audioSource.src = url;
-            document.getElementById('result').innerHTML = "Speech ready to play.";
+                document.getElementById('audioSource').src = url;
+                document.getElementById('audioPlayback').load();
+                document.getElementById('result').innerHTML = "Speech ready to play.";
             }
           });
         }
