@@ -13,13 +13,11 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the
- *
- *
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-example-shard.html
  *
  */
 // snippet-start:[kinesis.php.update_data_stream_shards.complete]
 // snippet-start:[kinesis.php.update_data_stream_shards.import]
-
 require 'vendor/autoload.php';
 
 use Aws\Kinesis\KinesisClient; 
