@@ -35,14 +35,15 @@ use Aws\Exception\AwsException;
  */
 
 //Create an AWSMediaConvert client object with your account specific endpoint.  
-// snippet-start:[mediaconvert.php.create_job.main]
+// snippet-start:[mediaconvert.php.create_job.region]
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',
     'profile' => 'default',
     'endpoint' => 'ACCOUNT_ENDPOINT'
 ]);
-
+// snippet-end:[mediaconvert.php.create_job.region]
+// snippet-start:[mediaconvert.php.create_job.jobsettings]
 $jobSetting = [
     "OutputGroups" => [
         [
@@ -167,7 +168,8 @@ $jobSetting = [
         "Source" => "EMBEDDED"
     ]
 ]
-
+// snippet-end:[mediaconvert.php.create_job.jobsettings]
+// snippet-start:[mediaconvert.php.create_job.main]
 try {
     $result = $mediaConvertClient->createJob([
         "Role" => "IAM_ROLE_ARN",
