@@ -13,9 +13,7 @@
  * specific language governing permissions and limitations under the License.
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the
- *
- *
- *
+ *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-firehose-example-delivery-stream.html
  */
 // snippet-start:[firehose.php.describe_delivery_stream.complete]
 // snippet-start:[firehose.php.describe_delivery_stream.import]
