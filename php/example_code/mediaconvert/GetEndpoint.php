@@ -35,6 +35,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a MediaConvert
+// snippet-start:[mediaconvert.php.get_endpoint.region]
 $client = new Aws\MediaConvert\MediaConvertClient([
     'profile' => 'default',
     'version' => '2017-08-29',
@@ -49,13 +50,13 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+// snippet-end:[mediaconvert.php.get_endpoint.region]
+// snippet-start:[mediaconvert.php.get_endpoint.main]
 $single_endpoint_url = $result['Endpoints'][0]['Url'];
 
 print("Your endpoint is " . $single_endpoint_url);
 
 //Create an AWSMediaConvert client object with the endpoint URL that you retrieved: 
-// snippet-start:[mediaconvert.php.get_endpoint.main]
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',

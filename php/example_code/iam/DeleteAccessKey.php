@@ -18,14 +18,14 @@
  *
  *
  */
-// snippet-start:[iam.php.delete_account_alias.complete]
-// snippet-start:[iam.php.delete_account_alias.import]
+// snippet-start:[iam.php.delete_access_key.complete]
+// snippet-start:[iam.php.delete_access_key.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
-// snippet-end:[iam.php.delete_account_alias.import]
+// snippet-end:[iam.php.delete_access_key.import]
 
 /**
  * Delete access key
@@ -35,7 +35,7 @@ use Aws\Exception\AwsException;
  */
  
 //Create an IAM Client
-// snippet-start:[iam.php.delete_account_alias.main]
+// snippet-start:[iam.php.delete_access_key.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -54,8 +54,8 @@ try {
 }
  
  
-// snippet-end:[iam.php.delete_account_alias.main]
-// snippet-end:[iam.php.delete_account_alias.complete]
+// snippet-end:[iam.php.delete_access_key.main]
+// snippet-end:[iam.php.delete_access_key.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteAccessKey.php demonstrates how to delete access key.]
 // snippet-keyword:[PHP]

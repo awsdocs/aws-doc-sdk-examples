@@ -12,12 +12,12 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-example-data-stream.html
  *
  */
 // snippet-start:[kinesis.php.create_data_stream.complete]
 // snippet-start:[kinesis.php.create_data_stream.import]
-
 require 'vendor/autoload.php';
 
 use Aws\Kinesis\KinesisClient; 
