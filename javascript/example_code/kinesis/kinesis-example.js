@@ -47,10 +47,10 @@ AWS.config.credentials.get(function(err) {
     var kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
     });
-	// snippet-end:[kinesis.JavaScript.kinesis-example.config]
+    // snippet-end:[kinesis.JavaScript.kinesis-example.config]
 
-	// snippet-start:[kinesis.JavaScript.kinesis-example.addEventListener]
-	// Get the ID of the Web page element.
+    // snippet-start:[kinesis.JavaScript.kinesis-example.addEventListener]
+    // Get the ID of the Web page element.
     var blogContent = document.getElementById('BlogContent');
 
     // Get Scrollable height
@@ -83,9 +83,9 @@ AWS.config.credentials.get(function(err) {
             recordData.push(record);
         }, 100);
     });
-	// snippet-end:[kinesis.JavaScript.kinesis-example.addEventListener]
+    // snippet-end:[kinesis.JavaScript.kinesis-example.addEventListener]
 
-	// snippet-start:[kinesis.JavaScript.kinesis-example.putRecords]
+    // snippet-start:[kinesis.JavaScript.kinesis-example.putRecords]
     // upload data to Amazon Kinesis every second if data exists
     setInterval(function() {
         if (!recordData.length) {
