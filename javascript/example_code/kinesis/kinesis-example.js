@@ -43,14 +43,14 @@ AWS.config.credentials.get(function(err) {
         console.error(err);
         return;
     }
-	// snippet-end:[kinesis.JavaScript.kinesis-example.config]
-
-	// snippet-start:[kinesis.JavaScript.kinesis-example.addEventListener]
     // create Amazon Kinesis service object
     var kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
     });
+	// snippet-end:[kinesis.JavaScript.kinesis-example.config]
 
+	// snippet-start:[kinesis.JavaScript.kinesis-example.addEventListener]
+	// Get the ID of the Web page element.
     var blogContent = document.getElementById('BlogContent');
 
     // Get Scrollable height
