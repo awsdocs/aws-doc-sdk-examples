@@ -60,9 +60,9 @@ def main():
     """
 
     # Job configuration settings. Set these values before running the script.
-    pipeline_id = '1548885123849-ki5vov'  # Set to the ID of an existing Elastic Transcoder pipeline
-    input_file = 'HappyBday.mp4'  # Set to the name of an existing file in the S3 input bucket
-    output_file = 'HappyBday'     # Set to the desired root name of the transcoded output file
+    pipeline_id = 'PIPELINE_ID'         # ID of an existing Elastic Transcoder pipeline
+    input_file = 'FILE_TO_TRANSCODE'    # Name of an existing file in the S3 input bucket
+    output_file = 'TRANSCODED_FILE'     # Desired root name of the transcoded output files
 
     # Other job configuration settings. Optionally change as desired.
     output_file_prefix = 'elastic-transcoder-samples/output/hls/'  # Prefix for all output files
