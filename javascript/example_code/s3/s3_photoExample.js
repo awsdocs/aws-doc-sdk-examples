@@ -138,7 +138,7 @@ function viewAlbum(albumName) {
               photoKey.replace(albumPhotosKey, ''),
             '</span>',
           '</div>',
-        '<span>',
+        '</span>',
       ]);
     });
     var message = photos.length ?
