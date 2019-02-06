@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-enable-long-polling.html
  *
  */
+// snippet-start:[sqs.php.long_polling_set_queue_attributes.complete]
+// snippet-start:[sqs.php.long_polling_set_queue_attributes.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.long_polling_set_queue_attributes.import]
 
 /**
  * Set attribute in SQS queue to enable long polling
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueUrl = "QUEUE_URL";
-
+ 
+// snippet-start:[sqs.php.long_polling_set_queue_attributes.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -49,7 +53,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.long_polling_set_queue_attributes.main]
+// snippet-end:[sqs.php.long_polling_set_queue_attributes.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LongPollingSetQueueAttributes.php demonstrates how to set the default number of seconds to wait between retieving a message to reduce the number of empty responses returned and thus your bill.]
 // snippet-keyword:[PHP]
