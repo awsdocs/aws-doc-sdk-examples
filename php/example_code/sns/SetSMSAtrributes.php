@@ -16,10 +16,13 @@
  *
  *
  */
+// snippet-start:[sns.php.____.complete]
+// snippet-start:[sns.php.____.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient;
+use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sns.php.____.import]
 
 /**
  * Set the type of SMS Message sent by default from the AWS SNS service.
@@ -27,7 +30,8 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+// snippet-start:[sns.php.____.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -46,7 +50,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sns.php.____.main]
+// snippet-end:[sns.php.____.complete]
 // snippet-sourcedescription:[SetSMSAttributes.php demonstrates how to update the default SMS type.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
