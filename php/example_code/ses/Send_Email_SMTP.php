@@ -12,7 +12,7 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
+// snippet-start:[ses.php.send_email_SMTP.complete]
 
 // Modify the path in the require statement below to refer to the
 // location of your Composer autoload.php file.
@@ -81,7 +81,7 @@ if (!$mail->send()) {
     echo "Email sent!", PHP_EOL;
 }
  
-
+// snippet-end:[ses.php.send_email_SMTP.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Send_Email_SMTP.php demonstrates how to send email through the Amazon SES SMTP interface.]
 // snippet-keyword:[PHP]

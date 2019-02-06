@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-using-queues.html
  *
  */
+// snippet-start:[sqs.php.get_queue_url.complete]
+// snippet-start:[sqs.php.get_queue_url.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.get_queue_url.import]
 
 /**
  * Get SQS queue url
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueName = "SQS_QUEUE_NAME";
-
+ 
+// snippet-start:[sqs.php.get_queue_url.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -46,7 +50,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.get_queue_url.main]
+// snippet-end:[sqs.php.get_queue_url.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetQueueUrl.php demonstrates how to return the URL of an existing Amazon SQS queue.]
 // snippet-keyword:[PHP]

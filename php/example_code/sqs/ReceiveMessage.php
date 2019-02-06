@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-send-receive-messages.html
  *
  */
+// snippet-start:[sqs.php.recieve_message.complete]
+// snippet-start:[sqs.php.recieve_message.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.recieve_message.import]
 
 /**
  * Receive SQS message
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueUrl = "QUEUE_URL";
-
+ 
+// snippet-start:[sqs.php.recieve_message.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -58,7 +62,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.recieve_message.main]
+// snippet-end:[sqs.php.recieve_message.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ReceiveMessage.php demonstrates how to retrieve up to 10 messages from a specified queue.]
 // snippet-keyword:[PHP]

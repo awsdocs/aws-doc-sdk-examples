@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-enable-long-polling.html
  *
  */
+// snippet-start:[sqs.php.long_polling_create_queue.complete]
+// snippet-start:[sqs.php.long_polling_create_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.long_polling_create_queue.import]
 
 /**
  * Create SQS Queue with Long Polling
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueName = "QUEUE_NAME";
-
+ 
+// snippet-start:[sqs.php.long_polling_create_queue.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -49,7 +53,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.long_polling_create_queue.main]
+// snippet-end:[sqs.php.long_polling_create_queue.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LongPollingCreateQueue.php demonstrates how to create a queue with a default 20 second to wait between retrieving messages. This will reduce the number of empty responses returned and thus your bill.]
 #snippet-keyword:[Python]

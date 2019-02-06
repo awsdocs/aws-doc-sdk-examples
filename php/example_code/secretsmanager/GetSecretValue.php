@@ -16,10 +16,14 @@
  * https://aws.amazon.com/developers/getting-started/php/
  *
  */
+// snippet-start:[secretsmanager.php.get_secret_value.complete]
+// snippet-start:[secretsmanager.php.get_secret_value.import]
+
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.get_secret_value.import]
 
 /**
  * In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
@@ -30,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a Secrets Manager Client
+// Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.get_secret_value.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -81,7 +86,9 @@ if (isset($result['SecretString'])) {
 }
 
 // Your code goes here; 
-
+ 
+// snippet-end:[secretsmanager.php.get_secret_value.main]
+// snippet-end:[secretsmanager.php.get_secret_value.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
 // snippet-keyword:[PHP]
