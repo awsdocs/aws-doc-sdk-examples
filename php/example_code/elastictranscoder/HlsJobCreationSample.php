@@ -87,8 +87,13 @@ function create_hls_job($transcoder_client, $pipeline_id, $input_key, $output_ke
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // If the request method is GET, return the form which will allow the user to
   // specify pipeline and input key.
-  echo "Create an Elastic Transcoder HLS job.<br><form action=\"http://ec2-23-22-149-62.compute-1.amazonaws.com/samples/HlsJobCreationSample.php\" method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\"http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#php-pipeline\"> Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br><input type=\"submit\" value=\"Create Job\" /></form>";
-} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  echo "Create an Elastic Transcoder HLS job.<br><form action=\"HlsJobCreationSample.php\" "
+  echo "method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\""
+  echo "http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#php-pipeline\">"
+  echo "Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br>"
+  echo "<input type=\"submit\" value=\"Create Job\" /></form>";
+
+  } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // If the request method is POST, create an HLS job using the posted data.
   $job = create_hls_job($transcoder_client, $_POST['pipelineid'], $_POST['inputkey'], $output_key_prefix, $hls_presets, $segment_duration);
   
