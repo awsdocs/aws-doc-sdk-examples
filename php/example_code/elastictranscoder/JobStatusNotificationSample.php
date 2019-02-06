@@ -83,7 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET'){
   // If the request method is GET and no 'Id' is specified, return the HTML form
   // which will allow the user to create an elastic transcoder job.
-  echo "Create an Elastic Transcoder job and consume job status using notificaitons.<br><form action=\"http://ec2-23-22-149-62.compute-1.amazonaws.com/samples/JobStatusNotificationsSample.php\" method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\"https://w.amazon.com/index.php/User:Ramsdenj/Samples/Environment_Setup/Create_Elastic_Transcoder_Pipeline#Create_the_Pipeline\"> Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br><input type=\"submit\" value=\"Create Job\" /></form>";
+  echo "Create an Elastic Transcoder job and consume job status using notificaitons.<br>"
+  echo "<form action=\"JobStatusNotificationsSample.php\" "
+  echo "method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\""
+  echo "http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#php-pipeline\">"
+  echo "Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br>"
+  echo "<input type=\"submit\" value=\"Create Job\" /></form>";
 }
 // snippet-end:[elastictranscoder.php.create_job_status_notification.import]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
