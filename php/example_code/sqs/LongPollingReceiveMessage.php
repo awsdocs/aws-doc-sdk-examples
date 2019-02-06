@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-enable-long-polling.html
  *
  */
+// snippet-start:[sqs.php.long_polling_recieve_message.complete]
+// snippet-start:[sqs.php.long_polling_recieve_message.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.long_polling_recieve_message.import]
 
 /**
  * Receive SQS Queue with Long Polling
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueUrl = "QUEUE_URL";
-
+ 
+// snippet-start:[sqs.php.long_polling_recieve_message.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -50,7 +54,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.long_polling_recieve_message.main]
+// snippet-end:[sqs.php.long_polling_recieve_message.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LongPollingReceiveMessage.php demonstrates how to retrieve a message from a specified queue with a 20 second delay to reduce the number of empty responses returned.]
 // snippet-keyword:[PHP]

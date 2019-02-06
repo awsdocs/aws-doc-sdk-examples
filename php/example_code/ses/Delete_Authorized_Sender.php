@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-sender-policy.html
  *
  */
+// snippet-start:[ses.php.delete_authorized_senders.complete]
+// snippet-start:[ses.php.delete_authorized_senders.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.delete_authorized_senders.import]
 
 //Create a SESClient
+// snippet-start:[ses.php.delete_authorized_senders.main]
 $SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -44,7 +48,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.delete_authorized_senders.main]
+// snippet-end:[ses.php.delete_authorized_senders.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Delete_Authorized_Sender.php demonstrates how to remove sending authorization for another AWS account to send emails with an email identity or domain identity by deleting the associated identity policy.]
 // snippet-keyword:[PHP]

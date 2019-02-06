@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
+// snippet-start:[ses.php.list_tempalte.complete]
+// snippet-start:[ses.php.list_tempalte.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.list_tempalte.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.list_tempalte.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -40,7 +44,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.list_tempalte.main]
+// snippet-end:[ses.php.list_tempalte.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_Template.php demonstrates how to retrieve a list of all email templates that are associated with your AWS account in the current AWS Region.]
 // snippet-keyword:[PHP]
