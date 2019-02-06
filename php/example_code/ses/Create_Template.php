@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
+// snippet-start:[ses.php.create_template.complete]
+// snippet-start:[ses.php.create_template.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.create_template.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.create_template.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -53,7 +57,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.create_template.main]
+// snippet-end:[ses.php.create_template.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Create_Template.php demonstrates how to create an email template to send personalized email messages.]
 // snippet-keyword:[PHP]

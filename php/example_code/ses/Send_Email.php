@@ -16,13 +16,17 @@
  *
  *
  */
+// snippet-start:[ses.php.send_email.complete]
+// snippet-start:[ses.php.send_email.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.send_email.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.send_email.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -75,7 +79,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.send_email.main]
+// snippet-end:[ses.php.send_email.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Send_Email.php demonstrates how to send email through Amazon SES.]
 // snippet-keyword:[PHP]
