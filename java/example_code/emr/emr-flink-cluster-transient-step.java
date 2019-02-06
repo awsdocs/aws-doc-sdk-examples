@@ -48,7 +48,7 @@ public class Main_test {
 		
 		AmazonElasticMapReduce emr = AmazonElasticMapReduceClientBuilder.standard()
 			.withCredentials(new AWSStaticCredentialsProvider(credentials_profile))
-			.withRegion("us-west-1")
+			.withRegion(Regions.US_WEST_1)
 			.build();
         
 		List<StepConfig> stepConfigs = new ArrayList<StepConfig>();

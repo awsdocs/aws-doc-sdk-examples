@@ -49,7 +49,7 @@ public class Main {
 		// create an EMR client using the credentials and region specified in order to create the cluster
 		AmazonElasticMapReduce emr = AmazonElasticMapReduceClientBuilder.standard()
 			.withCredentials(new AWSStaticCredentialsProvider(credentials_profile))
-			.withRegion("us-west-1")
+			.withRegion(Regions.US_WEST_1)
 			.build();
         
         // create a step to enable debugging in the AWS Management Console

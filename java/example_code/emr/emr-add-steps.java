@@ -49,7 +49,7 @@ public class Main {
 		
 		AmazonElasticMapReduce emr = AmazonElasticMapReduceClientBuilder.standard()
 			.withCredentials(new AWSStaticCredentialsProvider(credentials_profile))
-			.withRegion("us-west-1")
+			.withRegion(Regions.US_WEST_1)
 			.build();
         
 		// Run a bash script using a predefined step in the StepFactory helper class
