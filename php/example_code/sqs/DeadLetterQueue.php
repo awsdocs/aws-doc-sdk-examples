@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-dead-letter-queues.html
  *
  */
+// snippet-start:[sqs.php.dead_letter_queue.complete]
+// snippet-start:[sqs.php.dead_letter_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.dead_letter_queue.import]
 
 /**
  * Enable Dead Letter Queue
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueUrl = "QUEUE_URL";
-
+ 
+// snippet-start:[sqs.php.dead_letter_queue.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -49,7 +53,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.dead_letter_queue.main]
+// snippet-end:[sqs.php.dead_letter_queue.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeadLetterQueue.php demonstrates how to send messages to a Dead Letter Queue for use when debugging.]
 // snippet-keyword:[PHP]

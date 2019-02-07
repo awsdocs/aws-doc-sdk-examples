@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
  */
+// snippet-start:[ses.php.update_rule.complete]
+// snippet-start:[ses.php.update_rule.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.update_rule.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.update_rule.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -58,7 +62,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.update_rule.main]
+// snippet-end:[ses.php.update_rule.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Update_Rule.php demonstrates how to change an existing receipt rule that sends incoming messages to an Amazon SNS topic using an AWS Lambda function, but you can also send messages to Amazon S3.]
 // snippet-keyword:[PHP]

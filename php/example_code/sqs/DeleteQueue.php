@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-using-queues.html
  *
  */
+// snippet-start:[sqs.php.delete_queue.complete]
+// snippet-start:[sqs.php.delete_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.delete_queue.import]
 
 /**
  * Delete SQS Queue
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  */
 
 $queueUrl = "SQS_QUEUE_URL";
-
+ 
+// snippet-start:[sqs.php.delete_queue.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -46,7 +50,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.delete_queue.main]
+// snippet-end:[sqs.php.delete_queue.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteQueue.php demonstrates how to delete an Amazon SNS queue.]
 // snippet-keyword:[PHP]
