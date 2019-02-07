@@ -35,5 +35,5 @@ print(json.dumps(comprehend.detect_dominant_language(Text = text), sort_keys=Tru
 print("End of DetectDominantLanguage\n")
 
               
-# snippet-end:[polly.python.SyntesizeSpeech.complete]
+# snippet-end:[comprehend.python.DetectDominantLanguage.complete]
   
