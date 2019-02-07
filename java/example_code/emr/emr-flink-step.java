@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[emr-flink-step.java demonstrates how to submit work as a step to a long-running Flink cluster using the YARN application ID.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

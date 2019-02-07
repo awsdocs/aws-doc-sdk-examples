@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[runjobflow-configurationclassification.java demonstrates how to specify configuration classification properties when creating a cluster using RunJobFlowRequest.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

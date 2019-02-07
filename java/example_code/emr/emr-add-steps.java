@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[emr-add-steps.java demonstrates how to add steps to a running EMR cluster. Steps perform work for data processing jobs.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[create-spark-cluster.java demonstrates how to create a cluster with Spark installed.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

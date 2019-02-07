@@ -12,7 +12,7 @@
 #
 
 # snippet-sourcedescription:[jupyterhub-install-libraries.py demonstrates a Python program that runs a bash script using AWS-RunShellScript of AWS Systems Manager to install additional libraries on cluster core nodes.]
-# snippet-service:[Amazon EMR]
+# snippet-service:[elasticmapreduce]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon EMR]
 # snippet-keyword:[Code Sample]

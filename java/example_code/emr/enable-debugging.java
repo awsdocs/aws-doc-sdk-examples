@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[enable-debugging.java demonstrates how to use the StepFactory helper class to configure a step for debugging that you can specify using .withSteps when you create a cluster using RunJobFlowRequest.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

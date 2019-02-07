@@ -12,7 +12,7 @@
 # specific language governing permissions and limitations under the License.
 #
 # snippet-sourcedescription:[emrfs-boto-step.py demonstrates how to add a step to an EMR cluster that adds objects in an Amazon S3 bucket to the default EMRFS metadata table.]
-# snippet-service:[Amazon EMR]
+# snippet-service:[elasticmapreduce]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon EMR]
 # snippet-keyword:[Code Sample]
