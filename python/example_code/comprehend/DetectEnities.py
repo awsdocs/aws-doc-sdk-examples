@@ -37,5 +37,5 @@ print('End of DetectEntities\n')
 
 
               
-# snippet-end:[polly.python.SyntesizeSpeech.complete]
+# snippet-end:[comprehend.python.DetectEntities.complete]
   
