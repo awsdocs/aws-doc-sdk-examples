@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[hbase-snapshot.java demonstrates how to configure a step to create an HBase snapshot from a specified table.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

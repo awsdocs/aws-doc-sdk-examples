@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[custom-emrfs-materials.java demonstrates how to create a cluster, specifying values in the emrfs-site configuration classification for a custom encryption materials provider.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

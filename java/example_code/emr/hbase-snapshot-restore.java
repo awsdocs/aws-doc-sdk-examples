@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[hbase-snapshot-restore.java demonstrates how to configure a step that restores a table from a snapshot.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]

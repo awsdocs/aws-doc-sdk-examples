@@ -13,7 +13,7 @@
 */
 
 // snippet-sourcedescription:[create_cluster.java demonstrates how to create a long-running Amazon EMR cluster with a list of applications installed and debugging enabled.]
-// snippet-service:[Amazon EMR]
+// snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
