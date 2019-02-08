@@ -16,24 +16,42 @@
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon EMR]
 # snippet-keyword:[Code Sample]
-# snippet-keyword:[add_jobflow_steps]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-01-31]
 # snippet-sourceauthor:[AWS]
 # snippet-start:[emr.python.addstep.emrfs]
-from boto.emr import EmrConnection,connect_to_region,JarStep
 
-emr=EmrConnection()
-connect_to_region("us-west-1")
+import boto3
+from botocore.exceptions import ClientError
 
-myStep = JarStep(name='Boto EMRFS Sync',
-               jar='s3://elasticmapreduce/libs/script-runner/script-runner.jar',
-               action_on_failure="CONTINUE",
-               step_args=['/home/hadoop/bin/emrfs',
-                          'sync',
-                          's3://elasticmapreduce/samples/cloudfront'])
+# Assign the ID of an existing cluster to the following variable
+job_flow_id = 'CLUSTER_ID'
 
+# Define a job flow step. Assign appropriate values as desired.
+job_flow_step_01 = {
+    'Name': 'Example EMRFS Sync Step',
+    'ActionOnFailure': 'CONTINUE',
+    'HadoopJarStep': {
+        'Jar': 's3://elasticmapreduce/libs/script-runner/script-runner.jar',
+        'Args': [
+            '/home/hadoop/bin/emrfs',
+            'sync',
+            's3://elasticmapreduce/samples/cloudfront'
+        ]
+    }
+}
 
-stepId = emr.add_jobflow_steps("j-2AL4XXXXXX5T9",
-                          steps=[myStep]).stepids[0].value
+# Add the step(s)
+emr_client = boto3.client('emr')
+try:
+    response = emr_client.add_job_flow_steps(JobFlowId=job_flow_id,
+                                             Steps=[job_flow_step_01])
+except ClientError as e:
+    print(e.response['Error']['Message'])
+    exit(1)
+
+# Output the IDs of the added steps
+print('Step IDs:')
+for stepId in response['StepIds']:
+    print(stepId)
 # snippet-end:[emr.python.addstep.emrfs]
