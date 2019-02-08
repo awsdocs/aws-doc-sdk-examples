@@ -4,7 +4,7 @@
 // snippet-comment:[and widgets.js in the resources/ directory.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates an S3 bucket, handler for HTTP requests, and API Gateway to Lambda functions.]
-// snippet-keyword:[CDK V0.21.0]
+// snippet-keyword:[CDK V0.24.1]
 // snippet-keyword:[ApiGateway.LambdaIntegration function]
 // snippet-keyword:[ApiGateway.RestApi function]
 // snippet-keyword:[Bucket.grantReadWrite function]
@@ -14,7 +14,7 @@
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-1-9]
+// snippet-sourcedate:[2019-2-8]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
