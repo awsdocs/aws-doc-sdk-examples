@@ -23,10 +23,10 @@
 // snippet-start:[cdk.typescript.my_ecs_construct]
 import cdk = require('@aws-cdk/cdk');
 
-import { MyEcsConstruct } from '../lib/my_ecs_construct-stack';
+import { MyEcsConstructStack } from '../lib/my_ecs_construct-stack';
 
 const app = new cdk.App();
-new MyEcsConstruct(app, 'MyEcsConstruct');
+new MyEcsConstructStack(app, 'MyEcsConstruct');
 
 app.run();
 // snippet-end:[cdk.typescript.my_ecs_construct]
