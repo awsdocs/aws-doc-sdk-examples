@@ -11,32 +11,31 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * *
  * For more information about creating a WorkDocs application see the WorkDocs Developer Guide at
  * https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html
  *
- *
  */
-// snippet-start:[workdocs.php.list_folders.complete]
-// snippet-start:[workdocs.php.list_folders.import]
+// snippet-start:[workdocs.php.get_current_user.complete]
+// snippet-start:[workdocs.php.get_current_user.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
 use Aws\WorkDocs\WorkDocsClient;
 
-// snippet-end:[workdocs.php.list_folders.import]
+// snippet-end:[workdocs.php.get_current_user.import]
 
 
 /**
- * List Folders currently in your Amazon WorkDocs.
+ * Get user information for currently connected Amazon WorkDocs user.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 // Create a workdocs Client 
-// snippet-start:[workdocs.php.list_folders.main]
+// snippet-start:[workdocs.php.get_current_user.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
     'version' => '2016-05-01',
@@ -50,14 +49,9 @@ try {
     $file = fopen($auth_token_file, 'r') or die("Unable to open file!");
     $auth_token = fread($auth_token_file, filesize($auth_token_file));
     fclose($auth_token_file);
-
-    $result = $client->$result = $client->getResources([
+    $result = $client->$result = $client->getCurrentUser([
         'AuthenticationToken' => $auth_token
     ]);
-    foreach($result['Folders'] as $folder){
-            print("<p>Folder - <b>" . $folder['Name'] . "</b> , id - <b>" . $folder['Id']);
-            print("</b> , Parent Folder - " . $folder['ParentFolderId'] . "</p>");
-        }
     var_dump($result);
 
 
@@ -68,10 +62,10 @@ try {
 }
 
 
-// snippet-end:[workdocs.php.list_folders.main]
-// snippet-end:[workdocs.php.list_folders.complete]
+// snippet-end:[workdocs.php.get_current_user.main]
+// snippet-end:[workdocs.php.get_current_user.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetFolders.php demonstrates how to list folders currently in your Amazon WorkDocs.]
+// snippet-sourcedescription:[GetCurrentUser.php demonstrates how to retrieve information about the current user for your Amazon WorkDocs.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
