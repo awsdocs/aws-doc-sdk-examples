@@ -63,8 +63,7 @@ try {
 
 } catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 
 
