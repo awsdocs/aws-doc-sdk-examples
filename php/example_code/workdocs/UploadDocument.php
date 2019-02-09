@@ -69,8 +69,7 @@ try {
     $uploadurl = $result['UploadMetadata']['UploadUrl'];
 } catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 try {
     print("<p>Upload Document</p>");
@@ -85,8 +84,7 @@ try {
 
 } catch (ClientException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 try {
     print("<p>Update Document Version</p>");
@@ -100,8 +98,7 @@ try {
     var_dump($updateResult);
 } catch (AwsException $e) {
     // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    echo $e->getMessage() . "\n";
 }
 
 
