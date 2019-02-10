@@ -54,8 +54,8 @@ try {
 
     $result = $client->$result = $client->createFolder([
         'AuthenticationToken' => $auth_token,
-        'Name' => $folder_name, 
-        'ParentFolderId' => $parent_folder 
+        'Name' => $folder_name,
+        'ParentFolderId' => $parent_folder
     ]);
 
     var_dump($result);

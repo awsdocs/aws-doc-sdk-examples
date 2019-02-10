@@ -53,7 +53,7 @@ try {
 
     $result = $client->$result = $client->deleteDocument([
         'AuthenticationToken' => $auth_token,
-        'DocumentId' => $document 
+        'DocumentId' => $document
     ]);
 
     var_dump($result);
