@@ -17,15 +17,15 @@
  *
  *
  */
-// snippet-start:[workdocs.php.get_folder.complete]
-// snippet-start:[workdocs.php.get_folder.import]
+// snippet-start:[workdocs.php.delete_folder.complete]
+// snippet-start:[workdocs.php.delete_folder.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
 use Aws\WorkDocs\WorkDocsClient;
 
-// snippet-end:[workdocs.php.get_folder.import]
+// snippet-end:[workdocs.php.delete_folder.import]
 
 
 /**
@@ -36,7 +36,7 @@ use Aws\WorkDocs\WorkDocsClient;
  */
 
 // Create a workdocs Client 
-// snippet-start:[workdocs.php.get_folder.main]
+// snippet-start:[workdocs.php.delete_folder.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
     'version' => '2016-05-01',
@@ -53,7 +53,7 @@ try {
 
     $result = $client->$result = $client->deleteFolder([
         'AuthenticationToken' => $auth_token,
-        'FolderId' => $folder 
+        'FolderId' => $folder
     ]);
 
     var_dump($result);
@@ -65,8 +65,8 @@ try {
 }
 
 
-// snippet-end:[workdocs.php.get_folder.main]
-// snippet-end:[workdocs.php.get_folder.complete]
+// snippet-end:[workdocs.php.delete_folder.main]
+// snippet-end:[workdocs.php.delete_folder.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteFolder.php demonstrates how to delete a folder currently in your Amazon WorkDocs.]
 // snippet-keyword:[PHP]

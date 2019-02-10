@@ -17,15 +17,15 @@
  *
  *
  */
-// snippet-start:[workdocs.php.create_folder.complete]
-// snippet-start:[workdocs.php.create_folder.import]
+// snippet-start:[workdocs.php.update_folder.complete]
+// snippet-start:[workdocs.php.update_folder.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
 use Aws\WorkDocs\WorkDocsClient;
 
-// snippet-end:[workdocs.php.create_folder.import]
+// snippet-end:[workdocs.php.update_folder.import]
 
 
 /**
@@ -36,7 +36,7 @@ use Aws\WorkDocs\WorkDocsClient;
  */
 
 // Create a workdocs Client 
-// snippet-start:[workdocs.php.create_folder.main]
+// snippet-start:[workdocs.php.update_folder.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
     'version' => '2016-05-01',
@@ -55,7 +55,7 @@ try {
 
     $result = $client->$result = $client->updateFolder([
         'AuthenticationToken' => $auth_token,
-        'Name' => $folder_name, 
+        'Name' => $folder_name,
         'ParentFolderId' => $parent_folder 
         'FolderId' => $folder
     ]);
@@ -69,8 +69,8 @@ try {
 }
 
 
-// snippet-end:[workdocs.php.create_folder.main]
-// snippet-end:[workdocs.php.create_folder.complete]
+// snippet-end:[workdocs.php.update_folder.main]
+// snippet-end:[workdocs.php.update_folder.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[UpdateFolder.php demonstrates how to update a folder in your Amazon WorkDocs.]
 // snippet-keyword:[PHP]

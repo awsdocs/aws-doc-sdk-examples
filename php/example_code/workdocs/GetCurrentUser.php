@@ -68,7 +68,7 @@ try {
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[getResources]
+// snippet-keyword:[getCurrentUser]
 // snippet-keyword:[Amazon WorkDocs]
 // snippet-service:[workdocs]
 // snippet-sourcetype:[full-example]

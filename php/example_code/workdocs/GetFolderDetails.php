@@ -53,7 +53,7 @@ try {
 
     $result = $client->$result = $client->getFolder([
         'AuthenticationToken' => $auth_token,
-        'FolderId' => $folder 
+        'FolderId' => $folder
     ]);
 
     var_dump($result);

@@ -54,10 +54,10 @@ try {
     $result = $client->$result = $client->describeRootFolders([
         'AuthenticationToken' => $auth_token
     ]);
-    foreach($result['Folders'] as $folder){
-            print("<p>Folder - <b>" . $folder['Name'] . "</b> , id - <b>" . $folder['Id']);
-            print("</b> , Parent Folder - " . $folder['ParentFolderId'] . "</p>");
-        }
+    foreach ($result['Folders'] as $folder) {
+        print("<p>Folder - <b>" . $folder['Name'] . "</b> , id - <b>" . $folder['Id']);
+        print("</b> , Parent Folder - " . $folder['ParentFolderId'] . "</p>");
+    }
     var_dump($result);
 
 
