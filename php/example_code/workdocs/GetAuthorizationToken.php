@@ -23,7 +23,7 @@ require 'vendor/autoload.php';
 use GuzzleHttp\Client as httpClient;
 
 // snippet-end:[workdocs.php.get_authorization_token.import]
-
+// snippet-start:[workdocs.php.get_authorization_token.main]
 $app_id = 'appid';
 $redirect_uri = 'https://';
 
