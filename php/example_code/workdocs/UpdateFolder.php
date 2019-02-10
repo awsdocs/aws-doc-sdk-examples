@@ -17,26 +17,26 @@
  *
  *
  */
-// snippet-start:[workdocs.php.list_folders.complete]
-// snippet-start:[workdocs.php.list_folders.import]
+// snippet-start:[workdocs.php.create_folder.complete]
+// snippet-start:[workdocs.php.create_folder.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
 use Aws\WorkDocs\WorkDocsClient;
 
-// snippet-end:[workdocs.php.list_folders.import]
+// snippet-end:[workdocs.php.create_folder.import]
 
 
 /**
- * List Folders currently in your Amazon WorkDocs.
+ * Update a folder currently in your Amazon WorkDocs
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
 // Create a workdocs Client 
-// snippet-start:[workdocs.php.list_folders.main]
+// snippet-start:[workdocs.php.create_folder.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
     'version' => '2016-05-01',
@@ -44,20 +44,22 @@ $client = new Aws\WorkDocs\WorkDocsClient([
 ]);
 
 $auth_token_file_path = 'token.txt';
-
+$folder_name = 'FolderName'
+$folder = 'folderid';
+$parent_folder = 'parent_folder_id';
 
 try {
     $file = fopen($auth_token_file, 'r') or die("Unable to open file!");
     $auth_token = fread($auth_token_file, filesize($auth_token_file));
     fclose($auth_token_file);
 
-    $result = $client->$result = $client->describeRootFolders([
-        'AuthenticationToken' => $auth_token
+    $result = $client->$result = $client->updateFolder([
+        'AuthenticationToken' => $auth_token,
+        'Name' => $folder_name, 
+        'ParentFolderId' => $parent_folder 
+        'FolderId' => $folder
     ]);
-    foreach($result['Folders'] as $folder){
-            print("<p>Folder - <b>" . $folder['Name'] . "</b> , id - <b>" . $folder['Id']);
-            print("</b> , Parent Folder - " . $folder['ParentFolderId'] . "</p>");
-        }
+
     var_dump($result);
 
 
@@ -67,14 +69,14 @@ try {
 }
 
 
-// snippet-end:[workdocs.php.list_folders.main]
-// snippet-end:[workdocs.php.list_folders.complete]
+// snippet-end:[workdocs.php.create_folder.main]
+// snippet-end:[workdocs.php.create_folder.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetFolders.php demonstrates how to list folders currently in your Amazon WorkDocs.]
+// snippet-sourcedescription:[UpdateFolder.php demonstrates how to update a folder in your Amazon WorkDocs.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[describeRootFolders]
+// snippet-keyword:[updateFolder]
 // snippet-keyword:[Amazon WorkDocs]
 // snippet-service:[workdocs]
 // snippet-sourcetype:[full-example]
