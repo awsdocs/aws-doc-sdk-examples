@@ -15,6 +15,7 @@
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
 # snippet-keyword:[Amazon S3]
+# snippet-keyword:[Code Sample]
 # snippet-keyword:[PUT Bucket, Presigned URL]
 # snippet-keyword:[Upload-presigned-url]
 # snippet-sourcetype:[snippet]
