@@ -11,8 +11,6 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-
-
 # snippet-sourcedescription:[determine_object_encryption_state.rb shows how to determine the encryption state of an existing object.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -20,9 +18,8 @@
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GET server_side_encryption Object]
 # snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-28]
+# snippet-sourcedate:[2019-02-11]
 # snippet-sourceauthor:[AWS]
-
 # snippet-start:[s3.ruby.determine_object_encryption_state.rb]
 # Determine server-side encryption of an object.
 require 'aws-sdk-s3'
