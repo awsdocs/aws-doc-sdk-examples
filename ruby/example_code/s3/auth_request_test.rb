@@ -11,8 +11,6 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-
-
 # snippet-sourcedescription:[auth_request_test.rb uses the credentials in a  shared AWS credentials file on a local computer to authenticate a request to get all of the object key names  in a specific bucket.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -20,11 +18,9 @@
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GET Bucket]
 # snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-28]
+# snippet-sourcedate:[2019-02-11]
 # snippet-sourceauthor:[AWS]
-
 # snippet-start:[s3.ruby.auth_request_test.rb]
-
 # This snippet example does the following:
 # Creates an instance of the Aws::S3::Resource class. 
 # Makes a request to Amazon S3 by enumerating objects in a bucket using the bucket method of Aws::S3::Resource. 
@@ -37,11 +33,8 @@
 # Use the Amazon S3 modularized gem for version 3 of the AWS Ruby SDK.
 require 'aws-sdk-s3'
 
-# Usage: ruby auth_request_test.rb list BUCKET
-
-# Set the name of the bucket on which the operations are performed.
-# This argument is required
-bucket_name = nil
+# Usage: ruby auth_request_test.rb OPERATION BUCKET
+# Currently only the list operation is supported
 
 # The operation to perform on the bucket.
 operation = 'list' # default
