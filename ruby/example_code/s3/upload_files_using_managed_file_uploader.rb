@@ -11,8 +11,6 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-
-
 # snippet-sourcedescription:[upload_files_using_managed_file_uploader uses a managed file uploader, which makes it easy to upload files of any size from disk.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -22,7 +20,6 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-01-28]
 # snippet-sourceauthor:[AWS]
-
 # snippet-start:[s3.ruby.upload_files_using_managed_file_uploader.rb]
 require 'aws-sdk-s3'
 
