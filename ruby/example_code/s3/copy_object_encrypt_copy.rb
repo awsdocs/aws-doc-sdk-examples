@@ -11,7 +11,6 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-
 # snippet-sourcedescription:[copy_object_encrypt_copy.rb demonstrates how to copy an object and encrypt the copy.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -21,7 +20,6 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-01-28]
 # snippet-sourceauthor:[AWS]
-
 # snippet-start:[s3.ruby.copy_object_encrypt_copy.rb]
 require 'aws-sdk-s3'
 
