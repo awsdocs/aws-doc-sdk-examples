@@ -11,8 +11,6 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-
-
 # snippet-sourcedescription:[create_bucket.rb allows anyone with the presigned URL can upload an object by using the AWS SDK for Ruby.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -20,9 +18,8 @@
 # snippet-keyword:[PUT Bucket, Presigned URL]
 # snippet-keyword:[Upload-presigned-url]
 # snippet-sourcetype:[snippet]
-# snippet-sourcedate:[2019-01-28]
+# snippet-sourcedate:[2019-02-11]
 # snippet-sourceauthor:[AWS]
-
 # snippet-start:[s3.ruby.upload_object_presigned_url.rb]
 #Uploading an object using a presigned URL for SDK for Ruby - Version 3.
 
