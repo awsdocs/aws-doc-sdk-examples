@@ -11,7 +11,6 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-
 # snippet-sourcedescription:[s3_encrypt_file_upload.rb demonstrates how to specify that a file uploaded to Amazon S3 be encrypted at rest.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
@@ -19,9 +18,8 @@
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ENCRYPT UPLOAD File]
 # snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-28]
+# snippet-sourcedate:[2019-02-11]
 # snippet-sourceauthor:[AWS]
-
 # snippet-start:[s3.ruby.s3_encrypt_file_upload.rb]
 # The following example demonstrates how to specify that a file uploaded to Amazon S3 be encrypted at rest.
 require 'aws-sdk-s3' 
