@@ -25,7 +25,7 @@
 // ABOUT THIS BROWSER SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-browser.html
 -->
-<!-- snippet-start:[Polly.HTML.Browser.Example] -->
+<!-- snippet-start:[Polly.HTML.BrowserExample.complete] -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,13 +44,14 @@
     </audio>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
     <script type="text/javascript">
+        // snippet-start:[Polly.HTML.BrowserExample.config]
         // Initialize the Amazon Cognito credentials provider
         AWS.config.region = 'REGION'; 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'IDENTITY_POOL_ID'});
         
         // Function invoked by button click
         function speakText() {
-            // Create synthesizeSpeech params JSON
+            // Create the JSON parameters for getSynthesizeSpeechUrl
             var speechParams = {
                 OutputFormat: "mp3",
                 SampleRate: "16000",
@@ -59,7 +60,9 @@
                 VoiceId: "Matthew"
             };
             speechParams.Text = document.getElementById("textEntry").value;
+            // snippet-end:[Polly.HTML.BrowserExample.config]
             
+            // snippet-start:[Polly.HTML.BrowserExample.synthesize]
             // Create the Polly service object and presigner object
             var polly = new AWS.Polly({apiVersion: '2016-06-10'});
             var signer = new AWS.Polly.Presigner(speechParams, polly)
@@ -67,14 +70,16 @@
             // Create presigned URL of synthesized speech file
             signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
             if (error) {
-            document.getElementById('result').innerHTML = error;
+                document.getElementById('result').innerHTML = error;
             } else {
-            audioSource.src = url;
-            document.getElementById('result').innerHTML = "Speech ready to play.";
+                document.getElementById('audioSource').src = url;
+                document.getElementById('audioPlayback').load();
+                document.getElementById('result').innerHTML = "Speech ready to play.";
             }
           });
         }
+        // snippet-end:[Polly.HTML.BrowserExample.synthesize]
     </script>
   </body>
 </html>
-<!-- snippet-end:[Polly.HTML.Browser.Example] -->
+<!-- snippet-end:[Polly.HTML.BrowserExample.complete] -->
