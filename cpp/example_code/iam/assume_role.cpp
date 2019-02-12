@@ -38,36 +38,36 @@ specific language governing permissions and limitations under the License.
  * Assume an IAM role defined on an external account.
  */
 Aws::Auth::AWSCredentials * AssumeRole(const Aws::String & roleArn, 
-	const Aws::String & roleSessionName, 
-	const Aws::String & externalId,
-	Aws::Auth::AWSCredentials & credentials)
+    const Aws::String & roleSessionName, 
+    const Aws::String & externalId,
+    Aws::Auth::AWSCredentials & credentials)
 {
-	Aws::STS::STSClient sts;
-	Aws::STS::Model::AssumeRoleRequest sts_req;
+    Aws::STS::STSClient sts;
+    Aws::STS::Model::AssumeRoleRequest sts_req;
 
-	sts_req.SetRoleArn(roleArn);
-	sts_req.SetRoleSessionName(roleSessionName);
-	sts_req.SetExternalId(externalId);
+    sts_req.SetRoleArn(roleArn);
+    sts_req.SetRoleSessionName(roleSessionName);
+    sts_req.SetExternalId(externalId);
 
-	auto response = sts.AssumeRole(sts_req);
+    auto response = sts.AssumeRole(sts_req);
 
-	if (!response.IsSuccess())
-	{
-		std::cerr << "Error assuming IAM role. " <<
-			response.GetError().GetMessage() << std::endl;
-		return NULL;
-	}
+    if (!response.IsSuccess())
+    {
+        std::cerr << "Error assuming IAM role. " <<
+            response.GetError().GetMessage() << std::endl;
+        return NULL;
+    }
 
-	auto result = response.GetResult();
-	auto temp_credentials = result.GetCredentials();
+    auto result = response.GetResult();
+    auto temp_credentials = result.GetCredentials();
 
-	// Store temporary credentials in return argument
-	// Note: The credentials object returned by AssumeRole differs
-	// from the AWSCredentials object used in most situations.
-	credentials.SetAWSAccessKeyId(temp_credentials.GetAccessKeyId());
-	credentials.SetAWSSecretKey(temp_credentials.GetSecretAccessKey());
-	credentials.SetSessionToken(temp_credentials.GetSessionToken());
-	return &credentials;
+    // Store temporary credentials in return argument
+    // Note: The credentials object returned by AssumeRole differs
+    // from the AWSCredentials object used in most situations.
+    credentials.SetAWSAccessKeyId(temp_credentials.GetAccessKeyId());
+    credentials.SetAWSSecretKey(temp_credentials.GetSecretAccessKey());
+    credentials.SetSessionToken(temp_credentials.GetSessionToken());
+    return &credentials;
 }
 
 /**
@@ -75,39 +75,39 @@ Aws::Auth::AWSCredentials * AssumeRole(const Aws::String & roleArn,
  */
 int main(int argc, char **argv)
 {
-	Aws::SDKOptions options;
-	Aws::InitAPI(options);
-	{
-		// Set these configuration values before running the program
-		Aws::String roleArn = "arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME";
-		Aws::String roleSessionName = "AssumeRoleSession1";
-		Aws::String externalId = "012345";	// Optional, but recommended
-		Aws::Auth::AWSCredentials credentials;
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        // Set these configuration values before running the program
+        Aws::String roleArn = "arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME";
+        Aws::String roleSessionName = "AssumeRoleSession1";
+        Aws::String externalId = "012345";	// Optional, but recommended
+        Aws::Auth::AWSCredentials credentials;
 
-		// Assume the role on the external account
-		if (!AssumeRole(roleArn, roleSessionName, externalId, credentials))
-		{
-			return 1;
-		}
+        // Assume the role on the external account
+        if (!AssumeRole(roleArn, roleSessionName, externalId, credentials))
+        {
+            return 1;
+        }
 
-		// List the S3 buckets in the external account. Note: The assumed
-		// role must grant the appropriate S3 permissions.
-		Aws::S3::S3Client s3(credentials);
-		auto response_s3 = s3.ListBuckets();
+        // List the S3 buckets in the external account. Note: The assumed
+        // role must grant the appropriate S3 permissions.
+        Aws::S3::S3Client s3(credentials);
+        auto response_s3 = s3.ListBuckets();
 
-		if (!response_s3.IsSuccess())
-		{
-			std::cerr << "Error listing S3 buckets in external account. " << 
-				response_s3.GetError().GetMessage() << std::endl;
-			return 1;
-		}
+        if (!response_s3.IsSuccess())
+        {
+            std::cerr << "Error listing S3 buckets in external account. " << 
+                response_s3.GetError().GetMessage() << std::endl;
+            return 1;
+        }
 
-		auto result_s3 = response_s3.GetResult();
-		for (auto &bucket : result_s3.GetBuckets())
-		{
-			std::cout << bucket.GetName() << std::endl;
-		}
-	}
-	Aws::ShutdownAPI(options);
-	return 0;
+        auto result_s3 = response_s3.GetResult();
+        for (auto &bucket : result_s3.GetBuckets())
+        {
+            std::cout << bucket.GetName() << std::endl;
+        }
+    }
+    Aws::ShutdownAPI(options);
+    return 0;
 }
