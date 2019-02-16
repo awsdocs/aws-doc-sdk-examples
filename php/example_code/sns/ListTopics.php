@@ -16,13 +16,13 @@
  *
  *
  */
-// snippet-start:[sns.php.____.complete]
-// snippet-start:[sns.php.____.import]
+// snippet-start:[sns.php.list_topics.complete]
+// snippet-start:[sns.php.list_topics.import]
 require 'vendor/autoload.php';
 
 use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
-// snippet-end:[sns.php.____.import]
+// snippet-end:[sns.php.list_topics.import]
 
 /**
  * Returns a list of the requester's topics from your AWS SNS account in the region specified.
@@ -31,7 +31,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
  
-// snippet-start:[sns.php.____.main]
+// snippet-start:[sns.php.list_topics.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -46,8 +46,8 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 } 
-// snippet-end:[sns.php.____.main]
-// snippet-end:[sns.php.____.complete]
+// snippet-end:[sns.php.list_topics.main]
+// snippet-end:[sns.php.list_topics.complete]
 // snippet-sourcedescription:[ListTopics.php demonstrates how to get a list of existing AWS SNS topics.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
