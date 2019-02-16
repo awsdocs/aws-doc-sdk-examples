@@ -24,10 +24,10 @@ use GuzzleHttp\Client as httpClient;
 
 // snippet-end:[workdocs.php.get_authorization_token.import]
 // snippet-start:[workdocs.php.get_authorization_token.main]
-$app_id = 'appid';
-$redirect_uri = 'https://';
+$appId = 'appid';
+$redirectUri = 'https://';
 
-$url = "https://auth.amazonworkdocs.com/oauth?app_id=" . $app_id . "&auth_type=ImplicitGrant&redirect_uri=" . $redirect_uri . "&scopes=workdocs.content.read&state=xyz";
+$url = "https://auth.amazonworkdocs.com/oauth?app_id=" . $appId . "&auth_type=ImplicitGrant&redirect_uri=" . $redirectUri . "&scopes=workdocs.content.read&state=xyz";
 
 echo "<p>Url = <a href = '" . $url . "' target='_blank'>Request Authentication token</a></p>";
 echo "<ol>";

@@ -48,11 +48,11 @@ $folder = 'folderid';
 
 try {
     $file = fopen($authTokenFilePath, 'r');
-    $auth_token = fread($file, filesize($file));
+    $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
     $result = $client->$result = $client->deleteFolder([
-        'AuthenticationToken' => $auth_token,
+        'AuthenticationToken' => $authToken,
         'FolderId' => $folder
     ]);
 

@@ -48,11 +48,11 @@ $authTokenFilePath = 'token.txt';
 
 try {
     $file = fopen($authTokenFilePath, 'r');
-    $auth_token = fread($file, filesize($file));
+    $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
     $result = $client->$result = $client->describeRootFolders([
-        'AuthenticationToken' => $auth_token
+        'AuthenticationToken' => $authToken
     ]);
     foreach ($result['Folders'] as $folder) {
         print("<p>Folder - <b>" . $folder['Name'] . "</b> , id - <b>" . $folder['Id']);

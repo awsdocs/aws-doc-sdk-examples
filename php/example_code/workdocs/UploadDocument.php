@@ -54,12 +54,12 @@ $authTokenFilePath = 'token.txt';
 try {
     $fileToUpload = $pathtoFile . $file;
     $file = fopen($authTokenFilePath, 'r');
-    $auth_token = fread($file, filesize($file));
+    $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
     print("<p>Create Document</p>");
     $result = $client->initiateDocumentVersionUpload([
-        'AuthenticationToken' => $auth_token,
+        'AuthenticationToken' => $authToken,
         'ParentFolderId' => $folder,
         'Name' => $file,
     ]);
@@ -89,7 +89,7 @@ try {
 try {
     print("<p>Update Document Version</p>");
     $updateResult = $client->updateDocumentVersion([
-        'AuthenticationToken' => $auth_token,
+        'AuthenticationToken' => $authToken,
         'DocumentId' => $documentID,
         'VersionId' => $documentVersionID,
         'VersionStatus' => 'ACTIVE',
