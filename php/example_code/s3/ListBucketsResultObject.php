@@ -21,7 +21,7 @@
 require 'vendor/autoload.php';
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-// snippet-end:[s3.php.create_client.import]
+// snippet-end:[s3.php.list_bucket_results.import]
 
 /**
  * Working with Result objects.
