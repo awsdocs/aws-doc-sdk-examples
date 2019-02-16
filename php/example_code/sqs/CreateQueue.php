@@ -30,10 +30,10 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
+// snippet-start:[sqs.php.create_queue.main]
 
 $queueName = "SQS_QUEUE_NAME";
  
-// snippet-start:[sqs.php.create_queue.main]
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
