@@ -30,6 +30,7 @@ use Aws\Exception\AwsException;
  */
 // snippet-start:[s3.php.list_buckets_async.main]
 // snippet-start:[s3.php.list_buckets_async.client]
+// snippet-start:[s3.php.list_buckets_async.async]
 //Create a S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
@@ -44,6 +45,7 @@ $s3Client = $sdk->createS3();
 $CompleteSynchronously = $s3Client->listBucketsAsync();
 // Block until the result is ready.
 $CompleteSynchronously = $CompleteSynchronously->wait();
+// snippet-end:[s3.php.list_buckets_async.async]
 // snippet-start:[s3.php.list_buckets_async.promise]
 $promise = $s3Client->listBucketsAsync();
 $promise
