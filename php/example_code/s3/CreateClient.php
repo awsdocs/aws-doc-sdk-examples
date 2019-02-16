@@ -16,18 +16,21 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
-
+// snippet-start:[s3.php.create_client.complete]
+// snippet-start:[s3.php.create_client.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 
+use Aws\Exception\AwsException;
+// snippet-end:[s3.php.create_client.import]
 /**
  * Creating an Amazon S3 client.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[s3.php.create_client.main]
 //Create a S3Client
 $s3 = new Aws\S3\S3Client([
     'profile' => 'default',
@@ -48,7 +51,8 @@ $sdk = new Aws\Sdk($sharedConfig);
 // Create an Amazon S3 client using the shared configuration data.
 $client = $sdk->createS3();
  
-
+// snippet-end:[s3.php.create_client.main]
+// snippet-end:[s3.php.create_client.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateBucket.php demonstrates how to create an Amazon S3 Bucket.]
 // snippet-keyword:[PHP]
