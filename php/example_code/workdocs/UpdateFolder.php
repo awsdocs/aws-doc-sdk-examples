@@ -43,20 +43,20 @@ $client = new Aws\WorkDocs\WorkDocsClient([
     'region' => 'us-east-2'
 ]);
 
-$auth_token_file_path = 'token.txt';
-$folder_name = 'FolderName'
+$authTokenFilePath = 'token.txt';
+$folderName = 'FolderName'
 $folder = 'folderid';
-$parent_folder = 'parent_folder_id';
+$parentFolder = 'parentFolder_id';
 
 try {
-    $file = fopen($auth_token_file, 'r') or die("Unable to open file!");
-    $auth_token = fread($auth_token_file, filesize($auth_token_file));
-    fclose($auth_token_file);
+    $file = fopen($authTokenFilePath, 'r');
+    $auth_token = fread($file, filesize($file));
+    fclose($authTokenFilePath);
 
     $result = $client->$result = $client->updateFolder([
         'AuthenticationToken' => $auth_token,
-        'Name' => $folder_name,
-        'ParentFolderId' => $parent_folder 
+        'Name' => $folderName,
+        'ParentFolderId' => $parentFolder 
         'FolderId' => $folder
     ]);
 
