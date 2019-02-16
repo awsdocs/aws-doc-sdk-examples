@@ -49,13 +49,13 @@ $folder = 'folderid';
 $pathtoFile = '';
 $file = 'filename.txt';
 
-$auth_token_file_path = 'token.txt';
+$authTokenFilePath = 'token.txt';
 
 try {
     $fileToUpload = $pathtoFile . $file;
-    $file = fopen($auth_token_file, 'r') or die("Unable to open file!");
-    $auth_token = fread($auth_token_file, filesize($auth_token_file));
-    fclose($auth_token_file);
+    $file = fopen($authTokenFilePath, 'r');
+    $auth_token = fread($file, filesize($file));
+    fclose($authTokenFilePath);
 
     print("<p>Create Document</p>");
     $result = $client->initiateDocumentVersionUpload([
