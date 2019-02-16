@@ -45,7 +45,7 @@ $sdk = new Aws\Sdk($sharedConfig);
 // snippet-start:[s3.php.list_bucket_results.call]
 $s3 = $sdk->createS3();
 $result = $s3->listBuckets();
-// snippet-end:[s3.php.create_client.call]
+// snippet-end:[s3.php.list_bucket_results.call]
 foreach ($result['Buckets'] as $bucket) {
     echo $bucket['Name'] . "\n";
 }
