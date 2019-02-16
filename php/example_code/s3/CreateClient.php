@@ -31,13 +31,16 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 // snippet-start:[s3.php.create_client.main]
+// snippet-start:[s3.php.create_client.client]
 //Create a S3Client
 $s3 = new Aws\S3\S3Client([
     'profile' => 'default',
     'version' => 'latest',
     'region' => 'us-east-2'
 ]);
+// snippet-end:[s3.php.create_client.client]
 
+// snippet-start:[s3.php.create_client.sdk]
 // The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
 // Use the us-west-2 region and latest version of each client.
 $sharedConfig = [
@@ -50,7 +53,7 @@ $sdk = new Aws\Sdk($sharedConfig);
 
 // Create an Amazon S3 client using the shared configuration data.
 $client = $sdk->createS3();
- 
+// snippet-end:[s3.php.create_client.sdk] 
 // snippet-end:[s3.php.create_client.main]
 // snippet-end:[s3.php.create_client.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
