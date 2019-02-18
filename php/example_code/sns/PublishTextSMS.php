@@ -16,13 +16,13 @@
  *
  *
  */
-// snippet-start:[sns.php.____.complete]
-// snippet-start:[sns.php.____.import]
+// snippet-start:[sns.php.publish_text_SMS.complete]
+// snippet-start:[sns.php.publish_text_SMS.import]
 require 'vendor/autoload.php';
 
 use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
-// snippet-end:[sns.php.____.import]
+// snippet-end:[sns.php.publish_text_SMS.import]
 
 /**
  * Sends a a text message (SMS message) directly to a phone number using Amazon SNS.
@@ -31,7 +31,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
  
-// snippet-start:[sns.php.____.main]
+// snippet-start:[sns.php.publish_text_SMS.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -51,8 +51,8 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 } 
-// snippet-end:[sns.php.____.main]
-// snippet-end:[sns.php.____.complete]
+// snippet-end:[sns.php.publish_text_SMS.main]
+// snippet-end:[sns.php.publish_text_SMS.complete]
 // snippet-sourcedescription:[PublishTextSMS.php demonstrates how to send a text message.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
