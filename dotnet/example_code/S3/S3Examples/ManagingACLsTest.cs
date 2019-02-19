@@ -23,7 +23,8 @@
 // snippet-keyword:[S3CannedACL]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2018-04-30]
-// snippet-sourceauthor:[AWS// snippet-start:[s3.dotNET.ManageACLsTest.cs]
+// snippet-sourceauthor:[AWS]
+// snippet-start:[s3.dotNET.ManageACLsTest.cs]
 
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -149,4 +150,4 @@ namespace Amazon.DocSamples.S3
         }
     }
 }
-// snippet-sourceauthor:[AWS// snippet-end:[s3.dotNET.ManageACLsTest.cs]
+// snippet-end:[s3.dotNET.ManageACLsTest.cs]
