@@ -12,11 +12,11 @@ project(sg-examples)
 set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS sg)
+find_package(AWSSDK REQUIRED COMPONENTS storagegateway)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_nfs_file_share")
-list(APPEND EXAMPLES "list_file_share")
+list(APPEND EXAMPLES "list_file_shares")
 list(APPEND EXAMPLES "start_gateway")
 list(APPEND EXAMPLES "describe_gateway_information")
 list(APPEND EXAMPLES "describe_smb_settings")
