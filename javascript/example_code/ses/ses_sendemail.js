@@ -64,6 +64,8 @@ var params = {
      'EMAIL_ADDRESS',
     /* more items */
   ],
+  ConfigurationSetName : "configurationName",
+  Tags = [{Name: "tag_name", Value: "tag_value"}]
 };
 
 // Create the promise and SES service object
