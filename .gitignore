@@ -16,3 +16,4 @@ Gemfile.lock
 php/example_code/Find_replace_confirm changes.py
 *.phar
 ._*
+cpp/.vs/
