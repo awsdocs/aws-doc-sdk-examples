@@ -5,6 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java.delete_metrics.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,9 +21,11 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java.delete_metrics.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsResponse;
+// snippet-end:[cloudwatch.java.delete_metrics.import]
 
 /**
  * Deletes a CloudWatch alarm
@@ -41,6 +44,7 @@ public class DeleteAlarm {
 
         String alarm_name = args[0];
 
+        // snippet-start:[cloudwatch.java.delete_metrics.main]
         CloudWatchClient cw = CloudWatchClient.builder().build();
 
 
@@ -50,5 +54,7 @@ public class DeleteAlarm {
         DeleteAlarmsResponse response = cw.deleteAlarms(request);
 
         System.out.printf("Successfully deleted alarm %s", alarm_name);
+        // snippet-end:[cloudwatch.java.delete_metrics.main]
     }
 }
+// snippet-end:[cloudwatch.java.delete_metrics.complete]
