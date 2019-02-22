@@ -36,7 +36,7 @@ import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 public class PutMetricData {
     public static void main(String[] args) {
         
-        // snippet-start:[cloudwatch.java.put_metric_data.main]
+        
         final String USAGE =
             "To run this example, supply a data point:\n" +
             "Ex: PutMetricData <data_point>\n";
@@ -45,7 +45,7 @@ public class PutMetricData {
             System.out.println(USAGE);
             System.exit(1);
         }
-
+        // snippet-start:[cloudwatch.java.put_metric_data.main]
         Double data_point = Double.parseDouble(args[0]);
 
         CloudWatchClient cw =
