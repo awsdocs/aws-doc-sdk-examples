@@ -33,9 +33,9 @@ $rdsClient = new Aws\Rds\RdsClient([
     'region' => 'us-east-2'
 ]);
 
-$replicadbIdentifier = '<<{{db-identifier-of-replica}}>>';
+$replicadbIdentifier = '<<{{name-for-db-replica}}>>';
 $sourcedbIdentifier = '<<{{db-identifier-of-db-to-replicate}}>>';
-]);
+
 try {
     $result = $rdsClient->createDBInstanceReadReplica([
         'DBInstanceIdentifier' => $replicadbIdentifier,
@@ -58,6 +58,6 @@ try {
 // snippet-keyword:[createDBInstanceReadReplica]
 // snippet-service:[rds]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[]
+// snippet-sourcedate:[2019-02-21]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]
 
