@@ -33,8 +33,6 @@ import software.amazon.awssdk.services.cloudwatch.model.Statistic;
 /**
  * Creates a new CloudWatch alarm based on CPU utilization for an instance
  */
-
-
 public class PutMetricAlarm {
     public static void main(String[] args) {
 
