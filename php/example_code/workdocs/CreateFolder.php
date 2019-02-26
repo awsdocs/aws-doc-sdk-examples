@@ -52,14 +52,13 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    $result = $client->$result = $client->createFolder([
+    $result = $client->createFolder([
         'AuthenticationToken' => $authToken,
         'Name' => $folderName,
         'ParentFolderId' => $parentFolder
     ]);
 
     var_dump($result);
-
 
 } catch (AwsException $e) {
     // output error message if fails

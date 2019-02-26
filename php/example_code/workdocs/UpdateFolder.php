@@ -53,7 +53,7 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    $result = $client->$result = $client->updateFolder([
+    $result = $client->updateFolder([
         'AuthenticationToken' => $authToken,
         'Name' => $folderName,
         'ParentFolderId' => $parentFolder 
@@ -61,7 +61,6 @@ try {
     ]);
 
     var_dump($result);
-
 
 } catch (AwsException $e) {
     // output error message if fails

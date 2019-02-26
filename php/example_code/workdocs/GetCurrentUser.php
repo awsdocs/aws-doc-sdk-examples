@@ -49,11 +49,10 @@ try {
     $file = fopen($authTokenFilePath, 'r');
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
-    $result = $client->$result = $client->getCurrentUser([
+    $result = $client->getCurrentUser([
         'AuthenticationToken' => $authToken
     ]);
     var_dump($result);
-
 
 } catch (AwsException $e) {
     // output error message if fails
