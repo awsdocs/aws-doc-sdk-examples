@@ -51,13 +51,12 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    $result = $client->$result = $client->deleteFolder([
+    $result = $client->deleteFolder([
         'AuthenticationToken' => $authToken,
         'FolderId' => $folder
     ]);
 
     var_dump($result);
-
 
 } catch (AwsException $e) {
     // output error message if fails

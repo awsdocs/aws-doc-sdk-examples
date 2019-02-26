@@ -51,14 +51,13 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    $result = $client->$result = $client->getDocument([
+    $result = $client->getDocument([
         'AuthenticationToken' => $authToken,
         'DocumentId' => $document
     ]);
 
     var_dump($result);
-
-
+    
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";

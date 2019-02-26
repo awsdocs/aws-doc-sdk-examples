@@ -51,13 +51,12 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    $result = $client->$result = $client->deleteDocument([
+    $result = $client->deleteDocument([
         'AuthenticationToken' => $authToken,
         'DocumentId' => $document
     ]);
 
     var_dump($result);
-
 
 } catch (AwsException $e) {
     // output error message if fails

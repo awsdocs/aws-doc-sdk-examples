@@ -51,7 +51,7 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    $result = $client->$result = $client->describeRootFolders([
+    $result = $client->describeRootFolders([
         'AuthenticationToken' => $authToken
     ]);
     foreach ($result['Folders'] as $folder) {
@@ -59,7 +59,6 @@ try {
         print("</b> , Parent Folder - " . $folder['ParentFolderId'] . "</p>");
     }
     var_dump($result);
-
 
 } catch (AwsException $e) {
     // output error message if fails
