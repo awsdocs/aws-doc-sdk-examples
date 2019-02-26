@@ -15,10 +15,10 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS elasticache)
 
 set(EXAMPLES "")
+list(APPEND EXAMPLES "add_tags_to_resource")
 list(APPEND EXAMPLES "create_cache_cluster")
 list(APPEND EXAMPLES "delete_cache_cluster")
 list(APPEND EXAMPLES "modify_cache_cluster")
-list(APPEND EXAMPLES "add_tags_to_resource")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

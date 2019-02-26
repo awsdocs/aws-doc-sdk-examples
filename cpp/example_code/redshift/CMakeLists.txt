@@ -15,7 +15,9 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS redshift)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "fetch_redshift_table")
+list(APPEND EXAMPLES "authorize_cluster_access")
+list(APPEND EXAMPLES "create_cluster")
+list(APPEND EXAMPLES "create_cluster_subnet_group")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
