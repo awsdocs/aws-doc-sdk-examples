@@ -13,8 +13,10 @@
 */
 
 // snippet-sourcedescription:[sample.js demonstrates how to get started using the AWS SDK for JavaScript.]
+// snippet-service:[nodejs]
 // snippet-keyword:[JavaScript]
 // snippet-keyword:[Code Sample]
+// snippet-keyword:[Node.js]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2018-06-02]
 // snippet-sourceauthor:[AWS-JSDG]
