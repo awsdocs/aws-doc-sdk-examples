@@ -23,7 +23,7 @@
 #include <aws/core/Aws.h>
 #include <aws/email/SESClient.h>
 #include <aws/email/model/ListReceiptFiltersRequest.h>
-#include <aws/email/model/ListReceiptFiltersResult.h>
+#include <aws/email/model/ListReceiptFiltersResponse.h>
 #include <aws/email/model/ReceiptFilterPolicy.h>
 #include <iostream>
 
