@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "aws-sdk": ">= 2.249.1",
-    "uuid": ">= 4"
+    "aws-sdk": "^2.406.0",
+    "uuid": "^3.3.2"
   },
   "name": "aws-nodejs-sample",
   "description": "A simple Node.js application illustrating usage of the AWS SDK for Node.js.",
