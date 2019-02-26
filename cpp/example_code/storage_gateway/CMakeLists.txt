@@ -16,11 +16,11 @@ find_package(AWSSDK REQUIRED COMPONENTS storagegateway)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_nfs_file_share")
-list(APPEND EXAMPLES "list_file_shares")
-list(APPEND EXAMPLES "start_gateway")
+list(APPEND EXAMPLES "delete_volume")
 list(APPEND EXAMPLES "describe_gateway_information")
 list(APPEND EXAMPLES "describe_smb_settings")
-list(APPEND EXAMPLES "delete_volume")
+list(APPEND EXAMPLES "list_file_shares")
+list(APPEND EXAMPLES "start_gateway")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
