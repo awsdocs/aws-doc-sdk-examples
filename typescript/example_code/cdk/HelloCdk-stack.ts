@@ -43,7 +43,7 @@ export class HelloCdkStack extends cdk.Stack {
 
         topic.subscribeQueue(queue);
 
-// snippet-start:[cdk.typescript.HelloCdk-stack_add_metric_and_alarm]
+// snippet-start:[cdk.typescript.HelloCdk-stack_metric]
         // Add a metric to keep track of the number of messages available for retrieval from the queue
         // See https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-available-cloudwatch-metrics.html
         // for a list of available metrics for SQS
@@ -52,7 +52,10 @@ export class HelloCdkStack extends cdk.Stack {
             metricName: 'ApproximateNumberOfMessagesVisible',
             dimensions: { QueueName: queue.queueName }  // WAS: getAtt('QueueName')
           });
-          
+// snippet-end:[cdk.typescript.HelloCdk-stack_metric]          
+
+// snippet-start:[cdk.typescript.HelloCdk-stack_alarm]
+
           // Raise an alarm if we have more than 100 messages available for retrieval 
           // in two of the last three seconds
           new cloudwatch.Alarm(this, 'Alarm', {
@@ -61,7 +64,7 @@ export class HelloCdkStack extends cdk.Stack {
             evaluationPeriods: 3,
             datapointsToAlarm: 2,
           });
-// snippet-end:[cdk.typescript.HelloCdk-stack_add_metric_and_alarm]          
+// snippet-end:[cdk.typescript.HelloCdk-stack_alarm]          
     }
 }
 // snippet-end:[cdk.typescript.HelloCdk-stack]
