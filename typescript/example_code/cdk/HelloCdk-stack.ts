@@ -55,6 +55,7 @@ export class HelloCdkStack extends cdk.Stack {
 // snippet-end:[cdk.typescript.HelloCdk-stack_metric]          
 
 // snippet-start:[cdk.typescript.HelloCdk-stack_alarm]
+
           // Raise an alarm if we have more than 100 messages available for retrieval 
           // in two of the last three seconds
           new cloudwatch.Alarm(this, 'Alarm', {

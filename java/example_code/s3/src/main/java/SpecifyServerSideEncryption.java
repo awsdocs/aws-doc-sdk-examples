@@ -76,14 +76,15 @@ public class SpecifyServerSideEncryption {
 
     private static void uploadObjectWithSSEEncryption(AmazonS3 s3Client, String bucketName, String keyName) {
         String objectContent = "Test object encrypted with SSE";
+        byte[] objectBytes = objectContent.getBytes();
                 
         // Specify server-side encryption.
         ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(objectContent.length());
+        objectMetadata.setContentLength(objectBytes.length);
         objectMetadata.setSSEAlgorithm(ObjectMetadata.AES_256_SERVER_SIDE_ENCRYPTION);
         PutObjectRequest putRequest = new PutObjectRequest(bucketName, 
                                                            keyName, 
-                                                           new ByteArrayInputStream(objectContent.getBytes()), 
+                                                           new ByteArrayInputStream(objectBytes), 
                                                            objectMetadata);
 
         // Upload the object and check its encryption status.
