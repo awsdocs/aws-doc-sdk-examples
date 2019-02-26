@@ -19,10 +19,10 @@ list(APPEND EXAMPLES "create_pull_request")
 list(APPEND EXAMPLES "create_repository")
 list(APPEND EXAMPLES "delete_branch")
 list(APPEND EXAMPLES "delete_repository")
+list(APPEND EXAMPLES "list_branches")
 list(APPEND EXAMPLES "list_pull_requests")
 list(APPEND EXAMPLES "update_pull_request")
 list(APPEND EXAMPLES "update_repository")
-list(APPEND EXAMPLES "list_branches")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
