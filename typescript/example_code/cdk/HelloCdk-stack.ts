@@ -43,28 +43,22 @@ export class HelloCdkStack extends cdk.Stack {
 
         topic.subscribeQueue(queue);
 
-// snippet-start:[cdk.typescript.HelloCdk-stack_metric]
-        // Add a metric to keep track of the number of messages available for retrieval from the queue
-        // See https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-available-cloudwatch-metrics.html
-        // for a list of available metrics for SQS
-        const metric = new cloudwatch.Metric({
-            namespace: 'AWS/SQS',
-            metricName: 'ApproximateNumberOfMessagesVisible',
-            dimensions: { QueueName: queue.queueName }  // WAS: getAtt('QueueName')
-          });
-// snippet-end:[cdk.typescript.HelloCdk-stack_metric]          
 
+        // Raise an alarm if we have more than 100 messages available for retrieval 
+        // in two of the last three seconds
+
+// Do not change the spacing in the following example
+// otherwise you'll screw up the online docs
 // snippet-start:[cdk.typescript.HelloCdk-stack_alarm]
+const qMetric = queue.metric('ApproximateNumberOfMessagesVisible');
 
-          // Raise an alarm if we have more than 100 messages available for retrieval 
-          // in two of the last three seconds
-          new cloudwatch.Alarm(this, 'Alarm', {
-            metric,
-            threshold: 100,
-            evaluationPeriods: 3,
-            datapointsToAlarm: 2,
-          });
-// snippet-end:[cdk.typescript.HelloCdk-stack_alarm]          
+new cloudwatch.Alarm(this, 'Alarm', {
+  metric: qMetric,
+  threshold: 100,
+  evaluationPeriods: 3,
+  datapointsToAlarm: 2,
+});
+// snippet-end:[cdk.typescript.HelloCdk-stack_alarm]
     }
 }
 // snippet-end:[cdk.typescript.HelloCdk-stack]
