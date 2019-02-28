@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 package com.example.s3;
+// snippet-start:[s3.java.s3_object_operations.complete]
+// snippet-start:[s3.java.s3_object_operations.import]
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -45,14 +47,18 @@ import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
+// snippet-end:[s3.java.s3_object_operations.import]
 
+// snippet-start:[s3.java.s3_object_operations.main]
 public class S3ObjectOperations {
 
     private static S3Client s3;
 
     public static void main(String[] args) throws IOException {
+        // snippet-start:[s3.java.s3_object_operations.upload]
         Region region = Region.US_WEST_2;
         s3 = S3Client.builder().region(region).build();
+        
 
         String bucket = "bucket" + System.currentTimeMillis();
         String key = "key";
@@ -63,6 +69,7 @@ public class S3ObjectOperations {
         s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
                                      .build(),
                      RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
+        // snippet-end:[s3.java.s3_object_operations.upload]
 
 
         // Multipart Upload a file
@@ -115,12 +122,16 @@ public class S3ObjectOperations {
         }
 
         // Get Object
+        // snippet-start:[s3.java.s3_object_operations.download]
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
         		ResponseTransformer.toFile(Paths.get("multiPartKey")));
+        // snippet-end:[s3.java.s3_object_operations.download]
 
         // Delete Object
+        // snippet-start:[s3.java.s3_object_operations.delete]
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
         s3.deleteObject(deleteObjectRequest);
+        // snippet-end:[s3.java.s3_object_operations.delete]
 
         // Delete Object
         deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
@@ -154,7 +165,8 @@ public class S3ObjectOperations {
     private static void multipartUpload(String bucketName, String key) throws IOException {
 
         int MB = 1024 * 1024;
-        // First create a multipart upload and get upload id
+        // First create a multipart upload and get upload id 
+        // snippet-start:[s3.java.s3_object_operations.upload_multi_part]
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
                                                                                                 .bucket(bucketName).key(key)
                                                                                                 .build();
@@ -183,6 +195,7 @@ public class S3ObjectOperations {
                 CompleteMultipartUploadRequest.builder().bucket(bucketName).key(key).uploadId(uploadId)
                                               .multipartUpload(completedMultipartUpload).build();
         s3.completeMultipartUpload(completeMultipartUploadRequest);
+        // snippet-end:[s3.java.s3_object_operations.upload_multi_part]
     }
 
     private static ByteBuffer getRandomByteBuffer(int size) throws IOException {
@@ -191,3 +204,6 @@ public class S3ObjectOperations {
         return ByteBuffer.wrap(b);
     }
 }
+ 
+// snippet-end:[s3.java.s3_object_operations.main]
+// snippet-end:[s3.java.s3_object_operations.complete]
