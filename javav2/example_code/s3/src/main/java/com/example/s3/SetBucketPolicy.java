@@ -19,6 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java.set_bucket_policy.complete]
+// snippet-start:[s3.java.set_bucket_policy.import]
 
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutBucketPolicyRequest;
@@ -34,13 +36,15 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+ 
+// snippet-end:[s3.java.set_bucket_policy.import]
 /**
 * Add a bucket policy to an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
 */
+// snippet-start:[s3.java.set_bucket_policy.main]
 public class SetBucketPolicy
 {
     // Loads a JSON-formatted policy from a file, verifying it with the Policy
@@ -125,3 +129,6 @@ public class SetBucketPolicy
       System.out.println("Done!");
    }
 }
+ 
+// snippet-end:[s3.java.set_bucket_policy.main]
+// snippet-end:[s3.java.set_bucket_policy.complete]

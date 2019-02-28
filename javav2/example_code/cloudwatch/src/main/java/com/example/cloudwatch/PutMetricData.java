@@ -71,5 +71,4 @@ public class PutMetricData {
         // snippet-end:[cloudwatch.java.put_metric_data.main]
     }
 }
-
 // snippet-end:[cloudwatch.java.put_metric_data.complete]
