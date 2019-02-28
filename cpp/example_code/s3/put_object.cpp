@@ -27,6 +27,7 @@
 #include <aws/s3/model/PutObjectRequest.h>
 #include <iostream>
 #include <fstream>
+#include <sys/stat.h>
 //snippet-end:[s3.cpp.put_object.inc]
 
 /**
