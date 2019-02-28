@@ -16,11 +16,15 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-configuring-a-bucket.html
  *
  */
+// snippet-start:[s3.php.get_bucket_cors.complete]
+// snippet-start:[s3.php.get_bucket_cors.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+// snippet-end:[s3.php.get_bucket_cors.import]
+
 
 /**
  * Get bucket cors
@@ -31,6 +35,7 @@ use Aws\Exception\AwsException;
 
 $bucketName = 'BUCKET_NAME';
 
+// snippet-start:[s3.php.get_bucket_cors.main]
 $client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -47,7 +52,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[s3.php.get_bucket_cors.main]
+// snippet-end:[s3.php.get_bucket_cors.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetBucketCors.php demonstrates how to retrieve CORS permission on an Amazon S3 bucket.]
 // snippet-keyword:[PHP]
