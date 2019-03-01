@@ -28,6 +28,7 @@ use Aws\Exception\AwsException;
 
 //Creating a presigned request
 // snippet-start:[s3.php.presigned_url.main]
+// snippet-start:[s3.php.presigned_url.get_object]
 $s3Client = new Aws\S3\S3Client([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -40,7 +41,9 @@ $cmd = $s3Client->getCommand('GetObject', [
 ]);
 
 $request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
+// snippet-end:[s3.php.presigned_url.get_object]
 
+// snippet-start:[s3.php.presigned_url.create_url]
 //Creating a presigned URL
 $cmd = $s3Client->getCommand('GetObject', [
     'Bucket' => 'my-bucket',
@@ -51,10 +54,12 @@ $request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
 
 // Get the actual presigned-url
 $presignedUrl = (string)$request->getUri();
+// snippet-end:[s3.php.presigned_url.create_url]
 
+// snippet-start:[s3.php.presigned_url.get_url]
 //Getting the URL to an object
 $url = $s3Client->getObjectUrl('my-bucket', 'my-key');
- 
+// snippet-end:[s3.php.presigned_url.get_url] 
  
 // snippet-end:[s3.php.presigned_url.main]
 // snippet-end:[s3.php.presigned_url.complete]
