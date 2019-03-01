@@ -19,13 +19,16 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java.delete_objects.complete]
+// snippet-start:[s3.java.delete_objects.import]
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest;
 
 import java.util.Arrays;
-
+ 
+// snippet-end:[s3.java.delete_objects.import]
 /**
  * Delete multiple objects from an Amazon S3 bucket.
  *
@@ -34,6 +37,7 @@ import java.util.Arrays;
  *
  * ++ Warning ++ This code will actually delete the objects that you specify!
  */
+// snippet-start:[s3.java.delete_objects.main]
 public class DeleteObjects
 {
     public static void main(String[] args)
@@ -71,3 +75,6 @@ public class DeleteObjects
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[s3.java.delete_objects.main]
+// snippet-end:[s3.java.delete_objects.complete]

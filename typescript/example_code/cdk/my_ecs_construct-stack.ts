@@ -3,13 +3,13 @@
 // snippet-comment:[This this should go in the lib directory.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates a Fargate service with versioning enabled.]
-// snippet-keyword:[CDK V0.21.0]
+// snippet-keyword:[CDK V0.24.1]
 // snippet-keyword:[ function]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-1-9]
+// snippet-sourcedate:[2019-2-8]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -28,6 +28,7 @@ import ec2 = require('@aws-cdk/aws-ec2');
 import ecs = require('@aws-cdk/aws-ecs');
 // snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
+// snippet-start:[cdk.typescript.my_ecs_construct-stack.class]
 export class MyEcsConstructStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -51,6 +52,7 @@ export class MyEcsConstructStack extends cdk.Stack {
       publicLoadBalancer: true  // Default is false
     });
     // snippet-end:[cdk.typescript.my_ecs_construct.create_fargate_service]
+    // snippet-end:[cdk.typescript.my_ecs_construct-stack.class]
   }
 }
 // snippet-end:[cdk.typescript.my_ecs_construct-stack]

@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
  */
+// snippet-start:[ses.php.delete_filter.complete]
+// snippet-start:[ses.php.delete_filter.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.delete_filter.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.delete_filter.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -43,7 +47,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.delete_filter.main]
+// snippet-end:[ses.php.delete_filter.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Delete_Filter.php demonstrates how to remove an existing filter for a specific IP address.]
 // snippet-keyword:[PHP]

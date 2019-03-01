@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
+// snippet-start:[ses.php.get_template.complete]
+// snippet-start:[ses.php.get_template.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.get_template.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.get_template.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -42,7 +46,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.get_template.main]
+// snippet-end:[ses.php.get_template.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Get_Template.php demonstrates how to view the content for an existing email template including the subject line, HTML body, and plain text.]
 // snippet-keyword:[PHP]

@@ -12,14 +12,17 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at
+ * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-example-data-stream.html
  *
  */
-
+// snippet-start:[kinesis.php.put_data_stream_record.complete]
+// snippet-start:[kinesis.php.put_data_stream_record.import]
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient;
+use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kinesis.php.put_data_stream_record.import]
 
 /**
  * Add a data blob to an existing Amazon Kinesis Data Stream.
@@ -28,7 +31,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
+//Create a KinesisClient 
+// snippet-start:[kinesis.php.put_data_stream_record.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
     'version' => '2013-12-02',
@@ -53,7 +57,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[kinesis.php.put_data_stream_record.main]
+// snippet-end:[kinesis.php.put_data_stream_record.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[PutDataStreamRecord.php demonstrates how to write a single data record to an Amazon Kinesis  Data Streams data stream.]
 // snippet-keyword:[PHP]

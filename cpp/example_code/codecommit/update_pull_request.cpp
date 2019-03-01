@@ -83,7 +83,7 @@ int main(int argc, char ** argv)
     auto uprs_out = codecommit.UpdatePullRequestStatus(uprs_req);
     auto uprt_out = codecommit.UpdatePullRequestTitle(uprt_req);
 
-    if (uprd_out.IsSuccess() and uprs_out.IsSuccess() and uprt_out.IsSuccess())
+    if (uprd_out.IsSuccess() && uprs_out.IsSuccess() && uprt_out.IsSuccess())
     {
       std::cout << "Successfully updated pull request title, status and description."
                 << std::endl;
