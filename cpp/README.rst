@@ -32,11 +32,15 @@ Create a build environment
 Create a build root directory. The directory can be located either within 
 the example directory structure or outside of it.
 
+::
+
     mkdir sdk_example_builds
     cd sdk_example_builds
 
 Create a build directory to store the compiled examples for a particular 
 AWS service. Each service should have its own build directory.
+
+::
 
     mkdir s3
     cd s3
@@ -46,6 +50,8 @@ Build the examples on Windows
 
 Run CMake and MsBuild. The compiled and linked executable files are
 located in the Debug directory.
+
+::
 
     cd \<BUILD_ROOT_DIRECTORY>\<SERVICE>
     cmake -D CMAKE_PREFIX_PATH="C:/Program Files (x86)/aws-cpp-sdk-all/" /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
@@ -69,6 +75,8 @@ Build the examples on Linux/macOS
 Run CMake and make. The compiled and linked executable files are
 located in the build directory.
 
+::
+
     cd /<BUILD_ROOT_DIRECTORY>/<SERVICE>
     sudo cmake /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
     sudo make
@@ -78,5 +86,7 @@ the service's examples are located.
 
 If CMake does not locate the required C++11 compiler, specify its location
 by defining CMake variables, as demonstrated below.
+
+::
 
     sudo cmake -D CMAKE_C_COMPILER=/usr/local/bin/gcc -D CMAKE_CXX_COMPILER=/usr/local/bin/g++ /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
