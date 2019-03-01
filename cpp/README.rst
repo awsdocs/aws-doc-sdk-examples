@@ -66,7 +66,7 @@ Alternatively, in Microsoft Visual Studio, open the ALL_BUILD.vcxproj
 project and select Build > Build Solution.
 
 Note: MsBuild is included with Microsoft Visual Studio. With the 2017 Community Edition, 
-MsBuild is located in "\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\".
+MsBuild is located in "\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\amd64\\".
 In earlier versions of Visual Studio, MsBuild is located in other directories.
 
 Build the examples on Linux/macOS
