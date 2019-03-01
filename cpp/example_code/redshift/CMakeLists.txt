@@ -15,7 +15,6 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS redshift)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "authorize_cluster_access")
 list(APPEND EXAMPLES "create_cluster")
 list(APPEND EXAMPLES "create_cluster_subnet_group")
 
@@ -24,3 +23,6 @@ foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
   target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()
+
+add_executable(authorize_cluster_access authorize_cluster_access.cpp)
+target_link_libraries(authorize_cluster_access aws-cpp-sdk-ec2 ${AWSSDK_LINK_LIBRARIES})

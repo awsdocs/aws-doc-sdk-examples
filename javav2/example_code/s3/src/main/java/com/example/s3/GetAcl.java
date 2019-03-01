@@ -19,6 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java.get_acl.complete]
+// snippet-start:[s3.java.get_acl.import]
 
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
@@ -30,13 +32,15 @@ import software.amazon.awssdk.services.s3.model.GetObjectAclResponse;
 import software.amazon.awssdk.services.s3.model.Grant;
 
 import java.util.List;
-
+ 
+// snippet-end:[s3.java.get_acl.import]
 /**
 * Get the ACL for an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
 */
+// snippet-start:[s3.java.get_acl.main]
 public class GetAcl
 {
     public static void getBucketAcl(String bucket_name)
@@ -118,3 +122,6 @@ public class GetAcl
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[s3.java.get_acl.main]
+// snippet-end:[s3.java.get_acl.complete]
