@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBMapperBatchWriteExample.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -129,7 +129,10 @@ public class DynamoDBMapperBatchWriteExample {
         List<Object> objectsToWrite = Arrays.asList(forumItem, threadItem);
         List<Book> objectsToDelete = Arrays.asList(book3);
 
-        DynamoDBMapperConfig config = new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.CLOBBER);
+        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
+            .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
+        .build();
+
         mapper.batchWrite(objectsToWrite, objectsToDelete, config);
     }
 
