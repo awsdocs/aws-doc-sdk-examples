@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-verify.html
  *
  */
+// snippet-start:[ses.php.list_domain.complete]
+// snippet-start:[ses.php.list_domain.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\SES\SESClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.list_domain.import]
 
-//Create a SESClient
+//Create a SESClient 
+// snippet-start:[ses.php.list_domain.main]
 $SesClient = new Aws\SES\SESClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -40,7 +44,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.list_domain.main]
+// snippet-end:[ses.php.list_domain.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_Domain.php demonstrates how to retrieve a list of email domains submitted in the current AWS Region, regardless of verification status.]
 // snippet-keyword:[PHP]

@@ -21,35 +21,28 @@
 // snippet-keyword:[DeleteClusterSnapshot]
 // snippet-keyword:[DescribeClusterSnapshots]
 // snippet-sourcetype:[full-example]
+
 // snippet-sourcedate:[2015-02-19]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndDescribeSnapshot.complete]
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.PropertiesCredentials;
-import com.amazonaws.services.redshift.AmazonRedshiftClient;
-import com.amazonaws.services.redshift.model.CreateClusterSnapshotRequest;
-import com.amazonaws.services.redshift.model.DeleteClusterSnapshotRequest;
-import com.amazonaws.services.redshift.model.DescribeClusterSnapshotsRequest;
-import com.amazonaws.services.redshift.model.DescribeClusterSnapshotsResult;
-import com.amazonaws.services.redshift.model.Snapshot;
+
+import com.amazonaws.services.redshift.model.*;
 
 public class CreateAndDescribeSnapshot {
 
-    public static AmazonRedshiftClient client;
-    public static String clusterIdentifier = "***provide cluster identifier***";
-    public static long sleepTime = 10;
+    public static AmazonRedshift client;
+    public static String clusterIdentifier = "***provide a cluster identifier***";
+    public static long sleepTime = 20;
 
     public static void main(String[] args) throws IOException {
 
-        AWSCredentials credentials = new PropertiesCredentials(
-                CreateAndDescribeSnapshot.class
-                        .getResourceAsStream("AwsCredentials.properties"));
-
-        client = new AmazonRedshiftClient(credentials);
+         // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+        client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
              // Unique snapshot identifier

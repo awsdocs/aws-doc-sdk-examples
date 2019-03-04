@@ -19,6 +19,8 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[cloudwatch.java.put_metric_data.complete]
+// snippet-start:[cloudwatch.java.put_metric_data.import]
 package com.example.cloudwatch;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -27,12 +29,14 @@ import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataResponse;
 import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 
+// snippet-end:[cloudwatch.java.put_metric_data.import]
 /**
  * Puts a sample metric data point
  */
 public class PutMetricData {
     public static void main(String[] args) {
-
+        
+        
         final String USAGE =
             "To run this example, supply a data point:\n" +
             "Ex: PutMetricData <data_point>\n";
@@ -41,7 +45,7 @@ public class PutMetricData {
             System.out.println(USAGE);
             System.exit(1);
         }
-
+        // snippet-start:[cloudwatch.java.put_metric_data.main]
         Double data_point = Double.parseDouble(args[0]);
 
         CloudWatchClient cw =
@@ -64,5 +68,7 @@ public class PutMetricData {
         PutMetricDataResponse response = cw.putMetricData(request);
 
         System.out.printf("Successfully put data point %f", data_point);
+        // snippet-end:[cloudwatch.java.put_metric_data.main]
     }
 }
+// snippet-end:[cloudwatch.java.put_metric_data.complete]

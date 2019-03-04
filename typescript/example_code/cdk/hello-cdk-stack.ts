@@ -2,13 +2,13 @@
 // snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates an S3 bucket with versioning enabled.]
-// snippet-keyword:[CDK V0.21.0]
+// snippet-keyword:[CDK V0.24.1]
 // snippet-keyword:[s3.Bucket function]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-1-9]
+// snippet-sourcedate:[2019-2-8]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").

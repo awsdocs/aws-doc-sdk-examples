@@ -19,9 +19,9 @@ import boto3
         
 client = boto3.client('iot-data')
 response = client.publish(
-	topic = "/some/topic",
-	qos = 0,
-	payload = "Some payload".encode()
+    topic = 'some/topic',
+    qos = 0,
+    payload = 'Some payload'.encode()
 )
 # snippet-end:[greengrass.python.iot-data-client-boto3.complete]
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
