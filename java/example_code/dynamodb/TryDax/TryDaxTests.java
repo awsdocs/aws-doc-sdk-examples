@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[TryDaxTests.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]

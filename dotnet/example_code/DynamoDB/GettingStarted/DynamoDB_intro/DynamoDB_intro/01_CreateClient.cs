@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[01_CreateClient.cs demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[dotNET]
 // snippet-keyword:[Amazon DynamoDB]
