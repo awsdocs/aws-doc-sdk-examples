@@ -5,6 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[swf.java.start_workflow.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -18,11 +19,14 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[swf.java.start_workflow.import]
 package com.example.helloswf;
 
 import software.amazon.awssdk.services.swf.SWFClient;
 import software.amazon.awssdk.services.swf.model.*;
 
+// snippet-end:[swf.java.start_workflow.import]
+// snippet-start:[swf.java.start_workflow.main]
 public class WorkflowStarter {
     private static final SWFClient swf = SWFClient.builder().build();
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
@@ -53,3 +57,5 @@ public class WorkflowStarter {
                 run.runId() + "'.");
     }
 }
+// snippet-end:[swf.java.start_workflow.main]
+// snippet-end:[swf.java.start_workflow.complete]

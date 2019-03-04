@@ -16,15 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
  *
  */
-
+// snippet-start:[s3.php.multipart_upload_custom.complete]
+// snippet-start:[s3.php.multipart_upload_custom.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
-
-// Create a S3Client
+// snippet-end:[s3.php.multipart_upload_custom.import]
+// snippet-start:[s3.php.multipart_upload_custom.main]
+// Create an S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -51,7 +53,8 @@ $uploader = new MultipartUploader($s3Client, $source, [
     },
 ]);
  
-
+// snippet-end:[s3.php.multipart_upload_custom.main]
+// snippet-end:[s3.php.multipart_upload_custom.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[MultipartUploadCustimized.php demonstrates how to set custom options on the CreateMultipartUpload, UploadPart, and CompleteMultipartUpload operations executed by the multipart uploader via callbacks passed to its constructor.]
 // snippet-keyword:[PHP]

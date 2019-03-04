@@ -16,20 +16,23 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
-
+// snippet-start:[s3.php.error_handling.complete]
+// snippet-start:[s3.php.error_handling.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\Exception\S3Exception;
 
+// snippet-end:[s3.php.error_handling.import]
 /**
  * Create an Amazon S3 bucket. Synchronous Error Handling
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[s3.php.error_handling.main]
+// snippet-start:[s3.php.error_handling.client]
 //Create a S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
@@ -53,9 +56,12 @@ try {
     echo $e->getAwsErrorCode() . "\n";
 }
 
+// snippet-end:[s3.php.error_handling.client]
+// snippet-start:[s3.php.error_handling.async]
 //Asynchronous Error Handling
+// snippet-start:[s3.php.error_handling.promise]
 $promise = $s3Client->createBucketAsync(['Bucket' => 'my-bucket']);
-
+// snippet-end:[s3.php.error_handling.promise]
 $promise->otherwise(function ($reason) {
     var_dump($reason);
 });
@@ -65,14 +71,19 @@ $promise->then(null, function ($reason) {
     var_dump($reason);
 });
 
+// snippet-end:[s3.php.error_handling.async]
+
+// snippet-start:[s3.php.error_handling.trycatch]
 //throw exception
 try {
     $result = $promise->wait();
 } catch (S3Exception $e) {
     echo $e->getMessage();
 }
- 
 
+// snippet-end:[s3.php.error_handling.trycatch] 
+// snippet-end:[s3.php.error_handling.main]
+// snippet-end:[s3.php.error_handling.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ErrorHandling.php demonstrates how to create a Amazon S3 Bucket Asynchronously with Errors Handled if something goes wrong.]
 // snippet-keyword:[PHP]

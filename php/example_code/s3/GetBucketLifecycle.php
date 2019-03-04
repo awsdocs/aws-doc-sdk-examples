@@ -12,10 +12,15 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+// snippet-start:[s3.php.get_bucket_lifecycle.complete]
+// snippet-start:[s3.php.get_bucket_lifecycle.import]
+
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+// snippet-end:[s3.php.get_bucket_lifecycle.import]
+
 
 /**
  * Get bucket lifecycle
@@ -26,6 +31,7 @@ use Aws\Exception\AwsException;
 
 $bucketName = 'BUCKET_NAME';
 
+// snippet-start:[s3.php.get_bucket_lifecycle.main]
 $client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -42,7 +48,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[s3.php.get_bucket_lifecycle.main]
+// snippet-end:[s3.php.get_bucket_lifecycle.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetBucketLifecycle.php demonstrates how to get Amazon S3 bucket lifecycle.]
 // snippet-keyword:[PHP]

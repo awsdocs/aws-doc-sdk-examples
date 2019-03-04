@@ -12,13 +12,18 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+// snippet-start:[s3.php.object_acl.complete]
+// snippet-start:[s3.php.object_acl.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+// snippet-end:[s3.php.object_acl.import]
 
-// Create a S3Client
+
+// Create a S3Client 
+// snippet-start:[s3.php.object_acl.main]
 $s3Client = new S3Client([
     'region' => 'us-west-2',
     'version' => '2006-03-01'
@@ -77,7 +82,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[s3.php.object_acl.main]
+// snippet-end:[s3.php.object_acl.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[s3ObjectAcl.php demonstrates how to set access control list (ACL) permissions for a file (or object) in an Amazon S3 bucket.]
 // snippet-keyword:[PHP]

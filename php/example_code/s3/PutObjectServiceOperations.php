@@ -16,11 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
-
+// snippet-start:[s3.php.put_service_operations.complete]
+// snippet-start:[s3.php.put_service_operations.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 
+// snippet-end:[s3.php.put_service_operations.import]
 /**
  * Put an Object inside Amazon S3 Bucket.
  *
@@ -28,6 +30,7 @@ use Aws\S3\S3Client;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
+// snippet-start:[s3.php.put_service_operations.main]
 // Use the us-east-2 region and latest version of each client.
 $sharedConfig = [
     'profile' => 'default',
@@ -58,6 +61,8 @@ $result = $s3Client->getObject([
 echo $result['Body'];
  
 
+// snippet-end:[s3.php.put_service_operations.main]
+// snippet-end:[s3.php.put_service_operations.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[PutObjectServiceOperations.php demonstrates how to send a file (or object) to an Amazon S3 bucket with an actionable result object returned.]
 // snippet-keyword:[PHP]

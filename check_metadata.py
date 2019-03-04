@@ -35,6 +35,11 @@ def checkFile(filePattern):
                 print("\nChecking File: " + filepath)
             with open(filepath) as f:
                 s = f.read()
+                
+                #Check for blacklist words in file
+                verifyNoBlacklistWords(s, filepath)
+                
+                # Split file into list of strings seperated by space
                 words = s.split()
             for word in words:
                 checkStringLength(word)
@@ -66,6 +71,13 @@ def checkFile(filePattern):
     print(str(filecount) + " files scanned in " + root)
     print("")
 
+
+def verifyNoBlacklistWords(fileContents, filelocation):
+    fileContents = fileContents.split('/')
+    for word in fileContents:
+        if word in blacklist:
+            print("ERROR -- Found in " + filelocation)
+            sys.exit("ERROR -- " + word + " found, and is on the blacklist.")
 
 def checkStringLength (word):
     length = len(word)
@@ -210,11 +222,22 @@ while i < len(sys.argv):
 
 # Whitelist of files to never check
 # 
-doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py'}
+doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py', 'movie_data.json'}
 root = './'
 
+# Blacklist of words that should not in include in code samples
+
+blacklist = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
+
 print ('----------\n\nRun Tests\n')
-print ('----------\n\nC++ Code Examples(*.cpp)\n')
+
+print ('----------\n\nC Code Examples (*.c)\n')
+checkFile('*.c')
+print ('----------\n\nCloudFormation and IAM Policy Code Examples (*.json) & (*.yaml)\n')
+checkFile('*.json')
+checkFile('*.yml')
+checkFile('*.yaml')
+print ('----------\n\nC++ Code Examples (*.cpp)\n')
 checkFile('*.cpp')
 print ('----------\n\nC# Code Examples (*.cs)\n')
 checkFile('*.cs')

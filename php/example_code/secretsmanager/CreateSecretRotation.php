@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+// snippet-start:[secretsmanager.php.create_secret_rotation.complete]
+// snippet-start:[secretsmanager.php.create_secret_rotation.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.create_secret_rotation.import]
 
 /**
  * Create a secret rotation in AWS Secret Manager Secret that automatically 
@@ -32,7 +35,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client
+//Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.create_secret_rotation.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -55,7 +59,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+// snippet-end:[secretsmanager.php.create_secret_rotation.main]
+// snippet-end:[secretsmanager.php.create_secret_rotation.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateSecretRotation.php demonstrates how to configure a rotation for a secret value in AWS Secrets Manager using an existing Lambda Function. This example will automatically rotate the secret every 30 days. ]
 // snippet-keyword:[PHP]

@@ -8,52 +8,85 @@
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
 
-######################################
-AWS SDK for C++ Documentation Examples
-######################################
+#############################
+AWS SDK for C++ Code Examples
+#############################
 
-This is a collection of examples for the AWS SDK for C++ public documentation.
-
+A collection of code examples for the AWS SDK for C++. The examples are grouped
+according to the AWS service they demonstrate.
 
 Prerequisites
 =============
 
-To build and run these examples, you'll need:
+To build the examples, the following software must be installed and configured.
 
-* CMake (version 3.2+)
-* AWS SDK for C++ (downloaded, extracted, built and installed on your machine)
-* AWS credentials, either configured in a local AWS credentials file or by setting the
-  AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
+* AWS SDK for C++
+* AWS credentials: Either configured in a local AWS credentials file or by 
+  setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
+* Microsoft Visual Studio (Windows) or a C++11 compiler (Linux/macOS)
+* CMake version 3.2 or later
 
+Create a build environment
+==========================
 
-Building the examples
-=====================
+Create a build root directory. The directory can be located either within 
+the example directory structure or outside of it.
 
-To build the examples, create a build directory::
+::
 
-    mkdir s3_build
+    mkdir sdk_example_builds
+    cd sdk_example_builds
 
-Go into the directory and run ``cmake``, providing it with the path to where you install the SDK if the path is not CMake awareness, and
-the path to the examples directory that you want to build. For example::
+Create a build directory to store the compiled examples for a particular 
+AWS service. Each service should have its own build directory.
 
-    cd s3_build
-    cmake -DCMAKE_PREFIX_PATH=/path/to/aws_sdk_installed/ ../example_code/s3
+::
 
-Finally, run ``make`` in the build directory:
+    mkdir s3
+    cd s3
 
-    make
+Build the examples on Windows
+=============================
 
+Run CMake and MsBuild. The compiled and linked executable files are
+located in the Debug directory.
 
-Running the examples
-====================
+::
 
-The examples are built right into the build directory, so you can run them by name. On Unix, Linux
-and OS X, make sure you specify the full path to the file (since you unlikely added the current
-directory to your ``PATH``)::
+    cd \<BUILD_ROOT_DIRECTORY>\<SERVICE>
+    cmake -D CMAKE_PREFIX_PATH="C:/Program Files (x86)/aws-cpp-sdk-all/" /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
+    msbuild ALL_BUILD.vcxproj
 
-    ./list_buckets
+Define the CMAKE_PREFIX_PATH variable to specify the directory 
+where the AWS SDK for C++ was installed. Also specify the Code Catalog
+directory where the service's examples are located.
 
-On **Windows**, you would run the same example as::
+On the MsBuild command line, specify the ALL_BUILD.vcxproj argument. 
+Alternatively, in Microsoft Visual Studio, open the ALL_BUILD.vcxproj 
+project and select Build > Build Solution.
 
-    list_buckets.exe
+Note: MsBuild is included with Microsoft Visual Studio. With the 2017 Community Edition, 
+MsBuild is located in "\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\amd64\\".
+In earlier versions of Visual Studio, MsBuild is located in other directories.
 
+Build the examples on Linux/macOS
+=================================
+
+Run CMake and make. The compiled and linked executable files are
+located in the build directory.
+
+::
+
+    cd /<BUILD_ROOT_DIRECTORY>/<SERVICE>
+    sudo cmake /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
+    sudo make
+
+On the CMake command line, specify the Code Catalog directory where
+the service's examples are located.
+
+If CMake does not locate the required C++11 compiler, specify its location
+by defining CMake variables, as demonstrated below.
+
+::
+
+    sudo cmake -D CMAKE_C_COMPILER=/usr/local/bin/gcc -D CMAKE_CXX_COMPILER=/usr/local/bin/g++ /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>

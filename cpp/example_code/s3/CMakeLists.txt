@@ -33,10 +33,10 @@ list(APPEND EXAMPLES "list_buckets")
 list(APPEND EXAMPLES "list_objects")
 list(APPEND EXAMPLES "put_bucket_policy")
 list(APPEND EXAMPLES "put_object")
-list(APPEND EXAMPLES "put_object_unicode")
-list(APPEND EXAMPLES "put_website_config")
-list(APPEND EXAMPLES "set_acl")
 list(APPEND EXAMPLES "put_object_buffer")
+list(APPEND EXAMPLES "put_website_config")
+list(APPEND EXAMPLES "s3-demo")
+list(APPEND EXAMPLES "set_acl")
 
 # The executables to build
 foreach(EXAMPLE IN LISTS EXAMPLES)

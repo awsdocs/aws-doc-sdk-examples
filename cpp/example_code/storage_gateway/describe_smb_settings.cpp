@@ -24,6 +24,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/DescribeSMBSettingsRequest.h>
 #include <aws/storagegateway/model/DescribeSMBSettingsResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -39,20 +40,20 @@ int main(int argc, char ** argv)
   {
     Aws::String gateway_arn(argv[1]);
 
-    Aws::StorageGateway::StorageGatewayClient sg;
+    Aws::StorageGateway::StorageGatewayClient storagegatway;
 
     Aws::StorageGateway::Model::DescribeSMBSettingsRequest dsmbs_req;
 
-    sg.SetGatewayARN(gateway_arn);
+    dsmbs_req.SetGatewayARN(gateway_arn);
 
-    auto dsmbs_out = storagegatway.DescribeGateway(dsmbs_req);
+    auto dsmbs_out = storagegatway.DescribeSMBSettings(dsmbs_req);
 
     if (dsmbs_out.IsSuccess())
     {
       std::cout << "Successfully describing SMB settings as:";
-      for (auto val : dsmbs_out.GetResult().GetSMBFileShareInfoList())
+      for (auto val : dsmbs_out.GetResult().GetDomainName())
       {
-        cout << " " << val;
+        std::cout << " " << val;
       }
     }
     else

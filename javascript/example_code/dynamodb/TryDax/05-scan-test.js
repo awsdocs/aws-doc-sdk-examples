@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[ ]
+// snippet-sourcedescription:[05-scan-test.js demonstrates how to ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[JavaScript]
 // snippet-keyword:[Amazon DynamoDB]

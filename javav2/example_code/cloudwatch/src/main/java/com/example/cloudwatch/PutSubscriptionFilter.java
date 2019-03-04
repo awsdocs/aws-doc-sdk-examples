@@ -5,6 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java.put_subscription_filter.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -19,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[cloudwatch.java.put_subscription_filter.import]
 package com.example.cloudwatch;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilterRequest;
@@ -27,6 +29,8 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
 /**
  * Creates a CloudWatch Logs subscription filter.
  */
+// snippet-end:[cloudwatch.java.put_subscription_filter.import]
+// snippet-start:[cloudwatch.java.put_subscription_filter.main]
 public class PutSubscriptionFilter {
     public static void main(String[] args) {
 
@@ -69,3 +73,5 @@ public class PutSubscriptionFilter {
             filter);
     }
 }
+// snippet-end:[cloudwatch.java.put_subscription_filter.main]
+// snippet-end:[cloudwatch.java.put_subscription_filter.complete]

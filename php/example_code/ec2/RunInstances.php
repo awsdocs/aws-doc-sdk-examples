@@ -11,19 +11,25 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
+ *
+ *
  */
+// snippet-start:[ec2.php.run_instance.complete]
+// snippet-start:[ec2.php.run_instance.import]
+
 require 'vendor/autoload.php';
 
 use Aws\Ec2\Ec2Client;
-
+// snippet-end:[ec2.php.run_instance.import]
 /**
  * Run Instances
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
-$ec2Client = new Ec2Client([
+ 
+// snippet-start:[ec2.php.run_instance.main]
+$client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
@@ -41,7 +47,9 @@ $result = $ec2Client->runInstances(array(
 
 var_dump($result);
  
-
+ 
+// snippet-end:[ec2.php.run_instance.main]
+// snippet-end:[ec2.php.run_instance.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[RunInstances.php demonstrates how to launch the specified number of instances using an AMI for which you have permissions.]
 // snippet-keyword:[PHP]
