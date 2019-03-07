@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBLocalFixture.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]

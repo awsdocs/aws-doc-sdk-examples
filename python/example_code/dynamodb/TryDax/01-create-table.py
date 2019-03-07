@@ -1,4 +1,4 @@
-# snippet-sourcedescription:[01-create-table.py demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon DynamoDB]

@@ -20,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java.detach_role_policy.complete]
+// snippet-start:[iam.java.detach_role_policy.import]
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
+ 
+// snippet-end:[iam.java.detach_role_policy.import]
 /**
  * Detaches a policy from a role
  */
@@ -44,6 +47,7 @@ public class DetachRolePolicy {
         String role_name = args[0];
         String policy_arn = args[1];
 
+        // snippet-start:[iam.java.detach_role_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -52,8 +56,10 @@ public class DetachRolePolicy {
             .policyArn(policy_arn).build();
 
         DetachRolePolicyResponse response = iam.detachRolePolicy(request);
-
+        // snippet-start:[iam.java.detach_role_policy.main]
+        
         System.out.println("Successfully detached policy " + policy_arn +
                 " from role " + role_name);
     }
 }
+// snippet-end:[iam.java.detach_role_policy.complete]

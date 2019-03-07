@@ -1,4 +1,4 @@
-# snippet-sourcedescription:[MoviesItemOps02.py demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon DynamoDB]

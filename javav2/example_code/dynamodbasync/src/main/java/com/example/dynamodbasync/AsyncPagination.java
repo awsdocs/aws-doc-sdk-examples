@@ -21,6 +21,8 @@
  */
 package com.example.dynamodbasync;
 
+// snippet-start:[dynamodb.java.async_pagination.complete]
+// snippet-start:[dynamodb.java.async_pagination.import]
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -35,7 +37,9 @@ import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesPublisher;
 import io.reactivex.Flowable;
 import reactor.core.publisher.Flux;
+// snippet-end:[dynamodb.java.async_pagination.import]
 
+// snippet-start:[dynamodb.java.async_pagination.main]
 public class AsyncPagination {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -218,3 +222,5 @@ public class AsyncPagination {
         System.out.println(tables);
     }
 }
+// snippet-end:[dynamodb.java.async_pagination.main]
+// snippet-end:[dynamodb.java.async_pagination.complete]
