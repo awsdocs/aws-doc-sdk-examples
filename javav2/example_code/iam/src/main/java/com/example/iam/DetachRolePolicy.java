@@ -62,6 +62,4 @@ public class DetachRolePolicy {
                 " from role " + role_name);
     }
 }
- 
-// snippet-end:[iam.java.detach_role_policy.main]
 // snippet-end:[iam.java.detach_role_policy.complete]
