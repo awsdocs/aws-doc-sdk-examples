@@ -20,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java.describe_region_and_zones.complete]
+// snippet-start:[ec2.java.describe_region_and_zones.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
 import software.amazon.awssdk.services.ec2.model.Region;
 import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
-
+ 
+// snippet-end:[ec2.java.describe_region_and_zones.import]
 /**
  * Describes all regions and zones
  */
@@ -33,6 +36,7 @@ public class DescribeRegionsAndZones
 {
     public static void main(String[] args)
     {
+        // snippet-start:[ec2.java.describe_region_and_zones.main]
         Ec2Client ec2 = Ec2Client.create();
 
         DescribeRegionsResponse regions_response = ec2.describeRegions();
@@ -60,5 +64,8 @@ public class DescribeRegionsAndZones
             System.out.println();
 
         }
+        // snippet-end:[ec2.java.describe_region_and_zones.main]
     }
 }
+ 
+// snippet-end:[ec2.java.describe_region_and_zones.complete]

@@ -20,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java.describe_instances.complete]
+// snippet-start:[ec2.java.describe_instances.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Instance;
 import software.amazon.awssdk.services.ec2.model.Reservation;
-
+ 
+// snippet-end:[ec2.java.describe_instances.import]
 /**
  * Describes all EC2 instances associated with an AWS account
  */
@@ -36,6 +39,7 @@ public class DescribeInstances
     	Ec2Client ec2 = Ec2Client.create();
         boolean done = false;
 
+         // snippet-start:[ec2.java.describe_instances.main]
         DescribeInstancesRequest request = DescribeInstancesRequest.builder().build();
 
         while(!done) {
@@ -62,5 +66,8 @@ public class DescribeInstances
                 done = true;
             }
         }
+        // snippet-end:[ec2.java.describe_instances.main]        
     }
 }
+ 
+// snippet-end:[ec2.java.describe_instances.complete]

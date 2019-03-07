@@ -20,6 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java.create_instance.complete]
+// snippet-start:[ec2.java.create_instance.import]
 
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
@@ -28,7 +30,8 @@ import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Tag;
 import software.amazon.awssdk.services.ec2.model.CreateTagsRequest;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-
+ 
+// snippet-end:[ec2.java.create_instance.import]
 /**
  * Creates an EC2 instance
  */
@@ -48,6 +51,7 @@ public class CreateInstance
         String name = args[0];
         String ami_id = args[1];
 
+        // snippet-start:[ec2.java.create_instance.main]
         Ec2Client ec2 = Ec2Client.create();
 
         RunInstancesRequest run_request = RunInstancesRequest.builder()
@@ -81,7 +85,10 @@ public class CreateInstance
         	System.err.println(e.getMessage());
         	System.exit(1);
         }
+        // snippet-end:[ec2.java.create_instance.main]
         System.out.println("Done!");
 
     }
 }
+ 
+// snippet-end:[ec2.java.create_instance.complete]

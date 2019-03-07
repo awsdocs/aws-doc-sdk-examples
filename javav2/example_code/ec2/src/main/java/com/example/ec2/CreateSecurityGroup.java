@@ -20,6 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java.create_security_group.complete]
+// snippet-start:[ec2.java.create_security_group.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
@@ -27,7 +29,8 @@ import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRe
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressResponse;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
 import software.amazon.awssdk.services.ec2.model.IpRange;
-
+ 
+// snippet-end:[ec2.java.create_security_group.import]
 /**
  * Creates an EC2 security group.
  */
@@ -47,7 +50,8 @@ public class CreateSecurityGroup
         String group_name = args[0];
         String group_desc = args[1];
         String vpc_id = args[2];
-
+        
+        // snippet-start:[ec2.java.create_security_group.main]
         Ec2Client ec2 = Ec2Client.create();
 
         CreateSecurityGroupRequest create_request = CreateSecurityGroupRequest.builder()
@@ -89,8 +93,11 @@ public class CreateSecurityGroup
         AuthorizeSecurityGroupIngressResponse auth_response =
             ec2.authorizeSecurityGroupIngress(auth_request);
 
+        // snippet-end:[ec2.java.create_security_group.main]
         System.out.printf(
             "Successfully added ingress policy to security group %s",
             group_name);
     }
 }
+ 
+// snippet-end:[ec2.java.create_security_group.complete]
