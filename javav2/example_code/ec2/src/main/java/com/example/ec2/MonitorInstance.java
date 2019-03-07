@@ -20,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java.monitor_instance.complete]
+// snippet-start:[ec2.java.monitor_instance.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
-
+ 
+// snippet-end:[ec2.java.monitor_instance.import]
 /**
  * Toggles detailed monitoring for an EC2 instance
  */
@@ -31,6 +34,7 @@ public class MonitorInstance
 {
     public static void monitorInstance(String instance_id)
     {
+        // snippet-start:[ec2.java.monitor_instance.main]
         Ec2Client ec2 = Ec2Client.create();
 
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
@@ -38,6 +42,7 @@ public class MonitorInstance
 
         ec2.monitorInstances(request);
 
+        // snippet-end:[ec2.java.monitor_instance.main]
         System.out.printf(
             "Successfully enabled monitoring for instance %s",
             instance_id);
@@ -79,3 +84,5 @@ public class MonitorInstance
         }
     }
 }
+ 
+// snippet-end:[ec2.java.monitor_instance.complete]
