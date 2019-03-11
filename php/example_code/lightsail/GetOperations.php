@@ -44,11 +44,11 @@ try {
     $result = $client->getOperations([]);
     if ($result['operations']) {
         foreach ($result['operations'] as $operation) {
-            print("<p>" . $operation['operationType'] . " Operation " . $operation['id'] . " on " .
-                $operation['resourceType'] . " " . $operation['resourceName'] . ".</p>");
+            print($operation['operationType'] . " Operation " . $operation['id'] . " on " .
+                $operation['resourceType'] . " " . $operation['resourceName'] . ".\n");
         }
     } else {
-        print('<p>No operations found.</p>');
+        print("No operations found.\n");
     }
     var_dump($result);
 } catch (AwsException $e) {

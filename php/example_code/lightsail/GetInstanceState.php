@@ -46,7 +46,7 @@ try {
     $result = $client->getInstanceState([
         'instanceName' => $instanceName,
     ]);
-    print("<p>Status Code: " . $result['@metadata']['statusCode'] . ", " . $instanceName . " is " . $result['state']['name'] . ".</p>");
+    print("Status Code: " . $result['@metadata']['statusCode'] . ", " . $instanceName . " is " . $result['state']['name'] . ".\n");
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

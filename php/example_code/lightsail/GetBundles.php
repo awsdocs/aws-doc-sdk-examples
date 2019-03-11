@@ -45,8 +45,8 @@ try {
         'includeInactive' => false,
     ]);
     foreach ($result['bundles'] as $bundle) {
-        print("<p>Bundle - <b>" . $bundle['bundleId'] . "</b> for " . implode(", ",
-                $bundle['supportedPlatforms']) . ": Size " . $bundle['diskSizeInGb'] . "GB Disk Size and " . $bundle['diskSizeInGb'] . "GB RAM for $" . $bundle['price'] . " a month</p>");
+        print("Bundle - " . $bundle['bundleId'] . " for " . implode(", ",
+                $bundle['supportedPlatforms']) . ": Size " . $bundle['diskSizeInGb'] . "GB Disk Size and " . $bundle['diskSizeInGb'] . "GB RAM for $" . $bundle['price'] . " a month\n");
     }
     var_dump($result);
 } catch (AwsException $e) {
