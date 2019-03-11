@@ -47,10 +47,10 @@ try {
         'instanceName' => $instanceName,
         'protocol' => 'ssh'
     ]);
-    print("<p>Status Code: " . $result['@metadata']['statusCode'] . " for " .
-        $result['accessDetails']['protocol'] . " connection to " . $result['accessDetails']['instanceName'] . ".</p>");
-    print("<p>Connect to: " . $result['accessDetails']['ipAddress'] . " with username " .
-        $result['accessDetails']['username'] . ".</p>");
+    print("Status Code: " . $result['@metadata']['statusCode'] . " for " .
+        $result['accessDetails']['protocol'] . " connection to " . $result['accessDetails']['instanceName'] . ".\n");
+    print("Connect to: " . $result['accessDetails']['ipAddress'] . " with username " .
+        $result['accessDetails']['username'] . ".\n");
     $ssh_rsa_cert = $result['accessDetails']['certKey'];
     $rsa_private_key = $result['accessDetails']['privateKey'];
 } catch (AwsException $e) {

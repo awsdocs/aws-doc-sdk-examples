@@ -44,10 +44,10 @@ try {
     $result = $client->getInstances([]);
     if ($result['instances']) {
         foreach ($result['instances'] as $instance) {
-            print("<p>" . $instance['name'] . ": " . $instance['state']['name'] . "</p>");
+            print($instance['name'] . ": " . $instance['state']['name'] . "\n");
         }
     } else {
-        print('<p>No instances found</p>');
+        print('No instances found\n');
     }
     var_dump($result);
 } catch (AwsException $e) {

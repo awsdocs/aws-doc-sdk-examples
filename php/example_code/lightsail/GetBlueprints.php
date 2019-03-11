@@ -45,8 +45,8 @@ try {
         'includeInactive' => false,
     ]);
     foreach ($result['blueprints'] as $blueprint) {
-        print("<p>Blueprint - <b>" . $blueprint['blueprintId'] . "</b>: " . $blueprint['name'] . " version " . $blueprint['version'] . " for " . $blueprint['platform'] . "<br />");
-        print($blueprint['description'] . "</p>");
+        print("Blueprint - " . $blueprint['blueprintId'] . ": " . $blueprint['name'] . " version " . $blueprint['version'] . " for " . $blueprint['platform'] . "\n");
+        print($blueprint['description'] . "\n\n");
     }
     var_dump($result);
 } catch (AwsException $e) {
