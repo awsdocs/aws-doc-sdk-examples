@@ -55,8 +55,8 @@ try {
         'AuthenticationToken' => $authToken
     ]);
     foreach ($result['Folders'] as $folder) {
-        print("<p>Folder - <b>" . $folder['Name'] . "</b> , id - <b>" . $folder['Id']);
-        print("</b> , Parent Folder - " . $folder['ParentFolderId'] . "</p>");
+        print("Folder - " . $folder['Name'] . " , id - " . $folder['Id']);
+        print(" , Parent Folder - " . $folder['ParentFolderId'] . "\n");
     }
     var_dump($result);
 
