@@ -57,7 +57,7 @@ try {
     $authToken = fread($file, filesize($file));
     fclose($authTokenFilePath);
 
-    print("<p>Create Document</p>");
+    print("Create Document\n");
     $result = $client->initiateDocumentVersionUpload([
         'AuthenticationToken' => $authToken,
         'ParentFolderId' => $folder,
@@ -72,7 +72,7 @@ try {
     echo $e->getMessage() . "\n";
 }
 try {
-    print("<p>Upload Document</p>");
+    print("Upload Document\n");
     $body = fopen($fileToUpload, 'r');
 
     $guzzle = new httpClient();
@@ -87,7 +87,7 @@ try {
     echo $e->getMessage() . "\n";
 }
 try {
-    print("<p>Update Document Version</p>");
+    print("Update Document Version\n");
     $updateResult = $client->updateDocumentVersion([
         'AuthenticationToken' => $authToken,
         'DocumentId' => $documentID,
