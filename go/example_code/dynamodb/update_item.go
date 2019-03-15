@@ -59,7 +59,7 @@ func main() {
 
     item := Item{
         Year:  2015,
-        Title: "The Big New Movie,
+        Title: "The Big New Movie",
     }
 
     expr, err := dynamodbattribute.MarshalMap(info)
