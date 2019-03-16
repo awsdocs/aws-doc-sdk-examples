@@ -30,6 +30,7 @@ from botocore.exceptions import ClientError
 from cryptography.fernet import Fernet
 
 
+# snippet-start:[kms.python.retrieve-cmk]
 def retrieve_cmk(desc):
     """Retrieve an existing KMS CMK based on its description
 
@@ -79,8 +80,10 @@ def retrieve_cmk(desc):
 
     # All existing CMKs were checked and the desired key was not found
     return None, None
+# snippet-end:[kms.python.retrieve-cmk]
 
 
+# snippet-start:[kms.python.create_cmk]
 def create_cmk(desc='Customer Master Key'):
     """Create a KMS Customer Master Key
 
@@ -103,8 +106,10 @@ def create_cmk(desc='Customer Master Key'):
 
     # Return the key ID and ARN
     return response['KeyMetadata']['KeyId'], response['KeyMetadata']['Arn']
+# snippet-end:[kms.python.create_cmk]
 
 
+# snippet-start:[kms.python.create_data_key]
 def create_data_key(cmk_id, key_spec='AES_256'):
     """Generate a data key to use when encrypting and decrypting data
 
@@ -129,8 +134,10 @@ def create_data_key(cmk_id, key_spec='AES_256'):
 
     # Return the encrypted and plaintext data key
     return response['CiphertextBlob'], base64.b64encode(response['Plaintext'])
+# snippet-end:[kms.python.create_data_key]
 
 
+# snippet-start:[kms.python.decrypt_data_key]
 def decrypt_data_key(data_key_encrypted):
     """Decrypt an encrypted data key
 
@@ -149,6 +156,7 @@ def decrypt_data_key(data_key_encrypted):
 
     # Return plaintext base64-encoded binary data key
     return base64.b64encode((response['Plaintext']))
+# snippet-end:[kms.python.decrypt_data_key]
 
 
 # Number of bytes used in the encrypted file to store the length of the
@@ -156,6 +164,7 @@ def decrypt_data_key(data_key_encrypted):
 NUM_BYTES_FOR_LEN = 4
 
 
+# snippet-start:[kms.python.encrypt_file]
 def encrypt_file(filename, cmk_id):
     """Encrypt a file using an AWS KMS CMK
 
@@ -208,8 +217,10 @@ def encrypt_file(filename, cmk_id):
     # storing the value in a local variable makes it available for garbage
     # collection.
     return True
+# snippet-end:[kms.python.encrypt_file]
 
 
+# snippet-start:[kms.python.decrypt_file]
 def decrypt_file(filename):
     """Decrypt a file encrypted by encrypt_file()
 
@@ -259,6 +270,7 @@ def decrypt_file(filename):
     # here, too, i.e., the wish to wipe the data_key_plaintext value from
     # memory.
     return True
+# snippet-end:[kms.python.decrypt_file]
 
 
 def main():
