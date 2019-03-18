@@ -74,14 +74,15 @@ public class CreateSecurityGroup
             .ipProtocol("tcp")
             .toPort(80)
             .fromPort(80)
-            .ipv4Ranges(ip_range)
+                .ipRanges(ip_range)
+           // .ipv4Ranges(ip_range)
             .build();
 
         IpPermission ip_perm2 = IpPermission.builder()
             .ipProtocol("tcp")
             .toPort(22)
             .fromPort(22)
-            .ipv4Ranges(ip_range)
+            .ipRanges(ip_range)
             .build();
 
         AuthorizeSecurityGroupIngressRequest auth_request =
