@@ -26,7 +26,7 @@ package main
 import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go_/service/cloudwatch"
+    "github.com/aws/aws-sdk-go/service/cloudwatch"
 
     "fmt"
     "os"

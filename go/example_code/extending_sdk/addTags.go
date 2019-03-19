@@ -8,7 +8,7 @@
 // snippet-service:[s3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2019-03-14]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -26,11 +26,11 @@
 package main
 
 import (
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 
-    "fmt"
+	"fmt"
 )
 
 // Tag S3 bucket MyBucket with cost center tag "123456" and stack tag "MyTestStack".
@@ -38,73 +38,73 @@ import (
 // See:
 //    http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
 func main() {
-    // Pre-defined values
-    bucket := "MyBucket"
-    tagName1 := "Cost Center"
-    tagValue1 := "123456"
-    tagName2 := "Stack"
-    tagValue2 := "MyTestStack"
-    
-    // Initialize a session in us-west-2 that the SDK will use to load credentials
-    // from the shared credentials file. (~/.aws/credentials).
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
+	// Pre-defined values
+	bucket := "MyBucket"
+	tagName1 := "Cost Center"
+	tagValue1 := "123456"
+	tagName2 := "Stack"
+	tagValue2 := "MyTestStack"
 
-    // Create S3 service client
-    svc := s3.New(sess)
+	// Initialize a session in us-west-2 that the SDK will use to load credentials
+	// from the shared credentials file. (~/.aws/credentials).
+	sess, err := session.NewSession(&aws.Config{
+		Region: aws.String("us-west-2")},
+	)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    // Create input for PutBucket method
-    input := &s3.PutBucketTaggingInput{
-        Bucket: aws.String(bucket),
-        Tagging: &s3.Tagging{
-            TagSet: []*s3.Tag{
-                {
-                    Key:   aws.String(tagName1),
-                    Value: aws.String(tagValue1),
-                },
-                {
-                    Key:   aws.String(tagName2),
-                    Value: aws.String(tagValue2),
-              },
-            },
-        },
-    }
+	// Create S3 service client
+	svc := s3.New(sess)
 
-    _, err = svc.PutBucketTagging(input)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
+	// Create input for PutBucket method
+	putInput := &s3.PutBucketTaggingInput{
+		Bucket: aws.String(bucket),
+		Tagging: &s3.Tagging{
+			TagSet: []*s3.Tag{
+				{
+					Key:   aws.String(tagName1),
+					Value: aws.String(tagValue1),
+				},
+				{
+					Key:   aws.String(tagName2),
+					Value: aws.String(tagValue2),
+				},
+			},
+		},
+	}
 
-    // Now show the tags
-    // Create input for GetBucket method
-    input := &s3.GetBucketTaggingInput{
-        Bucket: aws.String(bucket),
-    }
+	_, err = svc.PutBucketTagging(putInput)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    result, err := svc.GetBucketTagging(input)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
+	// Now show the tags
+	// Create input for GetBucket method
+	getInput := &s3.GetBucketTaggingInput{
+		Bucket: aws.String(bucket),
+	}
 
-    numTags := len(result.TagSet)
+	result, err := svc.GetBucketTagging(getInput)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    if numTags > 0 {
-        fmt.Println("Found", numTags, "Tag(s):")
-        fmt.Println("")
+	numTags := len(result.TagSet)
 
-        for _, t := range result.TagSet {
-            fmt.Println("  Key:  ", *t.Key)
-            fmt.Println("  Value:", *t.Value)
-            fmt.Println("")
-        }
-    } else {
-        fmt.Println("Did not find any tags")
-    }
+	if numTags > 0 {
+		fmt.Println("Found", numTags, "Tag(s):")
+		fmt.Println("")
+
+		for _, t := range result.TagSet {
+			fmt.Println("  Key:  ", *t.Key)
+			fmt.Println("  Value:", *t.Value)
+			fmt.Println("")
+		}
+	} else {
+		fmt.Println("Did not find any tags")
+	}
 }

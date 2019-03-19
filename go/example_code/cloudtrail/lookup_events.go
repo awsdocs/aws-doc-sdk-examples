@@ -38,7 +38,7 @@ import (
 func main() {
     // Trail name required
     var trailName string
-    flag.StringVar(&trailname, "n", "", "The name of the trail")
+    flag.StringVar(&trailName, "n", "", "The name of the trail")
 
     // Option to show event
     var showEvent bool
@@ -73,12 +73,9 @@ func main() {
     fmt.Println("")
 
     for _, event := range resp.Events {
-        if showEvents {
-            fmt.Println("Event:")
-            fmt.Println(aws.StringValue(event.CloudTrailEvent))
-            fmt.Println("")
-        }
-
+        fmt.Println("Event:")
+        fmt.Println(aws.StringValue(event.CloudTrailEvent))
+        fmt.Println("")
         fmt.Println("Name    ", aws.StringValue(event.EventName))
         fmt.Println("ID:     ", aws.StringValue(event.EventId))
         fmt.Println("Time:   ", aws.TimeValue(event.EventTime))

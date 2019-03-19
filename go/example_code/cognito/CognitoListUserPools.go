@@ -29,7 +29,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 
-    "flag"
     "fmt"
     "os"
 )

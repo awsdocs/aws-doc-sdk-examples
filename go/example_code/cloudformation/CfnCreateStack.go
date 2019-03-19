@@ -30,7 +30,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudformation"
 
-    "flag"
     "fmt"
     "os"
 )
