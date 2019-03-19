@@ -30,7 +30,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
 
-    "flag"
     "fmt"
     "os"
     "encoding/json"
@@ -87,7 +86,7 @@ func main() {
     }
 
     input := &s3.PutBucketPolicyInput{
-        Bucket: bucketPtr,
+        Bucket: aws.String(bucket),
         Policy: aws.String(string(policy)),
     }
 

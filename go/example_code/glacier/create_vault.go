@@ -7,7 +7,7 @@
 // snippet-service:[glacier]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2019-03-14]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -21,13 +21,36 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-    svc := glacier.New(session.New(&aws.Config{Region: aws.String("us-west-2")}))
-    _, err := svc.CreateVault(&glacier.CreateVaultInput{
-        VaultName: aws.String("YOUR_VAULT_NAME"),
-    })
-    if err != nil {
-        log.Println(err)
-        return
-    }
-    log.Println("Created vault!")
+import (
+	"log"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/glacier"
+)
+
+func main() {
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file ~/.aws/credentials
+	// and configuration from the shared configuration file ~/.aws/config.
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+
+	// Create Glacier client in default region
+	svc := glacier.New(sess)
+
+	// start snippet
+	_, err := svc.CreateVault(&glacier.CreateVaultInput{
+		VaultName: aws.String("YOUR_VAULT_NAME"),
+	})
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	log.Println("Created vault!")
+	// end snippet
+}

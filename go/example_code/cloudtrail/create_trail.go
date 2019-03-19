@@ -141,6 +141,6 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Created the trail", trailName, "for bucket", bucketName, "in region", regionName)
+    fmt.Println("Created the trail", trailName, "for bucket", bucketName)
 }
 

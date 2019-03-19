@@ -6,7 +6,7 @@
 // snippet-keyword:[Go]
 // snippet-service:[aws-go-sdk]
 // snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2019-03-14]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -20,10 +20,34 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-resp, err := svc.UpdateService((&ecs.UpdateServiceInput{}).
-    SetService("myService").
-    SetDeploymentConfiguration((&ecs.DeploymentConfiguration{}).
-        SetMinimumHealthyPercent(80),
-    ),
+import (
+	"fmt"
+
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ecs"
 )
+
+func main() {
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+
+	svc := ecs.New(sess)
+
+	// start snippet
+	resp, err := svc.UpdateService((&ecs.UpdateServiceInput{}).
+		SetService("myService").
+		SetDeploymentConfiguration((&ecs.DeploymentConfiguration{}).
+			SetMinimumHealthyPercent(80),
+		),
+	)
+	// end snippet
+	if err != nil {
+		fmt.Println("Error calling UpdateService:")
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(resp)
+	}
+}

@@ -7,7 +7,7 @@
 // snippet-service:[kms]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2019-03-14]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -25,35 +25,36 @@
 package main
 
 import (
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/kms"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/kms"
 
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 )
 
 func main() {
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file ~/.aws/credentials
+	// and configuration from the shared configuration file ~/.aws/config.
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
 
-    // Create KMS service client
-    svc := kms.New(sess)
+	// Create KMS service client
+	svc := kms.New(sess)
 
-    // Encrypted data
-    blob := []byte{...}
+	// Encrypted data
+	blob := []byte("1234567890")
 
-    // Decrypt the data
-    result, err := svc.Decrypt(&kms.DecryptInput{CiphertextBlob: blob})
+	// Decrypt the data
+	result, err := svc.Decrypt(&kms.DecryptInput{CiphertextBlob: blob})
 
-    if err != nil {
-        fmt.Println("Got error decrypting data: ", err)
-        os.Exit(1)
-    }
+	if err != nil {
+		fmt.Println("Got error decrypting data: ", err)
+		os.Exit(1)
+	}
 
-    blob_string := string(result.Plaintext)
+	blob_string := string(result.Plaintext)
 
-    fmt.Println(blob_string)
+	fmt.Println(blob_string)
 }
