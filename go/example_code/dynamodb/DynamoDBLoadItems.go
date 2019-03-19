@@ -108,7 +108,7 @@ func main() {
         year := strconv.Itoa(item.Year)
 
         fmt.Println("Successfully added '" + item.Title + "' (" + year + ") to table " + tableName)
-        // snippet-start:[dynamodb.go.load_items.call]
+        // snippet-end:[dynamodb.go.load_items.call]
     }
 }
 // snippet-end:[dynamodb.go.load_items]
