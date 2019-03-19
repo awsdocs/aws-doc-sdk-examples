@@ -72,6 +72,6 @@ func main() {
     }
 
     fmt.Println("Deleted '" + movieName + "' (" + movieYear + ") from table " + tableName)
-    // snippet-start:[dynamodb.go.delete_item.call]
+    // snippet-end:[dynamodb.go.delete_item.call]
 }
 // snippet-end:[dynamodb.go.delete_item]
