@@ -1,11 +1,8 @@
  
 //snippet-sourcedescription:[put_item.cpp demonstrates how to put an item into an Amazon DynamoDB table.]
-//snippet-keyword:[C++]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-keyword:[C++]
 //snippet-sourceauthor:[AWS]
 
 
@@ -22,6 +19,7 @@ This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
+
 //snippet-start:[dynamodb.cpp.put_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
@@ -56,7 +54,7 @@ int main(int argc, char** argv)
         "Example:\n"
         "    put_item Cellists Pau Language=ca Born=1876\n";
 
-    if (argc < 2)
+    if (argc < 3)
     {
         std::cout << USAGE;
         return 1;
