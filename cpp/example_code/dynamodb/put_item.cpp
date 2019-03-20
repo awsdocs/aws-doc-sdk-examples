@@ -83,7 +83,7 @@ int main(int argc, char** argv)
         for (int x = 3; x < argc; x++)
         {
             const Aws::String arg(argv[x]);
-            const Aws::Vector<Aws::String>& flds = Aws::Utils::StringUtils::Split(arg, ':');
+            const Aws::Vector<Aws::String>& flds = Aws::Utils::StringUtils::Split(arg, '=');
             if (flds.size() == 2)
             {
                 Aws::DynamoDB::Model::AttributeValue val;
