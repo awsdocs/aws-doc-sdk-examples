@@ -53,3 +53,5 @@ add_communication_response = support.add_communication_to_case(
 
 if add_communication_response['result']:
     print('Communication with attachment successfully added.')
+
+# snippet-end:[support.python.add_attachments_to_case.complete]
