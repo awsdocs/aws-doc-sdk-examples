@@ -25,10 +25,10 @@
 package main
 
 import (
+    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchlogs"
 
-    "flag"
     "fmt"
     "os"
 )
@@ -44,8 +44,8 @@ func main() {
     // in LOG-GROUP-NAME:
     resp, err := svc.GetLogEvents(&cloudwatchlogs.GetLogEventsInput{
         Limit:         aws.Int64(100),
-        LogGroupName:  aws.String(LOG-GROUP-NAME),
-        LogStreamName: aws.String(LOG-STREAM-NAME),
+        LogGroupName:  aws.String("LOG-GROUP-NAME"),
+        LogStreamName: aws.String("LOG-STREAM-NAME"),
     })
     if err != nil {
         fmt.Println("Got error getting log events:")
@@ -53,7 +53,7 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Event messages for stream "+logStream+" in log group "+logGroup+":")
+    fmt.Println("Event messages for stream LOG-STREAM-NAME in log group LOG-GROUP-NAME:")
 
     gotToken := ""
     nextToken := ""

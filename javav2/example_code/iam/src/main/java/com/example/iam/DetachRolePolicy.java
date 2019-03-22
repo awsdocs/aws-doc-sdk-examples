@@ -56,7 +56,7 @@ public class DetachRolePolicy {
             .policyArn(policy_arn).build();
 
         DetachRolePolicyResponse response = iam.detachRolePolicy(request);
-        // snippet-start:[iam.java.detach_role_policy.main]
+        // snippet-end:[iam.java.detach_role_policy.main]
         
         System.out.println("Successfully detached policy " + policy_arn +
                 " from role " + role_name);

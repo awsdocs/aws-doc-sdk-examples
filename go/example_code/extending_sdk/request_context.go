@@ -5,7 +5,7 @@
 // snippet-keyword:[Go]
 // snippet-service:[aws-go-sdk]
 // snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2019-03-14]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -19,12 +19,57 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-    defer cancel()
+import (
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 
-    // SQS ReceiveMessage
-    params := &sqs.ReceiveMessageInput{ ... }
-    req, resp := s.ReceiveMessageRequest(params)
-    req.HTTPRequest = req.HTTPRequest.WithContext(ctx)
-    err := req.Send()
+	// ??? context
+	"github.com/aws/aws-sdk-go/service/sqs"
+
+	"context"
+	"fmt"
+	"time"
+)
+
+func main() {
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+
+	svc := sqs.New(sess)
+
+	// URL to our queue
+	qURL := "QueueURL"
+
+	// start snippet
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	// SQS ReceiveMessage
+	params := &sqs.ReceiveMessageInput{
+		AttributeNames: []*string{
+			aws.String(sqs.MessageSystemAttributeNameSentTimestamp),
+		},
+		MessageAttributeNames: []*string{
+			aws.String(sqs.QueueAttributeNameAll),
+		},
+		QueueUrl:            &qURL,
+		MaxNumberOfMessages: aws.Int64(1),
+		VisibilityTimeout:   aws.Int64(20), // 20 seconds
+		WaitTimeSeconds:     aws.Int64(0),
+	}
+
+	req, resp := svc.ReceiveMessageRequest(params)
+	req.HTTPRequest = req.HTTPRequest.WithContext(ctx)
+	err := req.Send()
+	// end snippet
+
+	if err != nil {
+		fmt.Println("Got error receiving message:")
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(resp)
+	}
+}

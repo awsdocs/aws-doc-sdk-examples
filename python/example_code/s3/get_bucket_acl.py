@@ -3,9 +3,8 @@
 # snippet-service:[s3]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Python]
-# snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-2-15]
+# snippet-sourcedate:[2019-03-07]
 # snippet-sourceauthor:[AWS]
 
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -29,8 +28,8 @@ def get_bucket_acl(bucket_name):
     """Retrieve the access control list of an Amazon S3 bucket
 
     :param bucket_name: string
-    :return: Bucket access control list of grantees and permissions. If error,
-    return None.
+    :return: Dictionary defining the bucket's access control policy consisting
+     of owner and grants. If error, return None.
     """
 
     # Retrieve the bucket ACL
@@ -41,11 +40,15 @@ def get_bucket_acl(bucket_name):
         # AllAccessDisabled error == bucket not found
         logging.error(e)
         return None
-    return response['Grants']
+
+    # Return both the Owner and Grants keys
+    # The Owner and Grants settings together form the Access Control Policy.
+    # The Grants alone form the Access Control List.
+    return {'Owner': response['Owner'], 'Grants': response['Grants']}
 
 
 def main():
-    """ Exercise get_bucket_acl()"""
+    """Exercise get_bucket_acl()"""
 
     # Assign this value before running the program
     test_bucket_name = 'BUCKET_NAME'
@@ -54,23 +57,25 @@ def main():
     logging.basicConfig(level=logging.DEBUG,
                         format='%(levelname)s: %(asctime)s: %(message)s')
 
-    # Retrieve the bucket ACL
+    # Retrieve the current bucket ACL
     acl = get_bucket_acl(test_bucket_name)
-    if acl is not None:
-        # Output the bucket ACL grantees and permissions
-        for grantee in acl:
-            # The grantee type determines the grantee_identifier
-            grantee_type = grantee['Grantee']['Type']
-            if grantee_type == 'CanonicalUser':
-                grantee_identifier = grantee['Grantee']['DisplayName']
-            elif grantee_type == 'AmazonCustomerByEmail':
-                grantee_identifier = grantee['Grantee']['EmailAddress']
-            elif grantee_type == 'Group':
-                grantee_identifier = grantee['Grantee']['URI']
-            else:
-                grantee_identifier = 'Unknown'
-            logging.info(f'Grantee: {grantee_identifier}, '
-                         f'Permissions: {grantee["Permission"]}')
+    if acl is None:
+        exit(-1)
+
+    # Output the bucket ACL grantees and permissions
+    for grantee in acl['Grants']:
+        # The grantee type determines the grantee_identifier
+        grantee_type = grantee['Grantee']['Type']
+        if grantee_type == 'CanonicalUser':
+            grantee_identifier = grantee['Grantee']['DisplayName']
+        elif grantee_type == 'AmazonCustomerByEmail':
+            grantee_identifier = grantee['Grantee']['EmailAddress']
+        elif grantee_type == 'Group':
+            grantee_identifier = grantee['Grantee']['URI']
+        else:
+            grantee_identifier = 'Unknown'
+        logging.info(f'Grantee: {grantee_identifier}, '
+                     f'Permissions: {grantee["Permission"]}')
 
 
 if __name__ == '__main__':
