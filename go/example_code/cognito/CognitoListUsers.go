@@ -25,62 +25,62 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 
-	"flag"
-	"fmt"
-	"os"
+    "flag"
+    "fmt"
+    "os"
 )
 
 func main() {
-	userPoolIdptr := flag.String("p", "", "The ID of the user pool")
+    userPoolIdptr := flag.String("p", "", "The ID of the user pool")
 
-	flag.Parse()
+    flag.Parse()
 
-	userPoolID := *userPoolIdptr
+    userPoolID := *userPoolIdptr
 
-	if userPoolID == "" {
-		fmt.Println("You must supply a user pool ID")
-		fmt.Println("Usage: go run CreateUser.go -p USER-POOL-ID")
-		os.Exit(1)
-	}
+    if userPoolID == "" {
+        fmt.Println("You must supply a user pool ID")
+        fmt.Println("Usage: go run CreateUser.go -p USER-POOL-ID")
+        os.Exit(1)
+    }
 
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-	if err != nil {
-		fmt.Println("Got error creating session:", err)
-		os.Exit(1)
-	}
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+    if err != nil {
+        fmt.Println("Got error creating session:", err)
+        os.Exit(1)
+    }
 
-	// Create Cognito service client
-	cognitoClient := cognitoidentityprovider.New(sess)
+    // Create Cognito service client
+    cognitoClient := cognitoidentityprovider.New(sess)
 
-	results, err := cognitoClient.ListUsers(
-		&cognitoidentityprovider.ListUsersInput{
-			UserPoolId: userPoolIdptr})
-	if err != nil {
-		fmt.Println("Got error listing users")
-		os.Exit(1)
-	}
+    results, err := cognitoClient.ListUsers(
+        &cognitoidentityprovider.ListUsersInput{
+            UserPoolId: userPoolIdptr})
+    if err != nil {
+        fmt.Println("Got error listing users")
+        os.Exit(1)
+    }
 
-	// Show their names an email addresses
-	for _, user := range results.Users {
-		attributes := user.Attributes
+    // Show their names an email addresses
+    for _, user := range results.Users {
+        attributes := user.Attributes
 
-		for _, a := range attributes {
-			if *a.Name == "name" {
-				fmt.Println("Name:  " + *a.Value)
-			} else if *a.Name == "email" {
-				fmt.Println("Email: " + *a.Value)
-			}
-		}
+        for _, a := range attributes {
+            if *a.Name == "name" {
+                fmt.Println("Name:  " + *a.Value)
+            } else if *a.Name == "email" {
+                fmt.Println("Email: " + *a.Value)
+            }
+        }
 
-		fmt.Println("")
-	}
+        fmt.Println("")
+    }
 }
 // snippet-end:[cognito.go.list_users]
