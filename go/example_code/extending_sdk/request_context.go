@@ -1,6 +1,6 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[request_context.go shows how to usie context.Context with SDK requests.]
+// snippet-sourcedescription:[request_context.go shows how to use context.Context with SDK requests.]
 // snippet-keyword:[Extending the SDK]
 // snippet-keyword:[Go]
 // snippet-service:[aws-go-sdk]
