@@ -28,7 +28,15 @@ s3 = Aws::S3::Resource.new(region: 'us-west-2')
 # Does such a bucket exist?
 found_bucket = s3.buckets.any? { |b| b.name == 'my-bucket' }
 
-# If so, is it in this region?
-if found_bucket
+if !found_bucket
+  puts 'Bucket does not exist'
+else
+  # Is it in this region?
   found_bucket = s3.client.get_bucket_location(bucket: 'my-bucket').location_constraint == 'us-east-1'
+
+  if found_bucket
+    puts 'Bucket exists in this region'
+  else
+    puts 'Bucket does not exist in this region'
+  end
 end

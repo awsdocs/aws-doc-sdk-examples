@@ -31,6 +31,8 @@ iam = Aws::IAM::Resource.new(region: region)
 user = iam.current_user
 arn = user.arn
 
+puts 'User ARN: ' + arn
+
 s3 = Aws::S3::Client.new(region: region)
 
 policy = {

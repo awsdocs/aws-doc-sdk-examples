@@ -30,9 +30,9 @@ target_key = '*** Provide target key ***'
 
 begin
   s3 = Aws::S3::Client.new(region: 'us-west-2')
-  s3.copy_object({bucket: target_bucket_name, copy_source: source_bucket_name + '/' + source_key, key: target_key})
-rescue Exception => ex
-  puts 'Caught exception copying object ' +  source_key + ' from bucket ' + source_bucket_name + ' to bucket ' + target_bucket_name + ' as ' + target_key + ':'
+  s3.copy_object(bucket: target_bucket_name, copy_source: source_bucket_name + '/' + source_key, key: target_key)
+rescue StandardError => ex
+  puts 'Caught exception copying object ' + source_key + ' from bucket ' + source_bucket_name + ' to bucket ' + target_bucket_name + ' as ' + target_key + ':'
   puts ex.message
 end
 

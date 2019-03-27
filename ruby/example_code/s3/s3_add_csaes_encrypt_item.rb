@@ -31,7 +31,6 @@ end
 
 encoded_string = ARGV[0]
 key = encoded_string.unpack("m*")[0]
-md5 = Digest::MD5.digest(key)
 
 bucket = 'my_bucket'
 item = 'my_item'
