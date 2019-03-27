@@ -29,6 +29,8 @@ using System.Text;
 using Amazon.SecurityToken;
 using Amazon.SecurityToken.Model;
 using System.Threading.Tasks;
+using Amazon.Runtime;
+
 namespace AssumeRoleWithSAMLExample
 {
     class AssumeRole
@@ -44,7 +46,7 @@ namespace AssumeRoleWithSAMLExample
             {
                 string samlAssertion = File.ReadAllText(base64SamlFile);
 
-                var stsClient1 = new Amazon.SecurityToken.AmazonSecurityTokenServiceClient();
+                var stsClient1 = new Amazon.SecurityToken.AmazonSecurityTokenServiceClient(new AnonymousAWSCredentials());
 
                 var assumeRoleReq = new AssumeRoleWithSAMLRequest();
                 assumeRoleReq.DurationSeconds = 3600;
