@@ -36,8 +36,8 @@ movies.each{|movie|
   }
 
   begin
-    result = dynamodb.put_item(params)
-    puts 'Added movie: ' + {movie['year']}.to_i.to_s  + ' - ' + {movie['title']}
+    dynamodb.put_item(params)
+    puts 'Added movie: ' + movie['year'].to_i.to_s  + ' - ' + movie['title']
 
   rescue  Aws::DynamoDB::Errors::ServiceError => error
     puts 'Unable to add movie:'

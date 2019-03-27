@@ -26,7 +26,7 @@ require 'aws-sdk-s3'
 
 regionName = 'us-west-2' 
 bucketName='bucket-name'
-key = 'key' '
+key = 'key'
 
 s3 = Aws::S3::Resource.new(region:regionName)
 enc = s3.bucket(bucketName).object(key).server_side_encryption
