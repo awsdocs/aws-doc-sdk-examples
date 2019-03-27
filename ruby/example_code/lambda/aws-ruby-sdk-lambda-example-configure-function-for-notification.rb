@@ -31,4 +31,4 @@ args[:action] = 'lambda:InvokeFunction'
 args[:principal] = 's3.amazonaws.com'
 args[:source_arn] = 'my-resource-arn'
 
-client.add_permission{args]
+client.add_permission(args)

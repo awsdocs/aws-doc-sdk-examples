@@ -25,3 +25,9 @@ require 'aws-sdk-s3'  # v2: require 'aws-sdk'
       
 s3 = Aws::S3::Resource.new(region: 'us-west-2')
 bucket_exists = s3.bucket('my-bucket').exists?
+
+if bucket_exists
+    puts 'Bucket exists'
+else
+    puts 'Bucket does not exist'
+end

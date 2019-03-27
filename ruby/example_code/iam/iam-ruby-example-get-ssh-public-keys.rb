@@ -40,6 +40,6 @@ begin
     puts ssh_public_key_response.ssh_public_key.ssh_public_key_body
   end
 
-rescue Aws::IAM::Errors::NoSuchEntity => ex
+rescue Aws::IAM::Errors::NoSuchEntity
   puts 'User does not exist'
 end

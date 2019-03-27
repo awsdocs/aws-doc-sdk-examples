@@ -62,8 +62,8 @@ func addNotification(functionName *string, sourceArn *string) {
 }
 
 func main() {
-    flag.String(&functionName, "f", "", "The name of the Lambda function")
-    flag.String(&sourceArn, "a", "", "The ARN of the entity invoking the function")
+    functionName := flag.String("f", "", "The name of the Lambda function")
+    sourceArn := flag.String("a", "", "The ARN of the entity invoking the function")
     flag.Parse()
 
     addNotification(functionName, sourceArn)

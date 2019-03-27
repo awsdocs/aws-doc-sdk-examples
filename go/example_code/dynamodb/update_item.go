@@ -28,8 +28,10 @@ import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
-
+    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+    
     "fmt"
+    "os"
 )
 
 // ItemInfo holds info to update
@@ -59,7 +61,7 @@ func main() {
 
     item := Item{
         Year:  2015,
-        Title: "The Big New Movie,
+        Title: "The Big New Movie",
     }
 
     expr, err := dynamodbattribute.MarshalMap(info)

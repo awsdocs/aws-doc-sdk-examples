@@ -25,63 +25,63 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 
-	"flag"
-	"fmt"
-	"os"
+    "flag"
+    "fmt"
+    "os"
 )
 
 func main() {
-	emailIDptr := flag.String("e", "", "The email address of the user")
-	userPoolIdptr := flag.String("p", "", "The ID of the user pool")
-	userNameptr := flag.String("n", "", "The name of the user")
+    emailIDptr := flag.String("e", "", "The email address of the user")
+    userPoolIdptr := flag.String("p", "", "The ID of the user pool")
+    userNameptr := flag.String("n", "", "The name of the user")
 
-	flag.Parse()
+    flag.Parse()
 
-	emailID := *emailIDptr
-	userPoolID := *userPoolIdptr
-	userName := *userNameptr
+    emailID := *emailIDptr
+    userPoolID := *userPoolIdptr
+    userName := *userNameptr
 
-	if emailID == "" || userPoolID == "" || userName == "" {
-		fmt.Println("You must supply an email address, user pool ID, and user name")
-		fmt.Println("Usage: go run CreateUser.go -e EMAIL-ADDRESS -p USER-POOL-ID -n USER-NAME")
-		os.Exit(1)
-	}
+    if emailID == "" || userPoolID == "" || userName == "" {
+        fmt.Println("You must supply an email address, user pool ID, and user name")
+        fmt.Println("Usage: go run CreateUser.go -e EMAIL-ADDRESS -p USER-POOL-ID -n USER-NAME")
+        os.Exit(1)
+    }
 
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-	if err != nil {
-		fmt.Println("Got error creating session:", err)
-		os.Exit(1)
-	}
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
+    if err != nil {
+        fmt.Println("Got error creating session:", err)
+        os.Exit(1)
+    }
 
-	// Create Cognito service client
-	cognitoClient := cognitoidentityprovider.New(sess)
+    // Create Cognito service client
+    cognitoClient := cognitoidentityprovider.New(sess)
 
-	newUserData := &cognitoidentityprovider.AdminCreateUserInput{
-		DesiredDeliveryMediums: []*string{
-			aws.String("EMAIL"),
-		},
-		UserAttributes: []*cognitoidentityprovider.AttributeType{
-			{
-				Name:  aws.String("email"),
-				Value: aws.String(emailID),
-			},
-		},
-	}
+    newUserData := &cognitoidentityprovider.AdminCreateUserInput{
+        DesiredDeliveryMediums: []*string{
+            aws.String("EMAIL"),
+        },
+        UserAttributes: []*cognitoidentityprovider.AttributeType{
+            {
+                Name:  aws.String("email"),
+                Value: aws.String(emailID),
+            },
+        },
+    }
 
-	newUserData.SetUserPoolId(userPoolID)
-	newUserData.SetUsername(userName)
+    newUserData.SetUserPoolId(userPoolID)
+    newUserData.SetUsername(userName)
 
-	_, err = cognitoClient.AdminCreateUser(newUserData)
-	if err != nil {
-		fmt.Println("Got error creating user:", err)
-	}
+    _, err = cognitoClient.AdminCreateUser(newUserData)
+    if err != nil {
+        fmt.Println("Got error creating user:", err)
+    }
 }
 // snippet-end:[cognito.go.create_user]

@@ -36,7 +36,7 @@ params = {
 }
 
 begin
-    result = dynamodb.delete_table(params)
+    dynamodb.delete_table(params)
     puts "Deleted table."
 
 rescue  Aws::DynamoDB::Errors::ServiceError => error
