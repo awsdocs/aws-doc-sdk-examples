@@ -52,8 +52,7 @@ def create_presigned_url_expanded(client_method_name, method_parameters=None,
     return response
 
 
-def create_presigned_url(bucket_name, object_name,
-                         expiration=3600, http_method=None):
+def create_presigned_url(bucket_name, object_name, expiration=3600):
     """Generate a presigned URL to share an S3 object
 
     Sharing an S3 object is the intended use of S3 presigned URLs. The AWS
@@ -63,7 +62,6 @@ def create_presigned_url(bucket_name, object_name,
     :param bucket_name: string
     :param object_name: string
     :param expiration: Time in seconds for the presigned URL to remain valid
-    :param http_method: HTTP method to use, such as 'GET' to download the object
     :return: Presigned URL as string. If error, returns None.
     """
 
@@ -73,8 +71,7 @@ def create_presigned_url(bucket_name, object_name,
         response = s3_client.generate_presigned_url('get_object',
                                                     Params={'Bucket': bucket_name,
                                                             'Key': object_name},
-                                                    ExpiresIn=expiration,
-                                                    HttpMethod=http_method)
+                                                    ExpiresIn=expiration)
     except ClientError as e:
         logging.error(e)
         return None
@@ -89,7 +86,7 @@ def main():
     # Set these values before running the program
     bucket_name = 'BUCKET_NAME'
     object_name = 'OBJECT_NAME'
-    expiration = 600        # 600 seconds = 10 minutes
+    expiration = 60*10          # 10 minutes
 
     # Set up logging
     logging.basicConfig(level=logging.DEBUG,

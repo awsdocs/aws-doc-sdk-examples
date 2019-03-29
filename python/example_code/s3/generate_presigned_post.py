@@ -85,7 +85,7 @@ def create_presigned_post(bucket_name, object_name,
         logging.error(e)
         return None
 
-    # The response contains the presigned URL
+    # The response contains the presigned URL and required fields
     return response
 
 
