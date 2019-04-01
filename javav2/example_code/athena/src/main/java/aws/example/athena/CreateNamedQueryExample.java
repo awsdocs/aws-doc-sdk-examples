@@ -26,11 +26,11 @@ public class CreateNamedQueryExample
       AthenaClient athenaClient = factory.createClient();
 
       // Create the named query request.
-      CreateNamedQueryRequest createNamedQueryRequest = new CreateNamedQueryRequest()
-              .withDatabase(ExampleConstants.ATHENA_DEFAULT_DATABASE)
-              .withQueryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
-              .withDescription("Sample Description")
-              .withName("SampleQuery2");
+      CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
+              .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
+              .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
+              .description("Sample Description")
+              .name("SampleQuery2").build();
 
       // Call Athena to create the named query. If it fails, an exception is thrown.
       CreateNamedQueryResponse createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
