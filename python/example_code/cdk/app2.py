@@ -9,11 +9,9 @@ class S3Stack(cdk.Stack):
         super().__init__(app, id)
 
         bucket = aws_s3.Bucket(
-            self,
-            "MyBucket",
+            self, "MyBucket",
             versioned=True,
             encryption=aws_s3.BucketEncryption.KmsManaged)
-
 
 app = cdk.App()
 S3Stack(app, "MyStack")
