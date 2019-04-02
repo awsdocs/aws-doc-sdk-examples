@@ -22,13 +22,13 @@
 // snippet-start:[swf.java.start_workflow.import]
 package com.example.helloswf;
 
-import software.amazon.awssdk.services.swf.SWFClient;
+import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.*;
 
 // snippet-end:[swf.java.start_workflow.import]
 // snippet-start:[swf.java.start_workflow.main]
 public class WorkflowStarter {
-    private static final SWFClient swf = SWFClient.builder().build();
+    private static final SwfClient swf = SwfClient.builder().build();
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
 
     public static void main(String[] args) {
