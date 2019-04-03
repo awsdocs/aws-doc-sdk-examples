@@ -1,0 +1,7 @@
+{
+    "app": "node bin/cdk_test.js",
+
+    "context": {
+        "bucketName": "dougsch-repl-test"
+    }
+}

@@ -1,0 +1,90 @@
+Resources:
+  TrustPolicyBFB10B4E:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                Fn::Join:
+                  - ""
+                  - - s3.
+                    - Ref: AWS::URLSuffix
+        Version: "2012-10-17"
+      PolicyName: TrustPolicyBFB10B4E
+      Roles:
+        - Ref: MyRoleF48FFE04
+    Metadata:
+      aws:cdk:path: BucketResourceStack/TrustPolicy/Resource
+  AccessPolicyD18466CD:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:GetReplicationConfiguration
+              - s3:ListBucket
+            Effect: Allow
+            Resource:
+              - arn:aws:s3:::source-bucket
+              - arn:aws:s3:::source-bucket/*
+          - Action:
+              - s3:GetObjectVersion
+              - s3:GetObjectVersionAcl
+              - s3:GetObjectVersionTagging
+            Effect: Allow
+          - Action:
+              - s3:ReplicateObject
+              - s3:ReplicateDelete
+              - s3:ReplicateTags
+            Effect: Allow
+            Resource: arn:aws:s3:::destination-bucket/*
+        Version: "2012-10-17"
+      PolicyName: AccessPolicyD18466CD
+      Roles:
+        - Ref: MyRoleF48FFE04
+    Metadata:
+      aws:cdk:path: BucketResourceStack/AccessPolicy/Resource
+  MyRoleF48FFE04:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: sns.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: BucketResourceStack/MyRole/Resource
+  MyCfnBucket:
+    Type: AWS::S3::Bucket
+    Metadata:
+      aws:cdk:path: BucketResourceStack/MyCfnBucket
+    Properties:
+      ReplicationConfiguration:
+        Role:
+          Fn::GetAtt:
+            - MyRoleF48FFE04
+            - Arn
+        Rules:
+          - Id: replicateEverything
+            Destination:
+              Bucket: arn:aws:s3:::dougsch-repl-test
+            Prefix: ""
+            Status: Enabled
+      AnalyticsConfigurations:
+        Id: config1
+        StorageClassAnalysis:
+          dataExport:
+            OutputSchemaVersion: "1"
+            Destination:
+              Format: html
+              BucketArn: arn:aws:s3:::dougsch-repl-test
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=0.27.0,@aws-cdk/aws-codepipeline-api=0.27.0,@aws-cdk/aws-events=0.27.0,@aws-cdk/aws-iam=0.27.0,@aws-cdk/aws-kms=0.27.0,@aws-cdk/aws-s3=0.27.0,@aws-cdk/aws-s3-notifications=0.27.0,@aws-cdk/cdk=0.27.0,@aws-cdk/cx-api=0.27.0,@aws-cdk/region-info=0.27.0,jsii-runtime=node.js/v11.3.0
+
