@@ -49,10 +49,5 @@
       <artifactId>swf</artifactId>
       <version>2.5.10</version>
     </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>swf</artifactId>
-      <version>2.5.10</version>
-    </dependency>
   </dependencies>
 </project>
