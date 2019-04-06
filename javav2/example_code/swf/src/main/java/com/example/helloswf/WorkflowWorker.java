@@ -22,7 +22,7 @@
 // snippet-start:[swf.java.task_request.import]
 package com.example.helloswf;
 
-import software.amazon.awssdk.services.swf.SWFClient;
+import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.UUID;
 // snippet-end:[swf.java.task_request.import]
 // snippet-start:[swf.java.task_request.main]
 public class WorkflowWorker {
-    private static final SWFClient swf = SWFClient.builder().build();
+    private static final SwfClient swf = SwfClient.builder().build();
 
     public static void main(String[] args) {
         PollForDecisionTaskRequest task_request =
