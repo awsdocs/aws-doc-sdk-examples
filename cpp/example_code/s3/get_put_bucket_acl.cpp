@@ -50,7 +50,7 @@ void SetAclForBucket(Aws::String bucket_name,
     Aws::String grantee_id,
     Aws::String permission)
 {
-    // snippet-start:[s3.cpp.get_bucket_acl.code]
+    // snippet-start:[s3.cpp.get_put_bucket_acl.code]
     // Set up the get request
     Aws::S3::S3Client s3_client;
     Aws::S3::Model::GetBucketAclRequest get_request;
@@ -65,9 +65,7 @@ void SetAclForBucket(Aws::String bucket_name,
             << " - " << error.GetMessage() << std::endl;
         return;
     }
-    // snippet-end:[s3.cpp.get_bucket_acl.code]
 
-    // snippet-start:[s3.cpp.put_bucket_acl.code]
     // Reference the retrieved access control policy
     auto result = get_outcome.GetResult();
 
@@ -92,7 +90,7 @@ void SetAclForBucket(Aws::String bucket_name,
 
     // Set the new access control policy
     auto set_outcome = s3_client.PutBucketAcl(put_request);
-    // snippet-end:[s3.cpp.put_bucket_acl.code]
+    // snippet-end:[s3.cpp.get_put_bucket_acl.code]
     if (!set_outcome.IsSuccess())
     {
         auto error = set_outcome.GetError();
