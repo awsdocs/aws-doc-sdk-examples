@@ -13,5 +13,8 @@ import com.amazonaws.services.kms.AWSKMS;
 import com.amazonaws.services.kms.AWSKMSClientBuilder;
 
 public class CreateClient {
-    AWSKMS kmsClient = AWSKMSClientBuilder.standard().build();
+    public static void main(String[] args) {
+        AWSKMS kmsClient = AWSKMSClientBuilder.standard().build();
+    }
+
 }
