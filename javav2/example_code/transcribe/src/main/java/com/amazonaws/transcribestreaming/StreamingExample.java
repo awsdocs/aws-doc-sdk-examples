@@ -37,6 +37,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.TranscribeStreamingAsyncClient;
 import software.amazon.awssdk.services.transcribestreaming.model.*;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import javax.sound.sampled.*;
 import java.io.*;
 import java.net.URISyntaxException;
