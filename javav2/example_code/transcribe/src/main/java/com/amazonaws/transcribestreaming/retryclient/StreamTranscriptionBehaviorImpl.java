@@ -8,7 +8,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[transcribe.java-streaming-client-behavior]
+// snippet-start:[transcribe.java-streaming-client-behavior-imp]
 
 /**
  * Implementation of StreamTranscriptionBehavior to define how a stream response is handled.
@@ -71,3 +71,4 @@ public class StreamTranscriptionBehaviorImpl implements StreamTranscriptionBehav
         System.out.println("=== All records streamed successfully ===");
     }
 }
+// snippet-end:[transcribe.java-streaming-client-behavior-imp]
