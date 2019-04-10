@@ -19,24 +19,21 @@ import software.amazon.awssdk.services.athena.model.DeleteNamedQueryResponse;
  * -------------------------------------
  * This code shows how to delete a named query by using the named query ID.
  */
-public class DeleteNamedQueryExample
-{
-    private static String getNamedQueryId(AthenaClient athenaClient)
-    {
+public class DeleteNamedQueryExample {
+    private static String getNamedQueryId(AthenaClient athenaClient) {
         // Create the NameQuery Request.
-        CreateNamedQueryRequest createNamedQueryRequest = new CreateNamedQueryRequest()
-                .withDatabase(ExampleConstants.ATHENA_DEFAULT_DATABASE)
-                .withQueryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
-                .withName("SampleQueryName")
-                .withDescription("Sample Description");
+        CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
+                .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
+                .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
+                .name("SampleQueryName")
+                .description("Sample Description").build();
 
         // Create the named query. If it fails, an exception is thrown.
         CreateNamedQueryResponse createNamedQueryResponse = athenaClient.createNamedQuery(createNamedQueryRequest);
-        return createNamedQueryResponse.getNamedQueryId();
+        return createNamedQueryResponse.namedQueryId();
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
         AthenaClient athenaClient = factory.createClient();
@@ -44,8 +41,8 @@ public class DeleteNamedQueryExample
         String sampleNamedQueryId = getNamedQueryId(athenaClient);
 
         // Create the delete named query request
-        DeleteNamedQueryRequest deleteNamedQueryRequest = new DeleteNamedQueryRequest()
-                .withNamedQueryId(sampleNamedQueryId);
+        DeleteNamedQueryRequest deleteNamedQueryRequest = DeleteNamedQueryRequest.builder()
+                .namedQueryId(sampleNamedQueryId).build();
 
         // Delete the named query
         DeleteNamedQueryResponse deleteNamedQueryResponse = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);

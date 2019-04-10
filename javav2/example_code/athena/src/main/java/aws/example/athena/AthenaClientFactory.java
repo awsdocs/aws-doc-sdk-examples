@@ -14,24 +14,22 @@ import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.AthenaClientBuilder;
 
 /**
-* AthenaClientFactory
-* -------------------------------------
-* This code shows how to create and configure an Amazon Athena client.
-*/
-public class AthenaClientFactory
-{
-/**
-   * AthenaClientClientBuilder to build Athena with the following properties:
-   * - Set the region of the client
-   * - Use the instance profile from the EC2 instance as the credentials provider
-   * - Configure the client to increase the execution timeout.
-   */
-  private final AthenaClientBuilder builder = AthenaClientBuilder.standard()
-          .withRegion(Region.US_WEST_2)
-          .withCredentials(InstanceProfileCredentialsProvider.getInstance());
+ * AthenaClientFactory
+ * -------------------------------------
+ * This code shows how to create and configure an Amazon Athena client.
+ */
+public class AthenaClientFactory {
+    /**
+     * AthenaClientClientBuilder to build Athena with the following properties:
+     * - Set the region of the client
+     * - Use the instance profile from the EC2 instance as the credentials provider
+     * - Configure the client to increase the execution timeout.
+     */
+    private final AthenaClientBuilder builder = AthenaClient.builder()
+            .region(Region.US_WEST_2)
+            .credentialsProvider(InstanceProfileCredentialsProvider.create());
 
-  public AthenaClient createClient()
-  {
-      return builder.build();
-  }
+    public AthenaClient createClient() {
+        return builder.build();
+    }
 }
