@@ -48,7 +48,7 @@ try {
 } 
 // snippet-end:[sns.php.list_optout.main]
 // snippet-end:[sns.php.list_optout.complete]
-// snippet-sourcedescription:[ListOptOut.php demonstrates how to list the phone numbers for which the users have selected to no longer recieve future text messages.]
+// snippet-sourcedescription:[ListOptOut.php demonstrates how to list the phone numbers for which the users have selected to no longer receive future text messages.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]

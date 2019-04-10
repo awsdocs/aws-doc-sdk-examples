@@ -22,28 +22,30 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.MyRdsDbStack-stack]
-import cdk = require('@aws-cdk/cdk');
-import ec2 = require('@aws-cdk/aws-ec2');
-import rds = require('@aws-cdk/aws-rds');
+import cdk = require("@aws-cdk/cdk");
+import ec2 = require("@aws-cdk/aws-ec2");
+import rds = require("@aws-cdk/aws-rds");
 
 export class MyRdsDbStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const vpc = new ec2.VpcNetwork(this, 'VPC');
+    const vpc = new ec2.VpcNetwork(this, "VPC");
 
-    new rds.DatabaseCluster(this, 'MyRdsDb', {
-      defaultDatabaseName: 'MyAuroraDatabase',
+    new rds.DatabaseCluster(this, "MyRdsDb", {
+      defaultDatabaseName: "MyAuroraDatabase",
       masterUser: {
-        username: 'admin',
-        password: '123456'
+        username: "admin"
       },
       engine: rds.DatabaseClusterEngine.Aurora,
       instanceProps: {
-        instanceType: new ec2.InstanceTypePair(ec2.InstanceClass.Burstable2, ec2.InstanceSize.Small),
+        instanceType: new ec2.InstanceTypePair(
+          ec2.InstanceClass.Burstable2,
+          ec2.InstanceSize.Small
+        ),
         vpc: vpc,
-        vpcPlacement: {
-          subnetsToUse: ec2.SubnetType.Public
+        vpcSubnets: {
+          subnetType: ec2.SubnetType.Public
         }
       }
     });

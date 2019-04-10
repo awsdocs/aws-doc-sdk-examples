@@ -22,7 +22,7 @@
 // snippet-start:[swf.java.activity_types.import]
 package com.example.helloswf;
 
-import software.amazon.awssdk.services.swf.SWFClient;
+import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.*;
 
 // snippet-end:[swf.java.activity_types.import]
@@ -35,8 +35,8 @@ public class HelloTypes {
     public static final String ACTIVITY = "HelloActivity";
     public static final String ACTIVITY_VERSION = "1.0";
 
-    private static final SWFClient swf =
-    		SWFClient.builder().build();
+    private static final SwfClient swf =
+            SwfClient.builder().build();
 
     public static void registerDomain() {
         try {

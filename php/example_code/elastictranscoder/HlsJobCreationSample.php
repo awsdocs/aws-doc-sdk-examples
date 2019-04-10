@@ -59,7 +59,7 @@ function create_hls_job($transcoder_client, $pipeline_id, $input_key, $output_ke
   //Setup the job outputs using the HLS presets.
   $output_key = hash('sha256', utf8_encode($input_key));
 
-  // Specify the outputs based on the hls presets array spefified.
+  // Specify the outputs based on the hls presets array specified.
   $outputs = array();
   foreach ($hls_presets as $prefix => $preset_id) {
     array_push($outputs, array('Key' => "$prefix/$output_key", 'PresetId' => $preset_id, 'SegmentDuration' => $segment_duration));

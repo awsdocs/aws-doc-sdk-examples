@@ -36,7 +36,7 @@ use Aws\Exception\AwsException;
 
 //Create a KMSClient 
 // snippet-start:[kms.php.create_grant.main]
-KmsClient = new Aws\Kms\KmsClient([
+$KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
     'region' => 'us-east-2'
