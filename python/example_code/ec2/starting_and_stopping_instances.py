@@ -1,4 +1,3 @@
-# snippet-end:[ec2.python.starting__and_stopping_instances.complete]
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[starting_and_stopping_instances.py demonstrates how to start and stop an Amazon EC2 instance.]
 # snippet-service:[ec2]
@@ -20,7 +19,7 @@
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License. 
-# snippet-start:[ec2.python.starting__and_stopping_instances.complete]
+# snippet-start:[ec2.python.starting_and_stopping_instances.complete]
 
 import sys
 import boto3
@@ -59,3 +58,4 @@ else:
         print(response)
     except ClientError as e:
         print(e)
+# snippet-end:[ec2.python.starting_and_stopping_instances.complete]
