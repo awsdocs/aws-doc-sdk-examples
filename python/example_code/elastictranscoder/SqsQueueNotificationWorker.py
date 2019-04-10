@@ -1,3 +1,12 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[SqsQueueNotificationWorker.py demonstrates how to create a separate process to handle notification messages for an Elastic Transcoder job.]
+# snippet-service:[elastictranscoder]
+# snippet-keyword:[Amazon Elastic Transcoder]
+# snippet-keyword:[Python]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-02-04]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -10,13 +19,6 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[SqsQueueNotificationWorker.py demonstrates how to create a separate process to handle notification messages for an Elastic Transcoder job.]
-# snippet-service:[elastictranscoder]
-# snippet-keyword:[Amazon Elastic Transcoder]
-# snippet-keyword:[Python]
-# snippet-sourcedate:[2019-02-04]
-# snippet-sourceauthor:[AWS]
 # snippet-start:[elastictranscoder.python.create_sqs_notification_queue.import]
 
 from ctypes import c_bool
@@ -62,7 +64,7 @@ class SqsWorker:
     JobMonitor parent process must periodically retrieve the current setting
     of the flag by calling SysWorker.finished().
 
-    When the Trancoder job has finished, the JobMonitor parent process must
+    When the Transcoder job has finished, the JobMonitor parent process must
     terminate the SysWorker process by calling SysWorker.stop().
 
     The final result of the completed job can be retrieved by calling
@@ -122,7 +124,8 @@ class SqsWorker:
         return ProcessStatus(self._process_status.value)
 
     def __repr__(self):
-        return f'SqsWorker(Job ID: {self._job_id}, Status: {ProcessStatus(self._process_status.value).name})'
+        return f'SqsWorker(Job ID: {self._job_id}, ' \
+            f'Status: {ProcessStatus(self._process_status.value).name})'
 
 
 def poll_and_handle_messages(job_id, sqs_queue_name,
