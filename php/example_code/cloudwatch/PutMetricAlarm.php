@@ -58,7 +58,7 @@ try {
         // EvaluationPeriods is required
         'EvaluationPeriods' => integer,
         // Threshold is required
-        'Threshold' => interger,
+        'Threshold' => integer,
         // ComparisonOperator is required
         // string: GreaterThanOrEqualToThreshold | GreaterThanThreshold | LessThanThreshold | LessThanOrEqualToThreshold
         'ComparisonOperator' => 'string',

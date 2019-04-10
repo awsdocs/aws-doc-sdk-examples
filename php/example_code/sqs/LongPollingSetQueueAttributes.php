@@ -57,7 +57,7 @@ try {
 // snippet-end:[sqs.php.long_polling_set_queue_attributes.main]
 // snippet-end:[sqs.php.long_polling_set_queue_attributes.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[LongPollingSetQueueAttributes.php demonstrates how to set the default number of seconds to wait between retieving a message to reduce the number of empty responses returned and thus your bill.]
+// snippet-sourcedescription:[LongPollingSetQueueAttributes.php demonstrates how to set the default number of seconds to wait between retrieving a message to reduce the number of empty responses returned and thus your bill.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
