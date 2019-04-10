@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[StreamingExample.java transcribes streaming audio from your computer's microphone or a file upload. The output is presented on your computer's standard output.]
+// snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes streaming audio from your computer's microphone or a file upload. The output is presented on your computer's standard output.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Transcribe]
@@ -37,8 +37,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.TranscribeStreamingAsyncClient;
 import software.amazon.awssdk.services.transcribestreaming.model.*;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import javax.sound.sampled.*;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -53,7 +51,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
-    ;
+    private static String currentSubscription;
 
     private static TranscribeStreamingAsyncClient client;
 
@@ -111,7 +109,9 @@ public class TranscribeStreamingDemoApp {
                 })
                 .onError(e -> {
                     System.out.println(e.getMessage());
-                    System.out.println("Error Occurred: " + ExceptionUtils.getStackTrace(e.fillInStackTrace()));
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    System.out.println("Error Occurred: " + sw.toString());
                 })
                 .onComplete(() -> {
                     System.out.println("=== All records stream successfully ===");
@@ -158,7 +158,7 @@ public class TranscribeStreamingDemoApp {
         }
     }
 
-    private static class SubscriptionImpl implements Subscription {
+    public static class SubscriptionImpl implements Subscription {
         private static final int CHUNK_SIZE_IN_BYTES = 1024 * 1;
         private final Subscriber<? super AudioStream> subscriber;
         private final InputStream inputStream;

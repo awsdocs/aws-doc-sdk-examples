@@ -30,6 +30,8 @@ package com.amazonaws.transcribestreaming.retryclient;
 import com.amazonaws.transcribestreaming.TranscribeStreamingDemoApp;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioStream;
 import software.amazon.awssdk.services.transcribestreaming.model.LanguageCode;
@@ -46,20 +48,24 @@ import java.util.concurrent.ExecutionException;
 
 import static com.amazonaws.transcribestreaming.TranscribeStreamingDemoApp.getCredentials;
 
-public class SampleApp {
+public class StreamingRetryApp {
     private static final String endpoint = "endpoint";
     private static final Region region = Region.US_EAST_1;
+    private static final int sample_rate = 28800;
+    private static final String encoding = " ";
+    private static final String language = LanguageCode.EN_US.toString();
 
     public static void main(String args[]) throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException, FileNotFoundException {
         /**
          * Create Transcribe streaming retry client using AWS credentials.
          */
-        TranscribeStreamingRetryClient client = new TranscribeStreamingRetryClient(getCredentials(), endpoint, region);
+
+        TranscribeStreamingRetryClient client = new TranscribeStreamingRetryClient(EnvironmentVariableCredentialsProvider.create() ,endpoint, region);
 
         StartStreamTranscriptionRequest request = StartStreamTranscriptionRequest.builder()
-                .languageCode(LanguageCode.language.toString())
+                .languageCode(language)
                 .mediaEncoding(encoding)
-                .mediaSampleRateHertz(sample rate)
+                .mediaSampleRateHertz(sample_rate)
                 .build();
         /**
          * Start real-time speech recognition. The Transcribe streaming java client uses the Reactive-streams 
@@ -99,7 +105,7 @@ public class SampleApp {
 
         @Override
         public void subscribe(Subscriber<? super AudioStream> s) {
-            if (currentSubscription == null) {
+            if (s.currentSubscription == null) {
                 this.currentSubscription = new TranscribeStreamingDemoApp.SubscriptionImpl(s, inputStream);
             } else {
                 this.currentSubscription.cancel();
