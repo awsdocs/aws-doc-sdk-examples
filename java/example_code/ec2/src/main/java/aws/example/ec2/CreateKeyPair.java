@@ -52,7 +52,7 @@ public class CreateKeyPair
         CreateKeyPairResult response = ec2.createKeyPair(request);
 
         System.out.printf(
-            "Successfulyl created key pair named %s",
+            "Successfully created key pair named %s",
             key_name);
     }
 }
