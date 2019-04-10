@@ -11,6 +11,7 @@ package aws.example.kms;
 
 import com.amazonaws.services.kms.AWSKMS;
 import com.amazonaws.services.kms.AWSKMSClientBuilder;
+import com.amazonaws.services.kms.model.KeyListEntry;
 import com.amazonaws.services.kms.model.ListKeysRequest;
 import com.amazonaws.services.kms.model.ListKeysResult;
 
@@ -20,11 +21,14 @@ public class ListCustomerMasterKeys {
 
         // List CMKs in this account
 
-        Integer limit = 10;
-
-        ListKeysRequest req = new ListKeysRequest().withLimit(limit);
-        ListKeysResult result = kmsClient.listKeys(req);
-
+        String nextMarker = null;
+        do {
+            ListKeysRequest req = new ListKeysRequest().withMarker(nextMarker);
+            ListKeysResult result = kmsClient.listKeys(req);
+            for (KeyListEntry key : result.getKeys()) {
+                System.out.printf("Found key with ARN \"%s\".%n", key.getKeyArn());
+            }
+            nextMarker = result.getNextMarker();
+        } while (nextMarker != null);
     }
 }
-

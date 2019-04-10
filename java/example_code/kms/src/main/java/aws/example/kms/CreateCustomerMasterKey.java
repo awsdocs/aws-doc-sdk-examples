@@ -19,12 +19,16 @@ public class CreateCustomerMasterKey {
         AWSKMS kmsClient = AWSKMSClientBuilder.standard().build();
 
         // Create a CMK
-//
+
         String desc = "Key for protecting critical data";
 
         CreateKeyRequest req = new CreateKeyRequest().withDescription(desc);
         CreateKeyResult result = kmsClient.createKey(req);
 
+        System.out.printf(
+            "Created a customer master key with id \"%s\"%n",
+            result.getKeyMetadata().getArn()
+        );
     }
 
 }

@@ -21,7 +21,9 @@ public class DecryptDataKey {
         // Decrypt a data key
         //
 
-        ByteBuffer ciphertextBlob = ByteBuffer.wrap(new byte[]{Byte.parseByte("Place your ciphertext here")});
+        ByteBuffer ciphertextBlob = ByteBuffer.wrap(
+            new byte[]{Byte.parseByte("Place your ciphertext here")}
+        );
 
         DecryptRequest req = new DecryptRequest().withCiphertextBlob(ciphertextBlob);
         ByteBuffer plainText = kmsClient.decrypt(req).getPlaintext();
