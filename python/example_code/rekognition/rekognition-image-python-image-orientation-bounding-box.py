@@ -1,3 +1,14 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[rekognition-image-python-image-orientation-bounding-box.py demonstrates how use Rekognition to recognize celebrities in an image.]
+# snippet-service:[rekognition]
+# snippet-keyword:[Amazon Rekognition]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-04-09]
+# snippet-sourceauthor:[AWS]
+# snippet-start:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -10,30 +21,24 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[rekognition-image-python-image-orientation-bounding-box.py demonstrates how to get face bounding box locations for celebrities recognized in an image.]
-# snippet-keyword:[Python]
-# snippet-keyword:[AWS SDK for Python (Boto3)]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[Amazon Rekognition]
-# snippet-keyword:[RecognizeCelebrities]
-# snippet-keyword:[Bounding Box]
-# snippet-keyword:[Local]
-# snippet-keyword:[Image]
-# snippet-service:[rekognition]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-3]
-# snippet-sourceauthor:[reesch (AWS)]
-# snippet-start:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
 import boto3
-import io
-from PIL import Image
+from PIL import Image       # To install package: pip install Pillow
 
-# Calculate positions from from estimated rotation 
-def ShowBoundingBoxPositions(imageHeight, imageWidth, box, rotation): 
+
+def ShowBoundingBoxPositions(imageHeight, imageWidth, box, rotation):
+    """Calculate the bounding box surrounding an identified face.
+
+    The calculation takes the image rotation into account.
+
+    :param imageHeight: Height of entire image in pixels
+    :param imageWidth: Width of entire image in pixels
+    :param box: Dictionary containing bounding box data points
+    :param rotation: Image orientation determined by Rekognition
+    """
+
+    # Calculate left and top points taking image rotation into account
     left = 0
     top = 0
-      
     if rotation == 'ROTATE_0':
         left = imageWidth * box['Left']
         top = imageHeight * box['Top']
@@ -50,57 +55,62 @@ def ShowBoundingBoxPositions(imageHeight, imageWidth, box, rotation):
         left = imageHeight * box['Top']
         top = imageWidth * (1- box['Left'] - box['Width'] )
 
-    print('Left: ' + '{0:.0f}'.format(left))
-    print('Top: ' + '{0:.0f}'.format(top))
-    print('Face Width: ' + "{0:.0f}".format(imageWidth * box['Width']))
-    print('Face Height: ' + "{0:.0f}".format(imageHeight * box['Height']))
+    print('Bounding box of face:')
+    print(f'  Left: {round(left)}, Top: {round(top)}, '
+          f'Width: {round(imageWidth * box["Width"])}, '
+          f'Height: {round(imageHeight * box["Height"])}')
 
 
 if __name__ == "__main__":
+    """Exercise the Rekcognition recognize_celebrities() method and 
+    ShowBoundingBoxPositions()"""
 
-    # Replace photo with the image file you want to use.
-    photo='moviestars.jpg'
-    client=boto3.client('rekognition')
- 
+    # Set the photo variable to the image filename to process
+    photo = 'CELEBRITY_PHOTO.JPG'
 
-    #Get image width and height
-    image = Image.open(open(photo,'rb'))
-    width, height = image.size
+    # Extract the image width, height, and EXIF data
+    try:
+        with Image.open(photo) as image:
+            width, height = image.size
+            exif = None
+            if 'exif' in image.info:
+                exif = image.info['exif']
+    except IOError as e:
+        print(e)
+        exit(1)
+    print(f'File name: {photo}')
+    print(f'Image width, height: {width}, {height}')
 
-    print ('Image information: ')
-    print (photo)
-    print ('Image Height: ' + str(height)) 
-    print('Image Width: ' + str(width))    
+    # Read the entire image into memory
+    try:
+        with open(photo, 'rb') as f:
+            image_binary = f.read()
+    except IOError as e:
+        print(e)
+        exit(2)
 
-
-    # call detect faces and show face age and placement
-    # if found, preserve exif info
-    stream = io.BytesIO()
-    if 'exif' in image.info:
-        exif=image.info['exif']
-        image.save(stream,format=image.format, exif=exif)
-    else:
-        image.save(stream, format=image.format)    
-    image_binary = stream.getvalue()
-   
+    # Detect the celebrities in the photo
+    client = boto3.client('rekognition', region_name='us-east-1')
     response = client.recognize_celebrities(Image={'Bytes': image_binary})
 
-    if 'OrientationCorrection'  in response:
-        print('Orientation: ' + response['OrientationCorrection'])
-    else: 
-        print('No estimated orientation. Check Exif')    
-    
-    print()
-    print('Detected celebrities for ' + photo) 
+    if 'OrientationCorrection' in response:
+        print(f'Image orientation: {response["OrientationCorrection"]}')
+    else:
+        print('No estimated orientation. Check the image\'s Exif metadata.')
 
-    for celebrity in response['CelebrityFaces']:
-        print ('Name: ' + celebrity['Name'])
-        print ('Id: ' + celebrity['Id'])
-        
-        if 'OrientationCorrection'  in response:            
-            ShowBoundingBoxPositions(height, width, celebrity['Face']['BoundingBox'], response['OrientationCorrection'])
+    # List the identified celebrities
+    print('Detected celebrities...')
+    celebrities = response['CelebrityFaces']
+    if not celebrities:
+        print('No celebrities detected')
+    else:
+        for celebrity in celebrities:
+            print(f'\nName: {celebrity["Name"]}')
+            print(f'Match confidence: {celebrity["MatchConfidence"]}')
 
-        print()
-
-# snippet-end:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete]
-    
+            # List the bounding box that surrounds the face
+            if 'OrientationCorrection' in response:
+                ShowBoundingBoxPositions(height, width,
+                                         celebrity['Face']['BoundingBox'],
+                                         response['OrientationCorrection'])
+# snippet-end:[rekognition.python.rekognition-image-python-image-orientation-bounding-box.complete
