@@ -9,7 +9,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-04-11]
 // snippet-sourceauthor:[reesch(AWS)]
-// snippet-start:[textract.java.textract-java-detect-text-sync.complete]
+// snippet-start:[textract.java.textract-java-analyze-text-sync.complete]
 //Loads document from S3 bucket. Displays the document and polygon around detected lines of text.
 package com.amazonaws.samples;
 
@@ -214,4 +214,4 @@ public class AnalyzeDocument extends JPanel {
     }
 }
 
-// snippet-end:[textract.java.textract-java-detect-text-sync.complete]
+// snippet-end:[textract.java.textract-java-analyze-text-sync.complete]
