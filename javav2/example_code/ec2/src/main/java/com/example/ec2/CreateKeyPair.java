@@ -56,7 +56,7 @@ public class CreateKeyPair
 
         // snippet-end:[ec2.java.create_key_pair.main]
         System.out.printf(
-            "Successfulyl created key pair named %s",
+            "Successfully created key pair named %s",
             key_name);
     }
 }
