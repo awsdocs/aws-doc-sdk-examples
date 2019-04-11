@@ -1,4 +1,3 @@
- 
 //snippet-sourcedescription:[lambda_example.cpp demonstrates how to programatically create, invoke, and manage an AWS Lambda function.]
 //snippet-service:[lambda]
 //snippet-keyword:[AWS Lambda]
@@ -6,7 +5,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourceauthor:[AWS]
-
 
 /*
 Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -150,8 +148,8 @@ int main(int argc, char **argv)
         "    handler- function name in code to call\n"
         "    runtime- runtime to use for function:\n"
         "             nodejs,nodejs4.3,java8,python2.7,dotnetcore1.0,nodejs4.3.edge\n"
-        "    rolearn- rule lambda will assume when running functuion\n"
-        "    zipfile- zip file containign function and other dependencies\n"
+        "    rolearn- rule lambda will assume when running function\n"
+        "    zipfile- zip file containing function and other dependencies\n"
         "    region - optional region, e.g. us-east-2\n\n"
         "Example:\n"
         "    create_function helloLambdaWorld helloLambdaWorld.handler python2_7 ***arn*** helloLambdaWorld.zip\n\n";

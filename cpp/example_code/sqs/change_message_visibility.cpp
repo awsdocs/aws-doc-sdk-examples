@@ -1,13 +1,11 @@
- 
 //snippet-sourcedescription:[change_message_visibility.cpp demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.]
+//snippet-service:[sqs]
+//snippet-keyword:[Amazon Simple Queue Service]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,7 +33,7 @@ void ChangeMessageVisibility(
     const Aws::String& queue_url, int visibility_timeout)
 {
     // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration client_config;
     client_config.requestTimeoutMs = 30000;
@@ -89,7 +87,7 @@ void ChangeMessageVisibility(
 }
 
 /**
- * Changes the visibility timeout of a message received from an sqs queue, based
+ * Changes the visibility timeout of a message received from an SQS queue, based
  * on command line input
  */
 int main(int argc, char** argv)
