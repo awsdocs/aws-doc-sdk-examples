@@ -225,4 +225,4 @@ public class DocumentText extends JPanel {
     }
 }
 
-// snippet-end:[textract.java.textract-java-detect-text.complete]
+// snippet-end:[textract.java.textract-java-detect-text-sync.complete]
