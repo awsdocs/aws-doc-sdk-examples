@@ -32,20 +32,18 @@ public class ListQueryExecutionsExample {
         ListQueryExecutionsResponse listQueryExecutionResponse = athenaClient.listQueryExecutions(listQueryExecutionsRequest);
 
         // Process the results.
-        boolean hasMoreResults = true;
-        while (hasMoreResults) {
+
+        while (listQueryExecutionResponse.nextToken() != null) {
             List<String> queryExecutionIds = listQueryExecutionResponse.queryExecutionIds();
             // process queryExecutionIds.
 
             System.out.println(queryExecutionIds);
 
             //If nextToken is not null, then there are more results. Get the next page of results.
-            if (listQueryExecutionResponse.getNextToken() != null) {
-                listQueryExecutionResponse = athenaClient.listQueryExecutions(
-                        listQueryExecutionsRequest.withNextToken(listQueryExecutionResponse.getNextToken()));
-            } else {
-                hasMoreResults = false;
-            }
+
+            listQueryExecutionResponse = listQueryExecutionResponse.toBuilder()
+                    .nextToken(listQueryExecutionResponse.nextToken()).build();
         }
+
     }
 }

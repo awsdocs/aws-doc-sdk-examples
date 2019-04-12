@@ -65,7 +65,7 @@ public class StartQueryExample {
         GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                 .queryExecutionId(queryExecutionId).build();
 
-        GetQueryExecutionResponse getQueryExecutionResponse = null;
+        GetQueryExecutionResponse getQueryExecutionResponse;
         boolean isQueryStillRunning = true;
         while (isQueryStillRunning) {
             getQueryExecutionResponse = athenaClient.getQueryExecution(getQueryExecutionRequest);
@@ -112,15 +112,15 @@ public class StartQueryExample {
             if (resultsToken == null) {
                 break;
             }
-            GetQueryResultsResult getQueryResultsResult = athenaClient.getQueryResults(
-                    GetQueryResultsRequest.nextToken(getQueryResultsResult.nextToken()).build());
+            GetQueryResultsResult = GetQueryResultsResult.toBuilder()
+                    .nextToken(resultsToken).build();
 
         }
     }
 
     private static void processRow(Row row, List<ColumnInfo> columnInfoList) {
-        for (int i = 0; i < columnInfoList.size(); ++i) {
-            switch (columnInfoList.get(i).type()) {
+        for (ColumnInfo columnInfo : columnInfoList) {
+            switch (columnInfo.type()) {
                 case "varchar":
                     // Convert and Process as String
                     break;
@@ -149,7 +149,7 @@ public class StartQueryExample {
                     // Convert and Process as timestamp
                     break;
                 default:
-                    throw new RuntimeException("Unexpected Type is not expected" + columnInfoList.get(i).type());
+                    throw new RuntimeException("Unexpected Type is not expected" + columnInfo.type());
             }
         }
     }

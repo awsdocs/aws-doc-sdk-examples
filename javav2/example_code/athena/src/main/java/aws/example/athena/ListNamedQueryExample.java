@@ -32,19 +32,15 @@ public class ListNamedQueryExample {
         ListNamedQueriesResponse listNamedQueriesResponse = athenaClient.listNamedQueries(listNamedQueriesRequest);
 
         // Process the results.
-        boolean hasMoreResults = true;
 
-        while (hasMoreResults) {
+        while (listNamedQueriesResponse.nextToken() != null) {
             List<String> namedQueryIds = listNamedQueriesResponse.namedQueryIds();
             // process named query IDs
 
             // If nextToken is not null,  there are more results. Get the next page of results.
-            if (listNamedQueriesResponse.getNextToken() != null) {
-                listNamedQueriesResponse = athenaClient.listNamedQueries(
-                        listNamedQueriesRequest.withNextToken(listNamedQueriesResponse.getNextToken()));
-            } else {
-                hasMoreResults = false;
-            }
+            listNamedQueriesResponse = listNamedQueriesResponse.toBuilder()
+                    .nextToken(listNamedQueriesResponse.nextToken()).build();
+
         }
     }
 }
