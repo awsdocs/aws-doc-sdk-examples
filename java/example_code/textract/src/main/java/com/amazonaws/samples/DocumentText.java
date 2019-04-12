@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[textract-java-detect-text-sync.java demonstrates how to display bounding boxes around detected text.]
+// snippet-sourcedescription:[DocumentText.java demonstrates how to display bounding boxes around detected text.]
 // snippet-service:[textract]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Textract]

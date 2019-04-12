@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[textract-java-analyze-text-sync.java demonstrates how to display bounding boxes around analyzed text.]
+// snippet-sourcedescription:[AnalyzeDocument.java demonstrates how to display bounding boxes around analyzed text.]
 // snippet-service:[textract]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Textract]
