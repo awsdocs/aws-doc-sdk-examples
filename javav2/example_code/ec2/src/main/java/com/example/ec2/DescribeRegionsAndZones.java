@@ -37,8 +37,11 @@ public class DescribeRegionsAndZones
     public static void main(String[] args)
     {
         // snippet-start:[ec2.java.describe_region_and_zones.main]
+        // snippet-start:[ec2.java.describe_region_and_zones.client]
         Ec2Client ec2 = Ec2Client.create();
-
+        // snippet-end:[ec2.java.describe_region_and_zones.client]
+     
+        // snippet-start:[ec2.java.describe_region_and_zones.region]
         DescribeRegionsResponse regions_response = ec2.describeRegions();
 
         for(Region region : regions_response.regions()) {
@@ -48,8 +51,10 @@ public class DescribeRegionsAndZones
                 region.regionName(),
                 region.endpoint());
             System.out.println();
+         // snippet-end:[ec2.java.describe_region_and_zones.region]
         }
 
+        // snippet-start:[ec2.java.describe_region_and_zones.avail_zone]
         DescribeAvailabilityZonesResponse zones_response =
             ec2.describeAvailabilityZones();
 
@@ -62,6 +67,7 @@ public class DescribeRegionsAndZones
                 zone.state(),
                 zone.regionName());
             System.out.println();
+         // snippet-end:[ec2.java.describe_region_and_zones.avail_zone]
 
         }
         // snippet-end:[ec2.java.describe_region_and_zones.main]
