@@ -52,8 +52,11 @@ public class CreateSecurityGroup
         String vpc_id = args[2];
         
         // snippet-start:[ec2.java.create_security_group.main]
+        // snippet-start:[ec2.java.create_security_group.client]
         Ec2Client ec2 = Ec2Client.create();
+        // snippet-end:[ec2.java.create_security_group.client]
 
+        // snippet-start:[ec2.java.create_security_group.create]
         CreateSecurityGroupRequest create_request = CreateSecurityGroupRequest.builder()
                 .groupName(group_name)
                 .description(group_desc)
@@ -62,11 +65,13 @@ public class CreateSecurityGroup
 
         CreateSecurityGroupResponse create_response =
             ec2.createSecurityGroup(create_request);
+        // snippet-end:[ec2.java.create_security_group.create]
 
         System.out.printf(
             "Successfully created security group named %s",
             group_name);
 
+        // snippet-start:[ec2.java.create_security_group.config]
         IpRange ip_range = IpRange.builder()
             .cidrIp("0.0.0.0/0").build();
 
@@ -94,6 +99,7 @@ public class CreateSecurityGroup
         AuthorizeSecurityGroupIngressResponse auth_response =
             ec2.authorizeSecurityGroupIngress(auth_request);
 
+        // snippet-end:[ec2.java.create_security_group.config]
         // snippet-end:[ec2.java.create_security_group.main]
         System.out.printf(
             "Successfully added ingress policy to security group %s",
