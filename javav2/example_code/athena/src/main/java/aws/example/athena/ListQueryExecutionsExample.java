@@ -11,6 +11,7 @@ package aws.example.athena;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.ListQueryExecutionsRequest;
 import software.amazon.awssdk.services.athena.model.ListQueryExecutionsResponse;
+import software.amazon.awssdk.services.athena.paginators.ListQueryExecutionsIterable;
 
 import java.util.List;
 
@@ -29,20 +30,13 @@ public class ListQueryExecutionsExample {
         ListQueryExecutionsRequest listQueryExecutionsRequest = ListQueryExecutionsRequest.builder().build();
 
         // Get the list results.
-        ListQueryExecutionsResponse listQueryExecutionResponse = athenaClient.listQueryExecutions(listQueryExecutionsRequest);
+        ListQueryExecutionsIterable listQueryExecutionResponses = athenaClient.listQueryExecutionsPaginator(listQueryExecutionsRequest);
 
-        // Process the results.
-
-        while (listQueryExecutionResponse.nextToken() != null) {
+        for (ListQueryExecutionsResponse listQueryExecutionResponse : listQueryExecutionResponses) {
             List<String> queryExecutionIds = listQueryExecutionResponse.queryExecutionIds();
             // process queryExecutionIds.
 
             System.out.println(queryExecutionIds);
-
-            //If nextToken is not null, then there are more results. Get the next page of results.
-
-            listQueryExecutionResponse = listQueryExecutionResponse.toBuilder()
-                    .nextToken(listQueryExecutionResponse.nextToken()).build();
         }
 
     }

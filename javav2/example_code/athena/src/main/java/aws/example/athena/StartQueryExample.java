@@ -10,6 +10,7 @@ package aws.example.athena;
 
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.*;
+import software.amazon.awssdk.services.athena.paginators.GetQueryResultsIterable;
 
 import java.util.List;
 
@@ -98,27 +99,16 @@ public class StartQueryExample {
                 // .withMaxResults(1000)
                 .queryExecutionId(queryExecutionId).build();
 
-        GetQueryResultsResponse GetQueryResultsResult = athenaClient.getQueryResults(getQueryResultsRequest);
-        List<ColumnInfo> columnInfoList = GetQueryResultsResult.resultSet().resultSetMetadata().columnInfo();
+        GetQueryResultsIterable getQueryResultsResults = athenaClient.getQueryResultsPaginator(getQueryResultsRequest);
 
-        while (true) {
-            List<Row> results = GetQueryResultsResult.resultSet().rows();
-            for (Row row : results) {
-                // Process the row. The first row of the first page holds the column names.
-                processRow(row, columnInfoList);
-            }
-            // If nextToken is null, there are no more pages to read. Break out of the loop.
-            String resultsToken = GetQueryResultsResult.nextToken();
-            if (resultsToken == null) {
-                break;
-            }
-            GetQueryResultsResult = GetQueryResultsResult.toBuilder()
-                    .nextToken(resultsToken).build();
-
+        for (GetQueryResultsResponse Resultresult : getQueryResultsResults) {
+            List<ColumnInfo> columnInfoList = Resultresult.resultSet().resultSetMetadata().columnInfo();
+            List<Row> results = Resultresult.resultSet().rows();
+            processRow(results, columnInfoList);
         }
     }
 
-    private static void processRow(Row row, List<ColumnInfo> columnInfoList) {
+    private static void processRow(List<Row> row, List<ColumnInfo> columnInfoList) {
         for (ColumnInfo columnInfo : columnInfoList) {
             switch (columnInfo.type()) {
                 case "varchar":
