@@ -11,6 +11,7 @@ package aws.example.athena;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.ListNamedQueriesRequest;
 import software.amazon.awssdk.services.athena.model.ListNamedQueriesResponse;
+import software.amazon.awssdk.services.athena.paginators.ListNamedQueriesIterable;
 
 import java.util.List;
 
@@ -29,18 +30,17 @@ public class ListNamedQueryExample {
         ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder().build();
 
         // Get the list results.
-        ListNamedQueriesResponse listNamedQueriesResponse = athenaClient.listNamedQueries(listNamedQueriesRequest);
+        ListNamedQueriesIterable listNamedQueriesResponses = athenaClient.listNamedQueriesPaginator(listNamedQueriesRequest);
+
 
         // Process the results.
-
-        while (listNamedQueriesResponse.nextToken() != null) {
+        for (ListNamedQueriesResponse listNamedQueriesResponse : listNamedQueriesResponses) {
             List<String> namedQueryIds = listNamedQueriesResponse.namedQueryIds();
             // process named query IDs
 
-            // If nextToken is not null,  there are more results. Get the next page of results.
-            listNamedQueriesResponse = listNamedQueriesResponse.toBuilder()
-                    .nextToken(listNamedQueriesResponse.nextToken()).build();
-
+            System.out.println(namedQueryIds);
         }
+
+
     }
 }
