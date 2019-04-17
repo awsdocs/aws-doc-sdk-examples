@@ -12,10 +12,12 @@ project(iam-examples)
 set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS iam)
+# Note: assume_role.cpp needs to link with the S3 and STS libraries
+find_package(AWSSDK REQUIRED COMPONENTS iam s3 sts)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "access_key_last_used")
+list(APPEND EXAMPLES "assume_role")
 list(APPEND EXAMPLES "attach_role_policy")
 list(APPEND EXAMPLES "create_account_alias")
 list(APPEND EXAMPLES "create_access_key")
@@ -45,6 +47,3 @@ foreach(EXAMPLE IN LISTS EXAMPLES)
     add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
     target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
 endforeach()
-
-add_executable(assume_role assume_role.cpp)
-target_link_libraries(assume_role aws-cpp-sdk-s3 aws-cpp-sdk-sts ${AWSSDK_LINK_LIBRARIES})
