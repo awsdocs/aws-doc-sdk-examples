@@ -50,13 +50,14 @@ public class MonitorInstance
 
     public static void unmonitorInstance(String instance_id)
     {
+        // snippet-start:[ec2.java.monitor_instance.stop]
         Ec2Client ec2 = Ec2Client.create();
 
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
             .instanceIds(instance_id).build();
 
         ec2.unmonitorInstances(request);
-
+        // snippet-end:[ec2.java.monitor_instance.stop]
         System.out.printf(
             "Successfully disabled monitoring for instance %s",
             instance_id);

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about an IAM server certifcate.]
+//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about an IAM server certificate.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[iam]

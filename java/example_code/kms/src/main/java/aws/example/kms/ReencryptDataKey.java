@@ -24,7 +24,7 @@ public class ReencryptDataKey {
 
 
         // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-        String destinationKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
+        String destinationKeyId = "1234abcd-12ab-34cd-56ef-1234567890ab";
 
         ReEncryptRequest req = new ReEncryptRequest();
         req.setCiphertextBlob(sourceCiphertextBlob);

@@ -97,9 +97,9 @@ public class VisibilityTimeout
         }
 
         // change visibility timeout (single)
-        changeMessageVisibilitySingle(queue_url, 3600);
+        changeMessageVisibilitySingle(queue_url, 60 * 60); //1 hour
 
         // change visibility timeout (multiple)
-        changeMessageVisibilityMultiple(queue_url, 2000);
+        changeMessageVisibilityMultiple(queue_url, 30 * 60 ); //30 minutes
     }
 }

@@ -50,7 +50,7 @@ public class LongPolling
         // Enable long polling when creating a queue
         CreateQueueRequest create_request = new CreateQueueRequest()
                 .withQueueName(queue_name)
-                .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "20");
+                .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "40");
 
         try {
             sqs.createQueue(create_request);
@@ -63,13 +63,13 @@ public class LongPolling
         // Enable long polling on an existing queue
         SetQueueAttributesRequest set_attrs_request = new SetQueueAttributesRequest()
                 .withQueueUrl(queue_url)
-                .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "20");
+                .addAttributesEntry("ReceiveMessageWaitTimeSeconds", "40");
         sqs.setQueueAttributes(set_attrs_request);
 
         // Enable long polling on a message receipt
         ReceiveMessageRequest receive_request = new ReceiveMessageRequest()
                 .withQueueUrl(queue_url)
-                .withWaitTimeSeconds(20);
+                .withWaitTimeSeconds(40);
         sqs.receiveMessage(receive_request);
     }
 }

@@ -1,3 +1,13 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[create_policy_version.py demonstrates how to create a new version of an IAM policy.]
+# snippet-service:[iam]
+# snippet-keyword:[AWS Identity and Access Management (IAM)]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-04-10]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
@@ -9,59 +19,48 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License. 
+# language governing permissions and limitations under the License.
+
 # snippet-start:[iam.python.create_policy_version.complete]
+
 import json
 import boto3
+from botocore.exceptions import ClientError
 
-# Create IAM client
-iam = boto3.client('iam')
+# Set this value before running the program
+# Policy to create a new version of
+policy_arn = 'arn:aws:iam::123456789012:policy/POLICY_NAME'
 
-policy_arn='arn:aws:iam::123456789012:policy/PolicyName'
+# Define the new version of the policy
+new_policy = {
+    'Version': '2012-10-17',
+    'Statement': [
+        {
+            'Sid': 'Statement1',
+            'Effect': 'Allow',
+            'Action': 'EC2:*',
+            'Resource': '*'
+        },
+        {
+            'Sid': 'Statement2',
+            'Effect': 'Allow',
+            'Action': 'S3:*',
+            'Resource': '*'
+        }
+    ]
+}
+print(f'Creating new version of IAM policy {policy_arn}')
+print(json.dumps(new_policy))
 
-#create Policy Skeleton
-new_policy = {}
-new_policy['Version'] = '2012-10-17'
-new_policy['Statement'] = []
-
-new_policy['Statement'].append({})
-new_policy['Statement'][0]['Sid'] = 'Statement1'
-new_policy['Statement'][0]['Effect'] = 'Allow'
-new_policy['Statement'][0]['Action'] = ['EC2:*']
-new_policy['Statement'][0]['Resource'] = ['*']
-
-new_policy['Statement'].append({})
-new_policy['Statement'][1]['Sid'] = 'Statement2'
-new_policy['Statement'][1]['Effect'] = 'Allow'
-new_policy['Statement'][1]['Action'] = ['S3:*']
-new_policy['Statement'][1]['Resource'] = ['*']
-
-print('Creating New IAM Policy Version of Policy ' + policy_arn + ' with the follwing statements: \n\r')
-print(json.dumps(new_policy) + '\n\r')
-
+# Create the new version of the policy and set it as the default version
 try:
-    # Get default version of policy
-    create_policy_version_response = iam.create_policy_version(
-        PolicyArn=policy_arn,
-        PolicyDocument=json.dumps(new_policy),
-        SetAsDefault=True
-    )
+    iam = boto3.client('iam')
+    response = iam.create_policy_version(PolicyArn=policy_arn,
+                                         PolicyDocument=json.dumps(new_policy),
+                                         SetAsDefault=True)
 
-    print('Policy Version Created: ' + create_policy_version_response['PolicyVersion']['VersionId'])
-
-except Exception as e:
+    print(f'Policy Version Created: {response["PolicyVersion"]["VersionId"]}')
+except ClientError as e:
     print(e)
- 
- 
-# snippet-end:[iam.python.create_policy_version.complete]
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[create_policy_version.py demonstrates how to create a new version of the specified managed policy.]
-# snippet-keyword:[Python]
-# snippet-keyword:[AWS SDK for Python (Boto3)]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[AWS Identity and Access Management (IAM)]
-# snippet-service:[iam]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-12-26]
-# snippet-sourceauthor:[jschwarzwalder (AWS)]
 
+# snippet-end:[iam.python.create_policy_version.complete]
