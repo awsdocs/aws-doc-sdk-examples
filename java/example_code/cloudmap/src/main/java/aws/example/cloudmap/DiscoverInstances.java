@@ -84,3 +84,5 @@ public class DiscoverInstances
         }
 }
 
+//snippet-end:[cloudmap.java.discover_instance_request.complete]
+
