@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[BidirectionalStreaming.java demonstrates how to use the AWS Transcribe service to transcribe an audio input.]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Transcribe]
 //snippet-keyword:[bidirectional streaming]
@@ -8,10 +8,24 @@
 //snippet-sourcedate:[2019-04-18]
 //snippet-sourceauthor:[AWS]
 
-package com.amazonaws.transcribe;
-//snippet-start:[transcribe.java.bidir_streaming.audiopublisher.complete]
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-//snippet-start:[transcribe.java.bidir_streaming.audiopublisher.import]
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+
+package com.amazonaws.transcribe;
+//snippet-start:[transcribe.java.bidir_streaming_audiopublisher.complete]
+
+//snippet-start:[transcribe.java.bidir_streaming_audiopublisher.import]
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -25,9 +39,9 @@ import org.reactivestreams.Subscription;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioEvent;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioStream;
-//snippet-end:[transcribe.java.bidir_streaming.audiopublisher.import]
+//snippet-end:[transcribe.java.bidir_streaming_audiopublisher.import]
 
-//snippet-start:[transcribe.java.bidir_streaming.audiopublisher.class]
+//snippet-start:[transcribe.java.bidir_streaming_audiopublisher.class]
 
 public class AudioStreamPublisher implements Publisher<AudioStream> {
     private final InputStream inputStream;
@@ -112,6 +126,6 @@ public class AudioStreamPublisher implements Publisher<AudioStream> {
         }
     }
 }
-//snippet-end:[transcribe.java.bidir_streaming.audiopublisher.class]
-//snippet-end:[transcribe.java.bidir_streaming.audiopublisher.complete]
+//snippet-end:[transcribe.java.bidir_streaming_audiopublisher.class]
+//snippet-end:[transcribe.java.bidir_streaming_audiopublisher.complete]
 
