@@ -4,7 +4,7 @@ if [[ -z $* ]] ; then
     echo 'If there are arguments to the class, put them in quotes after the class name.'
     exit 1
 fi
-export CLASSPATH=target/bidirectional.stream-1.0.jar
+export CLASSPATH=target/sdk-transcribe-examples-1.0.jar
 export className=$1
 echo "## Running $className..."
 shift
