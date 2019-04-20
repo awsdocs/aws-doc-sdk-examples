@@ -1,9 +1,3 @@
-/*
- * Author : Rajib Deb
- * 
- * This program creates a service in the given namespace in AWS Cloud Map
- * Please replace the namespace ID with the id that you are using for your project
- */
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -16,7 +10,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-// snippet-sourcedescription:[DiscoverInstanceRequest.java demonstrates how to ....]
+// snippet-sourcedescription:[CreateService.java creates a service in the given namespace in AWS Cloud Map]
 // snippet-service:[cloudmap]
 // snippet-keyword:[java]
 // snippet-keyword:[AWS Cloud Map]
