@@ -13,7 +13,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-// snippet-sourcedescription:[DiscoverInstanceRequest.java demonstrates how to ....]
+// snippet-sourcedescription:[DiscoverInstances.java demonstrates how to discover instances configured in AWS Cloud Map]
 // snippet-service:[cloudmap]
 // snippet-keyword:[java]
 // snippet-keyword:[AWS Cloud Map]
