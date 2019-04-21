@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-// snippet-start:[athena.java.AthenaClientFactory.client]
+//snippet-start:[athena.java.AthenaClientFactory.client]
 package aws.example.athena;
 
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
