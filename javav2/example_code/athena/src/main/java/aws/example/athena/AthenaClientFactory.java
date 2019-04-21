@@ -4,8 +4,9 @@
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-25]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2019-04-15]
+//snippet-sourceauthor:[jschwarzwalder]
+// snippet-start:[athena.java.AthenaClientFactory.client]
 package aws.example.athena;
 
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
