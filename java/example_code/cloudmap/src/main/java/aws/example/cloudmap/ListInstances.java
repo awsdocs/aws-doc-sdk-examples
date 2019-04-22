@@ -13,7 +13,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-// snippet-sourcedescription:[DiscoverInstanceRequest.java demonstrates how to ....]
+// snippet-sourcedescription:[ListInstances.java demonstrates how to ....]
 // snippet-service:[cloudmap]
 // snippet-keyword:[java]
 // snippet-keyword:[AWS Cloud Map]
@@ -21,7 +21,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-04-18]
 // snippet-sourceauthor:[rajib76]
-// snippet-start:[cloudmap.java.discover_instance_request.complete]
+// snippet-start:[cloudmap.java.list_instances.complete]
 
 package aws.example.cloudmap;
 
@@ -33,7 +33,7 @@ import com.amazonaws.services.servicediscovery.AWSServiceDiscovery;
 import com.amazonaws.services.servicediscovery.AWSServiceDiscoveryClientBuilder;
 import com.amazonaws.services.servicediscovery.model.ListInstancesRequest;
 
-public class DiscoverInstanceRequest {
+public class ListInstances {
 	public static void main(String args[]) throws Exception
 	{
 		AWSCredentials credentials = null;
@@ -58,4 +58,4 @@ public class DiscoverInstanceRequest {
 	}
 
 }
-//snippet-end:[cloudmap.java.discover_instance_request.complete]
+//snippet-end:[cloudmap.java.list_instances.complete]
