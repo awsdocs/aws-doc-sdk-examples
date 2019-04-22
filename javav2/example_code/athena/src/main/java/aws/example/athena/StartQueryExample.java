@@ -145,3 +145,4 @@ public class StartQueryExample {
         }
     }
 }
+//snippet-end:[athena.java.StartQueryExample.complete]

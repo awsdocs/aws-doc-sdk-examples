@@ -35,3 +35,5 @@ public class CreateNamedQueryExample {
         CreateNamedQueryResponse createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
     }
 }
+
+//snippet-end:[athena.java.CreateNamedQueryExample.complete]

@@ -49,3 +49,4 @@ public class DeleteNamedQueryExample {
         DeleteNamedQueryResponse deleteNamedQueryResponse = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
     }
 }
+//snippet-end:[athena.java.DeleteNamedQueryExample.complete]

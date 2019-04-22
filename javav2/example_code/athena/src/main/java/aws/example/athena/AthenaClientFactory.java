@@ -34,3 +34,4 @@ public class AthenaClientFactory {
         return builder.build();
     }
 }
+//snippet-end:[athena.java.AthenaClientFactory.client]

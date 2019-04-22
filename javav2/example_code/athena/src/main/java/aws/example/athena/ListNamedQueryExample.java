@@ -45,3 +45,5 @@ public class ListNamedQueryExample {
 
     }
 }
+
+//snippet-end:[athena.java.ListNamedQueryExample.complete]

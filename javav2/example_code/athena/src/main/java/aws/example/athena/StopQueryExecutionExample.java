@@ -67,3 +67,4 @@ public class StopQueryExecutionExample {
 
     }
 }
+//snippet-end:[athena.java.StopQueryExecutionExample.complete]

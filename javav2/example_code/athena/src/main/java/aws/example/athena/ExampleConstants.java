@@ -24,3 +24,4 @@ public class ExampleConstants {
     public static final String ATHENA_DEFAULT_DATABASE = "default";
 
 }
+//snippet-end:[athena.java.ExampleConstants.complete]
