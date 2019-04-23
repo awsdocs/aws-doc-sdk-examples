@@ -105,6 +105,8 @@ bool put_s3_object_async(const Aws::S3::S3Client& s3_client,
             file_name.c_str(),
             std::ios_base::in | std::ios_base::binary);
     object_request.SetBody(input_data);
+
+    // Set up AsyncCallerContext. Pass the S3 object name to the callback.
     auto context =
         Aws::MakeShared<Aws::Client::AsyncCallerContext>("PutObjectAllocationTag");
     context->SetUUID(s3_object_name);
