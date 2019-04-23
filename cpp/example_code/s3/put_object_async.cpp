@@ -31,7 +31,6 @@
 #include <iostream>
 #include <mutex>
 #include <sys/stat.h>
-#include <thread>
 // snippet-end:[s3.cpp.put_object_async.inc]
 
 /**
@@ -74,7 +73,7 @@ void put_object_async_finished(const Aws::S3::S3Client* client,
             << error.GetMessage() << std::endl;
     }
 
-    // Notify waiting function
+    // Notify the thread that started the operation
     upload_variable.notify_one();
 }
 // snippet-end:[s3.cpp.put_object_async_finished.code]
