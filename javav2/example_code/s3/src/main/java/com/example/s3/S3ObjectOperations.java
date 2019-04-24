@@ -78,6 +78,7 @@ public class S3ObjectOperations {
 
         // List all objects in bucket
 
+        // snippet-start:[s3.java.s3_object_operations.pagination]
         // Use manual pagination
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
                 .bucket(bucket)
@@ -99,7 +100,8 @@ public class S3ObjectOperations {
                     .continuationToken(listObjResponse.nextContinuationToken())
                     .build();
         }
-
+        // snippet-end:[s3.java.s3_object_operations.pagination]
+        // snippet-start:[s3.java.s3_object_operations.iterative]
         // Build the list objects request
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
@@ -112,15 +114,19 @@ public class S3ObjectOperations {
                  .flatMap(r -> r.contents().stream())
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
+        // snippet-end:[s3.java.s3_object_operations.iterative]
+        // snippet-start:[s3.java.s3_object_operations.stream]
         // Helper method to work with paginated collection of items directly
         listRes.contents().stream()
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
-
+        // snippet-end:[s3.java.s3_object_operations.stream]
+        // snippet-start:[s3.java.s3_object_operations.forloop]
         // Use simple for loop if stream is not necessary
         for (S3Object content : listRes.contents()) {
             System.out.println(" Key: " + content.key() + " size = " + content.size());
         }
-
+        // snippet-end:[s3.java.s3_object_operations.forloop]
+        
         // Get Object
         // snippet-start:[s3.java.s3_object_operations.download]
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
@@ -165,8 +171,8 @@ public class S3ObjectOperations {
     private static void multipartUpload(String bucketName, String key) throws IOException {
 
         int MB = 1024 * 1024;
-        // First create a multipart upload and get upload id 
         // snippet-start:[s3.java.s3_object_operations.upload_multi_part]
+        // First create a multipart upload and get upload id 
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
                                                                                                 .bucket(bucketName).key(key)
                                                                                                 .build();
