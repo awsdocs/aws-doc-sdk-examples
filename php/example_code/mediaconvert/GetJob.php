@@ -28,7 +28,7 @@ use Aws\Exception\AwsException;
 // snippet-end:[mediaconvert.php.get_job.import]
 
 /**
- * Retrieve resutls from a specific completed transcoding job for AWS Elemental MediaConvert.
+ * Retrieve results from a specific completed transcoding job for AWS Elemental MediaConvert.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html

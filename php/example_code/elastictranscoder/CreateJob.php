@@ -78,7 +78,7 @@ try {
 // snippet-end:[elastictranscoder.php.create_job.main]
 // snippet-end:[elastictranscoder.php.create_job.complete] 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateJob.php demonstrates how to create an Elastic Transcoder job and consume job status using notificaitons.]
+// snippet-sourcedescription:[CreateJob.php demonstrates how to create an Elastic Transcoder job and consume job status using notifications.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[createJob]
 // snippet-keyword:[AWS SDK for PHP v3]

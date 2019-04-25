@@ -35,13 +35,13 @@ $SesClient = new Aws\SES\SESClient([
 
 $template_name = 'Template_Name';
 $sender_email = 'email_address';
-$recipeint_emails = ['email_address'];
+$recipient_emails = ['email_address'];
 
 
 try {
     $result = $SesClient->sendTemplatedEmail([
         'Destination' => [
-            'ToAddresses' => $verified_recipeint_emails,
+            'ToAddresses' => $verified_recipient_emails,
         ],
         'ReplyToAddresses' => [$sender_email],
         'Source' => $sender_email,

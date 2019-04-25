@@ -25,7 +25,7 @@ package com.example.helloswf;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import software.amazon.awssdk.services.swf.SWFClient;
+import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.PollForActivityTaskRequest;
 import software.amazon.awssdk.services.swf.model.PollForActivityTaskResponse;
 import software.amazon.awssdk.services.swf.model.RespondActivityTaskCompletedRequest;
@@ -36,8 +36,8 @@ import software.amazon.awssdk.services.swf.model.TaskList;
 // snippet-start:[swf.java.poll_tasks.main]
 public class ActivityWorkerWithGracefulShutdown {
 
-    private static final SWFClient swf =
-    		SWFClient.builder().build();
+    private static final SwfClient swf =
+            SwfClient.builder().build();
     private static CountDownLatch waitForTermination = new CountDownLatch(1);
     private static volatile boolean terminate = false;
 

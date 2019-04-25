@@ -9,5 +9,6 @@ export className=$1
 echo "## Running $className..."
 shift
 echo "## arguments $@..."
-mvn exec:java -Dexec.mainClass="com.example.transcribe.$className" -Dexec.args="$@"
+mvn exec:java -Dexec.mainClass="com.amazonaws.transcribe.$className" -Dexec.args="$@"
+
 
