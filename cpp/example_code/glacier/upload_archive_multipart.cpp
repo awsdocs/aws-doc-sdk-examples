@@ -265,12 +265,12 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         // Assign these values before running the program
-        Aws::String vault_name("test-vault-name");
-        Aws::String file_name("\\EraseMe\\xyplorer_full.zip");
+        Aws::String vault_name("VAULT_NAME");
+        Aws::String file_name("FILE_NAME");
 
         // Optional values to modify
-        Aws::String part_size = "1048576";  // 1MB
-        // Aws::String part_size = "4194304";  // 4MB
+        // Aws::String part_size = "1048576";  // 1MB
+        Aws::String part_size = "4194304";  // 4MB
         Aws::String account_id("-");        // Hyphen = Use current user's credentials
         Aws::String archive_description("TestArchiveUpload");
 
