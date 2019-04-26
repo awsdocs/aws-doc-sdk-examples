@@ -31,7 +31,6 @@
 #include <iostream>
 #include <mutex>
 #include <sys/stat.h>
-#include <thread>
 // snippet-end:[s3.cpp.put_object_async.inc]
 
 /**
@@ -74,7 +73,7 @@ void put_object_async_finished(const Aws::S3::S3Client* client,
             << error.GetMessage() << std::endl;
     }
 
-    // Notify waiting function
+    // Notify the thread that started the operation
     upload_variable.notify_one();
 }
 // snippet-end:[s3.cpp.put_object_async_finished.code]
@@ -105,6 +104,8 @@ bool put_s3_object_async(const Aws::S3::S3Client& s3_client,
             file_name.c_str(),
             std::ios_base::in | std::ios_base::binary);
     object_request.SetBody(input_data);
+
+    // Set up AsyncCallerContext. Pass the S3 object name to the callback.
     auto context =
         Aws::MakeShared<Aws::Client::AsyncCallerContext>("PutObjectAllocationTag");
     context->SetUUID(s3_object_name);

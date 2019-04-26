@@ -1,6 +1,3 @@
-/*
- * Author : Rajib Deb
- */
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -13,15 +10,15 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-// snippet-sourcedescription:[DiscoverInstanceRequest.java demonstrates how to ....]
+// snippet-sourcedescription:[CreateService.java creates a service in the given namespace in AWS Cloud Map]
 // snippet-service:[cloudmap]
 // snippet-keyword:[java]
 // snippet-keyword:[AWS Cloud Map]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-04-18]
+// snippet-sourcedate:[2019-04-19]
 // snippet-sourceauthor:[rajib76]
-// snippet-start:[cloudmap.java.discover_instance_request.complete]
+// snippet-start:[cloudmap.java.create_service_request.complete]
 
 package aws.example.cloudmap;
 
@@ -31,9 +28,9 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.servicediscovery.AWSServiceDiscovery;
 import com.amazonaws.services.servicediscovery.AWSServiceDiscoveryClientBuilder;
-import com.amazonaws.services.servicediscovery.model.ListInstancesRequest;
+import com.amazonaws.services.servicediscovery.model.CreateServiceRequest;
 
-public class DiscoverInstanceRequest {
+public class CreateService {
 	public static void main(String args[]) throws Exception
 	{
 		AWSCredentials credentials = null;
@@ -51,11 +48,12 @@ public class DiscoverInstanceRequest {
 									.withRegion("us-east-1")
 									.build();
 		
-		ListInstancesRequest lreq = new ListInstancesRequest();
-		lreq.setServiceId("srv-l7gkxmjapm5givba");  //Replace with service id
-		
-		System.out.println(client.listInstances(lreq));
+		CreateServiceRequest crequest = new CreateServiceRequest();
+		crequest.setName("example-service-01");
+		crequest.setDescription("This is an example service request");
+		crequest.setNamespaceId("ns-ldmexc5fqajjnhco");//Replace with the namespaceID		
+		System.out.println(client.createService(crequest));
 	}
 
 }
-//snippet-end:[cloudmap.java.discover_instance_request.complete]
+//snippet-end:[cloudmap.java.create_service_request.complete]
