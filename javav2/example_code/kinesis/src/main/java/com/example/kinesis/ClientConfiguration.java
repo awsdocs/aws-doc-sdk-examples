@@ -34,14 +34,17 @@ public class ClientConfiguration {
 	public static void main(String[] args) {
 		// If configured with an httpClientBuilder, the SDK will manage the lifecycle of the HTTP client
         // and it will be shutdown when the client is shut down.
+	// snippet-start:[kinesis.java.client_configuration.client]
         KinesisAsyncClient client = KinesisAsyncClient.builder()
                           .httpClientBuilder(NettyNioAsyncHttpClient.builder()
                                                                     .maxConcurrency(100)
                                                                     .maxPendingConnectionAcquires(10_000))
                           .build();
 
-        // When passing in the httpClient directly, the lifecycle must be managed by the caller and the HTTP client
+        // snippet-end:[kinesis.java.client_configuration.client]
+	// When passing in the httpClient directly, the lifecycle must be managed by the caller and the HTTP client
         // will not be shut down when the client is shut down.
+	// snippet-start:[kinesis.java.client_configuration.httpclient]
         SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
                 .maxConcurrency(100)
                 .maxPendingConnectionAcquires(10_000)
@@ -52,6 +55,7 @@ public class ClientConfiguration {
         		.build();
 
         httpClient.close();
+	// snippet-end:[kinesis.java.client_configuration.httpclient]
 	}
 
 }
