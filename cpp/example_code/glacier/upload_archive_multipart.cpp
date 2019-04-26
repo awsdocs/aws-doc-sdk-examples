@@ -173,10 +173,10 @@ Aws::String upload_parts(const Aws::Glacier::GlacierClient& glacier_client,
     // Calculate checksum for entire file
 #if 0
     // Ideally, the file checksum is calculated from the checksums of the parts
-    // by calling the TreeHashFinalComplete() method. However, that method is
+    // by calling the TreeHashFinalCompute() method. However, that method is
     // not currently exposed.
     Aws::Utils::ByteBuffer file_byte_checksum = 
-        Aws::Utils::HashingUtils::TreeHashFinalComplete(part_checksums);
+        Aws::Utils::HashingUtils::TreeHashFinalCompute(part_checksums);
 #else
     // Until TreeHashFinalComplete() becomes public, calculate the checksum
     // by re-reading the entire file.
