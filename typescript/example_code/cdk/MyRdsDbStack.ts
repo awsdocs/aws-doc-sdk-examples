@@ -2,14 +2,14 @@
 // snippet-comment:[This is a full sample when you include MyRdsDbStack-stack.ts, which goes in the lib dir.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates an RDS database.]
-// snippet-keyword:[CDK V0.24.1]
+// snippet-keyword:[CDK V0.29.0]
 // snippet-keyword:[ec2.VpcNetwork function]
 // snippet-keyword:[rds.DatabaseCluster function]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-2-8]
+// snippet-sourcedate:[2019-4-29]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -27,5 +27,4 @@ import { MyRdsDbStack } from '../lib/MyRdsDbStack-stack';
 
 const app = new cdk.App();
 new MyRdsDbStack(app, 'MyRdsDbStack');
-app.run();
 // snippet-end:[cdk.typescript.MyRdsDbStack]

@@ -2,12 +2,12 @@
 // snippet-comment:[This is a full sample when you include hello-cdk-stack.ts, which goes in the lib dir.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Instantiates the stack in hello-cdk-stack.ts.]
-// snippet-keyword:[CDK V0.24.1]
+// snippet-keyword:[CDK V0.29.0]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-2-8]
+// snippet-sourcedate:[2019-4-29]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,6 +26,4 @@ import { HelloCdkStack } from '../lib/hello-cdk-stack2';
 
 const app = new cdk.App();
 new HelloCdkStack(app, 'HelloCdkStack');
-
-app.run();
 // snippet-end:[cdk.typescript.hello-cdk.version2]
