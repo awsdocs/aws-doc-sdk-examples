@@ -34,9 +34,9 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient 
+//Create a KmsClient 
 // snippet-start:[kms.php.delete_alias.main]
-KmsClient = new Aws\Kms\KmsClient([
+$KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
     'region' => 'us-east-2'
