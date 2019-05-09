@@ -74,9 +74,9 @@ function listAlbums() {
         var albumName = decodeURIComponent(prefix.replace('/', ''));
         return getHtml([
           '<li>',
-            '<span onclick="viewAlbum(\'' + albumName + '\')">',
+            '<button style="margin:5px;" onclick="viewAlbum(\'' + albumName + '\')">',
               albumName,
-            '</span>',
+            '</button>',
           '</li>'
         ]);
       });
