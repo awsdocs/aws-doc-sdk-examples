@@ -3,8 +3,8 @@
 # snippet-service:[comprehend]
 # snippet-keyword:[Amazon Comprehend]
 # snippet-keyword:[Python]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-03-13]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-05-08]
 # snippet-sourceauthor:[AWS]
 
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,37 +21,37 @@
 
 # snippet-start:[comprehend.python.TopicModeling.complete]
 import boto3
-import json
 
 # Set these values before running the program
-input_s3_url = "s3://INPUT_BUCKET/INPUT_PATH"
-input_doc_format = "ONE_DOC_PER_FILE"
-output_s3_url = "s3://OUTPUT_BUCKET/OUTPUT_PATH"
-data_access_role_arn = "arn:aws:iam::ACCOUNT_ID:role/DATA_ACCESS_ROLE"
-number_of_topics = 10
+input_s3_url = 's3://INPUT_BUCKET'
+input_doc_format = 'ONE_DOC_PER_FILE'
+output_s3_url = 's3://OUTPUT_BUCKET'
+data_access_role_arn = 'arn:aws:iam::ACCOUNT_ID:role/DATA_ACCESS_ROLE'
+number_of_topics = 10   # Optional argument
 
 # Set up job configuration
-input_data_config = {"S3Uri": input_s3_url, "InputFormat": input_doc_format}
-output_data_config = {"S3Uri": output_s3_url}
+input_data_config = {'S3Uri': input_s3_url, 'InputFormat': input_doc_format}
+output_data_config = {'S3Uri': output_s3_url}
 
 # Begin a job to detect the topics in the document collection
 comprehend = boto3.client('comprehend')
 start_result = comprehend.start_topics_detection_job(
-    NumberOfTopics=number_of_topics,
     InputDataConfig=input_data_config,
     OutputDataConfig=output_data_config,
-    DataAccessRoleArn=data_access_role_arn)
-
-# Output the results
-print('Start Topic Detection Job: ' + json.dumps(start_result))
+    DataAccessRoleArn=data_access_role_arn,
+    NumberOfTopics=number_of_topics)
 job_id = start_result['JobId']
-print(f'job_id: {job_id}')
+print(f'Started Topic Detection Job: {job_id}')
 
-# Retrieve and output information about the job
+# Retrieve information about the job
 describe_result = comprehend.describe_topics_detection_job(JobId=job_id)
-print('Describe Job: ' + json.dumps(describe_result))
+job_status = describe_result['TopicsDetectionJobProperties']['JobStatus']
+print(f'Job Status: {job_status}')
+if job_status == 'FAILED':
+    print(f'Reason: {describe_result["TopicsDetectionJobProperties"]["Message"]}')
 
-# List and output information about current jobs
+# List all topic-detection jobs
 list_result = comprehend.list_topics_detection_jobs()
-print('list_topics_detection_jobs_result: ' + json.dumps(list_result))
+for job in list_result['TopicsDetectionJobPropertiesList']:
+    print(f'Job ID: {job["JobId"]}, Status: {job["JobStatus"]}')
 # snippet-end:[comprehend.python.TopicModeling.complete]
