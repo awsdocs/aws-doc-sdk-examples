@@ -32,11 +32,13 @@
 //
 
 // snippet-start:[s3.JavaScript.s3_PhotoViewer.config]
-// DO THIS: Replace BUCKET_NAME with the bucket name.
+// **DO THIS**:
+//   Replace BUCKET_NAME with the bucket name.
 //
 var albumBucketName = 'BUCKET_NAME';
 
-// DO THIS: Replace this block of code with the sample code located at:
+// **DO THIS**:
+//   Replace this block of code with the sample code located at:
 //   Cognito -- Manage Identity Pools -- [identity_pool_name] -- Sample Code -- JavaScript
 //
 // Initialize the Amazon Cognito credentials provider
