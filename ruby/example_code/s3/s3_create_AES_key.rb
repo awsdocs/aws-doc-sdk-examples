@@ -31,4 +31,4 @@ encoded_string = Base64.encode64(key)
 puts encoded_string
 
 # To decode the encoded string:
-#   key = encodd_string.unpack("m*")[0]
+#   key = encoded_string.unpack("m*")[0]

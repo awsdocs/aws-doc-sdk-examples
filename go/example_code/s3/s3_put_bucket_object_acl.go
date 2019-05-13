@@ -61,7 +61,7 @@ func main() {
     }
 
     // Initialize a session that loads credentials from the shared credentials file ~/.aws/credentials
-    // and the region from the shared configuratin file ~/.aws/config.
+    // and the region from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))

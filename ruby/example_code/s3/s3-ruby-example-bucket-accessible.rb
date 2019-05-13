@@ -1,6 +1,6 @@
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[???.]
+# snippet-sourcedescription:[s3-ruby-example-bucket-accessible.rb determines whether you can access an S3 bucket.]
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[get_bucket_location method]
 # snippet-keyword:[Resource.buckets.any method]
