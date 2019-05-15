@@ -11,7 +11,7 @@
  #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
  #* specific language governing permissions and limitations under the License.
 #**
-# snippet-sourcedescription:[auth_session_token_request_test.rb creates a temporary user to list the items in a specified bucket for one hour. To use this example, you must have AWS credentials that have the necessary permissions to create new AWS Security Token Service (AWS STS) clients, and list Amaazon S3 buckets using temporary security credentials] 
+# snippet-sourcedescription:[auth_session_token_request_test.rb creates a temporary user to list the items in a specified bucket for one hour. To use this example, you must have AWS credentials that have the necessary permissions to create new AWS Security Token Service (AWS STS) clients, and list Amazon S3 buckets using temporary security credentials] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
 # snippet-keyword:[Amazon S3]
@@ -24,7 +24,7 @@
 # This snippet example does the following:
 # The following Ruby example creates a temporary user to list the items in a specified bucket
 # for one hour. To use this example, you must have AWS credentials that have the necessary
-# permissions to create new AWS Security Token Service (AWS STS) clients, and list Amaazon S3 buckets using temporary security credentials 
+# permissions to create new AWS Security Token Service (AWS STS) clients, and list Amazon S3 buckets using temporary security credentials 
 # using your AWS account security credentials, the temporary security credentials are valid for only one hour. You can
 # specify session duration only if you use &IAM; user credentials to request a session.
 

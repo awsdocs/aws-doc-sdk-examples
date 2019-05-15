@@ -49,7 +49,9 @@ public class ListJobs {
                     .withRegion(US_WEST_2)
                     .build();
 
+
             ListJobsResult result = s3ControlClient.listJobs(new ListJobsRequest()
+
                     .withAccountId(accountId)
                     .withMaxResults(20)
                     .withJobStatuses("Active", "Complete")
@@ -61,6 +63,7 @@ public class ListJobs {
                     System.out.printf("%s - %s (status: %s)\n", jobSummary.getJobId(), jobSummary.getJobArn(), jobSummary.getStatus());
                 }
                    
+
 
             // snippet-end:[s3.java.list_batch_jobs.main]
         } catch (AmazonServiceException e) {
