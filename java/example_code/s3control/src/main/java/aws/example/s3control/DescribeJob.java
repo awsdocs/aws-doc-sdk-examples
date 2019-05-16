@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-// snippet-sourcedescription:[ListJobs.java demonstrates how to list active and complete Amazon S3 Batch Operations.]
+// snippet-sourcedescription:[DescribeJob.java demonstrates how to retrieve the ARN and status of a current job.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon S3]
@@ -20,29 +20,29 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-04-30]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]
-// snippet-start:[s3.java.list_batch_jobs.complete]
+// snippet-start:[s3.java.describe_job.complete]
 
 package aws.example.s3control;
 
-// snippet-start:[s3.java.list_batch_jobs.import]
-
+// snippet-start:[s3.java.describe_job.import]
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3control.AWSS3Control;
 import com.amazonaws.services.s3control.AWSS3ControlClient;
-import com.amazonaws.services.s3control.model.JobListDescriptor;
-import com.amazonaws.services.s3control.model.ListJobsRequest;
-import com.amazonaws.services.s3control.model.ListJobsResult;
+import com.amazonaws.services.s3control.model.DescribeJobRequest;
+import com.amazonaws.services.s3control.model.DescribeJobResult;
+import com.amazonaws.services.s3control.model.JobDescriptor;
 
 import static com.amazonaws.regions.Regions.US_WEST_2;
-// snippet-end:[s3.java.list_batch_jobs.import]
+// snippet-end:[s3.java.describe_job.import]
 
-public class ListJobs {
+public class DescribeJob {
     public static void main(String[] args) {
-        // snippet-start:[s3.java.list_batch_jobs.main]
+        // snippet-start:[s3.java.describe_job.main]
         String accountId = "Account Number";
+        String jobId = "00e123a4-c0d8-41f4-a0eb-b46f9ba5b07c";
 
         try {
             AWSS3Control s3ControlClient = AWSS3ControlClient.builder()
@@ -50,23 +50,14 @@ public class ListJobs {
                     .withRegion(US_WEST_2)
                     .build();
 
-
-            ListJobsResult result = s3ControlClient.listJobs(new ListJobsRequest()
-
+            DescribeJobResult result = s3ControlClient.describeJob(new DescribeJobRequest()
                     .withAccountId(accountId)
-                    .withMaxResults(20)
-                    .withJobStatuses("Active", "Complete")
-            ).withJobs(new JobListDescriptor()
-                    .withStatus("Active")
-                    .withStatus("Complete"));
-            
-            for (JobListDescriptor jobSummary : result.getJobs()) {
-                    System.out.printf("%s - %s (status: %s)\n", jobSummary.getJobId(), jobSummary.getCreationTime(), jobSummary.getStatus());
-                }
-                   
+                    .withJobId(jobId));
+                    
+            JobDescriptor job = result.getJob();
+            System.out.printf("%s - %s (status: %s)\n", job.getJobId(), job.getJobArn(), job.getStatus());
 
-
-            // snippet-end:[s3.java.list_batch_jobs.main]
+            // snippet-end:[s3.java.describe_job.main]
         } catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process
             // it and returned an error response.
@@ -78,4 +69,8 @@ public class ListJobs {
         }
     }
 }
-// snippet-end:[s3.java.list_batch_jobs.complete]
+// snippet-end:[s3.java.describe_job.complete]
+
+
+
+
