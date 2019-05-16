@@ -1,6 +1,6 @@
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Polls for messages on an SQS quueue.]
+# snippet-sourcedescription:[Polls for messages on an SQS queue.]
 # snippet-keyword:[Amazon Simple Queue Service]
 # snippet-keyword:[QueuePoller.poll method]
 # snippet-keyword:[Ruby]
