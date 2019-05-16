@@ -31,7 +31,9 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3control.AWSS3Control;
 import com.amazonaws.services.s3control.AWSS3ControlClient;
+import com.amazonaws.services.s3control.model.DescribeJobRequest;
 import com.amazonaws.services.s3control.model.DescribeJobResult;
+import com.amazonaws.services.s3control.model.JobDescriptor;
 
 import static com.amazonaws.regions.Regions.US_WEST_2;
 // snippet-end:[s3.java.describe_job.import]
@@ -50,7 +52,7 @@ public class DescribeJob {
 
             DescribeJobResult result = s3ControlClient.describeJob(new DescribeJobRequest()
                     .withAccountId(accountId)
-                    .withJobId(jobId)
+                    .withJobId(jobId));
                     
             JobDescriptor job = result.getJob();
             System.out.printf("%s - %s (status: %s)\n", job.getJobId(), job.getJobArn(), job.getStatus());

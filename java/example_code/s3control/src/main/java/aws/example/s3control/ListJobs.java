@@ -34,6 +34,7 @@ import com.amazonaws.services.s3control.AWSS3Control;
 import com.amazonaws.services.s3control.AWSS3ControlClient;
 import com.amazonaws.services.s3control.model.JobListDescriptor;
 import com.amazonaws.services.s3control.model.ListJobsRequest;
+import com.amazonaws.services.s3control.model.ListJobsResult;
 
 import static com.amazonaws.regions.Regions.US_WEST_2;
 // snippet-end:[s3.java.list_batch_jobs.import]
@@ -60,7 +61,7 @@ public class ListJobs {
                     .withStatus("Complete"));
             
             for (JobListDescriptor jobSummary : result.getJobs()) {
-                    System.out.printf("%s - %s (status: %s)\n", jobSummary.getJobId(), jobSummary.getJobArn(), jobSummary.getStatus());
+                    System.out.printf("%s - %s (status: %s)\n", jobSummary.getJobId(), jobSummary.getCreationTime(), jobSummary.getStatus());
                 }
                    
 
