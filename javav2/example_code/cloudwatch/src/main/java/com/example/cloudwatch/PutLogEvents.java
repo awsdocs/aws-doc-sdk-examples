@@ -3,8 +3,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2019-05-17]
+//snippet-sourceauthor:[danotorrey]
 // snippet-start:[cloudwatch.java.put_log_events.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -65,16 +65,17 @@ public class PutLogEvents {
                                                                               .build();
         DescribeLogStreamsResponse describeLogStreamsResponse = logsClient.describeLogStreams(logStreamRequest);
 
-        // Assume that a single stream is returned.
+        // Assume that a single stream is returned since a specific stream name was specified in the previous request.
         String sequenceToken = describeLogStreamsResponse.logStreams().get(0).uploadSequenceToken();
 
-        // Build an input log message
+        // Build an input log message to put to CloudWatch.
         InputLogEvent inputLogEvent = InputLogEvent.builder()
                                                    .message("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
                                                    .timestamp(System.currentTimeMillis())
                                                    .build();
 
-        PutLogEventsRequest request = PutLogEventsRequest.builder()
+        // Specify the request parameters.
+        PutLogEventsRequest putLogEventsRequest = PutLogEventsRequest.builder()
                                                          .logEvents(Arrays.asList(inputLogEvent))
                                                          .logGroupName(logGroupName)
                                                          .logStreamName(streamName)
@@ -82,7 +83,7 @@ public class PutLogEvents {
                                                          // latest location in the stream.
                                                          .sequenceToken(sequenceToken)
                                                          .build();
-        logsClient.putLogEvents(request);
+        logsClient.putLogEvents(putLogEventsRequest);
         // snippet-end:[cloudwatch.java.put_log_events.main]
 
         System.out.println("Successfully put CloudWatch log event");
