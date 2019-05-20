@@ -1,0 +1,143 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[This IAM identity-based permission policy grants a user permissions to perform limited operations in AWS CloudFormation, AWS Glue, Amazon Athena, Amazon S3, and AWS Identity and Access Management. These operations allow the user to create an AWS Glue Data Catalog that describes Amazon AppStream 2.0 usage data and to query that data using Athena.]
+// snippet-service:[appstream2]
+// snippet-keyword:[JSON]
+// snippet-keyword:[Amazon AppStream 2.0]
+// snippet-keyword:[Amazon Athena]
+// snippet-keyword:[AWS Glue]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[IAM Permissions File]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-05-20]
+// snippet-sourceauthor:[AWS]
+// snippet-start:[appstream2.json.appstream-usage-reports-cfn-access.complete]
+code
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "athena:CreateNamedQuery",
+                "athena:BatchGetNamedQuery",
+                "athena:GetNamedQuery",
+                "athena:StartQueryExecution",
+                "athena:GetQueryResults",
+                "athena:GetQueryExecution",
+                "athena:ListNamedQueries",
+                "cloudformation:DescribeStacks",
+                "cloudformation:GetStackPolicy",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:CreateStack",
+                "cloudformation:GetTemplate",
+                "cloudformation:ListChangeSets",
+                "cloudformation:ListStackResources",
+                "iam:GetRole",
+                "iam:CreateRole",
+                "iam:GetRolePolicy",
+                "s3:GetBucketLocation",
+                "s3:ListBucketMultipartUploads",
+                "s3:ListBucket",
+                "s3:ListMultipartUploadParts",
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:AbortMultipartUpload"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:role/AppStreamUsageReports-AppStreamUsageReportGlueRole*",
+                "arn:aws:cloudformation:*:*:stack/AppStreamUsageReports/*",
+                "arn:aws:athena:*:*:workgroup/primary",
+                "arn:aws:s3:::aws-athena-query-results-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::appstream-logs-*",
+                "arn:aws:iam::*:role/AppStreamUsageReports-AppStreamUsageReportGlueRole*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:role/AppStreamUsageReports-AppStreamUsageReportGlueRole*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": "glue.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:GetTemplateSummary",
+                "glue:GetResourcePolicy",
+                "glue:GetCrawlers",
+                "glue:BatchGetCrawlers",
+                "glue:GetClassifiers",
+                "glue:CreateClassifier",
+                "glue:ListCrawlers",
+                "glue:GetTags",
+                "glue:GetCrawlerMetrics",
+                "glue:GetClassifier",
+                "tag:GetResources"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "athena:RunQuery",
+            "Resource": "arn:aws:athena:*:*:workgroup/primary"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetTables",
+                "glue:GetPartitions",
+                "glue:GetTable"
+            ],
+            "Resource": [
+                "arn:aws:glue:*:*:table/appstream-usage/*",
+                "arn:aws:glue:*:*:database/appstream-usage",
+                "arn:aws:glue:*:*:catalog"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetDatabase",
+                "glue:CreateDatabase",
+                "glue:GetDatabases"
+            ],
+            "Resource": [
+                "arn:aws:glue:*:*:database/appstream-usage",
+                "arn:aws:glue:*:*:catalog"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetCrawler",
+                "glue:StartCrawler",
+                "glue:CreateCrawler"
+            ],
+            "Resource": "arn:aws:glue:*:*:crawler/appstream-usage*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "glue:GetCatalogImportStatus",
+            "Resource": "arn:aws:glue:*:*:catalog"
+        }
+    ]
+}
+// snippet-end:[appstream2.json.appstream-usage-reports-cfn-access.complete]
