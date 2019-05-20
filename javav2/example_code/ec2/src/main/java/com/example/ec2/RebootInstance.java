@@ -36,7 +36,7 @@ public class RebootInstance
     {
         final String USAGE =
             "To run this example, supply an instance id\n" +
-            "Ex: RebootInstnace <instance_id>\n";
+            "Ex: RebootInstance <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
