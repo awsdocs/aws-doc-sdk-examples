@@ -32,6 +32,8 @@
 package main
 
 import (
+	"errors"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -40,22 +42,16 @@ import (
 // Functions to perform CRUD (create, read, update, delete) operations in S3
 
 // CreateBucket creates a bucket
-func CreateBucket(bucket string) (bool, error) {
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-
+func CreateBucket(sess *session.Session, bucket string) error {
 	// Create S3 service client
 	svc := s3.New(sess)
 
 	// Create the S3 Bucket
-	_, err = svc.CreateBucket(&s3.CreateBucketInput{
+	_, err := svc.CreateBucket(&s3.CreateBucketInput{
 		Bucket: aws.String(bucket),
 	})
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	// Wait until bucket is created before finishing
@@ -63,46 +59,30 @@ func CreateBucket(bucket string) (bool, error) {
 		Bucket: aws.String(bucket),
 	})
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	return true, nil
+	return nil
 }
 
-// ReadBucket determines whether we have this bucket
-func ReadBucket(bucket string) (bool, error) {
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-
+// GetBucket determines whether we have this bucket
+func GetBucket(sess *session.Session, bucket string) error {
 	// Create S3 service client
 	svc := s3.New(sess)
 
 	// Do we have this Bucket?
-	result, err := svc.ListBuckets(nil)
+	_, err := svc.HeadBucket(&s3.HeadBucketInput{
+		Bucket: aws.String(bucket),
+	})
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	for _, b := range result.Buckets {
-		if *b.Name == bucket {
-			return true, nil
-		}
-	}
-
-	return false, nil
+	return nil
 }
 
 // HasACL determines whether the bucket has read-only ACL
-func HasACL(bucket string) (bool, error) {
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-
+func HasACL(sess *session.Session, bucket string) error {
 	// Create S3 service client
 	svc := s3.New(sess)
 
@@ -110,74 +90,53 @@ func HasACL(bucket string) (bool, error) {
 		Bucket: aws.String(bucket),
 	})
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	// Determine whether the group allusers has read permission
 	for _, g := range acl.Grants {
 		if *g.Grantee.Type == "Group" && *g.Grantee.URI == "http://acs.amazonaws.com/groups/global/AllUsers" && *g.Permission == "READ" {
-			return true, nil
+			return nil
 		}
 	}
 
-	return false, nil
+	return errors.New("All users do not have read access")
 }
 
 // UpdateBucket changes the bucket to give all users read permission
-func UpdateBucket(bucket string) (bool, error) {
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-
+func UpdateBucket(sess *session.Session, bucket string) error {
 	// Create S3 service client
 	svc := s3.New(sess)
 
 	// Give all users read permission
-	svc.PutBucketAcl(&s3.PutBucketAclInput{
+	_, err := svc.PutBucketAcl(&s3.PutBucketAclInput{
 		ACL:    aws.String("public-read"),
 		Bucket: aws.String(bucket),
 	})
-
-	// Find the bucket
-	result, err := svc.ListBuckets(nil)
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	for _, b := range result.Buckets {
-		if *b.Name == bucket {
-			// Do all users have read permission?
-			hasACL, err := HasACL(bucket)
-			if err != nil {
-				return false, err
-			}
-
-			return hasACL, nil
-		}
+	// Do all users have read permission?
+	err = HasACL(sess, bucket)
+	if err != nil {
+		return err
 	}
 
-	return false, nil
+	return nil
 }
 
 // DeleteBucket deletes a bucket
-func DeleteBucket(bucket string) (bool, error) {
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
-	)
-
+func DeleteBucket(sess *session.Session, bucket string) error {
 	// Create S3 service client
 	svc := s3.New(sess)
 
 	// Delete the S3 Bucket
-	_, err = svc.DeleteBucket(&s3.DeleteBucketInput{
+	_, err := svc.DeleteBucket(&s3.DeleteBucketInput{
 		Bucket: aws.String(bucket),
 	})
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	// Wait until bucket is gone before finishing
@@ -185,22 +144,19 @@ func DeleteBucket(bucket string) (bool, error) {
 		Bucket: aws.String(bucket),
 	})
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	// Make sure it's really gone
-	result, err := svc.ListBuckets(nil)
+	_, err = svc.HeadBucket(&s3.HeadBucketInput{
+		Bucket: aws.String(bucket),
+	})
+	// We expect this to fail if bucket does not exist
 	if err != nil {
-		return false, err
+		return nil
 	}
 
-	for _, b := range result.Buckets {
-		if *b.Name == bucket {
-			return false, nil
-		}
-	}
-
-	return true, nil
+	return errors.New("Could not delete bucket")
 }
 
 func main() {}
