@@ -90,7 +90,7 @@ def characterScan(fileContents, filelocation):
                 continue
             print("ERROR -- " + word[1:-1] + " Found in " + filelocation)
             sys.exit("ERROR -- 20 character string found, and might be a secret access key.") 
-    forty = re.findall("[^a-zA-Z0-9_/+=][a-zA-Z0-9_/+=]{40}[^a-zA-Z0-9_/+=]", fileContents)
+    forty = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]", fileContents)
     if (forty) :
         for word in forty:
             if word[1:-1] in allowList:
@@ -99,7 +99,7 @@ def characterScan(fileContents, filelocation):
             sys.exit("ERROR -- 40 character string found, and might be a secret key.") 
             
 def fileNameCheck(filename, filelocation):
-    forty = re.findall("[^a-zA-Z0-9_/+=][a-zA-Z0-9_/+=]{40}[^a-zA-Z0-9_/+=]", filename)
+    forty = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]", filename)
     if (forty) :
         if forty[0][-1] not in allowList:
            print("ERROR -- " + forty[0][:-1] + " Found in " + filelocation)
