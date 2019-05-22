@@ -11,7 +11,7 @@
 // snippet-sourcedate:[2019-05-20]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[appstream2.json.appstream-usage-reports-cfn-access.complete]
-code
+
 {
     "Version": "2012-10-17",
     "Statement": [
