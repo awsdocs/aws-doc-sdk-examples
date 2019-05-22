@@ -89,7 +89,7 @@ def characterScan(fileContents, filelocation):
             if word[1:-1] in allowList:
                 continue
             print("ERROR -- " + word[1:-1] + " Found in " + filelocation)
-            # sys.exit("ERROR -- 20 character string found, and might be a secret access key.") 
+            sys.exit("ERROR -- 20 character string found, and might be a secret access key.") 
     forty = re.findall("[^a-zA-Z0-9_/+=][a-zA-Z0-9_/+=]{40}[^a-zA-Z0-9_/+=]", fileContents)
     if (forty) :
         for word in forty:
@@ -248,54 +248,44 @@ root = './'
 
 denyList = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
 allowList = {
-    'aws/email/model/ListReceiptFiltersResult',
-    'KinesisStreamSourceConfiguration=kinesis',
-    'com/samples/JobStatusNotificationsSample',
-    'com/greengrass/latest/developerguide/lra',
+    'AKIAIOSFODNN7EXAMPLE',
+    'AppStreamUsageReportsCFNGlueAthenaAccess',
+    'aws/cloudtrail/model/LookupEventsRequest',
     'aws/codebuild/model/BatchGetBuildsResult',
     'aws/codecommit/model/DeleteBranchRequest',
     'aws/codecommit/model/ListBranchesRequest',
-    'aws/neptune/model/CreateDBClusterRequest',
-    'aws/neptune/model/DeleteDBClusterRequest'
-    'aws/neptune/model/ModifyDBClusterRequest',
-    'aws/cloudtrail/model/LookupEventsRequest',
-    'aws/monitoring/model/DeleteAlarmsRequest',
     'aws/dynamodb/model/ProvisionedThroughput',
     'aws/ec2/model/CreateSecurityGroupRequest',
     'aws/ec2/model/DeleteSecurityGroupRequest',
     'aws/ec2/model/UnmonitorInstancesResponse',
+    'aws/email/model/CreateReceiptRuleRequest',
+    'aws/email/model/DeleteReceiptRuleRequest',
+    'aws/email/model/ListReceiptFiltersResult',
+    'aws/email/model/SendTemplatedEmailResult',
     'aws/guardduty/model/ListDetectorsRequest',
     'aws/iam/model/GetAccessKeyLastUsedResult',
     'aws/iam/model/GetServerCertificateResult',
     'aws/kinesis/model/GetShardIteratorResult',
     'aws/kinesis/model/PutRecordsRequestEntry',
+    'aws/monitoring/model/DeleteAlarmsRequest',
+    'aws/neptune/model/CreateDBClusterRequest',
     'aws/neptune/model/DeleteDBClusterRequest',
     'aws/neptune/model/ModifyDBClusterRequest',
-    'aws/email/model/CreateReceiptRuleRequest',
-    'aws/email/model/DeleteReceiptRuleRequest',
-    'aws/email/model/SendTemplatedEmailResult',
-    'nFindProductsWithNegativePriceWithConfig',
-    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    'CertificateTransparencyLoggingPreference',
     'ChangeMessageVisibilityBatchRequestEntry',
+    'com/greengrass/latest/developerguide/lra',
+    'com/greengrass/latest/developerguide/sns',
+    'com/samples/JobStatusNotificationsSample',
+    'generate_presigned_url_and_upload_object',
+    'KinesisStreamSourceConfiguration=kinesis',
+    'nFindProductsWithNegativePriceWithConfig',
+    's3_client_side_encryption_sym_master_key',
+    'serial/CORE_THING_NAME/write/dev/serial1',
     'TargetTrackingScalingPolicyConfiguration',
     'targetTrackingScalingPolicyConfiguration',
-    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    'upload_files_using_managed_file_uploader',
     'videoMetaData=celebrityRecognitionResult',
-    'generate_presigned_url_and_upload_object',
-    's3_client_side_encryption_sym_master_key',
-    's3_client_side_encryption_sym_master_key',
-    'ChangeMessageVisibilityBatchRequestEntry',
     'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-    'CertificateTransparencyLoggingPreference',
-    'CertificateTransparencyLoggingPreference',
-    'serial/CORE_THING_NAME/write/dev/serial1',
-    'com/greengrass/latest/developerguide/sns',
-    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-    'upload_files_using_managed_file_uploader',
-    'upload_files_using_managed_file_uploader',
-    'upload_files_using_managed_file_uploader',
-    'AppStreamUsageReportsCFNGlueAthenaAccess',
-    'AKIAIOSFODNN7EXAMPLE',
 }
 
 print ('----------\n\nRun Tests\n')
