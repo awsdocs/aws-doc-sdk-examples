@@ -34,7 +34,7 @@ AWS.config.update({region: 'REGION'});
 var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 var params = {
-  TableName: 'TABLE',
+  TableName: 'CUSTOMER_LIST',
   Key: {
     'KEY_NAME': {N: '001'}
   },
