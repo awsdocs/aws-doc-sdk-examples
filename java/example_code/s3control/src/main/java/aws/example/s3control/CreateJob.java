@@ -12,6 +12,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
+
 // snippet-sourcedescription:[CreateJob.java demonstrates how to execute an Amazon S3 Batch Operation.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
@@ -34,6 +35,7 @@ import com.amazonaws.services.s3control.AWSS3Control;
 import com.amazonaws.services.s3control.AWSS3ControlClient;
 import com.amazonaws.services.s3control.model.*;
 
+import java.util.UUID;
 import java.util.ArrayList;
 
 import static com.amazonaws.regions.Regions.US_WEST_2;
