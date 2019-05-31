@@ -35,10 +35,18 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        if (argc < 3)
+        {
+            std::cout << std::endl <<
+                "To run this example, supply the name of a bucket and an object key!" <<
+                std::endl << "Ex: get_object <bucket-name> <object_key>" << std::endl
+                << std::endl;
+            exit(1);
+        }
         // snippet-start:[s3.cpp.get_object.code]
         // Assign these values before running the program
-        const Aws::String bucket_name = "BUCKET_NAME";
-        const Aws::String object_name = "OBJECT_NAME";  // For demo, set to a text file
+        const Aws::String bucket_name = argv[1];
+        const Aws::String object_name = argv[2];  // For demo, set to a text file
 
         // Set up the request
         Aws::S3::S3Client s3_client;
