@@ -21,6 +21,8 @@
 #  snippet-sourcedate:[2019-05-17]
 #  snippet-sourceauthor:[AWS]
 #  snippet-start:[appstream2.yaml.sample-queries-appstream-usage-data-template.complete]
+
+
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "Sample Amazon Athena queries to analyze Amazon AppStream 2.0 usage reports data"
 

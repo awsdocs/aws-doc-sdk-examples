@@ -12,6 +12,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
+
 // snippet-sourcedescription:[CreateJob.java demonstrates how to execute an Amazon S3 Batch Operation.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
@@ -34,6 +35,7 @@ import com.amazonaws.services.s3control.AWSS3Control;
 import com.amazonaws.services.s3control.AWSS3ControlClient;
 import com.amazonaws.services.s3control.model.*;
 
+import java.util.UUID;
 import java.util.ArrayList;
 
 import static com.amazonaws.regions.Regions.US_WEST_2;
@@ -42,10 +44,10 @@ import static com.amazonaws.regions.Regions.US_WEST_2;
 public class CreateJob {
     public static void main(String[] args) {
         // snippet-start:[s3.java.create_batch_job.main]
-        String accountId = "Account Number";
+        String accountId = "Account ID";
         String iamRoleArn = "IAM Role ARN";
-        String bucketName = "bucket-where-completion-report-goes";
-        String uuid = "uuidgen";
+        String reportBucketName = "bucket-where-completion-report-goes";
+        String uuid = UUID.randomUUID().toString();
 
         ArrayList tagSet = new ArrayList<S3Tag>();
         tagSet.add(new S3Tag().withKey("keyOne").withValue("ValueOne"));
@@ -67,8 +69,8 @@ public class CreateJob {
                             .withObjectArn("arn:aws:s3:::my_manifests/manifest.csv")
                             .withETag("60e460c9d1046e73f7dde5043ac3ae85"));
             JobReport jobReport = new JobReport()
-                    .withBucket(bucketName)
-                    .withPrefix("final-reports")
+                    .withBucket(reportBucketName)
+                    .withPrefix("reports")
                     .withFormat("Report_CSV_20180820")
                     .withEnabled(true)
                     .withReportScope("AllTasks");

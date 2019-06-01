@@ -234,14 +234,14 @@ def create_firehose_to_s3(firehose_name, s3_bucket_arn, iam_role_name,
     try:
         if firehose_src_type == 'KinesisStreamAsSource':
             # Define the Kinesis Data Stream configuration
-            kinesis_config = {
+            stream_config = {
                 'KinesisStreamARN': firehose_src_stream,
                 'RoleARN': iam_role,
             }
             result = firehose_client.create_delivery_stream(
                 DeliveryStreamName=firehose_name,
                 DeliveryStreamType=firehose_src_type,
-                KinesisStreamSourceConfiguration = kinesis_config,
+                KinesisStreamSourceConfiguration=stream_config,
                 ExtendedS3DestinationConfiguration=s3_config)
         else:
             result = firehose_client.create_delivery_stream(

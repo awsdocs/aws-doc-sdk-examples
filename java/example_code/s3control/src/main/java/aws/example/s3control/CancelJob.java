@@ -39,7 +39,7 @@ import static com.amazonaws.regions.Regions.US_WEST_2;
 public class CancelJob {
     public static void main(String[] args) {
         // snippet-start:[s3.java.cancel_job.main]
-        String accountId = "Account Number";
+        String accountId = "Account ID";
         String jobId = "00e123a4-c0d8-41f4-a0eb-b46f9ba5b07c";
 
         try {
