@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[swf.java.activity_types.complete]
+// snippet-start:[swf.java2.activity_types.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -19,14 +19,14 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-// snippet-start:[swf.java.activity_types.import]
+// snippet-start:[swf.java2.activity_types.import]
 package com.example.helloswf;
 
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.*;
 
-// snippet-end:[swf.java.activity_types.import]
-// snippet-start:[swf.java.activity_types.main]
+// snippet-end:[swf.java2.activity_types.import]
+// snippet-start:[swf.java2.activity_types.main]
 public class HelloTypes {
     public static final String DOMAIN = "HelloDomain";
     public static final String TASKLIST = "HelloTasklist";
@@ -91,5 +91,5 @@ public class HelloTypes {
         registerActivityType();
     }
 }
-// snippet-end:[swf.java.activity_types.main]
-// snippet-end:[swf.java.activity_types.complete]
+// snippet-end:[swf.java2.activity_types.main]
+// snippet-end:[swf.java2.activity_types.complete]

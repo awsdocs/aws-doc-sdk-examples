@@ -5,8 +5,8 @@
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
-//snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.StartQueryExample.complete]
+//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-start:[athena.java2.StartQueryExample.complete]
 package aws.example.athena;
 
 import software.amazon.awssdk.services.athena.AthenaClient;
@@ -145,4 +145,4 @@ public class StartQueryExample {
         }
     }
 }
-//snippet-end:[athena.java.StartQueryExample.complete]
+//snippet-end:[athena.java2.StartQueryExample.complete]

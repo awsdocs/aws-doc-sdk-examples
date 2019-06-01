@@ -5,8 +5,8 @@
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
-//snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.CreateNamedQueryExample.complete]
+//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-start:[athena.java2.CreateNamedQueryExample.complete]
 package aws.example.athena;
 
 import software.amazon.awssdk.services.athena.AthenaClient;
@@ -36,4 +36,4 @@ public class CreateNamedQueryExample {
     }
 }
 
-//snippet-end:[athena.java.CreateNamedQueryExample.complete]
+//snippet-end:[athena.java2.CreateNamedQueryExample.complete]

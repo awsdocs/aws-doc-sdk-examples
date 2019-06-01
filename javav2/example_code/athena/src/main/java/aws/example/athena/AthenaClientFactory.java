@@ -5,14 +5,16 @@
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
-//snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.AthenaClientFactory.client]
+//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-start:[athena.java2.AthenaClientFactory.client]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.AthenaClientFactory.import]
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.AthenaClientBuilder;
+//snippet-end:[athena.java2.AthenaClientFactory.import]
 
 /**
  * AthenaClientFactory
@@ -34,4 +36,4 @@ public class AthenaClientFactory {
         return builder.build();
     }
 }
-//snippet-end:[athena.java.AthenaClientFactory.client]
+//snippet-end:[athena.java2.AthenaClientFactory.client]

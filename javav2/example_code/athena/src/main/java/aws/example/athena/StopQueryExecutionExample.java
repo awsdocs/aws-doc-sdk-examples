@@ -5,8 +5,8 @@
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
-//snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.StopQueryExecutionExample.complete]
+//snippet-sourceauthor:[jschwarzwalder AWS AWS]
+//snippet-start:[athena.java2.StopQueryExecutionExample.complete]
 package aws.example.athena;
 
 import software.amazon.awssdk.services.athena.AthenaClient;
@@ -67,4 +67,4 @@ public class StopQueryExecutionExample {
 
     }
 }
-//snippet-end:[athena.java.StopQueryExecutionExample.complete]
+//snippet-end:[athena.java2.StopQueryExecutionExample.complete]
