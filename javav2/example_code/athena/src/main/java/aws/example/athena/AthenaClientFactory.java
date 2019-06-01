@@ -5,16 +5,28 @@
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
+<<<<<<< HEAD
 //snippet-sourceauthor:[jschwarzwalder]
 //snippet-start:[athena.java2.AthenaClientFactory.client]
 package aws.example.athena;
 
 //snippet-start:[athena.java2.AthenaClientFactory.client.import]
+=======
+//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-start:[athena.java2.AthenaClientFactory.client]
+package aws.example.athena;
+
+//snippet-start:[athena.java2.AthenaClientFactory.import]
+>>>>>>> switching snippetids to java2
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.AthenaClientBuilder;
+<<<<<<< HEAD
 //snippet-end:[athena.java2.AthenaClientFactory.client.import]
+=======
+//snippet-end:[athena.java2.AthenaClientFactory.import]
+>>>>>>> switching snippetids to java2
 
 /**
  * AthenaClientFactory
