@@ -20,15 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.describe_region_and_zones.complete]
-// snippet-start:[ec2.java.describe_region_and_zones.import]
+// snippet-start:[ec2.java2.describe_region_and_zones.complete]
+// snippet-start:[ec2.java2.describe_region_and_zones.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
 import software.amazon.awssdk.services.ec2.model.Region;
 import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
  
-// snippet-end:[ec2.java.describe_region_and_zones.import]
+// snippet-end:[ec2.java2.describe_region_and_zones.import]
 /**
  * Describes all regions and zones
  */
@@ -36,12 +36,12 @@ public class DescribeRegionsAndZones
 {
     public static void main(String[] args)
     {
-        // snippet-start:[ec2.java.describe_region_and_zones.main]
-        // snippet-start:[ec2.java.describe_region_and_zones.client]
+        // snippet-start:[ec2.java2.describe_region_and_zones.main]
+        // snippet-start:[ec2.java2.describe_region_and_zones.client]
         Ec2Client ec2 = Ec2Client.create();
-        // snippet-end:[ec2.java.describe_region_and_zones.client]
+        // snippet-end:[ec2.java2.describe_region_and_zones.client]
      
-        // snippet-start:[ec2.java.describe_region_and_zones.region]
+        // snippet-start:[ec2.java2.describe_region_and_zones.region]
         DescribeRegionsResponse regions_response = ec2.describeRegions();
 
         for(Region region : regions_response.regions()) {
@@ -51,10 +51,10 @@ public class DescribeRegionsAndZones
                 region.regionName(),
                 region.endpoint());
             System.out.println();
-         // snippet-end:[ec2.java.describe_region_and_zones.region]
+         // snippet-end:[ec2.java2.describe_region_and_zones.region]
         }
 
-        // snippet-start:[ec2.java.describe_region_and_zones.avail_zone]
+        // snippet-start:[ec2.java2.describe_region_and_zones.avail_zone]
         DescribeAvailabilityZonesResponse zones_response =
             ec2.describeAvailabilityZones();
 
@@ -67,11 +67,11 @@ public class DescribeRegionsAndZones
                 zone.state(),
                 zone.regionName());
             System.out.println();
-         // snippet-end:[ec2.java.describe_region_and_zones.avail_zone]
+         // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
 
         }
-        // snippet-end:[ec2.java.describe_region_and_zones.main]
+        // snippet-end:[ec2.java2.describe_region_and_zones.main]
     }
 }
  
-// snippet-end:[ec2.java.describe_region_and_zones.complete]
+// snippet-end:[ec2.java2.describe_region_and_zones.complete]

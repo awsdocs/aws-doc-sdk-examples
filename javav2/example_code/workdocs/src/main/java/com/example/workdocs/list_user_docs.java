@@ -5,8 +5,8 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[workdocs.java.list_user_docs.complete]
-// snippet-start:[workdocs.java.list_user_docs.import]
+// snippet-start:[workdocs.java2.list_user_docs.complete]
+// snippet-start:[workdocs.java2.list_user_docs.import]
 package com.example.workdocs;
 
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import software.amazon.awssdk.services.workdocs.model.DescribeUsersResponse;
 import software.amazon.awssdk.services.workdocs.model.DocumentMetadata;
 import software.amazon.awssdk.services.workdocs.model.DocumentVersionMetadata;
 import software.amazon.awssdk.services.workdocs.model.User;
-// snippet-end:[workdocs.java.list_user_docs.import]
-// snippet-start:[workdocs.java.list_user_docs.main]
+// snippet-end:[workdocs.java2.list_user_docs.import]
+// snippet-start:[workdocs.java2.list_user_docs.main]
 public class list_user_docs {
 
 	private static String get_user_folder(WorkDocsClient workDocs, String orgId, String user) throws Exception {
@@ -102,5 +102,5 @@ public class list_user_docs {
 		}
 	}
 }
-// snippet-end:[workdocs.java.list_user_docs.main]
-// snippet-end:[workdocs.java.list_user_docs.complete]
+// snippet-end:[workdocs.java2.list_user_docs.main]
+// snippet-end:[workdocs.java2.list_user_docs.complete]
