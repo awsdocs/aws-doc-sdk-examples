@@ -4,7 +4,7 @@
 # snippet-keyword:[Amazon Simple Queue Service (Amazon SQS)]
 # snippet-keyword:[Python]
 # snippet-keyword:[Code Sample]
-# snippet-sourcetype:[snipppet]
+# snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-04-29]
 # snippet-sourceauthor:[AWS]
 

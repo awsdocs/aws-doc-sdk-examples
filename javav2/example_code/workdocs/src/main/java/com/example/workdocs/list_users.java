@@ -5,8 +5,8 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[workdocs.java.list_users.complete]
-// snippet-start:[workdocs.java.list_users.import]
+// snippet-start:[workdocs.java2.list_users.complete]
+// snippet-start:[workdocs.java2.list_users.import]
 package com.example.workdocs;
 
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersRequest;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersResponse;
 import software.amazon.awssdk.services.workdocs.model.User;
-// snippet-end:[workdocs.java.list_users.import]
-// snippet-start:[workdocs.java.list_users.main]
+// snippet-end:[workdocs.java2.list_users.import]
+// snippet-start:[workdocs.java2.list_users.main]
 public class list_users {
 
 	public static void main(String[] args) {
@@ -73,5 +73,5 @@ public class list_users {
 		}
 	}
 }
-// snippet-end:[workdocs.java.list_users.main]
-// snippet-end:[workdocs.java.list_users.complete]
+// snippet-end:[workdocs.java2.list_users.main]
+// snippet-end:[workdocs.java2.list_users.complete]

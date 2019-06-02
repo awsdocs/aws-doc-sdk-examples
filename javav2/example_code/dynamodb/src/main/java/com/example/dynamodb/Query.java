@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.query.complete]
-// snippet-start:[dynamodb.java.query.import]
+// snippet-start:[dynamodb.java2.query.complete]
+// snippet-start:[dynamodb.java2.query.import]
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.ConditionalOperator;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
@@ -33,7 +33,7 @@ import java.util.Map;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.regions.Region;
  
-// snippet-end:[dynamodb.java.query.import]
+// snippet-end:[dynamodb.java2.query.import]
 /**
  * Query a DynamoDB table.
  *
@@ -71,7 +71,7 @@ public class Query
         System.out.println("");
 
 
-        // snippet-start:[dynamodb.java.query.main]
+        // snippet-start:[dynamodb.java2.query.main]
         Region region = Region.US_WEST_2;
         DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
 
@@ -99,9 +99,9 @@ public class Query
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java.query.main]
+        // snippet-end:[dynamodb.java2.query.main]
         System.out.println("Done!");
     }
 }
  
-// snippet-end:[dynamodb.java.query.complete]
+// snippet-end:[dynamodb.java2.query.complete]

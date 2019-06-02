@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.delete_item.complete]
-// snippet-start:[dynamodb.java.delete_item.import]
+// snippet-start:[dynamodb.java2.delete_item.complete]
+// snippet-start:[dynamodb.java2.delete_item.import]
 
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DeleteItemRequest;
@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import java.util.HashMap;
  
-// snippet-end:[dynamodb.java.delete_item.import]
+// snippet-end:[dynamodb.java2.delete_item.import]
 /**
  * Delete an item from a DynamoDB table.
  *
@@ -66,7 +66,7 @@ public class DeleteItem
 
         System.out.format("Deleting item \"%s\" from %s\n", name, table_name);
 
-        // snippet-start:[dynamodb.java.delete_item.main]
+        // snippet-start:[dynamodb.java2.delete_item.main]
         HashMap<String,AttributeValue> key_to_get =
                 new HashMap<String,AttributeValue>();
 
@@ -88,9 +88,9 @@ public class DeleteItem
             System.exit(1);
         }
 
-        // snippet-end:[dynamodb.java.delete_item.main]
+        // snippet-end:[dynamodb.java2.delete_item.main]
         System.out.println("Done!");
     }
 }
  
-// snippet-end:[dynamodb.java.delete_item.complete]
+// snippet-end:[dynamodb.java2.delete_item.complete]

@@ -1,6 +1,6 @@
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds a policy to and S3 bucket that requires server-side KMS encrytion on items uploaded.]
+# snippet-sourcedescription:[Adds a policy to and S3 bucket that requires server-side KMS encryption on items uploaded.]
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[put_bucket_policy method]
 # snippet-keyword:[Ruby]
