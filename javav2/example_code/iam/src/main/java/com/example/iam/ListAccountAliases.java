@@ -20,21 +20,21 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.list_account_aliases.complete]
-// snippet-start:[iam.java.list_account_aliases.import]
+// snippet-start:[iam.java2.list_account_aliases.complete]
+// snippet-start:[iam.java2.list_account_aliases.import]
 import software.amazon.awssdk.services.iam.model.ListAccountAliasesResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
  
-// snippet-end:[iam.java.list_account_aliases.import]
+// snippet-end:[iam.java2.list_account_aliases.import]
 /**
  * Lists all aliases associated with an AWS account
  */
 public class ListAccountAliases {
     public static void main(String[] args) {
 
-        // snippet-start:[iam.java.list_account_aliases.main]
+        // snippet-start:[iam.java2.list_account_aliases.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -43,7 +43,7 @@ public class ListAccountAliases {
         for (String alias : response.accountAliases()) {
             System.out.printf("Retrieved account alias %s", alias);
         }
-        // snippet-end:[iam.java.list_account_aliases.main]
+        // snippet-end:[iam.java2.list_account_aliases.main]
     }
 }
-// snippet-end:[iam.java.list_account_aliases.complete]
+// snippet-end:[iam.java2.list_account_aliases.complete]

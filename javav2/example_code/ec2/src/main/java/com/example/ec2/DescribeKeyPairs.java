@@ -20,13 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.describe_key_pairs.complete]
-// snippet-start:[ec2.java.describe_key_pairs.import]
+// snippet-start:[ec2.java2.describe_key_pairs.complete]
+// snippet-start:[ec2.java2.describe_key_pairs.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.KeyPairInfo;
  
-// snippet-end:[ec2.java.describe_key_pairs.import]
+// snippet-end:[ec2.java2.describe_key_pairs.import]
 /**
  * Describes all instance key pairs
  */
@@ -34,7 +34,7 @@ public class DescribeKeyPairs
 {
     public static void main(String[] args)
     {
-    	// snippet-start:[ec2.java.describe_key_pairs.main]
+    	// snippet-start:[ec2.java2.describe_key_pairs.main]
         Ec2Client ec2 = Ec2Client.create();
 
         DescribeKeyPairsResponse response = ec2.describeKeyPairs();
@@ -47,9 +47,9 @@ public class DescribeKeyPairs
                 key_pair.keyFingerprint());
             System.out.println("");
         }
-        // snippet-end:[ec2.java.describe_key_pairs.main]
+        // snippet-end:[ec2.java2.describe_key_pairs.main]
         
     }
 }
  
-// snippet-end:[ec2.java.describe_key_pairs.complete]
+// snippet-end:[ec2.java2.describe_key_pairs.complete]

@@ -20,14 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.release_instance.complete]
-// snippet-start:[ec2.java.release_instance.import]
+// snippet-start:[ec2.java2.release_instance.complete]
+// snippet-start:[ec2.java2.release_instance.import]
 
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressRequest;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
  
-// snippet-end:[ec2.java.release_instance.import]
+// snippet-end:[ec2.java2.release_instance.import]
 /**
  * Releases an elastic IP address
  */
@@ -45,7 +45,7 @@ public class ReleaseAddress
         }
 
         String alloc_id = args[0];
-        // snippet-start:[ec2.java.release_instance.main]
+        // snippet-start:[ec2.java2.release_instance.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -54,10 +54,10 @@ public class ReleaseAddress
 
         ReleaseAddressResponse response = ec2.releaseAddress(request);
 
-        // snippet-end:[ec2.java.release_instance.main]
+        // snippet-end:[ec2.java2.release_instance.main]
         System.out.printf(
             "Successfully released elastic IP address %s", alloc_id);
     }
 }
  
-// snippet-end:[ec2.java.release_instance.complete]
+// snippet-end:[ec2.java2.release_instance.complete]

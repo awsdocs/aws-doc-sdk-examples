@@ -20,8 +20,8 @@
  * limitations under the License.
  */
 package com.example.kinesis;
-// snippet-start:[kinesis.java.stream_rx_example.complete]
-// snippet-start:[kinesis.java.stream_rx_example.import]
+// snippet-start:[kinesis.java2.stream_rx_example.complete]
+// snippet-start:[kinesis.java2.stream_rx_example.import]
 
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
@@ -40,7 +40,7 @@ import software.amazon.awssdk.services.kinesis.model.SubscribeToShardEvent;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardRequest;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHandler;
 import software.amazon.awssdk.utils.AttributeMap;
-// snippet-end:[kinesis.java.stream_rx_example.import]
+// snippet-end:[kinesis.java2.stream_rx_example.import]
 
 public class KinesisStreamRxJavaEx {
 
@@ -52,7 +52,7 @@ public class KinesisStreamRxJavaEx {
      */
     private static CompletableFuture<Void> responseHandlerBuilder_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
 
-        // snippet-start:[kinesis.java.stream_rx_example.event_stream]
+        // snippet-start:[kinesis.java2.stream_rx_example.event_stream]
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
             .builder()
             .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
@@ -63,7 +63,7 @@ public class KinesisStreamRxJavaEx {
                                         .buffer(25)
                                         .subscribe(e -> System.out.println("Record batch = " + e)))
             .build();
-        // snippet-end:[kinesis.java.stream_rx_example.event_stream]
+        // snippet-end:[kinesis.java2.stream_rx_example.event_stream]
         return client.subscribeToShard(request, responseHandler);
 
     }
@@ -73,13 +73,13 @@ public class KinesisStreamRxJavaEx {
      * you must adapt to an SdkPublisher.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_OnEventStream_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
-        // snippet-start:[kinesis.java.stream_rx_example.publish_transform]
+        // snippet-start:[kinesis.java2.stream_rx_example.publish_transform]
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
             .builder()
             .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
             .publisherTransformer(p -> SdkPublisher.adapt(Flowable.fromPublisher(p).limit(100)))
             .build();
-        // snippet-end:[kinesis.java.stream_rx_example.publish_transform]
+        // snippet-end:[kinesis.java2.stream_rx_example.publish_transform]
         return client.subscribeToShard(request, responseHandler);
     }
 
@@ -107,4 +107,4 @@ public class KinesisStreamRxJavaEx {
 
 }
  
-// snippet-end:[kinesis.java.stream_rx_example.complete]
+// snippet-end:[kinesis.java2.stream_rx_example.complete]

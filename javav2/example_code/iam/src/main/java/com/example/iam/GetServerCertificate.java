@@ -19,15 +19,15 @@
  * express or implied. See the License for the specific language governing * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.get_server_certificate.complete]
-// snippet-start:[iam.java.get_server_certificate.import]
+// snippet-start:[iam.java2.get_server_certificate.complete]
+// snippet-start:[iam.java2.get_server_certificate.import]
 import software.amazon.awssdk.services.iam.model.GetServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.GetServerCertificateResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
  
-// snippet-end:[iam.java.get_server_certificate.import]
+// snippet-end:[iam.java2.get_server_certificate.import]
 /**
  * Gets a server certificate
  */
@@ -46,7 +46,7 @@ public class GetServerCertificate {
 
         String cert_name = args[0];
 
-        // snippet-start:[iam.java.get_server_certificate.main]
+        // snippet-start:[iam.java2.get_server_certificate.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -54,11 +54,11 @@ public class GetServerCertificate {
                     .serverCertificateName(cert_name).build();
 
         GetServerCertificateResponse response = iam.getServerCertificate(request); 
-        // snippet-end:[iam.java.get_server_certificate.main]
+        // snippet-end:[iam.java2.get_server_certificate.main]
 
         System.out.format("Successfully retrieved certificate with body %s",
                 response.serverCertificate().certificateBody());
     }
 }
 
-// snippet-end:[iam.java.get_server_certificate.complete]
+// snippet-end:[iam.java2.get_server_certificate.complete]
