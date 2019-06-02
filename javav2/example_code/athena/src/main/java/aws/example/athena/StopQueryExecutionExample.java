@@ -20,10 +20,12 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+//snippet-sourceauthor:[jschwarzwalder AWS]
 //snippet-start:[athena.java2.StopQueryExecutionExample.complete]
 package aws.example.athena;
 
 //snippet-start:[athena.java2.StopQueryExecutionExample.import]
+//snippet-start:[athena.java.StopQueryExecutionExample.complete]
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.*;
 //snippet-end:[athena.java2.StopQueryExecutionExample.import]
@@ -85,4 +87,5 @@ public class StopQueryExecutionExample {
     }
     //snippet-end:[athena.java2.StopQueryExecutionExample.main]
 }
+//snippet-end:[athena.java.StopQueryExecutionExample.complete]
 //snippet-end:[athena.java2.StopQueryExecutionExample.complete]
