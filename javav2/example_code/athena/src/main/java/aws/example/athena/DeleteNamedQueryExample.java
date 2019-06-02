@@ -21,6 +21,7 @@
  * permissions and limitations under the License.
  */
 //snippet-start:[athena.java2.DeleteNamedQueryExample.complete]
+//snippet-start:[athena.java.DeleteNamedQueryExample.complete]
 package aws.example.athena;
 
 //snippet-start:[athena.java2.DeleteNamedQueryExample.import]
@@ -67,4 +68,5 @@ public class DeleteNamedQueryExample {
     }
     //snippet-end:[athena.java2.DeleteNamedQueryExample.main]
 }
+//snippet-end:[athena.java.DeleteNamedQueryExample.complete]
 //snippet-end:[athena.java2.DeleteNamedQueryExample.complete]
