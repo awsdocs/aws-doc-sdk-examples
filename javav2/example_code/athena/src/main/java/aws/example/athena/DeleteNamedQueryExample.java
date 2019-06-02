@@ -6,14 +6,16 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.DeleteNamedQueryExample.complete]
+//snippet-start:[athena.java2.DeleteNamedQueryExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.DeleteNamedQueryExample.import]
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
 import software.amazon.awssdk.services.athena.model.DeleteNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.DeleteNamedQueryResponse;
+//snippet-end:[athena.java2.DeleteNamedQueryExample.import]
 
 /**
  * DeleteNamedQueryExample
@@ -21,6 +23,7 @@ import software.amazon.awssdk.services.athena.model.DeleteNamedQueryResponse;
  * This code shows how to delete a named query by using the named query ID.
  */
 public class DeleteNamedQueryExample {
+    //snippet-start:[athena.java2.DeleteNamedQueryExample.main]
     private static String getNamedQueryId(AthenaClient athenaClient) {
         // Create the NameQuery Request.
         CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
@@ -48,5 +51,6 @@ public class DeleteNamedQueryExample {
         // Delete the named query
         DeleteNamedQueryResponse deleteNamedQueryResponse = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
     }
+    //snippet-end:[athena.java2.DeleteNamedQueryExample.main]
 }
-//snippet-end:[athena.java.DeleteNamedQueryExample.complete]
+//snippet-end:[athena.java2.DeleteNamedQueryExample.complete]

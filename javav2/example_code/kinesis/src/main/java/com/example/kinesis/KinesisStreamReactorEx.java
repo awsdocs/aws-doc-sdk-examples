@@ -20,8 +20,8 @@
  * limitations under the License.
  */
 package com.example.kinesis;
-// snippet-start:[kinesis.java.stream_reactor_example.complete]
-// snippet-start:[kinesis.java.stream_reactor_example.import]
+// snippet-start:[kinesis.java2.stream_reactor_example.complete]
+// snippet-start:[kinesis.java2.stream_reactor_example.import]
 
 import reactor.core.publisher.Flux;
 import software.amazon.awssdk.core.async.SdkPublisher;
@@ -33,13 +33,13 @@ import software.amazon.awssdk.services.kinesis.model.SubscribeToShardRequest;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHandler;
 
 import java.util.concurrent.CompletableFuture;
-// snippet-end:[kinesis.java.stream_reactor_example.import]
+// snippet-end:[kinesis.java2.stream_reactor_example.import]
 
 /**
  *
  * @author Sergei @bsideup Egorov
  */
-// snippet-start:[kinesis.java.stream_reactor_example.main]
+// snippet-start:[kinesis.java2.stream_reactor_example.main]
 public class KinesisStreamReactorEx {
 
     private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
@@ -101,5 +101,5 @@ public class KinesisStreamReactorEx {
 
 }
  
-// snippet-end:[kinesis.java.stream_reactor_example.main]
-// snippet-end:[kinesis.java.stream_reactor_example.complete]
+// snippet-end:[kinesis.java2.stream_reactor_example.main]
+// snippet-end:[kinesis.java2.stream_reactor_example.complete]

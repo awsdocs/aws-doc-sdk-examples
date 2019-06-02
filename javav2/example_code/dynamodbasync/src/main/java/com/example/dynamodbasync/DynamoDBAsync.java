@@ -21,8 +21,8 @@
  */
 package com.example.dynamodbasync;
 
-// snippet-start:[dynamodb.java.dbasync.complete]
-// snippet-start:[dynamodb.java.dbasync.import]
+// snippet-start:[dynamodb.java2.dbasync.complete]
+// snippet-start:[dynamodb.java2.dbasync.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
@@ -31,9 +31,9 @@ import software.amazon.awssdk.utils.FunctionalUtils;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-// snippet-end:[dynamodb.java.dbasync.import]
+// snippet-end:[dynamodb.java2.dbasync.import]
 
-// snippet-start:[dynamodb.java.dbasync.main]
+// snippet-start:[dynamodb.java2.dbasync.main]
 public class DynamoDBAsync {
 
     public static void main(String[] args) throws InterruptedException {
@@ -62,5 +62,5 @@ public class DynamoDBAsync {
         tableNames.join();
     }
 }
-// snippet-end:[dynamodb.java.dbasync.main]
-// snippet-end:[dynamodb.java.dbasync.complete]
+// snippet-end:[dynamodb.java2.dbasync.main]
+// snippet-end:[dynamodb.java2.dbasync.complete]

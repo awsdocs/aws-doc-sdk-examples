@@ -6,14 +6,16 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.StartQueryExample.complete]
+//snippet-start:[athena.java2.StartQueryExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.StartQueryExample.import]
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.*;
 import software.amazon.awssdk.services.athena.paginators.GetQueryResultsIterable;
 
 import java.util.List;
+//snippet-end:[athena.java2.StartQueryExample.import]
 
 /**
  * StartQueryExample
@@ -22,6 +24,7 @@ import java.util.List;
  * are available, and then process the results.
  */
 public class StartQueryExample {
+    //snippet-start:[athena.java2.StartQueryExample.main]
     public static void main(String[] args) throws InterruptedException {
         // Build an AthenaClient client
         AthenaClientFactory factory = new AthenaClientFactory();
@@ -144,5 +147,6 @@ public class StartQueryExample {
             }
         }
     }
+    //snippet-end:[athena.java2.StartQueryExample.main]
 }
-//snippet-end:[athena.java.StartQueryExample.complete]
+//snippet-end:[athena.java2.StartQueryExample.complete]

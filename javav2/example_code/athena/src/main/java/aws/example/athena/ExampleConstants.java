@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.ExampleConstants.complete]
+//snippet-start:[athena.java2.ExampleConstants.complete]
 package aws.example.athena;
 
 public class ExampleConstants {
@@ -24,4 +24,4 @@ public class ExampleConstants {
     public static final String ATHENA_DEFAULT_DATABASE = "default";
 
 }
-//snippet-end:[athena.java.ExampleConstants.complete]
+//snippet-end:[athena.java2.ExampleConstants.complete]
