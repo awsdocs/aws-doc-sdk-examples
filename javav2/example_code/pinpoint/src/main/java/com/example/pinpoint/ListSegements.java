@@ -22,7 +22,6 @@
  */
 //snippet-start:[pinpoint.java2.ListSegments.complete]
 
-
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.ListSegments.import]
