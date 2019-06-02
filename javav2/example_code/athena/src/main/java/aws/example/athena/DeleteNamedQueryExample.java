@@ -68,5 +68,6 @@ public class DeleteNamedQueryExample {
     }
     //snippet-end:[athena.java2.DeleteNamedQueryExample.main]
 }
+
 //snippet-end:[athena.java.DeleteNamedQueryExample.complete]
 //snippet-end:[athena.java2.DeleteNamedQueryExample.complete]

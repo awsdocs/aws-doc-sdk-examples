@@ -54,6 +54,6 @@ public class CreateNamedQueryExample {
         //snippet-end:[athena.java2.CreateNamedQueryExample.main]
     }
 }
-
 //snippet-end:[athena.java.CreateNamedQueryExample.complete]
 //snippet-end:[athena.java2.CreateNamedQueryExample.complete]
+

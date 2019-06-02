@@ -86,4 +86,6 @@ public class StopQueryExecutionExample {
     }
     //snippet-end:[athena.java2.StopQueryExecutionExample.main]
 }
+
+//snippet-end:[athena.java.StopQueryExecutionExample.complete]
 //snippet-end:[athena.java2.StopQueryExecutionExample.complete]

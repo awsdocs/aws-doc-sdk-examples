@@ -21,6 +21,7 @@
  * permissions and limitations under the License.
  */
 //snippet-start:[athena.java2.StartQueryExample.complete]
+//snippet-start:[athena.java.StartQueryExample.complete]
 package aws.example.athena;
 
 //snippet-start:[athena.java2.StartQueryExample.import]
@@ -163,4 +164,5 @@ public class StartQueryExample {
     }
     //snippet-end:[athena.java2.StartQueryExample.main]
 }
+//snippet-end:[athena.java.StartQueryExample.complete]
 //snippet-end:[athena.java2.StartQueryExample.complete]
