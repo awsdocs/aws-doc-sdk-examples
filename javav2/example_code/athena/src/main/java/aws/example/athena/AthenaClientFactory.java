@@ -6,13 +6,15 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.AthenaClientFactory.client]
+//snippet-start:[athena.java2.AthenaClientFactory.client]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.AthenaClientFactory.client.import]
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.AthenaClientBuilder;
+//snippet-end:[athena.java2.AthenaClientFactory.client.import]
 
 /**
  * AthenaClientFactory
@@ -20,6 +22,7 @@ import software.amazon.awssdk.services.athena.AthenaClientBuilder;
  * This code shows how to create and configure an Amazon Athena client.
  */
 public class AthenaClientFactory {
+    //snippet-start:[athena.java2.AthenaClientFactory.client.main]
     /**
      * AthenaClientClientBuilder to build Athena with the following properties:
      * - Set the region of the client
@@ -33,5 +36,6 @@ public class AthenaClientFactory {
     public AthenaClient createClient() {
         return builder.build();
     }
+    //snippet-end:[athena.java2.AthenaClientFactory.client.main]
 }
-//snippet-end:[athena.java.AthenaClientFactory.client]
+//snippet-end:[athena.java2.AthenaClientFactory.client]

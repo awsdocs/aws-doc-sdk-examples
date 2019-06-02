@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-05-17]
 //snippet-sourceauthor:[danotorrey]
-// snippet-start:[cloudwatch.java.put_log_events.complete]
+// snippet-start:[cloudwatch.java2.put_log_events.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -21,7 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java.put_log_events.import]
+// snippet-start:[cloudwatch.java2.put_log_events.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.InputLogEvent;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutLogEventsRequest;
 
 import java.util.Arrays;
-// snippet-end:[cloudwatch.java.put_log_events.import]
+// snippet-end:[cloudwatch.java2.put_log_events.import]
 
 /**
  * Puts a sample CloudWatch log event
@@ -52,7 +52,7 @@ public class PutLogEvents {
         String logGroupName = args[1];
         String streamName = args[2];
 
-        // snippet-start:[cloudwatch.java.put_log_events.main]
+        // snippet-start:[cloudwatch.java2.put_log_events.main]
         CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder().region(Region.of(regionId)).build();
 
         // A sequence token is required to put a log event in an existing stream.
@@ -84,9 +84,9 @@ public class PutLogEvents {
                                                          .sequenceToken(sequenceToken)
                                                          .build();
         logsClient.putLogEvents(putLogEventsRequest);
-        // snippet-end:[cloudwatch.java.put_log_events.main]
+        // snippet-end:[cloudwatch.java2.put_log_events.main]
 
         System.out.println("Successfully put CloudWatch log event");
     }
 }
-// snippet-end:[cloudwatch.java.put_log_events.complete]
+// snippet-end:[cloudwatch.java2.put_log_events.complete]

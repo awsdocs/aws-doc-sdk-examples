@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[cloudwatch.java.put_metric_alarm.complete]
+// snippet-start:[cloudwatch.java2.put_metric_alarm.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -21,7 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java.put_metric_alarm.import]
+// snippet-start:[cloudwatch.java2.put_metric_alarm.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.ComparisonOperator;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.cloudwatch.model.PutMetricAlarmRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricAlarmResponse;
 import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 import software.amazon.awssdk.services.cloudwatch.model.Statistic;
-// snippet-end:[cloudwatch.java.put_metric_alarm.import]
+// snippet-end:[cloudwatch.java2.put_metric_alarm.import]
 /**
  * Creates a new CloudWatch alarm based on CPU utilization for an instance
  */
@@ -48,7 +48,7 @@ public class PutMetricAlarm {
         String alarmName = args[0];
         String instanceId = args[1];
 
-        // snippet-start:[cloudwatch.java.put_metric_alarm.main]
+        // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
         CloudWatchClient cw =
         		CloudWatchClient.builder().build();
 
@@ -74,11 +74,11 @@ public class PutMetricAlarm {
             .build();
 
         PutMetricAlarmResponse response = cw.putMetricAlarm(request);
-        // snippet-end:[cloudwatch.java.put_metric_alarm.main]
+        // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
 
         System.out.printf(
             "Successfully created alarm with name %s", alarmName);
 
     }
 }
-// snippet-end:[cloudwatch.java.put_metric_alarm.complete]
+// snippet-end:[cloudwatch.java2.put_metric_alarm.complete]

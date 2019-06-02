@@ -20,14 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.update_user.complete]
-// snippet-start:[iam.java.update_user.import]
+// snippet-start:[iam.java2.update_user.complete]
+// snippet-start:[iam.java2.update_user.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.UpdateUserRequest;
 import software.amazon.awssdk.services.iam.model.UpdateUserResponse;
  
-// snippet-end:[iam.java.update_user.import]
+// snippet-end:[iam.java2.update_user.import]
 /**
  * Updates an IAM user's username
  */
@@ -47,7 +47,7 @@ public class UpdateUser {
         String cur_name = args[0];
         String new_name = args[1];
 
-        // snippet-start:[iam.java.update_user.main]
+        // snippet-start:[iam.java2.update_user.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -56,11 +56,11 @@ public class UpdateUser {
             .newUserName(new_name).build();
 
         UpdateUserResponse response = iam.updateUser(request);
-        // snippet-end:[iam.java.update_user.main]
+        // snippet-end:[iam.java2.update_user.main]
 
         System.out.printf("Successfully updated user to username %s",
                 new_name);
     }
 }
  
-// snippet-end:[iam.java.update_user.complete]
+// snippet-end:[iam.java2.update_user.complete]

@@ -20,8 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.list_access_keys.complete]
-// snippet-start:[iam.java.list_access_keys.import]
+// snippet-start:[iam.java2.list_access_keys.complete]
+// snippet-start:[iam.java2.list_access_keys.import]
 import software.amazon.awssdk.services.iam.model.AccessKeyMetadata;
 import software.amazon.awssdk.services.iam.model.ListAccessKeysRequest;
 import software.amazon.awssdk.services.iam.model.ListAccessKeysResponse;
@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.iam.model.ListAccessKeysResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
  
-// snippet-end:[iam.java.list_access_keys.import]
+// snippet-end:[iam.java2.list_access_keys.import]
 /**
  * List all access keys associated with an IAM user
  */
@@ -47,7 +47,7 @@ public class ListAccessKeys {
 
         String username = args[0];
 
-        // snippet-start:[iam.java.list_access_keys.main]
+        // snippet-start:[iam.java2.list_access_keys.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -82,8 +82,8 @@ public class ListAccessKeys {
             	new_marker = response.marker();
             }
         }
-        // snippet-end:[iam.java.list_access_keys.main]
+        // snippet-end:[iam.java2.list_access_keys.main]
     }
 }
  
-// snippet-end:[iam.java.list_access_keys.complete]
+// snippet-end:[iam.java2.list_access_keys.complete]

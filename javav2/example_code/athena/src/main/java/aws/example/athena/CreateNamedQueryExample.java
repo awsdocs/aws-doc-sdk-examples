@@ -6,12 +6,14 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.CreateNamedQueryExample.complete]
+//snippet-start:[athena.java2.CreateNamedQueryExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.CreateNamedQueryExample.import]
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
+//snippet-end:[athena.java2.CreateNamedQueryExample.import]
 
 /**
  * CreateNamedQueryExample
@@ -20,6 +22,7 @@ import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
  */
 public class CreateNamedQueryExample {
     public static void main(String[] args) throws Exception {
+        //snippet-start:[athena.java2.CreateNamedQueryExample.main]
         // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
         AthenaClient athenaClient = factory.createClient();
@@ -33,7 +36,8 @@ public class CreateNamedQueryExample {
 
         // Call Athena to create the named query. If it fails, an exception is thrown.
         CreateNamedQueryResponse createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
+        //snippet-end:[athena.java2.CreateNamedQueryExample.main]
     }
 }
 
-//snippet-end:[athena.java.CreateNamedQueryExample.complete]
+//snippet-end:[athena.java2.CreateNamedQueryExample.complete]

@@ -6,11 +6,13 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-04-15]
 //snippet-sourceauthor:[jschwarzwalder]
-//snippet-start:[athena.java.StopQueryExecutionExample.complete]
+//snippet-start:[athena.java2.StopQueryExecutionExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.StopQueryExecutionExample.import]
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.*;
+//snippet-end:[athena.java2.StopQueryExecutionExample.import]
 
 /**
  * StopQueryExecutionExample
@@ -20,6 +22,7 @@ import software.amazon.awssdk.services.athena.model.*;
  */
 public class StopQueryExecutionExample {
     public static void main(String[] args) throws Exception {
+        //snippet-start:[athena.java2.StopQueryExecutionExample.main]
         // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
         AthenaClient athenaClient = factory.createClient();
@@ -66,5 +69,6 @@ public class StopQueryExecutionExample {
         return startQueryExecutionResponse.queryExecutionId();
 
     }
+    //snippet-end:[athena.java2.StopQueryExecutionExample.main]
 }
-//snippet-end:[athena.java.StopQueryExecutionExample.complete]
+//snippet-end:[athena.java2.StopQueryExecutionExample.complete]
