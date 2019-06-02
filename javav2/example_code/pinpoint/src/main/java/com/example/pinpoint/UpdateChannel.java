@@ -28,7 +28,7 @@ package com.example.pinpoint;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.*;
-//snippet-start:[pinpoint.java2.UpdateChannel.import]
+//snippet-end:[pinpoint.java2.UpdateChannel.import]
 
 public class UpdateChannel {
     public static void main(String[] args) {

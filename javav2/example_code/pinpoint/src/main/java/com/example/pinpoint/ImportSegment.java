@@ -46,7 +46,7 @@ public class ImportSegment {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[pinpoint.java2.DeleteApp.main]
+        //snippet-start:[pinpoint.java2.ImportSegment.main]
         String appId = args[0];
         String bucket = args[1];
         String key = args[2];
@@ -57,10 +57,10 @@ public class ImportSegment {
         ImportJobResponse response = createImportSegment(pinpoint, appId, bucket, key, roleArn);
         System.out.println("Import job for " + bucket + " submitted.");
         System.out.println("See application " + response.applicationId() + " for import job status.");
-        //snippet-end:[pinpoint.java2.DeleteApp.main]
+        //snippet-end:[pinpoint.java2.ImportSegment.main]
     }
 
-    //snippet-start:[pinpoint.java2.DeleteApp.helper]
+    //snippet-start:[pinpoint.java2.ImportSegment.helper]
     public static ImportJobResponse createImportSegment(PinpointClient client,
                                                         String appId,
                                                         String bucket,
@@ -85,6 +85,6 @@ public class ImportSegment {
 
         return jobResponse.importJobResponse();
     }
-    //snippet-start:[pinpoint.java2.DeleteApp.helper]
+    //snippet-end:[pinpoint.java2.ImportSegment.helper]
 }
 //snippet-end:[pinpoint.java2.ImportSegment.complete]
