@@ -20,8 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.allocate_address.complete]
-// snippet-start:[ec2.java.allocate_address.import]
+// snippet-start:[ec2.java2.allocate_address.complete]
+// snippet-start:[ec2.java2.allocate_address.import]
 
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressRequest;
@@ -30,7 +30,7 @@ import software.amazon.awssdk.services.ec2.model.AssociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.AssociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
  
-// snippet-end:[ec2.java.allocate_address.import]
+// snippet-end:[ec2.java2.allocate_address.import]
 /**
  * Allocates an elastic IP address for an EC2 instance
  */
@@ -48,7 +48,7 @@ public class AllocateAddress
         }
 
         String instance_id = args[0];
-        // snippet-start:[ec2.java.allocate_address.main]
+        // snippet-start:[ec2.java2.allocate_address.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -70,7 +70,7 @@ public class AllocateAddress
         AssociateAddressResponse associate_response =
             ec2.associateAddress(associate_request);
         
-        // snippet-end:[ec2.java.allocate_address.main]
+        // snippet-end:[ec2.java2.allocate_address.main]
         System.out.printf(
             "Successfully associated Elastic IP address %s " +
             "with instance %s",
@@ -79,4 +79,4 @@ public class AllocateAddress
     }
 }
  
-// snippet-end:[ec2.java.allocate_address.complete]
+// snippet-end:[ec2.java2.allocate_address.complete]

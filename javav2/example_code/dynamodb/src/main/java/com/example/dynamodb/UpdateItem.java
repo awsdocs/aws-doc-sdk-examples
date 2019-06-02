@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.update_item.complete]
-// snippet-start:[dynamodb.java.update_item.import]
+// snippet-start:[dynamodb.java2.update_item.complete]
+// snippet-start:[dynamodb.java2.update_item.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -32,7 +32,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import java.util.ArrayList;
 import java.util.HashMap;
  
-// snippet-end:[dynamodb.java.update_item.import]
+// snippet-end:[dynamodb.java2.update_item.import]
 /**
  * Update a DynamoDB item in a table.
  *
@@ -83,7 +83,7 @@ public class UpdateItem
             }
         }
 
-        // snippet-start:[dynamodb.java.update_item.main]
+        // snippet-start:[dynamodb.java2.update_item.main]
         System.out.format("Updating \"%s\" in %s\n", name, table_name);
         if (extra_fields.size() > 0) {
             System.out.println("Additional fields:");
@@ -124,9 +124,9 @@ public class UpdateItem
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java.update_item.main]
+        // snippet-end:[dynamodb.java2.update_item.main]
         System.out.println("Done!");
     }
 }
  
-// snippet-end:[dynamodb.java.update_item.complete]
+// snippet-end:[dynamodb.java2.update_item.complete]

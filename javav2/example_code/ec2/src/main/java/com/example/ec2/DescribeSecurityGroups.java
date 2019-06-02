@@ -20,14 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.describe_security_groups.complete]
-// snippet-start:[ec2.java.describe_security_groups.import]
+// snippet-start:[ec2.java2.describe_security_groups.complete]
+// snippet-start:[ec2.java2.describe_security_groups.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.SecurityGroup;
  
-// snippet-end:[ec2.java.describe_security_groups.import]
+// snippet-end:[ec2.java2.describe_security_groups.import]
 /**
  * Describes all security groups
  */
@@ -45,7 +45,7 @@ public class DescribeSecurityGroups
         }
 
         String group_id = args[0];
-        // snippet-start:[ec2.java.describe_security_groups.main]
+        // snippet-start:[ec2.java2.describe_security_groups.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -56,7 +56,7 @@ public class DescribeSecurityGroups
         DescribeSecurityGroupsResponse response =
             ec2.describeSecurityGroups(request);
 
-        // snippet-end:[ec2.java.describe_security_groups.main]
+        // snippet-end:[ec2.java2.describe_security_groups.main]
         for(SecurityGroup group : response.securityGroups()) {
             System.out.printf(
                 "Found security group with id %s, " +
@@ -69,4 +69,4 @@ public class DescribeSecurityGroups
     }
 }
  
-// snippet-end:[ec2.java.describe_security_groups.complete]
+// snippet-end:[ec2.java2.describe_security_groups.complete]

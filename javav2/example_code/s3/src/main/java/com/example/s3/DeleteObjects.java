@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
-// snippet-start:[s3.java.delete_objects.complete]
-// snippet-start:[s3.java.delete_objects.import]
+// snippet-start:[s3.java2.delete_objects.complete]
+// snippet-start:[s3.java2.delete_objects.import]
 import software.amazon.awssdk.services.s3.model.Delete;
 import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-// snippet-end:[s3.java.delete_objects.import]
+// snippet-end:[s3.java2.delete_objects.import]
 /**
  * Delete multiple objects from an Amazon S3 bucket.
  *
@@ -40,7 +40,7 @@ import java.util.Arrays;
  *
  * ++ Warning ++ This code will actually delete the objects that you specify!
  */
-// snippet-start:[s3.java.delete_objects.main]
+// snippet-start:[s3.java2.delete_objects.main]
 public class DeleteObjects
 {
     public static void main(String[] args)
@@ -82,5 +82,5 @@ public class DeleteObjects
     }
 }
 
-// snippet-end:[s3.java.delete_objects.main]
-// snippet-end:[s3.java.delete_objects.complete]
+// snippet-end:[s3.java2.delete_objects.main]
+// snippet-end:[s3.java2.delete_objects.complete]
