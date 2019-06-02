@@ -21,6 +21,7 @@
  * permissions and limitations under the License.
  */
 //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.complete]
+//snippet-start:[athena.java.ListNamedQueryExecutionsExample.complete]
 package aws.example.athena;
 
 //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.import]
@@ -61,4 +62,5 @@ public class ListQueryExecutionsExample {
 
     }
 }
+//snippet-end:[athena.java.ListNamedQueryExecutionsExample.complete]
 //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.complete]
