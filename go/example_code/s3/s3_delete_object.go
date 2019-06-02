@@ -68,7 +68,7 @@ func main() {
         Key:    aws.String(obj),
     })
     if err != nil {
-        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
+        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj, err)
     }
 
     fmt.Printf("Object %q successfully deleted\n", obj)
