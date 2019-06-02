@@ -5,7 +5,7 @@
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-06-02]
-//snippet-sourceauthor:[AWS]
+//snippet-sourceauthor:[jschwarzwalder AWS]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -47,7 +47,7 @@ public class AddLoginProvider {
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
-        if (args.length < 1) {
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
