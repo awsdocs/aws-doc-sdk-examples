@@ -1,13 +1,15 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-comment:[This is a full sample when you include SecretsManager.ts, which goes in the bin dir.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[SecretsManager-stack.ts ???]
-// snippet-keyword:[CDK V0.28.0]
+// snippet-sourcedescription:[SecretsManager-stack.ts creates a stack with an S3 bucket using a secret value.]
+// snippet-keyword:[CDK V0.32.0]
+// snippet-keyword:[AWS CDK]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
+// snippet-keyword:[aws-secretsmanager.Secret.fromSecretAttributes function]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-4-5]
+// snippet-sourcedate:[2019-6-4]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
