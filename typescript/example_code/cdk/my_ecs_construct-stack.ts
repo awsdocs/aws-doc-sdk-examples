@@ -34,7 +34,7 @@ export class MyEcsConstructStack extends cdk.Stack {
     super(scope, id, props);
 
     // snippet-start:[cdk.typescript.my_ecs_construct.create_fargate_service]
-    const vpc = new ec2.VpcNetwork(this, 'MyVpc', {
+    const vpc = new ec2.Vpc(this, 'MyVpc', {
       maxAZs: 3 // Default is all AZs in region
     });
 

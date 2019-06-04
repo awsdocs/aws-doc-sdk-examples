@@ -3,13 +3,13 @@
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Instantiates the stack in MyRdsDbStack.ts.]
 // snippet-keyword:[CDK V0.24.1]
-// snippet-keyword:[ec2.VpcNetwork function]
+// snippet-keyword:[ec2.Vpc function]
 // snippet-keyword:[rds.DatabaseCluster function]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-2-8]
+// snippet-sourcedate:[2019-5-24]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -30,7 +30,7 @@ export class MyRdsDbStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const vpc = new ec2.VpcNetwork(this, "VPC");
+    const vpc = new ec2.Vpc(this, "VPC");
 
     new rds.DatabaseCluster(this, "MyRdsDb", {
       defaultDatabaseName: "MyAuroraDatabase",

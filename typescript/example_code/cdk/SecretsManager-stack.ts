@@ -33,7 +33,7 @@ export class SecretsManagerStack extends cdk.Stack {
       secretArn:
         "arn:aws:secretsmanager:<region>:<account-id-number>:secret:<secret-name>-<random-6-characters>"
       // If the secret is encrypted using a KMS-hosted CMK, either import or reference that key:
-      // encryptionKey,
+      // Key,
     });
 // snippet-end:[cdk.typescript.secrets_manager_stack_code]
 

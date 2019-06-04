@@ -3,8 +3,6 @@
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates an RDS database.]
 // snippet-keyword:[CDK V0.29.0]
-// snippet-keyword:[ec2.VpcNetwork function]
-// snippet-keyword:[rds.DatabaseCluster function]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
