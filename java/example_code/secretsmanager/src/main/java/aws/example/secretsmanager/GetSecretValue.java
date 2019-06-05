@@ -48,7 +48,7 @@ public class GetSecretValue {
       String secret;
       ByteBuffer binarySecretData;
       GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest()
-              .withSecretId(secretName);
+              .withSecretId(secretName).withVersionStage("AWSCURRENT");
       GetSecretValueResult getSecretValueResult = null;
       try {
           getSecretValueResult = client.getSecretValue(getSecretValueRequest);

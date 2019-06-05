@@ -20,8 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.list_server_certificates.complete]
-// snippet-start:[iam.java.list_server_certificates.import]
+// snippet-start:[iam.java2.list_server_certificates.complete]
+// snippet-start:[iam.java2.list_server_certificates.import]
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesRequest;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesResponse;
 import software.amazon.awssdk.services.iam.model.ServerCertificateMetadata;
@@ -29,14 +29,14 @@ import software.amazon.awssdk.services.iam.model.ServerCertificateMetadata;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
  
-// snippet-end:[iam.java.list_server_certificates.import]
+// snippet-end:[iam.java2.list_server_certificates.import]
 /**
  * Lists all server certificates associated with an AWS account
  */
 public class ListServerCertificates {
     public static void main(String[] args) {
 
-        // snippet-start:[iam.java.list_server_certificates.main]
+        // snippet-start:[iam.java2.list_server_certificates.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -71,8 +71,8 @@ public class ListServerCertificates {
             	new_marker = response.marker();
             }
         }
-        // snippet-end:[iam.java.list_server_certificates.main]
+        // snippet-end:[iam.java2.list_server_certificates.main]
     }
 }
  
-// snippet-end:[iam.java.list_server_certificates.complete]
+// snippet-end:[iam.java2.list_server_certificates.complete]
