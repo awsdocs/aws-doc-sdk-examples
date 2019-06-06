@@ -3,7 +3,7 @@
 // snippet-comment:[This this should go in the lib directory.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates a Fargate service with versioning enabled.]
-// snippet-keyword:[CDK V0.24.1]
+// snippet-keyword:[CDK V0.33.0]
 // snippet-keyword:[AWS CDK]
 // snippet-keyword:[aws-ec2.Vpc function]
 // snippet-keyword:[TypeScript]
@@ -27,6 +27,7 @@ import cdk = require('@aws-cdk/cdk');
 // snippet-start:[cdk.typescript.my_ecs_construct-stack.imports]
 import ec2 = require('@aws-cdk/aws-ec2');
 import ecs = require('@aws-cdk/aws-ecs');
+import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
 // snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
 // snippet-start:[cdk.typescript.my_ecs_construct-stack.class]
@@ -44,7 +45,7 @@ export class MyEcsConstructStack extends cdk.Stack {
     });
 
     // Create a load-balanced Fargate service and make it public
-    new ecs.LoadBalancedFargateService(this, 'MyFargateService', {
+    new ecs_patterns.LoadBalancedFargateService(this, 'MyFargateService', {
       cluster: cluster,  // Required
       cpu: '512', // Default is 256
       desiredCount: 6,  // Default is 1
