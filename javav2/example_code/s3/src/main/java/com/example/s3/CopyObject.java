@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -19,19 +19,23 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java2.copy_object.complete]
+// snippet-start:[s3.java2.copy_object.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-
+ 
+// snippet-end:[s3.java2.copy_object.import]
 /**
  * Copy an object from one Amazon S3 bucket to another.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
+// snippet-start:[s3.java2.copy_object.main]
 public class CopyObject
 {
     public static void main(String[] args)
@@ -72,3 +76,6 @@ public class CopyObject
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[s3.java2.copy_object.main]
+// snippet-end:[s3.java2.copy_object.complete]

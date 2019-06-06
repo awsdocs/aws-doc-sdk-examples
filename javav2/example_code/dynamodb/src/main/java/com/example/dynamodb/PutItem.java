@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -19,6 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
+// snippet-start:[dynamodb.java2.put_item.complete]
+// snippet-start:[dynamodb.java2.put_item.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -26,7 +28,8 @@ import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+ 
+// snippet-end:[dynamodb.java2.put_item.import]
 /**
 * Put an item in a DynamoDB table.
 *
@@ -81,6 +84,7 @@ public class PutItem
             }
         }
 
+        // snippet-start:[dynamodb.java2.put_item.main]
         HashMap<String,AttributeValue> item_values =
             new HashMap<String,AttributeValue>();
 
@@ -106,6 +110,9 @@ public class PutItem
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        // snippet-end:[dynamodb.java2.put_item.main]
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[dynamodb.java2.put_item.complete]

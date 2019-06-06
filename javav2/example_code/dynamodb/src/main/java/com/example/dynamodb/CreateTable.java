@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -19,6 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
+// snippet-start:[dynamodb.java2.create_table.complete]
+// snippet-start:[dynamodb.java2.create_table.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
@@ -28,7 +30,8 @@ import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
-
+ 
+// snippet-end:[dynamodb.java2.create_table.import]
 /**
  * Create a DynamoDB table.
  *
@@ -57,11 +60,12 @@ public class CreateTable
 
         /* Read the name from command args */
         String table_name = args[0];
-
+        
         System.out.format(
             "Creating table \"%s\" with a simple primary key: \"Name\".\n",
             table_name);
 
+        // snippet-start:[dynamodb.java2.create_table.main]
         CreateTableRequest request = CreateTableRequest.builder()
         		.attributeDefinitions(AttributeDefinition.builder()
         				.attributeName("Name")
@@ -87,6 +91,9 @@ public class CreateTable
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        // snippet-end:[dynamodb.java2.create_table.main]
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[dynamodb.java2.create_table.complete]

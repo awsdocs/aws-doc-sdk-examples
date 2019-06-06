@@ -1,16 +1,14 @@
- 
 //snippet-sourcedescription:[long_polling_on_message_receipt.cpp demonstrates how to retrieve messages from an Amazon SQS queue using long-poll support.]
+//snippet-service:[sqs]
+//snippet-keyword:[Amazon Simple Queue Service]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
-
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,21 +20,24 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
+//snippet-end:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <iostream>
 
 void ReceiveMessage(const Aws::String& queue_url, int wait_time)
 {
     // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration client_cfg;
     client_cfg.requestTimeoutMs = 30000;
 
+    // snippet-start:[sqs.cpp.long_polling_on_message_receipt.code]
     Aws::SQS::SQSClient sqs(client_cfg);
 
     Aws::SQS::Model::ReceiveMessageRequest request;
@@ -65,6 +66,7 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
     std::cout << "  MessageId: " << message.GetMessageId() << std::endl;
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
+    // snippet-end:[sqs.cpp.long_polling_on_message_receipt.code]
 
     Aws::SQS::Model::DeleteMessageRequest delete_request;
     delete_request.SetQueueUrl(queue_url);

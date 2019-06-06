@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -24,6 +24,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/ListFileSharesRequest.h>
 #include <aws/storagegateway/model/ListFileSharesResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -43,16 +44,16 @@ int main(int argc, char ** argv)
 
     Aws::StorageGateway::Model::ListFileSharesRequest lfs_req;
 
-    storagegateway.SetGatewayARN(gateway_arn);
+    lfs_req.SetGatewayARN(gateway_arn);
 
     auto lfs_out = storagegateway.ListFileShares(lfs_req);
 
     if (lfs_out.IsSuccess())
     {
       std::cout << "Successfully listing file shares";
-      for (auto val: lfs_out.GetResult().GetFileShareInfoList())
+      for (auto fileShareInfo: lfs_out.GetResult().GetFileShareInfoList())
       {
-        cout << " " << val;
+        std::cout << " " << fileShareInfo.GetFileShareId();
       }
     }
     else

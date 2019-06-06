@@ -1,14 +1,15 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Creates a rule in CloudWatch events and adds a target for the rule.]
-#snippet-keyword:[Amazon CloudWatch]
-#snippet-keyword:[put_rule method]
-#snippet-keyword:[put_target method]
-#snippet-keyword:[Ruby]
-#snippet-service:[cloudwatch]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Creates a rule in CloudWatch events and adds a target for the rule.]
+# snippet-keyword:[Amazon CloudWatch]
+# snippet-keyword:[put_rule method]
+# snippet-keyword:[put_target method]
+# snippet-keyword:[Ruby]
+# snippet-service:[cloudwatch]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -28,7 +29,7 @@
 
 # To test this code, you must have:
 # 1. An AWS Lambda function that uses the hello-world blueprint to serve as the target for events. To learn how,
-#    see "Step 1: Create a Lambda Function" of the "Tutorial: Log the State of an EC2 Intance Using CloudWatch Events"
+#    see "Step 1: Create a Lambda Function" of the "Tutorial: Log the State of an EC2 Instance Using CloudWatch Events"
 #    topic in the Amazon CloudWatch Events User Guide.
 #    Make a note of the AWS Lambda function Amazon Resource Name (ARN), as you will need it later in the code.
 # 2. An AWS IAM service role containing a policy granting permission to Amazon CloudWatch Events.

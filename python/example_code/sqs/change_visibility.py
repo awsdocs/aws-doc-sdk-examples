@@ -1,4 +1,14 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[change_visibility.py demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
+# snippet-service:[sqs]
+# snippet-keyword:[Amazon Simple Queue Service]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2018-08-01]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
+
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -13,43 +23,28 @@
 
 import boto3
 
-# Create SQS client
-sqs = boto3.client('sqs')
-
+# Assign this variable the SQS queue URL before running the program
 queue_url = 'SQS_QUEUE_URL'
 
 # Receive message from SQS queue
+sqs = boto3.client('sqs')
 response = sqs.receive_message(
     QueueUrl=queue_url,
     AttributeNames=[
-        'SentTimestamp'
+        'SentTimestamp',
     ],
     MaxNumberOfMessages=1,
     MessageAttributeNames=[
-        'All'
+        'All',
     ],
 )
 
+# Extract response info
 message = response['Messages'][0]
 receipt_handle = message['ReceiptHandle']
 
 # Change visibility timeout of message from queue
-sqs.change_message_visibility(
-    QueueUrl=queue_url,
-    ReceiptHandle=receipt_handle,
-    VisibilityTimeout=3600
-)
-print('Received and changed visibilty timeout of message: %s' % message)
- 
-
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[change_visibility.py demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Simple Queue Service]
-#snippet-service:[sqs]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-08-01]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
-
+sqs.change_message_visibility(QueueUrl=queue_url,
+                              ReceiptHandle=receipt_handle,
+                              VisibilityTimeout=3600)
+print(f'Received and changed visibility timeout of message: {message}')

@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,13 +22,15 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.delete_alarm.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DeleteAlarmsRequest.h>
 #include <iostream>
+//snippet-end:[cw.cpp.delete_alarm.inc]
 
 /**
- * Deletes a cloud watch alarm, based on command line input
+ * Deletes a CloudWatch alarm
  */
 int main(int argc, char** argv)
 {
@@ -43,6 +45,7 @@ int main(int argc, char** argv)
     {
         Aws::String alarm_name(argv[1]);
 
+        // snippet-start:[cw.cpp.delete_alarm.code]
         Aws::CloudWatch::CloudWatchClient cw;
         Aws::CloudWatch::Model::DeleteAlarmsRequest request;
         request.AddAlarmNames(alarm_name);
@@ -50,14 +53,16 @@ int main(int argc, char** argv)
         auto outcome = cw.DeleteAlarms(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to delete cloudwatch alarm:" <<
+            std::cout << "Failed to delete CloudWatch alarm:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }
         else
         {
-            std::cout << "Successfully deleted cloudwatch alarm " << alarm_name
+            std::cout << "Successfully deleted CloudWatch alarm " << alarm_name
                 << std::endl;
         }
+        // snippet-end:[cw.cpp.delete_alarm.code]
+
     }
     Aws::ShutdownAPI(options);
     return 0;

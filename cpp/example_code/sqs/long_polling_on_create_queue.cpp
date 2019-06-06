@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.long_polling_on_create_queue.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/CreateQueueRequest.h>
 #include <aws/sqs/model/CreateQueueResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.long_polling_on_create_queue.inc]
 
 /**
  * Creates a long-polled sqs queue based on command line input
@@ -46,6 +48,7 @@ int main(int argc, char** argv)
         Aws::String queue_name = argv[1];
         Aws::String poll_time = argv[2];
 
+        // snippet-start:[sqs.cpp.long_polling_on_create_queue.code]
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::CreateQueueRequest request;
@@ -65,6 +68,7 @@ int main(int argc, char** argv)
             std::cout << "Error creating queue " << queue_name << ": " <<
                 outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[sqs.cpp.long_polling_on_create_queue.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

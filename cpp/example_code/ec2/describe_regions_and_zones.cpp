@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,12 +22,16 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.describe_regions.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeRegionsRequest.h>
 #include <aws/ec2/model/DescribeRegionsResponse.h>
+//snippet-end:[ec2.cpp.describe_regions.inc]
+//snippet-start:[ec2.cpp.describe_zones.inc]
 #include <aws/ec2/model/DescribeAvailabilityZonesRequest.h>
 #include <aws/ec2/model/DescribeAvailabilityZonesResponse.h>
+//snippet-end:[ec2.cpp.describe_zones.inc]
 #include <iomanip>
 #include <iostream>
 #include <iomanip>
@@ -40,6 +44,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[ec2.cpp.describe_regions.code]
         Aws::EC2::EC2Client ec2;
         Aws::EC2::Model::DescribeRegionsRequest request;
         auto outcome = ec2.DescribeRegions(request);
@@ -62,8 +67,11 @@ int main(int argc, char** argv)
             std::cout << "Failed to describe regions:" <<
                 outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[ec2.cpp.describe_regions.code]
 
         std::cout << std::endl;
+
+        // snippet-start:[ec2.cpp.describe_zones.code]
         Aws::EC2::Model::DescribeAvailabilityZonesRequest describe_request;
         auto describe_outcome = ec2.DescribeAvailabilityZones(describe_request);
 
@@ -93,6 +101,7 @@ int main(int argc, char** argv)
             std::cout << "Failed to describe availability zones:" <<
                 describe_outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[ec2.cpp.describe_zones.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

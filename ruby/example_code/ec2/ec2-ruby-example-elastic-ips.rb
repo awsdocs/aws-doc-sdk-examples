@@ -1,16 +1,17 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Allocates an Elastic IP address, associates the address with an Amazon EC2 instance, gets information about addresses associated with the instance, and release the address.]
-#snippet-keyword:[Amazon Elastic Compute Cloud]
-#snippet-keyword:[allocate_address method]
-#snippet-keyword:[associate_address method]
-#snippet-keyword:[describe_addresses method]
-#snippet-keyword:[release_address method]
-#snippet-keyword:[Ruby]
-#snippet-service:[ec2]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Allocates an Elastic IP address, associates the address with an Amazon EC2 instance, gets information about addresses associated with the instance, and release the address.]
+# snippet-keyword:[Amazon Elastic Compute Cloud]
+# snippet-keyword:[allocate_address method]
+# snippet-keyword:[associate_address method]
+# snippet-keyword:[describe_addresses method]
+# snippet-keyword:[release_address method]
+# snippet-keyword:[Ruby]
+# snippet-service:[ec2]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -61,7 +62,7 @@ puts "Before allocating the address for the instance...."
 display_addresses(ec2, instance_id)
 
 puts "\nAllocating the address for the instance..."
-allocate_address_result = ec2.allocate_address({
+ec2.allocate_address({
   domain: "vpc" 
 })
 
@@ -69,7 +70,7 @@ puts "\nAfter allocating the address for instance, but before associating the ad
 display_addresses(ec2, instance_id)
 
 puts "\nAssociating the address with the instance..."
-associate_address_result = ec2.associate_address({
+ec2.associate_address({
   allocation_id: allocate_address_result.allocation_id, 
   instance_id: instance_id, 
 })

@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -19,10 +19,10 @@ list(APPEND EXAMPLES "create_pull_request")
 list(APPEND EXAMPLES "create_repository")
 list(APPEND EXAMPLES "delete_branch")
 list(APPEND EXAMPLES "delete_repository")
+list(APPEND EXAMPLES "list_branches")
 list(APPEND EXAMPLES "list_pull_requests")
 list(APPEND EXAMPLES "update_pull_request")
 list(APPEND EXAMPLES "update_repository")
-list(APPEND EXAMPLES "list_branches")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

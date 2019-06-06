@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,19 +20,23 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.list_users.complete]
+// snippet-start:[iam.java2.list_users.import]
 import software.amazon.awssdk.services.iam.model.ListUsersRequest;
 import software.amazon.awssdk.services.iam.model.ListUsersResponse;
 import software.amazon.awssdk.services.iam.model.User;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
+ 
+// snippet-end:[iam.java2.list_users.import]
 /**
  * Lists all IAM users
  */
 public class ListUsers {
     public static void main(String[] args) {
 
+        // snippet-start:[iam.java2.list_users.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -62,6 +66,9 @@ public class ListUsers {
             else {
             	new_marker = response.marker();
             }
-        }
+        } 
+        // snippet-end:[iam.java2.list_users.main]
     }
 }
+
+// snippet-end:[iam.java2.list_users.complete]

@@ -1,16 +1,14 @@
- 
 //snippet-sourcedescription:[describe_smb_settings.cpp demonstrates how to retrieve information pertaining to the Server Message Block (SMB) settings for an AWS Storage Gateway resource.]
+//snippet-service:[storagegateway]
+//snippet-keyword:[AWS Storage Gateway]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Storage Gateway]
-//snippet-service:[storagegateway]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
 
-
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -24,6 +22,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/DescribeSMBSettingsRequest.h>
 #include <aws/storagegateway/model/DescribeSMBSettingsResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -39,20 +38,20 @@ int main(int argc, char ** argv)
   {
     Aws::String gateway_arn(argv[1]);
 
-    Aws::StorageGateway::StorageGatewayClient sg;
+    Aws::StorageGateway::StorageGatewayClient storagegateway;
 
     Aws::StorageGateway::Model::DescribeSMBSettingsRequest dsmbs_req;
 
-    sg.SetGatewayARN(gateway_arn);
+    dsmbs_req.SetGatewayARN(gateway_arn);
 
-    auto dsmbs_out = storagegatway.DescribeGateway(dsmbs_req);
+    auto dsmbs_out = storagegateway.DescribeSMBSettings(dsmbs_req);
 
     if (dsmbs_out.IsSuccess())
     {
       std::cout << "Successfully describing SMB settings as:";
-      for (auto val : dsmbs_out.GetResult().GetSMBFileShareInfoList())
+      for (auto val : dsmbs_out.GetResult().GetDomainName())
       {
-        cout << " " << val;
+        std::cout << " " << val;
       }
     }
     else

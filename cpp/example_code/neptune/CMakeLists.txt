@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -17,8 +17,8 @@ find_package(AWSSDK REQUIRED COMPONENTS neptune)
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_db_cluster")
 list(APPEND EXAMPLES "delete_db_cluster")
-list(APPEND EXAMPLES "modify_db_cluster")
 list(APPEND EXAMPLES "describe_db_clusters")
+list(APPEND EXAMPLES "modify_db_cluster")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

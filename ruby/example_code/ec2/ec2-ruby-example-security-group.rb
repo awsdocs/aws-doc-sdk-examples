@@ -1,16 +1,17 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Creates a security group, adds rules to the security group, gets information about security groups, and deletes the security group.]
-#snippet-keyword:[Amazon Elastic Compute Cloud]
-#snippet-keyword:[authorize_security_group_ingress method]
-#snippet-keyword:[create_security_group method]
-#snippet-keyword:[delete_security_group method]
-#snippet-keyword:[describe_security_groups method]
-#snippet-keyword:[Ruby]
-#snippet-service:[ec2]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Creates a security group, adds rules to the security group, gets information about security groups, and deletes the security group.]
+# snippet-keyword:[Amazon Elastic Compute Cloud]
+# snippet-keyword:[authorize_security_group_ingress method]
+# snippet-keyword:[create_security_group method]
+# snippet-keyword:[delete_security_group method]
+# snippet-keyword:[describe_security_groups method]
+# snippet-keyword:[Ruby]
+# snippet-service:[ec2]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -85,8 +86,8 @@ end
 def describe_ip_permission(ip_permission)
   puts "-" * 22
   puts "IP Protocol: #{ip_permission.ip_protocol}"
-  puts "From Port: #{ip_permission.from_port.to_s}"
-  puts "To Port: #{ip_permission.to_port.to_s}"
+  puts "From Port: #{ip_permission.from_port}"
+  puts "To Port: #{ip_permission.to_port}"
   if ip_permission.ip_ranges.count > 0
     puts "IP Ranges:"
     ip_permission.ip_ranges.each do |ip_range|

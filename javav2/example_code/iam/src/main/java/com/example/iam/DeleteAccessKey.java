@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.delete_access_key.complete]
+// snippet-start:[iam.java2.delete_access_key.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.DeleteAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.DeleteAccessKeyResponse;
-
+ 
+// snippet-end:[iam.java2.delete_access_key.import]
 /**
  * Deletes an access key from an IAM user
  */
@@ -43,6 +46,7 @@ public class DeleteAccessKey {
         String username = args[0];
         String access_key = args[1];
 
+        // snippet-start:[iam.java2.delete_access_key.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -50,9 +54,12 @@ public class DeleteAccessKey {
             .accessKeyId(access_key)
             .userName(username).build();
 
-        DeleteAccessKeyResponse response = iam.deleteAccessKey(request);
+        DeleteAccessKeyResponse response = iam.deleteAccessKey(request); 
+        // snippet-end:[iam.java2.delete_access_key.main]
 
         System.out.println("Successfully deleted access key " + access_key +
                 " from user " + username);
     }
 }
+
+// snippet-end:[iam.java2.delete_access_key.complete]

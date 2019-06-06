@@ -7,7 +7,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ public class LongPolling
         // Enable long polling on a message receipt
         ReceiveMessageRequest receive_request = new ReceiveMessageRequest()
                 .withQueueUrl(queue_url)
-                .withWaitTimeSeconds(20);
+                .withWaitTimeSeconds(40);
         sqs.receiveMessage(receive_request);
     }
 }

@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.create_account_alias.complete]
+// snippet-start:[iam.java2.create_account_alias.import]
 import software.amazon.awssdk.services.iam.model.CreateAccountAliasRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccountAliasResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
+ 
+// snippet-end:[iam.java2.create_account_alias.import]
 /**
  * Creates an alias for an AWS Account
  */
@@ -43,6 +46,7 @@ public class CreateAccountAlias {
 
         String alias = args[0];
 
+        // snippet-start:[iam.java2.create_account_alias.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -52,5 +56,8 @@ public class CreateAccountAlias {
         CreateAccountAliasResponse response = iam.createAccountAlias(request);
 
         System.out.println("Successfully created account alias: " + alias);
+        // snippet-end:[iam.java2.create_account_alias.main]
     }
 }
+ 
+// snippet-end:[iam.java2.create_account_alias.complete]

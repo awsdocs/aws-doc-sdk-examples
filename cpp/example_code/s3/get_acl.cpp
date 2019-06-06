@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,12 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.get_acl.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketAclRequest.h>
 #include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/Permission.h>
 #include <aws/s3/model/Grant.h>
+//snippet-end:[s3.cpp.get_acl.inc]
 
 Aws::String GetPermissionString(const Aws::S3::Model::Permission p)
 {
@@ -58,6 +60,7 @@ void GetAclForBucket(Aws::String bucket_name, Aws::String user_region)
     config.region = user_region;
     Aws::S3::S3Client s3_client(config);
 
+    // snippet-start:[s3.cpp.get_acl_bucket.code]
     Aws::S3::Model::GetBucketAclRequest request;
     request.SetBucket(bucket_name);
 
@@ -81,6 +84,7 @@ void GetAclForBucket(Aws::String bucket_name, Aws::String user_region)
             << outcome.GetError().GetExceptionName() << " - "
             << outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[s3.cpp.get_acl_bucket.code]
 }
 
 void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
@@ -93,6 +97,7 @@ void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
     config.region = user_region;
     Aws::S3::S3Client s3_client(config);
 
+    // snippet-start:[s3.cpp.get_acl_object.code]
     Aws::S3::Model::GetObjectAclRequest request;
     request.SetBucket(bucket_name);
     request.SetKey(object_key);
@@ -117,6 +122,7 @@ void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
             << outcome.GetError().GetExceptionName() << " - "
             << outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[s3.cpp.get_acl_object.code]
 }
 
 /**
