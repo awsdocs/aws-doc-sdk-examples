@@ -62,7 +62,7 @@ def ShowBoundingBoxPositions(imageHeight, imageWidth, box, rotation):
 
 
 if __name__ == "__main__":
-    """Exercise the Rekcognition recognize_celebrities() method and 
+    """Exercise the Rekognition recognize_celebrities() method and 
     ShowBoundingBoxPositions()"""
 
     # Set the photo variable to the image filename to process

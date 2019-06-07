@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.describe_table.complete]
-// snippet-start:[dynamodb.java.describe_table.import]
+// snippet-start:[dynamodb.java2.describe_table.complete]
+// snippet-start:[dynamodb.java2.describe_table.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughputDescr
 import software.amazon.awssdk.services.dynamodb.model.TableDescription;
 import java.util.List;
  
-// snippet-end:[dynamodb.java.describe_table.import]
+// snippet-end:[dynamodb.java2.describe_table.import]
 /**
  * Get information about (describe) a DynamoDB table.
  *
@@ -58,7 +58,7 @@ public class DescribeTable
         String table_name = args[0];
         System.out.format("Getting description for %s\n\n", table_name);
 
-        // snippet-start:[dynamodb.java.describe_table.main]
+        // snippet-start:[dynamodb.java2.describe_table.main]
         DynamoDbClient ddb = DynamoDbClient.create();
 
         DescribeTableRequest request = DescribeTableRequest.builder()
@@ -101,9 +101,9 @@ public class DescribeTable
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java.describe_table.main]
+        // snippet-end:[dynamodb.java2.describe_table.main]
         System.out.println("\nDone!");
     }
 }
  
-// snippet-end:[dynamodb.java.describe_table.complete]
+// snippet-end:[dynamodb.java2.describe_table.complete]
