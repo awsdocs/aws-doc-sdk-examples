@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.get_item.complete]
-// snippet-start:[dynamodb.java.get_item.import]
+// snippet-start:[dynamodb.java2.get_item.complete]
+// snippet-start:[dynamodb.java2.get_item.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
  
-// snippet-end:[dynamodb.java.get_item.import]
+// snippet-end:[dynamodb.java2.get_item.import]
 /**
  * Get an item from a DynamoDB table.
  *
@@ -75,7 +75,7 @@ public class GetItem
         System.out.format("Retrieving item \"%s\" from \"%s\"\n",
                 name, table_name);
 
-        // snippet-start:[dynamodb.java.get_item.main]
+        // snippet-start:[dynamodb.java2.get_item.main]
         HashMap<String,AttributeValue> key_to_get =
             new HashMap<String,AttributeValue>();
 
@@ -114,8 +114,8 @@ public class GetItem
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java.get_item.main]        
+        // snippet-end:[dynamodb.java2.get_item.main]        
     }
 }
  
-// snippet-end:[dynamodb.java.get_item.complete]
+// snippet-end:[dynamodb.java2.get_item.complete]

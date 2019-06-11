@@ -19,22 +19,22 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.glacier;
-// snippet-start:[glacier.java.list_vaults.complete]
-// snippet-start:[glacier.java.list_vaults.import]
+// snippet-start:[glacier.java2.list_vaults.complete]
+// snippet-start:[glacier.java2.list_vaults.import]
 import software.amazon.awssdk.services.glacier.model.ListVaultsRequest;
 import software.amazon.awssdk.services.glacier.model.ListVaultsResponse;
 import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.glacier.model.DescribeVaultOutput;
 import java.util.List;
  
-// snippet-end:[glacier.java.list_vaults.import]
+// snippet-end:[glacier.java2.list_vaults.import]
 /**
  * List your Amazon Glacier vaults.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-// snippet-start:[glacier.java.list_vaults.main]
+// snippet-start:[glacier.java2.list_vaults.main]
 public class ListVaults
 {
     public static void main(String[] args)
@@ -78,5 +78,5 @@ public class ListVaults
     }
 }
  
-// snippet-end:[glacier.java.list_vaults.main]
-// snippet-end:[glacier.java.list_vaults.complete]
+// snippet-end:[glacier.java2.list_vaults.main]
+// snippet-end:[glacier.java2.list_vaults.complete]

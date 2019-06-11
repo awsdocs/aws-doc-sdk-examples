@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[swf.java.poll_tasks.complete]
+// snippet-start:[swf.java2.poll_tasks.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -19,7 +19,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-// snippet-start:[swf.java.poll_tasks.import]
+// snippet-start:[swf.java2.poll_tasks.import]
 package com.example.helloswf;
 
 import java.util.concurrent.CountDownLatch;
@@ -32,8 +32,8 @@ import software.amazon.awssdk.services.swf.model.RespondActivityTaskCompletedReq
 import software.amazon.awssdk.services.swf.model.RespondActivityTaskFailedRequest;
 import software.amazon.awssdk.services.swf.model.TaskList;
 
-// snippet-end:[swf.java.poll_tasks.import]
-// snippet-start:[swf.java.poll_tasks.main]
+// snippet-end:[swf.java2.poll_tasks.import]
+// snippet-start:[swf.java2.poll_tasks.main]
 public class ActivityWorkerWithGracefulShutdown {
 
     private static final SwfClient swf =
@@ -117,5 +117,5 @@ public class ActivityWorkerWithGracefulShutdown {
         }
     }
 }
-// snippet-end:[swf.java.poll_tasks.main]
-// snippet-end:[swf.java.poll_tasks.complete]
+// snippet-end:[swf.java2.poll_tasks.main]
+// snippet-end:[swf.java2.poll_tasks.complete]
