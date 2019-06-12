@@ -28,17 +28,19 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
-import com.amazonaws.services.securitytoken.model.*;
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
+import com.amazonaws.services.securitytoken.model.Credentials;
+import com.amazonaws.services.securitytoken.model.GetSessionTokenRequest;
+import com.amazonaws.services.securitytoken.model.GetSessionTokenResult;
 
 public class MakingRequestsWithIAMTempCredentials {
     public static void main(String[] args) {
-        Regions clientRegion = Regions.DEFAULT_REGION;
+        String clientRegion = "*** Client region ***";
         String roleARN = "*** ARN for role to be assumed ***";
         String roleSessionName = "*** Role session name ***";
         String bucketName = "*** Bucket name ***";
@@ -56,17 +58,15 @@ public class MakingRequestsWithIAMTempCredentials {
             AssumeRoleRequest roleRequest = new AssumeRoleRequest()
                                                     .withRoleArn(roleARN)
                                                     .withRoleSessionName(roleSessionName);
-
-            AssumeRoleResult response = stsClient.assumeRole(roleRequest);
+            stsClient.assumeRole(roleRequest);
 
             // Start a session.
-            GetSessionTokenRequest getSessionTokenRequest = new GetSessionTokenRequest().withDurationSeconds(7200);
+            GetSessionTokenRequest getSessionTokenRequest = new GetSessionTokenRequest();
             // The duration can be set to more than 3600 seconds only if temporary
             // credentials are requested by an IAM user rather than an account owner.
+            getSessionTokenRequest.setDurationSeconds(7200);
             GetSessionTokenResult sessionTokenResult = stsClient.getSessionToken(getSessionTokenRequest);
             Credentials sessionCredentials = sessionTokenResult.getCredentials();
-            sessionCredentials.setSessionToken(sessionTokenResult.getCredentials().getSessionToken());
-            sessionCredentials.setExpiration(sessionTokenResult.getCredentials().getExpiration());
 
             // Package the temporary security credentials as a BasicSessionCredentials object 
             // for an Amazon S3 client object to use.
