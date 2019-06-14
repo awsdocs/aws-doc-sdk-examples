@@ -68,7 +68,7 @@ project and select Build > Build Solution.
 Note: MSBuild is included with Microsoft Visual Studio. Its location 
 depends on the Visual Studio version.
 
-* 2019 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\Current\Bin\\"
+* 2019 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\"
 * 2017 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\amd64\\"
 
 Build the examples on Linux/macOS
