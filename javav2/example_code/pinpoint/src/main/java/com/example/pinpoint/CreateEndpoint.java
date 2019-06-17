@@ -97,10 +97,10 @@ public class CreateEndpoint {
     }
 
     private static EndpointRequest createEndpointRequestData() {
-        HashMap<String, List<String>> customAttributes = new HashMap<>();
         List<String> favoriteTeams = new ArrayList<>();
         favoriteTeams.add("Lakers");
         favoriteTeams.add("Warriors");
+        HashMap<String, List<String>> customAttributes = new HashMap<>();
         customAttributes.put("team", favoriteTeams);
 
 
