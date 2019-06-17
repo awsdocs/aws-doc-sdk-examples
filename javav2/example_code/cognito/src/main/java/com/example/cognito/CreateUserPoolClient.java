@@ -54,12 +54,16 @@ public class CreateUserPoolClient {
         String client_name = args[0];
         String user_pool_id = args[1];
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder().region(Region.US_EAST_1).build();
+        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        CreateUserPoolClientResponse repsonse = cognitoclient.createUserPoolClient(CreateUserPoolClientRequest.builder()
-                .clientName(client_name)
-                .userPoolId(user_pool_id)
-                .build());
+        CreateUserPoolClientResponse repsonse = cognitoclient.createUserPoolClient(
+                CreateUserPoolClientRequest.builder()
+                        .clientName(client_name)
+                        .userPoolId(user_pool_id)
+                        .build()
+        );
 
         System.out.println("User Pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
 

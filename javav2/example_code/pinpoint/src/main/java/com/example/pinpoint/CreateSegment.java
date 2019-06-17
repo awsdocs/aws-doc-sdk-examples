@@ -78,10 +78,15 @@ public class CreateSegment {
         SegmentBehaviors segmentBehaviors = SegmentBehaviors.builder()
                 .recency(recencyDimension)
                 .build();
-        SegmentDemographics segmentDemographics = SegmentDemographics.builder().build();
-        SegmentLocation segmentLocation = SegmentLocation.builder().build();
+        SegmentDemographics segmentDemographics = SegmentDemographics
+                .builder()
+                .build();
+        SegmentLocation segmentLocation = SegmentLocation
+                .builder()
+                .build();
 
-        SegmentDimensions dimensions = SegmentDimensions.builder()
+        SegmentDimensions dimensions = SegmentDimensions
+                .builder()
                 .attributes(segmentAttributes)
                 .behavior(segmentBehaviors)
                 .demographic(segmentDemographics)

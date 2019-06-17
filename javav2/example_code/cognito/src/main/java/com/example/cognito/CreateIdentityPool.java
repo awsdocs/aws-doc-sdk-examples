@@ -25,6 +25,7 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.create_identity_pool.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.CreateIdentityPoolRequest;
@@ -49,12 +50,16 @@ public class CreateIdentityPool {
         //snippet-start:[cognito.java2.create_identity_pool.main]
         String identity_pool_name = args[1];
 
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder().region(Region.US_EAST_1).build();
+        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        CreateIdentityPoolResponse response = cognitoclient.createIdentityPool(CreateIdentityPoolRequest.builder()
-                .allowUnauthenticatedIdentities(false)
-                .identityPoolName(identity_pool_name)
-                .build());
+        CreateIdentityPoolResponse response = cognitoclient.createIdentityPool(
+                CreateIdentityPoolRequest.builder()
+                        .allowUnauthenticatedIdentities(false)
+                        .identityPoolName(identity_pool_name)
+                        .build()
+        );
 
         System.out.println("Unity Pool " + response.identityPoolName() + " is created. ID: " + response.identityPoolId());
 
