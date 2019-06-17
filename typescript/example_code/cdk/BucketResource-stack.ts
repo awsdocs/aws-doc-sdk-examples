@@ -89,7 +89,7 @@ export class BucketResourceStack extends cdk.Stack {
     const bucketResource = new s3.CfnBucket(this, "MyCfnBucket");
 
     // Get name of bucket to which we replicate from config file:
-    const bucketName = this.node.getContext("bucketName");
+    const bucketName = this.node.tryGetContext("bucketName");
 
     // snippet-start:[cdk.typescript.BucketResource-stack.replication_configuration]
     bucketResource.addPropertyOverride("ReplicationConfiguration", {
