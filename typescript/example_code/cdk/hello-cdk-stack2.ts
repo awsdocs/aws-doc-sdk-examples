@@ -28,11 +28,12 @@ export class HelloCdkStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    // Don't change the formatting of this section
     // snippet-start:[cdk.typescript.hello-cdk-stack.version2_bucket]
-    new s3.Bucket(this, 'MyFirstBucket', {
-      versioned: true,
-      encryption: s3.BucketEncryption.KmsManaged
-    });
+new s3.Bucket(this, 'MyFirstBucket', {
+  versioned: true,
+  encryption: s3.BucketEncryption.KmsManaged
+});
     // snippet-end:[cdk.typescript.hello-cdk-stack.version2_bucket]    
   }
 }
