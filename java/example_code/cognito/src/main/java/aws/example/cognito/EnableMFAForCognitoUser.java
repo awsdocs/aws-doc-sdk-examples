@@ -1,4 +1,4 @@
-package com.amazonaws.cognito.example;
+package aws.example.cognito;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
