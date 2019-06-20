@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[Filename.java demonstrates how to enable MFA in Cognito Userpool which MFA is optional to users]
+//snippet-sourcedescription:[EnableMFAForCognitoUser.java demonstrates how to enable MFA in Cognito Userpool which MFA is optional to users]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
@@ -6,19 +6,18 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-06-20]
 //snippet-sourceauthor:[wenzaca]
-/*
-* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License"). 
-* You may not use this file except in compliance with the License.
-* A copy of the License is located at
-*
-* http://aws.amazon.com/apache2.0
-*
-* or in the "license" file accompanying this file. This file is distributed
-* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing
-* permissions and limitations under the License.
+/* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
  */
 //snippet-start:[cognito.java.mfa.complete]
 package aws.example.cognito;
@@ -94,3 +93,4 @@ public class EnableMFAForCognitoUser {
         assert (user.getEnabled());
     }
 }
+//snippet-end:[cognito.java.mfa.complete]
