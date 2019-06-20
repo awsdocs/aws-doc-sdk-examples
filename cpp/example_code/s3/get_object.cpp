@@ -5,6 +5,7 @@
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2019-06-19]
 //snippet-sourceauthor:[AWS]
 
 
@@ -22,6 +23,7 @@
    specific language governing permissions and limitations under the License.
 */
 //snippet-start:[s3.cpp.get_object.inc]
+#include <fstream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetObjectRequest.h>
@@ -53,11 +55,18 @@ int main(int argc, char** argv)
             // Get an Aws::IOStream reference to the retrieved file
             auto &retrieved_file = get_object_outcome.GetResultWithOwnership().GetBody();
 
+#if 1
             // Output the first line of the retrieved text file
             std::cout << "Beginning of file contents:\n";
             char file_data[255] = { 0 };
             retrieved_file.getline(file_data, 254);
             std::cout << file_data << std::endl;
+#else
+            // Alternatively, read the object's contents and write to a file
+            const char * filename = "/PATH/FILE_NAME";
+            std::ofstream output_file(filename, std::ios::binary);
+            output_file << retrieved_file.rdbuf();
+#endif     
         }
         else
         {
