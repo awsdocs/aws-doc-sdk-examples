@@ -57,7 +57,7 @@ POLICY;
 $resourceKey = 'rtmp://example-distribution.cloudfront.net/videos/example.mp4';
 
 // Create a signed URL for the resource using the canned policy
-$signedUrlCannedPolicy = $cloudFront->getSignedUrl([
+$signedUrlCannedPolicy = $client->getSignedUrl([
     'url' => $resourceKey,
     'policy' => $customPolicy,
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
