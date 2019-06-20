@@ -57,7 +57,7 @@ $customPolicy = <<<POLICY
 POLICY;
 
 // Create a signed cookie for the resource using a custom policy
-$signedCookieCustomPolicy = $cloudFront->getSignedCookie([
+$signedCookieCustomPolicy = $client->getSignedCookie([
     'policy' => $customPolicy,
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
     'key_pair_id' => '<CloudFront key pair id>'

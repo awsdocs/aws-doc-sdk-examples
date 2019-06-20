@@ -1,9 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.amazonaws</groupId>
+  <groupId>com.example.transcribe</groupId>
   <artifactId>sdk-transcribe-examples</artifactId>
-  <version>1.0.0</version>
-  
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
@@ -23,6 +26,18 @@
     </plugins>
   </build>
   
+  <dependencyManagement>
+   <dependencies>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>bom</artifactId>
+      <version>2.5.10</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+   </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -45,5 +60,11 @@
       <artifactId>transcribestreaming</artifactId>
       <version>2.5.28</version>
     </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>transcribestreaming</artifactId>
+      <version>2.5.10</version>
+    </dependency>
   </dependencies>
 </project>
+
