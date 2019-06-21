@@ -71,6 +71,7 @@ public class CreateInstance
             .build();
 
         CreateTagsRequest tag_request = CreateTagsRequest.builder()
+            .resources(instance_id)
             .tags(tag)
             .build();
 
