@@ -63,7 +63,7 @@ public class CreateInstance
 
         RunInstancesResponse response = ec2.runInstances(run_request);
 
-        String instance_id = response.reservationId();
+        String instance_id = response.instances().get(0).instanceId();
 
         Tag tag = Tag.builder()
             .key("Name")
