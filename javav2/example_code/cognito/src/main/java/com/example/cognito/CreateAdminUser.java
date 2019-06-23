@@ -30,7 +30,7 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
-
+//snippet-end:[cognito.java2.new_admin_user.import]
 
 public class CreateAdminUser {
 
@@ -56,17 +56,21 @@ public class CreateAdminUser {
         String name = args[1];
         String email = args[2];
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder().region(Region.US_EAST_1).build();
+        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        AdminCreateUserResponse response = cognitoclient.adminCreateUser(AdminCreateUserRequest.builder()
-                .userPoolId(user_pool_id)
-                .username(name)
-                .userAttributes(AttributeType.builder()
-                        .name("email")
-                        .value(email)
-                        .build())
-                .messageAction("SURPRESS")
-                .build());
+        AdminCreateUserResponse response = cognitoclient.adminCreateUser(
+                AdminCreateUserRequest.builder()
+                        .userPoolId(user_pool_id)
+                        .username(name)
+                        .userAttributes(AttributeType.builder()
+                                .name("email")
+                                .value(email)
+                                .build())
+                        .messageAction("SURPRESS")
+                        .build()
+        );
 
         System.out.println("User " + response.user().username() + "is created. Status: " + response.user().userStatus());
         //snippet-end:[cognito.java2.add_login_provider.main]

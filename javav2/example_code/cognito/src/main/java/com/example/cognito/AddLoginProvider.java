@@ -60,25 +60,31 @@ public class AddLoginProvider {
 
         HashMap<String, String> potential_providers = new HashMap<>();
         potential_providers.put("facebook", "graph.facebook.com");
-        potential_providers.put("google","accounts.google.com");
+        potential_providers.put("google", "accounts.google.com");
         potential_providers.put("amazon", "www.amazon.com");
         potential_providers.put("twitter", "api.twitter.com");
-        potential_providers.put("digits","www.digits.com");
+        potential_providers.put("digits", "www.digits.com");
 
         HashMap<String, String> login_provider = new HashMap<>();
         login_provider.put(potential_providers.get("amazon"), app_id);
 
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder().region(Region.US_EAST_1).build();
+        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        UpdateIdentityPoolResponse response = cognitoclient.updateIdentityPool(UpdateIdentityPoolRequest.builder()
-                .allowUnauthenticatedIdentities(false)
-                .identityPoolName(identity_pool_name)
-                .identityPoolId(identity_pool_id)
-                .supportedLoginProviders(login_provider)
-                .build());
+        UpdateIdentityPoolResponse response = cognitoclient
+                .updateIdentityPool(
+                        UpdateIdentityPoolRequest.builder()
+                                .allowUnauthenticatedIdentities(false)
+                                .identityPoolName(identity_pool_name)
+                                .identityPoolId(identity_pool_id)
+                                .supportedLoginProviders(login_provider)
+                                .build()
+                );
 
-        for (CognitoIdentityProvider cip: response.cognitoIdentityProviders())
-        System.out.println("Client ID for " + cip.providerName() + " = "+ cip.clientId());
+        for (CognitoIdentityProvider cip : response.cognitoIdentityProviders()) {
+            System.out.println("Client ID for " + cip.providerName() + " = " + cip.clientId());
+        }
         //snippet-end:[cognito.java2.add_login_provider.main]
     }
 }

@@ -35,7 +35,7 @@ begin
     email_address: recipient
   })
 
-  puts 'Email sent to ' + email_address
+  puts 'Email sent to ' + recipient
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error

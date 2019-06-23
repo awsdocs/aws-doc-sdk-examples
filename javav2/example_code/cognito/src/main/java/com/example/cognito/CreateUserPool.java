@@ -33,13 +33,14 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserP
 
 public class CreateUserPool {
 
-    public static void main(String[] args) {final String USAGE = "\n" +
-            "Usage:\n" +
-            "    CreateUserPool <user_pool_name> \n\n" +
-            "Where:\n" +
-            "    user_pool_name - The name to give your user pool when created.\n\n" +
-            "Example:\n" +
-            "    CreateTable HelloTable\n";
+    public static void main(String[] args) {
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    CreateUserPool <user_pool_name> \n\n" +
+                "Where:\n" +
+                "    user_pool_name - The name to give your user pool when created.\n\n" +
+                "Example:\n" +
+                "    CreateTable HelloTable\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -50,11 +51,16 @@ public class CreateUserPool {
         /* Read the name from command args */
         String user_pool_name = args[0];
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder().region(Region.US_EAST_1).build();
+        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        CreateUserPoolResponse repsonse = cognitoclient.createUserPool(CreateUserPoolRequest.builder()
-                .poolName(user_pool_name)
-                .build());
+        CreateUserPoolResponse repsonse = cognitoclient.createUserPool(
+                CreateUserPoolRequest.builder()
+                        .poolName(user_pool_name)
+                        .build()
+        );
+
 
         System.out.println("User Pool " + repsonse.userPool().name() + " created. ID: " + repsonse.userPool().id());
 
