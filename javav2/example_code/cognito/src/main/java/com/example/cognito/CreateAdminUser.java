@@ -25,7 +25,6 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.new_admin_user.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserRequest;

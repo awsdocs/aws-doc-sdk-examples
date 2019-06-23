@@ -25,7 +25,6 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.create_identity_pool.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.CreateIdentityPoolRequest;
