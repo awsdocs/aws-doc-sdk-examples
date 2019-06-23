@@ -60,5 +60,4 @@ public class GetIdentityCredentials {
         //snippet-end:[cognito.java2.GetIdentityCredentials.main]
     }
 }
-//snippet-end:[cognito.java2.ListUserPoolClients.complete]
 //snippet-end:[cognito.java2.GetIdentityCredentials.complete]
