@@ -24,12 +24,15 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+// snippet-start:[s3.java1.s3_xfer_mgr_copy.import]
 import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.Copy;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+// snippet-end:[s3.java1.s3_xfer_mgr_copy.import]
 
+// snippet-start:[s3.java1.s3_xfer_mgr_copy.complete]
 /**
  * Copy an object from one Amazon S3 bucket to another using S3 TransferManager.
  *
@@ -40,6 +43,7 @@ public class XferMgrCopy
 {
     public static void copyObjectSimple(String from_bucket, String from_key,
             String to_bucket, String to_key) {
+        // snippet-start:[s3.java1.s3_xfer_mgr_copy.copy_object]
         System.out.println("Copying s3 object: " + from_key);
         System.out.println("      from bucket: " + from_bucket);
         System.out.println("     to s3 object: " + to_key);
@@ -57,6 +61,7 @@ public class XferMgrCopy
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_copy.copy_object]
     }
 
     public static void main(String[] args)
@@ -96,3 +101,4 @@ public class XferMgrCopy
         }
     }
 }
+// snippet-end:[s3.java1.s3_xfer_mgr_copy.complete]
