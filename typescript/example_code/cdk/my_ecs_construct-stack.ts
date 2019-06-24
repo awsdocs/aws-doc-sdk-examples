@@ -23,11 +23,11 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.my_ecs_construct-stack]
-import cdk = require('@aws-cdk/cdk');
+import cdk = require("@aws-cdk/cdk");
 // snippet-start:[cdk.typescript.my_ecs_construct-stack.imports]
-import ec2 = require('@aws-cdk/aws-ec2');
-import ecs = require('@aws-cdk/aws-ecs');
-import ecs_patterns = require('@aws-cdk/aws-ecs-patterns');
+import ec2 = require("@aws-cdk/aws-ec2");
+import ecs = require("@aws-cdk/aws-ecs");
+import ecs_patterns = require("@aws-cdk/aws-ecs-patterns");
 // snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
 // snippet-start:[cdk.typescript.my_ecs_construct-stack.class]
@@ -36,22 +36,22 @@ export class MyEcsConstructStack extends cdk.Stack {
     super(scope, id, props);
 
     // snippet-start:[cdk.typescript.my_ecs_construct.create_fargate_service]
-    const vpc = new ec2.Vpc(this, 'MyVpc', {
+    const vpc = new ec2.Vpc(this, "MyVpc", {
       maxAZs: 3 // Default is all AZs in region
     });
 
-    const cluster = new ecs.Cluster(this, 'MyCluster', {
+    const cluster = new ecs.Cluster(this, "MyCluster", {
       vpc: vpc
     });
 
     // Create a load-balanced Fargate service and make it public
-    new ecs_patterns.LoadBalancedFargateService(this, 'MyFargateService', {
-      cluster: cluster,  // Required
-      cpu: '512', // Default is 256
-      desiredCount: 6,  // Default is 1
+    new ecs_patterns.LoadBalancedFargateService(this, "MyFargateService", {
+      cluster: cluster, // Required
+      cpu: 512, // Default is 256
+      desiredCount: 6, // Default is 1
       image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"), // Required
-      memoryMiB: '2048',  // Default is 512
-      publicLoadBalancer: true  // Default is false
+      memoryLimitMiB: 2048, // Default is 512
+      publicLoadBalancer: true // Default is false
     });
     // snippet-end:[cdk.typescript.my_ecs_construct.create_fargate_service]
     // snippet-end:[cdk.typescript.my_ecs_construct-stack.class]

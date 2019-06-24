@@ -26,39 +26,40 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.HelloCdk-stack]
-import cdk = require('@aws-cdk/cdk');
-import cloudwatch = require('@aws-cdk/aws-cloudwatch');
-import sns = require('@aws-cdk/aws-sns');
-import sqs = require('@aws-cdk/aws-sqs');
+import cdk = require("@aws-cdk/cdk");
+import cloudwatch = require("@aws-cdk/aws-cloudwatch");
+import sns = require("@aws-cdk/aws-sns");
+import sqs = require("@aws-cdk/aws-sqs");
+import subscriptions = require("@aws-cdk/aws-sns-subscriptions");
 
 export class HelloCdkStack extends cdk.Stack {
-    constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
-        const queue = new sqs.Queue(this, 'HelloCdkQueue', {
-            visibilityTimeoutSec: 300
-        });
+    const queue = new sqs.Queue(this, "HelloCdkQueue", {
+      visibilityTimeoutSec: 300
+    });
 
-        const topic = new sns.Topic(this, 'HelloCdkTopic');
+    const topic = new sns.Topic(this, "HelloCdkTopic");
 
-        topic.subscribeQueue(queue);
+    const sub = new subscriptions.SqsSubscription(queue, {});
+    sub.bind(this, topic);
 
+    // Raise an alarm if we have more than 100 messages available for retrieval
+    // in two of the last three seconds
 
-        // Raise an alarm if we have more than 100 messages available for retrieval 
-        // in two of the last three seconds
+    // Do not change the spacing in the following example
+    // otherwise you'll screw up the online docs
+    // snippet-start:[cdk.typescript.HelloCdk-stack_alarm]
+    const qMetric = queue.metric("ApproximateNumberOfMessagesVisible");
 
-// Do not change the spacing in the following example
-// otherwise you'll screw up the online docs
-// snippet-start:[cdk.typescript.HelloCdk-stack_alarm]
-const qMetric = queue.metric('ApproximateNumberOfMessagesVisible');
-
-new cloudwatch.Alarm(this, 'Alarm', {
-  metric: qMetric,
-  threshold: 100,
-  evaluationPeriods: 3,
-  datapointsToAlarm: 2,
-});
-// snippet-end:[cdk.typescript.HelloCdk-stack_alarm]
-    }
+    new cloudwatch.Alarm(this, "Alarm", {
+      metric: qMetric,
+      threshold: 100,
+      evaluationPeriods: 3,
+      datapointsToAlarm: 2
+    });
+    // snippet-end:[cdk.typescript.HelloCdk-stack_alarm]
+  }
 }
 // snippet-end:[cdk.typescript.HelloCdk-stack]
