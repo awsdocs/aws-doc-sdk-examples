@@ -36,7 +36,7 @@ def lambda_handler(event, context):
     :return: Dict of key:value pairs
     """
 
-    # Initialize logging
+    # Log the values received in the event argument
     logger.info(f'Request event: {event}')
 
     # Define default hard-coded return values
