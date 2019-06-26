@@ -101,9 +101,8 @@ public class S3Encrypt {
      * MAC. Instead we use AES/CTR, an unauthenticated encryption algorithm. If {@link CryptoMode#StrictAuthenticatedEncryption}
      * is enabled, ranged GETs will not be allowed since they do not use authenticated encryption..
      */
-    // snippet-start:[s3.java1.s3_encrypt.strict_authenticated_encryption]
+
     public void authenticatedEncryption_RangeGet_CustomerManagedKey() throws NoSuchAlgorithmException {
-        // snippet-start:[s3.java1.s3_encrypt.strict_authenticated_encryption_build]
         SecretKey secretKey = KeyGenerator.getInstance("AES").generateKey();
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
@@ -113,14 +112,13 @@ public class S3Encrypt {
                 .build();
 
         AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
-        // snippet-end:[s3.java1.s3_encrypt.strict_authenticated_encryption_build]
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
         s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
         System.out.println(s3Encryption.getObjectAsString(BUCKET_NAME, ENCRYPTED_KEY));
         System.out.println(s3Encryption.getObjectAsString(BUCKET_NAME, NON_ENCRYPTED_KEY));
     }
-    // snippet-end:[s3.java1.s3_encrypt.strict_authenticated_encryption]
+
 
     /**
      * Same as {@link #authenticatedEncryption_CustomerManagedKey()} except uses an asymmetric key pair and
@@ -148,7 +146,9 @@ public class S3Encrypt {
      * {@link #authenticatedEncryption_CustomerManagedKey()} is that attempting to retrieve an object non
      * encrypted with AES/GCM will thrown an exception instead of falling back to encryption only or plaintext GET.
      */
+    // snippet-start:[s3.java1.s3_encrypt.strict_authenticated_encryption]
     public void strictAuthenticatedEncryption_CustomerManagedKey() throws NoSuchAlgorithmException {
+        // snippet-start:[s3.java1.s3_encrypt.strict_authenticated_encryption_build]
         SecretKey secretKey = KeyGenerator.getInstance("AES").generateKey();
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
@@ -158,6 +158,7 @@ public class S3Encrypt {
                 .build();
 
         AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        // snippet-end:[s3.java1.s3_encrypt.strict_authenticated_encryption_build]
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
         s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
@@ -169,6 +170,7 @@ public class S3Encrypt {
             System.err.println(NON_ENCRYPTED_KEY + " was not encrypted with AES/GCM");
         }
     }
+    // snippet-end:[s3.java1.s3_encrypt.strict_authenticated_encryption]
 
     /**
      * Strict authenticated encryption mode does not support ranged GETs. This is because we must use AES/CTR for ranged
@@ -292,29 +294,8 @@ public class S3Encrypt {
     /**
      * This uses the V2 metadata schema with a key wrap algorithm of 'kms' and a CEK algorithm of AES/GCM/NoPadding.
      */
-    public void authenticatedEncryption_KmsManagedKey() throws NoSuchAlgorithmException {
-        AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
-                .standard()
-                .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
-                // Can either be Key ID or alias (prefixed with 'alias/')
-                .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
-                .build();
-
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
-
-        s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
-        s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
-        System.out.println(s3Encryption.getObjectAsString(BUCKET_NAME, ENCRYPTED_KEY));
-        System.out.println(s3Encryption.getObjectAsString(BUCKET_NAME, NON_ENCRYPTED_KEY));
-    }
-
-    /**
-     * Same as authenticatedEncryption_KmsManagedKey except throws an exception when trying to get objects not encrypted with
-     * AES/GCM.
-     */
     // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption]
-    public void strictAuthenticatedEncryption_KmsManagedKey() throws NoSuchAlgorithmException {
+    public void authenticatedEncryption_KmsManagedKey() throws NoSuchAlgorithmException {
         // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_builder]
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
@@ -330,8 +311,35 @@ public class S3Encrypt {
         // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_put_object]
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
         s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
+        System.out.println(s3Encryption.getObjectAsString(BUCKET_NAME, ENCRYPTED_KEY));
+        System.out.println(s3Encryption.getObjectAsString(BUCKET_NAME, NON_ENCRYPTED_KEY));
         // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_put_object]
-        // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_exception]
+    }
+    // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption]
+
+    /**
+     * Same as authenticatedEncryption_KmsManagedKey except throws an exception when trying to get objects not encrypted with
+     * AES/GCM.
+     */
+    // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict]
+    public void strictAuthenticatedEncryption_KmsManagedKey() throws NoSuchAlgorithmException {
+        // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_builder]
+        AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
+                .standard()
+                .withRegion(Regions.US_WEST_2)
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
+                // Can either be Key ID or alias (prefixed with 'alias/')
+                .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
+                .build();
+
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_builder]
+
+        // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_put_object]
+        s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
+        s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
+        // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_put_object]
+        // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_exception]
         try {
             s3Encryption.getObjectAsString(BUCKET_NAME, NON_ENCRYPTED_KEY);
         } catch (SecurityException e) {
@@ -339,9 +347,9 @@ public class S3Encrypt {
             System.err.println(NON_ENCRYPTED_KEY + " was not encrypted with AES/GCM");
         }
 
-        // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_exception]
+        // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_exception]
     }
-    // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption]
+    // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict]
 
 }
 // snippet-end:[s3.java1.s3_encrypt.complete]
