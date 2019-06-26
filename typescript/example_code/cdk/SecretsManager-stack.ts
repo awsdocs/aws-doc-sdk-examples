@@ -37,11 +37,9 @@ export class SecretsManagerStack extends cdk.Stack {
       // If the secret is encrypted using a KMS-hosted CMK, either import or reference that key:
       // Key,
     });
-// snippet-end:[cdk.typescript.secrets_manager_stack_code]
+    // snippet-end:[cdk.typescript.secrets_manager_stack_code]
 
-    new s3.Bucket(this, "MySecretBucket", {
-      bucketName: secret.secretValue.toString()
-    });
+    s3.Bucket.fromBucketName(this, "MySecretBucket", secret.secretValue.toString());
   }
 }
 // snippet-end:[cdk.typescript.secrets_manager_stack]
