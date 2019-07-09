@@ -1,12 +1,36 @@
+// snippet-sourceauthor:[tokiwong]
+// snippet-sourcedescription:[Retrieves cost and usage metrics for your account]
+// snippet-keyword:[Amazon Cost Explorer]
+// snippet-keyword:[Amazon CE]
+// snippet-keyword:[GetCostAndUsage function]
+// snippet-keyword:[Go]
+// snippet-service:[ce]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[snippet]
+// snippet-sourcedate:[2019-07-09]
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+
 package main
 
 import (
 	"fmt"
 	"os"
 
-	aws "github.com/aws/aws-sdk-go/aws"
-	session "github.com/aws/aws-sdk-go/aws/session"
-	ce "github.com/aws/aws-sdk-go/service/costexplorer"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/costexplorer"
 )
 
 func main() {
@@ -26,16 +50,16 @@ func main() {
 	)
 
 	// Create Cost Explorer Service Client
-	svc := ce.New(sess)
+	svc := costexplorer.New(sess)
 
-	result, err := svc.GetCostAndUsage(&ce.GetCostAndUsageInput{
-		TimePeriod: &ce.DateInterval{
+	result, err := svc.GetCostAndUsage(&costexplorer.GetCostAndUsageInput{
+		TimePeriod: &costexplorer.DateInterval{
 			Start: aws.String(start),
 			End:   aws.String(end),
 		},
 		Granularity: aws.String(granularity),
-		GroupBy: []*ce.GroupDefinition{
-			&ce.GroupDefinition{
+		GroupBy: []*costexplorer.GroupDefinition{
+			&costexplorer.GroupDefinition{
 				Type: aws.String("DIMENSION"),
 				Key:  aws.String("SERVICE"),
 			},
