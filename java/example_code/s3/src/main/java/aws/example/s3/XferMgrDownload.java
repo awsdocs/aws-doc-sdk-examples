@@ -21,6 +21,7 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+// snippet-start:[s3.java1.s3_xfer_mgr_download.import]
 import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.TransferManager;
@@ -28,7 +29,9 @@ import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Download;
 import com.amazonaws.services.s3.transfer.MultipleFileDownload;
 import java.io.File;
+// snippet-end:[s3.java1.s3_xfer_mgr_download.import]
 
+// snippet-start:[s3.java1.s3_xfer_mgr_download.complete]
 /**
  * Download objects from an Amazon S3 bucket using S3 TransferManager.
  *
@@ -43,6 +46,7 @@ public class XferMgrDownload
         System.out.println("downloading to directory: " + dir_path +
               (pause ?  " (pause)" : ""));
 
+        // snippet-start:[s3.java1.s3_xfer_mgr_download.directory]
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
 
         try {
@@ -57,6 +61,7 @@ public class XferMgrDownload
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_download.directory]
     }
 
     public static void downloadFile(String bucket_name, String key_name,
@@ -65,6 +70,7 @@ public class XferMgrDownload
         System.out.println("Downloading to file: " + file_path +
               (pause ? " (pause)" : ""));
 
+        // snippet-start:[s3.java1.s3_xfer_mgr_download.single]
         File f = new File(file_path);
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
@@ -78,6 +84,7 @@ public class XferMgrDownload
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_download.single]
     }
 
     public static void main(String[] args)
@@ -181,3 +188,4 @@ public class XferMgrDownload
         }
     }
 }
+// snippet-end:[s3.java1.s3_xfer_mgr_download.complete]

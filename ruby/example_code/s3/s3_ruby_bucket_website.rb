@@ -1,3 +1,4 @@
+
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourceauthor:[Doug-AWS]
 # snippet-sourcedescription:[Creates, populates, and deletes a static website from an S3 bucket.]
@@ -69,7 +70,7 @@ s3.put_bucket_website(
 
 # Accessing as a Website
 index_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/"
-error_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/nonexistant.html"
+error_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/nonexistent.html"
 
 puts "Index Page Contents:\n#{Net::HTTP.get(URI(index_path))}\n\n"
 puts "Error Page Contents:\n#{Net::HTTP.get(URI(error_path))}\n\n"

@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[cloudwatch.java.enable_alarm_actions.complete]
+// snippet-start:[cloudwatch.java2.enable_alarm_actions.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -21,11 +21,11 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java.enable_alarm_actions.import]
+// snippet-start:[cloudwatch.java2.enable_alarm_actions.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsResponse;
-// snippet-end:[cloudwatch.java.enable_alarm_actions.import]
+// snippet-end:[cloudwatch.java2.enable_alarm_actions.import]
 
 /**
  * Enables actions on a CloudWatch alarm
@@ -45,7 +45,7 @@ public class EnableAlarmActions {
 
         String alarm = args[0];
 
-        // snippet-start:[cloudwatch.java.enable_alarm_actions.main]
+        // snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
         CloudWatchClient cw =
         		CloudWatchClient.builder().build();
 
@@ -53,10 +53,10 @@ public class EnableAlarmActions {
             .alarmNames(alarm).build();
 
         EnableAlarmActionsResponse response = cw.enableAlarmActions(request);
-        // snippet-end:[cloudwatch.java.enable_alarm_actions.main]
+        // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
 
         System.out.printf(
             "Successfully enabled actions on alarm %s", alarm);
     }
 }
-// snippet-end:[cloudwatch.java.enable_alarm_actions.complete]
+// snippet-end:[cloudwatch.java2.enable_alarm_actions.complete]

@@ -69,7 +69,7 @@ public class LongPolling
         // Enable long polling on a message receipt
         ReceiveMessageRequest receive_request = new ReceiveMessageRequest()
                 .withQueueUrl(queue_url)
-                .withWaitTimeSeconds(20);
+                .withWaitTimeSeconds(40);
         sqs.receiveMessage(receive_request);
     }
 }

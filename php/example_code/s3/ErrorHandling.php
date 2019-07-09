@@ -54,6 +54,10 @@ try {
     echo $e->getAwsRequestId() . "\n";
     echo $e->getAwsErrorType() . "\n";
     echo $e->getAwsErrorCode() . "\n";
+
+    // This dumps any modeled response data, if supported by the service
+    // Specific members can be accessed directly (e.g. $e['MemberName'])
+    var_dump($e->toArray());
 }
 
 // snippet-end:[s3.php.error_handling.client]

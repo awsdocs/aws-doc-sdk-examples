@@ -22,6 +22,7 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+// snippet-start:[s3.java1.s3_xfer_mgr_upload.import]
 import aws.example.s3.XferMgrProgress;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.TransferManager;
@@ -31,7 +32,9 @@ import com.amazonaws.services.s3.transfer.MultipleFileUpload;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+// snippet-end:[s3.java1.s3_xfer_mgr_upload.import]
 
+// snippet-start:[s3.java1.s3_xfer_mgr_upload.complete]
 /**
  * Upload objects to an Amazon S3 bucket using S3 TransferManager.
  *
@@ -46,6 +49,7 @@ public class XferMgrUpload
         System.out.println("directory: " + dir_path + (recursive ?
                     " (recursive)" : "") + (pause ? " (pause)" : ""));
 
+        // snippet-start:[s3.java1.s3_xfer_mgr_upload.directory]
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
             MultipleFileUpload xfer = xfer_mgr.uploadDirectory(bucket_name,
@@ -59,6 +63,7 @@ public class XferMgrUpload
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_upload.directory]
     }
 
     public static void uploadFileList(String[] file_paths, String bucket_name,
@@ -68,6 +73,7 @@ public class XferMgrUpload
                 (pause ? " (pause)" : ""));
         // convert the file paths to a list of File objects (required by the
         // uploadFileList method)
+        // snippet-start:[s3.java1.s3_xfer_mgr_upload.list_of_files]
         ArrayList<File> files = new ArrayList<File>();
         for (String path : file_paths) {
             files.add(new File(path));
@@ -86,6 +92,7 @@ public class XferMgrUpload
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_upload.list_of_files]
     }
 
     public static void uploadFile(String file_path, String bucket_name,
@@ -101,6 +108,7 @@ public class XferMgrUpload
             key_name = file_path;
         }
 
+        // snippet-start:[s3.java1.s3_xfer_mgr_upload.single]
         File f = new File(file_path);
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
@@ -114,6 +122,7 @@ public class XferMgrUpload
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_upload.single]
     }
 
     public static void main(String[] args)
@@ -204,3 +213,4 @@ public class XferMgrUpload
         } // else: nothing to do.
     }
 }
+// snippet-end:[s3.java1.s3_xfer_mgr_upload.complete]

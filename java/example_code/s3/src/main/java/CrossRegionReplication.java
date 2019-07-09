@@ -25,7 +25,9 @@
 // snippet-start:[s3.java.cross_region_replication.complete]
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.amazonaws.AmazonServiceException;
@@ -34,10 +36,16 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.BucketReplicationConfiguration;
+import com.amazonaws.services.s3.model.DeleteMarkerReplication;
+import com.amazonaws.services.s3.model.DeleteMarkerReplicationStatus;
 import com.amazonaws.services.s3.model.ReplicationDestinationConfig;
 import com.amazonaws.services.s3.model.ReplicationRule;
 import com.amazonaws.services.s3.model.ReplicationRuleStatus;
 import com.amazonaws.services.s3.model.StorageClass;
+import com.amazonaws.services.s3.model.replication.ReplicationAndOperator;
+import com.amazonaws.services.s3.model.replication.ReplicationFilter;
+import com.amazonaws.services.s3.model.replication.ReplicationFilterPredicate;
+import com.amazonaws.services.s3.model.replication.ReplicationPrefixPredicate;
 
 public class CrossRegionReplication {
 
