@@ -39,8 +39,8 @@ export class WidgetService extends cdk.Construct {
     const bucket = new s3.Bucket(this, "WidgetStore");
 
     const handler = new lambda.Function(this, "WidgetHandler", {
-      runtime: lambda.Runtime.NodeJS810, // So we can use async in widget.js
-      code: lambda.Code.directory("resources"),
+      runtime: lambda.Runtime.Nodejs810, // So we can use async in widget.js
+      code: lambda.Code.asset("resources"),
       handler: "widgets.main",
       environment: {
         BUCKET: bucket.bucketName

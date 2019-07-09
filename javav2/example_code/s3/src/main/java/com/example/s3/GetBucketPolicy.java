@@ -19,8 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
-// snippet-start:[s3.java.get_bucket_policy.complete]
-// snippet-start:[s3.java.get_bucket_policy.import]
+// snippet-start:[s3.java2.get_bucket_policy.complete]
+// snippet-start:[s3.java2.get_bucket_policy.import]
 
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
@@ -28,14 +28,14 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetBucketPolicyRequest;
 import software.amazon.awssdk.services.s3.model.GetBucketPolicyResponse;
  
-// snippet-end:[s3.java.get_bucket_policy.import]
+// snippet-end:[s3.java2.get_bucket_policy.import]
 /**
 * Get the bucket policy from an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
 */
-// snippet-start:[s3.java.get_bucket_policy.main]
+// snippet-start:[s3.java2.get_bucket_policy.main]
 public class GetBucketPolicy
 {
    public static void main(String[] args)
@@ -86,5 +86,5 @@ public class GetBucketPolicy
    }
 }
  
-// snippet-end:[s3.java.get_bucket_policy.main]
-// snippet-end:[s3.java.get_bucket_policy.complete]
+// snippet-end:[s3.java2.get_bucket_policy.main]
+// snippet-end:[s3.java2.get_bucket_policy.complete]

@@ -5,8 +5,8 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[workdocs.java.download_user_docs.complete]
-// snippet-start:[workdocs.java.download_user_docs.import]
+// snippet-start:[workdocs.java2.download_user_docs.complete]
+// snippet-start:[workdocs.java2.download_user_docs.import]
 package com.example.workdocs;
 
 import java.io.InputStream;
@@ -31,8 +31,8 @@ import software.amazon.awssdk.services.workdocs.model.DocumentVersionMetadata;
 import software.amazon.awssdk.services.workdocs.model.GetDocumentVersionRequest;
 import software.amazon.awssdk.services.workdocs.model.GetDocumentVersionResponse;
 import software.amazon.awssdk.services.workdocs.model.User;
-// snippet-end:[workdocs.java.download_user_docs.import]
-// snippet-start:[workdocs.java.download_user_docs.main]
+// snippet-end:[workdocs.java2.download_user_docs.import]
+// snippet-start:[workdocs.java2.download_user_docs.main]
 public class download_user_doc {
 
 	private static String get_user_folder(WorkDocsClient workDocs, String orgId, String user) throws Exception {
@@ -166,5 +166,5 @@ public class download_user_doc {
 		}
 	}
 }
-// snippet-end:[workdocs.java.download_user_docs.main]
-// snippet-end:[workdocs.java.download_user_docs.complete]
+// snippet-end:[workdocs.java2.download_user_docs.main]
+// snippet-end:[workdocs.java2.download_user_docs.complete]

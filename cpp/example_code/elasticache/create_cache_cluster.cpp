@@ -42,7 +42,7 @@ int main(int argc, char ** argv)
     Aws::String cluster_id(argv[1]);
     Aws::String engine(argv[2]);
     Aws::String cache_node_type(argv[3]);
-    int num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt64(argv[4]);
+    auto num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt32(argv[4]);
 
     Aws::ElastiCache::ElastiCacheClient elasticache;
 

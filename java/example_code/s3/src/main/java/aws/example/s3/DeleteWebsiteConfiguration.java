@@ -20,20 +20,23 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+// snippet-start:[s3.java1.s3_delete_website_config.import]
+
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.AmazonServiceException;
+// snippet-end:[s3.java1.s3_delete_website_config.import]
 
 /**
  * Delete the website configuration for an S3 bucket.
- *
+ * <p>
  * This code expects that you have AWS credentials delete up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/deleteup-credentials.html
  */
-public class DeleteWebsiteConfiguration
-{
-    public static void deleteWebsiteConfig(String bucket_name)
-    {
+// snippet-start:[s3.java1.s3_delete_website_config.complete]
+public class DeleteWebsiteConfiguration {
+    public static void deleteWebsiteConfig(String bucket_name) {
+        // snippet-start:[s3.java1.s3_delete_website_config.main]
         final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         try {
             s3.deleteBucketWebsiteConfiguration(bucket_name);
@@ -42,15 +45,15 @@ public class DeleteWebsiteConfiguration
             System.out.println("Failed to delete website configuration!");
             System.exit(1);
         }
+        // snippet-end:[s3.java1.s3_delete_website_config.main]
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "DeleteWebsiteConfiguration - delete the website configuration for an S3 bucket\n\n" +
-            "Usage: DeleteWebsiteConfiguration <bucket>\n\n" +
-            "Where:\n" +
-            "   bucket   - the bucket to delete the website configuration from\n";
+                "DeleteWebsiteConfiguration - delete the website configuration for an S3 bucket\n\n" +
+                "Usage: DeleteWebsiteConfiguration <bucket>\n\n" +
+                "Where:\n" +
+                "   bucket   - the bucket to delete the website configuration from\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -60,8 +63,9 @@ public class DeleteWebsiteConfiguration
         final String bucket_name = args[0];
 
         System.out.format("Deleting website configuration for bucket: %s\n",
-            bucket_name);
+                bucket_name);
         deleteWebsiteConfig(bucket_name);
         System.out.println("Done!");
     }
 }
+// snippet-end:[s3.java1.s3_delete_website_config.complete]

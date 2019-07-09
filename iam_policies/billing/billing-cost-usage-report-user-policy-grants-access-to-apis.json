@@ -13,9 +13,10 @@
         {
             "Effect": "Allow",
             "Action": [
-                "cur:PutReportDefinitions",
-                "cur:DescribeReportDefinition",
-                "cur:DeleteReportDefinition"
+                "cur:DeleteReportDefinition",
+                "cur:DescribeReportDefinitions",
+                "cur:PutReportDefinition"
+
             ],
             "Resource": [
                 "*"

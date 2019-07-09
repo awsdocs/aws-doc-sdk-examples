@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient 
+//Create a KmsClient 
 // snippet-start:[kms.php.create_grant.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',

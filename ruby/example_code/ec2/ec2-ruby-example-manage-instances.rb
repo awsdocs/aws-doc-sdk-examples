@@ -87,7 +87,7 @@ describe_instances_result.reservations.each do |reservation|
       puts "State: #{instance.state.name}"
       puts "Image ID: #{instance.image_id}"
       puts "Instance Type: #{instance.instance_type}"
-      puts "Architecure: #{instance.architecture}"
+      puts "Architecture: #{instance.architecture}"
       puts "IAM Instance Profile: #{instance.iam_instance_profile}"
       puts "Key Name: #{instance.key_name}"
       puts "Launch Time: #{instance.launch_time}"

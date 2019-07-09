@@ -45,7 +45,7 @@ $resourceKey = 'https://example-distribution.cloudfront.net/videos/example.mp4';
 $expires = time() + 300;
 
 // Create a signed cookie for the resource using the canned policy
-$signedCookieCannedPolicy = $cloudFront->getSignedCookie([
+$signedCookieCannedPolicy = $client->getSignedCookie([
     'url' => $resourceKey,
     'expires' => $expires,
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
