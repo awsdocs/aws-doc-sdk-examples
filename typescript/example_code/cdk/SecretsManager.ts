@@ -2,12 +2,12 @@
 // snippet-comment:[This is a full sample when you include SecretsManager-stack.ts, which goes in the lib dir.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[SecretsManager.ts creates a stack using SecrectsManager-stack.ts.]
-// snippet-keyword:[CDK V0.28.0]
+// snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-4-5]
+// snippet-sourcedate:[2019-7-11]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").

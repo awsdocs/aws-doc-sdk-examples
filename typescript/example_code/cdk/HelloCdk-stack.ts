@@ -3,7 +3,7 @@
 // snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[HelloCdk-stack.ts creates a stack with an SQS queue, SNS topic, subscribes the queue to the topic, and sets a CloudWatch metric and alarm on the SQS queue.]
-// snippet-keyword:[CDK V0.24.1]
+// snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[sqs.Queue function]
 // snippet-keyword:[sns.Topic function]
 // snippet-keyword:[Topic.subscribeQueue function]
@@ -13,7 +13,7 @@
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-2-13]
+// snippet-sourcedate:[2019-7-11]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
