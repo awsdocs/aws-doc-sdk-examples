@@ -20,10 +20,10 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.MyApp]
-import cdk = require("@aws-cdk/cdk");
+import core = require("@aws-cdk/core");
 import { MyStack } from "../lib/MyApp-stack";
 
-const app = new cdk.App();
+const app = new core.App();
 
 new MyStack(app, "MyWestCdkStack", {
   env: {
