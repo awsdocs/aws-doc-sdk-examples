@@ -20,6 +20,7 @@
  */
 package aws.example.helloswf;
 
+//snippet-start:[swf.java.activity_worker_with_graceful_shutdown.complete]
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -111,3 +112,4 @@ public class ActivityWorkerWithGracefulShutdown {
         }
     }
 }
+//snippet-end:[swf.java.activity_worker_with_graceful_shutdown.complete]
