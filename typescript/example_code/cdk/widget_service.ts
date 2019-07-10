@@ -4,7 +4,7 @@
 // snippet-comment:[and widgets.js in the resources/ directory.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Creates an S3 bucket, handler for HTTP requests, and API Gateway to Lambda functions.]
-// snippet-keyword:[CDK V0.24.1]
+// snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[ApiGateway.LambdaIntegration function]
 // snippet-keyword:[ApiGateway.RestApi function]
 // snippet-keyword:[Bucket.grantReadWrite function]
@@ -14,7 +14,7 @@
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-2-8]
+// snippet-sourcedate:[2019-7-11]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -39,7 +39,7 @@ export class WidgetService extends core.Construct {
     const bucket = new s3.Bucket(this, "WidgetStore");
 
     const handler = new lambda.Function(this, "WidgetHandler", {
-      runtime: lambda.Runtime.Nodejs810, // So we can use async in widget.js
+      runtime: lambda.Runtime.NODEJS_8_10, // So we can use async in widget.js
       code: lambda.Code.asset("resources"),
       handler: "widgets.main",
       environment: {

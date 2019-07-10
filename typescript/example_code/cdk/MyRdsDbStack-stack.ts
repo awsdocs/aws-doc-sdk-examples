@@ -2,7 +2,7 @@
 // snippet-comment:[This is a full sample when you include MyRdsDbStack.ts, which goes in the bin dir.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[Instantiates the stack in MyRdsDbStack.ts.]
-// snippet-keyword:[CDK V0.32.0]
+// snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[AWS CDK]
 // snippet-keyword:[aws-ec2.Vpc function]
 // snippet-keyword:[aws-rds.DatabaseCluster function]
@@ -10,7 +10,7 @@
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-6-4]
+// snippet-sourcedate:[2019-7-11]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
