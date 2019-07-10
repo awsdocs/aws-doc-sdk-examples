@@ -23,12 +23,12 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.MyRdsDbStack-stack]
-import cdk = require("@aws-cdk/cdk");
+import core = require("@aws-cdk/core");
 import ec2 = require("@aws-cdk/aws-ec2");
 import rds = require("@aws-cdk/aws-rds");
 
-export class MyRdsDbStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class MyRdsDbStack extends core.Stack {
+  constructor(scope: core.App, id: string, props?: core.StackProps) {
     super(scope, id, props);
 
     const vpc = new ec2.Vpc(this, "VPC");
@@ -38,15 +38,14 @@ export class MyRdsDbStack extends cdk.Stack {
       masterUser: {
         username: "admin"
       },
-      engine: rds.DatabaseClusterEngine.Aurora,
+      engine: rds.DatabaseClusterEngine.AURORA,
       instanceProps: {
-        instanceType: new ec2.InstanceTypePair(
-          ec2.InstanceClass.Burstable2,
-          ec2.InstanceSize.Small
+        instanceType: new ec2.InstanceType(
+          ec2.InstanceClass.BURSTABLE2
         ),
         vpc: vpc,
         vpcSubnets: {
-          subnetType: ec2.SubnetType.Public
+          subnetType: ec2.SubnetType.PUBLIC
         }
       }
     });

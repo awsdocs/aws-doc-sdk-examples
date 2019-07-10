@@ -26,24 +26,24 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.HelloCdk-stack]
-import cdk = require("@aws-cdk/cdk");
+import core = require("@aws-cdk/core");
 import cloudwatch = require("@aws-cdk/aws-cloudwatch");
 import sns = require("@aws-cdk/aws-sns");
 import sqs = require("@aws-cdk/aws-sqs");
 import subscriptions = require("@aws-cdk/aws-sns-subscriptions");
 
-export class HelloCdkStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class HelloCdkStack extends core.Stack {
+  constructor(scope: core.App, id: string, props?: core.StackProps) {
     super(scope, id, props);
 
     const queue = new sqs.Queue(this, "HelloCdkQueue", {
-      visibilityTimeoutSec: 300
+      visibilityTimeout: core.Duration.seconds(300)
     });
 
     const topic = new sns.Topic(this, "HelloCdkTopic");
 
     const sub = new subscriptions.SqsSubscription(queue, {});
-    sub.bind(this, topic);
+    sub.bind(topic);
 
     // Raise an alarm if we have more than 100 messages available for retrieval
     // in two of the last three seconds
