@@ -327,7 +327,7 @@ public class S3Encrypt {
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.AuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
+                .withCryptoConfiguration(new CryptoConfiguration(CryptoMode.StrictAuthenticatedEncryption).withAwsKmsRegion(Region.getRegion(Regions.US_WEST_2)))
                 // Can either be Key ID or alias (prefixed with 'alias/')
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
