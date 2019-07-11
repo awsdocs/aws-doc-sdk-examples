@@ -1,12 +1,12 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[integ.event-task.lit.ts starts an ECS task on an EC2-backed cluster.]
-// snippet-keyword:[CDK V0.24.1]
+// snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[TypeScript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2019-2-11]
+// snippet-sourcedate:[2019-7-11]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
