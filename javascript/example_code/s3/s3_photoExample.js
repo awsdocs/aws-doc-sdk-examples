@@ -118,7 +118,7 @@ function viewAlbum(albumName) {
     if (err) {
       return alert('There was an error viewing your album: ' + err.message);
     }
-    // `this` references the AWS.Response instance that represents the response
+    // 'this' references the AWS.Response instance that represents the response
     var href = this.request.httpRequest.endpoint.href;
     var bucketUrl = href + albumBucketName + '/';
 
@@ -138,7 +138,7 @@ function viewAlbum(albumName) {
               photoKey.replace(albumPhotosKey, ''),
             '</span>',
           '</div>',
-        '<span>',
+        '</span>',
       ]);
     });
     var message = photos.length ?

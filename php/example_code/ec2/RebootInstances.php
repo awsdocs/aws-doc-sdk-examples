@@ -33,7 +33,7 @@ use Aws\Ec2\Ec2Client;
  */
  
 // snippet-start:[ec2.php.reboot_instance.main]
-$client = new Aws\Ec2\Ec2Client([
+$ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'

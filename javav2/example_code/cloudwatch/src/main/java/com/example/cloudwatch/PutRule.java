@@ -5,6 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.put_rule.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,10 +21,12 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.put_rule.import]
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutRuleRequest;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutRuleResponse;
 import software.amazon.awssdk.services.cloudwatchevents.model.RuleState;
+// snippet-end:[cloudwatch.java2.put_rule.import]
 
 /**
  * Creates a CloudWatch event-routing rule
@@ -44,6 +47,7 @@ public class PutRule {
         String rule_name = args[0];
         String role_arn = args[1];
 
+        // snippet-start:[cloudwatch.java2.put_rule.main]
         CloudWatchEventsClient cwe =
         		CloudWatchEventsClient.builder().build();
 
@@ -55,9 +59,11 @@ public class PutRule {
             .build();
 
         PutRuleResponse response = cwe.putRule(request);
+        // snippet-end:[cloudwatch.java2.put_rule.main]
 
         System.out.printf(
             "Successfully created CloudWatch events rule %s with arn %s",
             rule_name, response.ruleArn());
     }
 }
+// snippet-end:[cloudwatch.java2.put_rule.complete]

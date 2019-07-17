@@ -61,7 +61,7 @@ int main(int argc, char ** argv)
     auto urd_out = codecommit.UpdateRepositoryDescription(urd_req);
     auto urn_out = codecommit.UpdateRepositoryName(urn_req);
 
-    if (urd_out.IsSuccess() and urn_out.IsSuccess())
+    if (urd_out.IsSuccess() && urn_out.IsSuccess())
     {
       std::cout << "Successfully updated repository."
                 << std::endl;

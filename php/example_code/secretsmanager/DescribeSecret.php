@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+// snippet-start:[secretsmanager.php.describe_secret.complete]
+// snippet-start:[secretsmanager.php.describe_secret.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.describe_secret.import]
 
 /**
  * Retrieve details about a secret from AWS Secret Manager
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client
+//Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.describe_secret.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -49,7 +53,9 @@ try {
     echo "\n";
 }
 
-
+ 
+// snippet-end:[secretsmanager.php.describe_secret.main]
+// snippet-end:[secretsmanager.php.describe_secret.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DescribeSecret.php demonstrates how to retrieve details about a secrets from the AWS Secrets Manager]
 // snippet-keyword:[PHP]

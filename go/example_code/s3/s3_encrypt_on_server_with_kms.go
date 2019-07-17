@@ -69,5 +69,5 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Added object " + obj + " to bucket " + bucket + " with AWS KMS encryption")
+    fmt.Println("Added object " + object + " to bucket " + bucket + " with AWS KMS encryption")
 }

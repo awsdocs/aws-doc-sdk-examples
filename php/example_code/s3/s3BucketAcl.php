@@ -16,13 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-access-permissions.html
  *
  */
+// snippet-start:[s3.php.put_bucket_acl.complete]
+// snippet-start:[s3.php.put_bucket_acl.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+// snippet-end:[s3.php.put_bucket_acl.import]
 
-// Create a S3Client
+
+// Create a S3Client 
+// snippet-start:[s3.php.put_bucket_acl.main]
 $s3Client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -78,7 +83,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[s3.php.put_bucket_acl.main]
+// snippet-end:[s3.php.put_bucket_acl.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[s3BucketAcl.php demonstrates how to set the permissions on a bucket using access control lists (ACL).]
 // snippet-keyword:[PHP]

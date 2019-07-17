@@ -85,7 +85,7 @@ public class SendMessages {
             Map<String,AddressConfiguration> addressMap = 
                 new HashMap<String,AddressConfiguration>();
                
-            addressMap.put(senderAddress, new AddressConfiguration()
+            addressMap.put(toAddress, new AddressConfiguration()
                 .withChannelType(ChannelType.EMAIL));
                
             AmazonPinpoint client = AmazonPinpointClientBuilder.standard()

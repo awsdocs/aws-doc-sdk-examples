@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[04-query-test.js demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[JavaScript]
 // snippet-keyword:[Amazon DynamoDB]

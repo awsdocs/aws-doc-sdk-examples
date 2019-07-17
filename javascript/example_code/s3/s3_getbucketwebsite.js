@@ -34,7 +34,8 @@ AWS.config.update({region: 'REGION'});
 s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 var bucketParams = {Bucket: process.argv[2]};
-// call S3 to retrieve policy for selected bucket
+
+// call S3 to retrieve the website configuration for selected bucket
 s3.getBucketWebsite(bucketParams, function(err, data) {
   if (err) {
     console.log("Error", err);

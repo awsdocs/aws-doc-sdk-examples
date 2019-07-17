@@ -20,12 +20,16 @@
  * limitations under the License.
  */
 package com.example.dynamodb;
+// snippet-start:[dynamodb.java2.sync_pagination.complete]
+// snippet-start:[dynamodb.java2.sync_pagination.import]
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
+// snippet-end:[dynamodb.java2.sync_pagination.import]
 
+// snippet-start:[dynamodb.java2.sync_pagination.main]
 public class SyncPagination {
 
     public static void main(String[] args) {
@@ -89,23 +93,27 @@ public class SyncPagination {
 
         ListTablesIterable responses = client.listTablesPaginator(listTablesRequest);
 
+
         System.out.println("AutoPagination: using for loop");
         for (final ListTablesResponse response : responses) {
             System.out.println(response.tableNames());
         }
         
         // Print the table names using the responses stream
+
         System.out.println("AutoPagination: using stream");
 
         responses.stream().forEach(response -> System.out.println(response.tableNames()));
 
         // Convert the stream of responses to stream of table names, then print the table names
+
         System.out.println("AutoPagination: using flatmap to get stream of table names");
 
         responses.stream()
                  .flatMap(response -> response.tableNames().stream())
                  .forEach(System.out::println);
         
+
         System.out.println("AutoPagination: iterating directly on the table names");
 
         Iterable<String> tableNames = responses.tableNames();
@@ -113,6 +121,7 @@ public class SyncPagination {
     }
     
     private static void AutoPaginationWithResume() {
+
         System.out.println("running AutoPagination with resume in case of errors...\n");
 
         final DynamoDbClient client = DynamoDbClient.create();
@@ -133,4 +142,5 @@ public class SyncPagination {
         }
     }
 }
-
+// snippet-end:[dynamodb.java2.sync_pagination.main] 
+// snippet-end:[dynamodb.java2.sync_pagination.complete]

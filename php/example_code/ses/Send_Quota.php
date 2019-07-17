@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-send-email.html
  *
  */
+// snippet-start:[ses.php.send_quota.complete]
+// snippet-start:[ses.php.send_quota.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.send_quota.import]
 
 //Create a SESClient
+// snippet-start:[ses.php.send_quota.main]
 $SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -44,7 +48,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.send_quota.main]
+// snippet-end:[ses.php.send_quota.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Send_Quota.php demonstrates how to retrieve metrics for messages you've sent in the past two weeks.]
 // snippet-keyword:[PHP]

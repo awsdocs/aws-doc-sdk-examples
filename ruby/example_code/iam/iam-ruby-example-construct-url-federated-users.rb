@@ -87,5 +87,6 @@ issuer_param = "&Issuer=" + CGI.escape(issuer_url)
 destination_param = "&Destination=" + CGI.escape(console_url)
 login_url = signin_url + "?Action=login" + signin_token_param + 
 issuer_param + destination_param
+puts 'Login URL: ' + login_url
 # snippet-end:[iam.ruby.construct-url-federated-users.complete]
 

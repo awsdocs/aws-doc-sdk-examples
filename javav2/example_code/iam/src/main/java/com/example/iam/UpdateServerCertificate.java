@@ -20,11 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.update_server_certificate.complete]
+// snippet-start:[iam.java2.update_server_certificate.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateResponse;
-
+ 
+// snippet-end:[iam.java2.update_server_certificate.import]
 /**
  * Updates a server certificate name
  */
@@ -44,6 +47,7 @@ public class UpdateServerCertificate {
         String cur_name = args[0];
         String new_name = args[1];
 
+        // snippet-start:[iam.java2.update_server_certificate.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -55,8 +59,11 @@ public class UpdateServerCertificate {
 
         UpdateServerCertificateResponse response =
             iam.updateServerCertificate(request);
+        // snippet-end:[iam.java2.update_server_certificate.main]
 
         System.out.printf("Successfully updated server certificate to name %s",
                 new_name);
     }
 }
+ 
+// snippet-end:[iam.java2.update_server_certificate.complete]

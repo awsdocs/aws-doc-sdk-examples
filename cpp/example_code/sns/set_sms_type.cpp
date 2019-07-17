@@ -1,13 +1,11 @@
- 
 //snippet-sourcedescription:[set_sms_type.cpp demonstrates how to use Amazon SNS to set default SMS attributes.]
+//snippet-service:[sns]
+//snippet-keyword:[Amazon Simple Notification Service]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -45,7 +43,7 @@ int main(int argc, char ** argv)
     Aws::String sms_type = argv[1];
 
     Aws::SNS::Model::SetSMSAttributesRequest ssmst_req;
-    ssmst_req.AddAttributes("DefaultSMSStype", sms_type);
+    ssmst_req.AddAttributes("DefaultSMStype", sms_type);
 
     auto ssmst_out = sns.SetSMSAttributes(ssmst_req);
 

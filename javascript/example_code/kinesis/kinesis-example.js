@@ -26,14 +26,15 @@
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/kinesis-examples-capturing-page-scrolling-full.html
 
-// snippet-start:[kinesis.JavaScript.pageScroll.kinesis-example]
+// snippet-start:[kinesis.JavaScript.kinesis-example.complete]
+// snippet-start:[kinesis.JavaScript.kinesis-example.config]
 // Configure Credentials to use Cognito
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: 'IDENTITY_POOL_ID'
 });
 
 AWS.config.region = 'REGION';
-// We're going to partition kinesis records based on an identity.
+// We're going to partition Amazon Kinesis records based on an identity.
 // We need to get credentials first, then attach our event listeners.
 AWS.config.credentials.get(function(err) {
     // attach event listener
@@ -42,11 +43,14 @@ AWS.config.credentials.get(function(err) {
         console.error(err);
         return;
     }
-    // create kinesis client once
+    // create Amazon Kinesis service object
     var kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
     });
+    // snippet-end:[kinesis.JavaScript.kinesis-example.config]
 
+    // snippet-start:[kinesis.JavaScript.kinesis-example.addEventListener]
+    // Get the ID of the Web page element.
     var blogContent = document.getElementById('BlogContent');
 
     // Get Scrollable height
@@ -66,7 +70,7 @@ AWS.config.credentials.get(function(err) {
             var scrollTopPercentage = Math.round((scrollTop / scrollHeight) * 100);
             var scrollBottomPercentage = Math.round(((scrollTop + scrollableHeight) / scrollHeight) * 100);
 
-            // Create the kinesis record
+            // Create the Amazon Kinesis record
             var record = {
                 Data: JSON.stringify({
                     blog: window.location.href,
@@ -79,16 +83,18 @@ AWS.config.credentials.get(function(err) {
             recordData.push(record);
         }, 100);
     });
+    // snippet-end:[kinesis.JavaScript.kinesis-example.addEventListener]
 
-    // upload data to kinesis every second if data exists
+    // snippet-start:[kinesis.JavaScript.kinesis-example.putRecords]
+    // upload data to Amazon Kinesis every second if data exists
     setInterval(function() {
         if (!recordData.length) {
             return;
         }
-        // upload data to kinesis
+        // upload data to Amazon Kinesis
         kinesis.putRecords({
             Records: recordData,
-            StreamName: 'blog_stats'
+            StreamName: 'NAME_OF_STREAM'
         }, function(err, data) {
             if (err) {
                 console.error(err);
@@ -98,4 +104,5 @@ AWS.config.credentials.get(function(err) {
         recordData = [];
     }, 1000);
 });
-// snippet-end:[kinesis.JavaScript.pageScroll.kinesis-example]
+// snippet-end:[kinesis.JavaScript.kinesis-example.putRecords]
+// snippet-end:[kinesis.JavaScript.kinesis-example.complete]
