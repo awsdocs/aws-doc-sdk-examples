@@ -32,7 +32,7 @@ export class HelloCdkStack extends core.Stack {
     // snippet-start:[cdk.typescript.hello-cdk-stack.version2_bucket]
 new s3.Bucket(this, 'MyFirstBucket', {
   versioned: true,
-  encryption: s3.BucketEncryption.KmsManaged
+  encryption: s3.BucketEncryption.KMS_MANAGED
 });
     // snippet-end:[cdk.typescript.hello-cdk-stack.version2_bucket]    
   }
