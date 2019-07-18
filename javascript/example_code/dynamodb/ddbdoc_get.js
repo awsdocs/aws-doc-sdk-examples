@@ -26,14 +26,14 @@
 
 // snippet-start:[dynamodb.JavaScript.docClient.get]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'REGION'});
 
 // Create DynamoDB document client
-var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
+const docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 
-var params = {
+const params = {
  TableName: 'EPISODES_TABLE',
  Key: {'KEY_NAME': VALUE}
 };
@@ -42,7 +42,16 @@ docClient.get(params, function(err, data) {
   if (err) {
     console.log("Error", err);
   } else {
-    console.log("Success", data.Item);
+    
   }
 });
+
+(async () => {
+  try {
+    const data = await docClient.get(params).promise();
+    console.log("Success", data.Item);
+  } catch (err) {
+    console.log("Error", err);
+  }
+})();
 // snippet-end:[dynamodb.JavaScript.docClient.get]

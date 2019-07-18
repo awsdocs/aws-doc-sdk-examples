@@ -26,19 +26,19 @@
 
 // snippet-start:[dynamodb.JavaScript.table.listTables]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'REGION'});
 
 // Create the DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-// Call DynamoDB to retrieve the list of tables
-ddb.listTables({Limit: 10}, function(err, data) {
-  if (err) {
-    console.log("Error", err.code);
-  } else {
+(async () => {
+  try {
+    const data = await ddb.listTables(params).promise();
     console.log("Table names are ", data.TableNames);
+  } catch (err) {
+    console.log("Error", err);
   }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.table.listTables]

@@ -26,25 +26,27 @@
 
 // snippet-start:[dynamodb.JavaScript.table.deleteTable]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'REGION'});
 
 // Create the DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-var params = {
+const params = {
   TableName: process.argv[2]
 };
 
-// Call DynamoDB to delete the specified table
-ddb.deleteTable(params, function(err, data) {
-  if (err && err.code === 'ResourceNotFoundException') {
-    console.log("Error: Table not found");
-  } else if (err && err.code === 'ResourceInUseException') {
-    console.log("Error: Table in use");
-  } else {
+(async () => {
+  try {
+    const data = await ddb.deleteTable(params).promise();
     console.log("Success", data);
+  } catch (err) {
+    if (err && err.code === 'ResourceNotFoundException') {
+      console.log("Error: Table not found");
+    } else if (err && err.code === 'ResourceInUseException') {
+      console.log("Error: Table in use");
+    }
   }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.table.deleteTable]

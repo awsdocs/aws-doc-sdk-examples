@@ -22,16 +22,16 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
   endpoint: "http://localhost:8000"
 });
 
-var dynamodb = new AWS.DynamoDB();
+const dynamodb = new AWS.DynamoDB();
 
-var params = {
+const params = {
     TableName : "Movies",
     KeySchema: [       
         { AttributeName: "year", KeyType: "HASH"},  //Partition key
@@ -47,11 +47,13 @@ var params = {
     }
 };
 
-dynamodb.createTable(params, function(err, data) {
-    if (err) {
-        console.error("Unable to create table. Error JSON:", JSON.stringify(err, null, 2));
-    } else {
+//self-executing anonymous function
+(async () => {
+    try {
+        await dynamodb.createTable(params).promise();
         console.log("Created table. Table description JSON:", JSON.stringify(data, null, 2));
+    } catch (err) {
+        console.error("Unable to create table. Error JSON:", JSON.stringify(err, null, 2));
     }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.CodeExample.MoviesCreateTable]

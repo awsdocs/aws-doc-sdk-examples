@@ -26,14 +26,14 @@
 
 // snippet-start:[dynamodb.JavaScript.docClient.put]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'REGION'});
 
 // Create DynamoDB document client
-var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
+const docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 
-var params = {
+const params = {
   TableName: 'TABLE',
   Item: {
     'HASHKEY': VALUE,
@@ -42,11 +42,12 @@ var params = {
   }
 };
 
-docClient.put(params, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
+(async () => {
+  try {
+    const data = await docClient.put(params).promise();
     console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.docClient.put]

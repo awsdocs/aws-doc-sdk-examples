@@ -22,23 +22,23 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
   endpoint: "http://localhost:8000"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient()
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-var table = "Movies";
+const table = "Movies";
 
-var year = 2015;
-var title = "The Big New Movie";
+const year = 2015;
+const title = "The Big New Movie";
 
 // Update the item, unconditionally,
 
-var params = {
+const params = {
     TableName:table,
     Key:{
         "year": year,
@@ -53,12 +53,13 @@ var params = {
     ReturnValues:"UPDATED_NEW"
 };
 
-console.log("Updating the item...");
-docClient.update(params, function(err, data) {
-    if (err) {
-        console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
-    } else {
+//self-executing anonymous function
+(async () => {
+    try {
+        await docClient.update(params).promise()
         console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+    } catch (err) {
+        console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
     }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.CodeExample.MoviesItemOps03]

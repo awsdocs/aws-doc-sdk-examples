@@ -22,21 +22,21 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
   endpoint: "http://localhost:8000"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-var table = "Movies";
+const table = "Movies";
 
-var year = 2015;
-var title = "The Big New Movie";
+const year = 2015;
+const title = "The Big New Movie";
 
-var params = {
+const params = {
     TableName:table,
     Key:{
         "year": year,
@@ -48,12 +48,14 @@ var params = {
     }
 };
 
-console.log("Attempting a conditional delete...");
-docClient.delete(params, function(err, data) {
-    if (err) {
-        console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
-    } else {
+//self-executing anonymous function
+(async () => {
+    try {
+        console.log("Attempting a conditional delete...");
+        await docClient.delete(params).promise();
         console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+    } catch (err) {
+        console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
     }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.CodeExample.MoviesItemOps06]

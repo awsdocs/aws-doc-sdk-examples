@@ -22,18 +22,18 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
   endpoint: "http://localhost:8000"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-console.log("Querying for movies from 1992 - titles A-L, with genres and lead actor");
 
-var params = {
+
+const params = {
     TableName : "Movies",
     ProjectionExpression:"#yr, title, info.genres, info.actors[0]",
     KeyConditionExpression: "#yr = :yyyy and title between :letter1 and :letter2",
@@ -47,18 +47,21 @@ var params = {
     }
 };
 
-docClient.query(params, function(err, data) {
-    if (err) {
-        console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
-    } else {
+//self-executing anonymous function
+(async () => {
+    try {
+        console.log("Querying for movies from 1992 - titles A-L, with genres and lead actor");
+        const data = await docClient.query(params).promise();
         console.log("Query succeeded.");
-        data.Items.forEach(function(item) {
+        data.Items.forEach(item => {
             console.log(" -", item.year + ": " + item.title
             + " ... " + item.info.genres
             + " ... " + item.info.actors[0]);
         });
+    } catch (err) {
+        console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
     }
-});
+})();
 
 
 // snippet-end:[dynamodb.JavaScript.CodeExample.MoviesQuery02]

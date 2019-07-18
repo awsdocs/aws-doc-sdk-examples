@@ -26,14 +26,14 @@
 
 // snippet-start:[dynamodb.JavaScript.batch.WriteItem]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 // Set the region
 AWS.config.update({region: 'REGION'});
 
 // Create DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-var params = {
+const params = {
   RequestItems: {
     "TABLE_NAME": [
        {
@@ -58,11 +58,13 @@ var params = {
   }
 };
 
-ddb.batchWriteItem(params, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
+//self-executing anonymous function
+(async () => {
+  try {
+    const data = await ddb.batchWriteItem(params).promise();
     console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.batch.WriteItem]

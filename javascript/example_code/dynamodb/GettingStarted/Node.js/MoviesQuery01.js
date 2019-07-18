@@ -22,18 +22,16 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-west-2",
   endpoint: "http://localhost:8000"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-console.log("Querying for movies from 1985.");
-
-var params = {
+const params = {
     TableName : "Movies",
     KeyConditionExpression: "#yr = :yyyy",
     ExpressionAttributeNames:{
@@ -44,14 +42,17 @@ var params = {
     }
 };
 
-docClient.query(params, function(err, data) {
-    if (err) {
-        console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-    } else {
+//self-executing anonymous function
+(async () => {
+    try {
+        console.log("Querying for movies from 1985.");
+        const data = await docClient.query(params).promise();
         console.log("Query succeeded.");
-        data.Items.forEach(function(item) {
+        data.Items.forEach(item => {
             console.log(" -", item.year + ": " + item.title);
         });
+    } catch (err) {
+        console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
     }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.CodeExample.MoviesQuery01]

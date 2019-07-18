@@ -26,14 +26,14 @@
 
 // snippet-start:[dynamodb.JavaScript.table.query]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 // Set the region
 AWS.config.update({region: 'REGION'});
 
 // Create DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-var params = {
+const params = {
   ExpressionAttributeValues: {
     ':s': {N: '2'},
     ':e' : {N: '09'},
@@ -45,14 +45,14 @@ var params = {
   TableName: 'EPISODES_TABLE'
 };
 
-ddb.query(params, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    //console.log("Success", data.Items);
-    data.Items.forEach(function(element, index, array) {
+(async () => {
+  try {
+    const data = await ddb.query(params).promise();
+    data.Items.forEach((element, index, array) => {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
     });
+  } catch (err) {
+    console.log("Error", err);
   }
-});
+})();
 // snippet-end:[dynamodb.JavaScript.table.query]

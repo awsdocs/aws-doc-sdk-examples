@@ -22,35 +22,37 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
 */
-var AWS = require("aws-sdk");
-var fs = require('fs');
+const AWS = require("aws-sdk");
+const fs = require('fs');
 
 AWS.config.update({
     region: "us-west-2",
     endpoint: "http://localhost:8000"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
 console.log("Importing movies into DynamoDB. Please wait.");
 
-var allMovies = JSON.parse(fs.readFileSync('moviedata.json', 'utf8'));
-allMovies.forEach(function(movie) {
-    var params = {
-        TableName: "Movies",
-        Item: {
-            "year":  movie.year,
-            "title": movie.title,
-            "info":  movie.info
-        }
-    };
+const allMovies = JSON.parse(fs.readFileSync('moviedata.json', 'utf8'));
 
-    docClient.put(params, function(err, data) {
-       if (err) {
-           console.error("Unable to add movie", movie.title, ". Error JSON:", JSON.stringify(err, null, 2));
-       } else {
-           console.log("PutItem succeeded:", movie.title);
-       }
-    });
-});
+//self-executing anonymous function
+(async () => {
+    for (const movie of allMovies) {
+        const params = {
+            TableName: "Movies",
+            Item: {
+                "year":  movie.year,
+                "title": movie.title,
+                "info":  movie.info
+            }
+        };
+        try {
+            await docClient.put(params).promise();
+            console.log("PutItem succeeded:", movie.title);
+        } catch (err) {
+            console.error("Unable to add movie", movie.title, ". Error JSON:", JSON.stringify(err, null, 2));
+        }
+    }
+})();
 // snippet-end:[dynamodb.JavaScript.CodeExample.MoviesLoadData]
