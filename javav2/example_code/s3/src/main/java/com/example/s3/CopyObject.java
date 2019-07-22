@@ -27,7 +27,11 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
- 
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 // snippet-end:[s3.java2.copy_object.import]
 /**
  * Copy an object from one Amazon S3 bucket to another.
@@ -59,9 +63,15 @@ public class CopyObject
                 object_key, from_bucket, to_bucket);
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
+        String encodedUrl = null;
+        try {
+            encodedUrl = URLEncoder.encode(from_bucket + "/" + object_key, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("URL could not be encoded: " + e.getMessage());
+        }
 
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
-        		.copySource(from_bucket + "/" + object_key)
+        		.copySource(encodedUrl)
         		.bucket(to_bucket)
         		.key(object_key)
         		.build();
