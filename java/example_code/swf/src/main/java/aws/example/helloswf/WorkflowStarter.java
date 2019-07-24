@@ -23,6 +23,7 @@ package aws.example.helloswf;
 
 
 //snippet-start:[swf.java.workflow_starter.import]
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.*;
@@ -31,7 +32,7 @@ import com.amazonaws.services.simpleworkflow.model.*;
 //snippet-start:[swf.java.workflow_starter.main]
 public class WorkflowStarter {
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+            AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
 
     public static void main(String[] args) {
