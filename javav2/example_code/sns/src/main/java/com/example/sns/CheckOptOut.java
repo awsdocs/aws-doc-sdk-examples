@@ -34,10 +34,10 @@ import software.amazon.awssdk.services.sns.model.CheckIfPhoneNumberIsOptedOutRes
 public class CheckOptOut {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-            "CheckOptOut - look if phone number owner has opted out of receiving SMS messages\n" +
-            "Usage: CheckOptOut <phoneNumber>\n\n" +
-            "Where:\n" +
-            "  phoneNumber - phone number to look up. Example: +1XXX5550100\n\n" ;
+                "CheckOptOut - look if phone number owner has opted out of receiving SMS messages\n" +
+                "Usage: CheckOptOut <phoneNumber>\n\n" +
+                "Where:\n" +
+                "  phoneNumber - phone number to look up. Example: +1XXX5550100\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -49,12 +49,13 @@ public class CheckOptOut {
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
         CheckIfPhoneNumberIsOptedOutRequest request = CheckIfPhoneNumberIsOptedOutRequest.builder()
-            .phoneNumber(phoneNumber)
-            .build();
+                .phoneNumber(phoneNumber)
+                .build();
 
         CheckIfPhoneNumberIsOptedOutResponse result = snsClient.checkIfPhoneNumberIsOptedOut(request);
 
-        System.out.println(result.isOptedOut() + "Phone Number " + phoneNumber + " has Opted Out of receiving sns messages.");
+        System.out.println(result.isOptedOut() + "Phone Number " + phoneNumber + " has Opted Out of receiving sns messages." +
+                "\n\nStatus was " + result.sdkHttpResponse().statusCode());
         //snippet-end:[sns.java2.CheckOptOut.main]
     }
 }

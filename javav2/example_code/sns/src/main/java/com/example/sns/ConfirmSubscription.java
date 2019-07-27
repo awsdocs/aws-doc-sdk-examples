@@ -24,20 +24,21 @@
 package com.example.sns;
 
 //snippet-start:[sns.java2.ConfirmSubscription.import]
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.sns.SnsClient;
-    import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionRequest;
-    import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionResponse;
+
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionRequest;
+import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionResponse;
 //snippet-end:[sns.java2.ConfirmSubscription.import]
 
 public class ConfirmSubscription {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-            "ConfirmSubscription - confirm a subscription to an sns topic\n" +
-            "Usage: ConfirmSubscription <subscriptionToken> <topicArn>\n\n" +
-            "Where:\n" +
-            "  subscriptionToken - endpoint token from Subscribe action.\n\n" +
-            "  topicArn - the arn of the topic to delete.\n\n";
+                "ConfirmSubscription - confirm a subscription to an sns topic\n" +
+                "Usage: ConfirmSubscription <subscriptionToken> <topicArn>\n\n" +
+                "Where:\n" +
+                "  subscriptionToken - endpoint token from Subscribe action.\n\n" +
+                "  topicArn - the arn of the topic to delete.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -50,13 +51,13 @@ public class ConfirmSubscription {
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
         ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
-            .token(subscriptionToken)
-            .topicArn(topicArn)
-            .build();
+                .token(subscriptionToken)
+                .topicArn(topicArn)
+                .build();
 
         ConfirmSubscriptionResponse result = snsClient.confirmSubscription(request);
 
-        System.out.println(result.toString());
+        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nSubscription Arn: \n\n" + result.subscriptionArn());
         //snippet-end:[sns.java2.ConfirmSubscription.main]
     }
 }

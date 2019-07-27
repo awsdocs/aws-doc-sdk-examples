@@ -24,6 +24,7 @@
 package com.example.sns;
 
 //snippet-start:[sns.java2.CreateTopic.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
@@ -33,10 +34,10 @@ import software.amazon.awssdk.services.sns.model.CreateTopicResponse;
 public class CreateTopic {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-            "CreateTopic - create an sns topic\n" +
-            "Usage: CreateTopic <topicName>\n\n" +
-            "Where:\n" +
-            "  topicName - the name of the topic to create.\n\n";
+                "CreateTopic - create an sns topic\n" +
+                "Usage: CreateTopic <topicName>\n\n" +
+                "Where:\n" +
+                "  topicName - the name of the topic to create.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -50,11 +51,11 @@ public class CreateTopic {
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
         CreateTopicRequest request = CreateTopicRequest.builder()
-            .name(topicName)
-            .build();
+                .name(topicName)
+                .build();
 
         CreateTopicResponse result = snsClient.createTopic(request);
-        System.out.println("Created topic " + topicName + "with Arn: " + result.topicArn());
+        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nCreated topic " + topicName + "with Arn: " + result.topicArn());
         //snippet-end:[sns.java2.CreateTopic.main]
     }
 }

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetTopicAttributes.java demonstrates how to retrieve the defaults for an AWS SNS Topic.]
+//snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an SNS subscription.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
@@ -20,45 +20,46 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.GetTopicAttributes.complete]
+//snippet-start:[sns.java2.Unsubscribe.complete]
+
 package com.example.sns;
 
-//snippet-start:[sns.java2.GetTopicAttributes.import]
+//snippet-start:[sns.java2.Unsubscribe.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.GetTopicAttributesRequest;
-import software.amazon.awssdk.services.sns.model.GetTopicAttributesResponse;
-//snippet-end:[sns.java2.GetTopicAttributes.import]
+import software.amazon.awssdk.services.sns.model.UnsubscribeRequest;
+import software.amazon.awssdk.services.sns.model.UnsubscribeResponse;
+//snippet-end:[sns.java2.Unsubscribe.import]
 
-public class GetTopicAttributes {
+public class Unsubscribe {
+
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "GetTopicAttributes - get attributes for an sns topic\n" +
-                "Usage: GetTopicAttributes <topicArn>\n\n" +
+                "Unsubscribe - removes a subscription from a topic \n" +
+                "Usage: Unsubscribe <subscriptionToken>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to look up.\n\n";
+                "  subscriptionToken - endpoint token from Subscribe action.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[sns.java2.GetTopicAttributes.main]
-        String topicArn = args[0];
 
-        System.out.println("Getting attributes for a topic with name: " + topicArn);
+        //snippet-start:[sns.java2.Unsubscribe.main]
+        String subscriptionToken = args[0];
 
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-        GetTopicAttributesRequest request = GetTopicAttributesRequest.builder()
-                .topicArn(topicArn)
+        UnsubscribeRequest request = UnsubscribeRequest.builder()
+                .subscriptionArn(subscriptionToken)
                 .build();
 
-        GetTopicAttributesResponse result = snsClient.getTopicAttributes(request);
+        UnsubscribeResponse result = snsClient.unsubscribe(request);
 
-        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nAttributes: \n\n" + result.attributes());
-        //snippet-end:[sns.java2.GetTopicAttributes.main]
+        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode()
+                + "\n\nSubscription was removed for " + request.subscriptionArn());
+        //snippet-end:[sns.java2.Unsubscribe.main]
     }
 }
-//snippet-end:[sns.java2.GetTopicAttributes.complete]
-
+//snippet-end:[sns.java2.Unsubscribe.complete]

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetTopicAttributes.java demonstrates how to retrieve the defaults for an AWS SNS Topic.]
+//snippet-sourcedescription:[PublishTopic.java demonstrates how to   .]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
@@ -20,45 +20,46 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.GetTopicAttributes.complete]
-package com.example.sns;
+//snippet-start:[sns.java2.PublishTopic.complete]
 
-//snippet-start:[sns.java2.GetTopicAttributes.import]
+package com.example.sns;
+//snippet-start:[sns.java2.PublishTopic.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.GetTopicAttributesRequest;
-import software.amazon.awssdk.services.sns.model.GetTopicAttributesResponse;
-//snippet-end:[sns.java2.GetTopicAttributes.import]
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
+//snippet-end:[sns.java2.PublishTopic.import]
 
-public class GetTopicAttributes {
+public class PublishTopic {
+
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "GetTopicAttributes - get attributes for an sns topic\n" +
-                "Usage: GetTopicAttributes <topicArn>\n\n" +
+                "PublishTopic - publish an sns topic\n" +
+                "Usage: PublishTopic <message> <topicArn>\n\n" +
                 "Where:\n" +
+                "  message - message text to send.\n\n" +
                 "  topicArn - the arn of the topic to look up.\n\n";
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[sns.java2.GetTopicAttributes.main]
-        String topicArn = args[0];
-
-        System.out.println("Getting attributes for a topic with name: " + topicArn);
+        //snippet-start:[sns.java2.PublishTopic.main]
+        String message = args[0];
+        String topicArn = args[1];
 
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-        GetTopicAttributesRequest request = GetTopicAttributesRequest.builder()
+        PublishRequest request = PublishRequest.builder()
+                .message(message)
                 .topicArn(topicArn)
                 .build();
 
-        GetTopicAttributesResponse result = snsClient.getTopicAttributes(request);
+        PublishResponse result = snsClient.publish(request);
 
-        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nAttributes: \n\n" + result.attributes());
-        //snippet-end:[sns.java2.GetTopicAttributes.main]
+        System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
+        //snippet-end:[sns.java2.PublishTopic.main]
     }
 }
-//snippet-end:[sns.java2.GetTopicAttributes.complete]
-
+//snippet-end:[sns.java2.PublishTopic.complete]
