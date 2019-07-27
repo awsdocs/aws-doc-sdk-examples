@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PublishTopic.java demonstrates how to   .]
+//snippet-sourcedescription:[PublishTopic.java demonstrates how to  send a message to an SNS Topic.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
@@ -21,10 +21,9 @@
  * permissions and limitations under the License.
  */
 //snippet-start:[sns.java2.PublishTopic.complete]
-
 package com.example.sns;
-//snippet-start:[sns.java2.PublishTopic.import]
 
+//snippet-start:[sns.java2.PublishTopic.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
