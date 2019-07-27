@@ -1,4 +1,3 @@
-
 //snippet-sourcedescription:[ListOptOut.java demonstrates how to list the phone numbers for which the users have selected to no longer receive future text messages.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
@@ -47,7 +46,7 @@ public class ListOptOut {
 
         ListPhoneNumbersOptedOutResponse result = snsClient.listPhoneNumbersOptedOut(request);
 
-        System.out.println(result.phoneNumbers());
+        System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nPhone Numbers: \n\n" + result.phoneNumbers());
         //snippet-end:[sns.java2.ListOptOut.main]
     }
 }

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteTopic.java demonstrates how to delete a Topic.]
+//snippet-sourcedescription:[PublishTextSMS.java demonstrates how to send a text message.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
@@ -20,45 +20,46 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.DeleteTopic.complete]
+//snippet-start:[sns.java2.PublishTextSMS.complete]
 package com.example.sns;
 
-//snippet-start:[sns.java2.DeleteTopic.import]
+//snippet-start:[sns.java2.PublishTextSMS.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.DeleteTopicRequest;
-import software.amazon.awssdk.services.sns.model.DeleteTopicResponse;
-//snippet-end:[sns.java2.DeleteTopic.import]
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
+//snippet-end:[sns.java2.PublishTextSMS.import]
 
-public class DeleteTopic {
+public class PublishTextSMS {
+
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "DeleteTopic - delete an sns topic\n" +
-                "Usage: DeleteTopic <topicArn>\n\n" +
+                "PublishTextSMS - send an SMS message\n" +
+                "Usage: PublishTextSMS <message> <phoneNumber>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to delete.\n\n";
+                "  message - message text to send.\n\n" +
+                "  phoneNumber - phone number to look up. Example: +1XXX5550100\n\n";
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[sns.java2.DeleteTopic.main]
-        String topicArn = args[0];
-
-        System.out.println("Deleting a topic with name: " + topicArn);
+        //snippet-start:[sns.java2.PublishTextSMS.main]
+        String message = args[0];
+        String phoneNumber = args[1];
 
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-        DeleteTopicRequest request = DeleteTopicRequest.builder()
-                .topicArn(topicArn)
+        PublishRequest request = PublishRequest.builder()
+                .message(message)
+                .phoneNumber(phoneNumber)
                 .build();
 
-        DeleteTopicResponse result = snsClient.deleteTopic(request);
+        PublishResponse result = snsClient.publish(request);
 
-        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode());
-        //snippet-end:[sns.java2.DeleteTopic.main]
+        System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
+        //snippet-end:[sns.java2.PublishTextSMS.main]
     }
 }
-//snippet-end:[sns.java2.DeleteTopic.complete]
-
+//snippet-end:[sns.java2.PublishTextSMS.complete]

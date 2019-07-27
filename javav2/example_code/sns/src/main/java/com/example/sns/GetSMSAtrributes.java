@@ -35,19 +35,19 @@ import software.amazon.awssdk.services.sns.model.GetSmsAttributesResponse;
 public class GetSMSAtrributes {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-            "GetSMSAtrributes - retrieve your default SMS type for Amazon SNS.\n" +
-            "Usage: GetSMSAtrributes \n\n";
+                "GetSMSAtrributes - retrieve your default SMS type for Amazon SNS.\n" +
+                "Usage: GetSMSAtrributes \n\n";
 
         //snippet-start:[sns.java2.GetSMSAtrributes.main]
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
         GetSmsAttributesRequest request = GetSmsAttributesRequest.builder()
-            .attributes("DefaultSMSType")
-            .build();
+                .attributes("DefaultSMSType")
+                .build();
 
         GetSmsAttributesResponse result = snsClient.getSMSAttributes();
 
-        System.out.println(result.attributes());
+        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nAttributes: \n\n" + result.attributes());
         //snippet-end:[sns.java2.GetSMSAtrributes.main]
     }
 }

@@ -25,10 +25,10 @@ package com.example.sns;
 
 //snippet-start:[sns.java2.ListSubscriptions.import]
 
-        import software.amazon.awssdk.regions.Region;
-        import software.amazon.awssdk.services.sns.SnsClient;
-        import software.amazon.awssdk.services.sns.model.ListSubscriptionsRequest;
-        import software.amazon.awssdk.services.sns.model.ListSubscriptionsResponse;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.ListSubscriptionsRequest;
+import software.amazon.awssdk.services.sns.model.ListSubscriptionsResponse;
 //snippet-end:[sns.java2.ListSubscriptions.import]
 
 public class ListSubscriptions {

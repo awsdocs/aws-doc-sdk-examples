@@ -25,10 +25,10 @@ package com.example.sns;
 
 //snippet-start:[sns.java2.ListTopics.import]
 
-        import software.amazon.awssdk.regions.Region;
-        import software.amazon.awssdk.services.sns.SnsClient;
-        import software.amazon.awssdk.services.sns.model.ListTopicsRequest;
-        import software.amazon.awssdk.services.sns.model.ListTopicsResponse;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.ListTopicsRequest;
+import software.amazon.awssdk.services.sns.model.ListTopicsResponse;
 //snippet-end:[sns.java2.ListTopics.import]
 
 public class ListTopics {
@@ -46,7 +46,7 @@ public class ListTopics {
 
         ListTopicsResponse result = snsClient.listTopics(request);
 
-        System.out.println(result.topics());
+        System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nTopics\n\n" + result.topics());
         //snippet-end:[sns.java2.ListTopics.main]
     }
 }
