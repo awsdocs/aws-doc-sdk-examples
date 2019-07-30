@@ -56,5 +56,5 @@ export class MyEcsConstructStack extends core.Stack {
     // snippet-end:[cdk.typescript.my_ecs_construct.create_fargate_service]
   }
 }
-// snippet-end:[cdk.typescript.my_ecs_construct-stack]
 // snippet-end:[cdk.typescript.my_ecs_construct-stack.class]
+// snippet-end:[cdk.typescript.my_ecs_construct-stack]
