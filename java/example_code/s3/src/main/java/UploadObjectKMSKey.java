@@ -56,7 +56,6 @@ public class UploadObjectKMSKey {
             // create one. This example creates a key with AWS-created
             // key material.
             AWSKMS kmsClient = AWSKMSClientBuilder.standard()
-                    .withCredentials(new ProfileCredentialsProvider())
                     .withRegion(clientRegion)
                     .build();
             CreateKeyResult keyResult = kmsClient.createKey();
@@ -65,7 +64,7 @@ public class UploadObjectKMSKey {
             // Create the encryption client.
             KMSEncryptionMaterialsProvider materialProvider = new KMSEncryptionMaterialsProvider(kms_cmk_id);
             CryptoConfiguration cryptoConfig = new CryptoConfiguration()
-                    .withAwsKmsRegion(RegionUtils.getRegion(clientRegion));
+                    .withAwsKmsRegion(RegionUtils.getRegion(clientRegion.toString()));
             AmazonS3Encryption encryptionClient = AmazonS3EncryptionClientBuilder.standard()
                     .withCredentials(new ProfileCredentialsProvider())
                     .withEncryptionMaterials(materialProvider)
