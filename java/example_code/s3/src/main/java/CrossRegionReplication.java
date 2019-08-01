@@ -88,7 +88,7 @@ public class CrossRegionReplication {
             BucketReplicationConfiguration replicationConfig = s3Client.getBucketReplicationConfiguration(sourceBucketName);
             ReplicationRule rule = replicationConfig.getRule("ReplicationRule1");
             System.out.println("Retrieved destination bucket ARN: " + rule.getDestinationConfig().getBucketARN());
-            System.out.println("Retrieved source-bucket replication rule prefix: " + rule.getPrefix());
+            System.out.println("Retrieved priority: " + rule.getPriority());
             System.out.println("Retrieved source-bucket replication rule status: " + rule.getStatus());
         } catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process 
