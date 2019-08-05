@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
  */
+// snippet-start:[ses.php.list_filters.complete]
+// snippet-start:[ses.php.list_filters.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.list_filters.import]
 
-//Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+//Create a SESClient 
+// snippet-start:[ses.php.list_filters.main]
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -39,7 +43,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.list_filters.main]
+// snippet-end:[ses.php.list_filters.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_Filters.php demonstrates how to list the IP address filters associated with your AWS account in the current AWS Region.]
 // snippet-keyword:[PHP]

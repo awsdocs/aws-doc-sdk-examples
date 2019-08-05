@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[LowLevelScan.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.LowLevelScan] 
-
+// snippet-start:[dynamodb.java.codeexample.LowLevelScan] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -76,4 +75,5 @@ public class LowLevelScan {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.LowLevelScan]
+
+// snippet-end:[dynamodb.java.codeexample.LowLevelScan] 

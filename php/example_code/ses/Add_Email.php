@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-verify.html
  *
  */
+// snippet-start:[ses.php.add_email.complete]
+// snippet-start:[ses.php.add_email.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.add_email.import]
 
-//Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+//Create a SESClient 
+// snippet-start:[ses.php.add_email.main]
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -42,7 +46,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.add_email.main]
+// snippet-end:[ses.php.add_email.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Add_Email.php demonstrates how to add an email address you can send from to your Amazon SES account. By verifying an email address, you demonstrate that you're the owner of that address, and that you want to allow Amazon SES to send email from that address.]
 // snippet-keyword:[PHP]

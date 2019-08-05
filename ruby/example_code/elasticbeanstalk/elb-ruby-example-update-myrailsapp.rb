@@ -49,7 +49,7 @@ resp = eb.create_storage_location()
 
 puts "Created storage location in bucket #{resp.s3_bucket}"
 
-resp = s3.list_objects({
+s3.list_objects({
   prefix: s3_key,
   bucket: bucket
 })
@@ -67,7 +67,7 @@ zip_contents = File.read(zip_file_name)
 
 key = app_name + "\\" + zip_file_name
 
-resp = s3.put_object({
+s3.put_object({
   body: zip_contents,
   bucket: bucket,
   key: key

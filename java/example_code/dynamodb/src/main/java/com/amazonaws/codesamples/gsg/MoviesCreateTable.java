@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[MoviesCreateTable.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.MoviesCreateTable] 
-
+// snippet-start:[dynamodb.java.codeexample.MoviesCreateTable] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -71,4 +70,5 @@ public class MoviesCreateTable {
         }
 
     }
-}// snippet-end:[dynamodb.Java.CodeExample.MoviesCreateTable]
+}
+// snippet-end:[dynamodb.java.codeexample.MoviesCreateTable] 

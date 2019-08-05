@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBMapperBatchWriteExample.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DynamoDBMapperBatchWriteExample] 
-
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -130,7 +129,10 @@ public class DynamoDBMapperBatchWriteExample {
         List<Object> objectsToWrite = Arrays.asList(forumItem, threadItem);
         List<Book> objectsToDelete = Arrays.asList(book3);
 
-        DynamoDBMapperConfig config = new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.CLOBBER);
+        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
+            .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
+        .build();
+
         mapper.batchWrite(objectsToWrite, objectsToDelete, config);
     }
 
@@ -394,4 +396,5 @@ public class DynamoDBMapperBatchWriteExample {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DynamoDBMapperBatchWriteExample]
+
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 

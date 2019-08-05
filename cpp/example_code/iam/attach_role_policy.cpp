@@ -1,11 +1,11 @@
- 
+
 //snippet-sourcedescription:[attach_role_policy.cpp demonstrates how to attach a managed policy to an IAM role.]
+//snippet-service:[iam]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2019-2-8]
 //snippet-sourceauthor:[AWS]
 
 
@@ -22,6 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+
 //snippet-start:[iam.cpp.attach_role_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
@@ -29,7 +30,7 @@
 #include <aws/iam/model/ListAttachedRolePoliciesRequest.h>
 #include <aws/iam/model/ListAttachedRolePoliciesResult.h>
 #include <iostream>
-#include <iomanip> 
+#include <iomanip>
 //snippet-end:[iam.cpp.attach_role_policy.inc]
 
 void AttachRolePolicy(
@@ -120,4 +121,3 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
-

@@ -17,8 +17,8 @@ find_package(AWSSDK REQUIRED COMPONENTS neptune)
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_db_cluster")
 list(APPEND EXAMPLES "delete_db_cluster")
-list(APPEND EXAMPLES "modify_db_cluster")
 list(APPEND EXAMPLES "describe_db_clusters")
+list(APPEND EXAMPLES "modify_db_cluster")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

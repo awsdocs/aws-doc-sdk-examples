@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBLocalFixture.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DynamoDBLocalFixture] 
-
+// snippet-start:[dynamodb.java.codeexample.DynamoDBLocalFixture] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -83,4 +82,5 @@ public class DynamoDBLocalFixture {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DynamoDBLocalFixture]
+
+// snippet-end:[dynamodb.java.codeexample.DynamoDBLocalFixture] 

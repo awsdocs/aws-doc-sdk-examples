@@ -26,9 +26,9 @@
 package main
 
 import (
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
+    
     "fmt"
     "os"
 )
@@ -45,7 +45,7 @@ func main() {
     bucket := os.Args[1]
 
     // Initialize a session that loads credentials from the shared credentials file ~/.aws/credentials
-    // and the region from the shared configuratin file ~/.aws/config.
+    // and the region from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))

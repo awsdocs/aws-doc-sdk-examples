@@ -26,7 +26,6 @@
 
 import boto3
 from botocore.exceptions import ClientError
-from os import environ
 
 if __name__ == "__main__":
 

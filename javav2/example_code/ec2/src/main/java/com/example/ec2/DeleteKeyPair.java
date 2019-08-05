@@ -20,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.delete_key_pair.complete]
+// snippet-start:[ec2.java2.delete_key_pair.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
-
+ 
+// snippet-end:[ec2.java2.delete_key_pair.import]
 /**
  * Deletes a key pair.
  */
@@ -41,6 +44,7 @@ public class DeleteKeyPair
         }
 
         String key_name = args[0];
+        // snippet-start:[ec2.java2.delete_key_pair.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -50,7 +54,10 @@ public class DeleteKeyPair
 
         DeleteKeyPairResponse response = ec2.deleteKeyPair(request);
 
+        // snippet-end:[ec2.java2.delete_key_pair.main]
         System.out.printf(
             "Successfully deleted key pair named %s", key_name);
     }
 }
+ 
+// snippet-end:[ec2.java2.delete_key_pair.complete]

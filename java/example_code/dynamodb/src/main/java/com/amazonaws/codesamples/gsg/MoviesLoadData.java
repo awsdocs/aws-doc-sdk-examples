@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[MoviesLoadData.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.MoviesLoadData] 
-
+// snippet-start:[dynamodb.java.codeexample.MoviesLoadData] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -80,4 +79,5 @@ public class MoviesLoadData {
         }
         parser.close();
     }
-}// snippet-end:[dynamodb.Java.CodeExample.MoviesLoadData]
+}
+// snippet-end:[dynamodb.java.codeexample.MoviesLoadData] 

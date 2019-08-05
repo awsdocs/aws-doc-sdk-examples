@@ -62,7 +62,7 @@ puts "Before allocating the address for the instance...."
 display_addresses(ec2, instance_id)
 
 puts "\nAllocating the address for the instance..."
-allocate_address_result = ec2.allocate_address({
+ec2.allocate_address({
   domain: "vpc" 
 })
 
@@ -70,7 +70,7 @@ puts "\nAfter allocating the address for instance, but before associating the ad
 display_addresses(ec2, instance_id)
 
 puts "\nAssociating the address with the instance..."
-associate_address_result = ec2.associate_address({
+ec2.associate_address({
   allocation_id: allocate_address_result.allocation_id, 
   instance_id: instance_id, 
 })

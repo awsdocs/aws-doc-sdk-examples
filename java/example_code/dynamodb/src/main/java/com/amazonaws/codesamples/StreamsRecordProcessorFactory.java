@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[StreamsRecordProcessorFactory.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.StreamsRecordProcessorFactory] 
-
+// snippet-start:[dynamodb.java.codeexample.StreamsRecordProcessorFactory] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -43,4 +42,5 @@ public class StreamsRecordProcessorFactory implements IRecordProcessorFactory {
     public IRecordProcessor createProcessor() {
         return new StreamsRecordProcessor(dynamoDBClient, tableName);
     }
-}// snippet-end:[dynamodb.Java.CodeExample.StreamsRecordProcessorFactory]
+}
+// snippet-end:[dynamodb.java.codeexample.StreamsRecordProcessorFactory] 

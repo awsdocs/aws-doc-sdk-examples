@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
+// snippet-start:[ses.php.send_templated_email.complete]
+// snippet-start:[ses.php.send_templated_email.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.send_templated_email.import]
 
-//Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+//Create a SESClient 
+// snippet-start:[ses.php.send_templated_email.main]
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -31,13 +35,13 @@ $SesClient = new Aws\SES\SESClient([
 
 $template_name = 'Template_Name';
 $sender_email = 'email_address';
-$recipeint_emails = ['email_address'];
+$recipient_emails = ['email_address'];
 
 
 try {
     $result = $SesClient->sendTemplatedEmail([
         'Destination' => [
-            'ToAddresses' => $verified_recipeint_emails,
+            'ToAddresses' => $verified_recipient_emails,
         ],
         'ReplyToAddresses' => [$sender_email],
         'Source' => $sender_email,
@@ -52,7 +56,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.send_templated_email.main]
+// snippet-end:[ses.php.send_templated_email.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Send_Templated_Email.php demonstrates how to send a templated email to recipients.]
 // snippet-keyword:[PHP]

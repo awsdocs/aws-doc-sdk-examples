@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBMapperCRUDExample.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DynamoDBMapperCRUDExample] 
-
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperCRUDExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -123,7 +122,9 @@ public class DynamoDBMapperCRUDExample {
         System.out.println(itemRetrieved);
 
         // Retrieve the updated item.
-        DynamoDBMapperConfig config = new DynamoDBMapperConfig(DynamoDBMapperConfig.ConsistentReads.CONSISTENT);
+        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
+            .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+        .build();
         CatalogItem updatedItem = mapper.load(CatalogItem.class, 601, config);
         System.out.println("Retrieved the previously updated item:");
         System.out.println(updatedItem);
@@ -138,4 +139,5 @@ public class DynamoDBMapperCRUDExample {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DynamoDBMapperCRUDExample]
+
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperCRUDExample] 

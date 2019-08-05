@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DocumentAPIParallelScan.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DocumentAPIParallelScan] 
-
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIParallelScan] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -257,4 +256,5 @@ public class DocumentAPIParallelScan {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DocumentAPIParallelScan]
+
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIParallelScan] 

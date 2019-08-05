@@ -61,7 +61,7 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         const Aws::String table(argv[1]);
-        const Aws::String region(argc > 1 ? argv[2] : "");
+        const Aws::String region(argc > 2 ? argv[2] : "");
 
         // snippet-start:[dynamodb.cpp.describe_table.code]
         Aws::Client::ClientConfiguration clientConfig;

@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
  *
  */
+// snippet-start:[apigateway.php.list_base_path_mapping.complete]
+// snippet-start:[apigateway.php.list_base_path_mapping.import]
 
 require 'vendor/autoload.php';
 
-use Aws\ApiGateway\ApiGatewayClient;
+use Aws\ApiGateway\ApiGatewayClient;   
 use Aws\Exception\AwsException;
+//snippet-end:[apigateway.php.list_base_path_mapping.import]
 
-//Create a ApiGatewayClient
-$client = new Aws\ApiGateway\ApiGatewayClient([
+//Create a ApiGatewayClient 
+//snippet-start:[apigateway.php.list_base_path_mapping.main]
+$client = new new Aws\ApiGateway\ApiGatewayClient([
     'profile' => 'default',
     'version' => '2015-07-09',
     'region' => 'us-east-2'
@@ -42,7 +46,9 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[apigateway.php.list_base_path_mapping.main]
+// snippet-end:[apigateway.php.list_base_path_mapping.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_BasePathmapping.php demonstrates how to list Base Path Mappings in a given domain in API Gateway.]
 // snippet-keyword:[PHP]

@@ -22,10 +22,6 @@
 
 require 'aws-sdk-ses'  # v2: require 'aws-sdk'
 
-# Replace sender@example.com with your "From" address.
-# This address must be verified with Amazon SES.
-sender = "sender@example.com"
-
 # Replace recipient@example.com with a "To" address.
 recipient = "recipient@example.com"
 
@@ -36,10 +32,10 @@ ses = Aws::SES::Client.new(region: 'us-west-2')
 # Try to verify email address.
 begin
   ses.verify_email_identity({
-    email_address: recipient,
+    email_address: recipient
   })
 
-  puts 'Email sent to ' + email_address
+  puts 'Email sent to ' + recipient
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error

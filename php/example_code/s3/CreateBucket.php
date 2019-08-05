@@ -16,19 +16,20 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
-
+// snippet-start:[s3.php.create_bucket.complete]
+// snippet-start:[s3.php.create_bucket.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-
+// snippet-end:[s3.php.create_bucket.import]
 /**
  * Create an Amazon S3 bucket.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[s3.php.create_bucket.main]
 $BUCKET_NAME = '<BUCKET-NAME>';
 
 //Create a S3Client
@@ -48,8 +49,9 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 
+// snippet-end:[s3.php.create_bucket.main] 
+// snippet-end:[s3.php.create_bucket.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateBucket.php demonstrates how to create an new Amazon S3 bucket given a name to use for the bucket.]
 // snippet-keyword:[PHP]

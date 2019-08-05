@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-managing-users.html
  *
+ *
+ *
  */
+// snippet-start:[iam.php.update_user.complete]
+// snippet-start:[iam.php.update_user.import]
+
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
+use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[iam.php.update_user.import]
 
 /**
  * Updates the name and/or the path of the specified user.
@@ -27,7 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+//Create an IAM Client
+// snippet-start:[iam.php.update_user.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -46,7 +54,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[iam.php.update_user.main]
+// snippet-end:[iam.php.update_user.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[UpdateUser.php demonstrates how to update an IAM user.]
 // snippet-keyword:[PHP]

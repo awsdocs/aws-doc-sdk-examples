@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-getting-metrics.html
  *
+ *
+ *
  */
+// snippet-start:[cloudwatch.php.get_metric_stats.complete]
+// snippet-start:[cloudwatch.php.get_metric_stats.import]
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
+use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatch.php.get_metric_stats.import]
 
 /**
  * Get Metric Statistics
@@ -27,8 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
-$client = new CloudWatchClient([
+ 
+// snippet-start:[cloudwatch.php.get_metric_stats.main]
+$client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2010-08-01'
@@ -52,7 +59,9 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[cloudwatch.php.get_metric_stats.main]
+// snippet-end:[cloudwatch.php.get_metric_stats.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetMetricStatistics.php demonstrates how to get statistics for a specified metric.]
 // snippet-keyword:[PHP]

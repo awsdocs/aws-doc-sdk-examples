@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[MoviesQuery.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.MoviesQuery] 
-
+// snippet-start:[dynamodb.java.codeexample.MoviesQuery] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -106,4 +105,5 @@ public class MoviesQuery {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.MoviesQuery]
+
+// snippet-end:[dynamodb.java.codeexample.MoviesQuery] 

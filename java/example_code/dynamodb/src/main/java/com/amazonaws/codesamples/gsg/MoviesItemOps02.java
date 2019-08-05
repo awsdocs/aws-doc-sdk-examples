@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[MoviesItemOps02.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.MoviesItemOps02] 
-
+// snippet-start:[dynamodb.java.codeexample.MoviesItemOps02] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -64,4 +63,5 @@ public class MoviesItemOps02 {
         }
 
     }
-}// snippet-end:[dynamodb.Java.CodeExample.MoviesItemOps02]
+}
+// snippet-end:[dynamodb.java.codeexample.MoviesItemOps02] 

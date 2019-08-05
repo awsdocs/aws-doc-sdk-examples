@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[FaultInjectionRequestHandler.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.FaultInjectionRequestHandler] 
-
+// snippet-start:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -58,7 +57,7 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
         /* Things to do just before a request is executed */
         if (request.getOriginalRequest() instanceof PutItemRequest) {
 
-            /* Throw throuhgput exceeded exception for 50% of put requests */
+            /* Throw throughput exceeded exception for 50% of put requests */
             if (rnd.nextInt(2) == 0) {
 
                 logger.info("Injecting ProvisionedThroughputExceededException");
@@ -128,4 +127,5 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
         // TODO Auto-generated method stub
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.FaultInjectionRequestHandler]
+
+// snippet-end:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 

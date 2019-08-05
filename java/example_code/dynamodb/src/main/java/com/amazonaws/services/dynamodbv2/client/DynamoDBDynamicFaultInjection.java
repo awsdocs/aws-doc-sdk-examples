@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBDynamicFaultInjection.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DynamoDBDynamicFaultInjection] 
-
+// snippet-start:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -257,4 +256,5 @@ public class DynamoDBDynamicFaultInjection {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.DynamoDBDynamicFaultInjection]
+
+// snippet-end:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection] 

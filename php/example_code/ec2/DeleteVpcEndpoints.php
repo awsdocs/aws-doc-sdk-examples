@@ -11,19 +11,25 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
+ *
+ *
  */
+// snippet-start:[ec2.php.delete_vpc_endpoints.complete]
+// snippet-start:[ec2.php.delete_vpc_endpoints.import]
+
 require 'vendor/autoload.php';
 
 use Aws\Ec2\Ec2Client;
-
+// snippet-end:[ec2.php.delete_vpc_endpoints.import]
 /**
  * Delete VPC Endpoint
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
-$ec2Client = new Ec2Client([
+ 
+// snippet-start:[ec2.php.delete_vpc_endpoints.main]
+$ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
@@ -36,7 +42,9 @@ $result = $ec2Client->deleteVpcEndpoints(array(
 
 var_dump($result);
  
-
+ 
+// snippet-end:[ec2.php.delete_vpc_endpoints.main]
+// snippet-end:[ec2.php.delete_vpc_endpoints.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteVpcEndpoints.php demonstrates how to delete one or more specified VPC endpoints.]
 // snippet-keyword:[PHP]

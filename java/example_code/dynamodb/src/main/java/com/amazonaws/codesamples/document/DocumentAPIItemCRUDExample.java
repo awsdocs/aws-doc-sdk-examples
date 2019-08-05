@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DocumentAPIItemCRUDExample.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DocumentAPIItemCRUDExample] 
-
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIItemCRUDExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -212,4 +211,5 @@ public class DocumentAPIItemCRUDExample {
         }
     }
 }
-// snippet-end:[dynamodb.Java.CodeExample.DocumentAPIItemCRUDExample]
+
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIItemCRUDExample] 

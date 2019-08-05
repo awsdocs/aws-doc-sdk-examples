@@ -15,19 +15,25 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ec2-examples-managing-instances.html
  *
+ *
+ *
  */
+// snippet-start:[ec2.php.start_and_stop_instance.complete]
+// snippet-start:[ec2.php.start_and_stop_instance.import]
+
 require 'vendor/autoload.php';
 
 use Aws\Ec2\Ec2Client;
-
+// snippet-end:[ec2.php.start_and_stop_instance.import]
 /**
  * Start and Stop Instances
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
-$ec2Client = new Ec2Client([
+ 
+// snippet-start:[ec2.php.start_and_stop_instance.main]
+$ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
@@ -49,7 +55,9 @@ if ($action == 'START') {
 
 var_dump($result);
  
-
+ 
+// snippet-end:[ec2.php.start_and_stop_instance.main]
+// snippet-end:[ec2.php.start_and_stop_instance.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[StartAndStopInstance.php demonstrates how to start and stop an Amazon EC2 instance.]
 // snippet-keyword:[PHP]

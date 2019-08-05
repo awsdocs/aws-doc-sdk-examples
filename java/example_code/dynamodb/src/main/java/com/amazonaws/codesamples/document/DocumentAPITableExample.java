@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DocumentAPITableExample.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -7,8 +7,7 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.Java.CodeExample.DocumentAPITableExample] 
-
+// snippet-start:[dynamodb.java.codeexample.DocumentAPITableExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -150,4 +149,5 @@ public class DocumentAPITableExample {
     }
 
 }
-// snippet-end:[dynamodb.Java.CodeExample.DocumentAPITableExample]
+
+// snippet-end:[dynamodb.java.codeexample.DocumentAPITableExample] 

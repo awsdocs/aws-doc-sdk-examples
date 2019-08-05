@@ -24,7 +24,7 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
-resp = sqs.send_message_batch({
+sqs.send_message_batch({
   queue_url: URL,
   entries: [
     {

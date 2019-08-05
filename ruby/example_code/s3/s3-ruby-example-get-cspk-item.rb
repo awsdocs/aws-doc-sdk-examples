@@ -36,7 +36,7 @@ key_file = 'private_key.pem'
 
 begin
   private_key = File.binread(key_file)
-  key = OpenSSL::PKey::RSA.new(private_key, passphrase)
+  key = OpenSSL::PKey::RSA.new(private_key, pass_phrase)
 
   # encryption client
   enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
