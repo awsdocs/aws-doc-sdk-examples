@@ -1,6 +1,17 @@
+ 
+//snippet-sourcedescription:[create_cache_cluster.cpp demonstrates how to create an Amazon ElastiCache cluster.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon ElastiCache]
+//snippet-service:[elasticache]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -31,7 +42,7 @@ int main(int argc, char ** argv)
     Aws::String cluster_id(argv[1]);
     Aws::String engine(argv[2]);
     Aws::String cache_node_type(argv[3]);
-    int num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt64(argv[4]);
+    auto num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt32(argv[4]);
 
     Aws::ElastiCache::ElastiCacheClient elasticache;
 

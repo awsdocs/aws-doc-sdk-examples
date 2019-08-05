@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[MonitorInstance.java demonstrates how to toggle detailed monitoring for an EC2 instance.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.monitor_instance.complete]
+// snippet-start:[ec2.java2.monitor_instance.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
-
+ 
+// snippet-end:[ec2.java2.monitor_instance.import]
 /**
  * Toggles detailed monitoring for an EC2 instance
  */
@@ -24,6 +34,7 @@ public class MonitorInstance
 {
     public static void monitorInstance(String instance_id)
     {
+        // snippet-start:[ec2.java2.monitor_instance.main]
         Ec2Client ec2 = Ec2Client.create();
 
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
@@ -31,6 +42,7 @@ public class MonitorInstance
 
         ec2.monitorInstances(request);
 
+        // snippet-end:[ec2.java2.monitor_instance.main]
         System.out.printf(
             "Successfully enabled monitoring for instance %s",
             instance_id);
@@ -38,13 +50,14 @@ public class MonitorInstance
 
     public static void unmonitorInstance(String instance_id)
     {
+        // snippet-start:[ec2.java2.monitor_instance.stop]
         Ec2Client ec2 = Ec2Client.create();
 
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
             .instanceIds(instance_id).build();
 
         ec2.unmonitorInstances(request);
-
+        // snippet-end:[ec2.java2.monitor_instance.stop]
         System.out.printf(
             "Successfully disabled monitoring for instance %s",
             instance_id);
@@ -72,4 +85,5 @@ public class MonitorInstance
         }
     }
 }
-
+ 
+// snippet-end:[ec2.java2.monitor_instance.complete]

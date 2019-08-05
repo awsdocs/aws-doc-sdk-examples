@@ -1,4 +1,17 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Creates a security group, adds rules to the security group, gets information about security groups, and deletes the security group.]
+# snippet-keyword:[Amazon Elastic Compute Cloud]
+# snippet-keyword:[authorize_security_group_ingress method]
+# snippet-keyword:[create_security_group method]
+# snippet-keyword:[delete_security_group method]
+# snippet-keyword:[describe_security_groups method]
+# snippet-keyword:[Ruby]
+# snippet-service:[ec2]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -67,14 +80,14 @@ end
 
 # Get information about your security groups.
 
-# This function gets information about an individual IP permission.
+# This method gets information about an individual IP permission.
 # The code is identical for calling ip_permissions and ip_permissions_egress later,
-#   so making a function out of it to reduce duplicated code.
+#   so making a method out of it to reduce duplicated code.
 def describe_ip_permission(ip_permission)
   puts "-" * 22
   puts "IP Protocol: #{ip_permission.ip_protocol}"
-  puts "From Port: #{ip_permission.from_port.to_s}"
-  puts "To Port: #{ip_permission.to_port.to_s}"
+  puts "From Port: #{ip_permission.from_port}"
+  puts "To Port: #{ip_permission.to_port}"
   if ip_permission.ip_ranges.count > 0
     puts "IP Ranges:"
     ip_permission.ip_ranges.each do |ip_range|

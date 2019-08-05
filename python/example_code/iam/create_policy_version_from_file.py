@@ -1,4 +1,14 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[create_policy_version_from_file.py demonstrates how to create a new version of an IAM policy by reading the policy from a file.]
+# snippet-service:[iam]
+# snippet-keyword:[AWS Identity and Access Management (IAM)]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-04-10]
+# snippet-sourceauthor:[AWS]
+
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -12,29 +22,27 @@
 # language governing permissions and limitations under the License.
 
 import boto3
-import json
+from botocore.exceptions import ClientError
 
-# Create IAM client
-iam = boto3.client('iam')
-
-policy_arn='arn:aws:iam::123456789012:policy/PolicyName'
-policy_file_name='/users/ec2-user/policy.json'
+# Assign these values before running the program
+policy_arn = 'arn:aws:iam::123456789012:policy/POLICY_NAME'
+policy_file_name = 'POLICY_FILENAME.JSON'
 
 try:
-    policy_file = open(policy_file_name, 'r')
-    new_policy = policy_file.read()
-    policy_file.close()
+    # Read the policy definition from a file
+    with open(policy_file_name, 'r') as f:
+        policy_version = f.read()
 
-    print('Creating New IAM Policy Version of Policy ' + policy_arn + ' with the follwing statements: \n\r')
-    print(str(new_policy) + '\n\r')
+    # Show the loaded policy definition
+    print(f'Creating new version of IAM policy {policy_arn}')
+    print(policy_version)
 
-    create_policy_version_response = iam.create_policy_version(
-        PolicyArn=policy_arn,
-        PolicyDocument=new_policy,
-        SetAsDefault=True
-    )
+    # Create a new version of the policy and set it as the default version
+    iam = boto3.client('iam')
+    response = iam.create_policy_version(PolicyArn=policy_arn,
+                                         PolicyDocument=policy_version,
+                                         SetAsDefault=True)
 
-    print('Policy Version Created: ' + create_policy_version_response['PolicyVersion']['VersionId'])
-
-except Exception as e:
+    print(f'Policy Version Created: {response["PolicyVersion"]["VersionId"]}')
+except ClientError as e:
     print(e)

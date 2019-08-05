@@ -1,4 +1,14 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[send_message.py demonstrates how to send a message to an Amazon SQS queue.]
+# snippet-service:[sqs]
+# snippet-keyword:[Amazon Simple Queue Service (Amazon SQS)]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2019-04-29]
+# snippet-sourceauthor:[AWS]
+
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -11,35 +21,49 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+
+import logging
 import boto3
+from botocore.exceptions import ClientError
 
-# Create SQS client
-sqs = boto3.client('sqs')
 
-queue_url = 'SQS_QUEUE_URL'
+def send_sqs_message(sqs_queue_url, msg_body):
+    """
 
-# Send message to SQS queue
-response = sqs.send_message(
-    QueueUrl=queue_url,
-    DelaySeconds=10,
-    MessageAttributes={
-        'Title': {
-            'DataType': 'String',
-            'StringValue': 'The Whistler'
-        },
-        'Author': {
-            'DataType': 'String',
-            'StringValue': 'John Grisham'
-        },
-        'WeeksOn': {
-            'DataType': 'Number',
-            'StringValue': '6'
-        }
-    },
-    MessageBody=(
-        'Information about current NY Times fiction bestseller for '
-        'week of 12/11/2016.'
-    )
-)
+    :param sqs_queue_url: String URL of existing SQS queue
+    :param msg_body: String message body
+    :return: Dictionary containing information about the sent message. If
+        error, returns None.
+    """
 
-print(response['MessageId'])
+    # Send the SQS message
+    sqs_client = boto3.client('sqs')
+    try:
+        msg = sqs_client.send_message(QueueUrl=sqs_queue_url,
+                                      MessageBody=msg_body)
+    except ClientError as e:
+        logging.error(e)
+        return None
+    return msg
+
+
+def main():
+    """Exercise send_sqs_message()"""
+
+    # Assign this value before running the program
+    sqs_queue_url = 'SQS_QUEUE_URL'
+
+    # Set up logging
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(levelname)s: %(asctime)s: %(message)s')
+
+    # Send some SQS messages
+    for i in range(1, 6):
+        msg_body = f'SQS message #{i}'
+        msg = send_sqs_message(sqs_queue_url, msg_body)
+        if msg is not None:
+            logging.info(f'Sent SQS message ID: {msg["MessageId"]}')
+
+
+if __name__ == '__main__':
+    main()

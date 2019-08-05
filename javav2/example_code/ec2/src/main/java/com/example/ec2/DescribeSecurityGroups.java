@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get information about all the EC2 security groups.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,11 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.describe_security_groups.complete]
+// snippet-start:[ec2.java2.describe_security_groups.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.SecurityGroup;
-
+ 
+// snippet-end:[ec2.java2.describe_security_groups.import]
 /**
  * Describes all security groups
  */
@@ -35,6 +45,7 @@ public class DescribeSecurityGroups
         }
 
         String group_id = args[0];
+        // snippet-start:[ec2.java2.describe_security_groups.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -45,6 +56,7 @@ public class DescribeSecurityGroups
         DescribeSecurityGroupsResponse response =
             ec2.describeSecurityGroups(request);
 
+        // snippet-end:[ec2.java2.describe_security_groups.main]
         for(SecurityGroup group : response.securityGroups()) {
             System.out.printf(
                 "Found security group with id %s, " +
@@ -56,4 +68,5 @@ public class DescribeSecurityGroups
         }
     }
 }
-
+ 
+// snippet-end:[ec2.java2.describe_security_groups.complete]

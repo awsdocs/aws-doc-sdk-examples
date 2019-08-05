@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[CreateEndpoint.java demonstrates how to create an endpoint for an application in Pinpoint.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[mobiletargeting]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,7 +46,7 @@ import java.util.UUID;
 public class CreateEndpoint {
 
 	public static void main(String[] args) {
-		
+
 		final String USAGE = "\n" +
                 "CreateEndpoint - create an endpoint for an application in pinpoint\n\n" +
                 "Usage: CreateEndpoint <appId>\n\n" +
@@ -53,9 +60,9 @@ public class CreateEndpoint {
         String appId = args[0];
 
 		AmazonPinpoint pinpoint = AmazonPinpointClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
-		
+
 		EndpointResponse response = createEndpoint(pinpoint, appId);
-		
+
 		System.out.println(response.getAddress());
 		System.out.println(response.getChannelType());
 		System.out.println(response.getApplicationId());
@@ -63,7 +70,7 @@ public class CreateEndpoint {
 		System.out.println(response.getRequestId());
 		System.out.println(response.getUser());
 	}
-	
+
     public static EndpointResponse createEndpoint(AmazonPinpoint client, String appId) {
         String endpointId = UUID.randomUUID().toString();
         System.out.println("Endpoint ID: " + endpointId);
@@ -119,7 +126,7 @@ public class CreateEndpoint {
 
         EndpointUser user = new EndpointUser()
                 .withUserId(UUID.randomUUID().toString());
-        
+
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
         String nowAsISO = df.format(new Date());
 
@@ -137,5 +144,5 @@ public class CreateEndpoint {
 
         return endpointRequest;
     }
-	
+
 }

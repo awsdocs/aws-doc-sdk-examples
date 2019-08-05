@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing IAM role.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.attach_role_policy.complete]
+// snippet-start:[iam.java2.attach_role_policy.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.AttachRolePolicyRequest;
@@ -22,6 +31,7 @@ import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesRespons
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+// snippet-end:[iam.java2.attach_role_policy.import]
 
 public class AttachRolePolicy {
 
@@ -39,19 +49,21 @@ public class AttachRolePolicy {
         }
 
         String role_name = args[0];
-
+        // snippet-start:[iam.java2.attach_role_policy.main]
+        // snippet-start:[iam.java2.attach_role_policy.client]        
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
-
+        // snippet-end:[iam.java2.attach_role_policy.client]
+        
         List<AttachedPolicy> matching_policies = new ArrayList<>();
 
         boolean done = false;
         String new_marker = null;
 
         while(!done) {
-        	
+
         	ListAttachedRolePoliciesResponse response;
-        	
+
         	if (new_marker == null) {
         		ListAttachedRolePoliciesRequest request =
                         ListAttachedRolePoliciesRequest.builder()
@@ -86,6 +98,8 @@ public class AttachRolePolicy {
             return;
         }
 
+        // snippet-end:[iam.java2.attach_role_policy.main]
+        // snippet-start:[iam.java2.attach_role_policy.attach]
         AttachRolePolicyRequest attach_request =
             AttachRolePolicyRequest.builder()
                 .roleName(role_name)
@@ -93,8 +107,11 @@ public class AttachRolePolicy {
 
         iam.attachRolePolicy(attach_request);
 
+        // snippet-end:[iam.java2.attach_role_policy.attach]
         System.out.println("Successfully attached policy " + POLICY_ARN +
-                " to role " + role_name);
+                " to role " + role_name);       
     }
 }
+ 
 
+// snippet-end:[iam.java2.attach_role_policy.complete]

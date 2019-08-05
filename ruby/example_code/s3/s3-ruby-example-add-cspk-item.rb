@@ -1,4 +1,14 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Adds an item to an S3 bucket, encrypting it with a public key.]
+# snippet-keyword:[Amazon Simple Storage Service]
+# snippet-keyword:[put_object method]
+# snippet-keyword:[Ruby]
+# snippet-service:[s3]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -35,7 +45,7 @@ begin
   )
 
   puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
-rescue StandardError => err
+rescue StandardError
   puts 'Could not add item'
   puts 'Error:'
   puts ex.message

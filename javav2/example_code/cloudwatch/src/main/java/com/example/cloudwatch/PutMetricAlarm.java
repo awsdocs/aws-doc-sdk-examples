@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[PutMetricAlarm.java demonstrates how to create a new CloudWatch alarm based on CPU utilization for an instance.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.put_metric_alarm.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.put_metric_alarm.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.ComparisonOperator;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -20,7 +29,7 @@ import software.amazon.awssdk.services.cloudwatch.model.PutMetricAlarmRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricAlarmResponse;
 import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 import software.amazon.awssdk.services.cloudwatch.model.Statistic;
-
+// snippet-end:[cloudwatch.java2.put_metric_alarm.import]
 /**
  * Creates a new CloudWatch alarm based on CPU utilization for an instance
  */
@@ -39,6 +48,7 @@ public class PutMetricAlarm {
         String alarmName = args[0];
         String instanceId = args[1];
 
+        // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
         CloudWatchClient cw =
         		CloudWatchClient.builder().build();
 
@@ -64,9 +74,11 @@ public class PutMetricAlarm {
             .build();
 
         PutMetricAlarmResponse response = cw.putMetricAlarm(request);
+        // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
 
         System.out.printf(
             "Successfully created alarm with name %s", alarmName);
 
     }
 }
+// snippet-end:[cloudwatch.java2.put_metric_alarm.complete]

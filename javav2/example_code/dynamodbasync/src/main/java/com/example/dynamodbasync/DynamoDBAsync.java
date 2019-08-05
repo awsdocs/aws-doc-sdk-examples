@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DynamoDBAsync.java demonstrates how to use the asynchronous DynamoDB client to list tables.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +21,8 @@
  */
 package com.example.dynamodbasync;
 
+// snippet-start:[dynamodb.java2.dbasync.complete]
+// snippet-start:[dynamodb.java2.dbasync.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
@@ -22,7 +31,9 @@ import software.amazon.awssdk.utils.FunctionalUtils;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+// snippet-end:[dynamodb.java2.dbasync.import]
 
+// snippet-start:[dynamodb.java2.dbasync.main]
 public class DynamoDBAsync {
 
     public static void main(String[] args) throws InterruptedException {
@@ -30,7 +41,7 @@ public class DynamoDBAsync {
         DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
         CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
                                                                                             .build());
-                
+
         // Map the response to another CompletableFuture containing just the table names
         CompletableFuture<List<String>> tableNames = response.thenApply(ListTablesResponse::tableNames);
         // When future is complete (either successfully or in error) handle the response
@@ -47,7 +58,9 @@ public class DynamoDBAsync {
                 client.close();
             }
         });
-        
+
         tableNames.join();
     }
 }
+// snippet-end:[dynamodb.java2.dbasync.main]
+// snippet-end:[dynamodb.java2.dbasync.complete]

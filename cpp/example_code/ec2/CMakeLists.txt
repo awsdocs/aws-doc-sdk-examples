@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -15,21 +15,21 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS ec2)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "create_instance")
-list(APPEND EXAMPLES "describe_instances")
-list(APPEND EXAMPLES "monitor_instance")
-list(APPEND EXAMPLES "reboot_instance")
-list(APPEND EXAMPLES "start_stop_instance")
-list(APPEND EXAMPLES "describe_addresses")
 list(APPEND EXAMPLES "allocate_address")
-list(APPEND EXAMPLES "release_address")
-list(APPEND EXAMPLES "describe_key_pairs")
+list(APPEND EXAMPLES "create_instance")
 list(APPEND EXAMPLES "create_key_pair")
+list(APPEND EXAMPLES "create_security_group")
 list(APPEND EXAMPLES "delete_key_pair")
+list(APPEND EXAMPLES "delete_security_group")
+list(APPEND EXAMPLES "describe_addresses")
+list(APPEND EXAMPLES "describe_instances")
+list(APPEND EXAMPLES "describe_key_pairs")
 list(APPEND EXAMPLES "describe_regions_and_zones")
 list(APPEND EXAMPLES "describe_security_groups")
-list(APPEND EXAMPLES "create_security_group")
-list(APPEND EXAMPLES "delete_security_group")
+list(APPEND EXAMPLES "monitor_instance")
+list(APPEND EXAMPLES "reboot_instance")
+list(APPEND EXAMPLES "release_address")
+list(APPEND EXAMPLES "start_stop_instance")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

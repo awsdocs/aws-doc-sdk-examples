@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[SetBucketPolicy.java demonstrates how to add a bucket policy to an existing S3 bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -12,6 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java2.set_bucket_policy.complete]
+// snippet-start:[s3.java2.set_bucket_policy.import]
 
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutBucketPolicyRequest;
@@ -27,13 +36,15 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+ 
+// snippet-end:[s3.java2.set_bucket_policy.import]
 /**
 * Add a bucket policy to an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
 */
+// snippet-start:[s3.java2.set_bucket_policy.main]
 public class SetBucketPolicy
 {
     // Loads a JSON-formatted policy from a file, verifying it with the Policy
@@ -51,7 +62,7 @@ public class SetBucketPolicy
             System.out.format("Problem reading file: \"%s\"", policy_file);
             System.out.println(e.getMessage());
         }
-        
+
         try {
             final JsonParser parser = new ObjectMapper().getFactory().createParser(file_text.toString());
             while (parser.nextToken() != null) {
@@ -62,7 +73,7 @@ public class SetBucketPolicy
          } catch (IOException ioe) {
             ioe.printStackTrace();
          }
-        
+
         return file_text.toString();
 
     }
@@ -78,7 +89,7 @@ public class SetBucketPolicy
         			.build();
             s3.putBucketPolicy(policyReq);
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
@@ -106,7 +117,7 @@ public class SetBucketPolicy
       String policy_text = null;
 
       policy_text = getBucketPolicyFromFile(args[1]);
-      
+
       System.out.println("Setting policy:");
       System.out.println("----");
       System.out.println(policy_text);
@@ -118,4 +129,6 @@ public class SetBucketPolicy
       System.out.println("Done!");
    }
 }
-
+ 
+// snippet-end:[s3.java2.set_bucket_policy.main]
+// snippet-end:[s3.java2.set_bucket_policy.complete]

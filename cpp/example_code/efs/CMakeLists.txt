@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -12,13 +12,13 @@ project(efs-examples)
 set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS efs)
+find_package(AWSSDK REQUIRED COMPONENTS elasticfilesystem)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_file_system")
+list(APPEND EXAMPLES "create_mount_target")
 list(APPEND EXAMPLES "delete_file_system")
 list(APPEND EXAMPLES "update_file_system")
-list(APPEND EXAMPLES "create_mount_target")
 
 
 # The executables to build.

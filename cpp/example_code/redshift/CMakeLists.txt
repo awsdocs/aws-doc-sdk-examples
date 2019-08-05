@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -12,10 +12,13 @@ project(redshift-examples)
 set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS redshift)
+# Note: authorize_cluster_access.cpp needs to link with the EC2 library.
+find_package(AWSSDK REQUIRED COMPONENTS redshift ec2)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "fetch_redshift_table")
+list(APPEND EXAMPLES "authorize_cluster_access")
+list(APPEND EXAMPLES "create_cluster")
+list(APPEND EXAMPLES "create_cluster_subnet_group")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

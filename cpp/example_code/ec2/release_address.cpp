@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[release_address.cpp demonstrates how to release an Amazon EC2 Elastic IP address.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,13 +22,15 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.release_address.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/ReleaseAddressRequest.h>
 #include <iostream>
+//snippet-end:[ec2.cpp.release_address.inc]
 
 /**
- * Releases an elastic ip address based on command line input
+ * Releases an Elastic IP address based on command line input
  */
 int main(int argc, char** argv)
 {
@@ -32,6 +45,7 @@ int main(int argc, char** argv)
     {
         Aws::String allocation_id = argv[1];
 
+        // snippet-start:[ec2.cpp.release_address.code]
         Aws::Client::ClientConfiguration config;
         config.region = Aws::Region::US_WEST_2;
 
@@ -52,6 +66,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully released elastic ip address " <<
                 allocation_id << std::endl;
         }
+        // snippet-end:[ec2.cpp.release_address.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

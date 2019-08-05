@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -19,3 +19,16 @@ ses = boto3.client('ses')
 response = ses.list_receipt_filters()
 
 print(response)
+ 
+
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[ses_listreceiptfilters.py demonstrates how to list the IP address filters associated with your AWS account in the current AWS Region.]
+# snippet-keyword:[Python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Simple Email Service]
+# snippet-service:[ses]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-08-11]
+# snippet-sourceauthor:[tapasweni-pathak]
+

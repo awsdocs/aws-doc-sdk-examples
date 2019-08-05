@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[DisableAlarmActions.java demonstrates how to disable actions on a CloudWatch alarm.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.disable_alarm_actions.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,9 +21,11 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.disable_alarm_actions.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.DisableAlarmActionsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DisableAlarmActionsResponse;
+// snippet-end:[cloudwatch.java2.disable_alarm_actions.import]
 
 /**
  * Disables actions on a CloudWatch alarm
@@ -34,7 +44,8 @@ public class DisableAlarmActions {
         }
 
         String alarmName = args[0];
-        
+
+        // snippet-start:[cloudwatch.java2.disable_alarm_actions.main]
         CloudWatchClient cw = CloudWatchClient.builder().build();
 
 
@@ -42,8 +53,10 @@ public class DisableAlarmActions {
             .alarmNames(alarmName).build();
 
         DisableAlarmActionsResponse response = cw.disableAlarmActions(request);
+        // snippet-end:[cloudwatch.java2.disable_alarm_actions.main]
 
         System.out.printf(
             "Successfully disabled actions on alarm %s", alarmName);
     }
 }
+// snippet-end:[cloudwatch.java2.disable_alarm_actions.complete]

@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[ListDetectors.java demonstrates how to list GuardDuty Detectors in the current AWS Region.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon GuardDuty]
+//snippet-service:[guardduty]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-26]
+//snippet-sourceauthor:[Keith Walker]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,12 +34,12 @@ public class ListDetectors {
 
         AmazonGuardDuty guardduty =
             AmazonGuardDutyClientBuilder.defaultClient();
-        
+
         try {
             ListDetectorsRequest request = new ListDetectorsRequest();
-            
+
             ListDetectorsResult response = guardduty.listDetectors(request);
-            
+
             for (String detectorId : response.getDetectorIds())
             {
                 System.out.println("DetectorId: " + detectorId );
@@ -45,4 +53,3 @@ public class ListDetectors {
 
     }
 }
-

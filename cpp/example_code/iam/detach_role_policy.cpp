@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[detach_role_policy.cpp demonstrates how to detach a managed policy from an IAM role.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,16 +22,20 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.detach_role_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DetachRolePolicyRequest.h>
 #include <aws/iam/model/ListAttachedRolePoliciesRequest.h>
 #include <aws/iam/model/ListAttachedRolePoliciesResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.detach_role_policy.inc]
 
 void DetachRolePolicy(const Aws::String& role_name, const Aws::String& policy_arn)
 {
+    // snippet-start:[iam.cpp.detach_role_policy01.code]
     Aws::IAM::IAMClient iam;
+    // snippet-end:[iam.cpp.detach_role_policy01.code]
 
     Aws::IAM::Model::ListAttachedRolePoliciesRequest list_request;
     list_request.SetRoleName(role_name);
@@ -61,6 +76,7 @@ void DetachRolePolicy(const Aws::String& role_name, const Aws::String& policy_ar
         return;
     }
 
+    // snippet-start:[iam.cpp.detach_role_policy02.code]
     Aws::IAM::Model::DetachRolePolicyRequest detach_request;
     detach_request.SetRoleName(role_name);
     detach_request.SetPolicyArn(policy_arn);
@@ -76,6 +92,7 @@ void DetachRolePolicy(const Aws::String& role_name, const Aws::String& policy_ar
 
     std::cout << "Successfully detached policy " << policy_arn << " from role "
         << role_name << std::endl;
+    // snippet-end:[iam.cpp.detach_role_policy02.code]
 }
 
 /**

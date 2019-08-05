@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[upload_user_doc.java demonstrates how to upload a document to AWS Workdocs.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[workdocs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[workdocs.java2.upload_user_doc.complete]
+// snippet-start:[workdocs.java2.upload_user_doc.import]
 package com.example.workdocs;
 
 import java.io.File;
@@ -20,7 +29,8 @@ import software.amazon.awssdk.services.workdocs.model.InitiateDocumentVersionUpl
 import software.amazon.awssdk.services.workdocs.model.UpdateDocumentVersionRequest;
 import software.amazon.awssdk.services.workdocs.model.UploadMetadata;
 import software.amazon.awssdk.services.workdocs.model.User;
-
+// snippet-end:[workdocs.java2.upload_user_doc.import]
+// snippet-start:[workdocs.java2.upload_user_doc.main]
 public class upload_user_doc {
 
 	private static String get_user_folder(WorkDocsClient workDocs, String orgId, String user) throws Exception {
@@ -30,7 +40,7 @@ public class upload_user_doc {
 
 		do {
 			DescribeUsersResponse result;
-			
+
 			if(marker == null) {
 				DescribeUsersRequest request = DescribeUsersRequest.builder()
 						.organizationId(orgId)
@@ -109,7 +119,7 @@ public class upload_user_doc {
 
 	public static void main(String[] args) throws Exception {
 		// Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
-		
+
 		final String USAGE = "\n" +
 	            "To run this example, supply your organization ID and a user email\n" +
 	            "\n" +
@@ -167,3 +177,5 @@ public class upload_user_doc {
 		System.out.println("");
 	}
 }
+// snippet-end:[workdocs.java2.upload_user_doc.main]
+// snippet-end:[workdocs.java2.upload_user_doc.complete]

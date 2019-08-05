@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[ListNamedQueryExample.java demonstrates how to obtain a list of named query IDs.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Athena]
+//snippet-service:[athena]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-25]
+//snippet-sourceauthor:[soo-aws]
 package aws.example.athena;
 
 import com.amazonaws.services.athena.AmazonAthena;
@@ -31,7 +39,7 @@ public class ListNamedQueryExample
         while (hasMoreResults) {
             List<String> namedQueryIds = listNamedQueriesResult.getNamedQueryIds();
             // process named query IDs
-            
+
             // If nextToken is not null,  there are more results. Get the next page of results.
             if (listNamedQueriesResult.getNextToken() != null) {
                 listNamedQueriesResult = athenaClient.listNamedQueries(

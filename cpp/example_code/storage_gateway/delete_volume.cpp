@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[delete_volume.cpp demonstrates how to delete a volume ARN from an AWS Storage Gateway resource.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Storage Gateway]
+//snippet-service:[storagegateway]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -13,6 +24,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/DeleteVolumeRequest.h>
 #include <aws/storagegateway/model/DeleteVolumeResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -32,9 +44,9 @@ int main(int argc, char ** argv)
 
     Aws::StorageGateway::Model::DeleteVolumeRequest dv_req;
 
-    dv.SetVolumeARN(gateway_arn);
+    dv_req.SetVolumeARN(volume_arn);
 
-    auto dv_out = storagegateway.CreateNFSFileShare(dv_req);
+    auto dv_out = storagegateway.DeleteVolume(dv_req);
 
     if (dv_out.IsSuccess())
     {

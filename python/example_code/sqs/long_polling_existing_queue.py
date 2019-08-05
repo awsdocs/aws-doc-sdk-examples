@@ -1,4 +1,14 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[long_polling_existing_queue.py demonstrates how to set the default number of seconds to wait between retrieving a message.]
+# snippet-service:[sqs]
+# snippet-keyword:[Amazon Simple Queue Service]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[snippet]
+# snippet-sourcedate:[2018-08-01]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
+
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -13,13 +23,10 @@
 
 import boto3
 
-# Create SQS client
-sqs = boto3.client('sqs')
-
+# Assign this value to an existing queue URL before running the program
 queue_url = 'SQS_QUEUE_URL'
 
-# Enable long polling on an existing SQS queue
-sqs.set_queue_attributes(
-    QueueUrl=queue_url,
-    Attributes={'ReceiveMessageWaitTimeSeconds': '20'}
-)
+# Enable long polling on the queue
+sqs = boto3.client('sqs')
+sqs.set_queue_attributes(QueueUrl=queue_url,
+                         Attributes={'ReceiveMessageWaitTimeSeconds': '20'})

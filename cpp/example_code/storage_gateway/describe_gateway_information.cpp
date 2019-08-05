@@ -1,5 +1,14 @@
+//snippet-sourcedescription:[describe_gateway_information.cpp demonstrates how to retrieve information pertaining to an AWS Storage Gateway resource.]
+//snippet-service:[storagegateway]
+//snippet-keyword:[AWS Storage Gateway]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -11,8 +20,9 @@
 
 #include <aws/core/Aws.h>
 #include <aws/storagegateway/StorageGatewayClient.h>
-#include <aws/storagegateway/model/DescribeGatewayRequest.h>
-#include <aws/storagegateway/model/DescribeGatewayResult.h>
+#include <aws/storagegateway/model/DescribeGatewayInformationRequest.h>
+#include <aws/storagegateway/model/DescribeGatewayInformationResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -28,13 +38,13 @@ int main(int argc, char ** argv)
   {
     Aws::String gateway_arn(argv[1]);
 
-    Aws::StorageGateway::StorageGatewayClient sg;
+    Aws::StorageGateway::StorageGatewayClient storagegateway;
 
-    Aws::StorageGateway::Model::DescribeGatewayRequest dgi_req;
+    Aws::StorageGateway::Model::DescribeGatewayInformationRequest dgi_req;
 
-    sg.SetGatewayARN(gateway_arn);
+    dgi_req.SetGatewayARN(gateway_arn);
 
-    auto dgi_out = storagegatway.DescribeGateway(dgi_req);
+    auto dgi_out = storagegateway.DescribeGatewayInformation(dgi_req);
 
     if (dgi_out.IsSuccess())
     {
