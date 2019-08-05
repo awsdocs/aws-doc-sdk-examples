@@ -36,7 +36,7 @@ import (
 
 // ItemInfo holds info to update
 type ItemInfo struct {
-   Rating float64 `json:":r"`
+    Rating float64 `json:":r"`
 }
 
 // Item identifies the item in the table
