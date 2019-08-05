@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[put_get_records.cpp demonstrates how to get and put records in an Amazon Kinesis data stream.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Kinesis Data Streams]
+//snippet-service:[kinesis]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -65,7 +76,7 @@ int main(int argc, char** argv)
         clientConfig.region = Aws::Region::US_WEST_2;
         Aws::Kinesis::KinesisClient kinesisClient(clientConfig);
 
-        Aws::Vector<Aws::String> animals{"dog", "cat", "owl", "horse", "stoat", "snake"};
+        Aws::Vector<Aws::String> animals{"dog", "cat", "mouse", "horse", "stoat", "snake"};
         Aws::Kinesis::Model::PutRecordsRequest putRecordsRequest;
         putRecordsRequest.SetStreamName(streamName);
         Aws::Vector<Aws::Kinesis::Model::PutRecordsRequestEntry> putRecordsRequestEntryList;

@@ -1,5 +1,15 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Retrieves a list of published AWS CloudWatch metrics.]
+// snippet-keyword:[AWS CloudWatch]
+// snippet-keyword:[ListMetrics function]
+// snippet-keyword:[Go]
+// snippet-service:[cloudwatch]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -25,13 +35,13 @@ import (
 
 func main() {
     if len(os.Args) != 4 {
-        fmt.Println("You must supply a metric name, namespace, and dimensions")
+        fmt.Println("You must supply a metric name, namespace, and dimension name")
         os.Exit(1)
     }
 
     metric := os.Args[1]
     namespace := os.Args[2]
-    dimensions := os.Args[3]
+    dimension := os.Args[3]
     
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
@@ -49,7 +59,7 @@ func main() {
         Namespace:  aws.String(namespace),
         Dimensions: []*cloudwatch.DimensionFilter{
             &cloudwatch.DimensionFilter{
-                Name: aws.String(name),
+                Name: aws.String(dimension),
             },
         },
     })

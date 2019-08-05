@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[update_server_cert.cpp demonstrates how to update the name of an IAM SSL/TLS server certificate.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Identity and Access Management (IAM)]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.update_server_cert.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/UpdateServerCertificateRequest.h>
 #include <iostream>
+//snippet-end:[iam.cpp.update_server_cert.inc]
 
 /**
  * Updates an server certificate name based on command line input
@@ -35,6 +48,7 @@ int main(int argc, char** argv)
         Aws::String old_name(argv[1]);
         Aws::String new_name(argv[2]);
 
+        // snippet-start:[iam.cpp.update_server_cert.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::UpdateServerCertificateRequest request;
         request.SetServerCertificateName(old_name);
@@ -53,6 +67,7 @@ int main(int argc, char** argv)
                 old_name << " to " << new_name << ":" <<
                 outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[iam.cpp.update_server_cert.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

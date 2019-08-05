@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[ListMetrics.java demonstrates how to list CloudWatch metrics.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.list_metrics.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.list_metrics.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.ListMetricsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.ListMetricsResponse;
@@ -21,6 +30,7 @@ import software.amazon.awssdk.services.cloudwatch.model.Metric;
 /**
  * Lists CloudWatch metrics
  */
+// snippet-end:[cloudwatch.java2.list_metrics.import]
 public class ListMetrics {
 
     public static void main(String[] args) {
@@ -36,6 +46,8 @@ public class ListMetrics {
 
         String namespace = args[0];
 
+        
+        // snippet-start:[cloudwatch.java2.list_metrics.main]
         CloudWatchClient cw =
         		CloudWatchClient.builder().build();
 
@@ -43,9 +55,9 @@ public class ListMetrics {
         String next_token = null;
 
         while(!done) {
-        	
+            
         	ListMetricsResponse response;
-        	
+
         	if (next_token == null) {
         		ListMetricsRequest request = ListMetricsRequest.builder()
         				.namespace(namespace)
@@ -58,7 +70,7 @@ public class ListMetrics {
                         .namespace(namespace)
                         .nextToken(next_token)
                         .build();
-        		
+
         		response = cw.listMetrics(request);
         	}
 
@@ -75,6 +87,7 @@ public class ListMetrics {
             	next_token = response.nextToken();
             }
         }
+        // snippet-end:[cloudwatch.java2.list_metrics.main]
     }
 }
-
+// snippet-end:[cloudwatch.java2.list_metrics.complete]

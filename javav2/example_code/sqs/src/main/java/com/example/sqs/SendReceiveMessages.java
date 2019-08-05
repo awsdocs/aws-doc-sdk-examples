@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to send multiple messages to a queue, check for those messages and delete the messages once received.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[sqs.java2.send_recieve_messages.complete]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,14 +20,15 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
+// snippet-start:[sqs.java2.send_recieve_messages.import]
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.SQSClient;
-import software.amazon.awssdk.services.sqs.model.SQSException;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.Message;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequestEntry;
@@ -27,23 +36,24 @@ import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import java.util.Date;
 import java.util.List;
 
+// snippet-end:[sqs.java2.send_recieve_messages.import]
+// snippet-start:[sqs.java2.send_recieve_messages.main]
 public class SendReceiveMessages
 {
     private static final String QUEUE_NAME = "testQueue" + new Date().getTime();
 
     public static void main(String[] args)
     {
-        SQSClient sqs = SQSClient.builder().build();
+    	SqsClient sqs = SqsClient.builder().build();
 
         try {
         	CreateQueueRequest request = CreateQueueRequest.builder()
         			.queueName(QUEUE_NAME)
         			.build();
             CreateQueueResponse create_result = sqs.createQueue(request);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
+
         }
 
         GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
@@ -92,4 +102,5 @@ public class SendReceiveMessages
         }
     }
 }
-
+// snippet-end:[sqs.java2.send_recieve_messages.main]
+// snippet-end:[sqs.java2.send_recieve_messages.complete]

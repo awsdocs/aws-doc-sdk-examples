@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[CreateKeyPair.java demonstrates how to create an EC2 key pair.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-05-22]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -44,8 +52,7 @@ public class CreateKeyPair
         CreateKeyPairResult response = ec2.createKeyPair(request);
 
         System.out.printf(
-            "Successfulyl created key pair named %s",
+            "Successfully created key pair named %s",
             key_name);
     }
 }
-

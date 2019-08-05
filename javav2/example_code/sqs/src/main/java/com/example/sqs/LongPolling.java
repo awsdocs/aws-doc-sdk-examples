@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling on a queue.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[sqs.java2.long_polling.complete]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,15 +20,19 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
+// snippet-start:[sqs.java2.long_polling.import]
 package com.example.sqs;
 import java.util.HashMap;
 
-import software.amazon.awssdk.services.sqs.SQSClient;
-import software.amazon.awssdk.services.sqs.model.SQSException;
+import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
+// snippet-end:[sqs.java2.long_polling.import]
+// snippet-start:[sqs.java2.long_polling.main]
 public class LongPolling
 {
     public static void main(String[] args)
@@ -38,12 +50,12 @@ public class LongPolling
         String queue_name = args[0];
         String queue_url = args[1];
 
-        SQSClient sqs = SQSClient.builder().build();
+        SqsClient sqs = SqsClient.builder().build();
 
         // Enable long polling when creating a queue
-        HashMap<String, String> attributes = new HashMap<String, String>();
-        attributes.put("ReceiveMessageWaitTimeSeconds", "20");
-        
+        HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
+        attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
+
         CreateQueueRequest create_request = CreateQueueRequest.builder()
                 .queueName(queue_name)
                 .attributes(attributes)
@@ -51,10 +63,8 @@ public class LongPolling
 
         try {
             sqs.createQueue(create_request);
-        } catch (SQSException e) {
-            if (!e.errorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+        } catch (QueueNameExistsException e) {
+        	throw e;
         }
 
         // Enable long polling on an existing queue
@@ -72,4 +82,5 @@ public class LongPolling
         sqs.receiveMessage(receive_request);
     }
 }
-
+// snippet-end:[sqs.java2.long_polling.main]
+// snippet-end:[sqs.java2.long_polling.complete]

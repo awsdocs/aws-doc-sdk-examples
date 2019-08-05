@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[This resource-based policy shows how to delegate access to the attached secret to the administrator of another AWS account.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Secrets Manager]
+//snippet-keyword:[secretsmanager]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[secretsmanager.iam_policy.delegates_read_only_access_to_account]
 {
     "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
     "Effect": "Allow",
@@ -9,3 +18,4 @@
     ],
     "Resource": "*"
 }
+//snippet-end:[secretsmanager.iam_policy.delegates_read_only_access_to_account]

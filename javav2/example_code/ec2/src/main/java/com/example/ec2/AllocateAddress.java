@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[AllocateAddress.java demonstrates how to allocate an elastic IP address for an EC2 instance.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,14 +20,17 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.allocate_address.complete]
+// snippet-start:[ec2.java2.allocate_address.import]
 
-import software.amazon.awssdk.services.ec2.EC2Client;
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.AssociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.AssociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
-
+ 
+// snippet-end:[ec2.java2.allocate_address.import]
 /**
  * Allocates an elastic IP address for an EC2 instance
  */
@@ -38,8 +48,9 @@ public class AllocateAddress
         }
 
         String instance_id = args[0];
+        // snippet-start:[ec2.java2.allocate_address.main]
 
-        EC2Client ec2 = EC2Client.create();
+        Ec2Client ec2 = Ec2Client.create();
 
         AllocateAddressRequest allocate_request = AllocateAddressRequest.builder()
             .domain(DomainType.VPC)
@@ -58,7 +69,8 @@ public class AllocateAddress
 
         AssociateAddressResponse associate_response =
             ec2.associateAddress(associate_request);
-
+        
+        // snippet-end:[ec2.java2.allocate_address.main]
         System.out.printf(
             "Successfully associated Elastic IP address %s " +
             "with instance %s",
@@ -66,4 +78,5 @@ public class AllocateAddress
             instance_id);
     }
 }
-
+ 
+// snippet-end:[ec2.java2.allocate_address.complete]

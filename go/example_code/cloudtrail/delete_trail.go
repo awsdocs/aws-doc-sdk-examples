@@ -1,5 +1,15 @@
-2018
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Deletes an AWS CloudTrail trail.]
+// snippet-keyword:[AWS CloudTrail]
+// snippet-keyword:[DeleteTrail function]
+// snippet-keyword:[Go]
+// snippet-service:[cloudtrail]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -45,7 +55,7 @@ func main() {
     // Create CloudTrail client
     svc := cloudtrail.New(sess)
 
-    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: trailNamePtr})
+    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: aws.String(trailName)})
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())

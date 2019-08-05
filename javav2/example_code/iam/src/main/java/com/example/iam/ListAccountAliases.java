@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[ListAccountAliases.java demonstrates how to list all aliases associated with an AWS account.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,25 +20,30 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.list_account_aliases.complete]
+// snippet-start:[iam.java2.list_account_aliases.import]
 import software.amazon.awssdk.services.iam.model.ListAccountAliasesResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
-
+import software.amazon.awssdk.services.iam.IamClient;
+ 
+// snippet-end:[iam.java2.list_account_aliases.import]
 /**
  * Lists all aliases associated with an AWS account
  */
 public class ListAccountAliases {
     public static void main(String[] args) {
 
+        // snippet-start:[iam.java2.list_account_aliases.main]
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         ListAccountAliasesResponse response = iam.listAccountAliases();
 
         for (String alias : response.accountAliases()) {
             System.out.printf("Retrieved account alias %s", alias);
         }
+        // snippet-end:[iam.java2.list_account_aliases.main]
     }
 }
-
+// snippet-end:[iam.java2.list_account_aliases.complete]

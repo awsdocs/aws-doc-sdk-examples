@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[receive_message.cpp demonstrates how to receive and delete a message from an Amazon SQS queue.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,21 +22,26 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.receive_message.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
+//snippet-end:[sqs.cpp.receive_message.inc]
+//snippet-start:[sqs.cpp.delete_message.inc]
 #include <aws/sqs/model/DeleteMessageRequest.h>
+//snippet-end:[sqs.cpp.delete_message.inc]
 #include <iostream>
 
 void ReceiveMessage(const Aws::String& queue_url)
 {
     // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration client_cfg;
     client_cfg.requestTimeoutMs = 30000;
 
+    // snippet-start:[sqs.cpp.receive_message.code]
     Aws::SQS::SQSClient sqs(client_cfg);
 
     Aws::SQS::Model::ReceiveMessageRequest rm_req;
@@ -53,7 +69,9 @@ void ReceiveMessage(const Aws::String& queue_url)
     std::cout << "  MessageId: " << message.GetMessageId() << std::endl;
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
+    // snippet-end:[sqs.cpp.receive_message.code]
 
+    // snippet-start:[sqs.cpp.delete_message.code]
     Aws::SQS::Model::DeleteMessageRequest dm_req;
     dm_req.SetQueueUrl(queue_url);
     dm_req.SetReceiptHandle(message.GetReceiptHandle());
@@ -70,6 +88,7 @@ void ReceiveMessage(const Aws::String& queue_url)
             " from queue " << queue_url << ": " <<
             dm_out.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[sqs.cpp.delete_message.code]
 }
 
 /**

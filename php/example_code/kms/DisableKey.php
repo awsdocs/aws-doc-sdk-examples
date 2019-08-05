@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -15,12 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-keys.html
  *
+ *
+ *
  */
+// snippet-start:[kms.php.disable_key.complete]
+// snippet-start:[kms.php.disable_key.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient;
+use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kms.php.disable_key.import]
 
 /**
  * Creating an Amazon KMS client.
@@ -29,23 +34,38 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient
+//Create a KmsClient 
+// snippet-start:[kms.php.disable_key.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
-    'region'  => 'us-east-2'
+    'region' => 'us-east-2'
 ]);
-
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 try {
     $result = $KmsClient->disableKey([
-        'KeyId' => $keyId, 
+        'KeyId' => $keyId,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
+ 
+ 
+// snippet-end:[kms.php.disable_key.main]
+// snippet-end:[kms.php.disable_key.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DisableKey.php demonstrates how to disable a CMK. Disabling a CMK prevents it from being used.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Key Management Service (KMS)]
+// snippet-service:[kms]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
+

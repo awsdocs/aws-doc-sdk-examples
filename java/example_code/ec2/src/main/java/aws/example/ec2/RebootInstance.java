@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot and EC2 instance.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-05-22]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,7 +35,7 @@ public class RebootInstance
     {
         final String USAGE =
             "To run this example, supply an instance id\n" +
-            "Ex: RebootInstnace <instance_id>\n";
+            "Ex: RebootInstance <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -47,4 +55,3 @@ public class RebootInstance
             "Successfully rebooted instance %s", instance_id);
     }
 }
-

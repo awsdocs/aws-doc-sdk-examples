@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[put_metric_data.cpp demonstrates how to submit Amazon CloudWatch metric data.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon CloudWatch]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.put_metric_data.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricDataRequest.h>
 #include <iostream>
+//snippet-end:[cw.cpp.put_metric_data.inc]
 
 /**
  * Attempts to put a sample metric data point with value based on command line input
@@ -35,6 +48,7 @@ int main(int argc, char** argv)
         double data_point = 1.0;
         value_stream >> data_point;
 
+        // snippet-start:[cw.cpp.put_metric_data.code]
         Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::Dimension dimension;
@@ -61,6 +75,7 @@ int main(int argc, char** argv)
         {
             std::cout << "Successfully put sample metric data" << std::endl;
         }
+        // snippet-end:[cw.cpp.put_metric_data.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

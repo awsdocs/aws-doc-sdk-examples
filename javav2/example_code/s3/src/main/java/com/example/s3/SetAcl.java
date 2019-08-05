@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[SetAcl.java demonstrates how to set a new access control list (ACL) to an S3 bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -12,6 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java2.set_acl.complete]
+// snippet-start:[s3.java2.set_acl.import]
 import java.util.List;
 
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -27,13 +36,15 @@ import software.amazon.awssdk.services.s3.model.PutBucketAclRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectAclRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-
+ 
+// snippet-end:[s3.java2.set_acl.import]
 /**
-* Add a bucket policy to an existing S3 bucket.
+* Add an ACL to an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
 */
+// snippet-start:[s3.java2.set_acl.main]
 public class SetAcl
 {
     public static void setBucketAcl(String bucket_name, String email, String access)
@@ -43,11 +54,11 @@ public class SetAcl
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-        
+
         GetBucketAclRequest bucketAclReq = GetBucketAclRequest.builder()
         		.bucket(bucket_name)
         		.build();
-        
+
         try {
             // get the current ACL
         	GetBucketAclResponse getAclRes = s3.getBucketAcl(bucketAclReq);
@@ -63,15 +74,15 @@ public class SetAcl
             AccessControlPolicy acl = AccessControlPolicy.builder()
             		.grants(grants)
             		.build();
-            
-            //put the new acl 
+
+            //put the new acl
             PutBucketAclRequest putAclReq = PutBucketAclRequest.builder()
             		.bucket(bucket_name)
             		.accessControlPolicy(acl)
             		.build();
             s3.putBucketAcl(putAclReq);
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
@@ -84,14 +95,14 @@ public class SetAcl
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-        
+
         try {
             // get the current ACL
         	GetObjectAclRequest objectAclReq = GetObjectAclRequest.builder()
             		.bucket(bucket_name)
             		.key(object_key)
             		.build();
-        	
+
         	GetObjectAclResponse getAclRes = s3.getObjectAcl(objectAclReq);
             // set access for the grantee  in acl
             Grantee grantee = Grantee.builder().emailAddress(email).build();
@@ -103,7 +114,7 @@ public class SetAcl
             		.build();
             grants.add(newGrantee);
 
-            //put the new acl 
+            //put the new acl
             AccessControlPolicy acl = AccessControlPolicy.builder()
             		.grants(grants)
             		.build();
@@ -114,7 +125,7 @@ public class SetAcl
             		.build();
             s3.putObjectAcl(putAclReq);
         } catch (S3Exception e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
@@ -157,4 +168,6 @@ public class SetAcl
         System.out.println("Done!");
     }
 }
-
+ 
+// snippet-end:[s3.java2.set_acl.main]
+// snippet-end:[s3.java2.set_acl.complete]

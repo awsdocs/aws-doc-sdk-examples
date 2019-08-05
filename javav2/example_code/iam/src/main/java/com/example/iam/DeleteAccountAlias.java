@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DeleteAccountAlias.java demonstrates how to delete an alias from an AWS account.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.delete_account_alias.complete]
+// snippet-start:[iam.java2.delete_account_alias.import]
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasRequest;
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
-
+import software.amazon.awssdk.services.iam.IamClient;
+ 
+// snippet-end:[iam.java2.delete_account_alias.import]
 /**
  * Deletes an alias from an AWS account
  */
@@ -36,14 +46,18 @@ public class DeleteAccountAlias {
 
         String alias = args[0];
 
+        // snippet-start:[iam.java2.delete_account_alias.main]
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
-        
+        IamClient iam = IamClient.builder().region(region).build();
+
         DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
             .accountAlias(alias).build();
 
-        DeleteAccountAliasResponse response = iam.deleteAccountAlias(request);
+        DeleteAccountAliasResponse response = iam.deleteAccountAlias(request); 
+        // snippet-end:[iam.java2.delete_account_alias.main]
 
         System.out.println("Successfully deleted account alias " + alias);
     }
 }
+
+// snippet-end:[iam.java2.delete_account_alias.complete]

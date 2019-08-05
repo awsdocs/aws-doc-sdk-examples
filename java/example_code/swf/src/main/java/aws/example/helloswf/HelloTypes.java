@@ -1,7 +1,12 @@
+//snippet-sourcedescription:[HelloTypes.java demonstrates how to register a domain, activity type and a workflow type.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-service:[swf]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
- * Reserved.
- *
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -13,24 +18,35 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+//snippet-start:[swf.java.hello_types.complete]
+//snippet-start:[swf.java.hello_types.package]
 package aws.example.helloswf;
+//snippet-end:[swf.java.hello_types.package]
 
+//snippet-start:[swf.java.hello_types.import]
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.*;
+//snippet-end:[swf.java.hello_types.import]
 
 public class HelloTypes {
+    //snippet-start:[swf.java.hello_types.string_declare]
     public static final String DOMAIN = "HelloDomain";
     public static final String TASKLIST = "HelloTasklist";
     public static final String WORKFLOW = "HelloWorkflow";
     public static final String WORKFLOW_VERSION = "1.0";
     public static final String ACTIVITY = "HelloActivity";
     public static final String ACTIVITY_VERSION = "1.0";
+    //snippet-end:[swf.java.hello_types.string_declare]
 
+    //snippet-start:[swf.java.hello_types.client]
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+        AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
+    //snippet-end:[swf.java.hello_types.client]
 
     public static void registerDomain() {
+        //snippet-start:[swf.java.hello_types.new_function]
         try {
             System.out.println("** Registering the domain '" + DOMAIN + "'.");
             swf.registerDomain(new RegisterDomainRequest()
@@ -39,9 +55,11 @@ public class HelloTypes {
         } catch (DomainAlreadyExistsException e) {
             System.out.println("** Domain already exists!");
         }
+        //snippet-end:[swf.java.hello_types.new_function]
     }
 
     public static void registerActivityType() {
+        //snippet-start:[swf.java.hello_types.new_activity_type]
         try {
             System.out.println("** Registering the activity type '" + ACTIVITY +
                 "-" + ACTIVITY_VERSION + "'.");
@@ -57,9 +75,11 @@ public class HelloTypes {
         } catch (TypeAlreadyExistsException e) {
             System.out.println("** Activity type already exists!");
         }
+        //snippet-end:[swf.java.hello_types.new_activity_type]
     }
 
     public static void registerWorkflowType() {
+        //snippet-start:[swf.java.hello_types.new_workflow_type]
         try {
             System.out.println("** Registering the workflow type '" + WORKFLOW +
                 "-" + WORKFLOW_VERSION + "'.");
@@ -73,12 +93,15 @@ public class HelloTypes {
         } catch (TypeAlreadyExistsException e) {
             System.out.println("** Workflow type already exists!");
         }
+        //snippet-end:[swf.java.hello_types.new_workflow_type]
     }
 
     public static void main(String[] args) {
+        //snippet-start:[swf.java.hello_types.main]
         registerDomain();
         registerWorkflowType();
         registerActivityType();
+        //snippet-end:[swf.java.hello_types.main]
     }
 }
-
+//snippet-end:[swf.java.hello_types.complete]

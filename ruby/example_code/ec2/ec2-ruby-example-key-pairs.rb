@@ -1,4 +1,16 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Creates a key pair, lists your key pairs, and deletes the key pair.]
+# snippet-keyword:[Amazon Elastic Compute Cloud]
+# snippet-keyword:[create_key_pair method]
+# snippet-keyword:[delete_key_pair method]
+# snippet-keyword:[describe_key_pairs method]
+# snippet-keyword:[Ruby]
+# snippet-service:[ec2]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -40,8 +52,8 @@ key_pairs_result = ec2.describe_key_pairs()
 
 if key_pairs_result.key_pairs.count > 0
   puts "\nKey pair names:"
-  key_pairs_result.key_pairs.each do |key_pair|
-    puts key_pair.key_name
+  key_pairs_result.key_pairs.each do |kp|
+    puts kp.key_name
   end
 end
 

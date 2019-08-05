@@ -1,8 +1,30 @@
-// Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
+//snippet-sourcedescription:[ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB table.]
+//snippet-service:[dynamodb]
+//snippet-keyword:[JavaScript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html
+
+// snippet-start:[dynamodb.JavaScript.batch.GetItem]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -15,11 +37,11 @@ var params = {
   RequestItems: {
     'TABLE_NAME': {
       Keys: [
-        {'CardID': {N: '1'}},
-        {'CardID': {N: '3'}},
-        {'CardID': {N: '5'}}
+        {'KEY_NAME': {N: 'KEY_VALUE_1'}},
+        {'KEY_NAME': {N: 'KEY_VALUE_2'}},
+        {'KEY_NAME': {N: 'KEY_VALUE_3'}}
       ],
-      ProjectionExpression: 'CardID, CardName'
+      ProjectionExpression: 'KEY_NAME, ATTRIBUTE'
     }
   }
 };
@@ -33,3 +55,4 @@ ddb.batchGetItem(params, function(err, data) {
     });
   }
 });
+// snippet-end:[dynamodb.JavaScript.batch.GetItem]

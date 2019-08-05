@@ -1,4 +1,17 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Sends a message to, receives a message from, and deletes a message from an SQS queue.]
+# snippet-keyword:[Amazon Simple Queue Service]
+# snippet-keyword:[delete_message method]
+# snippet-keyword:[get_queue_url method]
+# snippet-keyword:[receive_message method]
+# snippet-keyword:[send_message method]
+# snippet-keyword:[Ruby]
+# snippet-service:[sqs]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the

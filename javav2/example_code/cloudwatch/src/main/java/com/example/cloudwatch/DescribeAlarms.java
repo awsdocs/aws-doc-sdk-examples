@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get a information about CloudWatch alarms.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.describe_alarms.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,10 +22,12 @@
  */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.describe_alarms.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmsResponse;
 import software.amazon.awssdk.services.cloudwatch.model.MetricAlarm;
+// snippet-end:[cloudwatch.java2.describe_alarms.import]
 
 /**
  * Lists all CloudWatch alarms
@@ -26,6 +36,7 @@ public class DescribeAlarms {
 
     public static void main(String[] args) {
 
+        // snippet-start:[cloudwatch.java2.describe_alarms.main]
         CloudWatchClient cw = CloudWatchClient.builder().build();
 
         boolean done = false;
@@ -43,7 +54,7 @@ public class DescribeAlarms {
         				.build();
                 response = cw.describeAlarms(request);
         	}
-            
+
 
             for(MetricAlarm alarm : response.metricAlarms()) {
                 System.out.printf("Retrieved alarm %s", alarm.alarmName());
@@ -56,6 +67,7 @@ public class DescribeAlarms {
                 new_token = response.nextToken();
             }
         }
+        // snippet-end:[cloudwatch.java2.describe_alarms.main]
     }
 }
-
+// snippet-end:[cloudwatch.java2.describe_alarms.complete]

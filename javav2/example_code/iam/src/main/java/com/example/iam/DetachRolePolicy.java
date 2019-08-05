@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DetachRolePolicy.java demonstrates how to detache a policy from an IAM role.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.detach_role_policy.complete]
+// snippet-start:[iam.java2.detach_role_policy.import]
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
-
+import software.amazon.awssdk.services.iam.IamClient;
+ 
+// snippet-end:[iam.java2.detach_role_policy.import]
 /**
  * Detaches a policy from a role
  */
@@ -37,17 +47,19 @@ public class DetachRolePolicy {
         String role_name = args[0];
         String policy_arn = args[1];
 
+        // snippet-start:[iam.java2.detach_role_policy.main]
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
             .roleName(role_name)
             .policyArn(policy_arn).build();
 
         DetachRolePolicyResponse response = iam.detachRolePolicy(request);
-
+        // snippet-end:[iam.java2.detach_role_policy.main]
+        
         System.out.println("Successfully detached policy " + policy_arn +
                 " from role " + role_name);
     }
 }
-
+// snippet-end:[iam.java2.detach_role_policy.complete]

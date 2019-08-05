@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[monitor_instance.cpp demonstrates how to toggle detailed monitoring of an Amazon EC2 instance.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon EC2]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,6 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.monitor_instance.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/MonitorInstancesRequest.h>
@@ -18,9 +30,11 @@
 #include <aws/ec2/model/UnmonitorInstancesRequest.h>
 #include <aws/ec2/model/UnmonitorInstancesResponse.h>
 #include <iostream>
+//snippet-end:[ec2.cpp.monitor_instance.inc]
 
 void EnableMonitoring(const Aws::String& instance_id)
 {
+    // snippet-start:[ec2.cpp.enable_monitor_instance.code]
     Aws::EC2::EC2Client ec2;
     Aws::EC2::Model::MonitorInstancesRequest request;
     request.AddInstanceIds(instance_id);
@@ -50,10 +64,12 @@ void EnableMonitoring(const Aws::String& instance_id)
         std::cout << "Successfully enabled monitoring on instance " <<
             instance_id << std::endl;
     }
+    // snippet-end:[ec2.cpp.enable_monitor_instance.code]
 }
 
 void DisableMonitoring(const Aws::String& instance_id)
 {
+    // snippet-start:[ec2.cpp.disable_monitor_instance.code]
     Aws::EC2::EC2Client ec2;
     Aws::EC2::Model::UnmonitorInstancesRequest unrequest;
     unrequest.AddInstanceIds(instance_id);
@@ -83,6 +99,7 @@ void DisableMonitoring(const Aws::String& instance_id)
         std::cout << "Successfully disable monitoring on instance " <<
             instance_id << std::endl;
     }
+    // snippet-end:[ec2.cpp.disable_monitor_instance.code]
 }
 
 /**

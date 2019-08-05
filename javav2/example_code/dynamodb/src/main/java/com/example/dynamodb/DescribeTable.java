@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DescribeTable.java demonstrates how to ...]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -12,6 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
+// snippet-start:[dynamodb.java2.describe_table.complete]
+// snippet-start:[dynamodb.java2.describe_table.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
@@ -19,7 +28,8 @@ import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughputDescription;
 import software.amazon.awssdk.services.dynamodb.model.TableDescription;
 import java.util.List;
-
+ 
+// snippet-end:[dynamodb.java2.describe_table.import]
 /**
  * Get information about (describe) a DynamoDB table.
  *
@@ -48,6 +58,7 @@ public class DescribeTable
         String table_name = args[0];
         System.out.format("Getting description for %s\n\n", table_name);
 
+        // snippet-start:[dynamodb.java2.describe_table.main]
         DynamoDbClient ddb = DynamoDbClient.create();
 
         DescribeTableRequest request = DescribeTableRequest.builder()
@@ -87,9 +98,12 @@ public class DescribeTable
                 }
             }
         } catch (DynamoDbException e) {
-            System.err.println(e.errorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
+        // snippet-end:[dynamodb.java2.describe_table.main]
         System.out.println("\nDone!");
     }
 }
+ 
+// snippet-end:[dynamodb.java2.describe_table.complete]

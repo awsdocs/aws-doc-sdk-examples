@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to creates a CloudWatch logs subscription filter.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[cloudwatch]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.put_subscription_filter.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -12,6 +20,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[cloudwatch.java2.put_subscription_filter.import]
 package com.example.cloudwatch;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilterRequest;
@@ -20,6 +29,8 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
 /**
  * Creates a CloudWatch Logs subscription filter.
  */
+// snippet-end:[cloudwatch.java2.put_subscription_filter.import]
+// snippet-start:[cloudwatch.java2.put_subscription_filter.main]
 public class PutSubscriptionFilter {
     public static void main(String[] args) {
 
@@ -62,4 +73,5 @@ public class PutSubscriptionFilter {
             filter);
     }
 }
-
+// snippet-end:[cloudwatch.java2.put_subscription_filter.main]
+// snippet-end:[cloudwatch.java2.put_subscription_filter.complete]

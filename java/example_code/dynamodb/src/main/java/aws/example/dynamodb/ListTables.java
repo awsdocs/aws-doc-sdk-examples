@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[ListTables.java demonstrates how to list DynamoDB tables for the current AWS account.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-01-15]
+//snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -32,7 +40,7 @@ public class ListTables
         System.out.println("Your DynamoDB tables:\n");
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
-        
+
         ListTablesRequest request;
 
         boolean more_tables = true;
@@ -48,7 +56,7 @@ public class ListTables
                 			.withLimit(10)
                 			.withExclusiveStartTableName(last_name);
                 }
-                
+
                 ListTablesResult table_list = ddb.listTables(request);
                 List<String> table_names = table_list.getTableNames();
 
@@ -65,7 +73,7 @@ public class ListTables
                 if (last_name == null) {
                     more_tables = false;
                 }
-                
+
             } catch (AmazonServiceException e) {
                 System.err.println(e.getErrorMessage());
                 System.exit(1);
@@ -74,4 +82,3 @@ public class ListTables
         System.out.println("\nDone!");
     }
 }
-

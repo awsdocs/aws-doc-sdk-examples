@@ -1,4 +1,17 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Updates a server certificate, deletes the server certificate, and lists information about the remaining server certificates.]
+# snippet-keyword:[AWS Identity and Access Management]
+# snippet-keyword:[delete_server_certificate method]
+# snippet-keyword:[get_server_certificate method]
+# snippet-keyword:[list_server_certificates method]
+# snippet-keyword:[update_server_certificate method]
+# snippet-keyword:[Ruby]
+# snippet-service:[iam]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the

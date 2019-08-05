@@ -1,5 +1,15 @@
+//snippet-sourcedescription:[GetAcl.java demonstrates how to get the access control list (ACL) of an S3 bucket and an object.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-keyword:[getBucketAcl]
+//snippet-keyword:[getObjectAcl]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -13,26 +23,26 @@ specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Grant;
+
 import java.util.List;
 
 /**
-* Add a bucket policy to an existing S3 bucket.
-*
-* This code expects that you have AWS credentials set up per:
-* http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
-*/
-public class GetAcl
-{
-    public static void getBucketAcl(String bucket_name)
-    {
+ * Retrieve the access control list of an existing S3 bucket.
+ * 
+ * This code expects that you have AWS credentials set up per:
+ * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
+ */
+public class GetAcl {
+    public static void getBucketAcl(String bucket_name) {
         System.out.println("Retrieving ACL for bucket: " + bucket_name);
 
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         try {
             AccessControlList acl = s3.getBucketAcl(bucket_name);
             List<Grant> grants = acl.getGrantsAsList();
@@ -46,12 +56,11 @@ public class GetAcl
         }
     }
 
-    public static void getObjectAcl(String bucket_name, String object_key)
-    {
+    public static void getObjectAcl(String bucket_name, String object_key) {
         System.out.println("Retrieving ACL for object: " + object_key);
         System.out.println("                in bucket: " + bucket_name);
 
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         try {
             AccessControlList acl = s3.getObjectAcl(bucket_name, object_key);
             List<Grant> grants = acl.getGrantsAsList();
@@ -65,19 +74,18 @@ public class GetAcl
         }
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "Usage:\n" +
-            "  GetAcl <bucket> [object]\n\n" +
-            "Where:\n" +
-            "  bucket - the bucket to get the access control list (ACL) for\n" +
-            "  object - (optional) the object to get the ACL for.\n" +
-            "           If object is specified, the retrieved ACL will be\n" +
-            "           for the object, not the bucket.\n\n" +
-            "Examples:\n" +
-            "    GetAcl testbucket\n" +
-            "    GetAcl testbucket testobject\n\n";
+                "Usage:\n" +
+                "  GetAcl <bucket> [object]\n\n" +
+                "Where:\n" +
+                "  bucket - the bucket to get the access control list (ACL) for\n" +
+                "  object - (optional) the object to get the ACL for.\n" +
+                "           If object is specified, the retrieved ACL will be\n" +
+                "           for the object, not the bucket.\n\n" +
+                "Examples:\n" +
+                "    GetAcl testbucket\n" +
+                "    GetAcl testbucket testobject\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -96,4 +104,3 @@ public class GetAcl
         System.out.println("Done!");
     }
 }
-

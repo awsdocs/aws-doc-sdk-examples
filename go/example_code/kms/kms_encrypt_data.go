@@ -1,5 +1,15 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Encrypts a string using KMS.]
+// snippet-keyword:[AWS Key Management Service]
+// snippet-keyword:[Encrypt function]
+// snippet-keyword:[Go]
+// snippet-service:[kms]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -41,7 +51,7 @@ func main() {
 
     text := "1234567890"
 
-    // Encrypt the data key
+    // Encrypt the data
     result, err := svc.Encrypt(&kms.EncryptInput{
         KeyId: aws.String(keyId),
         Plaintext: []byte(text),

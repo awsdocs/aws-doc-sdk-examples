@@ -1,4 +1,20 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Creates, populates, and deletes a static website from an S3 bucket.]
+# snippet-keyword:[Amazon Simple Storage Service]
+# snippet-keyword:[create_bucket method]
+# snippet-keyword:[delete_bucket_website method]
+# snippet-keyword:[get_bucket_website method]
+# snippet-keyword:[put_bucket_website method]
+# snippet-keyword:[put_object method]
+# snippet-keyword:[Resource.delete method]
+# snippet-keyword:[Ruby]
+# snippet-service:[s3]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -54,7 +70,7 @@ s3.put_bucket_website(
 
 # Accessing as a Website
 index_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/"
-error_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/nonexistant.html"
+error_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/nonexistent.html"
 
 puts "Index Page Contents:\n#{Net::HTTP.get(URI(index_path))}\n\n"
 puts "Error Page Contents:\n#{Net::HTTP.get(URI(error_path))}\n\n"

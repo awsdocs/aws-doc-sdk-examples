@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
-
+// snippet-start:[s3.php.put_service_operations.complete]
+// snippet-start:[s3.php.put_service_operations.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 
+// snippet-end:[s3.php.put_service_operations.import]
 /**
  * Put an Object inside Amazon S3 Bucket.
  *
@@ -28,10 +30,11 @@ use Aws\S3\S3Client;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
+// snippet-start:[s3.php.put_service_operations.main]
 // Use the us-east-2 region and latest version of each client.
 $sharedConfig = [
     'profile' => 'default',
-    'region'  => 'us-east-2',
+    'region' => 'us-east-2',
     'version' => 'latest'
 ];
 
@@ -44,15 +47,30 @@ $s3Client = $sdk->createS3();
 // Send a PutObject request and get the result object.
 $result = $s3Client->putObject([
     'Bucket' => 'my-bucket',
-    'Key'    => 'my-key',
-    'Body'   => 'this is the body!'
+    'Key' => 'my-key',
+    'Body' => 'this is the body!'
 ]);
 
 // Download the contents of the object.
 $result = $s3Client->getObject([
     'Bucket' => 'my-bucket',
-    'Key'    => 'my-key'
+    'Key' => 'my-key'
 ]);
 
 // Print the body of the result by indexing into the result object.
 echo $result['Body'];
+ 
+
+// snippet-end:[s3.php.put_service_operations.main]
+// snippet-end:[s3.php.put_service_operations.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[PutObjectServiceOperations.php demonstrates how to send a file (or object) to an Amazon S3 bucket with an actionable result object returned.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon S3]
+// snippet-service:[s3]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
+

@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[AccessKeyLastUsed.java demonstrates how to display the time that an access key was last used.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,10 +21,13 @@
  */
 package com.example.iam;
 
+// snippet-start:[iam.java2.access_key_last_used.complete]
+// snippet-start:[iam.java2.access_key_last_used.import]
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IAMClient;
+import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedRequest;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedResponse;
+// snippet-end:[iam.java2.access_key_last_used.import]
 
 /**
  * Displays the time that an access key was last used
@@ -36,8 +46,9 @@ public class AccessKeyLastUsed {
 
         String access_id = args[0];
 
+        // snippet-start:[iam.java2.access_key_last_used.main]
         Region region = Region.AWS_GLOBAL;
-        IAMClient iam = IAMClient.builder().region(region).build();
+        IamClient iam = IamClient.builder().region(region).build();
 
         GetAccessKeyLastUsedRequest request = GetAccessKeyLastUsedRequest.builder()
             .accessKeyId(access_id).build();
@@ -46,6 +57,9 @@ public class AccessKeyLastUsed {
 
         System.out.println("Access key was last used at: " +
                 response.accessKeyLastUsed().lastUsedDate());
+        // snippet-end:[iam.java2.access_key_last_used.main]
     }
 }
+ 
 
+// snippet-end:[iam.java2.access_key_last_used.complete]

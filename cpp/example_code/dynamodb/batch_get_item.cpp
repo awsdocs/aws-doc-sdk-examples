@@ -1,3 +1,14 @@
+ 
+//snippet-sourcedescription:[batch_get_item.cpp demonstrates how to batch get items from different Amazon DynamoDB tables.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 // BatchGetItem.cpp : Defines the entry point for the console application.
 //
 #include <aws/core/Aws.h>

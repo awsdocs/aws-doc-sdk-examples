@@ -1,5 +1,16 @@
+ 
+//snippet-sourcedescription:[delete_queue.cpp demonstrates how to delete an Amazon SQS queue.]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.delete_queue.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/client/DefaultRetryStrategy.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/DeleteQueueRequest.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.delete_queue.inc]
 
 /**
  * Deletes an sqs queue based on command line input
@@ -40,6 +53,7 @@ int main(int argc, char** argv)
                 "sqs_delete_queue", 0);
         Aws::SQS::SQSClient sqs(client_cfg);
 
+        // snippet-start:[sqs.cpp.delete_queue.code]
         Aws::SQS::Model::DeleteQueueRequest dq_req;
         dq_req.SetQueueUrl(queue_url);
 
@@ -54,6 +68,7 @@ int main(int argc, char** argv)
             std::cout << "Error deleting queue " << queue_url << ": " <<
                 dq_out.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[sqs.cpp.delete_queue.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

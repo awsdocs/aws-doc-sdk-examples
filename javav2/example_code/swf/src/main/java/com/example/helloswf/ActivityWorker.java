@@ -1,7 +1,13 @@
+//snippet-sourcedescription:[ActivityWorker.java demonstrates how to implement an activity worker that polls for tasks in a task list and executes its task.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[swf]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
+// snippet-start:[swf.java2.activity_worker.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
- * Reserved.
- *
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -13,14 +19,17 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[swf.java2.activity_worker.import]
 package com.example.helloswf;
 
-import software.amazon.awssdk.services.swf.SWFClient;
+import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.*;
 
+// snippet-end:[swf.java2.activity_worker.import]
+// snippet-start:[swf.java2.activity_worker.main]
 public class ActivityWorker {
-    private static final SWFClient swf =
-    		SWFClient.builder().build();
+    private static final SwfClient swf =
+            SwfClient.builder().build();
 
     private static String sayHello(String input) throws Throwable {
         return "Hello, " + input + "!";
@@ -74,3 +83,5 @@ public class ActivityWorker {
         }
     }
 }
+// snippet-end:[swf.java2.activity_worker.main]
+// snippet-end:[swf.java2.activity_worker.complete]

@@ -1,4 +1,14 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Configures a Lambda function accept notifications.]
+# snippet-keyword:[AWS Lambda]
+# snippet-keyword:[add_permission function]
+# snippet-keyword:[Ruby]
+# snippet-service:[lambda]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -21,4 +31,4 @@ args[:action] = 'lambda:InvokeFunction'
 args[:principal] = 's3.amazonaws.com'
 args[:source_arn] = 'my-resource-arn'
 
-client.add_permission{args]
+client.add_permission(args)

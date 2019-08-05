@@ -1,49 +1,46 @@
-cmake_minimum_required(VERSION 2.8)
-set (CMAKE_CXX_STANDARD 11)
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# This file is licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License. A copy of
+# the License is located at
+# http://aws.amazon.com/apache2.0/
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+cmake_minimum_required(VERSION 3.2)
 project(s3-examples)
+set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(aws-sdk-cpp)
+find_package(AWSSDK REQUIRED COMPONENTS s3)
 
 # Link to shared libraries.
 add_definitions(-DUSE_IMPORT_EXPORT)
 
 # The executables to build.
-add_executable(copy_object copy_object.cpp)
-add_executable(create_bucket create_bucket.cpp)
-add_executable(delete_bucket delete_bucket.cpp)
-add_executable(delete_bucket_policy delete_bucket_policy.cpp)
-add_executable(delete_object delete_object.cpp)
-add_executable(delete_website_config delete_website_config.cpp)
-add_executable(get_acl get_acl.cpp)
-add_executable(get_bucket_policy get_bucket_policy.cpp)
-add_executable(get_object get_object.cpp)
-add_executable(get_website_config get_website_config.cpp)
-add_executable(list_buckets list_buckets.cpp)
-add_executable(list_objects list_objects.cpp)
-add_executable(put_bucket_policy put_bucket_policy.cpp)
-add_executable(put_object put_object.cpp)
-add_executable(put_object_unicode put_object_unicode.cpp)
-add_executable(put_website_config put_website_config.cpp)
-add_executable(set_acl set_acl.cpp)
+set(EXAMPLES "")
+list(APPEND EXAMPLES "copy_object")
+list(APPEND EXAMPLES "create_bucket")
+list(APPEND EXAMPLES "delete_bucket")
+list(APPEND EXAMPLES "delete_bucket_policy")
+list(APPEND EXAMPLES "delete_object")
+list(APPEND EXAMPLES "delete_website_config")
+list(APPEND EXAMPLES "get_bucket_policy")
+list(APPEND EXAMPLES "get_object")
+list(APPEND EXAMPLES "get_put_bucket_acl")
+list(APPEND EXAMPLES "get_put_object_acl")
+list(APPEND EXAMPLES "get_website_config")
+list(APPEND EXAMPLES "list_buckets")
+list(APPEND EXAMPLES "list_objects")
+list(APPEND EXAMPLES "put_bucket_policy")
+list(APPEND EXAMPLES "put_object")
+list(APPEND EXAMPLES "put_object_async")
+list(APPEND EXAMPLES "put_object_buffer")
+list(APPEND EXAMPLES "put_website_config")
+list(APPEND EXAMPLES "s3-demo")
 
-# Since find_package() was used, all dependencies, header files, and cflags
-# necessary to build and link the executables are automatically resolved.
-target_link_libraries(copy_object aws-cpp-sdk-s3)
-target_link_libraries(create_bucket aws-cpp-sdk-s3)
-target_link_libraries(delete_bucket aws-cpp-sdk-s3)
-target_link_libraries(delete_bucket_policy aws-cpp-sdk-s3)
-target_link_libraries(delete_object aws-cpp-sdk-s3)
-target_link_libraries(delete_website_config aws-cpp-sdk-s3)
-target_link_libraries(get_acl aws-cpp-sdk-s3)
-target_link_libraries(get_bucket_policy aws-cpp-sdk-s3)
-target_link_libraries(get_object aws-cpp-sdk-s3)
-target_link_libraries(get_website_config aws-cpp-sdk-s3)
-target_link_libraries(list_buckets aws-cpp-sdk-s3)
-target_link_libraries(list_objects aws-cpp-sdk-s3)
-target_link_libraries(put_bucket_policy aws-cpp-sdk-s3)
-target_link_libraries(put_object aws-cpp-sdk-s3)
-target_link_libraries(put_object_unicode aws-cpp-sdk-s3)
-target_link_libraries(put_website_config aws-cpp-sdk-s3)
-target_link_libraries(set_acl aws-cpp-sdk-s3)
-
+# The executables to build
+foreach(EXAMPLE IN LISTS EXAMPLES)
+  add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
+  target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
+endforeach()

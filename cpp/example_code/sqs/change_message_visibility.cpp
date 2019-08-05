@@ -1,5 +1,14 @@
+//snippet-sourcedescription:[change_message_visibility.cpp demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.]
+//snippet-service:[sqs]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-keyword:[C++]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -11,18 +20,20 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.change_message_visibility.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.change_message_visibility.inc]
 
 void ChangeMessageVisibility(
     const Aws::String& queue_url, int visibility_timeout)
 {
     // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration client_config;
     client_config.requestTimeoutMs = 30000;
@@ -55,6 +66,7 @@ void ChangeMessageVisibility(
     std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
     std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
 
+    // snippet-start:[sqs.cpp.change_message_visibility.code]
     Aws::SQS::Model::ChangeMessageVisibilityRequest request;
     request.SetQueueUrl(queue_url);
     request.SetReceiptHandle(message.GetReceiptHandle());
@@ -71,10 +83,11 @@ void ChangeMessageVisibility(
             message.GetMessageId() << " from queue " << queue_url << ": " <<
             outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[sqs.cpp.change_message_visibility.code]
 }
 
 /**
- * Changes the visibility timeout of a message received from an sqs queue, based
+ * Changes the visibility timeout of a message received from an SQS queue, based
  * on command line input
  */
 int main(int argc, char** argv)

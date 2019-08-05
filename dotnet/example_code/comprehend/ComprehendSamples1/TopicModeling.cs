@@ -1,3 +1,12 @@
+//snippet-sourcedescription:[TopicModeling.cs demonstrates how to create topic detection jobs that read from an S3 bucket and outputs to another S3 bucket using the Comprehend client.]
+//snippet-keyword:[dotnet]
+//snippet-keyword:[.NET]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Comprehend]
+//snippet-service:[comprehend]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 using System;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;

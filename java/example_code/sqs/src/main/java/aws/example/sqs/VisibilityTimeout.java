@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[<<FILENAME>> demonstrates how to change the visibility timeout for a queue.]
+//snippet-keyword:[Java]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-service:[sqs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,10 +97,9 @@ public class VisibilityTimeout
         }
 
         // change visibility timeout (single)
-        changeMessageVisibilitySingle(queue_url, 3600);
+        changeMessageVisibilitySingle(queue_url, 60 * 60); //1 hour
 
         // change visibility timeout (multiple)
-        changeMessageVisibilityMultiple(queue_url, 2000);
+        changeMessageVisibilityMultiple(queue_url, 30 * 60 ); //30 minutes
     }
 }
-

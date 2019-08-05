@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create S3 buckets, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +20,8 @@
  * limitations under the License.
  */
 package com.example.s3;
+// snippet-start:[s3.java2.s3_object_operations.complete]
+// snippet-start:[s3.java2.s3_object_operations.import]
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -38,14 +47,18 @@ import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
+// snippet-end:[s3.java2.s3_object_operations.import]
 
+// snippet-start:[s3.java2.s3_object_operations.main]
 public class S3ObjectOperations {
 
     private static S3Client s3;
 
     public static void main(String[] args) throws IOException {
+        // snippet-start:[s3.java2.s3_object_operations.upload]
         Region region = Region.US_WEST_2;
         s3 = S3Client.builder().region(region).build();
+        
 
         String bucket = "bucket" + System.currentTimeMillis();
         String key = "key";
@@ -56,20 +69,22 @@ public class S3ObjectOperations {
         s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
                                      .build(),
                      RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
+        // snippet-end:[s3.java2.s3_object_operations.upload]
 
 
         // Multipart Upload a file
         String multipartKey = "multiPartKey";
         multipartUpload(bucket, multipartKey);
 
-        // List all objects in bucket 
+        // List all objects in bucket
 
+        // snippet-start:[s3.java2.s3_object_operations.pagination]
         // Use manual pagination
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
                 .build();
-        
+
         boolean done = false;
         while (!done) {
             ListObjectsV2Response listObjResponse = s3.listObjectsV2(listObjectsReqManual);
@@ -85,35 +100,44 @@ public class S3ObjectOperations {
                     .continuationToken(listObjResponse.nextContinuationToken())
                     .build();
         }
-        
+        // snippet-end:[s3.java2.s3_object_operations.pagination]
+        // snippet-start:[s3.java2.s3_object_operations.iterative]
         // Build the list objects request
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
                 .build();
-        
+
         ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
         // Process response pages
         listRes.stream()
                  .flatMap(r -> r.contents().stream())
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
+        // snippet-end:[s3.java2.s3_object_operations.iterative]
+        // snippet-start:[s3.java2.s3_object_operations.stream]
         // Helper method to work with paginated collection of items directly
         listRes.contents().stream()
                  .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
-
-        // Use simple for loop if stream is not necessary 
+        // snippet-end:[s3.java2.s3_object_operations.stream]
+        // snippet-start:[s3.java2.s3_object_operations.forloop]
+        // Use simple for loop if stream is not necessary
         for (S3Object content : listRes.contents()) {
             System.out.println(" Key: " + content.key() + " size = " + content.size());
         }
-
+        // snippet-end:[s3.java2.s3_object_operations.forloop]
+        
         // Get Object
+        // snippet-start:[s3.java2.s3_object_operations.download]
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
         		ResponseTransformer.toFile(Paths.get("multiPartKey")));
+        // snippet-end:[s3.java2.s3_object_operations.download]
 
         // Delete Object
+        // snippet-start:[s3.java2.s3_object_operations.delete]
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
         s3.deleteObject(deleteObjectRequest);
+        // snippet-end:[s3.java2.s3_object_operations.delete]
 
         // Delete Object
         deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
@@ -129,10 +153,10 @@ public class S3ObjectOperations {
                                 .bucket(bucket)
                                 .createBucketConfiguration(
                                         CreateBucketConfiguration.builder()
-                                                                 .locationConstraint(region.value())
+                                                                 .locationConstraint(region.id())
                                                                  .build())
                                 .build());
-        
+
         System.out.println(bucket);
     }
 
@@ -147,7 +171,8 @@ public class S3ObjectOperations {
     private static void multipartUpload(String bucketName, String key) throws IOException {
 
         int MB = 1024 * 1024;
-        // First create a multipart upload and get upload id
+        // snippet-start:[s3.java2.s3_object_operations.upload_multi_part]
+        // First create a multipart upload and get upload id 
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
                                                                                                 .bucket(bucketName).key(key)
                                                                                                 .build();
@@ -176,6 +201,7 @@ public class S3ObjectOperations {
                 CompleteMultipartUploadRequest.builder().bucket(bucketName).key(key).uploadId(uploadId)
                                               .multipartUpload(completedMultipartUpload).build();
         s3.completeMultipartUpload(completeMultipartUploadRequest);
+        // snippet-end:[s3.java2.s3_object_operations.upload_multi_part]
     }
 
     private static ByteBuffer getRandomByteBuffer(int size) throws IOException {
@@ -184,3 +210,6 @@ public class S3ObjectOperations {
         return ByteBuffer.wrap(b);
     }
 }
+ 
+// snippet-end:[s3.java2.s3_object_operations.main]
+// snippet-end:[s3.java2.s3_object_operations.complete]

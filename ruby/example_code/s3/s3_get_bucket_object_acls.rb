@@ -1,3 +1,13 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Gets the ACL for an S3 bucket item.]
+# snippet-keyword:[Amazon Simple Storage Service]
+# snippet-keyword:[get_object_acl method]
+# snippet-keyword:[Ruby]
+# snippet-service:[s3]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
 require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 require 'os'
 

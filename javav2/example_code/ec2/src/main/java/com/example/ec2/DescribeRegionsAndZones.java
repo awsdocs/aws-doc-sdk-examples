@@ -1,5 +1,12 @@
+//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the regions and zones from an EC2 client.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[ec2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-import software.amazon.awssdk.services.ec2.EC2Client;
+// snippet-start:[ec2.java2.describe_region_and_zones.complete]
+// snippet-start:[ec2.java2.describe_region_and_zones.import]
+import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
 import software.amazon.awssdk.services.ec2.model.Region;
 import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
-
+ 
+// snippet-end:[ec2.java2.describe_region_and_zones.import]
 /**
  * Describes all regions and zones
  */
@@ -26,8 +36,12 @@ public class DescribeRegionsAndZones
 {
     public static void main(String[] args)
     {
-        EC2Client ec2 = EC2Client.create();
-
+        // snippet-start:[ec2.java2.describe_region_and_zones.main]
+        // snippet-start:[ec2.java2.describe_region_and_zones.client]
+        Ec2Client ec2 = Ec2Client.create();
+        // snippet-end:[ec2.java2.describe_region_and_zones.client]
+     
+        // snippet-start:[ec2.java2.describe_region_and_zones.region]
         DescribeRegionsResponse regions_response = ec2.describeRegions();
 
         for(Region region : regions_response.regions()) {
@@ -37,8 +51,10 @@ public class DescribeRegionsAndZones
                 region.regionName(),
                 region.endpoint());
             System.out.println();
+         // snippet-end:[ec2.java2.describe_region_and_zones.region]
         }
 
+        // snippet-start:[ec2.java2.describe_region_and_zones.avail_zone]
         DescribeAvailabilityZonesResponse zones_response =
             ec2.describeAvailabilityZones();
 
@@ -51,8 +67,11 @@ public class DescribeRegionsAndZones
                 zone.state(),
                 zone.regionName());
             System.out.println();
+         // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
 
         }
+        // snippet-end:[ec2.java2.describe_region_and_zones.main]
     }
 }
-
+ 
+// snippet-end:[ec2.java2.describe_region_and_zones.complete]
