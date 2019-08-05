@@ -21,13 +21,13 @@
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient; 
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[ses.php.send_templated_email.import]
 
 //Create a SESClient 
 // snippet-start:[ses.php.send_templated_email.main]
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -35,13 +35,13 @@ $SesClient = new Aws\SES\SESClient([
 
 $template_name = 'Template_Name';
 $sender_email = 'email_address';
-$recipeint_emails = ['email_address'];
+$recipient_emails = ['email_address'];
 
 
 try {
     $result = $SesClient->sendTemplatedEmail([
         'Destination' => [
-            'ToAddresses' => $verified_recipeint_emails,
+            'ToAddresses' => $verified_recipient_emails,
         ],
         'ReplyToAddresses' => [$sender_email],
         'Source' => $sender_email,

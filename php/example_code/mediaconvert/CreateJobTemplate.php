@@ -188,7 +188,7 @@ try [
     echo "\n";
 ]
 
-ry [$result = $mediaConvertClient->createJob([
+try [$result = $mediaConvertClient->createJob([
     "Queue" => "QUEUE_ARN",
     "JobTemplate" => "TEMPLATE_NAME",
     "Role" => "ROLE_ARN",

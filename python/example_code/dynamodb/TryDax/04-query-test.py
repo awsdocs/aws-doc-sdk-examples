@@ -1,4 +1,4 @@
-# snippet-sourcedescription:[04-query-test.py demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Python]
 # snippet-keyword:[Amazon DynamoDB]

@@ -26,7 +26,7 @@ $tmp_path = '/tmp';
 // This will generate a 480p 16:9 mp4 output.
 $preset_id = '1351620000001-000020';
 
-// All inputs will have this prefix prepened to their input key.
+// All inputs will have this prefix prepended to their input key.
 $input_key_prefix = 'elastic-transcoder-samples/input/';
 
 // All outputs will have this prefix prepended to their output key.
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET'){
   // If the request method is GET and no 'Id' is specified, return the HTML form
   // which will allow the user to create an elastic transcoder job.
-  echo "Create an Elastic Transcoder job and consume job status using notificaitons.<br>"
+  echo "Create an Elastic Transcoder job and consume job status using notifications.<br>"
   echo "<form action=\"JobStatusNotificationsSample.php\" "
   echo "method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\""
   echo "http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#php-pipeline\">"
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 // snippet-end:[elastictranscoder.php.create_job_status_notification.import]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[JobStatusNotificationSample.php demonstrates how to create an Elastic Transcoder job and consume job status using notificaitons.]
+// snippet-sourcedescription:[JobStatusNotificationSample.php demonstrates how to create an Elastic Transcoder job and consume job status using notifications.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]

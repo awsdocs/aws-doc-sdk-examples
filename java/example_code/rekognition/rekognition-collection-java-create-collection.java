@@ -39,7 +39,7 @@ public class CreateCollection {
 
       AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
       
-      //Replace colectionId with the name of the collection that you want to create.
+      //Replace collectionId with the name of the collection that you want to create.
       
       String collectionId = "MyCollection";
             System.out.println("Creating collection: " +

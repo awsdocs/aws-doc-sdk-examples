@@ -23,7 +23,7 @@
 require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 # Process the message
-def do_something(msg)
+def do_something(_)
   true
 end
 

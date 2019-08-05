@@ -54,7 +54,8 @@ s3.buckets.each do |b|
         break
       end
     end
-  rescue
+  rescue StandardError
+    puts 'Got error'
   end
 end
 

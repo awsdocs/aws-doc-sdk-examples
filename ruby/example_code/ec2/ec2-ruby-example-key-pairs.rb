@@ -52,8 +52,8 @@ key_pairs_result = ec2.describe_key_pairs()
 
 if key_pairs_result.key_pairs.count > 0
   puts "\nKey pair names:"
-  key_pairs_result.key_pairs.each do |key_pair|
-    puts key_pair.key_name
+  key_pairs_result.key_pairs.each do |kp|
+    puts kp.key_name
   end
 end
 

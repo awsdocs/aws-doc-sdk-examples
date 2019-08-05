@@ -31,7 +31,7 @@ var AWS = require('aws-sdk');
 AWS.config.update({region: 'REGION'});                
 
 // Create promise and SNS service object
-var subscribePromise = new AWS.SNS({apiVersion: '2010-03-31'}).subscribe({SubscriptionArn : TOPIC_SUBSCRIPTION_ARN}).promise();
+var subscribePromise = new AWS.SNS({apiVersion: '2010-03-31'}).unsubscribe({SubscriptionArn : TOPIC_SUBSCRIPTION_ARN}).promise();
 
 // Handle promise's fulfilled/rejected states
 subscribePromise.then(

@@ -1,4 +1,4 @@
-# snippet-sourcedescription:[MoviesLoadData.rb demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
 # snippet-keyword:[Amazon DynamoDB]
@@ -44,7 +44,7 @@ movies.each{|movie|
     }
 
     begin
-        result = dynamodb.put_item(params)
+        dynamodb.put_item(params)
         puts "Added movie: #{movie["year"]} #{movie["title"]}"
 
     rescue  Aws::DynamoDB::Errors::ServiceError => error

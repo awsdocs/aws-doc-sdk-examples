@@ -45,7 +45,7 @@ begin
   )
 
   puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
-rescue StandardError => err
+rescue StandardError
   puts 'Could not add item'
   puts 'Error:'
   puts ex.message

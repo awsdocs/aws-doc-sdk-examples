@@ -1,16 +1,16 @@
 /**
  * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
+ * 
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
  * the License is located at
- *
+ * 
  * http://aws.amazon.com/apache2.0/
- *
+ * 
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
-*/
+ */
 
 // snippet-sourcedescription:[ServerSideEncryptionUsingClientSideEncryptionKey.java demonstrates how to perform various operations with S3 using server-side encryption with a customer-provided encryption key.]
 // snippet-service:[s3]
@@ -25,6 +25,15 @@
 // snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.server_side_encryption_using_client_side_encryption_key.complete]
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.*;
+
+import javax.crypto.KeyGenerator;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -32,34 +41,18 @@ import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.crypto.KeyGenerator;
-
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CopyObjectRequest;
-import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.services.s3.model.SSECustomerKey;
-
 public class ServerSideEncryptionUsingClientSideEncryptionKey {
     private static SSECustomerKey SSE_KEY;
     private static AmazonS3 S3_CLIENT;
     private static KeyGenerator KEY_GENERATOR;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        String clientRegion = "*** Client region ***";
+        Regions clientRegion = Regions.DEFAULT_REGION;
         String bucketName = "*** Bucket name ***";
         String keyName = "*** Key name ***";
         String uploadFileName = "*** File path ***";
         String targetKeyName = "*** Target key name ***";
-        
+
         // Create an encryption key.
         KEY_GENERATOR = KeyGenerator.getInstance("AES");
         KEY_GENERATOR.init(256, new SecureRandom());
@@ -73,23 +66,21 @@ public class ServerSideEncryptionUsingClientSideEncryptionKey {
 
             // Upload an object.
             uploadObject(bucketName, keyName, new File(uploadFileName));
-    
+
             // Download the object.
             downloadObject(bucketName, keyName);
-    
+
             // Verify that the object is properly encrypted by attempting to retrieve it
             // using the encryption key.
             retrieveObjectMetadata(bucketName, keyName);
-    
+
             // Copy the object into a new object that also uses SSE-C.
             copyObject(bucketName, keyName, targetKeyName);
-        }
-        catch(AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process 
             // it, so it returned an error response.
             e.printStackTrace();
-        }
-        catch(SdkClientException e) {
+        } catch (SdkClientException e) {
             // Amazon S3 couldn't be contacted for a response, or the client
             // couldn't parse the response from Amazon S3.
             e.printStackTrace();
@@ -112,11 +103,11 @@ public class ServerSideEncryptionUsingClientSideEncryptionKey {
 
     private static void retrieveObjectMetadata(String bucketName, String keyName) {
         GetObjectMetadataRequest getMetadataRequest = new GetObjectMetadataRequest(bucketName, keyName)
-                                                                .withSSECustomerKey(SSE_KEY);
+                .withSSECustomerKey(SSE_KEY);
         ObjectMetadata objectMetadata = S3_CLIENT.getObjectMetadata(getMetadataRequest);
         System.out.println("Metadata retrieved. Object size: " + objectMetadata.getContentLength());
     }
-    
+
     private static void copyObject(String bucketName, String keyName, String targetKeyName)
             throws NoSuchAlgorithmException {
         // Create a new encryption key for target so that the target is saved using SSE-C.
@@ -124,7 +115,7 @@ public class ServerSideEncryptionUsingClientSideEncryptionKey {
 
         CopyObjectRequest copyRequest = new CopyObjectRequest(bucketName, keyName, bucketName, targetKeyName)
                 .withSourceSSECustomerKey(SSE_KEY)
-				.withDestinationSSECustomerKey(newSSEKey);
+                .withDestinationSSECustomerKey(newSSEKey);
 
         S3_CLIENT.copyObject(copyRequest);
         System.out.println("Object copied");

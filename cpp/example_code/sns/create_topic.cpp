@@ -1,13 +1,11 @@
- 
-//snippet-sourcedescription:[create_topic.cpp demonstrates how to create an Amazom SNS topic to which notifications can be published.]
+//snippet-sourcedescription:[create_topic.cpp demonstrates how to create an Amazon SNS topic to which notifications can be published.]
+//snippet-service:[sns]
+//snippet-keyword:[Amazon Simple Notification Service]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
