@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.create_instance.complete]
+// snippet-start:[ec2.java2.create_instance.import]
 
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
@@ -28,7 +30,8 @@ import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Tag;
 import software.amazon.awssdk.services.ec2.model.CreateTagsRequest;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-
+ 
+// snippet-end:[ec2.java2.create_instance.import]
 /**
  * Creates an EC2 instance
  */
@@ -48,6 +51,7 @@ public class CreateInstance
         String name = args[0];
         String ami_id = args[1];
 
+        // snippet-start:[ec2.java2.create_instance.main]
         Ec2Client ec2 = Ec2Client.create();
 
         RunInstancesRequest run_request = RunInstancesRequest.builder()
@@ -59,7 +63,7 @@ public class CreateInstance
 
         RunInstancesResponse response = ec2.runInstances(run_request);
 
-        String instance_id = response.reservation().reservationId();
+        String instance_id = response.instances().get(0).instanceId();
 
         Tag tag = Tag.builder()
             .key("Name")
@@ -67,6 +71,7 @@ public class CreateInstance
             .build();
 
         CreateTagsRequest tag_request = CreateTagsRequest.builder()
+            .resources(instance_id)
             .tags(tag)
             .build();
 
@@ -81,7 +86,10 @@ public class CreateInstance
         	System.err.println(e.getMessage());
         	System.exit(1);
         }
+        // snippet-end:[ec2.java2.create_instance.main]
         System.out.println("Done!");
 
     }
 }
+ 
+// snippet-end:[ec2.java2.create_instance.complete]

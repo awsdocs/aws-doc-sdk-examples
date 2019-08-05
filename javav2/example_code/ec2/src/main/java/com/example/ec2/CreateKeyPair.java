@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.create_key_pair.complete]
+// snippet-start:[ec2.java2.create_key_pair.import]
 
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
-
+ 
+// snippet-end:[ec2.java2.create_key_pair.import]
 /**
  * Creates an EC2 key pair
  */
@@ -42,6 +45,7 @@ public class CreateKeyPair
         }
 
         String key_name = args[0];
+        // snippet-start:[ec2.java2.create_key_pair.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -50,8 +54,11 @@ public class CreateKeyPair
 
         CreateKeyPairResponse response = ec2.createKeyPair(request);
 
+        // snippet-end:[ec2.java2.create_key_pair.main]
         System.out.printf(
-            "Successfulyl created key pair named %s",
+            "Successfully created key pair named %s",
             key_name);
     }
 }
+ 
+// snippet-end:[ec2.java2.create_key_pair.complete]

@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -29,7 +29,7 @@
 #include <iostream>
 
 /**
- * Creates a cloud watch logs subscription filter, based on command line input
+ * Create a CloudWatch Logs subscription filter based on command-line input
  */
 int main(int argc, char** argv)
 {
@@ -58,13 +58,13 @@ int main(int argc, char** argv)
         auto outcome = cwl.PutSubscriptionFilter(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to create cloudwatch logs subscription filter "
+            std::cout << "Failed to create CloudWatch logs subscription filter "
                 << filter_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         }
         else
         {
-            std::cout << "Successfully created cloudwatch logs subscription " <<
+            std::cout << "Successfully created CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
     }

@@ -1,13 +1,14 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Starts a CodeBuild build.]
-#snippet-keyword:[AWS CodeBuild]
-#snippet-keyword:[start_build method]
-#snippet-keyword:[Ruby]
-#snippet-service:[codebuild]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Starts a CodeBuild build.]
+# snippet-keyword:[AWS CodeBuild]
+# snippet-keyword:[start_build method]
+# snippet-keyword:[Ruby]
+# snippet-service:[codebuild]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the
@@ -33,7 +34,7 @@ end
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
 begin
-  resp = client.start_build({project_name: project_name, })
+  client.start_build(project_name: project_name)
   puts 'Building project ' + project_name
 rescue StandardError => ex
   puts 'Error building project: ' + ex.message

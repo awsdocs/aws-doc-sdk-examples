@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.update_access_key.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/UpdateAccessKeyRequest.h>
 #include <iostream>
+//snippet-end:[iam.cpp.update_access_key.inc]
 
 void PrintUsage()
 {
@@ -61,6 +63,7 @@ int main(int argc, char** argv)
             return 1;
         }
 
+        // snippet-start:[iam.cpp.update_access_key.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::UpdateAccessKeyRequest request;
         request.SetUserName(user_name);
@@ -79,6 +82,7 @@ int main(int argc, char** argv)
                 " for user " << user_name << ": " <<
                 outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[iam.cpp.update_access_key.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -1,4 +1,4 @@
-.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -29,7 +29,7 @@ To build and run these examples, you'll need:
 
 For information about how to set AWS credentials and the region for use with the AWS SDK for Java,
 see `Set up AWS Credentials and Region for Development
-<http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html>`_ in the *AWS
+<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
 Java Developer Guide*.
 
 Building the examples

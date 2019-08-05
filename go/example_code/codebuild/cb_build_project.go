@@ -1,14 +1,15 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Builds the AWS CodeBuild project specified on the command line.]
-//snippet-keyword:[AWS CodeBuild]
-//snippet-keyword:[StartBuild function]
-//snippet-keyword:[Go]
-//snippet-service:[codebuild]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Builds the AWS CodeBuild project specified on the command line.]
+// snippet-keyword:[AWS CodeBuild]
+// snippet-keyword:[StartBuild function]
+// snippet-keyword:[Go]
+// snippet-service:[codebuild]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -51,8 +52,7 @@ func main() {
     svc := codebuild.New(sess)
 
     // Build the project
-    _, err := svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
-
+    _, err = svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
     if err != nil {
         fmt.Println("Got error building project: ", err)
         os.Exit(1)

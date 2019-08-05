@@ -34,8 +34,8 @@
     </dependency>
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
-      <artifactId>glacier</artifactId>
-      <version>2.0.0-preview-10</version>
+      <artifactId>glacier</artifactId>      
+      <version>2.5.10</version> 
     </dependency>
   </dependencies>
 </project>

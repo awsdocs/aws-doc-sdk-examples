@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,10 +16,13 @@
  *
  *
  */
+// snippet-start:[sns.php.subscribe_text_sms.complete]
+// snippet-start:[sns.php.subscribe_text_sms.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient;
+use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sns.php.subscribe_text_sms.import]
 
 /**
  * Prepares to subscribe an endpoint by sending the endpoint a confirmation message.
@@ -27,7 +30,8 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+// snippet-start:[sns.php.subscribe_text_sms.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -49,13 +53,15 @@ try {
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
-}
-//snippet-sourcedescription:[SubscribeTextSMS.php demonstrates how to send a confirmation message as a text message.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+} 
+// snippet-end:[sns.php.subscribe_text_sms.main]
+// snippet-end:[sns.php.subscribe_text_sms.complete]
+// snippet-sourcedescription:[SubscribeTextSMS.php demonstrates how to send a confirmation message as a text message.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder]

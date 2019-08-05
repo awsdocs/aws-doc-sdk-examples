@@ -1,16 +1,14 @@
- 
 //snippet-sourcedescription:[update_file_system.cpp demonstrates how to update the configuration of an Amazon Elastic File System.]
+//snippet-service:[elasticfilesystem]
+//snippet-keyword:[Amazon Elastic File System]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Elastic File System]
-//snippet-service:[elasticfilesystem]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
 
-
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -35,7 +33,7 @@ int main(int argc, char **argv)
 {
   if (argc != 3)
   {
-    std::cout << "Usage: update_file_system <file_system_id> <thorughput_mode>";
+    std::cout << "Usage: update_file_system <file_system_id> <throughput_mode>";
     return 1;
   }
   Aws::SDKOptions options;

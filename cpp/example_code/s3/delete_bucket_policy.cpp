@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,9 +22,11 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.delete_bucket_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteBucketPolicyRequest.h>
+//snippet-end:[s3.cpp.delete_bucket_policy.inc]
 
 /**
  * Delete an Amazon S3 bucket policy.
@@ -58,6 +60,7 @@ int main(int argc, char** argv)
         config.region = user_region;
         Aws::S3::S3Client s3_client(config);
 
+        // snippet-start:[s3.cpp.delete_bucket_policy.code]
         Aws::S3::Model::DeleteBucketPolicyRequest request;
         request.SetBucket(bucket_name);
 
@@ -73,6 +76,7 @@ int main(int argc, char** argv)
                 << outcome.GetError().GetExceptionName() << " - "
                 << outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.delete_bucket_policy.code]
     }
     Aws::ShutdownAPI(options);
 }

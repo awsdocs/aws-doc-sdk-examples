@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,16 +22,21 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.start_instance.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/StartInstancesRequest.h>
 #include <aws/ec2/model/StartInstancesResponse.h>
+//snippet-end:[ec2.cpp.start_instance.inc]
+//snippet-start:[ec2.cpp.stop_instance.inc]
 #include <aws/ec2/model/StopInstancesRequest.h>
 #include <aws/ec2/model/StopInstancesResponse.h>
+//snippet-end:[ec2.cpp.stop_instance.inc]
 #include <iostream>
 
 void StartInstance(const Aws::String& instance_id)
 {
+    // snippet-start:[ec2.cpp.start_instance.code]
     Aws::EC2::EC2Client ec2;
 
     Aws::EC2::Model::StartInstancesRequest start_request;
@@ -61,10 +66,12 @@ void StartInstance(const Aws::String& instance_id)
         std::cout << "Successfully started instance " << instance_id <<
             std::endl;
     }
+    // snippet-end:[ec2.cpp.start_instance.code]
 }
 
 void StopInstance(const Aws::String& instance_id)
 {
+    // snippet-start:[ec2.cpp.stop_instance.code]
     Aws::EC2::EC2Client ec2;
     Aws::EC2::Model::StopInstancesRequest request;
     request.AddInstanceIds(instance_id);
@@ -93,6 +100,7 @@ void StopInstance(const Aws::String& instance_id)
         std::cout << "Successfully stopped instance " << instance_id <<
             std::endl;
     }
+    // snippet-end:[ec2.cpp.stop_instance.code]
 }
 
 void PrintUsage()

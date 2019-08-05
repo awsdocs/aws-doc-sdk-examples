@@ -5,8 +5,9 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[sqs.java2.delete_letter_queues.complete]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +20,8 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
+// snippet-start:[sqs.java2.delete_letter_queues.import]
 package com.example.sqs;
-import software.amazon.awssdk.services.sqs.model.SqsException;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesResponse;
@@ -31,11 +32,12 @@ import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesResponse;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.SQSClient;
+import software.amazon.awssdk.services.sqs.SqsClient;
 
+// snippet-end:[sqs.java2.delete_letter_queues.import]
+// snippet-start:[sqs.java2.delete_letter_queues.main]
 public class DeadLetterQueues
 {
     public static void main(String[] args)
@@ -49,7 +51,7 @@ public class DeadLetterQueues
         String src_queue_name = args[0];
         String dl_queue_name = args[1];
 
-        SQSClient sqs = SQSClient.builder().region(Region.US_WEST_2).build();
+        SqsClient sqs = SqsClient.builder().region(Region.US_WEST_2).build();
 
         CreateQueueRequest request = CreateQueueRequest.builder()
         		.queueName(src_queue_name).build();
@@ -109,3 +111,5 @@ public class DeadLetterQueues
         SetQueueAttributesResponse setAttrResponse = sqs.setQueueAttributes(setAttrRequest);
     }
 }
+// snippet-end:[sqs.java2.delete_letter_queues.main]
+// snippet-end:[sqs.java2.delete_letter_queues.complete]

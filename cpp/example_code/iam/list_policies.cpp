@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,13 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.list_policies.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListPoliciesRequest.h>
 #include <aws/iam/model/ListPoliciesResult.h>
 #include <iomanip>
 #include <iostream>
-#include <iomanip> 
+//snippet-end:[iam.cpp.list_policies.inc]
 
 static const char* DATE_FORMAT = "%Y-%m-%d";
 
@@ -40,6 +41,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[iam.cpp.list_policies.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::ListPoliciesRequest request;
 
@@ -84,6 +86,7 @@ int main(int argc, char** argv)
                 done = true;
             }
         }
+        // snippet-end:[iam.cpp.list_policies.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

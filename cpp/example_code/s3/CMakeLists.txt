@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -25,18 +25,19 @@ list(APPEND EXAMPLES "delete_bucket")
 list(APPEND EXAMPLES "delete_bucket_policy")
 list(APPEND EXAMPLES "delete_object")
 list(APPEND EXAMPLES "delete_website_config")
-list(APPEND EXAMPLES "get_acl")
 list(APPEND EXAMPLES "get_bucket_policy")
 list(APPEND EXAMPLES "get_object")
+list(APPEND EXAMPLES "get_put_bucket_acl")
+list(APPEND EXAMPLES "get_put_object_acl")
 list(APPEND EXAMPLES "get_website_config")
 list(APPEND EXAMPLES "list_buckets")
 list(APPEND EXAMPLES "list_objects")
 list(APPEND EXAMPLES "put_bucket_policy")
 list(APPEND EXAMPLES "put_object")
-list(APPEND EXAMPLES "put_object_unicode")
-list(APPEND EXAMPLES "put_website_config")
-list(APPEND EXAMPLES "set_acl")
+list(APPEND EXAMPLES "put_object_async")
 list(APPEND EXAMPLES "put_object_buffer")
+list(APPEND EXAMPLES "put_website_config")
+list(APPEND EXAMPLES "s3-demo")
 
 # The executables to build
 foreach(EXAMPLE IN LISTS EXAMPLES)

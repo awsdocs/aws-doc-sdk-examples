@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,10 +16,12 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
-
+// snippet-start:[s3.php.list_bucket_results.complete]
+// snippet-start:[s3.php.list_bucket_results.import]
 require 'vendor/autoload.php';
-
 use Aws\S3\S3Client;
+use Aws\Exception\AwsException;
+// snippet-end:[s3.php.list_bucket_results.import]
 
 /**
  * Working with Result objects.
@@ -27,7 +29,8 @@ use Aws\S3\S3Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[s3.php.list_bucket_results.main]
+// snippet-start:[s3.php.list_bucket_results.client]
 // Use the us-east-2 region and latest version of each client.
 $sharedConfig = [
     'profile' => 'default',
@@ -39,28 +42,32 @@ $sharedConfig = [
 $sdk = new Aws\Sdk($sharedConfig);
 
 // Use an Aws\Sdk class to create the S3Client object.
+// snippet-start:[s3.php.list_bucket_results.call]
 $s3 = $sdk->createS3();
 $result = $s3->listBuckets();
-
+// snippet-end:[s3.php.list_bucket_results.call]
 foreach ($result['Buckets'] as $bucket) {
     echo $bucket['Name'] . "\n";
 }
 
 // Convert the result object to a PHP array
 $array = $result->toArray();
-
+// snippet-end:[s3.php.list_bucket_results.client]
 // Get the name of each bucket
+// snippet-start:[s3.php.list_bucket_results.result]
 $names = $result->search('Buckets[].Name');
- 
+// snippet-end:[s3.php.list_bucket_results.result]
 
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ListBucketsResultObject.php demonstrates how to work with a result object by transforming it into an array.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[s3.php.list_bucket_results.main]
+// snippet-end:[s3.php.list_bucket_results.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[ListBucketsResultObject.php demonstrates how to work with a result object by transforming it into an array.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon S3]
+// snippet-service:[s3]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

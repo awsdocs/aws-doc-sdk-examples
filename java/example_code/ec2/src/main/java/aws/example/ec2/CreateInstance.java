@@ -6,8 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-05-22]
 //snippet-sourceauthor:[soo-aws]
-/*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+/* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,6 +19,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+//snippet-start:[ec2.java.create_instance.complete]
 package aws.example.ec2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
@@ -59,7 +59,7 @@ public class CreateInstance
 
         RunInstancesResult run_response = ec2.runInstances(run_request);
 
-        String reservation_id = run_response.getReservation().getReservationId();
+        String reservation_id = run_response.getReservation().getInstances().get(0).getInstanceId();
 
         Tag tag = new Tag()
             .withKey("Name")
@@ -75,3 +75,4 @@ public class CreateInstance
             reservation_id, ami_id);
     }
 }
+//snippet-end:[ec2.java.create_instance.complete]

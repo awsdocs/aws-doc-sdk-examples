@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -15,12 +15,12 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS sns)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "list_topics")
 list(APPEND EXAMPLES "create_topic")
 list(APPEND EXAMPLES "delete_topic")
-list(APPEND EXAMPLES "get_topic_attributes")
 list(APPEND EXAMPLES "get_sms_type")
+list(APPEND EXAMPLES "get_topic_attributes")
 list(APPEND EXAMPLES "list_subscriptions")
+list(APPEND EXAMPLES "list_topics")
 list(APPEND EXAMPLES "publish_sms")
 list(APPEND EXAMPLES "publish_to_topic")
 list(APPEND EXAMPLES "set_sms_type")

@@ -5,8 +5,9 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.delete_subscription_filter.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,14 +21,17 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.delete_subscription_filter.import]
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFilterRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFilterResponse;
+// snippet-end:[cloudwatch.java2.delete_subscription_filter.import]
 
 /**
  * Deletes a CloudWatch Logs subscription filter.
  */
+// snippet-start:[cloudwatch.java2.delete_subscription_filter.main]
 public class DeleteSubscriptionFilter {
     public static void main(String[] args) {
 
@@ -57,3 +61,5 @@ public class DeleteSubscriptionFilter {
                 filter);
     }
 }
+// snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
+// snippet-end:[cloudwatch.java2.delete_subscription_filter.complete]

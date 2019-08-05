@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,16 +22,21 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.create_security_group.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateSecurityGroupRequest.h>
 #include <aws/ec2/model/CreateSecurityGroupResponse.h>
+//snippet-end:[ec2.cpp.create_security_group.inc]
+//snippet-start:[ec2.cpp.configure_security_group.inc]
 #include <aws/ec2/model/AuthorizeSecurityGroupIngressRequest.h>
+//snippet-end:[ec2.cpp.configure_security_group.inc]
 #include <iostream>
 
 void BuildSampleIngressRule(
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& authorize_request)
 {
+    // snippet-start:[ec2.cpp.configure_security_group02.code]
     Aws::EC2::Model::IpRange ip_range;
     ip_range.SetCidrIp("0.0.0.0/0");
 
@@ -50,12 +55,14 @@ void BuildSampleIngressRule(
     permission2.AddIpRanges(ip_range);
 
     authorize_request.AddIpPermissions(permission2);
+    // snippet-end:[ec2.cpp.configure_security_group02.code]
 }
 
 void CreateSecurityGroup(
     const Aws::String& group_name, const Aws::String& description,
     const Aws::String& vpc_id)
 {
+    // snippet-start:[ec2.cpp.create_security_group.code]
     Aws::EC2::EC2Client ec2;
     Aws::EC2::Model::CreateSecurityGroupRequest request;
 
@@ -74,26 +81,30 @@ void CreateSecurityGroup(
 
     std::cout << "Successfully created security group named " << group_name <<
         std::endl;
+    // snippet-end:[ec2.cpp.create_security_group.code]
 
+    // snippet-start:[ec2.cpp.configure_security_group01.code]
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorize_request;
 
     authorize_request.SetGroupName(group_name);
+    // snippet-end:[ec2.cpp.configure_security_group01.code]
 
     BuildSampleIngressRule(authorize_request);
 
-    auto ingress_request = ec2.AuthorizeSecurityGroupIngress(
-        authorize_request);
+    // snippet-start:[ec2.cpp.configure_security_group03.code]
+    auto ingress_req = ec2.AuthorizeSecurityGroupIngress(authorize_request);
 
-    if (!ingress_request.IsSuccess())
+    if (!ingress_req.IsSuccess())
     {
         std::cout << "Failed to set ingress policy for security group " <<
-            group_name << ":" << ingress_request.GetError().GetMessage() <<
+            group_name << ":" << ingress_req.GetError().GetMessage() <<
             std::endl;
         return;
     }
 
     std::cout << "Successfully added ingress policy to security group " <<
         group_name << std::endl;
+    // snippet-end:[ec2.cpp.configure_security_group03.code]
 }
 
 /**

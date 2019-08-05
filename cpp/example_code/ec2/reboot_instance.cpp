@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,13 +22,16 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[ec2.cpp.reboot_instance.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/RebootInstancesRequest.h>
 #include <iostream>
+//snippet-end:[ec2.cpp.reboot_instance.inc]
 
 void RebootInstance(const Aws::String& instanceId)
 {
+    // snippet-start:[ec2.cpp.reboot_instance.code]
     Aws::EC2::EC2Client ec2;
 
     Aws::EC2::Model::RebootInstancesRequest request;
@@ -58,6 +61,7 @@ void RebootInstance(const Aws::String& instanceId)
         std::cout << "Successfully rebooted instance " << instanceId <<
             std::endl;
     }
+    // snippet-end:[ec2.cpp.reboot_instance.code]
 }
 
 /**

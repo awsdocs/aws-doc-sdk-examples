@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.describe_key_pairs.complete]
+// snippet-start:[ec2.java2.describe_key_pairs.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.KeyPairInfo;
-
+ 
+// snippet-end:[ec2.java2.describe_key_pairs.import]
 /**
  * Describes all instance key pairs
  */
@@ -31,7 +34,8 @@ public class DescribeKeyPairs
 {
     public static void main(String[] args)
     {
-    	Ec2Client ec2 = Ec2Client.create();
+    	// snippet-start:[ec2.java2.describe_key_pairs.main]
+        Ec2Client ec2 = Ec2Client.create();
 
         DescribeKeyPairsResponse response = ec2.describeKeyPairs();
 
@@ -43,5 +47,9 @@ public class DescribeKeyPairs
                 key_pair.keyFingerprint());
             System.out.println("");
         }
+        // snippet-end:[ec2.java2.describe_key_pairs.main]
+        
     }
 }
+ 
+// snippet-end:[ec2.java2.describe_key_pairs.complete]
