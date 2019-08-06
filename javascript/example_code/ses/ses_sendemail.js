@@ -65,7 +65,7 @@ var params = {
     /* more items */
   ],
   ConfigurationSetName : "configurationName",
-  Tags = [{Name: "tag_name", Value: "tag_value"}]
+  Tags : [{Name: "tag_name", Value: "tag_value"}]
 };
 
 // Create the promise and SES service object
