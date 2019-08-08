@@ -30,7 +30,7 @@ var AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'us-west-2'});
 // Set the custom endpoint for your acccount
-AWS.config.mediaconvert({endpoint: 'ACCOUNT_ENDPOINT'});
+AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
 
 var params = {
   Category: 'YouTube Jobs',
