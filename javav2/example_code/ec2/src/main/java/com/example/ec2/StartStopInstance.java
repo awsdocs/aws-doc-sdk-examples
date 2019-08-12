@@ -66,7 +66,7 @@ public class StartStopInstance
             "To run this example, supply an instance id and start or stop\n" +
             "Ex: StartStopInstance <instance-id> <start|stop>\n";
 
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
