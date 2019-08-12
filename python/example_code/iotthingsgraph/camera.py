@@ -60,7 +60,10 @@ privateKeyPath = args.privateKeyPath
 clientId = args.thingName
 thingName = args.thingName
 #topic = args.topic
-images = ["https://images-na.ssl-images-amazon.com/images/I/41iz5Tw82IL._AC_US218_.jpg", "https://images-na.ssl-images-amazon.com/images/I/51rMLSWgwRL._AC_US218_.jpg", "https://images-na.ssl-images-amazon.com/images/I/31s6UyPtjOL._AC_US218_.jpg", "https://images-na.ssl-images-amazon.com/images/I/41+K4pC74XL._AC_US218_.jpg"]
+images = ["https://images-na.ssl-images-amazon.com/images/I/41iz5Tw82IL._AC_US218_.jpg", 
+"https://images-na.ssl-images-amazon.com/images/I/51rMLSWgwRL._AC_US218_.jpg", 
+"https://images-na.ssl-images-amazon.com/images/I/31s6UyPtjOL._AC_US218_.jpg", 
+"https://images-na.ssl-images-amazon.com/images/I/41+K4pC74XL._AC_US218_.jpg"]
 
 
 if not args.certificatePath or not args.privateKeyPath:

@@ -68,7 +68,10 @@ clientId = args.clientId
 topic = args.topic
 thingName = args.thingName
 
-images = ["https://images-na.ssl-images-amazon.com/images/I/41iz5Tw82IL._AC_US218_.jpg", "https://images-na.ssl-images-amazon.com/images/I/51rMLSWgwRL._AC_US218_.jpg", "https://images-na.ssl-images-amazon.com/images/I/31s6UyPtjOL._AC_US218_.jpg", "https://images-na.ssl-images-amazon.com/images/I/41+K4pC74XL._AC_US218_.jpg"]
+images = ["https://images-na.ssl-images-amazon.com/images/I/41iz5Tw82IL._AC_US218_.jpg", 
+"https://images-na.ssl-images-amazon.com/images/I/51rMLSWgwRL._AC_US218_.jpg", 
+"https://images-na.ssl-images-amazon.com/images/I/31s6UyPtjOL._AC_US218_.jpg", 
+"https://images-na.ssl-images-amazon.com/images/I/41+K4pC74XL._AC_US218_.jpg"]
 
 if args.mode not in AllowedActions:
     parser.error("Unknown --mode option %s. Must be one of %s" % (args.mode, str(AllowedActions)))

@@ -27,7 +27,6 @@ import os
 import sys
 import time
 import uuid
-import json
 import logging
 import argparse
 from AWSIoTPythonSDK.core.greengrass.discovery.providers import DiscoveryInfoProvider
@@ -115,10 +114,10 @@ while retryCount != 0:
         print("Error message: %s" % e.message)
         print("Stopping...")
         break
-    except BaseException as e:
+    except Exception as e:
         print("Error in discovery!")
         print("Type: %s" % str(type(e)))
-        print("Error message: %s" % e.message)
+        print("Error message: %s" % e)
         retryCount -= 1
         print("\n%d/%d retries left\n" % (retryCount, MAX_DISCOVERY_RETRIES))
         print("Backing off...\n")
@@ -149,10 +148,10 @@ for connectivityInfo in coreInfo.connectivityInfoList:
         myAWSIoTMQTTClient.connect()
         connected = True
         break
-    except BaseException as e:
+    except Exception as e:
         print("Error in connect!")
         print("Type: %s" % str(type(e)))
-        print("Error message: %s" % e.message)
+        print("Error message: %s" % e)
 
 if not connected:
     print("Cannot connect to core %s. Exiting..." % coreInfo.coreThingArn)
