@@ -42,7 +42,7 @@ import static com.amazonaws.regions.Regions.US_WEST_2;
 public class ListJobs {
     public static void main(String[] args) {
         // snippet-start:[s3.java.list_batch_jobs.main]
-        String accountId = "Account Number";
+        String accountId = "Account ID";
 
         try {
             AWSS3Control s3ControlClient = AWSS3ControlClient.builder()

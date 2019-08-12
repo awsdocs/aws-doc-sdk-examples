@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
-// snippet-start:[sqs.java.delete_letter_queues.complete]
+// snippet-start:[sqs.java2.delete_letter_queues.complete]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,7 +20,7 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-// snippet-start:[sqs.java.delete_letter_queues.import]
+// snippet-start:[sqs.java2.delete_letter_queues.import]
 package com.example.sqs;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesRequest;
@@ -36,8 +36,8 @@ import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 
-// snippet-end:[sqs.java.delete_letter_queues.import]
-// snippet-start:[sqs.java.delete_letter_queues.main]
+// snippet-end:[sqs.java2.delete_letter_queues.import]
+// snippet-start:[sqs.java2.delete_letter_queues.main]
 public class DeadLetterQueues
 {
     public static void main(String[] args)
@@ -111,5 +111,5 @@ public class DeadLetterQueues
         SetQueueAttributesResponse setAttrResponse = sqs.setQueueAttributes(setAttrRequest);
     }
 }
-// snippet-end:[sqs.java.delete_letter_queues.main]
-// snippet-end:[sqs.java.delete_letter_queues.complete]
+// snippet-end:[sqs.java2.delete_letter_queues.main]
+// snippet-end:[sqs.java2.delete_letter_queues.complete]

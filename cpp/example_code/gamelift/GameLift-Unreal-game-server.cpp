@@ -31,10 +31,10 @@
 //processes go active on Amazon GameLift
 
 // Include game project files. "GameLiftFPS" is a sample game name, replace with file names from your own game project
+#include "GameLiftFPSGameMode.h"
 #include "GameLiftFPS.h"
 #include "Engine.h"
 #include "EngineGlobals.h"
-#include "GameLiftFPSGameMode.h"
 #include "GameLiftFPSHUD.h"
 #include "GameLiftFPSCharacter.h"
 #include "GameLiftServerSDK.h"

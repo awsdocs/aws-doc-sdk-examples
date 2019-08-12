@@ -19,14 +19,14 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.delete_table.complete]
-// snippet-start:[dynamodb.java.delete_table.import]
+// snippet-start:[dynamodb.java2.delete_table.complete]
+// snippet-start:[dynamodb.java2.delete_table.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
  
-// snippet-end:[dynamodb.java.delete_table.import]
+// snippet-end:[dynamodb.java2.delete_table.import]
 /**
  * Delete a DynamoDB table.
  *
@@ -60,7 +60,7 @@ public class DeleteTable
         
         System.out.format("Deleting table %s...\n", table_name);
 
-        // snippet-start:[dynamodb.java.delete_table.main]
+        // snippet-start:[dynamodb.java2.delete_table.main]
         DynamoDbClient ddb = DynamoDbClient.create();
 
         DeleteTableRequest request = DeleteTableRequest.builder()
@@ -73,9 +73,9 @@ public class DeleteTable
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java.delete_table.main]
+        // snippet-end:[dynamodb.java2.delete_table.main]
         System.out.println("Done!");
     }
 }
  
-// snippet-end:[dynamodb.java.delete_table.complete]
+// snippet-end:[dynamodb.java2.delete_table.complete]

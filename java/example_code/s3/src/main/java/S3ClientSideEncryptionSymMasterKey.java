@@ -1,16 +1,16 @@
 /**
  * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
+ * 
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
  * the License is located at
- *
+ * 
  * http://aws.amazon.com/apache2.0/
- *
+ * 
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
-*/
+ */
 
 // snippet-sourcedescription:[S3ClientSideEncryptionSymMasterKey.java demonstrates how to upload and download encrypted objects using S3 with a client-side symmetric master key.]
 // snippet-service:[s3]
@@ -24,35 +24,27 @@
 // snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.s3_client_side_encryption_sym_master_key.complete]
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3EncryptionClientBuilder;
+import com.amazonaws.services.s3.model.*;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3EncryptionClientBuilder;
-import com.amazonaws.services.s3.model.EncryptionMaterials;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.StaticEncryptionMaterialsProvider;
-
 public class S3ClientSideEncryptionSymMasterKey {
 
     public static void main(String[] args) throws Exception {
-        String clientRegion = "*** Client region ***";
+        Regions clientRegion = Regions.DEFAULT_REGION;
         String bucketName = "*** Bucket name ***";
         String objectKeyName = "*** Object key name ***";
         String masterKeyDir = System.getProperty("java.io.tmpdir");
@@ -78,25 +70,23 @@ public class S3ClientSideEncryptionSymMasterKey {
 
             // Upload a new object. The encryption client automatically encrypts it.
             byte[] plaintext = "S3 Object Encrypted Using Client-Side Symmetric Master Key.".getBytes();
-            s3EncryptionClient.putObject(new PutObjectRequest(bucketName, 
-                                                            objectKeyName, 
-                                                            new ByteArrayInputStream(plaintext), 
-                                                            new ObjectMetadata()));
-    
+            s3EncryptionClient.putObject(new PutObjectRequest(bucketName,
+                    objectKeyName,
+                    new ByteArrayInputStream(plaintext),
+                    new ObjectMetadata()));
+
             // Download and decrypt the object.
             S3Object downloadedObject = s3EncryptionClient.getObject(bucketName, objectKeyName);
             byte[] decrypted = com.amazonaws.util.IOUtils.toByteArray(downloadedObject.getObjectContent());
-    
+
             // Verify that the data that you downloaded is the same as the original data.
             System.out.println("Plaintext: " + new String(plaintext));
             System.out.println("Decrypted text: " + new String(decrypted));
-        }
-        catch(AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process 
             // it, so it returned an error response.
             e.printStackTrace();
-        }
-        catch(SdkClientException e) {
+        } catch (SdkClientException e) {
             // Amazon S3 couldn't be contacted for a response, or the client
             // couldn't parse the response from Amazon S3.
             e.printStackTrace();
