@@ -23,31 +23,31 @@
 */
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_xfer_mgr_upload.import]
-import aws.example.s3.XferMgrProgress;
+
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.transfer.MultipleFileUpload;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
-import com.amazonaws.services.s3.transfer.MultipleFileUpload;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 // snippet-end:[s3.java1.s3_xfer_mgr_upload.import]
 
 // snippet-start:[s3.java1.s3_xfer_mgr_upload.complete]
+
 /**
  * Upload objects to an Amazon S3 bucket using S3 TransferManager.
- *
+ * 
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class XferMgrUpload
-{
+public class XferMgrUpload {
     public static void uploadDir(String dir_path, String bucket_name,
-            String key_prefix, boolean recursive, boolean pause)
-    {
+                                 String key_prefix, boolean recursive, boolean pause) {
         System.out.println("directory: " + dir_path + (recursive ?
-                    " (recursive)" : "") + (pause ? " (pause)" : ""));
+                " (recursive)" : "") + (pause ? " (pause)" : ""));
 
         // snippet-start:[s3.java1.s3_xfer_mgr_upload.directory]
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
@@ -67,8 +67,7 @@ public class XferMgrUpload
     }
 
     public static void uploadFileList(String[] file_paths, String bucket_name,
-            String key_prefix, boolean pause)
-    {
+                                      String key_prefix, boolean pause) {
         System.out.println("file list: " + Arrays.toString(file_paths) +
                 (pause ? " (pause)" : ""));
         // convert the file paths to a list of File objects (required by the
@@ -96,8 +95,7 @@ public class XferMgrUpload
     }
 
     public static void uploadFile(String file_path, String bucket_name,
-            String key_prefix, boolean pause)
-    {
+                                  String key_prefix, boolean pause) {
         System.out.println("file: " + file_path +
                 (pause ? " (pause)" : ""));
 
@@ -125,24 +123,23 @@ public class XferMgrUpload
         // snippet-end:[s3.java1.s3_xfer_mgr_upload.single]
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "Usage:\n" +
-            "    XferMgrUpload [--recursive] [--pause] <s3_path> <local_paths>\n\n" +
-            "Where:\n" +
-            "    --recursive - Only applied if local_path is a directory.\n" +
-            "                  Copies the contents of the directory recursively.\n\n" +
-            "    --pause     - Attempt to pause+resume the upload. This may not work for\n" +
-            "                  small files.\n\n" +
-            "    s3_path     - The S3 destination (bucket/path) to upload the file(s) to.\n\n" +
-            "    local_paths - One or more local paths to upload to S3. These can be files\n" +
-            "                  or directories. Globs are permitted (*.xml, etc.)\n\n" +
-            "Examples:\n" +
-            "    XferMgrUpload public_photos/cat_happy.png my_photos/funny_cat.png\n" +
-            "    XferMgrUpload public_photos my_photos/cat_sad.png\n" +
-            "    XferMgrUpload public_photos my_photos/cat*.png\n" +
-            "    XferMgrUpload public_photos my_photos\n\n";
+                "Usage:\n" +
+                "    XferMgrUpload [--recursive] [--pause] <s3_path> <local_paths>\n\n" +
+                "Where:\n" +
+                "    --recursive - Only applied if local_path is a directory.\n" +
+                "                  Copies the contents of the directory recursively.\n\n" +
+                "    --pause     - Attempt to pause+resume the upload. This may not work for\n" +
+                "                  small files.\n\n" +
+                "    s3_path     - The S3 destination (bucket/path) to upload the file(s) to.\n\n" +
+                "    local_paths - One or more local paths to upload to S3. These can be files\n" +
+                "                  or directories. Globs are permitted (*.xml, etc.)\n\n" +
+                "Examples:\n" +
+                "    XferMgrUpload public_photos/cat_happy.png my_photos/funny_cat.png\n" +
+                "    XferMgrUpload public_photos my_photos/cat_sad.png\n" +
+                "    XferMgrUpload public_photos my_photos/cat*.png\n" +
+                "    XferMgrUpload public_photos my_photos\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -155,21 +152,21 @@ public class XferMgrUpload
 
         // first, parse any switches
         while (args[cur_arg].startsWith("--")) {
-           if (args[cur_arg].equals("--recursive")) {
-              recursive = true;
-           } else if (args[cur_arg].equals("--pause")) {
-              pause = true;
-           } else {
-              System.out.println("Unknown argument: " + args[cur_arg]);
-              System.out.println(USAGE);
-              System.exit(1);
-           }
-           cur_arg += 1;
+            if (args[cur_arg].equals("--recursive")) {
+                recursive = true;
+            } else if (args[cur_arg].equals("--pause")) {
+                pause = true;
+            } else {
+                System.out.println("Unknown argument: " + args[cur_arg]);
+                System.out.println(USAGE);
+                System.exit(1);
+            }
+            cur_arg += 1;
         }
 
         // only the first '/' character is of interest to get the bucket name.
         // Subsequent ones are part of the key name.
-        String s3_path[] = args[cur_arg].split("/", 2);
+        String[] s3_path = args[cur_arg].split("/", 2);
         cur_arg += 1;
 
         // Any remaining args are assumed to be local paths to copy.
@@ -178,18 +175,17 @@ public class XferMgrUpload
         ArrayList<String> files_to_copy = new ArrayList<String>();
 
         while (cur_arg < args.length) {
-           // check to see if local path is a directory or file...
-           File f = new File(args[cur_arg]);
-           if (f.exists() == false) {
-              System.out.println("Input path doesn't exist: " + args[cur_arg]);
-              System.exit(1);
-           }
-           else if (f.isDirectory()) {
-              dirs_to_copy.add(args[cur_arg]);
-           } else {
-              files_to_copy.add(args[cur_arg]);
-           }
-           cur_arg += 1;
+            // check to see if local path is a directory or file...
+            File f = new File(args[cur_arg]);
+            if (f.exists() == false) {
+                System.out.println("Input path doesn't exist: " + args[cur_arg]);
+                System.exit(1);
+            } else if (f.isDirectory()) {
+                dirs_to_copy.add(args[cur_arg]);
+            } else {
+                files_to_copy.add(args[cur_arg]);
+            }
+            cur_arg += 1;
         }
 
         String bucket_name = s3_path[0];
