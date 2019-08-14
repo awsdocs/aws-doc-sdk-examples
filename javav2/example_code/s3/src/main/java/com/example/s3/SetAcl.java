@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -19,6 +19,8 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java2.set_acl.complete]
+// snippet-start:[s3.java2.set_acl.import]
 import java.util.List;
 
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -34,13 +36,15 @@ import software.amazon.awssdk.services.s3.model.PutBucketAclRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectAclRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-
+ 
+// snippet-end:[s3.java2.set_acl.import]
 /**
 * Add an ACL to an existing S3 bucket.
 *
 * This code expects that you have AWS credentials set up per:
 * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
 */
+// snippet-start:[s3.java2.set_acl.main]
 public class SetAcl
 {
     public static void setBucketAcl(String bucket_name, String email, String access)
@@ -164,3 +168,6 @@ public class SetAcl
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[s3.java2.set_acl.main]
+// snippet-end:[s3.java2.set_acl.complete]

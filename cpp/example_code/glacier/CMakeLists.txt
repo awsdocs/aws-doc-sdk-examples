@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -17,6 +17,7 @@ find_package(AWSSDK REQUIRED COMPONENTS glacier)
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_vault")
 list(APPEND EXAMPLES "upload_archive")
+list(APPEND EXAMPLES "upload_archive_multipart")
 
 
 # The executables to build.

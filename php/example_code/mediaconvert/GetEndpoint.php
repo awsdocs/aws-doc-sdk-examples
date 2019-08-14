@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -15,11 +15,17 @@
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/emc-examples-getendpoint.html
  *
+ *
+ *
  */
+// snippet-start:[mediaconvert.php.get_endpoint.complete]
+// snippet-start:[mediaconvert.php.get_endpoint.import]
+
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;
+use Aws\MediaConvert\MediaConvertClient;  
 use Aws\Exception\AwsException;
+// snippet-end:[mediaconvert.php.get_endpoint.import]
 
 /**
  * Get Your Account Specific Endpoint for AWS Elemental MediaConvert.
@@ -29,6 +35,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a MediaConvert
+// snippet-start:[mediaconvert.php.get_endpoint.region]
 $client = new Aws\MediaConvert\MediaConvertClient([
     'profile' => 'default',
     'version' => '2017-08-29',
@@ -43,12 +50,13 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+// snippet-end:[mediaconvert.php.get_endpoint.region]
+// snippet-start:[mediaconvert.php.get_endpoint.main]
 $single_endpoint_url = $result['Endpoints'][0]['Url'];
 
 print("Your endpoint is " . $single_endpoint_url);
 
-//Create an AWSMediaConvert client object with the endpoint URL that you retrieved:
+//Create an AWSMediaConvert client object with the endpoint URL that you retrieved: 
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',
@@ -56,15 +64,17 @@ $mediaConvertClient = new MediaConvertClient([
     'endpoint' => $single_endpoint_url
 ]);
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[GetEndpoint.php demonstrates how to retrieve a custom endpoint where you send your AWS Elemental MediaConvert Job.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Elemental MediaConvert]
-//snippet-service:[mediaconvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[mediaconvert.php.get_endpoint.main]
+// snippet-end:[mediaconvert.php.get_endpoint.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GetEndpoint.php demonstrates how to retrieve a custom endpoint where you send your AWS Elemental MediaConvert Job.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Elemental MediaConvert]
+// snippet-service:[mediaconvert]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

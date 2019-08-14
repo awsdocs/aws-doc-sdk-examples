@@ -1,4 +1,4 @@
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of
 # the License is located at
@@ -15,18 +15,18 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS sqs)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "list_queues")
-list(APPEND EXAMPLES "create_queue")
-list(APPEND EXAMPLES "get_queue_url")
-list(APPEND EXAMPLES "delete_queue")
-list(APPEND EXAMPLES "send_message")
-list(APPEND EXAMPLES "receive_message")
 list(APPEND EXAMPLES "change_message_visibility")
+list(APPEND EXAMPLES "create_queue")
+list(APPEND EXAMPLES "dead_letter_queue")
+list(APPEND EXAMPLES "delete_queue")
+list(APPEND EXAMPLES "get_queue_url")
+list(APPEND EXAMPLES "list_queues")
 list(APPEND EXAMPLES "long_polling_on_create_queue")
 list(APPEND EXAMPLES "long_polling_on_existing_queue")
 list(APPEND EXAMPLES "long_polling_on_message_receipt")
-list(APPEND EXAMPLES "dead_letter_queue")
 list(APPEND EXAMPLES "purge_queue")
+list(APPEND EXAMPLES "receive_message")
+list(APPEND EXAMPLES "send_message")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

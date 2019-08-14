@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,14 +16,19 @@
  *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-transfer.html
  *
  */
+// snippet-start:[s3.php.transfer_manager.complete]
+// snippet-start:[s3.php.transfer_manager.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+// snippet-end:[s3.php.transfer_manager.import]
+
 
 // Create an S3 client
-$client = new \Aws\S3\S3Client([
+// snippet-start:[s3.php.transfer_manager.main]
+$client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2006-03-01',
@@ -68,15 +73,17 @@ if (async) {
     $manager->transfer();
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[TransferManager.php demonstrates how to transfer files asynchronously.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[s3.php.transfer_manager.main]
+// snippet-end:[s3.php.transfer_manager.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[TransferManager.php demonstrates how to transfer files asynchronously.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon S3]
+// snippet-service:[s3]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

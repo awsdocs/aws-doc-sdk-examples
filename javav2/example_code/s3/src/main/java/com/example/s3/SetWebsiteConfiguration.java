@@ -6,10 +6,10 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
+   You may not use this file except in compliancewith the License. A copy of
    the License is located at
 
     http://aws.amazon.com/apache2.0/
@@ -19,6 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java2.set_website_configuration.complete]
+// snippet-start:[s3.java2.set_website_configuration.import]
 
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ErrorDocument;
@@ -27,13 +29,15 @@ import software.amazon.awssdk.services.s3.model.PutBucketWebsiteRequest;
 import software.amazon.awssdk.services.s3.model.WebsiteConfiguration;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
-
+ 
+// snippet-end:[s3.java2.set_website_configuration.import]
 /**
  * Set the website configuration for an S3 bucket.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
+// snippet-start:[s3.java2.set_website_configuration.main]
 public class SetWebsiteConfiguration
 {
     public static void setWebsiteConfig(
@@ -87,3 +91,6 @@ public class SetWebsiteConfiguration
         setWebsiteConfig(bucket_name, index_doc, error_doc);
     }
 }
+ 
+// snippet-end:[s3.java2.set_website_configuration.main]
+// snippet-end:[s3.java2.set_website_configuration.complete]

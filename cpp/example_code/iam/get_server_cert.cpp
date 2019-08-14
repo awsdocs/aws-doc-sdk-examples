@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.get_server_cert.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetServerCertificateRequest.h>
 #include <aws/iam/model/GetServerCertificateResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.get_server_cert.inc]
 
 /**
  * Gets a server certificate, based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String cert_name(argv[1]);
 
+        // snippet-start:[iam.cpp.get_server_cert.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::GetServerCertificateRequest request;
         request.SetServerCertificateName(cert_name);
@@ -63,6 +66,7 @@ int main(int argc, char** argv)
                 std::endl << "Chain: " << certificate.GetCertificateChain() <<
                 std::endl;
         }
+        // snippet-end:[iam.cpp.get_server_cert.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -1,15 +1,16 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Adds tags to an S3 bucket and displays its tags.]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[GetBucketTagging function]
-//snippet-keyword:[PutBucketTagging function]
-//snippet-keyword:[Go]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[addTags.go adds tags to an S3 bucket and displays its tags.]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[GetBucketTagging function]
+// snippet-keyword:[PutBucketTagging function]
+// snippet-keyword:[Go]
+// snippet-service:[s3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-03-22]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -21,7 +22,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+//snippet-start:[extending.go.add_tags]
 package main
 
 import (
@@ -43,7 +44,7 @@ func main() {
     tagValue1 := "123456"
     tagName2 := "Stack"
     tagValue2 := "MyTestStack"
-    
+
     // Initialize a session in us-west-2 that the SDK will use to load credentials
     // from the shared credentials file. (~/.aws/credentials).
     sess, err := session.NewSession(&aws.Config{
@@ -58,7 +59,7 @@ func main() {
     svc := s3.New(sess)
 
     // Create input for PutBucket method
-    input := &s3.PutBucketTaggingInput{
+    putInput := &s3.PutBucketTaggingInput{
         Bucket: aws.String(bucket),
         Tagging: &s3.Tagging{
             TagSet: []*s3.Tag{
@@ -69,12 +70,12 @@ func main() {
                 {
                     Key:   aws.String(tagName2),
                     Value: aws.String(tagValue2),
-              },
+                },
             },
         },
     }
 
-    _, err = svc.PutBucketTagging(input)
+    _, err = svc.PutBucketTagging(putInput)
     if err != nil {
         fmt.Println(err.Error())
         return
@@ -82,11 +83,11 @@ func main() {
 
     // Now show the tags
     // Create input for GetBucket method
-    input := &s3.GetBucketTaggingInput{
+    getInput := &s3.GetBucketTaggingInput{
         Bucket: aws.String(bucket),
     }
 
-    result, err := svc.GetBucketTagging(input)
+    result, err := svc.GetBucketTagging(getInput)
     if err != nil {
         fmt.Println(err.Error())
         return
@@ -107,3 +108,4 @@ func main() {
         fmt.Println("Did not find any tags")
     }
 }
+//snippet-end:[extending.go.add_tags]

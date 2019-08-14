@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -24,6 +24,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/CreateNFSFileShareRequest.h>
 #include <aws/storagegateway/model/CreateNFSFileShareResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -46,10 +47,10 @@ int main(int argc, char ** argv)
 
     Aws::StorageGateway::Model::CreateNFSFileShareRequest cnfsfs_req;
 
-    cnfsfs.SetGatewayARN(gateway_arn);
-    cnfsfs.SetRole(role);
-    cnfsfs.SetLocationARN(location_arn);
-    cnfsfs.AddClientList(client_token);
+    cnfsfs_req.SetGatewayARN(gateway_arn);
+    cnfsfs_req.SetRole(role);
+    cnfsfs_req.SetLocationARN(location_arn);
+    cnfsfs_req.AddClientList(client_token);
 
     auto cnfsfs_out = storagegateway.CreateNFSFileShare(cnfsfs_req);
 

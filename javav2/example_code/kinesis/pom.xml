@@ -4,7 +4,24 @@
   <artifactId>kinesis</artifactId>
   <version>1.0.0</version>
 
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
+    <dependency>
+      <artifactId>netty-nio-client</artifactId>
+      <groupId>software.amazon.awssdk</groupId>
+      <version>2.0.0</version>
+   </dependency>
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>kinesis</artifactId>
@@ -16,9 +33,9 @@
       <version>2.1.14</version>
     </dependency>
     <dependency>
-      <artifactId>netty-nio-client</artifactId>
-      <groupId>software.amazon.awssdk</groupId>
-      <version>2.0.0</version>
-   </dependency>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-core</artifactId>
+      <version>3.2.3.RELEASE</version>
+    </dependency>    
   </dependencies>
 </project>

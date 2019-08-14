@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[s3.cpp.list_objects.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/ListObjectsRequest.h>
 #include <aws/s3/model/Object.h>
+//snippet-end:[s3.cpp.list_objects.inc]
 
 /**
  * List objects (keys) within an Amazon S3 bucket.
@@ -47,6 +49,7 @@ int main(int argc, char** argv)
         const Aws::String bucket_name = argv[1];
         std::cout << "Objects in S3 bucket: " << bucket_name << std::endl;
 
+        // snippet-start:[s3.cpp.list_objects.code]
         Aws::S3::S3Client s3_client;
 
         Aws::S3::Model::ListObjectsRequest objects_request;
@@ -70,6 +73,7 @@ int main(int argc, char** argv)
                 list_objects_outcome.GetError().GetExceptionName() << " " <<
                 list_objects_outcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[s3.cpp.list_objects.code]
     }
 
     Aws::ShutdownAPI(options);

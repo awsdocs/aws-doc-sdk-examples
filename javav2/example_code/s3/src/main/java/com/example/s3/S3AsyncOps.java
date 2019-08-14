@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 package com.example.s3;
+// snippet-start:[s3.java2.async_ops.complete]
+// snippet-start:[s3.java2.async_ops.import]
 
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -29,7 +31,8 @@ import software.amazon.awssdk.utils.FunctionalUtils;
 
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
-
+// snippet-end:[s3.java2.async_ops.import]
+// snippet-start:[s3.java2.async_ops.main]
 public class S3AsyncOps {
 
     private static final String BUCKET = "sample-bucket";
@@ -61,3 +64,6 @@ public class S3AsyncOps {
         future.join();
     }
 }
+ 
+// snippet-end:[s3.java2.async_ops.main]
+// snippet-end:[s3.java2.async_ops.complete]

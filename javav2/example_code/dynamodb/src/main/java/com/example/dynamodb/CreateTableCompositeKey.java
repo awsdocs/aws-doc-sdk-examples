@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -19,6 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
+// snippet-start:[dynamodb.java2.create_table_composite_key.complete]
+// snippet-start:[dynamodb.java2.create_table_composite_key.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
@@ -30,7 +32,8 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
-
+ 
+// snippet-end:[dynamodb.java2.create_table_composite_key.import]
 /**
  * Create a DynamoDB table.
  *
@@ -64,6 +67,7 @@ public class CreateTableCompositeKey
         System.out.format("* Language - partition key\n");
         System.out.format("* Greeting - sort key\n");
 
+        // snippet-start:[dynamodb.java2.create_table_composite_key.main]
         CreateTableRequest request = CreateTableRequest.builder()
             .attributeDefinitions(
                   AttributeDefinition.builder()
@@ -98,6 +102,9 @@ public class CreateTableCompositeKey
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        // snippet-end:[dynamodb.java2.create_table_composite_key.main]
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[dynamodb.java2.create_table_composite_key.complete]

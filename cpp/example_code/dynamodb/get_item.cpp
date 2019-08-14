@@ -1,16 +1,15 @@
  
 //snippet-sourcedescription:[get_item.cpp demonstrates how to retrieve an item from an Amazon DynamoDB table.]
+//snippet-service:[dynamodb]
+//snippet-keyword:[Amazon DynamoDB]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2019-04-09]
 //snippet-sourceauthor:[AWS]
 
-
 /*
-Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -22,12 +21,15 @@ This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
+
+//snippet-start:[dynamodb.cpp.get_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/GetItemRequest.h>
 #include <iostream>
+//snippet-end:[dynamodb.cpp.get_item.inc]
 
 
 /**
@@ -35,11 +37,11 @@ specific language governing permissions and limitations under the License.
 *
 * Takes the name of the table and the name of the item to retrieve from it.
 *
-* The primary key searched is "Name", and the value contained by the field
-* "Greeting" will be returned.
+* The primary key "Name" is searched. By default, all fields and values 
+* contained in the item are returned. If an optional projection expression is
+* specified on the command line, only the specified fields and values are 
+* returned.
 *
-* This code expects that you have AWS credentials set up per:
-* http://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/credentials.html
 */
 int main(int argc, char** argv)
 {
@@ -56,7 +58,7 @@ int main(int argc, char** argv)
         "    get_item HelloTable World\n"
         "    get_item SiteColors text \"default, bold\"\n";
 
-    if (argc < 2)
+    if (argc < 3)
     {
         std::cout << USAGE;
         return 1;
@@ -70,26 +72,28 @@ int main(int argc, char** argv)
         const Aws::String name(argv[2]);
         const Aws::String projection(argc > 3 ? argv[3] : "");
 
+        // snippet-start:[dynamodb.cpp.get_item.code]
         Aws::Client::ClientConfiguration clientConfig;
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-
         Aws::DynamoDB::Model::GetItemRequest req;
 
+        // Set up the request
+        req.SetTableName(table);
+        Aws::DynamoDB::Model::AttributeValue hashKey;
+        hashKey.SetS(name);
+        req.AddKey("Name", hashKey);
         if (!projection.empty())
             req.SetProjectionExpression(projection);
 
-        Aws::DynamoDB::Model::AttributeValue haskKey;
-        haskKey.SetS(name);
-        req.AddKey("Name", haskKey);
-
-        req.SetTableName(table);
-
+        // Retrieve the item's fields and values
         const Aws::DynamoDB::Model::GetItemOutcome& result = dynamoClient.GetItem(req);
         if (result.IsSuccess())
         {
+            // Reference the retrieved fields/values
             const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& item = result.GetResult().GetItem();
             if (item.size() > 0)
             {
+                // Output each retrieved field and its value
                 for (const auto& i : item)
                     std::cout << i.first << ": " << i.second.GetS() << std::endl;
             }
@@ -103,6 +107,7 @@ int main(int argc, char** argv)
         {
             std::cout << "Failed to get item: " << result.GetError().GetMessage();
         }
+        // snippet-end:[dynamodb.cpp.get_item.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

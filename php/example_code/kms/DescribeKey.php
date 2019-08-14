@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-keys.html
  *
  */
+// snippet-start:[kms.php.describe_key.complete]
+// snippet-start:[kms.php.describe_key.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient;
+use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kms.php.describe_key.import]
 
 /**
  * Creating an Amazon KMS client.
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient
+//Create a KmsClient 
+// snippet-start:[kms.php.describe_key.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
@@ -49,15 +53,17 @@ try {
     echo "\n";
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DescribeKey.php demonstrates how to demonstrates how to get detailed information about a customer master key (CMK), including the CMK ARN and key state.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Key Management Service (KMS)]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[kms.php.describe_key.main]
+// snippet-end:[kms.php.describe_key.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DescribeKey.php demonstrates how to get detailed information about a customer master key (CMK), including the CMK ARN and key state.]
+// snippet-keyword:[PHP]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Key Management Service (KMS)]
+// snippet-service:[kms]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

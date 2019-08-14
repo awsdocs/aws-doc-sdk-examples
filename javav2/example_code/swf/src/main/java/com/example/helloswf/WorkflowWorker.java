@@ -5,10 +5,9 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[swf.java2.task_request.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
- * Reserved.
- *
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -20,16 +19,18 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+// snippet-start:[swf.java2.task_request.import]
 package com.example.helloswf;
 
-import software.amazon.awssdk.services.swf.SWFClient;
+import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+// snippet-end:[swf.java2.task_request.import]
+// snippet-start:[swf.java2.task_request.main]
 public class WorkflowWorker {
-    private static final SWFClient swf = SWFClient.builder().build();
+    private static final SwfClient swf = SwfClient.builder().build();
 
     public static void main(String[] args) {
         PollForDecisionTaskRequest task_request =
@@ -148,3 +149,5 @@ public class WorkflowWorker {
                 .build());
     }
 }
+// snippet-end:[swf.java2.task_request.main]
+// snippet-end:[swf.java2.task_request.complete]

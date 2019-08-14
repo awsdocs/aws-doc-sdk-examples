@@ -1,24 +1,33 @@
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
  
 //snippet-sourcedescription:[secrets_getsecretvalue.js demonstrates how to retrieve a secret from AWS Secrets Manager.]
+//snippet-service:[secretsmanager]
 //snippet-keyword:[JavaScript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
+// snippet-keyword:[GetSecretValue]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[9/25/18]
-//snippet-sourceauthor:[daviddeyo]
-
-
-// Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
+//snippet-sourceauthor:[AWS]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the AWS Secrets Manager.
-
 // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-
 // If you need more information about configurations or implementing the sample code, visit the AWS docs:
 // https://aws.amazon.com/developers/getting-started/nodejs/
 
+// snippet-start:[secretsmanager.JavaScript.secrets.GetSecretValue]
 // Load the AWS SDK
 var AWS = require('aws-sdk'),
     region = "<<{{MyRegionName}}>>",
@@ -71,3 +80,4 @@ client.getSecretValue({SecretId: secretName}, function(err, data) {
     
     // Your code goes here. 
 });
+// snippet-end:[secretsmanager.JavaScript.secrets.GetSecretValue]

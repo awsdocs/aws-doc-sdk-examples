@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -61,7 +61,7 @@ int main(int argc, char ** argv)
     auto urd_out = codecommit.UpdateRepositoryDescription(urd_req);
     auto urn_out = codecommit.UpdateRepositoryName(urn_req);
 
-    if (urd_out.IsSuccess() and urn_out.IsSuccess())
+    if (urd_out.IsSuccess() && urn_out.IsSuccess())
     {
       std::cout << "Successfully updated repository."
                 << std::endl;

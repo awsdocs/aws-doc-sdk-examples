@@ -1,16 +1,13 @@
  
 //snippet-sourcedescription:[put_item.cpp demonstrates how to put an item into an Amazon DynamoDB table.]
-//snippet-keyword:[C++]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-keyword:[C++]
 //snippet-sourceauthor:[AWS]
 
 
 /*
-Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
@@ -22,6 +19,8 @@ This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
+
+//snippet-start:[dynamodb.cpp.put_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
@@ -29,6 +28,7 @@ specific language governing permissions and limitations under the License.
 #include <aws/dynamodb/model/PutItemRequest.h>
 #include <aws/dynamodb/model/PutItemResult.h>
 #include <iostream>
+//snippet-end:[dynamodb.cpp.put_item.inc]
 
 
 /**
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
         "Example:\n"
         "    put_item Cellists Pau Language=ca Born=1876\n";
 
-    if (argc < 2)
+    if (argc < 3)
     {
         std::cout << USAGE;
         return 1;
@@ -67,6 +67,7 @@ int main(int argc, char** argv)
         const Aws::String table(argv[1]);
         const Aws::String name(argv[2]);
 
+        // snippet-start:[dynamodb.cpp.put_item.code]
         Aws::Client::ClientConfiguration clientConfig;
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -80,7 +81,7 @@ int main(int argc, char** argv)
         for (int x = 3; x < argc; x++)
         {
             const Aws::String arg(argv[x]);
-            const Aws::Vector<Aws::String>& flds = Aws::Utils::StringUtils::Split(arg, ':');
+            const Aws::Vector<Aws::String>& flds = Aws::Utils::StringUtils::Split(arg, '=');
             if (flds.size() == 2)
             {
                 Aws::DynamoDB::Model::AttributeValue val;
@@ -101,6 +102,7 @@ int main(int argc, char** argv)
             return 1;
         }
         std::cout << "Done!" << std::endl;
+        // snippet-end:[dynamodb.cpp.put_item.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -1,4 +1,4 @@
-.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -8,8 +8,10 @@
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
 
-This repository contains AWS SDK code examples used in the public `AWS documentation repositories
-<https://www.github.com/awsdocs>`_.
+This repository contains AWS SDK code examples used in the public 
+`AWS documentation repositories <https://www.github.com/awsdocs>`_. 
+You can also browse the 
+`AWS Code Sample Catalog <https://docs.aws.amazon.com/code-samples/latest/catalog/welcome.html>`__.
 
 About the examples
 ==================
@@ -32,7 +34,8 @@ Submitting code examples for use in AWS documentation
 =====================================================
 
 If you plan to contribute examples for use in the documentation (the purpose of this repository),
-please read this section carefully so that we can work together more effectively.
+please read this section carefully so that we can work together more effectively. 
+For process instructions and additional guidance, see the `Guidelines for contributing <CONTRIBUTING.md>`_. 
 
 * **Make sure that the code can be built and run**. There's nothing more frustrating in developer
   documentation than code examples that don't work. Build the code and test it before submitting it!
@@ -74,8 +77,8 @@ please read this section carefully so that we can work together more effectively
 Copyright and License
 =====================
 
-All content in this repository, unless otherwise stated, is Copyright © 2010-2018, Amazon Web
-Services, Inc. or its affiliates. All rights reserved.
+All content in this repository, unless otherwise stated, is 
+Copyright © 2010-2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
 license, version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full

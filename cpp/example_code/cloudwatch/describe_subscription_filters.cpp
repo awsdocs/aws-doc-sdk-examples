@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -31,7 +31,7 @@
 #include <iomanip>
 
 /**
- * Lists cloudwatch subscription filters associated with a log group
+ * List CloudWatch subscription filters associated with a log group
  */
 int main(int argc, char** argv)
 {
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
             auto outcome = cwl.DescribeSubscriptionFilters(
                     request);
             if (!outcome.IsSuccess()) {
-                std::cout << "Failed to describe cloudwatch subscription filters "
+                std::cout << "Failed to describe CloudWatch subscription filters "
                     << "for log group " << log_group << ": " <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;

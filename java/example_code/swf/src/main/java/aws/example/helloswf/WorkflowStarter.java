@@ -6,9 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
- * Reserved.
- *
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -20,15 +18,21 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+//snippet-start:[swf.java.workflow_starter.complete]
 package aws.example.helloswf;
 
+
+//snippet-start:[swf.java.workflow_starter.import]
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.*;
+//snippet-end:[swf.java.workflow_starter.import]
 
+//snippet-start:[swf.java.workflow_starter.main]
 public class WorkflowStarter {
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+            AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
 
     public static void main(String[] args) {
@@ -55,3 +59,5 @@ public class WorkflowStarter {
                 run.getRunId() + "'.");
     }
 }
+//snippet-end:[swf.java.workflow_starter.main]
+//snippet-end:[swf.java.workflow_starter.complete]

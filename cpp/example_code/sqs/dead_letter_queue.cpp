@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,12 +22,17 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.make_redrive_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/json/JsonSerializer.h>
+//snippet-end:[sqs.cpp.make_redrive_policy.inc]
+//snippet-start:[sqs.cpp.set_redrive_policy.inc]
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.set_redrive_policy.inc]
 
+// snippet-start:[sqs.cpp.make_redrive_policy.code]
 Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
 {
     Aws::Utils::Json::JsonValue redrive_arn_entry;
@@ -42,6 +47,7 @@ Aws::String MakeRedrivePolicy(const Aws::String& queue_arn, int max_msg)
 
     return policy_map.View().WriteReadable();
 }
+// snippet-end:[sqs.cpp.make_redrive_policy.code]
 
 /**
  * Connects an sqs queue to an associated dead letter queue based on command
@@ -70,6 +76,7 @@ int main(int argc, char** argv)
 
         Aws::String redrivePolicy = MakeRedrivePolicy(queue_arn, max_msg);
 
+        // snippet-start:[sqs.cpp.set_redrive_policy.code]
         Aws::SQS::Model::SetQueueAttributesRequest request;
         request.SetQueueUrl(src_queue_url);
         request.AddAttributes(
@@ -88,6 +95,7 @@ int main(int argc, char** argv)
                 src_queue_url << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         }
+        // snippet-end:[sqs.cpp.set_redrive_policy.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
