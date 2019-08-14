@@ -37,19 +37,18 @@ namespace NETRekognitionConsole
             // Using USWest2, not the default region
             AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
 
-            DetectFacesRequest dfr = new DetectFacesRequest();
+            // Request needs image bytes, so read and add to request
+            byte[] data = File.ReadAllBytes(filename);
 
-            // Request needs image butes, so read and add to request
-            Amazon.Rekognition.Model.Image img = new Amazon.Rekognition.Model.Image();
-            byte[] data = null;
-            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            DetectFacesRequest dfr = new DetectFacesRequest
             {
-                data = new byte[fs.Length];
-                fs.Read(data, 0, (int)fs.Length);
-            }
-            img.Bytes = new MemoryStream(data);
-            dfr.Image = img;
-            var outcome = rekoClient.DetectFaces(dfr);
+                Image = new Amazon.Rekognition.Model.Image
+                {
+                    Bytes = new MemoryStream(data)
+                }
+            };
+
+            DetectFacesResponse outcome = rekoClient.DetectFaces(dfr);
 
             if (outcome.FaceDetails.Count > 0)
             {
@@ -87,20 +86,19 @@ namespace NETRekognitionConsole
         {
             // Using USWest2, not the default region
             AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
+            
+            // Request needs image bytes, so read and add to request
+            byte[] data = File.ReadAllBytes(filename);
 
-            RecognizeCelebritiesRequest dfr = new RecognizeCelebritiesRequest();
-
-            // Request needs image butes, so read and add to request
-            Amazon.Rekognition.Model.Image img = new Amazon.Rekognition.Model.Image();
-            byte[] data = null;
-            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            RecognizeCelebritiesRequest rcr = new RecognizeCelebritiesRequest
             {
-                data = new byte[fs.Length];
-                fs.Read(data, 0, (int)fs.Length);
-            }
-            img.Bytes = new MemoryStream(data);
-            dfr.Image = img;
-            var outcome = rekoClient.RecognizeCelebrities(dfr);
+                Image = new Amazon.Rekognition.Model.Image
+                {
+                    Bytes = new MemoryStream(data)
+                }
+            };
+
+            RecognizeCelebritiesResponse outcome = rekoClient.RecognizeCelebrities(rcr);
 
             if (outcome.CelebrityFaces.Count > 0)
             {
