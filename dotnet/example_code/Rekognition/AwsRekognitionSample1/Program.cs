@@ -53,7 +53,7 @@ namespace NETRekognitionConsole
             if (outcome.FaceDetails.Count > 0)
             {
                 // Load a bitmap to modify with face bounding box rectangles
-                System.Drawing.Bitmap facesHighlighted = new System.Drawing.Bitmap(filename);
+                Bitmap facesHighlighted = new Bitmap(filename);
                 Pen pen = new Pen(Color.Black, 3);
 
                 // Create a graphics context
@@ -63,23 +63,28 @@ namespace NETRekognitionConsole
                     {
                         // Get the bounding box
                         BoundingBox bb = fd.BoundingBox;
-                        Console.WriteLine("Bounding box = (" + bb.Left + ", " + bb.Top + ", " +
-                            bb.Height + ", " + bb.Width + ")");
+                        Console.WriteLine($"Bounding box = ({bb.Left}, {bb.Top}, {bb.Height}, {bb.Width})");
+
                         // Draw the rectangle using the bounding box values
                         // They are percentages so scale them to picture
-                        graphics.DrawRectangle(pen, x: facesHighlighted.Width * bb.Left,
+                        graphics.DrawRectangle(pen,
+                            x: facesHighlighted.Width * bb.Left,
                             y: facesHighlighted.Height * bb.Top,
                             width: facesHighlighted.Width * bb.Width,
                             height: facesHighlighted.Height * bb.Height);
                     }
                 }
+
                 // Save the image with highlights as PNG
                 string fileout = filename.Replace(Path.GetExtension(filename), "_faces.png");
                 facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
+
                 Console.WriteLine(">>> " + outcome.FaceDetails.Count + " face(s) highlighted in file " + fileout);
             }
             else
+            {
                 Console.WriteLine(">>> No faces found");
+            }
         }
 
         static void IdentifyCelebrityFaces(string filename)
@@ -102,9 +107,8 @@ namespace NETRekognitionConsole
 
             if (outcome.CelebrityFaces.Count > 0)
             {
-
                 // Load a bitmap to modify with face bounding box rectangles
-                System.Drawing.Bitmap facesHighlighted = new System.Drawing.Bitmap(filename);
+                Bitmap facesHighlighted = new Bitmap(filename);
                 Pen pen = new Pen(Color.Black, 3);
                 Font drawFont = new Font("Arial", 12);
 
@@ -115,25 +119,33 @@ namespace NETRekognitionConsole
                     {
                         // Get the bounding box
                         BoundingBox bb = fd.Face.BoundingBox;
-                        Console.WriteLine("Bounding box = (" + bb.Left + ", " + bb.Top + ", " +
-                            bb.Height + ", " + bb.Width + ")");
+                        Console.WriteLine($"Bounding box = ({bb.Left}, {bb.Top}, {bb.Height}, {bb.Width})");
+
                         // Draw the rectangle using the bounding box values
                         // They are percentages so scale them to picture
-                        graphics.DrawRectangle(pen, x: facesHighlighted.Width * bb.Left,
+                        graphics.DrawRectangle(pen,
+                            x: facesHighlighted.Width * bb.Left,
                             y: facesHighlighted.Height * bb.Top,
                             width: facesHighlighted.Width * bb.Width,
                             height: facesHighlighted.Height * bb.Height);
-                        graphics.DrawString(fd.Name, drawFont, Brushes.White, facesHighlighted.Width * bb.Left,
-                            facesHighlighted.Height * bb.Top + facesHighlighted.Height * bb.Height);
+                        graphics.DrawString(fd.Name,
+                            font: drawFont,
+                            brush: Brushes.White,
+                            x: facesHighlighted.Width * bb.Left,
+                            y: facesHighlighted.Height * bb.Top + facesHighlighted.Height * bb.Height);
                     }
                 }
+
                 // Save the image with highlights as PNG
                 string fileout = filename.Replace(Path.GetExtension(filename), "_celebrityfaces.png");
                 facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
+
                 Console.WriteLine(">>> " + outcome.CelebrityFaces.Count + " celebrity face(s) highlighted in file " + fileout);
             }
             else
+            {
                 Console.WriteLine(">>> No celebrity faces found");
+            }
         }
 
         static void Main(string[] args)
