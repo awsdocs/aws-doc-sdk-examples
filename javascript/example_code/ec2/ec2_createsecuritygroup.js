@@ -18,7 +18,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-02]
+//snippet-sourcedate:[2019-08-06]
 //snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
@@ -55,7 +55,7 @@ ec2.describeVpcs(function(err, data) {
            var SecurityGroupId = data.GroupId;
            console.log("Success", SecurityGroupId);
            var paramsIngress = {
-             GroupName: 'SECURITY_GROUP_NAME',
+             GroupId: 'SECURITY_GROUP_ID',
              IpPermissions:[
                 {
                    IpProtocol: "tcp",
