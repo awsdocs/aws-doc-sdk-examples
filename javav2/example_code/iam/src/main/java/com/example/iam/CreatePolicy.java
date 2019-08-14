@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,17 +20,21 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.create_policy.complete]
+// snippet-start:[iam.java2.create_policy.import]
 import software.amazon.awssdk.services.iam.model.CreatePolicyRequest;
 import software.amazon.awssdk.services.iam.model.CreatePolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
+ 
+// snippet-end:[iam.java2.create_policy.import]
 /**
  * Creates a fixed policy with a provided policy name.
  */
 public class CreatePolicy {
 
+    // snippet-start:[iam.java2.create_policy.policy_document]
     public static final String POLICY_DOCUMENT =
         "{" +
         "  \"Version\": \"2012-10-17\"," +
@@ -53,6 +57,7 @@ public class CreatePolicy {
         "    }" +
         "   ]" +
         "}";
+    // snippet-end:[iam.java2.create_policy.policy_document]
 
     public static void main(String[] args) {
 
@@ -67,6 +72,7 @@ public class CreatePolicy {
 
         String policy_name = args[0];
 
+        // snippet-start:[iam.java2.create_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -78,5 +84,8 @@ public class CreatePolicy {
 
         System.out.println("Successfully created policy: " +
                 response.policy().policyName());
+        // snippet-end:[iam.java2.create_policy.main]
     }
 }
+ 
+// snippet-end:[iam.java2.create_policy.complete]

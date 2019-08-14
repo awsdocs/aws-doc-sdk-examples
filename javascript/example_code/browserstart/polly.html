@@ -1,56 +1,85 @@
-// Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.
+<!--
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+-->
+
+<!--
+ snippet-sourcedescription:[polly.html demonstrates browser access to Amazon Polly.]
+ snippet-service:[Amazon Polly]
+ snippet-keyword:[HTML]
+ snippet-keyword:[Amazon Polly]
+ snippet-keyword:[Code Sample]
+ snippet-sourcetype:[full-example]
+ snippet-sourcedate:[2019-02-25]
+ snippet-sourceauthor:[AWS]
 
 // ABOUT THIS BROWSER SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-browser.html
-
-<!doctype html>
+-->
+<!-- snippet-start:[Polly.HTML.BrowserExample.complete] -->
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>WS SDK for JavaScript - Browser Getting Started Application</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>AWS SDK for JavaScript - Browser Getting Started Application</title>
+  </head>
 
-<body>
-	<div id="textToSynth">
-	<input autofocus size="23" type="text" id="textEntry" value="It's very good to meet you."/>
-	<button class="btn default" onClick="speakText()">Synthesize</button><p id="result">Enter text above then click Synthesize</p>
-	</div>
-	<audio id="audioPlayback" controls>
-  		<source id="audioSource" type="audio/mp3" src="">
-		<p id="result">result</p>
-	</audio>
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.267.1.min.js"></script>
-	<script type="text/javascript">
-		// Initialize the Amazon Cognito credentials provider
-		AWS.config.region = 'us-west-2'; // Region
-		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    		IdentityPoolId: 'us-west-2:275b7285-fb71-46bf-80f8-2c901b9d4bb9'
-		});
-
-		function speakText() {
-    	  // Create synthesizeSpeech params JSON
-		  var speechParams = {
-		    OutputFormat: "mp3",
-		    SampleRate: "16000",
-		    Text: "",
-		    TextType: "text",
-		    VoiceId: "Matthew"
-		  };
-		  speechParams.Text = document.getElementById("textEntry").value;
-
-		  // Create the Polly service object and presigner object
-	 	  var polly = new AWS.Polly({apiVersion: '2016-06-10'});
-		  var signer = new AWS.Polly.Presigner(speechParams, polly)
-		  signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
-		    if (error) {
-			  document.getElementById('result').innerHTML = error;
-		    } else {
-			  audioSource.src = url;
-			  document.getElementById('result').innerHTML = "Speech ready to play.";
-		    }
-		  });
-		}
-	</script>
-	</body>
+  <body>
+    <div id="textToSynth">
+      <input autofocus size="23" type="text" id="textEntry" value="It's very good to meet you."/>
+      <button class="btn default" onClick="speakText()">Synthesize</button>
+      <p id="result">Enter text above then click Synthesize</p>
+    </div>
+    <audio id="audioPlayback" controls>
+      <source id="audioSource" type="audio/mp3" src="">
+    </audio>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+    <script type="text/javascript">
+        // snippet-start:[Polly.HTML.BrowserExample.config]
+        // Initialize the Amazon Cognito credentials provider
+        AWS.config.region = 'REGION'; 
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'IDENTITY_POOL_ID'});
+        
+        // Function invoked by button click
+        function speakText() {
+            // Create the JSON parameters for getSynthesizeSpeechUrl
+            var speechParams = {
+                OutputFormat: "mp3",
+                SampleRate: "16000",
+                Text: "",
+                TextType: "text",
+                VoiceId: "Matthew"
+            };
+            speechParams.Text = document.getElementById("textEntry").value;
+            // snippet-end:[Polly.HTML.BrowserExample.config]
+            
+            // snippet-start:[Polly.HTML.BrowserExample.synthesize]
+            // Create the Polly service object and presigner object
+            var polly = new AWS.Polly({apiVersion: '2016-06-10'});
+            var signer = new AWS.Polly.Presigner(speechParams, polly)
+        
+            // Create presigned URL of synthesized speech file
+            signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
+            if (error) {
+                document.getElementById('result').innerHTML = error;
+            } else {
+                document.getElementById('audioSource').src = url;
+                document.getElementById('audioPlayback').load();
+                document.getElementById('result').innerHTML = "Speech ready to play.";
+            }
+          });
+        }
+        // snippet-end:[Polly.HTML.BrowserExample.synthesize]
+    </script>
+  </body>
 </html>
+<!-- snippet-end:[Polly.HTML.BrowserExample.complete] -->

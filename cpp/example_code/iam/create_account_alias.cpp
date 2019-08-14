@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,10 +22,12 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.create_account_alias.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccountAliasRequest.h>
 #include <iostream>
+//snippet-end:[iam.cpp.create_account_alias.inc]
 
 /**
  * Creates an alias for an AWS account, based on command line input
@@ -44,6 +46,7 @@ int main(int argc, char** argv)
     {
         Aws::String alias_name(argv[1]);
 
+        // snippet-start:[iam.cpp.create_account_alias.code]
         Aws::IAM::IAMClient iam;
         Aws::IAM::Model::CreateAccountAliasRequest request;
         request.SetAccountAlias(alias_name);
@@ -59,6 +62,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully created account alias " << alias_name <<
                 std::endl;
         }
+        // snippet-end:[iam.cpp.create_account_alias.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

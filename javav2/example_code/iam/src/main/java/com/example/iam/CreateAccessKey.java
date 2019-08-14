@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.create_access_key.complete]
+// snippet-start:[iam.java2.create_access_key.import]
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
+// snippet-end:[iam.java2.create_access_key.import]
 
 /**
  * Creates an access key for an IAM user
@@ -44,6 +47,7 @@ public class CreateAccessKey {
 
         String user = args[0];
 
+        // snippet-start:[iam.java2.create_access_key.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -52,6 +56,9 @@ public class CreateAccessKey {
 
         CreateAccessKeyResponse response = iam.createAccessKey(request);
 
-        System.out.println("Created access key: " + response.accessKey());
+        System.out.println("Created access key: " + response.accessKey()); 
+        // snippet-end:[iam.java2.create_access_key.main]
     }
 }
+
+// snippet-end:[iam.java2.create_access_key.complete]

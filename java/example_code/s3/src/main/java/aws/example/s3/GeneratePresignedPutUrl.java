@@ -8,7 +8,7 @@
 //snippet-sourcedate:[2018-11-01]
 //snippet-sourceauthor:[walkerk1980]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -21,27 +21,29 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.HttpMethod;
+
 import java.net.URL;
+
 /**
  * Generate a pre-signed PUT URL for uploading a file to an Amazon S3 bucket.
- *
+ * 
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class GeneratePresignedPutUrl
-{
-    public static void main(String[] args)
-    {
+public class GeneratePresignedPutUrl {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "To run this example, supply the name of an S3 bucket and a file to\n" +
-            "upload to it.\n" +
-            "\n" +
-            "Ex: GeneratePresignedPutUrl <bucketname> <filename>\n";
+                "To run this example, supply the name of an S3 bucket and a file to\n" +
+                "upload to it.\n" +
+                "\n" +
+                "Ex: GeneratePresignedPutUrl <bucketname> <filename>\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -52,7 +54,7 @@ public class GeneratePresignedPutUrl
         String key_name = args[1];
 
         System.out.format("Creating a pre-signed URL for uploading %s to S3 bucket %s...\n", key_name, bucket_name);
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
 
         // Set the pre-signed URL to expire after 12 hours.
         java.util.Date expiration = new java.util.Date();
@@ -62,8 +64,8 @@ public class GeneratePresignedPutUrl
 
         try {
             GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket_name, key_name)
-                .withMethod(HttpMethod.PUT)
-                .withExpiration(expiration);
+                    .withMethod(HttpMethod.PUT)
+                    .withExpiration(expiration);
             URL url = s3.generatePresignedUrl(generatePresignedUrlRequest);
             //print URL
             System.out.println("\n\rGenerated URL: " + url.toString());

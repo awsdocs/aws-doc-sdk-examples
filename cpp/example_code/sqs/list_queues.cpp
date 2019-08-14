@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,11 +22,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[sqs.cpp.list_queues.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ListQueuesRequest.h>
 #include <aws/sqs/model/ListQueuesResult.h>
 #include <iostream>
+//snippet-end:[sqs.cpp.list_queues.inc]
 
 /**
  * List sqs queues within an aws account.
@@ -36,6 +38,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        // snippet-start:[sqs.cpp.list_queues.code]
         Aws::SQS::SQSClient sqs;
 
         Aws::SQS::Model::ListQueuesRequest lq_req;
@@ -55,6 +58,7 @@ int main(int argc, char** argv)
             std::cout << "Error listing queues: " <<
                 lq_out.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[sqs.cpp.list_queues.code]
     }
     Aws::ShutdownAPI(options);
 }

@@ -6,9 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights
- * Reserved.
- *
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -22,9 +20,11 @@
  */
 package aws.example.helloswf;
 
+//snippet-start:[swf.java.activity_worker_with_graceful_shutdown.complete]
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.ActivityTask;
@@ -36,7 +36,7 @@ import com.amazonaws.services.simpleworkflow.model.TaskList;
 public class ActivityWorkerWithGracefulShutdown {
 
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+        AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
     private static CountDownLatch waitForTermination = new CountDownLatch(1);
     private static volatile boolean terminate = false;
 
@@ -113,3 +113,4 @@ public class ActivityWorkerWithGracefulShutdown {
         }
     }
 }
+//snippet-end:[swf.java.activity_worker_with_graceful_shutdown.complete]

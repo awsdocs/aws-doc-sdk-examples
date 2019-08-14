@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,12 +22,15 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[iam.cpp.create_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreatePolicyRequest.h>
 #include <aws/iam/model/CreatePolicyResult.h>
 #include <iostream>
+//snippet-end:[iam.cpp.create_policy.inc]
 
+//snippet-start:[iam.cpp.build_policy.code]
 static const char* const POLICY_TEMPLATE =
 "{"
 "  \"Version\": \"2012-10-17\","
@@ -61,6 +64,7 @@ Aws::String BuildSamplePolicyDocument(const Aws::String& rsrc_arn)
 #endif // WIN32
     return Aws::String(policyBuffer);
 }
+//snippet-end:[iam.cpp.build_policy.code]
 
 /**
  * Creates a fixed policy with name based on command line input
@@ -80,6 +84,7 @@ int main(int argc, char** argv)
         Aws::String policy_name(argv[1]);
         Aws::String rsrc_arn(argv[2]);
 
+        // snippet-start:[iam.cpp.create_policy.code]
         Aws::IAM::IAMClient iam;
 
         Aws::IAM::Model::CreatePolicyRequest request;
@@ -97,6 +102,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully created policy " << policy_name <<
                 std::endl;
         }
+        // snippet-end:[iam.cpp.create_policy.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -62,25 +62,20 @@ int main(int argc, char **argv)
       lb_req.SetSortOrder(Aws::CodeBuild::Model::SortOrderType::NOT_SET);
     }
 
-
     auto lb_out = codebuild.ListBuilds(lb_req);
 
     if (lb_out.IsSuccess())
     {
       std::cout << "Information about each build:" << std::endl;
-      for (auto val : lb_out.GetResult().GetIds())
+      bgb_req.SetIds(lb_out.GetResult().GetIds());
+      auto bgb_out = codebuild.BatchGetBuilds(bgb_req);
+
+      if (bgb_out.IsSuccess())
       {
-        bgb_req.SetIds(val);
-        auto bgb_out = codebuild.BatchGetBuilds(bgb_req);
-
-        if (bgb_out.IsSuccess())
+        for (auto val: bgb_out.GetResult().GetBuilds())
         {
-          for (auto val: bgb_out.GetResult().GetBuilds())
-          {
-            std::cout << val << std::endl;
-          }
+          std::cout << val.GetId() << std::endl;
         }
-
       }
     }
 

@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.delete_user.complete]
+// snippet-start:[iam.java2.delete_user.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.DeleteConflictException;
 import software.amazon.awssdk.services.iam.model.DeleteUserRequest;
-
+ 
+// snippet-end:[iam.java2.delete_user.import]
 /**
  * Deletes an IAM user. This is only possible for users with no associated
  * resources
@@ -43,6 +46,7 @@ public class DeleteUser {
 
         String username = args[0];
 
+        // snippet-start:[iam.java2.delete_user.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -56,7 +60,10 @@ public class DeleteUser {
                     " associated with any resources");
             throw e;
         }
+        // snippet-end:[iam.java2.delete_user.main]
 
         System.out.println("Successfully deleted IAM user " + username);
     }
 }
+ 
+// snippet-end:[iam.java2.delete_user.complete]

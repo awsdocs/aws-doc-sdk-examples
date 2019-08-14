@@ -1,13 +1,14 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Produces an MP3 file containing the synthesized speech from a text file.]
-#snippet-keyword:[Amazon Polly]
-#snippet-keyword:[synthesize_speech method]
-#snippet-keyword:[Ruby]
-#snippet-service:[polly]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Produces an MP3 file containing the synthesized speech from a text file.]
+# snippet-keyword:[Amazon Polly]
+# snippet-keyword:[synthesize_speech method]
+# snippet-keyword:[Ruby]
+# snippet-service:[polly]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License. A copy of the

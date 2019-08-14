@@ -6,7 +6,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.get_policy.complete]
+// snippet-start:[iam.java2.get_policy.import]
 import software.amazon.awssdk.services.iam.model.GetPolicyRequest;
 import software.amazon.awssdk.services.iam.model.GetPolicyResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
+ 
+// snippet-end:[iam.java2.get_policy.import]
 /**
  * Gets an IAM policy's details
  */
@@ -44,6 +47,7 @@ public class GetPolicy {
 
         String policy_arn = args[0];
 
+        // snippet-start:[iam.java2.get_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -51,8 +55,11 @@ public class GetPolicy {
             .policyArn(policy_arn).build();
 
         GetPolicyResponse response = iam.getPolicy(request);
+        // snippet-end:[iam.java2.get_policy.main]
 
         System.out.format("Successfully retrieved policy %s",
                 response.policy().policyName());
     }
 }
+
+// snippet-end:[iam.java2.get_policy.complete]

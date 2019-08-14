@@ -10,7 +10,7 @@
 
 
 /*
-   Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,12 +22,14 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+//snippet-start:[cw.cpp.put_rule.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/CloudWatchEventsClient.h>
 #include <aws/events/model/PutRuleRequest.h>
 #include <aws/events/model/PutRuleResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
+//snippet-end:[cw.cpp.put_rule.inc]
 
 /**
  * Creates a cloud watch event-routing rule, based on command line input
@@ -45,6 +47,8 @@ int main(int argc, char** argv)
     {
         Aws::String rule_name(argv[1]);
         Aws::String role_arn(argv[2]);
+
+        // snippet-start:[cw.cpp.put_rule.code]
         Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
         Aws::CloudWatchEvents::Model::PutRuleRequest request;
         request.SetName(rule_name);
@@ -55,16 +59,17 @@ int main(int argc, char** argv)
         auto outcome = cwe.PutRule(request);
         if (!outcome.IsSuccess())
         {
-            std::cout << "Failed to create cloudwatch events rule " <<
+            std::cout << "Failed to create CloudWatch events rule " <<
                 rule_name << ": " << outcome.GetError().GetMessage() <<
                 std::endl;
         }
         else
         {
-            std::cout << "Successfully created cloudwatch events rule " <<
+            std::cout << "Successfully created CloudWatch events rule " <<
                 rule_name << " with resulting Arn " <<
                 outcome.GetResult().GetRuleArn() << std::endl;
         }
+        // snippet-end:[cw.cpp.put_rule.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -5,8 +5,9 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.describe_subscription_filters.complete]
 /*
- * Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,14 +21,17 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.describe_subscription_filters.import]
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscriptionFiltersRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscriptionFiltersResponse;
 import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
+// snippet-end:[cloudwatch.java2.describe_subscription_filters.import]
 
 /**
  * Lists CloudWatch subscription filters associated with a log group.
  */
+// snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
 public class DescribeSubscriptionFilters {
 
     public static void main(String[] args) {
@@ -91,3 +95,5 @@ public class DescribeSubscriptionFilters {
         }
     }
 }
+// snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
+// snippet-end:[cloudwatch.java2.describe_subscription_filters.complete]
