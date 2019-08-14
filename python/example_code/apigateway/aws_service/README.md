@@ -5,7 +5,7 @@ method. The service is called through an HTTPS GET method. The calling program d
 to have AWS credentials or use an AWS SDK to access the service.
 
 The sample program creates an interface to the Amazon Translate service, but interfaces to other
-AWS services can be implemented by following the operations demonstrated in this program.
+AWS services can be implemented by following the operations demonstrated in the program.
 
 The generated service infrastructure can be examined in the AWS console. In the API Gateway
 service window, explore the APIs, Usage Plans, and API Keys panes.
