@@ -43,8 +43,9 @@
       <source id="audioSource" type="audio/mp3" src="">
     </audio>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+    // snippet-start:[Polly.HTML.BrowserExample.config]
     <script type="text/javascript">
-        // snippet-start:[Polly.HTML.BrowserExample.config]
+
         // Initialize the Amazon Cognito credentials provider
         AWS.config.region = 'REGION'; 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'IDENTITY_POOL_ID'});
@@ -78,8 +79,8 @@
             }
           });
         }
-        // snippet-end:[Polly.HTML.BrowserExample.synthesize]
     </script>
+    // snippet-end:[Polly.HTML.BrowserExample.synthesize]
   </body>
 </html>
 <!-- snippet-end:[Polly.HTML.BrowserExample.complete] -->
