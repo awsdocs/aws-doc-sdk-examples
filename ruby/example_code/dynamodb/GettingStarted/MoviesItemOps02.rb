@@ -36,11 +36,6 @@ table_name = 'Movies'
 year = 2015
 title = "The Big New Movie"
 
-key = {
-    year: year,
-    title: title
-}
-
 params = {
     table_name: table_name,
     key: {

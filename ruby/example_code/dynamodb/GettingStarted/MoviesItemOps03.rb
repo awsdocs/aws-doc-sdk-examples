@@ -52,7 +52,7 @@ params = {
 }
 
 begin
-    result = dynamodb.update_item(params)
+    dynamodb.update_item(params)
     puts "Added item: #{year}  - #{title}"
 
 rescue  Aws::DynamoDB::Errors::ServiceError => error

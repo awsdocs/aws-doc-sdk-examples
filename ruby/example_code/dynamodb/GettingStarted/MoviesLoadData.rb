@@ -44,7 +44,7 @@ movies.each{|movie|
     }
 
     begin
-        result = dynamodb.put_item(params)
+        dynamodb.put_item(params)
         puts "Added movie: #{movie["year"]} #{movie["title"]}"
 
     rescue  Aws::DynamoDB::Errors::ServiceError => error

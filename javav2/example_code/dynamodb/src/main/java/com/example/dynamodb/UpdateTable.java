@@ -19,8 +19,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.update_table.complete]
-// snippet-start:[dynamodb.java.update_table.import]
+// snippet-start:[dynamodb.java2.update_table.complete]
+// snippet-start:[dynamodb.java2.update_table.import]
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
@@ -28,7 +28,7 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
  
-// snippet-end:[dynamodb.java.update_table.import]
+// snippet-end:[dynamodb.java2.update_table.import]
 /**
  * Update a DynamoDB table (change provisioned throughput).
  *
@@ -67,7 +67,7 @@ Long read_capacity = Long.parseLong(args[1]);
         System.out.format("Read capacity : %d\n", read_capacity);
         System.out.format("Write capacity : %d\n", write_capacity);
 
-        // snippet-start:[dynamodb.java.update_table.main]
+        // snippet-start:[dynamodb.java2.update_table.main]
         ProvisionedThroughput table_throughput = ProvisionedThroughput.builder()
         		.readCapacityUnits(read_capacity)
         		.writeCapacityUnits(write_capacity)
@@ -87,9 +87,9 @@ Long read_capacity = Long.parseLong(args[1]);
             System.exit(1);
         }
 
-        // snippet-end:[dynamodb.java.update_table.main]
+        // snippet-end:[dynamodb.java2.update_table.main]
         System.out.println("Done!");
     }
 }
  
-// snippet-end:[dynamodb.java.update_table.complete]
+// snippet-end:[dynamodb.java2.update_table.complete]

@@ -20,8 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.update_access_key.complete]
-// snippet-start:[iam.java.update_access_key.import]
+// snippet-start:[iam.java2.update_access_key.complete]
+// snippet-start:[iam.java2.update_access_key.import]
 import software.amazon.awssdk.services.iam.model.StatusType;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.UpdateAccessKeyResponse;
@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.iam.model.UpdateAccessKeyResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
  
-// snippet-end:[iam.java.update_access_key.import]
+// snippet-end:[iam.java2.update_access_key.import]
 /**
  * Updates the status of an IAM user's access key
  */
@@ -62,7 +62,7 @@ public class UpdateAccessKey {
         	statusType = StatusType.UNKNOWN_TO_SDK_VERSION;
         }
 
-        // snippet-start:[iam.java.update_access_key.main]
+        // snippet-start:[iam.java2.update_access_key.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -73,7 +73,7 @@ public class UpdateAccessKey {
             .build();
 
         UpdateAccessKeyResponse response = iam.updateAccessKey(request);
-        // snippet-end:[iam.java.update_access_key.main]
+        // snippet-end:[iam.java2.update_access_key.main]
 
         System.out.printf(
                 "Successfully updated status of access key %s to" +
@@ -81,4 +81,4 @@ public class UpdateAccessKey {
     }
 }
  
-// snippet-end:[iam.java.update_access_key.complete]
+// snippet-end:[iam.java2.update_access_key.complete]

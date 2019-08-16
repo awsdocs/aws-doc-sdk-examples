@@ -19,23 +19,27 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
-// snippet-start:[s3.java.copy_object.complete]
-// snippet-start:[s3.java.copy_object.import]
+// snippet-start:[s3.java2.copy_object.complete]
+// snippet-start:[s3.java2.copy_object.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
- 
-// snippet-end:[s3.java.copy_object.import]
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+// snippet-end:[s3.java2.copy_object.import]
 /**
  * Copy an object from one Amazon S3 bucket to another.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-// snippet-start:[s3.java.copy_object.main]
+// snippet-start:[s3.java2.copy_object.main]
 public class CopyObject
 {
     public static void main(String[] args)
@@ -59,9 +63,15 @@ public class CopyObject
                 object_key, from_bucket, to_bucket);
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
+        String encodedUrl = null;
+        try {
+            encodedUrl = URLEncoder.encode(from_bucket + "/" + object_key, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("URL could not be encoded: " + e.getMessage());
+        }
 
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
-        		.copySource(from_bucket + "/" + object_key)
+        		.copySource(encodedUrl)
         		.bucket(to_bucket)
         		.key(object_key)
         		.build();
@@ -77,5 +87,5 @@ public class CopyObject
     }
 }
  
-// snippet-end:[s3.java.copy_object.main]
-// snippet-end:[s3.java.copy_object.complete]
+// snippet-end:[s3.java2.copy_object.main]
+// snippet-end:[s3.java2.copy_object.complete]

@@ -1,13 +1,11 @@
- 
 //snippet-sourcedescription:[describe_smb_settings.cpp demonstrates how to retrieve information pertaining to the Server Message Block (SMB) settings for an AWS Storage Gateway resource.]
+//snippet-service:[storagegateway]
+//snippet-keyword:[AWS Storage Gateway]
 //snippet-keyword:[C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Storage Gateway]
-//snippet-service:[storagegateway]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,13 +38,13 @@ int main(int argc, char ** argv)
   {
     Aws::String gateway_arn(argv[1]);
 
-    Aws::StorageGateway::StorageGatewayClient storagegatway;
+    Aws::StorageGateway::StorageGatewayClient storagegateway;
 
     Aws::StorageGateway::Model::DescribeSMBSettingsRequest dsmbs_req;
 
     dsmbs_req.SetGatewayARN(gateway_arn);
 
-    auto dsmbs_out = storagegatway.DescribeSMBSettings(dsmbs_req);
+    auto dsmbs_out = storagegateway.DescribeSMBSettings(dsmbs_req);
 
     if (dsmbs_out.IsSuccess())
     {

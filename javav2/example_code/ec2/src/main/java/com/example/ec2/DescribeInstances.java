@@ -20,54 +20,53 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.describe_instances.complete]
-// snippet-start:[ec2.java.describe_instances.import]
+// snippet-start:[ec2.java2.describe_instances.complete]
+// snippet-start:[ec2.java2.describe_instances.import]
+
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Instance;
 import software.amazon.awssdk.services.ec2.model.Reservation;
- 
-// snippet-end:[ec2.java.describe_instances.import]
+
+// snippet-end:[ec2.java2.describe_instances.import]
+
 /**
  * Describes all EC2 instances associated with an AWS account
  */
-public class DescribeInstances
-{
-    public static void main(String[] args)
-    {
-    	Ec2Client ec2 = Ec2Client.create();
+public class DescribeInstances {
+    public static void main(String[] args) {
+        Ec2Client ec2 = Ec2Client.create();
         boolean done = false;
 
-         // snippet-start:[ec2.java.describe_instances.main]
-        DescribeInstancesRequest request = DescribeInstancesRequest.builder().build();
-
-        while(!done) {
+        // snippet-start:[ec2.java2.describe_instances.main]
+        String nextToken = null;
+        do {
+            DescribeInstancesRequest request = DescribeInstancesRequest.builder().maxResults(6).nextToken(nextToken).build();
             DescribeInstancesResponse response = ec2.describeInstances(request);
 
-            for(Reservation reservation : response.reservations()) {
-                for(Instance instance : reservation.instances()) {
+            for (Reservation reservation : response.reservations()) {
+                for (Instance instance : reservation.instances()) {
                     System.out.printf(
-                        "Found reservation with id %s, " +
-                        "AMI %s, " +
-                        "type %s, " +
-                        "state %s " +
-                        "and monitoring state %s",
-                        instance.instanceId(),
-                        instance.imageId(),
-                        instance.instanceType(),
-                        instance.state().name(),
-                        instance.monitoring().state());
+                            "Found reservation with id %s, " +
+                                    "AMI %s, " +
+                                    "type %s, " +
+                                    "state %s " +
+                                    "and monitoring state %s",
+                            instance.instanceId(),
+                            instance.imageId(),
+                            instance.instanceType(),
+                            instance.state().name(),
+                            instance.monitoring().state());
                     System.out.println("");
                 }
             }
+            nextToken = response.nextToken();
 
-            if(response.nextToken() == null) {
-                done = true;
-            }
-        }
-        // snippet-end:[ec2.java.describe_instances.main]        
+
+        } while (nextToken != null);
+        // snippet-end:[ec2.java2.describe_instances.main]        
     }
 }
- 
-// snippet-end:[ec2.java.describe_instances.complete]
+
+// snippet-end:[ec2.java2.describe_instances.complete]

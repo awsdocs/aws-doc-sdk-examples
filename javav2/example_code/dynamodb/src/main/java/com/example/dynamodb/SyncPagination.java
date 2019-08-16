@@ -20,16 +20,16 @@
  * limitations under the License.
  */
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java.sync_pagination.complete]
-// snippet-start:[dynamodb.java.sync_pagination.import]
+// snippet-start:[dynamodb.java2.sync_pagination.complete]
+// snippet-start:[dynamodb.java2.sync_pagination.import]
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
-// snippet-end:[dynamodb.java.sync_pagination.import]
+// snippet-end:[dynamodb.java2.sync_pagination.import]
 
-// snippet-start:[dynamodb.java.sync_pagination.main]
+// snippet-start:[dynamodb.java2.sync_pagination.main]
 public class SyncPagination {
 
     public static void main(String[] args) {
@@ -142,5 +142,5 @@ public class SyncPagination {
         }
     }
 }
-// snippet-end:[dynamodb.java.sync_pagination.main] 
-// snippet-end:[dynamodb.java.sync_pagination.complete]
+// snippet-end:[dynamodb.java2.sync_pagination.main] 
+// snippet-end:[dynamodb.java2.sync_pagination.complete]

@@ -32,7 +32,7 @@ var AWS = require('aws-sdk');
 // Set the region 
 AWS.config.update({region: 'us-west-2'});
 // Set the custom endpoint for your acccount
-AWS.config.mediaconvert({endpoint: 'ACCOUNT_ENDPOINT'});
+AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
 // snippet-end:[mediaconvert.JavaScript.jobs.createJob_config]
 
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_define]

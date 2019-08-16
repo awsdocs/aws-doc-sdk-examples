@@ -42,7 +42,7 @@ describe_availability_zones_result.availability_zones.each do |zone|
   puts "#{zone.zone_name} is #{zone.state}"
   if zone.messages.count > 0
     zone.messages.each do |message|
-      "  #{message.message}"
+      puts "  #{message.message}"
     end
   end
 end

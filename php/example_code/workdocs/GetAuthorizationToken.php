@@ -38,7 +38,7 @@ echo "<li>To Grant or deny your application access to Amazon WorkDocs, select <b
 echo "<li>Copy the URL you are taken</li>";
 echo "<li>Save the string after <b>access_token=</b> and <b>region=</b></li>";
 echo "</ol>";
-echo "<p> For more information about Authentication and Access Contro for User Applications see ";
+echo "<p> For more information about Authentication and Access Control for User Applications see ";
 echo "<a href='https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html'>Amazon WorkDocs Developer Guide</a></p>";
 
 $guzzle = new httpClient([
