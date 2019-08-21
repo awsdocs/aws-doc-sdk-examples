@@ -27,7 +27,7 @@
 // snippet-start:[mediaconvert.JavaScript.jobs.listJobs]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the Region 
 AWS.config.update({region: 'us-west-2'});
 // Set the customer endpoint
 AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
