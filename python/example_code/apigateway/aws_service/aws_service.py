@@ -626,11 +626,7 @@ def main():
     if api_url is None:
         exit(1)
     logging.info(f'Translate service TranslateText URL: {api_url}')
-
-    # Invoke the Translate.TranslateText REST API
-    translated_text = translate_text('Hello, my friend')
-    if translated_text is not None:
-        logging.info(f'Translated Text: {translated_text}')
+    logging.info('To translate text with the API, run the program with the option -t "Text to translate"')
 
 
 if __name__ == '__main__':
