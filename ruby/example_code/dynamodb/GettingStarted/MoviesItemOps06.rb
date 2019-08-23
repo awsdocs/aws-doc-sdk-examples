@@ -1,4 +1,4 @@
-# snippet-sourcedescription:[MoviesItemOps06.rb demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
 # snippet-keyword:[Amazon DynamoDB]
@@ -49,7 +49,7 @@ params = {
 }
 
 begin
-    result = dynamodb.delete_item(params)
+    dynamodb.delete_item(params)
     puts "Deleted item."
 
 rescue  Aws::DynamoDB::Errors::ServiceError => error

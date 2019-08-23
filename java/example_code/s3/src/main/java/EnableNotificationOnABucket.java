@@ -1,16 +1,16 @@
 /**
  * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
+ * 
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
  * the License is located at
- *
+ * 
  * http://aws.amazon.com/apache2.0/
- *
+ * 
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
-*/
+ */
 
 // snippet-sourcedescription:[EnableNotificationsOnABucket.java demonstrates how to configure an S3 bucket to work with Amazon Simple Notification Service and Simple Queue Service.]
 // snippet-service:[s3]
@@ -23,25 +23,22 @@
 // snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.enable_notification_on_a_bucket.complete]
 
-import java.io.IOException;
-import java.util.EnumSet;
-
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
-import com.amazonaws.services.s3.model.TopicConfiguration;
-import com.amazonaws.services.s3.model.QueueConfiguration;
-import com.amazonaws.services.s3.model.S3Event;
-import com.amazonaws.services.s3.model.SetBucketNotificationConfigurationRequest;
+import com.amazonaws.services.s3.model.*;
+
+import java.io.IOException;
+import java.util.EnumSet;
 
 public class EnableNotificationOnABucket {
 
     public static void main(String[] args) throws IOException {
         String bucketName = "*** Bucket name ***";
-        String clientRegion = "*** Client region ***";
+        Regions clientRegion = Regions.DEFAULT_REGION;
         String snsTopicARN = "*** SNS Topic ARN ***";
         String sqsQueueARN = "*** SQS Queue ARN ***";
 
@@ -59,18 +56,16 @@ public class EnableNotificationOnABucket {
             // Add an SQS queue notification.
             notificationConfiguration.addConfiguration("sqsQueueConfig",
                     new QueueConfiguration(sqsQueueARN, EnumSet.of(S3Event.ObjectCreated)));
-            
+
             // Create the notification configuration request and set the bucket notification configuration.
             SetBucketNotificationConfigurationRequest request = new SetBucketNotificationConfigurationRequest(
                     bucketName, notificationConfiguration);
             s3Client.setBucketNotificationConfiguration(request);
-        }
-        catch(AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process 
             // it, so it returned an error response.
             e.printStackTrace();
-        }
-        catch(SdkClientException e) {
+        } catch (SdkClientException e) {
             // Amazon S3 couldn't be contacted for a response, or the client
             // couldn't parse the response from Amazon S3.
             e.printStackTrace();

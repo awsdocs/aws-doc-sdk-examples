@@ -34,7 +34,7 @@ end
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
 begin
-  resp = client.start_build({project_name: project_name, })
+  client.start_build(project_name: project_name)
   puts 'Building project ' + project_name
 rescue StandardError => ex
   puts 'Error building project: ' + ex.message

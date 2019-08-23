@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
 $client = new StsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
-    'version' => 'latest'
+    'version' => '2011-06-15'
 ]);
 
 $roleToAssumeArn = 'arn:aws:iam::123456789012:role/RoleName';
@@ -46,7 +46,16 @@ try {
     ]);
     // output AssumedRole credentials, you can use these credentials
     // to initiate a new AWS Service client with the IAM Role's permissions
-    var_dump($result[Credentials]);
+       
+    $s3Client = new S3Client([
+        'version'     => '2006-03-01',
+        'region'      => 'us-west-2',
+        'credentials' =>  [
+            'key'    => $result['Credentials']['AccessKeyId'],
+            'secret' => $result['Credentials']['SecretAccessKey'],
+            'token'  => $result['Credentials']['SessionToken']
+        ]
+    ]);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
@@ -63,6 +72,6 @@ try {
 // snippet-keyword:[AWS Security Token Service (STS)]
 // snippet-service:[sts]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
+// snippet-sourcedate:[2019-04-16]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]
 

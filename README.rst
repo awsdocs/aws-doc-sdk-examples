@@ -34,7 +34,8 @@ Submitting code examples for use in AWS documentation
 =====================================================
 
 If you plan to contribute examples for use in the documentation (the purpose of this repository),
-please read this section carefully so that we can work together more effectively.
+please read this section carefully so that we can work together more effectively. 
+For process instructions and additional guidance, see the `Guidelines for contributing <CONTRIBUTING.md>`_. 
 
 * **Make sure that the code can be built and run**. There's nothing more frustrating in developer
   documentation than code examples that don't work. Build the code and test it before submitting it!

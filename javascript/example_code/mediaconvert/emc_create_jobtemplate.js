@@ -27,10 +27,10 @@
 // snippet-start:[mediaconvert.JavaScript.templates.createJobTemplate]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the Region 
 AWS.config.update({region: 'us-west-2'});
-// Set the custom endpoint for your acccount
-AWS.config.mediaconvert({endpoint: 'ACCOUNT_ENDPOINT'});
+// Set the custom endpoint for your account
+AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
 
 var params = {
   Category: 'YouTube Jobs',

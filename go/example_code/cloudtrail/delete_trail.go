@@ -55,7 +55,7 @@ func main() {
     // Create CloudTrail client
     svc := cloudtrail.New(sess)
 
-    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: trailNamePtr})
+    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: aws.String(trailName)})
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())

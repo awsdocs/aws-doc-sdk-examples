@@ -19,16 +19,19 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
-// snippet-start:[s3.java.delete_objects.complete]
-// snippet-start:[s3.java.delete_objects.import]
+// snippet-start:[s3.java2.delete_objects.complete]
+// snippet-start:[s3.java2.delete_objects.import]
+import software.amazon.awssdk.services.s3.model.Delete;
+import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
- 
-// snippet-end:[s3.java.delete_objects.import]
+
+// snippet-end:[s3.java2.delete_objects.import]
 /**
  * Delete multiple objects from an Amazon S3 bucket.
  *
@@ -37,7 +40,7 @@ import java.util.Arrays;
  *
  * ++ Warning ++ This code will actually delete the objects that you specify!
  */
-// snippet-start:[s3.java.delete_objects.main]
+// snippet-start:[s3.java2.delete_objects.main]
 public class DeleteObjects
 {
     public static void main(String[] args)
@@ -55,18 +58,21 @@ public class DeleteObjects
 
         String bucket_name = args[0];
         String[] object_keys = Arrays.copyOfRange(args, 1, args.length);
+        ArrayList<ObjectIdentifier> to_delete = new ArrayList<ObjectIdentifier>();
 
         System.out.println("Deleting objects from S3 bucket: " + bucket_name);
         for (String k : object_keys) {
             System.out.println(" * " + k);
+            to_delete.add(ObjectIdentifier.builder().key(k).build());
         }
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
         try {
             DeleteObjectsRequest dor = DeleteObjectsRequest.builder()
-            		.bucket(bucket_name)
-            		.build();
+                    .bucket(bucket_name)
+                    .delete(Delete.builder().objects(to_delete).build())
+                    .build();
             s3.deleteObjects(dor);
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -75,6 +81,6 @@ public class DeleteObjects
         System.out.println("Done!");
     }
 }
- 
-// snippet-end:[s3.java.delete_objects.main]
-// snippet-end:[s3.java.delete_objects.complete]
+
+// snippet-end:[s3.java2.delete_objects.main]
+// snippet-end:[s3.java2.delete_objects.complete]

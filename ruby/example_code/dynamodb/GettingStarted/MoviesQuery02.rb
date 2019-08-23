@@ -1,4 +1,4 @@
-# snippet-sourcedescription:[MoviesQuery02.rb demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
 # snippet-keyword:[Amazon DynamoDB]

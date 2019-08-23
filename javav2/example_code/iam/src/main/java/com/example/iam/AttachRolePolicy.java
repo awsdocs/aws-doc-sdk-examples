@@ -20,6 +20,8 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.attach_role_policy.complete]
+// snippet-start:[iam.java2.attach_role_policy.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.AttachRolePolicyRequest;
@@ -29,6 +31,7 @@ import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesRespons
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+// snippet-end:[iam.java2.attach_role_policy.import]
 
 public class AttachRolePolicy {
 
@@ -46,10 +49,12 @@ public class AttachRolePolicy {
         }
 
         String role_name = args[0];
-
+        // snippet-start:[iam.java2.attach_role_policy.main]
+        // snippet-start:[iam.java2.attach_role_policy.client]        
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
-
+        // snippet-end:[iam.java2.attach_role_policy.client]
+        
         List<AttachedPolicy> matching_policies = new ArrayList<>();
 
         boolean done = false;
@@ -93,6 +98,8 @@ public class AttachRolePolicy {
             return;
         }
 
+        // snippet-end:[iam.java2.attach_role_policy.main]
+        // snippet-start:[iam.java2.attach_role_policy.attach]
         AttachRolePolicyRequest attach_request =
             AttachRolePolicyRequest.builder()
                 .roleName(role_name)
@@ -100,7 +107,11 @@ public class AttachRolePolicy {
 
         iam.attachRolePolicy(attach_request);
 
+        // snippet-end:[iam.java2.attach_role_policy.attach]
         System.out.println("Successfully attached policy " + POLICY_ARN +
-                " to role " + role_name);
+                " to role " + role_name);       
     }
 }
+ 
+
+// snippet-end:[iam.java2.attach_role_policy.complete]

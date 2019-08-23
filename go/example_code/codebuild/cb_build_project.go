@@ -52,8 +52,7 @@ func main() {
     svc := codebuild.New(sess)
 
     // Build the project
-    _, err := svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
-
+    _, err = svc.StartBuild(&codebuild.StartBuildInput{ProjectName: aws.String(project)})
     if err != nil {
         fmt.Println("Got error building project: ", err)
         os.Exit(1)

@@ -1,3 +1,13 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-service:[deeplens]
+# snippet-keyword:[AWS DeepLens]
+# snippet-keyword:[Python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
@@ -146,7 +156,7 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and tickness
+            # Method signature: image, text, origin, font face, font scale, color, and thickness
             cv2.putText(frame, output_map[top_k[0]['label']], (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 165, 20), 8)
             # Set the next frame in the local display stream.
@@ -279,7 +289,7 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and tickness
+            # Method signature: image, text, origin, font face, font scale, color, and thickness
             cv2.putText(frame, output_map[top_k[0]['label']], (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 165, 20), 8)
             # Set the next frame in the local display stream.
@@ -294,15 +304,3 @@ def infinite_infer_run():
 
 infinite_infer_run()
 # snippet-end:[deeplens.python.deeplens_inference_lambda.complete]
-
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-# snippet-keyword:[Python]
-# snippet-keyword:[AWS Greengrass SDK]
-# snippet-keyword:[AWS Lambda]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[AWS DeepLens]
-# snippet-service:[deeplens]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-07]
-# snippet-sourceauthor:[AWS]

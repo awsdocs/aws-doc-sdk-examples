@@ -52,7 +52,7 @@ try {
  
 // snippet-end:[sns.php.check_opt_out.main]
 // snippet-end:[sns.php.check_opt_out.complete]
-// snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer recieve future text messages.]
+// snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer receive future text messages.]
 // snippet-keyword:[PHP]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]

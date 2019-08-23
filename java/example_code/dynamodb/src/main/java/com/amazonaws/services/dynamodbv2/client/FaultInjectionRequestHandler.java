@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[FaultInjectionRequestHandler.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
@@ -57,7 +57,7 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
         /* Things to do just before a request is executed */
         if (request.getOriginalRequest() instanceof PutItemRequest) {
 
-            /* Throw throuhgput exceeded exception for 50% of put requests */
+            /* Throw throughput exceeded exception for 50% of put requests */
             if (rnd.nextInt(2) == 0) {
 
                 logger.info("Injecting ProvisionedThroughputExceededException");
