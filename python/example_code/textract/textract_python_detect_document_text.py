@@ -9,7 +9,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-8-26]
 # snippet-sourceauthor:[reesch (AWS)]
-# snippet-start:[textract.python.textract_detect_document_text.complete]
+# snippet-start:[textract.python.textract_python_detect_document_text.complete]
 #Detects text in a document stored in an S3 bucket. Display polygon box around text and angled text 
 import boto3
 import io
