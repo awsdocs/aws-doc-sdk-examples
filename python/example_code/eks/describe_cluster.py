@@ -54,6 +54,7 @@ if __name__ == '__main__':
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe_clusters.py demonstrates how to retrieve information about an Amazon EKS cluster.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Elastic Container Service for Kubernetes (Amazon EKS)]

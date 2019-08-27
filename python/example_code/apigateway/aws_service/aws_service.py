@@ -3,6 +3,7 @@
 # snippet-service:[apigateway]
 # snippet-keyword:[API Gateway]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-08-14]

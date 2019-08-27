@@ -3,6 +3,7 @@
 # snippet-service:[ec2]
 # snippet-keyword:[Amazon Elastic Compute Cloud (Amazon EC2)]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-2-18]

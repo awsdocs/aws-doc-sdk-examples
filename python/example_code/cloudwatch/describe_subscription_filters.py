@@ -28,6 +28,7 @@ for response in paginator.paginate(logGroupName='GROUP_NAME'):
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe_subscription_filters.py demonstrates how to list the subscription filters for the specified log group.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Cloudwatch Logs]
