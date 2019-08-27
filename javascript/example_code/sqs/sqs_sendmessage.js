@@ -50,6 +50,8 @@ var params = {
     }
   },
   MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+  // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+  // MessageId: "Group1",  // Required for FIFO queues
   QueueUrl: "SQS_QUEUE_URL"
 };
 
