@@ -12,6 +12,7 @@
 # snippet-sourcedescription:[create_cluster.py demonstrates how to create an Amazon Redshift cluster.]
 # snippet-service:[redshift]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Redshift]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

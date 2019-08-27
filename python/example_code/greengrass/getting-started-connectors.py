@@ -56,6 +56,7 @@ def build_request(event):
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS IoT Greengrass]
 # snippet-keyword:[AWS IoT Greengrass Core SDK]

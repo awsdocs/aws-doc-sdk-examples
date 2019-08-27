@@ -3,6 +3,7 @@
 # snippet-service:[comprehend]
 # snippet-keyword:[Amazon Comprehend]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-05-08]
 # snippet-sourceauthor:[AWS]

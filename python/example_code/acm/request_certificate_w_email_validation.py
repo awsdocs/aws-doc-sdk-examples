@@ -51,6 +51,7 @@ print(response)
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[request_certificate_w_email_validation.py demonstrates how to request an AWS Certificate Manager certificate for use with other AWS services.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Certificate Manager]

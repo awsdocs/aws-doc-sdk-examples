@@ -2,6 +2,7 @@
 # snippet-sourcedescription:[kda-python-datagenerator-stockticker.py demonstrates how to generate sample data for Amazon Kinesis Data Analytics SQL applications.]
 # snippet-service:[kinesisanalytics]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Kinesis Data Analytics]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

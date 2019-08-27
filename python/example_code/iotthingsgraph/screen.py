@@ -15,6 +15,7 @@
 # snippet-sourcedescription:[screen.py demonstrates how to mock an AWS IoT Things Graph screen device in an AWS IoT Greengrass group.]
 # snippet-service:[iotthingsgraph]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS IoT Things Graph]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

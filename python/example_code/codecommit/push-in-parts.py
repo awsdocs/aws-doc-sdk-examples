@@ -1,6 +1,7 @@
 # snippet-sourcedescription:[push-in-parts.py demonstrates how to migrate a Git repository in increments and repushes only those increments that did not succeed until the migration is complete.]
 # snippet-service:[codecommit]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CodeCommit]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Git]
