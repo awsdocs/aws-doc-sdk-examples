@@ -46,6 +46,7 @@ except Exception as e:
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[tag_role.py demonstrates how to Tag an IAM Role.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

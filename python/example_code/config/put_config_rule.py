@@ -45,6 +45,7 @@ except ClientError as e:
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[put_config_rule.py demonstrates how to add a AWS Config rule.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Config]

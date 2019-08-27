@@ -1,6 +1,7 @@
 # snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ ]

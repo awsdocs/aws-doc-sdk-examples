@@ -3,6 +3,7 @@
 # snippet-service:[s3]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-03-07]
 # snippet-sourceauthor:[AWS]

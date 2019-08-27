@@ -15,6 +15,7 @@
 # snippet-sourcedescription:[simulate-random-moisture-levels.py demonstrates how to simulate soil moisture readings by generating random data. You push that data into the related shadow in AWS IoT.]
 # snippet-service:[iot]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS IoT]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
