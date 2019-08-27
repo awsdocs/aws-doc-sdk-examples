@@ -2,6 +2,7 @@
 # snippet-service:[dynamodb]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[ ]

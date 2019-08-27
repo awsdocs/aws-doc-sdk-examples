@@ -28,6 +28,7 @@ s3.upload_file(filename, bucket_name, filename)
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[s3-python-example-upload-file.py demonstrates how to add a file (or object) to an Amazon S3 bucket.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

@@ -3,6 +3,7 @@
 # snippet-service:[polly]
 # snippet-keyword:[Amazon Polly]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcedate:[2019-03-13]
 # snippet-sourceauthor:[AWS]
 
