@@ -1,7 +1,7 @@
 ---
 name: New Code Example Request
 about: 'Propose a new code example.'
-title: "[NEW CODE EXAMPLE] <<Provide a title for this proposal>>"
+title: "[NEW EXAMPLE REQUEST] <<Provide a title for this proposal>>"
 labels: code sample request
 assignees: ''
 
