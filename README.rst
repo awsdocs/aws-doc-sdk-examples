@@ -30,6 +30,17 @@ The example code inside the language-specific directories is organized by
 the AWS service abbreviation ("s3" for `Amazon S3 <https://aws.amazon.com/s3>`_ examples, and so
 on).
 
+Proposing new code examples
+===========================
+
+To propose a new code example for the AWS documentation team to consider working on, `create a new request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&labels=code+sample+request&template=request-new-code-example.md&title=%5BNEW+EXAMPLE+REQUEST%5D+%3C%3CProvide+a+title+for+this+proposal%3E%3E>`_.
+
+The AWS documentation team is looking to produce code examples that cover broader scenarios and use cases, versus simple code snippets that cover only individual API calls.
+
+From time to time, the AWS documentation team will select some of these proposals to begin working on. To view their decisions, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_. If you feel strongly about seeing the timeline of a particular proposal accelerated or the scope of a particular proposal expanded or focused, be sure to +1 the related issue, add comments to it, or both, and the team will take this under consideration. 
+
+The AWS documentation team typically moves accepted proposals in the roadmp from the **Wish List** stage to the **Backlog** stage, then to the **In Progress** stage, and finally to the **Recently Completed** stage. The **Wish List** stage represents proposals that the team *might* begin working on at some point in the future but with no expected timeline, while the **Backlog** stage represents proposals that the team will *likely* begin working on soon. To view the team's progress, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_.
+
 Submitting code examples for use in AWS documentation
 =====================================================
 
