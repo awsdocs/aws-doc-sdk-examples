@@ -1,5 +1,5 @@
 ---
-name: Code Bug
+name: Code Example Bug
 about: Report a problem with an existing code example
 title: "[BUG] <<Path to affected code file(s) in this repository>>"
 labels: ''
