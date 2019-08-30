@@ -51,7 +51,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
-    private static String currentSubscription;
+    private static Subscription currentSubscription;
 
     private static TranscribeStreamingAsyncClient client;
 
