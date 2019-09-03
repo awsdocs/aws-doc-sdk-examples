@@ -11,8 +11,9 @@
 # language governing permissions and limitations under the License.
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[textract-python-kv-parser.py demonstrates how to extract key-value pairs in form documents.]
+# snippet-sourcedescription:[textract_python_kv_parser.py demonstrates how to extract key-value pairs in form documents.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Textract]
@@ -21,22 +22,11 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-01-3]
 # snippet-sourceauthor:[reesch (AWS)]
-# snippet-start:[textract.python.textract-python-kv-parser.complete]
+# snippet-start:[textract.python.textract_python_kv_parser.complete]
 import boto3
 import sys
 import re
 import json
-
-file_name = sys.argv[1]
-
-
-# get the results
-client = boto3.client(
-         service_name='textract',
-         region_name= 'us-east-1',
-         endpoint_url='https://textract.us-east-1.amazonaws.com',
-)
-
 
 def get_kv_map(file_name):
 
@@ -46,11 +36,12 @@ def get_kv_map(file_name):
         print('Image loaded', file_name)
 
     # process using image bytes
+    client = boto3.client('textract')
     response = client.analyze_document(Document={'Bytes': bytes_test}, FeatureTypes=['FORMS'])
 
     # Get the text blocks
     blocks=response['Blocks']
-    # print(blocks)
+    
 
     # get key and value maps
     key_map = {}
@@ -95,6 +86,11 @@ def get_text(result, blocks_map):
                     word = blocks_map[child_id]
                     if word['BlockType'] == 'WORD':
                         text += word['Text'] + ' '
+                    if word['BlockType'] == 'SELECTION_ELEMENT':
+                        if word['SelectionStatus'] == 'SELECTED':
+                            text += 'X '    
+
+                                
     return text
 
 
@@ -108,18 +104,23 @@ def search_value(kvs, search_key):
         if re.search(search_key, key, re.IGNORECASE):
             return value
 
+def main(file_name):
 
-# MAIN PROGRAM
-key_map, value_map, block_map = get_kv_map(file_name)
+    key_map, value_map, block_map = get_kv_map(file_name)
 
-# Get Key Value relationship
-kvs = get_kv_relationship(key_map, value_map, block_map)
-print("\n\n== FOUND KEY : VALUE pairs ===\n")
-print_kvs(kvs)
+    # Get Key Value relationship
+    kvs = get_kv_relationship(key_map, value_map, block_map)
+    print("\n\n== FOUND KEY : VALUE pairs ===\n")
+    print_kvs(kvs)
 
-# Start searching a key value
-while input('\n Do you want to search a value for a key? (enter "n" for exit) ') != 'n':
-    search_key = input('\n Enter a search key:')
-    print('The value is:', search_value(kvs, search_key))
+    # Start searching a key value
+    while input('\n Do you want to search a value for a key? (enter "n" for exit) ') != 'n':
+        search_key = input('\n Enter a search key:')
+        print('The value is:', search_value(kvs, search_key))
 
-# snippet-end:[textract.python.textract-python-kv-parser.complete]
+if __name__ == "__main__":
+    file_name = sys.argv[1]
+    main(file_name)
+
+
+# snippet-end:[textract.python.textract_python_kv_parser.complete]

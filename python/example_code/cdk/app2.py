@@ -1,6 +1,7 @@
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[app.py creates an Amazon S3 bucket.
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CDK]
 # snippet-keyword:[Amazon S3]
 # snippet-service:[s3]

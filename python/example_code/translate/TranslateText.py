@@ -3,6 +3,7 @@
 # snippet-service:[translate]
 # snippet-keyword:[Amazon Translate]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcedate:[2019-03-13]
 # snippet-sourceauthor:[AWS]
 

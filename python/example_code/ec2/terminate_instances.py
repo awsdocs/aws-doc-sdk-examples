@@ -3,6 +3,7 @@
 # snippet-service:[ec2]
 # snippet-keyword:[Amazon EC2]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

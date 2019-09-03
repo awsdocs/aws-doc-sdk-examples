@@ -60,6 +60,7 @@ except Exception as e:
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[enable_guardduty.py creates and or enables Amazon GuardDuty in the specified Regions.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon GuardDuty]

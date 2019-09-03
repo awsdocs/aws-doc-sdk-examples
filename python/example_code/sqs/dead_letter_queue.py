@@ -39,6 +39,7 @@ sqs.set_queue_attributes(
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[dead_letter_queue.py demonstrates how to send messages to a Dead Letter Queue for use when debugging.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Queue Service]

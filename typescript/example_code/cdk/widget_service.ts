@@ -59,6 +59,7 @@ export class WidgetService extends core.Construct {
     });
 
     api.root.addMethod("GET", getWidgetsIntegration); // GET /
+    // snippet-end:[cdk.typescript.widget_service]
 
     // snippet-start:[cdk.typescript.widget_service.wire_up_functions]
     const widget = api.root.addResource("{id}");
@@ -78,4 +79,3 @@ export class WidgetService extends core.Construct {
     // snippet-end:[cdk.typescript.widget_service.wire_up_functions]
   }
 }
-// snippet-end:[cdk.typescript.widget_service]

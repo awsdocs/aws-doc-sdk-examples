@@ -60,7 +60,7 @@ func main() {
 
     for _, event := range resp.Events {
         gotToken = nextToken
-        nextToken := *resp.NextForwardToken
+        nextToken = *resp.NextForwardToken
 
         if gotToken == nextToken {
             break
