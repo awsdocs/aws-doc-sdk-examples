@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[auth_request_object_keys.rb uses the credentials in a shared AWS credentials file on a local computer to authenticate a request to get all of the object key names in a specific bucket.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GET Bucket]

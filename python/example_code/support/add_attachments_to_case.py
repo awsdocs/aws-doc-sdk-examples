@@ -13,6 +13,7 @@
 # snippet-service:[support]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS Support]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AddAttachmentsToSet]

@@ -139,6 +139,7 @@ print(r.text)
 # snippet-sourcedescription:[v4-signing-get-authheader.py shows how to make a request using the Amazon DynamoDB query API. The request makes a POST request and passes values to AWS in the body of the request. Authentication information is passed using the Authorization request header.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-service:[AWS Signature Version 4 Signing Process]

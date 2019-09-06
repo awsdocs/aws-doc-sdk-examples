@@ -35,6 +35,7 @@ print(response)
 # snippet-sourcedescription:[ses_createreceiptfilter.py demonstrates how to allow or block emails from a specific IP address.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

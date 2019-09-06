@@ -29,6 +29,7 @@ for response in paginator.paginate(StateValue='INSUFFICIENT_DATA'):
 # snippet-sourcedescription:[describe_alarms.py demonstrates how to list all Amazon CloudWatch alarm names.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Cloudwatch]

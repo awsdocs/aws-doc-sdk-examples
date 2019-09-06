@@ -31,6 +31,7 @@ print("Topic List: %s" % topics)
 # snippet-sourcedescription:[sns-python-example-list-topics.py demonstrates how to retrieve a list of topics from AWS SNS.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Notification Service]

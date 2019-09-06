@@ -14,6 +14,7 @@
 # snippet-service:[codepipeline]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CodePipeline]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Invoke]

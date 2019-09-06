@@ -30,6 +30,7 @@ for response in paginator.paginate():
 # snippet-sourcedescription:[list_certificates.py demonstrates how to retrieve a list of certificate ARNs and domain names.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Certificate Manager]

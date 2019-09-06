@@ -27,6 +27,7 @@ iam.delete_user(
 # snippet-sourcedescription:[delete_user.py demonstrates how to delete an IAM user.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

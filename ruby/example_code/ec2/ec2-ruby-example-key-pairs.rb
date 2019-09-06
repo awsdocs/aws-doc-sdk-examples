@@ -6,6 +6,7 @@
 # snippet-keyword:[delete_key_pair method]
 # snippet-keyword:[describe_key_pairs method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

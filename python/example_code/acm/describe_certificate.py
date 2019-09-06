@@ -30,6 +30,7 @@ print(response)
 # snippet-sourcedescription:[describe_certificate.py demonstrates how to retrieve detailed metadata about the specified AWS Certificate Manager certificate.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Certificate Manager]

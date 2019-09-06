@@ -57,6 +57,7 @@ def build_request(event):
 # snippet-sourcedescription:[Sends an input message to the Twilio Notifications connector.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS IoT Greengrass]
 # snippet-keyword:[AWS IoT Greengrass Core SDK]

@@ -71,6 +71,7 @@ Id=distribution_id,IfMatch=distribution_etag)
 # snippet-sourcedescription:[update_distribution_certificate.py demonstrates how to update multiple Amazon CloudFront distributions.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon CloudFront]

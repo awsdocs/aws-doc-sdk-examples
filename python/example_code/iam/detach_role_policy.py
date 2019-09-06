@@ -28,6 +28,7 @@ iam.detach_role_policy(
 # snippet-sourcedescription:[detach_role_policy.py demonstrates how to detach a role policy.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

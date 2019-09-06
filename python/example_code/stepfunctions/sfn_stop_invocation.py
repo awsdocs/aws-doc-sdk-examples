@@ -32,6 +32,7 @@ print(response)
 # snippet-sourcedescription:[sfn_stop_invocation.py demonstrates how to stop a statemachine action using its ARN]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Step Functions]

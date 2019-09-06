@@ -24,6 +24,7 @@ result = s3.get_bucket_website(Bucket='my-bucket')
 # snippet-sourcedescription:[s3-python-example-get-bucket-website.py demonstrates how to get details about an Amazon S3 bucket serves as a hosted website.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

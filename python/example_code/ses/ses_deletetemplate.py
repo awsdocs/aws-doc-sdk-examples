@@ -27,6 +27,7 @@ print(response)
 # snippet-sourcedescription:[ses_deletetemplate.py demonstrates how to remove a specific email template.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

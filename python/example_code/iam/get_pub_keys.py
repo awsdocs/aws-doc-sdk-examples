@@ -38,6 +38,7 @@ for ssh_public_key in ssh_public_keys_response['SSHPublicKeys']:
 # snippet-sourcedescription:[get_pub_keys.py demonstrates how to retrieve the specified SSH public key.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

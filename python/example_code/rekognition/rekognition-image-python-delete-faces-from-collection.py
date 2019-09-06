@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[rekognition-image-python-delete-faces-from-collection.py demonstrates how to delete a face from an Amazon Rekognition collection.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Rekognition]

@@ -13,6 +13,7 @@
 # snippet-service:[iam]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GetSessionToken]

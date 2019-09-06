@@ -14,6 +14,7 @@
 # snippet-service:[s3]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[list_buckets]

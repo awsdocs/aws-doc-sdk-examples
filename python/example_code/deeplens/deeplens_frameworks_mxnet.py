@@ -35,6 +35,7 @@ squeezenet.export(‘squeezenet')
 # snippet-sourcedescription:[deeplens_frameworks_mxnet.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS Lambda]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS DeepLens]

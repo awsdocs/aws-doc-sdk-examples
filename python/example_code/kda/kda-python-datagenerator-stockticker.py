@@ -3,6 +3,7 @@
 # snippet-service:[kinesisanalytics]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Kinesis Data Analytics]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

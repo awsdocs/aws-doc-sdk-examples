@@ -32,6 +32,7 @@ cloudwatch_logs.put_subscription_filter(
 # snippet-sourcedescription:[put_subscription_filter.py demonstrates how to creates or updates a subscription filter and associates it with the specified log group.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Cloudwatch Logs]

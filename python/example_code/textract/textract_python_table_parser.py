@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[textract_python_table_parser.py demonstrates how to export tables into a comma-separated values (CSV) file.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Textract]

@@ -29,6 +29,7 @@ print(response['QueueUrl'])
 # snippet-sourcedescription:[long_polling_create_queue.py demonstrates how to create a queue with a default 20 second to wait between retrieving messages. This will reduce the number of empty responses returned and thus your bill.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Queue Service]

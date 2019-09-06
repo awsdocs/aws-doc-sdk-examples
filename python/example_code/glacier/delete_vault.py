@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Glacier]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-2-12]

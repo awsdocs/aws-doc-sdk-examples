@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[textract_python_kv_parser.py demonstrates how to extract key-value pairs in form documents.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Textract]
