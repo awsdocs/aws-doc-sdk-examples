@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[copy_object.cpp demonstrates how to copy an Amazon S3 bucket object to another S3 bucket.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]

@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[list_metrics.cpp demonstrates how to retrieve and filter Amazon CloudWatch metrics.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-service:[cloudwatch]

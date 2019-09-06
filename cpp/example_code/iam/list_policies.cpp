@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[list_policies.cpp demonstrates how to list the managed policies available in an AWS account.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

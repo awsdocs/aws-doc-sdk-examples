@@ -2,6 +2,8 @@
 //snippet-service:[sns]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]

@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[list_access_keys.cpp demonstrates how to retrieve information about the access keys of an IAM user.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

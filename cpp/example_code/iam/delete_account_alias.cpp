@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[delete_account_alias.cpp demonstrates how to delete an alias for an AWS account.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[allocate_address.cpp demonstrates how to allocate an Elastic IP address for an Amazon EC2 instance.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

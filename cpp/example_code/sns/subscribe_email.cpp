@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[subscribe_email.cpp demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an email address.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

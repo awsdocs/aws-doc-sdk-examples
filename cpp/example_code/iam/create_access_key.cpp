@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[create_access_key.cpp demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

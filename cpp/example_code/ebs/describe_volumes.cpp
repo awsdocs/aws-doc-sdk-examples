@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[describe_volumes.cpp demonstrates how to retrieve information about the Amazon Elastic Block Store volumes attached to an Amazon EC2 instance.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Block Store]
 //snippet-service:[ebs]

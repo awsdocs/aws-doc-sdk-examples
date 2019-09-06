@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[create_cache_cluster.cpp demonstrates how to create an Amazon ElastiCache cluster.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon ElastiCache]
 //snippet-service:[elasticache]

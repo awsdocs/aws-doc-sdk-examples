@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[detach_role_policy.cpp demonstrates how to detach a managed policy from an IAM role.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

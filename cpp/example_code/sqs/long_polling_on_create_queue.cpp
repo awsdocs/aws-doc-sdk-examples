@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[long_polling_on_create_queue.cpp demonstrates how to create an Amazon SQS queue that waits for a message to arrive.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

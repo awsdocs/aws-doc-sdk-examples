@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[start_gateway.cpp demonstrates how to start an AWS Storage Gateway resource that was previously shut down.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Storage Gateway]
 //snippet-service:[storagegateway]

@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[described_instances.cpp demonstrates how to retrieve information about Amazon EC2 instances.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

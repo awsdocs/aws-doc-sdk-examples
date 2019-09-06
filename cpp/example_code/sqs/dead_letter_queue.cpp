@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[dead_letter_queue.cpp demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
