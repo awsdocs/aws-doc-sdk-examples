@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[DescribeCertificate.cs demonstrates how to describe an ACM Certificate.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Certificate Manager]
 //snippet-service:[acm]

@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[CloudWatch example demonstrates how to various CloudWatch operations such as putting metrics on a CloudWatch alarm, describing all the existing alarms and enabling alarm actions.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cloudwatch]
 //snippet-service:[cloudwatch]

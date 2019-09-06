@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[ListNamedQueryExample.cs demonstrates how to obtain a list of named query IDs.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]
