@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[modify_db_cluster.cpp demonstrates how to modify the setting of an Amazon Neptune DB cluster.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Neptune]
 //snippet-service:[neptune]

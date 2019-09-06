@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[delete_db_cluster.cpp demonstrates how to delete an Amazon Neptune DB cluster.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Neptune]
 //snippet-service:[neptune]

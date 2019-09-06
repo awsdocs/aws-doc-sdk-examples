@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch Logs]
 //snippet-service:[logs]

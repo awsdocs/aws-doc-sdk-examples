@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[delete_policy.cpp demonstrates how to delete a managed policy from an AWS account.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

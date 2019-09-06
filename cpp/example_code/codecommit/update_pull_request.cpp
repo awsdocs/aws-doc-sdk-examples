@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[update_pull_request.cpp demonstrates how to update an AWS CodeCommit pull request.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeCommit]
 //snippet-service:[codecommit]

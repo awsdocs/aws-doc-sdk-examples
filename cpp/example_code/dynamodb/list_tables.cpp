@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[list_tables.cpp demonstrates how to list all Amazon DynamoDB tables for an AWS account.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

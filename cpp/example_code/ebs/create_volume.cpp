@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[create_volume.cpp demonstrates how to create an Amazon Elastic Block Store volume for an Amazon EC2 instance.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Block Store]
 //snippet-service:[ebs]

@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[delete_website_config.cpp demonstrates how to delete the website configuration from an Amazon S3 bucket.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]

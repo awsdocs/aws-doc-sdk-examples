@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[purge_queue.cpp demonstrates how to delete the messages in an Amazon SQS queue.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[create_table.cpp demonstrates how to create an Amazon DynamoDB table.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
