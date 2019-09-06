@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_setsmstype.js demonstrates how to use Amazon SNS to set default SMS attributes.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

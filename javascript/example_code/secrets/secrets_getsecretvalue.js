@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[secrets_getsecretvalue.js demonstrates how to retrieve a secret from AWS Secrets Manager.]
 //snippet-service:[secretsmanager]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
 // snippet-keyword:[GetSecretValue]

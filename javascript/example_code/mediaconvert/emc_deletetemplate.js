@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_deletetemplate.js demonstrates how to delete a transcoding job template.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]

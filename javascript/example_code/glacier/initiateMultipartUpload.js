@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[initiateMultipartUpload.js demonstrates how to create a multipart upload out of 1 megabyte chunks of a Buffer object]
 // snippet-service:[glacier]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon S3 Glacier]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

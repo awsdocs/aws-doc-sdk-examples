@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[sts_assumerole.js demonstrates how to use STS to assume an IAM Role.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Security Token Service (STS)]
 //snippet-service:[sts]

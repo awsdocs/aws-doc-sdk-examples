@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ddb_listtables.js demonstrates how to retrieve a list of Amazon DynamoDB table names.]
 //snippet-service:[dynamodb]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]

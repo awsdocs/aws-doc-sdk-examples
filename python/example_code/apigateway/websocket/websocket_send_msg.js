@@ -3,6 +3,7 @@
 // snippet-service:[lambda]
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-07-11]

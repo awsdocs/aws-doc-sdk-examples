@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_createaccesskeys.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

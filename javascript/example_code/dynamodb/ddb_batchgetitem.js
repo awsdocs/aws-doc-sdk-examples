@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB table.]
 //snippet-service:[dynamodb]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]

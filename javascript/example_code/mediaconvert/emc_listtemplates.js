@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_listtemplates.js demonstrates how to retrieve transcoding job templates.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
