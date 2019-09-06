@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_listjobs.js demonstrates how to retrieve a list of the most-recently created transcoding jobs.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]

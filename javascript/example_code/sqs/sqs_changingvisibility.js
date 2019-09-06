@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_changingvisibility.js demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]

@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_listservercerts.js demonstrates how to list the IAM SSL/TLS server certificates.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

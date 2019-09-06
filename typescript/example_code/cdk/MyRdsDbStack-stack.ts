@@ -7,6 +7,7 @@
 // snippet-keyword:[aws-ec2.Vpc function]
 // snippet-keyword:[aws-rds.DatabaseCluster function]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

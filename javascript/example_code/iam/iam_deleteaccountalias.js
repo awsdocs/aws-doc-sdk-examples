@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_deleteaccountalias.js demonstrates how to delete an alias for an AWS account.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

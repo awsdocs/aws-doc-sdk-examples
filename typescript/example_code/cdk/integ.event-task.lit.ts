@@ -3,6 +3,7 @@
 // snippet-sourcedescription:[integ.event-task.lit.ts starts an ECS task on an EC2-backed cluster.]
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[snippet]

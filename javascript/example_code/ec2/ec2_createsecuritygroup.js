@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ec2_createsecuritygroup.js demonstrates how to create a security group for an Amazon EC2 instance.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_listsubscriptions.js demonstrates how to retrieve a list of Amazon SNS subscriptions.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

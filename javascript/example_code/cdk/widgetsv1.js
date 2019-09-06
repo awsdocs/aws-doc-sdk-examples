@@ -3,6 +3,7 @@
 //snippet-sourceauthor:[Doug-AWS]
 //snippet-keyword:[CDK V0.24.1]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[snippet]
 //snippet-sourcedate:[2019-2-8]
