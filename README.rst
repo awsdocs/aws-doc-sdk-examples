@@ -13,15 +13,17 @@ This repository contains AWS SDK code examples used in the public
 You can also browse the 
 `AWS Code Sample Catalog <https://docs.aws.amazon.com/code-samples/latest/catalog/welcome.html>`__.
 
-About the examples
-==================
+Finding code examples
+=====================
 
 The code examples are organized by programming language. For instance, all of the examples for the
 `AWS SDK for Java Developer Guide <https://www.github.com/awsdocs/aws-java-developer-guide>`_ are
 kept in the `java <java>`_ directory.
 
-Building and running examples
------------------------------
+You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us know what you think about it).
+
+Building and running code examples
+==================================
 
 Inside each of the language-specific directories, you'll find a **README** file that explains how to
 build and run the examples contained within it.
