@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon RDS]
 // snippet-keyword:[DescribeDBSubnetGroups function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[rds]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

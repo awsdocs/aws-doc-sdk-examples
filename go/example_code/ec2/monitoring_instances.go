@@ -5,6 +5,7 @@
 // snippet-keyword:[MonitorInstances function]
 // snippet-keyword:[UnmonitorInstances function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ec2]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

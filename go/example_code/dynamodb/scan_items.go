@@ -5,6 +5,7 @@
 // snippet-keyword:[Scan function]
 // snippet-keyword:[Expression Builder]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon Elastic Compute Cloud]
 // snippet-keyword:[RebootInstances function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ec2]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon CE]
 // snippet-keyword:[GetCostAndUsage function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ce]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[snippet]

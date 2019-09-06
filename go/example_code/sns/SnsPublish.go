@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon SNS]
 // snippet-keyword:[Publish function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[sns]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
