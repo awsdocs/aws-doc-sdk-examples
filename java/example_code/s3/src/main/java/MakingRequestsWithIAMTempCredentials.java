@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[MakingRequestsWithIAMTempCredentials.java demonstrates how to assume an IAM role temporarily and use it to make requests against Amazon S3.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket]

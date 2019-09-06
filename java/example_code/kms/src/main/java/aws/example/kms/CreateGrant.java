@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateGrant.java demonstrates how to add a grant to a CMK that specifies the CMK's use.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

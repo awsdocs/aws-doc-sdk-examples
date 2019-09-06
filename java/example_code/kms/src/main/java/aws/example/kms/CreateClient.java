@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateClient.java demonstrates how to create a client for KMS.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DeleteMultipleObjectsVersionEnabledBucket.java demonstrates how to delete S3 object versions and remove delete markers from objects in versioned S3 buckets.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DELETE Object]

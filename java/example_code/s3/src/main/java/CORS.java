@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CORS.java demonstrates how to set, get, and delete S3 bucket cross-origin resource sharing configurations.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket cors]

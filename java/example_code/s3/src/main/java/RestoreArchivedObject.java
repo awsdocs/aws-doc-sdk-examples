@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[RestoreArchivedObject.java demonstrates how to restore an S3 object temporarily from a Glacier archive.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[POST Object restore]

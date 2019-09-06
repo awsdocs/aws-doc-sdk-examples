@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DeleteBucket.java demonstrates how to empty and then delete an S3 bucket.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DELETE Bucket]

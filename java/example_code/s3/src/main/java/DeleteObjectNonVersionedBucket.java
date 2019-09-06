@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DeleteObjectNonVersionedBucket.java demonstrates how to delete an S3 object from a non-versioned bucket.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DELETE Object]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CancelJob.java demonstrates how to cancel a job by setting the job status to Cancelled.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

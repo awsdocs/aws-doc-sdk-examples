@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[WorkflowStarter.java demonstrates how to start a workflow.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]

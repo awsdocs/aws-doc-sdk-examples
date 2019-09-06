@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[HighLevelMultipartUpload.java demonstrates how to upload a file to S3 using the TransferManager class.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Object]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListKeys.java demonstrates how to retrieve and iterate through a list of the keys contained in an S3 bucket.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket v2]

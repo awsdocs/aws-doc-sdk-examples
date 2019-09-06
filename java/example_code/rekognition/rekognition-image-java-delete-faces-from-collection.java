@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-delete-faces-from-collection.java demonstrates how to delete a face from an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DeleteFaces]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_import_segment demonstrates how to create a segment by importing information about the endpoints that belong to the segment.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateImportJob]

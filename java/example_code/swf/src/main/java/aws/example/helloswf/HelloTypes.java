@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[HelloTypes.java demonstrates how to register a domain, activity type and a workflow type.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]

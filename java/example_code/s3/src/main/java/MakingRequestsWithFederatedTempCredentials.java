@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[MakingRequestsWithFederatedTempCredentials.java demonstrates how to make requests against Amazon S3 using federated temporary credentials.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket]

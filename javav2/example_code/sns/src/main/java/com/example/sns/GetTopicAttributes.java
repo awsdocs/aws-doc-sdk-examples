@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetTopicAttributes.java demonstrates how to retrieve the defaults for an AWS SNS Topic.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

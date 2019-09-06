@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteBucketPolicy.java demonstrates how to delete a bucket policy on an existing S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[deleteBucketPolicy]

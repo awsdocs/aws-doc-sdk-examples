@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListEvents demonstrates how to list Amazon Redshift events.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DescribeEvents]

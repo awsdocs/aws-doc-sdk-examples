@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ServerSideEncryptionUsingClientSideEncryptionKey.java demonstrates how to perform various operations with S3 using server-side encryption with a customer-provided encryption key.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Object]

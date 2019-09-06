@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[JobStatusNotificationsSample.java demonstrates how to use notifications to track the status of a job.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Transcoder]
 //snippet-service:[elastictranscoder]

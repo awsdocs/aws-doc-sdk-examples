@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CreateAndDescribeSnapshot demonstrates how to create an Amazon Redshift cluster snapshot and describe existing snapshots.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateClusterSnapshot]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListKeyPolicies.java demonstrates how to dget the names of key policies for a customer master key.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[hbase-snapshot-export.java demonstrates how to configure a step that exports a snapshot and copies it to Amazon S3.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[HadoopJarStepConfig]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[SpeechMarks demonstrates how to synthesize speech marks for inputed text.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SpeechMarks]
