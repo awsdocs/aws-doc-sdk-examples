@@ -4,6 +4,7 @@
 // snippet-service:[Go SDK]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-keyword:[AWS S3]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-4-26]

@@ -5,6 +5,7 @@
 // snippet-keyword:[EnableAlarmActions function]
 // snippet-keyword:[PutMetricAlarm function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

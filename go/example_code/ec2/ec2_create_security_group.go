@@ -6,6 +6,7 @@
 // snippet-keyword:[CreateSecurityGroup function]
 // snippet-keyword:[DescribeVpcs function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ec2]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
