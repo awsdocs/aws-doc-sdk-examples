@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[list_builds.cpp demonstrates how to retrieve and list build information using AWS CodeBuild.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeBuild]
 //snippet-service:[codebuild]

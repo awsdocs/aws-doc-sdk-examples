@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch Events]
 //snippet-service:[events]

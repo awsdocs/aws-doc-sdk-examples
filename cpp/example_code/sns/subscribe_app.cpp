@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[subscribe_app.cpp demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to a mobile app.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

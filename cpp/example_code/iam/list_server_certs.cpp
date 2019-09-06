@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[list_server_certs.cpp demonstrates how to list the IAM SSL/TLS server certificates.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

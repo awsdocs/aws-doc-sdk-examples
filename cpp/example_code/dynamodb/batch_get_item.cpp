@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[batch_get_item.cpp demonstrates how to batch get items from different Amazon DynamoDB tables.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

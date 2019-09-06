@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[list_subscriptions.cpp demonstrates how to retrieve a list of Amazon SNS subscriptions.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

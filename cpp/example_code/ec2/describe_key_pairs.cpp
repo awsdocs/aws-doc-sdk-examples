@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[describe_key_pairs.cpp demonstrates how to retrieve information about Amazon EC2 key pairs.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

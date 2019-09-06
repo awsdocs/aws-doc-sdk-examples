@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[get_queue_url.cpp demonstrates how to retrieve the URL of an Amazon SQS queue.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

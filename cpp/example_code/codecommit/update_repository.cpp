@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[update_repository.cpp demonstrates how to update information about an AWS CodeCommit repository.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeCommit]
 //snippet-service:[codecommit]

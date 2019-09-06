@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[delete_branch.cpp demonstrates how to delete a repository branch using AWS CodeCommit.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeCommit]
 //snippet-service:[codecommit]

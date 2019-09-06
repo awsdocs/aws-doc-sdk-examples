@@ -2,7 +2,6 @@
 //snippet-sourcedescription:[disable_alarm_actions.cpp demonstrates how to disable actions on an Amazon CloudWatch alarm.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
-//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-service:[cloudwatch]
