@@ -60,6 +60,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateDBInstance.php demonstrates how to create a MySQL database with storage capacity of 5GB.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Relational Database Service]

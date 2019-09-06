@@ -53,6 +53,7 @@ try {
 // snippet-end:[sns.php.create_topic.complete]
 // snippet-sourcedescription:[CreateTopic.php demonstrates how to create a Topic.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

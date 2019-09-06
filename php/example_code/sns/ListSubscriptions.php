@@ -51,6 +51,7 @@ try {
 // snippet-end:[sns.php.list_subscriptions.complete]
 // snippet-sourcedescription:[ListSubscriptions.php demonstrates how to list existing Amazon SNS subscriptions.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

@@ -53,6 +53,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetBucketLifecycleConfiguration.php demonstrates how to get an Amazon S3 bucket lifecycle configuration.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

@@ -46,6 +46,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListInvitations.php demonstrates how to list pending member associations with other AWS accounts from AWS Security Hub.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[AWS Security Hub]
 // snippet-keyword:[Code Sample]

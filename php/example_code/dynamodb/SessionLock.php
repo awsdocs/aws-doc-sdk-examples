@@ -51,6 +51,7 @@ $sessionHandler = SessionHandler::fromClient($dynamoDb, [
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[SessionLock.php shows how to use pessimistic session locking to lock a DynamoDB session.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[session_lock]

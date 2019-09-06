@@ -59,6 +59,7 @@ if ($results->hits->found > 0) {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[SignDomainRequest.php demonstrates how to sign a custom Amazon CloudSearch Domain Request.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon CloudSearch]
