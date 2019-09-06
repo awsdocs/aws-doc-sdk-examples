@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[Program.cs can be used to execute the Polly examples in this solution.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Polly]
 //snippet-service:[polly]

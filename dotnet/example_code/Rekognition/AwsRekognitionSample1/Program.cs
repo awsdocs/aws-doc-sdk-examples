@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsRekognitionSample1 example demonstrates how to identify faces from source image with bounding rectangles using the Rekognition client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Rekognition]
 //snippet-service:[rekognition]

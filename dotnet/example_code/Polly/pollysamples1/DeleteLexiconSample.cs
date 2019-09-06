@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[DeleteLexiconSample.cs demonstrates how to delete an existing lexicon.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Polly]
 //snippet-service:[polly]

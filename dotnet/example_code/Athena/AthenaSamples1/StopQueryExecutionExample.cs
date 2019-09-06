@@ -2,6 +2,7 @@
 //snippet-sourcedescription:[StopQueryExecutionExample.cs demonstrates how to run an example query, immediately stop the query, and check the status of the query to ensure that it was cancelled.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

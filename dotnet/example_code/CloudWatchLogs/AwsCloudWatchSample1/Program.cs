@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[CloudWatchLogs example demonstrates how to create a log group in CloudWatch and upload log events.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch Logs]
 //snippet-service:[logs]
