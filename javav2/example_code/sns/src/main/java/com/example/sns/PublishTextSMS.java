@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[PublishTextSMS.java demonstrates how to send a text message.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

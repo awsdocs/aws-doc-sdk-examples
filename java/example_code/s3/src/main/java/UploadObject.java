@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[UploadObject.java demonstrates how to perform a basic object upload using Amazon S3.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Object]

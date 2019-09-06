@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetSMSAtrributes.java demonstrates how to etrieve the default SMS type.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

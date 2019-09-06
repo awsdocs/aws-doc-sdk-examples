@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[RevokeGrant.java demonstrates how to evoke a grant to an AWS KMS customer master key.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

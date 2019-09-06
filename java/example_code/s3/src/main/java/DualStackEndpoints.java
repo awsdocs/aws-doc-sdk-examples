@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DualStackEndpoints.java demonstrates how to create an S3 client with dual-stack endpoints enabled.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket]

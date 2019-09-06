@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create a new access key for an IAM user.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an EC2 security group.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

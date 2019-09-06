@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[StartSpeechSynthesisTask demonstrates how to synthesize a long speech and store it directly in an Amazon S3 bucket..]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[StartSpeechSynthesisTask]

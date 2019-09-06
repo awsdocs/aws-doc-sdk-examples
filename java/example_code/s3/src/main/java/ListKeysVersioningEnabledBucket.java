@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListKeysVersioningEnabledBucket.java demonstrates how to list object versions in a version-enabled S3 bucket.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an SNS subscription.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

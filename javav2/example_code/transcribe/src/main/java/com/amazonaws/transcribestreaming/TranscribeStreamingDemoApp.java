@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes streaming audio from your computer's microphone or a file upload. The output is presented on your computer's standard output.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranscribeStreamingAsyncClient]

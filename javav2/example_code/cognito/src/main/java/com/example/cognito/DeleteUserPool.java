@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing UserPool.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

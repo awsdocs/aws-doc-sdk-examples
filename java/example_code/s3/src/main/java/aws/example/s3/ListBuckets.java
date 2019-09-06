@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListBuckets.java demonstrates how to get a list of buckets in your AWS account.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[listBuckets]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[setBucketWebsiteConfiguration]

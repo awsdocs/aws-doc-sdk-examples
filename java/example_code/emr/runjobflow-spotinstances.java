@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[runjobflow-spotinstances.java demonstrates how to specify the Spot instance purchasing option for instance groups using RunJobFlowRequest.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[RunJobFlowRequest]

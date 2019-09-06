@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CrossRegionReplication.java demonstrates how to set and get cross-region replication rules.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Bucket replication]

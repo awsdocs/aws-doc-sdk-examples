@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[LowLevelMultipartCopy.java demonstrates how to perform a multipart upload of an S3 object.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Initiate Multipart Upload]

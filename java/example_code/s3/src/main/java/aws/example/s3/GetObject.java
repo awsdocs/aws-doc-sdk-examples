@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetObject.java demonstrates how to get an object within an Amazon S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[getObject]

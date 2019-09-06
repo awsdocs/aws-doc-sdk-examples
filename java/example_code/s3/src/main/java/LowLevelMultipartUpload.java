@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[LowLevelMultipartUpload.java demonstrates how to use the low-level APIs to upload an object to S3 in multiple parts.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Initiate Multipart Upload]

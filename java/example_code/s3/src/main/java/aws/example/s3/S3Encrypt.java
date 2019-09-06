@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[S3Encrypt.java demonstrates how to use various encryption settings in Amazon S3.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[AmazonS3Encryption]

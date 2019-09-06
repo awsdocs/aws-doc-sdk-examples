@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[SubscribeTextSMS.java demonstrates how to send a confirmation message as a text message.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

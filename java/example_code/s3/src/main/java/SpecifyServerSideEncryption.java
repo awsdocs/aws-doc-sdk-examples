@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[SpecifyServerSideEncryption.java demonstrates how to upload an object using S3 server-side encryption.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Object]

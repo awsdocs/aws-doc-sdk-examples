@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetAcl.java demonstrates how to get the access control list (ACL) of an S3 bucket and an object.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[getBucketAcl]

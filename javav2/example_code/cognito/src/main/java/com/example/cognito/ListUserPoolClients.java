@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListUserPoolClients.java demonstrates how list existing User Pool Clients available in the specified region in your current AWS account.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[WorkflowWorker.java demonstrates how to poll for a decision task in a task list.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]

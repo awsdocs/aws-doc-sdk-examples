@@ -16,6 +16,7 @@
 // snippet-sourcedescription:[CreateJob.java demonstrates how to execute an Amazon S3 Batch Operation.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

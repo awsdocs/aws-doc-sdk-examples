@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListTopics.java demonstrates how to get a list of existing AWS SNS topics.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

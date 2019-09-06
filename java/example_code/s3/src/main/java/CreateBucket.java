@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CreateBucket.java demonstrates how to create a new S3 bucket.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Bucket]

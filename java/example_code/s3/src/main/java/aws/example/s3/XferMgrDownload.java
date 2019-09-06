@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[XferMgrDownload.java demonstrates how to download objects from an Amazon S3 bucket using S3 TransferManager.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[TransferManager downloadDirectory]

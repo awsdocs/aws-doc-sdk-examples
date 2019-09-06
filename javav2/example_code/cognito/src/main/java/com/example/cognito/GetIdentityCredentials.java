@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an Identity in an Identity Pool.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Cognito]
 // snippet-service:[cognito]

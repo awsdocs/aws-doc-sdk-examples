@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GeneratePresignedPutUrl.java demonstrates how to generatee a pre-signed PUT URL for  uploading a file to an Amazon S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[GeneratePresignedUrlRequest]

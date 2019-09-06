@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListOptOut.java demonstrates how to list the phone numbers for which the users have selected to no longer receive future text messages.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

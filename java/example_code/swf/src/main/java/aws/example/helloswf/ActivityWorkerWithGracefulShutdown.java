@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ActivityWorkerWithGracefulShutdown.java demonstrates how to implement an activity worker with a graceful shutdown.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]

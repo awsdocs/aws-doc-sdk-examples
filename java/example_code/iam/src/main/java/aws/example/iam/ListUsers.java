@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list all IAM users on an AWS account.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

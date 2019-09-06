@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_create_endpoint demonstrates how to create a new endpoint that includes standard and custom attributes and metrics.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateEndpoint]

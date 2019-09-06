@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListSubscriptions.java demonstrates how to list existing Amazon SNS subscriptions.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

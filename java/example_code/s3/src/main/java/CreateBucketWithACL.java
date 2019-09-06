@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CreateBucketWithACL.java demonstrates how to create a bucket with a canned ACL and how to modify a bucket's ACL grants.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket acl]

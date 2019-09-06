@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[EnableMFAForCognitoUser.java demonstrates how to enable MFA in Cognito Userpool which MFA is optional to users]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

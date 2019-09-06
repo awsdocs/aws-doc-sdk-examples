@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[XferMgrUpload.java demonstrates how to upload a file or files to an S3 bucket using the S3 transfer manager.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[TransferManager upload]

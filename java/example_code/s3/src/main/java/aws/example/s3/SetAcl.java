@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[SetAcl.java demonstrates how to add an access policy to an existing S3 bucket or object.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[setBucketAcl]
