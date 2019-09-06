@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[list_buckets.cpp demonstrates how to list all the buckets in an AWS account.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]

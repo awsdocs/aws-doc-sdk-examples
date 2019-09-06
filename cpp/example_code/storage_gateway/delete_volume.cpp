@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[delete_volume.cpp demonstrates how to delete a volume ARN from an AWS Storage Gateway resource.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Storage Gateway]
 //snippet-service:[storagegateway]

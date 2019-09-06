@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[get_server_cert.cpp demonstrates how to retrieve information about an IAM SSL/TLS server certificate.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

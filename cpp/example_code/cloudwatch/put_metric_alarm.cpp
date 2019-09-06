@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[put_metric_alarm.cpp demonstrates how to attach an Amazon CloudWatch metrics alarm.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-service:[cloudwatch]

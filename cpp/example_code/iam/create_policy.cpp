@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[create_policy.cpp demonstrates how to create a managed policy for an AWS account.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

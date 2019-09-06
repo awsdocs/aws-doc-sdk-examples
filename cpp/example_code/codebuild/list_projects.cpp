@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[list_projects.cpp demonstrates how to list AWS CodeBuild projects.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeBuild]
 //snippet-service:[codebuild]

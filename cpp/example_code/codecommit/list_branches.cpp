@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[list_branches.cpp demonstrates how to list the branches of an AWS CodeCommit repository.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeCommit]
 //snippet-service:[codecommit]

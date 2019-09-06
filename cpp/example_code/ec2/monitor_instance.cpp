@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[monitor_instance.cpp demonstrates how to toggle detailed monitoring of an Amazon EC2 instance.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

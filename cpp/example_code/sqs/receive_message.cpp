@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[receive_message.cpp demonstrates how to receive and delete a message from an Amazon SQS queue.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

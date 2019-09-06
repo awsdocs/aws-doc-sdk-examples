@@ -1,6 +1,8 @@
  
 //snippet-sourcedescription:[create_file_system.cpp demonstrates how to create an Amazon Elastic File System.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic File System]
 //snippet-service:[elasticfilesystem]

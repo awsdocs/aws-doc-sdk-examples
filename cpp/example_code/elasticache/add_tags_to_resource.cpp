@@ -2,6 +2,8 @@
 //snippet-service:[elasticache]
 //snippet-keyword:[Amazon ElastiCache]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
