@@ -31,6 +31,7 @@ print(response)
 # snippet-sourcedescription:[sfn_list_executions demonstrates how to list all executions]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Step Functions]

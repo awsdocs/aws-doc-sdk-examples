@@ -27,6 +27,7 @@ print(response)
 # snippet-sourcedescription:[instance_monitoring.py demonstrates how to manage detailed Amazon EC2 instance monitoring.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon EC2]

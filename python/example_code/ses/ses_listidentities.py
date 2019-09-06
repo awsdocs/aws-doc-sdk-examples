@@ -28,6 +28,7 @@ print(response)
 # snippet-sourcedescription:[ses_listidentities.py demonstrates how to retrieve a list of emails or domains submitted in the current AWS Region, regardless of verification status.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

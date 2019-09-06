@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[create_bucket_snippet creates a bucket programmatically by using the AWS SDK for Ruby.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[CREATE Bucket]

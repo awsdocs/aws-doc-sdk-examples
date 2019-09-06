@@ -26,6 +26,7 @@ print(response['QueueUrl'])
 # snippet-sourcedescription:[get_queue_url.py demonstrates how to return the URL of an existing Amazon SQS queue.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Queue Service]

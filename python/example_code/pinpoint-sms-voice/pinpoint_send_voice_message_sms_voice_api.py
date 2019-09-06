@@ -14,6 +14,7 @@
 # snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Pinpoint SMS and Voice API]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[SendVoiceMessage]

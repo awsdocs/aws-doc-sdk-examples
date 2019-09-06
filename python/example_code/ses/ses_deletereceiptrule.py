@@ -28,6 +28,7 @@ print(response)
 # snippet-sourcedescription:[ses_deletereceiptrule.py demonstrates how to delete a specified receipt rule, provide the RuleName and RuleSetName.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

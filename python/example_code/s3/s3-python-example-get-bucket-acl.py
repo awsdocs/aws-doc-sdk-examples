@@ -25,6 +25,7 @@ print(result)
 # snippet-sourcedescription:[s3-python-example-get-bucket-acl.py demonstrates how to retrieve the access control list (ACL) permissions for a file (or object) in an Amazon S3 bucket.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

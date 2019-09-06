@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[rekognition-image-python-show-bounding-boxes-s3.py demonstrates how to detect display bounding boxes around faces detected in an image loaded from an S3 Bucket.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Rekognition]

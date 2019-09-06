@@ -42,6 +42,7 @@ s3.put_bucket_policy(Bucket=bucket_name, Policy=bucket_policy)
 # snippet-sourcedescription:[s3-python-example-put-bucket-policy.py demonstrates how to replace the policy for a specific Amazon S3 bucket.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

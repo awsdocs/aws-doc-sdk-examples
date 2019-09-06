@@ -41,6 +41,7 @@ print(response.get('stateMachineArn'))
 # snippet-sourcedescription:[sfn_create_state_machine.py demonstrates how to create a new statemachine]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Step Functions]

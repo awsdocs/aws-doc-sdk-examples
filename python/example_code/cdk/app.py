@@ -2,6 +2,7 @@
 # snippet-sourcedescription:[app.py creates an Amazon S3 bucket.
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CDK]
 # snippet-keyword:[Amazon S3]
 # snippet-service:[s3]

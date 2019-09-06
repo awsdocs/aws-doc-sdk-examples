@@ -41,6 +41,7 @@ print(response)
 # snippet-sourcedescription:[sfn_update_state_machine.py demonstrates how to update statemachine]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Step Functions]

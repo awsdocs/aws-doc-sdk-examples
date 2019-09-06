@@ -41,6 +41,7 @@ print(response['Entries'])
 # snippet-sourcedescription:[put_events.py demonstrates how to send an event that is matched to targets for handling.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Cloudwatch]

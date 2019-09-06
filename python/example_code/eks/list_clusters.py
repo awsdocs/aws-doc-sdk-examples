@@ -56,6 +56,7 @@ if __name__ == '__main__':
 # snippet-sourcedescription:[list_clusters.py demonstrates how to list the Amazon EKS clusters in the AWS account's default region.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Elastic Container Service for Kubernetes (Amazon EKS)]

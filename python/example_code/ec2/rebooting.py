@@ -35,6 +35,7 @@ except ClientError as e:
 # snippet-sourcedescription:[rebooting.py demonstrates how to request a reboot of one or more Amazon EC2 instances.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon EC2]

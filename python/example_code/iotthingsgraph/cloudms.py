@@ -16,6 +16,7 @@
 # snippet-service:[iotthingsgraph]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS IoT Things Graph]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

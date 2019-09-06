@@ -2,6 +2,7 @@
 # snippet-service:[transcribe]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Transcribe]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[start_transcription_job]

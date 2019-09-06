@@ -33,6 +33,7 @@ print("Subscription List: %s" % subscriptions)
 # snippet-sourcedescription:[sns-python-example-list-subscriptions.py demonstrates how to retrieve a list of AWS SNS subscriptions.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Notification Service]

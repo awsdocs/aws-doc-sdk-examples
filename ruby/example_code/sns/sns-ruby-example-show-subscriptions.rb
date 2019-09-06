@@ -5,6 +5,7 @@
 # snippet-keyword:[Resource.topic method]
 # snippet-keyword:[Topic.subscriptions method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sns]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

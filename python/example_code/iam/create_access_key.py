@@ -29,6 +29,7 @@ print(response['AccessKey'])
 # snippet-sourcedescription:[create_access_key.py demonstrates how to create an access key for an IAM user given the user name.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

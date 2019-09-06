@@ -14,6 +14,7 @@
 # snippet-service:[codecommit]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CodeCommit]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GetRepository]

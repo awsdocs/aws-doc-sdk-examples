@@ -29,6 +29,7 @@ print('Availability Zones:', response['AvailabilityZones'])
 # snippet-sourcedescription:[describe_regions_azs.py demonstrates how to describe AWS Regions and Availability Zones that are currently available to you.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon EC2]

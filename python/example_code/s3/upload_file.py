@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service (Amazon S3)]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[snippet]
 # snippet-sourcedate:[2019-03-22]
 # snippet-sourceauthor:[AWS]

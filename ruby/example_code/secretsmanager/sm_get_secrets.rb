@@ -5,6 +5,7 @@
 # snippet-keyword:[get_secret_value method]
 # snippet-keyword:[list_secrets method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[secretsmanager]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -39,6 +39,7 @@ for distributionlist in paginator.paginate():
 # snippet-sourcedescription:[list_distributions_paginator.py demonstrates how to list Amazon CloudFront distributions with the pagination interface.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon CloudFront]

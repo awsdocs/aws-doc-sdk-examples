@@ -42,6 +42,7 @@ print(response)
 # snippet-sourcedescription:[remove_tags_from_certificate.py demonstrates how to remove one or more tags from an AWS Certificate Manager certificate. ]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Certificate Manager]

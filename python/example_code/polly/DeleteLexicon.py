@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[DeleteLexicon.py demonstrates how to delete a lexicon in the region specified in your local AWS configuration..]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Polly]

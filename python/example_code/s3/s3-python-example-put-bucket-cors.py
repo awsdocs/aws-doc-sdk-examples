@@ -35,6 +35,7 @@ s3.put_bucket_cors(Bucket='my-bucket', CORSConfiguration=cors_configuration)
 # snippet-sourcedescription:[s3-python-example-put-bucket-cors.py demonstrates how to add CORS Rules to an Amazon S3 Bucket.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

@@ -30,6 +30,7 @@ except BaseException as exe:
 # snippet-sourcedescription:[create_cluster.py demonstrates how to create an Amazon ECS cluster.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Elastic Container Service (ECS)]

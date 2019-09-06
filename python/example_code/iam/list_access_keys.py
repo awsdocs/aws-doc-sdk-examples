@@ -26,6 +26,7 @@ for response in paginator.paginate(UserName='IAM_USER_NAME'):
 # snippet-sourcedescription:[list_access_keys.py demonstrates how to list your existing IAM access keys.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]
