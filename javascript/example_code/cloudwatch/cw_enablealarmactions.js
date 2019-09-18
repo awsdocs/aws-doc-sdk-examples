@@ -52,7 +52,7 @@ var params = {
       Value: 'INSTANCE_ID'
     },
   ],
-  Unit: 'Seconds'
+  Unit: 'Percent'
 };
 
 cw.putMetricAlarm(params, function(err, data) {
