@@ -61,7 +61,7 @@ cw.putMetricAlarm(params, function(err, data) {
   } else {
     console.log("Alarm action added", data);
     var paramsEnableAlarmAction = {
-      AlarmNames: [paramsUpdateAlarm.AlarmName]
+      AlarmNames: [params.AlarmName]
     };
     cw.enableAlarmActions(paramsEnableAlarmAction, function(err, data) {
       if (err) {
