@@ -46,7 +46,7 @@ export class MyEcsConstructStack extends core.Stack {
     });
 
     // Create a load-balanced Fargate service and make it public
-    new ecs_patterns.LoadBalancedFargateService(this, "MyFargateService", {
+    new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService", {
       cluster: cluster, // Required
       cpu: 512, // Default is 256
       desiredCount: 6, // Default is 1

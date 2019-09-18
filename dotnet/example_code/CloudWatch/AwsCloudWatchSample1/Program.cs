@@ -126,8 +126,7 @@ namespace AWSSDKDocSamples.CloudWatch
                     Dimensions = new List<Dimension>
                     {
                         new Dimension { Name = "InstanceId", Value = instanceId }
-                    },
-                    Unit = StandardUnit.Seconds
+                    }
                 });
 
                 client.EnableAlarmActions(new EnableAlarmActionsRequest
@@ -175,8 +174,7 @@ namespace AWSSDKDocSamples.CloudWatch
                 Dimensions = new List<Dimension>
                     {
                         new Dimension { Name = "InstanceId", Value = "INSTANCE_ID" }
-                    },
-                Unit = StandardUnit.Seconds
+                    }
             });
 
         }
