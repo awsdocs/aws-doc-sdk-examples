@@ -22,14 +22,6 @@
 * KIND, either express or implied. See the License for the specific
 * language governing permissions and limitations under the License.
 *******************************************************************************/
-// snippet-start:[sns.dotnet.send_message]
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Amazon.SimpleNotificationService;
-using Amazon.SimpleNotificationService.Model;
-
 /* Build 
    Don't forget to use the Visual Studio command prompt
    Tested with csc /version == 2.10.0.0
@@ -44,6 +36,13 @@ using Amazon.SimpleNotificationService.Model;
    Get the list of AWSSDK Nuget packages at:
        https://www.nuget.org/packages?q=AWSSDK&prerel=false
  */
+// snippet-start:[sns.dotnet.send_message]
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
 
 namespace SnsSendMessage
 {
