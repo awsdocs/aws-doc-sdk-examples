@@ -41,7 +41,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-
+using Amazon;
 using Amazon.EC2;
 using Amazon.EC2.Model;
 // snippet-end:[ec2.dotnet.spot_instance_using]
@@ -50,7 +50,19 @@ namespace Ec2SpotCrud
 {
     class Program
     {
-        // snippet-start:[ec2.dotnet.spot_instance_request_spot_instance]    
+        // snippet-start:[ec2.dotnet.spot_instance_request_spot_instance]
+        /* Creates a spot instance
+         *
+         * Takes six args:
+         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance request is made
+         *   string amiId is the AMI of the instance to request
+         *   string securityGroupName is the name of the security group of the instance to request
+         *   InstanceType instanceType is the type of the instance to request
+         *   string spotPrice is the price of the instance to request
+         *   int instanceCount is the number of instances to request
+         *
+         * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2RequestSpotInstancesRequestSpotInstancesRequest.html
+         */
         public static SpotInstanceRequest RequestSpotInstance(
             AmazonEC2Client ec2Client,
             string amiId,
@@ -82,6 +94,13 @@ namespace Ec2SpotCrud
         // snippet-end:[ec2.dotnet.spot_instance_request_spot_instance]
 
         // snippet-start:[ec2.dotnet.spot_instance_get_spot_request_state]
+        /* Gets the state of a spot instance request.
+         * Takes two args:
+         *   AmazonEC2Client ec2Client is the EC2 client through which information about the state of the spot instance is made
+         *   string spotRequestId is the ID of the spot instance
+         *
+         * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2DescribeSpotInstanceRequests.html
+         */
         public static SpotInstanceState GetSpotRequestState(
             AmazonEC2Client ec2Client,
             string spotRequestId)
@@ -101,6 +120,13 @@ namespace Ec2SpotCrud
         // snippet-end:[ec2.dotnet.spot_instance_get_spot_request_state]
 
         // snippet-start:[ec2.dotnet.spot_instance_cancel_spot_request]
+        /* Cancels a spot instance request
+         * Takes two args:
+         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is cancelled
+         *   string spotRequestId is the ID of the spot instance
+         *
+         * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2CancelSpotInstanceRequestsCancelSpotInstanceRequestsRequest.html
+         */
         public static void CancelSpotRequest(
             AmazonEC2Client ec2Client,
             string spotRequestId)
@@ -114,6 +140,13 @@ namespace Ec2SpotCrud
         // snippet-end:[ec2.dotnet.spot_instance_cancel_spot_request]
 
         // snippet-start:[ec2.dotnet.spot_instance_terminate_spot_request]
+        /* Terminates a spot instance request
+         * Takes two args:
+         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is termitted
+         *   string spotRequestId is the ID of the spot instance
+         *
+         * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2TerminateInstancesTerminateInstancesRequest.html
+         */
         public static void TerminateSpotInstance(
             AmazonEC2Client ec2Client,
             string spotRequestId)
@@ -153,15 +186,103 @@ namespace Ec2SpotCrud
         // snippet-end:[ec2.dotnet.spot_instance_terminate_spot_request]
 
         // snippet-start:[ec2.dotnet.spot_instance_main]
-        // This program takes one argument, the AMI
-        // Something like: ami-xxxxxxxx
+        /* Creates, cancels, and terminates a spot instance request
+         * 
+         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is termitted
+         *   string spotRequestId is the ID of the spot instance
+         *
+         * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2TerminateInstancesTerminateInstancesRequest.html
+         */
+
+        // Displays information about the command-line args
+        private static void Usage()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("Ec2SpotCrud.exe AMI [-s SECURITY_GROUP] [-p SPOT_PRICE] [-c INSTANCE_COUNT] [-h]");
+            Console.WriteLine("  where:");
+            Console.WriteLine("  AMI is the AMI to use. No default value. Cannot be an empty string.");
+            Console.WriteLine("  SECURITY_GROUP is the name of a security group. Default is default. Cannot be an empty string.");
+            Console.WriteLine("  SPOT_PRICE is the spot price. Default is 0.003. Must be > 0.001.");
+            Console.WriteLine("  INSTANCE_COUNT is the number of instances. Default is 1. Must be > 0.");
+            Console.WriteLine("  -h displays this message and quits");
+            Console.WriteLine();
+        }
+        
+        /* Creates, cancels, and terminates a spot instance request
+         * See Usage() for information about the command-line args
+         */
         static void Main(string[] args)
         {
-            string amiId = args[0];
-            string securityGroupName = "default";
+            // Values that aren't easy to pass on the command line
+            RegionEndpoint region = Amazon.RegionEndpoint.USWest2;
             InstanceType instanceType = InstanceType.T1Micro;
+            
+            // Default values for optional command-line args
+            string securityGroupName = "default";
             string spotPrice = "0.003";
             int instanceCount = 1;
+
+            // Placeholder for the only required command-line arg
+            string amiId = "";
+
+            // Parse command-line args
+            int i = 0;
+            while (i < args.Length)
+            {
+                switch (args[i])
+                {
+                    case "-s":
+                        i++;
+                        securityGroupName = args[i];
+                        if (securityGroupName == "")
+                        {
+                            Console.WriteLine("The security group name cannot be blank");
+                            Usage();
+                            return;
+                        }
+                        break;
+                    case "-p":
+                        i++;
+                        spotPrice = args[i];
+                        double price;
+                        double.TryParse(spotPrice, out price);
+                        if (price < 0.001)
+                        {
+                            Console.WriteLine("The spot price must be > 0.001");
+                            Usage();
+                            return;
+                        }
+                        break;
+                    case "-c":
+                        i++;
+                        int.TryParse(args[i], out instanceCount);
+                        if (instanceCount < 1)
+                        {
+                            Console.WriteLine("The instance count must be > 0");
+                            Usage();
+                            return;
+                        }
+                        break;
+                    case "-h":
+                        Usage();
+                        return;
+                    default:
+                        amiId = args[i];
+                        break;
+                }
+
+                i++;
+            }
+
+            // Make sure we have an AMI
+            if (amiId == "")
+            {
+                Console.WriteLine("You must supply an AMI");
+                Usage();
+                return;
+            }
 
             AmazonEC2Client ec2Client = new AmazonEC2Client(region: Amazon.RegionEndpoint.USWest2);
 
@@ -187,7 +308,6 @@ namespace Ec2SpotCrud
                 if (state == SpotInstanceState.Active)
                 {
                     Console.WriteLine("");
-
                     break;
                 }
 
@@ -195,6 +315,7 @@ namespace Ec2SpotCrud
                 Thread.Sleep(wait);
 
                 // wait longer next time
+                // 1, 2, 4, ...
                 wait = wait * 2;
             }
 
