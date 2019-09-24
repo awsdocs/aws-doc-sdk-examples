@@ -50,20 +50,37 @@ namespace SnsSendMessage
     {
         static void Main(string[] args)
         {
+            /* Topic ARNs must be in the correct format:
+             *   arn:aws:sns:REGION:ACCOUNT_ID:NAME
+             *
+             *  where:
+             *  REGION     is the region in which the topic is created, such as us-west-2
+             *  ACCOUNT_ID is your (typically) 12-character account ID
+             *  NAME       is the name of the topic
+             */
             string topicArn = args[0];
             string message = "Hello at " + DateTime.Now.ToShortTimeString();
 
             var client = new AmazonSimpleNotificationServiceClient(region: Amazon.RegionEndpoint.USWest2);
+
             var request = new PublishRequest
             {
                 Message = message,
                 TopicArn = topicArn
             };
 
-            var response = client.Publish(request);
+            try
+            {
+                var response = client.Publish(request);
 
-            Console.WriteLine("Message sent to topic:");
-            Console.WriteLine(message);
+                Console.WriteLine("Message sent to topic:");
+                Console.WriteLine(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception publishing request:");
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
