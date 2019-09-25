@@ -62,10 +62,18 @@ namespace SnsPublish
                 PhoneNumber = number
             };
 
-            var response = client.Publish(request);
+            try
+            {
+                var response = client.Publish(request);
 
-            Console.WriteLine("Message sent to " + number + ":");
-            Console.WriteLine(message);
+                Console.WriteLine("Message sent to " + number + ":");
+                Console.WriteLine(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception publishing request:");
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
