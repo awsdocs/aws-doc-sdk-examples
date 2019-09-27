@@ -49,7 +49,7 @@ var templatePromise = new AWS.SES({apiVersion: '2010-12-01'}).updateTemplate(par
 templatePromise.then(
   function(data) {
     console.log("Template Updated");
-  }).switch(
+  }).catch(
     function(err) {
     console.error(err, err.stack);
   });
