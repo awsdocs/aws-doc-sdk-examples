@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_deletequeue.js demonstrates how to delete an Amazon SQS queue.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]

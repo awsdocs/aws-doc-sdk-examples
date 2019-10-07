@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteTopic.java demonstrates how to delete a Topic.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

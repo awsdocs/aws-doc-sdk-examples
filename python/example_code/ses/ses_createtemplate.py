@@ -33,6 +33,7 @@ print(response)
 # snippet-sourcedescription:[ses_createtemplate.py demonstrates how to create an email template to send personalized email messages.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

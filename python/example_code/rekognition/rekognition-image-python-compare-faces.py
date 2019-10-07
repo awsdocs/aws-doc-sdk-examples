@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[rekognition-image-python-scompare-faces.py demonstrates how to compare 2 faces.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Rekognition]

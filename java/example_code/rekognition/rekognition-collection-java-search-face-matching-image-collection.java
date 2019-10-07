@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-collection-java-search-face-matching-image-collection.java demonstrates how to search for matching faces in an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SearchFacesByImage]

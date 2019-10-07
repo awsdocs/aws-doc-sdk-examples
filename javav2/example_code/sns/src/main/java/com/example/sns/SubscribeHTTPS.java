@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[SubscribeHTTPS.java demonstrates how to send a confirmation message to a URL.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

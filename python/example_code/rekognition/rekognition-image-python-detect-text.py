@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[rekognition-image-python-detect-text.py demonstrates how to detect text in an image loaded from an S3 Bucket.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Rekognition]

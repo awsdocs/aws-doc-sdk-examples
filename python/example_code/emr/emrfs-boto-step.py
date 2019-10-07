@@ -15,6 +15,7 @@
 # snippet-service:[elasticmapreduce]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon EMR]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]

@@ -7,6 +7,7 @@
 # snippet-keyword:[Table.create_route method]
 # snippet-keyword:[Table.create_tags method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

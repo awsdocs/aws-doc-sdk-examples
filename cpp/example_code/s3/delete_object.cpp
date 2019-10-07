@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_object.cpp demonstrates how to delete an object from an Amazon S3 bucket.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListFindingsWithFindingCriteria.java demonstrates how to list all GuardDuty findings that match the specified finding criteria.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]

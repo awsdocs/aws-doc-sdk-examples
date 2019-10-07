@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cw_putmetricalarm.js demonstrates how to create or update an Amazon CloudWatch alarm and associate it with particular metrics.]
 //snippet-service:[cloudwatch]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]

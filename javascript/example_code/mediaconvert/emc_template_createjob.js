@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_template_createjob.js demonstrates how to create a transcoding job using a template.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]

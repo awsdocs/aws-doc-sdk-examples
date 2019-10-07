@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_canceljob.js demonstrates how to remove a transcoding job from the queue.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]

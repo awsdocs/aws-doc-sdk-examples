@@ -5,6 +5,7 @@
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[AWS CDK]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[aws-secretsmanager.Secret.fromSecretAttributes function]

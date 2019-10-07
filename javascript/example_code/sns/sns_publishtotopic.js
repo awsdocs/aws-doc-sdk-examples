@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_publishtotopic.js demonstrates how to send a message to an Amazon SNS topic.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsInstanceProfile1 example demonstrates how to use the various operations, like create user, on the IAM client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

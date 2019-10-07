@@ -31,6 +31,7 @@ except ClientError as e:
 # snippet-sourcedescription:[delete_security_group.py demonstrates how to delete an Amazon EC2 security group.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon EC2]

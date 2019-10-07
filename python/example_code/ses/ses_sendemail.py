@@ -59,6 +59,7 @@ print(response)
 # snippet-sourcedescription:[ses_sendemail.py demonstrates how to send an email using Amazon SES API.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

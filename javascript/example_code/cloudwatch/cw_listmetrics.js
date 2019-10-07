@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cw_listmetrics.js demonstrates how to list metrics for Amazon CloudWatch.]
 //snippet-service:[cloudwatch]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]

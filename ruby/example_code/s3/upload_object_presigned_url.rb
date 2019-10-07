@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[create_bucket.rb allows anyone with the presigned URL can upload an object by using the AWS SDK for Ruby.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[PUT Bucket, Presigned URL]

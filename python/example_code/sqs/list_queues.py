@@ -26,6 +26,7 @@ print(response['QueueUrls'])
 # snippet-sourcedescription:[list_queues.py demonstrates how to list your current list of queues.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Queue Service]

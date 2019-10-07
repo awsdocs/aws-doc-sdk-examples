@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-video-stored-detect-labels.java demonstrates how to use Amazon Rekognition with a stored video.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[StartLabelDetection]

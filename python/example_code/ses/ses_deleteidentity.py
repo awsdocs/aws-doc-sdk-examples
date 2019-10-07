@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Email Service]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2018-08-11]

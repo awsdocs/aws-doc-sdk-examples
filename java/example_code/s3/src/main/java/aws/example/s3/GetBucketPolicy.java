@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetBucketPolicy.java demonstrates how to get the bucket policy from an existing S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[getBucketPolicy]

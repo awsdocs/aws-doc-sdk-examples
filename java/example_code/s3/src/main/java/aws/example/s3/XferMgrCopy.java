@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[XferMgrCopy.java demonstrates how to copy an object from one Amazon S3 bucket to another using S3 TransferManager.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[TransferManager copy]

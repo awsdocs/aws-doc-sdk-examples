@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_subscribelambda.js demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an AWS Lambda function.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[SNSSample1 example demonstrates how to send a message asynchronously using the Amazon SNS client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

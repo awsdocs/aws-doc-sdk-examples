@@ -7,6 +7,7 @@
 # snippet-keyword:[list_server_certificates method]
 # snippet-keyword:[update_server_certificate method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

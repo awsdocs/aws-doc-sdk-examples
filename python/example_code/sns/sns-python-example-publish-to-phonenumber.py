@@ -27,8 +27,9 @@ print(response)
   
 # snippet-end:[sns.python.publish_to_phonenumber.complete]
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[sns-python-example-publich-to-phonenumber.py demonstrates how to send an SMS message to the specified phonenumber using AWS SNS.]
+# snippet-sourcedescription:[sns-python-example-publish-to-phonenumber.py demonstrates how to send an SMS message to the specified phonenumber using AWS SNS.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]

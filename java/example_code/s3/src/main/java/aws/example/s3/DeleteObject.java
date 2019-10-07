@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteObject.java demonstrates how to delete an existing object.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[deleteObject]

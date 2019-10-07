@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS CloudTrail]
 // snippet-keyword:[DeleteTrail function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudtrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[PublishTopic.java demonstrates how to send a message to an SNS Topic.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

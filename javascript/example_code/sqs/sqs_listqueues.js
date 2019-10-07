@@ -14,6 +14,7 @@
 
 //snippet-sourcedescription:[sqs_listqueues.js demonstrates how to retrieve a list of Amazon SQS queues for an AWS account.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

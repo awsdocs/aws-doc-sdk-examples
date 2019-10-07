@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[SynthesizeSpeech function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

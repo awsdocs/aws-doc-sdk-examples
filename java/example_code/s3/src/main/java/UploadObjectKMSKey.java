@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[UploadObjectKMSKey.java demonstrates how to upload and download S3 objects using a KMS key.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Object]

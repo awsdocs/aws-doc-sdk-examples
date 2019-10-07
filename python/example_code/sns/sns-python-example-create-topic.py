@@ -23,6 +23,7 @@ print(response)
 # snippet-sourcedescription:[sns-python-example-create-topic.py demonstrates how to create a new AWS SNS topic with the specified name.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Notification Service]

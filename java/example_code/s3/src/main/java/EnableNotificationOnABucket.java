@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[EnableNotificationsOnABucket.java demonstrates how to configure an S3 bucket to work with Amazon Simple Notification Service and Simple Queue Service.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Bucket notification]

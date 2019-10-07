@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[UpdateJobStatus.java demonstrates how to make job eligible for execution.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_createreceiptruleset.js demonstrates how to create an empty Amazon SES rule set.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

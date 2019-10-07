@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[Produces a list of all voices available for use when requesting speech synthesis with Amazon Polly.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DescribeVoices]

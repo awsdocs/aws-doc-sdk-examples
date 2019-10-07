@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsEC2Sample2 example demonstrates how to use various operations, like create instance and create key pairs, in the EC2 client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

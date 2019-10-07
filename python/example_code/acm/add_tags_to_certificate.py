@@ -41,6 +41,7 @@ print(response)
 # snippet-sourcedescription:[add_tags_to_certificate.py demonstrates how to add one or more tags to an AWS Certificate Manager certificate. Tags are labels that you can use to identify and organize your AWS resources. ]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Certificate Manager]

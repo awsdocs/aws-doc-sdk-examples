@@ -79,6 +79,7 @@ def get_secret():
 # snippet-sourcedescription:[secrets_manager.py demonstrates how to retrieve a secret from AWS Secrets Manager.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Secrets Manager]

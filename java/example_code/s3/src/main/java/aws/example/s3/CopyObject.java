@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one bucket to another.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[copyObject]

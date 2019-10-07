@@ -28,6 +28,7 @@ response = client.publish(
 # snippet-sourcedescription:[Instantiates the iot-data client from the AWS IoT Greengrass Core SDK.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS IoT Greengrass]
 # snippet-keyword:[AWS IoT Greengrass Core SDK]

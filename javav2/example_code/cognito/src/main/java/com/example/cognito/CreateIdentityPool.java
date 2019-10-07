@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateIdentityPool.java demonstrates how to create a new identity pool. The identity pool is a store of user identity information that is specific to your AWS account.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

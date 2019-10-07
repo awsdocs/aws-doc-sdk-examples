@@ -47,6 +47,7 @@ echo $result['foo']; // Outputs 'bar'
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[MockHandler.php demonstrates how to list Objects in an new Amazon S3 bucket using a mock handler.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[WebsiteConfiguration.java demonstrates how to set, get, and delete S3 bucket website configurations.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Bucket website]

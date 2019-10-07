@@ -2,6 +2,7 @@
 // snippet-sourceauthor:[AWS]
 // snippet-sourcedescription:[Hello world example.]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[none]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

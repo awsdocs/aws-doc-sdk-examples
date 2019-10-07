@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[s3_upload.js demonstrates how to upload an arbitrarily-sized stream to an Amazon S3 bucket.]
 //snippet-service:[s3]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-sourcetype:[full-example]

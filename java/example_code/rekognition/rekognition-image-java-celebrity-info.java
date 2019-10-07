@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-celebrity-info.java demonstrates how to get information about a detected celebrity.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GetCelebrityInfo]

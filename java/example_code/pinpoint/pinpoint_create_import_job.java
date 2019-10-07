@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_create_import_job demonstrates how to import a segment of customers using a source file stored in an Amazon S3 bucket.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateImportJob]

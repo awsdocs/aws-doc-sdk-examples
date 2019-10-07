@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list existing users in the specified User Pool.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

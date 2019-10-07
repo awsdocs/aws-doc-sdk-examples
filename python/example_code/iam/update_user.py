@@ -29,6 +29,7 @@ iam.update_user(
 # snippet-sourcedescription:[update_user.py demonstrates how to update an IAM user.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

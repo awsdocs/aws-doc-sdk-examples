@@ -25,6 +25,7 @@ result = s3.get_bucket_cors(Bucket='my-bucket')
 # snippet-sourcedescription:[s3-python-example-get-bucket-cors.py demonstrates how to CORS permission on an Amazon S3 bucket.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

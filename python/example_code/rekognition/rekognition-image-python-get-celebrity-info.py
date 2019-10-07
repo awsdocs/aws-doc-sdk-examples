@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[rekognition-image-get-celebrity-info.py demonstrates how to get information about a detected celebrity.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Rekognition]

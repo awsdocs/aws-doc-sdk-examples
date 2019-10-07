@@ -43,6 +43,7 @@ print(response)
 # snippet-sourcedescription:[ses_createreceiptrule.py demonstrates how to control your incoming email by adding a receipt rule to an existing receipt rule set.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Email Service]

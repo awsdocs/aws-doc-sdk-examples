@@ -61,6 +61,7 @@ except Exception as e:
 # snippet-sourcedescription:[enable_guardduty.py creates and or enables Amazon GuardDuty in the specified Regions.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon GuardDuty]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[SetTopicAttributes.java demonstrates how to update the defaults for an AWS SNS Topic.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

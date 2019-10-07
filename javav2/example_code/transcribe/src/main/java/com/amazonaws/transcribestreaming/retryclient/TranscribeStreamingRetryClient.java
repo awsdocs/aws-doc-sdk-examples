@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[RetryClient.java is a client that manages the connection to Amazon Transcribe and retries sending data when there are errors on the connection.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranscribeStreamingRetryClient]

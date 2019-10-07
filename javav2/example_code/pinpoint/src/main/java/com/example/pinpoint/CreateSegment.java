@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateSegment.java demonstrates how to create a segment for a campaign in Pinpoint.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]

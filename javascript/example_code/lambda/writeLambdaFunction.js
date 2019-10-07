@@ -17,6 +17,7 @@
 // snippet-sourcedescription:[writeLambdaFunction.js demonstrates how to write a Lambda function code]
 // snippet-service:[lambda]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

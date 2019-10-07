@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[GeneratePresignedURL.java demonstrates how to generate a presigned URL with the S3 Java SDK.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

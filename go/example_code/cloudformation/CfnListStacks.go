@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS CloudFormation]
 // snippet-keyword:[ListStacks function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudformation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

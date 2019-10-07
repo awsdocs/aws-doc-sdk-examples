@@ -26,6 +26,7 @@ for response in paginator.paginate():
 # snippet-sourcedescription:[list_account_aliases.py demonstrates how to list your IAM account aliases.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

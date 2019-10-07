@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon CloudWatch]
 # snippet-keyword:[describe_alarms method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudwatch]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

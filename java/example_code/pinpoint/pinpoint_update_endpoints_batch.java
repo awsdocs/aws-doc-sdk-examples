@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_update_endpoints_batch demonstrates how to update several existing endpoints in a single call to the API.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[UpdateEndpointsBatch]

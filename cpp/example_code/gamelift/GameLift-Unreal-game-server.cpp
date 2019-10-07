@@ -16,6 +16,7 @@
 // snippet-service:[gamelift]
 // snippet-keyword:[Amazon GameLift]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[InitSDK]
 //snippet-keyword:[ActivateGameSession]

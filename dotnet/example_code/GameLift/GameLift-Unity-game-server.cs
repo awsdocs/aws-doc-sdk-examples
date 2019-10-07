@@ -17,6 +17,7 @@
 // snippet-keyword:[Amazon GameLift]
 //snippet-keyword:[dotNET]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[InitSDK]
 //snippet-keyword:[ActivateGameSession]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[hbase-snapshot-restore.java demonstrates how to configure a step that restores a table from a snapshot.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[HadoopJarStepConfig]

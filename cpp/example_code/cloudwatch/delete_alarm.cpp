@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_alarm.cpp demonstrates how to delete an Amazon CloudWatch alarm.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-service:[cloudwatch]

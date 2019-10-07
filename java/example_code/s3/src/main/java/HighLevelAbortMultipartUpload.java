@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[HighLevelAbortMultipartUpload.java demonstrates how to abort a multipart upload to S3 using the TransferManager class.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DELETE Multipart upload]

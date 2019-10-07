@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[create-spark-cluster.java demonstrates how to create a cluster with Spark installed.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[RunJobFlowRequest]

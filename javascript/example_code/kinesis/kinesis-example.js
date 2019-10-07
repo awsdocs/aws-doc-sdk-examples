@@ -17,6 +17,7 @@
 // snippet-sourcedescription:[kinesis-example.js demonstrates how to capture web page scroll progress]
 // snippet-service:[kinesis]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Kinesis]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

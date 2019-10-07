@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DeleteLexicon demonstrates how to delete Amazon Polly lexicons.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DeleteLexicon]

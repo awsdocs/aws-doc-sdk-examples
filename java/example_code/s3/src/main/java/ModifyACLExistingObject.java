@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ModifyACLExistingObject.java demonstrates how to retrieve, modify, and set the ACL grants for an S3 object.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Object acl]

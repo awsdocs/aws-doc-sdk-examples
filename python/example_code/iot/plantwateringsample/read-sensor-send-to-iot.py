@@ -16,6 +16,7 @@
 # snippet-service:[iot]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS IoT]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

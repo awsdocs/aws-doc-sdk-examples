@@ -30,6 +30,7 @@ print(response)
 # snippet-sourcedescription:[sns-python-example-publich-to-topic.py demonstrates how to publish a message to an AWS SNS topic.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Simple Notification Service]

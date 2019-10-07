@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_user.cpp demonstrates how to delete an IAM user from an AWS account.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

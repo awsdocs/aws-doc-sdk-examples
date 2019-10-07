@@ -48,6 +48,7 @@ cloudwatch.put_metric_alarm(
 # snippet-sourcedescription:[enable_alarm_actions.py demonstrates how to enable actions for specified alarms.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Cloudwatch]

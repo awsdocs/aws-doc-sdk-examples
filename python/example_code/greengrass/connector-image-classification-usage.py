@@ -72,6 +72,7 @@ def function_handler(event, context):
 # snippet-sourcedescription:[Invokes the local inference service.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS IoT Greengrass]
 # snippet-keyword:[AWS IoT Greengrass Machine Learning SDK]

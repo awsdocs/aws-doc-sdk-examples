@@ -42,6 +42,7 @@ cloudwatch.put_metric_data(
 # snippet-sourcedescription:[put_metric_data.py demonstrates how to publish metric data points to Amazon CloudWatch. ]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Cloudwatch]

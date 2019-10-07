@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[GetLexicon.py demonstrates how to produce the content of a specific pronunciation lexicon stored in a AWS Region. ]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon Polly]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListMultipartUploads.java demonstrates how to list all in-progress multipart uploads.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[List Multipart Uploads]

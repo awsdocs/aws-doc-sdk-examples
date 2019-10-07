@@ -14,6 +14,7 @@
 # snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Pinpoint]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

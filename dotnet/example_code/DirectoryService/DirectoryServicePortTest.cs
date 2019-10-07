@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[Determines if the necessary ports are open from the VPC to your domain, and also verifies the minimum forest and domain functional levels.]
 //snippet-keyword:[dotNET]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Directory Service]
 //snippet-keyword:[DirectoryServicePortTest]

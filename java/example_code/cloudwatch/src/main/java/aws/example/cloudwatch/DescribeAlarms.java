@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DescribeAlarms.java demonstrates how to list all CloudWatch alarms.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cloudwatch]
 //snippet-service:[cloudwatch]

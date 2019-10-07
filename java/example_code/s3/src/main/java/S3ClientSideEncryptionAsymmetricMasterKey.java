@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[S3ClientSideEncryptionAsymmetricMasterKey.java demonstrates how to upload and download encrypted objects using S3 with a client-side asymmetric master key.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Object]

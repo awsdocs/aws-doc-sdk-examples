@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteObjects.java demonstrates how to delete multiple objects in an S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[deleteObjects]
