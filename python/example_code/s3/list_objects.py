@@ -44,7 +44,7 @@ def list_bucket_objects(bucket_name):
         logging.error(e)
         return None
 
-    # Only return the contenst if we found some keys
+    # Only return the contents if we found some keys
     if response['KeyCount'] > 0:
         return response['Contents']
 
