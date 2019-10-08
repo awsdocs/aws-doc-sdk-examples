@@ -92,7 +92,7 @@ class LocalDisplay(Thread):
 
 #snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
 def infinite_infer_run():
-    """ Entry point of the lambda function"""
+    """ Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
         # of labels is small, create a dictionary that converts the machine
