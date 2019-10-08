@@ -21,6 +21,13 @@ import cv2
 import greengrasssdk
 
 #snippet-end:[deeplens.python.deeplens_inference_lambda.import]
+#snippet-start:[deeplens.python.deeplens_inference_lambda.lambda_handler]
+
+def lambda_handler(event, context):
+    """Empty entry point to the Lambda function invoked from the edge."""
+    return
+
+#snippet-end:[deeplens.python.deeplens_inference_lambda.lambda_handler]
 #snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
 class LocalDisplay(Thread):
@@ -173,6 +180,10 @@ import numpy as np
 import awscam
 import cv2
 import greengrasssdk
+
+def lambda_handler(event, context):
+    """Empty entry point to the Lambda function invoked from the edge."""
+    return
 
 class LocalDisplay(Thread):
     """ Class for facilitating the local display of inference results
