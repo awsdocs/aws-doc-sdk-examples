@@ -78,7 +78,7 @@ namespace AwsEC2Sample1
                 ImageId = imageId,
                 MinCount = 1,
                 MaxCount = 1,
-                InstanceType = new InstanceType("t1.micro")
+                InstanceType = new InstanceType("t2.micro")
 
             };
             var instanceId = ec2Client.RunInstances(runRequest).Reservation.Instances[0].InstanceId;
