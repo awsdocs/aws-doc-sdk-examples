@@ -29,11 +29,14 @@ else:
 
     # Describe the Application details
     try:
-        client.describe_application(
+        resp = client.describe_application(
         ApplicationName=application_name
         )
+        print(resp)
     except ClientError as e:
         print("Got the following error calling describe_application: {}".format(e))
+
+# Usage python describe-application.py appname
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe-application.py demonstrates how to get the details of a particular Kinesis Data Alanytics Application]

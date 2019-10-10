@@ -31,12 +31,14 @@ else:
 
     # Stop the Application
     try:
-        client.stop_application(
+        resp = client.stop_application(
             ApplicationName=application_name
         )
+        print(resp)
     except ClientError as e:
         print("Got the following error calling stop_application: {}".format(e))
 
+# Usage python stop-application.py appname
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[stop-application.py demonstrates how to stop a particular Kinesis Data Alanytics Application]
