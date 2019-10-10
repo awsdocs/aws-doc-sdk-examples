@@ -36,15 +36,17 @@ response = acm.add_tags_to_certificate(
 print(response)
  
  
-#snippet-end:[acm.python.add_tags_for_certificate.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[add_tags_to_certificate.py demonstrates how to add one or more tags to an AWS Certificate Manager certificate. Tags are labels that you can use to identify and organize your AWS resources. ]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Certificate Manager]
-#snippet-service:[acm]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[walkerk1980]
+# snippet-end:[acm.python.add_tags_for_certificate.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[add_tags_to_certificate.py demonstrates how to add one or more tags to an AWS Certificate Manager certificate. Tags are labels that you can use to identify and organize your AWS resources. ]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Certificate Manager]
+# snippet-service:[acm]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[walkerk1980]
 

@@ -1,12 +1,14 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Sends a message to an SES email address.]
-#snippet-keyword:[Amazon Simple Email Service]
-#snippet-keyword:[send_email method]
-#snippet-keyword:[Ruby]
-#snippet-service:[ses]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Sends a message to an SES email address.]
+# snippet-keyword:[Amazon Simple Email Service]
+# snippet-keyword:[send_email method]
+# snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
+# snippet-service:[ses]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").

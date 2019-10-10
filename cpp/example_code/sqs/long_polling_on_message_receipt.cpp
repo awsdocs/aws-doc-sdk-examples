@@ -1,13 +1,12 @@
- 
 //snippet-sourcedescription:[long_polling_on_message_receipt.cpp demonstrates how to retrieve messages from an Amazon SQS queue using long-poll support.]
-//snippet-keyword:[C++]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,7 +33,7 @@
 void ReceiveMessage(const Aws::String& queue_url, int wait_time)
 {
     // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMesage requests don't fail on long
+    // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration client_cfg;
     client_cfg.requestTimeoutMs = 30000;

@@ -43,15 +43,17 @@ cloudwatch.put_metric_alarm(
 )
  
  
-#snippet-end:[cloudwatch.python.enable_alarm_actions.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[enable_alarm_actions.py demonstrates how to enable actions for specified alarms.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Cloudwatch]
-#snippet-service:[cloudwatch]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-end:[cloudwatch.python.enable_alarm_actions.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[enable_alarm_actions.py demonstrates how to enable actions for specified alarms.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Cloudwatch]
+# snippet-service:[cloudwatch]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

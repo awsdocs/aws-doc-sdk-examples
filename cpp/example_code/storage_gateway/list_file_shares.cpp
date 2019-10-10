@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[list_file_shares.cpp demonstrates how to retrieve a list of the file shares for an AWS Storage Gateway resource.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Storage Gateway]
 //snippet-service:[storagegateway]
@@ -24,6 +25,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/ListFileSharesRequest.h>
 #include <aws/storagegateway/model/ListFileSharesResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -43,16 +45,16 @@ int main(int argc, char ** argv)
 
     Aws::StorageGateway::Model::ListFileSharesRequest lfs_req;
 
-    storagegateway.SetGatewayARN(gateway_arn);
+    lfs_req.SetGatewayARN(gateway_arn);
 
     auto lfs_out = storagegateway.ListFileShares(lfs_req);
 
     if (lfs_out.IsSuccess())
     {
       std::cout << "Successfully listing file shares";
-      for (auto val: lfs_out.GetResult().GetFileShareInfoList())
+      for (auto fileShareInfo: lfs_out.GetResult().GetFileShareInfoList())
       {
-        cout << " " << val;
+        std::cout << " " << fileShareInfo.GetFileShareId();
       }
     }
     else

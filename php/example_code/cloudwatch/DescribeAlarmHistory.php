@@ -11,11 +11,17 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
+ *
+ *
  */
+// snippet-start:[cloudwatch.php.describe_alarm_history.complete]
+// snippet-start:[cloudwatch.php.describe_alarm_history.import]
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
+use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatch.php.describe_alarm_history.import]
 
 /**
  * Describe Alarm History in CloudWatch
@@ -25,8 +31,9 @@ use Aws\Exception\AwsException;
  */
 
 $alarmName = "<ALARM_NAME>";
-
-$client = new CloudWatchClient([
+ 
+// snippet-start:[cloudwatch.php.describe_alarm_history.main]
+$client = new Aws\CloudWatch\CloudWatchClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2010-08-01'
@@ -45,15 +52,18 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[DescribeAlarmHistory.php demonstrates how to retrieve the history for the specified alarm.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cloudwatch]
-//snippet-service:[cloudwatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[cloudwatch.php.describe_alarm_history.main]
+// snippet-end:[cloudwatch.php.describe_alarm_history.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DescribeAlarmHistory.php demonstrates how to retrieve the history for the specified alarm.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Cloudwatch]
+// snippet-service:[cloudwatch]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

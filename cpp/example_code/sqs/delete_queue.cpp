@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_queue.cpp demonstrates how to delete an Amazon SQS queue.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

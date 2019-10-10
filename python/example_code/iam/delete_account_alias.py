@@ -23,14 +23,16 @@ iam.delete_account_alias(
 )
  
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[delete_account_alias.py demonstrates how to delete an alias for your IAM Account.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Identity and Access Management (IAM)]
-#snippet-service:[iam]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[delete_account_alias.py demonstrates how to delete an alias for your IAM Account.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Identity and Access Management (IAM)]
+# snippet-service:[iam]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

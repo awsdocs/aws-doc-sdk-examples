@@ -20,12 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
+// snippet-start:[iam.java2.create_user.complete]
+// snippet-start:[iam.java2.create_user.import]
 import software.amazon.awssdk.services.iam.model.CreateUserRequest;
 import software.amazon.awssdk.services.iam.model.CreateUserResponse;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
+ 
+// snippet-end:[iam.java2.create_user.import]
 /**
  * Creates an IAM user
  */
@@ -44,6 +47,7 @@ public class CreateUser {
 
         String username = args[0];
 
+        // snippet-start:[iam.java2.create_user.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
@@ -54,5 +58,8 @@ public class CreateUser {
 
         System.out.println("Successfully created user: " +
                 response.user().userName());
+        // snippet-end:[iam.java2.create_user.main]
     }
 }
+ 
+// snippet-end:[iam.java2.create_user.complete]

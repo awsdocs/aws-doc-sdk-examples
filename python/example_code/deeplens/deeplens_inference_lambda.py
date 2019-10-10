@@ -1,3 +1,15 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-service:[deeplens]
+# snippet-keyword:[AWS DeepLens]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
@@ -20,7 +32,7 @@ import awscam
 import cv2
 import greengrasssdk
 
-#snippet-end:[deeplens.python.deeplens_inference_lambda.import]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.import]
 #snippet-start:[deeplens.python.deeplens_inference_lambda.lambda_handler]
 
 def lambda_handler(event, context):
@@ -28,7 +40,7 @@ def lambda_handler(event, context):
     return
 
 #snippet-end:[deeplens.python.deeplens_inference_lambda.lambda_handler]
-#snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
 class LocalDisplay(Thread):
     """ Class for facilitating the local display of inference results
@@ -88,9 +100,9 @@ class LocalDisplay(Thread):
 
     def join(self):
         self.stop_request.set()
-#snippet-end:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
-#snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
 def infinite_infer_run():
     """ Run the DeepLens inference loop frame by frame"""
     try:
@@ -133,9 +145,9 @@ def infinite_infer_run():
 
     except Exception as ex:
         client.publish(topic=iot_topic, payload='Error in cat-dog lambda: {}'.format(ex))
-#snippet-end:[deeplens.python.deeplens_inference_lambda.inference_loop]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.inference_loop]
 
-#snippet-start:[deeplens.python.deeplens_inference_lambda.inference_step]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.inference_step]
             # Get a frame from the video stream
             ret, frame = awscam.getLastFrame()
             if not ret:
@@ -153,7 +165,7 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and tickness
+            # Method signature: image, text, origin, font face, font scale, color, and thickness
             cv2.putText(frame, output_map[top_k[0]['label']], (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 165, 20), 8)
             # Set the next frame in the local display stream.
@@ -163,9 +175,9 @@ def infinite_infer_run():
             for obj in top_k:
                 cloud_output[output_map[obj['label']]] = obj['prob']
             client.publish(topic=iot_topic, payload=json.dumps(cloud_output))
-#snippet-end:[deeplens.python.deeplens_inference_lambda.inference_step]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.inference_step]
 
-#snippet-start:[deeplens.python.deeplens_inference_lambda.complete]
+# snippet-start:[deeplens.python.deeplens_inference_lambda.complete]
 #*****************************************************
 #                                                    *
 # Copyright 2018 Amazon.com, Inc. or its affiliates. *
@@ -245,7 +257,7 @@ class LocalDisplay(Thread):
         self.stop_request.set()
 
 def infinite_infer_run():
-    """ Entry point of the lambda function"""
+    """ Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
         # of labels is small, create a dictionary that converts the machine
@@ -290,7 +302,7 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and tickness
+            # Method signature: image, text, origin, font face, font scale, color, and thickness
             cv2.putText(frame, output_map[top_k[0]['label']], (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 165, 20), 8)
             # Set the next frame in the local display stream.
@@ -304,15 +316,4 @@ def infinite_infer_run():
         client.publish(topic=iot_topic, payload='Error in cat-dog lambda: {}'.format(ex))
 
 infinite_infer_run()
-#snippet-end:[deeplens.python.deeplens_inference_lambda.complete]
-
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS DeepLens]
-#snippet-service:[deeplens]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-07]
-#snippet-sourceauthor:[AWS]
+# snippet-end:[deeplens.python.deeplens_inference_lambda.complete]

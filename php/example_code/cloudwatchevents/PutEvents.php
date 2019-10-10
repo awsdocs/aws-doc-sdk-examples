@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-sending-events.html
  *
+ *
+ *
  */
+// snippet-start:[cloudwatchevents.php.put_events.complete]
+// snippet-start:[cloudwatchevents.php.put_events.import]
+
 require 'vendor/autoload.php';
 
-use Aws\CloudWatchEvents\CloudWatchEventsClient;
+use Aws\CloudWatchEvents\CloudWatchEventsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatchevents.php.put_events.import]
 
 /**
  * Put Events
@@ -27,8 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
-$client = new CloudWatchEventsClient([
+ 
+// snippet-start:[cloudwatchevents.php.put_events.main]
+$client = new Aws\cloudwatchevents\cloudwatcheventsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
     'version' => '2015-10-07'
@@ -52,15 +59,18 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[PutEvents.php demonstrates how to send an event that is matched to targets for handling.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Events]
-//snippet-service:[events]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[cloudwatchevents.php.put_events.main]
+// snippet-end:[cloudwatchevents.php.put_events.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[PutEvents.php demonstrates how to send an event that is matched to targets for handling.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon CloudWatch Events]
+// snippet-service:[events]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

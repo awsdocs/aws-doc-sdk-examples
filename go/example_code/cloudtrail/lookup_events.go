@@ -1,12 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Lists the AWS CloudTrail events.]
-//snippet-keyword:[AWS CloudTrail]
-//snippet-keyword:[LookupEvents function]
-//snippet-keyword:[Go]
-//snippet-service:[cloudtrail]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Lists the AWS CloudTrail events.]
+// snippet-keyword:[AWS CloudTrail]
+// snippet-keyword:[LookupEvents function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[cloudtrail]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -37,7 +39,7 @@ import (
 func main() {
     // Trail name required
     var trailName string
-    flag.StringVar(&trailname, "n", "", "The name of the trail")
+    flag.StringVar(&trailName, "n", "", "The name of the trail")
 
     // Option to show event
     var showEvent bool
@@ -72,12 +74,9 @@ func main() {
     fmt.Println("")
 
     for _, event := range resp.Events {
-        if showEvents {
-            fmt.Println("Event:")
-            fmt.Println(aws.StringValue(event.CloudTrailEvent))
-            fmt.Println("")
-        }
-
+        fmt.Println("Event:")
+        fmt.Println(aws.StringValue(event.CloudTrailEvent))
+        fmt.Println("")
         fmt.Println("Name    ", aws.StringValue(event.EventName))
         fmt.Println("ID:     ", aws.StringValue(event.EventId))
         fmt.Println("Time:   ", aws.TimeValue(event.EventTime))

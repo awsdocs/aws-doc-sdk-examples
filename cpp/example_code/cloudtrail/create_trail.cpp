@@ -1,9 +1,10 @@
  
 //snippet-sourcedescription:[create_trail.cpp demonstrates how to create an AWS CloudTrail resource using command-line input.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CloudTrail]
-//snippet-service[cloudtrail]
+//snippet-service:[cloudtrail]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]

@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[ListFindingsWCriteria example demonstrates how to list findings with criteria filters.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]
@@ -8,7 +9,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 /*******************************************************************************
-* Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2009-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License"). You may
 * not use this file except in compliance with the License. A copy of the

@@ -1,13 +1,15 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Gets the EC2 regions and availabity zones.]
-#snippet-keyword:[Amazon Elastic Compute Cloud]
-#snippet-keyword:[describe_availability_zones method]
-#snippet-keyword:[describe_regions method]
-#snippet-keyword:[Ruby]
-#snippet-service:[ec2]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Gets the EC2 regions and availabity zones.]
+# snippet-keyword:[Amazon Elastic Compute Cloud]
+# snippet-keyword:[describe_availability_zones method]
+# snippet-keyword:[describe_regions method]
+# snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
+# snippet-service:[ec2]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -41,7 +43,7 @@ describe_availability_zones_result.availability_zones.each do |zone|
   puts "#{zone.zone_name} is #{zone.state}"
   if zone.messages.count > 0
     zone.messages.each do |message|
-      "  #{message.message}"
+      puts "  #{message.message}"
     end
   end
 end

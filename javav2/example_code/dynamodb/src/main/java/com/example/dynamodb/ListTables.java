@@ -19,13 +19,16 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.dynamodb;
+// snippet-start:[dynamodb.java2.list_tables.complete]
+// snippet-start:[dynamodb.java2.list_tables.import]
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.util.List;
-
+ 
+// snippet-end:[dynamodb.java2.list_tables.import]
 /**
  * List DynamoDB tables for the current AWS account.
  *
@@ -38,6 +41,7 @@ public class ListTables
     {
         System.out.println("Your DynamoDB tables:\n");
 
+        // snippet-start:[dynamodb.java2.list_tables.main]
         DynamoDbClient ddb = DynamoDbClient.create();
 
         boolean more_tables = true;
@@ -76,6 +80,9 @@ public class ListTables
                 System.exit(1);
             }
         }
+        // snippet-end:[dynamodb.java2.list_tables.main]
         System.out.println("\nDone!");
     }
 }
+ 
+// snippet-end:[dynamodb.java2.list_tables.complete]

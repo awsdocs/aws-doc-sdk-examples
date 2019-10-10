@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get a description of all security groups.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

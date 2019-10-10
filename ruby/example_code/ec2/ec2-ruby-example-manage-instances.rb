@@ -1,17 +1,19 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Stops, starts, and reboots an EC2 instance; monitors an instance, and displays information about the instances.]
-#snippet-keyword:[Amazon Elastic Compute Cloud]
-#snippet-keyword:[describe_instances method]
-#snippet-keyword:[monitor_instances method]
-#snippet-keyword:[reboot_instances method]
-#snippet-keyword:[start_instances method]
-#snippet-keyword:[stop_instances method]
-#snippet-keyword:[wait_until method]
-#snippet-keyword:[Ruby]
-#snippet-service:[ec2]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Stops, starts, and reboots an EC2 instance; monitors an instance, and displays information about the instances.]
+# snippet-keyword:[Amazon Elastic Compute Cloud]
+# snippet-keyword:[describe_instances method]
+# snippet-keyword:[monitor_instances method]
+# snippet-keyword:[reboot_instances method]
+# snippet-keyword:[start_instances method]
+# snippet-keyword:[stop_instances method]
+# snippet-keyword:[wait_until method]
+# snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
+# snippet-service:[ec2]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -86,7 +88,7 @@ describe_instances_result.reservations.each do |reservation|
       puts "State: #{instance.state.name}"
       puts "Image ID: #{instance.image_id}"
       puts "Instance Type: #{instance.instance_type}"
-      puts "Architecure: #{instance.architecture}"
+      puts "Architecture: #{instance.architecture}"
       puts "IAM Instance Profile: #{instance.iam_instance_profile}"
       puts "Key Name: #{instance.key_name}"
       puts "Launch Time: #{instance.launch_time}"

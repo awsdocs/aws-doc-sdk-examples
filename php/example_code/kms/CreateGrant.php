@@ -15,12 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-grants.html
  *
+ *
+ *
  */
+// snippet-start:[kms.php.create_grant.complete]
+// snippet-start:[kms.php.create_grant.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient;
+use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kms.php.create_grant.import]
 
 /**
  * Creating an Amazon KMS client.
@@ -29,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient
+//Create a KmsClient 
+// snippet-start:[kms.php.create_grant.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
@@ -53,15 +59,18 @@ try {
     echo "\n";
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateGrant.php demonstrates how to create a grant for an AWS Key Management Service customer master key.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Key Management Service (KMS)]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[kms.php.create_grant.main]
+// snippet-end:[kms.php.create_grant.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[CreateGrant.php demonstrates how to create a grant for an AWS Key Management Service customer master key.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Key Management Service (KMS)]
+// snippet-service:[kms]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

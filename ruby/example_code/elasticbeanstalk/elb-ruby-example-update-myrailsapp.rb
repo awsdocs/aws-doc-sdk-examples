@@ -1,16 +1,18 @@
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourceauthor:[Doug-AWS]
-#snippet-sourcedescription:[Updates a Ruby on Rails application.]
-#snippet-keyword:[AWS Elastic Beanstalk]
-#snippet-keyword:[create_application_version method]
-#snippet-keyword:[create_storage_location method]
-#snippet-keyword:[describe_application_versions method]
-#snippet-keyword:[describe_environments method]
-#snippet-keyword:[update_environment method]
-#snippet-keyword:[Ruby]
-#snippet-service:[elasticbeanstalk]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-03-16]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourceauthor:[Doug-AWS]
+# snippet-sourcedescription:[Updates a Ruby on Rails application.]
+# snippet-keyword:[AWS Elastic Beanstalk]
+# snippet-keyword:[create_application_version method]
+# snippet-keyword:[create_storage_location method]
+# snippet-keyword:[describe_application_versions method]
+# snippet-keyword:[describe_environments method]
+# snippet-keyword:[update_environment method]
+# snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
+# snippet-service:[elasticbeanstalk]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-03-16]
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -48,7 +50,7 @@ resp = eb.create_storage_location()
 
 puts "Created storage location in bucket #{resp.s3_bucket}"
 
-resp = s3.list_objects({
+s3.list_objects({
   prefix: s3_key,
   bucket: bucket
 })
@@ -66,7 +68,7 @@ zip_contents = File.read(zip_file_name)
 
 key = app_name + "\\" + zip_file_name
 
-resp = s3.put_object({
+s3.put_object({
   body: zip_contents,
   bucket: bucket,
   key: key

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[XferMgrProgress.java demonstrates how to use the S3 transfermanager to upload files to a bucket and show progress of the upload.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[TransferProgress]
@@ -22,26 +23,25 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+// snippet-start:[s3.java1.s3_xfer_mgr_progress.import]
+
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.event.ProgressEvent;
 import com.amazonaws.event.ProgressListener;
-import com.amazonaws.services.s3.transfer.Transfer;
+import com.amazonaws.services.s3.transfer.*;
 import com.amazonaws.services.s3.transfer.Transfer.TransferState;
-import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
-import com.amazonaws.services.s3.transfer.TransferProgress;
-import com.amazonaws.services.s3.transfer.Upload;
-import com.amazonaws.services.s3.transfer.MultipleFileUpload;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+// snippet-end:[s3.java1.s3_xfer_mgr_progress.import]
 
-public class XferMgrProgress
-{
+// snippet-start:[s3.java1.s3_xfer_mgr_progress.complete]
+public class XferMgrProgress {
     // waits for the transfer to complete, catching any exceptions that occur.
-    public static void waitForCompletion(Transfer xfer)
-    {
+    public static void waitForCompletion(Transfer xfer) {
+        // snippet-start:[s3.java1.s3_xfer_mgr_progress.wait_for_transfer]
         try {
             xfer.waitForCompletion();
         } catch (AmazonServiceException e) {
@@ -54,11 +54,12 @@ public class XferMgrProgress
             System.err.println("Transfer interrupted: " + e.getMessage());
             System.exit(1);
         }
+        // snippet-end:[s3.java1.s3_xfer_mgr_progress.wait_for_transfer]
     }
 
     // Prints progress while waiting for the transfer to finish.
-    public static void showTransferProgress(Transfer xfer)
-    {
+    public static void showTransferProgress(Transfer xfer) {
+        // snippet-start:[s3.java1.s3_xfer_mgr_progress.poll]
         // print the transfer's human-readable description
         System.out.println(xfer.getDescription());
         // print an empty progress bar...
@@ -82,14 +83,15 @@ public class XferMgrProgress
         // print the final state of the transfer.
         TransferState xfer_state = xfer.getState();
         System.out.println(": " + xfer_state);
+        // snippet-end:[s3.java1.s3_xfer_mgr_progress.poll]
     }
 
     // Prints progress of a multiple file upload while waiting for it to finish.
-    public static void showMultiUploadProgress(MultipleFileUpload multi_upload)
-    {
+    public static void showMultiUploadProgress(MultipleFileUpload multi_upload) {
         // print the upload's human-readable description
         System.out.println(multi_upload.getDescription());
 
+        // snippet-start:[s3.java1.s3_xfer_mgr_progress.substranferes]
         Collection<? extends Upload> sub_xfers = new ArrayList<Upload>();
         sub_xfers = multi_upload.getSubTransfers();
 
@@ -112,38 +114,36 @@ public class XferMgrProgress
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
-               return;
+                return;
             }
         } while (multi_upload.isDone() == false);
         // print the final state of the transfer.
         TransferState xfer_state = multi_upload.getState();
         System.out.println("\nMultipleFileUpload " + xfer_state);
+        // snippet-end:[s3.java1.s3_xfer_mgr_progress.substranferes]
     }
 
     // prints a simple text progressbar: [#####     ]
-    public static void printProgressBar(double pct)
-    {
+    public static void printProgressBar(double pct) {
         // if bar_size changes, then change erase_bar (in eraseProgressBar) to
         // match.
         final int bar_size = 40;
         final String empty_bar = "                                        ";
         final String filled_bar = "########################################";
-        int amt_full = (int)(bar_size * (pct / 100.0));
+        int amt_full = (int) (bar_size * (pct / 100.0));
         System.out.format("  [%s%s]", filled_bar.substring(0, amt_full),
-              empty_bar.substring(0, bar_size - amt_full));
+                empty_bar.substring(0, bar_size - amt_full));
     }
 
     // erases the progress bar.
-    public static void eraseProgressBar()
-    {
+    public static void eraseProgressBar() {
         // erase_bar is bar_size (from printProgressBar) + 4 chars.
         final String erase_bar = "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
         System.out.format(erase_bar);
     }
 
     public static void uploadFileWithListener(String file_path,
-          String bucket_name, String key_prefix, boolean pause)
-    {
+                                              String bucket_name, String key_prefix, boolean pause) {
         System.out.println("file: " + file_path +
                 (pause ? " (pause)" : ""));
 
@@ -154,6 +154,7 @@ public class XferMgrProgress
             key_name = file_path;
         }
 
+        // snippet-start:[s3.java1.s3_xfer_mgr_progress.progress_listener]
         File f = new File(file_path);
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
         try {
@@ -177,14 +178,14 @@ public class XferMgrProgress
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_progress.progress_listener]
     }
 
     public static void uploadDirWithSubprogress(String dir_path,
-            String bucket_name, String key_prefix, boolean recursive,
-            boolean pause)
-    {
+                                                String bucket_name, String key_prefix, boolean recursive,
+                                                boolean pause) {
         System.out.println("directory: " + dir_path + (recursive ?
-                    " (recursive)" : "") + (pause ? " (pause)" : ""));
+                " (recursive)" : "") + (pause ? " (pause)" : ""));
 
         TransferManager xfer_mgr = new TransferManager();
         try {
@@ -201,22 +202,21 @@ public class XferMgrProgress
         xfer_mgr.shutdownNow();
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "Usage:\n" +
-            "    XferMgrProgress [--recursive] [--pause] <s3_path> <local_path>\n\n" +
-            "Where:\n" +
-            "    --recursive - Only applied if local_path is a directory.\n" +
-            "                  Copies the contents of the directory recursively.\n\n" +
-            "    --pause     - Attempt to pause+resume the upload. This may not work for\n" +
-            "                  small files.\n\n" +
-            "    s3_path     - The S3 destination (bucket/path) to upload the file(s) to.\n\n" +
-            "    local_path  - The path to a local file or directory path to upload to S3.\n\n" +
-            "Examples:\n" +
-            "    XferMgrProgress public_photos/cat_happy.png my_photos/funny_cat.png\n" +
-            "    XferMgrProgress public_photos my_photos/cat_sad.png\n" +
-            "    XferMgrProgress public_photos my_photos\n\n";
+                "Usage:\n" +
+                "    XferMgrProgress [--recursive] [--pause] <s3_path> <local_path>\n\n" +
+                "Where:\n" +
+                "    --recursive - Only applied if local_path is a directory.\n" +
+                "                  Copies the contents of the directory recursively.\n\n" +
+                "    --pause     - Attempt to pause+resume the upload. This may not work for\n" +
+                "                  small files.\n\n" +
+                "    s3_path     - The S3 destination (bucket/path) to upload the file(s) to.\n\n" +
+                "    local_path  - The path to a local file or directory path to upload to S3.\n\n" +
+                "Examples:\n" +
+                "    XferMgrProgress public_photos/cat_happy.png my_photos/funny_cat.png\n" +
+                "    XferMgrProgress public_photos my_photos/cat_sad.png\n" +
+                "    XferMgrProgress public_photos my_photos\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -229,21 +229,21 @@ public class XferMgrProgress
 
         // first, parse any switches
         while (args[cur_arg].startsWith("--")) {
-           if (args[cur_arg].equals("--recursive")) {
-              recursive = true;
-           } else if (args[cur_arg].equals("--pause")) {
-              pause = true;
-           } else {
-              System.out.println("Unknown argument: " + args[cur_arg]);
-              System.out.println(USAGE);
-              System.exit(1);
-           }
-           cur_arg += 1;
+            if (args[cur_arg].equals("--recursive")) {
+                recursive = true;
+            } else if (args[cur_arg].equals("--pause")) {
+                pause = true;
+            } else {
+                System.out.println("Unknown argument: " + args[cur_arg]);
+                System.out.println(USAGE);
+                System.exit(1);
+            }
+            cur_arg += 1;
         }
 
         // only the first '/' character is of interest to get the bucket name.
         // Subsequent ones are part of the key name.
-        String s3_path[] = args[cur_arg].split("/", 2);
+        String[] s3_path = args[cur_arg].split("/", 2);
         cur_arg += 1;
 
         String bucket_name = s3_path[0];
@@ -259,12 +259,12 @@ public class XferMgrProgress
         if (f.exists() == false) {
             System.out.println("Input path doesn't exist: " + args[cur_arg]);
             System.exit(1);
-        }
-        else if (f.isDirectory()) {
+        } else if (f.isDirectory()) {
             uploadDirWithSubprogress(local_path, bucket_name, key_prefix,
-                  recursive, pause);
+                    recursive, pause);
         } else {
             uploadFileWithListener(local_path, bucket_name, key_prefix, pause);
         }
     }
 }
+// snippet-end:[s3.java1.s3_xfer_mgr_progress.complete]

@@ -1,14 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Creates a stack with an SQS queue, SNS topic, and subscribes the queue to the topic.]
-//snippet-keyword:[CDK V0.13.0]
-//snippet-keyword:[sqs.Queue function]
-//snippet-keyword:[sns.Topic function]
-//snippet-keyword:[Topic.subscribeQueue function]
-//snippet-keyword:[TypeScript]
-//snippet-service:[cdk]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-10-26]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-comment:[This is a full sample when you include HelloCdk-stack.ts, which goes in the lib dir.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Instantiates a stack using HelloCdk-stack]
+// snippet-keyword:[CDK V1.0.0
+// snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
+// snippet-service:[cdk]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-7-11]
 // Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -20,30 +20,11 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
+// snippet-start:[cdk.typescript.HelloCdk]
+import core = require('@aws-cdk/core');
 
-import cdk = require('@aws-cdk/cdk');
-import sns = require('@aws-cdk/aws-sns');
-import sqs = require('@aws-cdk/aws-sqs');
+import { HelloCdkStack } from '../lib/HelloCdk-stack';
 
-class HelloCdkStack extends cdk.Stack {
-    constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-        super(parent, name, props);
-
-        const queue = new sqs.Queue(this, 'HelloCdkQueue', {
-            visibilityTimeoutSec: 300
-        });
-
-        const topic = new sns.Topic(this, 'HelloCdkTopic');
-
-        topic.subscribeQueue(queue);
-    }
-}
-
-class MyApp extends cdk.App {
-    constructor() {
-        super();
-        new HelloCdkStack(this, 'hello-cdk');
-    }
-}
-
-new MyApp().run();
+const app = new core.App();
+new HelloCdkStack(app, 'HelloCdkStack');
+// snippet-end:[cdk.typescript.HelloCdk]

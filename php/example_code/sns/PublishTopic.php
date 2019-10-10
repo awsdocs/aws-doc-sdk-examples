@@ -16,10 +16,13 @@
  *
  *
  */
+// snippet-start:[sns.php.publish_topic.complete]
+// snippet-start:[sns.php.publish_topic.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient;
+use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sns.php.publish_topic.import]
 
 /**
  * Sends a message to an Amazon SNS topic.
@@ -27,7 +30,8 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+// snippet-start:[sns.php.publish_topic.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -46,13 +50,16 @@ try {
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
-}
-//snippet-sourcedescription:[PublishTopic.php demonstrates how to send a message to an SNS Topic.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+} 
+// snippet-end:[sns.php.publish_topic.main]
+// snippet-end:[sns.php.publish_topic.complete]
+// snippet-sourcedescription:[PublishTopic.php demonstrates how to send a message to an SNS Topic.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder]

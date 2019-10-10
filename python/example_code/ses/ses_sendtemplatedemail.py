@@ -36,14 +36,16 @@ response = ses.send_templated_email(
 print(response)
  
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[ses_sendtemplatedemail.py demonstrates how to send a templated email to recipients.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Simple Email Service]
-#snippet-service:[ses]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-08-11]
-#snippet-sourceauthor:[tapasweni-pathak]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[ses_sendtemplatedemail.py demonstrates how to send a templated email to recipients.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Simple Email Service]
+# snippet-service:[ses]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-08-11]
+# snippet-sourceauthor:[tapasweni-pathak]
 

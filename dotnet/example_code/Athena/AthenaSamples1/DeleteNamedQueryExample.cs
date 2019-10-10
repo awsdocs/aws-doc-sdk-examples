@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[DeleteNamedQueryExample.cs demonstrates how to delete a named query by using the named query ID.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

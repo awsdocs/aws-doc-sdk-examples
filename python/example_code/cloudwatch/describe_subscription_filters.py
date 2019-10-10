@@ -24,15 +24,17 @@ for response in paginator.paginate(logGroupName='GROUP_NAME'):
     print(response['subscriptionFilters'])
  
  
-#snippet-end:[cloudwatch.python.describe_subscription_filter.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[describe_subscription_filters.py demonstrates how to list the subscription filters for the specified log group.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[Amazon Cloudwatch Logs]
-#snippet-service:[cloudwatch]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2018-12-26]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-end:[cloudwatch.python.describe_subscription_filter.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[describe_subscription_filters.py demonstrates how to list the subscription filters for the specified log group.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Cloudwatch Logs]
+# snippet-service:[cloudwatch]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-12-26]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

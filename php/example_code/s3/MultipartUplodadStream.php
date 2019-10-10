@@ -16,16 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-multipart-upload.html
  *
  */
-
-
+// snippet-start:[s3.php.multipart_upload_stream.complete]
+// snippet-start:[s3.php.multipart_upload_stream.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
-
-// Create a S3Client
+// snippet-end:[s3.php.multipart_upload_stream.import]
+// snippet-start:[s3.php.multipart_upload_stream.main]
+// Create an S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -50,14 +51,16 @@ do {
     }
 } while (!isset($result));
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[MultipartUplodadStream.php demonstrates how to send a large files to your Amazon S3 Bucket with a stream to minimize errors.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-01-02]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[s3.php.multipart_upload_stream.main]
+// snippet-end:[s3.php.multipart_upload_stream.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[MultipartUplodadStream.php demonstrates how to send a large files to your Amazon S3 Bucket with a stream to minimize errors.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon S3]
+// snippet-service:[s3]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-01-02]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

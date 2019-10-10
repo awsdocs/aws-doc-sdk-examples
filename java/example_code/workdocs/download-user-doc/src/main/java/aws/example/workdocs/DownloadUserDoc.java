@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[download_user_doc.java demonstrates how to download a document from AWS Workdocs.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[full-example]

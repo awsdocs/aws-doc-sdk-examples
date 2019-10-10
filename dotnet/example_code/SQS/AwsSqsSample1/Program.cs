@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsSqsSample1 example demonstrates how to use the various queue and message operations on the Amazon SQS client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
@@ -8,7 +9,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 ﻿/*******************************************************************************
-* Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2009-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License"). You may
 * not use this file except in compliance with the License. A copy of the

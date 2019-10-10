@@ -12,10 +12,13 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+// snippet-start:[sqs.php.change_message_visibility.complete]
+// snippet-start:[sqs.php.change_message_visibility.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.change_message_visibility.import]
 
 /**
  * Changes the visibility timeout of a specified message in a queue to a new value
@@ -23,9 +26,10 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
+// snippet-start:[sqs.php.change_message_visibility.main]
 
 $queueUrl = "QUEUE_URL";
-
+ 
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -54,15 +58,18 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ChangeMessageVisibility.php demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[sqs.php.change_message_visibility.main]
+// snippet-end:[sqs.php.change_message_visibility.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[ChangeMessageVisibility.php demonstrates how to change the visibility timeout of a specified message in a queue to an hour.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Queue Service]
+// snippet-service:[sqs]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

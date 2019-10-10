@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsS3EncryptionClient sample demonstrates how to use the S3 encryption client to encrypt and decrypt data when using S3 operations.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyname:[Amazon Simple Storage Service]
 //snippet-service:[s3]
@@ -8,7 +9,7 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 ﻿/*******************************************************************************
-* Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2009-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License"). You may
 * not use this file except in compliance with the License. A copy of the

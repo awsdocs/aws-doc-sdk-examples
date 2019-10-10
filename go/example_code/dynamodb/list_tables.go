@@ -1,12 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Lists your Amazon DynamoDB tables.]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-keyword:[ListTables function]
-//snippet-keyword:[Go]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Lists your Amazon DynamoDB tables.]
+// snippet-keyword:[Amazon DynamoDB]
+// snippet-keyword:[ListTables function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[dynamodb]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-04-24]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -25,9 +27,9 @@ package main
 
 import (
     "fmt"
-    "os"
 
     "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/awserr"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
 )
@@ -35,27 +37,48 @@ import (
 func main() {
     // Initialize a session in us-west-2 that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
+    sess, _ := session.NewSession(&aws.Config{
         Region: aws.String("us-west-2")},
     )
 
     // Create DynamoDB client
     svc := dynamodb.New(sess)
 
-    // Get the list of tables
-    result, err := svc.ListTables(&dynamodb.ListTablesInput{})
+    // create the input configuration instance
+    input := &dynamodb.ListTablesInput{}
 
-    if err != nil {
-        fmt.Println(err)
-        os.Exit(1)
+    fmt.Printf("Tables:\n")
+
+    for {
+        // Get the list of tables
+        result, err := svc.ListTables(input)
+        if err != nil {
+            if aerr, ok := err.(awserr.Error); ok {
+                switch aerr.Code() {
+                case dynamodb.ErrCodeInternalServerError:
+                    fmt.Println(dynamodb.ErrCodeInternalServerError, aerr.Error())
+                default:
+                    fmt.Println(aerr.Error())
+                }
+            } else {
+                // Print the error, cast err to awserr.Error to get the Code and
+                // Message from an error.
+                fmt.Println(err.Error())
+            }
+            return
+        }
+
+        for _, n := range result.TableNames {
+            fmt.Println(*n)
+        }
+
+        // assign the last read tablename as the start for our next call to the ListTables function
+        // the maximum number of table names returned in a call is 100 (default), which requires us to make
+        // multiple calls to the ListTables function to retrieve all table names
+        input.ExclusiveStartTableName = result.LastEvaluatedTableName
+
+        if result.LastEvaluatedTableName == nil {
+            break
+        }
     }
-
-    fmt.Println("Tables:")
-    fmt.Println("")
-
-    for _, n := range result.TableNames {
-        fmt.Println(*n)
-    }
-
-    fmt.Println("")
 }

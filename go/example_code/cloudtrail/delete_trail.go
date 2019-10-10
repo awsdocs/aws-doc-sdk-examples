@@ -1,12 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Deletes an AWS CloudTrail trail.]
-//snippet-keyword:[AWS CloudTrail]
-//snippet-keyword:[DeleteTrail function]
-//snippet-keyword:[Go]
-//snippet-service:[cloudtrail]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Deletes an AWS CloudTrail trail.]
+// snippet-keyword:[AWS CloudTrail]
+// snippet-keyword:[DeleteTrail function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[cloudtrail]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -54,7 +56,7 @@ func main() {
     // Create CloudTrail client
     svc := cloudtrail.New(sess)
 
-    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: trailNamePtr})
+    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: aws.String(trailName)})
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())

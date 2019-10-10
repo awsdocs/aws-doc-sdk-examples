@@ -1,19 +1,31 @@
- 
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
+
 //snippet-sourcedescription:[ec2_describeaddresses.js demonstrates how to retrieve information about one or more Elastic IP addresses.]
+//snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
-//snippet-sourceauthor:[daviddeyo]
-
-
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// Licensed under the Apache-2.0 License on an "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND.   
+//snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide//ec2-example-elastic-ip-addresses.html
+
+// snippet-start:[ec2.JavaScript.Addresses.describeAddresses]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Set the region 
@@ -23,14 +35,17 @@ AWS.config.update({region: 'REGION'});
 var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 
 var params = {
- Filters: [
-    {Name: "domain", Values: ["vpc"]}
- ]
+  Filters: [
+    {Name: 'domain', Values: ['vpc']}
+  ]
 };
+
+// Retrieve Elastic IP address descriptions
 ec2.describeAddresses(params, function(err, data) {
   if (err) {
     console.log("Error", err);
   } else {
-    console.log("Success", data.Addresses);
+    console.log("Success", JSON.stringify(data.Addresses));
   }
 });
+// snippet-end:[ec2.JavaScript.Addresses.describeAddresses]

@@ -20,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.describe_addresses.complete]
+// snippet-start:[ec2.java2.describe_addresses.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
-
+ 
+// snippet-end:[ec2.java2.describe_addresses.import]
 /**
  * Describes all elastic IP addresses
  */
@@ -31,7 +34,8 @@ public class DescribeAddresses
 {
     public static void main(String[] args)
     {
-    	Ec2Client ec2 = Ec2Client.create();
+        // snippet-start:[ec2.java2.describe_addresses.main]
+        Ec2Client ec2 = Ec2Client.create();
 
         DescribeAddressesResponse response = ec2.describeAddresses();
 
@@ -46,5 +50,8 @@ public class DescribeAddresses
                     address.allocationId(),
                     address.networkInterfaceId());
         }
+        // snippet-end:[ec2.java2.describe_addresses.main]
     }
 }
+ 
+// snippet-end:[ec2.java2.describe_addresses.complete]

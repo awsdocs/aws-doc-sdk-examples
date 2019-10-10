@@ -16,14 +16,14 @@
  *
  *
  */
-//snippet-start:[cloudfront.php.getdistribution.complete]
-//snippet-start:[cloudfront.php.getdistribution.import]
+// snippet-start:[cloudfront.php.getdistribution.complete]
+// snippet-start:[cloudfront.php.getdistribution.import]
 
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[cloudfront.php.getdistribution.import]
+// snippet-end:[cloudfront.php.getdistribution.import]
 
 
 /**
@@ -34,7 +34,7 @@ use Aws\Exception\AwsException;
  */
 
 //Create a CloudFront Client 
-//snippet-start:[cloudfront.php.getdistribution.main]
+// snippet-start:[cloudfront.php.getdistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
@@ -55,16 +55,17 @@ try {
     echo "\n";
 }
  
-//snippet-end:[cloudfront.php.getdistribution.main]
-//snippet-end:[cloudfront.php.getdistribution.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[GetDistribution.php demonstrates how to retrieve an Amazon CloudFront Distribution.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[getDistribution]
-//snippet-keyword:[Amazon CloudFront]
-//snippet-service:[cloudfront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[cloudfront.php.getdistribution.main]
+// snippet-end:[cloudfront.php.getdistribution.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GetDistribution.php demonstrates how to retrieve an Amazon CloudFront Distribution.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[getDistribution]
+// snippet-keyword:[Amazon CloudFront]
+// snippet-service:[cloudfront]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

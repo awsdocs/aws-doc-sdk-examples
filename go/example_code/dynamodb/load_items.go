@@ -1,12 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Adds items from a JSON file to an Amazon DynamoDB table.]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-keyword:[PutItem function]
-//snippet-keyword:[Go]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Adds items from a JSON file to an Amazon DynamoDB table.]
+// snippet-keyword:[Amazon DynamoDB]
+// snippet-keyword:[PutItem function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[dynamodb]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

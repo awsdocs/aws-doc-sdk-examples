@@ -16,20 +16,21 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-working-with-policies.html
  *
  */
-//snippet-start:[iam.php.createpolicy.complete]
-//snippet-start:[iam.php.createpolicy.import]
+// snippet-start:[iam.php.create_policy.complete]
+// snippet-start:[iam.php.create_policy.import]
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
+use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
-//snippet-end:[iam.php.createpolicy.import]
+// snippet-end:[iam.php.create_policy.import]
 /**
  * Creates a new managed policy for your AWS account.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-//snippet-start:[iam.php.createpolicy.main]
+// Create an IAM Client
+// snippet-start:[iam.php.create_policy.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -71,16 +72,17 @@ try {
     error_log($e->getMessage());
 }
  
-//snippet-end:[iam.php.createpolicy.main]
-//snippet-end:[iam.php.createpolicy.complete]
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreatePolicy.php demonstrates how to create a new managed policy for your AWS account.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-end:[iam.php.create_policy.main]
+// snippet-end:[iam.php.create_policy.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[CreatePolicy.php demonstrates how to create a new managed policy for your AWS account.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Identity and Access Management (IAM)]
+// snippet-service:[iam]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

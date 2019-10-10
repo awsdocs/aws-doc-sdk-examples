@@ -1,13 +1,12 @@
- 
 //snippet-sourcedescription:[get_sms_type.cpp demonstrates how to retrieve the settings for sending Amazon SMS messages.]
-//snippet-keyword:[C++]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
+//snippet-keyword:[Amazon Simple Notification Service]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.

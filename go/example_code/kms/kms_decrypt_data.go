@@ -1,12 +1,14 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Decrypts a string that was encrypted by KMS.]
-//snippet-keyword:[AWS Key Management Service]
-//snippet-keyword:[Decrypt function]
-//snippet-keyword:[Go]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Decrypts a string that was encrypted by KMS.]
+// snippet-keyword:[AWS Key Management Service]
+// snippet-keyword:[Decrypt function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[kms]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-03-14]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -32,17 +34,18 @@ import (
 )
 
 func main() {
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // Initialize a session that the SDK uses to load
+    // credentials from the shared credentials file ~/.aws/credentials
+    // and configuration from the shared configuration file ~/.aws/config.
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
     // Create KMS service client
     svc := kms.New(sess)
 
     // Encrypted data
-    blob := []byte{...}
+    blob := []byte("1234567890")
 
     // Decrypt the data
     result, err := svc.Decrypt(&kms.DecryptInput{CiphertextBlob: blob})

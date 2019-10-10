@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+// snippet-start:[secretsmanager.php.listsecrets.complete]
+// snippet-start:[secretsmanager.php.listsecrets.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.listsecrets.import]
 
 /**
  * List the SecretId for each Secret in the account for the selected region.
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client
+//Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.listsecrets.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -45,14 +49,17 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[ListSecrets.php demonstrates how to list secrets available in the current region from AWS Secrets Manager]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[secretsmanager.php.listsecrets.main]
+// snippet-end:[secretsmanager.php.listsecrets.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[ListSecrets.php demonstrates how to list secrets available in the current region from AWS Secrets Manager]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Secrets Manager]
+// snippet-service:[secretsmanager]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

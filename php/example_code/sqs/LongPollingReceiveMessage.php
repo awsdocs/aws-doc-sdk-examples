@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-enable-long-polling.html
  *
  */
+// snippet-start:[sqs.php.long_polling_recieve_message.complete]
+// snippet-start:[sqs.php.long_polling_recieve_message.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.long_polling_recieve_message.import]
 
 /**
  * Receive SQS Queue with Long Polling
@@ -27,8 +30,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[sqs.php.long_polling_recieve_message.main]
 $queueUrl = "QUEUE_URL";
+ 
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -50,15 +54,18 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[LongPollingReceiveMessage.php demonstrates how to retrieve a message from a specified queue with a 20 second delay to reduce the number of empty responses returned.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[sqs.php.long_polling_recieve_message.main]
+// snippet-end:[sqs.php.long_polling_recieve_message.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[LongPollingReceiveMessage.php demonstrates how to retrieve a message from a specified queue with a 20 second delay to reduce the number of empty responses returned.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Queue Service]
+// snippet-service:[sqs]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

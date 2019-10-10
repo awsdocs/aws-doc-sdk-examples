@@ -15,11 +15,17 @@
  * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/emc-examples-jobs.html
  *
+ *
+ *
  */
+// snippet-start:[mediaconvert.php.create_job.complete]
+// snippet-start:[mediaconvert.php.create_job.import]
+
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;
+use Aws\MediaConvert\MediaConvertClient;  
 use Aws\Exception\AwsException;
+// snippet-end:[mediaconvert.php.create_job.import]
 
 /**
  * Create a Job for AWS Elemental MediaConvert.
@@ -28,14 +34,16 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create an AWSMediaConvert client object with your account specific endpoint. 
+//Create an AWSMediaConvert client object with your account specific endpoint.  
+// snippet-start:[mediaconvert.php.create_job.region]
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',
     'profile' => 'default',
     'endpoint' => 'ACCOUNT_ENDPOINT'
 ]);
-
+// snippet-end:[mediaconvert.php.create_job.region]
+// snippet-start:[mediaconvert.php.create_job.jobsettings]
 $jobSetting = [
     "OutputGroups" => [
         [
@@ -160,7 +168,8 @@ $jobSetting = [
         "Source" => "EMBEDDED"
     ]
 ]
-
+// snippet-end:[mediaconvert.php.create_job.jobsettings]
+// snippet-start:[mediaconvert.php.create_job.main]
 try {
     $result = $mediaConvertClient->createJob([
         "Role" => "IAM_ROLE_ARN",
@@ -175,15 +184,18 @@ try {
     echo $e->getMessage();
     echo "\n";
 } 
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[CreateJob.php demonstrates how to create a customized AWS Elemental MediaConvert Job.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Elemental MediaConvert]
-//snippet-service:[mediaconvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[mediaconvert.php.create_job.main]
+// snippet-end:[mediaconvert.php.create_job.complete] 
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[CreateJob.php demonstrates how to create a customized AWS Elemental MediaConvert Job.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Elemental MediaConvert]
+// snippet-service:[mediaconvert]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

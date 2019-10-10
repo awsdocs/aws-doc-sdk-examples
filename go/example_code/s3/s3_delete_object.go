@@ -1,14 +1,16 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Deletes an item from an S3 bucket.]
-//snippet-keyword:[Amazon Simple Storage Service]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[DeleteObject function]
-//snippet-keyword:[WaitUntilObjectNotExists function]
-//snippet-keyword:[Go]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Deletes an item from an S3 bucket.]
+// snippet-keyword:[Amazon Simple Storage Service]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[DeleteObject function]
+// snippet-keyword:[WaitUntilObjectNotExists function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[s3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -67,7 +69,7 @@ func main() {
         Key:    aws.String(obj),
     })
     if err != nil {
-        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
+        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj, err)
     }
 
     fmt.Printf("Object %q successfully deleted\n", obj)

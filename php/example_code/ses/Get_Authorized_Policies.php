@@ -16,13 +16,17 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-sender-policy.html
  *
  */
+// snippet-start:[ses.php.get_authorized_policies.complete]
+// snippet-start:[ses.php.get_authorized_policies.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.get_authorized_policies.import]
 
 //Create a SESClient
+// snippet-start:[ses.php.get_authorized_policies.main]
 $SesClient = new SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
@@ -44,15 +48,18 @@ try {
     echo "\n";
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[Get_Authorized_Policies.php demonstrates how to retrieve the sending authorization policies that are associated with a specific email identity or domain identity.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Email Service]
-//snippet-service:[ses]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[ses.php.get_authorized_policies.main]
+// snippet-end:[ses.php.get_authorized_policies.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[Get_Authorized_Policies.php demonstrates how to retrieve the sending authorization policies that are associated with a specific email identity or domain identity.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Email Service]
+// snippet-service:[ses]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

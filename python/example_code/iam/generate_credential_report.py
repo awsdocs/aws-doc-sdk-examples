@@ -22,15 +22,17 @@ response = client.generate_credential_report()
 
 print(response)
 
-#snippet-end:[iam.python.generate_credential_report.complete]
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[generate_credential_report.py demonstrates how to generate a credential report for the AWS account.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS Identity and Access Management (IAM)]
-#snippet-service:[iam]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[]
-#snippet-sourceauthor:[jschwarzwalder (AWS)]
+# snippet-end:[iam.python.generate_credential_report.complete]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[generate_credential_report.py demonstrates how to generate a credential report for the AWS account.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS Identity and Access Management (IAM)]
+# snippet-service:[iam]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
 

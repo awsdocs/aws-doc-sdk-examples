@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[ExampleConstants.cs contains definitions for constants used in Athena examples.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

@@ -16,10 +16,13 @@
  *
  *
  */
+// snippet-start:[sns.php.confirm_subscription.complete]
+// snippet-start:[sns.php.confirm_subscription.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient;
+use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sns.php.confirm_subscription.import]
 
 /**
  * Verifies an endpoint owner's intent to receive messages by validating the token sent to the endpoint by an earlier Subscribe action.
@@ -27,7 +30,8 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+// snippet-start:[sns.php.confirm_subscription.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -46,13 +50,16 @@ try {
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
-}
-//snippet-sourcedescription:[ConfirmSubscription.php demonstrates how to send a confirmation token to a AWS SNS topic.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-20]
-//snippet-sourceauthor:[jschwarzwalder]
+} 
+// snippet-end:[sns.php.confirm_subscription.main]
+// snippet-end:[sns.php.confirm_subscription.complete]
+// snippet-sourcedescription:[ConfirmSubscription.php demonstrates how to send a confirmation token to a AWS SNS topic.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-service:[sns]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-20]
+// snippet-sourceauthor:[jschwarzwalder]

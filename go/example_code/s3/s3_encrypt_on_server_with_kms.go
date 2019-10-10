@@ -1,13 +1,15 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Adds an item to an S3 bucket with server-side encryption set to AWS KMS.]
-//snippet-keyword:[Amazon Simple Storage Service]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[PutObject function]
-//snippet-keyword:[Go]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Adds an item to an S3 bucket with server-side encryption set to AWS KMS.]
+// snippet-keyword:[Amazon Simple Storage Service]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[PutObject function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[s3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -68,5 +70,5 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Added object " + obj + " to bucket " + bucket + " with AWS KMS encryption")
+    fmt.Println("Added object " + object + " to bucket " + bucket + " with AWS KMS encryption")
 }

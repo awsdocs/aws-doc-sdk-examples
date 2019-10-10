@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-enable-long-polling.html
  *
  */
+// snippet-start:[sqs.php.long_polling_set_queue_attributes.complete]
+// snippet-start:[sqs.php.long_polling_set_queue_attributes.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.long_polling_set_queue_attributes.import]
 
 /**
  * Set attribute in SQS queue to enable long polling
@@ -27,8 +30,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[sqs.php.long_polling_set_queue_attributes.main]
 $queueUrl = "QUEUE_URL";
+ 
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -49,15 +53,18 @@ try {
     error_log($e->getMessage());
 }
  
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[LongPollingSetQueueAttributes.php demonstrates how to set the default number of seconds to wait between retieving a message to reduce the number of empty responses returned and thus your bill.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-12-27]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[sqs.php.long_polling_set_queue_attributes.main]
+// snippet-end:[sqs.php.long_polling_set_queue_attributes.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[LongPollingSetQueueAttributes.php demonstrates how to set the default number of seconds to wait between retrieving a message to reduce the number of empty responses returned and thus your bill.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Simple Queue Service]
+// snippet-service:[sqs]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-12-27]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

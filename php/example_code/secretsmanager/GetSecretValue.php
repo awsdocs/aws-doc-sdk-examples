@@ -16,10 +16,14 @@
  * https://aws.amazon.com/developers/getting-started/php/
  *
  */
+// snippet-start:[secretsmanager.php.get_secret_value.complete]
+// snippet-start:[secretsmanager.php.get_secret_value.import]
+
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.get_secret_value.import]
 
 /**
  * In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
@@ -30,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a Secrets Manager Client
+// Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.get_secret_value.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -47,28 +52,28 @@ try {
 } catch (AwsException $e) {
     $error = $e->getAwsErrorCode();
     if ($error == 'DecryptionFailureException') {
-        // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
-        // Deal with the exception here, and/or rethrow at your discretion.
+        // Secrets Manager can't decrypt the protected secret text using the provided AWS KMS key.
+        // Handle the exception here, and/or rethrow as needed.
         throw $e;
     }
     if ($error == 'InternalServiceErrorException') {
         // An error occurred on the server side.
-        // Deal with the exception here, and/or rethrow at your discretion.
+        // Handle the exception here, and/or rethrow as needed.
         throw $e;
     }
     if ($error == 'InvalidParameterException') {
         // You provided an invalid value for a parameter.
-        // Deal with the exception here, and/or rethrow at your discretion.
+        // Handle the exception here, and/or rethrow as needed.
         throw $e;
     }
     if ($error == 'InvalidRequestException') {
         // You provided a parameter value that is not valid for the current state of the resource.
-        // Deal with the exception here, and/or rethrow at your discretion.
+        // Handle the exception here, and/or rethrow as needed.
         throw $e;
     }
     if ($error == 'ResourceNotFoundException') {
         // We can't find the resource that you asked for.
-        // Deal with the exception here, and/or rethrow at your discretion.
+        // Handle the exception here, and/or rethrow as needed.
         throw $e;
     }
 }
@@ -81,15 +86,18 @@ if (isset($result['SecretString'])) {
 }
 
 // Your code goes here; 
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-09-25]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[secretsmanager.php.get_secret_value.main]
+// snippet-end:[secretsmanager.php.get_secret_value.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Secrets Manager]
+// snippet-service:[secretsmanager]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-09-25]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

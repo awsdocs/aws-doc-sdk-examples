@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+// snippet-start:[secretsmanager.php.attach_label.complete]
+// snippet-start:[secretsmanager.php.attach_label.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.attach_label.import]
 
 /**
  * Add a staging label to a version of an AWS Secret Manager Secret.  
@@ -31,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client
+//Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.attach_label.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -54,14 +58,17 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[AttachLabel.php demonstrates how to add a label to a version of a secret in AWS Secrets Manager.]
-//snippet-keyword:[PHP]
-//snippet-keyword:[AWS SDK for PHP v3]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Secrets Manager]
-//snippet-service:[secretsmanager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-08]
-//snippet-sourceauthor:[jschwarzwalder (AWS)]
+ 
+// snippet-end:[secretsmanager.php.attach_label.main]
+// snippet-end:[secretsmanager.php.attach_label.complete]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[AttachLabel.php demonstrates how to add a label to a version of a secret in AWS Secrets Manager.]
+// snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
+// snippet-keyword:[AWS SDK for PHP v3]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS Secrets Manager]
+// snippet-service:[secretsmanager]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2018-11-08]
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

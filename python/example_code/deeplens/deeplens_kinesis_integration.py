@@ -27,16 +27,19 @@ my_stream.start()
 time.sleep(wait_time_sec)
 my_stream.stop()
 
-#snippet-end:[deeplens.python.deeplens_kinesis_integration.test_install]
+# snippet-end:[deeplens.python.deeplens_kinesis_integration.test_install]
 
 
-#snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-#snippet-sourcedescription:[deeplens_kinesis_integration.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-#snippet-keyword:[Python]
-#snippet-keyword:[AWS SDK for Python (Boto3)]
-#snippet-keyword:[Code Sample]
-#snippet-keyword:[AWS DeepLens]
-#snippet-service:[deeplens]
-#snippet-sourcetype:[full-example]
-#snippet-sourcedate:[2019-01-07]
-#snippet-sourceauthor:[AWS]
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_kinesis_integration.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS Kinesis]
+# snippet-keyword:[AWS Lambda]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[AWS DeepLens]
+# snippet-service:[deeplens]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]

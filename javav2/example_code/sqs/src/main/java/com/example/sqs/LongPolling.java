@@ -5,8 +5,9 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[sqs.java2.long_polling.complete]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +20,7 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
+// snippet-start:[sqs.java2.long_polling.import]
 package com.example.sqs;
 import java.util.HashMap;
 
@@ -29,6 +31,8 @@ import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
+// snippet-end:[sqs.java2.long_polling.import]
+// snippet-start:[sqs.java2.long_polling.main]
 public class LongPolling
 {
     public static void main(String[] args)
@@ -78,3 +82,5 @@ public class LongPolling
         sqs.receiveMessage(receive_request);
     }
 }
+// snippet-end:[sqs.java2.long_polling.main]
+// snippet-end:[sqs.java2.long_polling.complete]

@@ -1,13 +1,15 @@
-//snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourceauthor:[Doug-AWS]
-//snippet-sourcedescription:[Lists the items in an S3 bucket.]
-//snippet-keyword:[Amazon Simple Storage Service]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[ListObjects function]
-//snippet-keyword:[Go]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-03-16]
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Lists the items in an S3 bucket.]
+// snippet-keyword:[Amazon Simple Storage Service]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[ListObjectsV2 function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[s3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-04-06]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -54,7 +56,7 @@ func main() {
     svc := s3.New(sess)
 
     // Get the list of items
-    resp, err := svc.ListObjects(&s3.ListObjectsInput{Bucket: aws.String(bucket)})
+    resp, err := svc.ListObjectsV2(&s3.ListObjectsV2Input{Bucket: aws.String(bucket)})
     if err != nil {
         exitErrorf("Unable to list items in bucket %q, %v", bucket, err)
     }
