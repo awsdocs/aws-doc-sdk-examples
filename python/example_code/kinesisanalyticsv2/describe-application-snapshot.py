@@ -13,14 +13,32 @@
 
 import boto3
 
-# Create kinesisanalyticsv2 client
-client = boto3.client('kinesisanalyticsv2')
+import sys
 
-# Describe the snapshot details
-client.describe_application_snapshot(
-    ApplicationName='APPLICATION_NAME',
-    SnapshotName='SNAPSHOT_NAME'
-)
+from botocore.exceptions import ClientError
+
+arguments = len(sys.argv) - 1
+
+if arguments < 2:
+    print("You must supply an application name and snapshot name")
+else:
+
+    application_name = sys.argv[1]
+    snapshot_name = sys.argv[2]
+
+
+    # Create kinesisanalyticsv2 client
+    client = boto3.client('kinesisanalyticsv2')
+
+    # Describe the snapshot details
+    try:
+        client.describe_application_snapshot(
+            ApplicationName=application_name,
+            SnapshotName=snapshot_name
+        )
+
+    except ClientError as e:
+        print("Got the following error calling describe_application_snapshot: {}".format(e))
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe-application-snapshot.py demonstrates how to get information about a snapshot of application state data]

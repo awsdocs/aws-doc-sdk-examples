@@ -13,13 +13,30 @@
 
 import boto3
 
-# Create kinesisanalyticsv2 client
-client = boto3.client('kinesisanalyticsv2')
+import sys
 
-# Stop the Application 
-client.stop_application(
-    ApplicationName='APPLICATION_NAME'
-)
+from botocore.exceptions import ClientError
+
+arguments = len(sys.argv) - 1
+
+if arguments < 1:
+    print("You must supply an application name")
+
+else:
+
+    application_name = sys.argv[1]
+
+    # Create kinesisanalyticsv2 client
+    client = boto3.client('kinesisanalyticsv2')
+
+    # Stop the Application
+    try:
+        client.stop_application(
+            ApplicationName=application_name
+        )
+    except ClientError as e:
+        print("Got the following error calling stop_application: {}".format(e))
+
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[stop-application.py demonstrates how to stop a particular Kinesis Data Alanytics Application]

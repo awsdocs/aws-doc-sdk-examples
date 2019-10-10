@@ -12,14 +12,28 @@
 
 
 import boto3
+import sys
 
-# Create kinesisanalyticsv2 client
-client = boto3.client('kinesisanalyticsv2')
+from botocore.exceptions import ClientError
 
-# Describe the Application details
-client.describe_application(
-    ApplicationName='APPLICATION_NAME'
-)
+arguments = len(sys.argv) - 1
+
+if arguments < 1:
+    print("You must supply an application name")
+
+else:
+    application_name = sys.argv[1]
+
+    # Create kinesisanalyticsv2 client
+    client = boto3.client('kinesisanalyticsv2')
+
+    # Describe the Application details
+    try:
+        client.describe_application(
+        ApplicationName=application_name
+        )
+    except ClientError as e:
+        print("Got the following error calling describe_application: {}".format(e))
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[describe-application.py demonstrates how to get the details of a particular Kinesis Data Alanytics Application]
