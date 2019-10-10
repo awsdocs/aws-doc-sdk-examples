@@ -79,7 +79,7 @@ namespace AWS.Samples
             var launchRequest = new RunInstancesRequest()
             {
                 ImageId = amiID,
-                InstanceType = InstanceType.T1Micro,
+                InstanceType = InstanceType.T2Micro,
                 MinCount = 1,
                 MaxCount = 1,
                 KeyName = keyPairName,

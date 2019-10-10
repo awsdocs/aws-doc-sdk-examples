@@ -217,7 +217,7 @@ namespace Ec2SpotCrud
         {
             // Values that aren't easy to pass on the command line
             RegionEndpoint region = Amazon.RegionEndpoint.USWest2;
-            InstanceType instanceType = InstanceType.T1Micro;
+            InstanceType instanceType = InstanceType.T2Micro;
             
             // Default values for optional command-line args
             string securityGroupName = "default";
