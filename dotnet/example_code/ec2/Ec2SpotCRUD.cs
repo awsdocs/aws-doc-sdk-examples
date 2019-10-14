@@ -7,7 +7,7 @@
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[Sep 20, 2019]
+//snippet-sourcedate:[Oct 10, 2019]
 //snippet-sourceauthor:[Doug-AWS]
 /*******************************************************************************
 * Copyright 2009-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -63,7 +63,7 @@ namespace Ec2SpotCrud
          *
          * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2RequestSpotInstancesRequestSpotInstancesRequest.html
          */
-        public static SpotInstanceRequest RequestSpotInstance(
+        private static SpotInstanceRequest RequestSpotInstance(
             AmazonEC2Client ec2Client,
             string amiId,
             string securityGroupName,
@@ -87,9 +87,9 @@ namespace Ec2SpotCrud
 
             request.LaunchSpecification = launchSpecification;
 
-            RequestSpotInstancesResponse result = ec2Client.RequestSpotInstances(request);
+            var result = ec2Client.RequestSpotInstancesAsync(request);
 
-            return result.SpotInstanceRequests[0];
+            return result.Result.SpotInstanceRequests[0];
         }
         // snippet-end:[ec2.dotnet.spot_instance_request_spot_instance]
 
@@ -101,7 +101,7 @@ namespace Ec2SpotCrud
          *
          * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2DescribeSpotInstanceRequests.html
          */
-        public static SpotInstanceState GetSpotRequestState(
+        private static SpotInstanceState GetSpotRequestState(
             AmazonEC2Client ec2Client,
             string spotRequestId)
         {
@@ -111,9 +111,9 @@ namespace Ec2SpotCrud
             request.SpotInstanceRequestIds.Add(spotRequestId);
 
             // Retrieve the request we want to monitor.
-            var describeResponse = ec2Client.DescribeSpotInstanceRequests(request);
+            var describeResponse = ec2Client.DescribeSpotInstanceRequestsAsync(request);
 
-            SpotInstanceRequest req = describeResponse.SpotInstanceRequests[0];
+            SpotInstanceRequest req = describeResponse.Result.SpotInstanceRequests[0];
 
             return req.State;
         }
@@ -127,7 +127,7 @@ namespace Ec2SpotCrud
          *
          * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2CancelSpotInstanceRequestsCancelSpotInstanceRequestsRequest.html
          */
-        public static void CancelSpotRequest(
+        private static void CancelSpotRequest(
             AmazonEC2Client ec2Client,
             string spotRequestId)
         {
@@ -135,7 +135,7 @@ namespace Ec2SpotCrud
 
             cancelRequest.SpotInstanceRequestIds.Add(spotRequestId);
 
-            ec2Client.CancelSpotInstanceRequests(cancelRequest);
+            ec2Client.CancelSpotInstanceRequestsAsync(cancelRequest);
         }
         // snippet-end:[ec2.dotnet.spot_instance_cancel_spot_request]
 
@@ -147,7 +147,7 @@ namespace Ec2SpotCrud
          *
          * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2TerminateInstancesTerminateInstancesRequest.html
          */
-        public static void TerminateSpotInstance(
+        private static void TerminateSpotInstance(
             AmazonEC2Client ec2Client,
             string spotRequestId)
         {
@@ -155,18 +155,18 @@ namespace Ec2SpotCrud
             describeRequest.SpotInstanceRequestIds.Add(spotRequestId);
 
             // Retrieve the request we want to monitor.
-            var describeResponse = ec2Client.DescribeSpotInstanceRequests(describeRequest);
+            var describeResponse = ec2Client.DescribeSpotInstanceRequestsAsync(describeRequest);
 
-            if (SpotInstanceState.Active == describeResponse.SpotInstanceRequests[0].State)
+            if (SpotInstanceState.Active == describeResponse.Result.SpotInstanceRequests[0].State)
             {
-                string instanceId = describeResponse.SpotInstanceRequests[0].InstanceId;
+                string instanceId = describeResponse.Result.SpotInstanceRequests[0].InstanceId;
 
                 var terminateRequest = new TerminateInstancesRequest();
                 terminateRequest.InstanceIds = new List<string>() { instanceId };
 
                 try
                 {
-                    var terminateResponse = ec2Client.TerminateInstances(terminateRequest);
+                    ec2Client.TerminateInstancesAsync(terminateRequest);
                 }
                 catch (AmazonEC2Exception ex)
                 {
@@ -215,9 +215,9 @@ namespace Ec2SpotCrud
          */
         static void Main(string[] args)
         {
-            // Values that aren't easy to pass on the command line
-            RegionEndpoint region = Amazon.RegionEndpoint.USWest2;
-            InstanceType instanceType = InstanceType.T2Micro;
+            // Values that aren't easy to pass on the command line            
+            RegionEndpoint region = RegionEndpoint.USWest2;
+            InstanceType instanceType = InstanceType.T1Micro;
             
             // Default values for optional command-line args
             string securityGroupName = "default";
@@ -284,7 +284,7 @@ namespace Ec2SpotCrud
                 return;
             }
 
-            AmazonEC2Client ec2Client = new AmazonEC2Client(region: Amazon.RegionEndpoint.USWest2);
+            AmazonEC2Client ec2Client = new AmazonEC2Client(region: region);
 
             Console.WriteLine("Creating spot instance request");
 
@@ -334,7 +334,7 @@ namespace Ec2SpotCrud
 
             Console.WriteLine("Done. Press enter to quit");
 
-            string resp = Console.ReadLine();
+            Console.ReadLine();
         }
         // snippet-end:[ec2.dotnet.spot_instance_main]        
     }
