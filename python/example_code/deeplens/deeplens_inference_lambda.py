@@ -33,6 +33,13 @@ import cv2
 import greengrasssdk
 
 # snippet-end:[deeplens.python.deeplens_inference_lambda.import]
+#snippet-start:[deeplens.python.deeplens_inference_lambda.lambda_handler]
+
+def lambda_handler(event, context):
+    """Empty entry point to the Lambda function invoked from the edge."""
+    return
+
+#snippet-end:[deeplens.python.deeplens_inference_lambda.lambda_handler]
 # snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
 class LocalDisplay(Thread):
@@ -97,7 +104,7 @@ class LocalDisplay(Thread):
 
 # snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
 def infinite_infer_run():
-    """ Entry point of the lambda function"""
+    """ Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
         # of labels is small, create a dictionary that converts the machine
@@ -186,6 +193,10 @@ import awscam
 import cv2
 import greengrasssdk
 
+def lambda_handler(event, context):
+    """Empty entry point to the Lambda function invoked from the edge."""
+    return
+
 class LocalDisplay(Thread):
     """ Class for facilitating the local display of inference results
         (as images). The class is designed to run on its own thread. In
@@ -246,7 +257,7 @@ class LocalDisplay(Thread):
         self.stop_request.set()
 
 def infinite_infer_run():
-    """ Entry point of the lambda function"""
+    """ Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
         # of labels is small, create a dictionary that converts the machine
