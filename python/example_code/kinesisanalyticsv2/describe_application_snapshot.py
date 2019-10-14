@@ -10,36 +10,39 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+"""
+Usage: python describe_application_snapshot.py
+"""
 
-import boto3
 import sys
+import boto3
 
 from botocore.exceptions import ClientError
 
-arguments = len(sys.argv) - 1
+ARGUMENTS = len(sys.argv) - 1
 
-if arguments < 1:
-    print("You must supply an application name")
-
+if ARGUMENTS < 2:
+    print("You must supply an application name and snapshot name")
 else:
-    application_name = sys.argv[1]
+    APPLICATION_NAME = sys.argv[1]
+    SNAPSHOT_NAME = sys.argv[2]
 
     # Create kinesisanalyticsv2 client
-    client = boto3.client('kinesisanalyticsv2')
+    CLIENT = boto3.client('kinesisanalyticsv2')
 
-    # Describe the Application details
+    # Describe the snapshot details
     try:
-        resp = client.describe_application(
-        ApplicationName=application_name
+        RESP = CLIENT.describe_application_snapshot(
+            ApplicationName=APPLICATION_NAME,
+            SnapshotName=SNAPSHOT_NAME
         )
-        print(resp)
-    except ClientError as e:
-        print("Got the following error calling describe_application: {}".format(e))
+        print(RESP)
 
-# Usage python describe-application.py appname
+    except ClientError as client_error:
+        print("Got the following error calling describe_application_snapshot: {}".format(client_error))
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[describe-application.py demonstrates how to get the details of a particular Kinesis Data Alanytics Application]
+# snippet-sourcedescription:[describe-application-snapshot.py demonstrates how to get information about a snapshot of application state data]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
 # snippet-sourcesyntax:[python]
@@ -48,5 +51,5 @@ else:
 # snippet-keyword:[AWS KinesisAnalyticsV2]
 # snippet-service:[kinesisanalyticsv2]
 # snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-10-04]
+# snippet-sourcedate:[2019-10-14]
 # snippet-sourceauthor:[nprajilesh]
