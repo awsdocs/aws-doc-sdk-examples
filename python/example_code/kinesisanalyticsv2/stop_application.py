@@ -10,42 +10,36 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-
-import boto3
+"""
+Usage: python stop_application.py appname
+"""
 
 import sys
+import boto3
 
 from botocore.exceptions import ClientError
 
-arguments = len(sys.argv) - 1
+ARGUMENTS = len(sys.argv) - 1
 
-if arguments < 2:
-    print("You must supply an application name and snapshot name")
+if ARGUMENTS < 1:
+    print("You must supply an application name")
 else:
-
-    application_name = sys.argv[1]
-    snapshot_name = sys.argv[2]
+    APPLICATION_NAME = sys.argv[1]
 
     # Create kinesisanalyticsv2 client
-    client = boto3.client('kinesisanalyticsv2')
+    CLIENT = boto3.client('kinesisanalyticsv2')
 
-    # Describe the snapshot details
+    # Stop the Application
     try:
-        resp = client.describe_application_snapshot(
-            ApplicationName=application_name,
-            SnapshotName=snapshot_name
+        RESP = CLIENT.stop_application(
+            ApplicationName=APPLICATION_NAME
         )
-        print(resp)
-
-    except ClientError as e:
-        print("Got the following error calling describe_application_snapshot: {}".format(e))
-
-
-
-# Usage python describe-application-snapshot.py appname snapshotname
+        print(RESP)
+    except ClientError as client_error:
+        print("Got the following error calling stop_application: {}".format(client_error))
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[describe-application-snapshot.py demonstrates how to get information about a snapshot of application state data]
+# snippet-sourcedescription:[stop-application.py demonstrates how to stop a particular Kinesis Data Alanytics Application]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
 # snippet-sourcesyntax:[python]
