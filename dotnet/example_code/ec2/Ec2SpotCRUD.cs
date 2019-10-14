@@ -215,7 +215,7 @@ namespace Ec2SpotCrud
          */
         static void Main(string[] args)
         {
-            // Values that aren't easy to pass on the command line
+            // Values that aren't easy to pass on the command line            
             RegionEndpoint region = RegionEndpoint.USWest2;
             InstanceType instanceType = InstanceType.T1Micro;
             
