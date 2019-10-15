@@ -2,11 +2,11 @@ const aws = require('aws-sdk');
 const connect = new aws.Connect();
 
 let params = {
-        InstanceId: "1e8f045a-d7f1-4405-96c1-66701c25fd32",
-        EndTime: 1571184000,
-        StartTime:1571153400,
+        InstanceId: "Provide your connect instance id",
+        EndTime: 1571184000,	//enter a new end time
+        StartTime:1571153400,	//enter a new start time
         Filters:{
-            Queues:["943031b0-62ce-49a7-8688-9e84accd94fc"],
+            Queues:["Provide your connect instance queue id"],
             Channels:["VOICE"]
         },
         HistoricalMetrics : [
