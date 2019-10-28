@@ -149,7 +149,7 @@ public class TranscribeStreamingDemoApp {
         @Override
         public void subscribe(Subscriber<? super AudioStream> s) {
 
-            if (s.currentSubscription == null) {
+            if (this.currentSubscription == null) {
                 this.currentSubscription = new SubscriptionImpl(s, inputStream);
             } else {
                 this.currentSubscription.cancel();
