@@ -23,19 +23,19 @@
 # snippet-start:[cdk.python.bucket]
 from aws_cdk import (
     aws_s3 as s3,
-    core as cdk,
+    core,
 )
 
 
-class S3Stack(cdk.Stack):
-    def __init__(self, app: cdk.App, id: str) -> None:
+class S3Stack(core.Stack):
+    def __init__(self, app: core.App, id: str) -> None:
         super().__init__(app, id)
 
         bucket = aws_s3.Bucket(
             self, "MyBucket",
             versioned=True)
 
-app = cdk.App()
+app = core.App()
 S3Stack(app, "MyStack")
 app.run()
 # snippet-end:[cdk.python.bucket]
