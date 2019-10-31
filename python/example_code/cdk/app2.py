@@ -23,7 +23,7 @@
 # snippet-start:[cdk.python.bucket2]
 from aws_cdk import (
     aws_s3 as s3,
-    core as cdk,
+    cdk,
 )
 
 
