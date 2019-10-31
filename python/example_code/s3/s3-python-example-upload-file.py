@@ -10,14 +10,31 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+
 import boto3
 
-# Create an S3 client
-S3 = boto3.client('s3')
 
-SOURCE_FILENAME = 'filename'
-BUCKET_NAME = 'bucket-name'
+# Create an S3 client
+s3 = boto3.client('s3')
+
+filename = 'file.txt'
+bucket_name = 'my-bucket'
 
 # Uploads the given file using a managed uploader, which will split up large
 # files automatically and upload parts in parallel.
-S3.upload_file(SOURCE_FILENAME, BUCKET_NAME, SOURCE_FILENAME)
+s3.upload_file(source_filename, bucket_name, key_name)
+ 
+
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[s3-python-example-upload-file.py demonstrates how to add a file (or object) to an Amazon S3 bucket.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon S3]
+# snippet-service:[s3]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2018-06-25]
+# snippet-sourceauthor:[jschwarzwalder (AWS)]
+
