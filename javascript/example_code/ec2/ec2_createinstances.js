@@ -37,7 +37,7 @@ var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 // AMI is amzn-ami-2011.09.1.x86_64-ebs
 var instanceParams = {
    ImageId: 'AMI_ID', 
-   InstanceType: 't1.micro',
+   InstanceType: 't2.micro',
    KeyName: 'KEY_PAIR_NAME',
    MinCount: 1,
    MaxCount: 1

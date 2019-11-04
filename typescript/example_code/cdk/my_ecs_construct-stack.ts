@@ -50,7 +50,7 @@ export class MyEcsConstructStack extends core.Stack {
       cluster: cluster, // Required
       cpu: 512, // Default is 256
       desiredCount: 6, // Default is 1
-      image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"), // Required
+      taskImageOptions: { image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample") },
       memoryLimitMiB: 2048, // Default is 512
       publicLoadBalancer: true // Default is false
     });
