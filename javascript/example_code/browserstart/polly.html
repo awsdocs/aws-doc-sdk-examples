@@ -37,7 +37,7 @@
     <div id="textToSynth">
       <input autofocus size="23" type="text" id="textEntry" value="It's very good to meet you."/>
       <button class="btn default" onClick="speakText()">Synthesize</button>
-      <p id="result">Enter text above then click Synthesize</p>
+      <p id="result">Enter text above, and then choose Synthesize</p>
     </div>
     <audio id="audioPlayback" controls>
       <source id="audioSource" type="audio/mp3" src="">
@@ -64,7 +64,7 @@
             // snippet-end:[Polly.HTML.BrowserExample.config]
             
             // snippet-start:[Polly.HTML.BrowserExample.synthesize]
-            // Create the Polly service object and presigner object
+            // Create the Amazon Polly service object and presigner object
             var polly = new AWS.Polly({apiVersion: '2016-06-10'});
             var signer = new AWS.Polly.Presigner(speechParams, polly)
         
