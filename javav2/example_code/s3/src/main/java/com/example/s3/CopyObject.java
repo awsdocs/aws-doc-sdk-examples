@@ -39,7 +39,7 @@ import java.nio.charset.StandardCharsets;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-// snippet-start:[s3.java2.copy_object.main]
+
 public class CopyObject
 {
     public static void main(String[] args)
@@ -54,7 +54,7 @@ public class CopyObject
             System.out.println(USAGE);
             System.exit(1);
         }
-
+        // snippet-start:[s3.java2.copy_object.main]
         String object_key = args[0];
         String from_bucket = args[1];
         String to_bucket = args[2];
