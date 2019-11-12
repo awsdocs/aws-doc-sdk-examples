@@ -69,7 +69,7 @@ public class CreateAdminUser {
                                 .name("email")
                                 .value(email)
                                 .build())
-                        .messageAction("SURPRESS")
+                        .messageAction("SUPPRESS")
                         .build()
         );
 
