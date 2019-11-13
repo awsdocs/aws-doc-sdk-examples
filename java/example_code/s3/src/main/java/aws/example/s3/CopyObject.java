@@ -84,8 +84,9 @@ public class CopyObject
             System.exit(1);
         }
         System.out.println("Done!");
+       // snippet-end:[s3.java2.copy_object.main]
     }
 }
  
-// snippet-end:[s3.java2.copy_object.main]
+
 // snippet-end:[s3.java2.copy_object.complete]
