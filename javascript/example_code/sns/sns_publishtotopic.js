@@ -43,7 +43,7 @@ var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params)
 // Handle promise's fulfilled/rejected states
 publishTextPromise.then(
   function(data) {
-    console.log("Message ${params.Message} send sent to the topic ${params.TopicArn}");
+    console.log(`Message ${params.Message} send sent to the topic ${params.TopicArn}`);
     console.log("MessageID is " + data.MessageId);
   }).catch(
     function(err) {
