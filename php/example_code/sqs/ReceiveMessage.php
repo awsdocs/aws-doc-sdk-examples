@@ -48,7 +48,7 @@ try {
         'QueueUrl' => $queueUrl, // REQUIRED
         'WaitTimeSeconds' => 0,
     ));
-    if (count($result->get('Messages')) > 0) {
+    if (!empty($result->get('Messages'))) {
         var_dump($result->get('Messages')[0]);
         $result = $client->deleteMessage([
             'QueueUrl' => $queueUrl, // REQUIRED
