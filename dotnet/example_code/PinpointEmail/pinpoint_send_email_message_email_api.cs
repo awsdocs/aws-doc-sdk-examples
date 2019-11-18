@@ -16,6 +16,7 @@
 // snippet-service:[mobiletargeting]
 // snippet-keyword:[dotnet]
 // snippet-keyword:[.NET]
+// snippet-sourcesyntax:[.net]
 // snippet-keyword:[Amazon Pinpoint Email API]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SendEmail]

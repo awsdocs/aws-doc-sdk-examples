@@ -3,6 +3,8 @@
 # snippet-service:[ec2]
 # snippet-keyword:[Amazon EC2]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-12-26]

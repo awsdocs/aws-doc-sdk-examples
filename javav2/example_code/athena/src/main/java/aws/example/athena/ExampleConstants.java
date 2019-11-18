@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ExampleConstants.java demonstrates how to query a table created by the "Getting Started" tutorial in Athena]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

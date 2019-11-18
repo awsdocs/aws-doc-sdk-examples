@@ -3,9 +3,11 @@
 # snippet-service:[lambda]
 # snippet-keyword:[AWS Lambda]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
-# snippet-sourcedate:[2019-07-11]
+# snippet-sourcedate:[2019-07-29]
 # snippet-sourceauthor:[AWS]
 
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,6 +23,27 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+"""AWS Lambda utility functions
+
+The create_lambda_function() performs all the necessary operations to create and deploy a Lambda function,
+including creating a deployment package (ZIP file), deploying the package, and creating an appropriate IAM role.
+
+To delete all AWS resources associated with a Lambda function, call delete_lambda_function().
+
+The remaining functions in the module can be called as desired.
+
+Available functions:
+- get_iam_role_arn: Retrieve the ARN of an IAM role
+- iam_role_exists: Determine whether an IAM role exists
+- create_iam_role_for_lambda: Create an IAM role to enable a Lambda function to call AWS services
+- delete_iam_role: Detach all managed policies from an IAM role and delete the role
+- create_lambda_deployment_package: Create a Lambda deployment package (ZIP file)
+- deploy_lambda_function: Deploy a Lambda function's deployment package
+- create_lambda_function: Create a Lambda function's deployment package and deploy it. Also, create an IAM role.
+- delete_lambda_function: Delete a Lambda function and its IAM role
+- invoke_lambda_function_synchronous: Invoke a Lambda function synchronously
+- get_lambda_arn: Retrieve the ARN of a Lambda function
+"""
 
 import json
 import logging
@@ -32,28 +55,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def create_lambda_deployment_package(srcfile, deployment_package):
-    """Create a Lambda deployment package (ZIP file)
-
-    :param srcfile: Lambda function source file
-    :param deployment_package: Name of generated deployment package
-    :return: True if deployment package created. Otherwise, False.
-    """
-
-    # Create the deployment package
-    with zipfile.ZipFile(deployment_package, mode='w',
-                         compression=zipfile.ZIP_DEFLATED,
-                         compresslevel=zlib.Z_DEFAULT_COMPRESSION) as deploy_pkg:
-        try:
-            deploy_pkg.write(srcfile)
-        except Exception as e:
-            logging.error(e)
-            return False
-    return True
-
-
 def get_iam_role_arn(iam_role_name):
-    """Retrieve the ARN of the specified IAM role
+    """Retrieve the ARN of an IAM role
 
     :param iam_role_name: IAM role name
     :return: If the IAM role exists, return ARN, else None
@@ -70,7 +73,7 @@ def get_iam_role_arn(iam_role_name):
 
 
 def iam_role_exists(iam_role_name):
-    """Check if the specified IAM role exists
+    """Determine whether the specified IAM role exists
 
     :param iam_role_name: IAM role name
     :return: True if IAM role exists, else False
@@ -139,9 +142,78 @@ def create_iam_role_for_lambda(iam_role_name):
     return lambda_role_arn
 
 
+def delete_iam_role(role_name):
+    """Detach all managed policies from an IAM role and delete the role
+
+    :param role_name: String name of IAM role to delete
+    """
+
+    # Retrieve all policies attached to the role
+    iam_client = boto3.client('iam')
+    try:
+        response = iam_client.list_attached_role_policies(RoleName=role_name)
+    except ClientError as e:
+        logging.error(e)
+        return
+
+    # Detach each policy
+    while True:
+        for policy in response['AttachedPolicies']:
+            try:
+                iam_client.detach_role_policy(RoleName=role_name,
+                                              PolicyArn=policy['PolicyArn'])
+            except ClientError as e:
+                logging.error(e)
+                # Process next attached policy
+
+        # Is there another batch of policies?
+        if response['IsTruncated']:
+            # Get another batch
+            try:
+                response = iam_client.list_attached_role_policies(Marker=response['Marker'])
+            except ClientError as e:
+                logging.error(e)
+                break
+        else:
+            logging.info(f'Detached all policies from IAM role {role_name}')
+            break
+
+    # Delete the role
+    try:
+        iam_client.delete_role(RoleName=role_name)
+    except ClientError as e:
+        logging.error(e)
+    else:
+        logging.info(f'Deleted IAM role: {role_name}')
+
+
+def create_lambda_deployment_package(srcfile, deployment_package):
+    """Create a Lambda deployment package (ZIP file)
+
+    :param srcfile: Lambda function source file
+    :param deployment_package: Name of generated deployment package
+    :return: True if deployment package created. Otherwise, False.
+    """
+
+    # Create the deployment package
+    with zipfile.ZipFile(deployment_package, mode='w',
+                         compression=zipfile.ZIP_DEFLATED,
+                         compresslevel=zlib.Z_DEFAULT_COMPRESSION) as deploy_pkg:
+        try:
+            deploy_pkg.write(srcfile)
+        except Exception as e:
+            logging.error(e)
+            return False
+    return True
+
+
 def deploy_lambda_function(name, iam_role, handler, deployment_package,
                            runtime, env_vars, region):
     """Deploy the Lambda function
+
+    The function assumes the deployment package can be read into memory. If
+    the package is large because it contains many dependencies, the function
+    should be modified to upload the package to S3.
 
     :param name: Descriptive Lambda function name
     :param iam_role: IAM Lambda role
@@ -159,9 +231,9 @@ def deploy_lambda_function(name, iam_role, handler, deployment_package,
         deploy_pkg = pkg.read()
 
     # Create the Lambda function
-    # Note: create_function() raises an InvalidParameterValueException if a
-    # newly-created role has not been replicated to the appropriate region yet.
-    # To resolve this situation, the operation is retried several times.
+    # Note: create_function() raises an InvalidParameterValueException if its
+    # newly-created IAM role has not been replicated to the appropriate region
+    # yet. To resolve this situation, the operation is retried several times.
     lambda_client = boto3.client('lambda', region_name=region)
     retry_time = 1  # number of seconds to sleep
     max_retry_time = 32
@@ -180,6 +252,8 @@ def deploy_lambda_function(name, iam_role, handler, deployment_package,
             # If InvalidParameterValueException, retry a few times until the role
             # has replicated to all regions.
             if e.response['Error']['Code'] == 'InvalidParameterValueException':
+                logging.error('Waiting for IAM role to replicate to all regions,'
+                              ' then retrying...')
                 time.sleep(retry_time)
                 retry_time *= 2
             else:
@@ -250,10 +324,11 @@ def create_lambda_function(function_name, srcfile, handler_name, role_name,
     return lambda_arn
 
 
-def delete_lambda_function(function_name, region):
-    """Delete all versions of a Lambda function
+def delete_lambda_function(function_name, iam_role_name, region):
+    """Delete a Lambda function and its IAM role
 
     :param function_name: Lambda function to delete
+    :param iam_role_name: IAM role associated with Lambda function
     :param region: Region containing the Lambda function
     :return: True if function was deleted, else False
     """
@@ -265,6 +340,9 @@ def delete_lambda_function(function_name, region):
     except ClientError as e:
         logging.error(e)
         return False
+
+    # Delete the IAM role associated with the function
+    delete_iam_role(iam_role_name)
     return True
 
 

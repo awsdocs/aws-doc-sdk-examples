@@ -5,6 +5,7 @@
 // snippet-keyword:[DescribeFolderContents function]
 // snippet-keyword:[DescribeUsers function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[workdocs]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

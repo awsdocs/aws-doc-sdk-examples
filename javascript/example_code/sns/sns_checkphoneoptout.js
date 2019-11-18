@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_checkphoneoptout.js demonstrates how to determine whether a phone number has opted out of receiving Amazon SMS messages.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

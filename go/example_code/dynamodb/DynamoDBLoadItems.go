@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[PutItem function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

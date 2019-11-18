@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Notification Service]
 # snippet-keyword:[Resource.topics method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sns]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -3,6 +3,7 @@
 # snippet-sourcedescription:[Creates a notification handler for an Elastic Transcoder job.]
 # snippet-keyword:[Amazon Elastic Transcoder]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[elastictranscoder]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -12,6 +12,8 @@
 # snippet-sourcedescription:[construct_url_federated_users.py demonstrates how to programmatically construct a URL that gives federated users direct access to the AWS Management Console.]
 # snippet-service:[iam]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AssumeRole]

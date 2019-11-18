@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[Query.java demonstrates how to query a DynamoDB table.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

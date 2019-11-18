@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[SynthesizeSpeech demonstrates how to synthesize speeches using Amazon Polly with shorter texts for near-real time processing.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SynthesizeSpeech]

@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This example Lambda function migrates the user with an existing password and suppresses the welcome message from Amazon Cognito.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

@@ -50,6 +50,7 @@ try {
 // snippet-end:[sns.php.list_topics.complete]
 // snippet-sourcedescription:[ListTopics.php demonstrates how to get a list of existing AWS SNS topics.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

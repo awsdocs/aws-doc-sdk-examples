@@ -16,6 +16,7 @@
 // snippet-sourcedescription:[s3.php demonstrates how to list, create, and delete a bucket in Amazon S3.]
 // snippet-service:[s3]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[listBucketsAsync]

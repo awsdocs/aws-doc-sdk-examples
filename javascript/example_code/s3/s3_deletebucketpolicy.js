@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[s3_deletebucketpolicy.js demonstrates how to delete an Amazon S3 bucket policy.]
 //snippet-service:[s3]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-sourcetype:[full-example]

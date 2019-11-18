@@ -3,6 +3,8 @@
 # snippet-service:[firehose]
 # snippet-keyword:[Amazon Kinesis Data Firehose]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-05-15]

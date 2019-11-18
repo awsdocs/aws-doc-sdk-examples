@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListShards.java demonstrates how to list the shards in a Kinesis data stream.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]

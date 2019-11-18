@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateUserPool.java demonstrates how to create a user pool for Cognito.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

@@ -53,6 +53,7 @@ try {
 // snippet-end:[sns.php.unsubscribe.complete]
 // snippet-sourcedescription:[Unsubscribe.php demonstrates how to remove an SNS subscription.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

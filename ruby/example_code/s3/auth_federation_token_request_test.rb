@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[auth_federation_token_request_test.rb allows a federated user with a limited set of permissions to lists keys in the specified bucket.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GET Bucket, GET Object, GET Keys]

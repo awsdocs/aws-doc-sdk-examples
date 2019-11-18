@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This example defines a series of challenges for authentication and issues tokens only if all of the challenges are successfully completed.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

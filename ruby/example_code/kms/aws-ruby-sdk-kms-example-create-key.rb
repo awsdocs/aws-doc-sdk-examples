@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS Key Management Service]
 # snippet-keyword:[create_key method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[kms]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

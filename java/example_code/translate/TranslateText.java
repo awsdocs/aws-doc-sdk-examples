@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[TranslateText demonstrates how to use the translatetext operation.]
 // snippet-service:[translate]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Translate]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranslateText]

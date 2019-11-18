@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[Determines if the necessary ports are open from the VPC to your domain, and also verifies the minimum forest and domain functional levels.]
 //snippet-keyword:[dotNET]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Directory Service]
 //snippet-keyword:[DirectoryServicePortTest]
@@ -8,7 +9,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[directoryservice.java.directory_service_port_test.complete]
+//snippet-start:[directoryservice.dotNET.directory_service_port_test.complete]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -285,5 +286,5 @@ namespace DirectoryServicePortTest
         }
     }
 }
-//snippet-end:[directoryservice.java.directory_service_port_test.complete]
+//snippet-end:[directoryservice.dotNET.directory_service_port_test.complete]
 

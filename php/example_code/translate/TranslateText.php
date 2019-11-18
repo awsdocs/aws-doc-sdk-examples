@@ -74,6 +74,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[TranslateText.php demonstrates how to translate a piece of Arabic (ar), Chinese (Simplified) (zh), English (en), French (fr), German (de), Portuguese (pt), or Spanish (es) text into English with the Translate API.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[translateText]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[AddLoginProvider.java demonstrates how to associate an identity pool with an identity provider.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_listtemplates.js demonstrates how to retrieve transcoding job templates.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
@@ -27,7 +28,7 @@
 // snippet-start:[mediaconvert.JavaScript.templates.listJobTemplates]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the Region 
 AWS.config.update({region: 'us-west-2'});
 // Set the customer endpoint
 AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};

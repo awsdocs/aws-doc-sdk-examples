@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[upload_files_using_put_object_method.rb shows how to upload an object using the #put method of Amazon S3 object. This is useful if the object is a string or an I/O object that is not a file on disk.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[PUT Object]

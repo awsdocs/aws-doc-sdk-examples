@@ -58,6 +58,7 @@ try {
 // snippet-end:[sns.php.subscribe_text_sms.complete]
 // snippet-sourcedescription:[SubscribeTextSMS.php demonstrates how to send a confirmation message as a text message.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

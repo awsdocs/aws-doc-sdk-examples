@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[S3Encrypt.java demonstrates how to use various encryption settings in Amazon S3.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[AmazonS3Encryption]
@@ -31,23 +32,18 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.AmazonS3Encryption;
 import com.amazonaws.services.s3.AmazonS3EncryptionClientBuilder;
-import com.amazonaws.services.s3.model.CryptoConfiguration;
-import com.amazonaws.services.s3.model.CryptoMode;
-import com.amazonaws.services.s3.model.EncryptionMaterials;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.KMSEncryptionMaterialsProvider;
-import com.amazonaws.services.s3.model.StaticEncryptionMaterialsProvider;
+import com.amazonaws.services.s3.model.*;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 // snippet-end:[s3.java1.s3_encrypt.import]
 
 /**
  * Test out various cryptography settings for S3.
- * <p>
+ * 
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  * This code also requires you to install the Unlimited Strength Java(TM) Cryptography Extension Policy Files (JCE)
@@ -86,7 +82,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         // snippet-end:[s3.java1.s3_encrypt.authenticated_encryption_build]
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
@@ -111,7 +107,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
         s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
@@ -133,7 +129,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(keyPair)))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
         s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
@@ -157,7 +153,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         // snippet-end:[s3.java1.s3_encrypt.strict_authenticated_encryption_build]
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
@@ -206,7 +202,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
 
         s3Encryption.putObject(BUCKET_NAME, ENCRYPTED_KEY, "some contents");
         s3NonEncrypt.putObject(BUCKET_NAME, NON_ENCRYPTED_KEY, "some other contents");
@@ -249,7 +245,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(keyPair)))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         // snippet-end:[s3.java1.s3_encrypt.encryption_only_asymetric_key_build]
 
         // snippet-start:[s3.java1.s3_encrypt.encryption_only_asymetric_key_put_object]
@@ -277,7 +273,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         // snippet-end:[s3.java1.s3_encrypt.kms_encryption_only_build]
 
         // snippet-start:[s3.java1.s3_encrypt.kms_encryption_only_put_object]
@@ -305,7 +301,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_builder]
 
         // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_put_object]
@@ -332,7 +328,7 @@ public class S3Encrypt {
                 .withEncryptionMaterials(new KMSEncryptionMaterialsProvider("alias/s3-kms-key"))
                 .build();
 
-        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.defaultClient();
+        AmazonS3 s3NonEncrypt = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         // snippet-end:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_builder]
 
         // snippet-start:[s3.java1.s3_encrypt.kms_authenticated_encryption_strict_put_object]

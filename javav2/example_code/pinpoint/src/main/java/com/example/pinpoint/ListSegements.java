@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListSegements.java demonstrates how to list segements in an application .]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]

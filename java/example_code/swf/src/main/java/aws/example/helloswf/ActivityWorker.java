@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ActivityWorker.java demonstrates how to implement an activity worker that polls for tasks in a task list and executes its task.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]
@@ -22,6 +23,7 @@
 package aws.example.helloswf;
 
 //snippet-start:[swf.java.activity_worker.import]
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.*;
@@ -30,7 +32,7 @@ import com.amazonaws.services.simpleworkflow.model.*;
 public class ActivityWorker {
     //snippet-start:[swf.java.activity_worker.client]
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+            AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
     //snippet-end:[swf.java.activity_worker.client]
 
     //snippet-start:[swf.java.activity_worker.sayHello]

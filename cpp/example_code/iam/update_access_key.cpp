@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[update_access_keys.cpp demonstrates how to update the status of an IAM user's access key.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

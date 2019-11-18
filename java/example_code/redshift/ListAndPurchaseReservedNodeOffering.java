@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListAndPurchaseReservedNodeOffering demonstrates how to list and purchase Amazon Redshift reserved node offerings.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DescribeReservedNodeOfferings]

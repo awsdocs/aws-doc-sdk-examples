@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateAdminUser.java demonstrates how to add a new admin to your unity Pool.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
@@ -68,7 +69,7 @@ public class CreateAdminUser {
                                 .name("email")
                                 .value(email)
                                 .build())
-                        .messageAction("SURPRESS")
+                        .messageAction("SUPPRESS")
                         .build()
         );
 

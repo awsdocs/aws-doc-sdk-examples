@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cw_describealarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.]
 //snippet-service:[cloudwatch]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]

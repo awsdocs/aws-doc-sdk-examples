@@ -1,12 +1,10 @@
-//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one bucket to another.]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one Amazon S3 bucket to another.]
+//snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[copyObject]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-01-16]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[11-13-2019]
+//snippet-sourceauthor:[scmacdon]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -20,17 +18,28 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-package aws.example.s3;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.AmazonServiceException;
+package com.example.s3;
+// snippet-start:[s3.java2.copy_object.complete]
+// snippet-start:[s3.java2.copy_object.import]
 
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
+import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+// snippet-end:[s3.java2.copy_object.import]
 /**
  * Copy an object from one Amazon S3 bucket to another.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
+
 public class CopyObject
 {
     public static void main(String[] args)
@@ -45,20 +54,39 @@ public class CopyObject
             System.out.println(USAGE);
             System.exit(1);
         }
-
+        // snippet-start:[s3.java2.copy_object.main]
         String object_key = args[0];
         String from_bucket = args[1];
         String to_bucket = args[2];
 
         System.out.format("Copying object %s from bucket %s to %s\n",
                 object_key, from_bucket, to_bucket);
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        Region region = Region.US_WEST_2;
+        S3Client s3 = S3Client.builder().region(region).build();
+        String encodedUrl = null;
         try {
-            s3.copyObject(from_bucket, object_key, to_bucket, object_key);
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
+            encodedUrl = URLEncoder.encode(from_bucket + "/" + object_key, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("URL could not be encoded: " + e.getMessage());
+        }
+
+        CopyObjectRequest copyReq = CopyObjectRequest.builder()
+        		.copySource(encodedUrl)
+        		.bucket(to_bucket)
+        		.key(object_key)
+        		.build();
+
+        try {
+        	CopyObjectResponse copyRes = s3.copyObject(copyReq);
+        	System.out.println(copyRes.copyObjectResult().toString());
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");
+       // snippet-end:[s3.java2.copy_object.main]
     }
 }
+ 
+
+// snippet-end:[s3.java2.copy_object.complete]

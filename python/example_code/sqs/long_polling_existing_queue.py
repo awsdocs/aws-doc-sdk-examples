@@ -3,6 +3,8 @@
 # snippet-service:[sqs]
 # snippet-keyword:[Amazon Simple Queue Service]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2018-08-01]

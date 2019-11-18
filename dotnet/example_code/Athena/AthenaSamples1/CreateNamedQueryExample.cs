@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[CreateNamedQueryExample.cs demonstrates how to create a named query.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

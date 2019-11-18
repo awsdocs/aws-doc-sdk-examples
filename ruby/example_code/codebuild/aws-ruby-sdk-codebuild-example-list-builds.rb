@@ -5,6 +5,7 @@
 # snippet-keyword:[list_builds method]
 # snippet-keyword:[batch_get_builds method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[codebuild]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

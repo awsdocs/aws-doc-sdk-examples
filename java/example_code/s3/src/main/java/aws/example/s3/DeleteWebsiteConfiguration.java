@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to delete the website configuration for an S3 bucket set up as a static website.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]
@@ -22,14 +23,15 @@
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_delete_website_config.import]
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.AmazonServiceException;
 // snippet-end:[s3.java1.s3_delete_website_config.import]
 
 /**
  * Delete the website configuration for an S3 bucket.
- * <p>
+ * 
  * This code expects that you have AWS credentials delete up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/deleteup-credentials.html
  */
@@ -37,7 +39,7 @@ import com.amazonaws.AmazonServiceException;
 public class DeleteWebsiteConfiguration {
     public static void deleteWebsiteConfig(String bucket_name) {
         // snippet-start:[s3.java1.s3_delete_website_config.main]
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         try {
             s3.deleteBucketWebsiteConfiguration(bucket_name);
         } catch (AmazonServiceException e) {

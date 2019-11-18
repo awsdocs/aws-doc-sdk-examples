@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListTables.java demonstrates how to list DynamoDB tables for the current AWS account.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

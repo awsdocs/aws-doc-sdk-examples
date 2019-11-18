@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[In this example, the Lambda function checks whether the user's response to a challenge matches the expected response. The answerCorrect parameter is set to true if the user's response matches the expected response.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

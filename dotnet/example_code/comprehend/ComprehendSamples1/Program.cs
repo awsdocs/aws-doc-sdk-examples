@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[Program.cs can be used to run the examples in this ComprehendSamples1 solution.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Comprehend]
 //snippet-service:[comprehend]
