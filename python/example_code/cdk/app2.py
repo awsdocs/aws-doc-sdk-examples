@@ -31,12 +31,12 @@ class S3Stack(core.Stack):
     def __init__(self, app: core.App, id: str) -> None:
         super().__init__(app, id)
 
-        bucket = aws_s3.Bucket(
+        bucket = s3.Bucket(
             self, "MyBucket",
             versioned=True,
-            encryption=aws_s3.BucketEncryption.KmsManaged)
+            encryption=aws_s3.BucketEncryption.KMS_MANAGED)
 
 app = core.App()
 S3Stack(app, "MyStack")
-app.run()
+app.synth()
 # snippet-end:[cdk.python.bucket2]
