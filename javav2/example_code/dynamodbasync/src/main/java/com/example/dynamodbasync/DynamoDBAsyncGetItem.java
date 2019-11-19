@@ -20,7 +20,7 @@
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[]
+// snippet-sourcedate:[2019323]
 // snippet-sourceauthor:[AWS]
 
 // snippet-start:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
@@ -56,7 +56,7 @@ public class DynamoDBAsyncGetItem {
         }
 
         // snippet-start:[dynamoasyc.java2.get_item.main]
-        //Get two input arguments
+        //Get both input arguments
         String table_name = args[0];
         String name = args[1];
         System.out.format("Retrieving item \"%s\" from \"%s\"\n", name, table_name);
