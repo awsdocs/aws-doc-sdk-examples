@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 package com.example.dynamodbasync;
-// snippet-start:[dynamoasyn.java2.dbasync.complete]
+// snippet-start:[dynamoasyc.java2.dbasync.complete]
 // snippet-start:[dynamoasyn.java2.get_item.import]
 import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
@@ -53,7 +53,7 @@ public class DynamoDBAsyncGetItem {
         }
 
         // snippet-start:[dynamoasyc.java2.get_item.main]
-        //Get input arguments
+        //Get two input arguments
         String table_name = args[0];
         String name = args[1];
         System.out.format("Retrieving item \"%s\" from \"%s\"\n", name, table_name);
