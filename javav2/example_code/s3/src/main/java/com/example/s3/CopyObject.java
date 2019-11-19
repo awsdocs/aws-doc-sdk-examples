@@ -3,8 +3,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2019-11-13]
+//snippet-sourceauthor:[scmacdon]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -84,8 +84,7 @@ public class CopyObject
             System.exit(1);
         }
         System.out.println("Done!");
+        // snippet-end:[s3.java2.copy_object.main]
     }
 }
- 
-// snippet-end:[s3.java2.copy_object.main]
 // snippet-end:[s3.java2.copy_object.complete]
