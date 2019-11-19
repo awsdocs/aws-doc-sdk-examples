@@ -14,13 +14,13 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to ...]
+// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to get an item by using the DynamoDbAsyncClient object]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019323]
+// snippet-sourcedate:[2019-11-19]
 // snippet-sourceauthor:[AWS]
 
 // snippet-start:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
