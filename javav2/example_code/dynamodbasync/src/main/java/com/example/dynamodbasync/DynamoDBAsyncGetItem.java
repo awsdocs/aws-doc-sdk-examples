@@ -1,27 +1,30 @@
-//snippet-sourcedescription:[GetItem.java demonstrates how to ...]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamoasyn]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-
-/*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
  *
- *    http://aws.amazon.com/apache2.0
+ * http://aws.amazon.com/apache2.0/
  *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
  */
+
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to ...]
+// snippet-service:[dynamodb]
+// snippet-keyword:[Java]
+// snippet-keyword:[Amazon DynamoDB]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[]
+// snippet-sourceauthor:[AWS]
+
+// snippet-start:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
 package com.example.dynamodbasync;
-// snippet-start:[dynamoasyc.java2.dbasync.complete]
 // snippet-start:[dynamoasyn.java2.get_item.import]
 import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
@@ -88,7 +91,7 @@ public class DynamoDBAsyncGetItem {
             System.exit(1);
         }
         // snippet-end:[dynamoasyc.java2.get_item.main]
-        // snippet-end:[dynamoasyc.java2.dbasync.complete]
       }
  }
-
+ 
+// snippet-end:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
