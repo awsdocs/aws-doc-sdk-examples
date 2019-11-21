@@ -4,7 +4,7 @@
 // snippet-keyword:[.NET]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[AWS Key Management Service]
-// snippet-keywork:[AWS KMS]
+// snippet-keyword:[AWS KMS]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateKeyAsync]
 // snippet-keyword:[PutObjectAsync]
@@ -39,7 +39,7 @@
    2. Run it:
 
       KmsS3Encryption.exe REGION BUCKET ITEM
- */
+*/
 // snippet-start:[kms.dotnet.createkeyasync.complete]
 using System;
 using System.IO;
