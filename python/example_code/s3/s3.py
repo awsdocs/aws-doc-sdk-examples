@@ -24,49 +24,57 @@
 # snippet-sourcedate:[2017-01-19]
 # snippet-sourceauthor:[AWS]
 # snippet-start:[s3.python.bucket_operations.list_create_delete]
-import argparse
 import boto3
 import sys
 from botocore.exceptions import ClientError
 
 
 def list_my_buckets(s3):
-    '''
-    Helper function to list all s3 buckets.
-    '''
     print("Buckets:\n", *[b.name for b in s3.buckets.all()], sep="\n\t")
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('bucket_name', help='The name of the bucket to create.')
-parser.add_argument('region', help='The region in which to create your bucket.')
-parser.add_argument('--cleanup', help='Deletes the created bucket before exiting.', action='store_true')
+def create_and_delete_my_bucket(bucket_name, region, cleanup):
+    s3 = boto3.resource('s3', region_name=region)
 
-args = parser.parse_args()
-
-s3 = boto3.resource('s3', region_name=args.region)
-
-list_my_buckets(s3)
-
-try:
-    print(f"\nCreating new bucket: {args.bucket_name}\n")
-    bucket = s3.create_bucket(
-        Bucket=args.bucket_name,
-        CreateBucketConfiguration={
-            'LocationConstraint': args.region
-        }
-    )
-except ClientError as e:
-    print(e)
-    sys.exit('Exiting the script because bucket creation failed.')
-
-bucket.wait_until_exists()
-list_my_buckets(s3)
-
-if args.cleanup:
-    print(f"\nDeleting: {bucket.name}\n")
-    bucket.delete()
-
-    bucket.wait_until_not_exists()
     list_my_buckets(s3)
+
+    try:
+        print(f"\nCreating new bucket: {bucket_name}\n")
+        bucket = s3.create_bucket(
+            Bucket=bucket_name,
+            CreateBucketConfiguration={
+                'LocationConstraint': region
+            }
+        )
+    except ClientError as e:
+        print(e)
+        sys.exit('Exiting the script because bucket creation failed.')
+
+    bucket.wait_until_exists()
+    list_my_buckets(s3)
+
+    if cleanup:
+        print(f"\nDeleting: {bucket.name}\n")
+        bucket.delete()
+
+        bucket.wait_until_not_exists()
+        list_my_buckets(s3)
+
 # snippet-end:[s3.python.bucket_operations.list_create_delete]
+
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('bucket_name', help='The name of the bucket to create.')
+    parser.add_argument('region', help='The region in which to create your bucket.')
+    parser.add_argument('--cleanup', help='Deletes the created bucket before exiting.', action='store_true')
+
+    args = parser.parse_args()
+
+    create_and_delete_my_bucket(args.bucket_name, args.region, args.cleanup)
+
+
+if __name__ == '__main__':
+    main()
