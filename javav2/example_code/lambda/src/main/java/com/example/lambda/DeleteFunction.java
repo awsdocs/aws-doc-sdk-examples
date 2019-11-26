@@ -50,7 +50,7 @@ public class DeleteFunction {
             Region region = Region.US_WEST_2;
             LambdaClient awsLambda = LambdaClient.builder().region(region).build();
 
-            //Setup an DeleteFunctionRequest
+            //Setup a DeleteFunctionRequest
             DeleteFunctionRequest request =  DeleteFunctionRequest.builder()
                     .functionName(functionName)
                     .build();
