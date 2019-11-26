@@ -21,7 +21,7 @@
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-11-19]
-// snippet-sourceauthor:[AWS]
+// snippet-sourceauthor:[AWS-scmacdon]
 
 package com.example.lambda;
 
