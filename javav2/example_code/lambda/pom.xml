@@ -1,1 +1,32 @@
 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.amazonaws</groupId>
+  <artifactId>lambda</artifactId>
+  <version>1.0.0</version>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <artifactId>netty-nio-client</artifactId>
+      <groupId>software.amazon.awssdk</groupId>
+      <version>2.0.0</version>
+   </dependency>
+    <dependency>
+       <groupId>software.amazon.awssdk</groupId>
+       <artifactId>lambda</artifactId>
+       <version>2.10.21</version>
+     </dependency>
+ </dependencies>
+</project>
