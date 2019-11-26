@@ -14,10 +14,10 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to get an item by using the DynamoDbAsyncClient object]
-// snippet-service:[dynamodb]
+// snippet-sourcedescription:[DeleteFunction.java demonstrates how to delete an AWS Lambda function by using the LambdaClient object]
+// snippet-service:[Lambda]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon DynamoDB]
+// snippet-keyword:[Amazon Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-11-19]
