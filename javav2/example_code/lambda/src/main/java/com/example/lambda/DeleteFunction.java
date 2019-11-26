@@ -21,16 +21,18 @@
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-11-19]
-// snippet-sourceauthor:[AWS]
+// snippet-sourceauthor:[AWS-scmacdon]
 
-package com.example.lambda.demo;
 
+// snippet-start:[lambda.Java.DeleteFunction.complete]
+package com.example.lambda;
+
+// snippet-start:[lambda.java2.delete.import]
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.lambda.model.InvokeResponse;
 import software.amazon.awssdk.services.lambda.model.DeleteFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.ServiceException;
-
+// snippet-end:[lambda.java2.delete.import]
 
 public class DeleteFunction {
 
@@ -41,27 +43,28 @@ public class DeleteFunction {
             System.exit(1);
         }
 
-        InvokeResponse res = null ;
+        // snippet-start:[lambda.java2.delete.main]
         String functionName = args[0];
         try
         {
             Region region = Region.US_WEST_2;
             LambdaClient awsLambda = LambdaClient.builder().region(region).build();
 
-            //Setup an InvokeRequest
+            //Setup an DeleteFunctionRequest
             DeleteFunctionRequest request =  DeleteFunctionRequest.builder()
                     .functionName(functionName)
-                     .build();
+                    .build();
 
-            //Invoke the Lambda function
+            //Invoke the Lambda deleteFunction method
             awsLambda.deleteFunction(request);
-
-            //write out the response
             System.out.println("Done");
         }
         catch(ServiceException e)
         {
             e.getStackTrace();
         }
+
+        // snippet-end:[lambda.java2.delete.main]
     }
 }
+// snippet-end:[lambda.Java.DeleteFunction.complete]
