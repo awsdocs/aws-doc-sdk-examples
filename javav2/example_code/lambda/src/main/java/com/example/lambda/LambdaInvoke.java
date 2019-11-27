@@ -14,28 +14,45 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to get an item by using the DynamoDbAsyncClient object]
-// snippet-service:[dynamodb]
+// snippet-sourcedescription:[LambdaInvoke.java demonstrates how to invoke an AWS Lambda function by using the LambdaClient object]
+// snippet-service:[Lambda]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon DynamoDB]
+// snippet-keyword:[Amazon Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-11-19]
-// snippet-sourceauthor:[AWS]
+// snippet-sourceauthor:[AWS-scmacdon]
 
-package com.example.lambda.demo;
+// snippet-start:[lambda.java2.LambdaInvoke.complete]
+package com.example.lambda;
 
+// snippet-start:[lambda.java2.invoke.import]
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.model.InvokeRequest;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.lambda.model.InvokeResponse;
-
+// snippet-end:[lambda.java2.invoke.import]
 
 public class LambdaInvoke {
 
     public static void main(String[] args) {
 
+      
+        if (args.length < 1) {
+            System.out.println("Please specify a function name");
+            System.exit(1);
+        }
+
+        // snippet-start:[lambda.java2.delete.main]
+        
+        /*
+        Function names appear as arn:aws:lambda:us-west-2:335556330391:function:HelloFunction
+        you can retrieve the value by looking at the function in the AWS Console
+        */
+        String functionName = args[0];
+
+        // snippet-start:[lambda.java2.invoke.main]
         InvokeResponse res = null ;
         try
         {
@@ -50,7 +67,7 @@ public class LambdaInvoke {
 
             //Setup an InvokeRequest
             InvokeRequest request =  InvokeRequest.builder()
-                    .functionName("arn:aws:lambda:us-west-2:335446330391:function:HelloFunction")
+                    .functionName(functionName)
                     .payload(payload)
                     .build();
 
@@ -68,5 +85,7 @@ public class LambdaInvoke {
         {
             e.getStackTrace();
         }
+        // snippet-end:[lambda.java2.invoke.main]
     }
 }
+// snippet-end:[lambda.java2.LambdaInvoke.complete]
