@@ -24,7 +24,7 @@
 // snippet-sourceauthor:[AWS-scmacdon]
 
 
-// snippet-start:[lambda.Java.DeleteFunction.complete]
+// snippet-start:[lambda.java2.DeleteFunction.complete]
 package com.example.lambda;
 
 // snippet-start:[lambda.java2.delete.import]
@@ -50,7 +50,7 @@ public class DeleteFunction {
             Region region = Region.US_WEST_2;
             LambdaClient awsLambda = LambdaClient.builder().region(region).build();
 
-            //Setup a DeleteFunctionRequest
+            //Setup an DeleteFunctionRequest
             DeleteFunctionRequest request =  DeleteFunctionRequest.builder()
                     .functionName(functionName)
                     .build();
@@ -67,4 +67,4 @@ public class DeleteFunction {
         // snippet-end:[lambda.java2.delete.main]
     }
 }
-// snippet-end:[lambda.Java.DeleteFunction.complete]
+// snippet-end:[lambda.java2.DeleteFunction.complete]
