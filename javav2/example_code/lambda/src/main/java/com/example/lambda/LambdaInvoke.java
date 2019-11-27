@@ -44,7 +44,7 @@ public class LambdaInvoke {
             System.exit(1);
         }
 
-        // snippet-start:[lambda.java2.delete.main]
+        // snippet-start:[lambda.java2.invoke.main]
         
         /*
         Function names appear as arn:aws:lambda:us-west-2:335556330391:function:HelloFunction
