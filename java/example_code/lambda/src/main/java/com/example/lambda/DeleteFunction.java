@@ -1,67 +1,57 @@
-package com.example.dyn;
-
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
-import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-
-import java.util.List;
-
-// snippet-end:[dynamodb.java2.list_tables.import]
 /**
- * List DynamoDB tables for the current AWS account.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
  */
-public class ListTables
-{
-    public static void main(String[] args)
-    {
-        System.out.println("Your DynamoDB tables:\n");
 
-        // snippet-start:[dynamodb.java2.list_tables.main]
-        Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();;
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[LambdaInvoke.java demonstrates how to invoke an AWS Lambda function by using the AWSLambda object]
+// snippet-service:[Lambda]
+// snippet-keyword:[Java]
+// snippet-keyword:[Amazon Lambda]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-11-19]
+// snippet-sourceauthor:[AWS-scmacdon]
 
-        boolean more_tables = true;
-        String last_name = null;
+package com.example.lambda;
 
-        while(more_tables) {
-            try {
-                ListTablesResponse response = null;
-                if (last_name == null) {
-                    ListTablesRequest request = ListTablesRequest.builder().build();
-                    response = ddb.listTables(request);
-                }
-                else {
-                    ListTablesRequest request = ListTablesRequest.builder()
-                            .exclusiveStartTableName(last_name).build();
-                    response = ddb.listTables(request);
-                }
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.lambda.AWSLambda;
+import com.amazonaws.services.lambda.AWSLambdaClientBuilder;
+import com.amazonaws.services.lambda.model.ServiceException;
+import com.amazonaws.services.lambda.model.DeleteFunctionRequest;
 
-                List<String> table_names = response.tableNames();
+public class DeleteFunction {
 
-                if (table_names.size() > 0) {
-                    for (String cur_name : table_names) {
-                        System.out.format("* %s\n", cur_name);
-                    }
-                } else {
-                    System.out.println("No tables found!");
-                    System.exit(0);
-                }
+    public static void main(String[] args) {
 
-                last_name = response.lastEvaluatedTableName();
-                if (last_name == null) {
-                    more_tables = false;
-                }
-            } catch (DynamoDbException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
-            }
-        }
-        // snippet-end:[dynamodb.java2.list_tables.main]
-        System.out.println("\nDone!");
+        try {
+        AWSLambda awsLambda = AWSLambdaClientBuilder.standard()
+                .withCredentials(new ProfileCredentialsProvider())
+                .withRegion(Regions.US_WEST_2).build();
+
+        DeleteFunctionRequest delFunc = new DeleteFunctionRequest();
+        delFunc.withFunctionName("somefunction");
+
+        //Delete the functiom
+        awsLambda.deleteFunction(delFunc);
+        System.out.println("The function is deleted");
     }
+    catch (
+    ServiceException e) {
+        System.out.println(e);
+    }
+   }
 }
+
