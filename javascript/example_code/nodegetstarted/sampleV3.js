@@ -12,50 +12,55 @@
  * specific language governing permissions and limitations under the License.
 */
 
-// snippet-sourcedescription:[sample.js demonstrates how to get started using the AWS SDK for JavaScript.]
-// snippet-service:[nodejs]
+// snippet-sourcedescription:[sample.js demonstrates how to create an S3 bucket with a unique name and upload an item to it.]
+// snippet-service:[Amazon S3]
 // snippet-keyword:[JavaScript]
 // snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Node.js]
+// snippet-keyword:[CreateBucket command]
+// snippet-keyword:[PutObject command]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-06-02]
-// snippet-sourceauthor:[AWS-JSDG]
+// snippet-sourcedate:[2019-11-27]
+// snippet-sourceauthor:[Doug-AWS]
 
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html
+// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript V3 Developer Guide topic at
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html#getting-started-nodejs-js-code
 
-// snippet-start:[GettingStarted.JavaScriptV3.NodeJS.getStarted]
-// Load the S3 and UUID packages
-(async () => {
-  const s3 = require('@aws-sdk/client-s3')
-  const uuid = require('uuid')
-  const s3Client = new s3.S3Client({
-    region: process.argv[2]
-  })
+// snippet-start:[s3.js.create_unique_bucket]
+(async function() {
+  // Load the S3 client and commands for Node.js
+  const {
+    S3Client,
+    CreateBucketCommand,
+    PutObjectCommand
+  } = require('@aws-sdk/client-s3')
+  
+  var uuid = require('uuid')
 
-  // Create unique bucket name
+  // Unique bucket name
   const bucketName = 'node-sdk-sample-' + uuid.v4()
-
-  // Create name for uploaded object key
+  // Name for uploaded object
   const keyName = 'hello_world.txt'
 
-  // Create params for CreateBucket call
-  const bucketParams = { Bucket: bucketName }
+  const client = new S3Client({})
 
-  // Create params for putObject call
-  const objectParams = { Bucket: bucketName, Key: keyName, Body: 'Hello World!' }
+  const createCommand = new CreateBucketCommand({
+    Bucket: bucketName
+  })
+
+  const putCommand = new PutObjectCommand({
+    Bucket: bucketName,
+    Key: keyName,
+    Body: 'Hello World!'
+  })
 
   try {
-    const response = await s3Client.send(
-      new s3.CreateBucketCommand(bucketParams)
-    )
-    const reply = await s3Client.send(
-      new s3.PutObjectCommand(objectParams)
-    )
+    await client.send(createCommand)
+    await client.send(putCommand)
     console.log('Successfully uploaded data to ' + bucketName + '/' + keyName)
   } catch (err) {
-    console.error(err)
+    console.error(err, err.stack)
   }
 })()
-// snippet-end:[GettingStarted.JavaScriptV3.NodeJS.getStarted]
+// snippet-end:[s3.js.create_unique_bucket]
