@@ -14,7 +14,7 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteFunction.java demonstrates how to delete an AWS Lambda function by using the LambdaClient object]
+// snippet-sourcedescription:[DeleteFunction.java demonstrates how to delete an AWS Lambda function by using the AWSLambda object]
 // snippet-service:[Lambda]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Lambda]
