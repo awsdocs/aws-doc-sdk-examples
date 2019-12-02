@@ -41,7 +41,7 @@ public class DeleteFunction {
     public static void main(String[] args) {
 
         if (args.length < 1) {
-            System.out.println("Please specify a function name");
+            System.out.println("Please specify the function name");
             System.exit(1);
         }
 
