@@ -53,7 +53,7 @@ func main() {
 
     file, err := os.Create(item)
     if err != nil {
-        exitErrorf("Unable to open file %q, %v", err)
+        exitErrorf("Unable to open file %q, %v", item, err)
     }
 
     defer file.Close()
