@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to enable long polling when creating a queue.]
+//snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling when creating a queue.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2019-12-04]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +34,9 @@ public class LongPolling
     public static void main(String[] args)
     {
         final String USAGE =
-           "To run this example, supply the name of a queue to create and\n" +
-           "queue url of an existing queue.\n\n" +
-           "Ex: LongPolling <unique-queue-name> <existing-queue-url>\n";
+                "To run this example, supply the name of a queue to create and\n" +
+                        "queue url of an existing queue.\n\n" +
+                        "Ex: LongPolling <unique-queue-name> <existing-queue-url>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
