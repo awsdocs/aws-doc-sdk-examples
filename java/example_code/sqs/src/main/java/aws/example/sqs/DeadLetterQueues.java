@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to create and use a dead letter queue.]
+//snippet-sourcedescription:[DeadLetterQueues.java demonstrates how to create and use a dead letter queue.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2019-12-04]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,7 +35,7 @@ public class DeadLetterQueues
     {
         if (args.length != 2) {
             System.out.println(
-                "Usage: DeadLetterQueues <src_queue_name> <dl_queue_name>");
+                    "Usage: DeadLetterQueues <src_queue_name> <dl_queue_name>");
             System.exit(1);
         }
 
@@ -64,24 +64,27 @@ public class DeadLetterQueues
 
         // Get dead-letter queue ARN
         String dl_queue_url = sqs.getQueueUrl(dl_queue_name)
-                                 .getQueueUrl();
+                .getQueueUrl();
 
         GetQueueAttributesResult queue_attrs = sqs.getQueueAttributes(
                 new GetQueueAttributesRequest(dl_queue_url)
-                    .withAttributeNames("QueueArn"));
+                        .withAttributeNames("QueueArn"));
 
         String dl_queue_arn = queue_attrs.getAttributes().get("QueueArn");
 
         // Set dead letter queue with redrive policy on source queue.
         String src_queue_url = sqs.getQueueUrl(src_queue_name)
-                                  .getQueueUrl();
+                .getQueueUrl();
 
         SetQueueAttributesRequest request = new SetQueueAttributesRequest()
                 .withQueueUrl(src_queue_url)
                 .addAttributesEntry("RedrivePolicy",
                         "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
-                        + dl_queue_arn + "\"}");
+                                + dl_queue_arn + "\"}");
 
         sqs.setQueueAttributes(request);
+
+        //Shutdown the client object
+        sqs.shutdown();
     }
 }
