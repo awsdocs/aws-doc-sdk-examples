@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to send, receive and delete messages from a queue.]
+//snippet-sourcedescription:[SendReceiveMessages demonstrates how to send, receive and delete messages from a queue.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2019-12-04]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -76,5 +76,8 @@ public class SendReceiveMessages
         for (Message m : messages) {
             sqs.deleteMessage(queueUrl, m.getReceiptHandle());
         }
+
+        //Shutdown the client object
+        sqs.shutdown();
     }
 }
