@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to change the visibility timeout for a queue.]
+//snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for a queue.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2019-12-04]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,9 +41,9 @@ public class VisibilityTimeout
 
         // Get the receipt handle for the first message in the queue.
         String receipt = sqs.receiveMessage(queue_url)
-                            .getMessages()
-                            .get(0)
-                            .getReceiptHandle();
+                .getMessages()
+                .get(0)
+                .getReceiptHandle();
 
         sqs.changeMessageVisibility(queue_url, receipt, timeout);
     }
@@ -55,22 +55,22 @@ public class VisibilityTimeout
         AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         List<ChangeMessageVisibilityBatchRequestEntry> entries =
-            new ArrayList<ChangeMessageVisibilityBatchRequestEntry>();
+                new ArrayList<ChangeMessageVisibilityBatchRequestEntry>();
 
         entries.add(new ChangeMessageVisibilityBatchRequestEntry(
-                    "unique_id_msg1",
-                    sqs.receiveMessage(queue_url)
-                       .getMessages()
-                       .get(0)
-                       .getReceiptHandle())
+                "unique_id_msg1",
+                sqs.receiveMessage(queue_url)
+                        .getMessages()
+                        .get(0)
+                        .getReceiptHandle())
                 .withVisibilityTimeout(timeout));
 
         entries.add(new ChangeMessageVisibilityBatchRequestEntry(
-                    "unique_id_msg2",
-                    sqs.receiveMessage(queue_url)
-                       .getMessages()
-                       .get(0)
-                       .getReceiptHandle())
+                "unique_id_msg2",
+                sqs.receiveMessage(queue_url)
+                        .getMessages()
+                        .get(0)
+                        .getReceiptHandle())
                 .withVisibilityTimeout(timeout + 200));
 
         sqs.changeMessageVisibilityBatch(queue_url, entries);
@@ -102,5 +102,9 @@ public class VisibilityTimeout
 
         // change visibility timeout (multiple)
         changeMessageVisibilityMultiple(queue_url, 30 * 60 ); //30 minutes
+
+        //Shutdown the client object
+        sqs.shutdown();
+
     }
 }
