@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[<<FILENAME>> demonstrates how to create, and delete a queue as well as list all queues in your account.]
+//snippet-sourcedescription:[UsingQueues.java demonstrates how to create, and delete a queue as well as list all queues in your account.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -33,7 +33,7 @@ import java.util.Date;
 public class UsingQueues
 {
     private static final String QUEUE_NAME = "testQueue" +
-        new Date().getTime();
+            new Date().getTime();
 
     public static void main(String[] args)
     {
@@ -76,5 +76,8 @@ public class UsingQueues
         for (String url : lq_result.getQueueUrls()) {
             System.out.println(url);
         }
+
+        //Shutdown the client object
+        sqs.shutdown();
     }
 }
