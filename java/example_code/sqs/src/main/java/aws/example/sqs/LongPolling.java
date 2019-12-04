@@ -72,5 +72,8 @@ public class LongPolling
                 .withQueueUrl(queue_url)
                 .withWaitTimeSeconds(40);
         sqs.receiveMessage(receive_request);
+        
+        //Shutdown the client object
+        sqs.shutdown();
     }
 }
