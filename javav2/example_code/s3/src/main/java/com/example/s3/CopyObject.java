@@ -34,7 +34,7 @@ import java.nio.charset.StandardCharsets;
 
 // snippet-end:[s3.java2.copy_object.import]
 /**
- * Copy an object from one Amazon S3 bucket to another.
+ * Copies an object from one Amazon S3 bucket to another.
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
