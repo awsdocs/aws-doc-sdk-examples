@@ -52,7 +52,6 @@ public class LambdaInvoke {
         */
         String functionName = args[0];
 
-        // snippet-start:[lambda.java2.invoke.main]
         InvokeResponse res = null ;
         try
         {
