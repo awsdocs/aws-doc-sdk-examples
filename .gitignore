@@ -19,3 +19,4 @@ php/example_code/Find_replace_confirm changes.py
 cpp/.vs/
 *.iml
 .vscode
+__pycache__
