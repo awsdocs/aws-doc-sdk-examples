@@ -50,8 +50,8 @@ public class GetObjectPresignedUrl {
         String bucketName = args[0];
         String keyName = args[1];
 
-        // Create an S3Presigner using the default region and credentials.
-        // This is usually done at application startup, because creating a presigner can be expensive.
+        // Create an S3Presigner using the default region and credentials
+        // This is usually done at application startup, because creating a presigner can be expensive
         S3Presigner presigner = S3Presigner.create();
 
         try{
@@ -74,7 +74,7 @@ public class GetObjectPresignedUrl {
             PresignedGetObjectRequest presignedGetObjectRequest =
                     presigner.presignGetObject(getObjectPresignRequest);
 
-            // Log the presigned URL, for example.
+            // Log the presigned URL
             System.out.println("Presigned URL: " + presignedGetObjectRequest.url());
 
             // Create a JDK HttpURLConnection for communicating with S3
@@ -105,7 +105,7 @@ public class GetObjectPresignedUrl {
             // It is recommended to close the S3Presigner when it is done being used, because some credential
             // providers (e.g. if your AWS profile is configured to assume an STS role) require system resources
             // that need to be freed. If you are using one S3Presigner per application (as recommended), this
-            // usually is not needed.
+            // usually is not needed
             presigner.close();
 
         }
