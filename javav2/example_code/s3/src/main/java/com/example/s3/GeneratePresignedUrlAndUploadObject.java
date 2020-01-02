@@ -53,9 +53,7 @@ public class GeneratePresignedUrlAndUploadObject {
         S3Presigner presigner = S3Presigner.create();
 
         try{
-            // PutObjectPresignRequest.Builder
-
-           PresignedPutObjectRequest presignedRequest =
+            PresignedPutObjectRequest presignedRequest =
                     presigner.presignPutObject(z -> z.signatureDuration(Duration.ofMinutes(10))
                             .putObjectRequest(por -> por.bucket(bucketName).key(keyName)));
 
