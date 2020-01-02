@@ -48,14 +48,11 @@ public class GeneratePresignedUrlAndUploadObject {
         String bucketName = args[0];
         String keyName = args[1];
 
-        // Create an S3Presigner using the default region and credentials.
-        // This is usually done at application startup, because creating a presigner can be expensive.
+        // Create an S3Presigner using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
 
         try{
-            // PutObjectPresignRequest.Builder
-
-           PresignedPutObjectRequest presignedRequest =
+            PresignedPutObjectRequest presignedRequest =
                     presigner.presignPutObject(z -> z.signatureDuration(Duration.ofMinutes(10))
                             .putObjectRequest(por -> por.bucket(bucketName).key(keyName)));
 
@@ -65,10 +62,10 @@ public class GeneratePresignedUrlAndUploadObject {
                     presignedRequest.httpRequest().method());
 
 
-            //Upload content to the bucket using this URL
+            //Upload content to the bucket by using this URL
             URL url = presignedRequest.url();
 
-            // Create the connection and use it to upload the new object using the pre-signed URL.
+            // Create the connection and use it to upload the new object by using the pre-signed URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type","text/plain");
@@ -80,10 +77,10 @@ public class GeneratePresignedUrlAndUploadObject {
             connection.getResponseCode();
             System.out.println("HTTP response code: " + connection.getResponseCode());
 
-            // It is recommended to close the S3Presigner when it is done being used, because some credential
+            // It's recommended that you close the S3Presigner when it is done being used, because some credential
             // providers (e.g. if your AWS profile is configured to assume an STS role) require system resources
             // that need to be freed. If you are using one S3Presigner per application (as recommended), this
-            // usually is not needed.
+            // usually isn't needed
             presigner.close();
 
         }
