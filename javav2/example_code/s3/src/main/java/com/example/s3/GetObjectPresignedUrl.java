@@ -79,14 +79,14 @@ public class GetObjectPresignedUrl {
             // Create a JDK HttpURLConnection for communicating with S3
             HttpURLConnection connection = (HttpURLConnection) presignedGetObjectRequest.url().openConnection();
 
-            // Specify any headers that are needed by the service (not needed when isBrowserExecutable is true)
+            // Specify any headers that the service needs (not needed when isBrowserExecutable is true)
             presignedGetObjectRequest.httpRequest().headers().forEach((header, values) -> {
                 values.forEach(value -> {
                     connection.addRequestProperty(header, value);
                 });
             });
 
-            // Send any request payload that is needed by the service (not needed when isBrowserExecutable is true)
+            // Send any request payload that the service needs (not needed when isBrowserExecutable is true)
             if (presignedGetObjectRequest.signedPayload().isPresent()) {
                 connection.setDoOutput(true);
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
