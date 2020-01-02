@@ -37,32 +37,50 @@ public class UseDynamoMapping {
 
     public static void main(String[] args)
     {
+        final String USAGE = "\n" +
+                "To run this example, supply the following values: \n" +
+                "artist name \n" +
+                "song title \n" +
+                "album title \n" +
+                "number of awards \n";
+
+        if (args.length < 4) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
+        String artist = args[0];
+        String songTitle = args[1];
+        String albumTitle = args[2];
+        String awards = args[3];
+
+
         // snippet-start:[dynamodb.java.dynamoDB_mapping.main]
        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
        MusicItems items = new MusicItems();
 
        try{
-          //add new content to the Music table
-           items.setArtist("Famous Band");
-           items.setSongTitle("Our Famous Song");
-           items.setAlbumTitle("Our First Album");
-           items.setAwards(0);
+          // Add new content to the Music table
+           items.setArtist(artist);
+           items.setSongTitle(songTitle);
+           items.setAlbumTitle(albumTitle);
+           items.setAwards(Integer.parseInt(awards)); //convert to an int
 
-           // Save the item.
+           // Save the item
            DynamoDBMapper mapper = new DynamoDBMapper(client);
            mapper.save(items);
 
-            //Load an item based on the Partition Key and Sort Key
-           //both values need to be passed to the mapper.load method
-           String artist = "Famous Band";
-           String songQueryTitle = "Our Famous Song";
+            // Load an item based on the Partition Key and Sort Key
+           // Both values need to be passed to the mapper.load method
+           String artistName = artist;
+           String songQueryTitle = songTitle;
 
-           // Retrieve the item.
-           MusicItems itemRetrieved = mapper.load(MusicItems.class, artist, songQueryTitle);
+           // Retrieve the item
+           MusicItems itemRetrieved = mapper.load(MusicItems.class, artistName, songQueryTitle);
            System.out.println("Item retrieved:");
            System.out.println(itemRetrieved);
 
-            //Modify the Award value
+            // Modify the Award value
            itemRetrieved.setAwards(2);
            mapper.save(itemRetrieved);
            System.out.println("Item updated:");
