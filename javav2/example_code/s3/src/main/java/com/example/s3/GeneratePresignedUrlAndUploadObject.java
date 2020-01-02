@@ -62,7 +62,7 @@ public class GeneratePresignedUrlAndUploadObject {
                     presignedRequest.httpRequest().method());
 
 
-            //Upload content to the bucket using this URL
+            //Upload content to the bucket by using this URL
             URL url = presignedRequest.url();
 
             // Create the connection and use it to upload the new object by using the pre-signed URL
