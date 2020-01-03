@@ -24,7 +24,7 @@ To build and run the Python examples, you'll need:
 - `AWS SDK for Python (Boto 3) <https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html>`_
 - AWS credentials
 
-For instructions on installing AWS SDK for Python (Boto 3) and setting up
+For instructions on installing the AWS SDK for Python (Boto 3) and setting up
 credentials, see `Boto 3 Docs Quickstart <https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html>`_.
 
 Running the examples
@@ -33,7 +33,7 @@ Running the examples
 Many of the examples are written for execution in a command prompt window or
 Python console.
 
-For example, to run the s3.py example in a command window, run:
+For example, to run the s3.py example in a command prompt window, run the following.
 
 ::
 
@@ -42,7 +42,7 @@ For example, to run the s3.py example in a command window, run:
 Documentation
 =============
 
-Detailed documentation for the AWS SDK for Python (Boto 3) can be found here:
+For detailed documentation for the AWS SDK for Python (Boto 3), see the following:
 
 - `AWS SDK for Python (Boto 3) Documentation <https://docs.aws.amazon.com/pythonsdk/>`_
 - `Boto 3 Docs Quickstart <https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html>`_
@@ -55,7 +55,7 @@ repository, including the custom pylint rules found in
 `tools/pylintrc <tools/pylintrc>`_. To run
 pylint with this configuration, use the ``--rcfile`` option.
 
-For example, to check s3.py, run:
+For example, to check s3.py, run the following.
 
 ::
 
