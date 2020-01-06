@@ -55,7 +55,7 @@ int main(int argc, char ** argv)
     Aws::GuardDuty::Model::ListFindingsRequest lffc_req;
     Aws::GuardDuty::Model::FindingCriteria finding_criteria;
 
-    condition.AddEq(condition_val);
+    condition.AddEquals(condition_val);
     finding_criteria.AddCriterion(criteria_val, condition);
     lffc_req.SetDetectorId(detector_id);
     lffc_req.SetFindingCriteria(finding_criteria);
