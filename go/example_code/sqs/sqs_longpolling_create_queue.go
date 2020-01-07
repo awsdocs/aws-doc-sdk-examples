@@ -9,9 +9,9 @@
 // snippet-service:[sqs]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -23,9 +23,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.longpolling_create_queue.complete]
 package main
 
+// snippet-start:[sqs.go.longpolling_create_queue.imports]
 import (
     "flag"
     "fmt"
@@ -36,6 +37,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+// snippet-end:[sqs.go.longpolling_create_queue.imports]
 
 // Creates a new SQS queue with long polling enabled. If the Queue already exists
 // no error will be returned.
@@ -43,42 +45,50 @@ import (
 // Usage:
 //    go run sqs_longpolling_create_queue.go -n queue_name -t timeout
 func main() {
-    var name string
-    var timeout int
-    flag.StringVar(&name, "n", "", "Queue name")
-    flag.IntVar(&timeout, "t", 20, "(Optional) Timeout in seconds for long polling")
+    // snippet-start:[sqs.go.longpolling_create_queue.vars]
+    namePtr := flag.String("n", "", "Queue name")
+    timeoutPtr := flag.Int("t", 20, "(Optional) Timeout in seconds for long polling")
+
     flag.Parse()
 
-    if len(name) == 0 {
+    if *namePtr == "" {
         flag.PrintDefaults()
         exitErrorf("Queue name required")
     }
+    // snippet-end:[sqs.go.longpolling_create_queue.vars]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // Initialize a session that the SDK will use to load
+    // credentials from the shared credentials file. (~/.aws/credentials).
+    // snippet-start:[sqs.go.longpolling_create_queue.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[sqs.go.longpolling_create_queue.session]
 
-    // Create a SQS service client.
+    // snippet-start:[sqs.go.longpolling_create_queue.create]
     svc := sqs.New(sess)
 
     // Create the Queue with long polling enabled
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(name),
+        QueueName: namePtr,
         Attributes: aws.StringMap(map[string]string{
-            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(timeout),
+            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(*timeoutPtr),
         }),
     })
     if err != nil {
-        exitErrorf("Unable to create queue %q, %v.", name, err)
+        exitErrorf("Unable to create queue %q, %v.", *namePtr, err)
     }
 
-    fmt.Printf("Successfully created queue %q. URL: %s\n", name,
+    fmt.Printf("Successfully created queue %q. URL: %s\n", *namePtr,
         aws.StringValue(result.QueueUrl))
+
+    // snippet-end:[sqs.go.longpolling_create_queue.create]
 }
 
+// snippet-start:[sqs.go.longpolling_create_queue.exit]
 func exitErrorf(msg string, args ...interface{}) {
     fmt.Fprintf(os.Stderr, msg+"\n", args...)
     os.Exit(1)
 }
+// snippet-end:[sqs.go.longpolling_create_queue.exit]
+// snippet-end:[sqs.go.longpolling_create_queue.complete]

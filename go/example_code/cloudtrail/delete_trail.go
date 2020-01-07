@@ -8,9 +8,9 @@
 // snippet-service:[cloudtrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,9 +22,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[cloudtrail.go.delete_trail.complete]
 package main
 
+// snippet-start:[cloudtrail.go.delete_trail.imports]
 import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
@@ -34,34 +35,40 @@ import (
     "fmt"
     "os"
 )
+// snippet-end:[cloudtrail.go.delete_trail.imports]
 
 func main() {
     // Trail name required
-    var trailName string
-    flag.StringVar(&trailName, "n", "", "The name of the trail to delete")
+    // snippet-start:[cloudtrail.go.delete_trail.vars]
+    trailNamePtr := flag.String("n", "", "The name of the trail to delete")
 
     flag.Parse()
 
-    if trailName == "" {
+    if *trailNamePtr == "" {
         fmt.Println("You must supply a trail name")
         os.Exit(1)
     }
+    // snippet-end:[cloudtrail.go.delete_trail.vars]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
+    // Initialize a session that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // snippet-start:[cloudtrail.go.delete_trail.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[cloudtrail.go.delete_trail.session]
 
-    // Create CloudTrail client
+    // snippet-start:[cloudtrail.go.delete_trail.delete]
     svc := cloudtrail.New(sess)
 
-    _, err = svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: aws.String(trailName)})
+    _, err := svc.DeleteTrail(&cloudtrail.DeleteTrailInput{Name: aws.String(*trailNamePtr)})
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
         os.Exit(1)
     }
 
-    fmt.Println("Successfully deleted trail", trailName)
+    fmt.Println("Successfully deleted trail", *trailNamePtr)
+    // snippet-end:[cloudtrail.go.delete_trail.delete]
 }
+// snippet-end:[cloudtrail.go.delete_trail.complete]

@@ -7,9 +7,9 @@
 // snippet-sourcesyntax:[go]
 // snippet-keyword:[AWS S3]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-4-26]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -51,14 +51,15 @@ type HTTPClientSettings struct {
     ResponseHeader   time.Duration
     TLSHandshake     time.Duration
 }
+
 // snippet-end:[s3.go.customHttpClient_struct]
 
 // snippet-start:[s3.go.customHttpClient_client]
 func NewHTTPClientWithSettings(httpSettings HTTPClientSettings) *http.Client {
     tr := &http.Transport{
         ResponseHeaderTimeout: httpSettings.ResponseHeader,
-        Proxy:                 http.ProxyFromEnvironment,
-        DialContext:           (&net.Dialer{
+        Proxy: http.ProxyFromEnvironment,
+        DialContext: (&net.Dialer{
             KeepAlive: httpSettings.ConnKeepAlive,
             DualStack: true,
             Timeout:   httpSettings.Connect,
@@ -77,6 +78,7 @@ func NewHTTPClientWithSettings(httpSettings HTTPClientSettings) *http.Client {
         Transport: tr,
     }
 }
+
 // snippet-end:[s3.go.customHttpClient_client]
 
 // Create a custom HTTP client and uses it to get an S3 bucket item.
@@ -86,27 +88,22 @@ func NewHTTPClientWithSettings(httpSettings HTTPClientSettings) *http.Client {
 func main() {
     bucketPtr := flag.String("b", "", "The name of the bucket")
     itemPtr := flag.String("i", "", "The name of the bucket item")
-    regionPtr := flag.String("r", "us-west-2", "The region")
     showPtr := flag.Bool("s", false, "Whether to show the bucket item as a string")
-    flag.Parse()
-    bucket := *bucketPtr
-    item := *itemPtr
-    region := *regionPtr
-    show := *showPtr
 
-    if bucket == "" || item == "" {
+    flag.Parse()
+
+    if *bucketPtr == "" || *itemPtr == "" {
         fmt.Println("You must supply the name of the bucket and item")
         fmt.Println("Usage: go run customHttpClient -b bucket-name -i item-name [-s] (show the bucket item as a string)")
         os.Exit(1)
     }
 
-    fmt.Println("Getting item " + item + " from bucket " + bucket + " in " + region)
+    fmt.Println("Getting item " + *itemPtr + " from bucket " + *bucketPtr)
 
     // Creating a SDK session using the custom HTTP client
     // and use that session to create S3 client.
     // snippet-start:[s3.go.customHttpClient_session]
     sess := session.Must(session.NewSession(&aws.Config{
-        Region: regionPtr,
         HTTPClient: NewHTTPClientWithSettings(HTTPClientSettings{
             Connect:          5 * time.Second,
             ExpectContinue:   1 * time.Second,
@@ -123,25 +120,24 @@ func main() {
     // snippet-end:[s3.go.customHttpClient_session]
 
     /* If you are only using one client,
-     * you could use the custom HTTP client when you create the client object:
-     *
-     * sess := session.Must(session.NewSession())
+    * you could use the custom HTTP client when you create the client object:
+    *
+      sess := session.Must(session.NewSession())
 
-     * client := s3.New(sess, &aws.Config{
-     *     Region: region,
-     *        HTTPClient: NewHTTPClientWithSettings(HTTPClientSettings{
-     *            Connect:          5 * time.Second,
-     *            ExpectContinue:   1 * time.Second,
-     *            IdleConn:         90 * time.Second,
-     *            KeepAlive:        30 * time.Second,
-     *            MaxAllIdleConns:  100,
-     *            MaxHostIdleConns: 10,
-     *            ResponseHeader:   5 * time.Second,
-     *            TLSHandshake:     5 * time.Second,
-     *        }),
-     * })
-     *
-     */
+      client := s3.New(sess, &aws.Config{
+          HTTPClient: NewHTTPClientWithSettings(HTTPClientSettings{
+              Connect:          5 * time.Second,
+              ExpectContinue:   1 * time.Second,
+              IdleConn:         90 * time.Second,
+              KeepAlive:        30 * time.Second,
+              MaxAllIdleConns:  100,
+              MaxHostIdleConns: 10,
+              ResponseHeader:   5 * time.Second,
+              TLSHandshake:     5 * time.Second,
+          }),
+      })
+    *
+    */
 
     obj, err := client.GetObject(&s3.GetObjectInput{
         Bucket: bucketPtr,
@@ -153,7 +149,7 @@ func main() {
         os.Exit(1)
     }
 
-    if show {
+    if *showPtr {
         // Convert body from IO.ReadCloser to string:
         buf := new(bytes.Buffer)
         buf.ReadFrom(obj.Body)
