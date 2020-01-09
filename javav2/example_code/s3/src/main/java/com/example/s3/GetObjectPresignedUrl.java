@@ -50,8 +50,7 @@ public class GetObjectPresignedUrl {
         String bucketName = args[0];
         String keyName = args[1];
 
-        // Create an S3Presigner using the default region and credentials.
-        // This is usually done at application startup, because creating a presigner can be expensive.
+        // Create an S3Presigner by using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
 
         try{
@@ -74,20 +73,20 @@ public class GetObjectPresignedUrl {
             PresignedGetObjectRequest presignedGetObjectRequest =
                     presigner.presignGetObject(getObjectPresignRequest);
 
-            // Log the presigned URL, for example.
+            // Log the presigned URL
             System.out.println("Presigned URL: " + presignedGetObjectRequest.url());
 
             // Create a JDK HttpURLConnection for communicating with S3
             HttpURLConnection connection = (HttpURLConnection) presignedGetObjectRequest.url().openConnection();
 
-            // Specify any headers that are needed by the service (not needed when isBrowserExecutable is true)
+            // Specify any headers that the service needs (not needed when isBrowserExecutable is true)
             presignedGetObjectRequest.httpRequest().headers().forEach((header, values) -> {
                 values.forEach(value -> {
                     connection.addRequestProperty(header, value);
                 });
             });
 
-            // Send any request payload that is needed by the service (not needed when isBrowserExecutable is true)
+            // Send any request payload that the service needs (not needed when isBrowserExecutable is true)
             if (presignedGetObjectRequest.signedPayload().isPresent()) {
                 connection.setDoOutput(true);
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
@@ -102,10 +101,10 @@ public class GetObjectPresignedUrl {
                 IoUtils.copy(content, System.out);
             }
 
-            // It is recommended to close the S3Presigner when it is done being used, because some credential
+            // It's recommended that you close the S3Presigner when it is done being used, because some credential
             // providers (e.g. if your AWS profile is configured to assume an STS role) require system resources
             // that need to be freed. If you are using one S3Presigner per application (as recommended), this
-            // usually is not needed.
+            // usually isn't needed
             presigner.close();
 
         }
