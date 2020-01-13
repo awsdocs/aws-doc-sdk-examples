@@ -8,9 +8,9 @@
 // snippet-service:[cognito]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-02-12]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,11 +22,11 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start:[cognito.go.list_users]
+// snippet-start:[cognito.go.list_users.complete]
 package main
 
+// snippet-start:[cognito.go.list_users.imports]
 import (
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 
@@ -34,36 +34,35 @@ import (
     "fmt"
     "os"
 )
+// snippet-end:[cognito.go.list_users.imports]
 
 func main() {
-    userPoolIdptr := flag.String("p", "", "The ID of the user pool")
+    // snippet-start:[cognito.go.list_users.vars]
+    userPoolIDPtr := flag.String("p", "", "The ID of the user pool")
 
     flag.Parse()
 
-    userPoolID := *userPoolIdptr
-
-    if userPoolID == "" {
+    if *userPoolIDPtr == "" {
         fmt.Println("You must supply a user pool ID")
         fmt.Println("Usage: go run CreateUser.go -p USER-POOL-ID")
         os.Exit(1)
     }
+    // snippet-end:[cognito.go.list_users.vars]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
+    // Initialize a session that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
-    if err != nil {
-        fmt.Println("Got error creating session:", err)
-        os.Exit(1)
-    }
+    // snippet-start:[cognito.go.list_users.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[cognito.go.list_users.session]
 
-    // Create Cognito service client
+    // snippet-start:[cognito.go.list_users.list]
     cognitoClient := cognitoidentityprovider.New(sess)
 
     results, err := cognitoClient.ListUsers(
         &cognitoidentityprovider.ListUsersInput{
-            UserPoolId: userPoolIdptr})
+            UserPoolId: userPoolIDPtr})
     if err != nil {
         fmt.Println("Got error listing users")
         os.Exit(1)
@@ -83,5 +82,6 @@ func main() {
 
         fmt.Println("")
     }
+    // snippet-end:[cognito.go.list_users.list]
 }
-// snippet-end:[cognito.go.list_users]
+// snippet-end:[cognito.go.list_users.complete]
