@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS CloudTrail]
 # snippet-keyword:[delete_trail method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudtrail]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -33,7 +34,7 @@ name = ARGV[0]
 client = Aws::CloudTrail::Client.new(region: 'us-west-2')
 
 begin
-  resp = client.delete_trail({
+  client.delete_trail({
     name: name, # required
   })
 

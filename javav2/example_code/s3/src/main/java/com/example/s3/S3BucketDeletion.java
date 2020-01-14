@@ -20,12 +20,14 @@
  * limitations under the License.
  */
 package com.example.s3;
-
+// snippet-start:[s3.java2.bucket_deletion.complete]
+// snippet-start:[s3.java2.bucket_deletion.import]
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.util.Random;
 import software.amazon.awssdk.regions.Region;
+// snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]      
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
@@ -33,10 +35,12 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+// snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]      
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.core.sync.RequestBody;
-
+// snippet-end:[s3.java2.bucket_deletion.import]
+// snippet-start:[s3.java2.bucket_deletion.main]
 public class S3BucketDeletion {
 
     private static S3Client s3;
@@ -57,6 +61,7 @@ public class S3BucketDeletion {
 
         // Delete non-empty bucket
         // To delete a bucket, all the objects in the bucket should be deleted first
+        // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]        
         ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder().bucket(bucket2).build();
         ListObjectsV2Response listObjectsV2Response;
         do {
@@ -70,6 +75,7 @@ public class S3BucketDeletion {
                                                        .build();
 
         } while (listObjectsV2Response.isTruncated());
+        // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]      
 
         // Now the bucket is empty and we can delete it
         deleteEmptyBucket(bucket2);
@@ -110,3 +116,6 @@ public class S3BucketDeletion {
         return ByteBuffer.wrap(b);
     }
 }
+ 
+// snippet-end:[s3.java2.bucket_deletion.main]
+// snippet-end:[s3.java2.bucket_deletion.complete]

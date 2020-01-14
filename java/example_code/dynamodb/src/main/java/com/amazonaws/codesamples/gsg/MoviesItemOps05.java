@@ -1,6 +1,7 @@
-// snippet-sourcedescription:[MoviesItemOps05.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ ]

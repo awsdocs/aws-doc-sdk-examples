@@ -59,6 +59,8 @@ greengrass_hello_world_run()
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[deeplens_kinesis_integration.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Botocore)]
 # snippet-keyword:[AWS Lambda]
 # snippet-keyword:[AWS Kinesis]

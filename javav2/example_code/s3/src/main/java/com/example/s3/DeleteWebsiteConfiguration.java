@@ -19,18 +19,22 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
+// snippet-start:[s3.java2.delete_website_configuration.complete]
+// snippet-start:[s3.java2.delete_website_configuration.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteBucketWebsiteRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-
+ 
+// snippet-end:[s3.java2.delete_website_configuration.import]
 /**
  * Delete the website configuration for an S3 bucket.
  *
  * This code expects that you have AWS credentials delete up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/deleteup-credentials.html
  */
+// snippet-start:[s3.java2.delete_website_configuration.main]
 public class DeleteWebsiteConfiguration
 {
     public static void deleteWebsiteConfig(String bucket_name)
@@ -70,3 +74,6 @@ public class DeleteWebsiteConfiguration
         System.out.println("Done!");
     }
 }
+ 
+// snippet-end:[s3.java2.delete_website_configuration.main]
+// snippet-end:[s3.java2.delete_website_configuration.complete]

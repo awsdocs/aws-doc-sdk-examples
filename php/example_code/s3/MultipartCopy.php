@@ -26,7 +26,7 @@ use Aws\S3\MultipartCopy;
 use Aws\Exception\MultipartUploadException;
 // snippet-end:[s3.php.multipart_upload_copy.import]
 // snippet-start:[s3.php.multipart_upload_copy.main]
-// Create a S3Client
+// Create an S3Client
 $s3Client = new S3Client([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -51,6 +51,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[MultipartCopy.php demonstrates how to copy files sized 5 GB to 5 TB.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

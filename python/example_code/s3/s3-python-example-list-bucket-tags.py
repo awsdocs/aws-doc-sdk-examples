@@ -29,6 +29,8 @@ for tag in tag_set:
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[s3-python-example-list-bucket-tags.py demonstrates how to get a list of all tags associated with the specified S3 bucket.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Amazon S3]

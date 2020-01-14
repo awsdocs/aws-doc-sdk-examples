@@ -6,6 +6,7 @@
 # snippet-keyword:[delete_key_pair method]
 # snippet-keyword:[describe_key_pairs method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -52,8 +53,8 @@ key_pairs_result = ec2.describe_key_pairs()
 
 if key_pairs_result.key_pairs.count > 0
   puts "\nKey pair names:"
-  key_pairs_result.key_pairs.each do |key_pair|
-    puts key_pair.key_name
+  key_pairs_result.key_pairs.each do |kp|
+    puts kp.key_name
   end
 end
 

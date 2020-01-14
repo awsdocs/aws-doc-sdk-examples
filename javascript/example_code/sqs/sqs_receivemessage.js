@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_receivemessage.js demonstrates how to receive and delete a message from an Amazon SQS queue.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
@@ -39,7 +40,7 @@ var params = {
  AttributeNames: [
     "SentTimestamp"
  ],
- MaxNumberOfMessages: 1,
+ MaxNumberOfMessages: 10,
  MessageAttributeNames: [
     "All"
  ],

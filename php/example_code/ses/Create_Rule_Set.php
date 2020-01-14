@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-filters.html
  *
  */
+// snippet-start:[ses.php.create_rule_set.complete]
+// snippet-start:[ses.php.create_rule_set.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.create_rule_set.import]
 
-//Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+//Create a SESClient 
+// snippet-start:[ses.php.create_rule_set.main]
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -42,10 +46,13 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.create_rule_set.main]
+// snippet-end:[ses.php.create_rule_set.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ Create_Rule_Set.php demonstrates how to create a receipt rule set that can contain a collection of receipt rules.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

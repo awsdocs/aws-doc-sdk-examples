@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[list_user_docs.java demonstrates how to list user docs for the current user.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[full-example]

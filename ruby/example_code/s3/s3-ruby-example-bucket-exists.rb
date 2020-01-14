@@ -5,6 +5,7 @@
 # snippet-keyword:[Resource.bucket method]
 # snippet-keyword:[Bucket.exists method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -25,3 +26,9 @@ require 'aws-sdk-s3'  # v2: require 'aws-sdk'
       
 s3 = Aws::S3::Resource.new(region: 'us-west-2')
 bucket_exists = s3.bucket('my-bucket').exists?
+
+if bucket_exists
+    puts 'Bucket exists'
+else
+    puts 'Bucket does not exist'
+end

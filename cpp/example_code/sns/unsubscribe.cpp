@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[unsubscribe.cpp demonstrates how to delete a subscription to an Amazon SNS topic.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

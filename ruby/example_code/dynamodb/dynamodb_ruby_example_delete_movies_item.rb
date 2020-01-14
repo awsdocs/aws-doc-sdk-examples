@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[delete_item method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -34,7 +35,7 @@ params = {
 }
 
 begin
-  result = dynamodb.delete_item(params)
+  dynamodb.delete_item(params)
   puts 'Deleted movie'
 rescue  Aws::DynamoDB::Errors::ServiceError => error
   puts 'Unable to delete movie:'

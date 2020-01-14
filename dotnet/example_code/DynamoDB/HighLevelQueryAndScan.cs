@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[HighLevelQueryAndScan.cs demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[dotNET]
 // snippet-keyword:[Amazon DynamoDB]
@@ -41,7 +41,7 @@ namespace com.amazonaws.codesamples
             try
             {
                 DynamoDBContext context = new DynamoDBContext(client);
-                // Get item.
+                // Get an item.
                 GetBook(context, 101);
 
                 // Sample forum and thread to test queries.
@@ -149,7 +149,7 @@ namespace com.amazonaws.codesamples
     [DynamoDBTable("Thread")]
     public class Thread
     {
-        // PK mapping.
+        // Partition key mapping.
         [DynamoDBHashKey] //Partition key
         public string ForumName
         {
@@ -185,7 +185,7 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // Explicit mapping (property and table attribute names are different.
+        // Explicit mapping (property and table attribute names are different).
         [DynamoDBProperty("Tags")]
         public List<string> KeywordTags
         {
@@ -207,8 +207,8 @@ namespace com.amazonaws.codesamples
         {
             get; set;
         }
-        // All the following properties are explicitly mapped,
-        // only to show how to provide mapping.
+        // All the following properties are explicitly mapped
+        // to show how to provide mapping.
         [DynamoDBProperty]
         public int Threads
         {

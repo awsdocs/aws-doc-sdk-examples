@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[update_item method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -37,7 +38,7 @@ params = {
 }
 
 begin
-  result = dynamodb.update_item(params)
+  dynamodb.update_item(params)
   puts 'Rating successfully set'
 rescue  Aws::DynamoDB::Errors::ServiceError => error
   puts 'Unable to set rating:'

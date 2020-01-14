@@ -7,6 +7,7 @@
 # snippet-keyword:[receive_message method]
 # snippet-keyword:[send_message method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sqs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

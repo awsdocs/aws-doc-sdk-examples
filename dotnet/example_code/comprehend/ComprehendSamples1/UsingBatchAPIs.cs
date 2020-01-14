@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[UsingBatchAPIs.cs demonstrates how to detect entities on a batch of strings using the Comprehend client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-service:[comprehend]
 //snippet-keyword:[Amazon Comprehend]

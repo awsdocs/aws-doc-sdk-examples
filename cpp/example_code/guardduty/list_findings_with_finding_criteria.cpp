@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[list_findings_with_finding_criteria.cpp demonstrates how to list Amazon GuardDuty findings using finding criteria.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]
@@ -54,7 +55,7 @@ int main(int argc, char ** argv)
     Aws::GuardDuty::Model::ListFindingsRequest lffc_req;
     Aws::GuardDuty::Model::FindingCriteria finding_criteria;
 
-    condition.AddEq(condition_val);
+    condition.AddEquals(condition_val);
     finding_criteria.AddCriterion(criteria_val, condition);
     lffc_req.SetDetectorId(detector_id);
     lffc_req.SetFindingCriteria(finding_criteria);

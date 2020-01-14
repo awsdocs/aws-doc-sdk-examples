@@ -1,3 +1,15 @@
+# snippet-sourcedescription:[pinpoint_send_email_message_api demonstrates how to send a transactional email by using the SendMessages operation in the Amazon Pinpoint API.]
+# snippet-service:[mobiletargeting]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[Amazon Pinpoint]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[SendMessages]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-20]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -10,15 +22,6 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-# snippet-sourcedescription:[pinpoint_send_email_message_api demonstrates how to send a transactional email by using the SendMessages operation in the Amazon Pinpoint API.]
-# snippet-service:[mobiletargeting]
-# snippet-keyword:[Python]
-# snippet-keyword:[Amazon Pinpoint]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[SendMessages]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-20]
-# snippet-sourceauthor:[AWS]
 # snippet-start:[pinpoint.python.pinpoint_send_email_message_api.complete]
 
 import boto3
@@ -53,7 +56,7 @@ This email was sent with Amazon Pinpoint using the AWS SDK for Python (Boto 3).
 For more information, see https:#aws.amazon.com/sdk-for-python/
             """
 
-# The body of the eamil for recipients whose email clients can display HTML
+# The body of the email for recipients whose email clients can display HTML
 # content.
 BODY_HTML = """<html>
 <head></head>

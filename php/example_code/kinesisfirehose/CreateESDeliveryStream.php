@@ -12,14 +12,17 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the
- *
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at
+ *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-firehose-example-delivery-stream.html
  */
+// snippet-start:[firehose.php.create_es_delivery_stream.complete]
+// snippet-start:[firehose.php.create_es_delivery_stream.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient;
+use Aws\Firehose\FirehoseClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[firehose.php.create_es_delivery_stream.import]
 
 /**
  * Creating an Amazon Kinesis Firehose client.
@@ -28,7 +31,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient
+//Create a KinesisClient 
+// snippet-start:[firehose.php.create_es_delivery_stream.main]
 $firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
     'version' => '2015-08-04',
@@ -72,10 +76,13 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[firehose.php.create_es_delivery_stream.main]
+// snippet-end:[firehose.php.create_es_delivery_stream.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateESDeliveryStream.php demonstrates how to establish a Amazon Kinesis Firehose Delivery Stream that will put data into an Amazon ES.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Kinesis Data Firehose]

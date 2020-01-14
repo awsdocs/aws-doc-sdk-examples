@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS CloudTrail]
 # snippet-keyword:[create_trail method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudtrail]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -114,7 +115,7 @@ end
 client = Aws::CloudTrail::Client.new(region: 'us-west-2')
 
 begin
-  resp = client.create_trail({
+  client.create_trail({
     name: name, # required
     s3_bucket_name: bucket, # required
   })

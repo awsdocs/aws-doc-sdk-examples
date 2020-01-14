@@ -5,6 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[cloudwatch.java2.put_targets.complete]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,10 +21,12 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.put_targets.import]
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsRequest;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsResponse;
 import software.amazon.awssdk.services.cloudwatchevents.model.Target;
+// snippet-end:[cloudwatch.java2.put_targets.import]
 
 /**
  * Creates a CloudWatch event-routing rule target
@@ -48,6 +51,7 @@ public class PutTargets {
         String function_arn = args[1];
         String target_id = args[2];
 
+        // snippet-start:[cloudwatch.java2.put_targets.main]
         CloudWatchEventsClient cwe =
         		CloudWatchEventsClient.builder().build();
 
@@ -62,9 +66,11 @@ public class PutTargets {
             .build();
 
         PutTargetsResponse response = cwe.putTargets(request);
+        // snippet-end:[cloudwatch.java2.put_targets.main]
 
         System.out.printf(
             "Successfully created CloudWatch events target for rule %s",
             rule_name);
     }
 }
+// snippet-end:[cloudwatch.java2.put_targets.complete]

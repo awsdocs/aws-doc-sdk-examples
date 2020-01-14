@@ -16,11 +16,15 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
+// snippet-start:[s3.php.put_object.complete]
+// snippet-start:[s3.php.put_object.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
+use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+// snippet-end:[s3.php.put_object.import]
+
 
 /**
  * Put an Object inside Amazon S3 Bucket.
@@ -28,7 +32,8 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+// snippet-start:[s3.php.put_object.main]
 $USAGE = "\n" .
     "To run this example, supply the name of an S3 bucket and a file to\n" .
     "upload to it.\n" .
@@ -60,10 +65,13 @@ try {
     echo $e->getMessage() . "\n";
 }
  
-
+ 
+// snippet-end:[s3.php.put_object.main]
+// snippet-end:[s3.php.put_object.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[PutObject.php demonstrates how to add a file (or object) to an Amazon S3 bucket using PutObject operation.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

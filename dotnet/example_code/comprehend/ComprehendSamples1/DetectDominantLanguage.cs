@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[DetechDominantLanguage.cs demonstrates how to get the language code for the dominant language detected for a sample string.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Comprehend]
 //snippet-service:[comprehend]

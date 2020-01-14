@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-working-with-policies.html
  *
+ *
+ *
  */
+// snippet-start:[iam.php.attach_role_policy.complete]
+// snippet-start:[iam.php.attach_role_policy.import]
+
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
+use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[iam.php.attach_role_policy.import]
 
 /**
  * Attaches policy to the specified role
@@ -27,7 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+//Create an IAM Client
+// snippet-start:[iam.php.attach_role_policy.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -64,10 +72,13 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[iam.php.attach_role_policy.main]
+// snippet-end:[iam.php.attach_role_policy.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[AttachRolePolicy.php demonstrates how to attach an IAM policy to the specified User role.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Identity and Access Management (IAM)]

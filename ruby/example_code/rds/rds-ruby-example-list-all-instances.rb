@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Relational Database Service]
 # snippet-keyword:[db_instances method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[rds]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -6,6 +6,7 @@
 // snippet-keyword:[DeleteObject function]
 // snippet-keyword:[WaitUntilObjectNotExists function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[s3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -68,7 +69,7 @@ func main() {
         Key:    aws.String(obj),
     })
     if err != nil {
-        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj)
+        exitErrorf("Error occurred while waiting for object %q to be deleted, %v", obj, err)
     }
 
     fmt.Printf("Object %q successfully deleted\n", obj)

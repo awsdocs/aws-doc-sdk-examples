@@ -4,12 +4,13 @@
 // snippet-keyword:[AWS CloudTrail]
 // snippet-keyword:[LookupEvents function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudtrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -21,9 +22,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[cloudtrail.go.lookup_events.complete]
 package main
 
+// snippet-start:[cloudtrail.go.lookup_events.imports]
 import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
@@ -34,30 +36,28 @@ import (
     "os"
     "time"
 )
+// snippet-end:[cloudtrail.go.lookup_events.imports]
 
 func main() {
     // Trail name required
-    var trailName string
-    flag.StringVar(&trailname, "n", "", "The name of the trail")
-
-    // Option to show event
-    var showEvent bool
-    flag.BoolVar (&showEvent, "s", false, "Whether to show the event")
+    // snippet-start:[cloudtrail.go.lookup_events.vars]
+    trailNamePtr := flag.String("n", "", "The name of the trail")
 
     flag.Parse()
 
-    if trailName == "" {
+    if *trailNamePtr == "" {
         fmt.Println("You must supply a trail name")
         os.Exit(1)
     }
+    // snippet-end:[cloudtrail.go.lookup_events.vars]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // snippet-start:[cloudtrail.go.lookup_events.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[cloudtrail.go.lookup_events.session]
 
-    // Create CloudTrail client
+    // snippet-start:[cloudtrail.go.lookup_events.lookup]
     svc := cloudtrail.New(sess)
 
     input := &cloudtrail.LookupEventsInput{EndTime: aws.Time(time.Now())}
@@ -69,16 +69,13 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Found", len(resp.Events),"events before now")
+    fmt.Println("Found", len(resp.Events), "events before now")
     fmt.Println("")
 
     for _, event := range resp.Events {
-        if showEvents {
-            fmt.Println("Event:")
-            fmt.Println(aws.StringValue(event.CloudTrailEvent))
-            fmt.Println("")
-        }
-
+        fmt.Println("Event:")
+        fmt.Println(aws.StringValue(event.CloudTrailEvent))
+        fmt.Println("")
         fmt.Println("Name    ", aws.StringValue(event.EventName))
         fmt.Println("ID:     ", aws.StringValue(event.EventId))
         fmt.Println("Time:   ", aws.TimeValue(event.EventTime))
@@ -92,5 +89,7 @@ func main() {
         }
 
         fmt.Println("")
+        // snippet-end:[cloudtrail.go.lookup_events.lookup]
     }
 }
+// snippet-end:[cloudtrail.go.lookup_events.complete]

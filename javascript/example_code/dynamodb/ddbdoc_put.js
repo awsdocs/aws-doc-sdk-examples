@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ddbdoc_put.js demonstrates how to ues a DocumentClient to create or replace an item in an Amazon DynamoDB table.]
 //snippet-service:[dynamodb]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]

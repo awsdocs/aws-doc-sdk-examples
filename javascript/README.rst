@@ -29,7 +29,7 @@ Running the examples
 Examples are written for either execution in a browser script or in Node.js, usually depending on the use case for each. The two scenarios typically differ in how you supply credentials to the code. These differences are described in the Developer Guide at `https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html>`_
 
 To run the examples, you'll need to create a shared credentials file. For more information about how to set up a shared credentials file,
-see `Loading Credentials in Node.js from the Shared Credentials File <http://integ-docs-aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html>`_
+see `Loading Credentials in Node.js from the Shared Credentials File <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html>`_
 in the *AWS SDK for JavaScript Developer Guide*.
 
 The Node.js examples are all run from the command line.

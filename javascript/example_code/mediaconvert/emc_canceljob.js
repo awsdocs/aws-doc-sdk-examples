@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_canceljob.js demonstrates how to remove a transcoding job from the queue.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
@@ -27,7 +28,7 @@
 // snippet-start:[mediaconvert.JavaScript.jobs.cancelJob]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the Region 
 AWS.config.update({region: 'us-west-2'});
 // Set MediaConvert to customer endpoint
 AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};

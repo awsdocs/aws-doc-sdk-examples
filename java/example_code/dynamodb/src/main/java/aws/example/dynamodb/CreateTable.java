@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateTable.java demonstrates how to create a DynamoDB table a single primary key.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

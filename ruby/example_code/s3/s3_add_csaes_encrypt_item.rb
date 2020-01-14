@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[put_object method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -31,7 +32,6 @@ end
 
 encoded_string = ARGV[0]
 key = encoded_string.unpack("m*")[0]
-md5 = Digest::MD5.digest(key)
 
 bucket = 'my_bucket'
 item = 'my_item'

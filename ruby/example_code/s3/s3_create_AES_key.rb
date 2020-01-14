@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[AES key]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-03-16]
@@ -31,4 +32,4 @@ encoded_string = Base64.encode64(key)
 puts encoded_string
 
 # To decode the encoded string:
-#   key = encodd_string.unpack("m*")[0]
+#   key = encoded_string.unpack("m*")[0]

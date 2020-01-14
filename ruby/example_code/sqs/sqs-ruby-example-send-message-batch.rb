@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Queue Service]
 # snippet-keyword:[send_message_batch method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sqs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -24,7 +25,7 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
-resp = sqs.send_message_batch({
+sqs.send_message_batch({
   queue_url: URL,
   entries: [
     {

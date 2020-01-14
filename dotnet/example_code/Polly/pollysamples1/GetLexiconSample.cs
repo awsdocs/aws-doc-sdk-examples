@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[GetLexiconSample.cs demonstrates how to get the content of the specified pronunciation lexicon.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Polly]
 //snippet-service:[polly]

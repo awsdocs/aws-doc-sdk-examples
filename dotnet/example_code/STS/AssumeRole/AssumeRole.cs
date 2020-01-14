@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AssumeRole.cs demonstrates how to get temporary credentials using the AWS STS client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Security Token Service (STS)]
 //snippet-service:[sts]
