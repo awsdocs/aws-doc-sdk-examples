@@ -6,12 +6,13 @@
 // snippet-keyword:[CreateSecurityGroup function]
 // snippet-keyword:[DescribeVpcs function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ec2]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -23,9 +24,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[ec2.go.create_security_group.complete]
 package main
 
+// snippet-start:[ec2.go.create_security_group.imports]
 import (
     "flag"
     "fmt"
@@ -36,6 +38,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/ec2"
 )
+// snippet-end:[ec2.go.create_security_group.imports]
 
 // Creates a new security group with the given name and description for
 // open port 80 and 22 access. Associating the security group with the
@@ -44,28 +47,32 @@ import (
 // Usage:
 //    go run ec2_describe_security_groups.go -n name -d description -vpc vpcID
 func main() {
-    var name, desc, vpcID string
-    flag.StringVar(&name, "n", "", "Group Name")
-    flag.StringVar(&desc, "d", "", "Group Description")
-    flag.StringVar(&vpcID, "vpc", "", "(Optional) VPC ID to associate security group with")
+    // snippet-start:[ec2.go.create_security_group.vars]
+    namePtr := flag.String("n", "", "Group Name")
+    descPtr := flag.String("d", "", "Group Description")
+    vpcIDPtr := flag.String("vpc", "", "(Optional) VPC ID to associate security group with")
+
     flag.Parse()
 
-    if len(name) == 0 || len(desc) == 0 {
+    if *namePtr == "" || *descPtr == "" {
         flag.PrintDefaults()
         exitErrorf("Group name and description require")
     }
+    // snippet-end:[ec2.go.create_security_group.vars]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
+    // Initialize a session that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // snippet-start:[ec2.go.create_security_group.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-    // Create an EC2 service client.
     svc := ec2.New(sess)
+    // snippet-end:[ec2.go.create_security_group.session]
 
     // If the VPC ID wasn't provided in the CLI retrieve the first in the account.
-    if len(vpcID) == 0 {
+    // snippet-start:[ec2.go.create_security_group.vpcid]
+    if *vpcIDPtr == "" {
         // Get a list of VPCs so we can associate the group with the first VPC.
         result, err := svc.DescribeVpcs(nil)
         if err != nil {
@@ -74,32 +81,38 @@ func main() {
         if len(result.Vpcs) == 0 {
             exitErrorf("No VPCs found to associate security group with.")
         }
-        vpcID = aws.StringValue(result.Vpcs[0].VpcId)
+
+        *vpcIDPtr = aws.StringValue(result.Vpcs[0].VpcId)
     }
+    // snippet-end:[ec2.go.create_security_group.vpcid]
 
     // Create the security group with the VPC, name and description.
+    // snippet-start:[ec2.go.create_security_group.create]
     createRes, err := svc.CreateSecurityGroup(&ec2.CreateSecurityGroupInput{
-        GroupName:   aws.String(name),
-        Description: aws.String(desc),
-        VpcId:       aws.String(vpcID),
+        GroupName:   aws.String(*namePtr),
+        Description: aws.String(*descPtr),
+        VpcId:       aws.String(*vpcIDPtr),
     })
     if err != nil {
         if aerr, ok := err.(awserr.Error); ok {
             switch aerr.Code() {
             case "InvalidVpcID.NotFound":
-                exitErrorf("Unable to find VPC with ID %q.", vpcID)
+                exitErrorf("Unable to find VPC with ID %q.", *vpcIDPtr)
             case "InvalidGroup.Duplicate":
-                exitErrorf("Security group %q already exists.", name)
+                exitErrorf("Security group %q already exists.", *namePtr)
             }
         }
-        exitErrorf("Unable to create security group %q, %v", name, err)
+        exitErrorf("Unable to create security group %q, %v", *namePtr, err)
     }
-    fmt.Printf("Created security group %s with VPC %s.\n",
-        aws.StringValue(createRes.GroupId), vpcID)
 
+    fmt.Printf("Created security group %s with VPC %s.\n",
+        aws.StringValue(createRes.GroupId), *vpcIDPtr)
+    // snippet-end:[ec2.go.create_security_group.create]
+    
     // Add permissions to the security group
+    // snippet-start:[ec2.go.create_security_group.permissions]
     _, err = svc.AuthorizeSecurityGroupIngress(&ec2.AuthorizeSecurityGroupIngressInput{
-        GroupName: aws.String(name),
+        GroupName: aws.String(*namePtr),
         IpPermissions: []*ec2.IpPermission{
             // Can use setters to simplify seting multiple values without the
             // needing to use aws.String or associated helper utilities.
@@ -121,14 +134,17 @@ func main() {
         },
     })
     if err != nil {
-        exitErrorf("Unable to set security group %q ingress, %v", name, err)
+        exitErrorf("Unable to set security group %q ingress, %v", *namePtr, err)
     }
 
     fmt.Println("Successfully set security group ingress")
-
+    // snippet-end:[ec2.go.create_security_group.permissions]
 }
 
+// snippet-start:[ec2.go.create_security_group.exit]
 func exitErrorf(msg string, args ...interface{}) {
     fmt.Fprintf(os.Stderr, msg+"\n", args...)
     os.Exit(1)
 }
+// snippet-end:[ec2.go.create_security_group.exit]
+// snippet-end:[ec2.go.create_security_group.complete]

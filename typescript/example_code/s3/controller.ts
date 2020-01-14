@@ -2,6 +2,7 @@
 // snippet-sourceauthor:[Danilo Joksimovic (GitHub: djoksimo)]
 // snippet-sourcedescription:[Enables an S3 service to get, upload, and delete S3 files with the Rx.js library.]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetId.java demonstrates how to retrieve the ClientID from an identity provider.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Cognito]
 // snippet-service:[cognito]

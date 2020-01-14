@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ec2_describeinstances.js demonstrates how to retrieve information about one or more Amazon EC2 instances.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]

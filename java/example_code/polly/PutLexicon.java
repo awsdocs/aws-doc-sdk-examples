@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[PutLexicon demonstrates how to store a pronunciation lexicon in an AWS Region.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PutLexicon]

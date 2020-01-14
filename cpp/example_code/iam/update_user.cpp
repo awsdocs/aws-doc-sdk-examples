@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[update_user.cpp demonstrates how to update the name of an IAM user.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

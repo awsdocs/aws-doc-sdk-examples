@@ -6,6 +6,7 @@
 # snippet-keyword:[table.scan method]
 # snippet-keyword:[table.update_item method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

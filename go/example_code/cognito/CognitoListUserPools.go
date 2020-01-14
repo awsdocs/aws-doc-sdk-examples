@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[ListUserPools function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cognito]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

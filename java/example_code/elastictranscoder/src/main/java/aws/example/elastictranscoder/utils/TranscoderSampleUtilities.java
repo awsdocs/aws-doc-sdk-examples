@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[TranscoderSampleUtilities.java provides basic useful utils for transcoding jobs.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Transcoder]
 //snippet-service:[elastictranscoder]

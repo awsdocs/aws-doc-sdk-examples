@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_listsubscriptions.js demonstrates how to retrieve a list of Amazon SNS subscriptions.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
@@ -30,8 +31,12 @@ var AWS = require('aws-sdk');
 // Set region
 AWS.config.update({region: 'REGION'});
 
+const params = {
+  TopicArn : 'TOPIC_ARN'
+}
+
 // Create promise and SNS service object
-var subslistPromise = new AWS.SNS({apiVersion: '2010-03-31'}).listSubscriptionsByTopic({TopicArn : TOPIC_ARN}).promise();
+var subslistPromise = new AWS.SNS({apiVersion: '2010-03-31'}).listSubscriptionsByTopic(params).promise();
 
 // Handle promise's fulfilled/rejected states
   subslistPromise.then(

@@ -5,6 +5,7 @@
 # snippet-keyword:[put_rule method]
 # snippet-keyword:[put_target method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudwatch]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

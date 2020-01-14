@@ -1,15 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Creates an AWS CloudTrail trail.]
-// snippet-keyword:[AWS CloudTrail]
-// snippet-keyword:[CreateTrail function]
+// snippet-sourcedescription:[Describes the Amazon Cloudwatch alarms.]
+// snippet-keyword:[Amazon CloudWatch]
+// snippet-keyword:[DescribeAlarms function]
 // snippet-keyword:[Go]
-// snippet-service:[cloudtrail]
+// snippet-sourcesyntax:[go]
+// snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -21,14 +22,15 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[cloudtrail.go.create_trail.complete]
 package main
 
+// snippet-start:[cloudtrail.go.create_trail.imports]
 import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/cloudtrail"
+    "github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/sts"
 
     "encoding/json"
@@ -36,32 +38,33 @@ import (
     "fmt"
     "os"
 )
+// snippet-end:[cloudtrail.go.create_trail.imports]
 
 func main() {
     // Get required trail name and bucket name
-    var trailName string
-    flag.StringVar(&trailName, "n", "", "The name of the trail")
-    var bucketName string
-    flag.StringVar(&bucketName, "b", "", "the name of bucket to which the trails are uploaded")
-
-    // Option to add CloudTrail policy to bucket
-    var addPolicy bool
-    flag.BoolVar(&addPolicy, "p", false, "Whether to add the CloudTrail policy to the bucket")
+    // snippet-start:[cloudtrail.go.create_trail.vars]
+    trailNamePtr := flag.String("n", "", "The name of the trail")
+    bucketNamePtr := flag.String("b", "", "the name of bucket to which the trails are uploaded")
+    addPolicyPtr := flag.Bool("p", false, "Whether to add the CloudTrail policy to the bucket")
 
     flag.Parse()
 
-    if trailName == "" || bucketName == "" {
+    if *trailNamePtr == "" || *bucketNamePtr == "" {
         fmt.Println("You must supply a trail name and bucket name.")
         os.Exit(0)
     }
+    // snippet-end:[cloudtrail.go.create_trail.vars]
 
-    // Initialize a session in us-west-2 that the SDK will use to load
+    // Initialize a session that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // snippet-start:[cloudtrail.go.create_trail.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[cloudtrail.go.create_trail.session]
 
-    if addPolicy {
+    // snippet-start:[cloudtrail.go.create_trail.policy]
+    if *addPolicyPtr {
         svc := sts.New(sess)
         input := &sts.GetCallerIdentityInput{}
 
@@ -72,28 +75,28 @@ func main() {
             os.Exit(1)
         }
 
-        accountId := aws.StringValue(result.Account)
+        accountID := aws.StringValue(result.Account)
 
         s3Policy := map[string]interface{}{
             "Version": "2012-10-17",
             "Statement": []map[string]interface{}{
                 {
-                    "Sid": "AWSCloudTrailAclCheck20150319",
+                    "Sid":    "AWSCloudTrailAclCheck20150319",
                     "Effect": "Allow",
                     "Principal": map[string]interface{}{
                         "Service": "cloudtrail.amazonaws.com",
                     },
-                    "Action": "s3:GetBucketAcl",
-                    "Resource": "arn:aws:s3:::" + bucketName,
+                    "Action":   "s3:GetBucketAcl",
+                    "Resource": "arn:aws:s3:::" + *bucketNamePtr,
                 },
                 {
-                    "Sid": "AWSCloudTrailWrite20150319",
+                    "Sid":    "AWSCloudTrailWrite20150319",
                     "Effect": "Allow",
                     "Principal": map[string]interface{}{
                         "Service": "cloudtrail.amazonaws.com",
                     },
-                    "Action": "s3:PutObject",
-                    "Resource": "arn:aws:s3:::" + bucketName + "/AWSLogs/" + accountId + "/*",
+                    "Action":   "s3:PutObject",
+                    "Resource": "arn:aws:s3:::" + *bucketNamePtr + "/AWSLogs/" + accountID + "/*",
                     "Condition": map[string]interface{}{
                         "StringEquals": map[string]interface{}{
                             "s3:x-amz-acl": "bucket-owner-full-control",
@@ -110,11 +113,11 @@ func main() {
         }
 
         // Create S3 service
-        s3_svc := s3.New(sess)
+        s3Svc := s3.New(sess)
 
         // Now set the policy on the bucket
-        _, err = s3_svc.PutBucketPolicy(&s3.PutBucketPolicyInput{
-            Bucket: aws.String(bucketName),
+        _, err = s3Svc.PutBucketPolicy(&s3.PutBucketPolicyInput{
+            Bucket: aws.String(*bucketNamePtr),
             Policy: aws.String(string(policy)),
         })
         if err != nil {
@@ -123,24 +126,26 @@ func main() {
             os.Exit(1)
         }
 
-        fmt.Printf("Successfully set bucket %q's policy\n", bucketName)
+        fmt.Printf("Successfully set bucket %q's policy\n", *bucketNamePtr)
     }
+    // snippet-end:[cloudtrail.go.create_trail.policy]
 
-    // Create CloudTrail client
+    // snippet-start:[cloudtrail.go.create_trail.create]
     svc := cloudtrail.New(sess)
 
     input := &cloudtrail.CreateTrailInput{
-        Name: aws.String(trailName),
-        S3BucketName: aws.String(bucketName),
+        Name:         aws.String(*trailNamePtr),
+        S3BucketName: aws.String(*bucketNamePtr),
     }
 
-    _, err = svc.CreateTrail(input)
+    _, err := svc.CreateTrail(input)
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
         os.Exit(1)
     }
 
-    fmt.Println("Created the trail", trailName, "for bucket", bucketName)
+    fmt.Println("Created the trail", *trailNamePtr, "for bucket", *bucketNamePtr)
+    // snippet-end:[cloudtrail.go.create_trail.create]
 }
-
+// snippet-end:[cloudtrail.go.create_trail.complete]

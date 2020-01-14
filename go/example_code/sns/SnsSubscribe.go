@@ -5,12 +5,13 @@
 // snippet-keyword:[Amazon SNS]
 // snippet-keyword:[Subscribe function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[sns]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-02-25]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -38,11 +39,10 @@ import (
 func main() {
     emailPtr := flag.String("e", "", "The email address of the user subscribing to the topic")
     topicPtr := flag.String("t", "", "The ARN of the topic to which the user subscribes")
-    flag.Parse()
-    email := *emailPtr
-    topicArn := *topicPtr
 
-    if email == "" || topicArn == "" {
+    flag.Parse()
+
+    if *emailPtr == "" || *topicPtr == "" {
         fmt.Println("You must supply an email address and topic ARN")
         fmt.Println("Usage: go run SnsSubscribe.go -e EMAIL -t TOPIC-ARN")
         os.Exit(1)

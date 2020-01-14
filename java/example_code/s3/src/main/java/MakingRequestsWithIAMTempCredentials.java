@@ -1,12 +1,12 @@
 /**
  * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * <p>
+ * 
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
  * the License is located at
- * <p>
+ * 
  * http://aws.amazon.com/apache2.0/
- * <p>
+ * 
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[MakingRequestsWithIAMTempCredentials.java demonstrates how to assume an IAM role temporarily and use it to make requests against Amazon S3.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GET Bucket]
@@ -34,30 +35,22 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
-import com.amazonaws.services.securitytoken.model.*;
+import com.amazonaws.services.securitytoken.model.Credentials;
+import com.amazonaws.services.securitytoken.model.GetSessionTokenRequest;
+import com.amazonaws.services.securitytoken.model.GetSessionTokenResult;
 
 public class MakingRequestsWithIAMTempCredentials {
     public static void main(String[] args) {
         Regions clientRegion = Regions.DEFAULT_REGION;
-        String roleARN = "*** ARN for role to be assumed ***";
-        String roleSessionName = "*** Role session name ***";
         String bucketName = "*** Bucket name ***";
 
         try {
             // Creating the STS client is part of your trusted code. It has
             // the security credentials you use to obtain temporary security credentials.
             AWSSecurityTokenService stsClient = AWSSecurityTokenServiceClientBuilder.standard()
-                .withCredentials(new ProfileCredentialsProvider())
-                .withRegion(clientRegion)
-                .build();
-
-            // Assume the IAM role. Note that you cannot assume the role of an AWS root account;
-            // Amazon S3 will deny access. You must use credentials for an IAM user or an IAM role.
-            AssumeRoleRequest roleRequest = new AssumeRoleRequest()
-                .withRoleArn(roleARN)
-                .withRoleSessionName(roleSessionName);
-
-            AssumeRoleResult response = stsClient.assumeRole(roleRequest);
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .withRegion(clientRegion)
+                    .build();
 
             // Start a session.
             GetSessionTokenRequest getSessionTokenRequest = new GetSessionTokenRequest().withDurationSeconds(7200);
@@ -65,25 +58,25 @@ public class MakingRequestsWithIAMTempCredentials {
             // credentials are requested by an IAM user rather than an account owner.
             GetSessionTokenResult sessionTokenResult = stsClient.getSessionToken(getSessionTokenRequest);
             Credentials sessionCredentials = sessionTokenResult
-                .getCredentials()
-                .withSessionToken(sessionTokenResult.getCredentials().getSessionToken())
-                .withExpiration(sessionTokenResult.getCredentials().getExpiration());
+                    .getCredentials()
+                    .withSessionToken(sessionTokenResult.getCredentials().getSessionToken())
+                    .withExpiration(sessionTokenResult.getCredentials().getExpiration());
 
             // Package the temporary security credentials as a BasicSessionCredentials object 
             // for an Amazon S3 client object to use.
             BasicSessionCredentials basicSessionCredentials = new BasicSessionCredentials(
-                sessionCredentials.getAccessKeyId(), sessionCredentials.getSecretAccessKey(),
-                sessionCredentials.getSessionToken());
+                    sessionCredentials.getAccessKeyId(), sessionCredentials.getSecretAccessKey(),
+                    sessionCredentials.getSessionToken());
 
             // Provide temporary security credentials so that the Amazon S3 client 
             // can send authenticated requests to Amazon S3. You create the client
             // using the basicSessionCredentials object.
             AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(basicSessionCredentials))
-                .withRegion(clientRegion)
-                .build();
+                    .withCredentials(new AWSStaticCredentialsProvider(basicSessionCredentials))
+                    .withRegion(clientRegion)
+                    .build();
 
-            // Verify that assuming the role worked and the permissions are set correctly
+            // Verify that getting the session token worked and the permissions are set correctly
             // by getting a set of object keys from the bucket.
             ObjectListing objects = s3Client.listObjects(bucketName);
             System.out.println("No. of Objects: " + objects.getObjectSummaries().size());

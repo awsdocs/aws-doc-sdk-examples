@@ -3,9 +3,11 @@
 # snippet-service:[apigateway]
 # snippet-keyword:[API Gateway]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
-# snippet-sourcedate:[2019-07-11]
+# snippet-sourcedate:[2019-07-29]
 # snippet-sourceauthor:[AWS]
 
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -84,7 +86,7 @@ import json
 import logging
 import boto3
 from botocore.exceptions import ClientError
-from lambda_util import create_lambda_function
+from lambda_util import create_lambda_function, delete_iam_role
 
 
 # Global configuration constants. Change as desired
@@ -363,51 +365,6 @@ def get_role_policy_arn(role_name, policy_name):
             logging.error(f'Policy {policy_name} not found attached to '
                           f'role {role_name}')
             return None
-
-
-def delete_iam_role(role_name):
-    """Detach all managed policies from an IAM role and delete the role
-
-    :param role_name: String name of IAM role to delete
-    """
-
-    # Detach all policies attached to the role
-    iam_client = boto3.client('iam')
-    try:
-        response = iam_client.list_attached_role_policies(RoleName=role_name)
-    except ClientError as e:
-        logging.error(e)
-        return
-
-    # Detach each policy
-    while True:
-        for policy in response['AttachedPolicies']:
-            try:
-                iam_client.detach_role_policy(RoleName=role_name,
-                                              PolicyArn=policy['PolicyArn'])
-            except ClientError as e:
-                logging.error(e)
-                # Process next attached policy
-
-        # Is there another batch of policies?
-        if response['IsTruncated']:
-            # Get another batch
-            try:
-                response = iam_client.list_attached_role_policies(Marker=response['Marker'])
-            except ClientError as e:
-                logging.error(e)
-                break
-        else:
-            logging.info(f'Detached all policies from IAM role {role_name}')
-            break
-
-    # Delete the Lambda IAM role
-    try:
-        iam_client.delete_role(RoleName=LAMBDA_ROLE_NAME)
-    except ClientError as e:
-        logging.error(e)
-    else:
-        logging.info(f'Deleted IAM role: {LAMBDA_ROLE_NAME}')
 
 
 def delete_lambda_functions(region):

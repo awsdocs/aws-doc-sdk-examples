@@ -5,6 +5,7 @@
 # snippet-keyword:[describe_availability_zones method]
 # snippet-keyword:[describe_regions method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

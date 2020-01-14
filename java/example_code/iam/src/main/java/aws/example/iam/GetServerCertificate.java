@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get a server certificate.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

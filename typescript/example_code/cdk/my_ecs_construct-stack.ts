@@ -7,6 +7,7 @@
 // snippet-keyword:[AWS CDK]
 // snippet-keyword:[aws-ec2.Vpc function]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -45,16 +46,16 @@ export class MyEcsConstructStack extends core.Stack {
     });
 
     // Create a load-balanced Fargate service and make it public
-    new ecs_patterns.LoadBalancedFargateService(this, "MyFargateService", {
+    new ecs_patterns.ApplicationLoadBalancedFargateService(this, "MyFargateService", {
       cluster: cluster, // Required
       cpu: 512, // Default is 256
       desiredCount: 6, // Default is 1
-      image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"), // Required
+      taskImageOptions: { image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample") },
       memoryLimitMiB: 2048, // Default is 512
       publicLoadBalancer: true // Default is false
     });
     // snippet-end:[cdk.typescript.my_ecs_construct.create_fargate_service]
-    // snippet-end:[cdk.typescript.my_ecs_construct-stack.class]
   }
 }
+// snippet-end:[cdk.typescript.my_ecs_construct-stack.class]
 // snippet-end:[cdk.typescript.my_ecs_construct-stack]

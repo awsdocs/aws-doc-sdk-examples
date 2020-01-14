@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon STS]
 // snippet-keyword:[AssumeRole function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[sts]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

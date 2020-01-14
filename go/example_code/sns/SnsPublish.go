@@ -5,12 +5,13 @@
 // snippet-keyword:[Amazon SNS]
 // snippet-keyword:[Publish function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[sns]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-02-25]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -26,7 +27,6 @@
 package main
 
 import (
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sns"
 
@@ -38,11 +38,10 @@ import (
 func main() {
     msgPtr := flag.String("m", "", "The message to send to the subscribed users of the topic")
     topicPtr := flag.String("t", "", "The ARN of the topic to which the user subscribes")
-    flag.Parse()
-    message := *msgPtr
-    topicArn := *topicPtr
 
-    if message == "" || topicArn == "" {
+    flag.Parse()
+
+    if *msgPtr == "" || *topicPtr == "" {
         fmt.Println("You must supply a message and topic ARN")
         fmt.Println("Usage: go run SnsPublish.go -m MESSAGE -t TOPIC-ARN")
         os.Exit(1)
@@ -57,7 +56,7 @@ func main() {
     svc := sns.New(sess)
 
     result, err := svc.Publish(&sns.PublishInput{
-        Message:  aws.String(message),
+        Message:  msgPtr,
         TopicArn: topicPtr,
     })
     if err != nil {

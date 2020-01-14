@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_gettopicattributes.js demonstrates how to retrieve the properties of an Amazon SNS topic.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

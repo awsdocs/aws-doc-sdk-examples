@@ -14,6 +14,8 @@
 # snippet-sourcedescription:[emrfs-boto-step.py demonstrates how to add a step to an EMR cluster that adds objects in an Amazon S3 bucket to the default EMRFS metadata table.]
 # snippet-service:[elasticmapreduce]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon EMR]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]

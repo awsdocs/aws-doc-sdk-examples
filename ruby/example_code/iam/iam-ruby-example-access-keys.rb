@@ -8,6 +8,7 @@
 # snippet-keyword:[list_access_keys method]
 # snippet-keyword:[update_access_key method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

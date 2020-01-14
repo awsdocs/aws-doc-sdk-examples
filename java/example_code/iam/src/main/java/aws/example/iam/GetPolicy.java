@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetPolicy.java demonstrates how to get the details of an IAM policy.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateEndpoint.java demonstrates how to create an endpoint for an application in Pinpoint.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mobiletargeting]
 //snippet-sourcetype:[full-example]

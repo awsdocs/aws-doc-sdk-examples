@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes streaming audio from your computer's microphone or a file upload. The output is presented on your computer's standard output.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranscribeStreamingAsyncClient]
@@ -51,7 +52,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
-    private static String currentSubscription;
+    private static Subscription currentSubscription;
 
     private static TranscribeStreamingAsyncClient client;
 
@@ -148,7 +149,7 @@ public class TranscribeStreamingDemoApp {
         @Override
         public void subscribe(Subscriber<? super AudioStream> s) {
 
-            if (s.currentSubscription == null) {
+            if (this.currentSubscription == null) {
                 this.currentSubscription = new SubscriptionImpl(s, inputStream);
             } else {
                 this.currentSubscription.cancel();

@@ -2,6 +2,7 @@
 //snippet-sourcedescription:[StartQueryExample.cs demonstrates how to submit a query to Athena for execution, wait until results are available and then process the results.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

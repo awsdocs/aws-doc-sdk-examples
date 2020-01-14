@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_getsmstype.js demonstrates how to retrieve the settings for sending Amazon SMS messages.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

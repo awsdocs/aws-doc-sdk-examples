@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon CloudWatch]
 // snippet-keyword:[DescribeAlarmHistory function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -3,6 +3,7 @@
 //snippet-service:[dynamodb]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-sourceauthor:[AWS]
 
 

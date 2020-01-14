@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to list user documents in a folder from Amazon Workdocs.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon WorkDocs]
 //snippet-service:[workdocs]

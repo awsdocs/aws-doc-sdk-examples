@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[StreamTranscriptionBehavior.java is an interface that you implement for streaming transcription.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranscribeStreamingAsyncClient]

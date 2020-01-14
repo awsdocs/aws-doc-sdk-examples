@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_createjob.js demonstrates how to create a transcoding job.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
@@ -29,10 +30,10 @@
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_config]
 // Load the SDK for JavaScript
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the Region 
 AWS.config.update({region: 'us-west-2'});
-// Set the custom endpoint for your acccount
-AWS.config.mediaconvert({endpoint: 'ACCOUNT_ENDPOINT'});
+// Set the custom endpoint for your account
+AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
 // snippet-end:[mediaconvert.JavaScript.jobs.createJob_config]
 
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_define]

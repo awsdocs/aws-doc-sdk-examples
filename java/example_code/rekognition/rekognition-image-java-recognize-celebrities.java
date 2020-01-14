@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-recognize-celebrities.java demonstrates how to recognize celebrities in an image loaded from a local file system.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[RecognizeCelebrities]

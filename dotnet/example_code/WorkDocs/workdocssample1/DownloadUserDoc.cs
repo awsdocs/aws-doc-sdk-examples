@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[DownloadUserDoc.cs demonstrates how to download a document from Amazon Workdocs.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon WorkDocs]
 //snippet-service:[workdocs]

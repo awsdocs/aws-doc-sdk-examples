@@ -3,6 +3,7 @@
 // snippet-sourcedescription:[request_context.go shows how to use context.Context with SDK requests.]
 // snippet-keyword:[Extending the SDK]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[aws-go-sdk]
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-03-14]

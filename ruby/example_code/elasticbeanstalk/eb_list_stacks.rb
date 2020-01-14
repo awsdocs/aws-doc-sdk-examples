@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS Elastic Beanstalk]
 # snippet-keyword:[list_available_solution_stacks method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[elasticbeanstalk]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_send_sms_message_api demonstrates how send a transactional SMS message by using the SendMessages operation in the Amazon Pinpoint API.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SendMessages]

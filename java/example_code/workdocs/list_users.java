@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[list_users.java demonstrates how to list the users for an organization.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[full-example]

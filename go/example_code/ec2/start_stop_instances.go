@@ -5,6 +5,7 @@
 // snippet-keyword:[StartInstances function]
 // snippet-keyword:[StopInstances function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ec2]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

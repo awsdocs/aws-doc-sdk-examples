@@ -9,6 +9,7 @@
 # snippet-keyword:[copy_object method]
 # snippet-keyword:[delete_objects method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

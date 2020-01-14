@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_listusers.js demonstrates how to list IAM users.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

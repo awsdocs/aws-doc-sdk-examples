@@ -10,6 +10,7 @@
 //snippet-keyword:[S3.listObjectsV2 function]
 //snippet-keyword:[S3.putObject function]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-service:[cdk]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-2-8]

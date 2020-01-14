@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatch alarms.]
 //snippet-service:[cloudwatch]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
@@ -51,7 +52,7 @@ var params = {
       Value: 'INSTANCE_ID'
     },
   ],
-  Unit: 'Seconds'
+  Unit: 'Percent'
 };
 
 cw.putMetricAlarm(params, function(err, data) {
@@ -60,7 +61,7 @@ cw.putMetricAlarm(params, function(err, data) {
   } else {
     console.log("Alarm action added", data);
     var paramsEnableAlarmAction = {
-      AlarmNames: [paramsUpdateAlarm.AlarmName]
+      AlarmNames: [params.AlarmName]
     };
     cw.enableAlarmActions(paramsEnableAlarmAction, function(err, data) {
       if (err) {

@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_listaccountaliases.js demonstrates how to retrieve information about the aliases for an AWS account.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]
@@ -23,7 +24,7 @@
 //snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-account-alises.html
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html
 
 // snippet-start:[iam.JavaScript.alias.listAccountAliases]
 // Load the AWS SDK for Node.js

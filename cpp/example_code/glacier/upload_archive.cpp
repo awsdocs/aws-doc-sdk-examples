@@ -2,6 +2,7 @@
 //snippet-service:[glacier]
 //snippet-keyword:[Amazon S3 Glacier]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[snippet]
 //snippet-sourcedate:[2019-04-26]

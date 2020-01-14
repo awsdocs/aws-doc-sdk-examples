@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[GetLexicon demonstrates how to produce the content of a specific pronunciation lexicon stored in an AWS region.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GetLexicon]

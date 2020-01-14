@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This is a sample JavaScript program that demonstrates how to sign up a new user. It will invoke a pre sign-up Lambda trigger as part of the authentication.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[sign_up, update_user_attributes]

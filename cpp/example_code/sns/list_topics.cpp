@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[list_topics.cpp demonstrates how to retrieve a list of Amazon SNS topics.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]

@@ -2,6 +2,7 @@
 # snippet-sourcedescription:[dynamodb_ruby_example_delete_movies_table.rb deletes the DynamoDb table Movies.]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[delete_table]

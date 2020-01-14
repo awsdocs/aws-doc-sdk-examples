@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[s3_listbuckets.js demonstrates how to list all the buckets in an AWS account.]
 //snippet-service:[s3]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-sourcetype:[full-example]
