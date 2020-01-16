@@ -9,7 +9,7 @@
    limitations under the License.
 Welcome
 =======
-This is the repository for code samples used in the public `AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS Software Developer Kits (SDKs) for the supported programming languages. For more information, see `Tools to Build on AWS<https://aws.amazon.com/tools/>`_.
+This is the repository for code samples used in the public `AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS Software Developer Kits (SDKs) for the supported programming languages. For more information, see `Tools to Build on AWS <https://aws.amazon.com/tools/>`_.
 
 Finding code examples
 =====================
