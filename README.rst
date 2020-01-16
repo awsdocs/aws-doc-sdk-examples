@@ -7,9 +7,9 @@
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
-
-This repository contains AWS SDK code examples used in the public 
-`AWS documentation repositories <https://www.github.com/awsdocs>`_. 
+Welcome
+=======
+This is the repository for code samples used in the public `AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS Software Developer Kits (SDKs) for the supported programming languages. For more information, see `Tools to Build on AWS<https://aws.amazon.com/tools/>`_.
 
 Finding code examples
 =====================
