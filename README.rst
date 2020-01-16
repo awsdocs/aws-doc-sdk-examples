@@ -10,8 +10,6 @@
 
 This repository contains AWS SDK code examples used in the public 
 `AWS documentation repositories <https://www.github.com/awsdocs>`_. 
-You can also browse the 
-`AWS Code Sample Catalog <https://docs.aws.amazon.com/code-samples/latest/catalog/welcome.html>`__.
 
 Finding code examples
 =====================
