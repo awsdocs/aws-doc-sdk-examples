@@ -1,4 +1,4 @@
-.. Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -9,7 +9,10 @@
    limitations under the License.
 Welcome
 =======
-This is the repository for code samples used in the public `AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS Software Developer Kits (SDKs) for the supported programming languages. For more information, see `Tools to Build on AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
+This is the repository for code samples used in the public 
+`AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS Software Developer 
+Kits (SDKs) for the supported programming languages. For more information, see `Tools to Build on 
+AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
 
 Finding code examples
 =====================
@@ -18,7 +21,8 @@ The code examples are organized by programming language. For instance, all of th
 `AWS SDK for Java Developer Guide <https://www.github.com/awsdocs/aws-java-developer-guide>`_ are
 kept in the `java <java>`_ directory.
 
-You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us know what you think about it).
+You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us
+know what you think about it).
 
 Building and running code examples
 ==================================
@@ -33,13 +37,24 @@ on).
 Proposing new code examples
 ===========================
 
-To propose a new code example for the AWS documentation team to consider working on, `create a new request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&labels=code+sample+request&template=request-new-code-example.md&title=%5BNEW+EXAMPLE+REQUEST%5D+%3C%3CProvide+a+title+for+this+proposal%3E%3E>`_.
+To propose a new code example for the AWS documentation team to consider working on, `create a new 
+request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&labels=code+sample+request&template=request-new-code-example.md&title=%5BNEW+EXAMPLE+REQUEST%5D+%3C%3CProvide+a+title+for+this+proposal%3E%3E>`_.
 
-The AWS documentation team is looking to produce code examples that cover broader scenarios and use cases, versus simple code snippets that cover only individual API calls.
+The AWS documentation team is looking to produce code examples that cover broader scenarios and use 
+cases, versus simple code snippets that cover only individual API calls.
 
-From time to time, the AWS documentation team will select some of these proposals to begin working on. To view their decisions, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_. If you feel strongly about seeing the timeline of a particular proposal accelerated or the scope of a particular proposal expanded or focused, be sure to +1 the related issue, add comments to it, or both, and the team will take this under consideration. 
+From time to time, the AWS documentation team will select some of these proposals to begin working on.
+To view their decisions, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_. 
+If you feel strongly about seeing the timeline of a particular proposal accelerated or the scope of a 
+particular proposal expanded or focused, be sure to +1 the related issue, add comments to it, or both,
+and the team will take this under consideration. 
 
-The AWS documentation team typically moves accepted proposals in the roadmp from the **Wish List** stage to the **Backlog** stage, then to the **In Progress** stage, and finally to the **Recently Completed** stage. The **Wish List** stage represents proposals that the team *might* begin working on at some point in the future but with no expected timeline, while the **Backlog** stage represents proposals that the team will *likely* begin working on soon. To view the team's progress, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_.
+The AWS documentation team typically moves accepted proposals in the roadmp from the **Wish List** 
+stage to the **Backlog** stage, then to the **In Progress** stage, and finally to the **Recently 
+Completed** stage. The **Wish List** stage represents proposals that the team *might* begin working
+on at some point in the future but with no expected timeline, while the **Backlog** stage represents 
+proposals that the team will *likely* begin working on soon. To view the team's progress, see the 
+`code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_.
 
 Submitting code examples for use in AWS documentation
 =====================================================
