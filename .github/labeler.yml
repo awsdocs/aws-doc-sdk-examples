@@ -1,0 +1,31 @@
+# This is the file that controls the automatic "Labeler" GitHub Action
+# It assigns labels according to the characteristics of the submission.
+
+C++:
+ - cpp/example_code/**/*
+
+Go:
+ - go/example_code/**/*
+
+Java:
+ - java/example_code/**/*
+ _ javav2/example_code/**/*
+
+JavaScript:
+ - javascript/example_code/**/*
+
+.NET:
+ - dotnet/example_code/**/*
+
+PHP:
+ - php/example_code/**/*
+
+Python:
+ - python/example_code/**/*
+
+Ruby:
+ - ruby/example_code/**/*
+
+Typescript:
+ - typescript/example_code/**/*
+
