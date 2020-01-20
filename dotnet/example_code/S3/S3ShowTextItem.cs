@@ -6,8 +6,8 @@
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-11-18]
-//snippet-sourceauthor:[Doug-AWS]
+//snippet-sourcedate:[2020-01-18]
+//snippet-sourceauthor:[AWS-NET-DG]
 /*******************************************************************************
 * Copyright 2009-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
@@ -75,9 +75,11 @@ namespace S3ShowTextItem
 
                 string responseBody = reader.ReadToEnd();
 
-                FileStream s = new FileStream(args[3], FileMode.Create);
-                StreamWriter writer = new StreamWriter(s);
-                writer.WriteLine(responseBody);
+                using(FileStream s = new FileStream(args[3], FileMode.Create))
+                using(StreamWriter writer = new StreamWriter(s))
+                {
+                    writer.WriteLine(responseBody);
+                }
             }
             catch (AmazonS3Exception s3Exception)
             {
