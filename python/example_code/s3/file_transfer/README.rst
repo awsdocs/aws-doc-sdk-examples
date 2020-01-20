@@ -17,13 +17,13 @@ from an Amazon S3 bucket.
 
 When the file to transfer is larger than the specified threshold, the transfer
 manager automatically uses multipart uploads or downloads. This example
-shows how to use several of the available transfer manager settings and reports
+shows how to use several of the available transfer manager settings, and reports
 thread usage and time to transfer.
 
 Contents
 ================
 
-The example contains two files.
+The example contains the following two files.
 
 file_transfer.py
     Creates and calls Boto 3 resources to configure the transfer manager and
@@ -39,17 +39,17 @@ Run the example
 Prerequisites
 -------------
 
-To run this example, you'll need:
+To run this example, you'll need the following:
 
-* an Amazon S3 bucket to hold uploaded objects
-* a folder on your local drive to hold created and downloaded files
+* An Amazon S3 bucket to hold uploaded objects
+* A folder on your local drive to hold created and downloaded files
 
 Objects and files created during the demonstration are cleaned up at the end.
 
 Usage
 -----
 
-Run the example from the command line:
+Run the example from the command line.
 
 .. code-block::
 
