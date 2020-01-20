@@ -9,7 +9,7 @@ Go:
 
 Java:
   - java/example_code/**/*
-  _ javav2/example_code/**/*
+  - javav2/example_code/**/*
 
 JavaScript:
   - javascript/example_code/**/*
