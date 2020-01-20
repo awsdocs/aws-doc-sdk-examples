@@ -2,30 +2,30 @@
 # It assigns labels according to the characteristics of the submission.
 
 C++:
- - cpp/example_code/**/*
+  - cpp/example_code/**/*
 
 Go:
- - go/example_code/**/*
+  - go/example_code/**/*
 
 Java:
- - java/example_code/**/*
- _ javav2/example_code/**/*
+  - java/example_code/**/*
+  _ javav2/example_code/**/*
 
 JavaScript:
- - javascript/example_code/**/*
+  - javascript/example_code/**/*
 
 .NET:
- - dotnet/example_code/**/*
+  - dotnet/example_code/**/*
 
 PHP:
- - php/example_code/**/*
+  - php/example_code/**/*
 
 Python:
- - python/example_code/**/*
+  - python/example_code/**/*
 
 Ruby:
- - ruby/example_code/**/*
+  - ruby/example_code/**/*
 
 Typescript:
- - typescript/example_code/**/*
+  - typescript/example_code/**/*
 
