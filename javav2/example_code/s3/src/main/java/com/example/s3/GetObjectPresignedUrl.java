@@ -14,7 +14,7 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in a S4 bucket by using the S3Presigner client object]
+// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in a S3 bucket by using the S3Presigner client object]
 // snippet-service:[S3]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon S3
