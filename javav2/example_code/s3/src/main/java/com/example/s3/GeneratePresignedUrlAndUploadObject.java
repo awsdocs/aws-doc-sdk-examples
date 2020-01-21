@@ -17,7 +17,7 @@
 // snippet-sourcedescription:[GeneratePresignedUrlAndUploadObject.java demonstrates how to use the S3Presigner client object to create a presigned URL and upload an object to a S3 bucket]
 // snippet-service:[S3]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3
+// snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-12-05]
