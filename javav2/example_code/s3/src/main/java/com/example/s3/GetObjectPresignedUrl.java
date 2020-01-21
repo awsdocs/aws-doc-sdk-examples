@@ -17,7 +17,7 @@
 // snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in a S3 bucket by using the S3Presigner client object]
 // snippet-service:[S3]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3
+// snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-12-05]
