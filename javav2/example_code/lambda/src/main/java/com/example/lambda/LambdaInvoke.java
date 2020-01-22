@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -32,13 +32,14 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.model.InvokeRequest;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.lambda.model.InvokeResponse;
+import software.amazon.awssdk.services.lambda.model.ServiceException;
 // snippet-end:[lambda.java2.invoke.import]
 
 public class LambdaInvoke {
 
     public static void main(String[] args) {
 
-      
+
         if (args.length < 1) {
             System.out.println("Please specify a function name");
             System.exit(1);
@@ -53,8 +54,7 @@ public class LambdaInvoke {
         String functionName = args[0];
 
         InvokeResponse res = null ;
-        try
-        {
+        try {
             Region region = Region.US_WEST_2;
             LambdaClient awsLambda = LambdaClient.builder().region(region).build();
 
@@ -65,7 +65,7 @@ public class LambdaInvoke {
                     "}" ) ;
 
             //Setup an InvokeRequest
-            InvokeRequest request =  InvokeRequest.builder()
+            InvokeRequest request = InvokeRequest.builder()
                     .functionName(functionName)
                     .payload(payload)
                     .build();
@@ -79,9 +79,7 @@ public class LambdaInvoke {
             //write out the response
             System.out.println(value);
 
-        }
-        catch(Exception e)
-        {
+        } catch(ServiceException e) {
             e.getStackTrace();
         }
         // snippet-end:[lambda.java2.invoke.main]

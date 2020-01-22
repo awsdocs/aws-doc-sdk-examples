@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -17,7 +17,7 @@
 // snippet-sourcedescription:[GeneratePresignedUrlAndUploadObject.java demonstrates how to use the S3Presigner client object to create a presigned URL and upload an object to a S3 bucket]
 // snippet-service:[S3]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3
+// snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-12-05]
@@ -27,18 +27,20 @@
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Duration;
+
+import software.amazon.awssdk.services.lambda.model.ServiceException;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
 
 public class GeneratePresignedUrlAndUploadObject {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         if (args.length < 2) {
             System.out.println("Please specify a bucket name and a key name");
             System.exit(1);
@@ -51,7 +53,7 @@ public class GeneratePresignedUrlAndUploadObject {
         // Create an S3Presigner using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
 
-        try{
+        try {
             PresignedPutObjectRequest presignedRequest =
                     presigner.presignPutObject(z -> z.signatureDuration(Duration.ofMinutes(10))
                             .putObjectRequest(por -> por.bucket(bucketName).key(keyName)));
@@ -83,11 +85,10 @@ public class GeneratePresignedUrlAndUploadObject {
             // usually isn't needed
             presigner.close();
 
-        }
-        catch (Exception e)
-        {
+        } catch (ServiceException | IOException e) {
             e.getStackTrace();
         }
+
         // snippet-end:[presigned.java2.generatepresignedurl.main]
     }
 }
