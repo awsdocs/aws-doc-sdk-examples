@@ -1,4 +1,4 @@
 language: python
 python:
   - "3.6"
-script: python check_metadata.py -q -w
+script: python check_metadata.py -q
