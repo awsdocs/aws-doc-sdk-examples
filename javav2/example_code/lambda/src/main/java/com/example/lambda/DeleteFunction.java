@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -45,22 +45,19 @@ public class DeleteFunction {
 
         // snippet-start:[lambda.java2.delete.main]
         String functionName = args[0];
-        try
-        {
+        try {
             Region region = Region.US_WEST_2;
             LambdaClient awsLambda = LambdaClient.builder().region(region).build();
 
             //Setup an DeleteFunctionRequest
-            DeleteFunctionRequest request =  DeleteFunctionRequest.builder()
+            DeleteFunctionRequest request = DeleteFunctionRequest.builder()
                     .functionName(functionName)
                     .build();
 
             //Invoke the Lambda deleteFunction method
             awsLambda.deleteFunction(request);
             System.out.println("Done");
-        }
-        catch(ServiceException e)
-        {
+        } catch(ServiceException e) {
             e.getStackTrace();
         }
 
