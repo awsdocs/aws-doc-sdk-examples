@@ -28,11 +28,16 @@ package aws.example.ec2;
 // snippet-start:[ec2.java1.running_instances.import]
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
-import com.amazonaws.services.ec2.model.*;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.SdkClientException;
+
 // snippet-end:[ec2.java1.running_instances.import]
 
-public class FindRunningInstances{
+public class FindRunningInstances {
 
     public static void main(String[] args) {
 
@@ -55,7 +60,7 @@ public class FindRunningInstances{
 
                 for (Instance instance : reservation.getInstances()) {
 
-                   //Print out the results
+                    //Print out the results
                     System.out.printf(
                             "Found reservation with id %s, " +
                                     "AMI %s, " +
@@ -67,12 +72,11 @@ public class FindRunningInstances{
                             instance.getInstanceType(),
                             instance.getState().getName(),
                             instance.getMonitoring().getState());
-               }
+                }
             }
-           System.out.print("Done");
-        }
-        catch (Exception e)
-        {
+            System.out.print("Done");
+
+        } catch (SdkClientException e) {
             e.getStackTrace();
         }
         // snippet-end:[ec2.java1.running_instances.main]
