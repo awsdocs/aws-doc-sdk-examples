@@ -30,8 +30,10 @@ package com.example.s3;
 // snippet-start:[s3.java2.getobjecttags.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
-
+import software.amazon.awssdk.services.s3.model.GetObjectTaggingRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectTaggingResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.Tag;
 import java.util.Iterator;
 import java.util.List;
 // snippet-end:[s3.java2.getobjecttags.import]
@@ -55,7 +57,7 @@ public class GetObjectTags {
             S3Client s3 = S3Client.builder().region(region).build();
 
             // create a GetObjectTaggingRequest instance
-            GetObjectTaggingRequest  getTaggingRequest = GetObjectTaggingRequest
+            GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest
                     .builder()
                     .key(keyName)
                     .bucket(bucketName)
@@ -74,13 +76,11 @@ public class GetObjectTags {
                 System.out.println(tag.key());
                 System.out.println(tag.value());
             }
-        }
-        catch (S3Exception e) {
+        } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         // snippet-end:[s3.java2.getobjecttags.main]
     }
 }
-
 // snippet-end:[s3.java2.getobjecttags.complete]
