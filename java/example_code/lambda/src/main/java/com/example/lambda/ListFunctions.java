@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -60,8 +60,8 @@ public class ListFunctions {
 
                 System.out.println("The function name is "+config.getFunctionName());
             }
-        }
-        catch (ServiceException e) {
+
+        } catch (ServiceException e) {
             System.out.println(e);
         }
         // snippet-end:[lambda.java1.list.main]
