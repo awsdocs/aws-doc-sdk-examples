@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -14,7 +14,7 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListLambdaFunctions.java demonstrates how to list all functions speciic to the account by using the LambdaClient object]
+// snippet-sourcedescription:[ListLambdaFunctions.java demonstrates how to list all functions specific to the account by using the LambdaClient object]
 // snippet-service:[Lambda]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Lambda]
@@ -43,8 +43,7 @@ public class ListLambdaFunctions {
 
         // snippet-start:[lambda.java2.list.main]
         ListFunctionsResponse functionResult = null ;
-        try
-        {
+        try {
             Region region = Region.US_WEST_2;
             LambdaClient awsLambda = LambdaClient.builder().region(region).build();
 
@@ -57,9 +56,7 @@ public class ListLambdaFunctions {
                 FunctionConfiguration config = (FunctionConfiguration)iter.next();
                 System.out.println("The function name is "+config.functionName());
             }
-        }
-        catch(ServiceException e)
-        {
+        } catch(ServiceException e) {
             e.getStackTrace();
         }
         // snippet-end:[lambda.java2.list.main]
