@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -26,16 +26,19 @@
 // snippet-start:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
 package com.example.dynamodbasync;
 // snippet-start:[dynamoasyn.java2.get_item.import]
-import software.amazon.awssdk.services.dynamodb.model.*;
+import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 // snippet-end:[dynamoasyn.java2.get_item.import]
 public class DynamoDBAsyncGetItem {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
@@ -57,41 +60,41 @@ public class DynamoDBAsyncGetItem {
 
         // snippet-start:[dynamoasyc.java2.get_item.main]
         //Get both input arguments
-        String table_name = args[0];
+        String tableName = args[0];
         String name = args[1];
-        System.out.format("Retrieving item \"%s\" from \"%s\"\n", name, table_name);
+        System.out.format("Retrieving item \"%s\" from \"%s\"\n", name, tableName );
 
-        HashMap<String, AttributeValue> key_to_get =
+        HashMap<String, AttributeValue> keyToGet =
                 new HashMap<String, AttributeValue>();
 
-        key_to_get.put("Name", AttributeValue.builder().s(name).build());
+        keyToGet.put("Name", AttributeValue.builder().s(name).build());
 
         try {
 
             DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
+
             //Create a GetItemRequest instance
-            GetItemRequest request =  GetItemRequest.builder()
-                    .key(key_to_get)
-                    .tableName(table_name)
+            GetItemRequest request = GetItemRequest.builder()
+                    .key(keyToGet)
+                    .tableName(tableName)
                     .build();
 
             //Invoke the DynamoDbAsyncClient object's getItem
-            java.util.Collection<software.amazon.awssdk.services.dynamodb.model.AttributeValue>  returned_item = client.getItem(request).join().item().values();
+            java.util.Collection<software.amazon.awssdk.services.dynamodb.model.AttributeValue> returnedItem = client.getItem(request).join().item().values();
 
             //Convert Set to Map
-            Map<String, AttributeValue> map = returned_item.stream().collect(Collectors.toMap(AttributeValue::s, s->s));
+            Map<String, AttributeValue> map = returnedItem.stream().collect(Collectors.toMap(AttributeValue::s, s->s));
             Set<String> keys = map.keySet();
             for (String key : keys) {
-                System.out.format("%s: %s\n",  key, map.get(key).toString());
-                }
+                System.out.format("%s: %s\n", key, map.get(key).toString());
+            }
 
-
-        } catch (Exception e) {
+        } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         // snippet-end:[dynamoasyc.java2.get_item.main]
-      }
- }
- 
+    }
+}
+
 // snippet-end:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
