@@ -13,7 +13,6 @@
 # ABOUT THIS PYTHON SAMPLE: This sample is part of the SDK for Cloud9 User Guide topic at
 # https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
 
-# snippet-start:[s3.python.bucket_operations.list_create_delete_broken]
 import boto3
 import sys
 from botocore.exceptions import ClientError
@@ -69,4 +68,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-# snippet-end:[s3.python.bucket_operations.list_create_delete]
