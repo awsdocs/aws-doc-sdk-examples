@@ -16,28 +16,28 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetObjectTags.java demonstrates how to read tags that belong to an object located in an S3 bucket]
 // snippet-service:[S3]
-// snippet-keyword:[SDK for Java 2.0]
+// snippet-keyword:[Java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-01-09]
 // snippet-sourceauthor:[AWS-scmacdon]
 
-// snippet-start:[s3.java2.getobjecttags.complete]
+// snippet-start:[s3.java.getobjecttags.complete]
 
-package com.example.s3;
+package aws.example.s3;
 
-// snippet-start:[s3.java2.getobjecttags.import]
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectTaggingRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectTaggingResponse;
-import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.model.Tag;
+// snippet-start:[s3.java.getobjecttags.import]
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectTaggingRequest;
+import com.amazonaws.services.s3.model.GetObjectTaggingResult;
+import com.amazonaws.services.s3.model.Tag;
 import java.util.Iterator;
 import java.util.List;
-// snippet-end:[s3.java2.getobjecttags.import]
-
+// snippet-end:[s3.java.getobjecttags.import]
 
 public class GetObjectTags {
 
@@ -48,39 +48,38 @@ public class GetObjectTags {
             System.exit(1);
         }
 
-        // snippet-start:[s3.java2.getobjecttags.main]
+        // snippet-start:[s3.java.getobjecttags.main]
         String bucketName = args[0];
         String keyName = args[1];
 
+        System.out.println("Retrieving Object Tags for  " + keyName);
+
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
+
         try {
-            Region region = Region.US_WEST_2;
-            S3Client s3 = S3Client.builder().region(region).build();
 
-            // create a GetObjectTaggingRequest instance
-            GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+            GetObjectTaggingRequest getTaggingRequest = new GetObjectTaggingRequest(bucketName, keyName);
 
-            // get the tags for this AWS S3 object
-            GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
-            List<Tag> tagSet= tags.tagSet();
+            GetObjectTaggingResult tags = s3.getObjectTagging(getTaggingRequest);
 
-            // write out the tags
+            List<Tag> tagSet= tags.getTagSet();
+
+            //Iterate through the list
             Iterator<Tag> tagIterator = tagSet.iterator();
+
             while(tagIterator.hasNext()) {
 
                 Tag tag = (Tag)tagIterator.next();
 
-                System.out.println(tag.key());
-                System.out.println(tag.value());
+                System.out.println(tag.getKey());
+                System.out.println(tag.getValue());
             }
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
             System.exit(1);
         }
-        // snippet-end:[s3.java2.getobjecttags.main]
+        // snippet-end:[s3.java.getobjecttags.main]
     }
 }
-// snippet-end:[s3.java2.getobjecttags.complete]
+// snippet-end:[s3.java.getobjecttags.complete]

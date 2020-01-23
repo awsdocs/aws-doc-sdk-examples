@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -33,6 +33,8 @@ import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.AWSLambdaClientBuilder;
 import com.amazonaws.services.lambda.model.InvokeRequest;
 import com.amazonaws.services.lambda.model.InvokeResult;
+import com.amazonaws.services.lambda.model.ServiceException;
+
 import java.nio.charset.StandardCharsets;
 // snippet-end:[lambda.java1.invoke.import]
 
@@ -72,8 +74,8 @@ public class LambdaInvokeFunction {
 
             //write out the return value
             System.out.println(ans);
-        }
-        catch (Exception e) {
+
+        } catch (ServiceException e) {
             System.out.println(e);
         }
 
