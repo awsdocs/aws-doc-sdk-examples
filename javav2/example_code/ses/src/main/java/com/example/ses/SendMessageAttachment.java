@@ -54,26 +54,25 @@ import software.amazon.awssdk.services.ses.model.RawMessage;
 
 public class SendMessageAttachment {
 
-    // Replace sender@example.com with your "From" address.
-    // This address must be verified with Amazon SES.
+    // This value is set as an input parameter
     private static String SENDER = "";
 
-    // Specifies the location of the Excel file to use as an attachment
+    // This value is set as an input parameter
+    // It specifies the location of the Excel file to use as an attachment
     private static String FileLocation = "";
 
-    // Replace recipient@example.com with a "To" address. If your account
-    // is still in the sandbox, this address must be verified.
+    // This value is set as an input parameter
     private static String RECIPIENT = "";
 
-     // The subject line for the email.
+     // This value is set as an input parameter
     private static String SUBJECT = "";
 
 
-    // The email body for recipients with non-HTML email clients.
+    // The email body for recipients with non-HTML email clients
     private static String BODY_TEXT = "Hello,\r\n" + "Please see the attached file for a list "
             + "of customers to contact.";
 
-    // The HTML body of the email.
+    // The HTML body of the email
     private static String BODY_HTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
 
@@ -105,42 +104,42 @@ public class SendMessageAttachment {
 
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object.
+        // Create a new MimeMessage object
         MimeMessage message = new MimeMessage(session);
 
-        // Add subject, from and to lines.
+        // Add subject, from and to lines
         message.setSubject(SUBJECT, "UTF-8");
         message.setFrom(new InternetAddress(SENDER));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT));
 
-        // Create a multipart/alternative child container.
+        // Create a multipart/alternative child container
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts.
+        // Create a wrapper for the HTML and text parts
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part.
+        // Define the text part
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(BODY_TEXT, "text/plain; charset=UTF-8");
 
-        // Define the HTML part.
+        // Define the HTML part
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(BODY_HTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container.
+        // Add the text and HTML parts to the child container
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object.
+        // Add the child container to the wrapper object
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent container
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message.
+        // Add the parent container to the message
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message.
+        // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
         // Define the attachment
@@ -148,10 +147,11 @@ public class SendMessageAttachment {
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
+        // Set the attachment name
         String reportName = "WorkReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message.
+        // Add the attachment to the message
         msg.addBodyPart(att);
 
         try {
