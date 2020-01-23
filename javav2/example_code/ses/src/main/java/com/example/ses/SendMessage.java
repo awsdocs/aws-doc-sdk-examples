@@ -61,12 +61,11 @@ public class SendMessage {
 
 
     // The email body for recipients with non-HTML email clients
-    private static String BODY_TEXT = "Hello,\r\n" + "Please see the attached file for a list "
-            + "of customers to contact.";
+    private static String BODY_TEXT = "Hello,\r\n" + "Here is a list of customers to contact.";
 
     // The HTML body of the email
     private static String BODY_HTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
+            + "<p>Here is a list of customers to contact.</p>" + "</body>" + "</html>";
 
     public static void main(String[] args) throws IOException {
 
