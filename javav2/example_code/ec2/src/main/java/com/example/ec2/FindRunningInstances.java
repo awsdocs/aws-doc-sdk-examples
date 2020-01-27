@@ -27,7 +27,11 @@ package com.example.ec2;
 
 // snippet-start:[ec2.java2.running_instances.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.*;
+import software.amazon.awssdk.services.ec2.model.Filter;
+import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
+import software.amazon.awssdk.services.ec2.model.Reservation;
+import software.amazon.awssdk.services.ec2.model.Instance;
 
 // snippet-end:[ec2.java2.running_instances.import]
 
@@ -37,20 +41,19 @@ import software.amazon.awssdk.services.ec2.model.*;
 public class FindRunningInstances {
     public static void main(String[] args) {
         Ec2Client ec2 = Ec2Client.create();
-        boolean done = false;
 
         // snippet-start:[ec2.java2.running_instances.main]
         String nextToken = null;
         do {
 
             // Create a Filter to find all running instances
-            Filter filter =  Filter.builder()
+            Filter filter = Filter.builder()
                     .name("instance-state-name")
                     .values("running")
                     .build();
 
             //Create a DescribeInstancesRequest
-            DescribeInstancesRequest request =  DescribeInstancesRequest.builder()
+            DescribeInstancesRequest request = DescribeInstancesRequest.builder()
                     .filters(filter)
                     .build();
 

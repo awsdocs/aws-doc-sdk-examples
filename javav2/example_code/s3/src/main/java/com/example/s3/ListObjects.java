@@ -1,3 +1,18 @@
+/**
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ */
+
 //snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
@@ -12,11 +27,14 @@ package com.example.s3;
 // snippet-start:[s3.java2.list_objects.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.S3Object;
+
 import java.util.List;
 import java.util.ListIterator;
 // snippet-end:[s3.java2.list_objects.import]
-
 
 public class ListObjects {
 
@@ -28,7 +46,7 @@ public class ListObjects {
         }
 
         // snippet-start:[s3.java2.list_objects.main]
-       String bucketName = args[0];
+        String bucketName = args[0];
 
         try {
             Region region = Region.US_WEST_2;
@@ -48,16 +66,14 @@ public class ListObjects {
                 System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
                 System.out.print("\n The owner is " + myValue.owner());
             }
-        }
-        catch (S3Exception e) {
+        } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
 
     //convert bytes to kbs
-    private static long calKb(Long val)
-    {
+    private static long calKb(Long val) {
         return val/1024;
 
     }
