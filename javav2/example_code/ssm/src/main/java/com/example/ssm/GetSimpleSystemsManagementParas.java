@@ -34,7 +34,6 @@ import software.amazon.awssdk.services.ssm.model.DescribeParametersRequest;
 import software.amazon.awssdk.services.ssm.model.DescribeParametersResponse;
 import software.amazon.awssdk.services.ssm.model.ParameterMetadata;
 import software.amazon.awssdk.services.ssm.model.SsmException;
-
 import java.util.Iterator;
 import java.util.List;
 // snippet-end:[ssm.Java2.get_params.import]
