@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -14,10 +14,10 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in a S4 bucket by using the S3Presigner client object]
+// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in a S3 bucket by using the S3Presigner client object]
 // snippet-service:[S3]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3
+// snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-12-05]
@@ -27,9 +27,13 @@
 package com.example.s3;
 
 // snippet-start:[presigned.java2.getobjectpresigned.import]
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.time.Duration;
+
+import software.amazon.awssdk.services.lambda.model.ServiceException;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
@@ -39,8 +43,7 @@ import software.amazon.awssdk.utils.IoUtils;
 
 public class GetObjectPresignedUrl {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         if (args.length < 2) {
             System.out.println("Please specify a bucket name and a key name");
             System.exit(1);
@@ -53,7 +56,7 @@ public class GetObjectPresignedUrl {
         // Create an S3Presigner by using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
 
-        try{
+        try {
 
             // Create a GetObjectRequest to be pre-signed
             GetObjectRequest getObjectRequest =
@@ -107,9 +110,7 @@ public class GetObjectPresignedUrl {
             // usually isn't needed
             presigner.close();
 
-        }
-        catch (Exception e)
-        {
+        } catch (ServiceException | IOException e) {
             e.getStackTrace();
         }
         // snippet-end:[presigned.java2.getobjectpresigned.main]

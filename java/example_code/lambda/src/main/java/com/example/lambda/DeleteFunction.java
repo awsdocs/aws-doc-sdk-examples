@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -35,7 +35,6 @@ import com.amazonaws.services.lambda.model.ServiceException;
 import com.amazonaws.services.lambda.model.DeleteFunctionRequest;
 // snippet-end:[lambda.java1.delete.import]
 
-
 public class DeleteFunction {
 
     public static void main(String[] args) {
@@ -48,21 +47,21 @@ public class DeleteFunction {
         // snippet-start:[lambda.java1.delete.main]
         String functionName = args[0];
         try {
-        AWSLambda awsLambda = AWSLambdaClientBuilder.standard()
-                .withCredentials(new ProfileCredentialsProvider())
-                .withRegion(Regions.US_WEST_2).build();
+            AWSLambda awsLambda = AWSLambdaClientBuilder.standard()
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .withRegion(Regions.US_WEST_2).build();
 
-        DeleteFunctionRequest delFunc = new DeleteFunctionRequest();
-        delFunc.withFunctionName(functionName);
+            DeleteFunctionRequest delFunc = new DeleteFunctionRequest();
+            delFunc.withFunctionName(functionName);
 
-        //Delete the functiom
-        awsLambda.deleteFunction(delFunc);
-        System.out.println("The function is deleted");
-    }
-    catch (ServiceException e) {
-        System.out.println(e);
-    }
+            //Delete the functiom
+            awsLambda.deleteFunction(delFunc);
+            System.out.println("The function is deleted");
+
+        } catch (ServiceException e) {
+            System.out.println(e);
+        }
         // snippet-end:[lambda.java1.delete.main]
-   }
+    }
 }
 // snippet-end:[lambda.java1.DeleteFunction.complete]
