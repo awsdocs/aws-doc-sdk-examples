@@ -57,7 +57,7 @@ public class GetSimpleSystemsManagementOps {
 
         try {
             GetOpsItemRequest opsRequest = new GetOpsItemRequest();
-            opsRequest.setOpsItemId("oi-3dc4b67a9f2f");
+            opsRequest.setOpsItemId(opsID);
 
             GetOpsItemResult opsResults = ssm.getOpsItem(opsRequest);
 
