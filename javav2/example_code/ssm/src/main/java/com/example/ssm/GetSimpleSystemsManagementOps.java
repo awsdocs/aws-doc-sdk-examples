@@ -24,7 +24,6 @@
 // snippet-sourceauthor:[AWS - scmacdon]
 
 // snippet-start:[ssm.Java2.get_ops.complete]
-
 package com.example.ssm;
 
 // snippet-start:[ssm.Java2.get_ops.import]
