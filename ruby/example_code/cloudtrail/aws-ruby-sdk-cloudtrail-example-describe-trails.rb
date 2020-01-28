@@ -21,19 +21,38 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-cloudtrail'  # v2: require 'aws-sdk'
+require 'aws-sdk-cloudtrail'
 
-# Create client in us-west-2
-client = Aws::CloudTrail::Client.new(region: 'us-west-2')
+# Lists existing trails in AWS CloudTrail.
+class ListTrailsExample
+  # Lists information about existing trails in AWS CloudTrail.
+  # Prerequisites:
+  #  None.
+  # Inputs:
+  #  region_id: the ID of the AWS Region for the associated trails.
+  # Outputs:
+  #  Selected properties for any existing trails.
+  def list_trails(region_id)
+    client = Aws::CloudTrail::Client.new(region: region_id)
+    resp = client.describe_trails({})
+    
+    puts
+    puts "Found #{resp.trail_list.count} trail(s) in us-west-2:"
+    puts
+    
+    resp.trail_list.each do |trail|
+      puts 'Name:                  ' + trail.name
+      puts 'Amazon S3 bucket name: ' + trail.s3_bucket_name
+      puts
+    end
+  end
+end
 
-resp = client.describe_trails({})
+# Tests the functionality in the preceding class by using RSpec.
+RSpec.describe ListTrailsExample do
+  region_id = 'us-east-1'
 
-puts
-puts "Found #{resp.trail_list.count} trail(s) in us-west-2:"
-puts
-
-resp.trail_list.each do |trail|
-  puts 'Name:           ' + trail.name
-  puts 'S3 bucket name: ' + trail.s3_bucket_name
-  puts
+  it 'lists trails in AWS CloudTrail' do
+    expect(ListTrailsExample.new.list_trails(region_id)).to be
+  end
 end

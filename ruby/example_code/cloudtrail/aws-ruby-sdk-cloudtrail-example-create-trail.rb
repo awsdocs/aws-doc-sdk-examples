@@ -21,21 +21,52 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-cloudtrail'  # v2: require 'aws-sdk'
+require 'aws-sdk-cloudtrail'
 require 'aws-sdk-s3'
 require 'aws-sdk-sts'
 
-# Attach IAM policy to bucket
-def add_policy(bucket)
-  # Get account ID using STS
-  sts_client = Aws::STS::Client.new(region: 'us-west-2')
-  resp = sts_client.get_caller_identity({})
-  account_id = resp.account
+# Creates a trail in AWS CloudTrail.
+class CreateTrailExample
+  # Creates the specified trail in AWS CloudTrail.
+  # Prerequisites:
+  #  An existing Amazon S3 bucket with the name specified in bucket_name.
+  # Inputs:
+  #  cloudtrail_client: an instance of an AWS CloudTrail API client.
+  #  s3_client: an instance of an Amazon S3 API client.
+  #  trail_name: the name of the trail to create.
+  #  region_id: the ID of the AWS Region to create the trail in.
+  #  bucket_name: the name of the bucket to associate with the trail.
+  #  account_id: the ID of the AWS account to create the trail in.
+  #  add_bucket_policy: true to add the specified policy to the bucket.
+  # Outputs:
+  #  Nothing.
+  def create_trail(cloudtrail_client, s3_client, trail_name, region_id, bucket_name, account_id, add_bucket_policy)
+    
+    if add_bucket_policy == true
+      policy = define_policy(region_id, bucket_name, account_id)
+      add_policy_to_bucket(s3_client, region_id, policy, bucket_name)
+    end
 
-  # Attach policy to S3 bucket
-  s3_client = Aws::S3::Client.new(region: 'us-west-2')
+    begin
+      cloudtrail_client.create_trail({
+        name: trail_name,
+        s3_bucket_name: bucket_name
+      })
+    rescue Exception => ex
+      puts "Error in 'create_trail': #{ex} (#{ex.class})"
+    end
+  end
 
-  begin
+  # Defines an Amazon S3 bucket policy that is compatible with AWS CloudTrail.
+  # Prerequisites:
+  #  An existing bucket with the name specified in bucket_name.
+  # Inputs:
+  #  region_id: the ID of the AWS Region for the associated AWS CloudTrail resources.
+  #  bucket_name: the name of the bucket to associate with the policy.
+  #  account_id: the ID of the AWS account to associate with the policy.
+  # Outputs:
+  #  The bucket policy in JSON format.
+  def define_policy(region_id, bucket_name, account_id)
     policy = {
       'Version' => '2012-10-17',
       'Statement' => [
@@ -46,7 +77,7 @@ def add_policy(bucket)
             'Service' => 'cloudtrail.amazonaws.com',
           },
           'Action' => 's3:GetBucketAcl',
-          'Resource' => 'arn:aws:s3:::' + bucket,
+          'Resource' => 'arn:aws:s3:::' + bucket_name,
         },
         {
           'Sid' => 'AWSCloudTrailWrite20150319',
@@ -55,7 +86,7 @@ def add_policy(bucket)
             'Service' => 'cloudtrail.amazonaws.com',
           },
           'Action' => 's3:PutObject',
-          'Resource' => 'arn:aws:s3:::' + bucket + '/AWSLogs/' + account_id + '/*',
+          'Resource' => 'arn:aws:s3:::' + bucket_name + '/AWSLogs/' + account_id + '/*',
           'Condition' => {
             'StringEquals' => {
               's3:x-amz-acl' => 'bucket-owner-full-control',
@@ -64,65 +95,150 @@ def add_policy(bucket)
         },
       ]
     }.to_json
+    return policy
+  end
 
-    s3_client.put_bucket_policy(
-      bucket: bucket,
-      policy: policy
-    )
+  # Adds the specified Amazon S3 bucket policy to the specified bucket.
+  # Prerequisites:
+  #  An existing Amazon S3 bucket policy with the contents specified in policy.
+  #  An existing bucket with the name specified in bucket_name.
+  # Inputs:
+  #  s3_client: an instance of an Amazon S3 API client.
+  #  region_id: the ID of the AWS Region for the associated bucket.
+  #  policy: the JSON-formatted bucket policy.
+  #  bucket_name: the name of the bucket to associate with the policy.
+  # Outputs:
+  #  Nothing.
+  def add_policy_to_bucket(s3_client, region_id, policy, bucket_name)
 
-    puts 'Successfully added policy to bucket ' + bucket
-  rescue StandardError => err
-    puts 'Got error trying to add policy to bucket ' + bucket + ':'
-    puts err
-    exit 1
+    begin
+      s3_client.put_bucket_policy(
+        bucket: bucket_name,
+        policy: policy
+      )
+    rescue Exception => ex
+      puts "Error in 'add_policy_to_bucket': #{ex} (#{ex.class})"
+    end
   end
 end
 
-# main
-name = ''
-bucket = ''
-attach_policy = false
+# Tests the functionality in the preceding class by using RSpec.
+RSpec.describe CreateTrailExample do
 
-i = 0
+  region_id = 'us-east-1'
+  account_id = ''
+  bucket_name = 'my-test-bucket'
+  trail_name = ''
+  cloudtrail_client = ''
+  mock_cloudtrail_client = ''
+  s3_client = ''
+  mock_s3_client = ''
 
-while i < ARGV.length
-  case ARGV[i]
-    when '-b'
-      i += 1
-      bucket = ARGV[i]
-
-    when '-p'
-      attach_policy = true
-
-    else
-      name = ARGV[i]
+  before(:all) do
+    # Get account ID using AWS STS.
+    sts_client = Aws::STS::Client.new(region: region_id)
+    sts_resp = sts_client.get_caller_identity({})
+    account_id = sts_resp.account
+    # Unique name of trail to create in AWS CloudTrail.
+    trail_name = 'my-trail-' + account_id + '-' + Time.now.to_i.to_s
+    # Get a new AWS CloudTrail API client.
+    cloudtrail_client = Aws::CloudTrail::Client.new(region: region_id)
+    # Get a new mock AWS CloudTrail API client.
+    mock_cloudtrail_client = Aws::CloudTrail::Client.new(stub_responses: true)
+    # Get a new Amazon S3 API client.
+    s3_client = Aws::S3::Client.new(region: region_id)
+    # Get a new mock Amazon S3 API client.
+    mock_s3_client = Aws::S3::Client.new(stub_responses: true)
   end
 
-  i += 1
-end
+  it 'actually defines an Amazon S3 bucket policy' do
+    policy = CreateTrailExample.new.define_policy(region_id, bucket_name, account_id)
+    expect(policy).to be
+    puts policy
+  end
 
-if name == '' || bucket == ''
-  puts 'You must supply a trail name and bucket name'
-  puts USAGE
-  exit 1
-end
+  # To run all mocks only: rspec aws-ruby-sdk-cloudtrail-example-create-trail.rb -E 'mocks*' -f d
+  it 'mocks defining an Amazon S3 bucket policy' do
+    policy = instance_double("CreateTrailExample")
+    allow(policy).to receive(:define_policy).with(region_id, bucket_name, account_id).and_return({
+      'Version' => '2012-10-17',
+      'Statement' => [
+        {
+          'Sid' => 'AWSCloudTrailAclCheck20150319',
+          'Effect' => 'Allow',
+          'Principal' => {
+            'Service' => 'cloudtrail.amazonaws.com',
+          },
+          'Action' => 's3:GetBucketAcl',
+          'Resource' => 'arn:aws:s3:::us-east-1',
+        },
+        {
+          'Sid' => 'AWSCloudTrailWrite20150319',
+          'Effect' => 'Allow',
+          'Principal' => {
+            'Service' => 'cloudtrail.amazonaws.com',
+          },
+          'Action' => 's3:PutObject',
+          'Resource' => 'arn:aws:s3:::my-test-bucket/AWSLogs/123456789012/*',
+          'Condition' => {
+            'StringEquals' => {
+              's3:x-amz-acl' => 'bucket-owner-full-control',
+            },
+          },
+        },
+      ]
+    })
 
-if attach_policy
-  add_policy(bucket)
-end
+    expect(policy.define_policy(region_id, bucket_name, account_id)).to eq({
+      'Version' => '2012-10-17',
+      'Statement' => [
+        {
+          'Sid' => 'AWSCloudTrailAclCheck20150319',
+          'Effect' => 'Allow',
+          'Principal' => {
+            'Service' => 'cloudtrail.amazonaws.com',
+          },
+          'Action' => 's3:GetBucketAcl',
+          'Resource' => 'arn:aws:s3:::us-east-1',
+        },
+        {
+          'Sid' => 'AWSCloudTrailWrite20150319',
+          'Effect' => 'Allow',
+          'Principal' => {
+            'Service' => 'cloudtrail.amazonaws.com',
+          },
+          'Action' => 's3:PutObject',
+          'Resource' => 'arn:aws:s3:::my-test-bucket/AWSLogs/123456789012/*',
+          'Condition' => {
+            'StringEquals' => {
+              's3:x-amz-acl' => 'bucket-owner-full-control',
+            },
+          },
+        },
+      ]
+    })
+  end
 
-# Create client in us-west-2
-client = Aws::CloudTrail::Client.new(region: 'us-west-2')
+  # Note: Running this example might result in changes and additional charges to your AWS account.
+  it 'actually adds a policy to a bucket' do
+    create_trail = CreateTrailExample.new
+    policy = create_trail.define_policy(region_id, bucket_name, account_id)
+    expect(create_trail.add_policy_to_bucket(s3_client, region_id, policy, bucket_name)).to be
+  end
 
-begin
-  client.create_trail({
-    name: name, # required
-    s3_bucket_name: bucket, # required
-  })
+  it 'mocks adding a policy to a bucket' do
+    create_trail = CreateTrailExample.new
+    policy = create_trail.define_policy(region_id, bucket_name, account_id)
+    expect(create_trail.add_policy_to_bucket(mock_s3_client, region_id, policy, bucket_name)).to be
+  end
 
-  puts 'Successfully created CloudTrail ' + name + ' in us-west-2'
-rescue StandardError => err
-  puts 'Got error trying to create trail ' + name + ':'
-  puts err
-  exit 1
+  # Note: Running this example might result in changes and additional charges to your AWS account.
+  it 'actually creates an AWS CloudTrail trail' do
+    expect(CreateTrailExample.new.create_trail(cloudtrail_client, s3_client, trail_name, region_id, bucket_name, account_id, true)).to be
+  end
+
+  it 'mocks creating an AWS CloudTrail trail' do
+    expect(CreateTrailExample.new.create_trail(mock_cloudtrail_client, s3_client, trail_name, region_id, bucket_name, account_id, true)).to be
+  end
+
 end
