@@ -48,7 +48,7 @@ def configureParser():
     parser.add_argument("-d", "--requestDelay", action="store", dest="requestDelay", type=float, default=1,
             help="Time between requests (in seconds)")
     parser.add_argument("-v", "--enableLogging", action="store_true", dest="enableLogging",
-            help="Enable AWS IoT Python SDK logging")
+            help="Enable logging for the AWS IoT Device SDK for Python")
     return parser
 
 
@@ -104,7 +104,7 @@ class PerformanceShadowClient:
         print("Update request {} {}\n".format(token, responseStatus))
 
 
-# Configures debug logging for the AWS IoT Python SDK.
+# Configures debug logging for the AWS IoT Device SDK for Python.
 def configureLogging():
     logger = logging.getLogger("AWSIoTPythonSDK.core")
     logger.setLevel(logging.DEBUG)
