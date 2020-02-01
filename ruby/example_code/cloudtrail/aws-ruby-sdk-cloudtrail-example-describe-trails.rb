@@ -23,21 +23,28 @@
 
 require 'aws-sdk-cloudtrail'
 
-# Lists existing trails in AWS CloudTrail.
+# Lists information about existing trails in AWS CloudTrail.
 class ListTrailsExample
-  # Lists information about existing trails in AWS CloudTrail.
-  # Prerequisites:
-  #  None.
-  # Inputs:
-  #  region_id: the ID of the AWS Region for the associated trails.
-  # Outputs:
-  #  Selected properties for any existing trails.
-  def list_trails(region_id)
-    client = Aws::CloudTrail::Client.new(region: region_id)
-    resp = client.describe_trails({})
+  # Initialize an instance of ListTrailsExample, creating a client for
+  # AWS CloudTrail (unless already provided during initialization).
+  #
+  # (The following comments express documentation about this function in YARD 
+  # format by using @ symbols.)
+  #
+  # @param [Hash] opts ({}) A hash of an API client for CloudTrail.
+  # @option [Aws::CloudTrail::Client] :cloudtrail_client
+  #  (Aws::CloudTrail::Client)
+  def initialize(opts = {})
+    # This CloudTrail API client is used to list the CloudTrail resources.
+    @cloudtrail = opts[:cloudtrail_client] || Aws::CloudTrail::Client.new
+  end
+
+  # Lists selected information about existing trails in AWS CloudTrail.
+  def list_trails()
+    resp = @cloudtrail.describe_trails({})
     
     puts
-    puts "Found #{resp.trail_list.count} trail(s) in us-west-2:"
+    puts "Found #{resp.trail_list.count} trail(s):"
     puts
     
     resp.trail_list.each do |trail|
@@ -45,14 +52,35 @@ class ListTrailsExample
       puts 'Amazon S3 bucket name: ' + trail.s3_bucket_name
       puts
     end
+
+    # Uncomment the following line to print all available information.
+    # puts resp
   end
 end
 
 # Tests the functionality in the preceding class by using RSpec.
 RSpec.describe ListTrailsExample do
-  region_id = 'us-east-1'
+  # Create a stubbed API client to use for testing.
+  let(:cloudtrail_client) { Aws::CloudTrail::Client.new(stub_responses: true) }
 
-  it 'lists trails in AWS CloudTrail' do
-    expect(ListTrailsExample.new.list_trails(region_id)).to be
+  # Create a ListTrailsExample object with our API client.
+  let(:list_trails_example) do
+    ListTrailsExample.new(
+      cloudtrail_client: cloudtrail_client
+    )
+  end
+
+  describe '#list_trails' do
+    it 'lists trails in AWS CloudTrail' do
+      # Stub the response data for our CloudTrail API client.
+      cloudtrail_client.stub_responses(
+        :describe_trails, :trail_list => [ 
+          { :name => "my-trail-1", :s3_bucket_name => "my-bucket-1" }, 
+          { :name => "my-trail-2", :s3_bucket_name => "my-bucket-2" }
+        ]
+      )
+
+      list_trails_example.list_trails()
+    end
   end
 end
