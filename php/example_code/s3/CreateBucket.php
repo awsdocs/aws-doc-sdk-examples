@@ -32,10 +32,17 @@ use Aws\Exception\AwsException;
 // snippet-start:[s3.php.create_bucket.main]
 class CreateBucketExample
 {
-    public function createBucket($s3Client, $bucketName)
+    private $s3Client = null;
+
+    public function __construct($s3Client)
+    {
+        $this->s3Client = $s3Client;
+    }
+
+    public function createBucket($bucketName)
     {
         try {
-            $result = $s3Client->createBucket([
+            $result = $this->s3Client->createBucket([
                 'Bucket' => $bucketName,
             ]);
         } catch (AwsException $e) {
@@ -44,7 +51,11 @@ class CreateBucketExample
             return false;
         }
 
-        return true;
+        if ($result['@metadata']['statusCode'] == 200) {
+            return true;
+        } else {
+            return false;
+        }
     }    
 }
 // snippet-end:[s3.php.create_bucket.main] 
@@ -59,19 +70,10 @@ class CreateBucketExampleTest extends TestCase
 {
     const BUCKET_NAME = 'my-bucket';
     const REGION = 'us-east-1';
-    private $s3Client;
-    private $mock;
-    private $s3ClientMock;
-    private $createBucketExample;
+    private $mock, $s3ClientMock, $createBucketExample;
     
     protected function setUp(): void
     {
-        $this->s3Client = new S3Client([
-            'profile' => 'default',
-            'region' => self::REGION,
-            'version' => '2006-03-01'
-        ]);
-
         $mock = new MockHandler();
         $mock->append(new Result(array(true)));
 
@@ -82,22 +84,15 @@ class CreateBucketExampleTest extends TestCase
             'handler' => $mock
         ]);
 
-        $this->createBucketExample = new CreateBucketExample();
+        $this->createBucketExample = new CreateBucketExample(
+            $this->s3ClientMock);
     }
 
-    # Note: Running this test might result in changes and charges to your AWS account.
-    public function testActuallyCreatesABucket()
+    public function testCreatesABucket()
     {
         $this->assertEquals($this->createBucketExample->createBucket(
-            $this->s3Client, self::BUCKET_NAME), true);
+            self::BUCKET_NAME), true);
     }
-
-    public function testMocksCreatingABucket()
-    {
-        $this->assertEquals($this->createBucketExample->createBucket(
-            $this->s3ClientMock, self::BUCKET_NAME), true);
-    }
-
 }
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateBucket.php demonstrates how to create an new Amazon S3 bucket given a name to use for the bucket.]
