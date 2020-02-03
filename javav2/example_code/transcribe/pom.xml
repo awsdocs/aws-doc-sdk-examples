@@ -60,11 +60,6 @@
       <artifactId>transcribestreaming</artifactId>
       <version>2.5.28</version>
     </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>transcribestreaming</artifactId>
-      <version>2.5.10</version>
-    </dependency>
   </dependencies>
 </project>
 
