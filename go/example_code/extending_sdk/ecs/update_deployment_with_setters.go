@@ -6,7 +6,7 @@
 // snippet-keyword:[Go]
 // snippet-sourcesyntax:[go]
 // snippet-service:[aws-go-sdk]
-// snippet-sourcetype:[snippet]
+// snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-03-22]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
