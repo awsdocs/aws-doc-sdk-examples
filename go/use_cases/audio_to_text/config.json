@@ -1,0 +1,10 @@
+{
+    "Region": "us-west-2",
+    "InputBucket": "",
+    "OutputBucket": "",
+    "AudioFile": "FourScore.wav",
+    "ResultFile": "FourScoreResult.txt",
+    "SleepSeconds": 10,
+    "JobName": "ConvertAudioToText",
+    "Debug": false
+}
