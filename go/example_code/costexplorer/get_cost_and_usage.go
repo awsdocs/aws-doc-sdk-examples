@@ -7,7 +7,7 @@
 // snippet-sourcesyntax:[go]
 // snippet-service:[ce]
 // snippet-keyword:[Code Sample]
-// snippet-sourcetype:[snippet]
+// snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-07-09]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
