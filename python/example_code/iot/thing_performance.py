@@ -23,7 +23,6 @@
 # snippet-sourcedate:[2020-01-23]
 # snippet-sourceauthor:[FThompsonAWS]
 # snippet-start:[iot.python.thing_performance.complete]
-
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
 
 import json
@@ -32,6 +31,7 @@ import argparse
 import logging
 import time
 
+# Configures the argument parser for this program.
 def configureParser():
     parser = argparse.ArgumentParser()
     parser.add_argument("-e", "--endpoint", action="store", required=True, dest="host",
@@ -123,5 +123,4 @@ if __name__ == "__main__":
     thingClient = PerformanceShadowClient(args.thingName, args.host, args.port, args.rootCAPath, args.privateKeyPath,
             args.certificatePath, args.requestDelay)
     thingClient.run()
-
 # snippet-end:[iot.python.thing_performance.complete]
