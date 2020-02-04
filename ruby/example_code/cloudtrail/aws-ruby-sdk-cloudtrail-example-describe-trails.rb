@@ -48,8 +48,8 @@ class ListTrailsExample
     puts
     
     resp.trail_list.each do |trail|
-      puts 'Name:                  ' + trail.name
-      puts 'Amazon S3 bucket name: ' + trail.s3_bucket_name
+      puts "Name:                  #{trail.name}"
+      puts "Amazon S3 bucket name: #{trail.s3_bucket_name}" 
       puts
     end
 

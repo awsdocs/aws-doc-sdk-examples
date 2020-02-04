@@ -41,13 +41,13 @@ class ListEventsExample
 
   # Lists selected information about existing events in AWS CloudTrail.
   def list_events()
-    resp = @cloudtrail.lookup_events()
+    resp = @cloudtrail.lookup_events
 
     puts
     puts "Found #{resp.events.count} event(s)."
     puts
 
-    # Uncomment the following line to display all available information.
+    # Uncomment the following line to display available information.
     # puts resp
 
     resp.events.each do |event|
@@ -61,7 +61,8 @@ class ListEventsExample
   #  The event to list information about.
   def show_event(event)
 
-    puts event
+    # Uncomment the following line to display available information.
+    # puts event
 
     puts "Event name:   #{event.event_name}"
     puts "Event ID:     #{event.event_id}"
