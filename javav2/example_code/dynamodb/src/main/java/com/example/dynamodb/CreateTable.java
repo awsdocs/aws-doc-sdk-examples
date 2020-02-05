@@ -9,7 +9,7 @@
    specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[CreateTable.java demonstrates how to create a DynamoDB table.]
+//snippet-sourcedescription:[CreateTable.java demonstrates how to create an AWS DynamoDB table]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
@@ -33,12 +33,12 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 // snippet-end:[dynamodb.java2.create_table.import]
 
 /**
- * Create a DynamoDB table.
+ * Creates an AWS DynamoDB table.
  *
- * Takes the name of the table to create. The table will contain a single
- * primary key, "Name".
+ * Takes the name of the table to create . The table contains a single
+ * primary key as specified by args[1]
  *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class CreateTable {
@@ -46,10 +46,10 @@ public class CreateTable {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTable <table>\n\n" +
+                "    CreateTable <table> <key >\n\n" +
                 "Where:\n" +
-                "    table - the table to create.\n\n" +
-                "    key   - the key for the table\n" +
+                "    table - the table to create (i.e., Music3)\n\n" +
+                "    key   - the key for the table (i.e., Artist)\n" +
                 "Example:\n" +
                 "    Music3 Artist \n";
 
