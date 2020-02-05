@@ -25,10 +25,9 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-
 import java.util.List;
-
 // snippet-end:[dynamodb.java2.list_tables.import]
+
 /**
  * List DynamoDB tables for the current AWS account.
  *
