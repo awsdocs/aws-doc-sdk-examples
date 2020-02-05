@@ -61,7 +61,7 @@ public class CreateTable {
         // snippet-start:[dynamodb.java2.create_table.main]
         /* Read the name from command args */
         String tableName = args[0];
-        String key = args[0];
+        String key = args[1];
 
         System.out.format(
                 "Creating table \"%s\" with a simple primary key: \"Name\".\n",
