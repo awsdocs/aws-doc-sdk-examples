@@ -35,7 +35,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 /**
  * Creates an AWS DynamoDB table.
  *
- * Takes the name of the table to create . The table contains a single
+ * Takes the name of the table to create. The table contains a single
  * primary key as specified by args[1]
  *
  * This code expects that you have AWS credentials set up, as described here:
