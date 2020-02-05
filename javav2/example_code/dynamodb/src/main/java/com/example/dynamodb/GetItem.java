@@ -31,14 +31,9 @@ import java.util.Set;
 
 // snippet-end:[dynamodb.java2.get_item.import]
 /**
- * Get an item from a DynamoDB table.
+ * Gets an item from an AWS DynamoDB table.
  *
- * Takes the name of the table and the name of the item to retrieve from it.
- *
- * The primary key searched is "Name", and the value contained by the field
- * "Greeting" will be returned.
- *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class GetItem {
@@ -46,15 +41,14 @@ public class GetItem {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetItem <table> <key> [keyVal]\n\n" +
+                "    GetItem <table> <key> <keyVal>\n\n" +
                 "Where:\n" +
-                "    table - the table from which an item is retrieved.\n" +
-                "    key -  the key used in the table.\n" +
-                "    keyval;  - the key value that represents the item to get,\n" +
-                "            using the primary key " +
-                "Example:\n" +
+                "    table - the table from which an item is retrieved (i.e., Music3)\n" +
+                "    key -  the key used in the table (i.e., Artist) \n" +
+                "    keyval  - the key value that represents the item to get (i.e., Famous Band)\n" +
+                " Example:\n" +
                 "    Music3 Artist Famous Band\n" +
-                "**Warning** This program will actually retrieve an item\n" +
+                "  **Warning** This program will actually retrieve an item\n" +
                 "            that you specify!\n";
 
         if (args.length < 3) {
