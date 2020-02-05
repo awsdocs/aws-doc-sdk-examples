@@ -9,7 +9,7 @@
    specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[CreateTable.java demonstrates how to create a DynamoDB table.]
+//snippet-sourcedescription:[CreateTable.java demonstrates how to create an AWS DynamoDB table]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
