@@ -47,7 +47,7 @@ public class PutItem {
                 "Where:\n" +
                 "    table - the table in which an item is placed (ie - Music3),\n" +
                 "    key -  the key used in the table (ie - Artist),\n" +
-                "    keyval  - the key value that represents the item to get (ie -Famous Band),\n" +
+                "    keyval  - the key value that represents the item (ie -Famous Band),\n" +
                 "    albumTitle -  album title (ie - AlbumTitle),\n" +
                 "    AlbumTitleValue -  the name of the album (ie - Songs About Life ),\n" +
                 "    Awards -  awards column (ie - Awards),\n" +
