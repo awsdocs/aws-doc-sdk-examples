@@ -29,13 +29,11 @@ import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
 // snippet-end:[dynamodb.java2.delete_table.import]
 
 /**
- * Delete a DynamoDB table.
- *
- * Takes the name of the table to delete.
+ * Deletes an AWS DynamoDB table.
  *
  * **Warning** The named table will actually be deleted!
  *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class DeleteTable {
@@ -45,7 +43,7 @@ public class DeleteTable {
                 "Usage:\n" +
                 "    DeleteTable <table>\n\n" +
                 "Where:\n" +
-                "    table - the table to delete.\n\n" +
+                "    table - the table to delete (i.e., Music3)\n\n" +
                 "Example:\n" +
                 "    DeleteTable Music3\n\n" +
                 "**Warning** This program will actually delete the table\n" +
@@ -80,5 +78,4 @@ public class DeleteTable {
         System.out.println(tableName +" was successfully deleted!");
     }
 }
-
 // snippet-end:[dynamodb.java2.delete_table.complete]
