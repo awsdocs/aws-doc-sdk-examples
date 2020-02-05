@@ -26,7 +26,7 @@ import (
 )
 
 func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
-    // Create S3 service client
+    // Create Amazon S3 service client
     svc := s3.New(sess)
 
     // Empty list to hold names of S3 buckets with prefix
@@ -75,7 +75,7 @@ func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
     return nil
 }
 
-// Deletes any S3 buckets in the default region
+// Deletes any S3 buckets in the default AWS Region
 // that start with the given text
 //
 // Usage:
@@ -91,7 +91,7 @@ func main() {
     }
 
     // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file. (~/.aws/credentials).
+    // credentials from the shared credentials file (~/.aws/credentials)
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))

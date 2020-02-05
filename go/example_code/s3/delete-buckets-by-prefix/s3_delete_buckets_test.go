@@ -30,7 +30,7 @@ import (
 )
 
 func createBucket(sess *session.Session, bucketName string) error {
-    // Create S3 service client
+    // Create Amazon S3 service client
     svc := s3.New(sess)
 
     // Create the S3 Bucket
@@ -94,14 +94,14 @@ func listBuckets(sess *session.Session, prefix string) error {
 }
 
 func TestAudioToText(t *testing.T) {
-    // When the test started:
+    // When the test started
     thisTime := time.Now()
     nowString := thisTime.Format("20060102150405")
     fmt.Println("Starting unit test at " + nowString)
     fmt.Println("")
 
     // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file. (~/.aws/credentials).
+    // credentials from the shared credentials file (~/.aws/credentials)
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))

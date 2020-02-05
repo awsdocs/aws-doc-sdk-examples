@@ -1,6 +1,6 @@
-# S3 Example in Go #
+# Amazon S3 Example in Go #
 
-This Go code example enables deleting all of the S3 buckets you own that begin with a given prefix.
+This Go code example enables deleting all of the Amazon S3 buckets you own that begin with a given prefix.
 
 For example, if you call `go run s3_delete_buckets.go -p dummy-`,
 it first removes all objects in the S3 buckets with names starting with *dummy-*,
