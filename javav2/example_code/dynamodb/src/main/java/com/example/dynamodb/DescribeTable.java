@@ -31,11 +31,11 @@ import java.util.List;
 
 // snippet-end:[dynamodb.java2.describe_table.import]
 /**
- * Get information about (describe) a DynamoDB table.
+ * Get information about (describe) an AWS DynamoDB table.
  *
  * Takes the name of the table as input.
  *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class DescribeTable {
@@ -45,7 +45,7 @@ public class DescribeTable {
                 "Usage:\n" +
                 "    DescribeTable <table>\n\n" +
                 "Where:\n" +
-                "    table - the table to get information about.\n\n" +
+                "    table - the table to get information about (i.e., Music3)\n\n" +
                 "Example:\n" +
                 "    DescribeTable Music3\n";
 
