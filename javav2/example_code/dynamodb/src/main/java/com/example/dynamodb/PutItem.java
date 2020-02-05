@@ -45,16 +45,15 @@ public class PutItem {
                 "Usage:\n" +
                 "    PutItem <table> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
                 "Where:\n" +
-                "    table - the table from which an item is retrieved.\n" +
-                "    key -  the key used in the table.\n" +
-                "    keyval  - the key value that represents the item to get,\n" +
-                "            using the primary key " +
-                "    albumTitle -  album title.\n" +
-                "    AlbumTitleValue -  the name of the album.\n" +
-                "    Awards -  awards.\n" +
-                "    AwardVal -  the value of the awards.\n" +
-                "    SongTitle -  song title.\n" +
-                "    SongTitleVal -  the value of the awards.\n" +
+                "    table - the table in which an item is placed (ie - Music3),\n" +
+                "    key -  the key used in the table (ie - Artist),\n" +
+                "    keyval  - the key value that represents the item to get (ie -Famous Band),\n" +
+                "    albumTitle -  album title (ie - AlbumTitle),\n" +
+                "    AlbumTitleValue -  the name of the album (ie - Songs About Life ),\n" +
+                "    Awards -  awards column (ie - Awards),\n" +
+                "    AwardVal -  the value of the awards (10),\n" +
+                "    SongTitle -  song title (ie - SongTitle),\n" +
+                "    SongTitleVal -  the value of the song title (ie Happy Day).\n" +
                 "Example:\n" +
                 "    Music3 Artist Famous Band AlbumTitle Songs About Life Awards 10 SongTitle Happy Day \n" +
                 "**Warning** This program will actually place an item\n" +
