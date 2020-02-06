@@ -34,12 +34,12 @@
 METADATA-DO-NOT-REMOVE
 #// snippet-start:[s3.bash.bucket-operations.complete]
 
-# This function returns a 0 if the specified bucket exists and a 1 if it doesn't.
+# This function returns 0 if the specified bucket exists, 1 if it doesn't.
 function bucket-exists {
     bucketname=$1
 
-    # Check to see if the bucket already exists. This check suppresses 
-    # all output - we're interested only in the return code
+    # Check whether the bucket already exists. This check suppresses 
+    # all output - we're interested only in the return code.
 
     aws s3api head-bucket \
         --bucket $bucketname \
@@ -59,7 +59,7 @@ function create-bucket {
     bucketname=$1
     regionname=$2
 
-    # If bucket already exists then we don't want to try to create it.
+    # If the bucket already exists, we don't want to try to create it.
     if (bucket-exists $bucketname); then 
         echo "ERROR: A bucket with the generated name already exists. Try again."
         exit 1
