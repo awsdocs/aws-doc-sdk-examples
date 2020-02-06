@@ -14,7 +14,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[[2/5/2020]
+//snippet-sourcedate:[2/5/2020]
 //snippet-sourceauthor:[soo-aws]
 
 package com.example.dynamodb;
