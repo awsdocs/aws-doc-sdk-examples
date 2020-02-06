@@ -30,12 +30,10 @@ import software.amazon.awssdk.regions.Region;
 // snippet-end:[dynamodb.java2.query.import]
 
 /**
- * Query a DynamoDB table.
+ * Query an AWS DynamoDB table.
  *
- * Takes the name of the table to update, the read capacity and the write
- * capacity to use.
  *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class Query {
@@ -45,9 +43,9 @@ public class Query {
                 "Usage:\n" +
                 "    Query <table> <partitionkey> <partitionkeyvalue>\n\n" +
                 "Where:\n" +
-                "    table - the table to put the item in.\n" +
-                "    partitionkey  - partition key name of the table.\n" +
-                "    partitionkeyvalue - value of the partition key that should match.\n\n" +
+                "    table - the table to put the item in (i.e., Music3)\n" +
+                "    partitionkey - partition key name of the table (i.e., Artist)\n" +
+                "    partitionkeyvalue - value of the partition key that should match (i.e., Famous Band)\n\n" +
                 "Example:\n" +
                 "    Query Music3 Artist Famous Band \n";
 
