@@ -28,7 +28,7 @@ Running the examples
 ====================
 
 Examples are typically written as functions in shell script files that can be sourced from other 
-files. Most are accompanied by a unit test script in the **tests** folder that you can run to validate
+files. Most are accompanied by a unit test script in the **tests** directory that you can run to validate
 that each example works. The test scripts create the setup and teardown functions that create
 and destroy any prerequisite resources. We take care that all AWS resources that the example creates are
 also destroyed to avoid incurring any unwanted costs. When you're done with an example, we do recommend
