@@ -14,65 +14,61 @@
 package main
 
 import (
-    "flag"
-    "fmt"
-    "os"
-    "strings"
+	"flag"
+	"fmt"
+	"strings"
 
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
-    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
 func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
-    // Create Amazon S3 service client
-    svc := s3.New(sess)
+	// Create Amazon S3 service client
+	svc := s3.New(sess)
 
-    // Empty list to hold names of S3 buckets with prefix
-    bucketList := make([]string, 0)
+	// Empty list to hold names of S3 buckets with prefix
+	bucketList := make([]string, 0)
 
-    result, err := svc.ListBuckets(nil)
-    if err != nil {
-        fmt.Println("Could not list buckets")
-        os.Exit(1)
-    }
+	result, err := svc.ListBuckets(nil)
+	if err != nil {
+		return err
+	}
 
-    for _, b := range result.Buckets {
-        // Does bucket name start with prefix
-        if strings.HasPrefix(*b.Name, prefix) {
-            bucketList = append(bucketList, *b.Name)
-        }
-    }
+	for _, b := range result.Buckets {
+		// Does bucket name start with prefix
+		if strings.HasPrefix(*b.Name, prefix) {
+			bucketList = append(bucketList, *b.Name)
+		}
+	}
 
-    for _, bucket := range bucketList {
-        iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
-            Bucket: aws.String(bucket),
-        })
+	for _, bucket := range bucketList {
+		iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
+			Bucket: aws.String(bucket),
+		})
 
-        err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter)
-        if err != nil {
-            fmt.Println("Unable to delete objects from bucket ", bucket)
-            continue
-        }
+		err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter)
+		if err != nil {
+			return err
+		}
 
-        _, err = svc.DeleteBucket(&s3.DeleteBucketInput{
-            Bucket: aws.String(bucket),
-        })
-        if err != nil {
-            fmt.Println("Unable to delete bucket " + bucket)
-        }
+		_, err = svc.DeleteBucket(&s3.DeleteBucketInput{
+			Bucket: aws.String(bucket),
+		})
+		if err != nil {
+			return err
+		}
 
-        err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
-            Bucket: aws.String(bucket),
-        })
-        if err != nil {
-            fmt.Println("Error occurred while waiting for bucket to be deleted")
-        }
+		err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
+			Bucket: aws.String(bucket),
+		})
+		if err != nil {
+			return err
+		}
+	}
 
-        fmt.Println("Successfully deleted bucket: " + bucket)
-    }
-    return nil
+	return nil
 }
 
 // Deletes any S3 buckets in the default AWS Region
@@ -81,25 +77,25 @@ func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
 // Usage:
 //    go run s3_delete_buckets -p PREFIX [-d}
 func main() {
-    prefixPtr := flag.String("p", "", "The prefix of the buckets to delete")
-    flag.Parse()
-    prefix := *prefixPtr
+	prefixPtr := flag.String("p", "", "The prefix of the buckets to delete")
+	flag.Parse()
+	prefix := *prefixPtr
 
-    if prefix == "" {
-        fmt.Println("You must supply a bucket prefix")
-        os.Exit(1)
-    }
+	if prefix == "" {
+		fmt.Println("You must supply a bucket prefix")
+		return
+	}
 
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file (~/.aws/credentials)
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file (~/.aws/credentials)
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
 
-    err := deleteBucketsByPrefix(sess, prefix)
-    if err != nil {
-        fmt.Println("Could not delete buckets with prefix " + prefix)
-    } else {
-        fmt.Println("Deleted buckets with prefix " + prefix)
-    }
+	err := deleteBucketsByPrefix(sess, prefix)
+	if err != nil {
+		fmt.Println("Could not delete buckets with prefix " + prefix)
+	} else {
+		fmt.Println("Deleted buckets with prefix " + prefix)
+	}
 }

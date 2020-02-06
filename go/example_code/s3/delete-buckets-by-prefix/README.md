@@ -17,3 +17,5 @@ Running `go test`:
 3. Removes all objects in the S3 buckets with names starting with *dummy-*
 4. Deletes all S3 buckets with names starting with *dummy-*
 5. Lists all of the buckets with a name starting with *dummy-*
+
+Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
