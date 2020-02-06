@@ -30,11 +30,9 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.put_item.import]
 
 /**
- * Put an item in a DynamoDB table.
+ * Puts an item into an AWS DynamoDB table.
  *
- * Takes the name of the table, a name (primary key value) and additional values
- *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class PutItem {
@@ -45,15 +43,15 @@ public class PutItem {
                 "Usage:\n" +
                 "    PutItem <table> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
                 "Where:\n" +
-                "    table - the table in which an item is placed (ie - Music3),\n" +
-                "    key -  the key used in the table (ie - Artist),\n" +
-                "    keyval  - the key value that represents the item (ie -Famous Band),\n" +
-                "    albumTitle -  album title (ie - AlbumTitle),\n" +
-                "    AlbumTitleValue -  the name of the album (ie - Songs About Life ),\n" +
-                "    Awards -  awards column (ie - Awards),\n" +
-                "    AwardVal -  the value of the awards (10),\n" +
-                "    SongTitle -  song title (ie - SongTitle),\n" +
-                "    SongTitleVal -  the value of the song title (ie Happy Day).\n" +
+                "    table - the table in which an item is placed (i.e., Music3),\n" +
+                "    key -  the key used in the table (iei.e., Artist),\n" +
+                "    keyval  - the key value that represents the item to get (i.e., Famous Band),\n" +
+                "    albumTitle -  album title (i.e., AlbumTitle),\n" +
+                "    AlbumTitleValue -  the name of the album (i.e., Songs About Life ),\n" +
+                "    Awards -  awards column (i.e., Awards),\n" +
+                "    AwardVal -  the value of the awards (i.e., 10),\n" +
+                "    SongTitle -  song title (i.e., SongTitle),\n" +
+                "    SongTitleVal -  the value of the song title (i.e., Happy Day).\n" +
                 "Example:\n" +
                 "    Music3 Artist Famous Band AlbumTitle Songs About Life Awards 10 SongTitle Happy Day \n" +
                 "**Warning** This program will actually place an item\n" +
