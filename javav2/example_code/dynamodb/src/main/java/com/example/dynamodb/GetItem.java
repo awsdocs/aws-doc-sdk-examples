@@ -56,6 +56,7 @@ public class GetItem {
             System.exit(1);
         }
 
+        // snippet-start:[dynamodb.java2.get_item.main]
         String tableName = args[0];
         String key = args[1];
         String keyVal = args[2];
