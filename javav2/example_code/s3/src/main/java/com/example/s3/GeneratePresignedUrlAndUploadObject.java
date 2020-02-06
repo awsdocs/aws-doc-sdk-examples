@@ -32,8 +32,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Duration;
-
-import software.amazon.awssdk.services.lambda.model.ServiceException;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
@@ -85,7 +84,7 @@ public class GeneratePresignedUrlAndUploadObject {
             // usually isn't needed
             presigner.close();
 
-        } catch (ServiceException | IOException e) {
+        } catch (S3Exception | IOException e) {
             e.getStackTrace();
         }
 
