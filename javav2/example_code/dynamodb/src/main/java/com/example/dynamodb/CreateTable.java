@@ -89,6 +89,8 @@ public class CreateTable {
                 .build();
 
         try {
+            
+            // Create the table
             CreateTableResponse response = ddb.createTable(request);
             System.out.println(response.tableDescription().tableName());
         } catch (DynamoDbException e) {
