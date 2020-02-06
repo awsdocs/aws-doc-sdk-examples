@@ -15,10 +15,11 @@
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourceauthor:[scmacdon]
 
 package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.create_table.complete]
+
 // snippet-start:[dynamodb.java2.create_table.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -35,8 +36,6 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 /**
  * Creates an AWS DynamoDB table.
  *
- * Takes the name of the table to create . The table contains a single
- * primary key as specified by args[1]
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -89,8 +88,6 @@ public class CreateTable {
                 .build();
 
         try {
-            
-            // Create the table
             CreateTableResponse response = ddb.createTable(request);
             System.out.println(response.tableDescription().tableName());
         } catch (DynamoDbException e) {
