@@ -26,7 +26,7 @@ function usage {
     echo "deletes the files and the bucket."
     echo ""
     echo "To pause the script between steps so you can see the results in the"
-    echo "AWS browser console, include the parameter -i."
+    echo "AWS Management Console, include the parameter -i."
 }
 
 # Parse parameters
@@ -49,9 +49,9 @@ function usage {
 
 # Initialize the shell scripts RANDOM variable
 RANDOM=$$
-# Configure random number generator to issue numbers between 1000 and 9999 inclusive
+# Configure random number generator to issue numbers between 1000 and 9999, inclusive
 DIFF=$((9999-1000+1))
-# generate 3 random numbers for the bucket name
+# Generate 3 random numbers for the bucket name
 R1=$(($(($RANDOM%$DIFF))+X))
 R2=$(($(($RANDOM%$DIFF))+X))
 R3=$(($(($RANDOM%$DIFF))+X))
