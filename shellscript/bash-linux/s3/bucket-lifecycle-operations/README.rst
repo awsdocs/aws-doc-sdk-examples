@@ -9,18 +9,18 @@
    limitations under the License.
 
 #####################################
-Amazon S3 Bucket Lifecycle Operations
+Amazon S3 bucket lifecycle operations
 #####################################
 
 This example demonstrates how to interact with some of the basic Amazon S3 operations. It
 includes functions that perform the following tasks:
 
-- Creating a bucket and verifying its existence
+- Creating a bucket and verifying that it exists
 - Copying a file from the local computer to a bucket
 - Copying a file from one bucket location to another
-- Listing the contents of bucket
-- Deleting a file from bucket
-- Deleting the bucket
+- Listing the contents of a bucket
+- Deleting a file from a bucket
+- Deleting a bucket
 
 Running the example
 ===================
@@ -33,7 +33,7 @@ calling each of the functions.
 If all steps work correctly, the test script removes all resources that it created.
 
 To see the intermediate results of each step, remove the comment mark (#) in front of 
-each of the lines that begins with a ``read`` command. When you then run the script, you 
+each of line that begins with a ``read`` command. Then when you run the script, you 
 can view the current status of the bucket or its contents using the Amazon S3 console.
 
 This example assumes that you have a shared credentials file with a default profile. For
