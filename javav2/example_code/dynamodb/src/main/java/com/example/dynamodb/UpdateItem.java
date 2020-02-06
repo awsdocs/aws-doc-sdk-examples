@@ -32,15 +32,9 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.update_item.import]
 
 /**
- * Update a DynamoDB item in a table.
+ * Updates an AWS DynamoDB table with an item.
  *
- * Takes the name of the table, an item to update (primary key value), and the
- * greeting to update it with.
- *
- * The primary key used is "Name", and the greeting will be added to the
- * "Greeting" field.
- *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class UpdateItem {
@@ -48,17 +42,19 @@ public class UpdateItem {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    UpdateItem <table> <name> <greeting>\n\n" +
+                "    UpdateItem <table> <key> <keyVal> <name> <updateVal>\n\n" +
                 "Where:\n" +
-                "    table    - the table to put the item in.\n" +
-                "    name     - a name to update in the table. The name must exist,\n" +
-                "               or an error will result.\n" +
+                "    table   - the table to put the item in (i.e., Music3).\n" +
+                "    key     - the name of the key in the table (i.e., Artist),\n" +
+                "    keyVal  - the value of the key (i.e., Famous Band),\n" +
+                "    name    - the name of the column where the value is updated (i.e., Awards),\n" +
+                "    updateVal  - the value used to update an item (i.e., 14),\n" +
                 "Additional fields can be specified by appending them to the end of the\n" +
                 "input.\n\n" +
                 "Example:\n" +
                 "    UpdateItem Music3 Artist Famous Band Awards 14\n";
 
-        if (args.length < 3) {
+        if (args.length < 5) {
             System.out.println(USAGE);
             System.exit(1);
         }
