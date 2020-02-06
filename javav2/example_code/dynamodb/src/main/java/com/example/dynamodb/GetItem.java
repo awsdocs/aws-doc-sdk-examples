@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[GetItem.java demonstrates how to retrieve an item from an AWS DynamoDB table]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[scmacdon]
+
 /*
    Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -8,14 +16,6 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
-//snippet-sourcedescription:[GetItem.java demonstrates how to retrieve an item from an AWS DynamoDB table]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
 
 package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.get_item.complete]
@@ -28,8 +28,8 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 // snippet-end:[dynamodb.java2.get_item.import]
+
 /**
  * Gets an item from an AWS DynamoDB table.
  *
