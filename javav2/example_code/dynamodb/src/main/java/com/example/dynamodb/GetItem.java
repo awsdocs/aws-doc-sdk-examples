@@ -1,26 +1,26 @@
-//snippet-sourcedescription:[GetItem.java demonstrates how to ...]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
-
     http://aws.amazon.com/apache2.0/
-
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+
+//snippet-sourcedescription:[GetItem.java demonstrates how to retrieve an item from an AWS DynamoDB table]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[soo-aws]
+
 package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.get_item.complete]
 // snippet-start:[dynamodb.java2.get_item.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -28,94 +28,74 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
- 
+
 // snippet-end:[dynamodb.java2.get_item.import]
 /**
- * Get an item from a DynamoDB table.
+ * Gets an item from an AWS DynamoDB table.
  *
- * Takes the name of the table and the name of the item to retrieve from it.
- *
- * The primary key searched is "Name", and the value contained by the field
- * "Greeting" will be returned.
- *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class GetItem
-{
-    public static void main(String[] args)
-    {
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    GetItem <table> <name> [projection_expression]\n\n" +
-            "Where:\n" +
-            "    table - the table to get an item from.\n" +
-            "    name  - the item to get.\n\n" +
-            "You can add an optional projection expression (a quote-delimited,\n" +
-            "comma-separated list of attributes to retrieve) to limit the\n" +
-            "fields returned from the table.\n\n" +
-            "Example:\n" +
-            "    GetItem HelloTable World\n" +
-            "    GetItem SiteColors text \"default, bold\"\n";
+public class GetItem {
 
-        if (args.length < 2) {
+    public static void main(String[] args) {
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    GetItem <table> <key> <keyVal>\n\n" +
+                "Where:\n" +
+                "    table - the table from which an item is retrieved (i.e., Music3)\n" +
+                "    key -  the key used in the table (i.e., Artist) \n" +
+                "    keyval  - the key value that represents the item to get (i.e., Famous Band)\n" +
+                " Example:\n" +
+                "    Music3 Artist Famous Band\n" +
+                "  **Warning** This program will actually retrieve an item\n" +
+                "            that you specify!\n";
+
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String table_name = args[0];
-        String name = args[1];
-        String projection_expression = null;
-
-        // if a projection expression was included, set it.
-        if (args.length == 3) {
-            projection_expression = args[2];
-        }
+        String tableName = args[0];
+        String key = args[1];
+        String keyVal = args[2];
 
         System.out.format("Retrieving item \"%s\" from \"%s\"\n",
-                name, table_name);
+                keyVal, tableName);
 
-        // snippet-start:[dynamodb.java2.get_item.main]
-        HashMap<String,AttributeValue> key_to_get =
-            new HashMap<String,AttributeValue>();
+        // Create the DynamoDbClient object
+        Region region = Region.US_WEST_2;
+        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
 
-        key_to_get.put("Name", AttributeValue.builder()
-        		.s(name).build());
+        HashMap<String,AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
 
-        GetItemRequest request = null;
-        if (projection_expression != null) {
-            request = GetItemRequest.builder()
-                .key(key_to_get)
-                .tableName(table_name)
-                .projectionExpression(projection_expression)
+        keyToGet.put(key, AttributeValue.builder()
+                .s(keyVal).build());
+
+        // Create a GetItemRequest object
+        GetItemRequest request = GetItemRequest.builder()
+                .key(keyToGet)
+                .tableName(tableName)
                 .build();
-        } else {
-            request = GetItemRequest.builder()
-                .key(key_to_get)
-                .tableName(table_name)
-                .build();
-        }
-
-        DynamoDbClient ddb = DynamoDbClient.create();
 
         try {
-            Map<String,AttributeValue> returned_item =
-               ddb.getItem(request).item();
-            if (returned_item != null) {
-                Set<String> keys = returned_item.keySet();
-                for (String key : keys) {
-                    System.out.format("%s: %s\n",
-                            key, returned_item.get(key).toString());
+            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+
+            if (returnedItem != null) {
+                Set<String> keys = returnedItem.keySet();
+                System.out.println("Table Attributes: \n");
+
+                for (String key1 : keys) {
+                    System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());
                 }
             } else {
-                System.out.format("No item found with the key %s!\n", name);
+                System.out.format("No item found with the key %s!\n", key);
             }
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.get_item.main]        
+        // snippet-end:[dynamodb.java2.get_item.main]
     }
 }
- 
 // snippet-end:[dynamodb.java2.get_item.complete]

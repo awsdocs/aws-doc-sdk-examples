@@ -33,12 +33,12 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 // snippet-end:[dynamodb.java2.create_table.import]
 
 /**
- * Create a DynamoDB table.
+ * Creates an AWS DynamoDB table.
  *
- * Takes the name of the table to create. The table will contain a single
- * primary key, "Name".
+ * Takes the name of the table to create . The table contains a single
+ * primary key as specified by args[1]
  *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class CreateTable {
