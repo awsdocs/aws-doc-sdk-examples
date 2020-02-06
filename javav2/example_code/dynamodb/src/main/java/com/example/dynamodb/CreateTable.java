@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[CreateTable.java demonstrates how to create an AWS DynamoDB table]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[scmacdon]
+
 /*
    Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -9,16 +17,9 @@
    specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[CreateTable.java demonstrates how to create a DynamoDB table.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
-
 package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.create_table.complete]
+
 // snippet-start:[dynamodb.java2.create_table.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -35,9 +36,6 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 /**
  * Creates an AWS DynamoDB table.
  *
- * Takes the name of the table to create . The table contains a single
- * primary key as specified by args[1]
- *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
@@ -46,10 +44,10 @@ public class CreateTable {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTable <table>\n\n" +
+                "    CreateTable <table> <key >\n\n" +
                 "Where:\n" +
-                "    table - the table to create.\n\n" +
-                "    key   - the key for the table\n" +
+                "    table - the table to create (i.e., Music3)\n\n" +
+                "    key   - the key for the table (i.e., Artist)\n" +
                 "Example:\n" +
                 "    Music3 Artist \n";
 
@@ -61,7 +59,7 @@ public class CreateTable {
         // snippet-start:[dynamodb.java2.create_table.main]
         /* Read the name from command args */
         String tableName = args[0];
-        String key = args[0];
+        String key = args[1];
 
         System.out.format(
                 "Creating table \"%s\" with a simple primary key: \"Name\".\n",
