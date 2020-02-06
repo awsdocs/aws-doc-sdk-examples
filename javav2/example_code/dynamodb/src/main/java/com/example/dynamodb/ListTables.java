@@ -9,7 +9,7 @@
    specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[ListTables.java demonstrates how to list all tables]
+//snippet-sourcedescription:[ListTables.java demonstrates how to list all AWS DynamoDB tables]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
@@ -25,13 +25,14 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import java.util.List;
-// snippet-end:[dynamodb.java2.list_tables.import]
 
+import java.util.List;
+
+// snippet-end:[dynamodb.java2.list_tables.import]
 /**
- * List DynamoDB tables for the current AWS account.
+ * List AWS DynamoDB tables for the current AWS account.
  *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
 public class ListTables {
