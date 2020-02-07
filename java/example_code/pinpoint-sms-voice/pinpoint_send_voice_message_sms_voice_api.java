@@ -95,7 +95,7 @@ public class SendMessage {
             client.sendVoiceMessage(request);
             System.out.println("The message was sent successfully.");
         } catch (Exception ex) {
-            System.out.println("The message wasn't sent. Error message: " + ex.getMessage
+            System.out.println("The message wasn't sent. Error message: " + ex.getMessage());
         }
     }
 }
