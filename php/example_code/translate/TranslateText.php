@@ -14,12 +14,17 @@
  *
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-working-with-policies.html
+
  *
  */
+// snippet-start:[translate.php.traslate_text.complete]
+// snippet-start:[translate.php.traslate_text.import]
+
 require 'vendor/autoload.php';
 
-use Aws\Translate\TranslateClient;
+use Aws\Translate\TranslateClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[translate.php.traslate_text.import]
 
 /**
  * Translate a text from Arabic (ar), Chinese (Simplified) (zh)
@@ -29,7 +34,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[translate.php.traslate_text.main]
 //Create a Translate Client
 $client = new Aws\Translate\TranslateClient([
     'profile' => 'default',
@@ -63,10 +68,13 @@ try {
 }
 
 
-
+ 
+// snippet-end:[translate.php.traslate_text.main]
+// snippet-end:[translate.php.traslate_text.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[TranslateText.php demonstrates how to translate a piece of Arabic (ar), Chinese (Simplified) (zh), English (en), French (fr), German (de), Portuguese (pt), or Spanish (es) text into English with the Translate API.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[translateText]

@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-verify.html
  *
  */
+// snippet-start:[ses.php.list_email.complete]
+// snippet-start:[ses.php.list_email.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.list_email.import]
 
-//Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+//Create a SESClient 
+// snippet-start:[ses.php.list_email.main]
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -40,10 +44,13 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.list_email.main]
+// snippet-end:[ses.php.list_email.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_Email.php demonstrates how to retrieve a list of email addresses submitted in the current AWS Region, regardless of verification status.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

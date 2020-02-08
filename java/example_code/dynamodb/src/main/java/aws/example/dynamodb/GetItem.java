@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetItem.java demonstrates how to get an item from a DynamoDB table.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
@@ -34,7 +35,7 @@ import java.util.Set;
  *
  * Takes the name of the table and the name of the item to retrieve from it.
  *
- * The primary key searched is "DATABSE_NAME", and the value contained by the field
+ * The primary key searched is "DATABASE_NAME", and the value contained by the field
  * "Greeting" will be returned.
  *
  * This code expects that you have AWS credentials set up per:

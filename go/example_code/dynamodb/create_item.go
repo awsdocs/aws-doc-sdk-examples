@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[PutItem function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -25,13 +26,13 @@
 package main
 
 import (
-    "fmt"
-    "os"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+
+    "fmt"
+    "os"
 )
 
 // Create structs to hold info about new item

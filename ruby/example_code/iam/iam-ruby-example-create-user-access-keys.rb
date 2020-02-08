@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS Identity and Access Management]
 # snippet-keyword:[user method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -31,6 +32,6 @@ begin
 
   puts "Access key: #{key_pair.access_key_id}"
   puts "Secret key: #{key_pair.secret}"
-rescue Aws::IAM::Errors::NoSuchEntity => ex
+rescue Aws::IAM::Errors::NoSuchEntity
   puts 'User does not exist'
 end

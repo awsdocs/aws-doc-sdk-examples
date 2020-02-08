@@ -5,6 +5,7 @@
 # snippet-keyword:[get_identity_verification_attributes method]
 # snippet-keyword:[list_identities method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ses]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

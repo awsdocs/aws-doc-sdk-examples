@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-collection-java-search-face-matching-id-collection.java demonstrates how to search for faces in a collection that match a face ID.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SearchFacesById]

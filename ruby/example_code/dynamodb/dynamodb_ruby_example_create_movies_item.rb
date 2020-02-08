@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[put_item method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -39,7 +40,7 @@ params = {
 }
 
 begin
-  result = dynamodb.put_item(params)
+  dynamodb.put_item(params)
   puts 'Added movie: ' + year.to_i.to_s + ' - ' + title
 rescue  Aws::DynamoDB::Errors::ServiceError => error
   puts 'Unable to add movie:'

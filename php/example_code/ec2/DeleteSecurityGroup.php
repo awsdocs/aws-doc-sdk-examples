@@ -33,7 +33,7 @@ use Aws\Ec2\Ec2Client;
  */
  
 // snippet-start:[ec2.php.delete_security_group.main]
-$client = new Aws\Ec2\Ec2Client([
+$ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
@@ -53,6 +53,7 @@ var_dump($result);
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteSecurityGroup.php demonstrates how to delete an Amazon EC2 security group.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon EC2]

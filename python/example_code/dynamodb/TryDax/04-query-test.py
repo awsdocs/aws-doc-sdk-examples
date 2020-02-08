@@ -1,6 +1,8 @@
-# snippet-sourcedescription:[04-query-test.py demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ ]
@@ -57,11 +59,11 @@ params = {
         ":skval2": {'N': str(sk2)}
     }
 }
-
+start = time.time()
 for i in range(iterations):
-    start = time.time()
     result = client.query(**params)
 
 end = time.time()
-print('Total time: {} ms - Avg time: {} ms'.format(end - start, (end-start)/iterations))
+print('Total time: {} sec - Avg time: {} sec'.format(end - start, (end-start)/iterations))
+
 # snippet-end:[dynamodb.Python.TryDax.04-query-test] 

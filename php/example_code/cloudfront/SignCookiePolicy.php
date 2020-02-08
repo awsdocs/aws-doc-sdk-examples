@@ -57,7 +57,7 @@ $customPolicy = <<<POLICY
 POLICY;
 
 // Create a signed cookie for the resource using a custom policy
-$signedCookieCustomPolicy = $cloudFront->getSignedCookie([
+$signedCookieCustomPolicy = $client->getSignedCookie([
     'policy' => $customPolicy,
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
     'key_pair_id' => '<CloudFront key pair id>'
@@ -71,6 +71,7 @@ foreach ($signedCookieCustomPolicy as $name => $value) {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[SignCookiePolicy.php demonstrates how to grant users access to your private content using signed cookies, a custom policy and an Amazon CloudFront Distribution.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[getSignedCookie]

@@ -2,6 +2,7 @@
 // snippet-sourcedescription:[sns_publish_to_topic.go demonstrates how to list, create, and delete a bucket in Amazon S3.]
 // snippet-service:[sns]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-keyword:[Amazon SNS]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Publish]
@@ -25,40 +26,40 @@
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sns"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sns"
 )
 
 // usage:
 // go run sns_publish_to_topic.go
 func main() {
-	// Initialize a session in us-west-2 that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials.
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2"),
-	})
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2"),
+    })
 
-	if err != nil {
-		fmt.Println("NewSession error:", err)
-		return
-	}
+    if err != nil {
+        fmt.Println("NewSession error:", err)
+        return
+    }
 
-	client := sns.New(sess)
-	input := &sns.PublishInput{
-		Message:  aws.String("Hello world!"),
-		TopicArn: aws.String("arn:aws:sns:us-west-2:123456789012:YourTopic"),
-	}
+    client := sns.New(sess)
+    input := &sns.PublishInput{
+        Message:  aws.String("Hello world!"),
+        TopicArn: aws.String("arn:aws:sns:us-west-2:123456789012:YourTopic"),
+    }
 
-	result, err := client.Publish(input)
-	if err != nil {
-		fmt.Println("Publish error:", err)
-		return
-	}
+    result, err := client.Publish(input)
+    if err != nil {
+        fmt.Println("Publish error:", err)
+        return
+    }
 
-	fmt.Println(result)
+    fmt.Println(result)
 }
 
 // snippet-end:[sns.go.publish]

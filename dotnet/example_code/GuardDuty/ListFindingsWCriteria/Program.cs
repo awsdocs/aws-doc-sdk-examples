@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[ListFindingsWCriteria example demonstrates how to list findings with criteria filters.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]

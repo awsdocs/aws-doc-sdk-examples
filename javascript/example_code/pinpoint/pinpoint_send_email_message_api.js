@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_send_email_message_api demonstrates how to send a transactional email message by using the SendMessages operation in the Amazon Pinpoint API.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[SendMessages]

@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[Encryption.get_object method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -36,7 +37,7 @@ key_file = 'private_key.pem'
 
 begin
   private_key = File.binread(key_file)
-  key = OpenSSL::PKey::RSA.new(private_key, passphrase)
+  key = OpenSSL::PKey::RSA.new(private_key, pass_phrase)
 
   # encryption client
   enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)

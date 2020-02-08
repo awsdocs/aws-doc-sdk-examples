@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an EC2 security group.]
+    //snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an EC2 security group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
@@ -20,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.delete_security_group.complete]
+// snippet-start:[ec2.java2.delete_security_group.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
-
+ 
+// snippet-end:[ec2.java2.delete_security_group.import]
 /**
  * Deletes an EC2 security group
  */
@@ -41,6 +44,7 @@ public class DeleteSecurityGroup
         }
 
         String group_id = args[0];
+        // snippet-start:[ec2.java2.delete_security_group.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -50,7 +54,10 @@ public class DeleteSecurityGroup
 
         DeleteSecurityGroupResponse response = ec2.deleteSecurityGroup(request);
 
+        // snippet-end:[ec2.java2.delete_security_group.main]
         System.out.printf(
             "Successfully deleted security group with id %s", group_id);
     }
 }
+ 
+// snippet-end:[ec2.java2.delete_security_group.complete]

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_publishsms.js demonstrates how to use Amazon SNS to send an SMS text message to a phone number.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

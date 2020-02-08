@@ -5,6 +5,7 @@
 # snippet-keyword:[create_security_group method]
 # snippet-keyword:[SecurityGroup.authorize_egress method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

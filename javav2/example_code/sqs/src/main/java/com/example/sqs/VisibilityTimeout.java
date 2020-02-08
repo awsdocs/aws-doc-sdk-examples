@@ -5,6 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
+// snippet-start:[sqs.java2.visibility_timeout.complete]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -19,6 +20,7 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
+// snippet-start:[sqs.java2.visibility_timeout.import]
 package com.example.sqs;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
@@ -35,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
+// snippet-end:[sqs.java2.visibility_timeout.import]
+// snippet-start:[sqs.java2.visibility_timeout.main]
 public class VisibilityTimeout
 {
     // Change the visibility timeout for a single message
@@ -136,3 +140,5 @@ public class VisibilityTimeout
         changeMessageVisibilityMultiple(queue_url, 2000);
     }
 }
+// snippet-end:[sqs.java2.visibility_timeout.main]
+// snippet-end:[sqs.java2.visibility_timeout.complete]

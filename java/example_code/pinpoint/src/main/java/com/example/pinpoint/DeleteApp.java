@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteApp.java demonstrates how to delete an application in the Pinpoint dashboard.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mobiletargeting]
 //snippet-sourcetype:[full-example]
@@ -33,7 +34,7 @@ public class DeleteApp {
 	            "DeleteApp - delete an application in the pinpoint dashboard\n\n" +
 	            "Usage: DeleteApp <appID>\n\n" +
 	            "Where:\n" +
-	            "  appID - the applicatino ID of the application to delete.\n\n";
+	            "  appID - the application ID of the application to delete.\n\n";
 
 	    if (args.length < 1) {
 	        System.out.println(USAGE);

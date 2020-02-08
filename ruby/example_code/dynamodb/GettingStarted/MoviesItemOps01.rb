@@ -1,6 +1,7 @@
-# snippet-sourcedescription:[MoviesItemOps01.rb demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ ]
@@ -51,7 +52,7 @@ params = {
 }
 
 begin
-    result = dynamodb.put_item(params)
+    dynamodb.put_item(params)
     puts "Added item: #{year}  - #{title}"
 
 rescue  Aws::DynamoDB::Errors::ServiceError => error

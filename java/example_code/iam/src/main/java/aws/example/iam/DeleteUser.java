@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an IAM user. This is only possible for users with no associated resources.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon CloudWatch]
 // snippet-keyword:[DescribeAlarmsForMetric function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -21,38 +22,49 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+package main
 
-sess, err := session.NewSession()
-if err != nil {
-    fmt.Println("failed to create session,", err)
-    return
-}
+import (
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/cloudwatch"
 
-svc := cloudwatch.New(sess)
+    "fmt"
+)
 
-params := &cloudwatch.DescribeAlarmsForMetricInput{
-    MetricName: aws.String("MetricName"), // Required
-    Namespace:  aws.String("Namespace"),  // Required
-    Dimensions: []*cloudwatch.Dimension{
-        { // Required
-            Name:  aws.String("DimensionName"),  // Required
-            Value: aws.String("DimensionValue"), // Required
+func main() {
+    sess, err := session.NewSession()
+    if err != nil {
+        fmt.Println("failed to create session,", err)
+        return
+    }
+
+    svc := cloudwatch.New(sess)
+
+    params := &cloudwatch.DescribeAlarmsForMetricInput{
+        MetricName: aws.String("MetricName"), // Required
+        Namespace:  aws.String("Namespace"),  // Required
+        Dimensions: []*cloudwatch.Dimension{
+            { // Required
+                Name:  aws.String("DimensionName"),  // Required
+                Value: aws.String("DimensionValue"), // Required
+            },
+            // More values...
         },
-        // More values...
-    },
-    ExtendedStatistic: aws.String("ExtendedStatistic"),
-    Period:            aws.Int64(1),
-    Statistic:         aws.String("Statistic"),
-    Unit:              aws.String("StandardUnit"),
-}
-resp, err := svc.DescribeAlarmsForMetric(params)
+        ExtendedStatistic: aws.String("ExtendedStatistic"),
+        Period:            aws.Int64(1),
+        Statistic:         aws.String("Statistic"),
+        Unit:              aws.String("StandardUnit"),
+    }
 
-if err != nil {
-    // Print the error, cast err to awserr.Error to get the Code and
-    // Message from an error.
-    fmt.Println(err.Error())
-    return
-}
+    resp, err := svc.DescribeAlarmsForMetric(params)
+    if err != nil {
+        // Print the error, cast err to awserr.Error to get the Code and
+        // Message from an error.
+        fmt.Println(err.Error())
+        return
+    }
 
-// Pretty-print the response data.
-fmt.Println(resp)
+    // Pretty-print the response data.
+    fmt.Println(resp)
+}

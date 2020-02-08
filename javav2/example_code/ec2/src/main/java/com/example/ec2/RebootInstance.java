@@ -20,10 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+// snippet-start:[ec2.java2.reboot_instance.complete]
+// snippet-start:[ec2.java2.reboot_instance.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesResponse;
-
+ 
+// snippet-end:[ec2.java2.reboot_instance.import]
 /**
  * Reboots and EC2 instance
  */
@@ -33,7 +36,7 @@ public class RebootInstance
     {
         final String USAGE =
             "To run this example, supply an instance id\n" +
-            "Ex: RebootInstnace <instance_id>\n";
+            "Ex: RebootInstance <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -41,6 +44,7 @@ public class RebootInstance
         }
 
         String instance_id = args[0];
+        // snippet-start:[ec2.java2.reboot_instance.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
@@ -49,7 +53,10 @@ public class RebootInstance
 
         RebootInstancesResponse response = ec2.rebootInstances(request);
 
+        // snippet-end:[ec2.java2.reboot_instance.main]
         System.out.printf(
             "Successfully rebooted instance %s", instance_id);
     }
 }
+ 
+// snippet-end:[ec2.java2.reboot_instance.complete]

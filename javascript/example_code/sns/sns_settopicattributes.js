@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_settopicattributes.js demonstrates how to set the attributes of an Amazon SNS topic.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

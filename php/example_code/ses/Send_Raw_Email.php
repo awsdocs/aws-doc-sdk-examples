@@ -12,14 +12,16 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
-
+// snippet-start:[ses.php.send_raw_email.complete]
+// snippet-start:[ses.php.send_raw_email.import]
 require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use Aws\Ses\SesClient;
 use Aws\Ses\Exception\SesException;
+// snippet-end:[ses.php.send_raw_email.import]
 
+// snippet-start:[ses.php.send_raw_email.main]
 // Replace sender@example.com with your "From" address.
 // This address must be verified with Amazon SES.
 $sender = 'sender@example.com';
@@ -93,12 +95,13 @@ try {
     // If the message was not sent, show a message explaining what went wrong.
     echo("The email was not sent. Error message: "
         . $error->getAwsErrorMessage() . "\n");
-}
- 
-
+} 
+// snippet-end:[ses.php.send_raw_email.main]
+// snippet-end:[ses.php.send_raw_email.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Send_Raw_Email.php demonstrates how to use the Amazon SES SendRawEmail operation to send highly customized messages to your recipients.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-collection-java-list-collections.java demonstrates how to list the available Amazon Rekognition collections.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ListCollections]

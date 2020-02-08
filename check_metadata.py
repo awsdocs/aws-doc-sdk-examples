@@ -13,12 +13,12 @@
 # This script is used to validate metadata in the awsdocs/aws-doc-sdk-examples/ repository on Github.
 # 
 
-import os, fnmatch, sys
+import os, fnmatch, sys, re
 
 def checkFile(filePattern):
     filepath = ""
     filecount = 0
-    for path, dirs, files in os.walk(os.path.abspath(root)):        
+    for path, dirs, files in os.walk(os.path.abspath(root)):
         for filename in fnmatch.filter(files, filePattern):
             # Ignore this file
             if filename == sys.argv[0]:
@@ -36,13 +36,16 @@ def checkFile(filePattern):
             with open(filepath) as f:
                 s = f.read()
                 
-                #Check for blacklist words in file
-                verifyNoBlacklistWords(s, filepath)
+                #Check for Deny List words in file
+                verifyNoDenyListWords(s, filepath)
                 
-                # Split file into list of strings seperated by space
+                #Check for SecretKeys
+                characterScan(s, filepath)
+                fileNameCheck(filename, filepath)
+                
+                # Split file into list of strings separated by space
                 words = s.split()
             for word in words:
-                checkStringLength(word)
                 wordcount +=1
 
             # Check for mismatched Snippet start and end.    
@@ -72,19 +75,35 @@ def checkFile(filePattern):
     print("")
 
 
-def verifyNoBlacklistWords(fileContents, filelocation):
+def verifyNoDenyListWords(fileContents, filelocation):
     fileContents = fileContents.split('/')
     for word in fileContents:
-        if word in blacklist:
+        if word in denyList:
             print("ERROR -- Found in " + filelocation)
-            sys.exit("ERROR -- " + word + " found, and is on the blacklist.")
+            sys.exit("ERROR -- " + word + " found, and is not allowed.")
 
-def checkStringLength (word):
-    length = len(word)
-    if  length == 40 or length == 20:
-        if warn:
-            return "WARNING -- " + word + " is " + str(length) + " characters long"
-
+def characterScan(fileContents, filelocation):
+    twenty = re.findall("[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]", fileContents)
+    if (twenty) :
+        for word in twenty:
+            if word[1:-1] in allowList:
+                continue
+            print("ERROR -- " + word[1:-1] + " Found in " + filelocation)
+            sys.exit("ERROR -- 20 character string found, and might be a secret access key.") 
+    forty = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]", fileContents)
+    if (forty) :
+        for word in forty:
+            if word[1:-1] in allowList:
+                continue
+            print("ERROR -- " + word[1:-1] + " Found in " + filelocation)
+            sys.exit("ERROR -- 40 character string found, and might be a secret key.") 
+            
+def fileNameCheck(filename, filelocation):
+    forty = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]", filename)
+    if (forty) :
+        if forty[0][-1] not in allowList:
+           print("ERROR -- " + forty[0][:-1] + " Found in " + filelocation)
+           sys.exit("ERROR -- Filename is 40 characters long, and should be renamed or added to allow list.")
 
 def snippetStartCheck(words, filelocation):
     #print (words)
@@ -225,9 +244,49 @@ while i < len(sys.argv):
 doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py', 'movie_data.json'}
 root = './'
 
-# Blacklist of words that should not in include in code samples
+# list of words that should not in include in code samples
 
-blacklist = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
+denyList = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
+allowList = {
+    'AKIAIOSFODNN7EXAMPLE',
+    'AppStreamUsageReportsCFNGlueAthenaAccess',
+    'aws/cloudtrail/model/LookupEventsRequest',
+    'aws/codebuild/model/BatchGetBuildsResult',
+    'aws/codecommit/model/DeleteBranchRequest',
+    'aws/codecommit/model/ListBranchesRequest',
+    'aws/dynamodb/model/ProvisionedThroughput',
+    'aws/ec2/model/CreateSecurityGroupRequest',
+    'aws/ec2/model/DeleteSecurityGroupRequest',
+    'aws/ec2/model/UnmonitorInstancesResponse',
+    'aws/email/model/CreateReceiptRuleRequest',
+    'aws/email/model/DeleteReceiptRuleRequest',
+    'aws/email/model/ListReceiptFiltersResult',
+    'aws/email/model/SendTemplatedEmailResult',
+    'aws/guardduty/model/ListDetectorsRequest',
+    'aws/iam/model/GetAccessKeyLastUsedResult',
+    'aws/iam/model/GetServerCertificateResult',
+    'aws/kinesis/model/GetShardIteratorResult',
+    'aws/kinesis/model/PutRecordsRequestEntry',
+    'aws/monitoring/model/DeleteAlarmsRequest',
+    'aws/neptune/model/CreateDBClusterRequest',
+    'aws/neptune/model/DeleteDBClusterRequest',
+    'aws/neptune/model/ModifyDBClusterRequest',
+    'CertificateTransparencyLoggingPreference',
+    'ChangeMessageVisibilityBatchRequestEntry',
+    'com/greengrass/latest/developerguide/lra',
+    'com/greengrass/latest/developerguide/sns',
+    'com/samples/JobStatusNotificationsSample',
+    'generate_presigned_url_and_upload_object',
+    'KinesisStreamSourceConfiguration=kinesis',
+    'nFindProductsWithNegativePriceWithConfig',
+    's3_client_side_encryption_sym_master_key',
+    'serial/CORE_THING_NAME/write/dev/serial1',
+    'TargetTrackingScalingPolicyConfiguration',
+    'targetTrackingScalingPolicyConfiguration',
+    'upload_files_using_managed_file_uploader',
+    'videoMetaData=celebrityRecognitionResult',
+    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+}
 
 print ('----------\n\nRun Tests\n')
 

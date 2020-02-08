@@ -15,38 +15,39 @@
 // snippet-sourcedescription:[CreateAndModifyClusterParameterGroup demonstrates how to create and modify an Amazon Redshift parameter group.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateClusterParameterGroup]
 // snippet-keyword:[DescribeClusterParameterGroups]
 // snippet-keyword:[ModifyClusterParameterGroup]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2015-02-19]
+// snippet-sourcedate:[2019-02-01]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndModifyClusterParameterGroup.complete]
+
+package com.amazonaws.services.redshift;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.PropertiesCredentials;
-import com.amazonaws.services.redshift.AmazonRedshiftClient;
+
 import com.amazonaws.services.redshift.model.*;
+
 
 public class CreateAndModifyClusterParameterGroup {
 
-    public static AmazonRedshiftClient client;
+    public static AmazonRedshift client;
     public static String clusterParameterGroupName = "parametergroup1";
-    public static String clusterIdentifier = "***provide cluster identifier***";
+    public static String clusterIdentifier = "***provide a cluster identifier***";
+
     public static String parameterGroupFamily = "redshift-1.0";
 
     public static void main(String[] args) throws IOException {
 
-        AWSCredentials credentials = new PropertiesCredentials(
-                CreateAndModifyClusterParameterGroup.class
-                        .getResourceAsStream("AwsCredentials.properties"));
-
-        client = new AmazonRedshiftClient(credentials);
+        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+       client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
              createClusterParameterGroup();

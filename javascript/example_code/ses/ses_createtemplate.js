@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_createtemplate.js demonstrates how to create an Amazon SES email template.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

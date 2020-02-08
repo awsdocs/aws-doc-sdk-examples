@@ -17,6 +17,7 @@ find_package(AWSSDK REQUIRED COMPONENTS glacier)
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_vault")
 list(APPEND EXAMPLES "upload_archive")
+list(APPEND EXAMPLES "upload_archive_multipart")
 
 
 # The executables to build.

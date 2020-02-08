@@ -16,10 +16,13 @@
  *
  *
  */
+// snippet-start:[sns.php.check_opt_out.complete]
+// snippet-start:[sns.php.check_opt_out.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient;
+use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sns.php.check_opt_out.import]
 
 /**
  * Indicates whether the phone number owner has opted out of receiving SMS messages from your AWS SNS account.
@@ -27,7 +30,8 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+// snippet-start:[sns.php.check_opt_out.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
     'region' => 'us-east-1',
@@ -45,9 +49,12 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
-
-// snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer recieve future text messages.]
+ 
+// snippet-end:[sns.php.check_opt_out.main]
+// snippet-end:[sns.php.check_opt_out.complete]
+// snippet-sourcedescription:[CheckOptOut.php demonstrates how to determine whether the user of the phone number has selected to no longer receive future text messages.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

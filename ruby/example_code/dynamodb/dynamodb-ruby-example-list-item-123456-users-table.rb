@@ -5,6 +5,7 @@
 # snippet-keyword:[table method]
 # snippet-keyword:[table.get_item method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

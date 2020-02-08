@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_getpolicy.js demonstrates how to retrieve information about an IAM managed policy.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to create and use a dead letter queue.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[head_bucket method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -22,11 +23,11 @@
 
 require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 
-bucket_exists = false
 client = Aws::S3::Client.new(region: 'us-west-2')
 
 begin
-  resp = client.head_bucket({bucket: bucket_name, use_accelerate_endpoint: false})
-  bucket_exists = true
-rescue
+  client.head_bucket({bucket: 'bucket_name', use_accelerate_endpoint: false})
+  # We know bucket exists
+rescue StandardError
+  puts 'Bucket does not exist'
 end

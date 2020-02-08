@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Polly]
 # snippet-keyword:[list_lexicons method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[polly]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

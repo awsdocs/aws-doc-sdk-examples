@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+// snippet-start:[secretsmanager.php.remove_label.complete]
+// snippet-start:[secretsmanager.php.remove_label.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.remove_label.import]
 
 /**
  * Delete a label attached to a version of secret. 
@@ -31,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client
+//Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.remove_label.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -54,10 +58,13 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+// snippet-end:[secretsmanager.php.remove_label.main]
+// snippet-end:[secretsmanager.php.remove_label.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[RemoveLabel.php demonstrates delete a staging label attached to a version of a secret from AWS Secrets Manager.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Secrets Manager]

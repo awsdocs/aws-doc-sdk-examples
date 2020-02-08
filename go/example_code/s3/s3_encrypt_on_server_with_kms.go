@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[PutObject function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[s3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -69,5 +70,5 @@ func main() {
         os.Exit(1)
     }
 
-    fmt.Println("Added object " + obj + " to bucket " + bucket + " with AWS KMS encryption")
+    fmt.Println("Added object " + object + " to bucket " + bucket + " with AWS KMS encryption")
 }

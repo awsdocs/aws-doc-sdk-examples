@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[SynthesizeSpeechMarksSample.cs demonstrates how to synthesize speech marks for an input text.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Polly]
 //snippet-service:[polly]

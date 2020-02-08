@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

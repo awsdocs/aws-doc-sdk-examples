@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon CloudWatch]
 // snippet-keyword:[DescribeAlarms function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -24,7 +25,6 @@
 package main
 
 import (
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 

@@ -15,11 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/iam-examples-working-with-policies.html
  *
+ *
+ *
  */
+// snippet-start:[iam.php.create_role.complete]
+// snippet-start:[iam.php.create_role.import]
+
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient;
+use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[iam.php.create_role.import]
 
 /**
  * Creates a new managed policy for your AWS account.
@@ -27,7 +33,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+ 
+//Create an IAM Client
+// snippet-start:[iam.php.create_role.main]
 $client = new IamClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -115,10 +123,13 @@ try {
 
 
 
-
+ 
+// snippet-end:[iam.php.create_role.main]
+// snippet-end:[iam.php.create_role.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateRole.php demonstrates how to create an IAM instance role that has permission for Amazon EC2 Systems Manager and SDK Metric Monitoring.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Identity and Access Management (IAM)]

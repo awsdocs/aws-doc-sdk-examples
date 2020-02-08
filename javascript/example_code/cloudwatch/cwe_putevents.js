@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cwe_putevents.js demonstrates how to send custom events to Amazon CloudWatch Events so they can be matched with rules.]
 //snippet-service:[cw_events]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch Events]
 //snippet-sourcetype:[full-example]

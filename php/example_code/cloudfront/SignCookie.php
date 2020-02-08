@@ -45,7 +45,7 @@ $resourceKey = 'https://example-distribution.cloudfront.net/videos/example.mp4';
 $expires = time() + 300;
 
 // Create a signed cookie for the resource using the canned policy
-$signedCookieCannedPolicy = $cloudFront->getSignedCookie([
+$signedCookieCannedPolicy = $client->getSignedCookie([
     'url' => $resourceKey,
     'expires' => $expires,
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
@@ -57,6 +57,7 @@ $signedCookieCannedPolicy = $cloudFront->getSignedCookie([
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[SignCookie.php demonstrates how to grant users access to your private content using signed cookies and an Amazon CloudFront Distribution.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[getSignedCookie]
