@@ -1,26 +1,27 @@
-//snippet-sourcedescription:[UpdateItem.java demonstrates how to ...]
+//snippet-sourcedescription:[UpdateItem.java demonstrates how to update a value located in an AWS DynamoDB table]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[scmacdon]
 
+/*
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
-
     http://aws.amazon.com/apache2.0/
-
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+
+
 package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.update_item.complete]
 // snippet-start:[dynamodb.java2.update_item.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -28,92 +29,66 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-
-import java.util.ArrayList;
 import java.util.HashMap;
- 
 // snippet-end:[dynamodb.java2.update_item.import]
+
 /**
- * Update a DynamoDB item in a table.
+ * Updates an AWS DynamoDB table with an item.
  *
- * Takes the name of the table, an item to update (primary key value), and the
- * greeting to update it with.
- *
- * The primary key used is "Name", and the greeting will be added to the
- * "Greeting" field.
- *
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class UpdateItem
-{
-    public static void main(String[] args)
-    {
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    UpdateItem <table> <name> <greeting>\n\n" +
-            "Where:\n" +
-            "    table    - the table to put the item in.\n" +
-            "    name     - a name to update in the table. The name must exist,\n" +
-            "               or an error will result.\n" +
-            "Additional fields can be specified by appending them to the end of the\n" +
-            "input.\n\n" +
-            "Examples:\n" +
-            "    UpdateItem SiteColors text default=000000 bold=b22222\n" +
-            "    UpdateItem SiteColors background default=eeeeee code=d3d3d3\n\n";
+public class UpdateItem {
 
-        if (args.length < 3) {
+    public static void main(String[] args) {
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    UpdateItem <table> <key> <keyVal> <name> <updateVal>\n\n" +
+                "Where:\n" +
+                "    table   - the table to put the item in (i.e., Music3).\n" +
+                "    key     - the name of the key in the table (i.e., Artist),\n" +
+                "    keyVal  - the value of the key (i.e., Famous Band),\n" +
+                "    name    - the name of the column where the value is updated (i.e., Awards),\n" +
+                "    updateVal  - the value used to update an item (i.e., 14),\n" +
+                "Additional fields can be specified by appending them to the end of the\n" +
+                "input.\n\n" +
+                "Example:\n" +
+                "    UpdateItem Music3 Artist Famous Band Awards 14\n";
+
+        if (args.length < 5) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String table_name = args[0];
-        String name = args[1];
-        ArrayList<String[]> extra_fields = new ArrayList<String[]>();
-
-        // any additional args (fields to add or update)?
-        for (int x = 2; x < args.length; x++) {
-            String[] fields = args[x].split("=", 2);
-            if (fields.length == 2) {
-                extra_fields.add(fields);
-            } else {
-                System.out.format("Invalid argument: %s\n", args[x]);
-                System.out.println(USAGE);
-                System.exit(1);
-            }
-        }
-
         // snippet-start:[dynamodb.java2.update_item.main]
-        System.out.format("Updating \"%s\" in %s\n", name, table_name);
-        if (extra_fields.size() > 0) {
-            System.out.println("Additional fields:");
-            for (String[] field : extra_fields) {
-                System.out.format("  %s: %s\n", field[0], field[1]);
-            }
-        }
+        String tableName = args[0];
+        String key = args[1];
+        String keyVal = args[2];
+        String name = args[3];
+        String updateVal = args[4];
 
-        HashMap<String,AttributeValue> item_key =
-           new HashMap<String,AttributeValue>();
+        // Create the DynamoDbClient object
+        Region region = Region.US_WEST_2;
+        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
 
-        item_key.put("Name", AttributeValue.builder().s(name).build());
+        HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
 
-        HashMap<String,AttributeValueUpdate> updated_values =
-            new HashMap<String,AttributeValueUpdate>();
+        itemKey.put(key, AttributeValue.builder().s(keyVal).build());
 
-        for (String[] field : extra_fields) {
-            updated_values.put(field[0], AttributeValueUpdate.builder()
-            		.value(AttributeValue.builder().s(field[1]).build())
-            		.action(AttributeAction.PUT)
-            		.build());
-        }
+        HashMap<String,AttributeValueUpdate> updatedValues =
+                new HashMap<String,AttributeValueUpdate>();
+
+        // Update the column specified by name with updatedVal
+        updatedValues.put(name, AttributeValueUpdate.builder()
+                .value(AttributeValue.builder().s(updateVal).build())
+                .action(AttributeAction.PUT)
+                .build());
 
         UpdateItemRequest request = UpdateItemRequest.builder()
-        		.tableName(table_name)
-        		.key(item_key)
-        		.attributeUpdates(updated_values)
-        		.build();
-
-        DynamoDbClient ddb = DynamoDbClient.create();
+                .tableName(tableName)
+                .key(itemKey)
+                .attributeUpdates(updatedValues)
+                .build();
 
         try {
             ddb.updateItem(request);
@@ -128,5 +103,5 @@ public class UpdateItem
         System.out.println("Done!");
     }
 }
- 
+
 // snippet-end:[dynamodb.java2.update_item.complete]

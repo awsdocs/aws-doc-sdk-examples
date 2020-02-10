@@ -31,12 +31,6 @@ Parameters:
     Default: test
   GitHubOwner:
     Type: String
-  GitHubSecret:
-    Type: String
-    NoEcho: true
-  GitHubOAuthToken:
-    Type: String
-    NoEcho: true
   ApplicationName:
     Description: CodeDeploy application name
     Type: String
@@ -86,7 +80,7 @@ Resources:
     Properties:
       Authentication: GITHUB_HMAC
       AuthenticationConfiguration:
-        SecretToken: !Ref GitHubSecret
+        SecretToken: {{resolve:secretsmanager:MyGitHubSecret:SecretString:token}}
       Filters:
         - JsonPath: $.ref
           MatchEquals: 'refs/heads/{Branch}'
@@ -119,7 +113,7 @@ Resources:
                 Owner: !Ref GitHubOwner
                 Repo: !Ref RepositoryName
                 Branch: !Ref BranchName
-                OAuthToken: !Ref GitHubOAuthToken
+                OAuthToken: {{resolve:secretsmanager:MyGitHubSecret:SecretString:token}}
                 PollForSourceChanges: false
               RunOrder: 1
         - Name: Beta
