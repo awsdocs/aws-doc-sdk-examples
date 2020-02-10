@@ -1,4 +1,4 @@
-.. Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -12,12 +12,12 @@
 Amazon S3 bucket lifecycle operations
 #####################################
 
-This example demonstrates how to interact with some of the basic Amazon S3 operations. It
+This example demonstrates how to interact with some of the basic Amazon S3 operations. The script
 includes functions that perform the following tasks:
 
 - Creating a bucket and verifying that it exists
 - Copying a file from the local computer to a bucket
-- Copying a file from one bucket location to another
+- Copying a file from one bucket location to a different bucket location
 - Listing the contents of a bucket
 - Deleting a file from a bucket
 - Deleting a bucket
@@ -44,7 +44,7 @@ in the *AWS CLI User Guide*.
 Copyright and License
 =====================
 
-All content in this repository, unless otherwise stated, is Copyright © 2010-2020, Amazon 
+All content in this repository, unless otherwise stated, is Copyright © Amazon 
 Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the 

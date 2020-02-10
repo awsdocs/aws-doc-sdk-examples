@@ -1,4 +1,4 @@
-.. Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -20,7 +20,7 @@ Finding code examples
 
 The code examples in this folder are organized by the service that the example demonstrates. If an
 example involves multiple services, then you'll find it in the folder `multi-service-examples 
-<mult-service-examples>`_. programming language.
+<multi-service-examples>`_. programming language.
 
 You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us
 know what you think about it).
@@ -105,7 +105,7 @@ Copyright and License
 =====================
 
 All content in this repository, unless otherwise stated, is 
-Copyright © 2010-2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
 license, version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full
