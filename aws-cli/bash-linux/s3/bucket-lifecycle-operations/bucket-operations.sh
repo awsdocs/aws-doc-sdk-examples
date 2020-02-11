@@ -11,26 +11,6 @@
 # * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # * CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # * specific language governing permissions and limitations under the License.
-
-// snippet-service:[s3]
-// snippet-sourcesyntax:[bash]
-// snippet-keyword:[bash]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[s3api:HeadBucket]
-// snippet-keyword:[s3:mb]
-// snippet-keyword:[s3api:wait bucket-exists]
-// snippet-keyword:[s3api:wait bucket-not-exists]
-// snippet-keyword:[s3api:wait object-exists]
-// snippet-keyword:[s3api:wait object-not-exists]
-// snippet-keyword:[s3api:PutObject]
-// snippet-keyword:[s3:cp]
-// snippet-keyword:[s3:ls]
-// snippet-keyword:[s3:rm]
-// snippet-keyword:[s3:rb]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-02-06]
-// snippet-sourceauthor:[AWS]
 METADATA-DO-NOT-REMOVE
 #// snippet-start:[s3.bash.bucket-operations.complete]
 
@@ -172,4 +152,4 @@ function delete-bucket {
     aws s3api wait bucket-not-exists \
         --bucket $bucketname
 }
-#// snippet-start:[s3.bash.bucket-operations.complete]
+#// snippet-end:[s3.bash.bucket-operations.complete]

@@ -1,0 +1,19 @@
+# Example: bucket-lifecycle-operations
+description: Demonstrates basic CRUD operations on S3 buckets and their contents.
+created: 2020-02-06
+file:
+  - path: bucket-lifecycle-operations/bucket-operations.sh
+    apis:
+      - service: s3
+        operations:
+          - mb
+          - ls
+          - rm
+          - rb
+      - service: s3api
+        operations:
+          - wait bucket-exists
+          - wait bucket-not-exists
+          - wait object-exists
+          - wait object-not-exists
+          - put-object
