@@ -1,0 +1,5 @@
+{
+    "TemplateFile": "template.json",
+    "MaxRetrySeconds": 10,
+    "Debug": true
+}
