@@ -50,29 +50,17 @@ func CreateStack(sess *session.Session, stackName string, template string) error
     return svc.WaitUntilStackCreateComplete(desInput)
 }
 
-// GetStackSummaries gets a list of summary information about all stacks
-func GetStackSummaries(sess *session.Session) ([]*cloudformation.StackSummary, error) {
+// GetStackSummaries gets a list of summary information about all stacks or those with status
+func GetStackSummaries(sess *session.Session, status string) ([]*cloudformation.StackSummary, error) {
     svc := cloudformation.New(sess)
     var stackSummaries []*cloudformation.StackSummary
 
-    var filter = []*string{
-        aws.String("CREATE_IN_PROGRESS"),
-        aws.String("CREATE_FAILED"),
-        aws.String("CREATE_COMPLETE"),
-        aws.String("ROLLBACK_IN_PROGRESS"),
-        aws.String("ROLLBACK_FAILED"),
-        aws.String("ROLLBACK_COMPLETE"),
-        aws.String("DELETE_IN_PROGRESS"),
-        aws.String("DELETE_FAILED"),
-        aws.String("DELETE_COMPLETE"),
-        aws.String("UPDATE_IN_PROGRESS"),
-        aws.String("UPDATE_COMPLETE_CLEANUP_IN_PROGRESS"),
-        aws.String("UPDATE_COMPLETE"),
-        aws.String("UPDATE_ROLLBACK_IN_PROGRESS"),
-        aws.String("UPDATE_ROLLBACK_FAILED"),
-        aws.String("UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS"),
-        aws.String("UPDATE_ROLLBACK_COMPLETE"),
-        aws.String("REVIEW_IN_PROGRESS")}
+    var filter []*string
+
+    if status != "all" {
+        filter = append(filter, aws.String(status))
+    }
+
     input := &cloudformation.ListStacksInput{StackStatusFilter: filter}
 
     resp, err := svc.ListStacks(input)
@@ -98,7 +86,7 @@ func DeleteStack(sess *session.Session, name string) error {
 }
 
 func main() {
-    operationPtr := flag.String("o", "", "The operation to perform: create, list, or delete")
+    operationPtr := flag.String("o", "", "The operation to perform: create, list, delete, or all in that order")
     stackNamePtr := flag.String("n", "", "The name of the stack to create or delete")
     templateFilePtr := flag.String("t", "", "The name of the file containing the CloudFormation template")
     flag.Parse()
@@ -106,11 +94,16 @@ func main() {
     stackName := *stackNamePtr
     templateFile := *templateFilePtr
 
-    if !(operation == "create" || operation == "delete") && stackName == "" {
+    if (operation == "create" || operation == "delete" || operation == "all") && stackName == "" {
         // Create dummy name using guid
         // Create a unique GUID for stack name
         id := uuid.New()
         stackName = "stack-" + id.String()
+    }
+
+    if (operation == "create" || operation == "all") && templateFile == "" {
+        fmt.Println("You must supply the name of the template to use to create a stack")
+        return
     }
 
     // Initialize a session that the SDK uses to load
@@ -121,13 +114,38 @@ func main() {
     }))
 
     switch operation {
+    case "all":
+        // Create stack
+        err := CreateStack(sess, stackName, templateFile)
+        if err != nil {
+            fmt.Println("Could not create stack " + stackName)
+        }
+
+        // Get all stacks
+        summaries, err := GetStackSummaries(sess, "all")
+        if err != nil {
+            fmt.Println("Could not list stack summary info")
+            return
+        }
+
+        for _, s := range summaries {
+            fmt.Println(*s.StackName + ", Status: " + *s.StackStatus)
+        }
+
+        fmt.Println("")
+
+        // Delete stack
+        err = DeleteStack(sess, stackName)
+        if err != nil {
+            fmt.Println("Could not delete stack " + stackName)
+        }
     case "create":
         err := CreateStack(sess, stackName, templateFile)
         if err != nil {
             fmt.Println("Could not create stack " + stackName)
         }
     case "list":
-        summaries, err := GetStackSummaries(sess)
+        summaries, err := GetStackSummaries(sess, "all")
         if err != nil {
             fmt.Println("Could not list stack summary info")
             return

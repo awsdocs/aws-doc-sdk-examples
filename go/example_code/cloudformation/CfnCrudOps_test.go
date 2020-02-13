@@ -26,9 +26,7 @@ import (
 
 // Config stores our global configuration values (replace env values with these)
 type Config struct {
-    TemplateFile    string `json:"TemplateFile"`
-    MaxRetrySeconds int    `json:"MaxRetrySeconds"`
-    Debug           bool   `json:"Debug"`
+    TemplateFile string `json:"TemplateFile"`
 }
 
 var configFileName = "config.json"
@@ -36,11 +34,7 @@ var configFileName = "config.json"
 // Gloval variable for configuration set in config.json
 var globalConfig Config
 
-func multiplyDuration(factor int64, d time.Duration) time.Duration {
-    return time.Duration(factor) * d
-}
-
-func PopulateConfiguration(t *testing.T) error {
+func PopulateConfiguration() error {
     // Get and store configuration values from config.json
 
     // Get entire file as a JSON string
@@ -58,12 +52,22 @@ func PopulateConfiguration(t *testing.T) error {
         return err
     }
 
-    // Set minimum duration for trying to get results
-    if globalConfig.MaxRetrySeconds < 10 {
-        globalConfig.MaxRetrySeconds = 10
+    return nil
+}
+
+func isStackComplete(sess *session.Session, stackName string, status string) (bool, error) {
+    stacks, err := GetStackSummaries(sess, status)
+    if err != nil {
+        return false, err
     }
 
-    return nil
+    for _, s := range stacks {
+        if *s.StackName == stackName {
+            return true, nil
+        }
+    }
+
+    return false, nil
 }
 
 func TestCfnCrudOps(t *testing.T) {
@@ -72,7 +76,7 @@ func TestCfnCrudOps(t *testing.T) {
     nowString := thisTime.Format("20060102150405")
     t.Log("Started unit test at " + nowString)
 
-    err := PopulateConfiguration(t)
+    err := PopulateConfiguration()
     if err != nil {
         t.Fatal(err)
     }
@@ -87,6 +91,8 @@ func TestCfnCrudOps(t *testing.T) {
     id := uuid.New()
     stackName := "stack-" + id.String()
 
+    t.Log("Creating stack " + stackName)
+
     // Create stack
     err = CreateStack(sess, stackName, globalConfig.TemplateFile)
     if err != nil {
@@ -94,76 +100,31 @@ func TestCfnCrudOps(t *testing.T) {
     }
 
     // Double-check that stack is created
-    var duration int64
-    duration = 1
-    foundStack := false
-
-    for int(duration) < globalConfig.MaxRetrySeconds {
-        stacks, err := GetStackSummaries(sess)
-        if err != nil {
-            t.Fatal(err)
-        }
-
-        // Is stackName in list and the status CREATE_COMPLETE?
-        for _, s := range stacks {
-            if *s.StackName == stackName && *s.StackStatus == "CREATE_COMPLETE" {
-                t.Log(stackName + " was successfully created")
-                foundStack = true
-                break
-            }
-        }
-
-        if foundStack {
-            break
-        }
-
-        ts := multiplyDuration(duration, time.Second)
-        time.Sleep(ts)
-
-        duration = duration * 2
+    t.Log("Confirming whether stack was created")
+    created, err := isStackComplete(sess, stackName, "CREATE_COMPLETE")
+    if err != nil {
+        t.Fatal(err)
     }
 
-    if !foundStack {
+    if !created {
         t.Fatal("Could not verify " + stackName + " was created")
     }
 
     // Delete stack
+    t.Log("Deleting stack " + stackName)
     err = DeleteStack(sess, stackName)
     if err != nil {
         t.Fatal(err)
     }
 
     // Double-check that stack is deleted
-    duration = 1
-    foundStack = false
-
-    for int(duration) < globalConfig.MaxRetrySeconds {
-        stacks, err := GetStackSummaries(sess)
-        if err != nil {
-            t.Fatal(err)
-        }
-
-        // Is stackName in list?
-        // If so, is it's status CREATE_COMPLETE?
-        for _, s := range stacks {
-            if *s.StackName == stackName && *s.StackStatus == "DELETE_COMPLETE" {
-                t.Log(stackName + " was successfully deleted")
-                foundStack = true
-                break
-            }
-        }
-
-        if foundStack {
-            break
-        }
-
-        ts := multiplyDuration(duration, time.Second)
-        time.Sleep(ts)
-
-        duration = duration * 2
+    t.Log("Confirming whether stack was deleted")
+    deleted, err := isStackComplete(sess, stackName, "DELETE_COMPLETE")
+    if err != nil {
+        t.Fatal(err)
     }
 
-    if !foundStack {
+    if !deleted {
         t.Fatal("Could not verify " + stackName + " was deleted")
     }
 }
