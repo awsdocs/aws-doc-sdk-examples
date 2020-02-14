@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -14,7 +14,6 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"testing"
@@ -63,7 +62,6 @@ func populateBucket(sess *session.Session, bucket string) error {
 	}
 
 	_, err := uploader.Upload(upParams)
-
 	return err
 }
 
@@ -74,7 +72,7 @@ func listBuckets(sess *session.Session, prefix string, t *testing.T) error {
 
 	result, err := svc.ListBuckets(nil)
 	if err != nil {
-		fmt.Println("Could not list buckets")
+		t.Log("Could not list buckets")
 		return err
 	}
 
@@ -91,8 +89,7 @@ func TestDeleteBuckets(t *testing.T) {
 	// When the test started
 	thisTime := time.Now()
 	nowString := thisTime.Format("20060102150405")
-	fmt.Println("Starting unit test at " + nowString)
-	fmt.Println("")
+	t.Log("Starting unit test at " + nowString)
 
 	// Initialize a session that the SDK uses to load
 	// credentials from the shared credentials file (~/.aws/credentials)
@@ -109,40 +106,41 @@ func TestDeleteBuckets(t *testing.T) {
 
 	for i := 0; i < 3; i++ {
 		name := prefix + defaultName + strconv.Itoa(i)
+
 		err := createBucket(sess, name)
 		if err != nil {
-			t.Errorf("Could not create bucket: %s.", name)
+			t.Fatal("Could not create bucket: " + name)
 		}
 
 		t.Log("Created bucket " + name)
 
 		err = populateBucket(sess, name)
 		if err != nil {
-			t.Errorf("Could not populate bucket")
+			t.Fatal("Could not populate bucket")
 		}
 	}
 
 	// List the buckets
-	t.Log("")
 	t.Log("Buckets that start with " + prefix + ":")
 	err := listBuckets(sess, prefix, t)
 	if err != nil {
-		t.Errorf(err.Error())
+		t.Fatal(err)
 	}
 
 	// Now delete them
 	err = deleteBucketsByPrefix(sess, prefix)
 	if err != nil {
-		t.Errorf("Could not delete buckets with prefix %s", prefix)
+		t.Log("You might have to delete these buckets with:")
+		t.Log("go run s3_delete_buckets.go -p dummy-")
+		t.Fatal(err)
 	} else {
 		t.Log("Deleted buckets with prefix " + prefix)
 	}
 
 	// List the buckets
-	t.Log("")
 	t.Log("Now here are your buckets that start with " + prefix + ":")
 	err = listBuckets(sess, prefix, t)
 	if err != nil {
-		t.Errorf(err.Error())
+		t.Fatal(err)
 	}
 }

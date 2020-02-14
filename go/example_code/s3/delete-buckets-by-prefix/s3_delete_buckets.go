@@ -1,5 +1,5 @@
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -43,9 +43,10 @@ func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
 		}
 	}
 
-	for _, bucket := range bucketList {
+	for _, b := range bucketList {
+		// First delete any objects in the bucket
 		iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
-			Bucket: aws.String(bucket),
+			Bucket: aws.String(b),
 		})
 
 		err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter)
@@ -54,14 +55,14 @@ func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
 		}
 
 		_, err = svc.DeleteBucket(&s3.DeleteBucketInput{
-			Bucket: aws.String(bucket),
+			Bucket: aws.String(b),
 		})
 		if err != nil {
 			return err
 		}
 
 		err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
-			Bucket: aws.String(bucket),
+			Bucket: aws.String(b),
 		})
 		if err != nil {
 			return err
@@ -75,7 +76,7 @@ func deleteBucketsByPrefix(sess *session.Session, prefix string) error {
 // that start with the given text
 //
 // Usage:
-//    go run s3_delete_buckets -p PREFIX [-d}
+//    go run s3_delete_buckets -p PREFIX
 func main() {
 	prefixPtr := flag.String("p", "", "The prefix of the buckets to delete")
 	flag.Parse()
