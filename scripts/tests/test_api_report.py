@@ -19,7 +19,7 @@ Test metadata Yaml files are stored in the test_api_report_yamls subfolder.
 
 from datetime import date
 import os
-from unittest.mock import patch, mock_open
+from unittest.mock import patch, mock_open, Mock
 
 # pylint: disable=redefined-outer-name
 import pytest

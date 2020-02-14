@@ -138,7 +138,7 @@ def write_report(examples, report_path=None):
                             ','.join([str(created), file_url, language,
                                       service, operation]))
         except KeyError as error:
-            print(f"ERROR: example missing a required key: {example}.")
+            print(f"ERROR: example missing a required {error} key: {example}.")
 
     report = open(report_path, 'w') if report_path else sys.stdout
     try:

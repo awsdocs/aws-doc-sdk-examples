@@ -28,8 +28,8 @@ To run this script, you must have the following installed globally or in a virtu
 environment:
  
 * Python 3.6 or later
-* PyYaml
-* PyTest (to run unit tests)
+* PyYaml 5.3 or later
+* PyTest 5.3.5 or later (to run unit tests)
 
 #### Running the script
 
