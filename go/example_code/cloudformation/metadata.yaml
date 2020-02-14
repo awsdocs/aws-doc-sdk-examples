@@ -1,0 +1,17 @@
+---
+created: 2020-01-31
+files:
+
+  - path: CfnCrudOps.go
+
+    apis:
+
+      - service: cloudformation
+
+        operations:
+
+          - CreateStack
+          - WaitUntilStackCreateComplete
+          - ListStacks
+          - DeleteStack
+          - WaitUntilStackDeleteComplete
