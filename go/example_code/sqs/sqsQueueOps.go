@@ -27,7 +27,8 @@ import (
     "github.com/aws/aws-sdk-go/service/sqs"
 )
 
-// ChangeVisibility changes the visibility of the messages in the queue with the specified URL to the specified duration
+// ChangeVisibility changes the visibility of the message specified by
+// receiptHandle in the queue with the URL queueURL to duration.
 // snippet-start:[sqs.go.change_visibility]
 func ChangeVisibility(sess *session.Session, queueURL string, receiptHandle string, duration int64) error {
     // Create a SQS service client
@@ -47,7 +48,7 @@ func ChangeVisibility(sess *session.Session, queueURL string, receiptHandle stri
 
 // snippet-end:[sqs.go.change_visibility]
 
-// ChangeQueue updates the specified queue to use long polling
+// ChangeQueue updates the queue with the URL queueURL to use long polling with timeout seconds.
 // snippet-start:[sqs.go.change_queue]
 func ChangeQueue(sess *session.Session, queueURL string, timeout int) error {
     svc := sqs.New(sess)
@@ -67,7 +68,7 @@ func ChangeQueue(sess *session.Session, queueURL string, timeout int) error {
 
 // snippet-end:[sqs.go.change_queue]
 
-// CreateQueue creates an Amazon SQS queue with the specified name and returns the queue's URL
+// CreateQueue creates an Amazon SQS queue with the name queueName and returns the queue's URL.
 // snippet-start:[sqs.go.create_queue]
 func CreateQueue(sess *session.Session, queueName string) (string, error) {
     // Create an Amazon SQS service client
@@ -89,7 +90,7 @@ func CreateQueue(sess *session.Session, queueName string) (string, error) {
 
 // snippet-end:[sqs.go.create_queue]
 
-// DeleteMessage deletes the first message that has been in the queue with the specified URL within the last 20 seconds
+// DeleteMessage deletes the message with the receipt handle receiptHandle that has been in the queue with the URL queueURL within the last 20 seconds.
 // snippet-start:[sqs.go.delete_message]
 func DeleteMessage(sess *session.Session, queueURL string, receiptHandle string) error {
     svc := sqs.New(sess)
@@ -130,7 +131,7 @@ func listQueues(sess *session.Session) error {
 
 // snippet-end:[sqs.go.list_queues]
 
-// ConfigureDeadLetterQueue creates a dead letter queue
+// ConfigureDeadLetterQueue configures the queue with the URL deadLetterQueueURL as a dead letter queue for up to maxReceive messages from the queue with the URL queueURL.
 // snippet-start:[sqs.go.configure_deadletter_queue]
 func ConfigureDeadLetterQueue(sess *session.Session, deadLetterQueueURL string, queueURL string, maxReceive int) error {
     // Create a SQS service client
@@ -174,10 +175,10 @@ func ConfigureDeadLetterQueue(sess *session.Session, deadLetterQueueURL string, 
 
     return nil
 }
-
 // snippet-end:[sqs.go.configure_deadletter_queue]
 
-// CreateLongPollingQueue creates a new SQS queue with long polling enabled.
+// CreateLongPollingQueue creates a queue with the name queueName with long polling enabled for timeout seconds.
+// and returns the URL of the new queue.
 // snippet-start:[sqs.go.create_longpolling_queue]
 func CreateLongPollingQueue(sess *session.Session, queueName string, timeout int) (string, error) {
     svc := sqs.New(sess)
@@ -195,10 +196,9 @@ func CreateLongPollingQueue(sess *session.Session, queueName string, timeout int
 
     return *result.QueueUrl, nil
 }
-
 // snippet-end:[sqs.go.create_longpolling_queue]
 
-// DeleteQueue deletes the Amazon SQS queue with the specified URL
+// DeleteQueue deletes the Amazon SQS queue with the URL queueURL.
 // snippet-start:[sqs.go.delete_queue]
 func DeleteQueue(sess *session.Session, queueURL string) error {
     // Create a SQS service client.
@@ -216,7 +216,7 @@ func DeleteQueue(sess *session.Session, queueURL string) error {
 
 // snippet-end:[sqs.go.delete_queue]
 
-// GetQueueURL gets the URL of the queue with the specified name
+// GetQueueURL returns the URL of the queue with the name queueName.
 // snippet-start:[sqs.go.get_queue_url]
 func GetQueueURL(sess *session.Session, queueName string) (string, error) {
     // Create a SQS service client
@@ -234,7 +234,7 @@ func GetQueueURL(sess *session.Session, queueName string) (string, error) {
 
 // snippet-end:[sqs.go.get_queue_url]
 
-// ReceiveMessages gets up to 10 messages from the queue with the specified URL
+// ReceiveMessages gets up to 10 messages from the queue with the URL queueURL.
 // snippet-start:[sqs.go.receive_messages]
 func ReceiveMessages(sess *session.Session, queueURL string) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
@@ -266,7 +266,7 @@ func ReceiveMessages(sess *session.Session, queueURL string) ([]*sqs.Message, er
 
 // snippet-end:[sqs.go.receive_messages]
 
-// ReceiveLongPollingMessages receives messages from the long-polling queue with the specified URL
+// ReceiveLongPollingMessages receives messages for up to timeout seconds from the long-polling queue with the URL queueURL.
 // snippet-start:[sqs.go.receive_longpolling_messages]
 func ReceiveLongPollingMessages(sess *session.Session, queueURL string, timeout int64) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
@@ -293,7 +293,8 @@ func ReceiveLongPollingMessages(sess *session.Session, queueURL string, timeout 
 
 // snippet-end:[sqs.go.receive_longpolling_messages]
 
-// SendMessage sends a message to the queue with the specified URL
+// SendMessage sends a message to the queue with the URL queueURL
+// and returns its message ID.
 // snippet-start:[sqs.go.send_message]
 func SendMessage(sess *session.Session, queueURL string) (string, error) {
     svc := sqs.New(sess)
@@ -327,7 +328,7 @@ func SendMessage(sess *session.Session, queueURL string) (string, error) {
 // snippet-end:[sqs.go.send_message]
 
 // Configuration stores our global configuration values
-type Configuration struct {
+type Config struct {
     Timeout      int `json:"Timeout"`
     RetrySeconds int `json:"RetrySeconds"`
 }
@@ -336,9 +337,9 @@ type Configuration struct {
 var ConfigFile = "config.json"
 
 // GlobalConfig is the variable for the configuration values set in config.json
-var GlobalConfig Configuration
+var GlobalConfig Config
 
-// PopulateConfiguration fills in the values from config.json
+// PopulateConfiguration gets values from config.json and populates the configuration struct GlobalConfig.
 func PopulateConfiguration() error {
     // Get configuration from config.json
 
