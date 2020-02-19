@@ -1,0 +1,10 @@
+---
+created: 2020-02-14
+files:
+  - path: s3_delete_buckets.go
+    apis:
+      - service: s3
+        operations:
+          - ListBuckets
+          - DeleteBucket
+          - WaitUntilBucketNotExists
