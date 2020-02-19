@@ -1,0 +1,17 @@
+---
+created: 2020-02-18
+files:
+  - path: sqsQueueOps.go
+    apis:
+      - service: sqs
+        operations:
+          - ChangeMessageVisibility
+          - CreateQueue
+          - DeleteMessage
+          - DeleteQueue
+          - GetQueueAttributes
+          - GetQueueUrl
+          - ListQueues
+          - ReceiveMessage
+          - SendMessage
+          - SetQueueAttributes
