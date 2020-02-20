@@ -38,8 +38,8 @@ import (
 //     Otherwise, an error from the call to sts.GetCallerIdentity, json.Marshal, s3.PutBucketPolicy, or CreateTrail
 // snippet-start:[cloudtrail.go.create_trail]
 func CreateTrail(sess *session.Session, trailName string, bucketName string) error {
-    // snippet-start:[cloudtrail.go.create_trail_policy]
     stsSvc := sts.New(sess)
+    // snippet-start:[cloudtrail.go.create_trail.policy]    
     input := &sts.GetCallerIdentityInput{}
 
     result, err := stsSvc.GetCallerIdentity(input)
@@ -111,9 +111,8 @@ func CreateTrail(sess *session.Session, trailName string, bucketName string) err
     }
 
     return nil
-    // snippet-start:[cloudtrail.go.create_trail.create]
+    // snippet-end:[cloudtrail.go.create_trail.create]
 }
-
 // snippet-end:[cloudtrail.go.create_trail]
 
 // GetTrails gets a list of trails
@@ -160,8 +159,7 @@ func listTrails(sess *session.Session) error {
 
     return nil
 }
-
-// snippet-end:[cloudtrail.go.delete_trail]
+// snippet-end:[cloudtrail.go.list_trails]
 
 // DeleteTrail deletes a trail
 // Inputs:
@@ -182,6 +180,7 @@ func DeleteTrail(sess *session.Session, trailName string) error {
 
     return err
 }
+// snippet-end:[cloudtrail.go.delete_trail]
 
 // GetUser retrieves the name of the logged on user
 // Inputs:
@@ -202,8 +201,6 @@ func GetUser(sess *session.Session) (string, error) {
 
     return userName, nil
 }
-
-// snippet-end:[cloudtrail.go.delete_trail]
 
 // GetTrailEvents gets the events for a trail
 // Inputs:
@@ -265,7 +262,6 @@ func listTrailEvents(sess *session.Session, trailName string, userName string) e
 
     return nil
 }
-
 // snippet-end:[cloudtrail.go.list_trail_events]
 
 // Config defines a set of configuration values
