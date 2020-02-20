@@ -27,48 +27,67 @@ import (
     "github.com/aws/aws-sdk-go/service/sqs"
 )
 
-// ChangeVisibility changes the visibility of the message specified by
-// receiptHandle in the queue with the URL queueURL to duration.
+/* ChangeVisibility changes the timeout visibility of a message
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue containing the message
+ *     receiptHandle is the receipt handle of the message to modify
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from the call to ChangeMessageVisibility
+ */
 // snippet-start:[sqs.go.change_visibility]
 func ChangeVisibility(sess *session.Session, queueURL string, receiptHandle string, duration int64) error {
     // Create a SQS service client
     svc := sqs.New(sess)
 
-    _, err := svc.ChangeMessageVisibility(&sqs.ChangeMessageVisibilityInput{
+    return svc.ChangeMessageVisibility(&sqs.ChangeMessageVisibilityInput{
         ReceiptHandle:     aws.String(receiptHandle),
         QueueUrl:          aws.String(queueURL),
         VisibilityTimeout: &duration,
     })
-    if err != nil {
-        return err
-    }
-
-    return nil
 }
-
 // snippet-end:[sqs.go.change_visibility]
 
-// ChangeQueue updates the queue with the URL queueURL to use long polling with timeout seconds.
+/* ChangeQueue updates a queue to use long polling
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue
+ *     timeout is the length of time, in seconds from 0 to 20, that ReceiveMessage
+ *     waits for a message to arrive
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from the call to SetQueueAttributes
+ */
 // snippet-start:[sqs.go.change_queue]
 func ChangeQueue(sess *session.Session, queueURL string, timeout int) error {
+    if timeout < 0 {
+        timeout = 0
+    }
+
+    if timeout > 20 {
+        timeout = 20
+    }
+    
     svc := sqs.New(sess)
 
-    _, err := svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
+    return svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
         QueueUrl: aws.String(queueURL),
         Attributes: aws.StringMap(map[string]string{
             "ReceiveMessageWaitTimeSeconds": strconv.Itoa(timeout),
         }),
     })
-    if err != nil {
-        return err
-    }
-
-    return nil
 }
-
 // snippet-end:[sqs.go.change_queue]
 
-// CreateQueue creates an Amazon SQS queue with the name queueName and returns the queue's URL.
+/* CreateQueue creates an Amazon SQS queue
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueName is the name of the queue to create
+ * Output:
+ *     If success, the queue's URL and nil
+ *     Otherwise, an empty string and an error from the call to CreateQueue
+ */
 // snippet-start:[sqs.go.create_queue]
 func CreateQueue(sess *session.Session, queueName string) (string, error) {
     // Create an Amazon SQS service client
@@ -87,27 +106,35 @@ func CreateQueue(sess *session.Session, queueName string) (string, error) {
 
     return *result.QueueUrl, nil
 }
-
 // snippet-end:[sqs.go.create_queue]
 
-// DeleteMessage deletes the message with the receipt handle receiptHandle that has been in the queue with the URL queueURL within the last 20 seconds.
+/* DeleteMessage deletes a message
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue
+ *     receiptHandle is the receipt handle of the message
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from the call to DeleteMessage
+ */
 // snippet-start:[sqs.go.delete_message]
 func DeleteMessage(sess *session.Session, queueURL string, receiptHandle string) error {
     svc := sqs.New(sess)
 
-    _, err := svc.DeleteMessage(&sqs.DeleteMessageInput{
+    return svc.DeleteMessage(&sqs.DeleteMessageInput{
         QueueUrl:      aws.String(queueURL),
         ReceiptHandle: aws.String(receiptHandle),
     })
-    if err != nil {
-        return err
-    }
-
-    return nil
 }
-
 // snippet-end:[sqs.go.delete_message]
 
+/* listQueues displays a list of your queues
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from the call to ListQueues
+ */
 // snippet-start:[sqs.go.list_queues]
 func listQueues(sess *session.Session) error {
     // Create an SQS service client
@@ -128,10 +155,18 @@ func listQueues(sess *session.Session) error {
 
     return nil
 }
-
 // snippet-end:[sqs.go.list_queues]
 
-// ConfigureDeadLetterQueue configures the queue with the URL deadLetterQueueURL as a dead letter queue for up to maxReceive messages from the queue with the URL queueURL.
+/* ConfigureDeadLetterQueue configures a queue as a dead letter queue
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     deadLetterQueueURL is the queue that gets dead letters from the queue with URL queueURL
+ *     queueURL is the URL of the queue that sends dead letters to the queue with the URL deadLetterQueueURL
+ *     maxReceive is the number of times SQS tries to deliver the message to the source queue before it moves the message to the dead-letter queue
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from the call to GetQueueAttributes, json.Marshal, or SetQueueAttributes
+ */
 // snippet-start:[sqs.go.configure_deadletter_queue]
 func ConfigureDeadLetterQueue(sess *session.Session, deadLetterQueueURL string, queueURL string, maxReceive int) error {
     // Create a SQS service client
@@ -177,10 +212,26 @@ func ConfigureDeadLetterQueue(sess *session.Session, deadLetterQueueURL string, 
 }
 // snippet-end:[sqs.go.configure_deadletter_queue]
 
-// CreateLongPollingQueue creates a queue with the name queueName with long polling enabled for timeout seconds.
-// and returns the URL of the new queue.
+/* CreateLongPollingQueue creates a queue with long polling enabled
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueName is the name of the queue
+ *     timeout is the length of time, in seconds from 0 to 20, that ReceiveMessage
+ *     waits for a message to arrive
+ * Output:
+ *     If success, the URL of the queue and nil
+ *     Otherwise, an empty string and an error from the call to CreateQueue
+ */
 // snippet-start:[sqs.go.create_longpolling_queue]
 func CreateLongPollingQueue(sess *session.Session, queueName string, timeout int) (string, error) {
+    if timeout < 0 {
+        timeout = 0
+    }
+
+    if timeout > 20 {
+        timeout = 20
+    }
+    
     svc := sqs.New(sess)
 
     // Create the Queue with long polling enabled
@@ -198,7 +249,14 @@ func CreateLongPollingQueue(sess *session.Session, queueName string, timeout int
 }
 // snippet-end:[sqs.go.create_longpolling_queue]
 
-// DeleteQueue deletes the Amazon SQS queue with the URL queueURL.
+/* DeleteQueue deletes a queue
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from the call to DeleteQueue
+ */
 // snippet-start:[sqs.go.delete_queue]
 func DeleteQueue(sess *session.Session, queueURL string) error {
     // Create a SQS service client.
@@ -213,10 +271,16 @@ func DeleteQueue(sess *session.Session, queueURL string) error {
 
     return nil
 }
-
 // snippet-end:[sqs.go.delete_queue]
 
-// GetQueueURL returns the URL of the queue with the name queueName.
+/* GetQueueURL returns the URL of the queue with the name queueName.
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueName is the name of the queue
+ * Output:
+ *     If success, the URL of the queue and nil
+ *     Otherwise, an empty string and an error from the call to GetQueueUrl
+ */
 // snippet-start:[sqs.go.get_queue_url]
 func GetQueueURL(sess *session.Session, queueName string) (string, error) {
     // Create a SQS service client
@@ -231,10 +295,16 @@ func GetQueueURL(sess *session.Session, queueName string) (string, error) {
 
     return *result.QueueUrl, nil
 }
-
 // snippet-end:[sqs.go.get_queue_url]
 
-// ReceiveMessages gets up to 10 messages from the queue with the URL queueURL.
+/* ReceiveMessages gets up to 10 messages from a queue
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue
+ * Output:
+ *     If success, the messages from the queue and nil
+ *     Otherwise, an empty array and an error from the call to ReceiveMessage
+ */
 // snippet-start:[sqs.go.receive_messages]
 func ReceiveMessages(sess *session.Session, queueURL string) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
@@ -266,7 +336,16 @@ func ReceiveMessages(sess *session.Session, queueURL string) ([]*sqs.Message, er
 
 // snippet-end:[sqs.go.receive_messages]
 
-// ReceiveLongPollingMessages receives messages for up to timeout seconds from the long-polling queue with the URL queueURL.
+/* ReceiveLongPollingMessages receives messages a long-polling queue
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue
+ *     timeout is the length of time, in seconds from 0 to 20, that ReceiveMessage
+ *     waits for a message to arrive
+ * Output:
+ *     If success, the messages from the queue and nil
+ *     Otherwise, an empty array and an error from the call to ReceiveMessage
+ */
 // snippet-start:[sqs.go.receive_longpolling_messages]
 func ReceiveLongPollingMessages(sess *session.Session, queueURL string, timeout int64) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
@@ -290,11 +369,16 @@ func ReceiveLongPollingMessages(sess *session.Session, queueURL string, timeout 
 
     return result.Messages, nil
 }
-
 // snippet-end:[sqs.go.receive_longpolling_messages]
 
-// SendMessage sends a message to the queue with the URL queueURL
-// and returns its message ID.
+/* SendMessage sends a message to a queue
+ * Inputs:
+ *     sess is the current session, which provides configuration for the SDK's service clients
+ *     queueURL is the URL of the queue
+ * Output:
+ *     If success, the ID of the messages and nil
+ *     Otherwise, an empty string and an error from the call to SendMessage
+ */
 // snippet-start:[sqs.go.send_message]
 func SendMessage(sess *session.Session, queueURL string) (string, error) {
     svc := sqs.New(sess)
@@ -324,22 +408,27 @@ func SendMessage(sess *session.Session, queueURL string) (string, error) {
 
     return *result.MessageId, nil
 }
-
 // snippet-end:[sqs.go.send_message]
 
-// Configuration stores our global configuration values
+// Configuration defines a set of configuration values
 type Config struct {
     Timeout      int `json:"Timeout"`
     RetrySeconds int `json:"RetrySeconds"`
 }
 
-// ConfigFile contains the defined configuration values
+// ConfigFile defines the name of the file containing configuration values
 var ConfigFile = "config.json"
 
-// GlobalConfig is the variable for the configuration values set in config.json
+// GlobalConfig contains the configuration values
 var GlobalConfig Config
 
-// PopulateConfiguration gets values from config.json and populates the configuration struct GlobalConfig.
+/* PopulateConfiguration gets values from config.json and populates the configuration struct GlobalConfig
+ * Inputs:
+ *     none
+ * Output:
+ *     If success, nil
+ *     Otherwise, an error from reading or parsing the configuration file
+ */
 func PopulateConfiguration() error {
     // Get configuration from config.json
 
@@ -371,6 +460,12 @@ func PopulateConfiguration() error {
     return nil
 }
 
+/* usage displays information on using this app
+ * Inputs:
+ *     none
+ * Output:
+ *     none
+ */
 func usage() {
     fmt.Println("Usage:")
     fmt.Println("")
