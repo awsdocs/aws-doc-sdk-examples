@@ -16,11 +16,7 @@
 
 METADATA-DO-NOT-REMOVE
 
-function pause {
-    if [[ $interactive = true ]]; then
-        read -p "Press ENTER to continue..."
-    fi
-}
+source ./general.sh
 
 function usage {
     echo "This script tests Amazon S3 bucket operations in the AWS CLI."
@@ -29,61 +25,72 @@ function usage {
     echo ""
     echo "To pause the script between steps so you can see the results in the"
     echo "AWS Management Console, include the parameter -i."
+    echo ""
+    echo "IMPORTANT: Running this script creates resources in your Amazon"
+    echo "   account that can incur charges. It is your responsibility to"
+    echo "   ensure that no resources are left in your account after the script"
+    echo "   completes. If an error occurs during the operation of the script,"
+    echo "   then resources can remain that you might need to delete manaully."
 }
 
 # Parse parameters
-    if [ $# -gt 1 ]
-    then
-        echo "Too many parameters."
-        usage
-        exit 1
-    fi
-
-    if [[ $# == 0 ]]; then
+    if [ "$#" -eq "0" ]; then 
         interactive=false
-    elif [[ "$1" == "-i" ]]; then
+    elif [ "$1" == "-i" ] && [ "$#" -eq "1" ]; then
         interactive=true
     else
         echo "Invalid parameter."
         usage
         exit 1
-   fi
+    fi
 
-# Initialize the shell scripts RANDOM variable
-RANDOM=$$
-# Configure random number generator to issue numbers between 1000 and 9999, inclusive
-DIFF=$((9999-1000+1))
-# Generate 3 random numbers for the bucket name
-R1=$(($(($RANDOM%$DIFF))+X))
-R2=$(($(($RANDOM%$DIFF))+X))
-R3=$(($(($RANDOM%$DIFF))+X))
-
-bucketname="testbucket-$R1-$R2-$R3"
-filename="testfile.txt"
+bucketname=$(generate-random-name s3test)
+filename1=$(generate-random-name s3testfile)
+filename2=$(generate-random-name s3testfile)
 region="us-west-2"
 
-echo "Starting tests of bucket operations"
- 
+iecho "bucketname=$bucketname"
+iecho "filename1=$filename1"
+iecho "filename2=$filename2"
+iecho "region=$region"
+
+iecho "Starting tests of bucket operations"
+
+# The functions we want to test all come from this file 
 source ./bucket-operations.sh
 
-echo "Creating bucket $bucketname..."
+iecho "Creating bucket $bucketname..."
 create-bucket $bucketname $region
-pause
-echo "Copying local file to bucket..."
-populate-bucket $bucketname $filename
-pause
-echo "Duplicating file in bucket..."
-copy-item-in-bucket $bucketname $filename $filename-2
-pause
-echo "Listing contents of bucket..."
+if [ $? -ne 0 ]; then TESTS-FAILED; fi
+ipause
+
+iecho "Copying local file (copy of this script) to bucket..."
+copy-file-to-bucket $bucketname ./$0 $filename1
+if [[ $? -ne 0 ]]; then TESTS-FAILED; fi
+ipause
+
+iecho "Duplicating file in bucket..."
+copy-item-in-bucket $bucketname $filename1 $filename2
+if [[ $? -ne 0 ]]; then TESTS-FAILED; fi
+ipause
+
+iecho "Listing contents of bucket..."
 list-items-in-bucket $bucketname
-pause
-echo "Deleting first file from bucket..."
-delete-item-in-bucket $bucketname $filename
-pause
-echo "Deleting second file from bucket..."
-delete-item-in-bucket $bucketname $filename-2
-pause
-echo "Deleting bucket..."
+if [[ $? -ne 0 ]]; then TESTS-FAILED; fi
+ipause
+
+iecho "Deleting first file from bucket..."
+delete-item-in-bucket $bucketname $filename1
+if [[ $? -ne 0 ]]; then TESTS-FAILED; fi
+ipause
+
+iecho "Deleting second file from bucket..."
+delete-item-in-bucket $bucketname $filename2
+if [[ $? -ne 0 ]]; then TESTS-FAILED; fi
+ipause
+
+iecho "Deleting bucket..."
 delete-bucket $bucketname
+if [[ $? -ne 0 ]]; then TESTS-FAILED; fi
+
 echo "Tests completed successfully."

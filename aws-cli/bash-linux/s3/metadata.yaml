@@ -6,14 +6,9 @@ files:
     apis:
       - service: s3
         operations:
-          - mb
-          - ls
-          - rm
-          - rb
-      - service: s3api
-        operations:
-          - wait bucket-exists
-          - wait bucket-not-exists
-          - wait object-exists
-          - wait object-not-exists
-          - put-object
+          - create-bucket
+          - pub-object
+          - copy-object
+          - list-objects
+          - delete-object
+          - delete-bucket
