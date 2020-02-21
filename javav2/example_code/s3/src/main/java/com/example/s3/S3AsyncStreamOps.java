@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to use the streaming operations of an S3 asynchronous client.]
+//snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to use the streaming operations of an S3 asynchronous client]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[2020-02-06]
 //snippet-sourceauthor:[soo-aws]
+
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,32 +22,43 @@
  */
 package com.example.s3;
 // snippet-start:[s3.java2.async_stream_ops.complete]
-// snippet-start:[s3.java2.async_stream_ops.import]
 
+// snippet-start:[s3.java2.async_stream_ops.import]
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.utils.FunctionalUtils;
-
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[s3.java2.async_stream_ops.import]
+
 // snippet-start:[s3.java2.async_stream_ops.main]
 public class S3AsyncStreamOps {
 
-    private static final String BUCKET = "sample-bucket";
-	private static final String KEY = "testfile.out";
+     public static void main(String[] args) {
 
-	public static void main(String[] args) {
-    	S3AsyncClient client = S3AsyncClient.create();
-      final CompletableFuture<GetObjectResponse> futureGet = client.getObject(
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
+                "Where:\n" +
+                "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
+                "    objectname - the name pf the object object (i.e., book.pdf)\n" +
+                "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
+                "Example:\n" +
+                "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
+
+         String bucketName = args[0];
+         String objectKey = args[1];
+         String path = args[2];
+
+        S3AsyncClient client = S3AsyncClient.create();
+        final CompletableFuture<GetObjectResponse> futureGet = client.getObject(
                 GetObjectRequest.builder()
-                                .bucket(BUCKET)
-                                .key(KEY)
-                                .build(),
-                AsyncResponseTransformer.toFile(Paths.get("myfile.out")));
-      futureGet.whenComplete((resp, err) -> {
+                        .bucket(bucketName)
+                        .key(objectKey)
+                        .build(),
+                AsyncResponseTransformer.toFile(Paths.get(path)));
+        futureGet.whenComplete((resp, err) -> {
             try {
                 if (resp != null) {
                     System.out.println(resp);
@@ -60,9 +72,9 @@ public class S3AsyncStreamOps {
             }
         });
 
-      futureGet.join();
+        futureGet.join();
     }
 }
- 
+
 // snippet-end:[s3.java2.async_stream_ops.main]
 // snippet-end:[s3.java2.async_stream_ops.complete]

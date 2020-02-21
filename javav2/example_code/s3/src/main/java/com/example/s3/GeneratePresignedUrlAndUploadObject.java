@@ -1,3 +1,13 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GeneratePresignedUrlAndUploadObject.java demonstrates how to use the S3Presigner client object to create a presigned URL and upload an object to a S3 bucket]
+// snippet-service:[S3]
+// snippet-keyword:[Java]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2019-12-05]
+// snippet-sourceauthor:[AWS - scmacdon]
+
 /**
  * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -12,15 +22,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GeneratePresignedUrlAndUploadObject.java demonstrates how to use the S3Presigner client object to create a presigned URL and upload an object to a S3 bucket]
-// snippet-service:[S3]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-12-05]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 // snippet-start:[presigned.java2.generatepresignedurl.complete]
 package com.example.s3;
@@ -84,7 +85,9 @@ public class GeneratePresignedUrlAndUploadObject {
             */
             presigner.close();
 
-        } catch (S3Exception | IOException e) {
+        } catch (S3Exception e) {
+            e.getStackTrace();
+        } catch (IOException e) {
             e.getStackTrace();
         }
         // snippet-end:[presigned.java2.generatepresignedurl.main]

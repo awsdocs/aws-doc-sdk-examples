@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2020-02-06]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.example.s3;
 // snippet-start:[s3.java2.s3_bucket_ops.complete]
 // snippet-start:[s3.java2.s3_bucket_ops.import]
@@ -36,11 +37,10 @@ public class S3BucketOps {
 
     public static void main(String[] args) {
 
-        
         // snippet-start:[s3.java2.s3_bucket_ops.create_bucket]
         // snippet-start:[s3.java2.s3_bucket_ops.region]
         Region region = Region.US_WEST_2;
-        S3Client s3 = S3Client.builder().region(region).build();        
+        S3Client s3 = S3Client.builder().region(region).build();
         // snippet-end:[s3.java2.s3_bucket_ops.region]
         String bucket = "bucket" + System.currentTimeMillis();
         System.out.println(bucket);
@@ -50,8 +50,8 @@ public class S3BucketOps {
                 .builder()
                 .bucket(bucket)
                 .createBucketConfiguration(CreateBucketConfiguration.builder()
-                                                                    .locationConstraint(region.id())
-                                                                    .build())
+                        .locationConstraint(region.id())
+                        .build())
                 .build();
         s3.createBucket(createBucketRequest);
         // snippet-end:[s3.java2.s3_bucket_ops.create_bucket]
@@ -70,6 +70,6 @@ public class S3BucketOps {
         // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket] 
     }
 }
- 
+
 // snippet-end:[s3.java2.s3_bucket_ops.main]
 // snippet-end:[s3.java2.s3_bucket_ops.complete]
