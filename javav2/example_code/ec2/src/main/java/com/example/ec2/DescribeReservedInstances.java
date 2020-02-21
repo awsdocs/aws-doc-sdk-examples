@@ -75,3 +75,4 @@ public class DescribeReservedInstances {
       // snippet-end:[ec2.java2.describe_reserved_instances.main]
   }
 }
+// snippet-end:[ec2.java2.describe_reserved_instances.complete]
