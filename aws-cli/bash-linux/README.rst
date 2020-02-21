@@ -1,12 +1,12 @@
 .. Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+This file is licensed under the Apache License, Version 2.0 (the "License").
 
-   This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
-   International License (the "License"). You may not use this file except in compliance with the
-   License. A copy of the License is located at http://creativecommons.org/licenses/by-nc-sa/4.0/.
+You may not use this file except in compliance with the License. A copy of
+the License is located at http://aws.amazon.com/apache2.0/.
 
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-   either express or implied. See the License for the specific language governing permissions and
-   limitations under the License.
+This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 
 ########################################
 AWS CLI examples for BASH shell on Linux
@@ -52,12 +52,3 @@ For detailed documentation for the AWS CLI, see the following:
 
 - `AWS CLI User Guide <https://docs.aws.amazon.com/cli/latest/userguide/>`_
 - `AWS CLI Reference Guide <https://docs.aws.amazon.com/cli/latest/reference/>`_
-
-Copyright and License
-=====================
-
-All content in this repository, unless otherwise stated, is Copyright © Amazon Web Services, Inc. or its 
-affiliates. All rights reserved.
-
-Except where otherwise noted, all examples in this collection are licensed under the Apache license, version 2.0 (the 
-"License"). The full license text is provided in the LICENSE file accompanying this repository.
