@@ -94,9 +94,11 @@ public class GetMetricData {
                 System.out.println("The status code is "+item.statusCode().toString());
             }
 
-        } catch (CloudWatchException e) {
+       } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
     }
 }
+// snippet-end:[cloudwatch.java2.put_metric_data.complete]
