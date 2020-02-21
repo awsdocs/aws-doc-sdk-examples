@@ -22,6 +22,7 @@
  */
 package com.example.cloudwatch;
 // snippet-start:[cloudwatch.java2.put_events.import]
+import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequest;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequestEntry;
@@ -31,40 +32,44 @@ import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsResponse;
 /**
  * Puts a sample CloudWatch event
  */
-public class PutEvents
-{
-    public static void main(String[] args)
-    {
+public class PutEvents {
+    public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply a resource arn\n" +
-            "Ex: PutEvents <resource-arn>\n";
+                "To run this example, supply a resource arn\n" +
+                        "Ex: PutEvents <resource-arn>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String resource_arn = args[0];
+        String resourceArn = args[0];
 
         // snippet-start:[cloudwatch.java2.put_events.main]
         CloudWatchEventsClient cwe =
-        		CloudWatchEventsClient.builder().build();
+                CloudWatchEventsClient.builder().build();
 
-        final String EVENT_DETAILS =
-            "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
+        try {
 
-        PutEventsRequestEntry request_entry = PutEventsRequestEntry.builder()
-            .detail(EVENT_DETAILS)
-            .detailType("sampleSubmitted")
-            .resources(resource_arn)
-            .source("aws-sdk-java-cloudwatch-example").build();
+            final String EVENT_DETAILS =
+                "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
 
-        PutEventsRequest request = PutEventsRequest.builder()
-            .entries(request_entry).build();
+            PutEventsRequestEntry requestEntry = PutEventsRequestEntry.builder()
+                .detail(EVENT_DETAILS)
+                .detailType("sampleSubmitted")
+                .resources(resourceArn)
+                .source("aws-sdk-java-cloudwatch-example").build();
 
-        PutEventsResponse response = cwe.putEvents(request);
+            PutEventsRequest request = PutEventsRequest.builder()
+                .entries(requestEntry).build();
+
+            PutEventsResponse response = cwe.putEvents(request);
+
+        } catch (CloudWatchException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         // snippet-end:[cloudwatch.java2.put_events.main]
-
         System.out.println("Successfully put CloudWatch event");
     }
 }
