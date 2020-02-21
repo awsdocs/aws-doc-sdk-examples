@@ -12,13 +12,15 @@ specific language governing permissions and limitations under the License.
 
 # Amazon S3 Bucket Lifecycle Operations
 
+This example demonstrates how to interact with some of the basic Amazon S3 operations. 
+
 ## Files
   * bucket-operations.sh - main script example file
   * bucket-operations-test.sh - unit/integration test file
   * general.sh - common test support function file
 
 ## Purpose
-This example demonstrates how to interact with some of the basic Amazon S3 operations. The main script file includes functions that perform the following tasks:
+The main script file includes functions that perform the following tasks:
 
  * Creating a bucket and verifying that it exists
  * Copying a file from the local computer to a bucket
@@ -42,6 +44,6 @@ To see the intermediate results of each step, run the script with a `-i` paramet
 
 ## Additional Information
 
-* As an AWS best practice, grant this code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the _AWS Identity and Access Management (IAM) User Guide_.
-* This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions.
-* Running this code can result in charges to your AWS account. It is your responsibility to ensure that any resources created by this script are removed when you are done with them.
+ * As an AWS best practice, grant this code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the _AWS Identity and Access Management (IAM) User Guide_.
+ * This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html) in the _AWS General Reference Guide_.
+ * Running this code can result in charges to your AWS account. It is your responsibility to ensure that any resources created by this script are removed when you are done with them.

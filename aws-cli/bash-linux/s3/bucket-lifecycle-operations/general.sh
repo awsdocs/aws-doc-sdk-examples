@@ -12,7 +12,7 @@
 ###############################################################################
 
 # This script contains general purpose functions that are used throughout 
-# the AWS Command Line Interpreter (AWS CLI) code samples that are maintained
+# the AWS Command Line Interface (AWS CLI) code samples that are maintained
 # in the repo at https://github.com/awsdocs/aws-doc-sdk-examples
 #
 # They are intended to abstract functionality that is required for the tests
@@ -32,7 +32,7 @@ function TESTS-FAILED {
     echo ""
     echo "TESTS FAILED"
     echo "One or more of the tests failed to complete successfully. This means"
-    echo "that any tests that were supposed to run after the failed test did't"
+    echo "that any tests that were supposed to run after the failed test did'nt"
     echo "run and might have left resources still active in your account."
     echo ""
     echo "IMPORTANT:"
