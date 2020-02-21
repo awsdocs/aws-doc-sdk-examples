@@ -65,3 +65,4 @@ public class DescribeAccount {
         // snippet-end:[ec2.java2.describe_account.main]
     }
 }
+// snippet-end:[ec2.java2.describe_account.complete]
