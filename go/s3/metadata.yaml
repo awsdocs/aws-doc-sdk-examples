@@ -1,0 +1,8 @@
+---
+created: 2020-02-21
+files:
+  - path: s3SetTls12.go
+    apis:
+      - service: s3
+        operations:
+          - HeadObject
