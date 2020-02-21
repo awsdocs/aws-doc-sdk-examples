@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,20 +22,21 @@
 
 package com.example.ec2;
 // snippet-start:[ec2.java2.describe_account.complete]
+
 // snippet-start:[ec2.java2.describe_account.import]
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.AccountAttribute;
 import software.amazon.awssdk.services.ec2.model.AccountAttributeValue;
 import software.amazon.awssdk.services.ec2.model.DescribeAccountAttributesResponse;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import java.util.List;
 import java.util.ListIterator;
 // snippet-end:[ec2.java2.describe_account.import]
 
 public class DescribeAccount {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
         // snippet-start:[ec2.java2.describe_account.main]
         Ec2Client ec2 = Ec2Client.create();
 
@@ -57,12 +58,10 @@ public class DescribeAccount {
                 }
             }
             System.out.print("Done");
-        }
-        catch (SdkException e)
-        {
+
+        } catch (Ec2Exception e) {
             e.getStackTrace();
         }
         // snippet-end:[ec2.java2.describe_account.main]
     }
 }
-// snippet-end:[ec2.java2.describe_account.complete]
