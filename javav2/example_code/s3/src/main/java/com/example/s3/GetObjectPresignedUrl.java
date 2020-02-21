@@ -93,7 +93,7 @@ public class GetObjectPresignedUrl {
                 connection.setDoOutput(true);
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
                      OutputStream httpOutputStream = connection.getOutputStream()) {
-                    IoUtils.copy(signedPayload, httpOutputStream);
+                     IoUtils.copy(signedPayload, httpOutputStream);
                 }
             }
 
