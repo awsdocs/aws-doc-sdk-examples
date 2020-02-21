@@ -47,7 +47,6 @@ public class S3AsyncStreamOps {
                 "Example:\n" +
                 "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
 
-         // snippet-start:[s3.java2.copy_object.main]
          String bucketName = args[0];
          String objectKey = args[1];
          String path = args[2];
