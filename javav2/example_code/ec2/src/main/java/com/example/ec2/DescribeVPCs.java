@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[jschwarzwalder-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@
  */
 package com.example.ec2;
 // snippet-start:[ec2.java2.describe_vpc.complete]
-// snippet-start:[ec2.java2.describe_vpc.import]
 
+// snippet-start:[ec2.java2.describe_vpc.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
 import software.amazon.awssdk.services.ec2.model.Vpc;
-
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_vpc.import]
 
 /**
@@ -36,8 +36,8 @@ import software.amazon.awssdk.services.ec2.model.Vpc;
 public class DescribeVPCs {
     public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply a group id\n" +
-                "Ex: DescribeVPCs <vpc-id>\n";
+                "To run this example, supply a group id\n" +
+                        "Ex: DescribeVPCs <vpc-id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -49,23 +49,29 @@ public class DescribeVPCs {
 
         Ec2Client ec2 = Ec2Client.create();
 
-        DescribeVpcsRequest request = DescribeVpcsRequest.builder().vpcIds(vpcId).build();
+        try {
+            DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+                .vpcIds(vpcId)
+                .build();
 
-        DescribeVpcsResponse response =
-            ec2.describeVpcs(request);
+            DescribeVpcsResponse response =
+                ec2.describeVpcs(request);
 
-        // snippet-end:[ec2.java2.describe_vpc.main]
-        for (Vpc vpc : response.vpcs()) {
-            System.out.printf(
-                "Found vpc with id %s, " +
-                    "vpc state %s " +
-                    "and tennancy %s",
-                vpc.vpcId(),
-                vpc.stateAsString(),
-                vpc.instanceTenancyAsString());
+            // snippet-end:[ec2.java2.describe_vpc.main]
+            for (Vpc vpc : response.vpcs()) {
+                System.out.printf(
+                    "Found vpc with id %s, " +
+                            "vpc state %s " +
+                            "and tennancy %s",
+                    vpc.vpcId(),
+                    vpc.stateAsString(),
+                    vpc.instanceTenancyAsString());
 
+                }
+
+            } catch (Ec2Exception e) {
+                e.getStackTrace();
         }
     }
 }
-
 // snippet-end:[ec2.java2.describe_vpc.complete]
