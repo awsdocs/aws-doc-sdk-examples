@@ -1,16 +1,24 @@
 <!--
-All content in this repository, unless otherwise stated, is Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+This file is licensed under the Apache License, Version 2.0 (the "License").
 
-Except where otherwise noted, all examples in this collection are licensed under the Apache license, version 2.0 (the "License"). The full license text is provided in the LICENSE file accompanying this repository.
+You may not use this file except in compliance with the License. A copy of
+the License is located at http://aws.amazon.com/apache2.0/.
 
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 -->
 
 # Amazon S3 Bucket Lifecycle Operations
 
-## Purpose
+## Files
+  * bucket-operations.sh - main script example file
+  * bucket-operations-test.sh - unit/integration test file
+  * general.sh - common test support function file
 
-This example demonstrates how to interact with some of the basic Amazon S3 operations. The script includes functions that perform the following tasks:
+## Purpose
+This example demonstrates how to interact with some of the basic Amazon S3 operations. The main script file includes functions that perform the following tasks:
 
  * Creating a bucket and verifying that it exists
  * Copying a file from the local computer to a bucket
