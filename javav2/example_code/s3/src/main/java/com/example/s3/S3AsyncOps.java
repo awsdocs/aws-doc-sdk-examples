@@ -52,7 +52,6 @@ public class S3AsyncOps {
             System.exit(1);
         }
 
-        // snippet-start:[s3.java2.copy_object.main]
         String bucketName = args[0];
         String objectKey = args[1];
         String path = args[2];
