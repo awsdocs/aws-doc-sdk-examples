@@ -3,8 +3,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[jschwarzwalder-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -28,19 +28,18 @@ import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.ReservedInstances;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
-
 
 /**
  * Describes reserved instances
  */
 public class DescribeReservedInstances {
 
-
     public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply a group id\n" +
-                "Ex: DescribeReservedInstances <vpc-id>\n";
+                "To run this example, supply a group id\n" +
+                        "Ex: DescribeReservedInstances <vpc-id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -51,28 +50,28 @@ public class DescribeReservedInstances {
         // snippet-start:[ec2.java2.describe_reserved_instances.main]
 
         Ec2Client ec2 = Ec2Client.create();
+        try {
+            DescribeReservedInstancesRequest request = DescribeReservedInstancesRequest.builder().reservedInstancesIds(instanceID).build();
 
-         DescribeReservedInstancesRequest request = DescribeReservedInstancesRequest.builder().reservedInstancesIds(instanceID).build();
+            DescribeReservedInstancesResponse response =
+                ec2.describeReservedInstances(request);
 
-         DescribeReservedInstancesResponse response =
-            ec2.describeReservedInstances(request);
-
-        for (ReservedInstances instance : response.reservedInstances()) {
-            System.out.printf(
-                "Found a reserved instance with id %s, " +
-                    "in AZ %s, " +
-                    "type %s, " +
-                    "state %s " +
-                    "and monitoring state %s",
-                instance.reservedInstancesId(),
-                instance.availabilityZone(),
-                instance.instanceType(),
-                instance.state().name());
-
+            for (ReservedInstances instance : response.reservedInstances()) {
+                System.out.printf(
+                    "Found a reserved instance with id %s, " +
+                            "in AZ %s, " +
+                            "type %s, " +
+                            "state %s " +
+                            "and monitoring state %s",
+                    instance.reservedInstancesId(),
+                    instance.availabilityZone(),
+                    instance.instanceType(),
+                    instance.state().name());
         }
 
-        // snippet-end:[ec2.java2.describe_reserved_instances.main]
+        } catch (Ec2Exception e) {
+            e.getStackTrace();
     }
+      // snippet-end:[ec2.java2.describe_reserved_instances.main]
+  }
 }
-
-// snippet-end:[ec2.java2.describe_reserved_instances.complete]
