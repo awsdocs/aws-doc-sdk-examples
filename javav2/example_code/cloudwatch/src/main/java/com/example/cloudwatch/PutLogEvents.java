@@ -4,10 +4,10 @@
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-05-17]
-//snippet-sourceauthor:[danotorrey]
-// snippet-start:[cloudwatch.java2.put_log_events.complete]
+//snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.put_log_events.import]
+// snippet-start:[cloudwatch.java2.put_log_events.complete]
 
+// snippet-start:[cloudwatch.java2.put_log_events.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsResponse;
 import software.amazon.awssdk.services.cloudwatchlogs.model.InputLogEvent;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutLogEventsRequest;
-
 import java.util.Arrays;
 // snippet-end:[cloudwatch.java2.put_log_events.import]
 
@@ -41,7 +41,7 @@ public class PutLogEvents {
 
         final String usage =
                 "To run this example, supply a region id (eg. us-east-1), log group, and stream name as command line arguments\n" +
-                "Ex: PutLogEvents <region-id> <log-group-name> <stream-name>\n";
+                        "Ex: PutLogEvents <region-id> <log-group-name> <stream-name>\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -60,9 +60,9 @@ public class PutLogEvents {
 
         // First describe all streams in the log group.
         DescribeLogStreamsRequest logStreamRequest = DescribeLogStreamsRequest.builder()
-                                                                              .logGroupName(logGroupName)
-                                                                              .logStreamNamePrefix(streamName)
-                                                                              .build();
+                .logGroupName(logGroupName)
+                .logStreamNamePrefix(streamName)
+                .build();
         DescribeLogStreamsResponse describeLogStreamsResponse = logsClient.describeLogStreams(logStreamRequest);
 
         // Assume that a single stream is returned since a specific stream name was specified in the previous request.
@@ -70,19 +70,19 @@ public class PutLogEvents {
 
         // Build an input log message to put to CloudWatch.
         InputLogEvent inputLogEvent = InputLogEvent.builder()
-                                                   .message("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
-                                                   .timestamp(System.currentTimeMillis())
-                                                   .build();
+                .message("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
+                .timestamp(System.currentTimeMillis())
+                .build();
 
         // Specify the request parameters.
         PutLogEventsRequest putLogEventsRequest = PutLogEventsRequest.builder()
-                                                         .logEvents(Arrays.asList(inputLogEvent))
-                                                         .logGroupName(logGroupName)
-                                                         .logStreamName(streamName)
-                                                         // Sequence token is required so that the log can be written to the
-                                                         // latest location in the stream.
-                                                         .sequenceToken(sequenceToken)
-                                                         .build();
+                .logEvents(Arrays.asList(inputLogEvent))
+                .logGroupName(logGroupName)
+                .logStreamName(streamName)
+                // Sequence token is required so that the log can be written to the
+                // latest location in the stream.
+                .sequenceToken(sequenceToken)
+                .build();
         logsClient.putLogEvents(putLogEventsRequest);
         // snippet-end:[cloudwatch.java2.put_log_events.main]
 
