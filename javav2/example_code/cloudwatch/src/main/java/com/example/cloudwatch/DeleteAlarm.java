@@ -3,8 +3,9 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/12/2020]
+//snippet-sourcedate:[12/02/2020]
 //snippet-sourceauthor:[scmacdon]
+
 /*
  * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -19,8 +20,8 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-// snippet-start:[cloudwatch.java2.delete_metrics.complete]
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.delete_metrics.complete]
 // snippet-start:[cloudwatch.java2.delete_metrics.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
