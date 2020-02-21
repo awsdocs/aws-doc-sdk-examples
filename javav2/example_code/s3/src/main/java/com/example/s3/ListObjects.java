@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given bucket.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2020-02-06]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /**
  * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -13,14 +21,6 @@
  *
  */
 
-//snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given bucket.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[scmacdon-aws]
-
 package com.example.s3;
 
 // snippet-start:[s3.java2.list_objects.complete]
@@ -31,7 +31,6 @@ import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
-
 import java.util.List;
 import java.util.ListIterator;
 // snippet-end:[s3.java2.list_objects.import]
