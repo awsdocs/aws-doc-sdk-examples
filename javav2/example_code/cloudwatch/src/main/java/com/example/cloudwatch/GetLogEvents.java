@@ -3,11 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/12/2020]
+//snippet-sourcedate:[12/02/2020]
 //snippet-sourceauthor:[scmacdon]
-// snippet-start:[cloudwatch.java2.get_logs.complete]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-
+// snippet-start:[cloudwatch.java2.get_logs.complete]
 // snippet-start:[cloudwatch.java2.get_logs.import]
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
