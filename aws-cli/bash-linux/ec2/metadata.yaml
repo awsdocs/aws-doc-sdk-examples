@@ -1,0 +1,12 @@
+# Example: change-instance-type
+description: Converts the instance type of a running instance
+created: 2020-02-21
+files:
+  - path: change-instance-type/change-instance-type.sh
+    apis:
+      - service: ec2
+        operations:
+          - 
+          - 
+          - 
+          - 
