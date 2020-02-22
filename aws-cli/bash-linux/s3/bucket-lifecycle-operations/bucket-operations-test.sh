@@ -52,7 +52,7 @@ iecho "region=$region"
 
 iecho "Starting tests of bucket operations"
 
-# The functions we want to test all come from this file 
+# The functions we want to test all come from this file. 
 source ./bucket-operations.sh
 
 iecho "Creating bucket $bucketname..."

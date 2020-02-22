@@ -17,7 +17,7 @@
 ###############################################################################
 # function bucket-exists
 #
-# This function checks to see if the specified bucket already exists
+# This function checks to see if the specified bucket already exists.
 #
 # Parameters:
 #       $1 - The name of the bucket to check
@@ -37,9 +37,9 @@ function bucket-exists {
         >/dev/null 2>&1
 
     if [[ $? -eq 0 ]]; then
-        return 0        # 0 in Bash script means true
+        return 0        # 0 in Bash script means true.
     else
-        return 1        # 1 in Bash script means false 
+        return 1        # 1 in Bash script means false.
     fi
 }
 ###############################################################################
