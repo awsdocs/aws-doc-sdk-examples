@@ -11,9 +11,9 @@
 # specific language governing permissions and limitations under the License.
 ###############################################################################
 
-# This script contains general purpose functions that are used throughout 
-# the AWS Command Line Interface (AWS CLI) code samples that are maintained
-# in the repo at https://github.com/awsdocs/aws-doc-sdk-examples
+# This script contains general-purpose functions that are used throughout the
+# AWS Command Line Interface (AWS CLI) code samples that are maintained in the 
+# repo at https://github.com/awsdocs/aws-doc-sdk-examples
 #
 # They are intended to abstract functionality that is required for the tests
 # to work without cluttering up the code. The intent is to ensure the purpose
@@ -32,7 +32,7 @@ function TESTS-FAILED {
     echo ""
     echo "TESTS FAILED"
     echo "One or more of the tests failed to complete successfully. This means"
-    echo "that any tests that were supposed to run after the failed test did'nt"
+    echo "that any tests that were supposed to run after the failed test didn't"
     echo "run and might have left resources still active in your account."
     echo ""
     echo "IMPORTANT:"

@@ -146,9 +146,9 @@ function copy-item-in-bucket {
 ###############################################################################
 # function list-items-in-bucket
 #
-# This function displays a list of the files in the bucket along with each
-# file's size. The function uses the --query parameter to retrieve only the
-# Key and Size fields from the Contents collection.
+# This function displays a list of the files in the bucket with each file's 
+# size. The function uses the --query parameter to retrieve only the Key and 
+# Size fields from the Contents collection.
 #
 # Parameters:
 #       $1 - The name of the bucket
