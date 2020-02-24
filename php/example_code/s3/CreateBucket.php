@@ -30,28 +30,70 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 // snippet-start:[s3.php.create_bucket.main]
-$BUCKET_NAME = '<BUCKET-NAME>';
+class CreateBucketExample
+{
+    private $s3Client = null;
 
-//Create a S3Client
-$s3Client = new S3Client([
-    'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2006-03-01'
-]);
+    public function __construct($s3Client)
+    {
+        $this->s3Client = $s3Client;
+    }
 
-//Creating S3 Bucket
-try {
-    $result = $s3Client->createBucket([
-        'Bucket' => $BUCKET_NAME,
-    ]);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    public function createBucket($bucketName)
+    {
+        try {
+            $result = $this->s3Client->createBucket([
+                'Bucket' => $bucketName,
+            ]);
+        } catch (AwsException $e) {
+            echo $e->getMessage();
+            echo "\n";
+            return false;
+        }
+
+        if ($result['@metadata']['statusCode'] == 200) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
 }
-
 // snippet-end:[s3.php.create_bucket.main] 
 // snippet-end:[s3.php.create_bucket.complete]
+
+use PHPUnit\Framework\TestCase;
+use Aws\MockHandler;
+use Aws\Result;
+
+# Relies on PHPUnit to test the functionality in the preceding code.
+class CreateBucketExampleTest extends TestCase
+{
+    const BUCKET_NAME = 'my-bucket';
+    const REGION = 'us-east-1';
+    private $mock, $s3ClientMock, $createBucketExample;
+    
+    protected function setUp(): void
+    {
+        $mock = new MockHandler();
+        $mock->append(new Result(array(true)));
+
+        $this->s3ClientMock = new S3Client([
+            'profile' => 'default',
+            'region' => self::REGION,
+            'version' => '2006-03-01',
+            'handler' => $mock
+        ]);
+
+        $this->createBucketExample = new CreateBucketExample(
+            $this->s3ClientMock);
+    }
+
+    public function testCreatesABucket()
+    {
+        $this->assertEquals($this->createBucketExample->createBucket(
+            self::BUCKET_NAME), true);
+    }
+}
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateBucket.php demonstrates how to create an new Amazon S3 bucket given a name to use for the bucket.]
 // snippet-keyword:[PHP]
@@ -62,5 +104,5 @@ try {
 // snippet-service:[s3]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2018-09-20]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourceauthor:[pccornel (AWS)]
 
