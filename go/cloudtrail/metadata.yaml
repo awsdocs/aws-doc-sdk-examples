@@ -8,6 +8,7 @@ files:
           - CreateTrail
           - DeleteTrail
           - DescribeTrails
+          - LookupEvents
       - service: s3
         operations:
           - PutBucketPolicy
