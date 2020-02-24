@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform AWS CloudTrail operations.
+These examples demonstrate how to perform some AWS CloudTrail operations.
 
 ## Prerequisites
 
@@ -40,17 +40,28 @@ Use the following command to display the commands that invoke these operations.
 
 Unit tests should delete any resources they create.
 However, they might result in charges to your 
-AWS account.
+AWS account if a test fails.
+If you run the tests with the option of seeing log messages and a test fails,
+as described later in this document,
+you'll see a log message that tells you which resources you must manually delete.
+
+If you want to use the unit tests with an existing trail,
+set the **TrailName** entry in *config.json*.
+
+Otherwise, the unit tests create a trail with a random name that starts with **MyTrail-** to which the bucket events are sent
+
+If you want to use the unit tests with an existing bucket,
+set the **BucketName** entry in *config.json*.
+
+Otherwise, the unit tests create a bucket with a random name that starts with **mybucket-**.
 
 The unit test **cloudtrailOps_test.go**:
 
-- Creates a bucket with a random name that starts with **mybucket-**
-- Creates a trail with a random name that starts with **MyTrail-** to which the bucket events are sent
 - Adds a couple of items to the bucket
 - Displays a list of trails
 - Lists any events in the trail from the current user
-- Deletes the trail
-- Deletes the bucket
+- If the unit test created a trail, it deletes the trail
+- If the unit test created a bucket, it deletes the bucket
 
 To run the unit test, enter:
 

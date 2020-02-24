@@ -17,7 +17,6 @@ package main
 import (
     "encoding/json"
     "fmt"
-    "io/ioutil"
     "os"
     "strings"
     "time"
@@ -29,17 +28,17 @@ import (
     "github.com/aws/aws-sdk-go/service/sts"
 )
 
-// CreateTrail creates a trail that gets event activity from a bucket
+// ConfigureBucket configures a bucket to send event activity to CloudTrail
 // Inputs:
 //     trailName is the name of the trail
 //     bucketName is the name of the bucket
 // Output:
 //     If success, nil
-//     Otherwise, an error from the call to sts.GetCallerIdentity, json.Marshal, s3.PutBucketPolicy, or CreateTrail
-// snippet-start:[cloudtrail.go.create_trail]
-func CreateTrail(sess *session.Session, trailName string, bucketName string) error {
+//     Otherwise, an error from the call to sts.GetCallerIdentity, json.Marshal, or s3.PutBucketPolicy
+// snippet-start:[cloudtrail.go.configure_trail]
+func ConfigureBucket(sess *session.Session, bucketName string) error {
     stsSvc := sts.New(sess)
-    // snippet-start:[cloudtrail.go.create_trail.policy]    
+    // snippet-start:[cloudtrail.go.configure_trail.policy]
     input := &sts.GetCallerIdentityInput{}
 
     result, err := stsSvc.GetCallerIdentity(input)
@@ -49,7 +48,7 @@ func CreateTrail(sess *session.Session, trailName string, bucketName string) err
 
     accountID := aws.StringValue(result.Account)
 
-    // Create policy to allow trail to write to bucket
+    // Create policy so bucket sends events to CloudTrail
     s3Policy := map[string]interface{}{
         "Version": "2012-10-17",
         "Statement": []map[string]interface{}{
@@ -95,17 +94,30 @@ func CreateTrail(sess *session.Session, trailName string, bucketName string) err
     if err != nil {
         return err
     }
-    // snippet-end:[cloudtrail.go.create_trail.policy]
+    // snippet-end:[cloudtrail.go.configure_trail.policy]
 
+    return nil
+}
+// snippet-end:[cloudtrail.go.configure_trail]
+
+// CreateTrail creates a trail to get event activity from a bucket
+// Inputs:
+//     trailName is the name of the trail
+//     bucketName is the name of the bucket
+// Output:
+//     If success, nil
+//     Otherwise, an error from the call to sts.GetCallerIdentity, json.Marshal, or s3.PutBucketPolicy
+// snippet-start:[cloudtrail.go.create_trail]
+func CreateTrail(sess *session.Session, trailName string, bucketName string) error {
     // snippet-start:[cloudtrail.go.create_trail.create]
-    ctSvc := cloudtrail.New(sess)
+    svc := cloudtrail.New(sess)
 
     ctInput := &cloudtrail.CreateTrailInput{
         Name:         aws.String(trailName),
         S3BucketName: aws.String(bucketName),
     }
 
-    _, err = ctSvc.CreateTrail(ctInput)
+    _, err := svc.CreateTrail(ctInput)
     if err != nil {
         return err
     }
@@ -189,8 +201,8 @@ func DeleteTrail(sess *session.Session, trailName string) error {
 //     If success, the user name and nil
 //     Otherwise, an empty string and an error from a call to GetCallerIdentity
 func GetUser(sess *session.Session) (string, error) {
-    stsSvc := sts.New(sess)
-    id, err := stsSvc.GetCallerIdentity(nil)
+    svc := sts.New(sess)
+    id, err := svc.GetCallerIdentity(nil)
     if err != nil {
         return "", err
     }
@@ -264,55 +276,6 @@ func listTrailEvents(sess *session.Session, trailName string, userName string) e
 }
 // snippet-end:[cloudtrail.go.list_trail_events]
 
-// Config defines a set of configuration values
-type Config struct {
-    Timeout      int `json:"Timeout"`
-    RetrySeconds int `json:"RetrySeconds"`
-}
-
-// ConfigFile defines the name of the file containing configuration values
-var ConfigFile = "config.json"
-
-// GlobalConfig contains the configuration values
-var GlobalConfig Config
-
-// PopulateConfiguration gets values from config.json and populates the configuration struct GlobalConfig
-// Inputs:
-//     none
-// Output:
-//     If success, nil
-//     Otherwise, an error from reading or parsing the configuration file
-func PopulateConfiguration() error {
-    // Get configuration from config.json
-
-    // Get entire file as a JSON string
-    content, err := ioutil.ReadFile(ConfigFile)
-    if err != nil {
-        return err
-    }
-
-    // Convert []byte to string
-    text := string(content)
-
-    // Marshall JSON string in text into global struct
-    err = json.Unmarshal([]byte(text), &GlobalConfig)
-    if err != nil {
-        return err
-    }
-
-    // Set minimum wait, in seconds, before reading/retrying
-    if GlobalConfig.RetrySeconds < 10 {
-        GlobalConfig.RetrySeconds = 10
-    }
-
-    // Set minimum duration for timeout
-    if GlobalConfig.Timeout < 20 {
-        GlobalConfig.Timeout = 20
-    }
-
-    return nil
-}
-
 // usage displays information on using this app
 // Inputs:
 //     none
@@ -327,7 +290,7 @@ func usage() {
     fmt.Println("    -l")
     fmt.Println("        list your trails")
     fmt.Println("    -c  TRAIL-NAME BUCKET-NAME")
-    fmt.Println("        create trail TRAIL-NAME")
+    fmt.Println("        create trail TRAIL-NAME that gets events from bucket BUCKET-NAME")
     fmt.Println("    -d  TRAIL-NAME")
     fmt.Println("        delete trail TRAIL-NAME")
     fmt.Println("    -e  USER-NAME TRAIL-NAME")
@@ -338,13 +301,6 @@ func usage() {
 }
 
 func main() {
-    err := PopulateConfiguration()
-    if err != nil {
-        fmt.Println("Got an error populating configuration:")
-        fmt.Println(err)
-        return
-    }
-
     // Parse args ourselves so user can only request one operation
     op := ""
     numOps := 0 // So we know when user has requested more than one

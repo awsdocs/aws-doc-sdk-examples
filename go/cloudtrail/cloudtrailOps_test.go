@@ -16,6 +16,8 @@ package main
 
 // snippet-start:[sqs.go.imports]
 import (
+    "encoding/json"
+    "io/ioutil"
     "strings"
     "testing"
 
@@ -28,6 +30,45 @@ import (
 )
 
 // snippet-end:[sqs.go.imports]
+
+// Config defines a set of configuration values
+type Config struct {
+    TrailName  string `json:"TrailName"`
+    BucketName string `json:"BucketName"`
+}
+
+// ConfigFile defines the name of the file containing configuration values
+var ConfigFile = "config.json"
+
+// GlobalConfig contains the configuration values
+var GlobalConfig Config
+
+// PopulateConfiguration gets values from config.json and populates the configuration struct GlobalConfig
+// Inputs:
+//     none
+// Output:
+//     If success, nil
+//     Otherwise, an error from reading or parsing the configuration file
+func PopulateConfiguration() error {
+    // Get configuration from config.json
+
+    // Get entire file as a JSON string
+    content, err := ioutil.ReadFile(ConfigFile)
+    if err != nil {
+        return err
+    }
+
+    // Convert []byte to string
+    text := string(content)
+
+    // Marshall JSON string in text into global struct
+    err = json.Unmarshal([]byte(text), &GlobalConfig)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
 
 func createBucket(sess *session.Session, bucketName string) error {
     // Create the bucket
@@ -51,22 +92,27 @@ func createBucket(sess *session.Session, bucketName string) error {
     return nil
 }
 
-func addItemsToBucket(sess *session.Session, bucketName string) error {
+func addItemToBucket(sess *session.Session, bucketName string, objectName string) error {
     svc := s3.New(sess)
 
     _, err := svc.PutObject(&s3.PutObjectInput{
         Body:   strings.NewReader("Hello World!"),
         Bucket: aws.String(bucketName),
-        Key:    aws.String("dummy1"),
+        Key:    aws.String(objectName),
     })
     if err != nil {
         return err
     }
 
-    _, err = svc.PutObject(&s3.PutObjectInput{
-        Body:   strings.NewReader("Hello World!"),
+    return nil
+}
+
+func deleteItemFromBucket(sess *session.Session, bucketName string, objectName string) error {
+    svc := s3.New(sess)
+
+    _, err := svc.DeleteObject(&s3.DeleteObjectInput{
         Bucket: aws.String(bucketName),
-        Key:    aws.String("dummy2"),
+        Key:    aws.String(objectName),
     })
     if err != nil {
         return err
@@ -157,11 +203,33 @@ func showTrails(sess *session.Session, t *testing.T) error {
     return nil
 }
 
+func logErrors(t *testing.T, dummy1 string, dummy2 string, bucketCreated bool, bucket string, trailCreated bool, trail string) {
+    if dummy1 != "" {
+        t.Log("You'll have to delete this bucket item yourself: " + dummy1)
+    }
+    if dummy2 != "" {
+        t.Log("You'll have to delete this bucket item yourself: " + dummy2)
+    }
+    if bucketCreated {
+        t.Log("You'll have to delete this bucket yourself: " + bucket)
+    }
+    if trailCreated {
+        t.Log("You'll have to delete this trail yourself: " + trail)
+    }
+}
+
 func TestCloudTrailOps(t *testing.T) {
     err := PopulateConfiguration()
     if err != nil {
         t.Fatal(err)
     }
+
+    bucketName := GlobalConfig.BucketName
+    bucketCreated := false
+    trailName := GlobalConfig.TrailName
+    trailCreated := false
+    dummy1 := ""
+    dummy2 := ""
 
     // snippet-start:[sqs.go.session]
     // Create a session using credentials from ~/.aws/credentials
@@ -174,62 +242,124 @@ func TestCloudTrailOps(t *testing.T) {
     // Create a random, unique value
     id := uuid.New()
 
-    // Use it to create a trail name and bucket name
-    trailName := "MyTrail-" + id.String()
-    // Bucket names must be all lower-case, no underscores, dashes and numbers ok
-    bucketName := "mybucket-" + id.String()
+    if bucketName == "" {
+        // Bucket names must be all lower-case, no underscores, dashes and numbers ok
+        bucketName = "mybucket-" + id.String()
 
-    err = createBucket(sess, bucketName)
+        t.Log("Creating bucket " + bucketName)
+        err = createBucket(sess, bucketName)
+        if err != nil {
+            t.Fatal(err)
+        }
+
+        bucketCreated = true
+        t.Log("Created bucket " + bucketName)
+    } else {
+        t.Log("Using existing bucket " + bucketName)
+    }
+
+    err = ConfigureBucket(sess, bucketName)
     if err != nil {
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
-    // Create a trail
-    err = CreateTrail(sess, trailName, bucketName)
+    if trailName == "" {
+        trailName = "MyTrail-" + id.String()
+        // Create a trail
+        t.Log("Creating trail " + trailName)
+        // CreateTrail(sess *session.Session, trailName string, bucketName string) error
+        err = CreateTrail(sess, trailName, bucketName)
+        if err != nil {
+            logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
+            t.Fatal(err)
+        }
+
+        trailCreated = true
+        t.Log("Created trail " + trailName)
+    } else {
+        t.Log("Using existing trail " + trailName)
+    }
+
+    // Add a couple of dummy items to the bucket
+    dummy1 = "dummy1-" + id.String()
+
+    err = addItemToBucket(sess, bucketName, dummy1)
     if err != nil {
+        dummy1 = ""
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
-    t.Log("Created trail " + trailName)
+    t.Log("Added " + dummy1 + " to bucket " + bucketName)
 
-    err = addItemsToBucket(sess, bucketName)
+    dummy2 = "dummy2-" + id.String()
+    err = addItemToBucket(sess, bucketName, dummy2)
     if err != nil {
+        dummy2 = ""
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
-    t.Log("Added items to bucket")
+    t.Log("Added " + dummy2 + " to bucket " + bucketName)
 
     err = showTrails(sess, t)
     if err != nil {
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
     // Get user
     user, err := GetUser(sess)
     if err != nil {
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
     // List any events initiated by user
     err = showEvents(t, sess, trailName, user)
     if err != nil {
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
-    // Now delete the trail
-    err = DeleteTrail(sess, trailName)
+    // Now delete the trail, if created
+    if trailCreated {
+        err = DeleteTrail(sess, trailName)
+        if err != nil {
+            logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
+            t.Fatal(err)
+        }
+
+        t.Log("Deleted trail " + trailName)
+        trailCreated = false
+    }
+
+    // Delete dummy objects in bucket
+    err = deleteItemFromBucket(sess, bucketName, dummy1)
     if err != nil {
-        t.Log("You'll have to delete this trail yourself:  " + trailName)
-        t.Log("You'll have to delete this bucket yourself: " + bucketName)
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
     }
 
-    t.Log("Deleted trail " + trailName)
+    t.Log("Deleted " + dummy1 + " from bucket " + bucketName)
+    dummy1 = ""
 
-    // Delete the bucket
-    err = deleteBucket(sess, bucketName)
+    err = deleteItemFromBucket(sess, bucketName, dummy2)
     if err != nil {
-        t.Log("You'll have to delete this bucket yourself: " + bucketName)
+        logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
         t.Fatal(err)
+    }
+
+    t.Log("Deleted " + dummy2 + " from bucket " + bucketName)
+    dummy2 = ""
+
+    // Delete the bucket, if created
+    if bucketCreated {
+        err = deleteBucket(sess, bucketName)
+        if err != nil {
+            logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)
+            t.Fatal(err)
+        }
     }
 }
