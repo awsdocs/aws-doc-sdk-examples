@@ -30,6 +30,7 @@ import (
 
 // ConfigureBucket configures a bucket to send event activity to CloudTrail
 // Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
 //     trailName is the name of the trail
 //     bucketName is the name of the bucket
 // Output:
@@ -48,7 +49,7 @@ func ConfigureBucket(sess *session.Session, bucketName string) error {
 
     accountID := aws.StringValue(result.Account)
 
-    // Create policy so bucket sends events to CloudTrail
+    // Create a policy so the bucket sends events to CloudTrail
     s3Policy := map[string]interface{}{
         "Version": "2012-10-17",
         "Statement": []map[string]interface{}{
@@ -83,10 +84,10 @@ func ConfigureBucket(sess *session.Session, bucketName string) error {
         return err
     }
 
-    // Create S3 service
+    // Create an S3 service
     s3Svc := s3.New(sess)
 
-    // Now set the policy on the bucket
+    // Set the policy on the bucket
     _, err = s3Svc.PutBucketPolicy(&s3.PutBucketPolicyInput{
         Bucket: aws.String(bucketName),
         Policy: aws.String(string(policy)),
@@ -102,6 +103,7 @@ func ConfigureBucket(sess *session.Session, bucketName string) error {
 
 // CreateTrail creates a trail to get event activity from a bucket
 // Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
 //     trailName is the name of the trail
 //     bucketName is the name of the bucket
 // Output:
