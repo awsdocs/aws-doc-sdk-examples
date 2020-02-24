@@ -37,7 +37,7 @@ Prerequisites:
 Running the code:
   To run this code, use RSpec. For example:
 
-  rspec aws-ruby-sdk-cloudtrail-example-create-trail.rb -f d
+  rspec aws-ruby-sdk-cloudtrail-example-describe-trails.rb -f d
 
 Additional information:
   - As an AWS best practice, grant this code least privilege, or only the 
