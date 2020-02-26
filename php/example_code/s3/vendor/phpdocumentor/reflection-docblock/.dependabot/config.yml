@@ -1,0 +1,12 @@
+version: 1
+update_configs:
+  - package_manager: "php:composer"
+    directory: "/"
+    update_schedule: "weekly"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+      - match:
+          dependency_type: "production"
+          update_type: "semver:patch"

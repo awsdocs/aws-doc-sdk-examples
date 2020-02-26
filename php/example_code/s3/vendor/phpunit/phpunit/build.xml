@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="phpunit" default="setup" xmlns:if="ant:if" xmlns:unless="ant:unless">
+    <target name="setup" depends="clean,install-dependencies"/>
+    <target name="validate" depends="php-syntax-check,validate-composer-json,validate-phpunit-xsd"/>
+
+    <target name="clean" unless="clean.done" description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/artifacts"/>
+        <delete dir="${basedir}/build/tmp"/>
+        <delete dir="${basedir}/vendor"/>
+        <delete file="${basedir}/composer.lock"/>
+
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="prepare" unless="prepare.done" depends="clean" description="Prepare for build">
+        <mkdir dir="${basedir}/build/artifacts/logfiles"/>
+        <mkdir dir="${basedir}/build/tmp"/>
+
+        <property name="prepare.done" value="true"/>
+    </target>
+
+    <target name="validate-composer-json" depends="clean" unless="validate-composer-json.done" description="Validate composer.json">
+        <exec executable="${basedir}/tools/composer" failonerror="true" taskname="composer">
+            <arg value="validate"/>
+            <arg value="--strict"/>
+            <arg value="${basedir}/composer.json"/>
+        </exec>
+
+        <property name="validate-composer-json.done" value="true"/>
+    </target>
+
+    <target name="-dependencies-installed">
+        <available file="${basedir}/composer.lock" property="dependencies-installed"/>
+    </target>
+
+    <target name="install-dependencies" unless="dependencies-installed" depends="-dependencies-installed,validate-composer-json" description="Install dependencies with Composer">
+        <exec executable="${basedir}/tools/composer" taskname="composer">
+            <arg value="update"/>
+            <arg value="--no-interaction"/>
+            <arg value="--no-progress"/>
+            <arg value="--no-ansi"/>
+            <arg value="--no-suggest"/>
+        </exec>
+    </target>
+
+    <target name="check-dependencies" description="Performs check for outdated dependencies">
+        <exec executable="${basedir}/tools/composer" taskname="composer">
+            <arg value="show"/>
+            <arg value="--minor-only"/>
+            <arg value="--latest"/>
+            <arg value="--direct"/>
+            <arg value="--outdated"/>
+            <arg value="--strict"/>
+        </exec>
+    </target>
+
+    <target name="php-syntax-check" unless="php-syntax-check.done" description="Perform syntax check on PHP files">
+        <apply executable="php" failonerror="true" taskname="lint">
+            <arg value="-l"/>
+
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+
+            <fileset dir="${basedir}/tests">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+        </apply>
+
+        <property name="php-syntax-check.done" value="true"/>
+    </target>
+
+    <target name="validate-phpunit-xsd" unless="validate-phpunit-xsd.done" description="Validate phpunit.xsd">
+        <exec executable="xmllint" failonerror="true" taskname="xmllint">
+            <arg value="--noout"/>
+            <arg path="${basedir}/phpunit.xsd"/>
+        </exec>
+
+        <property name="validate-phpunit-xsd.done" value="true"/>
+    </target>
+
+    <target name="test" depends="validate,install-dependencies" description="Run tests">
+        <exec executable="${basedir}/phpunit" taskname="phpunit"/>
+    </target>
+
+    <target name="signed-phar" depends="phar" description="Create signed PHAR archive of PHPUnit and all its dependencies">
+        <exec executable="gpg" failonerror="true">
+            <arg value="--local-user"/>
+            <arg value="sb@sebastian-bergmann.de"/>
+            <arg value="--armor"/>
+            <arg value="--detach-sign"/>
+            <arg path="${basedir}/build/artifacts/phpunit-library-${version}.phar"/>
+        </exec>
+
+        <exec executable="gpg" failonerror="true">
+            <arg value="--local-user"/>
+            <arg value="sb@sebastian-bergmann.de"/>
+            <arg value="--armor"/>
+            <arg value="--detach-sign"/>
+            <arg path="${basedir}/build/artifacts/phpunit-${version}.phar"/>
+        </exec>
+    </target>
+
+    <target name="phar" depends="-phar-prepare,-phar-determine-version" description="Create PHAR archive of PHPUnit and all its dependencies">
+        <antcall target="-phar-build">
+            <param name="type" value="release"/>
+        </antcall>
+    </target>
+
+    <target name="phar-nightly" depends="-phar-prepare" description="Create PHAR archive of PHPUnit and all its dependencies (nightly)">
+        <antcall target="-phar-build">
+            <param name="type" value="nightly"/>
+        </antcall>
+    </target>
+
+    <target name="-phar-prepare" depends="clean,install-dependencies">
+        <mkdir dir="${basedir}/build/artifacts"/>
+        <mkdir dir="${basedir}/build/tmp/phar"/>
+        <mkdir dir="${basedir}/build/tmp/phar-scoped"/>
+
+        <copy file="${basedir}/phpunit.xsd" tofile="${basedir}/build/tmp/phar/phpunit.xsd"/>
+
+        <exec executable="${basedir}/build/scripts/phar-manifest.php" output="${basedir}/build/tmp/phar/manifest.txt" failonerror="true"/>
+
+        <copy file="${basedir}/vendor/phpunit/php-code-coverage/LICENSE" tofile="${basedir}/build/tmp/phar/php-code-coverage/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/php-code-coverage">
+            <fileset dir="${basedir}/vendor/phpunit/php-code-coverage/src">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpunit/php-file-iterator/LICENSE" tofile="${basedir}/build/tmp/phar/php-file-iterator/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/php-file-iterator">
+            <fileset dir="${basedir}/vendor/phpunit/php-file-iterator/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy todir="${basedir}/build/tmp/phar/php-invoker">
+            <fileset dir="${basedir}/vendor/phpunit/php-invoker/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpunit/php-text-template/LICENSE" tofile="${basedir}/build/tmp/phar/php-text-template/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/php-text-template">
+            <fileset dir="${basedir}/vendor/phpunit/php-text-template/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpunit/php-timer/LICENSE" tofile="${basedir}/build/tmp/phar/php-timer/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/php-timer">
+            <fileset dir="${basedir}/vendor/phpunit/php-timer/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpunit/php-token-stream/LICENSE" tofile="${basedir}/build/tmp/phar/php-token-stream/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/php-token-stream">
+            <fileset dir="${basedir}/vendor/phpunit/php-token-stream/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/code-unit-reverse-lookup/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-code-unit-reverse-lookup/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-code-unit-reverse-lookup">
+            <fileset dir="${basedir}/vendor/sebastian/code-unit-reverse-lookup/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/comparator/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-comparator/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-comparator">
+            <fileset dir="${basedir}/vendor/sebastian/comparator/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/diff/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-diff/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-diff">
+            <fileset dir="${basedir}/vendor/sebastian/diff/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/environment/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-environment/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-environment">
+            <fileset dir="${basedir}/vendor/sebastian/environment/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/exporter/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-exporter/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-exporter">
+            <fileset dir="${basedir}/vendor/sebastian/exporter/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/global-state/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-global-state/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-global-state">
+            <fileset dir="${basedir}/vendor/sebastian/global-state/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/object-enumerator/LICENSE" tofile="${basedir}/build/tmp/phar/object-enumerator/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-object-enumerator">
+            <fileset dir="${basedir}/vendor/sebastian/object-enumerator/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/object-reflector/LICENSE" tofile="${basedir}/build/tmp/phar/object-reflector/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-object-reflector">
+            <fileset dir="${basedir}/vendor/sebastian/object-reflector/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/recursion-context/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-recursion-context/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-recursion-context">
+            <fileset dir="${basedir}/vendor/sebastian/recursion-context/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/resource-operations/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-resource-operations/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-resource-operations">
+            <fileset dir="${basedir}/vendor/sebastian/resource-operations/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/type/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-type/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-type">
+            <fileset dir="${basedir}/vendor/sebastian/type/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/sebastian/version/LICENSE" tofile="${basedir}/build/tmp/phar/sebastian-version/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/sebastian-version">
+            <fileset dir="${basedir}/vendor/sebastian/version/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/doctrine/instantiator/LICENSE" tofile="${basedir}/build/tmp/phar/doctrine-instantiator/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/doctrine-instantiator">
+            <fileset dir="${basedir}/vendor/doctrine/instantiator/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/myclabs/deep-copy/LICENSE" tofile="${basedir}/build/tmp/phar/myclabs-deep-copy/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/myclabs-deep-copy">
+            <fileset dir="${basedir}/vendor/myclabs/deep-copy/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phar-io/manifest/LICENSE" tofile="${basedir}/build/tmp/phar/phar-io-manifest/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/phar-io-manifest">
+            <fileset dir="${basedir}/vendor/phar-io/manifest/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phar-io/version/LICENSE" tofile="${basedir}/build/tmp/phar/phar-io-version/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/phar-io-version">
+            <fileset dir="${basedir}/vendor/phar-io/version/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpdocumentor/reflection-common/LICENSE" tofile="${basedir}/build/tmp/phar/phpdocumentor-reflection-common/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/phpdocumentor-reflection-common">
+            <fileset dir="${basedir}/vendor/phpdocumentor/reflection-common/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpdocumentor/reflection-docblock/LICENSE" tofile="${basedir}/build/tmp/phar/phpdocumentor-reflection-docblock/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/phpdocumentor-reflection-docblock">
+            <fileset dir="${basedir}/vendor/phpdocumentor/reflection-docblock/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpdocumentor/type-resolver/LICENSE" tofile="${basedir}/build/tmp/phar/phpdocumentor-type-resolver/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/phpdocumentor-type-resolver">
+            <fileset dir="${basedir}/vendor/phpdocumentor/type-resolver/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/phpspec/prophecy/LICENSE" tofile="${basedir}/build/tmp/phar/phpspec-prophecy/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/phpspec-prophecy">
+            <fileset dir="${basedir}/vendor/phpspec/prophecy/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/symfony/polyfill-ctype/LICENSE" tofile="${basedir}/build/tmp/phar/symfony-polyfill-ctype/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/symfony-polyfill-ctype">
+            <fileset dir="${basedir}/vendor/symfony/polyfill-ctype">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/theseer/tokenizer/LICENSE" tofile="${basedir}/build/tmp/phar/theseer-tokenizer/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/theseer-tokenizer">
+            <fileset dir="${basedir}/vendor/theseer/tokenizer/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/webmozart/assert/LICENSE" tofile="${basedir}/build/tmp/phar/webmozart-assert/LICENSE"/>
+        <copy todir="${basedir}/build/tmp/phar/webmozart-assert">
+            <fileset dir="${basedir}/vendor/webmozart/assert/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="-phar-build" depends="-phar-determine-version">
+        <copy todir="${basedir}/build/tmp/phar/phpunit">
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php"/>
+                <include name="**/*.tpl*"/>
+            </fileset>
+        </copy>
+
+        <exec executable="${basedir}/build/scripts/phar-version.php" outputproperty="_version" failonerror="true">
+            <arg value="${version}"/>
+            <arg value="${type}"/>
+        </exec>
+
+        <exec executable="${basedir}/tools/php-scoper" taskname="php-scoper">
+            <arg value="add-prefix" />
+            <arg value="--no-ansi" />
+            <arg value="--force" />
+            <arg value="--config" />
+            <arg path="${basedir}/build/config/php-scoper.php" />
+            <arg value="--no-interaction" />
+            <arg value="--stop-on-failure" />
+            <arg value="--output-dir" />
+            <arg path="${basedir}/build/tmp/phar-scoped" />
+            <arg value="--prefix" />
+            <arg value="PHPUnit" />
+            <arg path="${basedir}/build/tmp/phar" />
+        </exec>
+
+        <copy file="${basedir}/.phpstorm.meta.php" tofile="${basedir}/build/tmp/phar-scoped/.phpstorm.meta.php"/>
+
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Util/PHP/Template/PhptTestCase.tpl" token="SebastianBergmann\CodeCoverage\CodeCoverage" value="PHPUnit\SebastianBergmann\CodeCoverage\CodeCoverage"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Util/PHP/Template/TestCaseClass.tpl" token="SebastianBergmann\CodeCoverage\CodeCoverage" value="PHPUnit\SebastianBergmann\CodeCoverage\CodeCoverage"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Util/PHP/Template/TestCaseMethod.tpl" token="SebastianBergmann\CodeCoverage\CodeCoverage" value="PHPUnit\SebastianBergmann\CodeCoverage\CodeCoverage"/>
+
+        <exec executable="${basedir}/tools/phpab" taskname="phpab" failonerror="true">
+            <arg value="--all" />
+            <arg value="--static" />
+            <arg value="--once" />
+            <arg value="--phar" />
+            <arg value="--hash" />
+            <arg value="SHA-1" />
+            <arg value="--output" />
+            <arg path="${basedir}/build/artifacts/phpunit-library-${_version}.phar" />
+            <arg value="--template" />
+            <arg path="${basedir}/build/templates/library-phar-autoload.php.in" />
+            <arg path="${basedir}/build/tmp/phar-scoped" />
+        </exec>
+
+        <copy file="${basedir}/build/templates/binary-phar-autoload.php.in" tofile="${basedir}/build/tmp/binary-phar-autoload.php"/>
+        <replace file="${basedir}/build/tmp/binary-phar-autoload.php" token="X.Y.Z" value="${_version}"/>
+
+        <exec executable="${basedir}/tools/phpab" taskname="phpab" failonerror="true">
+            <arg value="--all" />
+            <arg value="--nolower" />
+            <arg value="--static" />
+            <arg value="--phar" />
+            <arg value="--hash" />
+            <arg value="SHA-1" />
+            <arg value="--output" />
+            <arg path="${basedir}/build/artifacts/phpunit-${_version}.phar" />
+            <arg value="--template" />
+            <arg path="${basedir}/build/tmp/binary-phar-autoload.php" />
+            <arg path="${basedir}/build/tmp/phar-scoped" />
+        </exec>
+
+        <chmod file="${basedir}/build/artifacts/phpunit-${_version}.phar" perm="ugo+rx"/>
+
+        <delete dir="${basedir}/build/tmp"/>
+    </target>
+
+    <target name="-phar-determine-version">
+        <exec executable="${basedir}/build/scripts/version.php" outputproperty="version" failonerror="true" />
+    </target>
+
+    <target name="generate-project-documentation" depends="-phploc,-checkstyle,-phpunit">
+        <exec executable="${basedir}/tools/phpdox" dir="${basedir}/build/config" taskname="phpdox"/>
+    </target>
+
+    <target name="update-tools">
+        <exec executable="phive">
+            <arg value="--no-progress"/>
+            <arg value="update"/>
+        </exec>
+
+        <exec executable="${basedir}/tools/composer">
+            <arg value="self-update"/>
+        </exec>
+    </target>
+
+    <target name="generate-global-assert-wrappers" description="Generate global function wrappers for static methods in Assert and TestCase that are commonly used">
+        <exec executable="${basedir}/build/scripts/generate-global-assert-wrappers.php" taskname="generate-global-assert-wrappers" failonerror="true"/>
+        <exec executable="${basedir}/tools/php-cs-fixer" taskname="php-cs-fixer" failonerror="true">
+            <arg value="fix"/>
+            <arg path="${basedir}/src/Framework/Assert/Functions.php"/>
+        </exec>
+    </target>
+
+    <target name="-phploc" depends="prepare">
+        <exec executable="${basedir}/tools/phploc" output="/dev/null" taskname="phploc">
+            <arg value="--count-tests"/>
+            <arg value="--log-xml"/>
+            <arg path="${basedir}/build/artifacts/logfiles/phploc.xml"/>
+            <arg path="${basedir}/src"/>
+            <arg path="${basedir}/tests"/>
+        </exec>
+    </target>
+
+    <target name="-checkstyle" depends="prepare">
+        <exec executable="${basedir}/tools/php-cs-fixer" output="${basedir}/build/artifacts/logfiles/checkstyle.xml" error="/dev/null" taskname="php-cs-fixer">
+            <arg value="--diff"/>
+            <arg value="--dry-run"/>
+            <arg value="fix"/>
+            <arg value="--format=checkstyle"/>
+        </exec>
+    </target>
+
+    <target name="-phpunit" depends="setup">
+        <exec executable="${basedir}/phpunit" taskname="phpunit">
+            <arg value="--coverage-xml"/>
+            <arg path="${basedir}/build/artifacts/logfiles/coverage"/>
+            <arg value="--log-junit"/>
+            <arg path="${basedir}/build/artifacts/logfiles/junit.xml"/>
+        </exec>
+    </target>
+</project>
+

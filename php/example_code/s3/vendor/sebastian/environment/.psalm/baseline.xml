@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.8.3@389af1bfc739bfdff3f9e3dc7bd6499aee51a831">
+  <file src="src/Console.php">
+    <ForbiddenCode occurrences="2">
+      <code>\shell_exec('stty size')</code>
+      <code>\shell_exec('stty')</code>
+    </ForbiddenCode>
+  </file>
+  <file src="src/Runtime.php">
+    <InvalidReturnType occurrences="1">
+      <code>string</code>
+    </InvalidReturnType>
+    <UndefinedConstant occurrences="1">
+      <code>HHVM_VERSION</code>
+    </UndefinedConstant>
+  </file>
+</files>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phar xmlns="https://phar.io/xml/manifest/1.0">
+    <contains name="some/library" version="abc" type="library" />
+    <copyright>
+        <author name="Reiner Zufall" email="reiner@zufall.de"/>
+        <license type="BSD-3-Clause" url="https://domain.tld/LICENSE"/>
+    </copyright>
+    <requires>
+        <php version="7.0"/>
+    </requires>
+</phar>

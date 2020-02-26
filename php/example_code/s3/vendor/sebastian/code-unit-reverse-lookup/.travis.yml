@@ -1,0 +1,20 @@
+language: php
+
+matrix:
+  include:
+    - php: 7.3
+      dist: bionic
+    - php: 7.4
+      dist: bionic
+
+install:
+  - travis_retry ./tools/composer update --no-interaction --no-ansi --no-progress --no-suggest
+
+script:
+  - ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false

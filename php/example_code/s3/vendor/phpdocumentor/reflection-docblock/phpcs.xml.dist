@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="phpDocumentor">
+ <description>The coding standard for phpDocumentor.</description>
+
+    <file>src</file>
+    <file>tests/unit</file>
+    <exclude-pattern>*/tests/unit/Types/ContextFactoryTest.php</exclude-pattern>
+    <arg value="p"/>
+
+    <rule ref="phpDocumentor">
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousPrefix">
+        <exclude-pattern>*/src/*/Abstract*.php</exclude-pattern>
+    </rule>
+</ruleset>

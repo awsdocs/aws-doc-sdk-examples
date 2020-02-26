@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="manifest" default="setup">
+    <target name="setup" depends="clean,install-tools,install-dependencies"/>
+
+    <target name="clean" unless="clean.done" description="Cleanup build artifacts">
+        <delete dir="${basedir}/tools"/>
+        <delete dir="${basedir}/vendor"/>
+        <delete file="${basedir}/src/autoload.php"/>
+
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="prepare" unless="prepare.done" depends="clean" description="Prepare for build">
+        <property name="prepare.done" value="true"/>
+    </target>
+
+    <target name="install-dependencies" unless="dependencies-installed" depends="-dependencies-installed" description="Install dependencies with Composer">
+        <exec executable="composer" taskname="composer">
+            <env key="COMPOSER_DISABLE_XDEBUG_WARN" value="1"/>
+            <arg value="update"/>
+            <arg value="--no-interaction"/>
+            <arg value="--no-progress"/>
+            <arg value="--no-ansi"/>
+            <arg value="--no-suggest"/>
+            <arg value="--optimize-autoloader"/>
+            <arg value="--prefer-stable"/>
+        </exec>
+    </target>
+
+    <target name="install-tools" unless="tools-installed" depends="-tools-installed" description="Install tools with Phive">
+        <exec executable="phive" taskname="phive">
+            <arg value="install"/>
+            <arg value="--trust-gpg-keys" />
+            <arg value="4AA394086372C20A,2A8299CE842DD38C" />
+        </exec>
+    </target>
+
+    <target name="test" depends="install-tools,install-dependencies" description="Run tests">
+        <exec executable="${basedir}/tools/phpunit" taskname="phpunit"/>
+    </target>
+
+    <target name="-dependencies-installed">
+        <available file="${basedir}/composer.lock" property="dependencies-installed"/>
+    </target>
+
+    <target name="-tools-installed">
+        <available file="${basedir}/tools" property="tools-installed" type="dir"/>
+    </target>
+</project>
+

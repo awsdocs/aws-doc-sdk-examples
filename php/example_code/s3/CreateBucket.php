@@ -16,19 +16,50 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
+
+/* ////////////////////////////////////////////////////////////////////////////
+
+Purpose:
+  Creates a bucket in Amazon S3.
+
+Prerequisites:
+  - You must have an AWS account. For more information, see "How do I create
+    and activate a new Amazon Web Services account" on the AWS Premium Support
+    website.
+  - This code uses default AWS access credentials. For more information, see
+    "Credentials for the AWS SDK for PHP" in the AWS SDK for PHP Developer 
+    Guide.
+
+Running the code:
+
+  To run this code, use PHPUnit. For example:
+
+  ./vendor/bin/phpunit 
+
+Additional information:
+  - As an AWS best practice, grant this code least privilege, or only the 
+    permissions required to perform a task. For more information, see 
+    "Grant Least Privilege," in the AWS Identity and Access Management 
+    User Guide.
+  - This code has not been tested in all AWS Regions. Some AWS services are 
+    available only in specific Regions. For more information, see the 
+    "AWS Regional Table" on the AWS website.
+  - Running this code outside of the included PHPUnit test might result in 
+    charges to your AWS account.
+
+//////////////////////////////////////////////////////////////////////////// */
+
 // snippet-start:[s3.php.create_bucket.complete]
 // snippet-start:[s3.php.create_bucket.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
+
 // snippet-end:[s3.php.create_bucket.import]
 /**
  * Create an Amazon S3 bucket.
- *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+*/
 // snippet-start:[s3.php.create_bucket.main]
 class CreateBucketExample
 {

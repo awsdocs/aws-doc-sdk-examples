@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phar xmlns="https://phar.io/xml/manifest/1.0">
+    <contains name="testvendor/testname" version="1.0.0" type="custom"/>
+    <copyright>
+        <license type="bsd-3" url="https://some/uri"/>
+    </copyright>
+    <requires>
+        <php version="*"/>
+    </requires>
+</phar>

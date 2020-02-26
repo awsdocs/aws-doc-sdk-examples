@@ -1,0 +1,17 @@
+[{
+    "description": "Multiple wildcards",
+    "given":
+        {"foo": [{"bar": "one"}, {"bar": "two"}, {"bar": "three"}, {"notbar": "four"}]},
+     "cases": [
+         {
+            "name": "wildcard_with_field_match",
+            "expression": "foo[*].bar",
+            "result": ["one", "two", "three"]
+         },
+         {
+            "name": "wildcard_with_field_match2",
+            "expression": "foo[*].notbar",
+            "result": ["four"]
+         }
+     ]
+}]

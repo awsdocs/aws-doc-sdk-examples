@@ -1,0 +1,22 @@
+[{
+    "description": "Multiple wildcards in an expression",
+    "given": {
+        "foo": [
+            {"bar": [{"kind": "basic"}, {"kind": "intermediate"}]},
+            {"bar": [{"kind": "advanced"}, {"kind": "expert"}]}
+        ]
+
+     },
+     "cases": [
+         {
+            "name": "multi_wildcard_field",
+            "expression": "foo[*].bar[*].kind",
+            "result": [["basic", "intermediate"], ["advanced", "expert"]]
+         },
+         {
+            "name": "wildcard_with_index",
+            "expression": "foo[*].bar[0].kind",
+            "result": ["basic", "advanced"]
+         }
+     ]
+}]

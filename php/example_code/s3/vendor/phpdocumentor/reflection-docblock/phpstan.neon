@@ -1,0 +1,8 @@
+includes:
+    - /composer/vendor/phpstan/phpstan-mockery/extension.neon
+    - /composer/vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
+parameters:
+    ignoreErrors:
+        # false positive
+        - '#Method phpDocumentor\Reflection\DocBlock\Tags\Method::filterArguments() should return array<array> but returns array<array|string>#'

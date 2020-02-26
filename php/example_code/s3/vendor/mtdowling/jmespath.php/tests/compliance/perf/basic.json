@@ -1,0 +1,27 @@
+[{
+    "description": "Basic minimal case",
+    "given":
+        {"foo": {"bar": {"baz": "correct"}}},
+     "cases": [
+         {
+            "name": "single_expression",
+            "expression": "foo",
+            "result": {"bar": {"baz": "correct"}}
+         },
+         {
+            "name": "single_dot_expression",
+            "expression": "foo.bar",
+            "result": {"baz": "correct"}
+         },
+         {
+            "name": "double_dot_expression",
+            "expression": "foo.bar.baz",
+            "result": "correct"
+         },
+         {
+            "name": "dot_no_match",
+            "expression": "foo.bar.baz.bad",
+            "result": null
+         }
+     ]
+}]
