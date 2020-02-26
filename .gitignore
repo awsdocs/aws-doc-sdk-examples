@@ -22,4 +22,4 @@ cpp/.vs/
 __pycache__
 venv
 composer.*
-/vendor
+vendor/

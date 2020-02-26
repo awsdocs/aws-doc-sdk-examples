@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -32,9 +32,10 @@ Prerequisites:
 
 Running the code:
 
-  To run this code, use PHPUnit. For example:
+  To run this code, use PHPUnit along with the phpunit.xml file in this folder.
+  For example:
 
-  ./vendor/bin/phpunit 
+  ./vendor/bin/phpunit --testsuite s3
 
 Additional information:
   - As an AWS best practice, grant this code least privilege, or only the 
@@ -57,9 +58,6 @@ use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 
 // snippet-end:[s3.php.create_bucket.import]
-/**
- * Create an Amazon S3 bucket.
-*/
 // snippet-start:[s3.php.create_bucket.main]
 class CreateBucketExample
 {
@@ -70,6 +68,17 @@ class CreateBucketExample
         $this->s3Client = $s3Client;
     }
 
+    /* ////////////////////////////////////////////////////////////////////////
+
+    Purpose: Creates a bucket in Amazon S3.
+
+    Inputs:
+
+      - $bucketName: The name of the bucket to create.
+
+    Returns: true if the bucket was created; otherwise, false.
+
+    //////////////////////////////////////////////////////////////////////// */
     public function createBucket($bucketName)
     {
         try {
@@ -91,7 +100,6 @@ class CreateBucketExample
 }
 // snippet-end:[s3.php.create_bucket.main] 
 // snippet-end:[s3.php.create_bucket.complete]
-
 use PHPUnit\Framework\TestCase;
 use Aws\MockHandler;
 use Aws\Result;
@@ -101,9 +109,8 @@ class CreateBucketExampleTest extends TestCase
 {
     const BUCKET_NAME = 'my-bucket';
     const REGION = 'us-east-1';
-    private $mock, $s3ClientMock, $createBucketExample;
-    
-    protected function setUp(): void
+
+    public function testCreatesABucket()
     {
         $mock = new MockHandler();
         $mock->append(new Result(array(true)));
@@ -117,10 +124,7 @@ class CreateBucketExampleTest extends TestCase
 
         $this->createBucketExample = new CreateBucketExample(
             $this->s3ClientMock);
-    }
 
-    public function testCreatesABucket()
-    {
         $this->assertEquals($this->createBucketExample->createBucket(
             self::BUCKET_NAME), true);
     }
@@ -134,6 +138,6 @@ class CreateBucketExampleTest extends TestCase
 // snippet-keyword:[Amazon S3]
 // snippet-service:[s3]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-20]
+// snippet-sourcedate:[2020-02-26]
 // snippet-sourceauthor:[pccornel (AWS)]
 
