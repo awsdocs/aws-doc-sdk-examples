@@ -1,7 +1,0 @@
-/.docker    export-ignore
-/build      export-ignore
-/tools      export-ignore
-/tools/*    binary
-
-*.php diff=php
-

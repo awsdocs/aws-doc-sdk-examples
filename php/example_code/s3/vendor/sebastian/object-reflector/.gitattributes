@@ -1,4 +1,0 @@
-/tools      export-ignore
-/tools/*    binary
-
-*.php diff=php
