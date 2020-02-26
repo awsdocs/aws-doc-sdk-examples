@@ -1,0 +1,9 @@
+---
+created: 2020-02-26
+files:
+  - path: CustomClient/CustomHTTPClient.go
+    apis:
+      - service: s3
+        operations:
+          - GetObject
+          - GetObjectWithContext
