@@ -19,7 +19,7 @@ export CLASSPATH=target/sdk-s3-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-
 
 Where ``/path/to/aws-java-sdk/<jar-file-name>.jar`` is the path to where you extracted or built the AWS Java SDK jar.
 
-Once you set the ``CLASSPATH``, you can run a particular example like this::
+Once you set the ``CLASSPATH``, you can run a particular example like this:
 
 	java com.example.s3.S3BucketOps
 
