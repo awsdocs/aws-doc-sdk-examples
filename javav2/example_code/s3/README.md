@@ -39,7 +39,7 @@ This will run the `S3BucketOps <example_code/s3/src/main/java/com/example/s3/S3B
 
 example (assuming that you've built the examples first!).
 
-If the example requires arguments, pass the argument list in quotes::
+If the example requires arguments, pass the argument list in quotes:
 
 	./run_example.sh S3BucketOps "<arg1> <arg2> <arg3>"
 
