@@ -24,20 +24,20 @@ function usage {
     echo ""
     echo "  -v  Verbose. Shows diagnostic messages about the tests as they run."
     echo "  -i  Interactive. Pauses the script between steps so you can browse"
-    echo "      results in the AWS Management Console as they occur."
+    echo "      the results in the AWS Management Console as they occur."
     echo ""
     echo "IMPORTANT: Running this test script creates an Amazon EC2 instance in"
-    echo "   in your Amazon account that can incur charges. It is your"
-    echo "   responsibility to ensure that no resources are left in your"
-    echo "   account after the script completes. If an error occurs during the"
-    echo "   operation of the script, then this instance can remain. You must"
-    echo "   check for the instance and delete it manually to avoid charges."
+    echo "   your Amazon account that can incur charges. It is your responsibility"
+    echo "   to ensure that no resources are left in your account after the script"
+    echo "   completes. If an error occurs during the operation of the script,this"
+    echo "   instance can remain. Check for the instance and delete it manually to"
+    echo "   avoid charges."
 }
 
 # Set default values.
 INTERACTIVE=false
 
-# Retrieve the calling parameters
+# Retrieve the calling parameters.
 while getopts "ivh" OPTION; do
     case "${OPTION}"
     in
@@ -65,7 +65,7 @@ if [ "$INTERACTIVE" == "true" ]; then iecho "Tests running in interactive mode."
 
 iecho ""
 iecho "***************SETUP STEPS******************"
-    # First, get the AMI ID for the latest AMI that runs Amazon Linix 2.
+    # First, get the AMI ID for the one running the latest Amazon Linix 2.
     iecho -n "Retrieving the AMI ID for the latest Amazon Linux 2 AMI..."
     AMI_ID=$(aws ec2 describe-images \
                 --owners 'amazon' \
@@ -74,7 +74,7 @@ iecho "***************SETUP STEPS******************"
                 --output 'text')
     if [ ${?} -ne 0 ]; then
         echo "ERROR: Unable to retrieve latest Amazon Linux 2 AMI ID: $AMI_ID"
-        echo "Tests cancelled."
+        echo "Tests canceled."
         return 1
     else
         iecho "retrieved $AMI_ID."
@@ -90,7 +90,7 @@ iecho "***************SETUP STEPS******************"
                         --output text)
     if [ ${?} -ne 0 ]; then
         echo "ERROR: Unable to launch EC2 instance: $EC2_INSTANCE_ID"
-        echo "Tests cancelled."
+        echo "Tests canceled."
         return 1
     else
         iecho "launched. ID:$EC2_INSTANCE_ID"
@@ -108,23 +108,23 @@ iecho ""
 run_test "1. Missing mandatory -i parameter" \
          "change_ec2_instance_type" \
          1 \
-         "ERROR: You must provide an instance id"
+         "ERROR: You must provide an instance id."
 
 run_test "2. Missing mandatory -t parameter" \
          "change_ec2_instance_type -i abc" \
          1 \
-         "ERROR: You must provide an instance type"
+         "ERROR: You must provide an instance type."
 
 run_test "3. Using an instance ID that doesn't exist" \
          "change_ec2_instance_type -i abc -t t2.micro" \
          1 \
-         "ERROR: I can't find the instance"
+         "ERROR: I can't find the instance."
 
-# Test changing to same type - we can do this while the instance is starting up.
+# Test changing to the same type. We can do this while the instance is starting up.
 run_test "4. Trying to change to same type" \
          "change_ec2_instance_type -v -i $EC2_INSTANCE_ID -t t2.micro" \
          1 \
-         "ERROR: Can't change instance type to the same type"
+         "ERROR: Can't change instance type to the same type."
 
 iecho -n "Waiting for instance $EC2_INSTANCE_ID to reach running state..."
 RESPONSE=$(aws ec2 wait instance-running --instance-id "$EC2_INSTANCE_ID")
@@ -134,8 +134,8 @@ if [[ ${?} -ne 0 ]]; then
 fi 
 iecho "running."
 
-# Test changing to t2.micro without -r : should still be in stopped state
-run_test "5. Change to type t2.nano and do not restart" \
+# Test changing to t2.micro without -r : should still be in stopped state.
+run_test "5. Changing to type t2.nano without restart" \
          "change_ec2_instance_type -f -i $EC2_INSTANCE_ID -t t2.nano" \
          0
 
@@ -148,8 +148,8 @@ run_test "5. Change to type t2.nano and do not restart" \
              test_failed "Unable to validate state. Should be stopped. Found $EXISTING_STATE."
          fi
 
-# Test changing back to t2.micro with -r : should now be in running state
-run_test "6. Change to type t2.micro and restart" \
+# Test changing back to t2.micro with -r. Should now be in running state
+run_test "6. Changing to type t2.micro with restart" \
          "change_ec2_instance_type -f -r -i $EC2_INSTANCE_ID -t t2.micro" \
          0
 
@@ -165,16 +165,16 @@ run_test "6. Change to type t2.micro and restart" \
 iecho ""
 iecho "*************TEAR DOWN STEPS****************"
     iecho -n "Requesting termination of instance $EC2_INSTANCE_ID..."
-# Delete and terminate the instance
+    # Delete and terminate the instance.
     RESPONSE=$(aws ec2 terminate-instances \
                         --instance-ids "$EC2_INSTANCE_ID"
               )
     if [ ${?} -ne 0 ]; then
         errecho "**** ERROR ****"
         errecho "AWS reported a failure to terminate EC2 instance: $EC2_INSTANCE_ID"
-        errecho "You must terminate the instance yourself using the AWS Management"
-        errecho "Console or CLI commands. Failure to terminate the instance can" 
-        errecho "result in charges to your AWS account.\n"
+        errecho "You must terminate the instance using the AWS Management Console"
+        errecho "or CLI commands. Failure to terminate the instance can result in"
+        errecho "charges to your AWS account.\n"
     else
         iecho "request accepted."
     fi
