@@ -21,7 +21,7 @@ files:
       - service: s3
         operations: 
         - DeleteBucketWebsite 
- - path: Gsrc/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java
+ - path: src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java
    apis: 
       - service: s3
         operations: 
