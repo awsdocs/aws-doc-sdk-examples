@@ -46,12 +46,7 @@ files:
       - service: s3
         operations: 
         - GetObjectTagging
- - path: src/main/java/com/example/s3/ListObjects.java
-   apis: 
-      - service: s3
-        operations: 
-        - ListObjects
- - path: src/main/java/com/example/s3/S3AsyncOps.java
+  - path: src/main/java/com/example/s3/S3AsyncOps.java
    apis: 
       - service: s3
         operations: 
