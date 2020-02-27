@@ -50,57 +50,47 @@ files:
    apis: 
       - service: s3
         operations: 
-        - listObjects
-        - contents           
+        - ListObjects
  - path: src/main/java/com/example/s3/S3AsyncOps.java
    apis: 
       - service: s3
         operations: 
-        - putObject
-        - fromFile
-        - whenComplete
+        - PutObject
  - path: src/main/java/com/example/s3/S3AsyncStreamOps.java
    apis: 
       - service: s3
         operations: 
-        - getObject
- 
+        - GetObject
+      
  - path: src/main/java/com/example/s3/S3BucketDeletion.java
    apis: 
       - service: s3
         operations: 
-        - listObjectsV2
-        - deleteBucket
+        - DeleteBucket
  - path: src/main/java/com/example/s3/S3BucketOps.java
    apis: 
       - service: s3
         operations: 
-        - isTruncated
-        - key
-        - createBucket
+        - CreateBucket
  - path: src/main/java/com/example/s3/S3ObjectOperations.java
    apis: 
       - service: s3
         operations: 
-        - listObjectsV2
-        - contents
-        - nextContinuationToken
-        - listObjectsV2Paginator
-        - deleteObject
-        - createMultipartUpload
-        - uploadPart
+        - DeleteObject
+        - CompleteMultipartUpload
+        - UploadPart
  - path: src/main/java/com/example/s3/SetAcl.java
    apis: 
       - service: s3
         operations: 
-        - putBucketAcl
+        - PutBucketAcl
  - path: src/main/java/com/example/s3/SetBucketPolicy.java
    apis: 
       - service: s3
         operations: 
-        - putBucketPolicy
+        - PutBucketPolicy
  - path: src/main/java/com/example/s3/SetWebsiteConfiguration.java
    apis: 
       - service: s3
         operations: 
-        - putBucketWebsite
+        - PutBucketWebsite
