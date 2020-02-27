@@ -6,10 +6,10 @@ files:
     apis:
       - service: s3
         operations:
-          - HeadBucket
-          - CreateBucket
-          - PutObject
-          - CopyObject
-          - ListObjects
-          - DeleteObject
-          - DeleteBucket
+          - head-bucket
+          - create-bucket
+          - put-object
+          - copy-object
+          - list-objects
+          - delete-object
+          - delete-bucket

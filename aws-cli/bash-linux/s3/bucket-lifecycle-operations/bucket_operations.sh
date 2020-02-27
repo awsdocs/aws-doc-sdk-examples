@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 ###############################################################################
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -12,10 +11,10 @@
 # specific language governing permissions and limitations under the License.
 ###############################################################################
 #// snippet-start:[s3.bash.bucket-operations.complete]
-
+source ./awsdocs_general.sh
 
 ###############################################################################
-# function bucket-exists
+# function bucket_exists
 #
 # This function checks to see if the specified bucket already exists.
 #
@@ -26,7 +25,7 @@
 #       0 if the bucket already exists
 #       1 if the bucket doesn't exist
 ###############################################################################
-function bucket-exists {
+function bucket_exists {
     be_bucketname=$1
 
     # Check whether the bucket already exists. 
@@ -36,7 +35,7 @@ function bucket-exists {
         --bucket $be_bucketname \
         >/dev/null 2>&1
 
-    if [[ $? -eq 0 ]]; then
+    if [[ ${?} -eq 0 ]]; then
         return 0        # 0 in Bash script means true.
     else
         return 1        # 1 in Bash script means false.
@@ -49,8 +48,9 @@ function bucket-exists {
 # it already exists.
 # 
 # Parameters:
-#       $1 - The name of the bucket to create
-#       $2 - The AWS Region in which to create the bucket
+#       -b bucket_name  -- The name of the bucket to create
+#       -r region_code  -- The code for an AWS Region in which to 
+#                          create the bucket
 # 
 # Returns:
 #       The URL of the bucket that was created.
@@ -58,36 +58,72 @@ function bucket-exists {
 #       0 if successful
 #       1 if it fails
 ###############################################################################
-function create-bucket {
-    cb_bucketname=$1
-    cb_regionname=$2
+function create_bucket {
+    local BUCKET_NAME REGION_CODE RESPONSE
+    local OPTION OPTIND OPTARG # Required to use getopts command in a function 
 
+    function usage {
+        echo "function create_bucket"
+        echo "Creates an Amazon S3 bucket. You must supply both of the following parameters:"
+        echo "  -b bucket_name    The name of the bucket. It must be globally unique."
+        echo "  -r region_code    The code for an AWS Region in which the bucket is created."
+        echo ""
+    }
+
+    # Retrieve the calling parameters
+    while getopts "b:r:" OPTION; do
+        case "${OPTION}"
+        in
+            b)  BUCKET_NAME="${OPTARG}";;
+            r)  REGION_CODE="${OPTARG}";;
+            h)  usage; return 0;;
+            \?) echo "Invalid parameter"; usage; return 1;; 
+        esac
+    done
+
+    if [[ -z "$BUCKET_NAME" ]]; then
+        errecho "ERROR: You must provide a bucket name with the -b parameter."
+        usage
+        return 1
+    fi
+
+    if [[ -z "$REGION_CODE" ]]; then
+        errecho "ERROR: You must provide an AWS Region code with the -r parameter."
+        usage
+        return 1
+    fi
+
+    iecho "Parameters:\n"
+    iecho "    Bucket name:   $BUCKET_NAME"
+    iecho "    Region code:   $REGION_CODE"
+    iecho ""
+    
+    
     # If the bucket already exists, we don't want to try to create it.
-    if (bucket-exists $cb_bucketname); then 
-        echo "ERROR: A bucket with the generated name already exists. Try again."
-        exit 1
+    if (bucket_exists $BUCKET_NAME); then 
+        errecho "ERROR: A bucket with that name already exists. Try again."
+        return 1
     fi
 
     # The bucket doesn't exist, so try to create it.
     
-    aws s3api create-bucket \
-        --bucket $cb_bucketname \
-        --create-bucket-configuration LocationConstraint=$cb_regionname \
-        --output text 
+    RESPONSE=$(aws s3api create-bucket \
+                --bucket $BUCKET_NAME \
+                --create-bucket-configuration LocationConstraint=$REGION_CODE)
 
-    if [[ $? -ne 0 ]]; then
-        echo "ERROR: AWS reports create-bucket operation failed: $? - quitting."
+    if [[ ${?} -ne 0 ]]; then
+        errecho "ERROR: AWS reports create-bucket operation failed.\n$RESPONSE"
         return 1
     fi
 }
 
 ###############################################################################
-# function copy-file-to-bucket
+# function copy_file_to_bucket
 #
 # This function creates a file in the specified bucket. 
 #
 # Parameters:
-#       $1 - The name of the bucket to copy the file to
+#       -b bucket_name$1 - The name of the bucket to copy the file to
 #       $2 - The path and file name of the local file to copy to the bucket
 #       $3 - The key (name) to call the copy of the file in the bucket
 # 
@@ -95,25 +131,25 @@ function create-bucket {
 #       0 if successful
 #       1 if it fails
 ###############################################################################
-function copy-file-to-bucket {
+function copy_file_to_bucket {
     cftb_bucketname=$1
     cftb_sourcefile=$2
     cftb_destfilename=$3
+    local RESPONSE
+    
+    RESPONSE=$(aws s3api put-object \
+                --bucket $cftb_bucketname \
+                --body $cftb_sourcefile \
+                --key $cftb_destfilename)
 
-    aws s3api put-object \
-        --bucket $cftb_bucketname \
-        --body $cftb_sourcefile \
-        --key $cftb_destfilename \
-         >/dev/null
-
-    if [[ $? -ne 0 ]]; then
-        echo "ERROR: AWS reports put-object operation failed: $? - quitting."
+    if [[ ${?} -ne 0 ]]; then
+        errecho "ERROR: AWS reports put-object operation failed.\n$RESPONSE"
         return 1
     fi
 }
 
 ###############################################################################
-# function copy-item-in-bucket
+# function copy_item_in_bucket
 #
 # This function creates a copy of the specified file in the same bucket.
 #
@@ -126,25 +162,25 @@ function copy-file-to-bucket {
 #       0 if successful
 #       1 if it fails
 ###############################################################################
-function copy-item-in-bucket {
+function copy_item_in_bucket {
     ciib_bucketname=$1
     ciib_sourcefile=$2
     ciib_destfile=$3
-
-    aws s3api copy-object \
-        --bucket $ciib_bucketname \
-        --copy-source $ciib_bucketname/$ciib_sourcefile \
-        --key $ciib_destfile \
-        > /dev/null
+    local RESPONSE
+    
+    RESPONSE=$(aws s3api copy-object \
+                --bucket $ciib_bucketname \
+                --copy-source $ciib_bucketname/$ciib_sourcefile \
+                --key $ciib_destfile)
 
     if [[ $? -ne 0 ]]; then
-        echo "ERROR:  AWS reports s3api copy-object operation failed: $? - quitting."
+        errecho "ERROR:  AWS reports s3api copy-object operation failed.\n$RESPONSE"
         return 1
     fi
 }
 
 ###############################################################################
-# function list-items-in-bucket
+# function list_items_in_bucket
 #
 # This function displays a list of the files in the bucket with each file's 
 # size. The function uses the --query parameter to retrieve only the Key and 
@@ -159,22 +195,25 @@ function copy-item-in-bucket {
 #       0 if successful
 #       1 if it fails
 ###############################################################################
-function list-items-in-bucket {
+function list_items_in_bucket {
     liib_bucketname=$1
+    local RESPONSE
 
-    aws s3api list-objects \
-        --bucket $liib_bucketname \
-        --output text \
-        --query 'Contents[].{Key: Key, Size: Size}'
-  
-    if [[ $? -ne 0 ]]; then
-        echo "ERROR: AWS reports s3api list-objects operation failed: $? - quitting."
+    RESPONSE=$(aws s3api list-objects \
+                --bucket $liib_bucketname \
+                --output text \
+                --query 'Contents[].{Key: Key, Size: Size}' )
+
+    if [[ ${?} -eq 0 ]]; then
+        echo "$RESPONSE"
+    else
+        errecho "ERROR: AWS reports s3api list-objects operation failed.\n$RESPONSE"
         return 1
     fi
 }
 
 ###############################################################################
-# function delete-item-in-bucket
+# function delete_item_in_bucket
 #
 # This function deletes the specified file from the specified bucket. 
 #
@@ -186,23 +225,23 @@ function list-items-in-bucket {
 #       0 if successful
 #       1 if it fails
 ###############################################################################
-function delete-item-in-bucket {
+function delete_item_in_bucket {
     diib_bucketname=$1
     diib_key=$2
-
-    aws s3api delete-object \
-        --bucket $diib_bucketname \
-        --key $diib_key \
-        > /dev/null
+    local RESPONSE
+    
+    RESPONSE=$(aws s3api delete-object \
+                --bucket $diib_bucketname \
+                --key $diib_key)
 
     if [[ $? -ne 0 ]]; then
-        echo "ERROR:  AWS reports s3api delete-object operation failed: $? - quitting."
+        errecho "ERROR:  AWS reports s3api delete-object operation failed.\n$RESPONSE"
         return 1
     fi
 }
 
 ###############################################################################
-# function delete-bucket
+# function delete_bucket
 #
 # This function deletes the specified bucket.
 #
@@ -213,15 +252,15 @@ function delete-item-in-bucket {
 #       0 if successful
 #       1 if it fails
 ###############################################################################
- function delete-bucket {
+ function delete_bucket {
     db_bucketname=$1
+    local RESPONSE
 
-    aws s3api delete-bucket \
-        --bucket $db_bucketname \
-        >/dev/null
+    RESPONSE=$(aws s3api delete-bucket \
+                --bucket $db_bucketname)
 
     if [[ $? -ne 0 ]]; then
-        echo "ERROR: AWS reports s3api delete-bucket failed: $? - quitting."
+        errecho "ERROR: AWS reports s3api delete-bucket failed.\n$RESPONSE"
         return 1
     fi
 }
