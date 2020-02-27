@@ -55,11 +55,9 @@ You can test the Amazon S3 Java code examples by running a test file named **Ama
 
 Before running the Amazon S3 tests, you must define values in the **config.properties** file located in the resources folder. This file contains values that are required to execute the JUnit tests. For example, you define an object key required for various tests. If you do not define all values, the JUnit tests fail.
 
-After you define the values, you can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that test 3 passed and successfully placed an object into an Amazon S3 bucket:
+After you define the values, you can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that test 3 passed:
 
-**Running Amazon S3 Test 3**
-
-**The file book.pdf has been successfully placed into buckettestfeb7**
+**Test 3 passed**
 
 **WARNING** : _Running these JUnit tests manipulate real Amazon S3 resources and may incur charges on your account._
 
