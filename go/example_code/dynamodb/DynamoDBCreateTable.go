@@ -70,7 +70,7 @@ func main() {
                 KeyType:       aws.String("HASH"),
             },
             {
-                AttributeName: aws.String("Namee"),
+                AttributeName: aws.String("Title"),
                 KeyType:       aws.String("RANGE"),
             },
         },
