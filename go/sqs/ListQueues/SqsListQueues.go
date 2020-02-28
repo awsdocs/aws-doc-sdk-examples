@@ -1,15 +1,15 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourceauthor:[AWS]
-// snippet-sourcedescription:[Receives an SQS message.]
+// snippet-sourceauthor:[Doug-AWS]
+// snippet-sourcedescription:[Lists your SQS queues.]
 // snippet-keyword:[Amazon Simple Queue Service]
 // snippet-keyword:[Amazon SQS]
-// snippet-keyword:[ReceiveMessage function]
+// snippet-keyword:[ListQueues function]
 // snippet-keyword:[Go]
 // snippet-sourcesyntax:[go]
 // snippet-service:[sqs]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
+// snippet-sourcedate:[2018-03-16]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -23,7 +23,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start:[sqs.go.receive_message]
+
 package main
 
 import (
@@ -35,38 +35,31 @@ import (
 )
 
 // Usage:
-// go run sqs_receive_message.go
+// go run sqs_listqueues.go
 func main() {
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+    // Initialize a session in us-west-2 that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    sess, err := session.NewSession(&aws.Config{
+        Region: aws.String("us-west-2")},
+    )
 
+    // Create a SQS service client.
     svc := sqs.New(sess)
 
-    // URL to our queue
-    qURL := "QueueURL"
-
-    result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
-        AttributeNames: []*string{
-            aws.String(sqs.MessageSystemAttributeNameSentTimestamp),
-        },
-        MessageAttributeNames: []*string{
-            aws.String(sqs.QueueAttributeNameAll),
-        },
-        QueueUrl:            &qURL,
-        MaxNumberOfMessages: aws.Int64(10),
-        VisibilityTimeout:   aws.Int64(60), // 60 seconds
-        WaitTimeSeconds:     aws.Int64(0),
-    })
+    // List the queues available in a given region.
+    result, err := svc.ListQueues(nil)
     if err != nil {
         fmt.Println("Error", err)
         return
     }
-    if len(result.Messages) == 0 {
-        fmt.Println("Received no messages")
-        return
-    }
 
-    fmt.Printf("Success: %+v\n", result.Messages)
+    fmt.Println("Success")
+    // As these are pointers, printing them out directly would not be useful.
+    for i, urls := range result.QueueUrls {
+        // Avoid dereferencing a nil pointer.
+        if urls == nil {
+            continue
+        }
+        fmt.Printf("%d: %s\n", i, *urls)
+    }
 }
-// snippet-end:[sqs.go.receive_message]
