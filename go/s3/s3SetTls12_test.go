@@ -18,10 +18,14 @@ package main
 import (
 	"crypto/tls"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
+	"reflect"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -40,7 +44,7 @@ type Config struct {
 	Bucket    string  `json:"Bucket"`
 	Item      string  `json:"Item"`
 	GoVersion float32 `json:"GoVersion"`
-	Debug     bool    `json:"Debug"`
+	Test      bool    `json:"Test"`
 }
 
 var configFileName = "config.json"
@@ -60,13 +64,10 @@ func populateConfiguration() error {
 		return err
 	}
 
-	if globalConfig.Debug {
-		log.Println("Debugging    enabled")
-		log.Println("Bucket name: " + globalConfig.Bucket)
-		log.Println("Item name:   " + globalConfig.Item)
-		log.Println("Region:      " + globalConfig.Region)
-		log.Println("GoVersion:   " + fmt.Sprintf("%f", globalConfig.GoVersion))
-	}
+	log.Println("Bucket name: " + globalConfig.Bucket)
+	log.Println("Item name:   " + globalConfig.Item)
+	log.Println("Region:      " + globalConfig.Region)
+	log.Println("GoVersion:   " + fmt.Sprintf("%f", globalConfig.GoVersion))
 
 	return nil
 }
@@ -120,93 +121,119 @@ func deleteBucket(sess *session.Session, bucketName *string) error {
 	})
 }
 
-func TestBucketCrudOps(t *testing.T) {
+func tlsVersion() (int, error) {
+	// Create fake dialer to localhost so we can get conn
+	c, err := net.Dial("tcp", "127.0.0.1:666")
+	if err != nil {
+		return 0, err
+	}
+
+	cv := reflect.ValueOf(c)
+	switch ce := cv.Elem(); ce.Kind() {
+	case reflect.Struct:
+		fe := ce.FieldByName("vers")
+		return int(fe.Uint()), nil
+	}
+
+	return 0, errors.New("something wrong")
+}
+
+func TestTLSVersion(t *testing.T) {
 	err := populateConfiguration()
 	if err != nil {
 		log.Fatal("Could not get configuration values")
 	}
 
-	bucketName := globalConfig.Bucket
-	itemName := globalConfig.Item
-	region := globalConfig.Region
-
-	created := false
-
-	if region == "" {
-		region = "us-west-2"
-	}
-
-	// snippet-start:[s3.go.set_tls_12_transport]
+	// Create HTTP client with minimum TLS version
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{
 			MinVersion: tls.VersionTLS12,
 		},
 	}
-	// snippet-end:[s3.go.set_tls_12_transport]
 
 	minGo := (float32)(1.12)
 
 	if globalConfig.GoVersion > minGo {
-		// snippet-start:[s3.go.set_tls_12_cfg_113]
 		tr.ForceAttemptHTTP2 = true
-		// snippet-end:[s3.go.set_tls_12_cfg_113]
-		log.Println("Created 1.13 config")
+		t.Log("Created TLS 1.2 for Go version 1.13")
 	} else {
-		// snippet-start:[s3.go.set_tls_12_cfg_112]
 		err := http2.ConfigureTransport(tr)
-		// snippet-end:[s3.go.set_tls_12_cfg_112]
-		log.Println("Created 1.12 config")
+		t.Log("Created TLS 1.12 for Go version 1.12 (or previous)")
 		if err != nil {
-			log.Fatalf("Failed to configure HTTP transport, %v", err)
+			t.Fatal(err)
 		}
 	}
 
-	// snippet-start:[s3.go.set_tls_12_session]
-	httpClient := http.Client{Transport: tr}
+	// Create an HTTP client with the configured transport.
+	client := http.Client{Transport: tr}
 
+	// Create the SDK's session with the custom HTTP client.
 	sess, err := session.NewSession(&aws.Config{
-		HTTPClient: &httpClient,
-		Region:     &region,
+		HTTPClient: &client,
 	})
-	// snippet-end:[s3.go.set_tls_12_session]
-	log.Println("Created HTTP client")
 	if err != nil {
-		log.Fatalf("Failed to load session, %v", err)
+		t.Fatal(err)
 	}
 
-	if bucketName == "" {
-		if itemName == "" {
-			itemName = "testitem"
+	if globalConfig.Test {
+		version, err := tlsVersion() // *tls.Conn)
+		if err != nil {
+			t.Log("Got error calling tlsVersion:")
+			t.Fatal(err)
+		}
+
+		t.Log("Your TLS version using reflection: " + strconv.Itoa(version))
+	} else {
+		// snippet-start:[s3.go.get_tls_version_call]
+		version := GetTLSVersion(tr)
+
+		t.Log("Your TLS version: " + version)
+		// snippet-end:[s3.go.get_tls_version_call]
+	}
+
+	created := false
+
+	// Set region, bucket, item values if not supplied
+	defaultRegion := "us-west-2"
+	if globalConfig.Region == "" {
+		t.Log("Setting region to " + defaultRegion)
+		globalConfig.Region = defaultRegion
+	}
+
+	if globalConfig.Bucket == "" {
+		if globalConfig.Item == "" {
+			globalConfig.Item = "testitem"
 		}
 
 		id := uuid.New()
-		bucketName = "testbucket-" + id.String()
+		globalConfig.Bucket = "testbucket-" + id.String()
 
-		log.Println("Using bucket name: " + bucketName)
-
-		// Now create the bucket and item
-		err := createBucketAndItem(sess, &bucketName, &itemName)
+		// Create the bucket and item
+		err := createBucketAndItem(sess, &globalConfig.Bucket, &globalConfig.Item)
 		if err != nil {
-			log.Fatalf("Could not create bucket %v", bucketName)
+			t.Fatal(err)
 		}
 
+		t.Log("Created bucket: " + globalConfig.Bucket)
+		t.Log("With item :     " + globalConfig.Item)
+
 		created = true
-	} else if itemName == "" {
+	} else if globalConfig.Item == "" {
 		fmt.Println("You must supply an item name with the bucket name")
 		return
 	}
 
-	err = ConfirmBucketItemExists(sess, &bucketName, &itemName)
+	err = ConfirmBucketItemExists(sess, &globalConfig.Bucket, &globalConfig.Item)
 	if err != nil {
-		log.Fatalf("Failed to head object, %v", err)
+		t.Fatal(err)
 	}
 
 	if created {
-		err := deleteBucket(sess, &bucketName)
+		err := deleteBucket(sess, &globalConfig.Bucket)
 		if err != nil {
-			log.Fatalf("Could not delete bucket %v", bucketName)
+			t.Fatal(err)
 		}
 	}
 
-	log.Println("Bucket " + bucketName + " and item " + itemName + " can be accessed")
+	t.Log("Bucket " + globalConfig.Bucket + " and item " + globalConfig.Item + " can be accessed")
 }

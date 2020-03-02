@@ -27,6 +27,25 @@ import (
 	"golang.org/x/net/http2"
 )
 
+// GetTLSVersion gets the version of TLS you have configured
+// snippet-start:[s3.go.get_tls_version]
+func GetTLSVersion(tr *http.Transport) string {
+	switch tr.TLSClientConfig.MinVersion {
+	case tls.VersionTLS10:
+		return "TLS 1.0"
+	case tls.VersionTLS11:
+		return "TLS 1.1"
+	case tls.VersionTLS12:
+		return "TLS 1.2"
+	case tls.VersionTLS13:
+		return "TLS 1.3"
+	}
+
+	return "Unknown"
+}
+
+// snippet-end:[s3.go.get_tls_version]
+
 // ConfirmBucketItemExists returns nil if the bucket and item can be accessed
 func ConfirmBucketItemExists(sess *session.Session, bucket *string, item *string) error {
 	// snippet-start:[s3.go.set_tls_12_client]
@@ -48,6 +67,7 @@ func main() {
 	itemNamePtr := flag.String("i", "", "The bucket item to check")
 	regionPtr := flag.String("r", "us-west-2", "The region where the bucket lives")
 	goV112Ptr := flag.Bool("v", false, "Whether the Go version is prior to 1.13")
+
 	flag.Parse()
 
 	if *bucketNamePtr == "" || *itemNamePtr == "" {
@@ -78,21 +98,22 @@ func main() {
 		// snippet-end:[s3.go.set_tls_12_cfg_113]
 	}
 
+	// snippet-start:[s3.go.get_tls_version_call]
+	//version := GetTLSVersion(tr)
+
+	fmt.Println("Your TLS version: " + GetTLSVersion(tr))
+	// snippet-end:[s3.go.get_tls_version_call]
+
 	// snippet-start:[s3.go.set_tls_12_session]
 	client := http.Client{Transport: tr}
 
-	sess, err := session.NewSession(&aws.Config{
-		HTTPClient: &client,
+	sess := session.Must(session.NewSession(&aws.Config{
 		Region:     regionPtr,
-	})
-	// snippet-end:[s3.go.set_tls_12_session]        
-	if err != nil {
-		fmt.Println("Got an error creating new session:")
-		fmt.Println(err)
-		return
-	}
+		HTTPClient: &client,
+	}))
+	// snippet-end:[s3.go.set_tls_12_session]
 
-	err = ConfirmBucketItemExists(sess, bucketNamePtr, itemNamePtr)
+	err := ConfirmBucketItemExists(sess, bucketNamePtr, itemNamePtr)
 	if err != nil {
 		fmt.Print("Could not confirm whether bucket and item exists")
 		return
