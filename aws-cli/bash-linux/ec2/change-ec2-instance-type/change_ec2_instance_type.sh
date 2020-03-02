@@ -24,7 +24,7 @@
 #   -f   [switch, optional]  If set, the function doesn't pause and ask before
 #                            stopping the instance.
 #   -r   [switch, optional]  If set, the function restarts the instance after
-#                            after changing the type.
+#                            changing the type.
 #   -h   [switch, optional]  Displays this help.
 #
 # Example:
@@ -39,7 +39,7 @@
 #      1 if it fails
 ###############################################################################
 
-# Import the general purpose functions
+# Import the general_purpose functions.
 source awsdocs_general.sh 
 
 ###############################################################################
@@ -57,15 +57,15 @@ source awsdocs_general.sh
 #       1 if the instance doesn't exist
 #     AND: 
 #       Sets two global variables:
-#            EXISTING_STATE contains the running/stopped state of the instance.
-#            EXISTING_TYPE contains the current type of the instance.
+#            EXISTING_STATE - Contains the running/stopped state of the instance.
+#            EXISTING_TYPE  - Contains the current type of the instance.
 ###############################################################################
 function get_instance_info {
 
     # Declare local variables.
     local INSTANCE_ID RESPONSE
     
-    # This function accepts a single parameter: the Instance ID.
+    # This function accepts a single parameter.
     INSTANCE_ID=$1
 
     # The following --filters parameter causes server-side filtering to limit
@@ -84,7 +84,7 @@ function get_instance_info {
         return 1        # 1 in Bash script means error/false
     fi
 
-    # If we got a response then the instance exists.
+    # If we got a response, the instance exists.
     # Retrieve the values of interest and set them as global variables.
     EXISTING_STATE=$(echo "$RESPONSE" | cut -f 1 )        
     EXISTING_TYPE=$(echo "$RESPONSE" | cut -f 2 )
@@ -104,7 +104,7 @@ function change_ec2_instance_type {
         echo ""
         echo "This function changes the instance type of the specified instance."
         echo "Parameter:"
-        echo "  -i  Specify the instance id whose type you want to modify."
+        echo "  -i  Specify the instance ID whose type you want to modify."
         echo "  -t  Specify the instance type to convert the instance to."
         echo "  -d  If the instance was originally running, this option prevents"
         echo "      automatically restarting the instance."
@@ -114,9 +114,8 @@ function change_ec2_instance_type {
     )
 
     local FORCE RESTART REQUESTED_TYPE INSTANCE_ID VERBOSE OPTION RESPONSE ANSWER 
-    local OPTIND OPTARG # Required to use getopts command in a function 
-    #global EXISTING_TYPE EXISTING_STATE # These come from/to calling script
-
+    local OPTIND OPTARG # Required to use getopts command in a function.
+    
     # Set default values.
     FORCE=false
     RESTART=false
@@ -124,7 +123,7 @@ function change_ec2_instance_type {
     INSTANCE_ID=""
     VERBOSE=false
 
-    # Retrieve the calling parameters
+    # Retrieve the calling parameters.
     while getopts "i:t:frvh" OPTION; do
         case "${OPTION}"
         in
@@ -139,7 +138,7 @@ function change_ec2_instance_type {
     done
 
     if [[ -z "$INSTANCE_ID" ]]; then
-        errecho "ERROR: You must provide an instance id with the -i parameter."
+        errecho "ERROR: You must provide an instance ID with the -i parameter."
         usage
         return 1
     fi
@@ -161,14 +160,14 @@ function change_ec2_instance_type {
     # Check that the specified instance exists.
     iecho -n "Confirming that instance $INSTANCE_ID exists..."
     get_instance_info "$INSTANCE_ID"
-    # The function returns an error code <> 0 if the instance doesn't exist.
+    # If the instance doesn't exist, the function returns an error code <> 0.
     if [[ ${?} -ne 0 ]]; then
         errecho "ERROR: I can't find the instance \"$INSTANCE_ID\" in the current AWS account."
         return 1
     fi
     # Function get_instance_info has returned two global values:
-    #   $EXISTING_TYPE  -- the instance type of the specified instance
-    #   $EXISTING_STATE -- whether the specified instance is running
+    #   $EXISTING_TYPE  -- The instance type of the specified instance
+    #   $EXISTING_STATE -- Whether the specified instance is running
 
     iecho "confirmed $INSTANCE_ID exists."
     iecho "      Current type: $EXISTING_TYPE"
@@ -185,7 +184,7 @@ function change_ec2_instance_type {
     if [[ "$EXISTING_STATE" == "running" ]]; then
         # If it is, we need to stop it.
         # Do we have permission to stop it? 
-        # If -f (FORCE) was set, then we do.
+        # If -f (FORCE) was set, we do.
         # If not, we need to ask the user.
         if [[ $FORCE == false ]]; then
             while true; do
@@ -221,7 +220,7 @@ function change_ec2_instance_type {
         iecho "Instance is not in running state, so not requesting a stop."
     fi;
 
-    # wait until stopped
+    # Wait until stopped.
     iecho "Waiting for $INSTANCE_ID to report 'stopped' state..."
     aws ec2 wait instance-stopped \
         --instance-ids "$INSTANCE_ID"
@@ -231,7 +230,7 @@ function change_ec2_instance_type {
     fi 
     iecho "stopped.\n"
 
-    # change the type - command produces no output
+    # Change the type - command produces no output.
     iecho "Attempting to change type from $EXISTING_TYPE to $REQUESTED_TYPE..."
     RESPONSE=$(aws ec2 modify-instance-attribute \
                    --instance-id "$INSTANCE_ID" \

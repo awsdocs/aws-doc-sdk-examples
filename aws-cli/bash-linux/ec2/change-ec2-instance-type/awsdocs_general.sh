@@ -11,13 +11,13 @@
 # specific language governing permissions and limitations under the License.
 ###############################################################################
 #
-# This script contains general purpose functions that are used throughout 
-# the AWS Command Line Interface (AWS CLI) code samples that are maintained
-# in the repo at https://github.com/awsdocs/aws-doc-sdk-examples
+# This script contains general-purpose functions that are used throughout 
+# the AWS Command Line Interface (AWS CLI) code examples that are maintained
+# in the repo at https://github.com/awsdocs/aws-doc-sdk-examples.
 #
 # They are intended to abstract functionality that is required for the tests
-# to work without cluttering up the code. The intent is to ensure the purpose
-# of the code is clear.
+# to work without cluttering up the code. The intent is to ensure that the 
+# purpose of the code is clear.
 
 # Set global defaults:
 VERBOSE=false
@@ -46,7 +46,7 @@ function run_test {
         test_failed "The test \"$DESCRIPTION\" returned an unexpected error code: $ERR"
     fi
 
-    #now check the error message, if we provided other than "".
+    # Now check the error message, if we provided other than "".
     if [[ -n "$EXPECTED_OUTPUT" ]]; then
         MATCH=$(echo "$RESPONSE" | grep "$EXPECTED_OUTPUT")
         # If there was no match (it's an empty string), then fail.
@@ -72,13 +72,13 @@ function test_failed {
     errecho "===TEST FAILED==="
     errecho "$@"
     errecho ""
-    errecho "    One or more of the tests failed to complete successfully. This means that any"
-    errecho "    tests after the one that failed test didn't run and might have left resources"
+    errecho "    One or more of the tests failed to complete successfully. This means that"
+    errecho "    any tests after the one that failed didn't run and might have left resources"
     errecho "    still active in your account."
     errecho ""
     errecho "IMPORTANT:"
     errecho "    Resources created by this script can incur charges to your AWS account. If the"
-    errecho "    script did not complete successfully, then you must review and manually delete"
+    errecho "    script didn't complete successfully, then you must review and manually delete"
     errecho "    any resources created by this script that were not automatically removed."
     errecho ""
     exit 1 
@@ -118,14 +118,15 @@ function ipause {
     fi
 }
 
-# Initialize the shell's RANDOM variable
+# Initialize the shell's RANDOM variable.
 RANDOM=$$
 ###############################################################################
 # function generate_random_name
 #
-# This function generates a random file name with using the specified root
+# This function generates a random file name with using the specified root,
 # followed by 4 groups that each have 4 digits.
-# The default root name is "test"
+# The default root name is "test".
+###############################################################################
 function generate_random_name {
 
     ROOTNAME="test"
@@ -133,15 +134,16 @@ function generate_random_name {
         ROOTNAME=$1
     fi
 
-    # Initialize the filename variable
+    # Initialize the FILENAME variable
     FILENAME="$ROOTNAME"
-    # Configure random number generator to issue numbers between 1000 and 9999, inclusive
+    # Configure random number generator to issue numbers between 1000 and 9999, 
+    # inclusive.
     DIFF=$((9999-1000+1))
 
     for _ in {1..4}
     do
         rnd=$(($((RANDOM%DIFF))+X))
-        # make sure that the number is 4 digits long
+        # Make sure that the number is 4 digits long.
         while [ "${#rnd}" -lt 4 ]; do rnd="0$rnd"; done
         FILENAME+="-$rnd"
     done
