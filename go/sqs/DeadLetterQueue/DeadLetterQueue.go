@@ -11,18 +11,21 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.dead_letter_queue]
 package main
 
+// snippet-start:[sqs.go.dead_letter_queue.imports]
 import (
-	"encoding/json"
-	"flag"
-	"fmt"
+    "encoding/json"
+    "flag"
+    "fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sqs"
 )
+
+// snippet-end:[sqs.go.dead_letter_queue.imports]
 
 // ConfigureDeadLetterQueue configures an Amazon SQS queue for messages that could not be delivered to another queue
 // Inputs:
@@ -33,56 +36,66 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to json.Marshal or SetQueueAttributes
 func ConfigureDeadLetterQueue(sess *session.Session, deadLetterQueueARN string, queueURL string) error {
-	// Create a SQS service client
-	svc := sqs.New(sess)
+    // Create a SQS service client
+    svc := sqs.New(sess)
 
-	// Our redrive policy for our queue
-	policy := map[string]string{
-		"deadLetterTargetArn": deadLetterQueueARN,
-		"maxReceiveCount":     "10",
-	}
+    // Our redrive policy for our queue
+    // snippet-start:[sqs.go.dead_letter_queue.policy]
+    policy := map[string]string{
+        "deadLetterTargetArn": deadLetterQueueARN,
+        "maxReceiveCount":     "10",
+    }
+    // snippet-end:[sqs.go.dead_letter_queue.policy]
 
-	// Marshal policy for SetQueueAttributes
-	b, err := json.Marshal(policy)
-	if err != nil {
-		return err
-	}
+    // Marshal policy for SetQueueAttributes
+    // snippet-start:[sqs.go.dead_letter_queue.marshall]
+    b, err := json.Marshal(policy)
+    // snippet-end:[sqs.go.dead_letter_queue.marshall]
+    if err != nil {
+        return err
+    }
 
-	_, err = svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
-		QueueUrl: aws.String(queueURL),
-		Attributes: map[string]*string{
-			sqs.QueueAttributeNameRedrivePolicy: aws.String(string(b)),
-		},
-	})
-	if err != nil {
-		return err
-	}
+    // snippet-start:[sqs.go.dead_letter_queue.set_attributes]
+    _, err = svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
+        QueueUrl: aws.String(queueURL),
+        Attributes: map[string]*string{
+            sqs.QueueAttributeNameRedrivePolicy: aws.String(string(b)),
+        },
+    })
+    // snippet-end:[sqs.go.dead_letter_queue.set_attributes]
+    if err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 
 func main() {
-	queueURLPtr := flag.String("u", "", "The URL of the queue")
-	dlQueueARN := flag.String("d", "", "The ARN of the dead-letter queue")
-	flag.Parse()
+    queueURLPtr := flag.String("u", "", "The URL of the queue")
+    dlQueueARN := flag.String("d", "", "The ARN of the dead-letter queue")
+    flag.Parse()
 
-	if *queueURLPtr == "" || *dlQueueARN == "" {
-		fmt.Println("You must supply the URL of the queue (-u QUEUE-URL) and the ARN of the dead-letter queue (-d QUEUE-ARN)")
-		return
-	}
+    if *queueURLPtr == "" || *dlQueueARN == "" {
+        fmt.Println("You must supply the URL of the queue (-u QUEUE-URL) and the ARN of the dead-letter queue (-d QUEUE-ARN)")
+        return
+    }
 
-	// Create a session that get credential values from ~/.aws/credentials
-	// and the default region from ~/.aws/config
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Create a session that get credential values from ~/.aws/credentials
+    // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.dead_letter_queue.sess]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[sqs.go.dead_letter_queue.sess]
 
-	err := ConfigureDeadLetterQueue(sess, *dlQueueARN, *queueURLPtr)
-	if err != nil {
-		fmt.Println("Got an error creating the dead-letter queue:")
-		fmt.Println(err)
-		return
-	}
+    err := ConfigureDeadLetterQueue(sess, *dlQueueARN, *queueURLPtr)
+    if err != nil {
+        fmt.Println("Got an error creating the dead-letter queue:")
+        fmt.Println(err)
+        return
+    }
 
-	fmt.Println("Created dead-letter queue")
+    fmt.Println("Created dead-letter queue")
 }
+
+// snippet-end:[sqs.go.dead_letter_queue]

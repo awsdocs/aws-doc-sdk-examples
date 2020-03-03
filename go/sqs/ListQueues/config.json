@@ -1,4 +1,4 @@
 {
-    "Timeout": 20,
-    "RetrySeconds": 10
+  "Confirm": false,
+  "SleepSeconds": 60
 }

@@ -11,17 +11,20 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.delete_queue]
 package main
 
+// snippet-start:[sqs.go.delete_queue.imports]
 import (
-	"flag"
-	"fmt"
+    "flag"
+    "fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sqs"
 )
+
+// snippet-end:[sqs.go.delete_queue.imports]
 
 // DeleteQueue deletes an Amazon SQS queue
 // Inputs:
@@ -31,41 +34,46 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to DeleteQueue
 func DeleteQueue(sess *session.Session, queueURL string) error {
-	// Create a SQS service client
-	svc := sqs.New(sess)
+    // Create a SQS service client
+    // snippet-start:[sqs.go.delete_queue.call]
+    svc := sqs.New(sess)
 
-	_, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
-		QueueUrl: aws.String(queueURL),
-	})
+    _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
+        QueueUrl: aws.String(queueURL),
+    })
+    // snippet-end:[sqs.go.delete_queue.call]
+    if err != nil {
+        return err
+    }
 
-	if err != nil {
-		return err
-	}
-
-	return nil
+    return nil
 }
 
 func main() {
-	queueURLPtr := flag.String("u", "", "The URL of the queue")
-	flag.Parse()
+    queueURLPtr := flag.String("u", "", "The URL of the queue")
+    flag.Parse()
 
-	if *queueURLPtr == "" {
-		fmt.Println("You must supply a queue URL (-n QUEUE-URL")
-		return
-	}
+    if *queueURLPtr == "" {
+        fmt.Println("You must supply a queue URL (-n QUEUE-URL")
+        return
+    }
 
-	// Create a session that get credential values from ~/.aws/credentials
-	// and the default region from ~/.aws/config
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Create a session that get credential values from ~/.aws/credentials
+    // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.delete_queue.sess]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[sqs.go.delete_queue.sess]
 
-	err := DeleteQueue(sess, *queueURLPtr)
-	if err != nil {
-		fmt.Println("Got an error deleting the queue:")
-		fmt.Println(err)
-		return
-	}
+    err := DeleteQueue(sess, *queueURLPtr)
+    if err != nil {
+        fmt.Println("Got an error deleting the queue:")
+        fmt.Println(err)
+        return
+    }
 
-	fmt.Println("Deleted queue with URL " + *queueURLPtr + " deleted")
+    fmt.Println("Deleted queue with URL " + *queueURLPtr + " deleted")
 }
+
+// snippet-end:[sqs.go.delete_queue]

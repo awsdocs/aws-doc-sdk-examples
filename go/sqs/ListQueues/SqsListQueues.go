@@ -1,17 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Lists your SQS queues.]
-// snippet-keyword:[Amazon Simple Queue Service]
-// snippet-keyword:[Amazon SQS]
-// snippet-keyword:[ListQueues function]
-// snippet-keyword:[Go]
-// snippet-sourcesyntax:[go]
-// snippet-service:[sqs]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -23,43 +11,53 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.list_queues]
 package main
 
+// snippet-start:[sqs.go.list_queues.imports]
 import (
     "fmt"
 
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
 
-// Usage:
-// go run sqs_listqueues.go
-func main() {
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+// snippet-end:[sqs.go.list_queues.imports]
 
-    // Create a SQS service client.
+// GetQueues returns a list of queue names
+func GetQueues(sess *session.Session) ([]*string, error) {
+    var list []*string
+
+    // Create a SQS service client
+    // snippet-start:[sqs.go.list_queues.call]
     svc := sqs.New(sess)
 
-    // List the queues available in a given region.
     result, err := svc.ListQueues(nil)
+    // snippet-end:[sqs.go.list_queues.call]
     if err != nil {
-        fmt.Println("Error", err)
+        return list, err
+    }
+
+    return result.QueueUrls, nil
+}
+
+func main() {
+    // Create a session that get credential values from ~/.aws/credentials
+    // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.list_queues.sess]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[sqs.go.list_queues.sess]
+
+    queueURLs, err := GetQueues(sess)
+    if err != nil {
+        fmt.Println("Got an error retrieving queue URLs:")
+        fmt.Println(err)
         return
     }
 
-    fmt.Println("Success")
-    // As these are pointers, printing them out directly would not be useful.
-    for i, urls := range result.QueueUrls {
-        // Avoid dereferencing a nil pointer.
-        if urls == nil {
-            continue
-        }
+    for i, urls := range queueURLs {
         fmt.Printf("%d: %s\n", i, *urls)
     }
 }

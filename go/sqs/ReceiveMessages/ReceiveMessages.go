@@ -11,99 +11,101 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.receive_messages]
 package main
 
+// snippet-start:[sqs.go.receive_messages.imports]
 import (
-	"flag"
-	"fmt"
+    "flag"
+    "fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sqs"
 )
 
-func getQueueURL(sess *session.Session, queueName string) (string, error) {
-	// Create a SQS service client
-	svc := sqs.New(sess)
+// snippet-end:[sqs.go.receive_messages.imports]
 
-	result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-		QueueName: aws.String(queueName),
-	})
-	if err != nil {
-		return "", err
-	}
+func getQueueURL(sess *session.Session, queueName *string) (*string, error) {
+    url := ""
+    // Create a SQS service client
+    svc := sqs.New(sess)
 
-	return *result.QueueUrl, nil
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queueName,
+    })
+    if err != nil {
+        return &url, err
+    }
+
+    return result.QueueUrl, nil
 }
 
-// ReceiveMessages gets the messages from an Amazon SQS queue
+// GetMessage gets the latest message from an Amazon SQS queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     queueURL is the URL of the queue
 // Output:
-//     If success, a list of messages and nil
-//     Otherwise, an empty list and an error from the call to ReceiveMessage
-func ReceiveMessages(sess *session.Session, queueURL string) ([]*sqs.Message, error) {
-	var msgs []*sqs.Message
+//     If success, the latest message and nil
+//     Otherwise, a nil message and an error from the call to ReceiveMessage
+func GetMessage(sess *session.Session, queueURL *string, timeout *int64, waitTime *int64) (*sqs.Message, error) {
+    var msg *sqs.Message
 
-	// Create a SQS service client
-	svc := sqs.New(sess)
+    // Create a SQS service client
+    // snippet-start:[sqs.go.receive_messages.call]
+    svc := sqs.New(sess)
 
-	result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
-		AttributeNames: []*string{
-			aws.String(sqs.MessageSystemAttributeNameSentTimestamp),
-		},
-		MessageAttributeNames: []*string{
-			aws.String(sqs.QueueAttributeNameAll),
-		},
-		QueueUrl:            &queueURL,
-		MaxNumberOfMessages: aws.Int64(1),
-		VisibilityTimeout:   aws.Int64(20), // 20 seconds
-		WaitTimeSeconds:     aws.Int64(0),
-	})
-	if err != nil {
-		return msgs, err
-	}
+    result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
+        AttributeNames: []*string{
+            aws.String(sqs.MessageSystemAttributeNameSentTimestamp),
+        },
+        MessageAttributeNames: []*string{
+            aws.String(sqs.QueueAttributeNameAll),
+        },
+        QueueUrl:            queueURL,
+        MaxNumberOfMessages: aws.Int64(1),
+        VisibilityTimeout:   timeout,
+        WaitTimeSeconds:     waitTime,
+    })
+    // snippet-end:[sqs.go.receive_messages.call]
+    if err != nil {
+        return msg, err
+    }
 
-	return result.Messages, nil
+    return result.Messages[0], nil
 }
 
 func main() {
-	queueNamePtr := flag.String("q", "", "The name of the queue")
-	flag.Parse()
+    queueName := flag.String("q", "", "The name of the queue")
+    timeout := flag.Int64("t", 5, "How long, in seconds, that the message is hidden from others")
+    waitTime := flag.Int64("w", 10, "How long, in seconds, the queue will wait for messages")
+    flag.Parse()
 
-	if *queueNamePtr == "" {
-		fmt.Println("You must supply a queue name (-q QUEUE-NAME)")
-		return
-	}
+    if *queueName == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE-NAME)")
+        return
+    }
 
-	// Create a session that get credential values from ~/.aws/credentials
-	// and the default region from ~/.aws/config
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Create a session that get credential values from ~/.aws/credentials
+    // and the default region from ~/.aws/config
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	queueURL, err := getQueueURL(sess, *queueNamePtr)
-	if err != nil {
-		fmt.Println("Got an error getting URL of queue:")
-		fmt.Println(err)
-		return
-	}
+    queueURL, err := getQueueURL(sess, queueName)
+    if err != nil {
+        fmt.Println("Got an error getting URL of queue:")
+        fmt.Println(err)
+        return
+    }
 
-	msgs, err := ReceiveMessages(sess, queueURL)
-	if err != nil {
-		fmt.Println("Got an error receiving messages:")
-		fmt.Println(err)
-		return
-	}
+    msg, err := GetMessage(sess, queueURL, timeout, waitTime)
+    if err != nil {
+        fmt.Println("Got an error receiving messages:")
+        fmt.Println(err)
+        return
+    }
 
-	fmt.Println("Message ID")
-	fmt.Println("Message Handle:")
-
-	for _, msg := range msgs {
-		fmt.Println("    " + *msg.MessageId)
-		fmt.Println("    " + *msg.ReceiptHandle)
-		fmt.Println()
-	}
+    fmt.Println("Message ID:     " + *msg.MessageId)
+    fmt.Println("Message Handle: " + *msg.ReceiptHandle)
 }

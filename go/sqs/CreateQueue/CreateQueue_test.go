@@ -55,12 +55,6 @@ func populateConfiguration() error {
 		return err
 	}
 
-	if globalConfig.QueueName == "" {
-		// Create unique, random queue name
-		id := uuid.New()
-		globalConfig.QueueName = "myqueue-" + id.String()
-	}
-
 	return nil
 }
 
@@ -78,10 +72,19 @@ func deleteQueue(sess *session.Session, queueURL string) error {
 	return nil
 }
 
-func TestQueue(t *testing.T) {
+func TestCreateQueue(t *testing.T) {
 	err := populateConfiguration()
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	queueCreated := false
+
+	if globalConfig.QueueName == "" {
+		// Create unique, random queue name
+		id := uuid.New()
+		globalConfig.QueueName = "myqueue-" + id.String()
+		queueCreated = true
 	}
 
 	// Create a session using credentials from ~/.aws/credentials
@@ -97,11 +100,13 @@ func TestQueue(t *testing.T) {
 
 	t.Log("Got URL " + url + " for queue " + globalConfig.QueueName)
 
-	err = deleteQueue(sess, url)
-	if err != nil {
-		t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
-		t.Fatal(err)
-	}
+	if queueCreated {
+		err = deleteQueue(sess, url)
+		if err != nil {
+			t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+			t.Fatal(err)
+		}
 
-	t.Log("Deleted queue " + globalConfig.QueueName)
+		t.Log("Deleted queue " + globalConfig.QueueName)
+	}
 }

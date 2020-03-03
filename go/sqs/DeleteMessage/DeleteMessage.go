@@ -11,9 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.delete_message]
 package main
 
+// snippet-start:[sqs.go.delete_message.imports]
 import (
     "flag"
     "fmt"
@@ -21,6 +22,8 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
+// snippet-end:[sqs.go.delete_message.imports]
 
 // DeleteMessage deletes a message from an Amazon SQS queue
 // Inputs:
@@ -34,10 +37,12 @@ func DeleteMessage(sess *session.Session, queueURL string, messageID string) err
     // Create a SQS service client
     svc := sqs.New(sess)
 
+    // snippet-start:[sqs.go.delete_message.call]
     _, err := svc.DeleteMessage(&sqs.DeleteMessageInput{
         QueueUrl:      &queueURL,
         ReceiptHandle: &messageID,
     })
+    // snippet-end:[sqs.go.delete_message.call]
     if err != nil {
         return err
     }
@@ -57,9 +62,11 @@ func main() {
 
     // Create a session that get credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.delete_message.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+    // snippet-end:[sqs.go.delete_message.sess]
 
     err := DeleteMessage(sess, *queueURLPtr, *messageIDPtr)
     if err != nil {
@@ -70,3 +77,5 @@ func main() {
 
     fmt.Println("Deleted message from queue with URL " + *queueURLPtr)
 }
+
+// snippet-end:[sqs.go.delete_message]

@@ -55,12 +55,6 @@ func populateConfiguration() error {
         return err
     }
 
-    if globalConfig.QueueName == "" {
-        // Create unique, random queue name
-        id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
-    }
-
     return nil
 }
 
@@ -82,7 +76,21 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
     return *result.QueueUrl, nil
 }
 
-func TestQueue(t *testing.T) {
+func getQueueURL(sess *session.Session, queueName string) (string, error) {
+    // Create a SQS service client
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: aws.String(queueName),
+    })
+    if err != nil {
+        return "", err
+    }
+
+    return *result.QueueUrl, nil
+}
+
+func TestDeleteQueue(t *testing.T) {
     err := populateConfiguration()
     if err != nil {
         t.Fatal(err)
@@ -94,9 +102,24 @@ func TestQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    url, err := createQueue(sess, globalConfig.QueueName)
-    if err != nil {
-        t.Fatal(err)
+    url := ""
+
+    if globalConfig.QueueName == "" {
+        // Create unique, random queue name
+        id := uuid.New()
+        globalConfig.QueueName = "myqueue-" + id.String()
+
+        url, err = createQueue(sess, globalConfig.QueueName)
+        if err != nil {
+            t.Fatal(err)
+        }
+
+        t.Log("Created queue " + globalConfig.QueueName)
+    } else {
+        url, err = getQueueURL(sess, globalConfig.QueueName)
+        if err != nil {
+            t.Fatal(err)
+        }
     }
 
     t.Log("Got URL " + url + " for queue " + globalConfig.QueueName)

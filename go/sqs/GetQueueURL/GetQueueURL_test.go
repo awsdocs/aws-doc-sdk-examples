@@ -1,17 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Creates an SQS queue.]
-// snippet-keyword:[Amazon Simple Queue Service]
-// snippet-keyword:[Amazon SQS]
-// snippet-keyword:[CreateQueue function]
-// snippet-keyword:[Go]
-// snippet-sourcesyntax:[go]
-// snippet-service:[sqs]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -37,6 +25,7 @@ import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
+    "github.com/aws/aws-sdk-go/service/sts"
 )
 
 // Config defines a set of configuration values
@@ -68,12 +57,6 @@ func populateConfiguration() error {
         return err
     }
 
-    if globalConfig.QueueName == "" {
-        // Create unique, random queue name
-        id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
-    }
-
     return nil
 }
 
@@ -93,6 +76,26 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
     }
 
     return *result.QueueUrl, nil
+}
+
+func getFakeURL(sess *session.Session, queueName string) (string, error) {
+    // Construct URL based on known pattern
+    // For example, for the queue MyGroovyQueue:
+    //     https://sqs.REGION.amazonaws.com/ACCOUNT-ID/MyGroovyQueue
+
+    region := sess.Config.Region
+
+    svc := sts.New(sess)
+    input := &sts.GetCallerIdentityInput{}
+
+    result, err := svc.GetCallerIdentity(input)
+    if err != nil {
+        return "", err
+    }
+
+    accountID := aws.StringValue(result.Account)
+
+    return "https://sqs." + *region + ".amazonaws.com/" + accountID + "/" + queueName, nil
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
@@ -121,28 +124,45 @@ func TestQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    createURL, err := createQueue(sess, globalConfig.QueueName)
-    if err != nil {
-        t.Fatal(err)
-    }
+    queueCreated := false
 
-    t.Log("Got URL " + createURL + " for queue " + globalConfig.QueueName)
+    if globalConfig.QueueName == "" {
+        // Create unique, random queue name
+        id := uuid.New()
+        globalConfig.QueueName = "myqueue-" + id.String()
+
+        createURL, err := createQueue(sess, globalConfig.QueueName)
+        if err != nil {
+            t.Fatal(err)
+        }
+
+        t.Log("Got URL " + createURL + " for queue " + globalConfig.QueueName)
+
+        queueCreated = true
+    }
 
     url, err := GetQueueURL(sess, globalConfig.QueueName)
     if err != nil {
         log.Fatal(err)
     }
 
-    err = deleteQueue(sess, url)
+    if queueCreated {
+        err = deleteQueue(sess, url)
+        if err != nil {
+            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Fatal(err)
+        }
+
+        t.Log("Deleted queue " + globalConfig.QueueName)
+    }
+
+    createdURL, err := getFakeURL(sess, globalConfig.QueueName)
     if err != nil {
-        t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
         t.Fatal(err)
     }
 
-    t.Log("Deleted queue " + globalConfig.QueueName)
-
-    if createURL != url {
-        msg := "The URL created: " + createURL + " does NOT match URL retrieved: " + url
+    if createdURL != url {
+        msg := "The URL retrieved: " + url + " does not match the expected URL: " + createdURL
         log.Fatal(msg)
     }
 

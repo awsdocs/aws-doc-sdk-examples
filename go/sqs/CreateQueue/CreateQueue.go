@@ -11,9 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.create_queue]
 package main
 
+// snippet-start:[sqs.go.create_queue.imports]
 import (
     "flag"
     "fmt"
@@ -22,6 +23,8 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
+// snippet-end:[sqs.go.create_queue.imports]
 
 // CreateQueue creates an Amazon SQS queue
 // Inputs:
@@ -34,6 +37,7 @@ func CreateQueue(sess *session.Session, queueName string) (string, error) {
     // Create a SQS service client
     svc := sqs.New(sess)
 
+    // snippet-start:[sqs.go.create_queue.call]
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
         QueueName: aws.String(queueName),
         Attributes: map[string]*string{
@@ -41,6 +45,7 @@ func CreateQueue(sess *session.Session, queueName string) (string, error) {
             "MessageRetentionPeriod": aws.String("86400"),
         },
     })
+    // snippet-end:[sqs.go.create_queue.call]
     if err != nil {
         return "", err
     }
@@ -59,9 +64,11 @@ func main() {
 
     // Create a session that get credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.create_queue.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+    // snippet-end:[sqs.go.create_queue.sess]
 
     url, err := CreateQueue(sess, *queueNamePtr)
     if err != nil {
@@ -72,3 +79,5 @@ func main() {
 
     fmt.Println("URL for queue " + *queueNamePtr + ": " + url)
 }
+
+// snippet-end:[sqs.go.create_queue]

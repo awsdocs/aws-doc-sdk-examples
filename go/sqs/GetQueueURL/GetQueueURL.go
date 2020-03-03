@@ -11,9 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.get_queue_url]
 package main
 
+// snippet-start:[sqs.go.get_queue_url.imports]
 import (
     "flag"
     "fmt"
@@ -22,6 +23,8 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
+// snippet-end:[sqs.go.get_queue_url.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
 // Inputs:
@@ -32,11 +35,13 @@ import (
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queueName string) (string, error) {
     // Create a SQS service client
+    // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
     result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
         QueueName: aws.String(queueName),
     })
+    // snippet-end:[sqs.go.get_queue_url.call]
     if err != nil {
         return "", err
     }
@@ -45,6 +50,7 @@ func GetQueueURL(sess *session.Session, queueName string) (string, error) {
 }
 
 func main() {
+    // snippet-start:[sqs.go.get_queue_url.args]
     queueNamePtr := flag.String("n", "", "The name of the queue")
     flag.Parse()
 
@@ -52,12 +58,15 @@ func main() {
         fmt.Println("You must supply a queue name (-n QUEUE-NAME")
         return
     }
+    // snippet-end:[sqs.go.get_queue_url.args]
 
     // Create a session that get credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.get_queue_url.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+    // snippet-end:[sqs.go.get_queue_url.sess]
 
     url, err := GetQueueURL(sess, *queueNamePtr)
     if err != nil {

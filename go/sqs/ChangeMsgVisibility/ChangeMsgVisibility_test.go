@@ -19,6 +19,7 @@ import (
 	"io/ioutil"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/google/uuid"
 
@@ -30,8 +31,9 @@ import (
 // Config defines a set of configuration values
 type Config struct {
 	QueueName  string `json:"QueueName"`
+	Timeout    int64  `json:"Timeout"`
 	Visibility int64  `json:"Visibility"`
-	Timeout    int64  `json":Timeout"`
+	WaitTime   int64  `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -64,9 +66,18 @@ func populateConfiguration(t *testing.T) error {
 		globalConfig.QueueName = "myqueue-" + id.String()
 	}
 
+	if globalConfig.Visibility < 0 {
+		globalConfig.Visibility = 0
+	}
+
+	if globalConfig.Visibility > 12*60*60 { // 12 hours
+		globalConfig.Visibility = 12 * 60 * 60
+	}
+
 	t.Log("QueueName:  " + globalConfig.QueueName)
-	t.Log("Visibility: " + strconv.Itoa(int(globalConfig.Visibility)))
 	t.Log("Timeout:    " + strconv.Itoa(int(globalConfig.Timeout)))
+	t.Log("Visibility: " + strconv.Itoa(int(globalConfig.Visibility)))
+	t.Log("WaitTime:   " + strconv.Itoa(int(globalConfig.WaitTime)))
 
 	return nil
 }
@@ -89,34 +100,22 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
 	return *result.QueueUrl, nil
 }
 
-func sendMessage(sess *session.Session, queueURL string) (string, error) {
+func sendMessage(sess *session.Session, queueURL string) error {
 	// Create a SQS service client
 	svc := sqs.New(sess)
 
-	result, err := svc.SendMessage(&sqs.SendMessageInput{
-		DelaySeconds: aws.Int64(10),
-		MessageAttributes: map[string]*sqs.MessageAttributeValue{
-			"Title": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String("The Whistler"),
-			},
-			"Author": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String("John Grisham"),
-			},
-			"WeeksOn": &sqs.MessageAttributeValue{
-				DataType:    aws.String("Number"),
-				StringValue: aws.String("6"),
-			},
-		},
-		MessageBody: aws.String("Information about current NY Times fiction bestseller for week of 12/11/2016."),
-		QueueUrl:    &queueURL,
+	currentTime := time.Now()
+
+	_, err := svc.SendMessage(&sqs.SendMessageInput{
+		DelaySeconds: aws.Int64(0),
+		MessageBody:  aws.String(currentTime.Format("2006-01-02 15:04:05 Monday")),
+		QueueUrl:     &queueURL,
 	})
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	return *result.MessageId, nil
+	return nil
 }
 
 func configureLPQueue(sess *session.Session, queueURL string, timeout int) error {
@@ -136,7 +135,7 @@ func configureLPQueue(sess *session.Session, queueURL string, timeout int) error
 	return nil
 }
 
-func receiveMessage(sess *session.Session, queueURL string, timeout int64) (string, error) {
+func receiveMessage(sess *session.Session, queueURL string) (string, error) {
 	// Create a SQS service client
 	svc := sqs.New(sess)
 
@@ -149,8 +148,6 @@ func receiveMessage(sess *session.Session, queueURL string, timeout int64) (stri
 		},
 		QueueUrl:            &queueURL,
 		MaxNumberOfMessages: aws.Int64(1),
-		VisibilityTimeout:   aws.Int64(timeout),
-		WaitTimeSeconds:     aws.Int64(0),
 	})
 	if err != nil {
 		return "", err
@@ -161,6 +158,20 @@ func receiveMessage(sess *session.Session, queueURL string, timeout int64) (stri
 	}
 
 	return "", nil
+}
+
+func deleteMsg(sess *session.Session, url string, handle string) error {
+	svc := sqs.New(sess)
+
+	_, err := svc.DeleteMessage(&sqs.DeleteMessageInput{
+		QueueUrl:      &url,
+		ReceiptHandle: &handle,
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
@@ -177,7 +188,7 @@ func deleteQueue(sess *session.Session, queueURL string) error {
 	return nil
 }
 
-func TestQueue(t *testing.T) {
+func TestChangeVisibility(t *testing.T) {
 	err := populateConfiguration(t)
 	if err != nil {
 		t.Fatal(err)
@@ -196,29 +207,29 @@ func TestQueue(t *testing.T) {
 
 	t.Log("Created queue " + globalConfig.QueueName)
 
-	msgID, err := sendMessage(sess, url)
+	err = sendMessage(sess, url)
 	if err != nil {
 		t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
 		t.Fatal(err)
 	}
 
-	t.Log("Sent message with ID " + msgID + " to queue " + globalConfig.QueueName)
+	t.Log("Sent message to queue " + globalConfig.QueueName)
 
-	err = configureLPQueue(sess, url, int(globalConfig.Visibility))
+	err = configureLPQueue(sess, url, int(globalConfig.WaitTime))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	msgHandle, err := receiveMessage(sess, url, globalConfig.Timeout)
+	msgHandle, err := receiveMessage(sess, url)
 	if err != nil {
 		t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
 		t.Fatal(err)
 	}
 
 	if msgHandle != "" {
-		t.Log("Received message with handle " + msgHandle)
+		t.Log("Received message")
 
-		err = ChangeMsgVisibility(sess, msgHandle, url, globalConfig.Visibility)
+		err = SetMsgVisibility(sess, msgHandle, url, globalConfig.Visibility)
 		if err != nil {
 			t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
 			t.Fatal(err)
@@ -226,24 +237,23 @@ func TestQueue(t *testing.T) {
 
 		t.Log("Changed message's visibility to " + strconv.Itoa(int(globalConfig.Visibility)))
 
-		err = deleteQueue(sess, url)
+		// Delete message
+		err = deleteMsg(sess, url, msgHandle)
 		if err != nil {
-			t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+			t.Log("Got an error deleting msg:")
 			t.Fatal(err)
 		}
 
-		t.Log("Deleted queue " + globalConfig.QueueName)
+		t.Log("Deleted message")
 	} else {
 		t.Log("Did not receive message")
 	}
 
-	/*
-		    err = deleteQueue(sess, url)
-			if err != nil {
-				t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
-				t.Fatal(err)
-			}
+	err = deleteQueue(sess, url)
+	if err != nil {
+		t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+		t.Fatal(err)
+	}
 
-		    t.Log("Deleted queue " + globalConfig.QueueName)
-	*/
+	t.Log("Deleted queue " + globalConfig.QueueName)
 }

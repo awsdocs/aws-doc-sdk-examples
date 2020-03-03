@@ -1,5 +1,6 @@
 {
-    "QueueName": "",
-    "Visibility": 10,
-    "Timeout": 1
+  "Message": "",
+  "QueueName": "",
+  "Visibility": 10,
+  "Timeout": 1
 }

@@ -15,23 +15,25 @@
 package main
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"strconv"
-	"testing"
-	"time"
+    "encoding/json"
+    "io/ioutil"
+    "strconv"
+    "testing"
+    "time"
 
-	"github.com/google/uuid"
+    "github.com/google/uuid"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sqs"
 )
 
 // Config defines a set of configuration values
 type Config struct {
-	QueueName string `json:"QueueName"`
-	Timeout   int64  `json:"Timeout"`
+    Message   string `json:"Message"`
+    QueueName string `json:"QueueName"`
+    Timeout   int64  `json:"Timeout"`
+    WaitTime  int64  `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -41,162 +43,219 @@ var configFileName = "config.json"
 var globalConfig Config
 
 func populateConfiguration(t *testing.T) error {
-	// Get configuration from config.json
+    // Get configuration from config.json
 
-	// Get entire file as a JSON string
-	content, err := ioutil.ReadFile(configFileName)
-	if err != nil {
-		return err
-	}
+    // Get entire file as a JSON string
+    content, err := ioutil.ReadFile(configFileName)
+    if err != nil {
+        return err
+    }
 
-	// Convert []byte to string
-	text := string(content)
+    // Convert []byte to string
+    text := string(content)
 
-	// Marshall JSON string in text into global struct
-	err = json.Unmarshal([]byte(text), &globalConfig)
-	if err != nil {
-		return err
-	}
+    // Marshall JSON string in text into global struct
+    err = json.Unmarshal([]byte(text), &globalConfig)
+    if err != nil {
+        return err
+    }
 
-	if globalConfig.QueueName == "" {
-		// Create unique, random queue name
-		id := uuid.New()
-		globalConfig.QueueName = "myqueue-" + id.String()
-	}
+    if globalConfig.Timeout < 0 {
+        globalConfig.Timeout = 0
+    }
 
-	if globalConfig.Timeout < 0 {
-		globalConfig.Timeout = 0
-	}
+    if globalConfig.Timeout > 20 {
+        globalConfig.Timeout = 20
+    }
 
-	if globalConfig.Timeout > 20 {
-		globalConfig.Timeout = 20
-	}
+    if globalConfig.WaitTime < 0 {
+        globalConfig.WaitTime = 0
+    }
 
-	t.Log("Queue name:        " + globalConfig.QueueName)
-	t.Log("Timeout (seconds): " + strconv.Itoa(int(globalConfig.Timeout)))
+    if globalConfig.WaitTime > 20 {
+        globalConfig.WaitTime = 20
+    }
 
-	return nil
+    t.Log("Message:            " + globalConfig.Message)
+    t.Log("Queue name:         " + globalConfig.QueueName)
+    t.Log("Timeout (seconds):  " + strconv.Itoa(int(globalConfig.Timeout)))
+    t.Log("WaitTime (seconds): " + strconv.Itoa(int(globalConfig.WaitTime)))
+
+    return nil
 }
 
 func createQueue(sess *session.Session, queueName string) (string, error) {
-	// Create a SQS service client
-	svc := sqs.New(sess)
+    // Create a SQS service client
+    svc := sqs.New(sess)
 
-	result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-		QueueName: aws.String(queueName),
-		Attributes: map[string]*string{
-			"DelaySeconds":           aws.String("60"),
-			"MessageRetentionPeriod": aws.String("86400"),
-		},
-	})
-	if err != nil {
-		return "", err
-	}
+    result, err := svc.CreateQueue(&sqs.CreateQueueInput{
+        QueueName: aws.String(queueName),
+        Attributes: map[string]*string{
+            "DelaySeconds":           aws.String("60"),
+            "MessageRetentionPeriod": aws.String("86400"),
+        },
+    })
+    if err != nil {
+        return "", err
+    }
 
-	return *result.QueueUrl, nil
+    return *result.QueueUrl, nil
 }
 
-func sendMessage(sess *session.Session, queueURL string) (string, error) {
-	// Create a SQS service client
-	svc := sqs.New(sess)
+func getQueueURL(sess *session.Session, queueName string) (string, error) {
+    // Create a SQS service client
+    svc := sqs.New(sess)
 
-	result, err := svc.SendMessage(&sqs.SendMessageInput{
-		DelaySeconds: aws.Int64(10),
-		MessageAttributes: map[string]*sqs.MessageAttributeValue{
-			"Title": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String("The Whistler"),
-			},
-			"Author": &sqs.MessageAttributeValue{
-				DataType:    aws.String("String"),
-				StringValue: aws.String("John Grisham"),
-			},
-			"WeeksOn": &sqs.MessageAttributeValue{
-				DataType:    aws.String("Number"),
-				StringValue: aws.String("6"),
-			},
-		},
-		MessageBody: aws.String("Information about current NY Times fiction bestseller for week of 12/11/2016."),
-		QueueUrl:    &queueURL,
-	})
-	if err != nil {
-		return "", err
-	}
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: aws.String(queueName),
+    })
+    if err != nil {
+        return "", err
+    }
 
-	return *result.MessageId, nil
+    return *result.QueueUrl, nil
+}
+
+func configureLPQueue(sess *session.Session, queueURL string, timeout int) error {
+    // Create a SQS service client
+    svc := sqs.New(sess)
+
+    _, err := svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
+        QueueUrl: &queueURL,
+        Attributes: aws.StringMap(map[string]string{
+            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(timeout),
+        }),
+    })
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
+func sendMessage(sess *session.Session, queueURL string, message string) (string, error) {
+    // Create a SQS service client
+    svc := sqs.New(sess)
+
+    result, err := svc.SendMessage(&sqs.SendMessageInput{
+        DelaySeconds: aws.Int64(10),
+        MessageBody:  aws.String(message),
+        QueueUrl:     &queueURL,
+    })
+    if err != nil {
+        return "", err
+    }
+
+    return *result.MessageId, nil
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
-	// Create a SQS service client
-	svc := sqs.New(sess)
+    // Create a SQS service client
+    svc := sqs.New(sess)
 
-	_, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
-		QueueUrl: aws.String(queueURL),
-	})
-	if err != nil {
-		return err
-	}
+    _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
+        QueueUrl: aws.String(queueURL),
+    })
+    if err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 
-func TestQueue(t *testing.T) {
-	thisTime := time.Now()
-	nowString := thisTime.Format("20060102150405")
-	t.Log("Starting unit test at " + nowString)
+func TestReceiveLPMessages(t *testing.T) {
+    thisTime := time.Now()
+    nowString := thisTime.Format("20060102150405")
+    t.Log("Starting unit test at " + nowString)
 
-	err := populateConfiguration(t)
-	if err != nil {
-		t.Fatal(err)
-	}
+    err := populateConfiguration(t)
+    if err != nil {
+        t.Fatal(err)
+    }
 
-	// Create a session using credentials from ~/.aws/credentials
-	// and the region from ~/.aws/config
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+    // Create a session using credentials from ~/.aws/credentials
+    // and the region from ~/.aws/config
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
-	url, err := createQueue(sess, globalConfig.QueueName)
-	if err != nil {
-		t.Fatal(err)
-	}
+    if globalConfig.Message == "" {
+        globalConfig.Message = "Sent " + thisTime.Format("2006-01-02 15:04:05 Monday")
+    }
 
-	t.Log("Created queue " + globalConfig.QueueName)
+    // If we create a queue, we also need to delete it
+    queueCreated := false
+    url := ""
 
-	msgID, err := sendMessage(sess, url)
-	if err != nil {
-		t.Fatal(err)
-	}
+    if globalConfig.QueueName == "" {
+        // Create unique, random queue name
+        id := uuid.New()
+        globalConfig.QueueName = "myqueue-" + id.String()
 
-	t.Log("Sent message with ID " + msgID + " to queue " + globalConfig.QueueName)
+        url, err = createQueue(sess, globalConfig.QueueName)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-	msgs, err := ReceiveLPMessages(sess, url, globalConfig.Timeout)
-	if err != nil {
-		t.Fatal(err)
-	}
+        t.Log("Created queue " + globalConfig.QueueName)
+        queueCreated = true
+    } else {
+        url, err = getQueueURL(sess, globalConfig.QueueName)
+        if err != nil {
+            t.Fatal(err)
+        }
+    }
 
-	foundMsg := false
+    // Make sure it's an LP queue
+    err = configureLPQueue(sess, url, int(globalConfig.WaitTime))
+    if err != nil {
+        t.Fatal(err)
+    }
 
-	t.Log("Message IDs:")
-	for _, msg := range msgs {
-		t.Log("    " + *msg.MessageId)
-		if msgID == *msg.MessageId {
-			foundMsg = true
-			break
-		}
-	}
+    msgID, err := sendMessage(sess, url, globalConfig.Message)
+    if err != nil {
+        t.Fatal(err)
+    }
 
-	if foundMsg {
-		t.Log("Found sent message")
-	} else {
-		t.Log("Did NOT find message")
-	}
+    t.Log("Sent message to queue " + globalConfig.QueueName)
 
-	err = deleteQueue(sess, url)
-	if err != nil {
-		t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
-		t.Fatal(err)
-	}
+    msgs, err := GetLPMessages(sess, url, globalConfig.WaitTime)
+    if err != nil {
+        t.Fatal(err)
+    }
 
-	t.Log("Deleted queue " + globalConfig.QueueName)
+    numMsgs := len(msgs)
+
+    if numMsgs > 0 {
+        t.Log("Got " + strconv.Itoa(numMsgs) + " messages")
+        foundMsg := false
+
+        t.Log("Message IDs:")
+        for _, msg := range msgs {
+            t.Log("    " + *msg.MessageId)
+            if msgID == *msg.MessageId {
+                t.Log("Got message: " + *msg.Body)
+                foundMsg = true
+                break
+            }
+        }
+
+        if foundMsg {
+            t.Log("Found sent message")
+        } else {
+            t.Log("Did NOT find message")
+        }
+    } else {
+        t.Log("Did not get any messages")
+    }
+
+    if queueCreated {
+        err = deleteQueue(sess, url)
+        if err != nil {
+            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Fatal(err)
+        }
+
+        t.Log("Deleted queue " + globalConfig.QueueName)
+    }
 }

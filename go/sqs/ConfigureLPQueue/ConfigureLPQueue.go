@@ -11,9 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[sqs.go.configure_lp_queue]
 package main
 
+// snippet-start:[sqs.go.configure_lp_queue.imports]
 import (
     "flag"
     "fmt"
@@ -23,6 +24,8 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
+// snippet-end:[sqs.go.configure_lp_queue.imports]
 
 // ConfigureLPQueue configures an Amazon SQS queue to use long-polling
 // Inputs:
@@ -35,12 +38,14 @@ func ConfigureLPQueue(sess *session.Session, queueURL string, timeout int) error
     // Create a SQS service client
     svc := sqs.New(sess)
 
+    // snippet-start:[sqs.go.configure_lp_queue.set_attributes]
     _, err := svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
         QueueUrl: &queueURL,
         Attributes: aws.StringMap(map[string]string{
             "ReceiveMessageWaitTimeSeconds": strconv.Itoa(timeout),
         }),
     })
+    // snippet-end:[sqs.go.configure_lp_queue.set_attributes]
     if err != nil {
         return err
     }
@@ -64,9 +69,11 @@ func main() {
 
     // Create a session that get credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.configure_lp_queue.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+    // snippet-end:[sqs.go.configure_lp_queue.sess]
 
     err := ConfigureLPQueue(sess, *queueURLPtr, *timeoutPtr)
     if err != nil {
@@ -77,3 +84,5 @@ func main() {
 
     fmt.Println("Queue with URL " + *queueURLPtr + " deleted")
 }
+
+// snippet-end:[sqs.go.configure_lp_queue]

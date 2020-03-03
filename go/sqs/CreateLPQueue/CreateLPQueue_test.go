@@ -83,7 +83,7 @@ func deleteQueue(sess *session.Session, queueURL string) error {
     return nil
 }
 
-func TestQueue(t *testing.T) {
+func TestCreateLpQueue(t *testing.T) {
     err := populateConfiguration()
     if err != nil {
         t.Fatal(err)
