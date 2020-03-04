@@ -43,8 +43,7 @@ Before running the Amazon EC2 JUnit tests, you must define values in the **confi
 
 Define these values to successfully run the JUnit tests:
 
-- **instanceId** - the id of an instance. You can obtain this value from the AWS Console. 
-- **ami** – an ami value. You can obtain this value from the AWS Console.
+- **ami** – an ami value. 
 - **instanceName** – an instance name. You can obtain this value from the AWS Console. 
 - **keyPair** – a key pair to use. For example, **TestKeyPair**.
 - **groupName** – ta group name to use. For example, **TestSecGroup**.
