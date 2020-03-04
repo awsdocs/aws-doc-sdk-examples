@@ -1,4 +1,4 @@
-# Amazon CloudWatch Java Readme
+# Amazon Simple Notification Service Java Readme
 
 A README that discusses how to run and test the Java Amazon Simple Notification Service (SNS) code examples.
 
