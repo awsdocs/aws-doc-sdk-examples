@@ -36,7 +36,6 @@ public class AWSEC2ServiceIntegrationTest {
 
             //load a properties file from class path, inside static method
             prop.load(input);
-           // instanceId = prop.getProperty("instanceId");
             ami = prop.getProperty("ami");
             instanceName = prop.getProperty("instanceName");
             keyName = prop.getProperty("keyPair");
