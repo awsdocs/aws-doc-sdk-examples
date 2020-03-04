@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -162,7 +163,6 @@ public class AWSDynamoServiceIntegrationTest {
     public void PutItem() {
 
         System.out.println("Running DynamoDB Test 4: Put Item");
-        // snippet-start:[dynamodb.java2.put_item.main]
         HashMap<String,AttributeValue> item_values = new HashMap<String,AttributeValue>();
 
         // Add more content to the table
@@ -188,7 +188,6 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.put_item.main]
         System.out.println("Done!");
     }
 
@@ -235,7 +234,6 @@ public class AWSDynamoServiceIntegrationTest {
                 System.exit(1);
             }
         }
-        // snippet-end:[dynamodb.java2.list_tables.main]
         System.out.println("\nDone!");
     }
     @Test
@@ -271,7 +269,6 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.query.main]
         System.out.println("Done!");
     }
 
@@ -413,5 +410,6 @@ public class AWSDynamoServiceIntegrationTest {
         }
         return false;
     }
-
 }
+
+
