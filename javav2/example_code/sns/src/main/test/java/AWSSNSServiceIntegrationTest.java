@@ -63,7 +63,6 @@ public class AWSSNSServiceIntegrationTest {
     @Order(2)
     public void CreateTopic() {
 
-        System.out.println("Running SNS Test 2");
         CreateTopicResponse result = null;
 
         try {
@@ -103,14 +102,13 @@ public class AWSSNSServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 3 Passed");
+        System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void SetTopicAttributes() {
 
-        System.out.println("Running SNS Test 4");
         try {
 
             SetTopicAttributesRequest request = SetTopicAttributesRequest.builder()
@@ -128,6 +126,7 @@ public class AWSSNSServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+         System.out.println("Test 4 passed");
     }
 
     @Test
@@ -147,7 +146,7 @@ public class AWSSNSServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Test 5 Passed");
+        System.out.println("Test 5 passed");
     }
 
     @Test
@@ -170,7 +169,7 @@ public class AWSSNSServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Test 6 Passed");
+        System.out.println("Test 6 passed");
     }
 
     @Test
@@ -194,7 +193,7 @@ public class AWSSNSServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Test 7 Passed");
+        System.out.println("Test 7 passed");
     }
 
     @Test
@@ -217,7 +216,7 @@ public class AWSSNSServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 8 Passed");
+        System.out.println("Test 8 passed");
     }
 
     @Test
