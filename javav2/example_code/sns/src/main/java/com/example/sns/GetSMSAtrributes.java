@@ -8,7 +8,7 @@
 //snippet-sourcedate:[2019-07-20]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,9 +21,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
+//snippet-start:[sns.java2.GetTopicAttributes.complete]
 package com.example.sns;
 
-//snippet-start:[sns.java2.GetSMSAtrributes.import]
+//snippet-start:[sns.java2.GetSMSAtrributes.complete]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.GetSubscriptionAttributesRequest;
