@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
@@ -15,20 +14,20 @@ public class AWSDynamoServiceIntegrationTest {
 
     private static DynamoDbClient ddb;
 
-   // Define the data members required for the test
-   private static String tableName = "";
-   private static String itemVal = "";
-   private static String updatedVal="";
-   private static String key = "";
-   private static String keyVal = "";
+    // Define the data members required for the test
+    private static String tableName = "";
+    private static String itemVal = "";
+    private static String updatedVal = "";
+    private static String key = "";
+    private static String keyVal = "";
 
-   private static String albumTitle="";
-   private static String albumTitleValue="";
-   private static String awards="";
-   private static String awardVal ="";
+    private static String albumTitle = "";
+    private static String albumTitleValue = "";
+    private static String awards = "";
+    private static String awardVal = "";
 
-   private static String songTitle ="";
-   private static String songTitleVal ="";
+    private static String songTitle = "";
+    private static String songTitleVal = "";
 
 
     @BeforeAll
@@ -52,10 +51,11 @@ public class AWSDynamoServiceIntegrationTest {
             // Populate the data members required for all tests
             tableName = prop.getProperty("tableName");
             key = prop.getProperty("key");
-            keyVal = prop.getProperty("keyValue");;
-            albumTitle=prop.getProperty("albumTitle");
-            albumTitleValue=prop.getProperty("AlbumTitleValue");
-            awards =prop.getProperty("Awards");
+            keyVal = prop.getProperty("keyValue");
+            ;
+            albumTitle = prop.getProperty("albumTitle");
+            albumTitleValue = prop.getProperty("AlbumTitleValue");
+            awards = prop.getProperty("Awards");
             awardVal = prop.getProperty("AwardVal");
             songTitle = prop.getProperty("SongTitle");
             songTitleVal = prop.getProperty("SongTitleVal");
@@ -69,14 +69,13 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(1)
     public void whenInitializingAWSS3Service_thenNotNull() {
         assertNotNull(ddb);
-    System.out.println("Running DynamoDB Test 1");
+        System.out.println("Test 1 passed");
     }
 
     @Test
     @Order(2)
     public void CreateTable() {
 
-        System.out.println("Running DynamoDB Test 2: Create Table");
         CreateTableRequest request = CreateTableRequest.builder()
                 .attributeDefinitions(AttributeDefinition.builder()
                         .attributeName(key)
@@ -108,13 +107,12 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        System.out.println("\n Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void DescribeTable() {
-
-        System.out.println("Running DynamoDB Test 3: Describe Table");
 
         DescribeTableRequest request = DescribeTableRequest.builder()
                 .tableName(tableName)
@@ -156,14 +154,15 @@ public class AWSDynamoServiceIntegrationTest {
             System.exit(1);
         }
 
+        System.out.println("\n Test 3 passed");
+
     }
 
     @Test
     @Order(4)
     public void PutItem() {
 
-        System.out.println("Running DynamoDB Test 4: Put Item");
-        HashMap<String,AttributeValue> item_values = new HashMap<String,AttributeValue>();
+        HashMap<String, AttributeValue> item_values = new HashMap<String, AttributeValue>();
 
         // Add more content to the table
         item_values.put(key, AttributeValue.builder().s(keyVal).build());
@@ -178,7 +177,6 @@ public class AWSDynamoServiceIntegrationTest {
 
         try {
             ddb.putItem(request);
-            System.out.println(tableName +" was successfully updated");
 
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The table \"%s\" can't be found.\n", tableName);
@@ -188,7 +186,7 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Done!");
+        System.out.println("\n Test 4 passed");
     }
 
 
@@ -196,19 +194,16 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(5)
     public void ListTables() {
 
-        System.out.println("Running DynamoDB Test 5: List Tables");
-
         boolean more_tables = true;
         String last_name = null;
 
-        while(more_tables) {
+        while (more_tables) {
             try {
                 ListTablesResponse response = null;
                 if (last_name == null) {
                     ListTablesRequest request = ListTablesRequest.builder().build();
                     response = ddb.listTables(request);
-                }
-                else {
+                } else {
                     ListTablesRequest request = ListTablesRequest.builder()
                             .exclusiveStartTableName(last_name).build();
                     response = ddb.listTables(request);
@@ -234,25 +229,24 @@ public class AWSDynamoServiceIntegrationTest {
                 System.exit(1);
             }
         }
-        System.out.println("\nDone!");
+        System.out.println("\n Test 5 passed");
     }
+
     @Test
     @Order(6)
     public void QueryTable() {
 
-        System.out.println("Running DynamoDB Test 6: Query Table");
-
-        String partition_alias =  "#a";
+        String partition_alias = "#a";
         String partition_key_name = key;
         String partition_key_val = keyVal;
         //set up an alias for the partition key name in case it's a reserved word
-        HashMap<String,String> attrNameAlias =  new HashMap<String,String>();
+        HashMap<String, String> attrNameAlias = new HashMap<String, String>();
         attrNameAlias.put(partition_alias, partition_key_name);
 
         //set up mapping of the partition name with the value
         HashMap<String, AttributeValue> attrValues =
-                new HashMap<String,AttributeValue>();
-        attrValues.put(":"+partition_key_name, AttributeValue.builder().s(partition_key_val).build());
+                new HashMap<String, AttributeValue>();
+        attrValues.put(":" + partition_key_name, AttributeValue.builder().s(partition_key_val).build());
 
         QueryRequest queryReq = QueryRequest.builder()
                 .tableName(tableName)
@@ -269,26 +263,24 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Done!");
+        System.out.println("\n Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void updateItem() {
 
-        System.out.println("Running DynamoDB Test 7: Update Item");
-
-        HashMap<String,AttributeValue> item_key =  new HashMap<String,AttributeValue>();
+        HashMap<String, AttributeValue> item_key = new HashMap<String, AttributeValue>();
 
         item_key.put(key, AttributeValue.builder().s(keyVal).build());
 
-        HashMap<String,AttributeValueUpdate> updated_values =
-                new HashMap<String,AttributeValueUpdate>();
+        HashMap<String, AttributeValueUpdate> updated_values =
+                new HashMap<String, AttributeValueUpdate>();
 
         updated_values.put("Awards", AttributeValueUpdate.builder()
-                    .value(AttributeValue.builder().s("14").build())
-                    .action(AttributeAction.PUT)
-                    .build());
+                .value(AttributeValue.builder().s("14").build())
+                .action(AttributeAction.PUT)
+                .build());
 
         UpdateItemRequest request = UpdateItemRequest.builder()
                 .tableName(tableName)
@@ -305,26 +297,25 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        System.out.println("\n Test 7 passed");
     }
 
     @Test
     @Order(8)
-    public void getItem()
-    {
-        System.out.println("Running DynamoDB Test 8: Get Item ");
-        HashMap<String,AttributeValue> key_to_get =
-                new HashMap<String,AttributeValue>();
+    public void getItem() {
+        HashMap<String, AttributeValue> key_to_get =
+                new HashMap<String, AttributeValue>();
 
         key_to_get.put(key, AttributeValue.builder()
                 .s(keyVal).build());
 
         GetItemRequest request = GetItemRequest.builder()
-                    .key(key_to_get)
-                    .tableName(tableName)
-                    .build();
+                .key(key_to_get)
+                .tableName(tableName)
+                .build();
 
         try {
-            Map<String,AttributeValue> returned_item = ddb.getItem(request).item();
+            Map<String, AttributeValue> returned_item = ddb.getItem(request).item();
 
             if (returned_item != null) {
                 Set<String> keys = returned_item.keySet();
@@ -340,6 +331,7 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        System.out.println("\n Test 8 passed");
     }
 
 
@@ -347,10 +339,8 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(9)
     public void DeleteItem() {
 
-        System.out.println("Running DynamoDB Test 9: Delete Item ");
-
-        HashMap<String,AttributeValue> key_to_get =
-                new HashMap<String,AttributeValue>();
+        HashMap<String, AttributeValue> key_to_get =
+                new HashMap<String, AttributeValue>();
 
         key_to_get.put(key, AttributeValue.builder()
                 .s(keyVal)
@@ -368,26 +358,26 @@ public class AWSDynamoServiceIntegrationTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
+        System.out.println("\n Test 9 passed");
     }
 
     @Test
     @Order(10)
     public void DeleteTable() {
 
-        System.out.println("Running DynamoDB Test 10: Delete Table");
         DeleteTableRequest request = DeleteTableRequest.builder()
                 .tableName(tableName)
                 .build();
 
         try {
             ddb.deleteTable(request);
-            System.out.println(tableName +" was successfully deleted!");
+            System.out.println(tableName + " was successfully deleted!");
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
 
+        System.out.println("\n Test 10 passed");
     }
 
 
@@ -407,9 +397,11 @@ public class AWSDynamoServiceIntegrationTest {
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
+           }
+
         return false;
     }
+
 }
 
 
