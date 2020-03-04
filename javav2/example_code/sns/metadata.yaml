@@ -1,0 +1,104 @@
+--- 
+created: 2020-02-25
+files: 
+ - path: CheckOptOut.java
+   apis: 
+      - service: sns
+        operations: 
+        - checkIfPhoneNumberIsOptedOut
+        - statusCode
+ - path: ConfirmSubscription.java
+   apis: 
+      - service: sns
+        operations: 
+        - confirmSubscription
+ - path: CreateTopic.java
+   apis: 
+      - service: sns
+        operations: 
+        - createTopic
+        - topicArn
+ - path: DeleteTopic.java
+   apis: 
+      - service: sns
+        operations: 
+        - deleteTopic
+ - path: GetSMSAtrributes.java
+   apis: 
+      - service: sns
+        operations: 
+        - getSMSAttributes
+        - attributes
+ - path: GetTopicAttributes.java
+   apis: 
+      - service: sns
+        operations: 
+        - getTopicAttributes
+ - path: ListOptOut.java
+   apis: 
+      - service: sns
+        operations: 
+        - listPhoneNumbersOptedOut
+        - phoneNumbers
+ - path: ListSubscriptions.java
+   apis: 
+      - service: sns
+        operations: 
+        - listSubscriptions
+        - subscriptions     
+ - path: ListTopics.java
+   apis: 
+      - service: sns
+        operations: 
+        - listTopics
+        - topics     
+ - path: PublishTextSMS.java
+   apis: 
+      - service: sns
+        operations: 
+        - publish
+        - phoneNumber    
+ - path: PublishTopic.java
+   apis: 
+      - service: sns
+        operations: 
+        - topicArn
+        - message 
+ - path: SetSMSAttributes.java
+   apis: 
+      - service: sns
+        operations: 
+        - setSMSAttributes
+        - attributes 
+ - path: SetTopicAttributes.java
+   apis: 
+      - service: sns
+        operations: 
+        - setTopicAttributes
+ - path: SubscribeEmail.java
+   apis: 
+      - service: sns
+        operations: 
+        - endpoint
+        - returnSubscriptionArn
+        - subscribe
+ - path: SubscribeHTTPS.java
+   apis: 
+      - service: sns
+        operations: 
+        - protocol
+ - path: SubscribeLambda.java
+   apis: 
+      - service: sns
+        operations: 
+        - subscribe      
+ - path: SubscribeTextSMS.java
+   apis: 
+      - service: sns
+        operations: 
+        - returnSubscriptionArn  
+ - path: Unsubscribe.java
+   apis: 
+      - service: sns
+        operations: 
+        - unsubscribe  
