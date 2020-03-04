@@ -51,7 +51,7 @@ public class SQSServiceIntegrationTest {
     @Order(1)
     public void whenInitializingAWSCWService_thenNotNull() {
         assertNotNull(sqsClient);
-        System.out.println("Running SQS Test 1");
+        System.out.println("Test 1 passed");
     }
 
 
@@ -77,7 +77,7 @@ public class SQSServiceIntegrationTest {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Test 2 Passed");
+        System.out.println("Test 2 passed");
     }
 
     @Test
@@ -104,7 +104,7 @@ public class SQSServiceIntegrationTest {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Test 3 Passed");
+        System.out.println("Test 3 passed");
     }
 
     @Test
@@ -139,7 +139,7 @@ public class SQSServiceIntegrationTest {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Test 4 Passed");
+        System.out.println("Test 4 passed");
     }
 
     @Test
@@ -168,7 +168,7 @@ public class SQSServiceIntegrationTest {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Test 5 Passed");
+        System.out.println("Test 5 passed");
 
     }
 
@@ -204,7 +204,7 @@ public class SQSServiceIntegrationTest {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Test 6 Passed");
+        System.out.println("Test 6 passed");
 
     }
 
@@ -249,7 +249,7 @@ public class SQSServiceIntegrationTest {
            e.printStackTrace();
            System.exit(1);
        }
-        System.out.println("Test 7 Passed");
+        System.out.println("Test 7 passed");
 
     }
 
@@ -305,7 +305,7 @@ public class SQSServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 8 Passed");
+        System.out.println("Test 8 passed");
     }
 
     @Test
@@ -347,7 +347,6 @@ public class SQSServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 9 Passed");
+        System.out.println("Test 9 passed");
     }
-
 }
