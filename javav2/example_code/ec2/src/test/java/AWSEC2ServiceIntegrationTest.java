@@ -104,7 +104,6 @@ public class AWSEC2ServiceIntegrationTest {
 
         CreateKeyPairResponse response = ec2.createKeyPair(request);
 
-        // snippet-end:[ec2.java2.create_key_pair.main]
         System.out.printf(
                 "Successfully created key pair named %s",
                 keyName);
@@ -211,8 +210,7 @@ public class AWSEC2ServiceIntegrationTest {
         DescribeSecurityGroupsResponse response =
                 ec2.describeSecurityGroups(request);
 
-        // snippet-end:[ec2.java2.describe_security_groups.main]
-        for(SecurityGroup group : response.securityGroups()) {
+       for(SecurityGroup group : response.securityGroups()) {
             System.out.printf(
                     "Found security group with id %s, " +
                             "vpc id %s " +
