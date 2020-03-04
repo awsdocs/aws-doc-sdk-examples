@@ -22,7 +22,7 @@
  * permissions and limitations under the License.
  */
 
-//snippet-start:[sns.java2.GetTopicAttributes.complete]
+//snippet-start:[sns.java2.GetSMSAtrributes.complete]
 package com.example.sns;
 
 //snippet-start:[sns.java2.GetSMSAtrributes.import]
