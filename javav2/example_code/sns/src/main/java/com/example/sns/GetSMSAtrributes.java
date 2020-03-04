@@ -48,7 +48,6 @@ public class GetSMSAtrributes {
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.DeleteTopic.main]
         String topicArn = args[0];
 
         //snippet-start:[sns.java2.GetSMSAtrributes.main]
