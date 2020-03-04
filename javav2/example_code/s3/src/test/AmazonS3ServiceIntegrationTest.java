@@ -263,8 +263,6 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(9)
     public void getACL(){
 
-        System.out.println("                in bucket: " + bucketName);
-
         GetObjectAclRequest aclReq = GetObjectAclRequest.builder()
                 .bucket(bucketName)
                 .key(objectKey)
