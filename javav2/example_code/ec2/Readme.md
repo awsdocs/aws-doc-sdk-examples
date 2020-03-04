@@ -61,8 +61,8 @@ You will see output from the JUnit tests, as shown here:
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
 	[INFO] Running AWSEC2ServiceIntegrationTest
-	Running Amazon EC2 Test 1
-	Running Amazon EC2 Test 2
+	Test 1 passed
+	Test 2 passed
 	...
 	Done!
 	[INFO] Results:
