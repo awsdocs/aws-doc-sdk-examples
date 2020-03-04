@@ -300,7 +300,7 @@ public class AmazonS3ServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Test 11 passed");
+        System.out.println("Test 10 passed");
     }
 
     @Test
@@ -315,7 +315,7 @@ public class AmazonS3ServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Test 12 passed");
+        System.out.println("Test 11 passed");
     }
 
    public byte[] getObjectFile(String path) throws FileNotFoundException {
