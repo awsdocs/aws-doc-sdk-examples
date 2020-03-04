@@ -68,7 +68,7 @@ public class CloudWatchServiceIntegrationTest {
     public void whenInitializingAWSCWService_thenNotNull() {
         assertNotNull(cw);
         assertNotNull(cloudWatchLogsClient);
-        System.out.println("Running CloudWatch Test 1");
+        System.out.printf("Test 1 passed");
     }
 
     @Test
@@ -105,15 +105,13 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.printf(
-                "Successfully created alarm with name %s", alarmName);
+        System.out.printf("Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void DescribeAlarms() {
 
-        System.out.println("Running CloudWatch Test 3");
         try {
 
             boolean done = false;
@@ -147,18 +145,14 @@ public class CloudWatchServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("\n Done Test 3");
+        System.out.printf("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void CreateSubscriptionFilters() {
 
-        System.out.println("Running CloudWatch Test 4");
-
-        try {
-        CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
-                .build();
+       try {
 
         PutSubscriptionFilterRequest filRequest = PutSubscriptionFilterRequest.builder()
                 .filterName(filterName)
@@ -168,23 +162,18 @@ public class CloudWatchServiceIntegrationTest {
                 .filterPattern(filterPattern)
                 .build();
 
-        logs.putSubscriptionFilter(filRequest);
+           cloudWatchLogsClient.putSubscriptionFilter(filRequest);
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
 
-        System.out.printf(
-                "Successfully created CloudWatch logs subscription filter %s",
-                filterName);
+        System.out.printf("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void DescribeSubscriptionFilters() {
-
-        System.out.println("Running CloudWatch Test 5");
-        CloudWatchLogsClient logs = CloudWatchLogsClient.builder().build();
 
         try {
 
@@ -201,7 +190,7 @@ public class CloudWatchServiceIntegrationTest {
                                     .logGroupName(logGroup)
                                     .limit(1).build();
 
-                    response = logs.describeSubscriptionFilters(request);
+                    response = cloudWatchLogsClient.describeSubscriptionFilters(request);
                 } else {
                     DescribeSubscriptionFiltersRequest request =
                             DescribeSubscriptionFiltersRequest.builder()
@@ -209,7 +198,7 @@ public class CloudWatchServiceIntegrationTest {
                                     .logGroupName(logGroup)
                                     .limit(1).build();
 
-                    response = logs.describeSubscriptionFilters(request);
+                    response = cloudWatchLogsClient.describeSubscriptionFilters(request);
                 }
 
                 for(SubscriptionFilter filter : response.subscriptionFilters()) {
@@ -235,7 +224,7 @@ public class CloudWatchServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.printf("Done test 5");
+        System.out.printf("Test 5 passed");
     }
 
 
@@ -243,11 +232,9 @@ public class CloudWatchServiceIntegrationTest {
     @Order(6)
     public void DisableAlarmActions() {
 
-        System.out.println("Running CloudWatch Test 6");
+       try {
 
-        try {
-            CloudWatchClient cw = CloudWatchClient.builder().build();
-            DisableAlarmActionsRequest request = DisableAlarmActionsRequest.builder()
+           DisableAlarmActionsRequest request = DisableAlarmActionsRequest.builder()
                     .alarmNames(alarmName).build();
 
             DisableAlarmActionsResponse response = cw.disableAlarmActions(request);
@@ -257,19 +244,14 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.printf(
-                "Successfully disabled actions on alarm %s", alarmName);
+        System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void EnableAlarmActions() {
 
-        System.out.println("Running CloudWatch Test 7");
-
-        try {
-
-
+       try {
             EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
                     .alarmNames(alarmName).build();
 
@@ -280,15 +262,13 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.printf(
-                "Successfully enabled actions on alarm %s", alarmName);
+        System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void GetLogEvents() {
 
-        System.out.println("Running CloudWatch Test 8");
         try {
              GetLogEventsRequest getLogEventsRequest = GetLogEventsRequest.builder()
                     .logGroupName(logGroup)
@@ -306,7 +286,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Successfully got CloudWatch log events!");
+        System.out.println("Test 8 passed");
     }
 
 
@@ -314,8 +294,6 @@ public class CloudWatchServiceIntegrationTest {
     @Order(9)
     void PutCloudWatchEvent() {
 
-
-        System.out.println("Running CloudWatch Test 9");
         CloudWatchEventsClient cwe =
                 CloudWatchEventsClient.builder().build();
 
@@ -333,21 +311,20 @@ public class CloudWatchServiceIntegrationTest {
             PutEventsRequest request = PutEventsRequest.builder()
                     .entries(requestEntry).build();
 
-            PutEventsResponse response = cwe.putEvents(request);
+            cwe.putEvents(request);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Successfully put CloudWatch event");
+        System.out.println("Test 9 passed");
     }
 
     @Test
     @Order(10)
     public void GetMetricData() {
 
-        System.out.println("Running CloudWatch Test 10");
-        try {
+       try {
 
             // Set the date
             Instant start = Instant.ofEpochMilli(new Date().getTime());
@@ -397,43 +374,36 @@ public class CloudWatchServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+
+        System.out.println("Test 10 passed");
     }
 
     @Test
     @Order(11)
     public void DeleteSubscriptionFilter() {
 
-        System.out.println("Running CloudWatch Test 11");
-
         try {
 
-            CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
-                    .build();
-
-            DeleteSubscriptionFilterRequest request =
+          DeleteSubscriptionFilterRequest request =
                     DeleteSubscriptionFilterRequest.builder()
                             .filterName(filterName)
                            .logGroupName(logGroup).build();
 
-            DeleteSubscriptionFilterResponse response =
-                    logs.deleteSubscriptionFilter(request);
+           cloudWatchLogsClient.deleteSubscriptionFilter(request);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
 
-        System.out.printf(
-                "Successfully deleted CloudWatch logs subscription filter %s",
-                filterName);
+        System.out.println("Test 11 passed");
     }
 
     @Test
     @Order(12)
     public void DeleteAlarm() {
 
-        System.out.println("Running CloudWatch Test 12");
-        try {
+      try {
         DeleteAlarmsRequest delAlarm = DeleteAlarmsRequest.builder()
                 .alarmNames(alarmName)
                 .build();
@@ -445,13 +415,6 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.printf(
-                "Successfully deleted Alarm %s",
-                alarmName);
+        System.out.println("Test 12 passed");
     }
 }
-
-
-
-
-
