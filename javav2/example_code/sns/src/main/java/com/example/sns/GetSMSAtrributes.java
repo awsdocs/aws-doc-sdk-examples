@@ -25,7 +25,7 @@
 //snippet-start:[sns.java2.GetTopicAttributes.complete]
 package com.example.sns;
 
-//snippet-start:[sns.java2.GetSMSAtrributes.complete]
+//snippet-start:[sns.java2.GetSMSAtrributes.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.GetSubscriptionAttributesRequest;
