@@ -36,6 +36,7 @@ public class AWSEC2ServiceIntegrationTest {
 
             //load a properties file from class path, inside static method
             prop.load(input);
+           // instanceId = prop.getProperty("instanceId");
             ami = prop.getProperty("ami");
             instanceName = prop.getProperty("instanceName");
             keyName = prop.getProperty("keyPair");
@@ -448,7 +449,7 @@ public class AWSEC2ServiceIntegrationTest {
        try {
            // Create an Ec2Client object
            TerminateInstancesRequest ti = TerminateInstancesRequest.builder()
-                   .instanceIds("i-0ca327cd33788a4f7")
+                   .instanceIds(instanceId)
                    .build();
 
            ec2.terminateInstances(ti);
