@@ -6,9 +6,9 @@
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ package com.example.sns;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.SnsException;
 import software.amazon.awssdk.services.sns.model.UnsubscribeRequest;
 import software.amazon.awssdk.services.sns.model.UnsubscribeResponse;
 //snippet-end:[sns.java2.Unsubscribe.import]
@@ -52,14 +53,21 @@ public class Unsubscribe {
 
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-        UnsubscribeRequest request = UnsubscribeRequest.builder()
+        try {
+
+            UnsubscribeRequest request = UnsubscribeRequest.builder()
                 .subscriptionArn(subscriptionToken)
                 .build();
 
-        UnsubscribeResponse result = snsClient.unsubscribe(request);
+            UnsubscribeResponse result = snsClient.unsubscribe(request);
 
-        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode()
+            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode()
                 + "\n\nSubscription was removed for " + request.subscriptionArn());
+
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         //snippet-end:[sns.java2.Unsubscribe.main]
     }
 }
