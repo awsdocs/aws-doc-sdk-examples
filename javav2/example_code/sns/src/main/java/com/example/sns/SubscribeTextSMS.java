@@ -6,9 +6,10 @@
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourceauthor:[scmacdon AWS]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,13 +22,14 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 //snippet-start:[sns.java2.SubscribeTextSMS.complete]
 package com.example.sns;
 
 //snippet-start:[sns.java2.SubscribeTextSMS.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.SnsException;
 import software.amazon.awssdk.services.sns.model.SubscribeRequest;
 import software.amazon.awssdk.services.sns.model.SubscribeResponse;
 //snippet-end:[sns.java2.SubscribeTextSMS.import]
@@ -51,18 +53,28 @@ public class SubscribeTextSMS {
         String topicArn = args[0];
         String phoneNumber = args[1];
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
-        SubscribeRequest request = SubscribeRequest.builder()
+        try {
+
+            SubscribeRequest request = SubscribeRequest.builder()
                 .protocol("sms")
                 .endpoint(phoneNumber)
                 .returnSubscriptionArn(true)
                 .topicArn(topicArn)
                 .build();
 
-        SubscribeResponse result = snsClient.subscribe(request);
+            SubscribeResponse result = snsClient.subscribe(request);
 
-        System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+
+    } catch (SnsException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+
         //snippet-end:[sns.java2.SubscribeTextSMS.main]
     }
 }
