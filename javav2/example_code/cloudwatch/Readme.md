@@ -6,15 +6,9 @@ A README that discusses how to run and test the Java Amazon CloudWatch code exam
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and region for which you've specified credentials, and you may incur AWS service charges by running them. 
+The Java examples perform AWS operations for the account and region for which you've specified credentials, and you may incur AWS service charges by running them. Please visit the AWS Pricing page for details about the charges you can expect for a given service and operation. For details, see https://aws.amazon.com/pricing/.   
 
-Please visit the `AWS Pricing  
-
-<https://aws.amazon.com/pricing/>`_ 
-page for details about the charges you can expect for a given service and operation.
-
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a CloudWatch alarm. **Be very careful** when running an operation that 
-deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a CloudWatch alarm. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
 To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**:
 
