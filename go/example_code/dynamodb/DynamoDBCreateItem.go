@@ -79,8 +79,6 @@ func main() {
 
     // snippet-start:[dynamodb.go.create_item.call]
     // Create item in table Movies
-    movieName := "The Big New Movie"
-    movieYear := 2015
     tableName := "Movies"
 
     input := &dynamodb.PutItemInput{
@@ -95,9 +93,9 @@ func main() {
         os.Exit(1)
     }
 
-    year := strconv.Itoa(movieYear)
+    year := strconv.Itoa(item.Year)
 
-    fmt.Println("Successfully added '" + movieName + "' (" + year + ") to table " + tableName)
+    fmt.Println("Successfully added '" + item.Title + "' (" + year + ") to table " + tableName)
     // snippet-end:[dynamodb.go.create_item.call]
 }
 // snippet-end:[dynamodb.go.create_item]

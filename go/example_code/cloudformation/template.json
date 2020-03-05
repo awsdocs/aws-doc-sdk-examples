@@ -1,0 +1,15 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "AWS CloudFormation Sample template to create an Amazon S3 bucket.",
+
+  "Resources" : {
+    "S3Bucket" : {
+      "Type" : "AWS::S3::Bucket",
+      "Properties" : {
+        "AccessControl" : "Private",
+      },
+      "DeletionPolicy" : "Delete"
+    }
+  },
+}

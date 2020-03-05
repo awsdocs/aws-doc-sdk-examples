@@ -3,10 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2020-02-06]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,23 +23,17 @@
 package com.example.s3;
 // snippet-start:[s3.java2.bucket_deletion.complete]
 // snippet-start:[s3.java2.bucket_deletion.import]
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.ByteBuffer;
-import java.util.Random;
 import software.amazon.awssdk.regions.Region;
-// snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]      
+// snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
-import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
-import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
-// snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]      
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
-import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+
+// snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]
 // snippet-end:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.bucket_deletion.main]
 public class S3BucketDeletion {
@@ -46,76 +41,53 @@ public class S3BucketDeletion {
     private static S3Client s3;
 
     public static void main(String[] args) throws Exception {
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    S3BucketDeletion <bucket>\n\n" +
+                "Where:\n" +
+                "    bucket - the bucket to delete  (i.e., bucket1)\n\n" +
+                "Example:\n" +
+                "    bucket1\n\n";
+
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+        String bucket = args[0];
+
+        //Create the S3Client object
         Region region = Region.US_WEST_2;
         s3 = S3Client.builder().region(region).build();
 
-        String bucket = "bucket" + System.currentTimeMillis();
+        try {
+            // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
+            // To delete a bucket, all the objects in the bucket must be deleted first
+            ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder().bucket(bucket).build();
+            ListObjectsV2Response listObjectsV2Response;
 
-        createBucket(bucket, region);
-        // Delete empty bucket
-        deleteEmptyBucket(bucket);
+            do {
+                listObjectsV2Response = s3.listObjectsV2(listObjectsV2Request);
+                for (S3Object s3Object : listObjectsV2Response.contents()) {
+                    s3.deleteObject(DeleteObjectRequest.builder().bucket(bucket).key(s3Object.key()).build());
+                }
 
-        String bucket2 = "bucket" + System.currentTimeMillis();
-        createBucket(bucket2, region);
-        putObjects(bucket2);
+                listObjectsV2Request = ListObjectsV2Request.builder().bucket(bucket)
+                    .continuationToken(listObjectsV2Response.nextContinuationToken())
+                    .build();
 
-        // Delete non-empty bucket
-        // To delete a bucket, all the objects in the bucket should be deleted first
-        // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]        
-        ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder().bucket(bucket2).build();
-        ListObjectsV2Response listObjectsV2Response;
-        do {
-            listObjectsV2Response = s3.listObjectsV2(listObjectsV2Request);
-            for (S3Object s3Object : listObjectsV2Response.contents()) {
-                s3.deleteObject(DeleteObjectRequest.builder().bucket(bucket2).key(s3Object.key()).build());
-            }
+            } while(listObjectsV2Response.isTruncated());
+            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
 
-            listObjectsV2Request = ListObjectsV2Request.builder().bucket(bucket2)
-                                                       .continuationToken(listObjectsV2Response.nextContinuationToken())
-                                                       .build();
+          DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
+          s3.deleteBucket(deleteBucketRequest);
 
-        } while (listObjectsV2Response.isTruncated());
-        // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]      
-
-        // Now the bucket is empty and we can delete it
-        deleteEmptyBucket(bucket2);
-    }
-
-    private static void createBucket(String bucket, Region region) {
-        // Create bucket
-        s3.createBucket(CreateBucketRequest
-                                .builder()
-                                .bucket(bucket)
-                                .createBucketConfiguration(
-                                        CreateBucketConfiguration.builder()
-                                                                 .locationConstraint(region.id())
-                                                                 .build())
-                                .build());
-    }
-
-    private static void putObjects(String bucket) {
-        for (int i = 0; i < 5; i++) {
-            try {
-                s3.putObject(PutObjectRequest.builder().bucket(bucket).key("key" + i).build(),
-                             RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
-
-    private static void deleteEmptyBucket(String bucket) {
-        // Delete empty bucket
-        DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
-        s3.deleteBucket(deleteBucketRequest);
-    }
-
-    private static ByteBuffer getRandomByteBuffer(int size) throws IOException {
-        byte[] b = new byte[size];
-        new Random().nextBytes(b);
-        return ByteBuffer.wrap(b);
-    }
 }
- 
+
 // snippet-end:[s3.java2.bucket_deletion.main]
 // snippet-end:[s3.java2.bucket_deletion.complete]

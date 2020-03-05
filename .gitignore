@@ -20,3 +20,6 @@ cpp/.vs/
 *.iml
 .vscode
 __pycache__
+venv
+composer.*
+vendor/

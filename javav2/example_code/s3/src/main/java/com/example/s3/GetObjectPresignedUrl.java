@@ -32,9 +32,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.time.Duration;
-
-import software.amazon.awssdk.services.lambda.model.ServiceException;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -94,7 +93,7 @@ public class GetObjectPresignedUrl {
                 connection.setDoOutput(true);
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
                      OutputStream httpOutputStream = connection.getOutputStream()) {
-                    IoUtils.copy(signedPayload, httpOutputStream);
+                     IoUtils.copy(signedPayload, httpOutputStream);
                 }
             }
 
@@ -104,13 +103,17 @@ public class GetObjectPresignedUrl {
                 IoUtils.copy(content, System.out);
             }
 
-            // It's recommended that you close the S3Presigner when it is done being used, because some credential
-            // providers (e.g. if your AWS profile is configured to assume an STS role) require system resources
-            // that need to be freed. If you are using one S3Presigner per application (as recommended), this
-            // usually isn't needed
+            /*
+             *  It's recommended that you close the S3Presigner when it is done being used, because some credential
+             * providers (e.g. if your AWS profile is configured to assume an STS role) require system resources
+             * that need to be freed. If you are using one S3Presigner per application (as recommended), this
+             * usually isn't needed
+             */
             presigner.close();
 
-        } catch (ServiceException | IOException e) {
+        } catch (S3Exception e) {
+            e.getStackTrace();
+        } catch (IOException e) {
             e.getStackTrace();
         }
         // snippet-end:[presigned.java2.getobjectpresigned.main]
