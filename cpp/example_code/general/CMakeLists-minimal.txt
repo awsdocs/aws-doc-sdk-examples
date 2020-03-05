@@ -9,7 +9,7 @@ project(my-example)
 
 # Locate the AWS SDK for C++ package.
 # "s3" and "cloudtrail" are just example values.
-find_package(AWSSDK REQUIRED COMPONENTS s3 cloudtrail ...)
+find_package(AWSSDK REQUIRED COMPONENTS s3 cloudtrail)
 
 # The executable name and its sourcefiles.
 add_executable(my-example my-example.cpp)
