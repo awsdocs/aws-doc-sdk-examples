@@ -7,10 +7,6 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 # "my-example" is just an example value.
 project(my-example)
 
-# By default the AWS SDK for C++ is installed into /usr/local.
-# You may need to adjust the default include path on some platforms.
-# include_directories(/usr/local/include)
-
 # Locate the AWS SDK for C++ package.
 # "s3" and "cloudtrail" are just example values.
 find_package(AWSSDK REQUIRED COMPONENTS s3 cloudtrail ...)
