@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[13/02/2020]
+//snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 
