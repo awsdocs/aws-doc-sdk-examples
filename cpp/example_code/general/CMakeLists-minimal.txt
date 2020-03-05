@@ -1,10 +1,6 @@
 # Minimal CMakeLists.txt for the AWS SDK for C++.
 cmake_minimum_required(VERSION 3.2)
 
-# Build using the C++ standard version 11.
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 # Use shared libraries, which is the default for the AWS C++ SDK build.
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
@@ -21,6 +17,9 @@ find_package(AWSSDK REQUIRED COMPONENTS s3 cloudtrail ...)
 
 # The executable name and its sourcefiles.
 add_executable(my-example my-example.cpp)
+
+# Build using the C++ standard version 11.
+target_compile_features(my-example PUBLIC cxx_std_11)
 
 # The libraries used by your executable.
 target_link_libraries(my-example ${AWSSDK_LINK_LIBRARIES})
