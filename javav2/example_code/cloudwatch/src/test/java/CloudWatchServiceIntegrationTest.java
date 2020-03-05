@@ -68,7 +68,7 @@ public class CloudWatchServiceIntegrationTest {
     public void whenInitializingAWSCWService_thenNotNull() {
         assertNotNull(cw);
         assertNotNull(cloudWatchLogsClient);
-        System.out.printf("Test 1 passed");
+        System.out.printf("\n Test 1 passed");
     }
 
     @Test
@@ -105,7 +105,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.printf("Test 2 passed");
+        System.out.printf("\n Test 2 passed");
     }
 
     @Test
@@ -145,7 +145,7 @@ public class CloudWatchServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.printf("Test 3 passed");
+        System.out.printf("\n Test 3 passed");
     }
 
     @Test
@@ -168,7 +168,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.printf("Test 4 passed");
+        System.out.printf("\n Test 4 passed");
     }
 
     @Test
@@ -224,7 +224,7 @@ public class CloudWatchServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.printf("Test 5 passed");
+        System.out.printf("\n Test 5 passed");
     }
 
 
@@ -244,7 +244,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 6 passed");
+        System.out.println("\n Test 6 passed");
     }
 
     @Test
@@ -262,7 +262,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 7 passed");
+        System.out.println("\n Test 7 passed");
     }
 
     @Test
@@ -286,7 +286,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 8 passed");
+        System.out.println("\n Test 8 passed");
     }
 
 
@@ -317,7 +317,7 @@ public class CloudWatchServiceIntegrationTest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Test 9 passed");
+        System.out.println("\n Test 9 passed");
     }
 
     @Test
@@ -375,7 +375,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 10 passed");
+        System.out.println("\n Test 10 passed");
     }
 
     @Test
@@ -396,7 +396,7 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 11 passed");
+        System.out.println("\n Test 11 passed");
     }
 
     @Test
@@ -415,6 +415,6 @@ public class CloudWatchServiceIntegrationTest {
             System.exit(1);
         }
 
-        System.out.println("Test 12 passed");
+        System.out.println("\n Test 12 passed");
     }
 }
