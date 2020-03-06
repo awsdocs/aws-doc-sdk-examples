@@ -1,0 +1,25 @@
+# Example: change-ec2-instance-type
+
+description: Converts the instance type of a running instance
+created: 2020-02-21
+files:
+  - path: change-ec2-instance-type/change-ec2-instance-type.sh
+    apis:
+      - service: ec2
+        operations:
+          - describe-instances
+          - stop-instances
+          - modify-instance-attribute
+          - start-instances
+          - wait:instance-stopped
+          - wait:instance-running
+  - path: change-ec2-instance-type/test-change-ec2-instance-type.sh
+    apis:
+      - service: ec2
+        operations:
+          - describe-images
+          - run-instances
+          - terminate-instances
+          - wait:instance-exists
+          - wait:instance-running
+          - wait:instance-terminated
