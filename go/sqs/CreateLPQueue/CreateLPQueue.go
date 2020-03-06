@@ -45,7 +45,7 @@ func CreateLPQueue(sess *session.Session, queueName *string, waitTime *int) (str
             "ReceiveMessageWaitTimeSeconds": strconv.Itoa(*waitTime),
         }),
     })
-    // snippet-end:[sqs.go.create_lp_queue]
+    // snippet-end:[sqs.go.create_lp_queue.call]
     if err != nil {
         return "", err
     }
