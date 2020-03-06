@@ -3,11 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/24/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 // snippet-start:[sqs.java2.long_polling.complete]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,64 +22,72 @@
  */
 // snippet-start:[sqs.java2.long_polling.import]
 package com.example.sqs;
+import java.util.Date;
 import java.util.HashMap;
-
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
-import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 
 // snippet-end:[sqs.java2.long_polling.import]
 // snippet-start:[sqs.java2.long_polling.main]
-public class LongPolling
-{
-    public static void main(String[] args)
-    {
-        final String USAGE =
-           "To run this example, supply the name of a queue to create and\n" +
-           "queue url of an existing queue.\n\n" +
-           "Ex: LongPolling <unique-queue-name> <existing-queue-url>\n";
+/*
+ While the regular short polling returns immediately,
+ long polling doesn't return a response until a message arrives
+ in the message queue, or the long poll times out.
+ */
+public class LongPolling {
 
-        if (args.length != 2) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+    private static final String QueueName = "testQueue" + new Date().getTime();
 
-        String queue_name = args[0];
-        String queue_url = args[1];
+    public static void main(String[] args){
 
-        SqsClient sqs = SqsClient.builder().build();
+        // Create a SqsClient object
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_WEST_2)
+                .build() ;
 
         // Enable long polling when creating a queue
         HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
         attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
 
-        CreateQueueRequest create_request = CreateQueueRequest.builder()
-                .queueName(queue_name)
+        CreateQueueRequest createRequest = CreateQueueRequest.builder()
+                .queueName(QueueName)
                 .attributes(attributes)
                 .build();
 
         try {
-            sqs.createQueue(create_request);
-        } catch (QueueNameExistsException e) {
-        	throw e;
-        }
+            sqsClient.createQueue(createRequest);
 
-        // Enable long polling on an existing queue
-        SetQueueAttributesRequest set_attrs_request = SetQueueAttributesRequest.builder()
-                .queueUrl(queue_url)
+            GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
+                .queueName(QueueName)
+                .build();
+
+            String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
+
+           // Enable long polling on an existing queue
+           SetQueueAttributesRequest setAttrsRequest = SetQueueAttributesRequest.builder()
+                .queueUrl(queueUrl)
                 .attributes(attributes)
                 .build();
-        sqs.setQueueAttributes(set_attrs_request);
 
-        // Enable long polling on a message receipt
-        ReceiveMessageRequest receive_request = ReceiveMessageRequest.builder()
-                .queueUrl(queue_url)
+           sqsClient.setQueueAttributes(setAttrsRequest);
+
+            // Enable long polling on a message receipt
+            ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
+                .queueUrl(queueUrl)
                 .waitTimeSeconds(20)
                 .build();
-        sqs.receiveMessage(receive_request);
+
+            sqsClient.receiveMessage(receiveRequest);
+
+        } catch (QueueNameExistsException e) {
+            throw e;
+        }
     }
 }
 // snippet-end:[sqs.java2.long_polling.main]
