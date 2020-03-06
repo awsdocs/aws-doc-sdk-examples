@@ -17,6 +17,7 @@ package main
 import (
     "encoding/json"
     "io/ioutil"
+    "strconv"
     "testing"
 
     "github.com/google/uuid"
@@ -28,8 +29,8 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueName string `json:"QueueName"`
-    Timeout   int    `json:"Timeout"`
+    QueueURL string `json:"QueueURL"`
+    WaitTime int    `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -38,7 +39,7 @@ var configFileName = "config.json"
 // globalConfig contains the configuration values
 var globalConfig Config
 
-func populateConfiguration() error {
+func populateConfiguration(t *testing.T) error {
     // Get configuration from config.json
 
     // Get entire file as a JSON string
@@ -56,11 +57,8 @@ func populateConfiguration() error {
         return err
     }
 
-    if globalConfig.QueueName == "" {
-        // Create unique, random queue name
-        id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
-    }
+    t.Log("QueueURL: " + globalConfig.QueueURL)
+    t.Log("WaitTime: " + strconv.Itoa(globalConfig.WaitTime))
 
     return nil
 }
@@ -98,7 +96,7 @@ func deleteQueue(sess *session.Session, queueURL string) error {
 }
 
 func TestConfigureLpQueue(t *testing.T) {
-    err := populateConfiguration()
+    err := populateConfiguration(t)
     if err != nil {
         t.Fatal(err)
     }
@@ -109,25 +107,39 @@ func TestConfigureLpQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    url, err := createQueue(sess, globalConfig.QueueName)
-    if err != nil {
-        t.Fatal(err)
+    queueCreated := false
+    queueName := ""
+
+    if globalConfig.QueueURL == "" {
+        // Create unique, random queue name
+        id := uuid.New()
+        queueName = "myqueue-" + id.String()
+
+        globalConfig.QueueURL, err = createQueue(sess, queueName)
+        if err != nil {
+            t.Fatal(err)
+        }
+
+        t.Log("Created queue " + queueName)
+        queueCreated = true
     }
 
-    t.Log("Got URL " + url + " for queue " + globalConfig.QueueName)
-
-    err = ConfigureLPQueue(sess, url, globalConfig.Timeout)
+    err = ConfigureLPQueue(sess, &globalConfig.QueueURL, &globalConfig.WaitTime)
     if err != nil {
         t.Log("Could not configure queue to use long-polling")
-        t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+        t.Log("You'll have to delete queue " + queueName + " yourself")
         t.Fatal(err)
     }
 
-    err = deleteQueue(sess, url)
-    if err != nil {
-        t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
-        t.Fatal(err)
-    }
+    t.Log("Configured long polling queue")
 
-    t.Log("Deleted queue " + globalConfig.QueueName)
+    if queueCreated {
+        err = deleteQueue(sess, globalConfig.QueueURL)
+        if err != nil {
+            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Fatal(err)
+        }
+
+        t.Log("Deleted queue " + queueName)
+    }
 }

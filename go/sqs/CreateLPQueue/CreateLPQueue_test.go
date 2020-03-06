@@ -17,7 +17,9 @@ package main
 import (
     "encoding/json"
     "io/ioutil"
+    "strconv"
     "testing"
+    "time"
 
     "github.com/google/uuid"
 
@@ -29,7 +31,7 @@ import (
 // Config defines a set of configuration values
 type Config struct {
     QueueName string `json:"QueueName"`
-    Timeout   int    `json:"Timeout"`
+    WaitTime  int    `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -38,7 +40,7 @@ var configFileName = "config.json"
 // globalConfig contains the configuration values
 var globalConfig Config
 
-func populateConfiguration() error {
+func populateConfiguration(t *testing.T) error {
     // Get configuration from config.json
 
     // Get entire file as a JSON string
@@ -56,15 +58,16 @@ func populateConfiguration() error {
         return err
     }
 
-    if globalConfig.QueueName == "" {
-        // Create unique, random queue name
-        id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
+    if globalConfig.WaitTime < 1 {
+        globalConfig.WaitTime = 1
     }
 
-    if globalConfig.Timeout < 0 {
-        globalConfig.Timeout = 0
+    if globalConfig.WaitTime > 20 {
+        globalConfig.WaitTime = 20
     }
+
+    t.Log("QueueName: " + globalConfig.QueueName)
+    t.Log("WaitTime:  " + strconv.Itoa(globalConfig.WaitTime))
 
     return nil
 }
@@ -84,7 +87,11 @@ func deleteQueue(sess *session.Session, queueURL string) error {
 }
 
 func TestCreateLpQueue(t *testing.T) {
-    err := populateConfiguration()
+    thisTime := time.Now()
+    nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
+    t.Log("Starting unit test at " + nowString)
+
+    err := populateConfiguration(t)
     if err != nil {
         t.Fatal(err)
     }
@@ -95,18 +102,29 @@ func TestCreateLpQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    url, err := CreateLPQueue(sess, globalConfig.QueueName, globalConfig.Timeout)
+    shouldDelete := false
+
+    if globalConfig.QueueName == "" {
+        // Create unique, random queue name
+        id := uuid.New()
+        globalConfig.QueueName = "mylpqueue-" + id.String()
+        shouldDelete = true
+    }
+
+    url, err := CreateLPQueue(sess, &globalConfig.QueueName, &globalConfig.WaitTime)
     if err != nil {
         t.Fatal(err)
     }
 
     t.Log("Got URL " + url + " for long-polling queue " + globalConfig.QueueName)
 
-    err = deleteQueue(sess, url)
-    if err != nil {
-        t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
-        t.Fatal(err)
-    }
+    if shouldDelete {
+        err = deleteQueue(sess, url)
+        if err != nil {
+            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Fatal(err)
+        }
 
-    t.Log("Deleted queue " + globalConfig.QueueName)
+        t.Log("Deleted queue " + globalConfig.QueueName)
+    }
 }

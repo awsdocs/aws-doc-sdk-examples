@@ -1,3 +1,4 @@
 {
-    "QueueName": ""
+  "MsgHandle": "",
+  "QueueURL": ""
 }

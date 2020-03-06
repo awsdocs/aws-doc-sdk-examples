@@ -28,7 +28,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueName string `json:"QueueName"`
+    QueueURL string `json:"QueueURL"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -37,7 +37,7 @@ var configFileName = "config.json"
 // globalConfig contains the configuration values
 var globalConfig Config
 
-func populateConfiguration() error {
+func populateConfiguration(t *testing.T) error {
     // Get configuration from config.json
 
     // Get entire file as a JSON string
@@ -54,6 +54,8 @@ func populateConfiguration() error {
     if err != nil {
         return err
     }
+
+    t.Log("QueueURL: " + globalConfig.QueueURL)
 
     return nil
 }
@@ -76,22 +78,8 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
     return *result.QueueUrl, nil
 }
 
-func getQueueURL(sess *session.Session, queueName string) (string, error) {
-    // Create a SQS service client
-    svc := sqs.New(sess)
-
-    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-        QueueName: aws.String(queueName),
-    })
-    if err != nil {
-        return "", err
-    }
-
-    return *result.QueueUrl, nil
-}
-
 func TestDeleteQueue(t *testing.T) {
-    err := populateConfiguration()
+    err := populateConfiguration(t)
     if err != nil {
         t.Fatal(err)
     }
@@ -102,33 +90,26 @@ func TestDeleteQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    url := ""
+    queueName := ""
 
-    if globalConfig.QueueName == "" {
+    if globalConfig.QueueURL == "" {
         // Create unique, random queue name
         id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
+        queueName = "myqueue-" + id.String()
 
-        url, err = createQueue(sess, globalConfig.QueueName)
+        globalConfig.QueueURL, err = createQueue(sess, queueName)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + globalConfig.QueueName)
-    } else {
-        url, err = getQueueURL(sess, globalConfig.QueueName)
-        if err != nil {
-            t.Fatal(err)
-        }
+        t.Log("Created queue " + queueName)
     }
 
-    t.Log("Got URL " + url + " for queue " + globalConfig.QueueName)
-
-    err = DeleteQueue(sess, url)
+    err = DeleteQueue(sess, &globalConfig.QueueURL)
     if err != nil {
-        t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+        t.Log("You'll have to delete queue " + queueName + " yourself")
         t.Fatal(err)
     }
 
-    t.Log("Deleted queue " + globalConfig.QueueName)
+    t.Log("Deleted queue " + queueName)
 }

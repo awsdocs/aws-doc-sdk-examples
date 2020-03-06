@@ -17,7 +17,6 @@ package main
 import (
     "encoding/json"
     "io/ioutil"
-    "log"
     "testing"
 
     "github.com/google/uuid"
@@ -131,23 +130,33 @@ func TestQueue(t *testing.T) {
         id := uuid.New()
         globalConfig.QueueName = "myqueue-" + id.String()
 
-        createURL, err := createQueue(sess, globalConfig.QueueName)
+        _, err = createQueue(sess, globalConfig.QueueName)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Got URL " + createURL + " for queue " + globalConfig.QueueName)
-
         queueCreated = true
     }
 
-    url, err := GetQueueURL(sess, globalConfig.QueueName)
+    newURL, err := GetQueueURL(sess, &globalConfig.QueueName)
     if err != nil {
-        log.Fatal(err)
+        t.Fatal(err)
     }
 
+    fakeURL, err := getFakeURL(sess, globalConfig.QueueName)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    if newURL != fakeURL {
+        msg := "The URL returned by GetQueueUrl: " + newURL + " does not match the expected URL: " + fakeURL
+        t.Fatal(msg)
+    }
+
+    t.Log("The URL created matched the URL retrieved: " + newURL)
+
     if queueCreated {
-        err = deleteQueue(sess, url)
+        err = deleteQueue(sess, newURL)
         if err != nil {
             t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
             t.Fatal(err)
@@ -155,16 +164,4 @@ func TestQueue(t *testing.T) {
 
         t.Log("Deleted queue " + globalConfig.QueueName)
     }
-
-    createdURL, err := getFakeURL(sess, globalConfig.QueueName)
-    if err != nil {
-        t.Fatal(err)
-    }
-
-    if createdURL != url {
-        msg := "The URL retrieved: " + url + " does not match the expected URL: " + createdURL
-        log.Fatal(msg)
-    }
-
-    t.Log("The URL created matched the URL retrieved: " + url)
 }

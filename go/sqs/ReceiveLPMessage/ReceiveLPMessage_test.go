@@ -30,10 +30,10 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    Message   string `json:"Message"`
-    QueueName string `json:"QueueName"`
-    Timeout   int64  `json:"Timeout"`
-    WaitTime  int64  `json:"WaitTime"`
+    Duration int64  `json:"Duration"`
+    Message  string `json:"Message"`
+    QueueURL string `json:"QueueURL"`
+    WaitTime int64  `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -60,12 +60,12 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    if globalConfig.Timeout < 0 {
-        globalConfig.Timeout = 0
+    if globalConfig.Duration < 1 {
+        globalConfig.Duration = 1
     }
 
-    if globalConfig.Timeout > 20 {
-        globalConfig.Timeout = 20
+    if globalConfig.Duration > 12*60*60 {
+        globalConfig.Duration = 12 * 60 * 60
     }
 
     if globalConfig.WaitTime < 0 {
@@ -76,9 +76,9 @@ func populateConfiguration(t *testing.T) error {
         globalConfig.WaitTime = 20
     }
 
+    t.Log("Duration (seconds):  " + strconv.Itoa(int(globalConfig.Duration)))
     t.Log("Message:            " + globalConfig.Message)
-    t.Log("Queue name:         " + globalConfig.QueueName)
-    t.Log("Timeout (seconds):  " + strconv.Itoa(int(globalConfig.Timeout)))
+    t.Log("QueueURL:         " + globalConfig.QueueURL)
     t.Log("WaitTime (seconds): " + strconv.Itoa(int(globalConfig.WaitTime)))
 
     return nil
@@ -186,21 +186,22 @@ func TestReceiveLPMessages(t *testing.T) {
     // If we create a queue, we also need to delete it
     queueCreated := false
     url := ""
+    queueName := ""
 
-    if globalConfig.QueueName == "" {
+    if globalConfig.QueueURL == "" {
         // Create unique, random queue name
         id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
+        queueName = "myqueue-" + id.String()
 
-        url, err = createQueue(sess, globalConfig.QueueName)
+        url, err = createQueue(sess, queueName)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + globalConfig.QueueName)
+        t.Log("Created queue " + queueName)
         queueCreated = true
     } else {
-        url, err = getQueueURL(sess, globalConfig.QueueName)
+        url, err = getQueueURL(sess, queueName)
         if err != nil {
             t.Fatal(err)
         }
@@ -217,9 +218,9 @@ func TestReceiveLPMessages(t *testing.T) {
         t.Fatal(err)
     }
 
-    t.Log("Sent message to queue " + globalConfig.QueueName)
+    t.Log("Sent message to queue " + queueName)
 
-    msgs, err := GetLPMessages(sess, url, globalConfig.WaitTime)
+    msgs, err := GetLPMessages(sess, &url, &globalConfig.WaitTime)
     if err != nil {
         t.Fatal(err)
     }
@@ -227,7 +228,7 @@ func TestReceiveLPMessages(t *testing.T) {
     numMsgs := len(msgs)
 
     if numMsgs > 0 {
-        t.Log("Got " + strconv.Itoa(numMsgs) + " messages")
+        t.Log("Got " + strconv.Itoa(numMsgs) + " message(s)")
         foundMsg := false
 
         t.Log("Message IDs:")
@@ -252,10 +253,10 @@ func TestReceiveLPMessages(t *testing.T) {
     if queueCreated {
         err = deleteQueue(sess, url)
         if err != nil {
-            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Log("You'll have to delete queue " + queueName + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + globalConfig.QueueName)
+        t.Log("Deleted queue " + queueName)
     }
 }

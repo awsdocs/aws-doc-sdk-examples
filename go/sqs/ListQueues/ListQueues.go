@@ -21,7 +21,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.list_queues.imports]
 
 // GetQueues returns a list of queue names
@@ -61,3 +60,4 @@ func main() {
         fmt.Printf("%d: %s\n", i, *urls)
     }
 }
+// snippet-end:[sqs.go.list_queues]

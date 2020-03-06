@@ -23,22 +23,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.send_message.imports]
-
-func getQueueURL(sess *session.Session, queueName string) (string, error) {
-    // Create a SQS service client
-    svc := sqs.New(sess)
-
-    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-        QueueName: aws.String(queueName),
-    })
-    if err != nil {
-        return "", err
-    }
-
-    return *result.QueueUrl, nil
-}
 
 // SendMsg sends a message to an Amazon SQS queue
 // Inputs:
@@ -47,7 +32,7 @@ func getQueueURL(sess *session.Session, queueName string) (string, error) {
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to SendMessage
-func SendMsg(sess *session.Session, queueURL string) error {
+func SendMsg(sess *session.Session, queueURL *string) error {
     // Create a SQS service client
     // snippet-start:[sqs.go.send_message.call]
     svc := sqs.New(sess)
@@ -69,7 +54,7 @@ func SendMsg(sess *session.Session, queueURL string) error {
             },
         },
         MessageBody: aws.String("Information about current NY Times fiction bestseller for week of 12/11/2016."),
-        QueueUrl:    &queueURL,
+        QueueUrl:    queueURL,
     })
     // snippet-end:[sqs.go.send_message.call]
     if err != nil {
@@ -81,11 +66,11 @@ func SendMsg(sess *session.Session, queueURL string) error {
 
 func main() {
     // snippet-start:[sqs.go.send_message.args]
-    queueNamePtr := flag.String("q", "", "The name of the queue")
+    queueURL := flag.String("u", "", "The URL of the queue")
     flag.Parse()
 
-    if *queueNamePtr == "" {
-        fmt.Println("You must supply a queue name (-u QUEUE-NAME)")
+    if *queueURL == "" {
+        fmt.Println("You must supply the URL of a queue (-u QUEUE-URL)")
         return
     }
     // snippet-end:[sqs.go.send_message.args]
@@ -98,21 +83,13 @@ func main() {
     }))
     // snippet-end:[sqs.go.send_message.sess]
 
-    queueURL, err := getQueueURL(sess, *queueNamePtr)
-    if err != nil {
-        fmt.Println("Got an error retrieving the URL for the queue")
-        fmt.Println(err)
-        return
-    }
-
-    err = SendMsg(sess, queueURL)
+    err := SendMsg(sess, queueURL)
     if err != nil {
         fmt.Println("Got an error sending the message:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Sent message to queue " + *queueNamePtr)
+    fmt.Println("Sent message to queue ")
 }
-
 // snippet-end:[sqs.go.send_message]

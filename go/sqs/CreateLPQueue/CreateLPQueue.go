@@ -24,26 +24,25 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.create_lp_queue.imports]
 
 // CreateLPQueue creates an Amazon SQS queue with long-polling enabled
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     queueName is the name of the queue
-//     timeout is the duration, in seconds, for long polling to wait
+//     waitTime is the wait time, in seconds, for long polling to wait for messages
 // Output:
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to CreateQueue
-func CreateLPQueue(sess *session.Session, queueName string, timeout int) (string, error) {
+func CreateLPQueue(sess *session.Session, queueName *string, waitTime *int) (string, error) {
     // Create a SQS service client
     svc := sqs.New(sess)
 
     // snippet-start:[sqs.go.create_lp_queue.call]
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(queueName),
+        QueueName: queueName,
         Attributes: aws.StringMap(map[string]string{
-            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(timeout),
+            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(*waitTime),
         }),
     })
     // snippet-end:[sqs.go.create_lp_queue]
@@ -55,17 +54,21 @@ func CreateLPQueue(sess *session.Session, queueName string, timeout int) (string
 }
 
 func main() {
-    queueNamePtr := flag.String("n", "", "The name of the queue")
-    timeoutPtr := flag.Int("t", 20, "How long, in seconds, to wait for long polling")
+    queueName := flag.String("n", "", "The name of the queue")
+    waitTime := flag.Int("w", 10, "How long, in seconds, to wait for long polling")
     flag.Parse()
 
-    if *queueNamePtr == "" {
+    if *queueName == "" {
         fmt.Println("You must supply a queue name (-n QUEUE-NAME")
         return
     }
 
-    if *timeoutPtr < 0 {
-        *timeoutPtr = 0
+    if *waitTime < 1 {
+        *waitTime = 1
+    }
+
+    if *waitTime > 20 {
+        *waitTime = 20
     }
 
     // Create a session that get credential values from ~/.aws/credentials
@@ -76,14 +79,13 @@ func main() {
     }))
     // snippet-end:[sqs.go.create_lp_queue.sess]
 
-    url, err := CreateLPQueue(sess, *queueNamePtr, *timeoutPtr)
+    url, err := CreateLPQueue(sess, queueName, waitTime)
     if err != nil {
         fmt.Println("Got an error creating the long-polling queue:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("URL for long-polling queue " + *queueNamePtr + ": " + url)
+    fmt.Println("URL for long-polling queue " + *queueName + ": " + url)
 }
-
 // snippet-end:[sqs.go.create_lp_queue]

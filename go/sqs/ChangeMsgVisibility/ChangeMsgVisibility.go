@@ -16,29 +16,13 @@ package main
 
 // snippet-start:[sqs.go.change_message_visibility.imports]
 import (
-	"flag"
-	"fmt"
+    "flag"
+    "fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.change_message_visibility.imports]
-
-func getQueueURL(sess *session.Session, queueName string) (string, error) {
-	// Create a SQS service client
-	svc := sqs.New(sess)
-
-	result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-		QueueName: aws.String(queueName),
-	})
-	if err != nil {
-		return "", err
-	}
-
-	return *result.QueueUrl, nil
-}
 
 // SetMsgVisibility Sets the visibility timeout for a message in an SQS queue
 // Inputs:
@@ -49,64 +33,56 @@ func getQueueURL(sess *session.Session, queueName string) (string, error) {
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to ReceiveQueue
-func SetMsgVisibility(sess *session.Session, handle string, queueURL string, visibility int64) error {
-	// Create an SQS service client
-	svc := sqs.New(sess)
+func SetMsgVisibility(sess *session.Session, handle *string, queueURL *string, visibility *int64) error {
+    // Create an SQS service client
+    svc := sqs.New(sess)
 
-	// snippet-start:[sqs.go.change_message_visibility.op]
-	_, err := svc.ChangeMessageVisibility(&sqs.ChangeMessageVisibilityInput{
-		ReceiptHandle:     &handle,
-		QueueUrl:          &queueURL,
-		VisibilityTimeout: &visibility,
-	})
-	// snippet-end:[sqs.go.change_message_visibility.op]
-	if err != nil {
-		return err
-	}
+    // snippet-start:[sqs.go.change_message_visibility.op]
+    _, err := svc.ChangeMessageVisibility(&sqs.ChangeMessageVisibilityInput{
+        ReceiptHandle:     handle,
+        QueueUrl:          queueURL,
+        VisibilityTimeout: visibility,
+    })
+    // snippet-end:[sqs.go.change_message_visibility.op]
+    if err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 
 func main() {
-	queueNamePtr := flag.String("q", "", "The name of the queue")
-	msgHandlePtr := flag.String("h", "", "The receipt handle of the message")
-	visibilityPtr := flag.Int64("v", 30, "The duration, in seconds, that the message is visible")
-	flag.Parse()
+    queueURL := flag.String("u", "", "The URL of the queue")
+    handle := flag.String("h", "", "The receipt handle of the message")
+    visibility := flag.Int64("v", 30, "The duration, in seconds, that the message is not visible to other consumers")
+    flag.Parse()
 
-	if *queueNamePtr == "" || *msgHandlePtr == "" {
-		fmt.Println("You must supply a queue name (-q QUEUE-NAME) and message receipt handle (-h HANDLE)")
-		return
-	}
+    if *queueURL == "" || *handle == "" {
+        fmt.Println("You must supply a queue URL (-u QUEUE-URL) and message receipt handle (-h HANDLE)")
+        return
+    }
 
-	if *visibilityPtr < 0 {
-		*visibilityPtr = 0
-	}
+    if *visibility < 0 {
+        *visibility = 0
+    }
 
-	if *visibilityPtr > 12*60*60 { // 12 hours
-		*visibilityPtr = 12 * 60 * 60
-	}
+    if *visibility > 12*60*60 {
+        *visibility = 12 * 60 * 60
+    }
 
-	// Create a session that get credential values from ~/.aws/credentials
-	// and the default region from ~/.aws/config
-	// snippet-start:[sqs.go.change_message_visibility.sess]
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
-	// snippet-end:[sqs.go.change_message_visibility.sess]
+    // Create a session that get credential values from ~/.aws/credentials
+    // and the default region from ~/.aws/config
+    // snippet-start:[sqs.go.change_message_visibility.sess]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+    // snippet-end:[sqs.go.change_message_visibility.sess]
 
-	queueURL, err := getQueueURL(sess, *queueNamePtr)
-	if err != nil {
-		fmt.Println("Got an error retrieving the URL for the queue:")
-		fmt.Println(err)
-		return
-	}
-
-	err = SetMsgVisibility(sess, *msgHandlePtr, queueURL, *visibilityPtr)
-	if err != nil {
-		fmt.Println("Got an error setting the visibility of the message:")
-		fmt.Println(err)
-		return
-	}
+    err := SetMsgVisibility(sess, handle, queueURL, visibility)
+    if err != nil {
+        fmt.Println("Got an error setting the visibility of the message:")
+        fmt.Println(err)
+        return
+    }
 }
-
 // snippet-end:[sqs.go.change_message_visibility]

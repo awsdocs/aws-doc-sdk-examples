@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.create_queue.imports]
 
 // CreateQueue creates an Amazon SQS queue
@@ -33,13 +32,13 @@ import (
 // Output:
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to CreateQueue
-func CreateQueue(sess *session.Session, queueName string) (string, error) {
+func CreateQueue(sess *session.Session, queueName *string) (*string, error) {
     // Create a SQS service client
+    // snippet-start:[sqs.go.create_queue.call]
     svc := sqs.New(sess)
 
-    // snippet-start:[sqs.go.create_queue.call]
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(queueName),
+        QueueName: queueName,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -47,20 +46,22 @@ func CreateQueue(sess *session.Session, queueName string) (string, error) {
     })
     // snippet-end:[sqs.go.create_queue.call]
     if err != nil {
-        return "", err
+        return nil, err
     }
 
-    return *result.QueueUrl, nil
+    return result.QueueUrl, nil
 }
 
 func main() {
-    queueNamePtr := flag.String("n", "", "The name of the queue")
+    // snippet-start:[sqs.go.create_queue.args]
+    queueName := flag.String("n", "", "The name of the queue")
     flag.Parse()
 
-    if *queueNamePtr == "" {
+    if *queueName == "" {
         fmt.Println("You must supply a queue name (-n QUEUE-NAME")
         return
     }
+    // snippet-end:[sqs.go.create_queue.args]
 
     // Create a session that get credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
@@ -70,14 +71,13 @@ func main() {
     }))
     // snippet-end:[sqs.go.create_queue.sess]
 
-    url, err := CreateQueue(sess, *queueNamePtr)
+    url, err := CreateQueue(sess, queueName)
     if err != nil {
         fmt.Println("Got an error creating the queue:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("URL for queue " + *queueNamePtr + ": " + url)
+    fmt.Println("URL for queue " + *queueName + ": " + *url)
 }
-
 // snippet-end:[sqs.go.create_queue]

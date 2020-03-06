@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.receive_lp_message.imports]
 
 // GetLPMessages gets the messages from an Amazon SQS long-polling queue
@@ -33,7 +32,7 @@ import (
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to ???
-func GetLPMessages(sess *session.Session, queueURL string, waitTime int64) ([]*sqs.Message, error) {
+func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
 
     // Create a SQS service client
@@ -41,7 +40,7 @@ func GetLPMessages(sess *session.Session, queueURL string, waitTime int64) ([]*s
     svc := sqs.New(sess)
 
     result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
-        QueueUrl: &queueURL,
+        QueueUrl: queueURL,
         AttributeNames: aws.StringSlice([]string{
             "SentTimestamp",
         }),
@@ -49,7 +48,7 @@ func GetLPMessages(sess *session.Session, queueURL string, waitTime int64) ([]*s
         MessageAttributeNames: aws.StringSlice([]string{
             "All",
         }),
-        WaitTimeSeconds: &waitTime,
+        WaitTimeSeconds: waitTime,
     })
     // snippet-end:[sqs.go.receive_lp_message.call]
     if err != nil {
@@ -61,22 +60,30 @@ func GetLPMessages(sess *session.Session, queueURL string, waitTime int64) ([]*s
 
 func main() {
     // snippet-start:[sqs.go.receive_lp_message.args]
-    queueURLPtr := flag.String("u", "", "The URL of the queue")
-    timeoutPtr := flag.Int64("t", 5, "The duration, in seconds, for messages to be hidden from others")
-    waitTimePtr := flag.Int64("w", 10, "How long the queue waits for messages")
+    queueURL := flag.String("u", "", "The URL of the queue")
+    visibility := flag.Int64("v", 5, "How long, in seconds, that messages are hidden from other consumers")
+    waitTime := flag.Int64("w", 10, "How long the queue waits for messages")
     flag.Parse()
 
-    if *queueURLPtr == "" {
+    if *queueURL == "" {
         fmt.Println("You must supply a queue URL (-u QUEUE-URL")
         return
     }
 
-    if *timeoutPtr < 0 {
-        *timeoutPtr = 0
+    if *visibility < 0 {
+        *visibility = 0
     }
 
-    if *timeoutPtr > 20 {
-        *timeoutPtr = 20
+    if *visibility > 12*60*60 { // 12 hours
+        *visibility = 12 * 60 * 60
+    }
+
+    if *waitTime < 0 {
+        *waitTime = 0
+    }
+
+    if *waitTime > 20 {
+        *waitTime = 20
     }
     // snippet-end:[sqs.go.receive_lp_message.args]
 
@@ -88,7 +95,7 @@ func main() {
     }))
     // snippet-end:[sqs.go.receive_lp_message.sess]
 
-    msgs, err := GetLPMessages(sess, *queueURLPtr, *waitTimePtr)
+    msgs, err := GetLPMessages(sess, queueURL, waitTime)
     if err != nil {
         fmt.Println("Got an error receiving messages:")
         fmt.Println(err)
@@ -101,5 +108,4 @@ func main() {
         fmt.Println("    " + *msg.MessageId)
     }
 }
-
 // snippet-end:[sqs.go.receive_lp_message]

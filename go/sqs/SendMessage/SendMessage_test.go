@@ -28,7 +28,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueName string `json:"QueueName"`
+    QueueURL string `json:"QueueURL"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -55,17 +55,17 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    t.Log("QueueName: " + globalConfig.QueueName)
+    t.Log("QueueURL: " + globalConfig.QueueURL)
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName string) (string, error) {
+func createQueue(sess *session.Session, queueName *string) (string, error) {
     // Create a SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(queueName),
+        QueueName: queueName,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -78,12 +78,12 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
     return *result.QueueUrl, nil
 }
 
-func deleteQueue(sess *session.Session, queueURL string) error {
+func deleteQueue(sess *session.Session, queueURL *string) error {
     // Create a SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
-        QueueUrl: aws.String(queueURL),
+        QueueUrl: queueURL,
     })
     if err != nil {
         return err
@@ -106,35 +106,36 @@ func TestQueue(t *testing.T) {
 
     url := ""
     queueCreated := false
+    queueName := ""
 
-    if globalConfig.QueueName == "" {
+    if globalConfig.QueueURL == "" {
         // Create unique, random queue name
         id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
+        queueName = "myqueue-" + id.String()
 
-        url, err = createQueue(sess, globalConfig.QueueName)
+        url, err = createQueue(sess, &queueName)
         if err != nil {
             t.Fatal(err)
         }
 
         queueCreated = true
-        t.Log("Created queue " + globalConfig.QueueName)
+        t.Log("Created queue " + queueName)
     }
 
-    err = SendMsg(sess, url)
+    err = SendMsg(sess, &url)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Sent message to queue " + globalConfig.QueueName)
+    t.Log("Sent message to queue " + queueName)
 
     if queueCreated {
-        err = deleteQueue(sess, url)
+        err = deleteQueue(sess, &url)
         if err != nil {
-            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Log("You'll have to delete queue " + queueName + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + globalConfig.QueueName)
+        t.Log("Deleted queue " + queueName)
     }
 }

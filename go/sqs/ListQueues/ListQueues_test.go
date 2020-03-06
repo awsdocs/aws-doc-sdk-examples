@@ -60,6 +60,14 @@ func populateConfiguration(t *testing.T) error {
         t.Log("Skipping confirmation")
     }
 
+    if globalConfig.SleepSeconds < 0 {
+        globalConfig.SleepSeconds = 0
+    }
+
+    if globalConfig.SleepSeconds > 60 {
+        globalConfig.SleepSeconds = 60
+    }
+
     return nil
 }
 
@@ -117,7 +125,7 @@ func multiplyDuration(factor int64, d time.Duration) time.Duration {
     return time.Duration(factor) * d
 }
 
-func TestListQueues(t *testing.T) {
+func TestListQueues60(t *testing.T) {
     thisTime := time.Now()
     nowString := thisTime.Format("20060102150405")
     t.Log("Starting unit test at " + nowString)

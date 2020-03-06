@@ -1,4 +1,4 @@
 {
-    "QueueName": "",
-    "Timeout": 20
+  "QueueURL": "",
+  "WaitTime": 10
 }

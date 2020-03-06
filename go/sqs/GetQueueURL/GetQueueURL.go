@@ -19,11 +19,9 @@ import (
     "flag"
     "fmt"
 
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.get_queue_url.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -33,13 +31,13 @@ import (
 // Output:
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
-func GetQueueURL(sess *session.Session, queueName string) (string, error) {
+func GetQueueURL(sess *session.Session, queueName *string) (string, error) {
     // Create a SQS service client
     // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
     result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-        QueueName: aws.String(queueName),
+        QueueName: queueName,
     })
     // snippet-end:[sqs.go.get_queue_url.call]
     if err != nil {
@@ -51,10 +49,10 @@ func GetQueueURL(sess *session.Session, queueName string) (string, error) {
 
 func main() {
     // snippet-start:[sqs.go.get_queue_url.args]
-    queueNamePtr := flag.String("n", "", "The name of the queue")
+    queueName := flag.String("n", "", "The name of the queue")
     flag.Parse()
 
-    if *queueNamePtr == "" {
+    if *queueName == "" {
         fmt.Println("You must supply a queue name (-n QUEUE-NAME")
         return
     }
@@ -68,12 +66,13 @@ func main() {
     }))
     // snippet-end:[sqs.go.get_queue_url.sess]
 
-    url, err := GetQueueURL(sess, *queueNamePtr)
+    url, err := GetQueueURL(sess, queueName)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("URL for queue " + *queueNamePtr + ": " + url)
+    fmt.Println("URL for queue " + *queueName + ": " + url)
 }
+// snippet-end:[sqs.go.get_queue_url]

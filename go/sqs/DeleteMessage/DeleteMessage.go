@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.delete_message.imports]
 
 // DeleteMessage deletes a message from an Amazon SQS queue
@@ -33,14 +32,14 @@ import (
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to DeleteMessage
-func DeleteMessage(sess *session.Session, queueURL string, messageID string) error {
+func DeleteMessage(sess *session.Session, queueURL *string, messageHandle *string) error {
     // Create a SQS service client
     svc := sqs.New(sess)
 
     // snippet-start:[sqs.go.delete_message.call]
     _, err := svc.DeleteMessage(&sqs.DeleteMessageInput{
-        QueueUrl:      &queueURL,
-        ReceiptHandle: &messageID,
+        QueueUrl:      queueURL,
+        ReceiptHandle: messageHandle,
     })
     // snippet-end:[sqs.go.delete_message.call]
     if err != nil {
@@ -51,14 +50,16 @@ func DeleteMessage(sess *session.Session, queueURL string, messageID string) err
 }
 
 func main() {
-    queueURLPtr := flag.String("u", "", "The URL of the queue")
-    messageIDPtr := flag.String("i", "", "The ID of the message")
+    // snippet-start:[sqs.go.delete_message.args]
+    queueURL := flag.String("u", "", "The URL of the queue")
+    messageHandle := flag.String("m", "", "The receipt handle of the message")
     flag.Parse()
 
-    if *queueURLPtr == "" || *messageIDPtr == "" {
-        fmt.Println("You must supply a queue URL (-u QUEUE-URL) and message ID (-i MESSAGE-ID)")
+    if *queueURL == "" || *messageHandle == "" {
+        fmt.Println("You must supply a queue URL (-u QUEUE-URL) and message receipt handle (-m MESSAGE-HANDLE)")
         return
     }
+    // snippet-end:[sqs.go.delete_message.args]
 
     // Create a session that get credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
@@ -68,14 +69,13 @@ func main() {
     }))
     // snippet-end:[sqs.go.delete_message.sess]
 
-    err := DeleteMessage(sess, *queueURLPtr, *messageIDPtr)
+    err := DeleteMessage(sess, queueURL, messageHandle)
     if err != nil {
         fmt.Println("Got an error deleting the message:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Deleted message from queue with URL " + *queueURLPtr)
+    fmt.Println("Deleted message from queue with URL " + *queueURL)
 }
-
 // snippet-end:[sqs.go.delete_message]

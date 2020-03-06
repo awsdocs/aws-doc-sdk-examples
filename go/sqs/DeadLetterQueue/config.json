@@ -1,3 +1,4 @@
 {
-    "QueueName": ""
+  "DLQueueURL": "",
+  "QueueURL": ""
 }

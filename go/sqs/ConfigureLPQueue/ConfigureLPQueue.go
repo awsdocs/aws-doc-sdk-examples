@@ -24,7 +24,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.configure_lp_queue.imports]
 
 // ConfigureLPQueue configures an Amazon SQS queue to use long-polling
@@ -34,15 +33,15 @@ import (
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to DeleteQueue
-func ConfigureLPQueue(sess *session.Session, queueURL string, timeout int) error {
+func ConfigureLPQueue(sess *session.Session, queueURL *string, waitTime *int) error {
     // Create a SQS service client
     svc := sqs.New(sess)
 
     // snippet-start:[sqs.go.configure_lp_queue.set_attributes]
     _, err := svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
-        QueueUrl: &queueURL,
+        QueueUrl: queueURL,
         Attributes: aws.StringMap(map[string]string{
-            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(timeout),
+            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(aws.IntValue(waitTime)),
         }),
     })
     // snippet-end:[sqs.go.configure_lp_queue.set_attributes]
@@ -54,17 +53,21 @@ func ConfigureLPQueue(sess *session.Session, queueURL string, timeout int) error
 }
 
 func main() {
-    queueURLPtr := flag.String("u", "", "The URL of the queue")
-    timeoutPtr := flag.Int("t", 20, "The timeout, in seconds, for long polling")
+    queueURL := flag.String("u", "", "The URL of the queue")
+    waitTime := flag.Int("w", 10, "The wait time, in seconds, for long polling")
     flag.Parse()
 
-    if *queueURLPtr == "" {
+    if *queueURL == "" {
         fmt.Println("You must supply a queue URL (-n QUEUE-URL")
         return
     }
 
-    if *timeoutPtr < 0 {
-        *timeoutPtr = 0
+    if *waitTime < 1 {
+        *waitTime = 1
+    }
+
+    if *waitTime > 20 {
+        *waitTime = 20
     }
 
     // Create a session that get credential values from ~/.aws/credentials
@@ -75,14 +78,13 @@ func main() {
     }))
     // snippet-end:[sqs.go.configure_lp_queue.sess]
 
-    err := ConfigureLPQueue(sess, *queueURLPtr, *timeoutPtr)
+    err := ConfigureLPQueue(sess, queueURL, waitTime)
     if err != nil {
         fmt.Println("Got an error deleting the queue:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Queue with URL " + *queueURLPtr + " deleted")
+    fmt.Println("Queue with URL " + *queueURL + " deleted")
 }
-
 // snippet-end:[sqs.go.configure_lp_queue]
