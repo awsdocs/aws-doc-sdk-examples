@@ -47,7 +47,7 @@ Define these values to successfully run the JUnit tests:
 
 - **policyText** – the location where a text file is located that defines a policy. For example, **/AWS/bucketpolicy.txt** (an example of this file is shown below).
 
-- **id**  - the ID of the user whom owns the bucket. You can get this value from the AWS Console. This value appears as a GUID value (under *Permission* tab, and then the *Access Control List* tab).
+- **id**  - the ID of the user whom owns the bucket. You can get this value from the AWS Console. This value appears as a GUID value (under *Permissions* tab, and then the *Access Control List* tab).
 
 - **access** - the access level to test an ACL with. You can specify one of these values: **FULL_CONTROL** , **READ** , **WRITE** , **READ_ACP** , **WRITE_ACP**.
 
