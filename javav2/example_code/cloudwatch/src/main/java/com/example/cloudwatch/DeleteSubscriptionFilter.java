@@ -3,11 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-// snippet-start:[cloudwatch.java2.delete_subscription_filter.complete]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,9 +21,10 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.delete_subscription_filter.complete]
 // snippet-start:[cloudwatch.java2.delete_subscription_filter.import]
+import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
-import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFilterRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFilterResponse;
 // snippet-end:[cloudwatch.java2.delete_subscription_filter.import]
@@ -36,8 +37,8 @@ public class DeleteSubscriptionFilter {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a filter name and log group name\n" +
-            "Ex: DeleteSubscriptionFilter <filter-name> <log-group-name>\n";
+                "To run this example, supply a filter name and log group name\n" +
+                        "Ex: DeleteSubscriptionFilter <filter-name> <log-group-name>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -45,18 +46,27 @@ public class DeleteSubscriptionFilter {
         }
 
         String filter = args[0];
-        String log_group = args[1];
+        String logGroup = args[1];
 
-        CloudWatchLogsClient logs = CloudWatchLogsClient.builder().build();
+       try {
 
-        DeleteSubscriptionFilterRequest request =
-            DeleteSubscriptionFilterRequest.builder()
-                .filterName(filter)
-                .logGroupName(log_group).build();
+           CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
+                   .build();
 
-        DeleteSubscriptionFilterResponse response =
+           DeleteSubscriptionFilterRequest request =
+                DeleteSubscriptionFilterRequest.builder()
+                        .filterName(filter)
+                        .logGroupName(logGroup).build();
+
+           DeleteSubscriptionFilterResponse response =
                 logs.deleteSubscriptionFilter(request);
-    	System.out.printf(
+
+       } catch (CloudWatchException e) {
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
+       }
+
+       System.out.printf(
                 "Successfully deleted CloudWatch logs subscription filter %s",
                 filter);
     }

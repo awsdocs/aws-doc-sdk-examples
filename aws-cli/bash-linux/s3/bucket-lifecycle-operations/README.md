@@ -16,7 +16,7 @@ This example demonstrates how to interact with some of the basic Amazon S3 opera
 
 ## Files
   * bucket-operations.sh - main script example file
-  * bucket-operations-test.sh - unit/integration test file
+  * test-bucket-operations.sh - unit/integration test file
   * general.sh - common test support function file
 
 ## Purpose

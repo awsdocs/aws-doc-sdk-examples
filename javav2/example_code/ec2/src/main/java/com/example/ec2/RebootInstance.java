@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2020-01-10]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,38 +25,37 @@ package com.example.ec2;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesResponse;
- 
+
 // snippet-end:[ec2.java2.reboot_instance.import]
 /**
  * Reboots and EC2 instance
  */
-public class RebootInstance
-{
-    public static void main(String[] args)
-    {
+public class RebootInstance {
+
+    public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply an instance id\n" +
-            "Ex: RebootInstance <instance_id>\n";
+                "To run this example, supply an instance id\n" +
+                        "Ex: RebootInstance <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String instance_id = args[0];
+        String instanceId = args[0];
         // snippet-start:[ec2.java2.reboot_instance.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
         RebootInstancesRequest request = RebootInstancesRequest.builder()
-            .instanceIds(instance_id).build();
+                .instanceIds(instanceId).build();
 
         RebootInstancesResponse response = ec2.rebootInstances(request);
 
         // snippet-end:[ec2.java2.reboot_instance.main]
         System.out.printf(
-            "Successfully rebooted instance %s", instance_id);
+                "Successfully rebooted instance %s", instanceId);
     }
 }
- 
+
 // snippet-end:[ec2.java2.reboot_instance.complete]
