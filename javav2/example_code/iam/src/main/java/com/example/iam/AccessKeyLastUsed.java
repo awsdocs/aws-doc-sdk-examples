@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedRequest;
 import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedResponse;
+import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.access_key_last_used.import]
 
 /**
@@ -36,30 +37,37 @@ public class AccessKeyLastUsed {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply an access key id\n" +
-            "Ex: AccessKeyLastUsed <access-key-id>\n";
+                "To run this example, supply an access key id that you can ontain from the AWS Console\n" +
+                        "Ex: AccessKeyLastUsed <access-key-id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String access_id = args[0];
+        String accessId = args[0];
 
         // snippet-start:[iam.java2.access_key_last_used.main]
         Region region = Region.AWS_GLOBAL;
-        IamClient iam = IamClient.builder().region(region).build();
+        IamClient iam = IamClient.builder()
+            .region(region)
+            .build();
 
-        GetAccessKeyLastUsedRequest request = GetAccessKeyLastUsedRequest.builder()
-            .accessKeyId(access_id).build();
+        try {
+            GetAccessKeyLastUsedRequest request = GetAccessKeyLastUsedRequest.builder()
+                    .accessKeyId(accessId).build();
 
-        GetAccessKeyLastUsedResponse response = iam.getAccessKeyLastUsed(request);
+            GetAccessKeyLastUsedResponse response = iam.getAccessKeyLastUsed(request);
 
-        System.out.println("Access key was last used at: " +
-                response.accessKeyLastUsed().lastUsedDate());
+            System.out.println("Access key was last used at: " +
+                    response.accessKeyLastUsed().lastUsedDate());
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
         // snippet-end:[iam.java2.access_key_last_used.main]
     }
 }
- 
-
 // snippet-end:[iam.java2.access_key_last_used.complete]
