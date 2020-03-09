@@ -58,8 +58,7 @@ public class DeletePolicy {
             iam.deletePolicy(request);
 
             System.out.println("Successfully deleted the policy");
-            // snippet-end:[iam.java2.create_policy.main]
-
+            
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
