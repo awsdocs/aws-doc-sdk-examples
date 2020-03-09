@@ -34,7 +34,7 @@ You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the c
 **WARNING**: _Running these JUnit tests manipulate real Amazon EC2 resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon EC2 JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the AWS IAM JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
