@@ -6,9 +6,9 @@
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,11 +25,11 @@
 package com.example.sns;
 
 //snippet-start:[sns.java2.ConfirmSubscription.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionRequest;
 import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionResponse;
+import software.amazon.awssdk.services.sns.model.SnsException;
 //snippet-end:[sns.java2.ConfirmSubscription.import]
 
 public class ConfirmSubscription {
@@ -43,24 +43,33 @@ public class ConfirmSubscription {
 
         if (args.length < 2) {
             System.out.println(USAGE);
-            System.exit(1);
+           System.exit(1);
         }
         //snippet-start:[sns.java2.ConfirmSubscription.main]
+
         String subscriptionToken = args[0];
         String topicArn = args[1];
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+        try {
+            SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
-        ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
+            ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
                 .token(subscriptionToken)
                 .topicArn(topicArn)
                 .build();
 
-        ConfirmSubscriptionResponse result = snsClient.confirmSubscription(request);
+            ConfirmSubscriptionResponse result = snsClient.confirmSubscription(request);
 
-        System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nSubscription Arn: \n\n" + result.subscriptionArn());
+            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nSubscription Arn: \n\n" + result.subscriptionArn());
+    } catch (SnsException e) {
+
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+
         //snippet-end:[sns.java2.ConfirmSubscription.main]
     }
 }
 //snippet-end:[sns.java2.ConfirmSubscription.complete]
-
