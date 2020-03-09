@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#appframe {
+	background-image: url(slotmachine.jpg);
+	background-repeat: no-repeat;
+	background-origin:content-box;
+	position:relative;
+	min-height: 1080px;
+	width: 1000px;
+}
+
+#slot_L {
+	position: absolute;
+	left: 354px;
+	top: 272px;
+	min-height: 199px;
+	width: 80px;
+}
+
+#slot_M {
+	position: absolute;
+	left: 482px;
+	top: 272px;
+	min-height: 199px;
+	width: 80px;
+}
+
+#slot_R {
+	position: absolute;
+	left: 606px;
+	top: 272px;
+	min-height: 199px;
+	width: 80px;
+}
+
+#slot_handle {
+	position: absolute;
+	left: 860px;
+	top: 10px;
+	min-height: 943px;
+	width: 114px;
+}
+
+#winner_light {
+	position: absolute;
+	left: 318px;
+	top: 540px;
+	min-height: 48px;
+	width: 247px;
+	visibility:hidden;
+}
