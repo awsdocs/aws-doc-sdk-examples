@@ -48,18 +48,11 @@ AWS account.
 The unit test:
 
 1. Loads configuration values from *config.json*.
-1. If there is no entry for a bucket name in *config.json*
-   it creates a random bucket name starting with "testbucket-"
-       i. If there is no entry for an item name in *config.json*
-          it creates the item "testitem" with some text.
-       i. If there is an entry for an item name in *config.json*
-          it creates the item with that name with some text.
-      
-1. If there is an entry for the bucket name in *config.json*,
-   but no entry for an item name, it returns a fatal error message.
-1. It then attempts to access the item in the bucket
+2. Creates a random bucket name starting with "testbucket-"
+3. Creates the item "testitem" with some text.
+4. Attempts to access the item in the bucket
    and logs the result.
-1. If it created a bucket and item, it deletes both.
+5. Deletes the bucket and item.
 
 To run the unit test, enter:
 

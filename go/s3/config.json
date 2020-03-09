@@ -1,7 +1,4 @@
 {
   "Region": "us-west-2",
-  "Bucket": "",
-  "Item": "",
-  "GoVersion": 1.13,
-  "Test": true
+  "GoVersion": 1.13
 }
