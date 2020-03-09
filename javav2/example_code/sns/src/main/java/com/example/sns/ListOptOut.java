@@ -6,9 +6,9 @@
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ListPhoneNumbersOptedOutRequest;
 import software.amazon.awssdk.services.sns.model.ListPhoneNumbersOptedOutResponse;
+import software.amazon.awssdk.services.sns.model.SnsException;
 //snippet-end:[sns.java2.ListOptOut.import]
 
 public class ListOptOut {
@@ -38,18 +39,20 @@ public class ListOptOut {
                 "ListOptOut - list phone numbers that opted out of receiving SMS messages\n" +
                 "Usage: ListOptOut \n\n";
 
-
         //snippet-start:[sns.java2.ListOptOut.main]
-
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-        ListPhoneNumbersOptedOutRequest request = ListPhoneNumbersOptedOutRequest.builder().build();
+        try {
 
-        ListPhoneNumbersOptedOutResponse result = snsClient.listPhoneNumbersOptedOut(request);
+            ListPhoneNumbersOptedOutRequest request = ListPhoneNumbersOptedOutRequest.builder().build();
+            ListPhoneNumbersOptedOutResponse result = snsClient.listPhoneNumbersOptedOut(request);
+            System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nPhone Numbers: \n\n" + result.phoneNumbers());
 
-        System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nPhone Numbers: \n\n" + result.phoneNumbers());
-        //snippet-end:[sns.java2.ListOptOut.main]
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+       //snippet-end:[sns.java2.ListOptOut.main]
     }
 }
 //snippet-end:[sns.java2.ListOptOut.complete]
-

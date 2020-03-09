@@ -3,11 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/24/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 // snippet-start:[sqs.java2.send_recieve_messages.complete]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@
  */
 // snippet-start:[sqs.java2.send_recieve_messages.import]
 package com.example.sqs;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
-import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
@@ -37,68 +37,65 @@ import java.util.Date;
 import java.util.List;
 
 // snippet-end:[sqs.java2.send_recieve_messages.import]
+
 // snippet-start:[sqs.java2.send_recieve_messages.main]
-public class SendReceiveMessages
-{
+public class SendReceiveMessages {
     private static final String QUEUE_NAME = "testQueue" + new Date().getTime();
 
-    public static void main(String[] args)
-    {
-    	SqsClient sqs = SqsClient.builder().build();
+    public static void main(String[] args) {
+
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
         try {
-        	CreateQueueRequest request = CreateQueueRequest.builder()
-        			.queueName(QUEUE_NAME)
-        			.build();
-            CreateQueueResponse create_result = sqs.createQueue(request);
-        } catch (QueueNameExistsException e) {
-        	throw e;
+            CreateQueueRequest request = CreateQueueRequest.builder()
+                    .queueName(QUEUE_NAME)
+                    .build();
+            CreateQueueResponse createResult = sqsClient.createQueue(request);
 
-        }
+            GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
+                .queueName(QUEUE_NAME)
+                .build();
 
-        GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
-        		.queueName(QUEUE_NAME)
-        		.build();
-        String queueUrl = sqs.getQueueUrl(getQueueRequest).queueUrl();
+            String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
 
-        SendMessageRequest send_msg_request = SendMessageRequest.builder()
+            SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageBody("hello world")
                 .delaySeconds(5)
                 .build();
-        sqs.sendMessage(send_msg_request);
+            sqsClient.sendMessage(sendMsgRequest);
 
-
-        // Send multiple messages to the queue
-        SendMessageBatchRequest send_batch_request = SendMessageBatchRequest.builder()
+             // Send multiple messages to the queue
+            SendMessageBatchRequest sendBatchRequest = SendMessageBatchRequest.builder()
                 .queueUrl(queueUrl)
                 .entries(
                         SendMessageBatchRequestEntry.builder()
-                        .messageBody("Hello from message 1")
-                        .id("msg_1")
-                        .build()
+                                .messageBody("Hello from message 1")
+                                .id("msg_1")
+                                .build()
                         ,
                         SendMessageBatchRequestEntry.builder()
-                        .messageBody("Hello from message 2")
-                        .delaySeconds(10)
-                        .id("msg_2")
-                        .build())
+                                .messageBody("Hello from message 2")
+                                .delaySeconds(10)
+                                .id("msg_2")
+                                .build())
                 .build();
-        sqs.sendMessageBatch(send_batch_request);
+             sqsClient.sendMessageBatch(sendBatchRequest);
 
-        // receive messages from the queue
-        ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
-        		.queueUrl(queueUrl)
-        		.build();
-        List<Message> messages = sqs.receiveMessage(receiveRequest).messages();
+            // receive messages from the queue
+            ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
+                .queueUrl(queueUrl)
+                .build();
+            List<Message> messages = sqsClient.receiveMessage(receiveRequest).messages();
 
-        // delete messages from the queue
-        for (Message m : messages) {
-        	DeleteMessageRequest deleteRequest = DeleteMessageRequest.builder()
-        			.queueUrl(queueUrl)
-        			.receiptHandle(m.receiptHandle())
-        			.build();
-            sqs.deleteMessage(deleteRequest);
+            // print out the messages
+             for (Message m : messages) {
+                System.out.println("\n" +m.body());
+            }
+        } catch (QueueNameExistsException e) {
+            throw e;
         }
     }
 }
