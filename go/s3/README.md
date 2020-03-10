@@ -18,14 +18,14 @@ in the AWS SDK for Go Developer Guide.
 
 `go run s3SetTls12 -b BUCKET -i ITEM [-r REGION] [-v]`
 
-- BUCKET is the name of the Amazon S3 bucket to confirm access.
+- BUCKET is the name of the Amazon S3 bucket to confirm access
 - ITEM is an object in BUCKET
 - If REGION is not specified, defaults to **us-west-2**
-- If -v is not specified, configures the session for Go version 1.13.
+- If -v is not specified, configures the session for Go version 1.13
 
 For example, if you call `go run s3SetTls12 mygroovybucket -i myitem`,
 it attempts to access *myitem* in *mygroovybucket*,
-and prints a message with the result
+and prints a message with the result.
 
 ### Notes
 
@@ -33,28 +33,28 @@ and prints a message with the result
   or at most the minimum  permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
+  in the *AWS Identity and Access Management User Guide*.
 - This code has not been tested in all Regions.
   Some AWS services are available only in specific 
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
-## Running the Unit Tests
+## Running the unit tests
 
 Unit tests should delete any resources they create.
 However, they might result in charges to your 
 AWS account.
 
-The unit test:
+The unit test does the following:
 
 1. Loads configuration values from *config.json*.
-2. Creates a random bucket name starting with "testbucket-"
+2. Creates a random bucket name starting with "testbucket-".
 3. Creates the item "testitem" with some text.
 4. Attempts to access the item in the bucket
    and logs the result.
 5. Deletes the bucket and item.
 
-To run the unit test, enter:
+To run the unit test, enter the following:
 
 `go test`
 
@@ -66,7 +66,7 @@ PASS
 ok      PATH 5.956s
 ```
 
-If you want to see any log messages, enter:
+To see any log messages, enter the following:
 
 `go test -test.v`
 
