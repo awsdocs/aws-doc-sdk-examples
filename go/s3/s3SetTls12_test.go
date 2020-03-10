@@ -39,8 +39,8 @@ type Config struct {
 }
 
 var configFileName = "config.json"
-
 var globalConfig Config
+var defaultRegion = "us-west-2"
 
 func populateConfiguration(t *testing.T) error {
     content, err := ioutil.ReadFile(configFileName)
@@ -53,6 +53,10 @@ func populateConfiguration(t *testing.T) error {
     err = json.Unmarshal([]byte(text), &globalConfig)
     if err != nil {
         return err
+    }
+
+    if globalConfig.Region == "" {
+        globalConfig.Region = defaultRegion
     }
 
     t.Log("Region:      " + globalConfig.Region)
@@ -140,28 +144,20 @@ func TestTLSVersion(t *testing.T) {
     client := http.Client{Transport: tr}
 
     // Create the SDK's session with the custom HTTP client.
-    sess, err := session.NewSession(&aws.Config{
+    sess := session.Must(session.NewSession(&aws.Config{
+        Region:     &globalConfig.Region,
         HTTPClient: &client,
-    })
-    if err != nil {
-        t.Fatal(err)
+    }))
+
+    s3Client := s3.New(sess)
+
+    if tr, ok := s3Client.Config.HTTPClient.Transport.(*http.Transport); ok {
+        t.Log("Client uses " + GetTLSVersion(tr))
     }
-
-    version := GetTLSVersion(tr)
-
-    t.Log("Your TLS version: " + version)
-
-    // Set region, bucket, item values
-    defaultRegion := "us-west-2"
-    if globalConfig.Region == "" {
-        t.Log("Setting region to " + defaultRegion)
-        globalConfig.Region = defaultRegion
-    }
-
-    item := "testitem"
 
     id := uuid.New()
     bucket := "testbucket-" + id.String()
+    item := "testitem"
 
     // Create the bucket and item
     err = createBucketAndItem(sess, &bucket, &item)
@@ -185,4 +181,5 @@ func TestTLSVersion(t *testing.T) {
         t.Fatal(err)
     }
 
+    t.Log("Deleted bucket: " + bucket)
 }
