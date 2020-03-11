@@ -1,0 +1,17 @@
+---
+created: 2020-02-20
+files:
+  - path: cloudtrailOps.go
+    apis:
+      - service: cloudtrail
+        operations:
+          - CreateTrail
+          - DeleteTrail
+          - DescribeTrails
+          - LookupEvents
+      - service: s3
+        operations:
+          - PutBucketPolicy
+      - service: sts
+        operations:
+          - GetCallerIdentity
