@@ -3,11 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-// snippet-start:[cloudwatch.java2.enable_alarm_actions.complete]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,8 +20,10 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
+// snippet-start:[cloudwatch.java2.enable_alarm_actions.complete]
 // snippet-start:[cloudwatch.java2.enable_alarm_actions.import]
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
+import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsResponse;
 // snippet-end:[cloudwatch.java2.enable_alarm_actions.import]
@@ -35,8 +36,8 @@ public class EnableAlarmActions {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply an alarm name\n" +
-            "Ex: EnableAlarmActions <alarm-name>\n";
+                "To run this example, supply an alarm name\n" +
+                        "Ex: EnableAlarmActions <alarm-name>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -45,18 +46,25 @@ public class EnableAlarmActions {
 
         String alarm = args[0];
 
-        // snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
-        CloudWatchClient cw =
-        		CloudWatchClient.builder().build();
+        try {
 
-        EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
-            .alarmNames(alarm).build();
+            // snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
+            CloudWatchClient cw =
+                CloudWatchClient.builder().build();
 
-        EnableAlarmActionsResponse response = cw.enableAlarmActions(request);
+            EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
+                .alarmNames(alarm).build();
+
+            EnableAlarmActionsResponse response = cw.enableAlarmActions(request);
+
+        } catch (CloudWatchException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+
         // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
-
         System.out.printf(
-            "Successfully enabled actions on alarm %s", alarm);
+                "Successfully enabled actions on alarm %s", alarm);
     }
 }
 // snippet-end:[cloudwatch.java2.enable_alarm_actions.complete]
