@@ -303,7 +303,7 @@ func usage() {
 }
 
 func main() {
-    // Parse args ourselves so user can only request one operation
+    // Parse args ourselves so user can request only one operation
     op := ""
     numOps := 0 // So we know when user has requested more than one
     length := len(os.Args)

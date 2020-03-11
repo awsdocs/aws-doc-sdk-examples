@@ -81,7 +81,7 @@ func createBucket(sess *session.Session, bucketName string) error {
         return err
     }
 
-    // Wait until bucket exists
+    // Wait until the bucket exists
     err = svc.WaitUntilBucketExists(&s3.HeadBucketInput{
         Bucket: aws.String(bucketName),
     })
@@ -233,7 +233,7 @@ func TestCloudTrailOps(t *testing.T) {
 
     // snippet-start:[sqs.go.session]
     // Create a session using credentials from ~/.aws/credentials
-    // and the region from ~/.aws/config
+    // and the Region from ~/.aws/config
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -316,7 +316,7 @@ func TestCloudTrailOps(t *testing.T) {
         t.Fatal(err)
     }
 
-    // List any events initiated by user
+    // List any events initiated by the user
     err = showEvents(t, sess, trailName, user)
     if err != nil {
         logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)

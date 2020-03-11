@@ -9,16 +9,16 @@ These examples demonstrate how to perform some AWS CloudTrail operations.
 You must have an AWS account, and have your default credentials and AWS Region
 configured as described in
 [Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+in the *AWS SDK for Go Developer Guide*.
 
 ## Running the code examples
 
-All of these code examples perform the operations in the default region
+All of these code examples perform the operations in the default AWS Region
 and use your default credentials.
 
 ### Operations
 
-The **cloudtrailOps.go** file defines a number of SQS operations.
+The **cloudtrailOps.go** file defines several SQS operations.
 
 Use the following command to display the commands that invoke these operations.
 
@@ -27,11 +27,11 @@ Use the following command to display the commands that invoke these operations.
 ### Notes
 
 - You should grant these code examples least privilege,
-  or at most the minimum  permissions required to perform the task.
+  or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all Regions.
+  in the *AWS Identity and Access Management User Guide*.
+- This code has not been tested in all regions.
   Some AWS services are available only in specific 
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
