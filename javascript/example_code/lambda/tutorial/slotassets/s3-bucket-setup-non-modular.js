@@ -12,24 +12,19 @@
    specific language governing permissions and limitations under the License.
 */
 
-// Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
-
-// Create S3 service object
-s3 = new AWS.S3({
-  apiVersion: '2006-03-01'
-});
+// Import a non-modular S3 client
+const { S3 } = require('@aws-sdk/client-s3');
+// Instantiate the S3 client
+const s3 = new S3({region: 'us-west-2'});
 
 // Create params JSON for S3.createBucket
-var bucketParams = {
+const bucketParams = {
   Bucket: process.argv[2],
   ACL: 'public-read'
 };
 
 // Create params JSON for S3.setBucketWebsite
-var staticHostParams = {
+const staticHostParams = {
   Bucket: process.argv[2],
   WebsiteConfiguration: {
     ErrorDocument: {
@@ -47,7 +42,7 @@ s3.createBucket(bucketParams, function (err, data) {
     console.log("Error", err);
   } else {
     console.log("Bucket URL is ", data.Location);
-    var putWebsiteOn = s3.putBucketWebsite(staticHostParams).promise();
+    const putWebsiteOn = s3.putBucketWebsite(staticHostParams).promise();
     putWebsiteOn.then(function (data) {
       // update the displayed policy for the selected bucket
       console.log("Success", data);

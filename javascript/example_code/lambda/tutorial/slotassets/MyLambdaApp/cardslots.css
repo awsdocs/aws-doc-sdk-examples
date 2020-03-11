@@ -2,7 +2,7 @@
 /* CSS Document */
 
 #appframe {
-	background-image: url(slotmachine.jpg);
+	background-image: url(resources/slotmachine.jpg);
 	background-repeat: no-repeat;
 	background-origin:content-box;
 	position:relative;

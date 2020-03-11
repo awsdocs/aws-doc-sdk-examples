@@ -12,22 +12,21 @@
    specific language governing permissions and limitations under the License.
 */
 
-// Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
-
-// Create S3 service object
-s3 = new AWS.S3({apiVersion: '2006-03-01'});
+// Import an S3 client
+const { 
+  S3Client, CreateBucketCommand, PutBucketWebsiteCommand 
+} = require('@aws-sdk/client-s3');
+// Instantiate an S3 client
+const s3 = new S3Client({region: 'us-west-2'});
 
 // Create params JSON for S3.createBucket
-var bucketParams = {
+const bucketParams = {
   Bucket : process.argv[2],
   ACL : 'public-read'
 };
 
 // Create params JSON for S3.setBucketWebsite
-var staticHostParams = {
+const staticHostParams = {
   Bucket: process.argv[2],
   WebsiteConfiguration: {
   ErrorDocument: {
@@ -39,21 +38,23 @@ var staticHostParams = {
   }
 };
 
-// call S3 to create the bucket
-s3.createBucket(bucketParams, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Bucket URL is ", data.Location);
-    // set the new policy on the cewly created bucket
-    s3.putBucketWebsite(staticHostParams, function(err, data) {
-      if (err) {
-        // display error message
-        console.log("Error", err);
-      } else {
-        // update the displayed policy for the selected bucket
-        console.log("Success", data);
-      }
-    });
+async function run() {
+  try {
+    // call S3 to create the bucket
+    const response = await s3.send(new CreateBucketCommand(bucketParams));
+    console.log('Bucket URL is ', response.Location);
+  } catch(err) {
+    console.log('Error', err);
   }
-});
+  try {
+    // set the new policy on the cewly created bucket
+    const response = await s3.send(new PutBucketWebsiteCommand(staticHostParams));
+    // update the displayed policy for the selected bucket
+    console.log('Success', response);
+  } catch(err) {
+    // display error message
+    console.log('Error', err);
+  }
+}
+
+run();

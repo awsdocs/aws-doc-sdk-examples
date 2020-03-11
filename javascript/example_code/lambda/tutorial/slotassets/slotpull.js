@@ -14,71 +14,65 @@
 
 'use strict';
 
-// Configuring the AWS SDK
-var AWS = require('aws-sdk');
-AWS.config.update({region: 'us-west-2'});
+// Load the DynamoDB client
+const { DynamoDBClient, GetItemCommand } = require('@aws-sdk/client-dynamodb');
 
-exports.myHandler = (event, context, callback) => {
+exports.handler = (event, context, callback) => {
 
     // Define the object that will hold the data values returned
-    var slotResults = {
+    let slotResults = {
         'isWinner' : false,
         'leftWheelImage' : {'file' : {S: ''}},
         'middleWheelImage' : {'file' : {S: ''}},
         'rightWheelImage' : {'file' : {S: ''}}
     };
+    
+    const tableName = 'TABLE_NAME';
 
-    // Define parameters JSON for retrieving slot pull data from the database
-    var thisPullParams = {
-        Key: {
-            "slotPosition": {
-                N: ""
-            }
-        },
-        TableName: "TABLE_NAME"
-    };
-
-    // Create DynamoDB service object
-    var request = new AWS.DynamoDB({region: 'us-west-2', apiVersion: '2012-08-10'});
+    // Instantiate a DynamoDB client
+    const ddb = new DynamoDBClient({region: 'us-west-2'});
 
     // =============================LEFT===========================================
     // Set a random number 0-9 for the left slot position
-    thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*10).toString();
+    const leftParams = {
+        TableName: tableName,
+        Key: { slotPosition: { N: Math.floor(Math.random()*10).toString() } }
+    }
     // Call DynamoDB to retrieve the image to use for the Left slot result
-    var myLeftPromise = request.getItem(thisPullParams).promise().then(
-        function(data) {
-            return data.Item.imageFile.S
-        },
-        function() {
-            console.log("Database read error on left wheel.")
+    const myLeftPromise = ddb.send(new GetItemCommand(leftParams)).then(
+        data => data.Item.imageFile.S,
+        err => {
+            console.log("Database read error on left wheel.");
         }
     );
 
     // =============================MIDDLE===========================================
     // Set a random number 0-9 for the middle slot position
-    thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*10).toString();
+    const middleParams = {
+        TableName: tableName,
+        Key: { slotPosition: { N: Math.floor(Math.random()*10).toString() } }
+    }
     // Call DynamoDB to retrieve the image to use for the Left slot result
-    var myMiddlePromise = request.getItem(thisPullParams).promise().then(
-        function(data) {
-            return data.Item.imageFile.S
-        },
-        function() {
-            console.log("Database read error on middle wheel.")
+    const myMiddlePromise = ddb.send(new GetItemCommand(middleParams)).then(
+        data => data.Item.imageFile.S,
+        err => {
+            console.log("Database read error on middle wheel.");
         }
     );
 
     // =============================RIGHT===========================================
     // Set a random number 0-9 for the slot position
-    thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*10).toString();
+    const rightParams = {
+        TableName: tableName,
+        Key: { slotPosition: { N: Math.floor(Math.random()*10).toString() } }
+    }
     // Call DynamoDB to retrieve the image to use for the Left slot result
-    var myRightPromise = request.getItem(thisPullParams).promise().then(
-        function(data) {
-            return data.Item.imageFile.S
-        },
-        function() {
-            console.log("Database read error on right wheel.")
+    const myRightPromise = ddb.send(new GetItemCommand(rightParams)).then(
+        data => data.Item.imageFile.S,
+        err => {
+            console.log("Database read error on right wheel.");
         }
-    );
+    )
 
 
     Promise.all([myLeftPromise, myMiddlePromise, myRightPromise]).then(

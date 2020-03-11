@@ -12,14 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 
-// Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
-
-// Create the IAM service object
-var lambda = new AWS.Lambda({apiVersion: '2015-03-31'});
-
+// Load the Lambda client
+const { LambdaClient, CreateFunctionCommand } = require('@aws-sdk/client-lambda');
+// Instantiate a Lambda client
+const lambda = new LambdaClient({region: 'us-west-2'});
 
 var params = {
   Code: { /* required */
@@ -27,12 +23,12 @@ var params = {
     S3Key: 'ZIP_FILE_NAME'
   },
   FunctionName: 'slotpull', /* required */
-  Handler: 'slotpull.myHandler', /* required */
-  Role: 'ROLE_ARN', /* required */
-  Runtime: 'nodejs8.10', /* required */
+  Handler: 'index.handler', /* required */
+  Role: 'arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role', /* required */
+  Runtime: 'nodejs12.x', /* required */
   Description: 'Slot machine game results generator',
 };
-lambda.createFunction(params, function(err, data) {
-  if (err) console.log(err); // an error occurred
-  else     console.log(data);           // successful response
-});
+lambda.send(new CreateFunctionCommand(params)).then(
+  data => { console.log(data) }, // successful response
+  err => {console.log(err)} // an error occurred
+);

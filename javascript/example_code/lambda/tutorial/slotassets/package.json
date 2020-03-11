@@ -1,0 +1,33 @@
+{
+  "name": "slotassets",
+  "version": "1.0.0",
+  "description": "A simulated browser-based slot machine game demonstrating JS SDK V3.",
+  "main": "index.js",
+  "scripts": {
+    "build:frontend": "webpack MyLambdaApp/index.js --mode development --target web --devtool false -o MylambdaApp/main.js",
+    "build:backend": "webpack slotpull.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awsdocs/aws-doc-sdk-examples.git"
+  },
+  "author": "Doug-AWS, AllanFly120",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/awsdocs/aws-doc-sdk-examples/issues"
+  },
+  "homepage": "https://github.com/awsdocs/aws-doc-sdk-examples#readme",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^1.0.0-alpha.23",
+    "@aws-sdk/client-dynamodb": "^1.0.0-alpha.23",
+    "@aws-sdk/client-iam": "^1.0.0-alpha.15",
+    "@aws-sdk/client-lambda": "^1.0.0-alpha.22",
+    "@aws-sdk/client-s3": "^1.0.0-alpha.18",
+    "@aws-sdk/credential-provider-cognito-identity": "^1.0.0-alpha.21"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

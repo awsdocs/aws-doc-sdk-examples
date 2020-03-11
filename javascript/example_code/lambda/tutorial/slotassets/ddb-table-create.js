@@ -12,14 +12,11 @@
    specific language governing permissions and limitations under the License.
 */
 
-// Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-// Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
-
-// Create DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-
+// Load the DynamoDB client
+const { DynamoDBClient, CreateTableCommand } = require('@aws-sdk/client-dynamodb');
+// Instantiate a DynamoDB client
+const ddb = new DynamoDBClient({region: 'us-west-2'});
+// Define the table schema
 var tableParams = {
   AttributeDefinitions: [
     {
@@ -37,17 +34,20 @@ var tableParams = {
     ReadCapacityUnits: 5,
     WriteCapacityUnits: 5
   },
-  TableName: 'TABLE_NAME',
+  //TODO: change back to TABLE_NAME
+  TableName: 'v3-lambda-tutorial-table',
   StreamSpecification: {
     StreamEnabled: false
   }
 };
 
-ddb.createTable(tableParams, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Success", data);
-
+async function run() {
+  try {
+    const data = await ddb.send(new CreateTableCommand(tableParams));
+    console.log('Success', data);
+  } catch(err) {
+    console.log('Error', err);
   }
-});
+}
+
+run();
