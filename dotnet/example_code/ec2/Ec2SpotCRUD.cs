@@ -142,7 +142,7 @@ namespace Ec2SpotCrud
         // snippet-start:[ec2.dotnet.spot_instance_terminate_spot_request]
         /* Terminates a spot instance request
          * Takes two args:
-         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is termitted
+         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is terminated
          *   string spotRequestId is the ID of the spot instance
          *
          * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2TerminateInstancesTerminateInstancesRequest.html
@@ -188,7 +188,7 @@ namespace Ec2SpotCrud
         // snippet-start:[ec2.dotnet.spot_instance_main]
         /* Creates, cancels, and terminates a spot instance request
          * 
-         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is termitted
+         *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is manipulated
          *   string spotRequestId is the ID of the spot instance
          *
          * See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2TerminateInstancesTerminateInstancesRequest.html
