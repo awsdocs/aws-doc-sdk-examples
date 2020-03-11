@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to retrieve the default SMS type.]
+//snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for the AWS SNS.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -6,9 +6,9 @@
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,15 +24,13 @@
 //snippet-start:[sns.java2.SetSMSAttributes.complete]
 package com.example.sns;
 
+//snippet-start:[sns.java2.SetSMSAttributes.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SetSmsAttributesRequest;
 import software.amazon.awssdk.services.sns.model.SetSmsAttributesResponse;
-
+import software.amazon.awssdk.services.sns.model.SnsException;
 import java.util.HashMap;
-
-
-//snippet-start:[sns.java2.SetSMSAttributes.import]
 //snippet-end:[sns.java2.SetSMSAttributes.import]
 
 public class SetSMSAttributes {
@@ -44,19 +42,26 @@ public class SetSMSAttributes {
         //snippet-start:[sns.java2.SetSMSAttributes.main]
         HashMap<String, String> attributes = new HashMap<>(1);
         attributes.put("DefaultSMSType", "Transactional");
+        attributes.put("UsageReportS3Bucket", "janbucket77" );
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+        try {
 
-        SetSmsAttributesRequest request = SetSmsAttributesRequest.builder()
+            SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
+
+            SetSmsAttributesRequest request = SetSmsAttributesRequest.builder()
                 .attributes(attributes)
                 .build();
 
-        SetSmsAttributesResponse result = snsClient.setSMSAttributes(request);
+            SetSmsAttributesResponse result = snsClient.setSMSAttributes(request);
+            System.out.println("Set default Attributes to " + attributes + ". Status was " + result.sdkHttpResponse().statusCode());
 
-        System.out.println("Set default Attributes to " + attributes + ". Status was " + result.sdkHttpResponse().statusCode());
-
+    } catch (SnsException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+        }
         //snippet-end:[sns.java2.SetSMSAttributes.main]
     }
 }
 //snippet-end:[sns.java2.SetSMSAttributes.complete]
-

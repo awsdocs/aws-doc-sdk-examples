@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@
  */
 package com.example.ec2;
 // snippet-start:[ec2.java2.create_instance.complete]
-// snippet-start:[ec2.java2.create_instance.import]
 
+// snippet-start:[ec2.java2.create_instance.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
@@ -30,18 +30,17 @@ import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Tag;
 import software.amazon.awssdk.services.ec2.model.CreateTagsRequest;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
- 
 // snippet-end:[ec2.java2.create_instance.import]
+
 /**
  * Creates an EC2 instance
  */
-public class CreateInstance
-{
-    public static void main(String[] args)
-    {
+public class CreateInstance {
+    public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply an instance name and AMI image id\n" +
-            "Ex: CreateInstance <instance-name> <ami-image-id>\n";
+                "To run this example, supply an instance name and AMI image id\n" +
+                        "Both values can be obtained from the AWS Console\n" +
+                        "Ex: CreateInstance <instance-name> <ami-image-id>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -49,47 +48,44 @@ public class CreateInstance
         }
 
         String name = args[0];
-        String ami_id = args[1];
+        String amiId = args[1];
 
         // snippet-start:[ec2.java2.create_instance.main]
         Ec2Client ec2 = Ec2Client.create();
 
-        RunInstancesRequest run_request = RunInstancesRequest.builder()
-            .imageId(ami_id)
-            .instanceType(InstanceType.T1_MICRO)
-            .maxCount(1)
-            .minCount(1)
-            .build();
+        RunInstancesRequest runRequest = RunInstancesRequest.builder()
+                .imageId(amiId)
+                .instanceType(InstanceType.T1_MICRO)
+                .maxCount(1)
+                .minCount(1)
+                .build();
 
-        RunInstancesResponse response = ec2.runInstances(run_request);
+        RunInstancesResponse response = ec2.runInstances(runRequest);
 
-        String instance_id = response.instances().get(0).instanceId();
+        String instanceId = response.instances().get(0).instanceId();
 
         Tag tag = Tag.builder()
-            .key("Name")
-            .value(name)
-            .build();
+                .key("Name")
+                .value(name)
+                .build();
 
-        CreateTagsRequest tag_request = CreateTagsRequest.builder()
-            .resources(instance_id)
-            .tags(tag)
-            .build();
+        CreateTagsRequest tagRequest = CreateTagsRequest.builder()
+                .resources(instanceId)
+                .tags(tag)
+                .build();
 
         try {
-        	ec2.createTags(tag_request);
-
+            ec2.createTags(tagRequest);
             System.out.printf(
-                "Successfully started EC2 instance %s based on AMI %s",
-                instance_id, ami_id);
-        }
-        catch (Ec2Exception e) {
-        	System.err.println(e.getMessage());
-        	System.exit(1);
+                    "Successfully started EC2 instance %s based on AMI %s",
+                    instanceId, amiId);
+       
+        } catch (Ec2Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
         // snippet-end:[ec2.java2.create_instance.main]
         System.out.println("Done!");
-
     }
 }
- 
 // snippet-end:[ec2.java2.create_instance.complete]

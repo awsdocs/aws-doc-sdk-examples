@@ -6,9 +6,9 @@
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CheckIfPhoneNumberIsOptedOutRequest;
 import software.amazon.awssdk.services.sns.model.CheckIfPhoneNumberIsOptedOutResponse;
+import software.amazon.awssdk.services.sns.model.SnsException;
 //snippet-end:[sns.java2.CheckOptOut.import]
 
 public class CheckOptOut {
@@ -46,19 +47,25 @@ public class CheckOptOut {
         }
         //snippet-start:[sns.java2.CheckOptOut.main]
         String phoneNumber = args[0];
+        try {
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+            SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-        CheckIfPhoneNumberIsOptedOutRequest request = CheckIfPhoneNumberIsOptedOutRequest.builder()
+            CheckIfPhoneNumberIsOptedOutRequest request = CheckIfPhoneNumberIsOptedOutRequest.builder()
                 .phoneNumber(phoneNumber)
                 .build();
 
-        CheckIfPhoneNumberIsOptedOutResponse result = snsClient.checkIfPhoneNumberIsOptedOut(request);
+            CheckIfPhoneNumberIsOptedOutResponse result = snsClient.checkIfPhoneNumberIsOptedOut(request);
 
-        System.out.println(result.isOptedOut() + "Phone Number " + phoneNumber + " has Opted Out of receiving sns messages." +
+            System.out.println(result.isOptedOut() + "Phone Number " + phoneNumber + " has Opted Out of receiving sns messages." +
                 "\n\nStatus was " + result.sdkHttpResponse().statusCode());
+
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+
         //snippet-end:[sns.java2.CheckOptOut.main]
     }
 }
 //snippet-end:[sns.java2.CheckOptOut.complete]
-
