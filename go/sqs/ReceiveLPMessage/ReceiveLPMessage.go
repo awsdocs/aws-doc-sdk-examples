@@ -25,17 +25,17 @@ import (
 )
 // snippet-end:[sqs.go.receive_lp_message.imports]
 
-// GetLPMessages gets the messages from an Amazon SQS long-polling queue
+// GetLPMessages gets the messages from an Amazon SQS long polling queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     queueURL is the URL of the queue
 // Output:
 //     If success, nil
-//     Otherwise, an error from the call to ???
+//     Otherwise, an error from the call to ReceiveMessage
 func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
 
-    // Create a SQS service client
+    // Create an SQS service client
     // snippet-start:[sqs.go.receive_lp_message.call]
     svc := sqs.New(sess)
 
@@ -87,7 +87,7 @@ func main() {
     }
     // snippet-end:[sqs.go.receive_lp_message.args]
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.receive_lp_message.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

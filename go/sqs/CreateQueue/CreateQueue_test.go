@@ -60,7 +60,7 @@ func populateConfiguration(t *testing.T) error {
 }
 
 func deleteQueue(sess *session.Session, queueURL *string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
@@ -82,14 +82,14 @@ func TestCreateQueue(t *testing.T) {
     queueCreated := false
 
     if globalConfig.QueueName == "" {
-        // Create unique, random queue name
+        // Create a unique, random queue name
         id := uuid.New()
         globalConfig.QueueName = "myqueue-" + id.String()
         queueCreated = true
     }
 
     // Create a session using credentials from ~/.aws/credentials
-    // and the region from ~/.aws/config
+    // and the Region from ~/.aws/config
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))

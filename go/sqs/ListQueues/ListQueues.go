@@ -27,7 +27,7 @@ import (
 func GetQueues(sess *session.Session) ([]*string, error) {
     var list []*string
 
-    // Create a SQS service client
+    // Create an SQS service client
     // snippet-start:[sqs.go.list_queues.call]
     svc := sqs.New(sess)
 
@@ -41,7 +41,7 @@ func GetQueues(sess *session.Session) ([]*string, error) {
 }
 
 func main() {
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.list_queues.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

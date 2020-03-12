@@ -37,7 +37,7 @@ import (
 func GetMessage(sess *session.Session, queueURL *string, timeout *int64) (*sqs.Message, error) {
     var msg *sqs.Message
 
-    // Create a SQS service client
+    // Create an SQS service client
     // snippet-start:[sqs.go.receive_messages.call]
     svc := sqs.New(sess)
 
@@ -80,7 +80,7 @@ func main() {
     }
     // snippet-end:[sqs.go.receive_messages.args]
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.receive_messages.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

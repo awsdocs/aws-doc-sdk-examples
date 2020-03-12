@@ -33,7 +33,7 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to SendMessage
 func SendMsg(sess *session.Session, queueURL *string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     // snippet-start:[sqs.go.send_message.call]
     svc := sqs.New(sess)
 
@@ -75,7 +75,7 @@ func main() {
     }
     // snippet-end:[sqs.go.send_message.args]
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.send_message.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

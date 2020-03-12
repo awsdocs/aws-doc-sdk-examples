@@ -33,7 +33,7 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to CreateQueue
 func CreateQueue(sess *session.Session, queueName *string) (*string, error) {
-    // Create a SQS service client
+    // Create an SQS service client
     // snippet-start:[sqs.go.create_queue.call]
     svc := sqs.New(sess)
 
@@ -63,7 +63,7 @@ func main() {
     }
     // snippet-end:[sqs.go.create_queue.args]
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.create_queue.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

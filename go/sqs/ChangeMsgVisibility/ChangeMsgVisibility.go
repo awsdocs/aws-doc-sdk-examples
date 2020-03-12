@@ -24,7 +24,7 @@ import (
 )
 // snippet-end:[sqs.go.change_message_visibility.imports]
 
-// SetMsgVisibility Sets the visibility timeout for a message in an SQS queue
+// SetMsgVisibility sets the visibility timeout for a message in an SQS queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     handle is the receipt handle of the message
@@ -70,8 +70,8 @@ func main() {
         *visibility = 12 * 60 * 60
     }
 
-    // Create a session that get credential values from ~/.aws/credentials
-    // and the default region from ~/.aws/config
+    // Create a session that gets credential values from ~/.aws/credentials
+    // and the default Region from ~/.aws/config
     // snippet-start:[sqs.go.change_message_visibility.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,

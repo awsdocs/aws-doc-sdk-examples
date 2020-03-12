@@ -73,7 +73,7 @@ func populateConfiguration(t *testing.T) error {
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
@@ -97,7 +97,7 @@ func TestCreateLpQueue(t *testing.T) {
     }
 
     // Create a session using credentials from ~/.aws/credentials
-    // and the region from ~/.aws/config
+    // and the Region from ~/.aws/config
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -105,7 +105,7 @@ func TestCreateLpQueue(t *testing.T) {
     shouldDelete := false
 
     if globalConfig.QueueName == "" {
-        // Create unique, random queue name
+        // Create a unique, random queue name
         id := uuid.New()
         globalConfig.QueueName = "mylpqueue-" + id.String()
         shouldDelete = true
@@ -116,7 +116,7 @@ func TestCreateLpQueue(t *testing.T) {
         t.Fatal(err)
     }
 
-    t.Log("Got URL " + url + " for long-polling queue " + globalConfig.QueueName)
+    t.Log("Got URL " + url + " for long polling queue " + globalConfig.QueueName)
 
     if shouldDelete {
         err = deleteQueue(sess, url)

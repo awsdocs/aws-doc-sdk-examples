@@ -64,7 +64,7 @@ func populateConfiguration(t *testing.T) error {
 }
 
 func createQueue(sess *session.Session, queueName string) (string, error) {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
@@ -82,7 +82,7 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
@@ -102,7 +102,7 @@ func TestConfigureLpQueue(t *testing.T) {
     }
 
     // Create a session using credentials from ~/.aws/credentials
-    // and the region from ~/.aws/config
+    // and the Region from ~/.aws/config
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -111,7 +111,7 @@ func TestConfigureLpQueue(t *testing.T) {
     queueName := ""
 
     if globalConfig.QueueURL == "" {
-        // Create unique, random queue name
+        // Create a unique, random queue name
         id := uuid.New()
         queueName = "myqueue-" + id.String()
 
@@ -126,7 +126,7 @@ func TestConfigureLpQueue(t *testing.T) {
 
     err = ConfigureLPQueue(sess, &globalConfig.QueueURL, &globalConfig.WaitTime)
     if err != nil {
-        t.Log("Could not configure queue to use long-polling")
+        t.Log("Could not configure queue to use long polling")
         t.Log("You'll have to delete queue " + queueName + " yourself")
         t.Fatal(err)
     }

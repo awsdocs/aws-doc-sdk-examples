@@ -85,7 +85,7 @@ func populateConfiguration(t *testing.T) error {
 }
 
 func createQueue(sess *session.Session, queueName string) (string, error) {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
@@ -103,7 +103,7 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
 }
 
 func getQueueURL(sess *session.Session, queueName string) (string, error) {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
@@ -117,7 +117,7 @@ func getQueueURL(sess *session.Session, queueName string) (string, error) {
 }
 
 func configureLPQueue(sess *session.Session, queueURL string, timeout int) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.SetQueueAttributes(&sqs.SetQueueAttributesInput{
@@ -134,7 +134,7 @@ func configureLPQueue(sess *session.Session, queueURL string, timeout int) error
 }
 
 func sendMessage(sess *session.Session, queueURL string, message string) (string, error) {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.SendMessage(&sqs.SendMessageInput{
@@ -150,7 +150,7 @@ func sendMessage(sess *session.Session, queueURL string, message string) (string
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
@@ -174,7 +174,7 @@ func TestReceiveLPMessages(t *testing.T) {
     }
 
     // Create a session using credentials from ~/.aws/credentials
-    // and the region from ~/.aws/config
+    // and the Region from ~/.aws/config
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
@@ -189,7 +189,7 @@ func TestReceiveLPMessages(t *testing.T) {
     queueName := ""
 
     if globalConfig.QueueURL == "" {
-        // Create unique, random queue name
+        // Create a unique, random queue name
         id := uuid.New()
         queueName = "myqueue-" + id.String()
 

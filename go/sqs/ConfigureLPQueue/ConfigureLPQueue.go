@@ -26,7 +26,7 @@ import (
 )
 // snippet-end:[sqs.go.configure_lp_queue.imports]
 
-// ConfigureLPQueue configures an Amazon SQS queue to use long-polling
+// ConfigureLPQueue configures an Amazon SQS queue to use long polling
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     queueURL is the URL of the queue
@@ -34,7 +34,7 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to DeleteQueue
 func ConfigureLPQueue(sess *session.Session, queueURL *string, waitTime *int) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     // snippet-start:[sqs.go.configure_lp_queue.set_attributes]
@@ -70,7 +70,7 @@ func main() {
         *waitTime = 20
     }
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.configure_lp_queue.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

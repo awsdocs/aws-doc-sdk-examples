@@ -32,7 +32,7 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to DeleteQueue
 func DeleteQueue(sess *session.Session, queueURL *string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     // snippet-start:[sqs.go.delete_queue.call]
     svc := sqs.New(sess)
 
@@ -58,7 +58,7 @@ func main() {
     }
     // snippet-end:[sqs.go.delete_queue.args]
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.delete_queue.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{

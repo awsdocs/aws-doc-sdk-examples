@@ -33,7 +33,7 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to DeleteMessage
 func DeleteMessage(sess *session.Session, queueURL *string, messageHandle *string) error {
-    // Create a SQS service client
+    // Create an SQS service client
     svc := sqs.New(sess)
 
     // snippet-start:[sqs.go.delete_message.call]
@@ -61,7 +61,7 @@ func main() {
     }
     // snippet-end:[sqs.go.delete_message.args]
 
-    // Create a session that get credential values from ~/.aws/credentials
+    // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.delete_message.sess]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
