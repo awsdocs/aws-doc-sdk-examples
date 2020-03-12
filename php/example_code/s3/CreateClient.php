@@ -34,7 +34,6 @@ use Aws\Exception\AwsException;
 // snippet-start:[s3.php.create_client.client]
 //Create a S3Client
 $s3 = new Aws\S3\S3Client([
-    'profile' => 'default',
     'version' => 'latest',
     'region' => 'us-east-2'
 ]);
