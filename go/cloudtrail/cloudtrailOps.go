@@ -28,7 +28,7 @@ import (
     "github.com/aws/aws-sdk-go/service/sts"
 )
 
-// ConfigureBucket configures a bucket to send event activity to CloudTrail
+// ConfigureBucket configures a bucket to send event activity to AWS CloudTrail
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     trailName is the name of the trail
@@ -49,7 +49,7 @@ func ConfigureBucket(sess *session.Session, bucketName string) error {
 
     accountID := aws.StringValue(result.Account)
 
-    // Create a policy so the bucket sends events to Amazon CloudTrail
+    // Create a policy so the bucket sends events to AWS CloudTrail
     s3Policy := map[string]interface{}{
         "Version": "2012-10-17",
         "Statement": []map[string]interface{}{
