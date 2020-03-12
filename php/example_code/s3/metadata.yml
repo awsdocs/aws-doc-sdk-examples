@@ -1,0 +1,10 @@
+---
+description: Creates a bucket in Amazon S3.
+created: 2020-02-26
+files:
+  - path: CreateBucket.php
+    apis:
+      - service: s3api
+        operations:
+          - CreateBucket
+...
