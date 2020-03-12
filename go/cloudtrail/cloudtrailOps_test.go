@@ -145,7 +145,7 @@ func deleteBucket(sess *session.Session, bucketName string) error {
 }
 
 func showEvents(t *testing.T, sess *session.Session, trailName string, userName string) error {
-    t.Log("Getting events for user " + userName)
+    t.Log("Getting events for the user " + userName)
 
     events, err := GetTrailEvents(sess, trailName)
     if err != nil {
@@ -309,7 +309,7 @@ func TestCloudTrailOps(t *testing.T) {
         t.Fatal(err)
     }
 
-    // Get user
+    // Get the user
     user, err := GetUser(sess)
     if err != nil {
         logErrors(t, dummy1, dummy2, bucketCreated, bucketName, trailCreated, trailName)

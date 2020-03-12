@@ -28,7 +28,7 @@ import (
     "github.com/aws/aws-sdk-go/service/sts"
 )
 
-// ConfigureBucket configures a bucket to send event activity to CloudTrail
+// ConfigureBucket configures a bucket to send event activity to AWS CloudTrail
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     trailName is the name of the trail
@@ -49,7 +49,7 @@ func ConfigureBucket(sess *session.Session, bucketName string) error {
 
     accountID := aws.StringValue(result.Account)
 
-    // Create a policy so the bucket sends events to CloudTrail
+    // Create a policy so the bucket sends events to AWS CloudTrail
     s3Policy := map[string]interface{}{
         "Version": "2012-10-17",
         "Statement": []map[string]interface{}{
@@ -254,7 +254,7 @@ func listTrailEvents(sess *session.Session, trailName string, userName string) e
         return err
     }
 
-    fmt.Println("Events for user " + userName + " in trail " + trailName + ":")
+    fmt.Println("Events for the user " + userName + " in trail " + trailName + ":")
 
     for _, event := range resp.Events {
         if userName == *event.Username {
@@ -296,16 +296,16 @@ func usage() {
     fmt.Println("    -d  TRAIL-NAME")
     fmt.Println("        delete trail TRAIL-NAME")
     fmt.Println("    -e  USER-NAME TRAIL-NAME")
-    fmt.Println("        show events from user USER-NAME for trail TRAIL-NAME")
+    fmt.Println("        show events from the user USER-NAME for trail TRAIL-NAME")
     fmt.Println("    -h")
     fmt.Println("        print this message and quit")
     fmt.Println("")
 }
 
 func main() {
-    // Parse args ourselves so user can request only one operation
+    // Parse args ourselves so the user can request only one operation
     op := ""
-    numOps := 0 // So we know when user has requested more than one
+    numOps := 0 // So we know when the user has requested more than one operation
     length := len(os.Args)
     i := 1
     trailName := ""

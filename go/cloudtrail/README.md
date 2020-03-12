@@ -18,7 +18,7 @@ and use your default credentials.
 
 ### Operations
 
-The **cloudtrailOps.go** file defines several SQS operations.
+The **cloudtrailOps.go** file defines several AWS CloudTrail operations.
 
 Use the following command to display the commands that invoke these operations.
 
@@ -82,7 +82,7 @@ If you want to see any log messages, enter:
 You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
 
-You can confirm it has deleted any resources it created by looking at the remaining queues
-for any that start with **MyQueue-**, **MyDLQueue-**, or **MyLPQueue-**:
+You can confirm it has deleted any trail it created by looking at the remaining trails
+for any that start with **MyTrail-**:
 
-`go run sqsQueueOps.go -l`
+`go run cloudtrailOps.go -l`
