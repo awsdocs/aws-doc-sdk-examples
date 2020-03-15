@@ -40,7 +40,7 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>dynamodb</artifactId>
-      <version>2.0.0</version>
+      <version>2.10.86</version>
     </dependency>
     <!-- third party subscriber implementation for reactive streams -->
     <dependency>
