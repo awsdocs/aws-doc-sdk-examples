@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ package com.example.iam;
 // snippet-start:[iam.java2.get_policy.import]
 import software.amazon.awssdk.services.iam.model.GetPolicyRequest;
 import software.amazon.awssdk.services.iam.model.GetPolicyResponse;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
- 
+import software.amazon.awssdk.services.iam.model.IamException;
+
 // snippet-end:[iam.java2.get_policy.import]
 /**
  * Gets an IAM policy's details
@@ -37,29 +37,36 @@ public class GetPolicy {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a policy arn\n" +
-            "Ex: GetPolicy <policy-arn>\n";
+                "To run this example, supply a policy arn\n" +
+                        "Ex: GetPolicy <policy-arn>\n";
 
-        if (args.length != 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String policy_arn = args[0];
+        String policyArn = args[0];
 
         // snippet-start:[iam.java2.get_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
-        GetPolicyRequest request = GetPolicyRequest.builder()
-            .policyArn(policy_arn).build();
+        try {
 
-        GetPolicyResponse response = iam.getPolicy(request);
-        // snippet-end:[iam.java2.get_policy.main]
+            GetPolicyRequest request = GetPolicyRequest.builder()
+                .policyArn(policyArn).build();
 
-        System.out.format("Successfully retrieved policy %s",
+            GetPolicyResponse response = iam.getPolicy(request);
+            // snippet-end:[iam.java2.get_policy.main]
+
+            System.out.format("Successfully retrieved policy %s",
                 response.policy().policyName());
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+    }
+        System.out.println("Done");
     }
 }
-
 // snippet-end:[iam.java2.get_policy.complete]
