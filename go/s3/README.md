@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrates how to perform some Amazon S3 operations.
+These examples demonstrates how to perform several Amazon S3 operations.
 
 ## Prerequisites
 
@@ -18,12 +18,26 @@ in the AWS SDK for Go Developer Guide.
 This example either create a custom HTTP client and uses it to get an S3 bucket object,
 or gets the S3 bucket object using a custom timeout of 20 seconds.
 
-`go run CustomHTTPClient.go -b BUCKET-NAME -o OBJECT-NAME [-s] [-t]`
+`go run CustomHTTPClient.go -b BUCKET -o OBJECT [-s] [-t]`
 
-- *BUCKET-NAME* name of the bucket (required)
-- *OBJECT-NAME* is the name of the object (required)
-- **-s** shows the object, as a string (optional)
-- **-t** gets the object using a custom timout; otherwise it uses a custom HTTP client
+- *BUCKET* name of the bucket (required).
+- *OBJECT* is the name of the object (required).
+- **-s** shows the object, as a string (optional).
+- **-t** gets the object using a custom timout; otherwise it uses a custom HTTP client.
+
+The unit test accepts similar values from *config.json*.
+
+### TLS/s3SetTls12.go
+
+This example demonstrates how to use the 1.2 version of TLS (transport layer security).
+It creates an Amazon S3 client and determines whether it can access an item in a bucket.
+
+`go run s3SetTls12 -b BUCKET -i ITEM [-r REGION] [-v]`
+
+- *BUCKET* is the name of the Amazon S3 bucket to confirm access.
+- *ITEM* is an object in *BUCKET*.
+- If *REGION* is not specified, it defaults to **us-west-2**.
+- If **-v** is not specified, it configures the session for Go version 1.13.
 
 The unit test accepts similar values from *config.json*.
 
@@ -63,7 +77,5 @@ If you want to see any log messages, enter:
 
 You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
-
-You can confirm it has deleted any resources it created by running:
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

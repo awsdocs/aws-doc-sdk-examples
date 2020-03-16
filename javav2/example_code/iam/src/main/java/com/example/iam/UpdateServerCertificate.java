@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,9 +24,10 @@ package com.example.iam;
 // snippet-start:[iam.java2.update_server_certificate.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
+import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateResponse;
- 
+
 // snippet-end:[iam.java2.update_server_certificate.import]
 /**
  * Updates a server certificate name
@@ -35,35 +36,42 @@ public class UpdateServerCertificate {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply the current certificate name and\n" +
-            "a new name. Ex:\n\n" +
-            "UpdateServerCertificate <current-name> <new-name>\n";
+                "To run this example, supply the current certificate name and\n" +
+                        "a new name. Ex:\n\n" +
+                        "UpdateServerCertificate <current-name> <new-name>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String cur_name = args[0];
-        String new_name = args[1];
+        String curName = args[0];
+        String newName = args[1];
 
         // snippet-start:[iam.java2.update_server_certificate.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
-        UpdateServerCertificateRequest request =
-            UpdateServerCertificateRequest.builder()
-                .serverCertificateName(cur_name)
-                .newServerCertificateName(new_name)
-                .build();
+        try {
 
-        UpdateServerCertificateResponse response =
-            iam.updateServerCertificate(request);
-        // snippet-end:[iam.java2.update_server_certificate.main]
+            UpdateServerCertificateRequest request =
+                UpdateServerCertificateRequest.builder()
+                        .serverCertificateName(curName)
+                        .newServerCertificateName(newName)
+                        .build();
 
-        System.out.printf("Successfully updated server certificate to name %s",
-                new_name);
+            UpdateServerCertificateResponse response =
+                iam.updateServerCertificate(request);
+            // snippet-end:[iam.java2.update_server_certificate.main]
+
+            System.out.printf("Successfully updated server certificate to name %s",
+                newName);
+
+        } catch (IamException e) {
+             System.err.println(e.awsErrorDetails().errorMessage());
+             System.exit(1);
+        }
+        System.out.println("Done");
     }
 }
- 
 // snippet-end:[iam.java2.update_server_certificate.complete]
