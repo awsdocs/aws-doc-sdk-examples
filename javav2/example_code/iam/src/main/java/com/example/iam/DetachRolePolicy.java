@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[DetachRolePolicy.java demonstrates how to detache a policy from an IAM role.]
+//snippet-sourcedescription:[DetachRolePolicy.java demonstrates how to detach a policy from an IAM role.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ package com.example.iam;
 // snippet-start:[iam.java2.detach_role_policy.import]
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyResponse;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
- 
+import software.amazon.awssdk.services.iam.model.IamException;
+
 // snippet-end:[iam.java2.detach_role_policy.import]
 /**
  * Detaches a policy from a role
@@ -36,30 +36,38 @@ public class DetachRolePolicy {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a role name and policy arn\n" +
-            "Ex: DetachRolePolicy <role-name> <policy-arn>>\n";
+                "To run this example, supply a role name and policy arn\n" +
+                        "Ex: DetachRolePolicy <role-name> <policy-arn>>\n";
 
-        if (args.length != 1) {
+       if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
-        String role_name = args[0];
-        String policy_arn = args[1];
+        String roleName = args[0];
+        String policyArn = args[1];
 
         // snippet-start:[iam.java2.detach_role_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
-        DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
-            .roleName(role_name)
-            .policyArn(policy_arn).build();
+        try {
 
-        DetachRolePolicyResponse response = iam.detachRolePolicy(request);
-        // snippet-end:[iam.java2.detach_role_policy.main]
-        
-        System.out.println("Successfully detached policy " + policy_arn +
-                " from role " + role_name);
+            DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
+                .roleName(roleName)
+                .policyArn(policyArn).build();
+
+             DetachRolePolicyResponse response = iam.detachRolePolicy(request);
+             // snippet-end:[iam.java2.detach_role_policy.main]
+
+            System.out.println("Successfully detached policy " + policyArn +
+                " from role " + roleName);
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
     }
 }
 // snippet-end:[iam.java2.detach_role_policy.complete]
