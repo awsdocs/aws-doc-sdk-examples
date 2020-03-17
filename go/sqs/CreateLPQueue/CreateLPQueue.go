@@ -24,6 +24,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
 // snippet-end:[sqs.go.create_lp_queue.imports]
 
 // CreateLPQueue creates an Amazon SQS queue with long polling enabled
@@ -54,12 +55,12 @@ func CreateLPQueue(sess *session.Session, queueName *string, waitTime *int) (str
 }
 
 func main() {
-    queueName := flag.String("n", "", "The name of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     waitTime := flag.Int("w", 10, "How long, in seconds, to wait for long polling")
     flag.Parse()
 
-    if *queueName == "" {
-        fmt.Println("You must supply a queue name (-n QUEUE-NAME")
+    if *queue == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE")
         return
     }
 
@@ -79,13 +80,16 @@ func main() {
     }))
     // snippet-end:[sqs.go.create_lp_queue.sess]
 
-    url, err := CreateLPQueue(sess, queueName, waitTime)
+    url, err := CreateLPQueue(sess, queue, waitTime)
     if err != nil {
         fmt.Println("Got an error creating the long polling queue:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("URL for long polling queue " + *queueName + ": " + url)
+    // snippet-start:[sqs.go.create_lp_queue.url]
+    fmt.Println("URL for long polling queue " + *queue + ": " + url)
+    // snippet-end:[sqs.go.create_lp_queue.url]
 }
+
 // snippet-end:[sqs.go.create_lp_queue]

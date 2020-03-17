@@ -28,7 +28,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueURL string `json:"QueueURL"`
+    Queue string `json:"Queue"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -55,17 +55,17 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    t.Log("QueueURL: " + globalConfig.QueueURL)
+    t.Log("Queue: " + globalConfig.Queue)
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName string) (string, error) {
+func createQueue(sess *session.Session, queue *string) (string, error) {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(queueName),
+        QueueName: queue,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -90,26 +90,26 @@ func TestDeleteQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    queueName := ""
+    queueURL := ""
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        globalConfig.QueueURL, err = createQueue(sess, queueName)
+        queueURL, err = createQueue(sess, &globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
     }
 
-    err = DeleteQueue(sess, &globalConfig.QueueURL)
+    err = DeleteQueue(sess, &queueURL)
     if err != nil {
-        t.Log("You'll have to delete queue " + queueName + " yourself")
+        t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
         t.Fatal(err)
     }
 
-    t.Log("Deleted queue " + queueName)
+    t.Log("Deleted queue " + globalConfig.Queue)
 }

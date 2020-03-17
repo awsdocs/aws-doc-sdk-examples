@@ -21,12 +21,11 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
 // snippet-end:[sqs.go.list_queues.imports]
 
 // GetQueues returns a list of queue names
-func GetQueues(sess *session.Session) ([]*string, error) {
-    var list []*string
-
+func GetQueues(sess *session.Session) (*sqs.ListQueuesOutput, error) {
     // Create an SQS service client
     // snippet-start:[sqs.go.list_queues.call]
     svc := sqs.New(sess)
@@ -34,10 +33,10 @@ func GetQueues(sess *session.Session) ([]*string, error) {
     result, err := svc.ListQueues(nil)
     // snippet-end:[sqs.go.list_queues.call]
     if err != nil {
-        return list, err
+        return nil, err
     }
 
-    return result.QueueUrls, nil
+    return result, nil
 }
 
 func main() {
@@ -49,15 +48,18 @@ func main() {
     }))
     // snippet-end:[sqs.go.list_queues.sess]
 
-    queueURLs, err := GetQueues(sess)
+    result, err := GetQueues(sess)
     if err != nil {
         fmt.Println("Got an error retrieving queue URLs:")
         fmt.Println(err)
         return
     }
 
-    for i, urls := range queueURLs {
-        fmt.Printf("%d: %s\n", i, *urls)
+    // snippet-start:[sqs.go.list_queues.display]
+    for i, url := range result.QueueUrls {
+        fmt.Printf("%d: %s\n", i, *url)
     }
+    // snippet-end:[sqs.go.list_queues.display]
 }
+
 // snippet-end:[sqs.go.list_queues]

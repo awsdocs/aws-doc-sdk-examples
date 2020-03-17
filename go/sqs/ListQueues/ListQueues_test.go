@@ -154,14 +154,14 @@ func TestListQueues60(t *testing.T) {
         t.Log("Queue should have URL: " + expectedURL)
     }
 
-    queueURLs, err := GetQueues(sess)
+    result, err := GetQueues(sess)
     if err != nil {
         t.Fatal(err)
     }
 
     t.Log("Queue URLs:")
 
-    for _, url := range queueURLs {
+    for _, url := range result.QueueUrls {
         t.Log("    " + *url)
 
         if globalConfig.Confirm {
@@ -192,14 +192,14 @@ func TestListQueues60(t *testing.T) {
         ts := multiplyDuration(globalConfig.SleepSeconds, time.Second)
         time.Sleep(ts)
 
-        queueURLs, err = GetQueues(sess)
+        result, err = GetQueues(sess)
         if err != nil {
             t.Fatal(err)
         }
 
         t.Log("Queue URLs:")
 
-        for _, url := range queueURLs {
+        for _, url := range result.QueueUrls {
             if gotURL == *url {
                 t.Log("    BINGO!")
             } else {

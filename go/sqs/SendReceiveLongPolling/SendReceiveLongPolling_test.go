@@ -17,6 +17,7 @@ package main
 import (
     "encoding/json"
     "io/ioutil"
+    "strconv"
     "testing"
 
     "github.com/google/uuid"
@@ -28,7 +29,8 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueURL string `json:"QueueURL"`
+    Queue    string `json:"Queue"`
+    WaitTime int    `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -55,21 +57,22 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    t.Log("QueueURL: " + globalConfig.QueueURL)
+    t.Log("Queue:    " + globalConfig.Queue)
+    t.Log("WaitTime: " + strconv.Itoa(globalConfig.WaitTime))
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName *string) (string, error) {
+func createLPQueue(sess *session.Session, queue *string, waitTime *int) (string, error) {
     // Create an SQS service client
     svc := sqs.New(sess)
 
+    // snippet-start:[sqs.go.create_lp_queue.call]
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: queueName,
-        Attributes: map[string]*string{
-            "DelaySeconds":           aws.String("60"),
-            "MessageRetentionPeriod": aws.String("86400"),
-        },
+        QueueName: queue,
+        Attributes: aws.StringMap(map[string]string{
+            "ReceiveMessageWaitTimeSeconds": strconv.Itoa(*waitTime),
+        }),
     })
     if err != nil {
         return "", err
@@ -104,38 +107,37 @@ func TestQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    url := ""
     queueCreated := false
-    queueName := ""
+    queueURL := ""
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        url, err = createQueue(sess, &queueName)
+        queueURL, err = createLPQueue(sess, &globalConfig.Queue, &globalConfig.WaitTime)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
         queueCreated = true
     }
 
-    err = SendMsg(sess, &url)
+    err = SendMsg(sess, &queueURL)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Sent message to queue " + queueName)
+    t.Log("Sent message to queue " + globalConfig.Queue)
 
     if queueCreated {
-        err = deleteQueue(sess, &url)
+        err = deleteQueue(sess, &queueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + queueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }

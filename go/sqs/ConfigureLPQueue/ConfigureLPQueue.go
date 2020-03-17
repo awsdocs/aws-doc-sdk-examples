@@ -24,7 +24,29 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
 // snippet-end:[sqs.go.configure_lp_queue.imports]
+
+// GetQueueURL gets the URL of an Amazon SQS queue
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     queueName is the name of the queue
+// Output:
+//     If success, the URL of the queue and nil
+//     Otherwise, an empty string and an error from the call to
+func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
+    // Create an SQS service client
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queue,
+    })
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
 
 // ConfigureLPQueue configures an Amazon SQS queue to use long polling
 // Inputs:
@@ -53,12 +75,12 @@ func ConfigureLPQueue(sess *session.Session, queueURL *string, waitTime *int) er
 }
 
 func main() {
-    queueURL := flag.String("u", "", "The URL of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     waitTime := flag.Int("w", 10, "The wait time, in seconds, for long polling")
     flag.Parse()
 
-    if *queueURL == "" {
-        fmt.Println("You must supply a queue URL (-n QUEUE-URL")
+    if *queue == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE")
         return
     }
 
@@ -78,7 +100,16 @@ func main() {
     }))
     // snippet-end:[sqs.go.configure_lp_queue.sess]
 
-    err := ConfigureLPQueue(sess, queueURL, waitTime)
+    result, err := GetQueueURL(sess, queue)
+    if err != nil {
+        fmt.Println("Got an error getting the queue URL:")
+        fmt.Println(err)
+        return
+    }
+
+    queueURL := result.QueueUrl
+
+    err = ConfigureLPQueue(sess, queueURL, waitTime)
     if err != nil {
         fmt.Println("Got an error deleting the queue:")
         fmt.Println(err)
@@ -87,4 +118,5 @@ func main() {
 
     fmt.Println("Queue with URL " + *queueURL + " deleted")
 }
+
 // snippet-end:[sqs.go.configure_lp_queue]
