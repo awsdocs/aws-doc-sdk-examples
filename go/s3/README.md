@@ -30,12 +30,12 @@ The unit test accepts similar values from *config.json*.
 ### TLS/s3SetTls12.go
 
 This example demonstrates how to use the 1.2 version of TLS (transport layer security).
-It creates an Amazon S3 client and determines whether it can access an item in a bucket.
+It creates an Amazon S3 client and determines whether it can access an object in a bucket.
 
-`go run s3SetTls12 -b BUCKET -i ITEM [-r REGION] [-v]`
+`go run s3SetTls12 -b BUCKET -o OBJECT [-r REGION] [-v]`
 
 - *BUCKET* is the name of the Amazon S3 bucket to confirm access.
-- *ITEM* is an object in *BUCKET*.
+- *OBJECT* is an object in *BUCKET*.
 - If *REGION* is not specified, it defaults to **us-west-2**.
 - If **-v** is not specified, it configures the session for Go version 1.13.
 

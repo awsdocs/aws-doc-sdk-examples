@@ -31,6 +31,7 @@ import (
 
     "golang.org/x/net/http2"
 )
+
 // snippet-end:[s3.go.customHttpClient.import]
 
 // HTTPClientSettings defines the HTTP setting for clients
@@ -45,6 +46,7 @@ type HTTPClientSettings struct {
     ResponseHeader   time.Duration
     TLSHandshake     time.Duration
 }
+
 // snippet-end:[s3.go.customHttpClient_struct]
 
 // NewHTTPClientWithSettings creates an HTTP client with some custom settings
@@ -81,6 +83,7 @@ func NewHTTPClientWithSettings(httpSettings HTTPClientSettings) (*http.Client, e
         Transport: tr,
     }, nil
 }
+
 // snippet-end:[s3.go.customHttpClient_client]
 
 // GetObjectWithTimeout retrieves an S3 bucket object, but only within 20 seconds
@@ -116,38 +119,42 @@ func GetObjectWithTimeout(sess *session.Session, bucket *string, object *string)
 // Usage:
 //    go run customHttpClient -b BUCKET-NAME -o OBJECT-NAME [-s] [-t]
 func main() {
-    bucketPtr := flag.String("b", "", "The name of the bucket")
-    objPtr := flag.String("o", "", "The name of the bucket object")
-    showPtr := flag.Bool("s", false, "Whether to show the object as a string")
-    timeoutPtr := flag.Bool("t", false, "Whether to get the object within a 20 second timeout or use the default custom HTTP client")
+    // snippet-start:[s3.go.customHttpClient.args]
+    bucket := flag.String("b", "", "The name of the bucket")
+    object := flag.String("o", "", "The name of the bucket object")
+    show := flag.Bool("s", false, "Whether to show the object as a string")
+    timeout := flag.Bool("t", false, "Whether to get the object within a 20 second timeout or use the default custom HTTP client")
     flag.Parse()
 
-    if *bucketPtr == "" || *objPtr == "" {
+    if *bucket == "" || *object == "" {
         fmt.Println("You must supply the name of the bucket and object")
-        fmt.Println("Usage: go run customHttpClient -b BUCKET-NAME -o OBJECT-NAME [-t] (use 20 second timeout)")
+        fmt.Println("Usage: go run customHttpClient -b BUCKET -o OBJECT [-s] [-t]")
         return
     }
+    // snippet-end:[s3.go.customHttpClient.args]
 
-    fmt.Println("Getting object " + *objPtr + " from bucket " + *bucketPtr)
+    fmt.Println("Getting object " + *object + " from bucket " + *bucket)
 
     var body io.ReadCloser
     var err error
 
-    if *timeoutPtr {
+    if *timeout {
         // Initialize a session that the SDK uses to load
         // credentials from the shared credentials file (~/.aws/credentials)
+        // snippet-start:[s3.go.customHttpClient.sess]
         sess := session.Must(session.NewSessionWithOptions(session.Options{
             SharedConfigState: session.SharedConfigEnable,
         }))
+        // snippet-end:[s3.go.customHttpClient.sess]
 
         // Get object using 20 second timeout
-        body, err = GetObjectWithTimeout(sess, bucketPtr, objPtr)
+        body, err = GetObjectWithTimeout(sess, bucket, object)
         if err != nil {
-            fmt.Println("Could not get " + *objPtr + " from " + *bucketPtr)
+            fmt.Println("Could not get " + *object + " from " + *bucket)
             return
         }
 
-        fmt.Println("Got " + *objPtr + " from " + *bucketPtr)
+        fmt.Println("Got " + *object + " from " + *bucket)
     } else {
         // Creating a SDK session using the custom HTTP client
         // and use that session to create S3 client.
@@ -196,8 +203,8 @@ func main() {
         */
 
         obj, err := svc.GetObject(&s3.GetObjectInput{
-            Bucket: bucketPtr,
-            Key:    objPtr,
+            Bucket: bucket,
+            Key:    object,
         })
         if err != nil {
             fmt.Println("Got error calling GetObject:")
@@ -208,7 +215,7 @@ func main() {
         body = obj.Body
     }
 
-    if *showPtr {
+    if *show {
         // Convert body from IO.ReadCloser to string:
         buf := new(bytes.Buffer)
 
@@ -226,4 +233,5 @@ func main() {
         fmt.Println(s)
     }
 }
+
 // snippet-end:[s3.go.customHttpClient]
