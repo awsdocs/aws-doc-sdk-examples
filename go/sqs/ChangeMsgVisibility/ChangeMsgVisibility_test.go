@@ -30,7 +30,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueURL   string `json:"QueueURL"`
+    Queue      string `json:"Queue"`
     Visibility int64  `json:"Visibility"`
     WaitTime   int    `json:"WaitTime"`
 }
@@ -75,19 +75,19 @@ func populateConfiguration(t *testing.T) error {
         globalConfig.WaitTime = 20
     }
 
-    t.Log("QueueURL:   " + globalConfig.QueueURL)
+    t.Log("Queue:   " + globalConfig.Queue)
     t.Log("Visibility: " + strconv.Itoa(int(globalConfig.Visibility)))
     t.Log("WaitTime:   " + strconv.Itoa(globalConfig.WaitTime))
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName string) (string, error) {
+func createQueue(sess *session.Session, queue *string) (string, error) {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(queueName),
+        QueueName: queue,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -201,56 +201,56 @@ func TestChangeVisibility(t *testing.T) {
     }))
 
     queueCreated := false
-    queueName := ""
+    queueURL := ""
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        globalConfig.QueueURL, err = createQueue(sess, queueName)
+        queueURL, err = createQueue(sess, &globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
     }
 
     if globalConfig.WaitTime > 0 {
-        err := configureLPQueue(sess, &globalConfig.QueueURL, globalConfig.WaitTime)
+        err := configureLPQueue(sess, &queueURL, globalConfig.WaitTime)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
     }
 
-    err = sendMessage(sess, globalConfig.QueueURL)
+    err = sendMessage(sess, queueURL)
     if err != nil {
-        t.Log("You'll have to delete queue " + queueName + " yourself")
+        t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
         t.Fatal(err)
     }
 
-    t.Log("Sent message to queue " + queueName)
+    t.Log("Sent message to queue " + globalConfig.Queue)
 
-    msgHandle, err := receiveMessage(sess, globalConfig.QueueURL)
+    msgHandle, err := receiveMessage(sess, queueURL)
     if err != nil {
-        t.Log("You'll have to delete queue " + queueName + " yourself")
+        t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
         t.Fatal(err)
     }
 
     if msgHandle != "" {
         t.Log("Received message")
 
-        err = SetMsgVisibility(sess, &msgHandle, &globalConfig.QueueURL, &globalConfig.Visibility)
+        err = SetMsgVisibility(sess, &msgHandle, &queueURL, &globalConfig.Visibility)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
         t.Log("Changed message's visibility to " + strconv.Itoa(int(globalConfig.Visibility)))
 
         // Delete message
-        err = deleteMsg(sess, globalConfig.QueueURL, msgHandle)
+        err = deleteMsg(sess, queueURL, msgHandle)
         if err != nil {
             t.Log("Got an error deleting msg:")
             t.Fatal(err)
@@ -262,12 +262,12 @@ func TestChangeVisibility(t *testing.T) {
     }
 
     if queueCreated {
-        err = deleteQueue(sess, globalConfig.QueueURL)
+        err = deleteQueue(sess, queueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + queueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }
