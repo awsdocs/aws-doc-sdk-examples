@@ -24,6 +24,26 @@ import (
     "github.com/aws/aws-sdk-go/service/sqs"
 )
 
+// GetQueueURL gets the URL of an Amazon SQS queue
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     queueName is the name of the queue
+// Output:
+//     If success, the URL of the queue and nil
+//     Otherwise, an empty string and an error from the call to
+func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
+    // Create an SQS service client
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queue,
+    })
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
 // snippet-end:[sqs.go.receive_messages.imports]
 
 // GetMessage gets the latest message from an Amazon SQS queue
@@ -62,12 +82,12 @@ func GetMessage(sess *session.Session, queueURL *string, timeout *int64) (*sqs.M
 
 func main() {
     // snippet-start:[sqs.go.receive_messages.args]
-    queueURL := flag.String("u", "", "The URL of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     timeout := flag.Int64("t", 5, "How long, in seconds, that the message is hidden from others")
     flag.Parse()
 
-    if *queueURL == "" {
-        fmt.Println("You must supply the URL of a queue (-u QUEUE-URL)")
+    if *queue == "" {
+        fmt.Println("You must supply the name of a queue (-q QUEUE)")
         return
     }
 
@@ -87,6 +107,16 @@ func main() {
         SharedConfigState: session.SharedConfigEnable,
     }))
     // snippet-end:[sqs.go.receive_messages.sess]
+
+    // Get URL of queue
+    result, err := GetQueueURL(sess, queue)
+    if err != nil {
+        fmt.Println("Got an error getting the queue URL:")
+        fmt.Println(err)
+        return
+    }
+
+    queueURL := result.QueueUrl
 
     msg, err := GetMessage(sess, queueURL, timeout)
     if err != nil {

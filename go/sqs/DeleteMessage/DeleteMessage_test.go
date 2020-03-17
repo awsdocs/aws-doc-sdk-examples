@@ -30,7 +30,7 @@ import (
 // Config defines a set of configuration values
 type Config struct {
     MsgHandle string `json:"MsgHandle"`
-    QueueURL  string `json:"QueueURL"`
+    Queue     string `json:"Queue"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -58,7 +58,7 @@ func populateConfiguration(t *testing.T) error {
     }
 
     t.Log("Message handle: " + globalConfig.MsgHandle)
-    t.Log("Queue URL:      " + globalConfig.QueueURL)
+    t.Log("Queue:          " + globalConfig.Queue)
 
     return nil
 }
@@ -151,37 +151,37 @@ func TestDeleteMessage(t *testing.T) {
     }))
 
     queueCreated := false
-    queueName := ""
+    queueURL := ""
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
         queueCreated = true
 
-        globalConfig.QueueURL, err = createQueue(sess, queueName)
+        queueURL, err = createQueue(sess, globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
     }
 
     if globalConfig.MsgHandle == "" {
-        err = sendMessage(sess, &globalConfig.QueueURL)
+        err = sendMessage(sess, &queueURL)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Sent message to queue " + queueName)
+        t.Log("Sent message to queue " + globalConfig.Queue)
 
-        globalConfig.MsgHandle, err = receiveMessage(sess, &globalConfig.QueueURL)
+        globalConfig.MsgHandle, err = receiveMessage(sess, &queueURL)
         if err != nil {
             t.Fatal(err)
         }
     }
 
-    err = DeleteMessage(sess, &globalConfig.QueueURL, &globalConfig.MsgHandle)
+    err = DeleteMessage(sess, &queueURL, &globalConfig.MsgHandle)
     if err != nil {
         t.Log("Could not delete message. Error:")
         t.Log(err)
@@ -190,12 +190,12 @@ func TestDeleteMessage(t *testing.T) {
     t.Log("Deleted message")
 
     if queueCreated {
-        err = deleteQueue(sess, &globalConfig.QueueURL)
+        err = deleteQueue(sess, &queueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + queueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }

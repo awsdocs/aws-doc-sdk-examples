@@ -75,18 +75,18 @@ For information about message visibility, see
 Use the following command to set the visibility of a message,
 where:
 
-- QUEUE-URL is the URL of the queue.
+- QUEUE is the name of the queue.
 - MESSAGE-HANDLE is the receipt handle of the message.
   Get that value by using the **ReceiveMessages** example.
 - VISIBILITY is how long, in seconds, the message is not available to other consumers.
   The example ensures that the value is between 0 and 43200 ( 12 hours).
   If omitted, it defaults to 30.
 
-`go run ChangeMsgVisibility.go -q QUEUE-NAME -h MESSAGE-HANDLE [-v VISIBILITY]`
+`go run ChangeMsgVisibility.go -q QUEUE -h MESSAGE-HANDLE [-v VISIBILITY]`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 - **Visibility** is how long, in seconds, the message is not available to other consumers.
   The default is 30.
@@ -98,7 +98,7 @@ The unit test:
 1. Gets the values from *config.json* and stores them in a struct,
    ensuring that the **Visibility** value is between 0 and 43200 (12 hours)
    and the **WaitTime** value is between 0 (no long polling) and 20.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
     it creates a queue with a random name starting with **myqueue-**.
 3. If the value of **WaitTime** is greater than 0,
     it configures the queue for long polling with that value.
@@ -118,16 +118,16 @@ For information about long polling, see
 Use the following command to set the long polling value for a queue,
 where:
 
-- QUEUE-URL is the URL of the queue.
+- QUEUE is the name of the queue.
 - WAIT-TIME is how long, in seconds, the queue waits for messages.
   The example ensures that the value is between 1 and 20.
   If omitted, it defaults to 10.
 
-`go run ConfigureLPQueue.go -u QUEUE-URL [-d WAIT-TIME]`
+`go run ConfigureLPQueue.go -q QUEUE [-d WAIT-TIME]`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 - **WaitTime** is the wait time for long polling.
   The default is 10.
@@ -136,7 +136,7 @@ The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct,
    ensuring that the **WaitTime** value is between 1 and 20.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
    it creates a queue with a random name starting with **mylpqueue-**.
 3. Configures the queue for long polling with the value of **WaitTime**.
 4. If it created the queue, it deletes the queue.
@@ -151,16 +151,16 @@ For information about long polling, see
 Use the following command to create a queue using long polling,
 where:
 
-- QUEUE-NAME is the name of the queue.
+- QUEUE is the name of the queue.
 - WAIT-TIME is the wait time, in seconds, the queue uses for long polling.
   The example ensures that the value is between 1 and 20.
   If omitted, it defaults to 10.
 
-`go run CreateLPQueue.go -n QUEUE-NAME [-d WAIT-TIME]`
+`go run CreateLPQueue.go -q QUEUE [-d WAIT-TIME]`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueName** is the name of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 - **WaitTime** is the wait time for long polling.
   The default is 10.
@@ -169,9 +169,9 @@ The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct,
    ensuring that the **WaitTime** value is between 1 and 20.
-2. If the value of **QueueName** is an empty string,
+2. If the value of **Queue** is an empty string,
    it creates a random name starting with **mylpqueue-**.
-3. Creates the queue with the name in **QueueName** and the long polling value of **WaitTime**.
+3. Creates the queue with the name in **Queue** and the long polling value of **WaitTime**.
 4. If it created the queue, it deletes the queue.
 
 ### CreateQueue
@@ -183,20 +183,20 @@ For information about creating queues, see
 Use the following command to create a queue,
 where:
 
-- QUEUE-NAME is the name of the queue.
+- QUEUE is the name of the queue.
 
-`go run CreateQueue.go -n QUEUE-NAME`
+`go run CreateQueue.go -q QUEUE`
 
 The unit test accepts the following configuration value in *config.json* and stores it in a struct:
 
-- **QueueName** is the name of the queue.
+- **Queue** is the name of the queue.
 
 The unit test:
 
 1. Gets the value from *config.json* and stores it in a struct.
-    If the value of **QueueName** is an empty string,
-    it creates a random value for **QueueName** that starts with **myqueue-**.
-2. Creates a queue with the name from **QueueName**.
+    If the value of **Queue** is an empty string,
+    it creates a random value for **Queue** that starts with **myqueue-**.
+2. Creates a queue with the name from **Queue**.
 3. If it created the queue with a random name, it deletes the queue.
 
 ### DeadLetterQueue
@@ -208,24 +208,24 @@ For information about dead-letter queues, see
 Use the following command to create a dead-letter queue,
 where:
 
-- QUEUE-URL is the URL of the queue.
-- DLQUEUE-URL is the URL of the dead-letter queue.
+- QUEUE is the name of the queue.
+- DLQUEUE is the name of the dead-letter queue.
 
-`go run DeadLetterQueue.go -u QUEUE-URL -d DLQUEUE-URL`
+`go run DeadLetterQueue.go -q QUEUE -d DLQUEUE`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **DLQueueURL** is the URL of the dead-letter queue.
+- **DLQueue** is the name of the dead-letter queue.
   The default is an empty string.
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
    it creates a queue with a name beginning with **myqueue-**.
-3. If the value of **DLQueueURL** is an empty string,
+3. If the value of **DLQueue** is an empty string,
    it creates a dead-letter queue with a name beginning with **mydlqueue-**.
 4. Configures the dead-letter queue to receive undelivered messages from the queue.
 5. If it created the queue, it deletes the queue.
@@ -240,26 +240,26 @@ For information about deleting messages, see
 Use the following command to delete a message from a queue,
 where:
 
-- QUEUE-URL is the URL of the queue.
+- QUEUE is the name of the queue.
 - MESSAGE-HANDLE is the receipt handle of the message.
 
-`go run DeleteMessage.go -u QUEUE-URL -m MESSAGE-HANDLE`
+`go run DeleteMessage.go -q QUEUE -m MESSAGE-HANDLE`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
 - **MsgHandle** is the receipt handle of the message.
   The default is an empty string.
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
    it creates a queue with a random name beginning with **myqueue-**.
 3. If the value of **MsgHandle** is an empty string,
    it creates a message and sends it to the queue.
-4. Deletes the message.
+4. It deletes the message.
 5. If it created the queue, it deletes the queue.
 
 ### DeleteQueue
@@ -271,21 +271,21 @@ For information about deleting queues, see
 Use the following command to delete a queue,
 where:
 
-- QUEUE-URL is the URL of the queue.
+- QUEUE is the name of the queue.
 
-`go run DeleteQueue.go -u QUEUE-URL`
+`go run DeleteQueue.go -q QUEUE`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
    it creates a queue with a random name beginning with **myqueue-**.
-3. Deletes the queue.
+3. It deletes the queue.
 
 ### GetQueueURL
 
@@ -294,19 +294,19 @@ This directory contains an example of retrieving the URL of a queue.
 Use the following command to retrieve the URL of a queue,
 where:
 
-- QUEUE-NAME is the name of the queue.
+- QUEUE is the name of the queue.
 
-`go run GetQueueURL.go -q QUEUE-NAME`
+`go run GetQueueURL.go -q QUEUE`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueName** is the name of the queue.
+- **Queue** is the name of the queue.
   The default is an empty string.
 
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct.
-2. If the value of **QueueName** is an empty string,
+2. If the value of **Queue** is an empty string,
    it creates a new queue with a random name starting with **myqueue-**.
 3. Gets and displays the URL of the queue.
 4. If it created a queue, it deletes the queue.
@@ -337,7 +337,9 @@ The unit test:
 2. If **Confirm** is true,
     it sleeps **Confirm** seconds after creating the queue and before listing the queues.
     In addition, it displays a message when it finds the created queue in the list.
-3. If it created a queue, it deletes the queue.
+    If **Confirm** is false,
+    it won't likely find the created queue in the list.
+4. If it created a queue, it deletes the queue.
 
 ### ReceiveLPMessage
 
@@ -348,7 +350,7 @@ For information about long polling, see
 Use the following command to get a message from a long polling queue,
 where:
 
-- QUEUE-URL is the URL of the long polling queue.
+- QUEUE is the name of the long polling queue.
 - VISIBILITY is how long, in seconds, the message is hidden from other consumers.
    The example ensures that the value is between 1 and 43200 (12 hours).
    If omitted, it defaults to 5.
@@ -356,13 +358,13 @@ where:
    The example ensures that the value is between 0 and 20.
    If omitted, it defaults to 10.
 
-`go run ReceiveLPMessage.go -u QUEUE-URL[-v VISIBILITY] [-w WAIT-TIME]`
+`go run ReceiveLPMessage.go -q QUEUE [-v VISIBILITY] [-w WAIT-TIME]`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
 - **Message** is the message sent to the queue.
    The default is an empty string.
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
    The default is an empty string.
 - **Visibility** is how long, in seconds, the message is hidden from other consumers.
    The default is 5.
@@ -374,7 +376,7 @@ The unit test:
 1. Gets the values from *config.json* and stores them in a struct,
    ensuring that the **Visibility** value is between 1 and 43200
    and the **WaitTime** value is between 0 and 20.
-2. If the **QueueURL** value is an empty string,
+2. If the **Queue** value is an empty string,
     creates a new queue with a random name starting with **mylpqueue-**.
 3. If the **Message** value is an empty string,
     creates a message with the current date and time.
@@ -391,18 +393,18 @@ This directory contains an example of receiving a message from a queue.
 Use the following command to receive a message from a queue,
 where:
 
-- QUEUE-URL is the URL of the queue.
+- QUEUE is the name of the queue.
 - VISIBILITY is how long, in seconds, the message is not available to other consumers.
    The example ensures that the value is between 0 and 43200 (12 hours).
    If omitted, it defaults to 5.
 
-`go run ReceiveMessage.go -u QUEUE-URL [-t VISIBILITY]`
+`go run ReceiveMessage.go -q QUEUE [-t VISIBILITY]`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
 - **Message** is the body of the message to send and receive.
    The default is an empty string.
-- **QueueURL** is the URL of the queue.
+- **Queue** is the name of the queue.
    The default is an empty string.
 - **SleepSeconds** is how long to wait, in seconds, after sending the message, before attempting to read the message.
    The example uses this in lieu of configuring the queue for long polling.
@@ -413,14 +415,14 @@ The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct,
     ensuring that the **Visibility** value is between 0 and 43200.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
     it creates a queue with a random name starting with **myqueue-**.
 3. If the value of **Message** is an empty string,
     it creates a message with the current date and time.
 4. Sends the message.
 5. Waits **SleepSeconds** seconds.
-6. Receives the message.
-7. Deletes the message.
+6. It receives the message.
+7. It deletes the message.
 8. If it created a queue, it deletes the queue.
 
 ### SendMessage
@@ -430,23 +432,23 @@ This directory contains an example of sending a message to a queue.
 Use the following command to send a message to a queue,
 where:
 
-- QUEUE-URL is the URL of a queue.
+- QUEUE is the name of a queue.
 
-`go run SendMessage.go -u QUEUE-URL`
+`go run SendMessage.go -q QUEUE`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueURL** is the URL of a queue.
+- **Queue** is the name of a queue.
   The default is an empty string.
 
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
     it creates a new queue with a random name starting with **myqueue**.
-3. Sends a message to the queue.
-4. Receives the message.
-5. Deletes the message.
+3. It sends a message to the queue.
+4. It receives the message.
+5. It deletes the message.
 6. If it created a queue, it deletes the queue.
 
 ### SendReceiveLongPolling
@@ -456,21 +458,21 @@ This directory contains an example of sending a message to and receiving a messa
 Use the following command to send a message to and receive a message in a long polling queue.
 where:
 
-- QUEUE-URL is the URL of a long polling queue.
+- QUEUE is the name of a long polling queue.
 
-`go run SendReceiveLongPolling.go -u QUEUE-URL`
+`go run SendReceiveLongPolling.go -q QUEUE`
 
 The unit test accepts the following configuration values in *config.json* and stores them in a struct:
 
-- **QueueURL** is the URL of the queue.
+- **Queue** is the URL of the queue.
   The default is an empty string.
 
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct.
-2. If the value of **QueueURL** is an empty string,
+2. If the value of **Queue** is an empty string,
     it creates a new queue with a random name starting with **mylpqueue-**.
-3. Sends a message to the queue.
-4. Receives the message in the queue.
-5. Deletes the message.
+3. It sends a message to the queue.
+4. It receives the message in the queue.
+5. It deletes the message.
 6. If it created a queue, it deletes the queue.
