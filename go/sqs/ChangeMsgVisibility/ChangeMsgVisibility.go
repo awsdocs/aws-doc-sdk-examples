@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.change_message_visibility.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -119,5 +118,4 @@ func main() {
         return
     }
 }
-
 // snippet-end:[sqs.go.change_message_visibility]

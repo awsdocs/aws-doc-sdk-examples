@@ -24,7 +24,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.create_lp_queue.imports]
 
 // CreateLPQueue creates an Amazon SQS queue with long polling enabled
@@ -91,5 +90,4 @@ func main() {
     fmt.Println("URL for long polling queue " + *queue + ": " + url)
     // snippet-end:[sqs.go.create_lp_queue.url]
 }
-
 // snippet-end:[sqs.go.create_lp_queue]

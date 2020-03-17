@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.send_receive_long_polling.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -180,5 +179,4 @@ func main() {
     }
     // snippet-end:[sqs.go.send_receive_long_polling.get_msgs]
 }
-
 // snippet-end:[sqs.go.send_receive_long_polling]

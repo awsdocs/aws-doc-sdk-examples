@@ -24,7 +24,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.configure_lp_queue.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -118,5 +117,4 @@ func main() {
 
     fmt.Println("Queue with URL " + *queueURL + " deleted")
 }
-
 // snippet-end:[sqs.go.configure_lp_queue]

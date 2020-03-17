@@ -44,7 +44,6 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 
     return result, nil
 }
-
 // snippet-end:[sqs.go.receive_messages.imports]
 
 // GetMessage gets the latest message from an Amazon SQS queue
@@ -129,5 +128,4 @@ func main() {
     fmt.Println("Message ID:     " + *msg.MessageId)
     fmt.Println("Message Handle: " + *msg.ReceiptHandle)
 }
-
 // snippet-end:[sqs.go.receive_messages]

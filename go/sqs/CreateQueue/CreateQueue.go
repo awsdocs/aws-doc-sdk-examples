@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.create_queue.imports]
 
 // CreateQueue creates an Amazon SQS queue
@@ -83,5 +82,4 @@ func main() {
     fmt.Println("URL: " + *result.QueueUrl)
     // snippet-end:[sqs.go.create_queue.print]
 }
-
 // snippet-end:[sqs.go.create_queue]

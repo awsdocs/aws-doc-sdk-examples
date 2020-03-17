@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.delete_message.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -110,5 +109,4 @@ func main() {
 
     fmt.Println("Deleted message from queue with URL " + *queueURL)
 }
-
 // snippet-end:[sqs.go.delete_message]

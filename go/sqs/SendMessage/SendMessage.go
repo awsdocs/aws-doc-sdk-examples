@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.send_message.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -124,5 +123,4 @@ func main() {
 
     fmt.Println("Sent message to queue ")
 }
-
 // snippet-end:[sqs.go.send_message]
