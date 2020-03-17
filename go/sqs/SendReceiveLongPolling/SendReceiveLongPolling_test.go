@@ -67,7 +67,6 @@ func createLPQueue(sess *session.Session, queue *string, waitTime *int) (string,
     // Create an SQS service client
     svc := sqs.New(sess)
 
-    // snippet-start:[sqs.go.create_lp_queue.call]
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
         QueueName: queue,
         Attributes: aws.StringMap(map[string]string{
