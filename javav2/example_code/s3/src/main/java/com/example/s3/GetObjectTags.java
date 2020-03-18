@@ -1,3 +1,13 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GetObjectTags.java demonstrates how to read tags that belong to an object located in an S3 bucket]
+// snippet-service:[S3]
+// snippet-keyword:[SDK for Java 2.0]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2020-01-09]
+// snippet-sourceauthor:[AWS-scmacdon]
+
 /**
  * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -13,16 +23,6 @@
  *
  */
 
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectTags.java demonstrates how to read tags that belong to an object located in an S3 bucket]
-// snippet-service:[S3]
-// snippet-keyword:[SDK for Java 2.0]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-01-09]
-// snippet-sourceauthor:[AWS-scmacdon]
-
 // snippet-start:[s3.java2.getobjecttags.complete]
 
 package com.example.s3;
@@ -37,7 +37,6 @@ import software.amazon.awssdk.services.s3.model.Tag;
 import java.util.Iterator;
 import java.util.List;
 // snippet-end:[s3.java2.getobjecttags.import]
-
 
 public class GetObjectTags {
 

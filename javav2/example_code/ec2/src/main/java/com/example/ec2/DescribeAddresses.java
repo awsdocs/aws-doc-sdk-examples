@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,15 +25,15 @@ package com.example.ec2;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
- 
+
 // snippet-end:[ec2.java2.describe_addresses.import]
 /**
  * Describes all elastic IP addresses
  */
-public class DescribeAddresses
-{
-    public static void main(String[] args)
-    {
+public class DescribeAddresses {
+
+    public static void main(String[] args) {
+
         // snippet-start:[ec2.java2.describe_addresses.main]
         Ec2Client ec2 = Ec2Client.create();
 
@@ -42,9 +42,9 @@ public class DescribeAddresses
         for(Address address : response.addresses()) {
             System.out.printf(
                     "Found address with public IP %s, " +
-                    "domain %s, " +
-                    "allocation id %s " +
-                    "and NIC id %s",
+                            "domain %s, " +
+                            "allocation id %s " +
+                            "and NIC id %s",
                     address.publicIp(),
                     address.domain(),
                     address.allocationId(),
@@ -53,5 +53,5 @@ public class DescribeAddresses
         // snippet-end:[ec2.java2.describe_addresses.main]
     }
 }
- 
+
 // snippet-end:[ec2.java2.describe_addresses.complete]

@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,47 +26,53 @@ import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.SecurityGroup;
- 
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_security_groups.import]
+
 /**
  * Describes all security groups
  */
-public class DescribeSecurityGroups
-{
-    public static void main(String[] args)
-    {
+public class DescribeSecurityGroups {
+
+    public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply a group id\n" +
-            "Ex: DescribeSecurityGroups <group-id>\n";
+                "To run this example, supply a group id\n" +
+                        "Ex: DescribeSecurityGroups <group-id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String group_id = args[0];
+        String groupId = args[0];
         // snippet-start:[ec2.java2.describe_security_groups.main]
 
         Ec2Client ec2 = Ec2Client.create();
 
-        DescribeSecurityGroupsRequest request =
-            DescribeSecurityGroupsRequest.builder()
-                .groupIds(group_id).build();
+        try {
 
-        DescribeSecurityGroupsResponse response =
-            ec2.describeSecurityGroups(request);
+            DescribeSecurityGroupsRequest request =
+                DescribeSecurityGroupsRequest.builder()
+                        .groupIds(groupId).build();
 
-        // snippet-end:[ec2.java2.describe_security_groups.main]
-        for(SecurityGroup group : response.securityGroups()) {
-            System.out.printf(
-                "Found security group with id %s, " +
-                "vpc id %s " +
-                "and description %s",
-                group.groupId(),
-                group.vpcId(),
-                group.description());
+            DescribeSecurityGroupsResponse response =
+                ec2.describeSecurityGroups(request);
+
+
+            // snippet-end:[ec2.java2.describe_security_groups.main]
+             for(SecurityGroup group : response.securityGroups()) {
+                System.out.printf(
+                    "Found security group with id %s, " +
+                            "vpc id %s " +
+                            "and description %s",
+                    group.groupId(),
+                    group.vpcId(),
+                    group.description());
+            }
+        } catch (Ec2Exception e) {
+            e.getStackTrace();
         }
     }
 }
- 
+
 // snippet-end:[ec2.java2.describe_security_groups.complete]

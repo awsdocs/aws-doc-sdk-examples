@@ -1,0 +1,67 @@
+--- 
+created: 2020-02-25
+files: 
+ - path: /src/main/java/com/example/dynamodb/CreateTable.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - CreateTable
+        
+ - path: /src/main/java/com/example/dynamodb/CreateTableCompositeKey.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - CreateTable
+ - path: /src/main/java/com/example/dynamodb/DeleteItem.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - DeleteItem
+ - path: /src/main/java/com/example/dynamodb/DeleteTable.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - DeleteTable 
+ - path: /src/main/java/com/example/dynamodb/DynamoDBScanItems.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - Scan
+        
+ - path: /src/main/java/com/example/dynamodb/GetItem.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - GetItem
+ - path: /src/main/java/com/example/dynamodb/ListTables.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - ListTables
+      
+ - path: /src/main/java/com/example/dynamodb/PutItem.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - PutItem
+ - path: /src/main/java/com/example/dynamodb/Query.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - Query
+       
+ - path: /src/main/java/com/example/dynamodb/SyncPagination.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - ListTables
+ - path: /src/main/java/com/example/dynamodb/UpdateItem.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - UpdateItem   
+ - path: /src/main/java/com/example/dynamodb/UpdateTable.java
+   apis: 
+      - service: dynamodb
+        operations: 
+        - UpdateTable  

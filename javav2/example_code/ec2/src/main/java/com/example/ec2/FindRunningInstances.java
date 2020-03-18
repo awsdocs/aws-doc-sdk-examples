@@ -1,3 +1,12 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[FindRunningInstances.java demonstrates how to use a Filter to find running instances]
+// snippet-service:[ec2]
+// snippet-keyword:[Java]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2020-01-10]
+// snippet-sourceauthor:[AWS-scmacdon]
+
 /**
  * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -13,15 +22,6 @@
  *
  */
 
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[FindRunningInstances.java demonstrates how to use a Filter to find running instances]
-// snippet-service:[ec2]
-// snippet-keyword:[Java]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-01-10]
-// snippet-sourceauthor:[AWS-scmacdon]
-
 // snippet-start:[ec2.java2.running_instances.complete]
 package com.example.ec2;
 
@@ -32,7 +32,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Reservation;
 import software.amazon.awssdk.services.ec2.model.Instance;
-
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
 /**
@@ -41,27 +41,30 @@ import software.amazon.awssdk.services.ec2.model.Instance;
 public class FindRunningInstances {
     public static void main(String[] args) {
         Ec2Client ec2 = Ec2Client.create();
-
         // snippet-start:[ec2.java2.running_instances.main]
-        String nextToken = null;
-        do {
 
-            // Create a Filter to find all running instances
-            Filter filter = Filter.builder()
+       try {
+
+           String nextToken = null;
+
+           do {
+
+                // Create a Filter to find all running instances
+                Filter filter = Filter.builder()
                     .name("instance-state-name")
                     .values("running")
                     .build();
 
-            //Create a DescribeInstancesRequest
-            DescribeInstancesRequest request = DescribeInstancesRequest.builder()
+                //Create a DescribeInstancesRequest
+                DescribeInstancesRequest request = DescribeInstancesRequest.builder()
                     .filters(filter)
                     .build();
 
-            // Find the running instances
-            DescribeInstancesResponse response = ec2.describeInstances(request);
+                // Find the running instances
+                DescribeInstancesResponse response = ec2.describeInstances(request);
 
-            for (Reservation reservation : response.reservations()) {
-                for (Instance instance : reservation.instances()) {
+                for (Reservation reservation : response.reservations()) {
+                    for (Instance instance : reservation.instances()) {
                     System.out.printf(
                             "Found reservation with id %s, " +
                                     "AMI %s, " +
@@ -78,8 +81,12 @@ public class FindRunningInstances {
             }
             nextToken = response.nextToken();
 
+            } while (nextToken != null);
 
-        } while (nextToken != null);
+        } catch (Ec2Exception e) {
+            e.getStackTrace();
+        }
+
         // snippet-end:[ec2.java2.running_instances.main]
     }
 }
