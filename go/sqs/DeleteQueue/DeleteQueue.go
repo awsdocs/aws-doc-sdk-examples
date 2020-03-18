@@ -24,6 +24,29 @@ import (
 )
 // snippet-end:[sqs.go.delete_queue.imports]
 
+// GetQueueURL gets the URL of an Amazon SQS queue
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     queueName is the name of the queue
+// Output:
+//     If success, the URL of the queue and nil
+//     Otherwise, an empty string and an error from the call to
+func GetQueueURL(sess *session.Session, queueName *string) (*sqs.GetQueueUrlOutput, error) {
+    // Create an SQS service client
+    // snippet-start:[sqs.go.delete_queue.get_queue_url]
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queueName,
+    })
+    // snippet-end:[sqs.go.delete_queue.get_queue_url]
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
 // DeleteQueue deletes an Amazon SQS queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
@@ -33,9 +56,9 @@ import (
 //     Otherwise, an error from the call to DeleteQueue
 func DeleteQueue(sess *session.Session, queueURL *string) error {
     // Create an SQS service client
-    // snippet-start:[sqs.go.delete_queue.call]
     svc := sqs.New(sess)
 
+    // snippet-start:[sqs.go.delete_queue.call]
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
         QueueUrl: queueURL,
     })
@@ -49,11 +72,11 @@ func DeleteQueue(sess *session.Session, queueURL *string) error {
 
 func main() {
     // snippet-start:[sqs.go.delete_queue.args]
-    queueURL := flag.String("u", "", "The URL of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     flag.Parse()
 
-    if *queueURL == "" {
-        fmt.Println("You must supply a queue URL (-n QUEUE-URL")
+    if *queue == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE")
         return
     }
     // snippet-end:[sqs.go.delete_queue.args]
@@ -66,13 +89,25 @@ func main() {
     }))
     // snippet-end:[sqs.go.delete_queue.sess]
 
-    err := DeleteQueue(sess, queueURL)
+    // Get the URL for the queue
+    result, err := GetQueueURL(sess, queue)
+    if err != nil {
+        fmt.Println("Got an error getting the queue URL:")
+        fmt.Println(err)
+        return
+    }
+
+    // snippet-start:[sqs.go.delete_queue.get_queue_url.url]
+    queueURL := result.QueueUrl
+    // snippet-end:[sqs.go.delete_queue.get_queue_url.url]
+
+    err = DeleteQueue(sess, queueURL)
     if err != nil {
         fmt.Println("Got an error deleting the queue:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Deleted queue with URL " + *queueURL + " deleted")
+    fmt.Println("Deleted queue with URL " + *queueURL)
 }
 // snippet-end:[sqs.go.delete_queue]

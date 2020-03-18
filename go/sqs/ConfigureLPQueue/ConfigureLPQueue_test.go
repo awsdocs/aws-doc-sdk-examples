@@ -29,7 +29,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueURL string `json:"QueueURL"`
+    Queue    string `json:"Queue"`
     WaitTime int    `json:"WaitTime"`
 }
 
@@ -57,18 +57,18 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    t.Log("QueueURL: " + globalConfig.QueueURL)
+    t.Log("Queue: " + globalConfig.Queue)
     t.Log("WaitTime: " + strconv.Itoa(globalConfig.WaitTime))
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName string) (string, error) {
+func createQueue(sess *session.Session, queue *string) (string, error) {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: aws.String(queueName),
+        QueueName: queue,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -81,12 +81,12 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
     return *result.QueueUrl, nil
 }
 
-func deleteQueue(sess *session.Session, queueURL string) error {
+func deleteQueue(sess *session.Session, queueURL *string) error {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
-        QueueUrl: aws.String(queueURL),
+        QueueUrl: queueURL,
     })
     if err != nil {
         return err
@@ -108,38 +108,38 @@ func TestConfigureLpQueue(t *testing.T) {
     }))
 
     queueCreated := false
-    queueName := ""
+    queueURL := ""
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        globalConfig.QueueURL, err = createQueue(sess, queueName)
+        queueURL, err = createQueue(sess, &globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
         queueCreated = true
     }
 
-    err = ConfigureLPQueue(sess, &globalConfig.QueueURL, &globalConfig.WaitTime)
+    err = ConfigureLPQueue(sess, &queueURL, &globalConfig.WaitTime)
     if err != nil {
         t.Log("Could not configure queue to use long polling")
-        t.Log("You'll have to delete queue " + queueName + " yourself")
+        t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
         t.Fatal(err)
     }
 
     t.Log("Configured long polling queue")
 
     if queueCreated {
-        err = deleteQueue(sess, globalConfig.QueueURL)
+        err = deleteQueue(sess, &queueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + queueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }
