@@ -77,7 +77,7 @@ namespace Amazon.DocSamples.S3
 
                 GetObjectTaggingResponse objectTags = await client.GetObjectTaggingAsync(getTagsRequest);
                 for (int i = 0; i < objectTags.Tagging.Count; i++)
-                    Console.WriteLine("Key: {0}, Value: {1}", objectTags.Tagging[i].Key, objectTags.Tagging[0].Value);
+                    Console.WriteLine("Key: {0}, Value: {1}", objectTags.Tagging[i].Key, objectTags.Tagging[i].Value);
 
 
                 // 3. Replace the tagset.
@@ -103,7 +103,7 @@ namespace Amazon.DocSamples.S3
                 getTagsRequest2.Key = keyName;
                 GetObjectTaggingResponse objectTags2 = await client.GetObjectTaggingAsync(getTagsRequest2);
                 for (int i = 0; i < objectTags2.Tagging.Count; i++)
-                    Console.WriteLine("Key: {0}, Value: {1}", objectTags2.Tagging[i].Key, objectTags2.Tagging[0].Value);
+                    Console.WriteLine("Key: {0}, Value: {1}", objectTags2.Tagging[i].Key, objectTags2.Tagging[i].Value);
 
             }
             catch (AmazonS3Exception e)
