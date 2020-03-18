@@ -22,13 +22,25 @@ import (
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
 
-// GetMetrics gets the metrics
-// Inputs: none
+// GetMetrics gets the name, namespace, and dimension name of your Amazon CloudWatch metrics
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
 // Output:
-//     If successful, an array of Metric objects and nil
-//     Otherwise, an empty array and an error from a call to ListMetrics
-func GetMetrics() ([]*cloudwatch.Metric, error) {
-    var metrics []*cloudwatch.Metric
+//     If successful, the metrics and nil
+//     Otherwise, nil and an error from a call to ListMetrics
+func GetMetrics(sess *session.Session) (*cloudwatch.ListMetricsOutput, error) {
+    // Create CloudWatch client
+    svc := cloudwatch.New(sess)
+
+    result, err := svc.ListMetrics(nil)
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
+func main() {
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
     // and configuration from the shared configuration file ~/.aws/config.
@@ -36,19 +48,7 @@ func GetMetrics() ([]*cloudwatch.Metric, error) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create CloudWatch client
-    svc := cloudwatch.New(sess)
-
-    result, err := svc.ListMetrics(nil)
-    if err != nil {
-        return metrics, err
-    }
-
-    return result.Metrics, nil
-}
-
-func main() {
-    metrics, err := GetMetrics()
+    result, err := GetMetrics(sess)
     if err != nil {
         fmt.Println("Could not get metrics")
         return
@@ -57,7 +57,7 @@ func main() {
     fmt.Println("Metrics:")
     numMetrics := 0
 
-    for _, m := range metrics {
+    for _, m := range result.Metrics {
         fmt.Println("   Metric Name: " + *m.MetricName)
         fmt.Println("   Namespace:   " + *m.Namespace)
         fmt.Println("   Dimensions:")

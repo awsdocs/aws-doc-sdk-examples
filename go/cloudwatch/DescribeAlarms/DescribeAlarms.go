@@ -16,43 +16,57 @@ package main
 
 //snippet-start:[cloudwatch.go.describe_alarms.imports]
 import (
-    "fmt"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/cloudwatch"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cloudwatch"
 )
+
 //snippet-end:[cloudwatch.go.describe_alarms.imports]
 
-// ListAlarms lists your CloudWatch alarms
-func ListAlarms() error {
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file (~/.aws/credentials)
-    //snippet-start:[cloudwatch.go.describe_alarms.session_client]    
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+// ListAlarms returns a list of your Amazon CloudWatch alarms
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+// Output:
+//     If success, the list of alarms and nil
+//     Otherwise, nil and an error from the call to DescribeAlarms
+func ListAlarms(sess *session.Session) (*cloudwatch.DescribeAlarmsOutput, error) {
+	// Create new service client
+	//snippet-start:[cloudwatch.go.describe_alarms.call]
+	svc := cloudwatch.New(sess)
 
-    svc := cloudwatch.New(sess)
-    //snippet-end:[cloudwatch.go.describe_alarms.session_client]
+	resp, err := svc.DescribeAlarms(nil)
+	//snippet-end:[cloudwatch.go.describe_alarms.call]
 
-    //snippet-start:[cloudwatch.go.describe_alarms.session_call]
-    resp, err := svc.DescribeAlarms(nil)
-    if err != nil {
-        return err
-    }
+	if err != nil {
+		return nil, err
+	}
 
-    fmt.Println("Alarms:")
-    for _, alarm := range resp.MetricAlarms {
-        fmt.Println("    " + *alarm.AlarmName)
-    }
-    //snippet-end:[cloudwatch.go.describe_alarms.session_call]
-    return nil
+	return resp, nil
 }
 
 func main() {
-    err := ListAlarms()
-    if err != nil {
-        return
-    }
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file (~/.aws/credentials)
+	//snippet-start:[cloudwatch.go.describe_alarms.session]
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+	//snippet-end:[cloudwatch.go.describe_alarms.session]
+
+	resp, err := ListAlarms(sess)
+	if err != nil {
+		fmt.Println("Got an error listing alarms:")
+		fmt.Println(err)
+		return
+	}
+
+	//snippet-start:[cloudwatch.go.describe_alarms.display]
+	fmt.Println("Alarms:")
+	for _, alarm := range resp.MetricAlarms {
+		fmt.Println("    " + *alarm.AlarmName)
+	}
+	//snippet-end:[cloudwatch.go.describe_alarms.display]
 }
+
 //snippet-end:[cloudwatch.go.describe_alarms]

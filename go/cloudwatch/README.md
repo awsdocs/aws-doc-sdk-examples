@@ -69,7 +69,11 @@ where all of these values are required:
 - INSTANCE-ID is the ID of your EC2 instance
 - ALARM-NAME is the name of the alarm
 
-The unit test requires these values in *config.json*.
+The unit test requires all of these values in *config.json*,
+except for ALARM-NAME.
+If ALARM-NAME is not provided,
+it creates a random name starting with **Alarm70-**,
+representing the threshold value.
 
 ### ListMetrics
 

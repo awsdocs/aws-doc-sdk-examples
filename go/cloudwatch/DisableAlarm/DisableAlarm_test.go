@@ -14,148 +14,206 @@
 package main
 
 import (
-    "encoding/json"
-    "fmt"
-    "io/ioutil"
-    "testing"
-    "time"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"testing"
+	"time"
 
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/cloudwatch"
-    "github.com/google/uuid"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cloudwatch"
+	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/google/uuid"
 )
 
 type config struct {
-    InstanceName string `json:"InstanceName"`
-    InstanceID   string `json:"InstanceID"`
+	InstanceName string `json:"InstanceName"`
+	InstanceID   string `json:"InstanceID"`
+	AlarmName    string `json:"AlarmName"`
 }
 
 var globalConfig config
 
 var configFileName = "config.json"
 
-func populateConfig(configFile string) error {
-    // Get and store configuration values
-    // Get configuration from config.json
+func getEc2Info(sess *session.Session, t *testing.T) (string, string, error) {
+	svc := ec2.New(sess)
 
-    // Get entire file as a JSON string
-    content, err := ioutil.ReadFile(configFile)
-    if err != nil {
-        return err
-    }
+	result, err := svc.DescribeInstances(nil)
+	if err != nil {
+		return "", "", err
+	}
 
-    // Convert []byte to string
-    text := string(content)
+	// Return name and ID of the first EC2 instance with both
+	for _, reservation := range result.Reservations {
+		for _, instance := range reservation.Instances {
+			id := instance.InstanceId
+			name := ""
 
-    // Marshall JSON string in text into global struct
-    err = json.Unmarshal([]byte(text), &globalConfig)
-    if err != nil {
-        return err
-    }
+			// Name is stashed in a tag
+			for _, tag := range instance.Tags {
+				if *tag.Key == "Name" {
+					name = *tag.Value
+					break
+				}
+			}
 
-    return nil
+			if *id != "" && name != "" {
+				return *id, name, nil
+			}
+		}
+	}
+
+	return "", "", errors.New("No EC2 instance found with name and ID")
 }
 
-func enableAlarm(instanceName string, instanceID string, alarmName string) error {
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file ~/.aws/credentials
-    // and configuration from the shared configuration file ~/.aws/config.
-    // snippet-start:[cloudwatch.go.enable_alarm.session]
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
+func populateConfig(sess *session.Session, t *testing.T) error {
+	// Get and store configuration values
+	// Get configuration from config.json
 
-    // Create new CloudWatch client
-    svc := cloudwatch.New(sess)
-    // snippet-end:[cloudwatch.go.enable_alarm.session]
+	// Get entire file as a JSON string
+	content, err := ioutil.ReadFile(configFileName)
+	if err != nil {
+		return err
+	}
 
-    // snippet-start:[cloudwatch.go.enable_alarm.put]
-    // Get region for alarm action
-    region := svc.Config.Region
+	// Convert []byte to string
+	text := string(content)
 
-    _, err := svc.PutMetricAlarm(&cloudwatch.PutMetricAlarmInput{
-        AlarmName:          aws.String(alarmName),
-        ComparisonOperator: aws.String(cloudwatch.ComparisonOperatorGreaterThanThreshold),
-        EvaluationPeriods:  aws.Int64(1),
-        MetricName:         aws.String("CPUUtilization"),
-        Namespace:          aws.String("AWS/EC2"),
-        Period:             aws.Int64(60),
-        Statistic:          aws.String(cloudwatch.StatisticAverage),
-        Threshold:          aws.Float64(70.0),
-        ActionsEnabled:     aws.Bool(true),
-        AlarmDescription:   aws.String("Alarm when server CPU exceeds 70%"),
-        Unit:               aws.String(cloudwatch.StandardUnitSeconds),
-        AlarmActions: []*string{
-            aws.String(fmt.Sprintf("arn:aws:swf:"+*region+":%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", instanceName)),
-        },
-        Dimensions: []*cloudwatch.Dimension{
-            {
-                Name:  aws.String("InstanceId"),
-                Value: aws.String(instanceID),
-            },
-        },
-    })
-    // snippet-end:[cloudwatch.go.enable_alarm.put]
-    if err != nil {
-        return err
-    }
+	// Marshall JSON string in text into global struct
+	err = json.Unmarshal([]byte(text), &globalConfig)
+	if err != nil {
+		return err
+	}
 
-    // Enable the alarm for the instance
-    // snippet-start:[cloudwatch.go.enable_alarm.enable]
-    _, err = svc.EnableAlarmActions(&cloudwatch.EnableAlarmActionsInput{
-        AlarmNames: []*string{
-            aws.String(instanceID),
-        },
-    })
-    // snippet-end:[cloudwatch.go.enable_alarm.enable]
-    if err != nil {
-        return err
-    }
+	if globalConfig.InstanceName == "" || globalConfig.InstanceID == "" {
+		// Get EC2 instance name and ID
+		globalConfig.InstanceName, globalConfig.InstanceID, err = getEc2Info(sess, t)
+		if err != nil {
+			return err
+		}
+	}
 
-    return nil
+	if globalConfig.AlarmName == "" {
+		// Create random alarm name
+		id := uuid.New()
+		globalConfig.AlarmName = "Alarm70-" + id.String()
+	}
+
+	t.Log("Instance Name: " + globalConfig.InstanceName)
+	t.Log("Instance ID:   " + globalConfig.InstanceID)
+	t.Log("Alarm name:    " + globalConfig.AlarmName)
+
+	return nil
+}
+
+func enableAlarm(sess *session.Session, instanceName *string, instanceID *string, alarmName *string) error {
+	// Create new CloudWatch client
+	// snippet-start:[cloudwatch.go.enable_alarm.put]
+	svc := cloudwatch.New(sess)
+
+	_, err := svc.PutMetricAlarm(&cloudwatch.PutMetricAlarmInput{
+		AlarmName:          alarmName,
+		ComparisonOperator: aws.String(cloudwatch.ComparisonOperatorGreaterThanThreshold),
+		EvaluationPeriods:  aws.Int64(1),
+		MetricName:         aws.String("CPUUtilization"),
+		Namespace:          aws.String("AWS/EC2"),
+		Period:             aws.Int64(60),
+		Statistic:          aws.String(cloudwatch.StatisticAverage),
+		Threshold:          aws.Float64(70.0),
+		ActionsEnabled:     aws.Bool(true),
+		AlarmDescription:   aws.String("Alarm when server CPU exceeds 70%"),
+		Unit:               aws.String(cloudwatch.StandardUnitSeconds),
+		AlarmActions: []*string{
+			aws.String(fmt.Sprintf("arn:aws:swf:"+*svc.Config.Region+":%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", *instanceName)),
+		},
+		Dimensions: []*cloudwatch.Dimension{
+			{
+				Name:  aws.String("InstanceId"),
+				Value: instanceID,
+			},
+		},
+	})
+	// snippet-end:[cloudwatch.go.enable_alarm.put]
+	if err != nil {
+		return err
+	}
+
+	// Enable the alarm for the instance
+	// snippet-start:[cloudwatch.go.enable_alarm.enable]
+	_, err = svc.EnableAlarmActions(&cloudwatch.EnableAlarmActionsInput{
+		AlarmNames: []*string{
+			instanceID,
+		},
+	})
+	// snippet-end:[cloudwatch.go.enable_alarm.enable]
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func deleteAlarm(sess *session.Session, alarmName *string) error {
+	// Create service client
+	svc := cloudwatch.New(sess)
+
+	_, err := svc.DeleteAlarms(&cloudwatch.DeleteAlarmsInput{
+		AlarmNames: []*string{
+			alarmName,
+		},
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func TestDisableAlarmActions(t *testing.T) {
-    // When the test started
-    thisTime := time.Now()
-    nowString := thisTime.Format("20060102150405")
-    t.Log("Started unit test at " + nowString)
+	// When the test started
+	thisTime := time.Now()
+	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
+	t.Log("Started unit test at " + nowString)
 
-    // Get configuration values
-    err := populateConfig(configFileName)
-    if err != nil {
-        msg := "Could not get configuration values from " + configFileName
-        t.Fatal(msg)
-    }
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file ~/.aws/credentials
+	// and configuration from the shared configuration file ~/.aws/config.
+	// snippet-start:[cloudwatch.go.disable_session]
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
 
-    if globalConfig.InstanceName == "" || globalConfig.InstanceID == "" {
-        msg := "You must supply an instance name and instance ID in " + configFileName
-        t.Fatal(msg)
-    }
+	// Get configuration values
+	err := populateConfig(sess, t)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-    // Create random alarm name
-    id := uuid.New()
-    alarmName := "Alarm70-" + id.String()
+	// Create an alarm to disable
+	err = enableAlarm(sess, &globalConfig.InstanceName, &globalConfig.InstanceID, &globalConfig.AlarmName)
+	if err != nil {
+		msg := "Could not create alarm " + globalConfig.AlarmName + " for instance " + globalConfig.InstanceName
+		t.Fatal(msg)
+	}
 
-    t.Log("Instance Name: " + globalConfig.InstanceName)
-    t.Log("Instance ID:   " + globalConfig.InstanceID)
-    t.Log("Alarm name:    " + alarmName)
+	t.Log("Enabled alarm " + globalConfig.AlarmName + " for instance " + globalConfig.InstanceName)
 
-    // Create an alarm to disable
-    err = enableAlarm(globalConfig.InstanceName, globalConfig.InstanceID, alarmName)
-    if err != nil {
-        msg := "Could not create alarm " + alarmName + " for instance " + globalConfig.InstanceName
-        t.Fatal(msg)
-    }
+	// Disable alarm
+	err = DisableAlarm(sess, &globalConfig.AlarmName)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-    t.Log("Enabled alarm " + alarmName + " for instance " + globalConfig.InstanceName)
+	t.Log("Disabled alarm " + globalConfig.AlarmName)
 
-    // Disable alarm
-    err = DisableAlarm(alarmName)
-    if err != nil {
-        t.Fatal(err)
-    }
+	// Delete alarm
+	err = deleteAlarm(sess, &globalConfig.AlarmName)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-    t.Log("Disabled alarm " + alarmName)
+	t.Log("Deleted alarm " + globalConfig.AlarmName)
 }

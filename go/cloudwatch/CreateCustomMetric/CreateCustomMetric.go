@@ -19,14 +19,15 @@ import (
     "flag"
     "fmt"
 
-    "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
+
 // snippet-end: [cloudwatch.go.create_custom_metric.import]
 
 // CreateCustomMetric creates a new metric in a namespace
 // Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
 //     namespace is the metric namespace
 //     metricName is the name of the metric
 //     unit is what the value represents
@@ -36,7 +37,7 @@ import (
 // Output:
 //     If success, nil
 //     Otherwise, and error from a call to PutMetricData
-func CreateCustomMetric(sess *session.Session, namespace string, metricName string, unit string, value float64, dimensionName string, dimensionValue string) error {
+func CreateCustomMetric(sess *session.Session, namespace *string, metricName *string, unit *string, value *float64, dimensionName *string, dimensionValue *string) error {
     // snippet-start: [cloudwatch.go.create_custom_metric.client]
     // Create new cloudwatch client
     svc := cloudwatch.New(sess)
@@ -44,16 +45,16 @@ func CreateCustomMetric(sess *session.Session, namespace string, metricName stri
 
     // snippet-start: [cloudwatch.go.create_custom_metric.call]
     _, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
-        Namespace: aws.String(namespace),
+        Namespace: namespace,
         MetricData: []*cloudwatch.MetricDatum{
             &cloudwatch.MetricDatum{
-                MetricName: aws.String(metricName),
-                Unit:       aws.String(unit),
-                Value:      aws.Float64(value),
+                MetricName: metricName,
+                Unit:       unit,
+                Value:      value,
                 Dimensions: []*cloudwatch.Dimension{
                     &cloudwatch.Dimension{
-                        Name:  aws.String(dimensionName),
-                        Value: aws.String(dimensionValue),
+                        Name:  dimensionName,
+                        Value: dimensionValue,
                     },
                 },
             },
@@ -68,19 +69,13 @@ func CreateCustomMetric(sess *session.Session, namespace string, metricName stri
 }
 
 func main() {
-    namespacePtr := flag.String("n", "", "The namespace for the metric")
-    metricNamePtr := flag.String("m", "", "The name of the metric")
-    unitPtr := flag.String("u", "", "The units for the metric")
-    valuePtr := flag.Float64("v", 0.0, "The value of the units")
-    dimensionNamePtr := flag.String("dn", "", "The name of the dimension")
-    dimensionValuePtr := flag.String("dv", "", "The value of the dimension")
+    namespace := flag.String("n", "", "The namespace for the metric")
+    metricName := flag.String("m", "", "The name of the metric")
+    unit := flag.String("u", "", "The units for the metric")
+    value := flag.Float64("v", 0.0, "The value of the units")
+    dimensionName := flag.String("dn", "", "The name of the dimension")
+    dimensionValue := flag.String("dv", "", "The value of the dimension")
     flag.Parse()
-    namespace := *namespacePtr
-    metricName := *metricNamePtr
-    unit := *unitPtr
-    value := *valuePtr
-    dimensionName := *dimensionNamePtr
-    dimensionValue := *dimensionValuePtr
 
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
@@ -94,4 +89,5 @@ func main() {
         fmt.Println()
     }
 }
+
 // snippet-end: [cloudwatch.go.create_custom_metric]
