@@ -9,25 +9,24 @@
 # specific language governing permissions and limitations under the License.
 
 """
-Purpose:
-    Demonstrate basic message operations in Amazon Simple Queue Service (SQS).
+Purpose
+    Demonstrate basic message operations in Amazon Simple Queue Service (Amazon SQS).
     Learn how to send, receive, and delete messages from a queue.
     Usage is shown in the test/test_message_wrapper.py file.
 
-Prerequisites:
+Prerequisites
     - You must have an AWS account, and have your default credentials and AWS Region
-      configured as described in the AWS Tools and SDKs Shared Configuration and
-      Credentials Reference Guide
-      (https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+      configured as described in the [AWS Tools and SDKs Shared Configuration and
+      Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
     - Python 3.6 or later
-    - Boto3 1.11.10 or later
+    - Boto 3 1.11.10 or later
     - PyTest 5.3.5 or later (to run unit tests)
 
-Running the tests:
+Running the tests
     The best way to learn how to use this service is to run the tests.
     For instructions on testing, see the docstring in test/test_message_wrapper.py.
 
-Running the code:
+Running the code
     Run individual functions in the Python shell to make requests to your AWS account.
 
         > python
@@ -39,7 +38,7 @@ Running the code:
         'Test message'
         >>> queue_wrapper.remove_queue(queue)
 
-Additional information:
+Additional information
     Running this code might result in charges to your AWS account.
 """
 
@@ -126,10 +125,10 @@ def receive_messages(queue, max_number, wait_time):
     :param max_number: The maximum number of messages to receive. The actual number
                        of messages received may be less.
     :param wait_time: The maximum time to wait (in seconds) before returning. When
-                      this number is greater than zero, long polling is used, which
+                      this number is greater than zero, long polling is used. This
                       can result in reduced costs and fewer false empty responses.
     :return: The list of Message objects received. These each contain the body
-             of the message as well as metadata and custom attributes.
+             of the message and metadata and custom attributes.
     """
     try:
         messages = queue.receive_messages(
@@ -149,7 +148,7 @@ def receive_messages(queue, max_number, wait_time):
 def delete_message(message):
     """
     Delete a message from a queue. Clients must delete messages after they
-    are received and processed in order to remove them from the queue.
+    are received and processed to remove them from the queue.
 
     :param message: The message to delete. The message's queue URL is contained in
                     the message's metadata.

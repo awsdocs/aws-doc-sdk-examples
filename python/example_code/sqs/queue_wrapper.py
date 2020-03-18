@@ -9,25 +9,24 @@
 # specific language governing permissions and limitations under the License.
 
 """
-Purpose:
-    Demonstrate basic queue operations in Amazon Simple Queue Service (SQS).
-    Learn how to create, get, and remove standard, FIFO, and dead letter queues.
+Purpose
+    Demonstrate basic queue operations in Amazon Simple Queue Service (Amazon SQS).
+    Learn how to create, get, and remove standard, FIFO, and dead-letter queues.
     Usage is shown in the test/test_queue_wrapper.py file.
 
-Prerequisites:
+Prerequisites
     - You must have an AWS account, and have your default credentials and AWS Region
-      configured as described in the AWS Tools and SDKs Shared Configuration and
-      Credentials Reference Guide
-      (https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+      configured as described in the [AWS Tools and SDKs Shared Configuration and
+      Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
     - Python 3.6 or later
-    - Boto3 1.11.10 or later
+    - Boto 3 1.11.10 or later
     - PyTest 5.3.5 or later (to run unit tests)
 
-Running the tests:
+Running the tests
     The best way to learn how to use this service is to run the tests.
     For instructions on testing, see the docstring in test/test_queue_wrapper.py.
 
-Running the code:
+Running the code
     Run individual functions in the Python shell to make calls to your AWS account.
 
         > python
@@ -37,7 +36,7 @@ Running the code:
         >>> queue = queue_wrapper.get_queue("My-test-queue")
         >>> queue_wrapper.remove_queue(queue)
 
-Additional information:
+Additional information
     Running this code might result in charges to your AWS account.
 """
 
@@ -115,7 +114,7 @@ def get_queues(prefix=None):
 
 def remove_queue(queue):
     """
-    Removes an SQS queue. When run against an AWS account, it may take up to
+    Removes an SQS queue. When run against an AWS account, it can take up to
     60 seconds before the queue is actually deleted.
 
     :param queue: The queue to delete.

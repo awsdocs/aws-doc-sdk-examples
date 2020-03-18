@@ -31,7 +31,7 @@ def pytest_addoption(parser):
 @pytest.fixture(name='sqs_stubber')
 def fixture_sqs_stubber(request):
     """
-    Create a Botocore Stubber that can be used to intercept requests and return mocked
+    Create a botocore Stubber that can be used to intercept requests and return mocked
     responses.
 
     When tests are run against a real AWS account, create a mocked Stubber. This
@@ -73,7 +73,7 @@ def fixture_unique_queue_name():
 
 @pytest.fixture(name='queue_stub')
 def fixture_queue_stub(sqs_stubber, unique_queue_name):
-    """Create a standard queue to use for message testing. Under non-stubbed
+    """Create a standard queue to use for message testing. In non-stubbed
     scenarios, delete the queue after the test completes."""
     sqs_stubber.add_response(
         'create_queue',

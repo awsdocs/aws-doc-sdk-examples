@@ -1,10 +1,10 @@
-# Amazon Simple Queue Service (SQS) API examples
+# Amazon SQS API examples
 
 ## Purpose
 
-Demonstrate basic queue and message operations in Amazon Simple Queue Service (SQS).
-Learn how to create, get, and remove standard, FIFO, and dead letter queues.
-Learn how to send, receive, and delete messages from a queue.
+Demonstrate basic queue and message operations in Amazon Simple Queue Service 
+(Amazon SQS). Learn how to create, get, and remove standard, FIFO, and dead-letter 
+queues. Learn how to send, receive, and delete messages from a queue.
 
 ## Prerequisites
 
@@ -34,12 +34,12 @@ receive a message, print the message body, and delete the queue.
 ## Running the tests
 
 The best way to learn how to use this service is to run the tests.
-Tests can be run in two modes. By default, tests use the Botocore Stubber,
+You can run the tests in two modes. By default, tests use the botocore Stubber,
 which captures requests before they are sent to AWS and returns a mocked response.
 Tests can also be run against your AWS account, in which case they will create and 
 manipulate AWS resources, which may incur charges on your account.
 
-To run all of the SQS tests with the Botocore Stubber, run the following in
+To run all of the SQS tests with the botocore Stubber, run the following in
 your [GitHub root]/python/example_code/sqs folder.
 
     python -m pytest -o log_cli=1 --log-cli-level=INFO
@@ -54,7 +54,7 @@ To run the tests using your AWS account and default shared credentials, include 
     python -m pytest -o log_cli=1 --log-cli-level=INFO --use-real-aws-may-incur-charges
 
 When run in this mode, a best effort is made to clean up any resources created during 
-the test, but it is your responsibility to verify that all resources have, in fact, 
+the test. But it's your responsibility to verify that all resources have actually 
 been cleaned up.
 
 ## Additional information
@@ -62,8 +62,7 @@ been cleaned up.
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the AWS Identity and Access Management 
-  User Guide.
+  in the *AWS Identity and Access Management User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are 
   available only in specific Regions. For more information, see the 
   "AWS Regional Table" on the AWS website.

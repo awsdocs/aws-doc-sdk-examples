@@ -9,17 +9,16 @@
 # specific language governing permissions and limitations under the License.
 
 """
-Purpose:
+Purpose
     Unit tests for message_wrapper.py functions.
 
-Running the tests:
-    Tests can be run in two modes. By default, tests use the Botocore Stubber,
-    which captures requests before they are sent to AWS and returns a mocked response.
-    The tests can also be run against your AWS account, in which case
-    they will create and manipulate AWS resources, which may incur charges on your
-    account.
+Running the tests
+    Tests can be run in two modes. By default, tests use the botocore Stubber.
+    This captures requests before they are sent to AWS and returns a mocked response.
+    You can also run the tests against your AWS account. In this case, they will
+    create and manipulate AWS resources, which may incur charges on your account.
 
-    To run the tests for this module with the Botocore Stubber, run the following in
+    To run the tests for this module with the botocore Stubber, run the following in
     your <GitHub root>/python/example_code/sqs folder.
 
         python -m pytest -o log_cli=1 --log-cli-level=INFO test/test_message_wrapper.py
@@ -34,15 +33,14 @@ Running the tests:
         python -m pytest -o log_cli=1 --log-cli-level=INFO --use-real-aws-may-incur-charges test/test_message_wrapper.py
 
     Note that this may incur charges to your AWS account. When run in this mode,
-    a best effort is made to clean up any resources created during the test, but it
-    is your responsibility to verify that all resources have, in fact, been cleaned up.
+    a best effort is made to clean up any resources created during the test. But it's
+    your responsibility to verify that all resources have actually been cleaned up.
 """
 
 import pytest
 
 from botocore.exceptions import ClientError
 
-import queue_wrapper
 import message_wrapper
 
 

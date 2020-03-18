@@ -9,17 +9,16 @@
 # specific language governing permissions and limitations under the License.
 
 """
-Purpose:
+Purpose
     Unit tests for queue_wrapper.py functions.
 
-Running the tests:
-    Tests can be run in two modes. By default, the tests use the Botocore Stubber,
-    which captures requests before they are sent to AWS and returns a mocked response.
-    The tests can also be run against your AWS account, in which case
-    they will create and manipulate AWS resources, which may incur charges on your
-    account.
+Running the tests
+    Tests can be run in two modes. By default, the tests use the botocore Stubber.
+    This captures requests before they are sent to AWS and returns a mocked response.
+    You can also run the tests against your AWS account. In this case, they will
+    create and manipulate AWS resources, which may incur charges on your account.
 
-    To run the tests for this module with the Botocore Stubber, run the following in
+    To run the tests for this module with the botocore Stubber, run the following in
     your <GitHub root>/python/example_code/sqs folder.
 
         python -m pytest -o log_cli=1 --log-cli-level=INFO test/test_queue_wrapper.py
@@ -34,8 +33,8 @@ Running the tests:
         python -m pytest -o log_cli=1 --log-cli-level=INFO --use-real-aws-may-incur-charges test/test_queue_wrapper.py
 
     Note that this may incur charges to your AWS account. When run in this mode,
-    a best effort is made to clean up any resources created during the test, but it
-    is your responsibility to verify that all resources have, in fact, been cleaned up.
+    a best effort is made to clean up any resources created during the test. But it's
+    your responsibility to verify that all resources have actually been cleaned up.
 """
 
 import json
@@ -107,10 +106,10 @@ def test_create_fifo_queue(sqs_stubber, unique_queue_name, attributes):
 
 def test_create_dead_letter_queue(sqs_stubber, unique_queue_name):
     """
-    Test that creating a queue with an associated dead letter queue results in
-    the source queue being listed in the dead letter queue's source queue list.
+    Test that creating a queue with an associated dead-letter queue results in
+    the source queue being listed in the dead-letter queue's source queue list.
 
-    A dead letter queue is any queue that is designated as a dead letter target
+    A dead-letter queue is any queue that is designated as a dead-letter target
     by another queue's redrive policy.
     """
     dl_queue_name = unique_queue_name + '_my_lost_messages'
@@ -134,7 +133,7 @@ def test_create_dead_letter_queue(sqs_stubber, unique_queue_name):
     )
 
     # The redrive policy must be in JSON format. Note that its attribute names
-    # start with lower-case letters.
+    # start with lowercase letters.
     attributes = {
         'RedrivePolicy': json.dumps({
             'deadLetterTargetArn': dl_queue.attributes['QueueArn'],
@@ -189,7 +188,7 @@ def test_create_fifo_queue_without_extension(unique_queue_name):
 
 
 def test_get_queue(sqs_stubber, unique_queue_name):
-    """Test that creating a queue and then retrieving by name returns the same queue."""
+    """Test that creating a queue and then getting it by name returns the same queue."""
     sqs_stubber.add_response(
         'create_queue',
         expected_params={'QueueName': unique_queue_name, 'Attributes': {}},
@@ -292,7 +291,7 @@ def test_get_queues_prefix(sqs_stubber, unique_queue_name):
 
 def test_get_queues_expect_none(sqs_stubber, unique_queue_name):
     """Test that getting queues with a random prefix returns an empty list
-     and does not raise an exception."""
+     and doesn't raise an exception."""
     sqs_stubber.add_response(
         'list_queues',
         expected_params={'QueueNamePrefix': unique_queue_name},
