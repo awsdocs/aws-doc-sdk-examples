@@ -1,0 +1,102 @@
+--- 
+created: 2020-02-25
+files: 
+ - path: /src/main/java/com/example/ec2/AllocateAddress.java
+   apis: 
+      - service: ec2
+        operations: 
+        - AllocateAddress
+        - AssociateAddress
+ - path: /src/main/java/com/example/ec2/CreateInstance.java
+   apis: 
+      - service: ec2
+        operations: 
+        - RunInstances
+        - CreateTags
+ - path: /src/main/java/com/example/ec2/CreateKeyPair.java
+   apis: 
+      - service: ec2
+        operations: 
+        - CreateKeyPair
+ - path: /src/main/java/com/example/ec2/CreateSecurityGroup.java
+   apis: 
+      - service: ec2
+        operations: 
+        - CreateSecurityGroup
+ - path: /src/main/java/com/example/ec2/DeleteKeyPair.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DeleteKeyPair
+ - path: /src/main/java/com/example/ec2/DeleteSecurityGroup.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DeleteSecurityGroup        
+ - path: /src/main/java/com/example/ec2/DescribeAccount.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeAccountAttributes
+ - path: /src/main/java/com/example/ec2/DescribeAddresses.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeAddresses
+ - path: /src/main/java/com/example/ec2/DescribeInstances.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeInstances
+ - path: /src/main/java/com/example/ec2/DescribeKeyPairs.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeKeyPairs
+ - path: /src/main/java/com/example/ec2/DescribeRegionsAndZones.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeRegions
+ - path: /src/main/java/com/example/ec2/DescribeReservedInstances.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeReservedInstances
+ - path: /src/main/java/com/example/ec2/DescribeSecurityGroups.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeSecurityGroups
+ - path: /src/main/java/com/example/ec2/DescribeVPCs.java
+   apis: 
+      - service: ec2
+        operations: 
+        - DescribeVpcs
+ - path: /src/main/java/com/example/ec2/FindRunningInstances.java
+   apis: 
+      - service: ec2
+        operations: 
+        - FindRunningInstances
+ - path: /src/main/java/com/example/ec2/MonitorInstance.java
+   apis: 
+      - service: ec2
+        operations: 
+        - MonitorInstances
+        - UnmonitorInstances
+ - path: RebootInstance.java
+   apis: 
+      - service: ec2
+        operations: 
+        - RebootInstances
+ - path: /src/main/java/com/example/ec2/ReleaseAddress.java
+   apis: 
+      - service: ec2
+        operations: 
+        - ReleaseAddress
+ - path: /src/main/java/com/example/ec2/StartStopInstance.java
+   apis: 
+      - service: ec2
+        operations: 
+        - StartInstances
+        - StopInstances

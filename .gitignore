@@ -21,3 +21,5 @@ cpp/.vs/
 .vscode
 __pycache__
 venv
+composer.*
+vendor/

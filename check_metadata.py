@@ -241,7 +241,7 @@ while i < len(sys.argv):
 
 # Whitelist of files to never check
 # 
-doNotScan = {'AssemblyInfo.cs', 'CMakeLists.txt', 'check_metadata.py', 'movie_data.json'}
+doNotScan = {'AssemblyInfo.cs', 'metadata.yaml', 'CMakeLists.txt', 'check_metadata.py', 'movie_data.json'}
 root = './'
 
 # list of words that should not in include in code samples

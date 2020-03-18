@@ -1,0 +1,68 @@
+---
+created: Mar 6 2020
+files:
+  - path: ChangeMsgVisibility/ChangeMsgVisibility.go
+    apis:
+      - service: sqs
+        operations:
+          - ChangeMessageVisibility
+  - path: ConfigureLPQueue/ConfigureLPQueue.go
+    apis:
+      - service: sqs
+        operations:
+          - SetQueueAttributes
+  - path: CreateLPQueue/CreateLPQueue.go
+    apis:
+      - service: sqs
+        operations:          
+          - CreateQueue
+  - path: CreateQueue/CreateQueue.go
+    apis:
+      - service: sqs
+        operations:
+          - CreateQueue
+  - path: DeadLetterQueue/DeadLetterQueue.go
+    apis:
+      - service: sqs
+        operations:
+          - SetQueueAttributes
+  - path: DeleteMessage/DeleteMessage.go
+    apis:
+      - service: sqs
+        operations:
+          - DeleteMessage
+  - path: DeleteQueue/DeleteQueue.go
+    apis:
+      - service: sqs
+        operations:
+          - DeleteQueue
+  - path: GetQueueURL/GetQueueURL.go
+    apis:
+      - service: sqs
+        operations:
+          - GetQueueUrl
+  - path: ListQueues/ListQueues.go
+    apis:
+      - service: sqs
+        operations:
+          - ListQueues
+  - path: ReceiveLPMessage/ReceiveLPMessage.go
+    apis:
+      - service: sqs
+        operations:
+          - ReceiveMessage
+  - path: ReceiveMessage/ReceiveMessage.go
+    apis:
+      - service: sqs
+        operations:
+          - ReceiveMessage
+  - path: SendMessage/SendMessage.go
+    apis:
+      - service: sqs
+        operations:
+          - SendMessage
+  - path: SendReceiveLongPolling/SendReceiveLongPolling.go
+    apis:
+      - service: sqs
+        operations:
+          - SendMessage

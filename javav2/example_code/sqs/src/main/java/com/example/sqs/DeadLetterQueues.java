@@ -3,11 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2020-02-20]
+//snippet-sourceauthor:[scmacdon-aws]
 // snippet-start:[sqs.java2.delete_letter_queues.complete]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,84 +31,68 @@ import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesResponse;
 
+import java.util.Date;
 import java.util.HashMap;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 
 // snippet-end:[sqs.java2.delete_letter_queues.import]
 // snippet-start:[sqs.java2.delete_letter_queues.main]
-public class DeadLetterQueues
-{
-    public static void main(String[] args)
-    {
-        if (args.length != 2) {
-            System.out.println(
-                "Usage: DeadLetterQueues <src_queue_name> <dl_queue_name>");
-            System.exit(1);
-        }
+public class DeadLetterQueues {
+    private static final String QueueName = "testQueue" + new Date().getTime();
+    private static final String DLQueueName = "DLQueue" + new Date().getTime();
 
-        String src_queue_name = args[0];
-        String dl_queue_name = args[1];
+    public static void main(String[] args) {
+        SqsClient sqs = SqsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
-        SqsClient sqs = SqsClient.builder().region(Region.US_WEST_2).build();
-
-        CreateQueueRequest request = CreateQueueRequest.builder()
-        		.queueName(src_queue_name).build();
-
-        // Create source queue
         try {
-            sqs.createQueue(request);
-        } catch (QueueNameExistsException e) {
-        	throw e;
+            CreateQueueRequest request = CreateQueueRequest.builder()
+                .queueName(QueueName).build();
 
-        }
+             CreateQueueRequest dlrequest = CreateQueueRequest.builder()
+                .queueName(DLQueueName).build();
 
-        CreateQueueRequest dlrequest = CreateQueueRequest.builder()
-        		.queueName(dl_queue_name).build();
-
-        // Create dead-letter queue
-        try {
             sqs.createQueue(dlrequest);
-        } catch (QueueNameExistsException e) {
-        	throw e;
 
-        }
+            GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
+                .queueName(DLQueueName)
+                .build();
 
+            // Get dead-letter queue ARN
+            String dlQueueUrl = sqs.getQueueUrl(getRequest)
+                .queueUrl();
 
-        GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
-        		.queueName(dl_queue_name)
-        		.build();
-
-        // Get dead-letter queue ARN
-        String dl_queue_url = sqs.getQueueUrl(getRequest)
-                                 .queueUrl();
-
-        GetQueueAttributesResponse queue_attrs = sqs.getQueueAttributes(
+            GetQueueAttributesResponse queueAttrs = sqs.getQueueAttributes(
                 GetQueueAttributesRequest.builder()
-                .queueUrl(dl_queue_url)
-                .attributeNames(QueueAttributeName.QUEUE_ARN).build());
+                        .queueUrl(dlQueueUrl)
+                        .attributeNames(QueueAttributeName.QUEUE_ARN).build());
 
-        String dl_queue_arn = queue_attrs.attributes().get(QueueAttributeName.QUEUE_ARN);
+            String dlQueueArn = queueAttrs.attributes().get(QueueAttributeName.QUEUE_ARN);
 
-        // Set dead letter queue with redrive policy on source queue.
-        GetQueueUrlRequest getRequestSource = GetQueueUrlRequest.builder()
-        		.queueName(src_queue_name)
-        		.build();
+            // Set dead letter queue with redrive policy on source queue.
+            GetQueueUrlRequest getRequestSource = GetQueueUrlRequest.builder()
+                .queueName(DLQueueName)
+                .build();
 
-        String src_queue_url = sqs.getQueueUrl(getRequestSource)
-                                  .queueUrl();
+            String srcQueueUrl = sqs.getQueueUrl(getRequestSource)
+                .queueUrl();
 
-        HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
-        attributes.put(QueueAttributeName.REDRIVE_POLICY, "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
-                + dl_queue_arn + "\"}");
+            HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
+            attributes.put(QueueAttributeName.REDRIVE_POLICY, "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
+                + dlQueueArn + "\"}");
 
-        SetQueueAttributesRequest setAttrRequest = SetQueueAttributesRequest.builder()
-                .queueUrl(src_queue_url)
+            SetQueueAttributesRequest setAttrRequest = SetQueueAttributesRequest.builder()
+                .queueUrl(srcQueueUrl)
                 .attributes(attributes)
                 .build();
 
-        SetQueueAttributesResponse setAttrResponse = sqs.setQueueAttributes(setAttrRequest);
+            SetQueueAttributesResponse setAttrResponse = sqs.setQueueAttributes(setAttrRequest);
+
+        } catch (QueueNameExistsException e) {
+            throw e;
+        }
     }
 }
 // snippet-end:[sqs.java2.delete_letter_queues.main]
