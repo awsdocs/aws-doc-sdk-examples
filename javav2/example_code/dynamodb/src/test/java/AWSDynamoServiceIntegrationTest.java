@@ -6,6 +6,7 @@ import software.amazon.awssdk.services.dynamodb.model.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -76,23 +77,25 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(2)
     public void CreateTable() {
 
-        CreateTableRequest request = CreateTableRequest.builder()
-                .attributeDefinitions(AttributeDefinition.builder()
-                        .attributeName(key)
-                        .attributeType(ScalarAttributeType.S)
-                        .build())
-                .keySchema(KeySchemaElement.builder()
-                        .attributeName(key)
-                        .keyType(KeyType.HASH)
-                        .build())
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
-                .tableName(tableName)
-                .build();
 
         try {
+           CreateTableRequest request = CreateTableRequest.builder()
+                    .attributeDefinitions(AttributeDefinition.builder()
+                            .attributeName(key)
+                            .attributeType(ScalarAttributeType.S)
+                            .build())
+                    .keySchema(KeySchemaElement.builder()
+                            .attributeName(key)
+                            .keyType(KeyType.HASH)
+                            .build())
+                    .provisionedThroughput(ProvisionedThroughput.builder()
+                            .readCapacityUnits(new Long(10))
+                            .writeCapacityUnits(new Long(10))
+                            .build())
+                    .tableName(tableName)
+                    .build();
+
+
 
             // Check to determine if the table exists
             Boolean ans = DoesTableExist(tableName);
@@ -176,6 +179,8 @@ public class AWSDynamoServiceIntegrationTest {
                 .build();
 
         try {
+            //Lets wait 13 secs for table to complete
+            TimeUnit.SECONDS.sleep(13);
             ddb.putItem(request);
 
         } catch (ResourceNotFoundException e) {
@@ -185,6 +190,8 @@ public class AWSDynamoServiceIntegrationTest {
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         System.out.println("\n Test 4 passed");
     }
@@ -403,5 +410,3 @@ public class AWSDynamoServiceIntegrationTest {
     }
 
 }
-
-

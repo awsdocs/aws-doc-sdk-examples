@@ -31,7 +31,7 @@ import (
 // Config defines a set of configuration values
 type Config struct {
     Message      string `json:"Message"`
-    QueueURL     string `json:"QueueURL"`
+    Queue        string `json:"Queue"`
     SleepSeconds int64  `json:"SleepSeconds"`
     Timeout      int64  `json:"Timeout"`
 }
@@ -69,19 +69,19 @@ func populateConfiguration(t *testing.T) error {
     }
 
     t.Log("Message:           " + globalConfig.Message)
-    t.Log("QueueURL:        " + globalConfig.QueueURL)
+    t.Log("Queue:             " + globalConfig.Queue)
     t.Log("SleepSeconds:      " + strconv.Itoa(int(globalConfig.SleepSeconds)))
     t.Log("Timeout (seconds): " + strconv.Itoa(int(globalConfig.Timeout)))
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName *string) (string, error) {
+func createQueue(sess *session.Session, queue *string) (string, error) {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: queueName,
+        QueueName: queue,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -149,36 +149,35 @@ func TestReceiveMessages(t *testing.T) {
     }
 
     queueCreated := false
-    url := ""
-    queueName := ""
+    queueURL := ""
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        url, err = createQueue(sess, &queueName)
+        queueURL, err = createQueue(sess, &globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
 
         queueCreated = true
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
     }
 
-    msgID, err := sendMessage(sess, &url, &globalConfig.Message)
+    msgID, err := sendMessage(sess, &queueURL, &globalConfig.Message)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Sent message with ID " + msgID + " to queue " + queueName)
+    t.Log("Sent message with ID " + msgID + " to queue " + globalConfig.Queue)
 
     ts := multiplyDuration(globalConfig.SleepSeconds, time.Second)
     time.Sleep(ts)
 
     t.Log("Slept " + strconv.Itoa(int(globalConfig.SleepSeconds)) + " second(s)")
 
-    msg, err := GetMessage(sess, &url, &globalConfig.Timeout)
+    msg, err := GetMessage(sess, &queueURL, &globalConfig.Timeout)
     if err != nil {
         t.Fatal(err)
     }
@@ -190,12 +189,12 @@ func TestReceiveMessages(t *testing.T) {
     }
 
     if queueCreated {
-        err = deleteQueue(sess, &url)
+        err = deleteQueue(sess, &queueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + queueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }
