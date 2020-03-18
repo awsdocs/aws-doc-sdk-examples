@@ -48,7 +48,7 @@ job_flow_step_01 = {
 emr_client = boto3.client('emr')
 try:
     response = emr_client.add_job_flow_steps(JobFlowId=job_flow_id,
-                                             Steps=[json.dumps(job_flow_step_01)])
+                                             Steps=[job_flow_step_01])
 except ClientError as e:
     print(e.response['Error']['Message'])
     exit(1)
