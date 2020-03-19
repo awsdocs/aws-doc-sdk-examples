@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutMetricData.java demonstrates how to get metric data.]
+//snippet-sourcedescription:[GetMetricData.java demonstrates how to get metric data.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[cloudwatch]
