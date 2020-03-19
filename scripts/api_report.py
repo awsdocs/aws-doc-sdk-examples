@@ -33,7 +33,6 @@ the count and coverage output is what you expect.
 
 import argparse
 import os
-import pathlib
 import sys
 from urllib.parse import urljoin
 import urllib.request as request
@@ -48,6 +47,7 @@ EXT_LOOKUP = {
     'cpp': 'C++',
     'cs': 'C#',
     'go': 'Go',
+    'html': 'JavaScript',
     'java': 'Java',
     'js': 'JavaScript',
     'php': 'PHP',
@@ -77,6 +77,20 @@ def gather_data(examples_folder):
             print(f"Found metadata: {file_path}.")
             read_metadata(file_path, examples)
     return examples
+
+
+def gather_files(files_folder):
+    if not os.path.isdir(files_folder):
+        raise FileNotFoundError(f"{files_folder} is not a directory.")
+
+    files = []
+    for _, dirs, file_list in os.walk(files_folder, topdown=True):
+        dirs[:] = [d for d in dirs if d not in ['venv', 'scripts', '__pycache__']]
+        for file_name in file_list:
+            ext = os.path.splitext(file_name)[1].lstrip('.')
+            if ext in EXT_LOOKUP:
+                files.append(file_name)
+    return files
 
 
 def read_metadata(file_path, examples):
@@ -118,6 +132,7 @@ def write_report(examples, report_path=None):
     """
     lines = ["Created,File,Language,Service,Operation"]
     unique_apis = set()
+    unique_files = set()
 
     for example in examples:
         try:
@@ -128,6 +143,7 @@ def write_report(examples, report_path=None):
                 base_url = urljoin(GITHUB_URL, metadata_url) + '/'
                 file_url = request.pathname2url(file['path'])
                 file_url = urljoin(base_url, file_url)
+                unique_files.add(file_url)
                 ext = os.path.splitext(file_url)[1].lstrip('.')
                 language = EXT_LOOKUP[ext]
                 for api in file['apis']:
@@ -145,6 +161,7 @@ def write_report(examples, report_path=None):
         report.write(f"Number of unique APIs: {len(unique_apis)}.\n")
         report.write(f"Total number of APIs: {len(lines) - 1}.\n")
         report.write(f"Total number of examples: {len(examples)}.\n")
+        report.write(f"Total number of files: {len(unique_files)}.\n")
         if len(lines) > 1:
             report.write("\n")
             report.write('\n'.join(lines))
@@ -177,6 +194,10 @@ def main():
         help="A single metadata file to verify. If specified, root and report "
              "arguments are ignored and the output is written to the console."
     )
+    parser.add_argument(
+        "--count",
+        help="Counts the total files in the repo, from the specified root folder."
+    )
     args = parser.parse_args()
 
     try:
@@ -184,6 +205,11 @@ def main():
             examples = []
             read_metadata(args.verify, examples)
             write_report(examples)
+        elif args.count:
+            files = gather_files(args.root)
+            print(f"{len(files)} total code files in the repo.")
+            for f in files:
+                print(f)
         else:
             examples = gather_data(args.root)
             write_report(examples, args.report)

@@ -1,68 +1,54 @@
 ---
-created: Mar 6 2020
 files:
   - path: ChangeMsgVisibility/ChangeMsgVisibility.go
-    apis:
-      - service: sqs
-        operations:
-          - ChangeMessageVisibility
+    services:
+      - sqs
+  - path: ChangeMsgVisibility/ChangeMsgVisibility_test.go
   - path: ConfigureLPQueue/ConfigureLPQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - SetQueueAttributes
+    services:
+      - sqs
+  - path: ConfigureLPQueue/ConfigureLPQueue_test.go
   - path: CreateLPQueue/CreateLPQueue.go
-    apis:
-      - service: sqs
-        operations:          
-          - CreateQueue
+    services:
+      - sqs
+  - path: CreateLPQueue/CreateLPQueue_test.go
   - path: CreateQueue/CreateQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - CreateQueue
+    services:
+      - sqs
+  - path: CreateQueue/CreateQueue_test.go
   - path: DeadLetterQueue/DeadLetterQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - SetQueueAttributes
+    services:
+      - sqs
+  - path: DeadLetterQueue/DeadLetterQueue_test.go
   - path: DeleteMessage/DeleteMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - DeleteMessage
+    services:
+      - sqs
+  - path: DeleteMessage/DeleteMessage_test.go
   - path: DeleteQueue/DeleteQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - DeleteQueue
+    services:
+      - sqs
+  - path: DeleteQueue/DeleteQueue_test.go
   - path: GetQueueURL/GetQueueURL.go
-    apis:
-      - service: sqs
-        operations:
-          - GetQueueUrl
+    services:
+      - sqs
+  - path: GetQueueURL/GetQueueURL_test.go
   - path: ListQueues/ListQueues.go
-    apis:
-      - service: sqs
-        operations:
-          - ListQueues
+    services:
+      - sqs
+  - path: ListQueues/ListQueues_test.go
   - path: ReceiveLPMessage/ReceiveLPMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - ReceiveMessage
+    services:
+      - sqs
+  - path: ReceiveLPMessage/ReceiveLPMessage_test.go
   - path: ReceiveMessage/ReceiveMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - ReceiveMessage
+    services:
+      - sqs
+  - path: ReceiveMessage/ReceiveMessage_test.go
   - path: SendMessage/SendMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - SendMessage
+    services:
+      - sqs
+  - path: SendMessage/SendMessage_test.go
   - path: SendReceiveLongPolling/SendReceiveLongPolling.go
-    apis:
-      - service: sqs
-        operations:
-          - SendMessage
+    services:
+      - sqs
+  - path: SendReceiveLongPolling/SendReceiveLongPolling_test.go

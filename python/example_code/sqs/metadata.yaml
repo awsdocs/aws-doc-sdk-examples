@@ -1,28 +1,13 @@
 ---
-description: Learn how to create, get, and delete queues.
-created: 2020-03-13
+# Learn how to create, get, and delete queues and send, receive, and delete messages.
 files:
   - path: queue_wrapper.py
-    apis:
-      - service: sqs
-        operations:
-          - create_queue
-          - get_queue_by_name
-          - queues.all
-          - queues.filter
-          - queue.delete
-...
----
-description: Learn how to send, receive, and delete messages from a queue.
-created: 2020-03-13
-files:
+    services:
+      - sqs
   - path: message_wrapper.py
-    apis:
-      - service: sqs
-        operations:
-          - queue.send_message
-          - queue.send_messages
-          - queue.receive_messages
-          - queue.delete_messages
-          - message.delete
+    services:
+      - sqs
+  - path: test/conftest.py
+  - path: test/test_message_wrapper.py
+  - path: test/test_queue_wrapper.py
 ...
