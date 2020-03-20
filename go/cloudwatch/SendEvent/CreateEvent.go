@@ -16,6 +16,7 @@ package main
 
 import (
     "encoding/json"
+    "flag"
     "fmt"
     "io/ioutil"
 
@@ -30,17 +31,16 @@ type Event struct {
         Key   string `json:"Key"`
         Value string `json:"Value"`
     } `json:"Details"`
-    DetailType  string `json:"DetailType"`
-    ResourceArn string `json:"ResourceArn"`
-    Source      string `json:"Source"`
+    DetailType string `json:"DetailType"`
+    Source     string `json:"Source"`
 }
 
 var eventFile = "event.json"
 
-func getEventInfo(fileName string) (Event, error) {
+func getEventInfo() (Event, error) {
     var e Event
 
-    content, err := ioutil.ReadFile(fileName)
+    content, err := ioutil.ReadFile(eventFile)
     if err != nil {
         return e, err
     }
@@ -54,11 +54,25 @@ func getEventInfo(fileName string) (Event, error) {
         return e, err
     }
 
+    // Make sure we got the info we need
+    if e.DetailType == "" {
+        e.DetailType = "appRequestSubmitted"
+    }
+
+    if e.Source == "" {
+        e.Source = "com.mycompany.myapp"
+    }
+
+    if e.Details == nil {
+        d := []byte(`"{ "key1": "value1", "key2": "value2" }`)
+        e.DetailType = string(d[:])
+    }
+
     return e, nil
 }
 
 // CreateEvent creates an event
-func CreateEvent(sess *session.Session, event Event) error {
+func CreateEvent(sess *session.Session, resourceARN *string, event Event) error {
     // Create the cloudwatch events client
     svc := cloudwatchevents.New(sess)
 
@@ -75,7 +89,7 @@ func CreateEvent(sess *session.Session, event Event) error {
                 Detail:     aws.String(myDetails),        // "{ \"key1\": \"value1\", \"key2\": \"value2\" }"),
                 DetailType: aws.String(event.DetailType), // "appRequestSubmitted"),
                 Resources: []*string{
-                    aws.String(event.ResourceArn), // "RESOURCE_ARN"),
+                    resourceARN, // "ARN of Lambda function"),
                 },
                 Source: aws.String(event.Source), // "com.company.myapp"),
             },
@@ -89,22 +103,33 @@ func CreateEvent(sess *session.Session, event Event) error {
 }
 
 func main() {
+    resourceARN := flag.String("l", "", "The ARN of the Lambda function")
+    flag.Parse()
+
+    if *resourceARN == "" {
+        fmt.Println("You must supply a Lambda ARN with -l LAMBDA-ARN")
+        return
+    }
+
     // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file ~/.aws/credentials
-    // and configuration from the shared configuration file ~/.aws/config.
+    // credentials from the shared credentials file (~/.aws/credentials)
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    event, err := getEventInfo(eventFile)
+    // getEventInfo() (Event, error)
+    event, err := getEventInfo()
     if err != nil {
-        fmt.Println("Could not get event info from " + eventFile)
+        fmt.Println("Got an error calling getEventInfo:")
+        fmt.Println(err)
         return
     }
 
-    err = CreateEvent(sess, event)
+    // CreateEvent(sess *session.Session, resourceARN *string, event Event) error
+    err = CreateEvent(sess, resourceARN, event)
     if err != nil {
-        fmt.Println("Could not create event")
+        fmt.Println("Could not create event:")
+        fmt.Println(err)
         return
     }
 

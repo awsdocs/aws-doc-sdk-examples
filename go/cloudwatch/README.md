@@ -27,18 +27,19 @@ in *config.json".
 
 This operation creates a new metric in a namespace.
 
-`go run CreateCustomMetric.go -n NAMESPACE -m METRIC-NAME -u UNITS -v VALUE -dn DIMENSION-NAME -dv DIMENSION-VALUE`
+`go run CreateCustomMetric.go -n NAMESPACE -m METRIC-NAME -u UNITS [-v VALUE] -dn DIMENSION-NAME -dv DIMENSION-VALUE`
 
 where all of the values are required:
 
-- NAMESPACE is the namespace
-- METRIC-NAME is the name of the metric
-- UNITS are the units for the metric
-- VALUE is the value of the units
-- DIMENSION-NAME is the name of the dimension
-- DIMENSION-VALUE is the value of the dimension
+- NAMESPACE is the namespace.
+- METRIC-NAME is the name of the metric.
+- UNITS are the units for the metric.
+- VALUE is the value of the units.
+  If omitted, defaults to 0.0.
+- DIMENSION-NAME is the name of the dimension.
+- DIMENSION-VALUE is the value of the dimension.
 
-The unit test requires these values in *config.json*.
+You must supply similar values in *config.json* for the unit test.
 
 ### DescribeAlarms
 
@@ -65,9 +66,9 @@ triggering a reboot of the instance.
 
 where all of these values are required:
 
-- INSTANCE-NAME is the name of your EC2 instance
-- INSTANCE-ID is the ID of your EC2 instance
-- ALARM-NAME is the name of the alarm
+- INSTANCE-NAME is the name of your EC2 instance.
+- INSTANCE-ID is the ID of your EC2 instance.
+- ALARM-NAME is the name of the alarm.
 
 The unit test requires all of these values in *config.json*,
 except for ALARM-NAME.
@@ -80,6 +81,26 @@ representing the threshold value.
 This operation lists up to 500 of your metrics.
 
 `go run ListMetrics.go`
+
+### CreateRole
+
+This operation creates an IAM role as step one of the workflow of creating an event.
+
+`go run CreateRole 
+
+where all of these values are required:
+
+- INSTANCE-NAME is the name of your EC2 instance.
+- INSTANCE-ID is the ID of your EC2 instance.
+- ALARM-NAME is the name of the alarm.
+
+The unit test requires all of these values in *config.json*,
+except for ALARM-NAME.
+If ALARM-NAME is not provided,
+it creates a random name starting with **Alarm70-**,
+representing the threshold value.
+
+
 
 ### Notes
 
