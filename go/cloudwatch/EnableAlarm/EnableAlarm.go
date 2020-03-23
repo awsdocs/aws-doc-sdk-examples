@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
-
 // snippet-end:[cloudwatch.go.enable_alarm.imports]
 
 // EnableAlarm creates an alarm that reboots an EC2 instance whenever the CPU utilization is greater than 70%
@@ -83,6 +82,7 @@ func EnableAlarm(sess *session.Session, instanceName *string, instanceID *string
 }
 
 func main() {
+    // snippet-start:[cloudwatch.go.enable_alarm.args]
     instanceName := flag.String("n", "", "The instance name")
     instanceID := flag.String("i", "", "The instance ID")
     alarmName := flag.String("a", "", "The alarm name")
@@ -92,6 +92,7 @@ func main() {
         fmt.Println("You must supply an instance name, instance ID, and alarm name")
         return
     }
+    // snippet-end:[cloudwatch.go.enable_alarm.args]
 
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
@@ -107,7 +108,8 @@ func main() {
         fmt.Println(err)
     }
 
+    // snippet-start:[cloudwatch.go.enable_alarm.print]
     fmt.Println("Enabled alarm " + *alarmName + " for EC2 instance " + *instanceName)
+    // snippet-start:[cloudwatch.go.enable_alarm.print]
 }
-
 // snippet-end:[cloudwatch.go.enable_alarm]

@@ -17,7 +17,6 @@ package main
 import (
     "encoding/json"
     "errors"
-    "fmt"
     "io/ioutil"
     "testing"
     "time"
@@ -28,10 +27,8 @@ import (
 // Config represents the information for the test
 type Config struct {
     LambdaARN string `json:"LambdaARN"`
-    RoleARN   string `json:"RoleARN"`
-    RoleName  string `json:"RoleName"`
     RuleName  string `json:"RuleName"`
-    Schedule  string `json:"Schedule"`
+    TargetID  string `json:"TargetID"`
 }
 
 var configFileName = "config.json"
@@ -51,19 +48,17 @@ func populateConfig(t *testing.T) error {
         return err
     }
 
-    if globalConfig.RoleName == "" {
-        globalConfig.RoleName = "TestRole"
+    if globalConfig.RuleName == "" {
+        globalConfig.RuleName = "TestRule"
     }
 
-    if globalConfig.Schedule == "" {
-        globalConfig.Schedule = "rate(5 minutes)"
+    if globalConfig.TargetID == "" {
+        globalConfig.TargetID = "MyTargetID"
     }
 
     t.Log("LambdaARN: " + globalConfig.LambdaARN)
-    t.Log("RoleARN:   " + globalConfig.RoleARN)
-    t.Log("RoleName:  " + globalConfig.RoleName)
     t.Log("RuleName:  " + globalConfig.RuleName)
-    t.Log("Schedule:  " + globalConfig.Schedule)
+    t.Log("TargetID:  " + globalConfig.TargetID)
 
     if globalConfig.LambdaARN == "" {
         return errors.New("No Lambda ARN was configured")
@@ -89,42 +84,10 @@ func TestCreateEvent(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // Create role
-    //     CreateRole(sess *session.Session, roleName *string) (*iam.CreateRoleOutput, error)
-    roleResult, err := CreateRole(sess, &globalConfig.RoleName)
+    err = CreateTarget(sess, &globalConfig.RuleName, &globalConfig.LambdaARN, &globalConfig.TargetID)
     if err != nil {
         t.Fatal(err)
     }
 
-    globalConfig.RoleARN = *roleResult.Role.Arn
-
-    // Create rule
-    //     CreateRule(sess *session.Session, ruleName *string, roleARN *string, schedule *string) (*cloudwatchevents.PutRuleOutput, error)
-    _, err = CreateRule(sess, &globalConfig.RuleName, &globalConfig.RoleARN, &globalConfig.Schedule)
-    if err != nil {
-        t.Fatal(err)
-    }
-
-    // ruleARN := ruleResult.RuleArn
-
-    // Create target
-    //     CreateTarget(sess *session.Session, rule *string, lambdaARN *string, targetID *string) (*cloudwatchevents.PutTargetsOutput, error)
-    _, err = CreateTarget(sess, &globalConfig.RuleName, &globalConfig.LambdaARN, &globalConfig.RoleName)
-    if err != nil {
-        t.Fatal(err)
-    }
-
-    event, err := getEventInfo()
-    if err != nil {
-        fmt.Println("Could not get event info from " + eventFile)
-        return
-    }
-
-    err = CreateEvent(sess, &globalConfig.LambdaARN, event)
-    if err != nil {
-        fmt.Println("Could not create event")
-        return
-    }
-
-    fmt.Println("Created event")
+    t.Log("Created target")
 }

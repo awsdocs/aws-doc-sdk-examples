@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/iam"
 )
-
 // snippet-end:[cloudwatch.go.create_role.imports]
 
 // CreateRole creates a role that grants permission to CloudWatch Events
@@ -35,10 +34,12 @@ import (
 //     Otherwise, nil and the error from a call to CreateRole
 func CreateRole(sess *session.Session, roleName *string, policyName *string) (*iam.CreateRoleOutput, error) {
     // Create the service client
-    // snippet-start:[cloudwatch.go.create_role.call]
+    // snippet-start:[cloudwatch.go.create_role.client]
     svc := iam.New(sess)
+    // snippet-end:[cloudwatch.go.create_role.client]    
 
     // From: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/cw-example-sending-events.html
+    // snippet-start:[cloudwatch.go.create_role.role_policy]
     rolePolicy := []byte(`{
         "Version": "2012-10-17",
         "Statement": [
@@ -63,12 +64,12 @@ func CreateRole(sess *session.Session, roleName *string, policyName *string) (*i
         PolicyDocument: &policy,
         PolicyName:     policyName,
     })
+    // snippet-end:[cloudwatch.go.create_role.role_policy]    
     if err != nil {
         return nil, err
     }
 
-    policyARN := createPolicyResult.Policy.Arn
-
+    // snippet-start:[cloudwatch.go.create_role.role_trust]
     trustRelationship := []byte(`{
                 "Version": "2012-10-17",
                 "Statement": [
@@ -83,12 +84,12 @@ func CreateRole(sess *session.Session, roleName *string, policyName *string) (*i
              }`)
 
     trustPolicy := string(trustRelationship[:])
-
+    
     createRoleResult, err := svc.CreateRole(&iam.CreateRoleInput{
         AssumeRolePolicyDocument: aws.String(trustPolicy),
         RoleName:                 roleName,
     })
-    // snippet-end:[cloudwatch.go.create_role.call]
+    // snippet-end:[cloudwatch.go.create_role.role_trust]
     if err != nil {
         return nil, err
     }
@@ -100,10 +101,12 @@ func CreateRole(sess *session.Session, roleName *string, policyName *string) (*i
 
     userName := getUserResult.User.UserName
 
+    // snippet-start:[cloudwatch.go.create_role.attach_user_policy]
     _, err = svc.AttachUserPolicy(&iam.AttachUserPolicyInput{
-        PolicyArn: policyARN,
+        PolicyArn: createPolicyResult.Policy.Arn,
         UserName:  userName,
     })
+    // snippet-end:[cloudwatch.go.create_role.attach_user_policy]
     if err != nil {
         return nil, err
     }
@@ -142,5 +145,4 @@ func main() {
     fmt.Println("Role ARN: " + *result.Role.Arn)
     // snippet-end:[cloudwatch.go.create_role.print]
 }
-
 // snippet-end:[cloudwatch.go.create_role]

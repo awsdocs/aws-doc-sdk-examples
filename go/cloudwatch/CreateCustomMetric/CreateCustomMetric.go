@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
-
 // snippet-end: [cloudwatch.go.create_custom_metric.import]
 
 // CreateCustomMetric creates a new metric in a namespace
@@ -38,12 +37,10 @@ import (
 //     If success, nil
 //     Otherwise, and error from a call to PutMetricData
 func CreateCustomMetric(sess *session.Session, namespace *string, metricName *string, unit *string, value *float64, dimensionName *string, dimensionValue *string) error {
-    // snippet-start: [cloudwatch.go.create_custom_metric.client]
     // Create new cloudwatch client
-    svc := cloudwatch.New(sess)
-    // snippet-end: [cloudwatch.go.create_custom_metric.client]
-
     // snippet-start: [cloudwatch.go.create_custom_metric.call]
+    svc := cloudwatch.New(sess)
+
     _, err := svc.PutMetricData(&cloudwatch.PutMetricDataInput{
         Namespace: namespace,
         MetricData: []*cloudwatch.MetricDatum{
@@ -69,6 +66,7 @@ func CreateCustomMetric(sess *session.Session, namespace *string, metricName *st
 }
 
 func main() {
+    // snippet-start: [cloudwatch.go.create_custom_metric.args]
     namespace := flag.String("n", "", "The namespace for the metric")
     metricName := flag.String("m", "", "The name of the metric")
     unit := flag.String("u", "", "The units for the metric")
@@ -77,17 +75,24 @@ func main() {
     dimensionValue := flag.String("dv", "", "The value of the dimension")
     flag.Parse()
 
+    if *namespace == "" || *metricName == "" ||*unit == "" || *dimensionName == "" || *dimensionValue == "" {
+        fmt.Println("You must supply a namespace, metric name, value, dimension name, and dimension value")
+        return
+    }
+    // snippet-end: [cloudwatch.go.create_custom_metric.args]
+
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file ~/.aws/credentials
     // and configuration from the shared configuration file ~/.aws/config.
+    // snippet-start: [cloudwatch.go.create_custom_metric.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-
+    // snippet-start: [cloudwatch.go.create_custom_metric.session]
+    
     err := CreateCustomMetric(sess, namespace, metricName, unit, value, dimensionName, dimensionValue)
     if err != nil {
         fmt.Println()
     }
 }
-
 // snippet-end: [cloudwatch.go.create_custom_metric]
