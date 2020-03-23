@@ -102,7 +102,7 @@ You must supply similar values in *config.json* for the unit test.
 
 This operation deletes an alarm.
 
-`go run DeleteAlarm.go o-a ALARM`
+`go run DeleteAlarm.go -a ALARM`
 
 Where the following is required:
 

@@ -23,3 +23,5 @@ __pycache__
 venv
 composer.*
 vendor/
+main
+main.zip
