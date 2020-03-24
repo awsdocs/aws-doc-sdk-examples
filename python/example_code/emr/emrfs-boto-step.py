@@ -23,7 +23,6 @@
 # snippet-sourceauthor:[AWS]
 # snippet-start:[emr.python.addstep.emrfs]
 
-import json
 import boto3
 from botocore.exceptions import ClientError
 
