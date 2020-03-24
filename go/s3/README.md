@@ -15,7 +15,7 @@ in the AWS SDK for Go Developer Guide.
 
 ### CustomClient/CustomHTTPClient.go
 
-This example either create a custom HTTP client and uses it to get an S3 bucket object,
+This example either creates a custom HTTP client and uses it to get an S3 bucket object,
 or gets the S3 bucket object using a custom timeout of 20 seconds.
 
 `go run CustomHTTPClient.go -b BUCKET -o OBJECT [-s] [-t]`
