@@ -1,0 +1,27 @@
+---
+# Metadata for multiple examples separated as yaml documents.
+files:
+  - path: create_bucket.py
+    services:
+      - s3
+...
+---
+files:
+  - path: fix_the_bucket.py
+    services:
+      - s3
+  - path: kick_the_bucket.py
+    services:
+      - s3
+  - path: support_the_bucket.py
+...
+---
+files:
+  - path: fix_the_bucket.py
+    services:
+      - s3
+  - path: kick_the_bucket.py
+    services:
+      - s3
+  - path: test_the_bucket.py
+...

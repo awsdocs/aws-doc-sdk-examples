@@ -1,0 +1,30 @@
+---
+# Metadata for a complex example that uses several services and files.
+files:
+  - path: start_the_things.py
+    services:
+      - s3
+      - sqs
+  - service: rds
+  - path: middle_the_things.py
+    services:
+      - sqs
+      - lambda
+  - path: cleanup_the_things.py
+    services:
+      - s3
+      - sqs
+      - rds
+  - path: data/send_the_things.py
+    services:
+      - s3
+      - sqs
+      - rds
+  - path: data/receive_the_things.py
+    services:
+      - s3
+      - sqs
+      - rds
+  - path: test/test_the_things.py
+  - path: test/test_some_other_things.py
+...
