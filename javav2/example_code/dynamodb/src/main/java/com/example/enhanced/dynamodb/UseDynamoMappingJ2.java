@@ -28,6 +28,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.EnhancedGlobalSecondaryIndex;
+import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -86,14 +87,13 @@ public class UseDynamoMappingJ2 {
          DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
          // Create the table
-        mappedTable.createTable(r -> r.provisionedThroughput(DEFAULT_PROVISIONED_THROUGHPUT)
+          mappedTable.createTable(r -> r.provisionedThroughput(DEFAULT_PROVISIONED_THROUGHPUT)
                     .globalSecondaryIndices(
                             EnhancedGlobalSecondaryIndex.builder()
                                     .indexName("gsi_1")
                                     .projection(p -> p.projectionType(ProjectionType.ALL))
                                     .provisionedThroughput(DEFAULT_PROVISIONED_THROUGHPUT)
                                     .build()));
-
 
         //Populate the Table
         Record record = new Record()
@@ -103,14 +103,20 @@ public class UseDynamoMappingJ2 {
                     .setAttribute2("two")
                     .setAttribute3("three");
 
-        mappedTable.putItem(Record.class, r -> r.item(record));
+        //Create a PutItemEnhancedRequest object
+         PutItemEnhancedRequest putReq = PutItemEnhancedRequest.builder(Record.class)
+                 .item(record)
+                 .build();
 
-        System.out.println("done");
-         // snippet-end:[dynamodb.java2.enhanced.query.main]
+
+        mappedTable.putItem(putReq);
+        // snippet-end:[dynamodb.java2.enhanced.query.main]
+
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+       System.out.println("done");
      }
 
      // Define the Record class that is used to map to the DynamoDB table
