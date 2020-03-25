@@ -26,8 +26,10 @@ import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTag
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondarySortKey;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.GetItemEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -85,7 +87,19 @@ public class DynamoDBMappingGetItem {
 
            //Create a DynamoDbTable object
            DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
-           Record result = mappedTable.getItem(r -> r.key(k -> k.partitionValue("id-value").sortValue("sort-value")));
+
+           //Create a KEY object
+           Key key = Key.builder()
+                   .partitionValue("id-value")
+                   .sortValue("sort-value")
+                   .build();
+
+           // Create a GetItemEnhancedRequest object
+           GetItemEnhancedRequest getItemReq = GetItemEnhancedRequest.builder()
+                   .key(key)
+                   .build();
+
+           Record result = mappedTable.getItem(getItemReq);
 
            System.out.println("The record id is "+result.getId());
            // snippet-end:[dynamodb.java2.enhanced.getitem.main]
