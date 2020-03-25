@@ -22,6 +22,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchevents"
 )
+
 // snippet-end:[cloudwatch.go.create_target.imports]
 
 // CreateTarget creates a target that is the resource that is invoked when the rule is triggered
@@ -88,4 +89,5 @@ func main() {
     fmt.Println("Target " + *targetID + " created")
     // snippet-start:[cloudwatch.go.create_target.print]
 }
+
 // snippet-end:[cloudwatch.go.create_target]

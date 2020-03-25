@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
-
 // snippet-end:[cloudwatch.go.disable_alarm.imports]
 
 // DisableAlarm disables an alarm
@@ -77,3 +76,4 @@ func main() {
         fmt.Println("Disabled alarm " + *alarmName)
     }
 }
+// snippet-end:[cloudwatch.go.disable_alarm]

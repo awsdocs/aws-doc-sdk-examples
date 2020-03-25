@@ -16,36 +16,68 @@ package main
 
 // snippet-start:[cloudwatch.go.getlogevents.imports]
 import (
-    "github.com/aws/aws-sdk-go/aws"
+    "flag"
+    "fmt"
+
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchlogs"
-
-    "fmt"
-    "os"
 )
 // snippet-end:[cloudwatch.go.getlogevents.imports]
 
+// GetLogEvents retrieves CloudWatchLog events.
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     limit is the maximum number of log events to retrieve
+//     logGroupName is the name of the log group
+//     logStreamName is the name of the log stream
+// Output:
+//     If success, a GetLogEventsOutput object containing the events and nil
+//     Otherwise, nil and an error from the call to GetLogEvents
+func GetLogEvents(sess *session.Session, limit *int64, logGroupName *string, logStreamName *string) (*cloudwatchlogs.GetLogEventsOutput, error) {
+    // snippet-start:[cloudwatch.go.getlogevents.call]
+    svc := cloudwatchlogs.New(sess)
+
+    resp, err := svc.GetLogEvents(&cloudwatchlogs.GetLogEventsInput{
+        Limit:         limit,
+        LogGroupName:  logGroupName,
+        LogStreamName: logStreamName,
+    })
+    // snippet-end:[cloudwatch.go.getlogevents.call]
+    if err != nil {
+        return nil, err
+    }
+
+    return resp, nil
+}
+
 func main() {
+    // snippet-start:[cloudwatch.go.getlogevents.args]
+    limit := flag.Int64("l", 100, "The maximum number of events to retrieve")
+    logGroupName := flag.String("g", "", "The name of the log group")
+    logStreamName := flag.String("s", "", "The name of the log stream")
+    flag.Parse()
+
+    if *logGroupName == "" || *logStreamName == "" {
+        fmt.Println("You must supply a log group name (-g LOG-GROUP) and log stream name (-s LOG-STREAM)")
+        return
+    }
+    // snippet-end:[cloudwatch.go.getlogevents.args]
+
+    // snippet-start:[cloudwatch.go.getlogevents.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+    // snippet-end:[cloudwatch.go.getlogevents.session]
 
-    svc := cloudwatchlogs.New(sess)
-
-    // Get up to the last 100 log events for LOG-STREAM-NAME
-    // in LOG-GROUP-NAME:
-    resp, err := svc.GetLogEvents(&cloudwatchlogs.GetLogEventsInput{
-        Limit:         aws.Int64(100),
-        LogGroupName:  aws.String("LOG-GROUP-NAME"),
-        LogStreamName: aws.String("LOG-STREAM-NAME"),
-    })
+    resp, err := GetLogEvents(sess, limit, logGroupName, logStreamName)
     if err != nil {
         fmt.Println("Got error getting log events:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        fmt.Println(err)
+        return
     }
 
-    fmt.Println("Event messages for stream LOG-STREAM-NAME in log group LOG-GROUP-NAME:")
+    // snippet-start:[cloudwatch.go.getlogevents.print]
+    fmt.Println("Event messages for stream " + *logStreamName + " in log group  " + *logGroupName)
 
     gotToken := ""
     nextToken := ""
@@ -59,6 +91,7 @@ func main() {
         }
 
         fmt.Println("  ", *event.Message)
+        // snippet-end:[cloudwatch.go.getlogevents.print]
     }
 }
 // snippet-end:[cloudwatch.go.getlogevents]

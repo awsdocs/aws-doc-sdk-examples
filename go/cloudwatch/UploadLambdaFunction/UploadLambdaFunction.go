@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/lambda"
 )
-
 // snippet-end:[lambda.go.create_function.imports]
 
 // UploadFunction uploads a Lambda function to a bucket.
@@ -60,8 +59,6 @@ func UploadFunction(sess *session.Session, zipFile *string, bucket *string, func
         //      S3ObjectVersion: aws.String("1"),
         ZipFile: contents,
     }
-
-    // Required: Code, FunctionName, Handler, Role, Runtime
 
     createArgs := &lambda.CreateFunctionInput{
         Code:         createCode,
@@ -116,5 +113,4 @@ func main() {
 
     fmt.Println("Lambda function ARN: " + *result.FunctionArn)
 }
-
 // snippet-end:[lambda.go.create_function.complete]

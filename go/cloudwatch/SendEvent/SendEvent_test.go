@@ -32,14 +32,15 @@ import (
 // Config represents the information for the test
 type Config struct {
     LambdaARN  string `json:"LambdaARN"`
-    PolicyName string
+    PolicyName string `json:"PolicyName"`
     PolicyWait int    `json:"PolicyWait"`
     RoleARN    string `json:"RoleARN"`
-    RoleName   string
+    RoleName   string `json:"RoleName"`
     RoleWait   int    `json:"RoleWait"`
     RuleName   string `json:"RuleName"`
     Schedule   string `json:"Schedule"`
     TargetID   string `json:"TargetID"`
+    TargetWait int    `json:"TargetWait"`
 }
 
 var configFileName = "config.json"
@@ -59,14 +60,38 @@ func populateConfig(t *testing.T) error {
         return err
     }
 
+    id := uuid.New()
+
+    if globalConfig.PolicyName == "" {
+        globalConfig.PolicyName = "TestPolicy-" + id.String()
+    }
+
+    if globalConfig.RoleName == "" {
+        globalConfig.RoleName = "TestRole-" + id.String()
+    }
+
+    if globalConfig.RuleName == "" {
+        globalConfig.RuleName = "TestRule-" + id.String()
+    }
+
+    if globalConfig.Schedule == "" {
+        globalConfig.Schedule = "rate(5 minutes)"
+    }
+
+    if globalConfig.TargetID == "" {
+        globalConfig.TargetID = "TestTarget-" + id.String()
+    }
+
     t.Log("LambdaARN:  " + globalConfig.LambdaARN)
-    t.Log("PolicyWait  " + strconv.Itoa(globalConfig.PolicyWait))
+    t.Log("PolicyName: " + globalConfig.PolicyName)
+    t.Log("PolicyWait: " + strconv.Itoa(int(globalConfig.PolicyWait)))
     t.Log("RoleARN:    " + globalConfig.RoleARN)
     t.Log("RoleName:   " + globalConfig.RoleName)
-    t.Log("RoleWait:   " + strconv.Itoa(globalConfig.RoleWait))
+    t.Log("RoleWait:   " + strconv.Itoa(int(globalConfig.RoleWait)))
     t.Log("RuleName:   " + globalConfig.RuleName)
     t.Log("Schedule:   " + globalConfig.Schedule)
     t.Log("TargetID:   " + globalConfig.TargetID)
+    t.Log("TargetWait: " + strconv.Itoa(int(globalConfig.TargetWait)))
 
     if globalConfig.LambdaARN == "" {
         return errors.New("No Lambda ARN was configured")
@@ -171,8 +196,6 @@ func createRole(t *testing.T, sess *session.Session, roleName *string, policyNam
 }
 
 func createRule(sess *session.Session, ruleName *string, roleARN *string, schedule *string) (*cloudwatchevents.PutRuleOutput, error) {
-    // Create the service client
-    // snippet-start:[cloudwatch.go.create_rule.call]
     svc := cloudwatchevents.New(sess)
 
     result, err := svc.PutRule(&cloudwatchevents.PutRuleInput{
@@ -180,12 +203,60 @@ func createRule(sess *session.Session, ruleName *string, roleARN *string, schedu
         RoleArn:            roleARN,
         ScheduleExpression: schedule,
     })
-    // snippet-end:[cloudwatch.go.create_rule.call]
     if err != nil {
         return nil, err
     }
 
     return result, nil
+}
+
+func createTarget(sess *session.Session, rule *string, lambdaARN *string, targetID *string) error {
+    // Create the service client
+    svc := cloudwatchevents.New(sess)
+
+    _, err := svc.PutTargets(&cloudwatchevents.PutTargetsInput{
+        Rule: rule,
+        Targets: []*cloudwatchevents.Target{
+            &cloudwatchevents.Target{
+                Arn: lambdaARN,
+                Id:  targetID,
+            },
+        },
+    })
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
+func deleteTargets(t *testing.T, sess *session.Session, rule *string) error {
+    svc := cloudwatchevents.New(sess)
+
+    // Get targets so we can remove them
+    resp, err := svc.ListTargetsByRule(&cloudwatchevents.ListTargetsByRuleInput{
+        Rule: rule,
+    })
+    if err != nil {
+        return err
+    }
+
+    // Build list of target IDs
+    var targetIDs []*string
+    for _, target := range resp.Targets {
+        targetIDs = append(targetIDs, target.Id)
+    }
+
+    // Now remove targets
+    _, err = svc.RemoveTargets(&cloudwatchevents.RemoveTargetsInput{
+        Ids:  targetIDs,
+        Rule: rule,
+    })
+    if err != nil {
+        return err
+    }
+
+    return nil
 }
 
 func deleteRule(sess *session.Session, ruleName *string) error {
@@ -229,22 +300,6 @@ func deleteRole(sess *session.Session, roleName *string) error {
     return nil
 }
 
-func deleteTarget(sess *session.Session, rule *string, targetID *string) error {
-    svc := cloudwatchevents.New(sess)
-
-    _, err := svc.RemoveTargets(&cloudwatchevents.RemoveTargetsInput{
-        Rule: rule,
-        Ids: []*string{
-            targetID,
-        },
-    })
-    if err != nil {
-        return err
-    }
-
-    return nil
-}
-
 func TestCreateEvent(t *testing.T) {
     thisTime := time.Now()
     nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
@@ -255,33 +310,18 @@ func TestCreateEvent(t *testing.T) {
         t.Fatal(err)
     }
 
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file ~/.aws/credentials
-    // and configuration from the shared configuration file ~/.aws/config.
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    id := uuid.New()
-
-    if globalConfig.Schedule == "" {
-        globalConfig.Schedule = "rate(5 minutes)"
-    }
-
-    createdRole := false
     var roleResult *iam.CreateRoleOutput
     policyARN := ""
 
     if globalConfig.RoleARN == "" {
-        globalConfig.RoleName = "TestRole-" + id.String()
-        globalConfig.PolicyName = "TestPolicy-" + id.String()
-
         roleResult, policyARN, err = createRole(t, sess, &globalConfig.RoleName, &globalConfig.PolicyName)
         if err != nil {
             t.Fatal(err)
         }
-
-        createdRole = true
 
         globalConfig.RoleARN = *roleResult.Role.Arn
 
@@ -290,62 +330,52 @@ func TestCreateEvent(t *testing.T) {
         t.Log("Using role with ARN " + globalConfig.RoleARN)
     }
 
-    createdRule := false
-
-    if globalConfig.RuleName == "" {
-        globalConfig.RuleName = "TestRule-" + id.String()
-
-        ruleResult, err := createRule(sess, &globalConfig.RuleName, &globalConfig.RoleARN, &globalConfig.Schedule)
-        if err != nil {
-            t.Fatal(err)
-        }
-
-        createdRule = true
-        t.Log("Created rule with ARN: " + *ruleResult.RuleArn)
-    }
-
-    if globalConfig.TargetID == "" {
-        globalConfig.TargetID = "MyTargetID-" + id.String()
-    }
-
-    err = CreateTarget(sess, &globalConfig.RuleName, &globalConfig.LambdaARN, &globalConfig.TargetID)
+    _, err = createRule(sess, &globalConfig.RuleName, &globalConfig.RoleARN, &globalConfig.Schedule)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Created target")
+    err = createTarget(sess, &globalConfig.RuleName, &globalConfig.LambdaARN, &globalConfig.RoleName)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    event, err := getEventInfo()
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    err = CreateEvent(sess, &globalConfig.LambdaARN, event)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    t.Log("Created event")
 
     // Cleanup
-    err = deleteTarget(sess, &globalConfig.RuleName, &globalConfig.TargetID)
+    err = deleteTargets(t, sess, &globalConfig.RuleName)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Deleted target")
+    t.Log("Deleted target " + globalConfig.TargetID)
 
-    if createdRule {
-        err = deleteRule(sess, &globalConfig.RuleName)
-        if err != nil {
-            t.Log("You'll have to delete rule " + globalConfig.RuleName + " yourself")
-            t.Fatal(err)
-        }
-
-        t.Log("Deleted rule " + globalConfig.RuleName)
+    err = deleteRule(sess, &globalConfig.RuleName)
+    if err != nil {
+        t.Log("You'll have to delete the rule " + globalConfig.RuleName + " yourself")
+        t.Fatal(err)
     }
 
-    if createdRole {
-        err := detachPolicy(sess, &policyARN, &globalConfig.RoleName)
-        if err != nil {
-            t.Fatal(err)
-        }
+    err = detachPolicy(sess, &policyARN, &globalConfig.RoleName)
+    if err != nil {
+        t.Fatal(err)
+    }
 
-        t.Log("Detached policy " + globalConfig.PolicyName)
-        err = deleteRole(sess, &globalConfig.RoleName)
-        if err != nil {
-            t.Log("You must delete role " + globalConfig.RoleName + " yourself")
-            t.Fatal(err)
-        }
+    t.Log("Detached policy " + globalConfig.PolicyName)
 
-        t.Log("Deleted role " + globalConfig.RoleName)
+    err = deleteRole(sess, &globalConfig.RoleName)
+    if err != nil {
+        t.Log("You'll have to delete the role " + globalConfig.RoleName + " yourself")
+        t.Fatal(err)
     }
 }

@@ -11,9 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[cloudwatch.go.create_event]
 package main
 
+// snippet-start:[cloudwatch.go.create_event.imports]
 import (
     "encoding/json"
     "flag"
@@ -25,7 +26,10 @@ import (
     "github.com/aws/aws-sdk-go/service/cloudwatchevents"
 )
 
+// snippet-end:[cloudwatch.go.create_event.imports]
+
 // Event represents the information for a new event
+// snippet-start:[cloudwatch.go.create_event.event_struct]
 type Event struct {
     Details []struct {
         Key   string `json:"Key"`
@@ -71,11 +75,10 @@ func getEventInfo() (Event, error) {
     return e, nil
 }
 
-// CreateEvent creates an event
-func CreateEvent(sess *session.Session, resourceARN *string, event Event) error {
-    // Create the cloudwatch events client
-    svc := cloudwatchevents.New(sess)
+// snippet-end:[cloudwatch.go.create_event.event_struct]
 
+// CreateEvent creates an event
+func CreateEvent(sess *session.Session, lambdaARN *string, event Event) error {
     myDetails := "{ "
     for _, d := range event.Details {
         myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\","
@@ -83,18 +86,22 @@ func CreateEvent(sess *session.Session, resourceARN *string, event Event) error 
 
     myDetails = myDetails + " }"
 
+    // snippet-start:[cloudwatch.go.create_event.call]
+    svc := cloudwatchevents.New(sess)
+
     _, err := svc.PutEvents(&cloudwatchevents.PutEventsInput{
         Entries: []*cloudwatchevents.PutEventsRequestEntry{
             &cloudwatchevents.PutEventsRequestEntry{
-                Detail:     aws.String(myDetails),        // "{ \"key1\": \"value1\", \"key2\": \"value2\" }"),
-                DetailType: aws.String(event.DetailType), // "appRequestSubmitted"),
+                Detail:     aws.String(myDetails),
+                DetailType: aws.String(event.DetailType),
                 Resources: []*string{
-                    resourceARN, // "ARN of Lambda function"),
+                    lambdaARN,
                 },
-                Source: aws.String(event.Source), // "com.company.myapp"),
+                Source: aws.String(event.Source),
             },
         },
     })
+    // snippet-end:[cloudwatch.go.create_event.call]
     if err != nil {
         return err
     }
@@ -103,21 +110,22 @@ func CreateEvent(sess *session.Session, resourceARN *string, event Event) error 
 }
 
 func main() {
-    resourceARN := flag.String("l", "", "The ARN of the Lambda function")
+    // snippet-start:[cloudwatch.go.create_event.args]
+    lambdaARN := flag.String("l", "", "The ARN of the Lambda function")
     flag.Parse()
 
-    if *resourceARN == "" {
+    if *lambdaARN == "" {
         fmt.Println("You must supply a Lambda ARN with -l LAMBDA-ARN")
         return
     }
+    // snippet-end:[cloudwatch.go.create_event.args]
 
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file (~/.aws/credentials)
+    // snippet-start:[cloudwatch.go.create_event.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+    // snippet-end:[cloudwatch.go.create_event.session]
 
-    // getEventInfo() (Event, error)
     event, err := getEventInfo()
     if err != nil {
         fmt.Println("Got an error calling getEventInfo:")
@@ -125,8 +133,7 @@ func main() {
         return
     }
 
-    // CreateEvent(sess *session.Session, resourceARN *string, event Event) error
-    err = CreateEvent(sess, resourceARN, event)
+    err = CreateEvent(sess, lambdaARN, event)
     if err != nil {
         fmt.Println("Could not create event:")
         fmt.Println(err)
@@ -135,3 +142,5 @@ func main() {
 
     fmt.Println("Created event")
 }
+
+// snippet-end:[cloudwatch.go.create_event]

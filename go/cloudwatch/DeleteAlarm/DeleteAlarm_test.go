@@ -125,48 +125,33 @@ func TestDisableAlarmActions(t *testing.T) {
     nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
     t.Log("Started unit test at " + nowString)
 
-
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    err := populateConfig(sess, t)
+    err := populateConfig(t)
     if err != nil {
         msg := "Could not get configuration values from " + configFileName
         t.Fatal(msg)
     }
 
-    alarmCreated := false
-
     if globalConfig.AlarmName == "" {
-        if globalConfig.AlarmName == "" {
-            id := uuid.New()
-            globalConfig.AlarmName = "Alarm70-" + id.String()
-        }
+        id := uuid.New()
+        globalConfig.AlarmName = "Alarm70-" + id.String()
 
         if globalConfig.InstanceName == "" || globalConfig.InstanceID == "" {
             globalConfig.InstanceName, globalConfig.InstanceID, err = getEc2Info(sess, t)
             if err != nil {
-                return err
+                t.Fatal(err)
             }
         }
 
-        err = enableAlarm(sess, &globalConfig.InstanceName, &globalConfig.InstanceID, &globalConfig.AlarmName)
-        if err != nil {
-            msg := "Could not create alarm " + globalConfig.AlarmName + " for instance " + globalConfig.InstanceName
-            t.Fatal(msg)
-        }
-
-        t.Log("Enabled alarm " + globalConfig.AlarmName + " for instance " + globalConfig.InstanceName)
-
-        err = disableAlarm(sess, &globalConfig.AlarmName)
+        err := createAlarm(sess, &globalConfig.InstanceName, &globalConfig.InstanceID, &globalConfig.AlarmName)
         if err != nil {
             t.Fatal(err)
         }
-
-        t.Log("Disabled alarm " + globalConfig.AlarmName)
     }
-    
+
     err = DeleteAlarm(sess, &globalConfig.AlarmName)
     if err != nil {
         t.Fatal(err)

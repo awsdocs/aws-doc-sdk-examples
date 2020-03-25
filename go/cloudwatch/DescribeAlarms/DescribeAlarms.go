@@ -21,7 +21,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
-
 //snippet-end:[cloudwatch.go.describe_alarms.imports]
 
 // ListAlarms returns a list of your Amazon CloudWatch alarms
@@ -68,5 +67,4 @@ func main() {
     }
     //snippet-end:[cloudwatch.go.describe_alarms.display]
 }
-
 //snippet-end:[cloudwatch.go.describe_alarms]

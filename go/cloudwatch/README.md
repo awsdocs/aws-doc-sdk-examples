@@ -36,17 +36,22 @@ This operation creates a new metric in a namespace.
 
 `go run CreateCustomMetric.go -n NAMESPACE -m METRIC-NAME -u UNITS [-v VALUE] -dn DIMENSION-NAME -dv DIMENSION-VALUE`
 
-where all of the values are required:
+where:
 
 - NAMESPACE is the namespace.
 - METRIC-NAME is the name of the metric.
 - UNITS are the units for the metric.
 - VALUE is the value of the units.
-  If omitted, defaults to 0.0.
+  The default value is 0.0.
 - DIMENSION-NAME is the name of the dimension.
 - DIMENSION-VALUE is the value of the dimension.
 
 You must supply similar values in *config.json* for the unit test.
+
+The unit test:
+
+1. Creates a custom metric for each metric in *config.json*.
+2. Lists the custom metrics.
 
 ### CreateRole
 
@@ -54,12 +59,17 @@ This operation creates an IAM role that grants permission to CloudWatch Events a
 
 `go run CreateRole -p POLICY -r ROLE`
 
-where all of these values are required:
+where:
 
 - POLICY is the name of the policy.
 - ROLE is the name of the role.
 
-The unit test requires similar values in *config.json*.
+You must supply similar values in *config.json* for the unit test.
+
+The unit test:
+
+1. Creates a Role with a random name if one is not supplied in *config.json*.
+2. Deletes the Role if it created it.
 
 ### CreateRule
 
@@ -67,22 +77,19 @@ This operation creates a rule that watches for events on a schedule as step two 
 
 `go run CreateRule `-r RULE -a ROLE-ARN -s SCHEDULE`
 
-where all of the following values are required:
+where:
 
 - RULE is the name of the rule.
 - ROLE-ARN is the ARN of the role.
 - SCHEDULE is the schedule expression,
   such as `rate(5 minutes)` to have the rule run every five minutes.
 
-The unit test requires similar values in *config.json*.
-If *config.json* does not have values for the following entries,
-the unit test creates the associated resource using a random value:
+You must supply similar values in *config.json* for the unit test.
 
-- PolicyName is the name of a policy used by the role
-- RoleARN is the ARN of the role
-- RoleName is the name of the role
-- RuleName is the name of the rule
-- Schedule is the schedule expression
+The unit test:
+
+1. Creates a Rule using a random name if the name isn't supplied in *config.json*
+2. Deletes the Rule if it created it
 
 ### CreateTarget
 
@@ -90,13 +97,18 @@ This operation creates an event target that is the resource that is invoked when
 
 `go run CreateTarget.go -r RULE -l LAMBDA-ARN -t TARGET`
 
-Where all of the following are required:
+where:
 
 - RULE is the of the rule.
 - LAMBDA-ARN is the ARN of the Lambda function that is invoked.
 - TARGET is th ID of the target.
 
-You must supply similar values in *config.json* for the unit test.
+You must supply a Lambda ARN value in *config.json* for the unit test.
+
+The unit test:
+
+1. Creates a new Target with a random name if a name is not supplied in *config.json*.
+2. Deletes the Target if it created it.
 
 ### DeleteAlarm
 
@@ -104,20 +116,16 @@ This operation deletes an alarm.
 
 `go run DeleteAlarm.go -a ALARM`
 
-Where the following is required:
+where:
 
 - ALARM is the name of the alarm.
 
 You can supply a similar value in *config.json* for the unit test.
-If *config.json* does not include a value for ALARM,
-it creates an alarm with a random name, enables the alarm, disables the alarm, and deletes the alarm.
 
-In addition, the unit test accepts the following values so it can create and delete a randomly-named alarm:
+The unit test:
 
-- InstanceName is the name of an EC2 instance.
-- InstanceID is the ID of an EC2 instance.
-  If either value is not supplied in *config.json*,
-  the unit test gets them from one of the existing EC2 instances.
+1. Creates an Alarm with a random name if the name is not supplied in *config.json*.
+2. Deletes the Alarm if it created it.
 
 ### DescribeAlarms
 
@@ -131,13 +139,16 @@ This operation disables an alarm.
 
 `go run DisableAlarm -a ALARM`
 
-The following argument is required:
+where:
 
 - ALARM is the name of the alarm.
 
 You can supply a similar value in *config.json* for the unit test.
-If *config.json* does not include a value for ALARM,
-it creates an alarm with a random name, enables the alarm, disables the alarm, and deletes the alarm.
+
+The unit test:
+
+1. Creates and enables an Alarm with a random name if the name is not supplied in *config.json*.
+2. Disables and deletes the Alarm if it created the Alarm.
 
 ### EnableAlarm
 
@@ -146,26 +157,50 @@ triggering a reboot of the instance.
 
 `go run EnableAlarm -n INSTANCE-NAME -i INSTANCE-ID -a ALARM-NAME`
 
-where all of these values are required:
+where:
 
 - INSTANCE-NAME is the name of your EC2 instance.
 - INSTANCE-ID is the ID of your EC2 instance.
 - ALARM-NAME is the name of the alarm.
 
-The unit test requires all of these values in *config.json*,
-except for ALARM-NAME.
-If ALARM-NAME is not provided,
-it creates a random name starting with **Alarm70-**,
-representing the threshold value.
+You must supply similar values in *config.json* for the unit test.
+
+The unit test:
+
+1. Creates an Alarm with a random name if the name is not supplied in *congig.json*.
+2. Enables the Alarm.
+3. Deletes the Alarm if it created it.
 
 ### GetLogEvents
 
-This operation lists 
+This operation lists the log events for a log stream in a log group.
+
+`go run GetLogEvents.go -l LOG-GROUP -s LOG-STREAM [-l LIMIT]`
+
+where:
+
+- LOG-GROUP is the name of the log group.
+- LOG-STREAM is the name of the log stream.
+- LIMIT is the maximum number of events to display.
+  If omitted, defaults to 100.
+
+You can supply similar values in *config.json* for the unit test.
+
+The unit test:
+
+1. Restricts the limit value to the range of 1 to 100.
+2. Gets a log stream from the user's log groups if either name is not supplied in *config.json*.
+3. Lists the events for the log stream in the log group.
 
 ### Lambda
 
-This operation creates Lambda function as step three of the workflow of creating an event.
+The *main.go* file in this folder logs any CloudWatch event it receives.
+Use the *packageLambda.bat* file for Windows or the *packageLambda.sh* file to create *main.zip* from *main.go*.
+Creating the ZIP file is step three of the workflow of creating an event.
+Note that you still must upload the Lambda function to a bucket before you can use it as a target.
+See UploadLambdaFunction.
 
+`packageLambda.bat` OR `packageLambda.sh`
 
 ### ListMetrics
 
@@ -176,12 +211,52 @@ This operation lists up to 500 of your metrics.
 ### SendEvent
 
 This operation sends an event as the final step of the workflow of creating an event.
+It sends the event that is defined in *event.json*.
 
+`go run SendEvent.go -l LAMBDA-ARN`
+
+where:
+
+- LAMBDA-ARN is the ARN of the Lambda function to which the event is sent.
+
+You must supply a similar value in *config.json* for the unit test.
+
+The unit test:
+
+1. Creates an event.
 
 ### UploadLambdaFunction
 
 This operation uploads a Lambda function to an Amazon S3 bucket as step four of the workflow of creating an event.
 
+`go run UploadLambdaFunction.go -z ZIP-FILE -b BUCKET -f LAMBDA-FUNCTION [-h HANDLER] -a ROLE-ARN [-r RUNTIME]`
+
+where:
+
+- ZIP-FILE is the name of the ZIP file, without the *.zip* extension.
+- BUCKET is the name of the Amazon S3 bucket.
+- LAMBDA-FUNCTION is the name of the Lambda function.
+- HANDLER is the name of the package class containing the function.
+  The default is **main**.
+- ROLE-ARN is the ARN of the role that enables calling the function
+- RUNTIME is the runtime for the function.
+  The default is **go1.x**.
+
+You can supply similar values in *config.json* for the unit test.
+If you do not, the unit test creates and deletes these resources.
+
+The unit test:
+
+1. Sets the runtime to **go1.x** if not set.
+2. Creates a new role if the role ARN is not set.
+3. Sets the handler to **main** if it is not set.
+4. Creates a new bucket if it is not set.
+5. Creates a new Lambda function if it is not set.
+6. Sets the zip name to **main** if it is not set.
+7. Calls **CreateFunction** to upload the ZIP file to the bucket and create the function.
+8. If it created a new Lambda function, it deletes it.
+9. If it created a new bucket, it deletes it.
+10. If it created a new role, it deletes it.
 
 ### Notes
 
