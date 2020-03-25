@@ -103,7 +103,6 @@ func populateConfig(sess *session.Session, t *testing.T) error {
 
 func disableAlarm(sess *session.Session, alarmName *string) error {
     // Create new CloudWatch client.
-    // snippet-start:[cloudwatch.go.disable_call]
     svc := cloudwatch.New(sess)
 
     _, err := svc.DisableAlarmActions(&cloudwatch.DisableAlarmActionsInput{
