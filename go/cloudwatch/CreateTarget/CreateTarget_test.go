@@ -172,7 +172,6 @@ func createRole(t *testing.T, sess *session.Session, roleName *string, policyNam
 
 func createRule(sess *session.Session, ruleName *string, roleARN *string, schedule *string) (*cloudwatchevents.PutRuleOutput, error) {
     // Create the service client
-    // snippet-start:[cloudwatch.go.create_rule.call]
     svc := cloudwatchevents.New(sess)
 
     result, err := svc.PutRule(&cloudwatchevents.PutRuleInput{
