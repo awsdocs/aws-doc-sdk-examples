@@ -25,7 +25,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchevents"
 )
-
 // snippet-end:[cloudwatch.go.create_event.imports]
 
 // Event represents the information for a new event
@@ -74,7 +73,6 @@ func getEventInfo() (Event, error) {
 
     return e, nil
 }
-
 // snippet-end:[cloudwatch.go.create_event.event_struct]
 
 // CreateEvent creates an event
@@ -142,5 +140,4 @@ func main() {
 
     fmt.Println("Created event")
 }
-
 // snippet-end:[cloudwatch.go.create_event]

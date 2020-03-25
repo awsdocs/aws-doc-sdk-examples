@@ -180,7 +180,6 @@ func createRule(sess *session.Session, ruleName *string, roleARN *string, schedu
         RoleArn:            roleARN,
         ScheduleExpression: schedule,
     })
-    // snippet-end:[cloudwatch.go.create_rule.call]
     if err != nil {
         return nil, err
     }

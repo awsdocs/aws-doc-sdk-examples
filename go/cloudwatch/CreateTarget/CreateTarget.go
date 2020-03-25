@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatchevents"
 )
-
 // snippet-end:[cloudwatch.go.create_target.imports]
 
 // CreateTarget creates a target that is the resource that is invoked when the rule is triggered
@@ -68,7 +67,7 @@ func main() {
         fmt.Println("You must supply a rule name (-r RULE), Lambda ARN (-l LAMBDA) and target ID (-t TARGET)")
         return
     }
-    // snippet-end:[cloudwatch.go.create_target.call]
+    // snippet-end:[cloudwatch.go.create_target.args]
 
     // Initialize a session that the SDK uses to load
     // credentials from the shared credentials file (~/.aws/credentials)
@@ -87,7 +86,6 @@ func main() {
 
     // snippet-start:[cloudwatch.go.create_target.print]
     fmt.Println("Target " + *targetID + " created")
-    // snippet-start:[cloudwatch.go.create_target.print]
+    // snippet-end:[cloudwatch.go.create_target.print]
 }
-
 // snippet-end:[cloudwatch.go.create_target]

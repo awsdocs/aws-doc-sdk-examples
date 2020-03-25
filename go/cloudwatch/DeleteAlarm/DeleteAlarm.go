@@ -22,7 +22,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
-
 // snippet-end:[cloudwatch.go.delete_alarm.imports]
 
 // DeleteAlarm deletes an alarm
@@ -77,5 +76,4 @@ func main() {
         fmt.Println("Deleted alarm " + *alarmName)
     }
 }
-
 // snippet-end:[cloudwatch.go.delete_alarm]

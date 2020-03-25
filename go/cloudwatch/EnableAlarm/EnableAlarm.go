@@ -110,6 +110,6 @@ func main() {
 
     // snippet-start:[cloudwatch.go.enable_alarm.print]
     fmt.Println("Enabled alarm " + *alarmName + " for EC2 instance " + *instanceName)
-    // snippet-start:[cloudwatch.go.enable_alarm.print]
+    // snippet-end:[cloudwatch.go.enable_alarm.print]
 }
 // snippet-end:[cloudwatch.go.enable_alarm]
