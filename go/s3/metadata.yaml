@@ -1,13 +1,9 @@
-created: 2020-02-21
 files:
   - path: CustomClient/CustomHTTPClient.go
-    apis:
-      - service: s3
-        operations:
-          - GetObject
-          - GetObjectWithContext
+    services:
+      - s3
+  - path: CustomClient/CustomHTTPClient_test.go
   - path: TLS/s3SetTls12.go
-    apis:
-      - service: s3
-        operations:
-          - HeadObject
+    services:
+      - s3
+  - path: TLS/s3SetTls12_test.go
