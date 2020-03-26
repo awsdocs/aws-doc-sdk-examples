@@ -58,7 +58,7 @@ public class UploadObject {
             PutObjectRequest request = new PutObjectRequest(bucketName, fileObjKeyName, new File(fileName));
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType("plain/text");
-            metadata.addUserMetadata("x-amz-meta-title", "someTitle");
+            metadata.addUserMetadata("title", "someTitle");
             request.setMetadata(metadata);
             s3Client.putObject(request);
         } catch (AmazonServiceException e) {
