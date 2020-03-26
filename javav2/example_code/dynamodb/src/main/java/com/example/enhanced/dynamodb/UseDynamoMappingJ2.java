@@ -108,7 +108,6 @@ public class UseDynamoMappingJ2 {
                  .item(record)
                  .build();
 
-
         mappedTable.putItem(putReq);
         // snippet-end:[dynamodb.java2.enhanced.query.main]
 
