@@ -3,52 +3,40 @@ files:
   - path: ChangeMsgVisibility/ChangeMsgVisibility.go
     services:
       - sqs
-  - path: ChangeMsgVisibility/ChangeMsgVisibility_test.go
   - path: ConfigureLPQueue/ConfigureLPQueue.go
-    services:
-      - sqs
-  - path: ConfigureLPQueue/ConfigureLPQueue_test.go
+    service:
+    - sqs
   - path: CreateLPQueue/CreateLPQueue.go
     services:
       - sqs
-  - path: CreateLPQueue/CreateLPQueue_test.go
   - path: CreateQueue/CreateQueue.go
     services:
       - sqs
-  - path: CreateQueue/CreateQueue_test.go
   - path: DeadLetterQueue/DeadLetterQueue.go
     services:
       - sqs
-  - path: DeadLetterQueue/DeadLetterQueue_test.go
   - path: DeleteMessage/DeleteMessage.go
     services:
       - sqs
-  - path: DeleteMessage/DeleteMessage_test.go
   - path: DeleteQueue/DeleteQueue.go
     services:
       - sqs
-  - path: DeleteQueue/DeleteQueue_test.go
   - path: GetQueueURL/GetQueueURL.go
     services:
       - sqs
-  - path: GetQueueURL/GetQueueURL_test.go
   - path: ListQueues/ListQueues.go
     services:
       - sqs
-  - path: ListQueues/ListQueues_test.go
   - path: ReceiveLPMessage/ReceiveLPMessage.go
     services:
       - sqs
-  - path: ReceiveLPMessage/ReceiveLPMessage_test.go
   - path: ReceiveMessage/ReceiveMessage.go
     services:
       - sqs
-  - path: ReceiveMessage/ReceiveMessage_test.go
   - path: SendMessage/SendMessage.go
     services:
       - sqs
-  - path: SendMessage/SendMessage_test.go
   - path: SendReceiveLongPolling/SendReceiveLongPolling.go
     services:
       - sqs
-  - path: SendReceiveLongPolling/SendReceiveLongPolling_test.go
+...
