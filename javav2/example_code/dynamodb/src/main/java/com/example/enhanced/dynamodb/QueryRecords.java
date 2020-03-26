@@ -92,7 +92,7 @@ public class QueryRecords {
 
             // Create a QueryConditional object that is used in the query operation
             QueryConditional queryConditional = QueryConditional
-                    .equalTo(Key.builder()
+                    .keyEqualTo(Key.builder()
                     .partitionValue("id-value")
                     .build());
 
