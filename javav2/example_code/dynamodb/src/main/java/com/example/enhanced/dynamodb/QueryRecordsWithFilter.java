@@ -108,7 +108,7 @@ public class QueryRecordsWithFilter {
 
             // Create a QueryConditional object that is used in the query operation
             QueryConditional queryConditional = QueryConditional
-                    .equalTo(Key.builder().partitionValue("id-value")
+                    .keyEqualTo(Key.builder().partitionValue("id-value")
                     .build());
 
             // Get items in the Record table and write out the ID value
