@@ -23,6 +23,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+// snippet-end:[sqs.go.receive_messages.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
 // Inputs:
@@ -44,7 +45,6 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 
     return result, nil
 }
-// snippet-end:[sqs.go.receive_messages.imports]
 
 // GetMessage gets the latest message from an Amazon SQS queue
 // Inputs:

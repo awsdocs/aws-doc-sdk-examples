@@ -1,78 +1,48 @@
 --- 
-created: 2020-02-25
-files: 
- - path: /src/main/java/com/example/cloudwatch/DeleteAlarm.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - DeleteAlarms
- - path: /src/main/java/com/example/cloudwatch/DeleteSubscriptionFilter.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - DeleteSubscriptionFilter        
- - path: /src/main/java/com/example/cloudwatch/DescribeAlarms.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - DescribeAlarms
- - path: /src/main/java/com/example/cloudwatch/DescribeSubscriptionFilters.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - DescribeSubscriptionFilters
- - path: /src/main/java/com/example/cloudwatch/DisableAlarmActions.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - DisableAlarmActions
- - path: /src/main/java/com/example/cloudwatch/EnableAlarmActions.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - EnableAlarmActions    
- - path: /src/main/java/com/example/cloudwatch/GetLogEvents.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - GetLogEvents   
- - path: /src/main/java/com/example/cloudwatch/ListMetrics.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - ListMetrics
- - path: /src/main/java/com/example/cloudwatch/PutEvents.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutEvents
- - path: /src/main/java/com/example/cloudwatch/PutLogEvents.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutLogEvents              
- - path: /src/main/java/com/example/cloudwatch/PutMetricAlarm.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutMetricAlarm   
- - path: /src/main/java/com/example/cloudwatch/PutMetricData.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutMetricData  
- - path: /src/main/java/com/example/cloudwatch/PutRule.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutRule 
- - path: /src/main/java/com/example/cloudwatch/PutSubscriptionFilter.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutSubscriptionFilter           
- - path: /src/main/java/com/example/cloudwatch/PutTargets.java
-   apis: 
-      - service: cloudwatch
-        operations: 
-        - PutTargets
+files:
+ - path: src/main/java/com/example/cloudwatch/DeleteAlarm.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DeleteSubscriptionFilter.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DescribeAlarms.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DescribeSubscriptionFilters.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DisableAlarmActions.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/EnableAlarmActions.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/GetLogEvents.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/ListMetrics.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutEvents.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutLogEvents.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutMetricAlarm.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutMetricData.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutRule.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutSubscriptionFilter.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutTargets.java
+   services:
+     - cloudwatch
+ - path: src/test/java/CloudWatchServiceIntegrationTest.java

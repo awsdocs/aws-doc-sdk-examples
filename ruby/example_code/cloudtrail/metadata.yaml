@@ -1,46 +1,30 @@
 ---
-description: Creates a trail in AWS CloudTrail.
-created: 2020-02-24
+# Creates a trail in AWS CloudTrail.
 files:
   - path: aws-ruby-sdk-cloudtrail-example-create-trail.rb
-    apis:
-      - service: cloudtrail
-        operations:
-          - CreateTrail
-      - service: s3api
-        operations: 
-          - PutBucketPolicy
-      - service: sts
-        operations: 
-          - GetCallerIdentity
+    services:
+    - cloudtrail
+    - s3api
+    - sts
 ...
 ---
-description: Deletes a trail in AWS CloudTrail.
-created: 2020-02-24
+# Deletes a trail in AWS CloudTrail.
 files:
   - path: aws-ruby-sdk-cloudtrail-example-delete-trail.rb
-    apis:
-      - service: cloudtrail
-        operations:
-          - DeleteTrail
+    services:
+      - cloudtrail
 ...
 ---
-description: Lists trails in AWS CloudTrail.
-created: 2020-02-24
+# Lists trails in AWS CloudTrail.
 files:
   - path: aws-ruby-sdk-cloudtrail-example-describe-trails.rb
-    apis:
-      - service: cloudtrail
-        operations:
-          - DescribeTrails
+    services:
+      - cloudtrail
 ...
 ---
-description: Lists events in AWS CloudTrail.
-created: 2020-02-24
+# Lists events in AWS CloudTrail.
 files:
   - path: aws-ruby-sdk-cloudtrail-example-lookup-events.rb
-    apis:
-      - service: cloudtrail
-        operations:
-          - LookupEvents
+    services:
+      - cloudtrail
 ...

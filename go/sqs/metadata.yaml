@@ -1,68 +1,42 @@
 ---
-created: Mar 6 2020
 files:
   - path: ChangeMsgVisibility/ChangeMsgVisibility.go
-    apis:
-      - service: sqs
-        operations:
-          - ChangeMessageVisibility
+    services:
+      - sqs
   - path: ConfigureLPQueue/ConfigureLPQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - SetQueueAttributes
+    service:
+    - sqs
   - path: CreateLPQueue/CreateLPQueue.go
-    apis:
-      - service: sqs
-        operations:          
-          - CreateQueue
+    services:
+      - sqs
   - path: CreateQueue/CreateQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - CreateQueue
+    services:
+      - sqs
   - path: DeadLetterQueue/DeadLetterQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - SetQueueAttributes
+    services:
+      - sqs
   - path: DeleteMessage/DeleteMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - DeleteMessage
+    services:
+      - sqs
   - path: DeleteQueue/DeleteQueue.go
-    apis:
-      - service: sqs
-        operations:
-          - DeleteQueue
+    services:
+      - sqs
   - path: GetQueueURL/GetQueueURL.go
-    apis:
-      - service: sqs
-        operations:
-          - GetQueueUrl
+    services:
+      - sqs
   - path: ListQueues/ListQueues.go
-    apis:
-      - service: sqs
-        operations:
-          - ListQueues
+    services:
+      - sqs
   - path: ReceiveLPMessage/ReceiveLPMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - ReceiveMessage
+    services:
+      - sqs
   - path: ReceiveMessage/ReceiveMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - ReceiveMessage
+    services:
+      - sqs
   - path: SendMessage/SendMessage.go
-    apis:
-      - service: sqs
-        operations:
-          - SendMessage
+    services:
+      - sqs
   - path: SendReceiveLongPolling/SendReceiveLongPolling.go
-    apis:
-      - service: sqs
-        operations:
-          - SendMessage
+    services:
+      - sqs
+...

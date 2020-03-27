@@ -33,7 +33,6 @@ the count and coverage output is what you expect.
 
 import argparse
 import os
-import pathlib
 import sys
 from urllib.parse import urljoin
 import urllib.request as request
@@ -48,6 +47,7 @@ EXT_LOOKUP = {
     'cpp': 'C++',
     'cs': 'C#',
     'go': 'Go',
+    'html': 'JavaScript',
     'java': 'Java',
     'js': 'JavaScript',
     'php': 'PHP',

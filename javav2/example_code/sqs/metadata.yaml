@@ -1,30 +1,18 @@
 --- 
-created: 2020-02-25
-files: 
- - path: /src/main/java/com/example/sqs/DeadLetterQueues.java
-   apis: 
-      - service: sqs
-        operations: 
-        - SetQueueAttributes
- - path: /src/main/java/com/example/sqs/LongPolling.java
-   apis: 
-      - service: sqs
-        operations: 
-        - CreateQueue
-        - GetQueueUrl
- - path: /src/main/java/com/example/sqs/SQSExample.java
-   apis: 
-      - service: sqs
-        operations: 
-        - ListQueues
-        - SendMessage
- - path: /src/main/java/com/example/sqs/SendReceiveMessages.java
-   apis: 
-      - service: sqs
-        operations: 
-        - ReceiveMessage
- - path: /src/main/java/com/example/sqs/VisibilityTimeout.java
-   apis: 
-      - service: sqs
-        operations: 
-        - ChangeMessageVisibility
+files:
+  - path: src/main/java/com/example/sqs/DeadLetterQueues.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/LongPolling.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/SQSExample.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/SendReceiveMessages.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/VisibilityTimeout.java
+    services:
+      - sqs
+  - path: src/test/java/SQSServiceIntegrationTest.java
