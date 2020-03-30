@@ -177,12 +177,12 @@ func TestReceiveMessages(t *testing.T) {
 
     t.Log("Slept " + strconv.Itoa(int(globalConfig.SleepSeconds)) + " second(s)")
 
-    msg, err := GetMessage(sess, &queueURL, &globalConfig.Timeout)
+    result, err := GetMessages(sess, &queueURL, &globalConfig.Timeout)
     if err != nil {
         t.Fatal(err)
     }
 
-    if msgID == *msg.MessageId {
+    if msgID == *result.Messages[0].MessageId {
         t.Log("Found sent message")
     } else {
         t.Log("Did NOT find message")
