@@ -26,11 +26,11 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.HelloCdk-stack]
-import core = require("@aws-cdk/core");
-import cloudwatch = require("@aws-cdk/aws-cloudwatch");
-import sns = require("@aws-cdk/aws-sns");
-import sqs = require("@aws-cdk/aws-sqs");
-import subscriptions = require("@aws-cdk/aws-sns-subscriptions");
+import * as core from "@aws-cdk/core";
+import * as cloudwatch from "@aws-cdk/aws-cloudwatch";
+import * as sns from "@aws-cdk/aws-sns";
+import * as sqs from "@aws-cdk/aws-sqs";
+import * as subscriptions from "@aws-cdk/aws-sns-subscriptions";
 
 export class HelloCdkStack extends core.Stack {
   constructor(scope: core.App, id: string, props?: core.StackProps) {
