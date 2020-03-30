@@ -23,6 +23,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
 // snippet-end:[sqs.go.receive_messages.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -46,7 +47,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
     return result, nil
 }
 
-// GetMessage gets the latest message from an Amazon SQS queue
+// GetMessages gets the messages from an Amazon SQS queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     queueURL is the URL of the queue
@@ -54,9 +55,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 // Output:
 //     If success, the latest message and nil
 //     Otherwise, nil and an error from the call to ReceiveMessage
-func GetMessage(sess *session.Session, queueURL *string, timeout *int64) (*sqs.Message, error) {
-    var msg *sqs.Message
-
+func GetMessages(sess *session.Session, queueURL *string, timeout *int64) (*sqs.ReceiveMessageOutput, error) {
     // Create an SQS service client
     // snippet-start:[sqs.go.receive_messages.call]
     svc := sqs.New(sess)
@@ -74,10 +73,10 @@ func GetMessage(sess *session.Session, queueURL *string, timeout *int64) (*sqs.M
     })
     // snippet-end:[sqs.go.receive_messages.call]
     if err != nil {
-        return msg, err
+        return nil, err
     }
 
-    return result.Messages[0], nil
+    return result, nil
 }
 
 func main() {
@@ -109,23 +108,27 @@ func main() {
     // snippet-end:[sqs.go.receive_messages.sess]
 
     // Get URL of queue
-    result, err := GetQueueURL(sess, queue)
+    urlResult, err := GetQueueURL(sess, queue)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
         return
     }
 
-    queueURL := result.QueueUrl
+    queueURL := urlResult.QueueUrl
 
-    msg, err := GetMessage(sess, queueURL, timeout)
+    result, err := GetMessages(sess, queueURL, timeout)
     if err != nil {
         fmt.Println("Got an error receiving messages:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Message ID:     " + *msg.MessageId)
-    fmt.Println("Message Handle: " + *msg.ReceiptHandle)
+    fmt.Println("Message ID:     " + *result.Messages[0].MessageId)
+
+    // snippet-start:[sqs.go.receive_messages.print_handle]
+    fmt.Println("Message Handle: " + *result.Messages[0].ReceiptHandle)
+    // snippet-end:[sqs.go.receive_messages.print_handle]
 }
+
 // snippet-end:[sqs.go.receive_messages]
