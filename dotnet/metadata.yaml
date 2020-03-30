@@ -1,0 +1,19 @@
+# High-value example
+# files:
+#  - path: <file path relative to this metadata.yaml>
+#    services:
+#      - s3
+#      - sqs
+#  - path: <file 2>
+#    services:
+#      - dynamodb
+#
+#
+# Code cleanup example
+# files:
+#  - path: <file path 1 relative to this metadata.yaml>
+#    services:
+#      - s3
+#  - path: <file path 2 relative to this metadata.yaml>
+#    services:
+#      - s3
