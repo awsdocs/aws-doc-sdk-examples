@@ -1,5 +1,5 @@
 {
-  "LambdaARN": "arn:aws:lambda:us-west-2:188580781645:function:my-lambda-function-0c4b720e-c67f-47ff-bb7b-b585276cc6ab",
+  "LambdaARN": "",
   "PolicyName": "",
   "PolicyWait": 1,
   "RoleARN": "",
