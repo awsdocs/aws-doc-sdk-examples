@@ -1,0 +1,7 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <testsuites>
+    <testsuite name="s3">
+      <file>CreateBucket.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

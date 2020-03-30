@@ -31,13 +31,11 @@ use Aws\Exception\AwsException;
 // snippet-start:[s3.php.list_buckets_async.main]
 // snippet-start:[s3.php.list_buckets_async.client]
 // snippet-start:[s3.php.list_buckets_async.async]
-//Create a S3Client
-$s3Client = new S3Client([
-    'profile' => 'default',
-    'region' => 'us-east-2',
-    'version' => 'latest'
+// Create an SDK class used to share configuration across clients.
+$sdk = new Aws\Sdk([
+    'region'   => 'us-west-2',
+    'version'  => 'latest'
 ]);
-
 // Use an Aws\Sdk class to create the S3Client object.
 $s3Client = $sdk->createS3();
 // snippet-end:[s3.php.list_buckets_async.client]
@@ -62,6 +60,7 @@ $promise
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListBucketsAsync.php demonstrates how to asynchronously list your Amazon S3 buckets.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

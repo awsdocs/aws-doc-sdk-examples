@@ -1,0 +1,9 @@
+files:
+  - path: CustomClient/CustomHTTPClient.go
+    services:
+      - s3
+  - path: CustomClient/CustomHTTPClient_test.go
+  - path: TLS/s3SetTls12.go
+    services:
+      - s3
+  - path: TLS/s3SetTls12_test.go

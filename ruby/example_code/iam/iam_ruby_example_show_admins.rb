@@ -9,6 +9,7 @@
 # snippet-keyword:[list_group_policies method]
 # snippet-keyword:[list_groups_for_user method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

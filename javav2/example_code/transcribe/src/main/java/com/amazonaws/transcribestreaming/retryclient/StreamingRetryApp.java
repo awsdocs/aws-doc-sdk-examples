@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[StreamingRetryApp.java is an application that demonstrates using the Amazon Transcribe retry client.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranscribeStreamingAsyncClient]

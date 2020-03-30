@@ -4,6 +4,7 @@
 // snippet-sourcedescription:[Instantiates a stack using HelloCdk-stack]
 // snippet-keyword:[CDK V1.0.0
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -20,10 +21,9 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.HelloCdk]
-import * as core from '@aws-cdk/core';
-
+import * as cdk from '@aws-cdk/core';
 import { HelloCdkStack } from '../lib/HelloCdk-stack';
 
-const app = new core.App();
+const app = new cdk.App();
 new HelloCdkStack(app, 'HelloCdkStack');
 // snippet-end:[cdk.typescript.HelloCdk]

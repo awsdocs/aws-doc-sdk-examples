@@ -13,6 +13,8 @@
 # snippet-sourcedescription:[pinpoint_send_email_message_email_api demonstrates how to send a transactional email message by using the SendEmail operation in the Amazon Pinpoint Email API.]
 # snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Pinpoint Email API]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[SendEmail]

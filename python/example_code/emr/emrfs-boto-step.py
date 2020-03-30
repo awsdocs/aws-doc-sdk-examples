@@ -14,6 +14,8 @@
 # snippet-sourcedescription:[emrfs-boto-step.py demonstrates how to add a step to an EMR cluster that adds objects in an Amazon S3 bucket to the default EMRFS metadata table.]
 # snippet-service:[elasticmapreduce]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon EMR]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
@@ -21,7 +23,6 @@
 # snippet-sourceauthor:[AWS]
 # snippet-start:[emr.python.addstep.emrfs]
 
-import json
 import boto3
 from botocore.exceptions import ClientError
 
@@ -46,7 +47,7 @@ job_flow_step_01 = {
 emr_client = boto3.client('emr')
 try:
     response = emr_client.add_job_flow_steps(JobFlowId=job_flow_id,
-                                             Steps=[json.dumps(job_flow_step_01)])
+                                             Steps=[job_flow_step_01])
 except ClientError as e:
     print(e.response['Error']['Message'])
     exit(1)

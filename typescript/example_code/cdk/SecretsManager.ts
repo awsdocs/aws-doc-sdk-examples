@@ -4,6 +4,7 @@
 // snippet-sourcedescription:[SecretsManager.ts creates a stack using SecrectsManager-stack.ts.]
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

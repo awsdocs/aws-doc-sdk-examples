@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[create_queue.cpp demonstrates how to create an Amazon SQS standard queue.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

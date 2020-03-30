@@ -65,11 +65,11 @@ namespace Amazon.DocSamples.S3
             }
             catch (AmazonS3Exception e)
             {
-                Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
+                Console.WriteLine("Error encountered on server. Message:'{0}' when deleting an object", e.Message);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
+                Console.WriteLine("Unknown encountered on server. Message:'{0}' when deleting an object", e.Message);
             }
         }
 

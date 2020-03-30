@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_verifyemailidentity.js demonstrates how to send an Amazon SES verification email.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

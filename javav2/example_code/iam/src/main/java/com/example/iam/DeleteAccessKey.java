@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[iam]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ package com.example.iam;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.DeleteAccessKeyRequest;
-import software.amazon.awssdk.services.iam.model.DeleteAccessKeyResponse;
- 
+import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.delete_access_key.import]
+
 /**
  * Deletes an access key from an IAM user
  */
@@ -35,8 +35,8 @@ public class DeleteAccessKey {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a username and access key id\n" +
-            "Ex: DeleteAccessKey <username> <access-key-id>\n";
+                "To run this example, supply a username and access key id\n" +
+                        "Ex: DeleteAccessKey <username> <access-key-id>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -44,22 +44,30 @@ public class DeleteAccessKey {
         }
 
         String username = args[0];
-        String access_key = args[1];
+        String accessKey = args[1];
 
         // snippet-start:[iam.java2.delete_access_key.main]
         Region region = Region.AWS_GLOBAL;
-        IamClient iam = IamClient.builder().region(region).build();
+        IamClient iam = IamClient.builder()
+                .region(region)
+                .build();
 
-        DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
-            .accessKeyId(access_key)
-            .userName(username).build();
+        try {
 
-        DeleteAccessKeyResponse response = iam.deleteAccessKey(request); 
-        // snippet-end:[iam.java2.delete_access_key.main]
+            DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
+                .accessKeyId(accessKey)
+                .userName(username).build();
 
-        System.out.println("Successfully deleted access key " + access_key +
+            iam.deleteAccessKey(request);
+
+            // snippet-end:[iam.java2.delete_access_key.main]
+            System.out.println("Successfully deleted access key " + accessKey +
                 " from user " + username);
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 }
-
 // snippet-end:[iam.java2.delete_access_key.complete]

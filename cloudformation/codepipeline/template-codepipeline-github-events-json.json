@@ -35,14 +35,6 @@
         "GitHubOwner": {
             "Type": "String"
         },
-        "GitHubSecret": {
-            "Type": "String",
-            "NoEcho": true
-        },
-        "GitHubOAuthToken": {
-            "Type": "String",
-            "NoEcho": true
-        },
         "ApplicationName": {
             "Description": "CodeDeploy application name",
             "Type": "String",
@@ -127,7 +119,7 @@
                 "Authentication": "GITHUB_HMAC",
                 "AuthenticationConfiguration": {
                     "SecretToken": {
-                        "Ref": "GitHubSecret"
+                        "{{resolve:secretsmanager:MyGitHubSecret:SecretString:token}}"
                     }
                 },
                 "Filters": [
@@ -188,7 +180,7 @@
                                         "Ref": "BranchName"
                                     },
                                     "OAuthToken": {
-                                        "Ref": "GitHubOAuthToken"
+                                        "{{resolve:secretsmanager:MyGitHubSecret:SecretString:token}}"
                                     },
                                     "PollForSourceChanges": false
                                 },

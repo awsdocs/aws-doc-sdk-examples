@@ -1,0 +1,60 @@
+--- 
+files:
+  - path: src/main/java/com/example/ec2/AllocateAddress.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/CreateInstance.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/CreateKeyPair.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/CreateSecurityGroup.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DeleteKeyPair.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DeleteSecurityGroup.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeAccount.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeAddresses.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeInstances.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeKeyPairs.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeRegionsAndZones.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeReservedInstances.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeSecurityGroups.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/DescribeVPCs.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/FindRunningInstances.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/MonitorInstance.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/RebootInstance.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/ReleaseAddress.java
+    services:
+      - ec2
+  - path: src/main/java/com/example/ec2/StartStopInstance.java
+    services:
+      - ec2
+  - path: src/test/java/AWSEC2ServiceIntegrationTest.java

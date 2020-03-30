@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ActivityWorkerWithGracefulShutdown.java demonstrates how to implement an activity worker with a graceful shutdown.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]
@@ -24,6 +25,7 @@ package aws.example.helloswf;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.ActivityTask;
@@ -35,7 +37,7 @@ import com.amazonaws.services.simpleworkflow.model.TaskList;
 public class ActivityWorkerWithGracefulShutdown {
 
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+        AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
     private static CountDownLatch waitForTermination = new CountDownLatch(1);
     private static volatile boolean terminate = false;
 

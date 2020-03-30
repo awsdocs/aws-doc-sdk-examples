@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteApp.java demonstrates how to delete an application in the Pinpoint dashboard.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]

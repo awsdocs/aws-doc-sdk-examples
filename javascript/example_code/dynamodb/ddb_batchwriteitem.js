@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ddb_batchwriteitem.js demonstrates how to put or delete items into an Amazon DynamoDB table.]
 //snippet-service:[dynamodb]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]

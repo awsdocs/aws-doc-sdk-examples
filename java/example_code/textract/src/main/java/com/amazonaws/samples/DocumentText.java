@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[DocumentText.java demonstrates how to display bounding boxes around detected text.]
 // snippet-service:[textract]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DetectDocumentText]

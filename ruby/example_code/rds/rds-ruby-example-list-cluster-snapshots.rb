@@ -5,6 +5,7 @@
 # snippet-keyword:[db_clusters method]
 # snippet-keyword:[DBClusters.snapshots method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[rds]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

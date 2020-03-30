@@ -1,0 +1,48 @@
+--- 
+files:
+ - path: src/main/java/com/example/cloudwatch/DeleteAlarm.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DeleteSubscriptionFilter.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DescribeAlarms.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DescribeSubscriptionFilters.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/DisableAlarmActions.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/EnableAlarmActions.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/GetLogEvents.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/ListMetrics.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutEvents.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutLogEvents.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutMetricAlarm.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutMetricData.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutRule.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutSubscriptionFilter.java
+   services:
+     - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/PutTargets.java
+   services:
+     - cloudwatch
+ - path: src/test/java/CloudWatchServiceIntegrationTest.java

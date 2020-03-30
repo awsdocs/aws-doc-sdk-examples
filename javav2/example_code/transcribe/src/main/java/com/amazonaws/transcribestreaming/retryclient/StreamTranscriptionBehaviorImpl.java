@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[StreamTranscriptionBehaviorImpl.java demonstrates how to   .]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[TranscribeStreamingAsyncClient]

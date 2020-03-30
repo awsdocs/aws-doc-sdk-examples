@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[HlsJobCreationSample.java demonstrates how to create an HLS job.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Transcoder]
 //snippet-service:[elastictranscoder]

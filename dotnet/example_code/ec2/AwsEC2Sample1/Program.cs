@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsEC2Sample2 example demonstrates how to use various operations, like create instance and create key pairs, in the EC2 client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
@@ -77,7 +78,7 @@ namespace AwsEC2Sample1
                 ImageId = imageId,
                 MinCount = 1,
                 MaxCount = 1,
-                InstanceType = new InstanceType("t1.micro")
+                InstanceType = new InstanceType("t2.micro")
 
             };
             var instanceId = ec2Client.RunInstances(runRequest).Reservation.Instances[0].InstanceId;

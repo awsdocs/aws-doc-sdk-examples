@@ -2,6 +2,7 @@
 //snippet-sourcedescription:[Program.cs can be used to execute the other Athena examples in this solution.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]

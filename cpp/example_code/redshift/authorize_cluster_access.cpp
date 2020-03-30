@@ -3,6 +3,7 @@
 //snippet-service:[redshift]
 //snippet-keyword:[Amazon Redshift]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-02-05]

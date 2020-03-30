@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon Glacier]
 // snippet-keyword:[CreateVault function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[glacier]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

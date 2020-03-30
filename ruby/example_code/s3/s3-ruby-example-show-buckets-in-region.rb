@@ -5,6 +5,7 @@
 # snippet-keyword:[get_bucket_location method]
 # snippet-keyword:[Resource.buckets method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

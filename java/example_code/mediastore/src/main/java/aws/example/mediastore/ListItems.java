@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListItems.java demonstrates how to list objects and folders within an AWS Elemental MediaStore container.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mediastore]
 //snippet-sourcetype:[full-example]

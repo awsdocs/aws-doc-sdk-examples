@@ -33,11 +33,10 @@ use Aws\S3\Exception\S3Exception;
  */
 // snippet-start:[s3.php.error_handling.main]
 // snippet-start:[s3.php.error_handling.client]
-//Create a S3Client
-$s3Client = new S3Client([
-    'profile' => 'default',
-    'region' => 'us-east-2',
-    'version' => 'latest'
+// Create an SDK class used to share configuration across clients.
+$sdk = new Aws\Sdk([
+    'region'   => 'us-west-2',
+    'version'  => 'latest'
 ]);
 
 // Use an Aws\Sdk class to create the S3Client object.
@@ -91,6 +90,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ErrorHandling.php demonstrates how to create a Amazon S3 Bucket Asynchronously with Errors Handled if something goes wrong.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

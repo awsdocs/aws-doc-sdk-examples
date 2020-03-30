@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[determine_object_encryption_state.rb shows how to determine the encryption state of an existing object.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GET server_side_encryption Object]

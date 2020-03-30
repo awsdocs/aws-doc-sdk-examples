@@ -1,6 +1,7 @@
 //snippet-sourcedescription:[AwsSqsSample1 example demonstrates how to use the various queue and message operations on the Amazon SQS client.]
 //snippet-keyword:[dotnet]
 //snippet-keyword:[.NET]
+//snippet-sourcesyntax:[.net]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
@@ -26,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.SQS;
 using Amazon.SQS.Model;
@@ -36,10 +38,11 @@ namespace AwsSqsSample1
     {
         public static void Main(string[] args)
         {
-            // Create an SQS client for use in examples
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
         }
-        public static void ChangeMessageVisibilityBatch(IAmazonSQS client, string url)
+        public static async Task ChangeMessageVisibilityBatch(IAmazonSQS client, string url)
         {
             // Receive messages.
             var msgRequest = new ReceiveMessageRequest
@@ -48,7 +51,7 @@ namespace AwsSqsSample1
                 QueueUrl = url
             };
 
-            var msgResponse = client.ReceiveMessage(msgRequest);
+            var msgResponse = await client.ReceiveMessageAsync(msgRequest);
 
             // Change visibility timeout for each message.
             if (msgResponse.Messages.Count > 0)
@@ -77,7 +80,7 @@ namespace AwsSqsSample1
                     QueueUrl = url
                 };
 
-                var batResponse = client.ChangeMessageVisibilityBatch(batRequest);
+                var batResponse = await client.ChangeMessageVisibilityBatchAsync(batRequest);
 
                 Console.WriteLine("Successes: " + batResponse.Successful.Count +
                   ", Failures: " + batResponse.Failed.Count);
@@ -103,8 +106,10 @@ namespace AwsSqsSample1
             }
 
         }
-        public void DeadLetterQueueExample()
+        public async Task DeadLetterQueueExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var setQueueAttributeRequest = new SetQueueAttributesRequest
@@ -116,20 +121,26 @@ namespace AwsSqsSample1
                 QueueUrl = "SOURCE_QUEUE_URL"
             };
 
-            client.SetQueueAttributes(setQueueAttributeRequest);
+            await client.SetQueueAttributesAsync(setQueueAttributeRequest);
         }
-        public void ListQueueExample()
+
+        public async Task ListQueueExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
-            ListQueuesResponse response = client.ListQueues(new ListQueuesRequest());
+            ListQueuesResponse response = await client.ListQueuesAsync(new ListQueuesRequest());
             foreach (var queueUrl in response.QueueUrls)
             {
                 Console.WriteLine(queueUrl);
             }
         }
-        public void CreateQueueExample()
+
+        public async Task CreateQueueExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var request = new CreateQueueRequest
@@ -143,11 +154,14 @@ namespace AwsSqsSample1
             };
 
 
-            var response = client.CreateQueue(request);
+            var response = await client.CreateQueueAsync(request);
             Console.WriteLine("Created a queue with URL : {0}", response.QueueUrl);
         }
-        public void GetQueueUrlExample()
+
+        public async Task GetQueueUrlExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var request = new GetQueueUrlRequest
@@ -155,11 +169,14 @@ namespace AwsSqsSample1
                 QueueName = "SQS_QUEUE_NAME"
             };
 
-            GetQueueUrlResponse response = client.GetQueueUrl(request);
+            GetQueueUrlResponse response = await client.GetQueueUrlAsync(request);
             Console.WriteLine("The SQS queue's URL is {1}", response.QueueUrl);
         }
-        public void DeleteQueueExample()
+
+        public async Task DeleteQueueExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var request = new DeleteQueueRequest
@@ -167,10 +184,13 @@ namespace AwsSqsSample1
                 QueueUrl = "SQS_QUEUE_URL"
             };
 
-            client.DeleteQueue(request);
+            await client.DeleteQueueAsync(request);
         }
-        public void SendMssageExample()
+
+        public async Task SendMssageExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var sendMessageRequest = new SendMessageRequest
@@ -186,11 +206,14 @@ namespace AwsSqsSample1
                 QueueUrl = "SQS_QUEUE_URL"
             };
 
-            var response = client.SendMessage(sendMessageRequest);
+            var response = await client.SendMessageAsync(sendMessageRequest);
             Console.WriteLine("Sent a message with id : {0}", response.MessageId);
         }
-        public void SendMessageBatchExample()
+
+        public async Task SendMessageBatchExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var sendMessageBatchRequest = new SendMessageBatchRequest
@@ -204,7 +227,7 @@ namespace AwsSqsSample1
                 QueueUrl = "SQS_QUEUE_URL"
             };
 
-            var response = client.SendMessageBatch(sendMessageBatchRequest);
+            var response = await client.SendMessageBatchAsync(sendMessageBatchRequest);
 
             Console.WriteLine("Messages successfully sent:");
             foreach (var success in response.Successful)
@@ -221,8 +244,11 @@ namespace AwsSqsSample1
                 Console.WriteLine("    Sender's fault? : {0}", failed.SenderFault);
             }
         }
-        public void ReceiveAndDeleteMessageExample()
+
+        public async Task ReceiveAndDeleteMessageExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
             string queueUrl = "SQS_QUEUE_URL";
 
@@ -239,7 +265,7 @@ namespace AwsSqsSample1
                 WaitTimeSeconds = 0
             };
 
-            var receiveMessageResponse = client.ReceiveMessage(receiveMessageRequest);
+            var receiveMessageResponse = await client.ReceiveMessageAsync(receiveMessageRequest);
 
             //
             // Delete the received single message
@@ -250,10 +276,12 @@ namespace AwsSqsSample1
                 ReceiptHandle = receiveMessageResponse.Messages[0].ReceiptHandle
             };
 
-            client.DeleteMessage(deleteMessageRequest);
+            await client.DeleteMessageAsync(deleteMessageRequest);
         }
-        public void ChangeMessageVisibility()
+        public async Task ChangeMessageVisibility()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
             string queueUrl = "SQS_QUEUE_URL";
 
@@ -265,7 +293,7 @@ namespace AwsSqsSample1
                 QueueUrl = queueUrl
             };
 
-            var response = client.ReceiveMessage(receiveMessageRequest);
+            var response = await client.ReceiveMessageAsync(receiveMessageRequest);
 
             var changeMessageVisibilityRequest = new ChangeMessageVisibilityRequest
             {
@@ -274,10 +302,12 @@ namespace AwsSqsSample1
                 VisibilityTimeout = 36000, // 10 hour timeout
             };
 
-            client.ChangeMessageVisibility(changeMessageVisibilityRequest);
+            await client.ChangeMessageVisibilityAsync(changeMessageVisibilityRequest);
         }
-        public void ChangeMessageVisibilityBatch()
+        public async Task ChangeMessageVisibilityBatch()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
             string queueUrl = "SQS_QUEUE_URL";
 
@@ -289,7 +319,7 @@ namespace AwsSqsSample1
                 QueueUrl = queueUrl
             };
 
-            var receiveMessageResponse = client.ReceiveMessage(receiveMessageRequest);
+            var receiveMessageResponse = await client.ReceiveMessageAsync(receiveMessageRequest);
             List<ChangeMessageVisibilityBatchRequestEntry> entries = new List<ChangeMessageVisibilityBatchRequestEntry>();
 
             foreach (var message in receiveMessageResponse.Messages)
@@ -302,7 +332,7 @@ namespace AwsSqsSample1
                 });
             }
 
-            var changeMessageVisibilityBatchResponse = client.ChangeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest
+            var changeMessageVisibilityBatchResponse = await client.ChangeMessageVisibilityBatchAsync(new ChangeMessageVisibilityBatchRequest
             {
                 QueueUrl = queueUrl,
                 Entries = entries
@@ -321,8 +351,10 @@ namespace AwsSqsSample1
                 Console.WriteLine("    Sender's fault? : {0}", failed.SenderFault);
             }
         }
-        public void OnCreateQueueExample()
+        public async Task OnCreateQueueExample()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var request = new CreateQueueRequest
@@ -334,11 +366,14 @@ namespace AwsSqsSample1
                 }
             };
 
-            var response = client.CreateQueue(request);
+            var response = await client.CreateQueueAsync(request);
             Console.WriteLine("Created a queue with URL : {0}", response.QueueUrl);
         }
-        public void OnExistingQueue()
+
+        public async Task OnExistingQueue()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var request = new SetQueueAttributesRequest
@@ -350,10 +385,13 @@ namespace AwsSqsSample1
                 QueueUrl = "SQS_QUEUE_URL"
             };
 
-            var response = client.SetQueueAttributes(request);
+            var response = await client.SetQueueAttributesAsync(request);
         }
-        public void OnMessageReceipt()
+
+        public async Task OnMessageReceipt()
         {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
             AmazonSQSClient client = new AmazonSQSClient();
 
             var request = new ReceiveMessageRequest
@@ -365,7 +403,7 @@ namespace AwsSqsSample1
                 WaitTimeSeconds = 20
             };
 
-            var response = client.ReceiveMessage(request);
+            var response = await client.ReceiveMessageAsync(request);
         }
     }
-    }
+}

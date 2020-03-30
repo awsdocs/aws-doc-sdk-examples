@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[describe_trails.cpp demonstrates how to retrieve information about an AWS CloudTrail resource.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CloudTrail]
 //snippet-service:[cloudtrail]

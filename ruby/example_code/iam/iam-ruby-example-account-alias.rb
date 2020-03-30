@@ -6,6 +6,7 @@
 # snippet-keyword:[delete_account_alias method]
 # snippet-keyword:[list_account_aliases method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

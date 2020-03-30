@@ -3,11 +3,11 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/24/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 // snippet-start:[sqs.java2.sqs_example.complete]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,10 @@ public class SQSExample {
 
     public static void main(String[] args) {
         String queueName = "queue" + System.currentTimeMillis();
-        SqsClient sqsClient = SqsClient.builder().region(Region.US_WEST_2).build();
+
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
         System.out.println("\nCreate Queue");
         // snippet-start:[sqs.java2.sqs_example.create_queue]
@@ -71,17 +74,17 @@ public class SQSExample {
         ListQueuesRequest listQueuesRequest = ListQueuesRequest.builder().queueNamePrefix(prefix).build();
         ListQueuesResponse listQueuesResponse = sqsClient.listQueues(listQueuesRequest);
         for (String url : listQueuesResponse.queueUrls()) {
-        	System.out.println(url);
+            System.out.println(url);
         }
         // snippet-end:[sqs.java2.sqs_example.list_queues]
 
         // List queues with filters
-        String name_prefix = "queue";
+        String namePrefix = "queue";
         ListQueuesRequest filterListRequest = ListQueuesRequest.builder()
-        		.queueNamePrefix(name_prefix).build();
+                .queueNamePrefix(namePrefix).build();
 
         ListQueuesResponse listQueuesFilteredResponse = sqsClient.listQueues(filterListRequest);
-        System.out.println("Queue URLs with prefix: " + name_prefix);
+        System.out.println("Queue URLs with prefix: " + namePrefix);
         for (String url : listQueuesFilteredResponse.queueUrls()) {
             System.out.println(url);
         }
@@ -118,11 +121,13 @@ public class SQSExample {
 
         System.out.println("\nChange Message Visibility");
         for (Message message : messages) {
-            ChangeMessageVisibilityRequest req = ChangeMessageVisibilityRequest.builder().queueUrl(queueUrl)
-                    .receiptHandle(message.receiptHandle()).visibilityTimeout(100).build();
+            ChangeMessageVisibilityRequest req = ChangeMessageVisibilityRequest.builder()
+                    .queueUrl(queueUrl)
+                    .receiptHandle(message.receiptHandle())
+                    .visibilityTimeout(100)
+                    .build();
             sqsClient.changeMessageVisibility(req);
         }
-
 
         System.out.println("\nDelete Messages");
         // snippet-start:[sqs.java2.sqs_example.delete_message]

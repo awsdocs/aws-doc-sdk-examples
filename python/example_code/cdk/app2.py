@@ -1,6 +1,8 @@
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[app.py creates an Amazon S3 bucket.
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CDK]
 # snippet-keyword:[Amazon S3]
 # snippet-service:[s3]
@@ -21,20 +23,20 @@
 # snippet-start:[cdk.python.bucket2]
 from aws_cdk import (
     aws_s3 as s3,
-    cdk,
+    core,
 )
 
 
-class S3Stack(cdk.Stack):
-    def __init__(self, app: cdk.App, id: str) -> None:
+class S3Stack(core.Stack):
+    def __init__(self, app: core.App, id: str) -> None:
         super().__init__(app, id)
 
-        bucket = aws_s3.Bucket(
+        bucket = s3.Bucket(
             self, "MyBucket",
             versioned=True,
-            encryption=aws_s3.BucketEncryption.KmsManaged)
+            encryption=aws_s3.BucketEncryption.KMS_MANAGED)
 
-app = cdk.App()
+app = core.App()
 S3Stack(app, "MyStack")
-app.run()
+app.synth()
 # snippet-end:[cdk.python.bucket2]

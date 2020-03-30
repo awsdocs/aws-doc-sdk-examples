@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DeleteDominantLanguage demonstrates how to determine the dominant language used in a text.]
 // snippet-service:[comprehend]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DetectDominantLanguage]

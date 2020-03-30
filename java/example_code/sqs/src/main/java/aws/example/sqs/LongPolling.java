@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to enable long polling when creating a queue.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]
@@ -69,7 +70,7 @@ public class LongPolling
         // Enable long polling on a message receipt
         ReceiveMessageRequest receive_request = new ReceiveMessageRequest()
                 .withQueueUrl(queue_url)
-                .withWaitTimeSeconds(40);
+                .withWaitTimeSeconds(20);
         sqs.receiveMessage(receive_request);
     }
 }

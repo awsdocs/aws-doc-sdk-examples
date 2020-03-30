@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS Identity and Access Management]
 # snippet-keyword:[user method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

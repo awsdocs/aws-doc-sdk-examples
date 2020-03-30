@@ -52,6 +52,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_Presets.php demonstrates how to list available presets for Elastic Transcoder Jobs.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[listPresets]
 // snippet-keyword:[Code Sample]

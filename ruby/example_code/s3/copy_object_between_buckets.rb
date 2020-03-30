@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[copy_object_between_buckets demonstrates the preceding tasks using the "copy_object" method to copy an object from one bucket to another.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[COPY object]

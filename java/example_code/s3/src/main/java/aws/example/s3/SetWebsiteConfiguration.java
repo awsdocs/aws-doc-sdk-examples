@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[setBucketWebsiteConfiguration]
@@ -25,15 +26,16 @@
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_set_website_config.import]
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
-import com.amazonaws.AmazonServiceException;
 // snippet-end:[s3.java1.s3_set_website_config.import]
 
 /**
  * Set the website configuration for an S3 bucket.
- * <p>
+ * 
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
@@ -52,7 +54,7 @@ public class SetWebsiteConfiguration {
             website_config = new BucketWebsiteConfiguration(index_doc, error_doc);
         }
 
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         try {
             s3.setBucketWebsiteConfiguration(bucket_name, website_config);
         } catch (AmazonServiceException e) {

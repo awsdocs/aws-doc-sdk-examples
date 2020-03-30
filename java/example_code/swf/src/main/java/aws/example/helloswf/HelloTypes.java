@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[HelloTypes.java demonstrates how to register a domain, activity type and a workflow type.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]
@@ -24,6 +25,7 @@ package aws.example.helloswf;
 //snippet-end:[swf.java.hello_types.package]
 
 //snippet-start:[swf.java.hello_types.import]
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.*;
@@ -41,7 +43,7 @@ public class HelloTypes {
 
     //snippet-start:[swf.java.hello_types.client]
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+        AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
     //snippet-end:[swf.java.hello_types.client]
 
     public static void registerDomain() {

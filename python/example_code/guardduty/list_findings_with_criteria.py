@@ -3,6 +3,8 @@
 # snippet-service:[guardduty]
 # snippet-keyword:[Amazon GuardDuty]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2018-12-25]

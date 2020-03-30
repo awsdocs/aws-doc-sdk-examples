@@ -10,6 +10,7 @@
 // snippet-keyword:[CloudWatch.Metric function]
 // snippet-keyword:[CloudWatch.Alarm function]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

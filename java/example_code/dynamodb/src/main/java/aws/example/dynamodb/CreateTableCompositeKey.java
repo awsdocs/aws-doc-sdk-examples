@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create a DynamoDB table with a composite key.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

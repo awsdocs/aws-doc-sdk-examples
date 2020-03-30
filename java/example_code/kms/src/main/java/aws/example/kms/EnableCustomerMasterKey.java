@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[EnableCustomerMasterKey.java demonstrates how to enable a disabled customer master key (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

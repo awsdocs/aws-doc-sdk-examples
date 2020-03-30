@@ -2,6 +2,7 @@
 // snippet-sourceauthor:[Doug-AWS]
 // snippet-sourcedescription:[s3_crud_ops_test.go tests functions in s3_crud_ops.go.]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[s3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

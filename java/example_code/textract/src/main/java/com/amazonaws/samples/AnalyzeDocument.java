@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[AnalyzeDocument.java demonstrates how to display bounding boxes around analyzed text.]
 // snippet-service:[textract]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AnalyzeDocument]

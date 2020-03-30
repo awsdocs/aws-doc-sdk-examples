@@ -17,6 +17,7 @@
 // snippet-sourcedescription:[index.js demonstrates how to query for information from Amazon Athena.]
 // snippet-service:[athena]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Athena]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

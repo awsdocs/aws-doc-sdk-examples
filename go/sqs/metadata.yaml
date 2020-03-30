@@ -1,0 +1,42 @@
+---
+files:
+  - path: ChangeMsgVisibility/ChangeMsgVisibility.go
+    services:
+      - sqs
+  - path: ConfigureLPQueue/ConfigureLPQueue.go
+    service:
+    - sqs
+  - path: CreateLPQueue/CreateLPQueue.go
+    services:
+      - sqs
+  - path: CreateQueue/CreateQueue.go
+    services:
+      - sqs
+  - path: DeadLetterQueue/DeadLetterQueue.go
+    services:
+      - sqs
+  - path: DeleteMessage/DeleteMessage.go
+    services:
+      - sqs
+  - path: DeleteQueue/DeleteQueue.go
+    services:
+      - sqs
+  - path: GetQueueURL/GetQueueURL.go
+    services:
+      - sqs
+  - path: ListQueues/ListQueues.go
+    services:
+      - sqs
+  - path: ReceiveLPMessage/ReceiveLPMessage.go
+    services:
+      - sqs
+  - path: ReceiveMessage/ReceiveMessage.go
+    services:
+      - sqs
+  - path: SendMessage/SendMessage.go
+    services:
+      - sqs
+  - path: SendReceiveLongPolling/SendReceiveLongPolling.go
+    services:
+      - sqs
+...

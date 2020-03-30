@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-display-bounding-boxes.java demonstrates how to detect display bounding boxes around faces detected in an image loaded from an S3 Bucket.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DetectFaces]

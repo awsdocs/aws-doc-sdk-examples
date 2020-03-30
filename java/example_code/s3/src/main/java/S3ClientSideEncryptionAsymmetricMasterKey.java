@@ -1,20 +1,21 @@
 /**
  * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
+ * 
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
  * the License is located at
- *
+ * 
  * http://aws.amazon.com/apache2.0/
- *
+ * 
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
-*/
+ */
 
 // snippet-sourcedescription:[S3ClientSideEncryptionAsymmetricMasterKey.java demonstrates how to upload and download encrypted objects using S3 with a client-side asymmetric master key.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[PUT Object]
@@ -24,38 +25,25 @@
 // snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.s3_client_side_encryption_asymmetric_master_key.complete]
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3EncryptionClientBuilder;
+import com.amazonaws.services.s3.model.*;
+import com.amazonaws.util.IOUtils;
+
+import java.io.*;
+import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3EncryptionClientBuilder;
-import com.amazonaws.services.s3.model.EncryptionMaterials;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.StaticEncryptionMaterialsProvider;
-import com.amazonaws.util.IOUtils;
-
 public class S3ClientSideEncryptionAsymmetricMasterKey {
 
     public static void main(String[] args) throws Exception {
-        String clientRegion = "*** Client region ***";
+        Regions clientRegion = Regions.DEFAULT_REGION;
         String bucketName = "*** Bucket name ***";
         String objectKeyName = "*** Key name ***";
         String rsaKeyDir = System.getProperty("java.io.tmpdir");
@@ -79,7 +67,7 @@ public class S3ClientSideEncryptionAsymmetricMasterKey {
                     .withEncryptionMaterials(new StaticEncryptionMaterialsProvider(encryptionMaterials))
                     .withRegion(clientRegion)
                     .build();
-    
+
             // Create a new object.
             byte[] plaintext = "S3 Object Encrypted Using Client-Side Asymmetric Master Key.".getBytes();
             S3Object object = new S3Object();
@@ -89,36 +77,34 @@ public class S3ClientSideEncryptionAsymmetricMasterKey {
             metadata.setContentLength(plaintext.length);
 
             // Upload the object. The encryption client automatically encrypts it.
-            PutObjectRequest putRequest = new PutObjectRequest(bucketName, 
-                                                               object.getKey(), 
-                                                               object.getObjectContent(),
-                                                               metadata);
+            PutObjectRequest putRequest = new PutObjectRequest(bucketName,
+                    object.getKey(),
+                    object.getObjectContent(),
+                    metadata);
             s3EncryptionClient.putObject(putRequest);
-    
+
             // Download and decrypt the object.
             S3Object downloadedObject = s3EncryptionClient.getObject(bucketName, object.getKey());
             byte[] decrypted = IOUtils.toByteArray(downloadedObject.getObjectContent());
-    
+
             // Verify that the data that you downloaded is the same as the original data.
             System.out.println("Plaintext: " + new String(plaintext));
             System.out.println("Decrypted text: " + new String(decrypted));
-        }
-        catch(AmazonServiceException e) {
+        } catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process 
             // it, so it returned an error response.
             e.printStackTrace();
-        }
-        catch(SdkClientException e) {
+        } catch (SdkClientException e) {
             // Amazon S3 couldn't be contacted for a response, or the client
             // couldn't parse the response from Amazon S3.
             e.printStackTrace();
         }
     }
 
-    private static void saveKeyPair(String dir, 
-                                   String publicKeyName, 
-                                   String privateKeyName, 
-                                   KeyPair keyPair) throws IOException {
+    private static void saveKeyPair(String dir,
+                                    String publicKeyName,
+                                    String privateKeyName,
+                                    KeyPair keyPair) throws IOException {
         PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
 
@@ -136,9 +122,9 @@ public class S3ClientSideEncryptionAsymmetricMasterKey {
     }
 
     private static KeyPair loadKeyPair(String dir,
-                                      String publicKeyName,
-                                      String privateKeyName,
-                                      String algorithm)
+                                       String publicKeyName,
+                                       String privateKeyName,
+                                       String algorithm)
             throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         // Read the public key from the specified file.
         File publicKeyFile = new File(dir + File.separator + publicKeyName);

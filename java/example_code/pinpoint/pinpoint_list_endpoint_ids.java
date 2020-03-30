@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_list_endpoint_ids demonstrates how to produce a list of endpoint IDs that are associated with an Amazon Pinpoint project/application. This code example only works if you've already exported a list of endpoints by using the pinpoint_export_endpoints example.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateExportJob]

@@ -5,6 +5,7 @@
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[s3.Bucket function]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -32,7 +33,7 @@ export class HelloCdkStack extends core.Stack {
     // snippet-start:[cdk.typescript.hello-cdk-stack.version2_bucket]
 new s3.Bucket(this, 'MyFirstBucket', {
   versioned: true,
-  encryption: s3.BucketEncryption.KmsManaged
+  encryption: s3.BucketEncryption.KMS_MANAGED
 });
     // snippet-end:[cdk.typescript.hello-cdk-stack.version2_bucket]    
   }

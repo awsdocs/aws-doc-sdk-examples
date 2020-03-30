@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListCustomerMasterKeys.java demonstrates how to get the IDs and ARNs of the customer master keys (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

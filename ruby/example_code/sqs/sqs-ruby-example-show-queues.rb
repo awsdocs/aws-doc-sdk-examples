@@ -5,6 +5,7 @@
 # snippet-keyword:[get_queue_attributes method]
 # snippet-keyword:[list_queues method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sqs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
