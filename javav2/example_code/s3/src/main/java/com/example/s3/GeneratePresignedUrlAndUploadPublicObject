@@ -9,7 +9,7 @@
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -23,10 +23,10 @@
  *
  */
 
-// snippet-start:[presigned.java2.generatepresignedurlpublicacl.complete]
+// snippet-start:[presigned.java2.generatepresignedurl.complete]
 package com.example.s3;
 
-// snippet-start:[presigned.java2.generatepresignedurlpublicacl.import]
+// snippet-start:[presigned.java2.generatepresignedurl.import]
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -37,7 +37,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequ
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
 
-public class GeneratePresignedUrlAndUploadPublicObject {
+public class GeneratePresignedUrlAndUploadObject {
 
     public static void main(String[] args) {
         if (args.length < 2) {
@@ -45,7 +45,7 @@ public class GeneratePresignedUrlAndUploadPublicObject {
             System.exit(1);
         }
 
-        // snippet-start:[presigned.java2.generatepresignedurlpublicacl.main]
+        // snippet-start:[presigned.java2.generatepresignedurl.main]
         String bucketName = args[0];
         String keyName = args[1];
 
@@ -55,7 +55,7 @@ public class GeneratePresignedUrlAndUploadPublicObject {
         try {
             PresignedPutObjectRequest presignedRequest =
                     presigner.presignPutObject(z -> z.signatureDuration(Duration.ofMinutes(10))
-                            .putObjectRequest(por -> por.bucket(bucketName).key(keyName).acl(ObjectCannedACL.PUBLIC_READ)));
+                            .putObjectRequest(por -> por.bucket(bucketName).key(keyName)));
 
             System.out.println("Pre-signed URL to upload a file to: " +
                     presignedRequest.url());
@@ -69,7 +69,6 @@ public class GeneratePresignedUrlAndUploadPublicObject {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type","text/plain");
-            connection.setRequestProperty("x-amz-acl", "public-read");
             connection.setRequestMethod("PUT");
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
             out.write("This text uploaded as an object via presigned URL.");
