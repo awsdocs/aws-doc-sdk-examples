@@ -8,9 +8,9 @@ This is a collection of examples for the AWS SDK for .NET public documentation.
 The code examples appear in two main folders:
 
 - example_code:  This folder contains code examples that have unit tests.
-- example_code_legacy:  This folder contains legacy code examples. Legacy code examples may use older versions of the .NET framework, and they may not contain unit tests.
+- example_code_legacy:  This folder contains legacy code examples. Legacy code examples might use older versions of the .NET framework, and they might not contain unit tests.
 
-Legacy code examples may be updated and moved from the example_code_legacy to the example_code folder. 
+Legacy code examples might be updated and moved from the example_code_legacy to the example_code folder. 
 
 
 # Prerequisites
@@ -25,7 +25,7 @@ Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welc
 
 # Building and running code examples
 
-For each code example, follow the instructions in the readme file for the example.  In general, follow these steps:
+For each code example, follow the instructions in the README file for the example.  In general, follow these steps:
 
 - Open the solution file for the code example in Visual Studio.
 - Compile and run the solution.

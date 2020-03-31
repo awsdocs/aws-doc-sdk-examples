@@ -1,4 +1,4 @@
-# README for AWS SDK for .NET Documentation Examples - New and updated code examples
+# README for AWS SDK for .NET documentation examples - new and updated code examples
 
 This is a collection of new and updated code examples for the AWS SDK for .NET public documentation.  Each code example in this folder contains corresponding unit tests.
 
@@ -17,7 +17,7 @@ Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welc
 
 # Building and running code examples
 
-For each code example, follow the instructions in the readme file for the example.  In general, follow these steps:
+For each code example, follow the instructions in the README file for the example.  In general, follow these steps:
 
 - Open the solution file for the code example in Visual Studio.
 - Compile and run the solution.
