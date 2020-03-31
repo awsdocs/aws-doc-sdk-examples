@@ -7,7 +7,7 @@ You can find legacy code examples in the folder example_code_legacy.  Legacy cod
 
 # Prerequisites
 
-To build and run the code examples in this collection, you'll need:
+To build and run the code examples in this collection, you need the following:
 
 - The AWS SDK for .NET. For more information, see the [AWS SDK for .NET
 Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html).
@@ -15,7 +15,7 @@ Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welc
 - AWS credentials, either configured in a local AWS credentials file, or by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.  For more information, see the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/overview.html).
 
 
-# Building and running code examples
+# Building and running the code examples
 
 For each code example, follow the instructions in the README file for the example.  In general, follow these steps:
 
@@ -25,7 +25,7 @@ For each code example, follow the instructions in the README file for the exampl
 
 ## Additional information
 
-- As an AWS best practice, grant all code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the AWS Identity and Access Management User Guide.
+- As an AWS best practice, grant all code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*.
 
 - This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) on the AWS website.
 
