@@ -1,4 +1,9 @@
-# High-value example
+# Be sure to list any .cs supporting files that don't contain service calls
+#   (such as test files) with just the path and no services block.
+# Otherwise, they'll be picked up as not yet cleaned.
+#
+# ---
+# High-value example 1
 # files:
 #  - path: <file path relative to this metadata.yaml>
 #    services:
@@ -8,7 +13,20 @@
 #    services:
 #      - dynamodb
 #
+# ...
+# ---
+# High-value example 2
+# files:
+#  - path: <file path relative to this metadata.yaml>
+#    services:
+#      - s3
+#      - sqs
+#  - path: <file 2>
+#    services:
+#      - dynamodb
 #
+# ...
+# ---
 # Code cleanup example
 # files:
 #  - path: <file path 1 relative to this metadata.yaml>
@@ -17,3 +35,4 @@
 #  - path: <file path 2 relative to this metadata.yaml>
 #    services:
 #      - s3
+# ...
