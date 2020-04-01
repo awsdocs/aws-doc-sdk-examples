@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an AWS DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
@@ -32,16 +32,9 @@ import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 // snippet-end:[dynamodb.java2.enhanced.batchitems.import]
 
 public class BatchWriteItems {
-
-    private static final ProvisionedThroughput DEFAULT_PROVISIONED_THROUGHPUT =
-            ProvisionedThroughput.builder()
-                    .readCapacityUnits(50L)
-                    .writeCapacityUnits(50L)
-                    .build();
 
     private static final TableSchema<Record> TABLE_SCHEMA =
             StaticTableSchema.builder(Record.class)
@@ -75,52 +68,55 @@ public class BatchWriteItems {
                 .region(region)
                 .build();
 
-        try{
-            // snippet-start:[dynamodb.java2.enhanced.batchitems.main]
             // Create a DynamoDbEnhancedClient object
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                     .dynamoDbClient(ddb)
                     .build();
 
-            //Create a DynamoDbTable object
-            DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
+            PutBatchRecords(enhancedClient);
+        }
+        // snippet-start:[dynamodb.java2.enhanced.batchitems.main]
+        public static void PutBatchRecords(DynamoDbEnhancedClient enhancedClient ) {
+            try {
 
-            //Populate the Table
-            Record record2 = new Record()
+                //Create a DynamoDbTable object
+                DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
+
+                //Populate the Table
+                Record record2 = new Record()
                     .setId("id5")
                     .setSort("sort-value5")
                     .setAttribute("val1-5")
                     .setAttribute2("att2-5")
                     .setAttribute3("att3-5");
 
-            Record record3 = new Record()
+                Record record3 = new Record()
                     .setId("id6")
                     .setSort("sort-value6")
                     .setAttribute("val1-6")
                     .setAttribute2("att2-6")
                     .setAttribute3("att3-6");
 
-            BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest =
+                // Create a BatchWriteItemEnhancedRequest object
+                BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest =
                     BatchWriteItemEnhancedRequest.builder()
                             .writeBatches(
                                     WriteBatch.builder(Record.class)
                                             .mappedTableResource(mappedTable)
                                             .addPutItem(r -> r.item(record2))
-                                            .build(),
-                                    WriteBatch.builder(Record.class)
-                                            .mappedTableResource(mappedTable)
                                             .addPutItem(r -> r.item(record3))
                                             .build())
                             .build();
 
-            //Add these two items to the table
-            enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
-            System.out.println("done");
-            // snippet-end:[dynamodb.java2.enhanced.batchitems.main]
+                // Add these two items to the table
+                enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
+                System.out.println("done");
+
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+       // snippet-end:[dynamodb.java2.enhanced.batchitems.main]
     }
 
     // Define the Record class that is used to map to the DynamoDB table
