@@ -73,10 +73,10 @@ public class BatchWriteItems {
                     .dynamoDbClient(ddb)
                     .build();
 
-            PutBatchRecords(enhancedClient);
+            putBatchRecords(enhancedClient);
         }
         // snippet-start:[dynamodb.java2.enhanced.batchitems.main]
-        public static void PutBatchRecords(DynamoDbEnhancedClient enhancedClient ) {
+        public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
             try {
 
                 //Create a DynamoDbTable object
