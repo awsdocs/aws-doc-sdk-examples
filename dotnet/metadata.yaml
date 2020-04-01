@@ -26,13 +26,10 @@
 #      - dynamodb
 #
 # ...
-# ---
+---
 # Code cleanup example
-# files:
-#  - path: <file path 1 relative to this metadata.yaml>
-#    services:
-#      - s3
-#  - path: <file path 2 relative to this metadata.yaml>
-#    services:
-#      - s3
-# ...
+ files:
+  - path: example_code_legacy/PinpointEmail/pinpoint_send_email_message_email_api.cs
+    services:
+      - PinpointEmail
+...
