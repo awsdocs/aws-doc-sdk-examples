@@ -27,7 +27,7 @@ use Aws\Exception\AwsException;
 
 // Create a ApiGatewayClient 
 // snippet-start:[apigateway.php.update_base_path_mapping.main]
-$client = new new Aws\ApiGateway\ApiGatewayClient([
+$client = new Aws\ApiGateway\ApiGatewayClient([
     'profile' => 'default',
     'version' => '2015-07-09',
     'region' => 'us-east-2'
