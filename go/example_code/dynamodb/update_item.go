@@ -37,7 +37,7 @@ import (
 
 // ItemInfo holds info to update
 type ItemInfo struct {
-    Rating float64 `json:"rating"`
+   Rating float64 `json:":rating"`
 }
 
 // Item identifies the item in the table
@@ -85,7 +85,7 @@ func main() {
         TableName:                 aws.String("Movies"),
         Key:                       key,
         ReturnValues:              aws.String("UPDATED_NEW"),
-        UpdateExpression:          aws.String("set info.rating = :r"),
+        UpdateExpression:          aws.String("set rating = :rating"),
     }
 
     _, err = svc.UpdateItem(input)
