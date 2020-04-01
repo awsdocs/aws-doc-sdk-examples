@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateTable.java demonstrates how to use the Amazon DynamoDB enhanced client to create a table]
+//snippet-sourcedescription:[CreateTable.java demonstrates how to use the Amazon DynamoDB enhanced client to create a table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -69,7 +69,7 @@ public class CreateTable {
 
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -84,11 +84,11 @@ public class CreateTable {
     }
 
     // snippet-start:[dynamodb.java2.enhanced.create.main]
-    //Create a table
+    // Create a table
     public static void createDynamoDBTable( DynamoDbEnhancedClient enhancedClient) {
 
         try {
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
             // Create the table
