@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
@@ -62,7 +62,7 @@ public class BatchWriteItems {
 
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -79,10 +79,10 @@ public class BatchWriteItems {
         public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
             try {
 
-                //Create a DynamoDbTable object
+                // Create a DynamoDbTable object
                 DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
-                //Populate the Table
+                // Populate the table
                 Record record2 = new Record()
                     .setId("id5")
                     .setSort("sort-value5")
