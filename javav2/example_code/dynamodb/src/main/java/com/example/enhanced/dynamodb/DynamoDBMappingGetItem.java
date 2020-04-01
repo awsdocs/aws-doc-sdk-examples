@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[DynamoDBMappingGetItem.java demonstrates how to retrieve an item from a DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[DynamoDBMappingGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[3/15/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -29,22 +29,14 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.model.GetItemEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 // snippet-end:[dynamodb.java2.enhanced.getitem.import]
 
 public class DynamoDBMappingGetItem {
 
-    private static final ProvisionedThroughput DEFAULT_PROVISIONED_THROUGHPUT =
-            ProvisionedThroughput.builder()
-                    .readCapacityUnits(50L)
-                    .writeCapacityUnits(50L)
-                    .build();
-
-    private static final TableSchema<Record> TABLE_SCHEMA =
+   private static final TableSchema<Record> TABLE_SCHEMA =
             StaticTableSchema.builder(Record.class)
                     .newItemSupplier(Record::new)
                     .addAttribute(String.class, a -> a.name("id")
@@ -78,13 +70,18 @@ public class DynamoDBMappingGetItem {
                 .region(region)
                 .build();
 
-       try{
-           // snippet-start:[dynamodb.java2.enhanced.getitem.main]
            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
+                   .dynamoDbClient(ddb)
+                   .build();
 
+           String result = getItem(enhancedClient);
+           System.out.println(result);
+       }
+
+        // snippet-start:[dynamodb.java2.enhanced.getitem.main]
+       public static String getItem(DynamoDbEnhancedClient enhancedClient) {
+       try {
            //Create a DynamoDbTable object
            DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
@@ -94,19 +91,16 @@ public class DynamoDBMappingGetItem {
                    .sortValue("sort-value")
                    .build();
 
-           // Create a GetItemEnhancedRequest object
-           GetItemEnhancedRequest getItemReq = GetItemEnhancedRequest.builder()
-                   .key(key)
-                   .build();
+           // Get the item by using the key
+           Record result = mappedTable.getItem(r->r.key(key));
+           return "The record id is "+result.getId();
 
-           Record result = mappedTable.getItem(getItemReq);
-
-           System.out.println("The record id is "+result.getId());
-           // snippet-end:[dynamodb.java2.enhanced.getitem.main]
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+       // snippet-end:[dynamodb.java2.enhanced.getitem.main]
+       return "";
     }
 
     // Define the Record class that is used to map to the DynamoDB table
