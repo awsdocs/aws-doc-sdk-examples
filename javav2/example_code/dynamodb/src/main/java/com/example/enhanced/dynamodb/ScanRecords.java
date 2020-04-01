@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[ScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -62,7 +62,7 @@ public class ScanRecords {
     // Query the Record table
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -79,7 +79,7 @@ public class ScanRecords {
     public static void scan( DynamoDbEnhancedClient enhancedClient) {
 
     try{
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
             // Get items in the Record table and write out the ID value
