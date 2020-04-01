@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DynamoDBMappingGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[DynamoDBMappingGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -64,7 +64,7 @@ public class DynamoDBMappingGetItem {
 
     public static void main(String[] args) {
 
-         //Create a DynamoDbClient object
+         // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -82,10 +82,10 @@ public class DynamoDBMappingGetItem {
         // snippet-start:[dynamodb.java2.enhanced.getitem.main]
        public static String getItem(DynamoDbEnhancedClient enhancedClient) {
        try {
-           //Create a DynamoDbTable object
+           // Create a DynamoDbTable object
            DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
-           //Create a KEY object
+           // Create a KEY object
            Key key = Key.builder()
                    .partitionValue("id-value")
                    .sortValue("sort-value")
