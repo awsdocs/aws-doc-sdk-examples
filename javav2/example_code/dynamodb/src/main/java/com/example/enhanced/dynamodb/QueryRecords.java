@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[QueryRecords.java demonstrates how to query an AWS DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[QueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[3/15/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -24,28 +24,18 @@ import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTag
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondarySortKey;
 import java.util.Iterator;
-import java.util.List;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
-import software.amazon.awssdk.enhanced.dynamodb.model.Page;
-import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 // snippet-end:[dynamodb.java2.enhanced.query.import]
 
 public class QueryRecords {
-
-    private static final ProvisionedThroughput DEFAULT_PROVISIONED_THROUGHPUT =
-            ProvisionedThroughput.builder()
-                    .readCapacityUnits(50L)
-                    .writeCapacityUnits(50L)
-                    .build();
 
     private static final TableSchema<Record> TABLE_SCHEMA =
             StaticTableSchema.builder(Record.class)
@@ -71,7 +61,7 @@ public class QueryRecords {
                             .tags(secondarySortKey("gsi_1")))
                     .build();
 
-    // QUery the Record table
+    // Query the Record table
     public static void main(String[] args) {
 
         //Create a DynamoDbClient object
@@ -80,13 +70,19 @@ public class QueryRecords {
                 .region(region)
                 .build();
 
-        try{
-            // snippet-start:[dynamodb.java2.enhanced.query.main]
-            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
-            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
+        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(ddb)
+                .build();
 
+        String result = queryTable(enhancedClient);
+        System.out.println(result);
+    }
+
+    // snippet-start:[dynamodb.java2.enhanced.query.main]
+     public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
+
+        try{
             //Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
@@ -97,29 +93,21 @@ public class QueryRecords {
                     .build());
 
             // Get items in the Record table and write out the ID value
-            Iterator<Page<Record>> results = mappedTable.query(QueryEnhancedRequest.builder()
-                    .queryConditional(queryConditional)
-                    .build()).iterator();
+            Iterator<Record> results = mappedTable.query(queryConditional).items().iterator();
+            String result="";
 
             while (results.hasNext()) {
-
-                //Iterate through the Page object
-                Page<Record> page = results.next();
-                List<Record> items = page.items();
-               int count = items.size();
-
-                for (int y=0; y<count; y++) {
-
-                    Record myRecord = items.get(y);
-                    System.out.println("The record id is "+myRecord.getId());
-                }
+                Record rec = results.next();
+                result = rec.getId();
+                System.out.println("The record id is "+result);
             }
+            return result;
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Done");
+        return "";
         // snippet-end:[dynamodb.java2.enhanced.query.main]
     }
 
