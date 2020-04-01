@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[QueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client]
+//snippet-sourcedescription:[QueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -65,10 +65,10 @@ public class QueryRecordsWithFilter {
                             .tags(secondarySortKey("gsi_1")))
                     .build();
 
-    // QUery the Record table
+    // Query the Record table
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -86,10 +86,10 @@ public class QueryRecordsWithFilter {
     public static void queryTableFilter(DynamoDbEnhancedClient enhancedClient) {
 
         try{
-             //Create a DynamoDbTable object
+             // Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
-            //Get the row where Attribute3 is 20
+            // Get the row where Attribute3 is 20
             AttributeValue att = AttributeValue.builder()
                     .s("20")
                     .build();
