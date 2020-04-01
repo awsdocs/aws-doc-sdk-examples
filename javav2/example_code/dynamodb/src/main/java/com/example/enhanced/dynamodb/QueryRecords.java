@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[QueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[QueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -64,7 +64,7 @@ public class QueryRecords {
     // Query the Record table
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -83,7 +83,7 @@ public class QueryRecords {
      public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
 
         try{
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
             // Create a QueryConditional object that is used in the query operation
