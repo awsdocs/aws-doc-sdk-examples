@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[3/15/2020]
 //snippet-sourceauthor:[scmacdon-aws]
