@@ -26,10 +26,17 @@
 #      - dynamodb
 #
 # ...
----
-# Code cleanup example
- files:
-  - path: example_code_legacy/PinpointEmail/pinpoint_send_email_message_email_api.cs
-    services:
-      - PinpointEmail
-...
+# ---
+# Code cleanup example 1
+#  files:
+#   - path: folder/blah/file.cs
+#    services:
+#      - Blah
+# ...
+# ---
+# Deleted files
+#  files:
+#   - path: example_code_legacy/PinpointEmail/pinpoint_send_email_message_email_api.cs
+#    services:
+#      - PinpointEmail
+# ...
