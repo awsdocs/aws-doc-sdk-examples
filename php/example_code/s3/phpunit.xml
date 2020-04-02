@@ -1,4 +1,8 @@
 <phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="S3_BUCKET_NAME" value="my-bucket"/>
+    <const name="AWS_REGION" value="us-east-1"/>
+  </php>
   <testsuites>
     <testsuite name="s3">
       <file>CreateBucket.php</file>
