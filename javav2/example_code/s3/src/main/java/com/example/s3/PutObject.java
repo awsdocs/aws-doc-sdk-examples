@@ -35,15 +35,13 @@ public class PutObject {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  GetAcl <bucket> [object]\n\n" +
+                "  PutObject <bucket> [object]\n\n" +
                 "Where:\n" +
-                "  bucket - the bucket to get the access control list (ACL) for\n" +
-                "  object - (optional) the object to get the ACL for.\n" +
-                "           If object is specified, the retrieved ACL will be\n" +
-                "           for the object, not the bucket.\n\n" +
+                "  bucket - the bucket to upload an object into\n" +
+                "  object - (optional) the object to upload\n\n" +
                 "Examples:\n" +
-                "    GetAcl  bucket1\n" +
-                "    GetAcl  bucket1 book.pdf\n\n";
+                "    PutObject  bucket1\n" +
+                "    PutObject  bucket1 book.pdf\n\n";
 
           if (args.length < 1) {
               System.out.println(USAGE);
