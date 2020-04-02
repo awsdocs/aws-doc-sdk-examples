@@ -41,7 +41,8 @@ EXT_LOOKUP = {
     'cmd': 'AWS-CLI',
     'json': 'JSON',
     'yml': 'YAML',
-    'yaml': 'YAML'
+    'yaml': 'YAML',
+    'md': 'Markdown'
 }
 
 # folders to skip
