@@ -73,4 +73,4 @@ public class GetServerCertificate {
     // snippet-end:[iam.java2.get_server_certificate.main]
 }
 
-// snippet-end:[iam.java2.get_server_certificate.complete]
+
