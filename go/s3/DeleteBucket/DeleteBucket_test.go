@@ -81,26 +81,6 @@ func getBuckets(sess *session.Session) (*s3.ListBucketsOutput, error) {
     return result, nil
 }
 
-func deleteBucket(sess *session.Session, bucket *string) error {
-    svc := s3.New(sess)
-
-    _, err := svc.DeleteBucket(&s3.DeleteBucketInput{
-        Bucket: bucket,
-    })
-    if err != nil {
-        return err
-    }
-
-    err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
-        Bucket: bucket,
-    })
-    if err != nil {
-        return err
-    }
-
-    return nil
-}
-
 func TestCreateBucket(t *testing.T) {
     thisTime := time.Now()
     nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
@@ -139,7 +119,7 @@ func TestCreateBucket(t *testing.T) {
 
     numBuckets := len(result.Buckets)
 
-    err = deleteBucket(sess, &globalConfig.Bucket)
+    err = RemoveBucket(sess, &globalConfig.Bucket)
     if err != nil {
         t.Fatal(err)
     }

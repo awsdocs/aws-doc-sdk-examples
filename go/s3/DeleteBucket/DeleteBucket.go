@@ -44,7 +44,7 @@ func RemoveBucket(sess *session.Session, bucket *string) error {
     }
 
     // snippet-start:[s3.go.delete_bucket.wait]
-    err = svc.WaitUntilBucketExists(&s3.HeadBucketInput{
+    err = svc.WaitUntilBucketNotExists(&s3.HeadBucketInput{
         Bucket: bucket,
     })
     // snippet-end:[s3.go.delete_bucket.wait]

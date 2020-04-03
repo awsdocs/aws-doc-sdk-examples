@@ -14,39 +14,37 @@
 package main
 
 import (
-    "encoding/json"
-    "io/ioutil"
-    "strconv"
-    "testing"
-    "time"
+	"encoding/json"
+	"io/ioutil"
+	"strconv"
+	"testing"
+	"time"
 
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
-    "github.com/aws/aws-sdk-go/service/s3/s3iface"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3iface"
 
-    "github.com/google/uuid"
+	"github.com/google/uuid"
 )
 
 // Define a mock struct to be used in your unit tests of myFunc.
 type mockS3Client struct {
-    s3iface.S3API
+	s3iface.S3API
 }
 
 func (m *mockS3Client) RestoreObject(*s3.RestoreObjectInput) (*s3.RestoreObjectOutput, error) {
-    // requestCharged := ""
-    // restoreOutputPath := ""
-    resp := s3.RestoreObjectOutput{
-        RequestCharged:    nil, // was: &requestCharged,
-        RestoreOutputPath: nil, // was: &restoreOutputPath,
-    }
+	resp := s3.RestoreObjectOutput{
+		RequestCharged:    nil,
+		RestoreOutputPath: nil,
+	}
 
-    return &resp, nil
+	return &resp, nil
 }
 
 type Config struct {
-    Bucket string `json:"Bucket"`
-    Item   string `json:"Item"`
-    Days   int64  `json:"Days"`
+	Bucket string `json:"Bucket"`
+	Item   string `json:"Item"`
+	Days   int64  `json:"Days"`
 }
 
 var configFileName = "config.json"
@@ -54,68 +52,68 @@ var configFileName = "config.json"
 var globalConfig Config
 
 func populateConfiguration(t *testing.T) error {
-    content, err := ioutil.ReadFile(configFileName)
-    if err != nil {
-        return err
-    }
+	content, err := ioutil.ReadFile(configFileName)
+	if err != nil {
+		return err
+	}
 
-    text := string(content)
+	text := string(content)
 
-    err = json.Unmarshal([]byte(text), &globalConfig)
-    if err != nil {
-        return err
-    }
+	err = json.Unmarshal([]byte(text), &globalConfig)
+	if err != nil {
+		return err
+	}
 
-    if globalConfig.Days < 1 {
-        globalConfig.Days = 1
-    }
+	if globalConfig.Days < 1 {
+		globalConfig.Days = 1
+	}
 
-    if globalConfig.Days > 365 {
-        globalConfig.Days = 365
-    }
+	if globalConfig.Days > 365 {
+		globalConfig.Days = 365
+	}
 
-    t.Log("Bucket: " + globalConfig.Bucket)
-    t.Log("Item:   " + globalConfig.Item)
-    t.Log("Days:   " + strconv.Itoa(int(globalConfig.Days)))
+	t.Log("Bucket: " + globalConfig.Bucket)
+	t.Log("Item:   " + globalConfig.Item)
+	t.Log("Days:   " + strconv.Itoa(int(globalConfig.Days)))
 
-    return nil
+	return nil
 }
 
 func TestDeleteObject(t *testing.T) {
-    thisTime := time.Now()
-    nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
-    t.Log("Starting unit test at " + nowString)
+	thisTime := time.Now()
+	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
+	t.Log("Starting unit test at " + nowString)
 
-    err := populateConfiguration(t)
-    if err != nil {
-        t.Fatal(err)
-    }
+	err := populateConfiguration(t)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-    if globalConfig.Bucket == "" || globalConfig.Item == "" {
-        id := uuid.New()
-        globalConfig.Bucket = "test-bucket-" + id.String()
-        globalConfig.Item = "test.txt"
+	if globalConfig.Bucket == "" || globalConfig.Item == "" {
+		id := uuid.New()
+		globalConfig.Bucket = "test-bucket-" + id.String()
+		globalConfig.Item = "test.txt"
 
-        mockSvc := &mockS3Client{}
+		mockSvc := &mockS3Client{}
 
-        err = RestoreItem(mockSvc, &globalConfig.Bucket, &globalConfig.Item, &globalConfig.Days)
-        if err != nil {
-            t.Log("Could not restore " + globalConfig.Item + " to " + globalConfig.Bucket)
-            t.Fatal(err)
-        }
-    } else {
-        sess := session.Must(session.NewSessionWithOptions(session.Options{
-            SharedConfigState: session.SharedConfigEnable,
-        }))
+		err = RestoreItem(mockSvc, &globalConfig.Bucket, &globalConfig.Item, &globalConfig.Days)
+		if err != nil {
+			t.Log("Could not restore " + globalConfig.Item + " to " + globalConfig.Bucket)
+			t.Fatal(err)
+		}
+	} else {
+		sess := session.Must(session.NewSessionWithOptions(session.Options{
+			SharedConfigState: session.SharedConfigEnable,
+		}))
 
-        svc := s3.New(sess)
+		svc := s3.New(sess)
 
-        err = RestoreItem(svc, &globalConfig.Bucket, &globalConfig.Item, &globalConfig.Days)
-        if err != nil {
-            t.Log("Could not restore " + globalConfig.Item + " to " + globalConfig.Bucket)
-            t.Fatal(err)
-        }
-    }
+		err = RestoreItem(svc, &globalConfig.Bucket, &globalConfig.Item, &globalConfig.Days)
+		if err != nil {
+			t.Log("Could not restore " + globalConfig.Item + " to " + globalConfig.Bucket)
+			t.Fatal(err)
+		}
+	}
 
-    t.Log("Restored " + globalConfig.Item + " to " + globalConfig.Bucket)
+	t.Log("Restored " + globalConfig.Item + " to " + globalConfig.Bucket)
 }
