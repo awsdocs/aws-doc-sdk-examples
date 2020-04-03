@@ -18,7 +18,7 @@
 */
 package com.example.enhanced.dynamodb;
 
-// snippet-start:[dynamodb.java2.enhanced.create.import]
+// snippet-start:[dynamodb.java2.enhanced_create.import]
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ProjectionType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
-// snippet-end:[dynamodb.java2.enhanced.create.import]
+// snippet-end:[dynamodb.java2.enhanced_create.import]
 
 public class CreateTable {
 
@@ -83,7 +83,7 @@ public class CreateTable {
         createDynamoDBTable(enhancedClient);
     }
 
-    // snippet-start:[dynamodb.java2.enhanced.create.main]
+    // snippet-start:[dynamodb.java2.enhanced_create.main]
     // Create a table
     public static void createDynamoDBTable( DynamoDbEnhancedClient enhancedClient) {
 
@@ -105,7 +105,7 @@ public class CreateTable {
         }
         System.out.println("done");
     }
-    // snippet-end:[dynamodb.java2.enhanced.create.main]
+    // snippet-end:[dynamodb.java2.enhanced_create.main]
 
     // Define the Record class that is used to map to the DynamoDB table
     private static class Record {

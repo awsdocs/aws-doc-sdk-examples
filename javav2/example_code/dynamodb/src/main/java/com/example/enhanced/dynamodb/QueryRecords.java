@@ -18,7 +18,7 @@
 */
 package com.example.enhanced.dynamodb;
 
-// snippet-start:[dynamodb.java2.enhanced.query.import]
+// snippet-start:[dynamodb.java2.enhanced_query.import]
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
@@ -33,7 +33,7 @@ import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-// snippet-end:[dynamodb.java2.enhanced.query.import]
+// snippet-end:[dynamodb.java2.enhanced_query.import]
 
 public class QueryRecords {
 
@@ -79,7 +79,7 @@ public class QueryRecords {
         System.out.println(result);
     }
 
-    // snippet-start:[dynamodb.java2.enhanced.query.main]
+    // snippet-start:[dynamodb.java2.enhanced_query.main]
      public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
 
         try{
@@ -108,7 +108,7 @@ public class QueryRecords {
             System.exit(1);
         }
         return "";
-        // snippet-end:[dynamodb.java2.enhanced.query.main]
+        // snippet-end:[dynamodb.java2.enhanced_query.main]
     }
 
     // Define the Record class that is used to map to the DynamoDB table
