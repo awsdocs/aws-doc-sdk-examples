@@ -17,7 +17,7 @@ specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
 
-// snippet-start:[s3.java2.s3_object_operations.upload.import]
+// snippet-start:[s3.java2.s3_object_upload.import]
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-// snippet-end:[s3.java2.s3_object_operations.upload.import]
+// snippet-end:[s3.java2.s3_object_upload.import]
 
 public class PutObject {
 
@@ -65,7 +65,7 @@ public class PutObject {
         System.out.println("Tag information: "+result);
     }
 
-    // snippet-start:[s3.java2.s3_object_operations.upload]
+    // snippet-start:[s3.java2.s3_object_upload.main]
     public static  String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
 
         try {
@@ -117,5 +117,5 @@ public class PutObject {
         }
         return bytesArray;
     }
-    // snippet-end:[s3.java2.s3_object_operations.upload]
+    // snippet-end:[s3.java2.s3_object_upload.main]
 }
