@@ -32,18 +32,18 @@ import java.io.IOException;
 
 public class PutObject {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutObject <bucket> [object]\n\n" +
+                "  PutObject <bucket> <object> <path> \n\n" +
                 "Where:\n" +
                 "  bucket - the bucket to upload an object into\n" +
-                "  object - (optional) the object to upload\n\n" +
+                "  object - the object to upload (ie, book.pdf)\n" +
+                "  path -  the path where the file is located (C:/AWS/book2.pdf) \n\n" +
                 "Examples:\n" +
-                "    PutObject  bucket1\n" +
-                "    PutObject  bucket1 book.pdf\n\n";
+                "    PutObject mybucket book.pdf C:/AWS/book2.pdf";
 
-          if (args.length < 1) {
+          if (args.length < 3) {
               System.out.println(USAGE);
             System.exit(1);
          }
