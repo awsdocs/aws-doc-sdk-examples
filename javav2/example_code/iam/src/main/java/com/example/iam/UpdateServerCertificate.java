@@ -79,4 +79,4 @@ public class UpdateServerCertificate {
     }
     // snippet-end:[iam.java2.update_server_certificate.main]
 }
-// snippet-end:[iam.java2.update_server_certificate.complete]
+
