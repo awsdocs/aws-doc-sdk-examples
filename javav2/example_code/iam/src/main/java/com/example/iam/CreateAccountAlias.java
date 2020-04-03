@@ -1,10 +1,11 @@
 //snippet-sourcedescription:[CreateAccountAlias.java demonstrates how to create an alias for an AWS account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,7 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.create_account_alias.complete]
+
 // snippet-start:[iam.java2.create_account_alias.import]
 import software.amazon.awssdk.services.iam.model.CreateAccountAliasRequest;
 import software.amazon.awssdk.regions.Region;
@@ -44,21 +45,23 @@ public class CreateAccountAlias {
         }
 
         String alias = args[0];
-
-        // snippet-start:[iam.java2.create_account_alias.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
-        try {
 
+        createIAMAccountAlias(iam, alias);
+    }
+
+    // snippet-start:[iam.java2.create_account_alias.main]
+    public static void createIAMAccountAlias(IamClient iam, String alias) {
+
+        try {
             CreateAccountAliasRequest request = CreateAccountAliasRequest.builder()
                 .accountAlias(alias).build();
 
             iam.createAccountAlias(request);
-
             System.out.println("Successfully created account alias: " + alias);
-            // snippet-end:[iam.java2.create_account_alias.main]
 
         } catch (
                 IamException e) {
@@ -67,5 +70,5 @@ public class CreateAccountAlias {
         }
         System.out.println("Done");
     }
+    // snippet-end:[iam.java2.create_account_alias.main]
 }
-// snippet-end:[iam.java2.create_account_alias.complete]

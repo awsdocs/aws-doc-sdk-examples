@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[UpdateUser.java demonstrates how to update the name of an IAM user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.update_user.complete]
+
 // snippet-start:[iam.java2.update_user.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -40,7 +40,7 @@ public class UpdateUser {
                         "username. Ex:\n\n" +
                         "UpdateUser <current-name> <new-name>\n";
 
-        if (args.length != 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -48,11 +48,16 @@ public class UpdateUser {
         String curName = args[0];
         String newName = args[1];
 
-        // snippet-start:[iam.java2.update_user.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
+
+        updateIAMUser(iam, curName, newName) ;
+    }
+
+    // snippet-start:[iam.java2.update_user.main]
+    public static void updateIAMUser(IamClient iam, String curName,String newName ) {
 
         try {
             UpdateUserRequest request = UpdateUserRequest.builder()
@@ -60,8 +65,6 @@ public class UpdateUser {
                 .newUserName(newName).build();
 
             UpdateUserResponse response = iam.updateUser(request);
-            // snippet-end:[iam.java2.update_user.main]
-
             System.out.printf("Successfully updated user to username %s",
                 newName);
         } catch (IamException e) {
@@ -70,5 +73,5 @@ public class UpdateUser {
         }
         System.out.println("Done");
         }
+    // snippet-end:[iam.java2.update_user.main]
 }
-// snippet-end:[iam.java2.update_user.complete]
