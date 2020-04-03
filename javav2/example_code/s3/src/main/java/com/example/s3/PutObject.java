@@ -65,11 +65,11 @@ public class PutObject {
         System.out.println("Tag information: "+result);
     }
 
+    // snippet-start:[s3.java2.s3_object_operations.upload]
     public static  String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
 
         try {
             //Put a file into the bucket
-            // snippet-start:[s3.java2.s3_object_operations.upload]
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
