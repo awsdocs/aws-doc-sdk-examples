@@ -177,8 +177,8 @@ def verify_snippet_start_end(file_contents, file_location):
     """Scan the file contents for snippet-start and snippet-end tags and verify
     that they are in matched pairs. Log errors and return the count of errors."""
     error_count = 0
-    snippet_start = 'snippet-start:['
-    snippet_end = 'snippet-end:['
+    snippet_start = 'snippet' + '-start:['
+    snippet_end = 'snippet' + '-end:['
     snippet_tags = set()
     for word in file_contents.split():
         if snippet_start in word:

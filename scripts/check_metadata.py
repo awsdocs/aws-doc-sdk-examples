@@ -174,8 +174,8 @@ def file_name_check(filename, file_location):
 
 
 def snippet_start_check(words, file_location):
-    snippet_start = 'snippet-start:['
-    snippet_end = 'snippet-end:['
+    snippet_start = 'snippet' + '-start:['
+    snippet_end = 'snippet' + '-end:['
     snippet_tags = set()
     for s in words:
         if snippet_start in s:

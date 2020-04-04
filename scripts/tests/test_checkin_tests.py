@@ -42,34 +42,33 @@ def test_verify_no_secret_keys(file_contents, expected_error_count):
 
 
 @pytest.mark.parametrize("file_contents,expected_error_count", [
-    ("snippet-start:[this.is.a.snippet.tag]\n"
+    ("snixxet-start:[this.is.a.snippet.tag]\n"
      "This is not code.\n"
-     "snippet-end:[this.is.a.snippet.tag]", 0),
-    ("snippet-start:[this.is.a.snippet.tag]\n"
+     "snixxet-end:[this.is.a.snippet.tag]", 0),
+    ("snixxet-start:[this.is.a.snippet.tag]\n"
      "This is not code.\n"
-     "snippet-end:[this.is.a.different.snippet.tag]", 2),
-    ("snippet-start:[this.is.a.snippet.tag]\n"
+     "snixxet-end:[this.is.a.different.snippet.tag]", 2),
+    ("snixxet-start:[this.is.a.snippet.tag]\n"
      "This is not code.", 1),
     ("This is not code.\n"
-     "snippet-end:[this.is.a.snippet.tag]", 1),
-    ("snippet-start:[this.is.a.snippet.tag]\n"
-     "snippet-start:[this.is.a.different.snippet.tag]\n"
+     "snixxet-end:[this.is.a.snippet.tag]", 1),
+    ("snixxet-start:[this.is.a.snippet.tag]\n"
+     "snixxet-start:[this.is.a.different.snippet.tag]\n"
      "This is not code.\n"
-     "snippet-end:[this.is.a.snippet.tag]\n"
-     "snippet-end:[this.is.a.different.snippet.tag]\n", 0),
-    ("snippet-start:[this.is.a.snippet.tag]\n"
-     "snippet-start:[this.is.a.different.snippet.tag]\n"
+     "snixxet-end:[this.is.a.snippet.tag]\n"
+     "snixxet-end:[this.is.a.different.snippet.tag]\n", 0),
+    ("snixxet-start:[this.is.a.snippet.tag]\n"
+     "snixxet-start:[this.is.a.different.snippet.tag]\n"
      "This is not code.\n"
-     "snippet-end:[this.is.a.different.snippet.tag]\n"
-     "snippet-end:[this.is.a.snippet.tag]\n", 0),
-    ("snippet-start:[this.is.a.snippet.tag]\n"
+     "snixxet-end:[this.is.a.different.snippet.tag]\n"
+     "snixxet-end:[this.is.a.snippet.tag]\n", 0),
+    ("snixxet-start:[this.is.a.snippet.tag]\n"
      "This is not code.\n"
-     "snippet-end:[this.is.a.snippet.tag.with.extra.stuff]\n", 2),
+     "snixxet-end:[this.is.a.snippet.tag.with.extra.stuff]\n", 2),
 ])
 def test_verify_snippet_start_end(file_contents, expected_error_count):
     """Test that various kinds of mismatched snippet-start and -end tags are
     counted correctly as errors."""
+    file_contents = file_contents.replace('snixxet', 'snippet')
     error_count = checkin_tests.verify_snippet_start_end(file_contents, "location")
     assert error_count == expected_error_count
-
-
