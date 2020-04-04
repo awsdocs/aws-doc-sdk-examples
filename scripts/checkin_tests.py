@@ -48,7 +48,6 @@ EXT_LOOKUP = {
 # folders to skip
 IGNORE_FOLDERS = {
     'venv',
-    'scripts',
     '__pycache__',
     '.pytest_cache'
 }
