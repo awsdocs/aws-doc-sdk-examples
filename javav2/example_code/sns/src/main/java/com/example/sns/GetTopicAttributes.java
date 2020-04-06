@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetTopicAttributes.java demonstrates how to retrieve the defaults for an AWS SNS Topic.]
+//snippet-sourcedescription:[GetTopicAttributes.java demonstrates how to retrieve the defaults for an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -35,10 +35,10 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class GetTopicAttributes {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "GetTopicAttributes - get attributes for an sns topic\n" +
+                "GetTopicAttributes - get attributes for an Amazon SNS topic\n" +
                 "Usage: GetTopicAttributes <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to look up.\n\n";
+                "  topicArn - the ARN of the topic to look up.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
