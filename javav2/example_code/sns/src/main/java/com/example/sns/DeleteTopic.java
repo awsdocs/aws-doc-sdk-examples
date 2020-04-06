@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteTopic.java demonstrates how to delete a Topic.]
+//snippet-sourcedescription:[DeleteTopic.java demonstrates how to delete an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -48,7 +48,7 @@ public class DeleteTopic {
         String topicArn = args[0];
         System.out.println("Deleting a topic with name: " + topicArn);
 
-        // Create a SnsClient object
+        // Create an SnsClient object
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
