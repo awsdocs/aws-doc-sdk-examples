@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SetTopicAttributes.java demonstrates how to update the defaults for an AWS SNS Topic.]
+//snippet-sourcedescription:[SetTopicAttributes.java demonstrates how to update the defaults for an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -39,8 +39,8 @@ public class SetTopicAttributes {
                 "SetTopicAttributes - update defaults from a topic.\n" +
                 "Usage: SetTopicAttributes <attribute> <topicArn> <value>\n\n" +
                 "Where:\n" +
-                "  attribute - Attribute action to use. Valid parameters : Policy | DisplayName | DeliveryPolicy .\n" +
-                "  topicArn - The arn of the topic to update. \n" +
+                "  attribute - Attribute action to use. Valid parameters: Policy | DisplayName | DeliveryPolicy .\n" +
+                "  topicArn - The ARN of the topic to update. \n" +
                 "  value - New value for the attribute.\n\n";
 
         if (args.length < 3) {
