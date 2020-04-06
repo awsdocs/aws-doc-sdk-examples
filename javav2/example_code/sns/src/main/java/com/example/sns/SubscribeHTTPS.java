@@ -36,11 +36,11 @@ public class SubscribeHTTPS {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "SubscribeHTTPS - send confirmation message to a url endpoint.\n" +
+                "SubscribeHTTPS - send confirmation message to a URL endpoint.\n" +
                 "Usage: SubscribeHTTPS <topicArn> <url>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to subscribe.\n\n" +
-                "  url - https endpoint to subscribe.\n\n";
+                "  topicArn - the ARN of the topic to subscribe.\n\n" +
+                "  url - HTTPS endpoint to subscribe.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
