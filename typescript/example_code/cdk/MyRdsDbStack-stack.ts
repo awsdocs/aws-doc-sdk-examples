@@ -24,9 +24,9 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.MyRdsDbStack-stack]
-import core = require("@aws-cdk/core");
-import ec2 = require("@aws-cdk/aws-ec2");
-import rds = require("@aws-cdk/aws-rds");
+import * as core from "@aws-cdk/core";
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as rds from "@aws-cdk/aws-rds";
 
 export class MyRdsDbStack extends core.Stack {
   constructor(scope: core.App, id: string, props?: core.StackProps) {

@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list all IAM users.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.list_users.complete]
+
 // snippet-start:[iam.java2.list_users.import]
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListUsersRequest;
@@ -35,11 +35,16 @@ import software.amazon.awssdk.services.iam.IamClient;
 public class ListUsers {
     public static void main(String[] args) {
 
-        // snippet-start:[iam.java2.list_users.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
+
+        listAllUsers(iam );
+    }
+
+    // snippet-start:[iam.java2.list_users.main]
+    public static void listAllUsers(IamClient iam ) {
 
         try {
 
@@ -76,4 +81,3 @@ public class ListUsers {
         // snippet-end:[iam.java2.list_users.main]
     }
 }
-// snippet-end:[iam.java2.list_users.complete]
