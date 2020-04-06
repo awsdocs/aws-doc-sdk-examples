@@ -37,10 +37,10 @@ import java.util.Map;
 public class GetSMSAtrributes {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "GetSMSAtrributes - retrieve your default SMS type for Amazon SNS.\n" +
+                "GetSMSAtrributes - retrieve your default SMS type for Amazon SNS\n" +
                 "Usage: GetSMSAtrributes <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic from which to retrieve attributes.\n\n";
+                "  topicArn - the ARN of the topic from which to retrieve attributes.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
