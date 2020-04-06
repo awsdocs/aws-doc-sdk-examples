@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CheckOptOut.java demonstrates how to determine whether the user of the phone number has selected to no longer receive future text messages.]
+//snippet-sourcedescription:[CheckOptOut.java demonstrates how to determine whether the user of the phone number has chosen to no longer receive future text messages.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
