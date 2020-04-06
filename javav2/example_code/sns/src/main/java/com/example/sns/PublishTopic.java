@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.PublishTopic.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.PublishTopic.import]
@@ -47,7 +47,6 @@ public class PublishTopic {
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.PublishTopic.main]
         String message = args[0];
         String topicArn = args[1];
 
@@ -55,8 +54,13 @@ public class PublishTopic {
                 .region(Region.US_WEST_2)
                 .build();
 
-        try {
+        pubTopic(snsClient, message, topicArn);
+    }
 
+    //snippet-start:[sns.java2.PublishTopic.main]
+    public static void pubTopic(SnsClient snsClient, String message, String topicArn) {
+
+        try {
             PublishRequest request = PublishRequest.builder()
                 .message(message)
                 .topicArn(topicArn)
@@ -72,4 +76,3 @@ public class PublishTopic {
         //snippet-end:[sns.java2.PublishTopic.main]
     }
 }
-//snippet-end:[sns.java2.PublishTopic.complete]
