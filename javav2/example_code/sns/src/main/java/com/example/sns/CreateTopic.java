@@ -35,7 +35,7 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class CreateTopic {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateTopic - create an sns topic\n" +
+                "CreateTopic - create an Amazon SNS topic\n" +
                 "Usage: CreateTopic <topicName>\n\n" +
                 "Where:\n" +
                 "  topicName - the name of the topic to create.\n\n";
