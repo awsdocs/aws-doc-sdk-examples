@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PublishTopic.java demonstrates how to send a message to an SNS Topic.]
+//snippet-sourcedescription:[PublishTopic.java demonstrates how to send a message to an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -36,11 +36,11 @@ public class PublishTopic {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "PublishTopic - publish an sns topic\n" +
+                "PublishTopic - publish an Amazon SNS topic\n" +
                 "Usage: PublishTopic <message> <topicArn>\n\n" +
                 "Where:\n" +
                 "  message - message text to send.\n\n" +
-                "  topicArn - the arn of the topic to look up.\n\n";
+                "  topicArn - the ARN of the topic to look up.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
