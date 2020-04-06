@@ -5,8 +5,9 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
+
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -21,7 +22,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.SubscribeEmail.complete]
 
 package com.example.sns;
 
@@ -45,17 +45,22 @@ public class SubscribeEmail {
                 "  email - email address to subscribe.\n\n";
 
         if (args.length < 2) {
-           System.out.println(USAGE);
-         System.exit(1);
+            System.out.println(USAGE);
+            System.exit(1);
         }
 
-        //snippet-start:[sns.java2.SubscribeEmail.main]
         String topicArn = args[0];
         String email = args[1];
 
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
+
+        subEmail(snsClient, topicArn, email) ;
+    }
+
+    //snippet-start:[sns.java2.SubscribeEmail.main]
+    public static void subEmail(SnsClient snsClient, String topicArn, String email) {
 
         try {
             SubscribeRequest request = SubscribeRequest.builder()
@@ -75,4 +80,3 @@ public class SubscribeEmail {
         //snippet-end:[sns.java2.SubscribeEmail.main]
     }
 }
-//snippet-end:[sns.java2.SubscribeEmail.complete]
