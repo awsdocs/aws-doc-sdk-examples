@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateTopic.java demonstrates how to create a Topic.]
+//snippet-sourcedescription:[CreateTopic.java demonstrates how to create an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
