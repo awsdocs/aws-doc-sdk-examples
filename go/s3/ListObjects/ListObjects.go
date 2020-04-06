@@ -11,10 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start:[s3.go.list_object]
+// snippet-start:[s3.go.list_objects]
 package main
 
-// snippet-start:[s3.go.list_object.imports]
+// snippet-start:[s3.go.list_objects.imports]
 import (
     "flag"
     "fmt"
@@ -22,7 +22,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
 )
-// snippet-end:[s3.go.list_object.imports]
+// snippet-end:[s3.go.list_objects.imports]
 
 // GetObjects retrieves the objects in an Amazon S3 bucket
 // Inputs:
@@ -62,7 +62,7 @@ func main() {
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-    // snippet-start:[s3.go.list_objects.session]
+    // snippet-end:[s3.go.list_objects.session]
 
     resp, err := GetObjects(sess, bucket)
     if err != nil {
