@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.SubscribeLambda.complete]
 
 package com.example.sns;
 
@@ -43,18 +42,24 @@ public class SubscribeLambda {
                 "  topicArn - the arn of the topic to subscribe.\n\n" +
                 "  lambdaArn - the ARN of an AWS Lambda function.\n\n";
 
-       if (args.length < 2) {
-           System.out.println(USAGE);
-           System.exit(1);
+        if (args.length < 2) {
+            System.out.println(USAGE);
+            System.exit(1);
         }
 
-        //snippet-start:[sns.java2.SubscribeLambda.main]
         String topicArn = args[0];
         String lambdaArn = args[1];
 
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
+
+        String arnValue = subLambda(snsClient, topicArn, lambdaArn) ;
+        System.out.println("Subscription ARN: " + arnValue);
+    }
+
+    //snippet-start:[sns.java2.SubscribeLambda.main]
+    public static String subLambda(SnsClient snsClient, String topicArn, String lambdaArn) {
 
         try {
 
@@ -67,14 +72,14 @@ public class SubscribeLambda {
 
             SubscribeResponse result = snsClient.subscribe(request);
 
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+            return result.subscriptionArn();
 
 
          } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
-    }
+        }
+        return "";
      //snippet-end:[sns.java2.SubscribeLambda.main]
     }
 }
-//snippet-end:[sns.java2.SubscribeLambda.complete]
