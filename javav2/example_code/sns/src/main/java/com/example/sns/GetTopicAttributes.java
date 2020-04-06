@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.GetTopicAttributes.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.GetTopicAttributes.import]
@@ -41,11 +41,10 @@ public class GetTopicAttributes {
                 "  topicArn - the arn of the topic to look up.\n\n";
 
         if (args.length < 1) {
-           System.out.println(USAGE);
-           System.exit(1);
+            System.out.println(USAGE);
+            System.exit(1);
         }
 
-        //snippet-start:[sns.java2.GetTopicAttributes.main]
         String topicArn = args[0];
         System.out.println("Getting attributes for a topic with name: " + topicArn);
 
@@ -53,6 +52,12 @@ public class GetTopicAttributes {
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
+
+        getSNSTopicAttributes(snsClient, topicArn) ;
+    }
+
+    //snippet-start:[sns.java2.GetTopicAttributes.main]
+    public static void getSNSTopicAttributes(SnsClient snsClient, String topicArn ) {
 
         try {
             GetTopicAttributesRequest request = GetTopicAttributesRequest.builder()
@@ -69,4 +74,3 @@ public class GetTopicAttributes {
         //snippet-end:[sns.java2.GetTopicAttributes.main]
     }
 }
-//snippet-end:[sns.java2.GetTopicAttributes.complete]
