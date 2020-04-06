@@ -35,10 +35,10 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class DeleteTopic {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "DeleteTopic - delete an sns topic\n" +
+                "DeleteTopic - delete an Amazon SNS topic\n" +
                 "Usage: DeleteTopic <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to delete.\n\n";
+                "  topicArn - the ARN of the topic to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
