@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.SetTopicAttributes.complete]
 
 package com.example.sns;
 
@@ -49,7 +48,7 @@ public class SetTopicAttributes {
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.SetTopicAttributes.main]
+
         String attribute = args[0];
         String topicArn = args[1];
         String value = args[2];
@@ -57,6 +56,13 @@ public class SetTopicAttributes {
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
+
+        setTopAttr(snsClient, attribute, topicArn, value);
+
+    }
+
+    //snippet-start:[sns.java2.SetTopicAttributes.main]
+    public static void setTopAttr(SnsClient snsClient, String attribute, String topicArn, String value) {
 
         try {
 
@@ -78,4 +84,3 @@ public class SetTopicAttributes {
         //snippet-end:[sns.java2.SetTopicAttributes.main]
     }
 }
-//snippet-end:[sns.java2.SetTopicAttributes.complete]
