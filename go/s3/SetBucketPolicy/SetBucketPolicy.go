@@ -86,7 +86,7 @@ func main() {
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-    // snippet-end:[s3.go.set_bucket_policy.args]
+    // snippet-end:[s3.go.set_bucket_policy.session]
 
     err := SetBucketPolicy(sess, bucket)
     if err != nil {
