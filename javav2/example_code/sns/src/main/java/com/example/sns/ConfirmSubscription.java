@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an AWS SNS Topic.]
+//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an Amazon Simple Notification Service Topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.ConfirmSubscription.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.ConfirmSubscription.import]
@@ -43,19 +43,24 @@ public class ConfirmSubscription {
 
         if (args.length < 2) {
             System.out.println(USAGE);
-           System.exit(1);
+            System.exit(1);
         }
-        //snippet-start:[sns.java2.ConfirmSubscription.main]
 
         String subscriptionToken = args[0];
         String topicArn = args[1];
 
-        try {
-            SnsClient snsClient = SnsClient.builder()
+        SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
-            ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
+        confirmSub(snsClient, subscriptionToken, topicArn ) ;
+    }
+
+    //snippet-start:[sns.java2.ConfirmSubscription.main]
+    public static void confirmSub(SnsClient snsClient, String subscriptionToken, String topicArn ) {
+
+        try {
+             ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
                 .token(subscriptionToken)
                 .topicArn(topicArn)
                 .build();
@@ -68,8 +73,6 @@ public class ConfirmSubscription {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
     }
-
         //snippet-end:[sns.java2.ConfirmSubscription.main]
     }
 }
-//snippet-end:[sns.java2.ConfirmSubscription.complete]
