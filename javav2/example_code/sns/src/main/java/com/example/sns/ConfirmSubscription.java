@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an Amazon Simple Notification Service Topic.]
+//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an Amazon Simple Notification Service topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
