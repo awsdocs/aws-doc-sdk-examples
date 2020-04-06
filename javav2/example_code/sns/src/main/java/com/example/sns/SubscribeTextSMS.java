@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -23,7 +23,6 @@
  * permissions and limitations under the License.
  */
 
-//snippet-start:[sns.java2.SubscribeTextSMS.complete]
 package com.example.sns;
 
 //snippet-start:[sns.java2.SubscribeTextSMS.import]
@@ -49,13 +48,19 @@ public class SubscribeTextSMS {
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.SubscribeTextSMS.main]
+
         String topicArn = args[0];
         String phoneNumber = args[1];
 
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
+
+        subTextSNS(snsClient, topicArn, phoneNumber);
+    }
+
+    //snippet-start:[sns.java2.SubscribeTextSMS.main]
+    public static void subTextSNS( SnsClient snsClient, String topicArn,String phoneNumber) {
 
         try {
 
@@ -74,8 +79,6 @@ public class SubscribeTextSMS {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
     }
-
         //snippet-end:[sns.java2.SubscribeTextSMS.main]
     }
 }
-//snippet-end:[sns.java2.SubscribeTextSMS.complete]
