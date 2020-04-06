@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for the Amazon Simple Notification Service.]
+//snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for Amazon SNS.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
