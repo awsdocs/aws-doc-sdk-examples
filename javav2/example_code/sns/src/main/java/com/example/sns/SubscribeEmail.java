@@ -41,7 +41,7 @@ public class SubscribeEmail {
                 "SubscribeEmail - send a confirmation message to an email address.\n" +
                 "Usage: SubscribeEmail  <topicArn> <email>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to subscribe.\n\n" +
+                "  topicArn - the ARN of the topic to subscribe.\n\n" +
                 "  email - email address to subscribe.\n\n";
 
         if (args.length < 2) {
