@@ -40,7 +40,7 @@ public class SubscribeTextSMS {
                 "SubscribeTextSMS - send a confirmation message as a text message.\n" +
                 "Usage: SubscribeTextSMS <topicArn> <phoneNumber>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to subscribe.\n\n" +
+                "  topicArn - the ARN of the topic to subscribe.\n\n" +
                 "  phoneNumber - phone number to look up. Example: +1XXX5550100\n\n";
 
         if (args.length < 2) {
