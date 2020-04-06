@@ -34,7 +34,7 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class CheckOptOut {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CheckOptOut - look if phone number owner has opted out of receiving SMS messages\n" +
+                "CheckOptOut - look if phone number owner has opted out of receiving messages\n" +
                 "Usage: CheckOptOut <phoneNumber>\n\n" +
                 "Where:\n" +
                 "  phoneNumber - phone number to look up. Example: +1XXX5550100\n\n";
