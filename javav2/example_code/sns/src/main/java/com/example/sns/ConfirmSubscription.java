@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an Amazon Simple Notification Service topic.]
+//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -35,11 +35,11 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class ConfirmSubscription {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "ConfirmSubscription - confirm a subscription to an sns topic\n" +
+                "ConfirmSubscription - confirm a subscription to an Amazon SNS topic\n" +
                 "Usage: ConfirmSubscription <subscriptionToken> <topicArn>\n\n" +
                 "Where:\n" +
                 "  subscriptionToken - endpoint token from Subscribe action.\n\n" +
-                "  topicArn - the arn of the topic to delete.\n\n";
+                "  topicArn - the ARN of the topic to delete.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
