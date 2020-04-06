@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SubscribeLambda.java demonstrates how to send a confirmation message to a lambda function.]
+//snippet-sourcedescription:[SubscribeLambda.java demonstrates how to send a confirmation message to an AWS Lambda function.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -36,10 +36,10 @@ public class SubscribeLambda {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "SubscribeLambda - subscribe an Amazon Lambda Function.\n" +
+                "SubscribeLambda - subscribe an AWS Lambda function.\n" +
                 "Usage: SubscribeLambda <topicArn> <lambdaArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to subscribe.\n\n" +
+                "  topicArn - the ARN of the topic to subscribe.\n\n" +
                 "  lambdaArn - the ARN of an AWS Lambda function.\n\n";
 
         if (args.length < 2) {
