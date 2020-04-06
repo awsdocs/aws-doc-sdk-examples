@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetSMSAtrributes.java demonstrates how to etrieve the default SMS type.]
+//snippet-sourcedescription:[GetSMSAtrributes.java demonstrates how to retrieve the default SMS type for Amazon SNS.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -49,7 +49,7 @@ public class GetSMSAtrributes {
         
         String topicArn = args[0];
 
-        // Create a SnsClient object
+        // Create an SnsClient object
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
