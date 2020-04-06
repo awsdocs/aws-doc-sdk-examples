@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for the AWS SNS.]
+//snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for the Amazon Simple Notification Service.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.SetSMSAttributes.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.SetSMSAttributes.import]
@@ -39,17 +39,22 @@ public class SetSMSAttributes {
                 "SetSMSAttributes - set your default SMS type for Amazon SNS.\n" +
                 "Usage: SetSMSAttributes \n\n";
 
-        //snippet-start:[sns.java2.SetSMSAttributes.main]
+
         HashMap<String, String> attributes = new HashMap<>(1);
         attributes.put("DefaultSMSType", "Transactional");
         attributes.put("UsageReportS3Bucket", "janbucket77" );
 
+        SnsClient snsClient = SnsClient.builder()
+                    .region(Region.US_WEST_2)
+                    .build();
+
+        setSNSAttributes(snsClient, attributes);
+        }
+
+    //snippet-start:[sns.java2.SetSMSAttributes.main]
+   public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
+
         try {
-
-            SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
-
             SetSmsAttributesRequest request = SetSmsAttributesRequest.builder()
                 .attributes(attributes)
                 .build();
@@ -64,4 +69,3 @@ public class SetSMSAttributes {
         //snippet-end:[sns.java2.SetSMSAttributes.main]
     }
 }
-//snippet-end:[sns.java2.SetSMSAttributes.complete]
