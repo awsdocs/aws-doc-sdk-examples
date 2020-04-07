@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 package com.example.kinesis;
-// snippet-start:[kinesis.java2.stream_rx_example.complete]
+
 // snippet-start:[kinesis.java2.stream_rx_example.import]
 
 import java.net.URI;
