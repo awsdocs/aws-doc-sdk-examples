@@ -1,8 +1,8 @@
-# AWS Identity and Access Management (IAM) Java Readme
+# Amazon Kinesis Java Readme
 
-A README that discusses how to run and test the Java AWS Identity and Access Management (IAM)  code examples.
+A README that discusses how to run and test the Java Amazon Kinesis code examples.
 
-## Running the Amazon AWS IAM Java files
+## Running the Amazon Kinesis Java files
 
 **IMPORTANT**
 
