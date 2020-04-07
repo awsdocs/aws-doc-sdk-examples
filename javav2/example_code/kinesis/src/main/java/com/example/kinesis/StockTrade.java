@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StockTrade.java is a helper class]
+//snippet-sourcedescription:[StockTrade.java is a helper class.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
@@ -32,8 +32,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Captures the key elements of a stock trade, such as the ticker symbol, price,
- * number of shares, the type of the trade (buy or sell), and an id uniquely identifying
- * the trade.
+ * number of shares, type of trade (buy or sell), and a unique ID for
+ * the trade
  */
 public class StockTrade {
 
@@ -43,7 +43,7 @@ public class StockTrade {
     }
 
     /**
-     * Represents the type of the stock trade eg buy or sell.
+     * Represents the type of the stock trade (buy or sell)
      */
     public enum TradeType {
         BUY,
