@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to use the Rx Java library to simplify processing of Kinesis streams.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[kinesis]
+//snippet-service:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[3/5/2020]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,12 +85,6 @@ public class KinesisStreamRxJavaEx {
 
     public static void main(String[] args) {
 
-
-
-
-
-
-
         KinesisAsyncClient client = KinesisAsyncClient.create();
 
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
@@ -103,8 +97,6 @@ public class KinesisStreamRxJavaEx {
 
         client.close();
     }
-
-
 }
  
-// snippet-end:[kinesis.java2.stream_rx_example.complete]
+
