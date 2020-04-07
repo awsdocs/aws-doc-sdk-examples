@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetRecords.java demonstrates how to read multiple data records from an Amazon Kinesis data stream]
+//snippet-sourcedescription:[GetRecords.java demonstrates how to read multiple data records from an Amazon Kinesis data stream.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
@@ -43,8 +43,8 @@ import java.util.List;
 //snippet-end:[kinesis.java2.getrecord.import]
 
 /**
- * Demonstrates how to read data from a Kinesis Data Stream. Before running this Java code example, populate a Data Stream
- * by running the StockTradesWriter example. That example populates a Data Stream that you can then use for this example.
+ * Demonstrates how to read data from a Kinesis data stream. Before running this Java code example, populate a data stream
+ * by running the StockTradesWriter example. Then you can use that populated data stream for this example.
  */
 
 public class GetRecords {
@@ -81,7 +81,7 @@ public class GetRecords {
             String shardIterator;
             String lastShardId = null;
 
-            // Retrieve the Shards from a Stream
+            // Retrieve the shards from a data stream
             DescribeStreamRequest describeStreamRequest = DescribeStreamRequest.builder()
                     .streamName(streamName)
                     .build();
@@ -107,11 +107,11 @@ public class GetRecords {
             GetShardIteratorResponse shardIteratorResult = kinesisClient.getShardIterator(itReq);
             shardIterator = shardIteratorResult.shardIterator();
 
-            // Continuously read data records from shard.
+            // Continuously read data records from a shard
             List<Record> records;
 
-            // Create new GetRecordsRequest with existing shardIterator.
-            // Set maximum records to return to 1000.
+            // Create a GetRecordsRequest with the existing shardIterator,
+            // and set maximum records to return to 1000
             GetRecordsRequest recordsRequest = GetRecordsRequest.builder()
                      .shardIterator(shardIterator)
                      .limit(1000)
@@ -119,7 +119,7 @@ public class GetRecords {
 
            GetRecordsResponse result = kinesisClient.getRecords(recordsRequest);
 
-           // Put result into record list. Result may be empty.
+           // Put result into a record list, result might be empty
            records = result.records();
 
             // Print records
