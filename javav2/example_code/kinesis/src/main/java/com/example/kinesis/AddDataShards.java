@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[AddDataShards.java demonstrates how to increase shard count in a Kinesis data stream.]
+//snippet-sourcedescription:[AddDataShards.java demonstrates how to increase shard count in an Amazon Kinesis data stream.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
