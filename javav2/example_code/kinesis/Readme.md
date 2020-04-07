@@ -23,25 +23,23 @@ Once you set the **CLASSPATH**, you can run a particular example like this:
 
 For systems with bash support.
 
- ## Testing the AWS IAM Java files
+ ## Testing the Amazon Kinesis files
 
-You can test the AWS IAM  Java code examples by running a test file named **IAMServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
+You can test the Amazon Kinesis Java code examples by running a test file named **KinesisServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
 
 You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that test 3 passed:
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulate real Amazon EC2 resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulate real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the AWS IAM JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Kinesis JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **userName** - a user name that is used to create a user.  
-- **policyName** – a policy name that is used to create a policy.
-- **roleName** – a role name. You can obtain this value from the AWS Console. 
-- **accountAlias** – a value that is used to create an account alias. For example, **myawsaccount10**.- 
+- **streamName** - a data stream name used in the tests.  
+- **existingDataStream** – an existing data stream that is used in the tests. Ensure that this is a different value from **streamName**.
 
 ### Command line
 To execute the JUnit tests from the command line, you can use the following command:
@@ -52,7 +50,7 @@ You will see output from the JUnit tests, as shown here:
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running IAMServiceIntegrationTest
+	[INFO] Running KinesisServiceIntegrationTest
 	Test 1 passed
 	Test 2 passed
 	...
