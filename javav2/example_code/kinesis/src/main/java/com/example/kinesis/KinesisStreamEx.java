@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[KinesisStreamEx.java demonstrates the various ways to consume and process a Kinesis stream asynchronously.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[kinesis]
+//snippet-service:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[3-26-2020]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 package com.example.kinesis;
-// snippet-start:[kinesis.java2.stream_example.complete]
+
 // snippet-start:[kinesis.java2.stream_example.import]
 
 import java.util.concurrent.CompletableFuture;
@@ -254,4 +254,4 @@ public class KinesisStreamEx {
     }
     // snippet-end:[kinesis.java2.stream_example.custom_subscriber]
 }
-// snippet-end:[kinesis.java2.stream_example.complete]
+
