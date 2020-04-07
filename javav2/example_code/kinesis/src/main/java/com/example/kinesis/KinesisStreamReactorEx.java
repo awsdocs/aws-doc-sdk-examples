@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[KinesisStreamReactorEx.java demonstrates how to use the Reactor library to simplify processing of Kinesis streams.]
+//snippet-sourcedescription:[KinesisStreamReactorEx.java demonstrates how to use the Reactor library to simplify processing of Amazon Kinesis streams.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis]
@@ -45,7 +45,7 @@ public class KinesisStreamReactorEx {
     private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
 
     /**
-     * Uses Reactor via the onEventStream lifecycle method. This gives you full access to the publisher which can be used
+     * Uses Reactor via the onEventStream lifecycle method. This gives you full access to the publisher, which can be used
      * to create a Flux.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_Reactor(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -65,7 +65,7 @@ public class KinesisStreamReactorEx {
     }
 
     /**
-     * Since a Flux is also a publisher, the publisherTransformer method integrates nicely with Reactor. Note that
+     * Because a Flux is also a publisher, the publisherTransformer method integrates nicely with Reactor. Notice that
      * you must adapt to an SdkPublisher.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_OnEventStream_Reactor(KinesisAsyncClient client, SubscribeToShardRequest request) {
