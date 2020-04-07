@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListShards.java demonstrates how to list the shards in a Kinesis data stream.]
+//snippet-sourcedescription:[ListShards.java demonstrates how to list the shards in an Amazon Kinesis data stream.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
