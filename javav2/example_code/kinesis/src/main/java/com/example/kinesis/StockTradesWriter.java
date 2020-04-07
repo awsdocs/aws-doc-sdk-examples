@@ -25,7 +25,7 @@
 
 package com.example.kinesis;
 
-//snippet-start:[kinesis.java2.putrecord.import]
+// snippet-start:[kinesis.java2.putrecord.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.kinesis.model.PutRecordRequest;
 import software.amazon.awssdk.services.kinesis.model.KinesisException;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamResponse;
-//snippet-end:[kinesis.java2.putrecord.import]
+// snippet-end:[kinesis.java2.putrecord.import]
 
 public class StockTradesWriter {
 
@@ -60,7 +60,7 @@ public class StockTradesWriter {
                     .region(region)
                     .build();
 
-            //Ensure that the Kinesis Stream is valid
+            // Ensure that the Kinesis stream is valid
             validateStream(kinesisClient, streamName);
             setStockData( kinesisClient, streamName);
     }
@@ -72,7 +72,7 @@ public class StockTradesWriter {
             // Repeatedly send stock trades with a 100 milliseconds wait in between
             StockTradeGenerator stockTradeGenerator = new StockTradeGenerator();
 
-            //Put in 50 Records for this example
+            // Put in 50 records for this example
             int index = 50;
             for (int x=0; x<index; x++){
                 StockTrade trade = stockTradeGenerator.getRandomTrade();
