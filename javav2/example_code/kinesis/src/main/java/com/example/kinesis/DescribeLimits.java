@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeLimits.java demonstrates how to  display the shard limit and usage for a given account]
+//snippet-sourcedescription:[DescribeLimits.java demonstrates how to display the shard limit and usage for a given AWS account.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
