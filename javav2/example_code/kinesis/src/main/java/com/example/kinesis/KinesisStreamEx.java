@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[KinesisStreamEx.java demonstrates the various ways to consume and process a Kinesis stream asynchronously.]
+//snippet-sourcedescription:[KinesisStreamEx.java demonstrates the various ways to consume and process an Amazon Kinesis stream asynchronously.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis]
@@ -41,8 +41,8 @@ import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHan
 public class KinesisStreamEx {
 
     /**
-     * Creates a SubscribeToShardResponseHandler using the builder which lets you set each lifecycle callback separately
-     * rather than implementing the interface.
+     * Creates a SubscribeToShardResponseHandler using the builder, which lets you set each lifecycle callback separately
+     * instead of implementing the interface
      */
 
     // Update to include a value CONSUMER_ARN
@@ -86,7 +86,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.lifecycle_callback]
 
     /**
-     * Using the SubscribeToShardResponseHandler.Builder and a simple Consumer of events to subscribe.
+     * Uses the SubscribeToShardResponseHandler.Builder and a simple consumer of events to subscribe
      */
     private static CompletableFuture<Void> responseHandlerBuilderConsumer(KinesisAsyncClient client, SubscribeToShardRequest request) {
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
@@ -98,7 +98,7 @@ public class KinesisStreamEx {
     }
 
     /**
-     * Uses the publisherTransformer method to customize the publisher before ultimately subscribing to it.
+     * Uses the publisherTransformer method to customize the publisher before ultimately subscribing to it
      */
     // snippet-start:[kinesis.java2.stream_example.publish_transformer]
     private static CompletableFuture<Void> responseHandlerBuilderPublisherTransformer(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -113,8 +113,8 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.publish_transformer]
 
     /**
-     * Creates a SubscribeToShardResponseHandler.Visitor using the builder which lets you register an event handler for
-     * all events you're interested in rather than implementing the interface.
+     * Creates a SubscribeToShardResponseHandler.Visitor using the builder, which lets you register an event handler for
+     * all events you're interested in instead of implementing the interface
      */
     // snippet-start:[kinesis.java2.stream_example.visitor]
     private static CompletableFuture<Void> responseHandlerBuilderVisitorBuilder(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -132,7 +132,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.visitor]
 
     /**
-     * Subscribes to the stream of events by implementing the SubscribeToShardResponseHandler.Visitor interface.
+     * Subscribes to the stream of events by implementing the SubscribeToShardResponseHandler.Visitor interface
      */
     private static CompletableFuture<Void> responseHandlerBuilderVisitor(KinesisAsyncClient client, SubscribeToShardRequest request) {
         SubscribeToShardResponseHandler.Visitor visitor = new SubscribeToShardResponseHandler.Visitor() {
@@ -150,7 +150,7 @@ public class KinesisStreamEx {
     }
 
     /**
-     * Creates a SubscribeToShardResponseHandler the classic way by implementing the interface.
+     * Creates a SubscribeToShardResponseHandler the classic way by implementing the interface
      */
     // snippet-start:[kinesis.java2.stream_example.custom_handler]
     private static CompletableFuture<Void> responseHandlerBuilderClassic(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -191,7 +191,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.custom_handler]
 
     /**
-     * Using the SubscribeToShardResponseHandler.Builder and a traditional subscriber.
+     * Use the SubscribeToShardResponseHandler.Builder and a traditional subscriber
      */
     // snippet-start:[kinesis.java2.stream_example.subscribe]
     private static CompletableFuture<Void> responseHandlerBuilderSubscriber(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -205,8 +205,8 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.subscribe]
 
     /**
-     * Subscribes to the publisher using the onEventStream lifecycle callback method. This allows for greater control
-     * over the publisher and allows for transformation methods on the publisher like map and buffer.
+     * Subscribes to the publisher using the onEventStream lifecycle callback method, which allows greater control
+     * over the publisher and allows transformation methods on the publisher, like map and buffer
      */
     private static CompletableFuture<Void> responseHandlerBuilderOnEventStream(KinesisAsyncClient client, SubscribeToShardRequest request) {
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
@@ -218,7 +218,7 @@ public class KinesisStreamEx {
     }
 
     /**
-     * Simple subscriber implementation that prints events and cancels the subscription after 100 events.
+     * Simple subscriber implementation that prints events and cancels the subscription after 100 events
      */
     // snippet-start:[kinesis.java2.stream_example.custom_subscriber]
     private static class MySubscriber implements Subscriber<SubscribeToShardEventStream> {
@@ -236,7 +236,7 @@ public class KinesisStreamEx {
         public void onNext(SubscribeToShardEventStream shardSubscriptionEventStream) {
             System.out.println("Received event " + shardSubscriptionEventStream);
             if (eventCount.incrementAndGet() >= 100) {
-                // You can cancel the subscription at any time if you wish to stop receiving events.
+                // Cancel the subscription at any time to stop receiving events
                 subscription.cancel();
             }
             subscription.request(1);
