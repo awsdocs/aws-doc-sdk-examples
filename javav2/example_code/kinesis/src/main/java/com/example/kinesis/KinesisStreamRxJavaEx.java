@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to use the Rx Java library to simplify processing of Kinesis streams.]
+//snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to use the Rx Java library to simplify processing of Amazon Kinesis streams.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis]
@@ -47,7 +47,7 @@ public class KinesisStreamRxJavaEx {
     private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
 
     /**
-     * Uses RxJava via the onEventStream lifecycle method. This gives you full access to the publisher which can be used
+     * Uses RxJava via the onEventStream lifecycle method. This gives you full access to the publisher, which can be used
      * to create an Rx Flowable.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -69,7 +69,7 @@ public class KinesisStreamRxJavaEx {
     }
 
     /**
-     * Since a Flowable is also a publisher, the publisherTransformer method integrates nicely with RxJava. Note that
+     * Because a Flowable is also a publisher, the publisherTransformer method integrates nicely with RxJava. Notice that
      * you must adapt to an SdkPublisher.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_OnEventStream_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
