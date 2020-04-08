@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[PutMetricAlarm.java demonstrates how to create a new CloudWatch alarm based on CPU utilization for an instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,8 +21,9 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.put_metric_alarm.complete]
+
 // snippet-start:[cloudwatch.java2.put_metric_alarm.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricAlarmRequest;
@@ -40,7 +41,7 @@ public class PutMetricAlarm {
 
         final String USAGE =
                 "To run this example, supply an alarm name and instance id\n" +
-                        "Ex: DeleteAlarm <alarm-name> <instance-id>\n";
+                        "Ex: PutMetricAlarm <alarm-name> <instance-id>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -50,11 +51,18 @@ public class PutMetricAlarm {
         String alarmName = args[0];
         String instanceId = args[1];
 
-        // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
-        CloudWatchClient cw = CloudWatchClient.builder().build();
+        Region region = Region.US_EAST_1;
+        CloudWatchClient cw = CloudWatchClient.builder()
+                .region(region)
+                .build();
+
+        putMetricAlarm(cw, alarmName, instanceId) ;
+    }
+
+    // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
+    public static void putMetricAlarm(CloudWatchClient cw, String alarmName, String instanceId) {
 
         try {
-
             Dimension dimension = Dimension.builder()
                 .name("InstanceId")
                 .value(instanceId).build();
@@ -88,4 +96,3 @@ public class PutMetricAlarm {
         // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
     }
 }
-// snippet-end:[cloudwatch.java2.put_metric_alarm.complete]
