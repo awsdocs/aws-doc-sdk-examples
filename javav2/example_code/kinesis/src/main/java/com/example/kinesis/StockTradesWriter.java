@@ -54,19 +54,18 @@ public class StockTradesWriter {
 
         String streamName = args[0];
 
-
-            Region region = Region.US_EAST_1;
-            KinesisClient kinesisClient = KinesisClient.builder()
+        Region region = Region.US_EAST_1;
+        KinesisClient kinesisClient = KinesisClient.builder()
                     .region(region)
                     .build();
 
-            // Ensure that the Kinesis stream is valid
-            validateStream(kinesisClient, streamName);
-            setStockData( kinesisClient, streamName);
+        // Ensure that the Kinesis stream is valid
+        validateStream(kinesisClient, streamName);
+        setStockData( kinesisClient, streamName);
     }
 
-        // snippet-start:[kinesis.java2.putrecord.main]
-        public static void setStockData( KinesisClient kinesisClient, String streamName) {
+   // snippet-start:[kinesis.java2.putrecord.main]
+   public static void setStockData( KinesisClient kinesisClient, String streamName) {
 
             try {
             // Repeatedly send stock trades with a 100 milliseconds wait in between
