@@ -22,7 +22,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
 package com.example.kinesis;
 
 //snippet-start:[kinesis.java2.AddDataShards.import]
@@ -55,7 +54,6 @@ public class AddDataShards {
 
         int goalShards = Integer.parseInt(inputShards);
 
-
         // snippet-start:[kinesis.java2.AddDataShards.client]
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
@@ -78,11 +76,12 @@ public class AddDataShards {
 
             UpdateShardCountResponse response = kinesisClient.updateShardCount(request);
             System.out.println(response.streamName() + " has updated shard count to " + response.currentShardCount());
-            // snippet-end:[kinesis.java2.AddDataShards.main]
+           
         } catch (KinesisException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("Done");
     }
+    // snippet-end:[kinesis.java2.AddDataShards.main]
 }
