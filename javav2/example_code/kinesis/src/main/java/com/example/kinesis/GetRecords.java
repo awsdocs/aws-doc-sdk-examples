@@ -66,7 +66,6 @@ public class GetRecords {
 
         String streamName = args[0];
 
-
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
                 .region(region)
@@ -89,7 +88,6 @@ public class GetRecords {
 
             DescribeStreamResponse streamRes;
             do {
-               // describeStreamRequest.exclusiveStartShardId(lastShardId);
                 streamRes = kinesisClient.describeStream(describeStreamRequest);
                 shards.addAll(streamRes.streamDescription().shards());
 
