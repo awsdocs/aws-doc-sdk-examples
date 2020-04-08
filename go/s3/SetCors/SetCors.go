@@ -11,7 +11,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start:[s3.go.put_bucket_cors.complete]
+// snippet-start:[s3.go.put_bucket_cors]
 package main
 
 // snippet-start:[s3.go.put_bucket_cors.imports]
