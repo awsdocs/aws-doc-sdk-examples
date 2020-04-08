@@ -69,8 +69,6 @@ public class PutRule {
                 .build();
 
             response = cwe.putRule(request);
-
-
         } catch (
             CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
