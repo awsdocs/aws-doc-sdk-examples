@@ -5,8 +5,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
-
-
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
