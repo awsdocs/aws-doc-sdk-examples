@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample CloudWatch event.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.put_log_events.complete]
 
 // snippet-start:[cloudwatch.java2.put_log_events.import]
 import software.amazon.awssdk.regions.Region;
@@ -52,8 +51,18 @@ public class PutLogEvents {
         String logGroupName = args[1];
         String streamName = args[2];
 
-        // snippet-start:[cloudwatch.java2.put_log_events.main]
-        CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder().region(Region.of(regionId)).build();
+
+        CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
+            .region(Region.of(regionId))
+            .build();
+
+        putCWLogEvents(logsClient, regionId, logGroupName, streamName) ;
+
+    }
+
+    // snippet-start:[cloudwatch.java2.put_log_events.main]
+    public static void putCWLogEvents(CloudWatchLogsClient logsClient, String regionId, String logGroupName, String streamName) {
+
 
         // A sequence token is required to put a log event in an existing stream.
         // Look up the stream to find its sequence token.
@@ -89,4 +98,3 @@ public class PutLogEvents {
         System.out.println("Successfully put CloudWatch log event");
     }
 }
-// snippet-end:[cloudwatch.java2.put_log_events.complete]
