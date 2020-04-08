@@ -48,7 +48,6 @@ public class CreateDataStream {
             System.out.println(USAGE);
             System.exit(1);
         }
-
         String streamName = args[0];
 
         Region region = Region.US_EAST_1;
