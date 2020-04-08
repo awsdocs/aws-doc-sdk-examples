@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UseDynamoMappingJ2.java demonstrates how to use the Amazon DynamoDB enhanced client to put an item into a table.]
+//snippet-sourcedescription:[UseDynamoMappingJ2.java demonstrates how to use the DynamoDbEnhancedClient object to put an item into a table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
