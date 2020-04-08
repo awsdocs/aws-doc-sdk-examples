@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using object mapper functionality provided by the DynamoDbEnhancedClient.]
+//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using object mapper functionality provided by a DynamoDbEnhancedClient object.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
