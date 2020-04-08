@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutMetricData.java demonstrates how to get metric data.]
+//snippet-sourcedescription:[GetMetricData.java demonstrates how to get metric data.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 
-// snippet-start:[cloudwatch.java2.put_metric_data.import]
+// snippet-start:[cloudwatch.java2.get_metric_data.import]
 package com.example.cloudwatch;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
@@ -35,7 +35,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-// snippet-end:[cloudwatch.java2.put_metric_data.import]
+// snippet-end:[cloudwatch.java2.get_metric_data.import]
 
 /**
  * Puts a sample metric data point
@@ -52,7 +52,7 @@ public class GetMetricData {
         getMetData(cw) ;
     }
 
-    // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
+    // snippet-start:[cloudwatch.java2.get_metric_alarm.main]
     public static void getMetData( CloudWatchClient cw) {
 
         try {
@@ -96,7 +96,7 @@ public class GetMetricData {
             for (int i = 0; i < data.size(); i++) {
 
                 MetricDataResult item = (MetricDataResult) data.get(i);
-                System.out.println("The label is "+item.label());
+             System.out.println("The label is "+item.label());
                 System.out.println("The status code is "+item.statusCode().toString());
             }
 
@@ -104,6 +104,6 @@ public class GetMetricData {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
+        // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
     }
 }
