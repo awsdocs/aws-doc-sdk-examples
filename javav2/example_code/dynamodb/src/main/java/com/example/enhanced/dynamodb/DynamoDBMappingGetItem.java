@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DynamoDBMappingGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.]
+//snippet-sourcedescription:[DynamoDBMappingGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the DynamoDbEnhancedClient.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
