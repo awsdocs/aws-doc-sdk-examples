@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample CloudWatch event.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.put_events.complete]
+
 // snippet-start:[cloudwatch.java2.put_events.import]
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
@@ -46,9 +46,15 @@ public class PutEvents {
 
         String resourceArn = args[0];
 
-        // snippet-start:[cloudwatch.java2.put_events.main]
+
         CloudWatchEventsClient cwe =
                 CloudWatchEventsClient.builder().build();
+
+        putCWEvents(cwe, resourceArn );
+    }
+
+    // snippet-start:[cloudwatch.java2.put_events.main]
+    public static void putCWEvents(CloudWatchEventsClient cwe, String resourceArn ) {
 
         try {
 
@@ -74,4 +80,3 @@ public class PutEvents {
         System.out.println("Successfully put CloudWatch event");
     }
 }
-// snippet-end:[cloudwatch.java2.put_events.complete]
