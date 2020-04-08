@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get information about CloudWatch alarms.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
@@ -21,8 +21,9 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.describe_alarms.complete]
+
 // snippet-start:[cloudwatch.java2.describe_alarms.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmsRequest;
@@ -37,8 +38,17 @@ public class DescribeAlarms {
 
     public static void main(String[] args) {
 
-        // snippet-start:[cloudwatch.java2.describe_alarms.main]
-        CloudWatchClient cw = CloudWatchClient.builder().build();
+        Region region = Region.US_EAST_1;
+        CloudWatchClient cw = CloudWatchClient.builder()
+                .region(region)
+                .build();
+
+        deleteCWAlarms(cw) ;
+
+    }
+
+    // snippet-start:[cloudwatch.java2.describe_alarms.main]
+    public static void deleteCWAlarms( CloudWatchClient cw) {
 
         try {
 
@@ -55,7 +65,7 @@ public class DescribeAlarms {
                     DescribeAlarmsRequest request = DescribeAlarmsRequest.builder()
                         .nextToken(newToken)
                         .build();
-                 response = cw.describeAlarms(request);
+                    response = cw.describeAlarms(request);
                 }
 
                 for(MetricAlarm alarm : response.metricAlarms()) {
@@ -77,4 +87,3 @@ public class DescribeAlarms {
         // snippet-end:[cloudwatch.java2.describe_alarms.main]
     }
 }
-// snippet-end:[cloudwatch.java2.describe_alarms.complete]
