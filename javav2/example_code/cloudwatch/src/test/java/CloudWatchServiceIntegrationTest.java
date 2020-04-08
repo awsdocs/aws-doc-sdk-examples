@@ -79,10 +79,7 @@ public class CloudWatchServiceIntegrationTest {
     public void CreateAlarm() {
 
         try {
-
             PutMetricAlarm.putMetricAlarm(cw,alarmName,instanceId );
-
-
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -140,7 +137,6 @@ public class CloudWatchServiceIntegrationTest {
     public void DisableAlarmActions() {
 
        try {
-
            DisableAlarmActions.disableActions(cw, alarmName);
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
