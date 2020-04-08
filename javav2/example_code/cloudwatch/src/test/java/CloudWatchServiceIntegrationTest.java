@@ -1,14 +1,14 @@
+import com.example.cloudwatch.DeleteAlarm;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.*;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
-import software.amazon.awssdk.services.cloudwatchevents.model.*;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
-import software.amazon.awssdk.services.cloudwatchlogs.model.*;
-
+import com.example.cloudwatch.*;
 import java.io.*;
-import java.time.Instant;
 import java.util.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -31,7 +31,10 @@ public class CloudWatchServiceIntegrationTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        cw = CloudWatchClient.builder().build();
+        Region region = Region.US_WEST_2;;
+        cw = CloudWatchClient.builder()
+                .region(region)
+                .build();
         cloudWatchLogsClient = CloudWatchLogsClient.builder().build();
 
         try (InputStream input = CloudWatchServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -77,28 +80,8 @@ public class CloudWatchServiceIntegrationTest {
 
         try {
 
-            Dimension dimension = Dimension.builder()
-                    .name("InstanceId")
-                    .value(instanceId).build();
+            PutMetricAlarm.putMetricAlarm(cw,alarmName,instanceId );
 
-            PutMetricAlarmRequest request = PutMetricAlarmRequest.builder()
-                    .alarmName(alarmName)
-                    .comparisonOperator(
-                            ComparisonOperator.GREATER_THAN_THRESHOLD)
-                    .evaluationPeriods(1)
-                    .metricName("CPUUtilization")
-                    .namespace("AWS/EC2")
-                    .period(60)
-                    .statistic(Statistic.AVERAGE)
-                    .threshold(70.0)
-                    .actionsEnabled(false)
-                    .alarmDescription(
-                            "Alarm when server CPU utilization exceeds 70%")
-                    .unit(StandardUnit.SECONDS)
-                    .dimensions(dimension)
-                    .build();
-
-            PutMetricAlarmResponse response = cw.putMetricAlarm(request);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -113,33 +96,7 @@ public class CloudWatchServiceIntegrationTest {
     public void DescribeAlarms() {
 
         try {
-
-            boolean done = false;
-            String newToken = null;
-
-            while(!done) {
-                DescribeAlarmsResponse response;
-
-                if (newToken == null) {
-                    DescribeAlarmsRequest request = DescribeAlarmsRequest.builder().build();
-                    response = cw.describeAlarms(request);
-                } else {
-                    DescribeAlarmsRequest request = DescribeAlarmsRequest.builder()
-                            .nextToken(newToken)
-                            .build();
-                    response = cw.describeAlarms(request);
-                }
-
-                for(MetricAlarm alarm : response.metricAlarms()) {
-                    System.out.printf("\n Retrieved alarm %s", alarm.alarmName());
-                }
-
-                if(response.nextToken() == null) {
-                    done = true;
-                } else {
-                    newToken = response.nextToken();
-                }
-            }
+            DescribeAlarms.deleteCWAlarms(cw);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -153,16 +110,8 @@ public class CloudWatchServiceIntegrationTest {
     public void CreateSubscriptionFilters() {
 
        try {
+         PutSubscriptionFilter.putSubFilters(cloudWatchLogsClient, filterName, filterPattern, logGroup, roleArn, destinationArn);
 
-        PutSubscriptionFilterRequest filRequest = PutSubscriptionFilterRequest.builder()
-                .filterName(filterName)
-                .logGroupName(logGroup)
-                .destinationArn(destinationArn)
-                .roleArn(roleArn)
-                .filterPattern(filterPattern)
-                .build();
-
-           cloudWatchLogsClient.putSubscriptionFilter(filRequest);
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -176,50 +125,8 @@ public class CloudWatchServiceIntegrationTest {
     public void DescribeSubscriptionFilters() {
 
         try {
+            DescribeSubscriptionFilters.describeFilters(cloudWatchLogsClient,logGroup);
 
-            boolean done = false;
-            String newToken = null;
-
-            while(!done) {
-
-                DescribeSubscriptionFiltersResponse response;
-
-                if (newToken == null) {
-                    DescribeSubscriptionFiltersRequest request =
-                            DescribeSubscriptionFiltersRequest.builder()
-                                    .logGroupName(logGroup)
-                                    .limit(1).build();
-
-                    response = cloudWatchLogsClient.describeSubscriptionFilters(request);
-                } else {
-                    DescribeSubscriptionFiltersRequest request =
-                            DescribeSubscriptionFiltersRequest.builder()
-                                    .nextToken(newToken)
-                                    .logGroupName(logGroup)
-                                    .limit(1).build();
-
-                    response = cloudWatchLogsClient.describeSubscriptionFilters(request);
-                }
-
-                for(SubscriptionFilter filter : response.subscriptionFilters()) {
-                    System.out.printf(
-                            "Retrieved filter with name %s, " +
-                                    "pattern %s " +
-                                    "log group %s " +
-                                    "and destination arn %s",
-                            filter.filterName(),
-                            filter.filterPattern(),
-                            filter.logGroupName(),
-                            filter.destinationArn());
-                    System.out.println("");
-                }
-
-                if(response.nextToken() == null) {
-                    done = true;
-                } else {
-                    newToken = response.nextToken();
-                }
-            }
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -234,11 +141,7 @@ public class CloudWatchServiceIntegrationTest {
 
        try {
 
-           DisableAlarmActionsRequest request = DisableAlarmActionsRequest.builder()
-                    .alarmNames(alarmName).build();
-
-            DisableAlarmActionsResponse response = cw.disableAlarmActions(request);
-
+           DisableAlarmActions.disableActions(cw, alarmName);
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -252,11 +155,7 @@ public class CloudWatchServiceIntegrationTest {
     public void EnableAlarmActions() {
 
        try {
-            EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
-                    .alarmNames(alarmName).build();
-
-            EnableAlarmActionsResponse response = cw.enableAlarmActions(request);
-
+            EnableAlarmActions.enableActions(cw, alarmName) ;
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -270,22 +169,11 @@ public class CloudWatchServiceIntegrationTest {
     public void GetLogEvents() {
 
         try {
-             GetLogEventsRequest getLogEventsRequest = GetLogEventsRequest.builder()
-                    .logGroupName(logGroup)
-                    .logStreamName(streamName)
-                    .startFromHead(true)
-                    .build();
-
-            int logLimit = cloudWatchLogsClient.getLogEvents(getLogEventsRequest).events().size();
-            for (int c = 0; c < logLimit; c++) {
-                // Prints the messages to the console
-                System.out.println(cloudWatchLogsClient.getLogEvents(getLogEventsRequest).events().get(c).message());
-            }
-        } catch (CloudWatchException e) {
+                GetLogEvents.getCWLogEvebts(cloudWatchLogsClient,logGroup,streamName);
+            } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         System.out.println("\n Test 8 passed");
     }
 
@@ -298,20 +186,7 @@ public class CloudWatchServiceIntegrationTest {
                 CloudWatchEventsClient.builder().build();
 
         try {
-
-            final String EVENT_DETAILS =
-                    "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
-
-            PutEventsRequestEntry requestEntry = PutEventsRequestEntry.builder()
-                    .detail(EVENT_DETAILS)
-                    .detailType("sampleSubmitted")
-                    .resources(ruleResource)
-                    .source("aws-sdk-java-cloudwatch-example").build();
-
-            PutEventsRequest request = PutEventsRequest.builder()
-                    .entries(requestEntry).build();
-
-            cwe.putEvents(request);
+            PutEvents.putCWEvents(cwe,ruleResource );
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -326,49 +201,7 @@ public class CloudWatchServiceIntegrationTest {
 
        try {
 
-            // Set the date
-            Instant start = Instant.ofEpochMilli(new Date().getTime());
-            start = Instant.parse("2019-10-23T10:12:35Z");
-
-            Instant endDate = Instant.now();
-
-            Metric met = Metric.builder()
-                    .metricName("DiskReadBytes")
-                    .namespace("AWS/EC2")
-                    .build();
-
-            MetricStat metStat = MetricStat.builder()
-                    .stat("Minimum")
-                    .period(60)
-                    .metric(met)
-                    .build();
-
-            MetricDataQuery dataQUery = MetricDataQuery.builder()
-                    .metricStat(metStat)
-                    .id(metricId)
-                    .returnData(true)
-                    .build();
-
-            List<MetricDataQuery> dq = new ArrayList();
-            dq.add(dataQUery);
-
-            GetMetricDataRequest getMetReq = GetMetricDataRequest.builder()
-                    .maxDatapoints(100)
-                    .startTime(start)
-                    .endTime(endDate)
-                    .metricDataQueries(dq)
-                    .build();
-
-            GetMetricDataResponse response = cw.getMetricData(getMetReq);
-
-            List<MetricDataResult> data = response.metricDataResults();
-
-            for (int i = 0; i < data.size(); i++) {
-
-                MetricDataResult item = (MetricDataResult) data.get(i);
-                System.out.println("The label is "+item.label());
-                System.out.println("The status code is "+item.statusCode().toString());
-            }
+        GetMetricData.getMetData(cw);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -383,13 +216,7 @@ public class CloudWatchServiceIntegrationTest {
     public void DeleteSubscriptionFilter() {
 
         try {
-
-          DeleteSubscriptionFilterRequest request =
-                    DeleteSubscriptionFilterRequest.builder()
-                            .filterName(filterName)
-                           .logGroupName(logGroup).build();
-
-           cloudWatchLogsClient.deleteSubscriptionFilter(request);
+           DeleteSubscriptionFilter.deleteSubFilter(cloudWatchLogsClient, filterName,logGroup );
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -404,11 +231,7 @@ public class CloudWatchServiceIntegrationTest {
     public void DeleteAlarm() {
 
       try {
-        DeleteAlarmsRequest delAlarm = DeleteAlarmsRequest.builder()
-                .alarmNames(alarmName)
-                .build();
-
-        cw.deleteAlarms(delAlarm);
+          DeleteAlarm.deleteCWAlarm(cw, alarmName);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -418,3 +241,8 @@ public class CloudWatchServiceIntegrationTest {
         System.out.println("\n Test 12 passed");
     }
 }
+
+
+
+
+
