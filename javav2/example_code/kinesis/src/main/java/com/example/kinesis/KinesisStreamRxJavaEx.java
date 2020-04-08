@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to use the Rx Java library to simplify processing of Amazon Kinesis streams.]
+//snippet-sourcedescription:[KinesisStreamRxJavaEx.java demonstrates how to use the Rx Java library to simplify processing of Kinesis streams.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kinesis]
+//snippet-service:[kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[3/5/2020]
+//snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 package com.example.kinesis;
-
+// snippet-start:[kinesis.java2.stream_rx_example.complete]
 // snippet-start:[kinesis.java2.stream_rx_example.import]
 
 import java.net.URI;
@@ -47,7 +47,7 @@ public class KinesisStreamRxJavaEx {
     private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
 
     /**
-     * Uses RxJava via the onEventStream lifecycle method. This gives you full access to the publisher, which can be used
+     * Uses RxJava via the onEventStream lifecycle method. This gives you full access to the publisher which can be used
      * to create an Rx Flowable.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -69,7 +69,7 @@ public class KinesisStreamRxJavaEx {
     }
 
     /**
-     * Because a Flowable is also a publisher, the publisherTransformer method integrates nicely with RxJava. Notice that
+     * Since a Flowable is also a publisher, the publisherTransformer method integrates nicely with RxJava. Note that
      * you must adapt to an SdkPublisher.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_OnEventStream_RxJava(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -85,6 +85,12 @@ public class KinesisStreamRxJavaEx {
 
     public static void main(String[] args) {
 
+
+
+
+
+
+
         KinesisAsyncClient client = KinesisAsyncClient.create();
 
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
@@ -97,6 +103,8 @@ public class KinesisStreamRxJavaEx {
 
         client.close();
     }
+
+
 }
  
-
+// snippet-end:[kinesis.java2.stream_rx_example.complete]
