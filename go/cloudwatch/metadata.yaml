@@ -1,31 +1,42 @@
 ---
 created: 2020-02-25
 files:
-  - path: DescribeAlarms/DescribeAlarms.go
-    apis:
-      - service: cloudwatch
-        operations:
-          - DescribeAlarms
-  - path: DisableAlarm/DisableAlarm.go
-    apis:
-      - service: cloudwatch
-        operations:
-          - DisableAlarmActions
-  - path: EnableAlarm/EnableAlarm.go
-    apis:
-      - service: cloudwatch
-        operations:
-          - Config.Region
-          - EnableAlarmActions
-          - PutMetricAlarm
-  - path: ListMetrics/ListMetrics.go
-    apis:
-      - service: cloudwatch
-        operations:
-          - ListMetrics
   - path: CreateCustomMetric/CreateCustomMetric.go
-    apis:
-      - service: cloudwatch
-        operations:
-          - PutMetricData
-
+    services:
+      - cloudwatch
+  - path: CreateRole/CreateRole.go
+    services:
+      - iam
+  - path: CreateRule/CreateRule.go
+    services:
+      - cloudwatchevents
+  - path: CreateTarget/CreateTarget.go
+    services:
+      - cloudwatchevents
+  - path: DeleteAlarm/DeleteAlarm.go
+    services:
+      - cloudwatch
+  - path: DescribeAlarms/DescribeAlarms.go
+    services:
+      - cloudwatch
+  - path: DisableAlarm/DisableAlarm.go
+    services:
+      - cloudwatch
+  - path: EnableAlarm/EnableAlarm.go
+    services:
+      - cloudwatch
+  - path: GetLogEvents/GetLogEvents.go
+    services:
+      - cloudwatchlogs
+  - path: Lambda/Lambda.go
+    services:
+      - cloudwatch
+  - path: ListMetrics/ListMetrics.go
+    services:
+      - cloudwatch
+  - path: SendEvent/SendEvent.go
+    services:
+      - cloudwatchevents
+  - path: UploadLambdaFunction/UploadLambdaFunction.go
+    services:
+      - lambda
