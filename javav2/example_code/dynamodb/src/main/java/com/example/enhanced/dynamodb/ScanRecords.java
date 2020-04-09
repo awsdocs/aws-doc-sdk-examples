@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.]
+//snippet-sourcedescription:[ScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using a DynamoDbEnhancedClient object.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]

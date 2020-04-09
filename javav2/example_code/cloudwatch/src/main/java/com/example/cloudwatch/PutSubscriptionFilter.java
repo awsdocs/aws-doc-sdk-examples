@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to creates a CloudWatch logs subscription filter.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,8 +22,9 @@
  */
 
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.put_subscription_filter.complete]
+
 // snippet-start:[cloudwatch.java2.put_subscription_filter.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilterRequest;
@@ -33,7 +34,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
 /**
  * Creates a CloudWatch Logs subscription filter.
  */
-// snippet-start:[cloudwatch.java2.put_subscription_filter.main]
+
 public class PutSubscriptionFilter {
     public static void main(String[] args) {
 
@@ -42,13 +43,15 @@ public class PutSubscriptionFilter {
                         "* a filter name\n" +
                         "* filter pattern\n" +
                         "* log group name\n" +
+                        "* a role arn \n" +
                         "* lambda function arn\n\n" +
                         "Ex: PutSubscriptionFilter <filter-name> \\\n" +
                         "                          <filter pattern> \\\n" +
                         "                          <log-group-name> \\\n" +
+                        "                          <role-arn> \\\n" +
                         "                          <lambda-function-arn>\n";
 
-        if (args.length != 4) {
+        if (args.length != 5) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -56,16 +59,31 @@ public class PutSubscriptionFilter {
         String filter = args[0];
         String pattern = args[1];
         String logGroup = args[2];
-        String functionArn = args[3];
+        String roleArn = args[3];
+        String functionArn = args[4];
+
+        Region region = Region.US_WEST_2;
+        CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
+                .region(region)
+                .build();
+
+        putSubFilters(cwl, filter, pattern, logGroup, roleArn, functionArn ) ;
+    }
+
+    // snippet-start:[cloudwatch.java2.put_subscription_filter.main]
+    public static void putSubFilters(CloudWatchLogsClient cwl,
+                                     String filter,
+                                     String pattern,
+                                     String logGroup,
+                                     String roleArn,
+                                     String functionArn) {
 
         try {
-            CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
-                    .build();
-
             PutSubscriptionFilterRequest request =
                     PutSubscriptionFilterRequest.builder()
                             .filterName(filter)
                             .filterPattern(pattern)
+                            .roleArn(roleArn)
                             .logGroupName(logGroup)
                             .destinationArn(functionArn)
                             .build();
@@ -84,4 +102,3 @@ public class PutSubscriptionFilter {
     }
 }
 // snippet-end:[cloudwatch.java2.put_subscription_filter.main]
-// snippet-end:[cloudwatch.java2.put_subscription_filter.complete]

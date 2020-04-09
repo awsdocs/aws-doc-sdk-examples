@@ -23,7 +23,6 @@
  *
  */
 
-// snippet-start:[presigned.java2.generatepresignedurl.complete]
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
@@ -93,4 +92,3 @@ public class GeneratePresignedUrlAndUploadObject {
         // snippet-end:[presigned.java2.generatepresignedurl.main]
     }
 }
-// snippet-end:[presigned.java2.generatepresignedurl.complete]

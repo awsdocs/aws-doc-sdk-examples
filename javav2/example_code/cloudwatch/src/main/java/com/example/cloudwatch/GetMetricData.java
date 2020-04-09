@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[GetMetricData.java demonstrates how to get metric data.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-// snippet-start:[cloudwatch.java2.put_metric_data.complete]
-// snippet-start:[cloudwatch.java2.put_metric_data.import]
+
+// snippet-start:[cloudwatch.java2.get_metric_data.import]
 package com.example.cloudwatch;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataResponse;
 import software.amazon.awssdk.services.cloudwatch.model.Metric;
@@ -34,22 +35,27 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+// snippet-end:[cloudwatch.java2.get_metric_data.import]
 
-// snippet-end:[cloudwatch.java2.put_metric_data.import]
 /**
  * Puts a sample metric data point
  */
 public class GetMetricData {
 
-
     public static void main(String[] args) {
-        // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
+
+        Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
+                .region(region)
                 .build();
 
+        getMetData(cw) ;
+    }
+
+    // snippet-start:[cloudwatch.java2.get_metric_alarm.main]
+    public static void getMetData( CloudWatchClient cw) {
 
         try {
-
             // Set the date
             Instant start = Instant.ofEpochMilli(new Date().getTime());
             start = Instant.parse("2019-10-23T10:12:35Z");
@@ -94,11 +100,10 @@ public class GetMetricData {
                 System.out.println("The status code is "+item.statusCode().toString());
             }
 
-       } catch (CloudWatchException e) {
+        } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
+        // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
     }
 }
-// snippet-end:[cloudwatch.java2.put_metric_data.complete]
