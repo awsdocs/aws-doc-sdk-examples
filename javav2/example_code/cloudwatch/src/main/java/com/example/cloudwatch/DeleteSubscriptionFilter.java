@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteSubscriptionFilter.java demonstrates how to delete CloudWatch log subscription filters.]
+//snippet-sourcedescription:[DeleteSubscriptionFilter.java demonstrates how to delete Amazon CloudWatch log subscription filters.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -30,7 +30,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFi
 // snippet-end:[cloudwatch.java2.delete_subscription_filter.import]
 
 /**
- * Deletes a CloudWatch Logs subscription filter.
+ * Deletes a CloudWatch log subscription filter.
  */
 
 public class DeleteSubscriptionFilter {
@@ -73,7 +73,7 @@ public class DeleteSubscriptionFilter {
        }
 
        System.out.printf(
-                "Successfully deleted CloudWatch logs subscription filter %s",
+                "Successfully deleted CloudWatch log subscription filter %s",
                 filter);
     }
 }

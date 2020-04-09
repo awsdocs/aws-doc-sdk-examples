@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ClientConfiguration.java demonstrates how to configure an HTTP client in the Kinesis asynchronous client.]
+//snippet-sourcedescription:[ClientConfiguration.java demonstrates how to create Kinesis asynchronous clients.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[kinesis]

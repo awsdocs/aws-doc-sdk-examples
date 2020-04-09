@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of CloudWatch subscription filters associated with a log group.]
+//snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of Amazon CloudWatch subscription filters that are associated with a log group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
 // snippet-end:[cloudwatch.java2.describe_subscription_filters.import]
 
 /**
- * Lists CloudWatch subscription filters associated with a log group.
+ * Lists CloudWatch subscription filters that are associated with a log group.
  */
 
 public class DescribeSubscriptionFilters {
