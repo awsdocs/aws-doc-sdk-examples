@@ -1,5 +1,5 @@
 ---
-# Basic S3 bucket and object examples
+# Basic Amazon S3 bucket and object examples
 files:
   - path: bucket_wrapper.py
     services:
@@ -17,7 +17,7 @@ files:
   - path: test/test_object_wrapper.py
 ...
 ---
-# S3 file transfer demo
+# Amazon S3 file transfer demo
 files:
   - path: file_transfer/demo_file_transfer.py
   - path: file_transfer/file_transfer.py

@@ -3,9 +3,9 @@
 
 """
 Purpose
-    Demonstrate create, list, and delete buckets in Amazon Simple Storage Service (S3).
+    Demonstrate create, list, and delete buckets in Amazon S3.
 
-    This example is part of the SDK for Cloud9 User Guide topic at
+    This example is part of the AWS Cloud9 User Guide topic at
     https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
 
 Running the code

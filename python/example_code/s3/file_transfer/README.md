@@ -1,4 +1,4 @@
-# Amazon S3 Managed File Transfers
+# Amazon S3 managed file transfers
 
 ## Purpose
 

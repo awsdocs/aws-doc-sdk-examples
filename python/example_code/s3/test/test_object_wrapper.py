@@ -44,7 +44,7 @@ def test_put_get_delete_object(make_stubber, make_unique_name, make_bucket,
 
 
 def test_put_not_file_expect_error(make_stubber, make_unique_name, make_bucket):
-    """Test that putting an object using a string that is not a filename
+    """Test that putting an object using a string that is not a file name
     raises an error."""
     stubber = make_stubber(bucket_wrapper, 'get_s3')
     bucket_name = make_unique_name('bucket')

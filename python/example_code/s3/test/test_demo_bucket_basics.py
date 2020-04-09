@@ -14,7 +14,7 @@ import demo_bucket_basics
 @pytest.mark.parametrize("region,keep", [
     ('us-west-2', False), ('us-east-2', True), ('ap-southeast-1', False)])
 def test_create_and_delete_my_bucket(make_stubber, make_unique_name, region, keep):
-    """Test that running the demo with various regions and arguments works as
+    """Test that running the demo with various AWS Regions and arguments works as
     expected."""
     stubber = make_stubber(demo_bucket_basics, 'get_s3', region)
     s3 = demo_bucket_basics.get_s3(region)

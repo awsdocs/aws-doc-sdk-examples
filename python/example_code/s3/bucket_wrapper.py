@@ -3,17 +3,17 @@
 
 """
 Purpose
-    Demonstrate basic bucket operations in Amazon Simple Storage Service (S3).
+    Demonstrate basic bucket operations in Amazon S3.
     Learn how to create, list, delete, and configure buckets.
     Usage is shown in the test/test_bucket_wrapper.py file.
 
 Running the tests
     The best way to learn how to use this service is to run the tests.
-    For instructions on testing, see the ReadMe.
+    For instructions on testing, see the README.
 
 Running the code
     Run individual functions in the Python shell to make calls to your AWS account.
-    For instructions on running the code, see the ReadMe.
+    For instructions on running the code, see the README.
 
 Additional information
     Running this code might result in charges to your AWS account.
@@ -29,19 +29,19 @@ logger = logging.getLogger(__name__)
 
 
 def get_s3(region=None):
-    """Get a Boto 3 S3 resource with a specific region or with your default region."""
+    """Get a Boto 3 S3 resource with a specific Region or with your default Region."""
     return boto3.resource('s3', region_name=region) if region else boto3.resource('s3')
 
 
 def create_bucket(name, region=None):
     """
-    Create an Amazon S3 bucket with the specified name and in the specified region.
+    Create an Amazon S3 bucket with the specified name and in the specified Region.
 
     :param name: The name of the bucket to create. This name must be globally unique
                  and must adhere to bucket naming requirements.
-    :param region: The region in which to create the bucket. If this is not specified,
-                   the region configured in your shared credentials is used. If no
-                   region is configured, 'us-east-1' is used.
+    :param region: The Region in which to create the bucket. If this is not specified,
+                   the Region configured in your shared credentials is used. If no
+                   Region is configured, 'us-east-1' is used.
     :return: The newly created bucket.
     """
     s3 = get_s3(region)
@@ -65,10 +65,10 @@ def create_bucket(name, region=None):
         logger.exception("Couldn't create bucket named '%s' in region=%s.",
                          name, region)
         if error.response['Error']['Code'] == 'IllegalLocationConstraintException':
-            logger.error("When the session region is anything other than us-east-1, "
+            logger.error("When the session Region is anything other than us-east-1, "
                          "you must specify a LocationConstraint that matches the "
-                         "session region. The current session region is %s and the "
-                         "LocationConstraint region is %s.",
+                         "session Region. The current session Region is %s and the "
+                         "LocationConstraint Region is %s.",
                          s3.meta.client.meta.region_name, region)
         raise error
     else:
@@ -96,7 +96,7 @@ def bucket_exists(bucket_name):
 
 def get_buckets():
     """
-    Get the buckets in all regions for the current account.
+    Get the buckets in all Regions for the current account.
 
     :return: The list of buckets.
     """
@@ -138,8 +138,8 @@ def grant_log_delivery_access(bucket_name):
     s3 = get_s3()
     try:
         acl = s3.Bucket(bucket_name).Acl()
-        # Putting an ACL overwrites the existing ACL, so append new grants
-        # if you want to preserve existing grants.
+        # Putting an ACL overwrites the existing ACL. If you want to preserve
+        # existing grants, append new grants to the list of existing grants.
         grants = acl.grants if acl.grants else []
         grants.append({
             'Grantee': {

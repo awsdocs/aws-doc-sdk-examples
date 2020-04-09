@@ -10,18 +10,18 @@ import pytest
 
 
 def pytest_addoption(parser):
-    """Add an option to run tests against a real AWS account instead of the Stubber
+    """Add an option to run tests against a actual AWS account instead of the Stubber
     or mocks."""
     parser.addoption(
         "--use-real-aws-may-incur-charges", action="store_true", default=False,
-        help="Connect to real AWS services while testing. WARNING: THIS MAY INCUR "
+        help="Connect to actual AWS services while testing. WARNING: THIS MAY INCUR "
              "CHARGES ON YOUR ACCOUNT!"
     )
 
 
 @pytest.fixture(name="use_real_aws")
 def fixture_use_real_aws(request):
-    """Indicates whether the 'use real AWS' option is on or off."""
+    """Indicates whether the 'use actual AWS' option is on or off."""
     return request.config.getoption("--use-real-aws-may-incur-charges")
 
 

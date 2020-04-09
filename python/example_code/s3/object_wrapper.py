@@ -3,17 +3,17 @@
 
 """
 Purpose
-    Demonstrate basic object operations in Amazon Simple Storage Service (S3).
+    Demonstrate basic object operations in Amazon S3.
     Learn how to put, get, delete, and configure objects.
     Usage is shown in the test/test_object_wrapper.py file.
 
 Running the tests
     The best way to learn how to use this service is to run the tests.
-    For instructions on testing, see the ReadMe.
+    For instructions on testing, see the README.
 
 Running the code
     Run individual functions in the Python shell to make calls to your AWS account.
-    For instructions on running the code, see the ReadMe.
+    For instructions on running the code, see the README.
 
 Additional information
     Running this code might result in charges to your AWS account.

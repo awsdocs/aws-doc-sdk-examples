@@ -1,8 +1,8 @@
-# Amazon Simple Storage Service (S3) API examples
+# Amazon S3 API examples
 
 ## Purpose
 
-Demonstrate basic bucket and object operations in Amazon Simple Storage Service (S3).
+Demonstrate basic bucket and object operations in Amazon S3.
 Learn how to create, get, remove, and configure buckets and objects.
 
 ## Prerequisites
@@ -34,12 +34,12 @@ the object, empty the bucket, and delete the bucket.
 ## Running the tests
 
 The best way to learn how to use this service is to run the tests.
-Tests can be run in two modes. By default, tests use the Botocore Stubber,
+Tests can be run in two modes. By default, tests use the botocore Stubber,
 which captures requests before they are sent to AWS and returns a mocked response.
 Tests can also be run against your AWS account, in which case they will create and 
 manipulate AWS resources, which may incur charges on your account.
 
-To run all of the S3 tests with the Botocore Stubber, run the following in
+To run all of the S3 tests with the botocore Stubber, run the following in
 your [GitHub root]/python/example_code/s3 folder.
 
     python -m pytest -o log_cli=1 --log-cli-level=INFO test
@@ -53,22 +53,19 @@ To run the tests using your AWS account and default shared credentials, include 
 
     python -m pytest -o log_cli=1 --log-cli-level=INFO --use-real-aws-may-incur-charges test
 
-When run in this mode, a best effort is made to clean up any resources created during 
-the test, but it is your responsibility to verify that all resources have, in fact, 
-been cleaned up.
-
-## Additional resources
-
-- Boto 3, see the [Boto 3 SQS documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html).
-
+When tests are run in this mode, a best effort is made to clean up any resources 
+created during the test. But it's your responsibility to verify that all resources 
+have actually been cleaned up.
 
 ## Additional information
 
+- [Boto 3 Amazon S3 examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-examples.html)
+- [Boto 3 Amazon S3 service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the AWS Identity and Access Management 
-  User Guide.
+  in the *AWS Identity and Access Management 
+  User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are 
   available only in specific Regions. For more information, see the 
   "AWS Regional Table" on the AWS website.

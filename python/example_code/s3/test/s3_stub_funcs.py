@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-A class that wraps the Botocore Stubber and implements a variety of
-stub functions that are used by the Amazon S3 unit tets.
+A class that wraps the botocore Stubber and implements a variety of
+stub functions that are used by the Amazon S3 unit tests.
 
-When tests are run against a real AWS account, the S3Stubber class does not
+When tests are run against a actual AWS account, the S3Stubber class does not
 set up stubs and passes all calls through to the Boto 3 S3 resource.
 """
 
@@ -16,8 +16,8 @@ from botocore.stub import Stubber, ANY
 
 class S3Stubber(Stubber):
     """
-    A class that wraps the Botocore Stubber and implements a variety of
-    stub functions that are used by the Amazon S3 unit tets.
+    A class that wraps the botocore Stubber and implements a variety of
+    stub functions that are used by the Amazon S3 unit tests.
 
     The stubbed functions all expect certain parameters to be passed to them as
     part of the tests, and will raise errors when the actual parameters differ from
@@ -25,7 +25,7 @@ class S3Stubber(Stubber):
     """
     def __init__(self, client, use_stubs=True):
         """
-        Initializes the stubber with a specific client and configures it for
+        Initializes the object with a specific client and configures it for
         stubbing or AWS passthrough.
 
         :param client: A Boto 3 S3 resource.
@@ -315,7 +315,7 @@ class S3Stubber(Stubber):
 
     def stub_get_object(self, bucket_name, object_key, object_data):
         """Stub the get_object function. When the object data is a string,
-        treat is a filename and open the file and read it as bytes."""
+        treat as a filename and open the file and read it as bytes."""
         if isinstance(object_data, bytes):
             data = object_data
         else:

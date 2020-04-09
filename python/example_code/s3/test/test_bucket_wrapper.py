@@ -17,7 +17,7 @@ import bucket_wrapper
 
 @pytest.mark.parametrize("region_name", ['us-west-2', 'eu-west-1', 'ap-southeast-1'])
 def test_create_bucket(make_stubber, make_unique_name, region_name):
-    """Test creating a bucket in various regions."""
+    """Test creating a bucket in various AWS Regions."""
     stubber = make_stubber(bucket_wrapper, 'get_s3', region_name)
     bucket_name = make_unique_name('bucket')
 
@@ -32,7 +32,7 @@ def test_create_bucket(make_stubber, make_unique_name, region_name):
 
 
 def test_create_bucket_no_region(make_stubber, make_unique_name):
-    """Test that creating a bucket with no region raises an error."""
+    """Test that creating a bucket with no Region raises an error."""
     stubber = make_stubber(bucket_wrapper, 'get_s3', 'us-west-2')
     bucket_name = make_unique_name('bucket')
 
@@ -192,7 +192,7 @@ def test_get_cors_expect_none(make_stubber, make_unique_name, make_bucket):
 
 
 def test_put_get_delete_cors(make_stubber, make_unique_name, make_bucket):
-    """Test tht put, get, and delete of CORS on a bucket works as expected."""
+    """Test that put, get, and delete of CORS on a bucket works as expected."""
     stubber = make_stubber(bucket_wrapper, 'get_s3')
     bucket_name = make_unique_name('bucket')
 
@@ -222,8 +222,8 @@ def test_put_get_delete_cors(make_stubber, make_unique_name, make_bucket):
 
 def test_put_bucket_policy_bad_version(make_stubber, make_unique_name, make_bucket):
     """
-    Test that a policy Version other than 2012-10-17 or 2008-10-17 fails.
-    This is because the Version is the version of the policy format and so must be
+    Test that a policy version other than 2012-10-17 or 2008-10-17 fails.
+    This is because the version is the version of the policy format and so must be
     a recognized version string.
     """
     stubber = make_stubber(bucket_wrapper, 'get_s3')
@@ -246,7 +246,7 @@ def test_put_bucket_policy_bad_version(make_stubber, make_unique_name, make_buck
 def test_put_get_delete_bucket_policy(make_stubber, make_unique_name, make_bucket):
     """
     Test that put, get, delete on a bucket policy works as expected.
-    To run this test with the non-stubbed AWS service, you must update the Principal
+    To run this test with the non-stubbed AWS service, you must update the principal
     ARN to an existing AWS user, or the test will fail.
     """
     stubber = make_stubber(bucket_wrapper, 'get_s3')
