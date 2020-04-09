@@ -77,7 +77,7 @@ func NewDirectoryIterator(bucket *string, dir *string) s3manager.BatchUploadIter
     }
 }
 
-// Next returns whether next file exists or not
+// Next returns whether next file exists
 func (di *DirectoryIterator) Next() bool {
     if len(di.filePaths) == 0 {
         di.next.f = nil

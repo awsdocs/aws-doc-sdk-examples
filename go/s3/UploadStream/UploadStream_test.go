@@ -122,11 +122,9 @@ func TestUploadStream(t *testing.T) {
     createdBucket := false
 
     if globalConfig.Bucket == "" {
-        // Create a unique, random name (import "github.com/google/uuid"):
         id := uuid.New()
         globalConfig.Bucket = "test-bucket-" + id.String()
 
-        // Create bucket
         err := createBucket(sess, &globalConfig.Bucket)
         if err != nil {
             t.Fatal(err)

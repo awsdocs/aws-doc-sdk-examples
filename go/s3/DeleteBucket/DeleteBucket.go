@@ -24,7 +24,7 @@ import (
 )
 // snippet-end:[s3.go.delete_bucket.imports]
 
-// RemoveBucket deletes a bucket.
+// RemoveBucket deletes a bucket
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     bucket is the name of the bucket

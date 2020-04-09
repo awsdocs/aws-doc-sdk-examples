@@ -43,7 +43,7 @@ func GetObjects(sess *session.Session, bucket *string) (*s3.ListObjectsV2Output,
     return resp, nil
 }
 
-// Lists the items in the specified S3 Bucket
+// Lists the items in the specified S3 bucket
 //
 // Usage:
 //    go run s3_list_objects.go BUCKET_NAME

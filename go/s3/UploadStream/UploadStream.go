@@ -35,7 +35,7 @@ import (
 //     filename is the name of the file to stream to the bucket
 // Output:
 //     If success, nil
-//     Otherwise, an error from the call to Open or
+//     Otherwise, an error from the call to Open or Upload 
 func UploadStream(sess *session.Session, bucket *string, key *string, filename *string) error {
     // snippet-start:[s3.go.upload_stream.call]
     file, err := os.Open(*filename)

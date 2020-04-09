@@ -167,7 +167,6 @@ func TestDeleteObject(t *testing.T) {
 
         t.Log("Found " + strconv.Itoa(len(resp.Contents)) + " items in " + globalConfig.Bucket + " (should be 0)")
 
-        // add items
         err = addFile(sess, &globalConfig.Bucket, "test1.txt")
         if err != nil {
             t.Log("Got error adding test1.txt")

@@ -97,7 +97,7 @@ func TestCreateBucket(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    // If we don't have a name if config.json
+    // If we don't have a name in config.json
     // create a bucket with a random name
     if globalConfig.Bucket == "" {
         id := uuid.New()
