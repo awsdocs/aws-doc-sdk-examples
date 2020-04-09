@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample CloudWatch event.]
+//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample Amazon CloudWatch log event.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -39,8 +39,8 @@ public class PutLogEvents {
     public static void main(String[] args) {
 
         final String usage =
-                "To run this example, supply a region id (eg. us-east-1), log group, and stream name as command line arguments\n" +
-                        "Ex: PutLogEvents <region-id> <log-group-name> <stream-name>\n";
+                "To run this example, supply an AWS Region ID (e.g., us-east-1), log group, and stream name as command line arguments\n" +
+                        "Example: PutLogEvents <region-id> <log-group-name> <stream-name>\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -74,7 +74,7 @@ public class PutLogEvents {
                 .build();
         DescribeLogStreamsResponse describeLogStreamsResponse = logsClient.describeLogStreams(logStreamRequest);
 
-        // Assume that a single stream is returned since a specific stream name was specified in the previous request.
+        // Assume that a single stream is returned because a specific stream name was specified in the previous request.
         String sequenceToken = describeLogStreamsResponse.logStreams().get(0).uploadSequenceToken();
 
         // Build an input log message to put to CloudWatch.
