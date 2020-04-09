@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enable actions on a CloudWatch alarm.]
+//snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enable actions on an Amazon CloudWatch alarm.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
