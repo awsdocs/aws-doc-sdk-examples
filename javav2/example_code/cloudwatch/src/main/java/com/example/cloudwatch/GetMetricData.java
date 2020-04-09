@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetMetricData.java demonstrates how to get metric data.]
+//snippet-sourcedescription:[GetMetricData.java demonstrates how to get metrics data with Amazon CloudWatch.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -38,7 +38,7 @@ import java.util.List;
 // snippet-end:[cloudwatch.java2.get_metric_data.import]
 
 /**
- * Puts a sample metric data point
+ * Gets a sample metric data point
  */
 public class GetMetricData {
 
