@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutRule.java demonstrates how to creates a CloudWatch event-routing rule.]
+//snippet-sourcedescription:[PutRule.java demonstrates how to create an Amazon CloudWatch event routing rule.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.cloudwatchevents.model.RuleState;
 // snippet-end:[cloudwatch.java2.put_rule.import]
 
 /**
- * Creates a CloudWatch event-routing rule
+ * Creates a CloudWatch event routing rule
  */
 public class PutRule {
 
@@ -39,7 +39,7 @@ public class PutRule {
 
         final String USAGE =
                 "To run this example, supply a rule name and role arn\n" +
-                        "Ex: PutRule <rule-name> <role-arn>\n";
+                        "Example: PutRule <rule-name> <role-arn>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -76,7 +76,7 @@ public class PutRule {
     }
 
         System.out.printf(
-                "Successfully created CloudWatch events rule %s with arn %s",
+                "Successfully created CloudWatch events rule %s with ARN %s",
                 roleArn, response.ruleArn());
     }
     // snippet-end:[cloudwatch.java2.put_rule.main]
