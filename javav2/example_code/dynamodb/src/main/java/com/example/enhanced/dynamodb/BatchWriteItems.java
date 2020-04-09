@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.]
+//snippet-sourcedescription:[BatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using object mapper functionality provided by a DynamoDbEnhancedClient object.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -18,7 +18,7 @@
 */
 package com.example.enhanced.dynamodb;
 
-// snippet-start:[dynamodb.java2.enhanced.batchitems.import]
+// snippet-start:[dynamodb.java2.enhanced_batchitems.import]
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
@@ -32,7 +32,7 @@ import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-// snippet-end:[dynamodb.java2.enhanced.batchitems.import]
+// snippet-end:[dynamodb.java2.enhanced_batchitems.import]
 
 public class BatchWriteItems {
 
@@ -75,7 +75,7 @@ public class BatchWriteItems {
 
             putBatchRecords(enhancedClient);
         }
-        // snippet-start:[dynamodb.java2.enhanced.batchitems.main]
+        // snippet-start:[dynamodb.java2.enhanced_batchitems.main]
         public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
             try {
 
@@ -116,7 +116,7 @@ public class BatchWriteItems {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-       // snippet-end:[dynamodb.java2.enhanced.batchitems.main]
+       // snippet-end:[dynamodb.java2.enhanced_batchitems.main]
     }
 
     // Define the Record class that is used to map to the DynamoDB table

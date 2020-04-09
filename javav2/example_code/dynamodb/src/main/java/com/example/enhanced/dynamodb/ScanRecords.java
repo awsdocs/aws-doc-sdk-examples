@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.]
+//snippet-sourcedescription:[ScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using a DynamoDbEnhancedClient object.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -18,7 +18,7 @@
 */
 package com.example.enhanced.dynamodb;
 
-// snippet-start:[dynamodb.java2.enhanced.scan.import]
+// snippet-start:[dynamodb.java2.enhanced_scan.import]
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
@@ -31,7 +31,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-// snippet-end:[dynamodb.java2.enhanced.scan.import]
+// snippet-end:[dynamodb.java2.enhanced_scan.import]
 
 public class ScanRecords {
 
@@ -75,7 +75,7 @@ public class ScanRecords {
         scan(enhancedClient);
     }
 
-    // snippet-start:[dynamodb.java2.enhanced.scan.main]
+    // snippet-start:[dynamodb.java2.enhanced_scan.main]
     public static void scan( DynamoDbEnhancedClient enhancedClient) {
 
     try{
@@ -97,7 +97,7 @@ public class ScanRecords {
         }
         System.out.println("Done");
        }
-    // snippet-end:[dynamodb.java2.enhanced.scan.main]
+    // snippet-end:[dynamodb.java2.enhanced_scan.main]
 
     // Define the Record class that is used to map to the DynamoDB table
     private static class Record {

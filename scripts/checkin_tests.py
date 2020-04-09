@@ -48,7 +48,6 @@ EXT_LOOKUP = {
 # folders to skip
 IGNORE_FOLDERS = {
     'venv',
-    'scripts',
     '__pycache__',
     '.pytest_cache'
 }
@@ -177,20 +176,24 @@ def verify_snippet_start_end(file_contents, file_location):
     """Scan the file contents for snippet-start and snippet-end tags and verify
     that they are in matched pairs. Log errors and return the count of errors."""
     error_count = 0
-    snippet_start = 'snippet-start:['
-    snippet_end = 'snippet-end:['
+    snippet_start = 'snippet' + '-start:['
+    snippet_end = 'snippet' + '-end:['
     snippet_tags = set()
     for word in file_contents.split():
         if snippet_start in word:
-            word = word.split('[')[1]
-            snippet_tags.add(word)
-        elif snippet_end in word:
-            word = word.split('[')[1]
-            if word in snippet_tags:
-                snippet_tags.remove(word)
+            tag = word.split('[')[1]
+            if tag in snippet_tags:
+                logger.error(f"Duplicate tag {tag[:-1]} found in {file_location}.")
+                error_count += 1
             else:
-                logger.error(f"End tag {word[:-1]} with no matching start tag found "
-                             f"in {file_location}.")
+                snippet_tags.add(tag)
+        elif snippet_end in word:
+            tag = word.split('[')[1]
+            if tag in snippet_tags:
+                snippet_tags.remove(tag)
+            else:
+                logger.error(f"End tag {tag[:-1]} with no matching start tag "
+                             f"found in {file_location}.")
                 error_count += 1
 
     for tag in snippet_tags:

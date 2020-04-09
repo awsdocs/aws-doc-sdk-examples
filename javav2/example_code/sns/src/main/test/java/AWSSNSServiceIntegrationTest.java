@@ -1,3 +1,4 @@
+import com.example.sns.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
@@ -13,7 +14,7 @@ public class AWSSNSServiceIntegrationTest {
     private static  SnsClient snsClient;
     private static String topicName = "";
     private static String topicArn = ""; //This value is dynamically set
-    private static String subArn = "";
+    private static String subArn = ""; //This value is dynamically set
     private static String attributeName= "";
     private static String attributeValue = "";
     private static String  email="";
@@ -63,40 +64,23 @@ public class AWSSNSServiceIntegrationTest {
     @Order(2)
     public void CreateTopic() {
 
-        CreateTopicResponse result = null;
-
         try {
-
-            CreateTopicRequest request = CreateTopicRequest.builder()
-                    .name(topicName)
-                    .build();
-
-            result = snsClient.createTopic(request);
-
-            //Set the new topic ARN value - its used in later tests
-            topicArn = result.topicArn();
-
+            topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
         } catch (SnsException e) {
 
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        System.out.println("\n\nTest Passed - Status was " + result.sdkHttpResponse().statusCode() + "\n\nCreated topic " + topicName + "with Arn: " + result.topicArn());
+        System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void ListTopics() {
 
-        System.out.println("Running SNS Test 3");
-        try {
-            ListTopicsRequest request = ListTopicsRequest.builder()
-                    .build();
-
-            ListTopicsResponse result = snsClient.listTopics(request);
-            System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nTopics\n\n" + result.topics());
-        } catch (SnsException e) {
+       try {
+               ListTopics.listSNSTopics(snsClient);
+             } catch (SnsException e) {
 
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -111,37 +95,20 @@ public class AWSSNSServiceIntegrationTest {
 
         try {
 
-            SetTopicAttributesRequest request = SetTopicAttributesRequest.builder()
-                    .attributeName(attributeName)
-                    .attributeValue(attributeValue)
-                    .topicArn(topicArn)
-                    .build();
-
-            SetTopicAttributesResponse result = snsClient.setTopicAttributes(request);
-
-            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nTopic " + request.topicArn()
-                    + " updated " + request.attributeName() + " to " + request.attributeValue());
-
+            SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-         System.out.println("Test 4 passed");
+        System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void GetTopicAttributes() {
 
-        System.out.println("Running SNS Test 5");
         try {
-            GetTopicAttributesRequest request = GetTopicAttributesRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
-
-            GetTopicAttributesResponse result = snsClient.getTopicAttributes(request);
-            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nAttributes: \n\n" + result.attributes());
-
+            GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -153,18 +120,8 @@ public class AWSSNSServiceIntegrationTest {
     @Order(6)
     public void SubscribeEmail() {
 
-        System.out.println("Running SNS Test 6");
         try {
-            SubscribeRequest request = SubscribeRequest.builder()
-                    .protocol("email")
-                    .endpoint(email)
-                    .returnSubscriptionArn(true)
-                    .topicArn(topicArn)
-                    .build();
-
-            SubscribeResponse result = snsClient.subscribe(request);
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
-
+            SubscribeEmail.subEmail(snsClient, topicArn, email);
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -178,17 +135,7 @@ public class AWSSNSServiceIntegrationTest {
 
         try {
 
-            SubscribeRequest request = SubscribeRequest.builder()
-                    .protocol("lambda")
-                    .endpoint(lambdaarn)
-                    .returnSubscriptionArn(true)
-                    .topicArn(topicArn)
-                    .build();
-
-            SubscribeResponse result = snsClient.subscribe(request);
-            subArn = result.subscriptionArn();
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
-
+            subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -202,16 +149,8 @@ public class AWSSNSServiceIntegrationTest {
 
         try {
 
-            UnsubscribeRequest request = UnsubscribeRequest.builder()
-                    .subscriptionArn(subArn)
-                    .build();
-
-            UnsubscribeResponse result = snsClient.unsubscribe(request);
-
-            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode()
-                    + "\n\nSubscription was removed for " + request.subscriptionArn());
-
-        } catch (SnsException e) {
+            Unsubscribe.unSub(snsClient, subArn);
+         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
@@ -223,40 +162,21 @@ public class AWSSNSServiceIntegrationTest {
     @Order(9)
     public void PublishTopic() {
 
-      try {
-            PublishRequest request = PublishRequest.builder()
-                    .message(message)
-                    .topicArn(topicArn)
-                    .build();
-
-            PublishResponse result = snsClient.publish(request);
-            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
-
+        try {
+            PublishTopic.pubTopic(snsClient, message, topicArn);
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         System.out.println("Test 9 passed");
     }
-
 
     @Test
     @Order(10)
     public void SubscribeTextSMS() {
 
         try {
-            SubscribeRequest request = SubscribeRequest.builder()
-                    .protocol("sms")
-                    .endpoint(phone)
-                    .returnSubscriptionArn(true)
-                    .topicArn(topicArn)
-                    .build();
-
-            SubscribeResponse result = snsClient.subscribe(request);
-
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
-
+            SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -268,17 +188,8 @@ public class AWSSNSServiceIntegrationTest {
     @Test
     @Order(11)
     public void PublishTextSMS() {
-
         try {
-            PublishRequest request = PublishRequest.builder()
-                    .message(message)
-                    .phoneNumber(phone)
-                    .build();
-
-            PublishResponse result = snsClient.publish(request);
-
-            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
-
+            PublishTextSMS.pubTextSMS(snsClient, message, phone);
         } catch (SnsException e) {
 
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -293,21 +204,13 @@ public class AWSSNSServiceIntegrationTest {
     public void ListSubscriptions() {
 
         try {
-
-            ListSubscriptionsRequest request = ListSubscriptionsRequest.builder()
-                    .build();
-
-            ListSubscriptionsResponse result = snsClient.listSubscriptions(request);
-            System.out.println(result.subscriptions());
-
+            ListSubscriptions.listSNSSubscriptions(snsClient);
         } catch (SnsException e) {
 
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         System.out.println("Test 12 passed");
-
     }
 
     @Test
@@ -315,14 +218,7 @@ public class AWSSNSServiceIntegrationTest {
     public void DeleteTopic() {
 
         try {
-
-            DeleteTopicRequest request = DeleteTopicRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
-
-            DeleteTopicResponse result = snsClient.deleteTopic(request);
-            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode());
-
+            DeleteTopic.deleteSNSTopic(snsClient, topicArn);
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UseDynamoMappingJ2.java demonstrates how to use the Amazon DynamoDB enhanced client to put an item into a table.]
+//snippet-sourcedescription:[UseDynamoMappingJ2.java demonstrates how to use the DynamoDbEnhancedClient object to put an item into a table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -18,7 +18,7 @@
 */
 package com.example.enhanced.dynamodb;
 
-// snippet-start:[dynamodb.java2.enhanced.putitem.import]
+// snippet-start:[dynamodb.java2.enhanced_putitem.import]
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
@@ -30,7 +30,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-// snippet-end:[dynamodb.java2.enhanced.putitem.import]
+// snippet-end:[dynamodb.java2.enhanced_putitem.import]
 
 public class DynamoDBMappingPutItem {
 
@@ -74,7 +74,7 @@ public class DynamoDBMappingPutItem {
         putRecord(enhancedClient);
      }
 
-     // snippet-start:[dynamodb.java2.enhanced.putitem.main]
+     // snippet-start:[dynamodb.java2.enhanced_putitem.main]
      // Puts an item into a DynamoDB table
      public static void putRecord(DynamoDbEnhancedClient enhancedClient){
 
@@ -98,7 +98,7 @@ public class DynamoDBMappingPutItem {
         }
        System.out.println("done");
      }
-    // snippet-end:[dynamodb.java2.enhanced.putitem.main]
+    // snippet-end:[dynamodb.java2.enhanced_putitem.main]
 
      // Define the Record class that is used to map to the DynamoDB table
      private static class Record {

@@ -1,0 +1,26 @@
+{
+  "Namespace": "Site/Traffic",
+  "Metrics": [
+    {
+      "MetricName": "UniqueVisitors",
+      "Unit": "Count",
+      "Value": 5885.0,
+      "DimensionName": "SiteName",
+      "DimensionValue": "example.com"
+    },
+    {
+      "MetricName": "UniqueVisits",
+      "Unit": "Count",
+      "Value": 8628.0,
+      "DimensionName": "SiteName",
+      "DimensionValue": "example.com"
+    },
+    {
+      "MetricName": "PageViews",
+      "Unit": "Count",
+      "Value": 18057.0,
+      "DimensionName": "PageURL",
+      "DimensionValue": "my-page.html"
+    }
+  ]
+}

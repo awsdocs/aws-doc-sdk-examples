@@ -1,8 +1,8 @@
 # AWS Identity and Access Management (IAM) Java Readme
 
-A README that discusses how to run and test the Java AWS Identity and Access Management (IAM)  code examples.
+A README that discusses how to run and test the Java AWS IAM code examples.
 
-## Running the Amazon AWS IAM Java files
+## Running the Java AWS IAM Java files
 
 **IMPORTANT**
 

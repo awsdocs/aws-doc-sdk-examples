@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[QueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.]
+//snippet-sourcedescription:[QueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using a DynamoDbEnhancedClient object.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -18,7 +18,7 @@
 */
 package com.example.enhanced.dynamodb;
 
-// snippet-start:[dynamodb.java2.enhanced.queryfilter.import]
+// snippet-start:[dynamodb.java2.enhanced_queryfilter.import]
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
@@ -37,7 +37,7 @@ import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-// snippet-end:[dynamodb.java2.enhanced.queryfilter.import]
+// snippet-end:[dynamodb.java2.enhanced_queryfilter.import]
 
 public class QueryRecordsWithFilter {
 
@@ -82,7 +82,7 @@ public class QueryRecordsWithFilter {
         queryTableFilter(enhancedClient);
     }
 
-    // snippet-start:[dynamodb.java2.enhanced.queryfilter.main]
+    // snippet-start:[dynamodb.java2.enhanced_queryfilter.main]
     public static void queryTableFilter(DynamoDbEnhancedClient enhancedClient) {
 
         try{
@@ -121,7 +121,7 @@ public class QueryRecordsWithFilter {
             System.exit(1);
         }
         System.out.println("Done");
-        // snippet-end:[dynamodb.java2.enhanced.queryfilter.main]
+        // snippet-end:[dynamodb.java2.enhanced_queryfilter.main]
     }
 
     // Define the Record class that is used to map to the DynamoDB table

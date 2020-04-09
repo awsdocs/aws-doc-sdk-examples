@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[CreateUser.java demonstrates how to create an IAM user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.create_user.complete]
+
 // snippet-start:[iam.java2.create_user.import]
 import software.amazon.awssdk.services.iam.model.CreateUserRequest;
 import software.amazon.awssdk.services.iam.model.CreateUserResponse;
@@ -46,27 +46,30 @@ public class CreateUser {
 
         String username = args[0];
 
-        // snippet-start:[iam.java2.create_user.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
 
+        String result = createIAMUser(iam, username) ;
+        System.out.println("Successfully created user: " +result);
+
+    }
+    // snippet-start:[iam.java2.create_user.main]
+    public static String createIAMUser(IamClient iam, String username ) {
+
         try {
-             CreateUserRequest request = CreateUserRequest.builder()
+            CreateUserRequest request = CreateUserRequest.builder()
                 .userName(username).build();
 
             CreateUserResponse response = iam.createUser(request);
-
-            System.out.println("Successfully created user: " +
-                response.user().userName());
-            // snippet-end:[iam.java2.create_user.main]
+            return response.user().userName();
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Done");
+       return "";
     }
+    // snippet-end:[iam.java2.create_user.main]
 }
-// snippet-end:[iam.java2.create_user.complete]
