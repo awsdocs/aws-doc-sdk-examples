@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetLogEvents.java demonstrates how to get log events from CloudWatch in a specified region. ]
+//snippet-sourcedescription:[GetLogEvents.java demonstrates how to get log events from Amazon CloudWatch in a specified AWS Region. ]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -30,14 +30,14 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
 // snippet-end:[cloudwatch.java2.get_logs.import]
 
 /**
- * Gets logs events from CloudWatch
+ * Gets log events from CloudWatch
  */
 public class GetLogEvents {
 
     public static void main(String[] args) {
 
         final String usage =
-                "To run this example, supply a logGroupName, and streamName as command line arguments\n" +
+                "To run this example, supply a logGroupName and streamName as command line arguments\n" +
                         "Ex: GetLogEvents <logGroupName> <streamName>\n";
 
         if (args.length != 2) {
@@ -63,8 +63,8 @@ public class GetLogEvents {
 
         try {
 
-            // Designate logGroupName and logStream you want to get logs from
-            // Assume only one stream name exist, this is not always the case
+            // Designate the logGroupName and logStream you want to get logs from
+            // Assume only one stream name exists, however, this isn't always the case
             GetLogEventsRequest getLogEventsRequest = GetLogEventsRequest.builder()
                 .logGroupName(logGroupName)
                 .logStreamName(logStreamName)
