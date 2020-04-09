@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListMetrics.java demonstrates how to list CloudWatch metrics.]
+//snippet-sourcedescription:[ListMetrics.java demonstrates how to list Amazon CloudWatch metrics.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]

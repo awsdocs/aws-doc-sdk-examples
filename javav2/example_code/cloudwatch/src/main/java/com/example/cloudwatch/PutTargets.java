@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutTargets.java demonstrates how to creates a CloudWatch event-routing rule target.]
+//snippet-sourcedescription:[PutTargets.java demonstrates how to create a target for an Amazon CloudWatch event routing rule.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.cloudwatchevents.model.Target;
 // snippet-end:[cloudwatch.java2.put_targets.import]
 
 /**
- * Creates a CloudWatch event-routing rule target
+ * Creates a target for a CloudWatch event routing rule
  */
 public class PutTargets {
 
@@ -74,7 +74,7 @@ public class PutTargets {
         // snippet-end:[cloudwatch.java2.put_targets.main]
 
         System.out.printf(
-                "Successfully created CloudWatch events target for rule %s",
+                "Successfully created CloudWatch event target for rule %s",
                 ruleName);
     }
 }

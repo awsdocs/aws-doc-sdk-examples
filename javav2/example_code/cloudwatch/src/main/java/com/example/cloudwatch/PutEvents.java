@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample CloudWatch event.]
+//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample Amazon CloudWatch event.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -36,7 +36,7 @@ import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsResponse;
 public class PutEvents {
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a resource arn\n" +
+                "To run this example, supply a resource ARN\n" +
                         "Ex: PutEvents <resource-arn>\n";
 
         if (args.length != 1) {
