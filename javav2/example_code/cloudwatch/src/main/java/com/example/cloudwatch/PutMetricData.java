@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutMetricData.java demonstrates how to put a sample metric data point for a metric defined for a CloudWatch alarm.]
+//snippet-sourcedescription:[PutMetricData.java demonstrates how to put a sample metric data point for a metric defined for an Amazon CloudWatch alarm.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -39,7 +39,7 @@ public class PutMetricData {
 
         final String USAGE =
                 "To run this example, supply a data point:\n" +
-                        "Ex: PutMetricData <data_point>\n";
+                        "Example: PutMetricData <data_point>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
