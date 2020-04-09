@@ -1,35 +1,32 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-# snippet-sourcedescription:[s3.py demonstrates how to list, create, and delete a bucket in Amazon S3.]
-# snippet-service:[s3]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[list_buckets]
-# snippet-keyword:[create_bucket]
-# snippet-keyword:[delete_bucket]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-12-04]
-# snippet-sourceauthor:[AWS-C9]
+"""
+Purpose
+    Demonstrate create, list, and delete buckets in Amazon S3.
 
-# ABOUT THIS PYTHON SAMPLE: This sample is part of the SDK for Cloud9 User Guide topic at
-# https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
+    This example is part of the AWS Cloud9 User Guide topic at
+    https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
+
+Running the code
+    Run this demo from the command line. To get command line usage, run the
+    following command.
+
+        python -m demo_bucket_basics -h
+
+Additional information
+    Running this code might result in charges to your AWS account.
+"""
+
 
 # snippet-start:[s3.python.bucket_operations.list_create_delete]
-import boto3
 import sys
+import boto3
 from botocore.exceptions import ClientError
+
+
+def get_s3(region=None):
+    return boto3.resource('s3', region_name=region) if region else boto3.resource('s3')
 
 
 def list_my_buckets(s3):
@@ -37,7 +34,7 @@ def list_my_buckets(s3):
 
 
 def create_and_delete_my_bucket(bucket_name, region, keep_bucket):
-    s3 = boto3.resource('s3', region_name=region)
+    s3 = get_s3(region)
 
     list_my_buckets(s3)
 
@@ -72,7 +69,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('bucket_name', help='The name of the bucket to create.')
     parser.add_argument('region', help='The region in which to create your bucket.')
-    parser.add_argument('--keep_bucket', help='Keeps the created bucket. When not specified, the bucket is deleted.',
+    parser.add_argument('--keep_bucket', help='Keeps the created bucket. When not '
+                                              'specified, the bucket is deleted '
+                                              'at the end of the demo.',
                         action='store_true')
 
     args = parser.parse_args()
