@@ -1,0 +1,4 @@
+files:
+  - path: UpdateItem/UpdateItem.go
+    services:
+      - dynamodb
