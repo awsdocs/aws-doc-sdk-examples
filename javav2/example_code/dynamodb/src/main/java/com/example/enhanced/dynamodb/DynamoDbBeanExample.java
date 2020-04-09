@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DynamoDbBeanExample.java demonstrates how to use the @DynamoDbBean annotation to put data into a table.]
+//snippet-sourcedescription:[DynamoDbBeanExample.java demonstrates how to use the @DynamoDbBean annotation to put data into a DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
