@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutMetricAlarm.java demonstrates how to create a new CloudWatch alarm based on CPU utilization for an instance.]
+//snippet-sourcedescription:[PutMetricAlarm.java demonstrates how to create a new Amazon CloudWatch alarm based on CPU utilization for an instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -40,8 +40,8 @@ public class PutMetricAlarm {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply an alarm name and instance id\n" +
-                        "Ex: PutMetricAlarm <alarm-name> <instance-id>\n";
+                "To run this example, supply an alarm name and instance ID\n" +
+                        "Example: PutMetricAlarm <alarm-name> <instance-id>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
