@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[GetPolicy.java demonstrates how to get the details for an IAM policy.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,15 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.get_policy.complete]
+
 // snippet-start:[iam.java2.get_policy.import]
 import software.amazon.awssdk.services.iam.model.GetPolicyRequest;
 import software.amazon.awssdk.services.iam.model.GetPolicyResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.IamException;
-
 // snippet-end:[iam.java2.get_policy.import]
+
 /**
  * Gets an IAM policy's details
  */
@@ -40,16 +40,22 @@ public class GetPolicy {
                 "To run this example, supply a policy arn\n" +
                         "Ex: GetPolicy <policy-arn>\n";
 
-       if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String policyArn = args[0];
 
-        // snippet-start:[iam.java2.get_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
+
+        getIAMPolicy(iam,policyArn);
+
+    }
+
+    // snippet-start:[iam.java2.get_policy.main]
+    public static void getIAMPolicy(IamClient iam, String policyArn) {
 
         try {
 
@@ -57,7 +63,6 @@ public class GetPolicy {
                 .policyArn(policyArn).build();
 
             GetPolicyResponse response = iam.getPolicy(request);
-            // snippet-end:[iam.java2.get_policy.main]
 
             System.out.format("Successfully retrieved policy %s",
                 response.policy().policyName());
@@ -68,5 +73,5 @@ public class GetPolicy {
     }
         System.out.println("Done");
     }
+    // snippet-end:[iam.java2.get_policy.main]
 }
-// snippet-end:[iam.java2.get_policy.complete]
