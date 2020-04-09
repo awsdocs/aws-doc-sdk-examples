@@ -40,7 +40,7 @@ public class DynamoDbBeanExample {
 
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -59,22 +59,22 @@ public class DynamoDbBeanExample {
     public static void putRecord(DynamoDbEnhancedClient enhancedClient) {
 
         try {
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            //Create am Instat
+            // Create an Instant used for registrationDate
             LocalDate localDate = LocalDate.parse("2020-04-08");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            //Populate the Table
+            // Populate the Table
             Customer custRecord = new Customer();
             custRecord.setCustName("Tom Blue");
             custRecord.setId("id101");
             custRecord.setEmail("tblue@noserver.com");
             custRecord.setRegistrationDate(instant) ;
 
-            //Put the customer data into a DynamoDB table
+            // Put the customer data into a DynamoDB table
             custTable.putItem(custRecord);
 
         } catch (DynamoDbException e) {
@@ -85,7 +85,7 @@ public class DynamoDbBeanExample {
     }
 
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 
