@@ -352,7 +352,6 @@ func TestCreateEvent(t *testing.T) {
 
     t.Log("Created event")
 
-    // Cleanup
     err = deleteTargets(t, sess, &globalConfig.RuleName)
     if err != nil {
         t.Fatal(err)

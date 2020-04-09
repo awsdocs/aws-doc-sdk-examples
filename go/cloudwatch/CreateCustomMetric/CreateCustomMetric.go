@@ -35,9 +35,9 @@ import (
 //     dimensionValue is the value of the dimensionName
 // Output:
 //     If success, nil
-//     Otherwise, and error from a call to PutMetricData
+//     Otherwise, an error from a call to PutMetricData
 func CreateCustomMetric(sess *session.Session, namespace *string, metricName *string, unit *string, value *float64, dimensionName *string, dimensionValue *string) error {
-    // Create new cloudwatch client
+    // Create new Amazon CloudWatch client
     // snippet-start: [cloudwatch.go.create_custom_metric.call]
     svc := cloudwatch.New(sess)
 

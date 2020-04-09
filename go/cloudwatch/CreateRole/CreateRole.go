@@ -25,7 +25,7 @@ import (
 )
 // snippet-end:[cloudwatch.go.create_role.imports]
 
-// CreateRole creates a role that grants permission to CloudWatch Events
+// CreateRole creates a role that grants permission to Amazon CloudWatch Events
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     role is the name of the role

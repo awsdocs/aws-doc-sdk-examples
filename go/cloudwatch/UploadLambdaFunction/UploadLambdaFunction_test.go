@@ -279,7 +279,6 @@ func TestLambdaUpload(t *testing.T) {
 
     t.Log("Lambda function ARN: " + *result.FunctionArn)
 
-    // Cleanup
     if globalConfig.Cleanup {
         if functionCreated {
             err := deleteFunction(sess, &globalConfig.Function)

@@ -107,8 +107,8 @@ You must supply a Lambda ARN value in *config.json* for the unit test.
 
 The unit test:
 
-1. Creates a new Target with a random name if a name is not supplied in *config.json*.
-2. Deletes the Target if it created it.
+1. Creates a new target with a random name if a name is not supplied in *config.json*.
+2. Deletes the target if it created it.
 
 ### DeleteAlarm
 
@@ -124,8 +124,8 @@ You can supply a similar value in *config.json* for the unit test.
 
 The unit test:
 
-1. Creates an Alarm with a random name if the name is not supplied in *config.json*.
-2. Deletes the Alarm if it created it.
+1. Creates an alarm with a random name if the name is not supplied in *config.json*.
+2. Deletes the alarm if it created the alarm.
 
 ### DescribeAlarms
 
@@ -147,29 +147,29 @@ You can supply a similar value in *config.json* for the unit test.
 
 The unit test:
 
-1. Creates and enables an Alarm with a random name if the name is not supplied in *config.json*.
-2. Disables and deletes the Alarm if it created the Alarm.
+1. Creates and enables an alarm with a random name if the name is not supplied in *config.json*.
+2. Disables and deletes the alarm if it created the alarm.
 
 ### EnableAlarm
 
-This operation creates and enables an alarm when the CPU utilization of an EC2 instance goes above 70%,
+This operation creates and enables an alarm when the CPU utilization of an Amazon EC2 instance goes above 70%,
 triggering a reboot of the instance.
 
 `go run EnableAlarm -n INSTANCE-NAME -i INSTANCE-ID -a ALARM-NAME`
 
 where:
 
-- INSTANCE-NAME is the name of your EC2 instance.
-- INSTANCE-ID is the ID of your EC2 instance.
+- INSTANCE-NAME is the name of your Amazon EC2 instance.
+- INSTANCE-ID is the ID of your Amazon EC2 instance.
 - ALARM-NAME is the name of the alarm.
 
 You must supply similar values in *config.json* for the unit test.
 
 The unit test:
 
-1. Creates an Alarm with a random name if the name is not supplied in *congig.json*.
-2. Enables the Alarm.
-3. Deletes the Alarm if it created it.
+1. Creates an alarm with a random name if the name is not supplied in *congig.json*.
+2. Enables the alarm.
+3. Deletes the alarm if it created the alarm.
 
 ### GetLogEvents
 
