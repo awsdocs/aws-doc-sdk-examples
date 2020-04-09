@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to creates a CloudWatch logs subscription filter.]
+//snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to create an Amazon CloudWatch log subscription filter.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -32,7 +32,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
 // snippet-end:[cloudwatch.java2.put_subscription_filter.import]
 
 /**
- * Creates a CloudWatch Logs subscription filter.
+ * Creates a CloudWatch log subscription filter
  */
 
 public class PutSubscriptionFilter {
@@ -97,7 +97,7 @@ public class PutSubscriptionFilter {
         }
 
         System.out.printf(
-                "Successfully created CloudWatch logs subscription filter %s",
+                "Successfully created CloudWatch log subscription filter %s",
                 filter);
     }
 }
