@@ -1,0 +1,31 @@
+---
+created: 2020-02-25
+files:
+  - path: DescribeAlarms/DescribeAlarms.go
+    apis:
+      - service: cloudwatch
+        operations:
+          - DescribeAlarms
+  - path: DisableAlarm/DisableAlarm.go
+    apis:
+      - service: cloudwatch
+        operations:
+          - DisableAlarmActions
+  - path: EnableAlarm/EnableAlarm.go
+    apis:
+      - service: cloudwatch
+        operations:
+          - Config.Region
+          - EnableAlarmActions
+          - PutMetricAlarm
+  - path: ListMetrics/ListMetrics.go
+    apis:
+      - service: cloudwatch
+        operations:
+          - ListMetrics
+  - path: CreateCustomMetric/CreateCustomMetric.go
+    apis:
+      - service: cloudwatch
+        operations:
+          - PutMetricData
+

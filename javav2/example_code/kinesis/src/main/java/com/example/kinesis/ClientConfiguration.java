@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[4/9/2020]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
