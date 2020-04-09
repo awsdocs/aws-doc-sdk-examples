@@ -13,3 +13,5 @@ AWS SDK for Go Documentation Examples
 ######################################
 
 This is a collection of examples for the AWS SDK for Go public documentation.
+
+These examples were tested using Go version 1.14 and version 1 of the AWS SDK for Go.  
