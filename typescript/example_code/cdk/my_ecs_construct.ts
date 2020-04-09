@@ -22,7 +22,7 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.my_ecs_construct]
-import core = require('@aws-cdk/core');
+import * as core from '@aws-cdk/core';
 
 import { MyEcsConstructStack } from '../lib/my_ecs_construct-stack';
 

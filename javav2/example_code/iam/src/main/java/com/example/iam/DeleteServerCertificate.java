@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DeleteServerCertificate.java demonstrates how to delete an IAM server certificate.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.delete_server_certificate.complete]
+
 // snippet-start:[iam.java2.delete_server_certificate.import]
 import software.amazon.awssdk.services.iam.model.DeleteServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.DeleteServerCertificateResponse;
@@ -43,24 +43,26 @@ public class DeleteServerCertificate {
             System.out.println(USAGE);
             System.exit(1);
         }
-
         String certName = args[0];
 
-        // snippet-start:[iam.java2.delete_server_certificate.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
 
-        try {
+        deleteCert(iam, certName) ;
+    }
 
+    // snippet-start:[iam.java2.delete_server_certificate.main]
+    public static void deleteCert(IamClient iam,String certName ) {
+
+        try {
             DeleteServerCertificateRequest request =
                 DeleteServerCertificateRequest.builder()
                         .serverCertificateName(certName).build();
 
             DeleteServerCertificateResponse response =
                 iam.deleteServerCertificate(request);
-            // snippet-end:[iam.java2.delete_server_certificate.main]
 
             System.out.println("Successfully deleted server certificate " +
                     certName);
@@ -71,6 +73,6 @@ public class DeleteServerCertificate {
         }
         System.out.println("Done");
     }
+    // snippet-end:[iam.java2.delete_server_certificate.main]
 }
 
-// snippet-end:[iam.java2.delete_server_certificate.complete]

@@ -21,7 +21,7 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.hello-cdk.version2]
-import core = require('@aws-cdk/core');
+import * as core from '@aws-cdk/core';
 
 import { HelloCdkStack } from '../lib/hello-cdk-stack2';
 
