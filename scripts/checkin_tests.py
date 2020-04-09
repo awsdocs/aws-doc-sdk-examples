@@ -98,6 +98,7 @@ ALLOW_LIST = {
     'upload_files_using_managed_file_uploader',
     'videoMetaData=celebrityRecognitionResult',
     'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    'com/v1/documentation/api/latest/guide/s3',
 }
 
 
