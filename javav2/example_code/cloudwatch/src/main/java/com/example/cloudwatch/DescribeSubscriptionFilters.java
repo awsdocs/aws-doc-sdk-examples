@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of CloudWatch subscription filters associated with a log group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.describe_subscription_filters.complete]
+
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.import]
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
 /**
  * Lists CloudWatch subscription filters associated with a log group.
  */
-// snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
+
 public class DescribeSubscriptionFilters {
 
     public static void main(String[] args) {
@@ -49,6 +49,13 @@ public class DescribeSubscriptionFilters {
 
         String logGroup = args[0];
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder().build();
+
+        describeFilters(logs, logGroup);
+
+    }
+
+    // snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
+    public static void describeFilters(CloudWatchLogsClient logs, String logGroup) {
 
         try {
 
@@ -101,4 +108,3 @@ public class DescribeSubscriptionFilters {
     }
 }
 // snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
-// snippet-end:[cloudwatch.java2.describe_subscription_filters.complete]

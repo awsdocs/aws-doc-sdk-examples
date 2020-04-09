@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[PutMetricData.java demonstrates how to put a sample metric data point for a metric defined for a CloudWatch alarm.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-// snippet-start:[cloudwatch.java2.put_metric_data.complete]
+
 // snippet-start:[cloudwatch.java2.put_metric_data.import]
 package com.example.cloudwatch;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
 import software.amazon.awssdk.services.cloudwatch.model.MetricDatum;
@@ -44,14 +45,20 @@ public class PutMetricData {
             System.out.println(USAGE);
             System.exit(1);
         }
-        // snippet-start:[cloudwatch.java2.put_metric_data.main]
+
         Double dataPoint = Double.parseDouble(args[0]);
 
-        CloudWatchClient cw =
-                CloudWatchClient.builder().build();
+        Region region = Region.US_WEST_2;
+        CloudWatchClient cw = CloudWatchClient.builder()
+                .region(region)
+                .build();
+
+        putMetData(cw, dataPoint) ;
+    }
+    // snippet-start:[cloudwatch.java2.put_metric_data.main]
+    public static void putMetData(CloudWatchClient cw, Double dataPoint ) {
 
         try {
-
             Dimension dimension = Dimension.builder()
                 .name("UNIQUE_PAGES")
                 .value("URLS").build();
@@ -76,4 +83,3 @@ public class PutMetricData {
         // snippet-end:[cloudwatch.java2.put_metric_data.main]
     }
 }
-// snippet-end:[cloudwatch.java2.put_metric_data.complete]

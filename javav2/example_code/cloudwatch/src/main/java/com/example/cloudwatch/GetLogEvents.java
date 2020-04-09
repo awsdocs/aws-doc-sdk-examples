@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[GetLogEvents.java demonstrates how to get log events from CloudWatch in a specified region. ]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,8 +21,9 @@
  * permissions and limitations under the License.
  */
 package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.get_logs.complete]
+
 // snippet-start:[cloudwatch.java2.get_logs.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
@@ -44,13 +45,21 @@ public class GetLogEvents {
             System.exit(1);
         }
 
-        // snippet-start:[cloudwatch.java2.get_logs.main]
         String logStreamName = args[0];
         String logGroupName = args[1];
 
         // Create a CloudWatchLogClient
+        Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
-               .build();
+                .region(region)
+                .build();
+
+        getCWLogEvebts(cloudWatchLogsClient, logGroupName, logStreamName) ;
+    }
+
+    // snippet-start:[cloudwatch.java2.get_logs.main]
+    public static void getCWLogEvebts(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, String logStreamName) {
+
 
         try {
 
@@ -76,4 +85,3 @@ public class GetLogEvents {
         // snippet-end:[cloudwatch.java2.get_logs.main]
     }
 }
-// snippet-end:[cloudwatch.java2.get_logs.complete]
