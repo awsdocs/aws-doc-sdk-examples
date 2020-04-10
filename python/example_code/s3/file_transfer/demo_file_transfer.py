@@ -1,17 +1,5 @@
-#
-# Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
-#
-#
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 """
 Demonstration manager for the Amazon S3 file transfer example.
@@ -315,7 +303,7 @@ def main():
     if demo_manager.ask_user("Do you want to try to download the encrypted "
                              "object without sending the required key?"):
         try:
-            local_file_path, object_key, download_file_path = \
+            _, object_key, download_file_path = \
                 demo_manager.last_name_set()
             file_transfer.download_with_default_configuration(
                 demo_manager.demo_bucket, object_key, download_file_path,
