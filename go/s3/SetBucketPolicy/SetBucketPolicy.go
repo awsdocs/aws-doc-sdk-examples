@@ -32,7 +32,7 @@ import (
 //     bucket is the name of the bucket
 // Output:
 //     If success, nil
-//     Otherwise, an error from the call to
+//     Otherwise, an error from the call to PutBucketPolicy
 func SetBucketPolicy(sess *session.Session, bucket *string) error {
     // snippet-start:[s3.go.set_bucket_policy.call]
     svc := s3.New(sess)

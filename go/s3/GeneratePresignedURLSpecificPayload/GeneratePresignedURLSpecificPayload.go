@@ -26,14 +26,14 @@ import (
 )
 // snippet-end:[s3.go.generate_presigned_url_specific_payload.imports]
 
-// GetPresignedURL creates a pre-signed URL for a bucket object
+// GetPresignedURL creates a presigned URL for a bucket object
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     bucket is the name of the bucket
 //     key is the key of the object
 //     content is the content of the object
 // Output:
-//     If success, the pre-signed URL, which is valid for 15 minutes, for the object and nil
+//     If success, the presigned URL, which is valid for 15 minutes, for the object and nil
 //     Otherwise, an empty string and an error from the call to GetObjectRequest or Presign
 func GetPresignedURL(sess *session.Session, bucket, key, content *string) (string, error) {
     // snippet-start:[s3.go.generate_presigned_url_specific_payload.call]

@@ -24,7 +24,7 @@ import (
 )
 // snippet-end:[s3.go.put_bucket_website.imports]
 
-// SetWebPage sets up a bucket as a static web site
+// SetWebPage sets up a bucket as a static website
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     bucket is the name of the bucket
@@ -82,7 +82,7 @@ func main() {
 
     err := SetWebPage(sess, bucket, indexPage, errorPage)
     if err != nil {
-        fmt.Println("Got an error setting bucket as static web site:")
+        fmt.Println("Got an error setting bucket as static website:")
         fmt.Println(err)
         return
     }

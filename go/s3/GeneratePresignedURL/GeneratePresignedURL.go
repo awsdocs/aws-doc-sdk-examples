@@ -25,13 +25,13 @@ import (
 )
 // snippet-end:[s3.go.generate_presigned_url.imports]
 
-// GetPresignedURL creates a pre-signed URL for a bucket object
+// GetPresignedURL creates a presigned URL for a bucket object
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     bucket is the name of the bucket
 //     key is the key of the object
 // Output:
-//     If success, the pre-signed URL, which is valid for 15 minutes, for the object and nil
+//     If success, the presigned URL, which is valid for 15 minutes, for the object and nil
 //     Otherwise, an empty string and an error from the call to GetObjectRequest or Presign
 func GetPresignedURL(sess *session.Session, bucket, key *string) (string, error) {
     // snippet-start:[s3.go.generate_presigned_url.call]
@@ -70,13 +70,13 @@ func main() {
 
     urlStr, err := GetPresignedURL(sess, bucket, key)
     if err != nil {
-        fmt.Println("Got an error retrieving a pre-signed URL:")
+        fmt.Println("Got an error retrieving a presigned URL:")
         fmt.Println(err)
         return
     }
 
     // snippet-start:[s3.go.generate_presigned_url.print]
-    fmt.Println("The pre-signed URL: " + urlStr + " is valid for 15 minutes")
+    fmt.Println("The presigned URL: " + urlStr + " is valid for 15 minutes")
     // snippet-end:[s3.go.generate_presigned_url.print]
 }
 // snippet-end:[s3.go.generate_presigned_url]

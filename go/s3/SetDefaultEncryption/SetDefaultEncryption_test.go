@@ -120,7 +120,7 @@ func TestSetDefaultEncryption(t *testing.T) {
     }))
 
     if globalConfig.KmsKeyID == "" {
-        t.Fatal(errors.New("You must supply a KMS key ID in config.json"))
+        t.Fatal(errors.New("You must supply an AWS KMS key ID in config.json"))
     }
 
     bucketCreated := false
@@ -143,7 +143,7 @@ func TestSetDefaultEncryption(t *testing.T) {
         t.Fatal(err)
     }
 
-    t.Log("Added KMS encryption to " + globalConfig.Bucket)
+    t.Log("Added AMS KMS encryption to " + globalConfig.Bucket)
 
     if bucketCreated {
         err := deleteBucket(sess, &globalConfig.Bucket)

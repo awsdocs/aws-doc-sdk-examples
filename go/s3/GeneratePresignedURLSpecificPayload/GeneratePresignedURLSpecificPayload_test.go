@@ -171,7 +171,7 @@ func TestGeneratePresignedURL(t *testing.T) {
         t.Fatal(err)
     }
 
-    t.Log("The pre-signed URL: " + urlStr + " is valid for 15 minutes")
+    t.Log("The presigned URL: " + urlStr + " is valid for 15 minutes")
 
     if bucketCreated {
         err := deleteBucket(sess, &globalConfig.Bucket)
