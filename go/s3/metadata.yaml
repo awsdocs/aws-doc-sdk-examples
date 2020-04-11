@@ -1,9 +1,103 @@
 files:
+  - path: CopyObject/CopyObject.go
+    services:
+      - s3
+  - path: CreateBucket/CreateBucket.go
+    services:
+      - s3
+  - path: CreateBucketAndObject/CreateBucketAndObject.go
+    services:
+      - s3
   - path: CustomClient/CustomHTTPClient.go
     services:
       - s3
-  - path: CustomClient/CustomHTTPClient_test.go
+  - path: DeleteBucket/DeleteBucket.go
+    services:
+      - s3
+  - path: DeleteBucketPolicy/DeleteBucketPolicy.go
+    services:
+      - s3
+  - path: DeleteBucketWebsite/DeleteBucketWebsite.go
+    services:
+      - s3
+  - path: DeleteObject/DeleteObject.go
+    services:
+      - s3
+  - path: DeleteObjects/DeleteObjects.go
+    services:
+      - s3
+  - path: DownloadObject/DownloadObject.go
+    services:
+      - s3manager
+  - path: EncryptOnServerWithKms/EncryptOnServerWithKms.go
+    services:
+      - s3
+  - path: EnforceMD5/EnforceMD5Content.go
+    services:
+      - s3
+  - path: GeneratePresignedURL/GeneratePresignedURL.go
+    services:
+      - s3
+  - path: GeneratePresignedURLSpecificPayload/GeneratePresignedURLSpecificPayload.go
+    services:
+      - s3
+  - path: GetBucketAcl/GetBucketAcl.go
+    services:
+      - s3
+  - path: GetBucketPolicy/GetBucketPolicy.go
+    services:
+      - s3
+  - path: GetBucketWebsite/GetBucketWebsite.go
+    services:
+      - s3
+  - path: GetObjectAcl/GetObjectAcl.go
+    services:
+      - s3
+  - path: ListBuckets/ListBuckets.go
+    services:
+      - s3
+  - path: ListObjects/ListObjects.go
+    services:
+      - s3
+  - path: MakeBucketPublic/MakeBucketPublic.go
+    services:
+      - s3
+  - path: PutBucketAcl/PutBucketAcl.go
+    services:
+      - s3
+  - path: PutObjectAcl/PutObjectAcl.go
+    services:
+      - s3
+  - path: PutObjectWithSetters/PutObjectWithSetters.go
+    services:
+      - s3
+  - path: RequireServerEncryption/RequireServerEncryption.go
+    services:
+      - s3
+  - path: RestoreObject/RestoreObject.go
+    services:
+      - s3
+  - path: SetBucketPolicy/SetBucketPolicy.go
+    services:
+      - s3
+  - path: SetBucketWebsite/SetBucketWebsite.go
+    services:
+      - s3
+  - path: SetCors/SetCors.go
+    services:
+      - s3
+  - path: SetDefaultEncryption/SetDefaultEncryption.go
+    services:
+      - s3
   - path: TLS/s3SetTls12.go
     services:
       - s3
-  - path: TLS/s3SetTls12_test.go
+  - path: UploadDirectory/UploadDirectory.go
+    services:
+      - s3manager
+  - path: UploadObject/UploadObject.go
+    services:
+      - s3manager
+  - path: UploadStream/UploadStream.go
+    services:
+      - s3manager
