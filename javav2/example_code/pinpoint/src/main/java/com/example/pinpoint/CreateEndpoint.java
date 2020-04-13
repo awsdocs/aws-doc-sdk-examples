@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateEndpoint.java demonstrates how to create an endpoint for an application in Pinpoint.]
+//snippet-sourcedescription:[CreateEndpoint.java demonstrates how to create an endpoint for an application in Amazon Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -51,7 +51,7 @@ public class CreateEndpoint {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "CreateEndpoint - create an endpoint for an application in pinpoint\n\n" +
+                "CreateEndpoint - create an endpoint for an application in Amazon Pinpoint\n\n" +
                 "Usage: CreateEndpoint <appId>\n\n" +
                 "Where:\n" +
                 "  appId - the ID of the application to create an endpoint for.\n\n";
