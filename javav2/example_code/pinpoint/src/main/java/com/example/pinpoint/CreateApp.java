@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[pinpoint.java2.CreateApp.complete]
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.CreateApp.import]
