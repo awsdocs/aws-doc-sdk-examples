@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-01]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,10 +25,14 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.ImportSegment.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
-import software.amazon.awssdk.services.pinpoint.model.*;
+import software.amazon.awssdk.services.pinpoint.model.CreateImportJobRequest;
+import software.amazon.awssdk.services.pinpoint.model.ImportJobResponse;
+import software.amazon.awssdk.services.pinpoint.model.ImportJobRequest;
+import software.amazon.awssdk.services.pinpoint.model.Format;
+import software.amazon.awssdk.services.pinpoint.model.CreateImportJobResponse;
+import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.ImportSegment.import]
 
 
@@ -41,35 +45,42 @@ public class ImportSegment {
                 "  appId - the ID the application to create a segment for.\n\n" +
                 "  bucket - name of the s3 bucket that contains the segment definitons.\n\n" +
                 "  key - key of the s3 object " +
-                "  roleArn - ARN of the role that allows pinpoint to access S3";
+                "  roleArn - ARN of the role that allows pinpoint to access S3. You need to set trust management for this to work. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html";
 
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[pinpoint.java2.ImportSegment.main]
-        String appId = args[0];
-        String bucket = args[1];
-        String key = args[2];
-        String roleArn = args[3];
 
-        PinpointClient pinpoint = PinpointClient.builder().region(Region.US_EAST_1).build();
+
+       String appId = args[0];
+       String bucket = args[1];
+       String key = args[2];
+       String roleArn = args[3];
+
+        PinpointClient pinpoint = PinpointClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
         ImportJobResponse response = createImportSegment(pinpoint, appId, bucket, key, roleArn);
         System.out.println("Import job for " + bucket + " submitted.");
         System.out.println("See application " + response.applicationId() + " for import job status.");
-        //snippet-end:[pinpoint.java2.ImportSegment.main]
+        System.out.println("See application " + response.jobStatus() + " for import job status.");
+
+
     }
 
-    //snippet-start:[pinpoint.java2.ImportSegment.helper]
+    //snippet-start:[pinpoint.java2.ImportSegment.main]
     public static ImportJobResponse createImportSegment(PinpointClient client,
                                                         String appId,
                                                         String bucket,
                                                         String key,
                                                         String roleArn) {
 
-        // Create the job.
-        ImportJobRequest importRequest = ImportJobRequest.builder()
+        try {
+
+            // Create the job.
+            ImportJobRequest importRequest = ImportJobRequest.builder()
                 .defineSegment(true)
                 .registerEndpoints(true)
                 .roleArn(roleArn)
@@ -77,15 +88,20 @@ public class ImportSegment {
                 .s3Url("s3://" + bucket + "/" + key)
                 .build();
 
-        CreateImportJobRequest jobRequest = CreateImportJobRequest.builder()
+            CreateImportJobRequest jobRequest = CreateImportJobRequest.builder()
                 .importJobRequest(importRequest)
                 .applicationId(appId)
                 .build();
 
-        CreateImportJobResponse jobResponse = client.createImportJob(jobRequest);
+            CreateImportJobResponse jobResponse = client.createImportJob(jobRequest);
 
-        return jobResponse.importJobResponse();
+            return jobResponse.importJobResponse();
+
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return null;
     }
-    //snippet-end:[pinpoint.java2.ImportSegment.helper]
+    //snippet-end:[pinpoint.java2.ImportSegment.main]
 }
-//snippet-end:[pinpoint.java2.ImportSegment.complete]
