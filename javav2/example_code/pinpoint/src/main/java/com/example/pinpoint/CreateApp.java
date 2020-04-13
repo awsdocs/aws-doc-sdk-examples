@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateApp.java demonstrates how to create an application in the Pinpoint dashboard.]
+//snippet-sourcedescription:[CreateApp.java demonstrates how to create an application in the Amazon Pinpoint dashboard.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -35,7 +35,7 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 public class CreateApp {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateApp - create an application in pinpoint dashboard\n\n" +
+                "CreateApp - create an application in the Amazon Pinpoint dashboard\n\n" +
                 "Usage: CreateApp <appName>\n\n" +
                 "Where:\n" +
                 "  appName - the name of the application to create.\n\n";
