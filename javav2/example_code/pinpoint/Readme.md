@@ -46,9 +46,9 @@ Define these values to successfully run the JUnit tests:
 - **roleArn** - the ARN of the role for the ImportSegments test.
 
 
-###  Sample policy text
+###  Sample JSON file
 
-For the purpose of the JUnit tests, the **ImportSegments** test uses JSON to import segments. You must place this JSON in the S3 bucket specified in the **bucket** value. Also, this JSON must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
+For the purpose of the **ImportSegments** test, a JSON file is used to import segments. You must place this JSON in the S3 bucket specified in the **bucket** value. Also, this JSON must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
 
 	{
    	"ChannelType":"SMS",
