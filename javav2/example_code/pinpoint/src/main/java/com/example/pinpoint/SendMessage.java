@@ -1,32 +1,36 @@
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.sendmsg.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DirectMessageConfiguration;
-import software.amazon.awssdk.services.pinpoint.model.*;
-
+import software.amazon.awssdk.services.pinpoint.model.SMSMessage;
+import software.amazon.awssdk.services.pinpoint.model.AddressConfiguration;
+import software.amazon.awssdk.services.pinpoint.model.ChannelType;
+import software.amazon.awssdk.services.pinpoint.model.MessageRequest;
+import software.amazon.awssdk.services.pinpoint.model.SendMessagesRequest;
+import software.amazon.awssdk.services.pinpoint.model.SendMessagesResponse;
+import software.amazon.awssdk.services.pinpoint.model.MessageResponse;
+import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 import java.util.HashMap;
 import java.util.Map;
+//snippet-end:[pinpoint.java2.sendmsg.import]
 
 public class SendMessage {
 
     // The phone number or short code to send the message from. The phone number
     // or short code that you specify has to be associated with your Amazon Pinpoint
     // account. For best results, specify long codes in E.164 format.
-    public static String originationNumber = "+1-613-839-7418";
+    public static String originationNumber = "enter origination number";
 
     // The recipient's phone number.  For best results, you should specify the
     // phone number in E.164 format.
-    public static String destinationNumber = "+1-819-576-5654";
-
-    // The content of the SMS message.
-    public static String message = "This message was sent through Amazon Pinpoint "
-            + "using the AWS SDK for Java." ;
+    public static String destinationNumber = "enter destination number";
 
     // The Pinpoint project/application ID to use when you send this message.
     // Make sure that the SMS channel is enabled for the project or application
     // that you choose.
-    public static String appId = "2fdc4442c6a2483f85eaf7a943054815";
+    public static String appId = "enter appId number";
 
     // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
@@ -44,26 +48,27 @@ public class SendMessage {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "SendMessage -sends a message\n\n" +
-                "Usage: CreateApp <appName>\n\n" +
+                "Usage: SendMessage <message>\n\n" +
                 "Where:\n" +
-                "  appId - the id of the application to delete.\n\n";
+                "  message - the body of the message to send.\n\n";
 
-       // if (args.length < 1) {
-        //    System.out.println(USAGE);
-       //     System.exit(1);
-       // }
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
- //       String appId = args[0];
+        String message = args[0];
         System.out.println("Sending a message" );
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        sendSMSMessage(pinpoint) ;
+        sendSMSMessage(pinpoint, appId) ;
     }
 
-    public static void sendSMSMessage(PinpointClient pinpoint) {
+    //snippet-start:[pinpoint.java2.sendmsg.main]
+    public static void sendSMSMessage(PinpointClient pinpoint, String message) {
 
     try {
 
@@ -87,7 +92,7 @@ public class SendMessage {
         // Create a DirectMessageConfiguration object
         DirectMessageConfiguration direct = DirectMessageConfiguration.builder()
                 .smsMessage(smsMessage)
-                 .build();
+                .build();
 
         MessageRequest msgReq = MessageRequest.builder()
                 .addresses(addressMap)
@@ -100,12 +105,17 @@ public class SendMessage {
                 .messageRequest(msgReq)
                 .build();
 
-        pinpoint.sendMessages(request);
+        SendMessagesResponse response= pinpoint.sendMessages(request);
 
-        System.out.println("Done");
+        MessageResponse msg1 = response.messageResponse();
+        Map map1 = msg1.result();
+
+        //Write out the result of sendMessage
+        map1.forEach((k, v) -> System.out.println((k + ":" + v)));
 
     } catch (PinpointException e) {
         e.getStackTrace();
     }
   }
+    //snippet-end:[pinpoint.java2.sendmsg.main]
 }
