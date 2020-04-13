@@ -5,10 +5,11 @@
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-01]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,41 +22,60 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[pinpoint.java2.DeleteApp.complete]
+
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.DeleteApp.import]
+//snippet-start:[pinpoint.java2.CreateApp.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DeleteAppRequest;
-//snippet-end:[pinpoint.java2.DeleteApp.import]
+import software.amazon.awssdk.services.pinpoint.model. DeleteAppResponse;
+import software.amazon.awssdk.services.pinpoint.model.PinpointException;
+//snippet-end:[pinpoint.java2.CreateApp.import]
 
 public class DeleteApp {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "DeleteApp - delete an application in the pinpoint dashboard\n\n" +
-                "Usage: DeleteApp <appID>\n\n" +
+                "CreateApp - create an application in pinpoint dashboard\n\n" +
+                "Usage: CreateApp <appName>\n\n" +
                 "Where:\n" +
-                "  appID - the application ID of the application to delete.\n\n";
+                "  appId - the id of the application to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        //snippet-start:[pinpoint.java2.DeleteApp.main]
-        String appID = args[0];
 
-        System.out.println("Deleting application: " + appID);
+        String appId = args[0];
+        System.out.println("Deleting an application with id: " + appId);
 
-        PinpointClient pinpoint = PinpointClient.builder().region(Region.US_EAST_1).build();
-
-        DeleteAppRequest deleteRequest = DeleteAppRequest.builder()
-                .applicationId(appID)
+        PinpointClient pinpoint = PinpointClient.builder()
+                .region(Region.US_EAST_1)
                 .build();
 
-        pinpoint.deleteApp(deleteRequest);
-        //snippet-end:[pinpoint.java2.DeleteApp.main]
+        deletePinApp(pinpoint, appId) ;
+    }
+
+    //snippet-start:[pinpoint.java2.CreateApp.main]
+    public static void deletePinApp(PinpointClient pinpoint, String appId ) {
+
+        try {
+
+            DeleteAppRequest appRequest = DeleteAppRequest.builder()
+                    .applicationId(appId)
+                    .build();
+
+            DeleteAppResponse result = pinpoint.deleteApp(appRequest);
+            String appName = result.applicationResponse().name();
+            System.out.println("Application " + appName + " has been deleted.");
+
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
+
+        //snippet-end:[pinpoint.java2.CreateApp.main]
     }
 }
-//snippet-end:[pinpoint.java2.DeleteApp.complete]
