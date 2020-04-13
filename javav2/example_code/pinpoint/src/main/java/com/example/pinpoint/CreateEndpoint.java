@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-01]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,21 +21,31 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[pinpoint.java2.CreateEndpoint.complete]
-
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.CreateEndpoint.import]
-
+//snippet-start:[pinpoint.java2.createendpoint.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
-import software.amazon.awssdk.services.pinpoint.model.*;
-
+import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
+import software.amazon.awssdk.services.pinpoint.model.EndpointRequest;
+import software.amazon.awssdk.services.pinpoint.model.UpdateEndpointRequest;
+import software.amazon.awssdk.services.pinpoint.model.UpdateEndpointResponse;
+import software.amazon.awssdk.services.pinpoint.model.GetEndpointRequest;
+import software.amazon.awssdk.services.pinpoint.model.GetEndpointResponse;
+import software.amazon.awssdk.services.pinpoint.model.PinpointException;
+import software.amazon.awssdk.services.pinpoint.model.EndpointDemographic;
+import software.amazon.awssdk.services.pinpoint.model.EndpointLocation;
+import software.amazon.awssdk.services.pinpoint.model.EndpointUser;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
-//snippet-end:[pinpoint.java2.CreateEndpoint.import]
+import java.util.List;
+import java.util.UUID;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Date;
+//snippet-end:[pinpoint.java2.createendpoint.import]
 
 public class CreateEndpoint {
     public static void main(String[] args) {
@@ -50,60 +60,65 @@ public class CreateEndpoint {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[pinpoint.java2.CreateEndpoint.main]
+
         String appId = args[0];
-
-        String endpointId = UUID.randomUUID().toString();
-        System.out.println("Endpoint ID: " + endpointId);
-
-        PinpointClient pinpoint = PinpointClient.builder().region(Region.US_EAST_1).build();
+        PinpointClient pinpoint = PinpointClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
         EndpointResponse response = createEndpoint(pinpoint, appId);
-
-        System.out.println(response.address());
-        System.out.println(response.channelType());
-        System.out.println(response.applicationId());
-        System.out.println(response.endpointStatus());
-        System.out.println(response.requestId());
-        System.out.println(response.user());
-        //snippet-end:[pinpoint.java2.CreateEndpoint.main]
+        System.out.println("Got Endpoint: " + response.id());
     }
 
-    //snippet-start:[pinpoint.java2.CreateEndpoint.helper]
-    private static EndpointResponse createEndpoint(PinpointClient client, String appId) {
+    //snippet-start:[pinpoint.java2.createendpoint.main]
+    //snippet-start:[pinpoint.java2.createendpoint.helper]
+    public static EndpointResponse createEndpoint(PinpointClient client, String appId) {
         String endpointId = UUID.randomUUID().toString();
         System.out.println("Endpoint ID: " + endpointId);
 
-        EndpointRequest endpointRequest = createEndpointRequestData();
+       try {
 
+           EndpointRequest endpointRequest = createEndpointRequestData();
 
-        UpdateEndpointRequest updateEndpointRequest = UpdateEndpointRequest.builder()
+            UpdateEndpointRequest updateEndpointRequest = UpdateEndpointRequest.builder()
                 .applicationId(appId)
                 .endpointId(endpointId)
                 .endpointRequest(endpointRequest)
                 .build();
 
-        UpdateEndpointResponse updateEndpointResponse = client.updateEndpoint(updateEndpointRequest);
-        System.out.println("Update Endpoint Response: " + updateEndpointResponse.messageBody());
+            UpdateEndpointResponse updateEndpointResponse = client.updateEndpoint(updateEndpointRequest);
+            System.out.println("Update Endpoint Response: " + updateEndpointResponse.messageBody());
 
-        GetEndpointRequest getEndpointRequest = GetEndpointRequest.builder()
+            GetEndpointRequest getEndpointRequest = GetEndpointRequest.builder()
                 .applicationId(appId)
                 .endpointId(endpointId)
                 .build();
-        GetEndpointResponse getEndpointResponse = client.getEndpoint(getEndpointRequest);
+            GetEndpointResponse getEndpointResponse = client.getEndpoint(getEndpointRequest);
 
-        System.out.println("Got Endpoint: " + getEndpointResponse.endpointResponse().id());
-        return getEndpointResponse.endpointResponse();
+           System.out.println(getEndpointResponse.endpointResponse().address());
+           System.out.println(getEndpointResponse.endpointResponse().channelType());
+           System.out.println(getEndpointResponse.endpointResponse().applicationId());
+           System.out.println(getEndpointResponse.endpointResponse().endpointStatus());
+           System.out.println(getEndpointResponse.endpointResponse().requestId());
+           System.out.println(getEndpointResponse.endpointResponse().user());
 
+            return getEndpointResponse.endpointResponse();
+
+    } catch (PinpointException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+    return null;
     }
 
     private static EndpointRequest createEndpointRequestData() {
+
+      try {
         List<String> favoriteTeams = new ArrayList<>();
         favoriteTeams.add("Lakers");
         favoriteTeams.add("Warriors");
         HashMap<String, List<String>> customAttributes = new HashMap<>();
         customAttributes.put("team", favoriteTeams);
-
 
         EndpointDemographic demographic = EndpointDemographic.builder()
                 .appVersion("1.0")
@@ -149,7 +164,14 @@ public class CreateEndpoint {
                 .build();
 
         return endpointRequest;
+
+    } catch (PinpointException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
     }
-    //snippet-end:[pinpoint.java2.CreateEndpoint.helper]
+
+        return null;
+    }
+    //snippet-end:[pinpoint.java2.createendpoint.helper]
+    //snippet-end:[pinpoint.java2.createendpoint.main]
 }
-//snippet-end:[pinpoint.java2.CreateEndpoint.complete]
