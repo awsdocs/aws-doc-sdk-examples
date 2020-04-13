@@ -29,7 +29,7 @@ package com.example.pinpoint;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DeleteAppRequest;
-import software.amazon.awssdk.services.pinpoint.model. DeleteAppResponse;
+import software.amazon.awssdk.services.pinpoint.model.DeleteAppResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.deleteApp.import]
 
