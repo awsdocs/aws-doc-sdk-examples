@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteApp.java demonstrates how to delete an application in the Pinpoint dashboard.]
+//snippet-sourcedescription:[DeleteApp.java demonstrates how to delete an application in the Amazon Pinpoint dashboard.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -36,10 +36,10 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 public class DeleteApp {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateApp - create an application in pinpoint dashboard\n\n" +
+                "CreateApp - create an application in the Amazon Pinpoint dashboard\n\n" +
                 "Usage: CreateApp <appName>\n\n" +
                 "Where:\n" +
-                "  appId - the id of the application to delete.\n\n";
+                "  appId - the ID of the application to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -48,7 +48,7 @@ public class DeleteApp {
 
 
         String appId = args[0];
-        System.out.println("Deleting an application with id: " + appId);
+        System.out.println("Deleting an application with ID: " + appId);
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
