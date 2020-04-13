@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ImportSegment.java demonstrates how to how to import a segment into Pinpoint.]
+//snippet-sourcedescription:[ImportSegment.java demonstrates how to how to import a segment into Amazon Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -42,10 +42,10 @@ public class ImportSegment {
                 "ImportSegment - import a segment \n\n" +
                 "Usage: ImportSegment <appId> <bucket> <key> <roleArn> \n\n" +
                 "Where:\n" +
-                "  appId - the ID the application to create a segment for.\n\n" +
-                "  bucket - name of the s3 bucket that contains the segment definitons.\n\n" +
-                "  key - key of the s3 object " +
-                "  roleArn - ARN of the role that allows pinpoint to access S3. You need to set trust management for this to work. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html";
+                "  appId - the application ID to create a segment for.\n\n" +
+                "  bucket - the name of the Amazon S3 bucket that contains the segment definitons.\n\n" +
+                "  key - the key of the S3 object. " +
+                "  roleArn - ARN of the role that allows Amazon Pinpoint to access S3. You need to set trust management for this to work. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -79,7 +79,7 @@ public class ImportSegment {
 
         try {
 
-            // Create the job.
+            // Create the job
             ImportJobRequest importRequest = ImportJobRequest.builder()
                 .defineSegment(true)
                 .registerEndpoints(true)
