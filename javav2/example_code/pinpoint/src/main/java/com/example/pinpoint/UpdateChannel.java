@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateChannel.java demonstrates how to create a channel for an application in Pinpoint.]
+//snippet-sourcedescription:[UpdateChannel.java demonstrates how to update a channel for an application in Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
