@@ -15,7 +15,7 @@ in the AWS SDK for Go Developer Guide.
 
 ### CopyObject/CopyObject.go
 
-This example copies an item from one bucket to another.
+This example copies an item from one Amazon S3 bucket to another.
 
 `go run CopyObject.go -f FROM-BUCKET -t TO-BUCKET -i ITEM`
 
@@ -27,7 +27,7 @@ The unit test accepts similar values from *config.json*.
 
 ### CreateBucket/CreateBucket.go
 
-This example creates a bucket.
+This example creates an Amazon S3 bucket.
 
 `go run CreateBucket.go -b BUCKET`
 
@@ -37,7 +37,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### CreateBucketAndObject/CreateBucketAndObject.go
 
-This example creates a bucket and a dummy object in that bucket.
+This example creates an Amazon S3 bucket and a dummy object in that bucket.
 
 `go run CreateBucketAndObject.go -b BUCKET [-k KEY]`
 
@@ -49,21 +49,21 @@ The unit test accepts similar values from *config.json*.
 
 ### CustomClient/CustomHTTPClient.go
 
-This example either creates a custom HTTP client and uses it to get an S3 bucket object,
+This example either creates a custom HTTP client and uses it to get an Amazon S3 bucket object,
 or gets the S3 bucket object using a custom timeout of 20 seconds.
 
 `go run CustomHTTPClient.go -b BUCKET -o OBJECT [-s] [-t]`
 
-- *BUCKET* is name of the bucket.
-- *OBJECT* is the name of the object (required)
-- **-s** shows the object, as a string (optional)
-- **-t** gets the object using a custom timout; otherwise it uses a custom HTTP client
+- *BUCKET* is the name of the bucket.
+- *OBJECT* is the name of the object (required).
+- **-s** shows the object, as a string (optional).
+- **-t** gets the object using a custom timout; otherwise, it uses a custom HTTP client.
 
 The unit test accepts similar values from *config.json*.
 
 ### DeleteBucket/DeleteBucket.go
 
-This example deletes a bucket.
+This example deletes an Amazon S3 bucket.
 
 `go run DeleteBucket.go -b BUCKET`
 
@@ -73,7 +73,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### DeleteBucketPolicy/DeleteBucketPolicy.go
 
-This example removes the policy for a bucket.
+This example removes the policy for an Amazon S3 bucket.
 
 `go run DeleteBucketPolicy.go -b BUCKET`
 
@@ -83,7 +83,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### DeleteBucketWebsite/DeleteBucketWebsite.go
 
-This example removes the website configuration for a bucket.
+This example removes the website configuration for an Amazon S3 bucket.
 
 `go run DeleteBucketWebsite.go -b BUCKET`
 
@@ -93,7 +93,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### DeleteObject/DeleteObject.go
 
-This example deletes an item from a bucket.
+This example deletes an item from an Amazon S3 bucket.
 
 `go run DeleteObject -b BUCKET -i ITEM`
 
@@ -104,7 +104,7 @@ The unit test accepts similar values from *config.json*.
 
 ### DeleteObjects/DeleteObjects.go
 
-This example deletes all of the objects in a bucket.
+This example deletes all of the objects in an Amazon S3 bucket.
 
 `go run DeleteObjects.go -b BUCKET`
 
@@ -114,7 +114,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### DownloadObject/DownloadObject.go
 
-This example downloads a file from a bucket.
+This example downloads a file from an Amazon S3 bucket.
 
 `go run DownloadObject.go -b BUCKET -f FILENAME`
 
@@ -125,7 +125,7 @@ The unit test accepts similar values from *config.json*.
 
 ### EncryptOnServerWithKms/EncryptOnServerWithKms.go
 
-This example adds an object to a bucket with encryption based on an AWS Key Management Service (AWS KMS) key.
+This example adds an object to an Amazon S3 bucket with encryption based on an AWS Key Management Service (AWS KMS) key.
 
 `go run EncryptOnServerWithKms.go -b BUCKET -o OBJECT -k KEY`
 
@@ -137,7 +137,7 @@ The unit test accepts similar values from *config.json*.
 
 ### EnforceMD5/EnforceMD5Content.go
 
-This example enforces an MD5 checksum on the object uploaded to a bucket.
+This example enforces an MD5 checksum on the object uploaded to an Amazon S3 bucket.
 
 `go run EnforceMD5Content.go -b BUCKET -k KEY`
 
@@ -148,7 +148,7 @@ The unit test accepts similar values from *config.json*.
 
 ### GeneratePresignedURL/GeneratePresignedURL.go
 
-This example creates a pre-signed URL for a bucket object.
+This example creates a presigned URL for an Amazon S3 bucket object.
 
 `go run GeneratePresignedURL.go -b BUCKET -k KEY`
 
@@ -159,7 +159,7 @@ The unit test accepts similar values from *config.json*.
 
 ### GeneratePresignedURLSpecificPayload/GeneratePresignedURLSpecificPayload.go
 
-This example creates a pre-signed URL for a bucket object with specific content.
+This example creates a presigned URL for an Amazon S3 bucket object with specific content.
 
 `go run GeneratePresignedURLSpecificPayload.go -b BUCKET -k KEY -c CONTENT`
 
@@ -171,7 +171,7 @@ The unit test accepts similar values from *config.json*.
 
 ### GetBucketAcl/GetBucketAcl.go
 
-This example gets the ACL for a bucket.
+This example gets the ACL for an Amazon S3 bucket.
 
 `go run GetBucketAcl.go -b BUCKET`
 
@@ -181,7 +181,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### GetBucketPolicy/GetBucketPolicy.go
 
-This example retrieves the policy for a bucket.
+This example retrieves the policy for an Amazon S3 bucket.
 
 `go run GetBucketPolicy.go -b BUCKET`
 
@@ -191,7 +191,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### GetBucketWebsite/GetBucketWebsite.go
 
-This example retrieves the bucket's website configuration.
+This example retrieves the Amazon S3 bucket's website configuration.
 
 `go run GetBucketWebsite.go -b BUCKET`
 
@@ -201,7 +201,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### GetObjectAcl/GetObjectAcl.go
 
-This example gets the ACL for a bucket object.
+This example gets the ACL for an Amazon S3 bucket object.
 
 `go run GetObjectAcl.go -b BUCKET -k KEY`
 
@@ -212,13 +212,13 @@ The unit test accepts similar values from *config.json*.
 
 ### ListBuckets/ListBuckets.go`
 
-This example lists all buckets.
+This example lists all Amazon S3 buckets.
 
 `go run ListBuckets.go`
 
 ### ListObjects/ListObjects.go
 
-This example lists all of the objects in a bucket.
+This example lists all of the objects in an Amazon S3 bucket.
 
 `go run ListObjects.go -b BUCKET`
 
@@ -228,7 +228,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### MakeBucketPublic/MakeBucketPublic.go
 
-This example gives everyone access to a bucket.
+This example gives everyone access to an Amazon S3 bucket.
 
 `go run MakeBucketPublic.go -b BUCKET`
 
@@ -238,7 +238,7 @@ The unit test accepts similar values from *config.json*.
 
 ### PutBucketAcl/PutBucketAcl.go
 
-This example gives a user access to a bucket.
+This example gives a user access to an Amazon S3 bucket.
 
 `go run PutBucketAcl.go -b BUCKET -e ADDRESS -p PERMISSION
 
@@ -250,19 +250,19 @@ The unit test accepts similar values from *config.json*.
 
 ### PutObjectAcl/PutObjectAcl.go
 
-This example gives a person read access to an object in a bucket.
+This example gives a person read access to an object in an Amazon S3 bucket.
 
 `go run PutObjectAcl.go -b BUCKET -k KEY -a ADDRESS
 
 - *BUCKET* is the name of the bucket.
-- *KEY* is the name of the object
+- *KEY* is the name of the object.
 - *ADDRESS* is the email address of the user.
 
 The unit test accepts similar values from *config.json*.
 
 ### PutObjectWithSetters/PutObjectWithSetters.go
 
-This example uploads a file to a bucket using setters.
+This example uploads a file to an Amazon S3 bucket using setters.
 
 `go run PutObjectWithSetters.go -b BUCKET -k KEY`
 
@@ -273,7 +273,7 @@ The unit test accepts similar values from *config.json*.
 
 ### RequireServerEncryption/RequireServerEncryption.go
 
-This example adds a policy to enable AWS KMS encryption by default on a bucket.
+This example adds a policy to enable AWS Key Management Service (AWS KMS) encryption by default on an Amazon S3 bucket.
 
 `go run RequireServerEncryption.go -b BUCKET`
 
@@ -283,7 +283,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### RestoreObject/RestoreObject.go
 
-This example restores an item to a bucket for a number of days.
+This example restores an item to an Amazon S3 bucket for a number of days.
 
 `go run RestoreObject.go -b BUCKET -i ITEM [-d DAYS]`
 
@@ -295,7 +295,7 @@ The unit test accepts similar values from *config.json*.
 
 ### SetBucketPolicy/SetBucketPolicy.go
 
-This example applies a policy to a bucket.
+This example applies a policy to an Amazon S3 bucket.
 
 `go run SetBucketPolicy.go -b BUCKET`
 
@@ -305,7 +305,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### SetBucketWebsite/SetBucketWebsite.go
 
-This example sets up a bucket as a static web site.
+This example sets up an Amazon S3 bucket as a static website.
 
 `go run SetBucketWebsite.go -b BUCKET -i INDEX [-e ERROR]`
 
@@ -317,7 +317,7 @@ The unit test accepts similar values from *config.json*.
 
 ### SetCors/SetCors.go
 
-This example configures CORS rules for a bucket by setting the allowed HTTP methods.
+This example configures CORS rules for an Amazon S3 bucket by setting the allowed HTTP methods.
 
 `go run SetCors.go -b BUCKET`
 
@@ -327,7 +327,7 @@ The unit test accepts a similar value from *config.json*.
 
 ### SetDefaultEncryption/SetDefaultEncryption.go
 
-This example enforces encryption using an AWS KMS key on a bucket.
+This example enforces encryption using an AWS Key Management Service (AWS KMS) key on an Amazon S3 bucket.
 
 `go run SetDefaultEncryption.go -b BUCKET -k KMS-KEY-ID`
 
@@ -352,7 +352,7 @@ The unit test accepts similar values from *config.json*.
 
 ### UploadDirectory/UploadDirectory.go
 
-This example uploads the files in a directory to a bucket.
+This example uploads the files in a directory to an Amazon S3 bucket.
 
 `go run UploadDirectory.go -b BUCKET -d DIRECTORY`
 
@@ -363,7 +363,7 @@ The unit test accepts similar values from *config.json*.
 
 ### UploadObject/UploadObject.go
 
-This example uploads a file to a bucket.
+This example uploads a file to an Amazon S3 bucket.
 
 `go run UploadObject.go -b BUCKET -f FILENAME`
 
@@ -374,13 +374,13 @@ The unit test accepts similar values from *config.json*.
 
 ### UploadStream/UploadStream.go
 
-This example uploads a stream for a file to a bucket.
+This example uploads a stream for a file to an Amazon S3 bucket.
 
 `go run UploadStream.go -b BUCKET -f FILENAME -k KEY`
 
 - *BUCKET* is the name of the bucket.
 - *FILENAME* is the file to upload.
-- *KEY* the name of the resulting object int he bucket.
+- *KEY* the name of the resulting object in the bucket.
 
 The unit test accepts similar values from *config.json*.
 
@@ -414,7 +414,7 @@ PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter the following:
+If you want to see any log messages, enter the following.
 
 `go test -test.v`
 
