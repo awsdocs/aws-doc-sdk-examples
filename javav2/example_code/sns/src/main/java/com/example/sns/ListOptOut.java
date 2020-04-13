@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,11 +21,10 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.ListOptOut.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.ListOptOut.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ListPhoneNumbersOptedOutRequest;
@@ -38,9 +37,16 @@ public class ListOptOut {
         final String USAGE = "\n" +
                 "ListOptOut - list phone numbers that opted out of receiving SMS messages\n" +
                 "Usage: ListOptOut \n\n";
+        
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        //snippet-start:[sns.java2.ListOptOut.main]
-        SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+        listOpts(snsClient);
+    }
+
+    //snippet-start:[sns.java2.ListOptOut.main]
+    public static void listOpts( SnsClient snsClient) {
 
         try {
 
@@ -55,4 +61,3 @@ public class ListOptOut {
        //snippet-end:[sns.java2.ListOptOut.main]
     }
 }
-//snippet-end:[sns.java2.ListOptOut.complete]

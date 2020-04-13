@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.SubscribeHTTPS.complete]
 
 package com.example.sns;
 
@@ -37,23 +36,29 @@ public class SubscribeHTTPS {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "SubscribeHTTPS - send confirmation message to a url endpoint.\n" +
+                "SubscribeHTTPS - send confirmation message to a URL endpoint.\n" +
                 "Usage: SubscribeHTTPS <topicArn> <url>\n\n" +
                 "Where:\n" +
-                "  topicArn - the arn of the topic to subscribe.\n\n" +
-                "  url - https endpoint to subscribe.\n\n";
+                "  topicArn - the ARN of the topic to subscribe.\n\n" +
+                "  url - HTTPS endpoint to subscribe.\n\n";
 
-       if (args.length < 2) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-
-        //snippet-start:[sns.java2.SubscribeHTTPS.main]
         String topicArn = args[0];
         String url = args[1];
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_WEST_2).build();
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
+
+        subHTTS(snsClient, topicArn, url) ;
+    }
+
+    //snippet-start:[sns.java2.SubscribeHTTPS.main]
+    public static void subHTTS(SnsClient snsClient, String topicArn, String url ) {
 
         try {
             SubscribeRequest request = SubscribeRequest.builder()
@@ -74,4 +79,3 @@ public class SubscribeHTTPS {
         //snippet-end:[sns.java2.SubscribeHTTPS.main]
     }
 }
-//snippet-end:[sns.java2.SubscribeHTTPS.complete]

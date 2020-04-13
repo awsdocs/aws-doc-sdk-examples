@@ -9,7 +9,7 @@
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -23,7 +23,6 @@
  *
  */
 
-// snippet-start:[presigned.java2.generatepresignedurl.complete]
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
@@ -93,4 +92,3 @@ public class GeneratePresignedUrlAndUploadObject {
         // snippet-end:[presigned.java2.generatepresignedurl.main]
     }
 }
-// snippet-end:[presigned.java2.generatepresignedurl.complete]

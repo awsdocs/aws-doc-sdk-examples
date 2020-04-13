@@ -1,14 +1,12 @@
-//snippet-sourcedescription:[PutTargets.java demonstrates how to creates a CloudWatch event-routing rule target.]
+//snippet-sourcedescription:[PutTargets.java demonstrates how to create a target for an Amazon CloudWatch event routing rule.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[cloudwatch]
+//snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
-
-
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,7 +20,7 @@
  * permissions and limitations under the License.
  */
  package com.example.cloudwatch;
-// snippet-start:[cloudwatch.java2.put_targets.complete]
+
 // snippet-start:[cloudwatch.java2.put_targets.import]
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsRequest;
@@ -31,7 +29,7 @@ import software.amazon.awssdk.services.cloudwatchevents.model.Target;
 // snippet-end:[cloudwatch.java2.put_targets.import]
 
 /**
- * Creates a CloudWatch event-routing rule target
+ * Creates a target for a CloudWatch event routing rule
  */
 public class PutTargets {
 
@@ -53,9 +51,14 @@ public class PutTargets {
         String functionArn = args[1];
         String targetId = args[2];
 
-        // snippet-start:[cloudwatch.java2.put_targets.main]
         CloudWatchEventsClient cwe =
                 CloudWatchEventsClient.builder().build();
+
+        putCWTargets(cwe, ruleName, functionArn, targetId);
+    }
+
+    // snippet-start:[cloudwatch.java2.put_targets.main]
+    public static void putCWTargets(CloudWatchEventsClient cwe, String ruleName, String functionArn, String targetId ) {
 
         Target target = Target.builder()
                 .arn(functionArn)
@@ -71,8 +74,7 @@ public class PutTargets {
         // snippet-end:[cloudwatch.java2.put_targets.main]
 
         System.out.printf(
-                "Successfully created CloudWatch events target for rule %s",
+                "Successfully created CloudWatch event target for rule %s",
                 ruleName);
     }
 }
-// snippet-end:[cloudwatch.java2.put_targets.complete]
