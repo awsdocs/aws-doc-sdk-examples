@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateCampaign.java demonstrates how to create a campaign for an application in Pinpoint.]
+//snippet-sourcedescription:[CreateCampaign.java demonstrates how to create a campaign for an application in Amazon Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -42,7 +42,7 @@ public class CreateCampaign {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "CreateCampaign - create a campaign for an application in pinpoint\n\n" +
+                "CreateCampaign - create a campaign for an application in Amazon Pinpoint\n\n" +
                 "Usage: CreateCampaign <appId> <segmentId>\n\n" +
                 "Where:\n" +
                 "  appId - the ID of the application to create the campaign in.\n\n" +
