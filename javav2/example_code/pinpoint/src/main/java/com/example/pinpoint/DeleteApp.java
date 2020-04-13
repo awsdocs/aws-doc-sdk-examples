@@ -25,13 +25,13 @@
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.CreateApp.import]
+//snippet-start:[pinpoint.java2.deleteApp.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DeleteAppRequest;
 import software.amazon.awssdk.services.pinpoint.model. DeleteAppResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
-//snippet-end:[pinpoint.java2.CreateApp.import]
+//snippet-end:[pinpoint.java2.deleteApp.import]
 
 public class DeleteApp {
     public static void main(String[] args) {
@@ -57,7 +57,7 @@ public class DeleteApp {
         deletePinApp(pinpoint, appId) ;
     }
 
-    //snippet-start:[pinpoint.java2.CreateApp.main]
+    //snippet-start:[pinpoint.java2.deleteApp.main]
     public static void deletePinApp(PinpointClient pinpoint, String appId ) {
 
         try {
@@ -76,6 +76,6 @@ public class DeleteApp {
         }
         System.out.println("Done");
 
-        //snippet-end:[pinpoint.java2.CreateApp.main]
+        //snippet-end:[pinpoint.java2.deleteApp.main]
     }
 }
