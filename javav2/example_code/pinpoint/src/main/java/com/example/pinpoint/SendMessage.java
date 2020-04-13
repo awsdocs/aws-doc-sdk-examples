@@ -45,16 +45,16 @@ public class SendMessage {
     // The phone number or short code to send the message from. The phone number
     // or short code that you specify has to be associated with your Amazon Pinpoint
     // account. For best results, specify long codes in E.164 format.
-    public static String originationNumber = "+12048179095";
+    public static String originationNumber = "enter an origination number value";
 
     // The recipient's phone number.  For best results, you should specify the
     // phone number in E.164 format.
-    public static String destinationNumber = "+1-819-576-5654";
+    public static String destinationNumber = "enter a destination number;
 
     // The Pinpoint project/application ID to use when you send this message.
     // Make sure that the SMS channel is enabled for the project or application
     // that you choose.
-    public static String appId = "2fdc4442c6a2483f85eaf7a943054815";
+    public static String appId = "end an appID value";
 
     // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
