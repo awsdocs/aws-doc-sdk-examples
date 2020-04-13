@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-01]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[4/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,14 +21,18 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[pinpoint.java2.UpdateChannel.complete]
+
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.UpdateChannel.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
-import software.amazon.awssdk.services.pinpoint.model.*;
+import software.amazon.awssdk.services.pinpoint.model.SMSChannelResponse;
+import software.amazon.awssdk.services.pinpoint.model.GetSmsChannelRequest;
+import software.amazon.awssdk.services.pinpoint.model.PinpointException;
+import software.amazon.awssdk.services.pinpoint.model.SMSChannelRequest;
+import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelRequest;
+import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelResponse;
 //snippet-end:[pinpoint.java2.UpdateChannel.import]
 
 public class UpdateChannel {
@@ -43,44 +47,58 @@ public class UpdateChannel {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[pinpoint.java2.UpdateChannel.main]
         String appId = args[0];
+        PinpointClient pinpoint = PinpointClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
-        PinpointClient pinpoint = PinpointClient.builder().region(Region.US_EAST_1).build();
-        APNSChannelResponse getResponse = getApnsChannel(pinpoint, appId);
-        toggleApnsChannel(pinpoint, appId, getResponse);
-        getApnsChannel(pinpoint, appId);
-        //snippet-end:[pinpoint.java2.UpdateChannel.main]
+        SMSChannelResponse getResponse = getSMSChannel(pinpoint, appId);
+        toggleSmsChannel(pinpoint, appId, getResponse);
     }
 
-    //snippet-start:[pinpoint.java2.UpdateChannel.helper]
-    private static APNSChannelResponse getApnsChannel(PinpointClient client, String appId) {
-        GetApnsChannelRequest request = GetApnsChannelRequest.builder()
+    //snippet-start:[pinpoint.java2.UpdateChannel.main]
+    private static SMSChannelResponse getSMSChannel(PinpointClient client, String appId) {
+
+        try {
+              GetSmsChannelRequest request = GetSmsChannelRequest.builder()
                 .applicationId(appId)
                 .build();
 
-        APNSChannelResponse response = client.getApnsChannel(request).apnsChannelResponse();
-        System.out.println("Channel state: " + response.enabled());
-        return response;
+            SMSChannelResponse response = client.getSmsChannel(request).smsChannelResponse();
+            System.out.println("Channel state: " + response.enabled());
+            return response;
+
+    } catch ( PinpointException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+        return null;
     }
 
-    private static void toggleApnsChannel(PinpointClient client, String appId, APNSChannelResponse getResponse) {
+    private static void toggleSmsChannel(PinpointClient client, String appId, SMSChannelResponse getResponse) {
         boolean enabled = true;
 
         if (getResponse.enabled()) {
             enabled = false;
         }
 
-        APNSChannelRequest request = APNSChannelRequest.builder()
+       try {
+           SMSChannelRequest request = SMSChannelRequest.builder()
                 .enabled(enabled)
                 .build();
 
-        UpdateApnsChannelRequest updateRequest = UpdateApnsChannelRequest.builder()
-                .apnsChannelRequest(request)
+           UpdateSmsChannelRequest updateRequest = UpdateSmsChannelRequest.builder()
+                .smsChannelRequest(request)
                 .applicationId(appId)
                 .build();
-        UpdateApnsChannelResponse result = client.updateApnsChannel(updateRequest);
-        System.out.println("Channel state: " + result.apnsChannelResponse().enabled());
-    }//snippet-end:[pinpoint.java2.UpdateChannel.helper]
+
+           UpdateSmsChannelResponse result = client.updateSmsChannel(updateRequest);
+
+           System.out.println("Channel state: " + result.smsChannelResponse().enabled());
+        } catch ( PinpointException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+    }
+    //snippet-end:[pinpoint.java2.UpdateChannel.main]
 }
-//snippet-end:[pinpoint.java2.UpdateChannel.complete]
