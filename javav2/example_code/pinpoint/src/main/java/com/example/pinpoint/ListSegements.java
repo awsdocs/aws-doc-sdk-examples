@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.pinpoint.model.GetSegmentsResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 import software.amazon.awssdk.services.pinpoint.model.SegmentResponse;
 import java.util.List;
-//snippet-end:[pinpoint.java2.ListSegments.import]
+//snippet-end:[pinpoint.java2.listSegments.import]
 
 public class ListSegements {
     public static void main(String[] args) {
@@ -58,7 +58,7 @@ public class ListSegements {
 
     }
 
-    //snippet-start:[pinpoint.java2.ListSegments.main]
+    //snippet-start:[pinpoint.java2.listSegments.main]
     public static void listSegs( PinpointClient pinpoint, String appId) {
 
         try {
@@ -76,6 +76,6 @@ public class ListSegements {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
         }
-       //snippet-end:[pinpoint.java2.ListSegments.main]
+       //snippet-end:[pinpoint.java2.listSegments.main]
     }
 }
