@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateSegment.java demonstrates how to create a segment for a campaign in Pinpoint.]
+//snippet-sourcedescription:[CreateSegment.java demonstrates how to create a segment for a campaign in Amazon Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -50,7 +50,7 @@ public class CreateSegment {
                 "CreateSegment - create a segment \n\n" +
                 "Usage: CreateSegment <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID the application to create a segment for.\n\n";
+                "  appId - the application ID to create a segment for.\n\n";
 
        if (args.length < 1) {
             System.out.println(USAGE);
