@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListSegements.java demonstrates how to list segements in an application .]
+//snippet-sourcedescription:[ListSegements.java demonstrates how to list segments in an application.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -42,7 +42,7 @@ public class ListSegements {
                 "ListSegment - list segments \n\n" +
                 "Usage: ListSegments <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID the application to that contains a segment.\n\n";
+                "  appId - the ID of the application that contains a segment.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
