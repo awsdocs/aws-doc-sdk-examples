@@ -51,45 +51,45 @@ Define these values to successfully run the JUnit tests:
 For the purpose of the JUnit tests, the **ImportSegments** test uses JSON to import segments. You must place this JSON in the S3 bucket specified in the **bucket** value. Also, this JSON must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
 
 	{
-   "ChannelType":"SMS",
-   "Address":"2065550182",
-   "Location":{
-      "Country":"CAN"
-   },
-   "Demographic":{
-      "Platform":"Android",
-      "Make":"LG"
-   },
-   "User":{
-      "UserId":"example-user-id-1"
-   }
-}{
-   "ChannelType":"APNS",
-   "Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
-   "Location":{
-      "Country":"USA"
-   },
-   "Demographic":{
-      "Platform":"iOS",
-      "Make":"Apple"
-   },
-   "User":{
-      "UserId":"example-user-id-2"
-   }
-}{
-   "ChannelType":"EMAIL",
-   "Address":"john.stiles@example.com",
-   "Location":{
-      "Country":"USA"
-   },
-   "Demographic":{
-      "Platform":"iOS",
-      "Make":"Apple"
-   },
-   "User":{
-      "UserId":"example-user-id-2"
-   }
-}
+   	"ChannelType":"SMS",
+   	"Address":"2065550182",
+   	"Location":{
+      	"Country":"CAN"
+   	},
+   	"Demographic":{
+        "Platform":"Android",
+      	"Make":"LG"
+   	},
+   	"User":{
+      	"UserId":"example-user-id-1"
+   	}
+	}{
+   	"ChannelType":"APNS",
+   	"Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
+   	"Location":{
+      	"Country":"USA"
+   	},
+   	"Demographic":{
+      	"Platform":"iOS",
+      	"Make":"Apple"
+   	},
+   	"User":{
+      	"UserId":"example-user-id-2"
+   	}
+	}{
+   	"ChannelType":"EMAIL",
+   	"Address":"john.stiles@example.com",
+   	"Location":{
+        "Country":"USA"
+   	},
+   	"Demographic":{
+      	"Platform":"iOS",
+      	"Make":"Apple"
+   	},
+   	"User":{
+      	"UserId":"example-user-id-2"
+   	}
+	}
 
 
 ### Command line
