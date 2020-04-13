@@ -24,7 +24,7 @@
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.UpdateChannel.import]
+//snippet-start:[pinpoint.java2.updatechannel.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.SMSChannelResponse;
@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 import software.amazon.awssdk.services.pinpoint.model.SMSChannelRequest;
 import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelRequest;
 import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelResponse;
-//snippet-end:[pinpoint.java2.UpdateChannel.import]
+//snippet-end:[pinpoint.java2.updatechannel.import]
 
 public class UpdateChannel {
     public static void main(String[] args) {
@@ -56,7 +56,7 @@ public class UpdateChannel {
         toggleSmsChannel(pinpoint, appId, getResponse);
     }
 
-    //snippet-start:[pinpoint.java2.UpdateChannel.main]
+    //snippet-start:[pinpoint.java2.updatechannel.main]
     private static SMSChannelResponse getSMSChannel(PinpointClient client, String appId) {
 
         try {
@@ -100,5 +100,5 @@ public class UpdateChannel {
         System.exit(1);
     }
     }
-    //snippet-end:[pinpoint.java2.UpdateChannel.main]
+    //snippet-end:[pinpoint.java2.updatechannel.main]
 }
