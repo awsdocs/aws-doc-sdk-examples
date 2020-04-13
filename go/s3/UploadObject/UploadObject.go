@@ -35,8 +35,9 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to Open or Upload
 func PutFile(sess *session.Session, bucket *string, filename *string) error {
-    // snippet-start:[s3.go.upload_object.call]
+    // snippet-start:[s3.go.upload_object.open]
     file, err := os.Open(*filename)
+    // snippet-end:[s3.go.upload_object.open]    
     if err != nil {
         fmt.Println("Unable to open file " + *filename)
         return err
@@ -44,6 +45,7 @@ func PutFile(sess *session.Session, bucket *string, filename *string) error {
 
     defer file.Close()
 
+    // snippet-start:[s3.go.upload_object.call]
     uploader := s3manager.NewUploader(sess)
 
     _, err = uploader.Upload(&s3manager.UploadInput{

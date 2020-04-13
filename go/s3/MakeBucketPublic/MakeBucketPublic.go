@@ -33,7 +33,7 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to PutBucketAcl
 func SetBucketPublic(sess *session.Session, bucket *string) error {
-// snippet-start:[s3.go.make_bucket_public.call]
+    // snippet-start:[s3.go.make_bucket_public.call]
     svc := s3.New(sess)
 
     params := &s3.PutBucketAclInput{
@@ -42,7 +42,7 @@ func SetBucketPublic(sess *session.Session, bucket *string) error {
     }
 
     _, err := svc.PutBucketAcl(params)
-// snippet-end:[s3.go.make_bucket_public.call]
+    // snippet-end:[s3.go.make_bucket_public.call]
     if err != nil {
         return err
     }
@@ -51,7 +51,7 @@ func SetBucketPublic(sess *session.Session, bucket *string) error {
 }
 
 func main() {
-// snippet-start:[s3.go.make_bucket_public.args]
+    // snippet-start:[s3.go.make_bucket_public.args]
     bucket := flag.String("b", "", "The name of the bucket")
     flag.Parse()
 
@@ -59,13 +59,13 @@ func main() {
         fmt.Println("You must supply the name of a bucket (-b BUCKET)")
         return
     }
-// snippet-end:[s3.go.make_bucket_public.args]
+    // snippet-end:[s3.go.make_bucket_public.args]
 
-// snippet-start:[s3.go.make_bucket_public.session]
+    // snippet-start:[s3.go.make_bucket_public.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-// snippet-end:[s3.go.make_bucket_public.session]
+    // snippet-end:[s3.go.make_bucket_public.session]
 
     err := SetBucketPublic(sess, bucket)
     if err != nil {
