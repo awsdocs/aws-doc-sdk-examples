@@ -2,102 +2,204 @@ files:
   - path: CopyObject/CopyObject.go
     services:
       - s3
+  - path: CopyObject/CopyObject_test.go
+    services:
+      - s3
   - path: CreateBucket/CreateBucket.go
+    services:
+      - s3
+  - path: CreateBucket/CreateBucket_test.go
     services:
       - s3
   - path: CreateBucketAndObject/CreateBucketAndObject.go
     services:
       - s3
+  - path: CreateBucketAndObject/CreateBucketAndObject_test.go
+    services:
+      - s3
   - path: CustomClient/CustomHTTPClient.go
+    services:
+      - s3
+  - path: CustomClient/CustomHTTPClient_test.go
     services:
       - s3
   - path: DeleteBucket/DeleteBucket.go
     services:
       - s3
+  - path: DeleteBucket/DeleteBucket_test.go
+    services:
+      - s3
   - path: DeleteBucketPolicy/DeleteBucketPolicy.go
+    services:
+      - s3
+  - path: DeleteBucketPolicy/DeleteBucketPolicy_test.go
     services:
       - s3
   - path: DeleteBucketWebsite/DeleteBucketWebsite.go
     services:
       - s3
+  - path: DeleteBucketWebsite/DeleteBucketWebsite_test.go
+    services:
+      - s3
   - path: DeleteObject/DeleteObject.go
+    services:
+      - s3
+  - path: DeleteObject/DeleteObject_test.go
     services:
       - s3
   - path: DeleteObjects/DeleteObjects.go
     services:
       - s3
+  - path: DeleteObjects/DeleteObjects_test.go
+    services:
+      - s3
   - path: DownloadObject/DownloadObject.go
+    services:
+      - s3manager
+  - path: DownloadObject/DownloadObject_test.go
     services:
       - s3manager
   - path: EncryptOnServerWithKms/EncryptOnServerWithKms.go
     services:
       - s3
+  - path: EncryptOnServerWithKms/EncryptOnServerWithKms_test.go
+    services:
+      - s3
   - path: EnforceMD5/EnforceMD5Content.go
+    services:
+      - s3
+  - path: EnforceMD5/EnforceMD5Content_test.go
     services:
       - s3
   - path: GeneratePresignedURL/GeneratePresignedURL.go
     services:
       - s3
+  - path: GeneratePresignedURL/GeneratePresignedURL_test.go
+    services:
+      - s3
   - path: GeneratePresignedURLSpecificPayload/GeneratePresignedURLSpecificPayload.go
+    services:
+      - s3
+  - path: GeneratePresignedURLSpecificPayload/GeneratePresignedURLSpecificPayload_test.go
     services:
       - s3
   - path: GetBucketAcl/GetBucketAcl.go
     services:
       - s3
+  - path: GetBucketAcl/GetBucketAcl_test.go
+    services:
+      - s3
   - path: GetBucketPolicy/GetBucketPolicy.go
+    services:
+      - s3
+  - path: GetBucketPolicy/GetBucketPolicy_test.go
     services:
       - s3
   - path: GetBucketWebsite/GetBucketWebsite.go
     services:
       - s3
+  - path: GetBucketWebsite/GetBucketWebsite_test.go
+    services:
+      - s3
   - path: GetObjectAcl/GetObjectAcl.go
+    services:
+      - s3
+  - path: GetObjectAcl/GetObjectAcl_test.go
     services:
       - s3
   - path: ListBuckets/ListBuckets.go
     services:
       - s3
+  - path: ListBuckets/ListBuckets_test.go
+    services:
+      - s3
   - path: ListObjects/ListObjects.go
+    services:
+      - s3
+  - path: ListObjects/ListObjects_test.go
     services:
       - s3
   - path: MakeBucketPublic/MakeBucketPublic.go
     services:
       - s3
+  - path: MakeBucketPublic/MakeBucketPublic_test.go
+    services:
+      - s3
   - path: PutBucketAcl/PutBucketAcl.go
+    services:
+      - s3
+  - path: PutBucketAcl/PutBucketAcl_test.go
     services:
       - s3
   - path: PutObjectAcl/PutObjectAcl.go
     services:
       - s3
+  - path: PutObjectAcl/PutObjectAcl_test.go
+    services:
+      - s3
   - path: PutObjectWithSetters/PutObjectWithSetters.go
+    services:
+      - s3
+  - path: PutObjectWithSetters/PutObjectWithSetters_test.go
     services:
       - s3
   - path: RequireServerEncryption/RequireServerEncryption.go
     services:
       - s3
+  - path: RequireServerEncryption/RequireServerEncryption_test.go
+    services:
+      - s3
   - path: RestoreObject/RestoreObject.go
+    services:
+      - s3
+  - path: RestoreObject/RestoreObject_test.go
     services:
       - s3
   - path: SetBucketPolicy/SetBucketPolicy.go
     services:
       - s3
+  - path: SetBucketPolicy/SetBucketPolicy_test.go
+    services:
+      - s3
   - path: SetBucketWebsite/SetBucketWebsite.go
+    services:
+      - s3
+  - path: SetBucketWebsite/SetBucketWebsite_test.go
     services:
       - s3
   - path: SetCors/SetCors.go
     services:
       - s3
+  - path: SetCors/SetCors_test.go
+    services:
+      - s3
   - path: SetDefaultEncryption/SetDefaultEncryption.go
+    services:
+      - s3
+  - path: SetDefaultEncryption/SetDefaultEncryption_test.go
     services:
       - s3
   - path: TLS/s3SetTls12.go
     services:
       - s3
+  - path: TLS/s3SetTls12_test.go
+    services:
+      - s3
   - path: UploadDirectory/UploadDirectory.go
+    services:
+      - s3manager
+  - path: UploadDirectory/UploadDirectory_test.go
     services:
       - s3manager
   - path: UploadObject/UploadObject.go
     services:
       - s3manager
+  - path: UploadObject/UploadObject_test.go
+    services:
+      - s3manager
   - path: UploadStream/UploadStream.go
+    services:
+      - s3manager
+  - path: UploadStream/UploadStream_test.go
     services:
       - s3manager
