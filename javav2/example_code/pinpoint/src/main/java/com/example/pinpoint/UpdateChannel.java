@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateChannel.java demonstrates how to update a channel for an application in Pinpoint.]
+//snippet-sourcedescription:[UpdateChannel.java demonstrates how to update a channel for an application in Amazon Pinpoint.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -38,7 +38,7 @@ import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelResponse;
 public class UpdateChannel {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateChannel -  create a channel in pinpoint\n\n" +
+                "CreateChannel -  create a channel in Amazon Pinpoint\n\n" +
                 "Usage: CreateChannel <appId>\n\n" +
                 "Where:\n" +
                 "  appId - the name of the application to create.\n\n";
