@@ -42,11 +42,11 @@ public class SetAcl {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  SetAcl <bucket> [object] <email> <permission>\n\n" +
+                "  SetAcl <bucket> <object> < owner id> <permission>\n\n" +
                 "Where:\n" +
                 "  bucket     - the bucket to grant permissions on\n" +
                 "  object     - the object grant permissions on\n" +
-                " owner id      - The ID of the owner of this bucket (you can get this value from the AWS Console)\n" +
+                "  owner id   - The ID of the owner of this bucket (you can get this value from the AWS Console)\n" +
                 "  permission - The permission(s) to set. Can be one of:\n" +
                 "               FULL_CONTROL, READ, WRITE, READ_ACP, WRITE_ACP\n\n" +
                 "Examples:\n" +
