@@ -22,7 +22,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
@@ -39,17 +38,22 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 public class GeneratePresignedUrlAndUploadObject {
 
     public static void main(String[] args) {
+
         if (args.length < 2) {
             System.out.println("Please specify a bucket name and a key name");
             System.exit(1);
         }
 
-        // snippet-start:[presigned.java2.generatepresignedurl.main]
         String bucketName = args[0];
         String keyName = args[1];
 
         // Create a S3Presigner by using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
+        signBucket(presigner, bucketName, keyName);
+    }
+
+    // snippet-start:[presigned.java2.generatepresignedurl.main]
+    public static void signBucket( S3Presigner presigner,  String bucketName,  String keyName) {
 
         try {
             PresignedPutObjectRequest presignedRequest =
