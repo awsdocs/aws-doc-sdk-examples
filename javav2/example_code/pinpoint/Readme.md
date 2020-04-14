@@ -51,76 +51,74 @@ Define these values to successfully run the JUnit tests:
 For the purpose of the JUnit tests, the **ImportSegments** test uses JSON to import segments. You must place this JSON in the S3 bucket specified in the **bucket** value. Also, this JSON must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
 
 	{
-   "ChannelType":"SMS",
-   "Address":"2065550182",
-   "Location":{
-      "Country":"CAN"
-   },
-   "Demographic":{
-      "Platform":"Android",
-      "Make":"LG"
-   },
-   "User":{
-      "UserId":"example-user-id-1"
-   }
-}{
-   "ChannelType":"APNS",
-   "Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
-   "Location":{
-      "Country":"USA"
-   },
-   "Demographic":{
-      "Platform":"iOS",
-      "Make":"Apple"
-   },
-   "User":{
-      "UserId":"example-user-id-2"
-   }
-}{
-   "ChannelType":"EMAIL",
-   "Address":"john.stiles@example.com",
-   "Location":{
-      "Country":"USA"
-   },
-   "Demographic":{
-      "Platform":"iOS",
-      "Make":"Apple"
-   },
-   "User":{
-      "UserId":"example-user-id-2"
-   }
-}
+   	"ChannelType":"SMS",
+   	"Address":"2065550182",
+   	"Location":{
+      		"Country":"CAN"
+   	},
+   	"Demographic":{
+      	"Platform":"Android",
+      	"Make":"LG"
+   	},
+   	"User":{
+      	 "UserId":"example-user-id-1"
+   	}
+	}{
+   	 "ChannelType":"APNS",
+   	 "Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
+   	 "Location":{
+      	"Country":"USA"
+   	 },
+   	 "Demographic":{
+      	"Platform":"iOS",
+      	"Make":"Apple"
+   	 },
+   	 "User":{
+        "UserId":"example-user-id-2"
+   	}
+	}{
+   	 "ChannelType":"EMAIL",
+   	 "Address":"john.stiles@example.com",
+   	 "Location":{
+      	 "Country":"USA"
+   	  },
+   	 "Demographic":{
+      	 "Platform":"iOS",
+      	 "Make":"Apple"
+   	 },
+   	 "User":{
+      	"UserId":"example-user-id-2"
+   	 }
+	 }
 
-
-### Command line
-
-To execute the JUnit tests from the command line, you can use the following command:
+	### Command line
+	To execute the JUnit tests from the command line, you can use the following command:
 
 		mvn test
-You will see output from the JUnit tests, as shown here:
+	You will see output from the JUnit tests, as shown here:
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonPinpointServiceIntegrationTest
-	Running Amazon Test 1
-	Running Amazon Test 2
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+	 [INFO] -------------------------------------------------------
+	 [INFO]  T E S T S
+	 [INFO] -------------------------------------------------------
+	 [INFO] Running AmazonPinpointServiceIntegrationTest
+	 Running Amazon Test 1
+	 Running Amazon Test 2
+	 ...
+	 Done!
+	 [INFO] Results:
+	 [INFO]
+	 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	 [INFO]
+	 INFO] --------------------------------------------
+	 [INFO] BUILD SUCCESS
+	 [INFO]--------------------------------------------
+	 [INFO] Total time:  12.003 s
+	 [INFO] Finished at: 2020-02-10T14:25:08-05:00
+	 [INFO] --------------------------------------------
 
-### Unsuccessful tests
+	 ### Unsuccessful tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. ).
+ 	If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error  	message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. ).
 
 	[INFO]
 	[INFO] --------------------------------------
@@ -129,5 +127,5 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] Total time:  19.038 s
 	[INFO] Finished at: 2020-02-10T14:41:51-05:00
 	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  	  There are test failures.
 	[ERROR];
