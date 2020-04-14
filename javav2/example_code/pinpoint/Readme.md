@@ -119,7 +119,7 @@ You will see output from the JUnit tests, as shown here:
 
 ### Unsuccessful tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error  	message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. ).
+If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error  	message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. 
 
 	[INFO]
 	[INFO] --------------------------------------
