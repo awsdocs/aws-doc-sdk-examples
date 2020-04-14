@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[DeleteObjects.java demonstrates how to delete multiple objects from an S3 bucket]
+//snippet-sourcedescription:[DeleteObjects.java demonstrates how to delete objects from an Amazon S3 bucket]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2020-02-06]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -17,7 +17,6 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
-// snippet-start:[s3.java2.delete_objects.complete]
 
 // snippet-start:[s3.java2.delete_objects.import]
 import software.amazon.awssdk.services.s3.model.Delete;
@@ -38,7 +37,7 @@ import java.util.Arrays;
  *
  * ++ Warning ++ This code will actually delete the objects that you specify!
  */
-// snippet-start:[s3.java2.delete_objects.main]
+
 public class DeleteObjects {
 
     public static void main(String[] args) {
@@ -46,7 +45,7 @@ public class DeleteObjects {
                 "To run this example, supply the name of an S3 bucket and at least\n" +
                 "one object name (key) to delete.\n" +
                 "\n" +
-                "Ex: DeleteObjects <bucketname> <objectname1> [objectname2, ...]\n";
+                "Ex: DeleteObjects <bucketname> <objectname>\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -54,19 +53,23 @@ public class DeleteObjects {
         }
 
         String bucketName = args[0];
-        String[] objectKeys = Arrays.copyOfRange(args, 1, args.length);
-        ArrayList<ObjectIdentifier> toDelete = new ArrayList<ObjectIdentifier>();
+        String objectName = args[1];
 
-        System.out.println("Deleting objects from S3 bucket: " + bucketName);
+        System.out.println("Deleting an object from the S3 bucket: " + bucketName);
 
         // Create a S3Client object
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
 
-        for (String k : objectKeys) {
-            System.out.println(" * " + k);
-            toDelete.add(ObjectIdentifier.builder().key(k).build());
-        }
+        DeleteBucketObjects(s3, bucketName, objectName);
+    }
+
+    // snippet-start:[s3.java2.delete_objects.main]
+    public static void DeleteBucketObjects(S3Client s3, String bucketName, String objectName) {
+
+        // Create a S3Client object
+        ArrayList<ObjectIdentifier> toDelete = new ArrayList<ObjectIdentifier>();
+        toDelete.add(ObjectIdentifier.builder().key(objectName).build());
 
         try {
             DeleteObjectsRequest dor = DeleteObjectsRequest.builder()
@@ -82,4 +85,3 @@ public class DeleteObjects {
     }
 }
 // snippet-end:[s3.java2.delete_objects.main]
-// snippet-end:[s3.java2.delete_objects.complete]

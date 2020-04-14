@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,7 +17,7 @@ specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
 
-// snippet-start:[s3.java2.s3_object_upload.import]
+// snippet-start:[s3.java2.s3_object_operations.upload.import]
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -28,11 +28,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-// snippet-end:[s3.java2.s3_object_upload.import]
+// snippet-end:[s3.java2.s3_object_operations.upload.import]
 
 public class PutObject {
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
                 "  PutObject <bucket> <object> <path> \n\n" +
@@ -65,11 +65,12 @@ public class PutObject {
         System.out.println("Tag information: "+result);
     }
 
-    // snippet-start:[s3.java2.s3_object_upload.main]
-    public static  String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
+    // snippet-start:[s3.java2.s3_object_operations.upload] 
+   public static  String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
 
         try {
             //Put a file into the bucket
+           
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
@@ -117,5 +118,5 @@ public class PutObject {
         }
         return bytesArray;
     }
-    // snippet-end:[s3.java2.s3_object_upload.main]
+    // snippet-end:[s3.java2.s3_object_operations.upload]
 }
