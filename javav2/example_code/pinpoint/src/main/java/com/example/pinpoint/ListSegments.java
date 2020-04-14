@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteApp.java demonstrates how to delete an application in the Amazon Pinpoint dashboard.]
+//snippet-sourcedescription:[ListSegements.java demonstrates how to list segments in an application.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -7,7 +7,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
-
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -23,23 +22,27 @@
  * permissions and limitations under the License.
  */
 
+
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.deleteapp.import]
+//snippet-start:[pinpoint.java2.listsegments.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
-import software.amazon.awssdk.services.pinpoint.model.DeleteAppRequest;
-import software.amazon.awssdk.services.pinpoint.model.DeleteAppResponse;
+import software.amazon.awssdk.services.pinpoint.model.GetSegmentsRequest;
+import software.amazon.awssdk.services.pinpoint.model.GetSegmentsResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
-//snippet-end:[pinpoint.java2.deleteapp.import]
+import software.amazon.awssdk.services.pinpoint.model.SegmentResponse;
+import java.util.List;
+//snippet-end:[pinpoint.java2.listsegments.import]
 
-public class DeleteApp {
+public class ListSegments {
     public static void main(String[] args) {
+
         final String USAGE = "\n" +
-                "DeleteApp - deletes an application in the Amazon Pinpoint dashboard\n\n" +
-                "Usage: DeleteApp <appId>\n\n" +
+                "ListSegment - list segments \n\n" +
+                "Usage: ListSegments <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID of the application to delete.\n\n";
+                "  appId - the ID of the application that contains a segment.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -47,34 +50,32 @@ public class DeleteApp {
         }
 
         String appId = args[0];
-        System.out.println("Deleting an application with ID: " + appId);
-
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        deletePinApp(pinpoint, appId) ;
+        listSegs(pinpoint, appId);
+
     }
 
-    //snippet-start:[pinpoint.java2.deleteapp.main]
-    public static void deletePinApp(PinpointClient pinpoint, String appId ) {
+    //snippet-start:[pinpoint.java2.listsegments.main]
+    public static void listSegs( PinpointClient pinpoint, String appId) {
 
         try {
-
-            DeleteAppRequest appRequest = DeleteAppRequest.builder()
+            GetSegmentsRequest request = GetSegmentsRequest.builder()
                     .applicationId(appId)
                     .build();
 
-            DeleteAppResponse result = pinpoint.deleteApp(appRequest);
-            String appName = result.applicationResponse().name();
-            System.out.println("Application " + appName + " has been deleted.");
+            GetSegmentsResponse response = pinpoint.getSegments(request);
+            List<SegmentResponse> segments = response.segmentsResponse().item();
 
-        } catch (PinpointException e) {
+            for(SegmentResponse segment: segments) {
+                System.out.println("Segement " + segment.id() + " " + segment.name() + " " + segment.lastModifiedDate());
+            }
+        } catch ( PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Done");
-
-        //snippet-end:[pinpoint.java2.deleteapp.main]
+        //snippet-end:[pinpoint.java2.listsegments.main]
     }
 }
