@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 package com.example.s3;
-// snippet-start:[s3.java2.bucket_deletion.complete]
+
 // snippet-start:[s3.java2.bucket_deletion.import]
 import software.amazon.awssdk.regions.Region;
 // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
@@ -60,6 +60,11 @@ public class S3BucketDeletion {
         Region region = Region.US_WEST_2;
         s3 = S3Client.builder().region(region).build();
 
+        listAllObjects(s3,bucket) ;
+    }
+    
+    public static void listAllObjects(S3Client s3, String bucket) {
+
         try {
             // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
             // To delete a bucket, all the objects in the bucket must be deleted first
@@ -73,14 +78,14 @@ public class S3BucketDeletion {
                 }
 
                 listObjectsV2Request = ListObjectsV2Request.builder().bucket(bucket)
-                    .continuationToken(listObjectsV2Response.nextContinuationToken())
-                    .build();
+                        .continuationToken(listObjectsV2Response.nextContinuationToken())
+                        .build();
 
             } while(listObjectsV2Response.isTruncated());
             // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
 
-          DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
-          s3.deleteBucket(deleteBucketRequest);
+            DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
+            s3.deleteBucket(deleteBucketRequest);
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -88,6 +93,4 @@ public class S3BucketDeletion {
         }
     }
 }
-
 // snippet-end:[s3.java2.bucket_deletion.main]
-// snippet-end:[s3.java2.bucket_deletion.complete]
