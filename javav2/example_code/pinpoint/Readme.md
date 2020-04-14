@@ -91,11 +91,12 @@ For the purpose of the JUnit tests, the **ImportSegments** test uses JSON to imp
    	 }
 	 }
 
-	### Command line
-	To execute the JUnit tests from the command line, you can use the following command:
+### Command line
+To execute the JUnit tests from the command line, you can use the following command:
 
-		mvn test
-	You will see output from the JUnit tests, as shown here:
+	mvn test
+
+You will see output from the JUnit tests, as shown here:
 
 	 [INFO] -------------------------------------------------------
 	 [INFO]  T E S T S
@@ -116,9 +117,9 @@ For the purpose of the JUnit tests, the **ImportSegments** test uses JSON to imp
 	 [INFO] Finished at: 2020-02-10T14:25:08-05:00
 	 [INFO] --------------------------------------------
 
-	 ### Unsuccessful tests
+### Unsuccessful tests
 
- 	If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error  	message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. ).
+If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error  	message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. ).
 
 	[INFO]
 	[INFO] --------------------------------------
