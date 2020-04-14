@@ -1,0 +1,33 @@
+--- 
+files:
+ - path: src/main/java/com/example/pinpoint/CreateApp.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/CreateCampaign.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/CreateEndpoint.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/CreateSegment.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/DeleteApp.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/DeleteEndpoint.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/ImportSegment.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/ListSegements.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/SendMessage.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/UpdateChannel.java
+   services:
+     - pinpoint
+ 
