@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given bucket.]
+//snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given Amazon S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2020-02-06]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -20,10 +20,8 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
 package com.example.s3;
 
-// snippet-start:[s3.java2.list_objects.complete]
 // snippet-start:[s3.java2.list_objects.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -40,17 +38,24 @@ public class ListObjects {
     public static void main(String[] args) {
 
         if (args.length < 1) {
-            System.out.println("Please specify a bucket name");
-            System.exit(1);
-        }
+           System.out.println("Please specify a bucket name");
+           System.exit(1);
+         }
 
-        // snippet-start:[s3.java2.list_objects.main]
         String bucketName = args[0];
+        Region region = Region.US_WEST_2;
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
 
-        try {
-            Region region = Region.US_WEST_2;
-            S3Client s3 = S3Client.builder().region(region).build();
+        ListBucketObjects(s3, bucketName);
 
+    }
+
+    // snippet-start:[s3.java2.list_objects.main]
+    public static void ListBucketObjects(  S3Client s3, String bucketName ) {
+
+       try {
             ListObjectsRequest listObjects = ListObjectsRequest
                     .builder()
                     .bucket(bucketName)
@@ -70,7 +75,6 @@ public class ListObjects {
             System.exit(1);
         }
     }
-
     //convert bytes to kbs
     private static long calKb(Long val) {
         return val/1024;
@@ -78,4 +82,3 @@ public class ListObjects {
     }
     // snippet-end:[s3.java2.list_objects.main]
 }
-// snippet-end:[s3.java2.list_objects.complete]

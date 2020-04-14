@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[S3AsyncOps.java demonstrates how to use the S3 asynchronous client to put an object into a bucket]
+//snippet-sourcedescription:[S3AsyncOps.java demonstrates how to use the S3 asynchronous client to put an object into an Amazon S3 bucket]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,32 +32,37 @@ import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[s3.java2.async_ops.import]
 
-// snippet-start:[s3.java2.async_ops.main]
 public class S3AsyncOps {
 
        public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
-                "Where:\n" +
-                "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
-                "    objectname - the name pf the object object (i.e., book.pdf)\n" +
-                "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
-                "Example:\n" +
-                "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
+           final String USAGE = "\n" +
+                   "Usage:\n" +
+                   "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
+                   "Where:\n" +
+                   "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
+                   "    objectname - the name pf the object object (i.e., book.pdf)\n" +
+                   "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
+                   "Example:\n" +
+                   "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
 
-        if (args.length < 3) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+           if (args.length < 3) {
+               System.out.println(USAGE);
+               System.exit(1);
+           }
 
-        String bucketName = args[0];
-        String objectKey = args[1];
-        String path = args[2];
+           String bucketName = args[0];
+           String objectKey = args[1];
+           String path = args[2];
 
-        // Create a S3AsyncClient object
-        S3AsyncClient client = S3AsyncClient.create();
+           // Create a S3AsyncClient object
+           S3AsyncClient client = S3AsyncClient.create();
+           S3AsyncOperations( client, bucketName,  objectKey , path );
+       }
+
+    // snippet-start:[s3.java2.async_ops.main]
+       public static void  S3AsyncOperations( S3AsyncClient client,  String bucketName,  String objectKey ,String path  ) {
+
         CompletableFuture<PutObjectResponse> future = client.putObject(
                 PutObjectRequest.builder()
                         .bucket(bucketName)
@@ -82,6 +87,4 @@ public class S3AsyncOps {
         future.join();
     }
 }
-
 // snippet-end:[s3.java2.async_ops.main]
-// snippet-end:[s3.java2.async_ops.complete]
