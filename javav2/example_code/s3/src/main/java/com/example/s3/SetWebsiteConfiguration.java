@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an S3 bucket.]
+//snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an Amazon S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/6/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliancewith the License. A copy of
    the License is located at
@@ -16,9 +16,8 @@
    specific language governing permissions and limitations under the License.
 */
 package com.example.s3;
-// snippet-start:[s3.java2.set_website_configuration.complete]
-// snippet-start:[s3.java2.set_website_configuration.import]
 
+// snippet-start:[s3.java2.set_website_configuration.import]
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ErrorDocument;
 import software.amazon.awssdk.services.s3.model.IndexDocument;
@@ -26,15 +25,15 @@ import software.amazon.awssdk.services.s3.model.PutBucketWebsiteRequest;
 import software.amazon.awssdk.services.s3.model.WebsiteConfiguration;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
-
 // snippet-end:[s3.java2.set_website_configuration.import]
+
 /**
  * Set the website configuration for an S3 bucket.
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-// snippet-start:[s3.java2.set_website_configuration.main]
+
 public class SetWebsiteConfiguration {
 
     public static void main(String[] args) {
@@ -61,7 +60,7 @@ public class SetWebsiteConfiguration {
         setWebsiteConfig(bucketName, indexDoc, errorDoc);
     }
 
-
+    // snippet-start:[s3.java2.set_website_configuration.main]
     public static void setWebsiteConfig(
             String bucketName, String indexDoc, String errorDoc) {
 
@@ -90,4 +89,3 @@ public class SetWebsiteConfiguration {
     }
  }
 // snippet-end:[s3.java2.set_website_configuration.main]
-// snippet-end:[s3.java2.set_website_configuration.complete]

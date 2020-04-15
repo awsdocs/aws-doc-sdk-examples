@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,7 +32,7 @@ import java.io.IOException;
 
 public class PutObject {
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
                 "  PutObject <bucket> <object> <path> \n\n" +
@@ -43,10 +43,10 @@ public class PutObject {
                 "Examples:\n" +
                 "    PutObject mybucket book.pdf C:/AWS/book2.pdf";
 
-          if (args.length < 3) {
-              System.out.println(USAGE);
+        if (args.length < 3) {
+            System.out.println(USAGE);
             System.exit(1);
-         }
+        }
 
         String bucketName = args[0];
         String objectKey =  args[1];
