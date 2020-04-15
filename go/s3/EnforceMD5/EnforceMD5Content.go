@@ -38,16 +38,18 @@ import (
 //     If success, an HTTP response object and nil
 //     Otherwise, nil and an error from the call to PutObjectRequest
 func SetMd5(sess *session.Session, bucket, key *string) (*http.Response, error) {
-    // snippet-start: [s3.go.enforce_md5.call]
+    // snippet-start: [s3.go.enforce_md5.client_md5]
     svc := s3.New(sess)
 
     h := md5.New()
     content := strings.NewReader("")
     _, err := content.WriteTo(h)
+    // snippet-end: [s3.go.enforce_md5.client_md5]
     if err != nil {
         return nil, err
     }
 
+    // snippet-start: [s3.go.enforce_md5.put_object]
     resp, _ := svc.PutObjectRequest(&s3.PutObjectInput{
         Bucket: bucket,
         Key:    key,
@@ -57,18 +59,22 @@ func SetMd5(sess *session.Session, bucket, key *string) (*http.Response, error) 
     resp.HTTPRequest.Header.Set("Content-MD5", md5s)
 
     url, err := resp.Presign(15 * time.Minute)
+    // snippet-end: [s3.go.enforce_md5.put_object]
     if err != nil {
         return nil, err
     }
 
+    // snippet-start: [s3.go.enforce_md5.new_request]
     req, err := http.NewRequest("PUT", url, strings.NewReader(""))
     req.Header.Set("Content-MD5", md5s)
+    // snippet-end: [s3.go.enforce_md5.new_request]
     if err != nil {
         return nil, err
     }
 
+    // snippet-start: [s3.go.enforce_md5.default_client]
     defClient, err := http.DefaultClient.Do(req)
-    // snippet-end: [s3.go.enforce_md5.call]
+    // snippet-end: [s3.go.enforce_md5.default_client]
     if err != nil {
         return nil, err
     }
