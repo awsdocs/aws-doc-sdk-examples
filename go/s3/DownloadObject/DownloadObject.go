@@ -36,14 +36,16 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to Create or Download
 func DownloadObject(sess *session.Session, filename *string, bucket *string) error {
-    // snippet-start: [s3.go.download_object.call]
+    // snippet-start: [s3.go.download_object.create]
     file, err := os.Create(*filename)
+    // snippet-end: [s3.go.download_object.create]
     if err != nil {
         return err
     }
 
     defer file.Close()
-
+    
+    // snippet-start: [s3.go.download_object.call]
     downloader := s3manager.NewDownloader(sess)
 
     _, err = downloader.Download(file,
