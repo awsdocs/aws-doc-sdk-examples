@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create an Amazon DynamoDB table with a composite key]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -9,16 +17,8 @@
    specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create a DynamoDB table with a composite key.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
-
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.create_table_composite_key.complete]
+
 // snippet-start:[dynamodb.java2.create_table_composite_key.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -30,8 +30,8 @@ import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-
 // snippet-end:[dynamodb.java2.create_table_composite_key.import]
+
 /**
  * Create a DynamoDB table.
  *
@@ -52,24 +52,29 @@ public class CreateTableCompositeKey {
                 "Example:\n" +
                 "    CreateTable Music3\n";
 
-        if (args.length < 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+      //  if (args.length < 1) {
+      //      System.out.println(USAGE);
+      //      System.exit(1);
+      //  }
 
-        // snippet-start:[dynamodb.java2.create_table_composite_key.main]
+
         /* Read the table name from command args */
-        String tableName = args[0];
+        String tableName = "Music103"; //args[0];
 
         // Create the DynamoDbClient object
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
 
         System.out.format("Creating table %s\n with a composite primary key:\n", tableName);
         System.out.format("* Language - partition key\n");
         System.out.format("* Greeting - sort key\n");
 
+        String tableId =createTableComKey(ddb,tableName);
+        System.out.println("The table ID is "+tableId);
 
+    }
+    // snippet-start:[dynamodb.java2.create_table_composite_key.main]
+    public static String createTableComKey(DynamoDbClient ddb, String tableName) {
         CreateTableRequest request = CreateTableRequest.builder()
                 .attributeDefinitions(
                         AttributeDefinition.builder()
@@ -96,15 +101,18 @@ public class CreateTableCompositeKey {
                 .tableName(tableName)
                 .build();
 
-        try {
-            CreateTableResponse result = ddb.createTable(request);
 
+       String tableId = "";
+
+       try {
+            CreateTableResponse result = ddb.createTable(request);
+            tableId = result.tableDescription().tableId();
+            return tableId;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         // snippet-end:[dynamodb.java2.create_table_composite_key.main]
-        System.out.println("Done!");
+        return "";
     }
 }
-// snippet-end:[dynamodb.java2.create_table_composite_key.complete]
