@@ -1,13 +1,13 @@
+import com.example.dynamodb.*;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
-
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -30,12 +30,11 @@ public class AWSDynamoServiceIntegrationTest {
     private static String songTitle = "";
     private static String songTitleVal = "";
 
-
     @BeforeAll
     public static void setUp() throws IOException {
 
         // Run tests on Real AWS Resources
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         ddb = DynamoDbClient.builder().region(region).build();
         try (InputStream input = AWSDynamoServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -53,7 +52,6 @@ public class AWSDynamoServiceIntegrationTest {
             tableName = prop.getProperty("tableName");
             key = prop.getProperty("key");
             keyVal = prop.getProperty("keyValue");
-            ;
             albumTitle = prop.getProperty("albumTitle");
             albumTitleValue = prop.getProperty("AlbumTitleValue");
             awards = prop.getProperty("Awards");
@@ -77,35 +75,9 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(2)
     public void CreateTable() {
 
-
         try {
-           CreateTableRequest request = CreateTableRequest.builder()
-                    .attributeDefinitions(AttributeDefinition.builder()
-                            .attributeName(key)
-                            .attributeType(ScalarAttributeType.S)
-                            .build())
-                    .keySchema(KeySchemaElement.builder()
-                            .attributeName(key)
-                            .keyType(KeyType.HASH)
-                            .build())
-                    .provisionedThroughput(ProvisionedThroughput.builder()
-                            .readCapacityUnits(new Long(10))
-                            .writeCapacityUnits(new Long(10))
-                            .build())
-                    .tableName(tableName)
-                    .build();
-
-
-
-            // Check to determine if the table exists
-            Boolean ans = DoesTableExist(tableName);
-            if (ans == false) {
-                CreateTableResponse response = ddb.createTable(request);
-                System.out.println("The following table was created " + response.tableDescription().tableName());
-
-            } else
-                System.out.println("The table " + tableName + " already exists");
-
+            String result = CreateTable.CreateTable(ddb, tableName, key);
+            assertTrue(!result.isEmpty());
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -117,71 +89,32 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(3)
     public void DescribeTable() {
 
-        DescribeTableRequest request = DescribeTableRequest.builder()
-                .tableName(tableName)
-                .build();
-
-        try {
-            TableDescription tableInfo = ddb.describeTable(request).table();
-
-            if (tableInfo != null) {
-                System.out.format("Table name  : %s\n",
-                        tableInfo.tableName());
-                System.out.format("Table ARN   : %s\n",
-                        tableInfo.tableArn());
-                System.out.format("Status      : %s\n",
-                        tableInfo.tableStatus());
-                System.out.format("Item count  : %d\n",
-                        tableInfo.itemCount().longValue());
-                System.out.format("Size (bytes): %d\n",
-                        tableInfo.tableSizeBytes().longValue());
-
-                ProvisionedThroughputDescription throughput_info =
-                        tableInfo.provisionedThroughput();
-                System.out.println("Throughput");
-                System.out.format("  Read Capacity : %d\n",
-                        throughput_info.readCapacityUnits().longValue());
-                System.out.format("  Write Capacity: %d\n",
-                        throughput_info.writeCapacityUnits().longValue());
-
-                List<AttributeDefinition> attributes =
-                        tableInfo.attributeDefinitions();
-                System.out.println("Attributes");
-                for (AttributeDefinition a : attributes) {
-                    System.out.format("  %s (%s)\n",
-                            a.attributeName(), a.attributeType());
-                }
-            }
+       try {
+           DescribeTable.describeDymamoDBTable(ddb,tableName);
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
         System.out.println("\n Test 3 passed");
-
     }
 
     @Test
     @Order(4)
     public void PutItem() {
 
-        HashMap<String, AttributeValue> item_values = new HashMap<String, AttributeValue>();
-
-        // Add more content to the table
-        item_values.put(key, AttributeValue.builder().s(keyVal).build());
-        item_values.put(songTitle, AttributeValue.builder().s(songTitleVal).build());
-        item_values.put(albumTitle, AttributeValue.builder().s(albumTitleValue).build());
-        item_values.put(awards, AttributeValue.builder().s(awardVal).build());
-
-        PutItemRequest request = PutItemRequest.builder()
-                .tableName(tableName)
-                .item(item_values)
-                .build();
-
-        try {
-            //Lets wait 13 secs for table to complete
-            TimeUnit.SECONDS.sleep(13);
-            ddb.putItem(request);
+          try {
+            //Wait 15 secs for table to complete
+            TimeUnit.SECONDS.sleep(15);
+            PutItem.putItemInTable(ddb,
+                     tableName,
+                     key,
+                     keyVal,
+                     albumTitle,
+                     albumTitleValue,
+                     awards,
+                     awardVal,
+                     songTitle,
+                     songTitleVal);
 
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The table \"%s\" can't be found.\n", tableName);
@@ -201,71 +134,23 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(5)
     public void ListTables() {
 
-        boolean more_tables = true;
-        String last_name = null;
-
-        while (more_tables) {
             try {
-                ListTablesResponse response = null;
-                if (last_name == null) {
-                    ListTablesRequest request = ListTablesRequest.builder().build();
-                    response = ddb.listTables(request);
-                } else {
-                    ListTablesRequest request = ListTablesRequest.builder()
-                            .exclusiveStartTableName(last_name).build();
-                    response = ddb.listTables(request);
-                }
-
-                List<String> table_names = response.tableNames();
-
-                if (table_names.size() > 0) {
-                    for (String cur_name : table_names) {
-                        System.out.format("Tables: * %s\n", cur_name);
-                    }
-                } else {
-                    System.out.println("No tables found!");
-                    System.exit(0);
-                }
-
-                last_name = response.lastEvaluatedTableName();
-                if (last_name == null) {
-                    more_tables = false;
-                }
+                ListTables.listAllTables(ddb);
             } catch (DynamoDbException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);
             }
-        }
-        System.out.println("\n Test 5 passed");
+      System.out.println("\n Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void QueryTable() {
 
-        String partition_alias = "#a";
-        String partition_key_name = key;
-        String partition_key_val = keyVal;
-        //set up an alias for the partition key name in case it's a reserved word
-        HashMap<String, String> attrNameAlias = new HashMap<String, String>();
-        attrNameAlias.put(partition_alias, partition_key_name);
-
-        //set up mapping of the partition name with the value
-        HashMap<String, AttributeValue> attrValues =
-                new HashMap<String, AttributeValue>();
-        attrValues.put(":" + partition_key_name, AttributeValue.builder().s(partition_key_val).build());
-
-        QueryRequest queryReq = QueryRequest.builder()
-                .tableName(tableName)
-                .keyConditionExpression(partition_alias + " = :" + partition_key_name)
-                .expressionAttributeNames(attrNameAlias)
-                .expressionAttributeValues(attrValues)
-                .build();
-
-
         try {
-            QueryResponse response = ddb.query(queryReq);
-            System.out.println(response.count());
+            // A pass returns only 1 record
+            int response = Query.queryTable(ddb,tableName, key,keyVal,"#a" );
+            assertEquals(response, 1);
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -277,26 +162,9 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(7)
     public void updateItem() {
 
-        HashMap<String, AttributeValue> item_key = new HashMap<String, AttributeValue>();
-
-        item_key.put(key, AttributeValue.builder().s(keyVal).build());
-
-        HashMap<String, AttributeValueUpdate> updated_values =
-                new HashMap<String, AttributeValueUpdate>();
-
-        updated_values.put("Awards", AttributeValueUpdate.builder()
-                .value(AttributeValue.builder().s("14").build())
-                .action(AttributeAction.PUT)
-                .build());
-
-        UpdateItemRequest request = UpdateItemRequest.builder()
-                .tableName(tableName)
-                .key(item_key)
-                .attributeUpdates(updated_values)
-                .build();
-
         try {
-            ddb.updateItem(request);
+            //Update the Awards value to 40
+            UpdateItem.updateTableItem(ddb,tableName, key, keyVal, awards, "40");
         } catch (ResourceNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -310,30 +178,9 @@ public class AWSDynamoServiceIntegrationTest {
     @Test
     @Order(8)
     public void getItem() {
-        HashMap<String, AttributeValue> key_to_get =
-                new HashMap<String, AttributeValue>();
-
-        key_to_get.put(key, AttributeValue.builder()
-                .s(keyVal).build());
-
-        GetItemRequest request = GetItemRequest.builder()
-                .key(key_to_get)
-                .tableName(tableName)
-                .build();
 
         try {
-            Map<String, AttributeValue> returned_item = ddb.getItem(request).item();
-
-            if (returned_item != null) {
-                Set<String> keys = returned_item.keySet();
-                System.out.println("Table Attributes: \n");
-                for (String key : keys) {
-                    System.out.format("%s: %s\n",
-                            key, returned_item.get(key).toString());
-                }
-            } else {
-                System.out.format("No item found with the key %s!\n", key);
-            }
+            GetItem.getDynamoDBItem(ddb, tableName,key,keyVal );
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -341,72 +188,77 @@ public class AWSDynamoServiceIntegrationTest {
         System.out.println("\n Test 8 passed");
     }
 
-
     @Test
     @Order(9)
-    public void DeleteItem() {
-
-        HashMap<String, AttributeValue> key_to_get =
-                new HashMap<String, AttributeValue>();
-
-        key_to_get.put(key, AttributeValue.builder()
-                .s(keyVal)
-                .build());
-
-        DeleteItemRequest deleteReq = DeleteItemRequest.builder()
-                .tableName(tableName)
-                .key(key_to_get)
-                .build();
-
+    public void scanItems() {
 
         try {
-            ddb.deleteItem(deleteReq);
+            DynamoDBScanItems.scanItems(ddb, tableName);
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("\n Test 9 passed");
-    }
+        }
 
     @Test
     @Order(10)
-    public void DeleteTable() {
-
-        DeleteTableRequest request = DeleteTableRequest.builder()
-                .tableName(tableName)
-                .build();
-
+    public void DeleteItem() {
         try {
-            ddb.deleteTable(request);
-            System.out.println(tableName + " was successfully deleted!");
+            DeleteItem.deleteDymamoDBItem(ddb,tableName,key,keyVal);
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
         System.out.println("\n Test 10 passed");
     }
 
 
-    public Boolean DoesTableExist(String tableName) {
+    @Test
+    @Order(11)
+   public void SycnPagination(){
 
         try {
-            ListTablesResponse res = ddb.listTables();
-            Iterator<String> allTables = res.tableNames().iterator();
+            SyncPagination.manualPagination(ddb);
+            SyncPagination.autoPagination(ddb);
+            SyncPagination.autoPaginationWithResume(ddb);;
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+       System.out.println("\n Test 11 passed");
+   }
 
-            while (allTables.hasNext()) {
+    @Test
+    @Order(12)
+   public void updateTable(){
 
-                String name = allTables.next();
-                if (name.equals(tableName))
-                    return true;
-            }
+        try {
+            Long readCapacity = Long.parseLong("16");
+            Long writeCapacity = Long.parseLong("10");
+            UpdateTable.updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity);
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-           }
-
-        return false;
+        }
+        System.out.println("\n Test 12 passed");
     }
 
+    @Test
+    @Order(13)
+    public void DeleteTable() {
+
+        try {
+            //Wait 15 secs for table to update based on test 12
+            TimeUnit.SECONDS.sleep(15);
+            DeleteTable.deleteDynamoDBTable(ddb,tableName);
+        } catch (DynamoDbException | InterruptedException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 13 passed");
+    }
 }
+
+
