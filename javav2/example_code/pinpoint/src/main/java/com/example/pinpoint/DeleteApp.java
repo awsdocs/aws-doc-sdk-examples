@@ -36,8 +36,8 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 public class DeleteApp {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateApp - create an application in the Amazon Pinpoint dashboard\n\n" +
-                "Usage: CreateApp <appName>\n\n" +
+                "DeleteApp - deletes an application in the Amazon Pinpoint dashboard\n\n" +
+                "Usage: DeleteApp <appId>\n\n" +
                 "Where:\n" +
                 "  appId - the ID of the application to delete.\n\n";
 
@@ -45,7 +45,6 @@ public class DeleteApp {
             System.out.println(USAGE);
             System.exit(1);
         }
-
 
         String appId = args[0];
         System.out.println("Deleting an application with ID: " + appId);

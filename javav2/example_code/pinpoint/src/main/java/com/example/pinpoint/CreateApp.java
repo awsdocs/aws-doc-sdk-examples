@@ -60,12 +60,12 @@ public class CreateApp {
 
         try {
             CreateApplicationRequest appRequest = CreateApplicationRequest.builder()
-                .name(appName)
-                .build();
+                    .name(appName)
+                    .build();
 
             CreateAppRequest request = CreateAppRequest.builder()
-                .createApplicationRequest(appRequest)
-                .build();
+                    .createApplicationRequest(appRequest)
+                    .build();
 
             CreateAppResponse result = pinpoint.createApp(request);
 
@@ -76,6 +76,6 @@ public class CreateApp {
             System.exit(1);
         }
         return "";
-       //snippet-end:[pinpoint.java2.createapp.main]
+        //snippet-end:[pinpoint.java2.createapp.main]
     }
 }

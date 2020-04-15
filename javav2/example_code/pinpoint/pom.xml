@@ -8,7 +8,8 @@
     <artifactId>sdk-pinpoint-examples</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
- <properties>
+
+    <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
@@ -79,5 +80,4 @@
             <artifactId>pinpoint</artifactId>
         </dependency>
     </dependencies>
-
 </project>

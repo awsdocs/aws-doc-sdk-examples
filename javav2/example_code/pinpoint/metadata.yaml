@@ -30,3 +30,4 @@ files:
  - path: src/main/java/com/example/pinpoint/UpdateChannel.java
    services:
      - pinpoint
+ 

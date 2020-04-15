@@ -35,11 +35,11 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 public class DeleteEndpoint {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateApp - create an application in the Amazon Pinpoint dashboard\n\n" +
-                "Usage: CreateApp <appName>\n\n" +
+                "DeleteEndpoint - delete an application in pinpoint dashboard\n\n" +
+                "Usage: DeleteEndpoint <appName> <endpointId >\n\n" +
                 "Where:\n" +
-                "  appId - the ID of the application to delete.\n\n" +
-                "  endpointId - the ID of the endpoint to delete.\n";
+                "  appId - the id of the application to delete.\n\n" +
+                "  endpointId - the id of the endpoint to delete.\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -47,9 +47,9 @@ public class DeleteEndpoint {
         }
 
         String appId = args[0];
-        String endpointId = args[0];
+        String endpointId = args[1];
 
-        System.out.println("Deleting an endpoint with ID: " + endpointId);
+        System.out.println("Deleting an endpoint with id: " + endpointId);
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
@@ -70,7 +70,7 @@ public class DeleteEndpoint {
 
             DeleteEndpointResponse result = pinpoint.deleteEndpoint(appRequest);
             String id = result.endpointResponse().id();
-            System.out.println("The deleted endpoint ID  " + id);
+            System.out.println("The deleted endpoint id  " + id);
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

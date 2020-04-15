@@ -76,45 +76,45 @@ public class CreateCampaign {
 
     public static CampaignResponse createCampaign(PinpointClient client, String appID, String segmentID) {
 
-      try {
-        Schedule schedule = Schedule.builder()
-                .startTime("IMMEDIATE")
-                .build();
+        try {
+            Schedule schedule = Schedule.builder()
+                    .startTime("IMMEDIATE")
+                    .build();
 
-        Message defaultMessage = Message.builder()
-                .action(Action.OPEN_APP)
-                .body("My message body.")
-                .title("My message title.")
-                .build();
+            Message defaultMessage = Message.builder()
+                    .action(Action.OPEN_APP)
+                    .body("My message body.")
+                    .title("My message title.")
+                    .build();
 
-        MessageConfiguration messageConfiguration = MessageConfiguration.builder()
-                .defaultMessage(defaultMessage)
-                .build();
+            MessageConfiguration messageConfiguration = MessageConfiguration.builder()
+                    .defaultMessage(defaultMessage)
+                    .build();
 
-        WriteCampaignRequest request = WriteCampaignRequest.builder()
-                .description("My description")
-                .schedule(schedule)
-                .name("MyCampaign")
-                .segmentId(segmentID)
-                .messageConfiguration(messageConfiguration)
-                .build();
+            WriteCampaignRequest request = WriteCampaignRequest.builder()
+                    .description("My description")
+                    .schedule(schedule)
+                    .name("MyCampaign")
+                    .segmentId(segmentID)
+                    .messageConfiguration(messageConfiguration)
+                    .build();
 
-        CreateCampaignResponse result = client.createCampaign(
-                CreateCampaignRequest.builder()
-                        .applicationId(appID)
-                        .writeCampaignRequest(request).build()
-        );
+            CreateCampaignResponse result = client.createCampaign(
+                    CreateCampaignRequest.builder()
+                            .applicationId(appID)
+                            .writeCampaignRequest(request).build()
+            );
 
-        System.out.println("Campaign ID: " + result.campaignResponse().id());
+            System.out.println("Campaign ID: " + result.campaignResponse().id());
 
-        return result.campaignResponse();
+            return result.campaignResponse();
 
-    } catch (PinpointException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+
+        return null;
     }
-
-    return null;
-}
     //snippet-end:[pinpoint.java2.createcampaign.main]
 }

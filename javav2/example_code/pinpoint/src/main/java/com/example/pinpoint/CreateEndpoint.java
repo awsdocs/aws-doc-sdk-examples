@@ -76,99 +76,99 @@ public class CreateEndpoint {
         String endpointId = UUID.randomUUID().toString();
         System.out.println("Endpoint ID: " + endpointId);
 
-       try {
+        try {
 
-           EndpointRequest endpointRequest = createEndpointRequestData();
+            EndpointRequest endpointRequest = createEndpointRequestData();
 
             UpdateEndpointRequest updateEndpointRequest = UpdateEndpointRequest.builder()
-                .applicationId(appId)
-                .endpointId(endpointId)
-                .endpointRequest(endpointRequest)
-                .build();
+                    .applicationId(appId)
+                    .endpointId(endpointId)
+                    .endpointRequest(endpointRequest)
+                    .build();
 
             UpdateEndpointResponse updateEndpointResponse = client.updateEndpoint(updateEndpointRequest);
             System.out.println("Update Endpoint Response: " + updateEndpointResponse.messageBody());
 
             GetEndpointRequest getEndpointRequest = GetEndpointRequest.builder()
-                .applicationId(appId)
-                .endpointId(endpointId)
-                .build();
+                    .applicationId(appId)
+                    .endpointId(endpointId)
+                    .build();
             GetEndpointResponse getEndpointResponse = client.getEndpoint(getEndpointRequest);
 
-           System.out.println(getEndpointResponse.endpointResponse().address());
-           System.out.println(getEndpointResponse.endpointResponse().channelType());
-           System.out.println(getEndpointResponse.endpointResponse().applicationId());
-           System.out.println(getEndpointResponse.endpointResponse().endpointStatus());
-           System.out.println(getEndpointResponse.endpointResponse().requestId());
-           System.out.println(getEndpointResponse.endpointResponse().user());
+            System.out.println(getEndpointResponse.endpointResponse().address());
+            System.out.println(getEndpointResponse.endpointResponse().channelType());
+            System.out.println(getEndpointResponse.endpointResponse().applicationId());
+            System.out.println(getEndpointResponse.endpointResponse().endpointStatus());
+            System.out.println(getEndpointResponse.endpointResponse().requestId());
+            System.out.println(getEndpointResponse.endpointResponse().user());
 
             return getEndpointResponse.endpointResponse();
 
-    } catch (PinpointException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
-    return null;
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return null;
     }
 
     private static EndpointRequest createEndpointRequestData() {
 
-      try {
-        List<String> favoriteTeams = new ArrayList<>();
-        favoriteTeams.add("Lakers");
-        favoriteTeams.add("Warriors");
-        HashMap<String, List<String>> customAttributes = new HashMap<>();
-        customAttributes.put("team", favoriteTeams);
+        try {
+            List<String> favoriteTeams = new ArrayList<>();
+            favoriteTeams.add("Lakers");
+            favoriteTeams.add("Warriors");
+            HashMap<String, List<String>> customAttributes = new HashMap<>();
+            customAttributes.put("team", favoriteTeams);
 
-        EndpointDemographic demographic = EndpointDemographic.builder()
-                .appVersion("1.0")
-                .make("apple")
-                .model("iPhone")
-                .modelVersion("7")
-                .platform("ios")
-                .platformVersion("10.1.1")
-                .timezone("America/Los_Angeles")
-                .build();
+            EndpointDemographic demographic = EndpointDemographic.builder()
+                    .appVersion("1.0")
+                    .make("apple")
+                    .model("iPhone")
+                    .modelVersion("7")
+                    .platform("ios")
+                    .platformVersion("10.1.1")
+                    .timezone("America/Los_Angeles")
+                    .build();
 
-        EndpointLocation location = EndpointLocation.builder()
-                .city("Los Angeles")
-                .country("US")
-                .latitude(34.0)
-                .longitude(-118.2)
-                .postalCode("90068")
-                .region("CA")
-                .build();
+            EndpointLocation location = EndpointLocation.builder()
+                    .city("Los Angeles")
+                    .country("US")
+                    .latitude(34.0)
+                    .longitude(-118.2)
+                    .postalCode("90068")
+                    .region("CA")
+                    .build();
 
-        Map<String,Double> metrics = new HashMap<>();
-        metrics.put("health", 100.00);
-        metrics.put("luck", 75.00);
+            Map<String,Double> metrics = new HashMap<>();
+            metrics.put("health", 100.00);
+            metrics.put("luck", 75.00);
 
-        EndpointUser user = EndpointUser.builder()
-                .userId(UUID.randomUUID().toString())
-                .build();
+            EndpointUser user = EndpointUser.builder()
+                    .userId(UUID.randomUUID().toString())
+                    .build();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
-        String nowAsISO = df.format(new Date());
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+            String nowAsISO = df.format(new Date());
 
-        EndpointRequest endpointRequest = EndpointRequest.builder()
-                .address(UUID.randomUUID().toString())
-                .attributes(customAttributes)
-                .channelType("APNS")
-                .demographic(demographic)
-                .effectiveDate(nowAsISO)
-                .location(location)
-                .metrics(metrics)
-                .optOut("NONE")
-                .requestId(UUID.randomUUID().toString())
-                .user(user)
-                .build();
+            EndpointRequest endpointRequest = EndpointRequest.builder()
+                    .address(UUID.randomUUID().toString())
+                    .attributes(customAttributes)
+                    .channelType("APNS")
+                    .demographic(demographic)
+                    .effectiveDate(nowAsISO)
+                    .location(location)
+                    .metrics(metrics)
+                    .optOut("NONE")
+                    .requestId(UUID.randomUUID().toString())
+                    .user(user)
+                    .build();
 
-        return endpointRequest;
+            return endpointRequest;
 
-    } catch (PinpointException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
 
         return null;
     }

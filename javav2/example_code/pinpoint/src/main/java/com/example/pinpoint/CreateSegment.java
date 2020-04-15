@@ -52,11 +52,10 @@ public class CreateSegment {
                 "Where:\n" +
                 "  appId - the application ID to create a segment for.\n\n";
 
-       if (args.length < 1) {
+        if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-
 
         String appId = args[0];
 
@@ -73,57 +72,57 @@ public class CreateSegment {
     //snippet-start:[pinpoint.java2.createsegment.main]
     public static SegmentResponse createSegment(PinpointClient client, String appId) {
 
-       try {
+        try {
             Map<String, AttributeDimension> segmentAttributes = new HashMap<>();
             segmentAttributes.put("Team", AttributeDimension.builder()
-                .attributeType(AttributeType.INCLUSIVE)
-                .values("Lakers")
-                .build());
+                    .attributeType(AttributeType.INCLUSIVE)
+                    .values("Lakers")
+                    .build());
 
             RecencyDimension recencyDimension = RecencyDimension.builder()
-                .duration("DAY_30")
-                .recencyType("ACTIVE")
-                .build();
+                    .duration("DAY_30")
+                    .recencyType("ACTIVE")
+                    .build();
 
-             SegmentBehaviors segmentBehaviors = SegmentBehaviors.builder()
-                .recency(recencyDimension)
-                .build();
+            SegmentBehaviors segmentBehaviors = SegmentBehaviors.builder()
+                    .recency(recencyDimension)
+                    .build();
 
-             SegmentDemographics segmentDemographics = SegmentDemographics
-                .builder()
-                .build();
+            SegmentDemographics segmentDemographics = SegmentDemographics
+                    .builder()
+                    .build();
 
-             SegmentLocation segmentLocation = SegmentLocation
-                .builder()
-                .build();
+            SegmentLocation segmentLocation = SegmentLocation
+                    .builder()
+                    .build();
 
             SegmentDimensions dimensions = SegmentDimensions
-                .builder()
-                .attributes(segmentAttributes)
-                .behavior(segmentBehaviors)
-                .demographic(segmentDemographics)
-                .location(segmentLocation)
-                .build();
+                    .builder()
+                    .attributes(segmentAttributes)
+                    .behavior(segmentBehaviors)
+                    .demographic(segmentDemographics)
+                    .location(segmentLocation)
+                    .build();
 
             WriteSegmentRequest writeSegmentRequest = WriteSegmentRequest.builder()
-                .name("MySegment")
-                .dimensions(dimensions)
-                .build();
+                    .name("MySegment")
+                    .dimensions(dimensions)
+                    .build();
 
             CreateSegmentRequest createSegmentRequest = CreateSegmentRequest.builder()
-                .applicationId(appId)
-                .writeSegmentRequest(writeSegmentRequest)
-                .build();
+                    .applicationId(appId)
+                    .writeSegmentRequest(writeSegmentRequest)
+                    .build();
 
             CreateSegmentResponse createSegmentResult = client.createSegment(createSegmentRequest);
             System.out.println("Segment ID: " + createSegmentResult.segmentResponse().id());
             System.out.println("Done");
             return createSegmentResult.segmentResponse();
 
-       } catch (PinpointException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         return null;
     }
     //snippet-end:[pinpoint.java2.createsegment.main]

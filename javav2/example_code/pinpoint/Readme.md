@@ -30,10 +30,10 @@ You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the c
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulate real Amazon S3 resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulate real AWS resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon S3  JUnit tests, you must define values in the **config.properties** file located in the **src/main/resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an application name required for various tests. If you do not define all values, the JUnit tests fail.
+Before running the JUnit tests, you must define values in the **config.properties** file located in the **src/main/resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an application name required for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
@@ -46,81 +46,80 @@ Define these values to successfully run the JUnit tests:
 - **roleArn** - the ARN of the role for the ImportSegments test.
 
 
-###  Sample JSON file
+###  Sample policy text
 
-For the purpose of the **ImportSegments** test, a JSON file is used to import segments. You must place this JSON in the S3 bucket specified in the **bucket** value. Also, this JSON must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
+For the purpose of the JUnit tests, the **ImportSegments** test uses JSON to import segments. You must place this JSON in the S3 bucket specified in the **bucket** value. Also, this JSON must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
 
 	{
    	"ChannelType":"SMS",
    	"Address":"2065550182",
    	"Location":{
-      	"Country":"CAN"
+      		"Country":"CAN"
    	},
    	"Demographic":{
-        "Platform":"Android",
+      	"Platform":"Android",
       	"Make":"LG"
    	},
    	"User":{
-      	"UserId":"example-user-id-1"
+      	 "UserId":"example-user-id-1"
    	}
 	}{
-   	"ChannelType":"APNS",
-   	"Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
-   	"Location":{
+   	 "ChannelType":"APNS",
+   	 "Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
+   	 "Location":{
       	"Country":"USA"
-   	},
-   	"Demographic":{
+   	 },
+   	 "Demographic":{
       	"Platform":"iOS",
       	"Make":"Apple"
-   	},
-   	"User":{
-      	"UserId":"example-user-id-2"
+   	 },
+   	 "User":{
+        "UserId":"example-user-id-2"
    	}
 	}{
-   	"ChannelType":"EMAIL",
-   	"Address":"john.stiles@example.com",
-   	"Location":{
-        "Country":"USA"
-   	},
-   	"Demographic":{
-      	"Platform":"iOS",
-      	"Make":"Apple"
-   	},
-   	"User":{
+   	 "ChannelType":"EMAIL",
+   	 "Address":"john.stiles@example.com",
+   	 "Location":{
+      	 "Country":"USA"
+   	  },
+   	 "Demographic":{
+      	 "Platform":"iOS",
+      	 "Make":"Apple"
+   	 },
+   	 "User":{
       	"UserId":"example-user-id-2"
-   	}
-	}
-
+   	 }
+	 }
 
 ### Command line
-
 To execute the JUnit tests from the command line, you can use the following command:
 
-		mvn test
+	mvn test
+
 You will see output from the JUnit tests, as shown here:
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonPinpointServiceIntegrationTest
-	Running Amazon Test 1
-	Running Amazon Test 2
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+	 [INFO] -------------------------------------------------------
+	 [INFO]  T E S T S
+	 [INFO] -------------------------------------------------------
+	 [INFO] Running AmazonPinpointServiceIntegrationTest
+	 Running Amazon Test 1
+	 Running Amazon Test 2
+	 ...
+	 Done!
+	 [INFO] Results:
+	 [INFO]
+	 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	 [INFO]
+	 INFO] --------------------------------------------
+	 [INFO] BUILD SUCCESS
+	 [INFO]--------------------------------------------
+	 [INFO] Total time:  12.003 s
+	 [INFO] Finished at: 2020-02-10T14:25:08-05:00
+	 [INFO] --------------------------------------------
 
 ### Unsuccessful tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location.
+If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error  	message such as below. You need to double check the values that you set in the properties file and run the tests again. Also, ensure that you placed the JSON file in the correct S3 bucket location. 
 
 	[INFO]
 	[INFO] --------------------------------------
@@ -129,5 +128,5 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] Total time:  19.038 s
 	[INFO] Finished at: 2020-02-10T14:41:51-05:00
 	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  	  There are test failures.
 	[ERROR];

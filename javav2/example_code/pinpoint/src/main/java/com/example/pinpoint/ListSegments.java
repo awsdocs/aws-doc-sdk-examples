@@ -35,7 +35,7 @@ import software.amazon.awssdk.services.pinpoint.model.SegmentResponse;
 import java.util.List;
 //snippet-end:[pinpoint.java2.listsegments.import]
 
-public class ListSegements {
+public class ListSegments {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
@@ -73,9 +73,9 @@ public class ListSegements {
                 System.out.println("Segement " + segment.id() + " " + segment.name() + " " + segment.lastModifiedDate());
             }
         } catch ( PinpointException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-       //snippet-end:[pinpoint.java2.listsegments.main]
+        //snippet-end:[pinpoint.java2.listsegments.main]
     }
 }

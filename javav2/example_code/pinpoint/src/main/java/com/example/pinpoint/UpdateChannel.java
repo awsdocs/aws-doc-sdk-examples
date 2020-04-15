@@ -38,10 +38,10 @@ import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelResponse;
 public class UpdateChannel {
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "CreateChannel -  create a channel in Amazon Pinpoint\n\n" +
+                "UpdateChannel -  update a channel in Amazon Pinpoint\n\n" +
                 "Usage: CreateChannel <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the name of the application to create.\n\n";
+                "  appId - the name of the application to update.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

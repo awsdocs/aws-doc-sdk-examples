@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SendMessage.java demonstrates how to send an SMS message.]
+//snippet-sourcedescription:[SendMessage.java demonstrates how to send a SMS message.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -45,18 +45,18 @@ public class SendMessage {
     // The phone number or short code to send the message from. The phone number
     // or short code that you specify has to be associated with your Amazon Pinpoint
     // account. For best results, specify long codes in E.164 format.
-    public static String originationNumber = "enter an origination number value";
+    public static String originationNumber = "enter an origination number";
 
-    // The recipient's phone number. For best results, you should specify the
+    // The recipient's phone number.  For best results, you should specify the
     // phone number in E.164 format.
-    public static String destinationNumber = "enter a destination number;
+    public static String destinationNumber = "enter a destination number";
 
-    // The Amazon Pinpoint project/application ID to use when you send this message.
+    // The Pinpoint project/application ID to use when you send this message.
     // Make sure that the SMS channel is enabled for the project or application
     // that you choose.
-    public static String appId = "end an appID value";
+    public static String appId = "enter an appId value";
 
-    // The type of SMS message to send. If you plan to send
+    // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
     // marketing-related content, specify PROMOTIONAL.
     public static String messageType = "TRANSACTIONAL";
@@ -65,8 +65,8 @@ public class SendMessage {
     public static String registeredKeyword = "myKeyword";
 
     // The sender ID to use when sending the message. Support for sender ID
-    // varies by country or AWS Region. For more information, see
-    // https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html.
+    // varies by country or region. For more information, see
+    // https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
     public static String senderId = "MySenderID";
 
     public static void main(String[] args) {
@@ -123,7 +123,7 @@ public class SendMessage {
                 .messageConfiguration(direct)
                 .build();
 
-        // Create a SendMessagesRequest object
+        // create a  SendMessagesRequest object
         SendMessagesRequest request = SendMessagesRequest.builder()
                 .applicationId(appId)
                 .messageRequest(msgReq)
@@ -134,7 +134,7 @@ public class SendMessage {
         MessageResponse msg1 = response.messageResponse();
         Map map1 = msg1.result();
 
-        // Write out the result of sendMessage
+        //Write out the result of sendMessage
         map1.forEach((k, v) -> System.out.println((k + ":" + v)));
 
     } catch (PinpointException e) {

@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[ImportSegment.java demonstrates how to how to import a segment into Amazon Pinpoint.]
-//snippet-keyword:[Java]
+////snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
@@ -24,7 +24,6 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.importsegment.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CreateImportJobRequest;
@@ -34,7 +33,6 @@ import software.amazon.awssdk.services.pinpoint.model.Format;
 import software.amazon.awssdk.services.pinpoint.model.CreateImportJobResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.importsegment.import]
-
 
 public class ImportSegment {
     public static void main(String[] args) {
@@ -52,11 +50,10 @@ public class ImportSegment {
             System.exit(1);
         }
 
-
-       String appId = args[0];
-       String bucket = args[1];
-       String key = args[2];
-       String roleArn = args[3];
+        String appId = args[0];
+        String bucket = args[1];
+        String key = args[2];
+        String roleArn = args[3];
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
@@ -66,8 +63,6 @@ public class ImportSegment {
         System.out.println("Import job for " + bucket + " submitted.");
         System.out.println("See application " + response.applicationId() + " for import job status.");
         System.out.println("See application " + response.jobStatus() + " for import job status.");
-
-
     }
 
     //snippet-start:[pinpoint.java2.importsegment.main]
@@ -81,17 +76,17 @@ public class ImportSegment {
 
             // Create the job
             ImportJobRequest importRequest = ImportJobRequest.builder()
-                .defineSegment(true)
-                .registerEndpoints(true)
-                .roleArn(roleArn)
-                .format(Format.JSON)
-                .s3Url("s3://" + bucket + "/" + key)
-                .build();
+                    .defineSegment(true)
+                    .registerEndpoints(true)
+                    .roleArn(roleArn)
+                    .format(Format.JSON)
+                    .s3Url("s3://" + bucket + "/" + key)
+                    .build();
 
             CreateImportJobRequest jobRequest = CreateImportJobRequest.builder()
-                .importJobRequest(importRequest)
-                .applicationId(appId)
-                .build();
+                    .importJobRequest(importRequest)
+                    .applicationId(appId)
+                    .build();
 
             CreateImportJobResponse jobResponse = client.createImportJob(jobRequest);
 
