@@ -81,7 +81,7 @@ public class DeleteObjects {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Done!");
+        System.out.println("Done");
     }
 }
 // snippet-end:[s3.java2.delete_objects.main]
