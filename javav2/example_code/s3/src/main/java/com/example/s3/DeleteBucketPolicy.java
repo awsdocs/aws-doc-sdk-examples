@@ -68,8 +68,7 @@ public class DeleteBucketPolicy {
         try {
             s3.deleteBucketPolicy(delReq);
             System.out.println("Done!");
-
-            //response.responseMetadata()
+           
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
