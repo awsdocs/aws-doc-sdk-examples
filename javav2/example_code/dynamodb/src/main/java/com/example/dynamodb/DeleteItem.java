@@ -72,6 +72,7 @@ public class DeleteItem {
         deleteDymamoDBItem(ddb, tableName, key, keyVal);
     }
 
+    // snippet-start:[dynamodb.java2.delete_item.main]
   public static void deleteDymamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
 
         HashMap<String,AttributeValue> keyToGet =
