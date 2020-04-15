@@ -1,5 +1,14 @@
+//snippet-sourcedescription:[DeleteTable.java demonstrates how to delete an Amazon DynamoDB table]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
+
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -8,24 +17,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
-
-//snippet-sourcedescription:[DeleteTable.java demonstrates how to delete an AWS DynamoDB table]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
-
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.delete_table.complete]
+
 // snippet-start:[dynamodb.java2.delete_table.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
-
 // snippet-end:[dynamodb.java2.delete_table.import]
 
 /**
@@ -55,13 +53,20 @@ public class DeleteTable {
         }
 
         String tableName = args[0];
-
         System.out.format("Deleting table %s...\n", tableName);
 
-        // snippet-start:[dynamodb.java2.delete_table.main]
+
         // Create the DynamoDbClient object
-        Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
+        deleteDynamoDBTable(ddb, tableName);
+    }
+
+    // snippet-start:[dynamodb.java2.delete_table.main]
+    public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
 
         DeleteTableRequest request = DeleteTableRequest.builder()
                 .tableName(tableName)
@@ -78,4 +83,3 @@ public class DeleteTable {
         System.out.println(tableName +" was successfully deleted!");
     }
 }
-// snippet-end:[dynamodb.java2.delete_table.complete]
