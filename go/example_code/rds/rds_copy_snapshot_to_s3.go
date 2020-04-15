@@ -1,9 +1,9 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[AWS]
-// snippet-sourcedescription:[rds_list_cluster_snapshots lists your RDS cluster snapshots.]
+// snippet-sourcedescription:[rds_copy_snapshot_to_s3 copies RDS cluster snapshots to S3.]
 // snippet-keyword:[Amazon Relational Database Service]
 // snippet-keyword:[Amazon RDS]
-// snippet-keyword:[DescribeDBClusterSnapshots function]
+// snippet-keyword:[CopyDBSnaphotToS3 function]
 // snippet-keyword:[Go]
 // snippet-sourcesyntax:[go]
 // snippet-service:[rds]
@@ -20,7 +20,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start:[rds.go.describe_db_cluster_snapshots]
+// snippet-start:[rds.go.copy_rds_snapshot_to_s3]
 package main
 
 import (
@@ -121,3 +121,5 @@ func exitErrorf(msg string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, msg+"\n", args...)
 	os.Exit(1)
 }
+
+// snippet-end:[rds.go.copy_rds_snapshot_to_s3]
