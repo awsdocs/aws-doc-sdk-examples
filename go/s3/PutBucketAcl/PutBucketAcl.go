@@ -33,15 +33,13 @@ import (
 //     If success, the SOMETHING of the RESOURCE and nil
 //     Otherwise, an empty string and an error from the call to FUNCTION
 func SetBucketACL(sess *session.Session, bucket, address, permission *string) error {
-	// snippet-start:[s3.go.put_bucket_acl.service]
+	// snippet-start:[s3.go.put_bucket_acl.service_acl]
 	svc := s3.New(sess)
-	// snippet-end:[s3.go.put_bucket_acl.service]
 
-	// snippet-start:[s3.go.put_bucket_acl.get_acl]
 	result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{
 		Bucket: bucket,
 	})
-	// snippet-end:[s3.go.put_bucket_acl.get_acl]
+       	// snippet-end:[s3.go.put_bucket_acl.service_acl]
 	if err != nil {
 		return err
 	}
@@ -101,10 +99,12 @@ func main() {
 	}
 	// snippet-end:[s3.go.put_bucket_acl.args]
 
+        // snippet-start:[s3.go.put_bucket_acl.session]
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
-
+        // snippet-end:[s3.go.put_bucket_acl.session]
+        
 	err := SetBucketACL(sess, bucket, address, permission)
 	if err != nil {
 		fmt.Println("Got an error setting bucket ACL:")
