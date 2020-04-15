@@ -37,6 +37,9 @@ files:
   - path: DescribeAlarms/DescribeAlarms_test.go
     services:
       - cloudwatch
+  - path: DisableAlarm/DisableAlarm.go
+    services:
+      - cloudwatch
   - path: DisableAlarm/DisableAlarm_test.go
     services:
       - cloudwatch
@@ -53,6 +56,9 @@ files:
     services:
       - cloudwatchlogs
   - path: Lambda/main.go
+    services:
+      - cloudwatch
+  - path: ListMetrics/ListMetrics.go
     services:
       - cloudwatch
   - path: ListMetrics/ListMetrics_test.go
