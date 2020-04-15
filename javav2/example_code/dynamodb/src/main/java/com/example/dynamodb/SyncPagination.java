@@ -21,8 +21,6 @@
  * limitations under the License.
  */
 
-
-
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.sync_pagination.import]
