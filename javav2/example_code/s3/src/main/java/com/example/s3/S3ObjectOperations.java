@@ -73,7 +73,6 @@ public class S3ObjectOperations {
     // Creates a S3 Bucket
     // snippet-start:[s3.java2.s3_object_operations.main]
     public static void createBucket(S3Client s3, String bucket, Region region) {
-
         s3.createBucket(CreateBucketRequest
                 .builder()
                 .bucket(bucket)
@@ -96,8 +95,8 @@ public class S3ObjectOperations {
         s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
                         .build(),
                 RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
-
     }
+    // snippet-end:[s3.java2.s3_object_operations.upload]
 
     public void UploadObjectMultipart(S3Client s3, String bucket ) throws IOException {
         // Multipart Upload a file
@@ -214,5 +213,4 @@ public class S3ObjectOperations {
         return ByteBuffer.wrap(b);
     }
 }
-
 // snippet-end:[s3.java2.s3_object_operations.main]
