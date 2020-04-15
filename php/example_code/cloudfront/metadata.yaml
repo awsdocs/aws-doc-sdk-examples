@@ -1,0 +1,9 @@
+---
+files:
+  - path: CreateDistributionS3.php
+    services: 
+      - cloudfront
+  - path: tests/CreateDistributionS3Test.php
+    services: 
+      - cloudfront
+...
