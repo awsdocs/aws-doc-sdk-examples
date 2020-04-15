@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to use the streaming operations of an S3 asynchronous client]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/6/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
  * limitations under the License.
  */
 package com.example.s3;
-// snippet-start:[s3.java2.async_stream_ops.complete]
 
 // snippet-start:[s3.java2.async_stream_ops.import]
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
@@ -32,26 +31,31 @@ import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[s3.java2.async_stream_ops.import]
 
-// snippet-start:[s3.java2.async_stream_ops.main]
 public class S3AsyncStreamOps {
 
      public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
-                "Where:\n" +
-                "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
-                "    objectname - the name pf the object object (i.e., book.pdf)\n" +
-                "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
-                "Example:\n" +
-                "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
+         final String USAGE = "\n" +
+                 "Usage:\n" +
+                 "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
+                 "Where:\n" +
+                 "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
+                 "    objectname - the name pf the object object (i.e., book.pdf)\n" +
+                 "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
+                 "Example:\n" +
+                 "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
 
          String bucketName = args[0];
          String objectKey = args[1];
          String path = args[2];
 
-        S3AsyncClient client = S3AsyncClient.create();
+         S3AsyncClient client = S3AsyncClient.create();
+         S3AsyncStreamOperations(client, bucketName,  objectKey , path  );
+     }
+
+    // snippet-start:[s3.java2.async_stream_ops.main]
+     public static void  S3AsyncStreamOperations( S3AsyncClient client,  String bucketName,  String objectKey ,String path  ) {
+
         final CompletableFuture<GetObjectResponse> futureGet = client.getObject(
                 GetObjectRequest.builder()
                         .bucket(bucketName)
@@ -71,10 +75,7 @@ public class S3AsyncStreamOps {
                 client.close();
             }
         });
-
         futureGet.join();
     }
 }
-
 // snippet-end:[s3.java2.async_stream_ops.main]
-// snippet-end:[s3.java2.async_stream_ops.complete]
