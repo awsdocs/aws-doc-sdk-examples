@@ -79,7 +79,7 @@ public class S3AsyncOps {
                     err.printStackTrace();
                 }
             } finally {
-                // Lets the application shut down. Only close the client when you are completely done with it.
+                // Lets the app shut down. Only close the client when you are completely done with it.
                 client.close();
             }
         });
@@ -88,4 +88,3 @@ public class S3AsyncOps {
     }
 }
 // snippet-end:[s3.java2.async_ops.main]
-// snippet-end:[s3.java2.async_ops.complete]
