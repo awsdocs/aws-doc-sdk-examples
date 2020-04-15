@@ -30,4 +30,3 @@ files:
   - path: src/main/java/com/example/kinesis/StockTradesWriter.java
     services:
       - kinesis
- © 2020 GitHub, Inc.
