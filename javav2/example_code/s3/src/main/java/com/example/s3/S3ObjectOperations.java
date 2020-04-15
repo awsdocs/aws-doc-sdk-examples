@@ -98,7 +98,7 @@ public class S3ObjectOperations {
                 RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
 
     }
-    // snippet-end:[s3.java2.s3_object_operations.upload]
+
     public void UploadObjectMultipart(S3Client s3, String bucket ) throws IOException {
         // Multipart Upload a file
         String multipartKey = "multiPartKey";
