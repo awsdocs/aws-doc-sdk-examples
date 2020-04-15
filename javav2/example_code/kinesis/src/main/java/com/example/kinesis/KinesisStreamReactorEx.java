@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[KinesisStreamReactorEx.java demonstrates how to use the Reactor library to simplify processing of Kinesis streams.]
+//snippet-sourcedescription:[KinesisStreamReactorEx.java demonstrates how to use the Reactor library to simplify processing of Amazon Kinesis streams.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[kinesis]
+//snippet-service:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[3/5/2020]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2011-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 package com.example.kinesis;
-// snippet-start:[kinesis.java2.stream_reactor_example.complete]
+
 // snippet-start:[kinesis.java2.stream_reactor_example.import]
 
 import reactor.core.publisher.Flux;
@@ -45,7 +45,7 @@ public class KinesisStreamReactorEx {
     private static final String CONSUMER_ARN =  "arn:aws:kinesis:us-east-1:1234567890:stream/stream-name/consumer/consumer-name:1234567890";
 
     /**
-     * Uses Reactor via the onEventStream lifecycle method. This gives you full access to the publisher which can be used
+     * Uses Reactor via the onEventStream lifecycle method. This gives you full access to the publisher, which can be used
      * to create a Flux.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_Reactor(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -65,7 +65,7 @@ public class KinesisStreamReactorEx {
     }
 
     /**
-     * Since a Flux is also a publisher, the publisherTransformer method integrates nicely with Reactor. Note that
+     * Because a Flux is also a publisher, the publisherTransformer method integrates nicely with Reactor. Notice that
      * you must adapt to an SdkPublisher.
      */
     private static CompletableFuture<Void> responseHandlerBuilder_OnEventStream_Reactor(KinesisAsyncClient client, SubscribeToShardRequest request) {
@@ -79,12 +79,6 @@ public class KinesisStreamReactorEx {
 
     public static void main(String[] args) {
 
-
-
-
-
-
-
         KinesisAsyncClient client = KinesisAsyncClient.create();
 
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
@@ -97,9 +91,7 @@ public class KinesisStreamReactorEx {
 
         client.close();
     }
-
-
 }
  
 // snippet-end:[kinesis.java2.stream_reactor_example.main]
-// snippet-end:[kinesis.java2.stream_reactor_example.complete]
+
