@@ -4,7 +4,7 @@
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/6/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
