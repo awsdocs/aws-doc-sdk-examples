@@ -28,7 +28,7 @@ files:
   - path: GetLogEvents/GetLogEvents.go
     services:
       - cloudwatchlogs
-  - path: Lambda/Lambda.go
+  - path: Lambda/main.go
     services:
       - cloudwatch
   - path: ListMetrics/ListMetrics.go
