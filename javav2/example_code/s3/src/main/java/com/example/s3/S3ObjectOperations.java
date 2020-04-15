@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create S3 buckets, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create Amazon S3 buckets, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,8 @@
  * limitations under the License.
  */
 package com.example.s3;
-// snippet-start:[s3.java2.s3_object_operations.complete]
-// snippet-start:[s3.java2.s3_object_operations.import]
 
+// snippet-start:[s3.java2.s3_object_operations.import]
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Paths;
@@ -38,7 +37,6 @@ import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
@@ -50,32 +48,61 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 // snippet-end:[s3.java2.s3_object_operations.import]
 
-// snippet-start:[s3.java2.s3_object_operations.main]
+
 public class S3ObjectOperations {
 
-    private static S3Client s3;
-
     public static void main(String[] args) throws IOException {
-        // snippet-start:[s3.java2.s3_object_operations.upload]
-        Region region = Region.US_WEST_2;
-        s3 = S3Client.builder().region(region).build();
 
+        if (args.length < 1) {
+            System.out.println("Please specify a bucket name");
+            System.exit(1);
+        }
+        String bucketName = args[0];
+
+        Region region = Region.US_WEST_2;
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
+
+        //Create a S3 Bucket
+        S3ObjectOperations operations = new S3ObjectOperations();
+        operations.createBucket(s3,bucketName,region);
+        System.out.println("Done!");
+
+    }
+    // Creates a S3 Bucket
+    // snippet-start:[s3.java2.s3_object_operations.main]
+    public static void createBucket(S3Client s3, String bucket, Region region) {
+
+        s3.createBucket(CreateBucketRequest
+                .builder()
+                .bucket(bucket)
+                .createBucketConfiguration(
+                        CreateBucketConfiguration.builder()
+                                .locationConstraint(region.id())
+                                .build())
+                .build());
+
+        System.out.println(bucket);
+    }
+
+    // snippet-start:[s3.java2.s3_object_operations.upload]
+    public void UploadObject(S3Client s3) throws IOException {
 
         String bucket = "bucket" + System.currentTimeMillis();
         String key = "key";
-
-        createBucket(bucket, region);
 
         // Put Object
         s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
                         .build(),
                 RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
-        // snippet-end:[s3.java2.s3_object_operations.upload]
 
-
+    }
+    // snippet-end:[s3.java2.s3_object_operations.upload]
+    public void UploadObjectMultipart(S3Client s3, String bucket ) throws IOException {
         // Multipart Upload a file
         String multipartKey = "multiPartKey";
-        multipartUpload(bucket, multipartKey);
+        multipartUpload(s3, bucket, multipartKey);
 
         // List all objects in bucket
 
@@ -127,41 +154,17 @@ public class S3ObjectOperations {
             System.out.println(" Key: " + content.key() + " size = " + content.size());
         }
         // snippet-end:[s3.java2.s3_object_operations.forloop]
+    }
 
+    public static void GetObject(S3Client s3, String bucket, String key ) {
         // Get Object
         // snippet-start:[s3.java2.s3_object_operations.download]
         s3.getObject(GetObjectRequest.builder().bucket(bucket).key(key).build(),
                 ResponseTransformer.toFile(Paths.get("multiPartKey")));
         // snippet-end:[s3.java2.s3_object_operations.download]
-
-        // Delete Object
-        // snippet-start:[s3.java2.s3_object_operations.delete]
-        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
-        s3.deleteObject(deleteObjectRequest);
-        // snippet-end:[s3.java2.s3_object_operations.delete]
-
-        // Delete Object
-        deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
-        s3.deleteObject(deleteObjectRequest);
-
-        deleteBucket(bucket);
     }
 
-
-    private static void createBucket(String bucket, Region region) {
-        s3.createBucket(CreateBucketRequest
-                .builder()
-                .bucket(bucket)
-                .createBucketConfiguration(
-                        CreateBucketConfiguration.builder()
-                                .locationConstraint(region.id())
-                                .build())
-                .build());
-
-        System.out.println(bucket);
-    }
-
-    private static void deleteBucket(String bucket) {
+    public static void deleteBucket(S3Client s3, String bucket) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
         s3.deleteBucket(deleteBucketRequest);
     }
@@ -169,7 +172,7 @@ public class S3ObjectOperations {
     /**
      * Uploading an object to S3 in parts
      */
-    private static void multipartUpload(String bucketName, String key) throws IOException {
+    public static void multipartUpload(S3Client s3, String bucketName, String key) throws IOException {
 
         int mb = 1024 * 1024;
         // snippet-start:[s3.java2.s3_object_operations.upload_multi_part]
@@ -213,4 +216,3 @@ public class S3ObjectOperations {
 }
 
 // snippet-end:[s3.java2.s3_object_operations.main]
-// snippet-end:[s3.java2.s3_object_operations.complete]
