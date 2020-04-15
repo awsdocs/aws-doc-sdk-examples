@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[s3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,8 @@
  */
 
 package com.example.s3;
-// snippet-start:[s3.java2.s3_bucket_ops.complete]
-// snippet-start:[s3.java2.s3_bucket_ops.import]
 
+// snippet-start:[s3.java2.s3_bucket_ops.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
@@ -45,16 +44,22 @@ public class S3BucketOps {
         String bucket = "bucket" + System.currentTimeMillis();
         System.out.println(bucket);
 
-        // Create bucket
-        CreateBucketRequest createBucketRequest = CreateBucketRequest
-                .builder()
-                .bucket(bucket)
-                .createBucketConfiguration(CreateBucketConfiguration.builder()
-                        .locationConstraint(region.id())
-                        .build())
-                .build();
+        performOperations(s3, bucket,region ) ;
+        }
+
+    public static void performOperations(S3Client s3, String bucket,  Region region ) {
+
+    // Create bucket
+    CreateBucketRequest createBucketRequest = CreateBucketRequest
+            .builder()
+            .bucket(bucket)
+            .createBucketConfiguration(CreateBucketConfiguration.builder()
+                    .locationConstraint(region.id())
+                    .build())
+            .build();
         s3.createBucket(createBucketRequest);
-        // snippet-end:[s3.java2.s3_bucket_ops.create_bucket]
+    // snippet-end:[s3.java2.s3_bucket_ops.create_bucket]
+
 
         // snippet-start:[s3.java2.s3_bucket_ops.list_bucket]
         // List buckets
@@ -72,4 +77,3 @@ public class S3BucketOps {
 }
 
 // snippet-end:[s3.java2.s3_bucket_ops.main]
-// snippet-end:[s3.java2.s3_bucket_ops.complete]
