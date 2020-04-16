@@ -71,7 +71,11 @@ public class Query {
     }
 
     // snippet-start:[dynamodb.java2.query.main]
-    public static int queryTable(DynamoDbClient ddb, String tableName, String partitionKeyName, String partitionKeyVal,String partitionAlias  ) {
+    public static int queryTable(DynamoDbClient ddb,
+                                 String tableName,
+                                 String partitionKeyName,
+                                 String partitionKeyVal,
+                                 String partitionAlias) {
 
         //set up an alias for the partition key name in case it's a reserved word
         HashMap<String,String> attrNameAlias = new HashMap<String,String>();
