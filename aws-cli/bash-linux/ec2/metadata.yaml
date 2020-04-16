@@ -1,6 +1,0 @@
-# Converts the instance type of a running instance
-files:
-  - path: change-ec2-instance-type/change_ec2_instance_type.sh
-    services:
-      - ec2
-  - path: change-ec2-instance-type/test_change_ec2_instance_type.sh
