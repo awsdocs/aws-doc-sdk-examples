@@ -19,7 +19,6 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.describe_table.import]
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -27,7 +26,6 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughputDescription;
 import software.amazon.awssdk.services.dynamodb.model.TableDescription;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import java.util.List;
 // snippet-end:[dynamodb.java2.describe_table.import]
 
