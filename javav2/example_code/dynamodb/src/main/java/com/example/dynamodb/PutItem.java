@@ -80,11 +80,20 @@ public class PutItem {
     }
 
     // snippet-start:[dynamodb.java2.put_item.main]
-    public static void putItemInTable(DynamoDbClient ddb, String tableName, String key, String keyVal,String albumTitle, String albumTitleValue,String awards,String awardVal,  String songTitle, String songTitleVal  ){
+    public static void putItemInTable(DynamoDbClient ddb,
+                                      String tableName,
+                                      String key,
+                                      String keyVal,
+                                      String albumTitle,
+                                      String albumTitleValue,
+                                      String awards,
+                                      String awardVal,
+                                      String songTitle,
+                                      String songTitleVal){
 
         HashMap<String,AttributeValue> itemValues = new HashMap<String,AttributeValue>();
 
-        // Add content to the table
+        // Add all content to the table
         itemValues.put(key, AttributeValue.builder().s(keyVal).build());
         itemValues.put(songTitle, AttributeValue.builder().s(songTitleVal).build());
         itemValues.put(albumTitle, AttributeValue.builder().s(albumTitleValue).build());
