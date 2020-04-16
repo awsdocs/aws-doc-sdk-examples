@@ -63,7 +63,10 @@ public class UpdateTable {
     }
 
     // snippet-start:[dynamodb.java2.update_table.main]
-    public static void updateDynamoDBTable(DynamoDbClient ddb, String tableName,  Long readCapacity, Long writeCapacity  ) {
+    public static void updateDynamoDBTable(DynamoDbClient ddb,
+                                           String tableName,
+                                           Long readCapacity,
+                                           Long writeCapacity) {
 
         System.out.format(
                 "Updating %s with new provisioned throughput values\n",
