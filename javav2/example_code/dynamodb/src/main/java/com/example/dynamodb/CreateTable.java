@@ -69,12 +69,12 @@ public class CreateTable {
                 .region(region)
                 .build();
 
-        String result = CreateTable(ddb,tableName, key);
+        String result = createTable(ddb,tableName, key);
         System.out.println("New table is "+result);
     }
 
     // snippet-start:[dynamodb.java2.create_table.main]
-    public static String CreateTable(DynamoDbClient ddb, String tableName, String key) {
+    public static String createTable(DynamoDbClient ddb, String tableName, String key) {
 
         // Create the CreateTableRequest object
         CreateTableRequest request = CreateTableRequest.builder()
