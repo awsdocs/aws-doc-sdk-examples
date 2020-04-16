@@ -32,10 +32,12 @@ import (
 //     If success, the list of objects and nil
 //     Otherwise, nil and an error from the call to ListObjectsV2
 func GetObjects(sess *session.Session, bucket *string) (*s3.ListObjectsV2Output, error) {
+    // snippet-start:[s3.go.list_objects.call]
     svc := s3.New(sess)
 
     // Get the list of items
     resp, err := svc.ListObjectsV2(&s3.ListObjectsV2Input{Bucket: bucket})
+    // snippet-end:[s3.go.list_objects.call]
     if err != nil {
         return nil, err
     }

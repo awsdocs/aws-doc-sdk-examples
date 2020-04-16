@@ -4,39 +4,75 @@ files:
   - path: CreateCustomMetric/CreateCustomMetric.go
     services:
       - cloudwatch
+  - path: CreateCustomMetric/CreateCustomMetric_test.go
+    services:
+      - cloudwatch
   - path: CreateRole/CreateRole.go
+    services:
+      - iam
+  - path: CreateRole/CreateRole_test.go
     services:
       - iam
   - path: CreateRule/CreateRule.go
     services:
       - cloudwatchevents
+  - path: CreateRule/CreateRule_test.go
+    services:
+      - cloudwatchevents
   - path: CreateTarget/CreateTarget.go
+    services:
+      - cloudwatchevents
+  - path: CreateTarget/CreateTarget_test.go
     services:
       - cloudwatchevents
   - path: DeleteAlarm/DeleteAlarm.go
     services:
       - cloudwatch
+  - path: DeleteAlarm/DeleteAlarm_test.go
+    services:
+      - cloudwatch
   - path: DescribeAlarms/DescribeAlarms.go
+    services:
+      - cloudwatch
+  - path: DescribeAlarms/DescribeAlarms_test.go
     services:
       - cloudwatch
   - path: DisableAlarm/DisableAlarm.go
     services:
       - cloudwatch
+  - path: DisableAlarm/DisableAlarm_test.go
+    services:
+      - cloudwatch
   - path: EnableAlarm/EnableAlarm.go
+    services:
+      - cloudwatch
+  - path: EnableAlarm/EnableAlarm_test.go
     services:
       - cloudwatch
   - path: GetLogEvents/GetLogEvents.go
     services:
       - cloudwatchlogs
-  - path: Lambda/Lambda.go
+  - path: GetLogEvents/GetLogEvents_test.go
+    services:
+      - cloudwatchlogs
+  - path: Lambda/main.go
     services:
       - cloudwatch
   - path: ListMetrics/ListMetrics.go
     services:
       - cloudwatch
+  - path: ListMetrics/ListMetrics_test.go
+    services:
+      - cloudwatch
   - path: SendEvent/SendEvent.go
     services:
       - cloudwatchevents
+  - path: SendEvent/SendEvent_test.go
+    services:
+      - cloudwatchevents
   - path: UploadLambdaFunction/UploadLambdaFunction.go
+    services:
+      - lambda
+  - path: UploadLambdaFunction/UploadLambdaFunction_test.go
     services:
       - lambda

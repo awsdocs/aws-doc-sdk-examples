@@ -73,7 +73,9 @@ func main() {
     }
     // snippet-end:[s3.go.get_bucket_website.error]
 
+    // snippet-start:[s3.go.get_bucket_website.print]
     fmt.Println("Website Configuration:")
     fmt.Println(result)
+    // snippet-end:[s3.go.get_bucket_website.print]
 }
 // snippet-end:[s3.go.get_bucket_website]
