@@ -76,7 +76,7 @@ public class AWSDynamoServiceIntegrationTest {
     public void CreateTable() {
 
         try {
-            String result = CreateTable.CreateTable(ddb, tableName, key);
+            String result = CreateTable.createTable(ddb, tableName, key);
             assertTrue(!result.isEmpty());
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -250,7 +250,7 @@ public class AWSDynamoServiceIntegrationTest {
     public void DeleteTable() {
 
         try {
-            //Wait 15 secs for table to update based on test 12
+            //Wait 15 secs for table to update based on test 10
             TimeUnit.SECONDS.sleep(15);
             DeleteTable.deleteDynamoDBTable(ddb,tableName);
         } catch (DynamoDbException | InterruptedException e) {
@@ -260,5 +260,3 @@ public class AWSDynamoServiceIntegrationTest {
         System.out.println("\n Test 13 passed");
     }
 }
-
-
