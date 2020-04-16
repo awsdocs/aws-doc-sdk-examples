@@ -73,7 +73,12 @@ public class UpdateItem {
         updateTableItem(ddb, tableName,key, keyVal, name, updateVal );
     }
     // snippet-start:[dynamodb.java2.update_item.main]
-    public static void updateTableItem( DynamoDbClient ddb, String tableName,  String key, String keyVal,  String name, String updateVal  ){
+    public static void updateTableItem(DynamoDbClient ddb,
+                                       String tableName,
+                                       String key,
+                                       String keyVal,
+                                       String name,
+                                       String updateVal){
 
         HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
 
