@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedQueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[EnhancedQueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -35,7 +35,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 // snippet-end:[dynamodb.java2.mapping.query.import]
 
 /*
-    Prior to running this code example, create a table named Customer and populate it with data
+    Before running this code example, create a table named Customer and populate it with data
  */
 
 public class EnhancedQueryRecords {
@@ -44,7 +44,7 @@ public class EnhancedQueryRecords {
     // Query the Record table
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -63,10 +63,10 @@ public class EnhancedQueryRecords {
     public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
 
         try{
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            // Create a QueryConditional object that is used in the query operation
+            // Create a QueryConditional object that's used in the query operation
             QueryConditional queryConditional = QueryConditional
                     .keyEqualTo(Key.builder()
                             .partitionValue("id120")
@@ -91,7 +91,7 @@ public class EnhancedQueryRecords {
         // snippet-end:[dynamodb.java2.mapping.query.main]
     }
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 

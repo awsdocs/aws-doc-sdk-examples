@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutItem.java demonstrates how to place an item into an Amazon DynamoDB table]
+//snippet-sourcedescription:[PutItem.java demonstrates how to place an item into an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -30,7 +30,7 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.put_item.import]
 
 /**
- * Puts an item into an AWS DynamoDB table.
+ * Puts an item into an Amazon DynamoDB table
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -46,11 +46,11 @@ public class PutItem {
                 "    table - the table in which an item is placed (i.e., Music3),\n" +
                 "    key -  the key used in the table (iei.e., Artist),\n" +
                 "    keyval  - the key value that represents the item to get (i.e., Famous Band),\n" +
-                "    albumTitle -  album title (i.e., AlbumTitle),\n" +
+                "    albumTitle -  the album title (i.e., AlbumTitle),\n" +
                 "    AlbumTitleValue -  the name of the album (i.e., Songs About Life ),\n" +
-                "    Awards -  awards column (i.e., Awards),\n" +
+                "    Awards -  the awards column (i.e., Awards),\n" +
                 "    AwardVal -  the value of the awards (i.e., 10),\n" +
-                "    SongTitle -  song title (i.e., SongTitle),\n" +
+                "    SongTitle -  the song title (i.e., SongTitle),\n" +
                 "    SongTitleVal -  the value of the song title (i.e., Happy Day).\n" +
                 "Example:\n" +
                 "    Music3 Artist Famous Band AlbumTitle Songs About Life Awards 10 SongTitle Happy Day \n" +

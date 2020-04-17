@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[Query.java demonstrates how to query an Amazon DynamoDB table]
+//snippet-sourcedescription:[Query.java demonstrates how to query an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Dynamodb]
@@ -29,7 +29,7 @@ import software.amazon.awssdk.regions.Region;
 // snippet-end:[dynamodb.java2.query.import]
 
 /**
- * Query an AWS DynamoDB table.
+ * Query an Amazon DynamoDB table
  *
  *
  * This code expects that you have AWS credentials set up, as described here:
@@ -43,8 +43,8 @@ public class Query {
                 "    Query <table> <partitionkey> <partitionkeyvalue>\n\n" +
                 "Where:\n" +
                 "    table - the table to put the item in (i.e., Music3)\n" +
-                "    partitionkey - partition key name of the table (i.e., Artist)\n" +
-                "    partitionkeyvalue - value of the partition key that should match (i.e., Famous Band)\n\n" +
+                "    partitionkey - the partition key name of the table (i.e., Artist)\n" +
+                "    partitionkeyvalue - the value of the partition key that should match (i.e., Famous Band)\n\n" +
                 "Example:\n" +
                 "    Query Music3 Artist Famous Band \n";
 
@@ -77,12 +77,12 @@ public class Query {
                                  String partitionKeyVal,
                                  String partitionAlias) {
 
-        //set up an alias for the partition key name in case it's a reserved word
+        // Set up an alias for the partition key name in case it's a reserved word
         HashMap<String,String> attrNameAlias = new HashMap<String,String>();
 
         attrNameAlias.put(partitionAlias, partitionKeyName);
 
-        //set up mapping of the partition name with the value
+        // Set up mapping of the partition name with the value
         HashMap<String, AttributeValue> attrValues =
                 new HashMap<String,AttributeValue>();
         attrValues.put(":"+partitionKeyName, AttributeValue.builder().s(partitionKeyVal).build());

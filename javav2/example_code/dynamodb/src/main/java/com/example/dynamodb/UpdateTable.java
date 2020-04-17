@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateTable.java demonstrates how to update an Amazon DynamoDB table]
+//snippet-sourcedescription:[UpdateTable.java demonstrates how to update an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -28,7 +28,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 // snippet-end:[dynamodb.java2.update_table.import]
 
 /**
- * Updates an AWS DynamoDB table (change provisioned throughput).
+ * Updates an Amazon DynamoDB table (changes provisioned throughput)
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html

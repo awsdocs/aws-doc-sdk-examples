@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedTableSchema.java demonstrates how to use the Amazon DynamoDB enhanced client and a TableSchema to put an item into a table]
+//snippet-sourcedescription:[EnhancedTableSchema.java demonstrates how to use the Amazon DynamoDB enhanced client and a TableSchema to put an item into a table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -34,7 +34,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 
 /*
-    Prior to running this code example, create a table named Record with a PK named id
+    Before running this code example, create a table named Record with a PK named id
  */
 // snippet-start:[dynamodb.java2.mapping.tableschema.main]
 public class EnhancedTableSchema {
@@ -65,7 +65,7 @@ public class EnhancedTableSchema {
 
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -79,15 +79,15 @@ public class EnhancedTableSchema {
         putRecord(enhancedClient);
     }
 
-    
-    // Puts an item into a DynamoDB table
+
+    // Put an item into a DynamoDB table
     public static void putRecord(DynamoDbEnhancedClient enhancedClient){
 
         try {
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
-            //Populate the Table
+            // Populate the table
             Record record = new Record()
                     .setId("id-value")
                     .setSort("sort-value")
@@ -105,7 +105,7 @@ public class EnhancedTableSchema {
     }
     // snippet-end:[dynamodb.java2.mapping.tableschema.main]
 
-    // Define the Record class that is used to map to the DynamoDB table
+    // Define the Record class that's used to map to the DynamoDB table
     private static class Record {
         private String id;
         private String sort;

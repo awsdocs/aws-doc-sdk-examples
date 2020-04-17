@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedQueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client]
+//snippet-sourcedescription:[EnhancedQueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -39,14 +39,14 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 // snippet-end:[dynamodb.java2.mapping.queryfilter.import]
 
 /*
-    Prior to running this code example, create a table named Customer and populate it with data
+    Before running this code example, create a table named Customer and populate it with data
  */
 public class EnhancedQueryRecordsWithFilter {
 
     // Query the Customer table using a filter
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -64,10 +64,10 @@ public class EnhancedQueryRecordsWithFilter {
     public static void queryTableFilter(DynamoDbEnhancedClient enhancedClient) {
 
         try{
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<EnhancedQueryRecords.Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(EnhancedQueryRecords.Customer.class));
 
-            //Get the row where email is sblue@noserver.com
+            // Get the row where email is sblue@noserver.com
             AttributeValue att = AttributeValue.builder()
                     .s("sblue@noserver.com")
                     .build();
@@ -80,7 +80,7 @@ public class EnhancedQueryRecordsWithFilter {
                     .expressionValues(expressionValues)
                     .build();
 
-            // Create a QueryConditional object that is used in the query operation
+            // Create a QueryConditional object that's used in the query operation
             QueryConditional queryConditional = QueryConditional
                     .keyEqualTo(Key.builder().partitionValue("id103")
                             .build());
@@ -102,7 +102,7 @@ public class EnhancedQueryRecordsWithFilter {
         // snippet-end:[dynamodb.java2.mapping.queryfilter.main]
     }
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 
