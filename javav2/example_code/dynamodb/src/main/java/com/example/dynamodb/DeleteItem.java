@@ -1,5 +1,13 @@
+//snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from an Amazon DynamoDB table]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/5/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -9,16 +17,7 @@
    specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from an AWS DynamoDB table]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
-
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.delete_item.complete]
 
 // snippet-start:[dynamodb.java2.delete_item.import]
 import software.amazon.awssdk.regions.Region;
@@ -38,6 +37,7 @@ import java.util.HashMap;
  */
 public class DeleteItem {
     public static void main(String[] args) {
+
         final String USAGE = "\n" +
                 "Usage:\n" +
                 "    DeleteItem <table> <key> <keyval>\n\n" +
@@ -55,8 +55,6 @@ public class DeleteItem {
             System.exit(1);
         }
 
-        // snippet-start:[dynamodb.java2.delete_item.main]
-
         /* Read the name from command args */
         String tableName = args[0];
         String key = args[1];
@@ -66,7 +64,16 @@ public class DeleteItem {
 
         // Create the DynamoDbClient object
         Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
+        // Delete an item
+        deleteDymamoDBItem(ddb, tableName, key, keyVal);
+    }
+
+    // snippet-start:[dynamodb.java2.delete_item.main]
+  public static void deleteDymamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
 
         HashMap<String,AttributeValue> keyToGet =
                 new HashMap<String,AttributeValue>();
@@ -88,8 +95,6 @@ public class DeleteItem {
         }
 
         // snippet-end:[dynamodb.java2.delete_item.main]
-        System.out.println("Done!");
     }
 }
 
-// snippet-end:[dynamodb.java2.delete_item.complete]

@@ -1,13 +1,13 @@
 //snippet-sourcedescription:[ListTables.java demonstrates how to list all AWS DynamoDB tables]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[dynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -18,7 +18,7 @@
 */
 
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.list_tables.complete]
+
 // snippet-start:[dynamodb.java2.list_tables.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -40,11 +40,14 @@ public class ListTables {
 
         System.out.println("Your DynamoDB tables:\n");
 
-        // snippet-start:[dynamodb.java2.list_tables.main]
-
         // Create the DynamoDbClient object
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        listAllTables(ddb);
+    }
+
+    // snippet-start:[dynamodb.java2.list_tables.main]
+    public static void listAllTables(DynamoDbClient ddb){
 
         boolean moreTables = true;
         String lastName = null;
@@ -85,4 +88,3 @@ public class ListTables {
         System.out.println("\nDone!");
     }
 }
-// snippet-end:[dynamodb.java2.list_tables.complete]

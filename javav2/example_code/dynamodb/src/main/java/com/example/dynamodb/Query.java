@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[Query.java demonstrates how to query an AWS DynamoDB table]
+//snippet-sourcedescription:[Query.java demonstrates how to query an Amazon DynamoDB table]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon Dynamodb]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -18,7 +18,6 @@
 */
 
  package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.query.complete]
 // snippet-start:[dynamodb.java2.query.import]
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
@@ -62,10 +61,21 @@ public class Query {
         System.out.format("Querying %s", tableName);
         System.out.println("");
 
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
 
-        // snippet-start:[dynamodb.java2.query.main]
-        Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        int count = queryTable(ddb, tableName, partitionKeyName, partitionKeyVal,partitionAlias ) ;
+        System.out.println("There were "+count + "record(s) returned");
+    }
+
+    // snippet-start:[dynamodb.java2.query.main]
+    public static int queryTable(DynamoDbClient ddb,
+                                 String tableName,
+                                 String partitionKeyName,
+                                 String partitionKeyVal,
+                                 String partitionAlias) {
 
         //set up an alias for the partition key name in case it's a reserved word
         HashMap<String,String> attrNameAlias = new HashMap<String,String>();
@@ -87,13 +97,12 @@ public class Query {
 
         try {
             QueryResponse response = ddb.query(queryReq);
-            System.out.println(response.count());
+            return response.count();
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.query.main]
-        System.out.println("Done!");
+       return -1;
     }
+    // snippet-end:[dynamodb.java2.query.main]
 }
-// snippet-end:[dynamodb.java2.query.complete]
