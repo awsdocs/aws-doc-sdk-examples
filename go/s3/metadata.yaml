@@ -17,6 +17,12 @@ files:
   - path: CreateBucketAndObject/CreateBucketAndObject_test.go
     services:
       - s3
+  - path: CRUD/S3CrudOps.go
+    services:
+      - s3
+  - path: CRUD/S3CrudOps_test.go
+    services:
+      - s3
   - path: CustomClient/CustomHTTPClient.go
     services:
       - s3

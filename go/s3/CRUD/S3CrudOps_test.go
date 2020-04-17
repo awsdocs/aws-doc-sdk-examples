@@ -14,101 +14,101 @@
 package main
 
 import (
-	"encoding/json"
-	"errors"
-	"io/ioutil"
-	"testing"
-	"time"
+    "encoding/json"
+    "errors"
+    "io/ioutil"
+    "testing"
+    "time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/service/s3/s3iface"
-	"github.com/google/uuid"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3"
+    "github.com/aws/aws-sdk-go/service/s3/s3iface"
+    "github.com/google/uuid"
 )
 
 // Define a mock struct to be used in your unit tests of myFunc.
 type mockS3Client struct {
-	s3iface.S3API
+    s3iface.S3API
 }
 
 func (m *mockS3Client) CreateBucket(input *s3.CreateBucketInput) (*s3.CreateBucketOutput, error) {
-	if input.Bucket == nil || *input.Bucket == "" {
-		return nil, errors.New("The bucket name is nil or empty")
-	}
+    if input.Bucket == nil || *input.Bucket == "" {
+        return nil, errors.New("The bucket name is nil or empty")
+    }
 
-	resp := s3.CreateBucketOutput{}
+    resp := s3.CreateBucketOutput{}
 
-	return &resp, nil
+    return &resp, nil
 }
 
 func (m *mockS3Client) HeadBucket(input *s3.HeadBucketInput) (*s3.HeadBucketOutput, error) {
-	if input.Bucket == nil || *input.Bucket == "" {
-		return nil, errors.New("The bucket name is nil or empty")
-	}
+    if input.Bucket == nil || *input.Bucket == "" {
+        return nil, errors.New("The bucket name is nil or empty")
+    }
 
-	resp := s3.HeadBucketOutput{}
+    resp := s3.HeadBucketOutput{}
 
-	return &resp, nil
+    return &resp, nil
 }
 
 func (m *mockS3Client) GetBucketAcl(input *s3.GetBucketAclInput) (*s3.GetBucketAclOutput, error) {
-	if input.Bucket == nil || *input.Bucket == "" {
-		return nil, errors.New("The bucket name is nil or empty")
-	}
+    if input.Bucket == nil || *input.Bucket == "" {
+        return nil, errors.New("The bucket name is nil or empty")
+    }
 
-	g1 := &s3.Grant{
-		Grantee: &s3.Grantee{
-			DisplayName: aws.String("me"),
-			ID:          aws.String("123456789"),
-			Type:        aws.String("CanonicalUser"),
-		},
-		Permission: aws.String("FULL_CONTROL"),
-	}
+    g1 := &s3.Grant{
+        Grantee: &s3.Grantee{
+            DisplayName: aws.String("me"),
+            ID:          aws.String("123456789"),
+            Type:        aws.String("CanonicalUser"),
+        },
+        Permission: aws.String("FULL_CONTROL"),
+    }
 
-	g2 := &s3.Grant{
-		Grantee: &s3.Grantee{
-			Type: aws.String("Group"),
-			URI:  aws.String("http://acs.amazonaws.com/groups/global/AllUsers"),
-		},
-		Permission: aws.String("READ"),
-	}
+    g2 := &s3.Grant{
+        Grantee: &s3.Grantee{
+            Type: aws.String("Group"),
+            URI:  aws.String("http://acs.amazonaws.com/groups/global/AllUsers"),
+        },
+        Permission: aws.String("READ"),
+    }
 
-	grants := []*s3.Grant{g1, g2}
+    grants := []*s3.Grant{g1, g2}
 
-	resp := s3.GetBucketAclOutput{
-		Grants: grants,
-		Owner: &s3.Owner{
-			DisplayName: aws.String("me"),
-			ID:          aws.String("123456789"),
-		},
-	}
+    resp := s3.GetBucketAclOutput{
+        Grants: grants,
+        Owner: &s3.Owner{
+            DisplayName: aws.String("me"),
+            ID:          aws.String("123456789"),
+        },
+    }
 
-	return &resp, nil
+    return &resp, nil
 }
 
 func (m *mockS3Client) PutBucketAcl(input *s3.PutBucketAclInput) (*s3.PutBucketAclOutput, error) {
-	if input.Bucket == nil || *input.Bucket == "" {
-		return nil, errors.New("The bucket name is nil or empty")
-	}
+    if input.Bucket == nil || *input.Bucket == "" {
+        return nil, errors.New("The bucket name is nil or empty")
+    }
 
-	resp := s3.PutBucketAclOutput{}
+    resp := s3.PutBucketAclOutput{}
 
-	return &resp, nil
+    return &resp, nil
 }
 
 func (m *mockS3Client) DeleteBucket(input *s3.DeleteBucketInput) (*s3.DeleteBucketOutput, error) {
-	if input.Bucket == nil || *input.Bucket == "" {
-		return nil, errors.New("The bucket name is nil or empty")
-	}
+    if input.Bucket == nil || *input.Bucket == "" {
+        return nil, errors.New("The bucket name is nil or empty")
+    }
 
-	resp := s3.DeleteBucketOutput{}
+    resp := s3.DeleteBucketOutput{}
 
-	return &resp, nil
+    return &resp, nil
 }
 
 type Config struct {
-	Bucket string `json:"Bucket"`
+    Bucket string `json:"Bucket"`
 }
 
 var configFileName = "config.json"
@@ -116,88 +116,88 @@ var configFileName = "config.json"
 var globalConfig Config
 
 func populateConfiguration(t *testing.T) error {
-	content, err := ioutil.ReadFile(configFileName)
-	if err != nil {
-		return err
-	}
+    content, err := ioutil.ReadFile(configFileName)
+    if err != nil {
+        return err
+    }
 
-	text := string(content)
+    text := string(content)
 
-	err = json.Unmarshal([]byte(text), &globalConfig)
-	if err != nil {
-		return err
-	}
+    err = json.Unmarshal([]byte(text), &globalConfig)
+    if err != nil {
+        return err
+    }
 
-	t.Log("Bucket: " + globalConfig.Bucket)
+    t.Log("Bucket: " + globalConfig.Bucket)
 
-	return nil
+    return nil
 }
 
 func TestS3CrudOps(t *testing.T) {
-	thisTime := time.Now()
-	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
-	t.Log("Starting unit test at " + nowString)
+    thisTime := time.Now()
+    nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
+    t.Log("Starting unit test at " + nowString)
 
-	err := populateConfiguration(t)
-	if err != nil {
-		t.Fatal(err)
-	}
+    err := populateConfiguration(t)
+    if err != nil {
+        t.Fatal(err)
+    }
 
-	if globalConfig.Bucket == "" {
-		// mock resources
-		id := uuid.New()
-		globalConfig.Bucket = "test-bucket-" + id.String()
+    if globalConfig.Bucket == "" {
+        // mock resources
+        id := uuid.New()
+        globalConfig.Bucket = "test-bucket-" + id.String()
 
-		mockSvc := &mockS3Client{}
+        mockSvc := &mockS3Client{}
 
-		err = MakeBucket(mockSvc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = MakeBucket(mockSvc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		err = GetBucket(mockSvc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = GetBucket(mockSvc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		err = UpdateBucket(mockSvc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = UpdateBucket(mockSvc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		err = RemoveBucket(mockSvc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = RemoveBucket(mockSvc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		t.Log("Successfully ran CRUD operations on bucket " + globalConfig.Bucket)
-	} else {
-		sess := session.Must(session.NewSessionWithOptions(session.Options{
-			SharedConfigState: session.SharedConfigEnable,
-		}))
+        t.Log("Successfully ran CRUD operations on bucket " + globalConfig.Bucket)
+    } else {
+        sess := session.Must(session.NewSessionWithOptions(session.Options{
+            SharedConfigState: session.SharedConfigEnable,
+        }))
 
-		svc := s3.New(sess)
+        svc := s3.New(sess)
 
-		err = MakeBucket(svc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = MakeBucket(svc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		err = GetBucket(svc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = GetBucket(svc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		err = UpdateBucket(svc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = UpdateBucket(svc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		err = RemoveBucket(svc, &globalConfig.Bucket)
-		if err != nil {
-			t.Fatal(err)
-		}
+        err = RemoveBucket(svc, &globalConfig.Bucket)
+        if err != nil {
+            t.Fatal(err)
+        }
 
-		t.Log("Successfully ran CRUD operations on bucket " + globalConfig.Bucket)
-	}
+        t.Log("Successfully ran CRUD operations on bucket " + globalConfig.Bucket)
+    }
 }
