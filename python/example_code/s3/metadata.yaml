@@ -1,0 +1,28 @@
+---
+# Basic Amazon S3 bucket and object examples
+files:
+  - path: bucket_wrapper.py
+    services:
+      - s3
+  - path: demo_bucket_basics.py
+    services:
+      - s3
+  - path: object_wrapper.py
+    services:
+      - s3
+  - path: test/conftest.py
+  - path: test/s3_stub_funcs.py
+  - path: test/test_bucket_wrapper.py
+  - path: test/test_demo_bucket_basics.py
+  - path: test/test_object_wrapper.py
+...
+---
+# Amazon S3 file transfer demo
+files:
+  - path: file_transfer/demo_file_transfer.py
+  - path: file_transfer/file_transfer.py
+    services:
+      - s3
+  - path: file_transfer/test/conftest.py
+  - path: file_transfer/test/test_file_transfer.py
+...

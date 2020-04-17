@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create S3 buckets, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create Amazon S3 buckets, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public class S3ObjectOperations {
         String bucket = "bucket" + System.currentTimeMillis();
         String key = "key";
 
-        createBucket(bucket, region);
+        createBucket(s3,bucket, region);
 
         // Put Object
         s3.putObject(PutObjectRequest.builder().bucket(bucket).key(key)
@@ -144,26 +144,26 @@ public class S3ObjectOperations {
         deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
         s3.deleteObject(deleteObjectRequest);
 
-        deleteBucket(bucket);
+        deleteBucket(s3,bucket);
     }
 
 
-    private static void createBucket(String bucket, Region region) {
-        s3.createBucket(CreateBucketRequest
+    public static void createBucket( S3Client s3Client, String bucketName, Region region) {
+        s3Client.createBucket(CreateBucketRequest
                 .builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .createBucketConfiguration(
                         CreateBucketConfiguration.builder()
                                 .locationConstraint(region.id())
                                 .build())
                 .build());
 
-        System.out.println(bucket);
+        System.out.println(bucketName);
     }
 
-    private static void deleteBucket(String bucket) {
+    public static void deleteBucket(S3Client client, String bucket) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
-        s3.deleteBucket(deleteBucketRequest);
+        client.deleteBucket(deleteBucketRequest);
     }
 
     /**
@@ -171,9 +171,9 @@ public class S3ObjectOperations {
      */
     private static void multipartUpload(String bucketName, String key) throws IOException {
 
-        int mb = 1024 * 1024;
+        int MB = 1024 * 1024;
         // snippet-start:[s3.java2.s3_object_operations.upload_multi_part]
-        // First create a multipart upload and get upload id 
+        // First create a multipart upload and get upload id
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
                 .bucket(bucketName).key(key)
                 .build();
@@ -185,13 +185,13 @@ public class S3ObjectOperations {
         UploadPartRequest uploadPartRequest1 = UploadPartRequest.builder().bucket(bucketName).key(key)
                 .uploadId(uploadId)
                 .partNumber(1).build();
-        String etag1 = s3.uploadPart(uploadPartRequest1, RequestBody.fromByteBuffer(getRandomByteBuffer(5 * mb))).eTag();
+        String etag1 = s3.uploadPart(uploadPartRequest1, RequestBody.fromByteBuffer(getRandomByteBuffer(5 * MB))).eTag();
         CompletedPart part1 = CompletedPart.builder().partNumber(1).eTag(etag1).build();
 
         UploadPartRequest uploadPartRequest2 = UploadPartRequest.builder().bucket(bucketName).key(key)
                 .uploadId(uploadId)
                 .partNumber(2).build();
-        String etag2 = s3.uploadPart(uploadPartRequest2, RequestBody.fromByteBuffer(getRandomByteBuffer(3 * mb))).eTag();
+        String etag2 = s3.uploadPart(uploadPartRequest2, RequestBody.fromByteBuffer(getRandomByteBuffer(3 * MB))).eTag();
         CompletedPart part2 = CompletedPart.builder().partNumber(2).eTag(etag2).build();
 
 

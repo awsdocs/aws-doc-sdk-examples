@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[PublishTopic.java demonstrates how to send a message to an SNS Topic.]
+//snippet-sourcedescription:[PublishTopic.java demonstrates how to send a message to an Amazon SNS topic.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.PublishTopic.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.PublishTopic.import]
@@ -36,18 +36,17 @@ public class PublishTopic {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "PublishTopic - publish an sns topic\n" +
+                "PublishTopic - publish an Amazon SNS topic\n" +
                 "Usage: PublishTopic <message> <topicArn>\n\n" +
                 "Where:\n" +
                 "  message - message text to send.\n\n" +
-                "  topicArn - the arn of the topic to look up.\n\n";
+                "  topicArn - the ARN of the topic to look up.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.PublishTopic.main]
         String message = args[0];
         String topicArn = args[1];
 
@@ -55,8 +54,13 @@ public class PublishTopic {
                 .region(Region.US_WEST_2)
                 .build();
 
-        try {
+        pubTopic(snsClient, message, topicArn);
+    }
 
+    //snippet-start:[sns.java2.PublishTopic.main]
+    public static void pubTopic(SnsClient snsClient, String message, String topicArn) {
+
+        try {
             PublishRequest request = PublishRequest.builder()
                 .message(message)
                 .topicArn(topicArn)
@@ -72,4 +76,3 @@ public class PublishTopic {
         //snippet-end:[sns.java2.PublishTopic.main]
     }
 }
-//snippet-end:[sns.java2.PublishTopic.complete]

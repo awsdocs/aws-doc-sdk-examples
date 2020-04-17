@@ -66,9 +66,10 @@ $s3->deleteObjects([
     'Bucket'  => $bucket,
     'Delete' => [
         'Objects' => array_map(function ($version) {
-          return [
+            return [
               'Key'       => $version['Key'],
               'VersionId' => $version['VersionId']
+            ];
         }, $versions),
     ],       
 ]);

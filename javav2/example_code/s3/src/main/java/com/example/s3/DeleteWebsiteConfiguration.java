@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to delete the website configuration for an S3 bucket.]
+//snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to delete the website configuration for an Amazon S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
+//snippet-sourcedate:[2/6/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -18,7 +18,6 @@
 */
 
 package com.example.s3;
-// snippet-start:[s3.java2.delete_website_configuration.complete]
 
 // snippet-start:[s3.java2.delete_website_configuration.import]
 import software.amazon.awssdk.regions.Region;
@@ -33,7 +32,7 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/deleteup-credentials.html
  */
-// snippet-start:[s3.java2.delete_website_configuration.main]
+
 public class DeleteWebsiteConfiguration {
 
     public static void main(String[] args) {
@@ -56,6 +55,10 @@ public class DeleteWebsiteConfiguration {
         // Create a S3Client object
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
+    }
+
+    // snippet-start:[s3.java2.delete_website_configuration.main]
+    public static void deleteBucketWebsiteConfig(S3Client s3,String bucketName ) {
 
         //Create a DeleteBucketWebsiteRequest object
         DeleteBucketWebsiteRequest delReq = DeleteBucketWebsiteRequest.builder()
@@ -73,4 +76,3 @@ public class DeleteWebsiteConfiguration {
     }
 }
 // snippet-end:[s3.java2.delete_website_configuration.main]
-// snippet-end:[s3.java2.delete_website_configuration.complete]
