@@ -37,13 +37,13 @@ import java.time.ZoneOffset;
 // snippet-end:[dynamodb.java2.mapping.batchitems.import]
 
 /*
-   Prior to running this code example, create a table named Customer with a PK named id
+   Before running this code example, create a table named Customer with a PK named id
 */
 public class EnhancedBatchWriteItems {
 
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -61,15 +61,15 @@ public class EnhancedBatchWriteItems {
     public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
         try {
 
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            //Create am Instat
+            // Create an Instant object
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            //Populate the Table
+            // Populate the table
             Customer record2 = new Customer();
             record2.setCustName("Fred Pink");
             record2.setId("id110");
@@ -103,7 +103,7 @@ public class EnhancedBatchWriteItems {
         }
     }
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 

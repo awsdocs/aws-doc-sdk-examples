@@ -34,14 +34,14 @@ import java.time.Instant;
 // snippet-end:[dynamodb.java2.mapping.getitem.import]
 
 /*
-    Prior to running this code example, create a table named Customer and populate it with data
+    Before running this code example, create a table named Customer and populate it with data
  */
 
 public class EnhancedGetItem {
 
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -59,10 +59,10 @@ public class EnhancedGetItem {
     // snippet-start:[dynamodb.java2.mapping.getitem.main]
     public static String getItem(DynamoDbEnhancedClient enhancedClient) {
         try {
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            //Create a KEY object
+            // Create a KEY object
             Key key = Key.builder()
                     .partitionValue("id110")
                     .build();
@@ -79,7 +79,7 @@ public class EnhancedGetItem {
         return "";
     }
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 

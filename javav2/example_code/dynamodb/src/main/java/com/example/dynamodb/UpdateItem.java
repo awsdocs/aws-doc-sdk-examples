@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateItem.java demonstrates how to update a value located in an Amazon DynamoDB table]
+//snippet-sourcedescription:[UpdateItem.java demonstrates how to update a value located in an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -33,7 +33,7 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.update_item.import]
 
 /**
- * Updates an AWS DynamoDB table with an item.
+ * Updates an Amazon DynamoDB table with an item
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
