@@ -27,7 +27,7 @@ import (
     "github.com/google/uuid"
 )
 
-// Define a mock struct to be used in your unit tests of myFunc.
+// Define a mock struct to use in unit tests
 type mockS3Client struct {
     s3iface.S3API
 }
