@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create an Amazon DynamoDB table with a composite key]
+//snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create an Amazon DynamoDB table with a composite key.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 // snippet-end:[dynamodb.java2.create_table_composite_key.import]
 
 /**
- * Create a DynamoDB table.
+ * Create an Amazon DynamoDB table
  *
  * Takes the name of the table to create. The table will contain a single
  * primary key, "Name".
