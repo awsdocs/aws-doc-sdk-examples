@@ -16,7 +16,8 @@ use Aws\Exception\AwsException;
  * Purpose: Creates a distribution in Amazon CloudFront.
  *
  * Inputs:
- * - $cloudFrontClient: An initialized PHP SDK API client for CloudFront.
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
  * - $distribution: A collection of settings for the distribution to 
  *   be created.
  *
@@ -114,8 +115,7 @@ function createsTheS3Distribution()
 // createsTheS3Distribution();
 // snippet-end:[cloudfront.php.creates3distribution.main]
 // snippet-end:[cloudfront.php.creates3distribution.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateDistributionS3.php demonstrates how to create an Amazon CloudFront Distribution for an S3 Bucket.]
+// snippet-sourcedescription:[CreateDistributionS3.php demonstrates how to create an Amazon CloudFront distribution for an Amazon S3 Bucket.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

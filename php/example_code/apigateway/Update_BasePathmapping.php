@@ -18,14 +18,15 @@ use Aws\Exception\AwsException;
  * in Amazon API Gateway.
  * 
  * Inputs:
- * - $apiGatewayClient: An initialized PHP SDK API client for API Gateway.
+ * - $apiGatewayClient: An initialized AWS SDK for PHP API client for 
+ *   API Gateway.
  * - $basePath: The base path name that callers must provide as part of the 
  *   URL after the domain name.
  * - $domainName: The custom domain name for the base path mapping.
- * - $patchOperations: The base path update operations to be applied.
+ * - $patchOperations: The base path update operations to apply.
  * 
- * Returns: Information about the updated base path mapping if available; 
- * otherwise the error message.
+ * Returns: Information about the updated base path mapping, if available; 
+ * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[apigateway.php.update_base_path_mapping.main]
@@ -70,8 +71,7 @@ function updateTheBasePathMapping()
 // updateTheBasePathMapping();
 // snippet-end:[apigateway.php.update_base_path_mapping.main]
 // snippet-end:[apigateway.php.update_base_path_mapping.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[Update_BasePathmapping.php demonstrates how to change the Base Path Mapping in API Gateway.]
+// snippet-sourcedescription:[Update_BasePathmapping.php demonstrates how to change a base path mapping in Amazon API Gateway.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

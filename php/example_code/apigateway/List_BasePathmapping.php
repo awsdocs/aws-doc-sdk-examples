@@ -20,11 +20,12 @@ use Aws\Exception\AwsException;
  * see "Custom Domain Names" in the Amazon API Gateway Developer Guide.
  *
  * Inputs:
- * - $apiGatewayClient: An initialized PHP SDK API client for API Gateway.
+ * - $apiGatewayClient: An initialized AWS SDK for PHP API client for 
+ *   API Gateway.
  * - $domainName: The custom domain name for the base path mappings.
  *
- * Returns: Information about the base path mappings if available; 
- * otherwise the error message.
+ * Returns: Information about the base path mappings, if available; 
+ * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 //snippet-start:[apigateway.php.list_base_path_mapping.main]
@@ -56,8 +57,7 @@ function listTheBasePathMappings()
 // listTheBasePathMappings();
 // snippet-end:[apigateway.php.list_base_path_mapping.main]
 // snippet-end:[apigateway.php.list_base_path_mapping.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[List_BasePathmapping.php demonstrates how to list Base Path Mappings in a given domain in API Gateway.]
+// snippet-sourcedescription:[List_BasePathmapping.php demonstrates how to list base path mappings for a given domain in Amazon API Gateway.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

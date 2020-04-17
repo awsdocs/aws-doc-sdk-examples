@@ -16,10 +16,10 @@ use Aws\Exception\AwsException;
  * Purpose: Creates a bucket in Amazon S3.
  * 
  * Inputs:
- * - $s3Client: An initialized PHP SDK API client for S3.
+ * - $s3Client: An initialized AWS SDK for PHP API client for S3.
  * - $bucketName: The name of the bucket to create.
  * 
- * Returns: Information about the bucket; otherwise the error message.
+ * Returns: Information about the bucket; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.php.create_bucket.main]
@@ -54,7 +54,7 @@ function createTheBucket()
 // snippet-end:[s3.php.create_bucket.main] 
 // snippet-end:[s3.php.create_bucket.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateBucket.php demonstrates how to create an new Amazon S3 bucket given a name to use for the bucket.]
+// snippet-sourcedescription:[CreateBucket.php demonstrates how to create an Amazon S3 bucket given a name to use for the bucket.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

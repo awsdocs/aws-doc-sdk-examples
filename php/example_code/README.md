@@ -6,7 +6,7 @@ These code examples demonstrate how to use the AWS SDK for PHP to automate vario
 
 ## Prerequisites
 
-To run or test these code examples, you'll need:
+To run or test these code examples, you need the following:
 
 - [PHP](https://www.php.net/)
 - [PHPUnit](https://phpunit.de/), for unit testing
@@ -23,7 +23,7 @@ Running these code examples might result in charges to the AWS account that is a
 
 ## Running the tests
 
-Some of these code examples have accompanying unit tests, which are designed to be run with PHPUnit. These unit test code files are in a subdirectory named `tests`, next to the code examples themselves. For more information, see the comments inside of the unit test code files themselves. 
+Some of these code examples have accompanying unit tests, which are designed to be run with PHPUnit. These unit test code files are in a subdirectory named `tests`, next to the code examples themselves. For more information, see the comments inside of the unit test code files.
 
 ## Additional information
 
