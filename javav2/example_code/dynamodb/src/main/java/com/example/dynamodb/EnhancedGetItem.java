@@ -1,5 +1,5 @@
 //snippet-sourcedescription:[EnhancedGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java 2.x]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
