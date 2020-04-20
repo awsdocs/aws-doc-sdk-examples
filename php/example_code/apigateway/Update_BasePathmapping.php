@@ -1,63 +1,77 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-template.html
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[apigateway.php.update_base_path_mapping.complete]
 // snippet-start:[apigateway.php.update_base_path_mapping.import]
-
 require 'vendor/autoload.php';
 
-use Aws\ApiGateway\ApiGatewayClient;   
+use Aws\ApiGateway\ApiGatewayClient;
 use Aws\Exception\AwsException;
 // snippet-end:[apigateway.php.update_base_path_mapping.import]
 
-// Create a ApiGatewayClient 
+/* ////////////////////////////////////////////////////////////////////////////
+ *
+ * Purpose: Updates the base path mapping for a custom domain name
+ * in Amazon API Gateway.
+ * 
+ * Inputs:
+ * - $apiGatewayClient: An initialized AWS SDK for PHP API client for 
+ *   API Gateway.
+ * - $basePath: The base path name that callers must provide as part of the 
+ *   URL after the domain name.
+ * - $domainName: The custom domain name for the base path mapping.
+ * - $patchOperations: The base path update operations to apply.
+ * 
+ * Returns: Information about the updated base path mapping, if available; 
+ * otherwise, the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
+
 // snippet-start:[apigateway.php.update_base_path_mapping.main]
-$client = new new Aws\ApiGateway\ApiGatewayClient([
-    'profile' => 'default',
-    'version' => '2015-07-09',
-    'region' => 'us-east-2'
-]);
-
-$basePath = '(none)';
-$domainName = 'example.com';
-
-try {
-    $result = $client->updateBasePathMapping([
-        'basePath' => $basePath,
-        'domainName' => $domainName,
-        'patchOperations' => 
-        [
-            'op' => 'move',
-            'path' => '/admin',
-            'value' => 'a1b2c3-admin',
-        ],
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+function updateBasePathMapping($apiGatewayClient, $basePath, $domainName, 
+    $patchOperations)
+{
+    try {
+        $result = $apiGatewayClient->updateBasePathMapping([
+            'basePath' => $basePath,
+            'domainName' => $domainName,
+            'patchOperations' => $patchOperations
+        ]);
+        return 'The updated base path\'s URI is: ' .
+            $result['@metadata']['effectiveUri'];
+    } catch (AwsException $e) {
+        return 'Error: ' . $e['message'];
+    }
 }
- 
+
+function updateTheBasePathMapping()
+{
+    $patchOperations = array([
+        'op' => 'replace',
+        'path' => '/stage',
+        'value' => 'stage2'
+    ]);
+
+    $apiGatewayClient = new ApiGatewayClient([
+        'profile' => 'default',
+        'region' => 'us-east-1',
+        'version' => '2015-07-09'
+    ]);
+
+    echo updateBasePathMapping(
+        $apiGatewayClient,
+        '(none)', 
+        'example.com',
+        $patchOperations);
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// updateTheBasePathMapping();
 // snippet-end:[apigateway.php.update_base_path_mapping.main]
 // snippet-end:[apigateway.php.update_base_path_mapping.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[Update_BasePathmapping.php demonstrates how to change the Base Path Mapping in API Gateway.]
+// snippet-sourcedescription:[Update_BasePathmapping.php demonstrates how to change a base path mapping in Amazon API Gateway.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
@@ -65,6 +79,6 @@ try {
 // snippet-keyword:[Amazon API Gateway]
 // snippet-service:[apigateway]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-03]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-04-02]
+// snippet-sourceauthor:[pccornel (AWS)]
 

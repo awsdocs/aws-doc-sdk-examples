@@ -1,0 +1,20 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="AWS_ACCOUNT_PROFILE_NAME" value="default"/>
+    <const name="AWS_REGION_ID" value="us-east-1"/>
+    <const name="API_GATEWAY_API_VERSION" value="2015-07-09"/>
+    <const name="API_GATEWAY_BASE_PATH" value="(none)"/>
+    <const name="API_GATEWAY_DOMAIN_NAME" value="example.com"/>
+  </php>
+  <testsuites>
+    <testsuite name="apigateway-getbasepathmapping">
+      <file>tests/Get_BasePathmappingTest.php</file>
+    </testsuite>
+    <testsuite name="apigateway-listbasepathmapping">
+      <file>tests/List_BasePathmappingTest.php</file>
+    </testsuite>
+    <testsuite name="apigateway-updatebasepathmapping">
+      <file>tests/Update_BasePathmappingTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
