@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing UserPool.]
+//snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing user pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -38,7 +38,7 @@ public class DeleteUserPool {
                 "Usage:\n" +
                 "    DeleteUserPool <userPoolId> \n\n" +
                 "Where:\n" +
-                "    userPoolId - The id given your user pool when created.\n\n" +
+                "    userPoolId - the ID given to your user pool when created\n\n" +
                 "Example:\n" +
                 "    DeleteUserPool us-east-2_P0oL1D\n";
 

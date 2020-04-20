@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListUserPools.java demonstrates how to to list existing users in the specified User Pool.]
+//snippet-sourcedescription:[ListUserPools.java demonstrates how to to list existing users in the specified user pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to list existing users in the specified User Pool.]
+//snippet-sourcedescription:[ListUsers.java demonstrates how to list existing users in the specified user pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -39,7 +39,7 @@ public class ListUsers {
                 "Usage:\n" +
                 "    ListUsers <user_pool_id> \n\n" +
                 "Where:\n" +
-                "    user_pool_id - The id given your user pool when created.\n\n" +
+                "    user_pool_id - the ID given your user pool when created\n\n" +
                 "Example:\n" +
                 "    ListUsers us-east-2_P0oL1D\n";
 

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetId.java demonstrates how to retrieve the ClientID from an identity provider.]
+//snippet-sourcedescription:[GetId.java demonstrates how to retrieve the client ID from an identity provider.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 // snippet-keyword:[Code Sample]
@@ -41,9 +41,9 @@ public class GetId {
                 "Usage:\n" +
                 "    GetId <app_id> <identity_pool_id><cognitoUserPool >\n\n" +
                 "Where:\n" +
-                "    appId - the application id from login provider.\n\n" +
-                "    identityPoolId  - the Region and GUID of your id of your identity pool.\n\n" +
-                "    cognitoUserPool  - the user pool.\n\n" +
+                "    appId - the application ID from the login provider\n\n" +
+                "    identityPoolId  - the AWS Region and GUID of the ID of your identity pool\n\n" +
+                "    cognitoUserPool  - the user pool\n\n" +
                 "Example:\n" +
                 "    GetId amzn1.application-oa2-client.1234567890112-abcdefg us-east-2:1234567890112-abcdefg\n";
 

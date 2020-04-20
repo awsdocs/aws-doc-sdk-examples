@@ -39,7 +39,7 @@ public class CreateUserPool {
                 "Usage:\n" +
                 "    CreateUserPool <userPoolName> \n\n" +
                 "Where:\n" +
-                "    userPoolName - The name to give your user pool when created.\n\n" +
+                "    userPoolName - the name to give your user pool when created\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 

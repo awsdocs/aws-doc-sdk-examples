@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an Identity in an Identity Pool.]
+//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an identity in an identity pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 // snippet-keyword:[Code Sample]
@@ -39,7 +39,7 @@ public class GetIdentityCredentials {
                 "Usage:\n" +
                 "    GetIdentityCredentials <identity_pool_id > \n\n" +
                 "Where:\n" +
-                "    identityPoolId - The id of an existing identity pool.\n\n" +
+                "    identityPoolId - the ID of an existing identity pool\n\n" +
                 "Example:\n" +
                 "    GetIdentityCredentials us-east-2:1234567890112-abcdefgc\n";
 

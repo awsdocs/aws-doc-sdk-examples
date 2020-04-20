@@ -39,8 +39,8 @@ public class CreateUserPoolClient {
                 "Usage:\n" +
                 "    CreateUserPoolClient <clientName> <userPoolId> \n\n" +
                 "Where:\n" +
-                "    clientName - The client name for the user pool client you would like to create.\n\n" +
-                "    userPoolId - The user pool ID for the user pool where you want to create a user pool client.\n\n" +
+                "    clientName - the client name for the user pool client to create\n\n" +
+                "    userPoolId - the user pool ID for the user pool in which to create a user pool client\n\n" +
                 "Example:\n" +
                 "    CreateUserPoolClient client1 client1IdNum\n";
 

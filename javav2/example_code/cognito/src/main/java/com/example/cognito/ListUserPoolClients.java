@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListUserPoolClients.java demonstrates how list existing User Pool Clients available in the specified region in your current AWS account.]
+//snippet-sourcedescription:[ListUserPoolClients.java demonstrates how to list existing user pool clients available in the specified AWS Region in your current AWS account.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -40,7 +40,7 @@ public class ListUserPoolClients {
                 "Usage:\n" +
                 "    ListUserPoolClients <user_pool_id> \n\n" +
                 "Where:\n" +
-                "    userPoolId - The id given your user pool when created.\n\n" +
+                "    userPoolId - the ID given your user pool when created\n\n" +
                 "Example:\n" +
                 "    ListUserPoolClients us-east-2_P0oL1D\n";
 
