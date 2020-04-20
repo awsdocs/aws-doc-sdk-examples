@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-22]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[4/16/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,14 +21,16 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[cognito.java2.ListUserPools.complete]
 
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.ListUserPools.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoolsResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoolsRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.UserPoolDescriptionType;
 //snippet-end:[cognito.java2.ListUserPools.import]
 
 public class ListUserPools {
@@ -40,21 +42,30 @@ public class ListUserPools {
                 "Example:\n" +
                 "    ListUserPools \n";
 
+        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
 
+        listAllUserPools(cognitoclient ) ;
+    }
 
-        //snippet-start:[cognito.java2.ListUserPools.main]
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder().region(Region.US_EAST_1).build();
+    //snippet-start:[cognito.java2.ListUserPools.main]
+    public static void listAllUserPools(CognitoIdentityProviderClient cognitoclient ) {
 
-        ListUserPoolsResponse response = cognitoclient
+       try {
+            ListUserPoolsResponse response = cognitoclient
                 .listUserPools(
                         ListUserPoolsRequest.builder()
+                                .maxResults(10)
                                 .build()
                 );
 
-        for (UserPoolDescriptionType userpool : response.userPools()) {
-            System.out.println("UserPool " + userpool.name() + ", User ID " +  userpool.id() + ", Status " + userpool.status());
+           for (UserPoolDescriptionType userpool : response.userPools()) {
+               System.out.println("UserPool " + userpool.name() + ", User ID " + userpool.id() + ", Status " + userpool.status());
+           }
+        } catch (CognitoIdentityProviderException e){
+            e.getStackTrace();
         }
         //snippet-end:[cognito.java2.ListUserPools.main]
     }
 }
-//snippet-end:[cognito.java2.ListUserPools.complete]
