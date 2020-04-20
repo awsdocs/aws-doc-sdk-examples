@@ -5,10 +5,10 @@
 // snippet-keyword:[Amazon Cognito]
 // snippet-service:[cognito]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-06-22]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[4/16/2020]
+// snippet-sourceauthor:[scmacdon-AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[cognito.java2.GetIdentityCredentials.complete]
 
 package com.example.cognito;
 
@@ -30,6 +29,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 //snippet-end:[cognito.java2.GetIdentityCredentials.import]
 
 public class GetIdentityCredentials {
@@ -39,7 +39,7 @@ public class GetIdentityCredentials {
                 "Usage:\n" +
                 "    GetIdentityCredentials <identity_pool_id > \n\n" +
                 "Where:\n" +
-                "    identity_pool_id - The id of an existing identity pool.\n\n" +
+                "    identityPoolId - The id of an existing identity pool.\n\n" +
                 "Example:\n" +
                 "    GetIdentityCredentials us-east-2:1234567890112-abcdefgc\n";
 
@@ -48,17 +48,28 @@ public class GetIdentityCredentials {
             System.exit(1);
         }
 
-        String identity_pool_id = args[0];
-        //snippet-start:[cognito.java2.GetIdentityCredentials.main]
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder().region(Region.US_EAST_1).build();
+        String identityPoolId = args[0];
 
-        GetCredentialsForIdentityResponse response = cognitoclient.getCredentialsForIdentity(GetCredentialsForIdentityRequest.builder()
-                .identityId(identity_pool_id)
+        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+
+        getCredsForIdentity(cognitoclient,identityPoolId);
+    }
+
+    //snippet-start:[cognito.java2.GetIdentityCredentials.main]
+    public static void getCredsForIdentity( CognitoIdentityClient cognitoclient,String identityPoolId) {
+
+     try{
+          GetCredentialsForIdentityResponse response = cognitoclient.getCredentialsForIdentity(GetCredentialsForIdentityRequest.builder()
+                .identityId(identityPoolId)
                 .build());
 
-        System.out.println("Identity ID " + response.identityId() + ", Access Key Id " + response.credentials().accessKeyId() );
+          System.out.println("Identity ID " + response.identityId() + ", Access Key Id " + response.credentials().accessKeyId() );
 
+       } catch (CognitoIdentityProviderException e){
+        e.getStackTrace();
+       }
         //snippet-end:[cognito.java2.GetIdentityCredentials.main]
     }
 }
-//snippet-end:[cognito.java2.GetIdentityCredentials.complete]
