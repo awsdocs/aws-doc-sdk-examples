@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from an Amazon DynamoDB table]
+//snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -29,7 +29,7 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.delete_item.import]
 
 /**
- * Delete an item from an AWS DynamoDB table.
+ * Deletes an item from an Amazon DynamoDB table
  * **Warning** The specified item will actually be deleted!
 *
  * This code expects that you have AWS credentials set up, as described here:
@@ -44,7 +44,7 @@ public class DeleteItem {
                 "Where:\n" +
                 "    table - the table to delete the item from (i.e., Music3)\n" +
                 "    key -  the key used in the table (i.e., Artist) \n" +
-                "    keyval;  - the key value that represents the item to delete (i.e., Famous Band)\n" +
+                "    keyval  - the key value that represents the item to delete (i.e., Famous Band)\n" +
                 "Example:\n" +
                 "    Music3 Artist Famous Band\n\n" +
                 "**Warning** This program will actually delete the item\n" +
@@ -97,4 +97,3 @@ public class DeleteItem {
         // snippet-end:[dynamodb.java2.delete_item.main]
     }
 }
-

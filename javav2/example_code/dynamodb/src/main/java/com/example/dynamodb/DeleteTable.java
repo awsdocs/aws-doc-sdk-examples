@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteTable.java demonstrates how to delete an Amazon DynamoDB table]
+//snippet-sourcedescription:[DeleteTable.java demonstrates how to delete an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -27,7 +27,7 @@ import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
 // snippet-end:[dynamodb.java2.delete_table.import]
 
 /**
- * Deletes an AWS DynamoDB table.
+ * Deletes an Amazon DynamoDB table
  *
  * **Warning** The named table will actually be deleted!
  *

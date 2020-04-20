@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client]
+//snippet-sourcedescription:[EnhancedScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 // snippet-end:[dynamodb.java2.mapping.scan.import]
 
 /*
-    Prior to running this code example, create a table named Customer and populate it with data
+    Before running this code example, create a table named Customer and populate it with data
  */
 
 public class EnhancedScanRecords {
@@ -41,7 +41,7 @@ public class EnhancedScanRecords {
     // Query the Record table
     public static void main(String[] args) {
 
-        //Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -58,10 +58,10 @@ public class EnhancedScanRecords {
     public static void scan( DynamoDbEnhancedClient enhancedClient) {
 
         try{
-            //Create a DynamoDbTable object
+            // Create a DynamoDbTable object
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            // Get items in the Record table and write out the ID value
+            // Get items in the Record table and write out the ID values
             Iterator<Customer> results = custTable.scan().items().iterator();
 
             while (results.hasNext()) {
@@ -78,7 +78,7 @@ public class EnhancedScanRecords {
     }
     // snippet-end:[dynamodb.java2.mapping.scan.main]
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 

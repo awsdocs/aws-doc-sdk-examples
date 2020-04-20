@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListTables.java demonstrates how to list all AWS DynamoDB tables]
+//snippet-sourcedescription:[ListTables.java demonstrates how to list all Amazon DynamoDB tables.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamoDB]
@@ -29,7 +29,7 @@ import java.util.List;
 // snippet-end:[dynamodb.java2.list_tables.import]
 
 /**
- * Lists AWS DynamoDB tables for the current AWS account.
+ * Lists Amazon DynamoDB tables for the current AWS account
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html

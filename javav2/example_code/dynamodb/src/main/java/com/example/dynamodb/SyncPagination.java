@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SyncPagination.java demonstrates how to work with paginated functionality]
+//snippet-sourcedescription:[SyncPagination.java demonstrates how to work with pagination functionality.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -41,7 +41,7 @@ public class SyncPagination {
                 "Usage:\n" +
                 "    AsynPagination <type>\n\n" +
                 "Where:\n" +
-                "    type - the type of pagination. (auto, manual or default) \n\n" +
+                "    type - the type of pagination (auto, manual or default) \n\n" +
                 "Example:\n" +
                 "    AsynPagination auto\n";
 
@@ -140,4 +140,4 @@ public class SyncPagination {
         }
     }
 }
-// snippet-end:[dynamodb.java2.sync_pagination.main] 
+// snippet-end:[dynamodb.java2.sync_pagination.main]

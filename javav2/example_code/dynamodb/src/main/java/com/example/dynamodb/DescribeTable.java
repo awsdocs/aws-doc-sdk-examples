@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeTable.java demonstrates how to retrieve information about an Amazon DynamoDB table]
+//snippet-sourcedescription:[DescribeTable.java demonstrates how to retrieve information about an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -30,9 +30,9 @@ import java.util.List;
 // snippet-end:[dynamodb.java2.describe_table.import]
 
 /**
- * Get information about (describe) an AWS DynamoDB table.
+ * Gets information about (describes) an Amazon DynamoDB table
  *
- * Takes the name of the table as input.
+ * Takes the name of the table as input
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -113,4 +113,3 @@ public class DescribeTable {
         System.out.println("\nDone!");
     }
 }
-

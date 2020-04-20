@@ -12,7 +12,7 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 
 To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**:
 
-	export CLASSPATH=target/sdk-s3-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
+	export CLASSPATH=target/sdk-pinpoint-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
 
 Where  **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS Java SDK jar.
 

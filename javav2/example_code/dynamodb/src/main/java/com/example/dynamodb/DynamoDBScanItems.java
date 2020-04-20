@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DynamoDBScanItems demonstrates how to return one or more items and item attributes by accessing every item in a table.]
+// snippet-sourcedescription:[DynamoDBScanItems demonstrates how to return one or more items and item attributes by accessing every item in an Amazon DynamoDB table.]
 // snippet-service:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-sourcesyntax:[java]
@@ -35,9 +35,9 @@ import java.util.Set;
 // snippet-end:[dynamodb.java2.dynamoDB_scan.import]
 
 /**
- * Scans information from an AWS DynamoDB table.
+ * Scans information from an Amazon DynamoDB table
  *
- * Takes the name of the table as input.
+ * Takes the name of the table as input
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html

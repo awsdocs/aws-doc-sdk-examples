@@ -38,7 +38,7 @@ import java.time.ZoneOffset;
 
 
 /*
-    Prior to running this code example, create a table named Customer with a PK named id
+    Before running this code example, create a table named Customer with a PK named id
  */
 public class EnhancedPutItem {
 
@@ -59,19 +59,19 @@ public class EnhancedPutItem {
     }
 
     // snippet-start:[dynamodb.java2.mapping.putitem.main]
-    // Puts an item into a DynamoDB table
+    // Put an item into a DynamoDB table
     public static void putRecord(DynamoDbEnhancedClient enhancedClient) {
 
         try {
             // Create a DynamoDbTable object
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            // Create an Instat
+            // Create an Instant object
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            // Populate the Table
+            // Populate the table
             Customer custRecord = new Customer();
             custRecord.setCustName("Susan Blue");
             custRecord.setId("id103");
@@ -89,7 +89,7 @@ public class EnhancedPutItem {
     }
 
 
-    //Create the Customer table
+    // Create the Customer table
     @DynamoDbBean
     public static class Customer {
 
