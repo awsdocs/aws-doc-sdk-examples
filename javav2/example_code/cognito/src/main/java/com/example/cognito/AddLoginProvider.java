@@ -41,9 +41,9 @@ public class AddLoginProvider {
                 "Usage:\n" +
                 "    AddLoginProvider <app_id> <identity_pool_name> <identity_pool_id>\n\n" +
                 "Where:\n" +
-                "    app_id - the application id from login provider.\n\n" +
-                "    identity_pool_name - the name of your identity pool.\n\n" +
-                "    identity_pool_id  - the Region and GUID of your id of your identity pool.\n\n" +
+                "    app_id - the application ID from the login provider\n\n" +
+                "    identity_pool_name - the name of your identity pool\n\n" +
+                "    identity_pool_id  - the AWS Region and GUID of the ID of your identity pool\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
