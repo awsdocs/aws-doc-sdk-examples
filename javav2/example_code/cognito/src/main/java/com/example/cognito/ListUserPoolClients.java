@@ -21,8 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[cognito.java2.ListUserPoolClients.complete]
-
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.ListUserPoolClients.import]
