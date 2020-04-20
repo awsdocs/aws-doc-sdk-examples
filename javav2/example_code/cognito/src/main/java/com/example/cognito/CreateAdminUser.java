@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-02]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[4/16/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[cognito.java2.new_admin_user.complete]
 
 package com.example.cognito;
 
@@ -31,6 +30,7 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 //snippet-end:[cognito.java2.new_admin_user.import]
 
 public class CreateAdminUser {
@@ -46,14 +46,13 @@ public class CreateAdminUser {
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
-        if (args.length < 3) {
-            System.out.println(USAGE);
-            System.exit(1);
+         if (args.length < 3) {
+              System.out.println(USAGE);
+              System.exit(1);
         }
 
-        //snippet-start:[cognito.java2.add_login_provider.main]
         /* Read the name from command args */
-        String user_pool_id = args[0];
+        String userPoolId = args[0];
         String name = args[1];
         String email = args[2];
 
@@ -61,9 +60,19 @@ public class CreateAdminUser {
                 .region(Region.US_EAST_1)
                 .build();
 
-        AdminCreateUserResponse response = cognitoclient.adminCreateUser(
+        createAdmin(cognitoclient, userPoolId, name, email);
+    }
+
+    //snippet-start:[cognito.java2.add_login_provider.main]
+    public static void createAdmin(CognitoIdentityProviderClient cognitoclient,
+                                   String userPoolId,
+                                   String name,
+                                   String email){
+
+        try{
+            AdminCreateUserResponse response = cognitoclient.adminCreateUser(
                 AdminCreateUserRequest.builder()
-                        .userPoolId(user_pool_id)
+                        .userPoolId(userPoolId)
                         .username(name)
                         .userAttributes(AttributeType.builder()
                                 .name("email")
@@ -73,8 +82,11 @@ public class CreateAdminUser {
                         .build()
         );
 
-        System.out.println("User " + response.user().username() + "is created. Status: " + response.user().userStatus());
+            System.out.println("User " + response.user().username() + "is created. Status: " + response.user().userStatus());
+
+        } catch (CognitoIdentityProviderException e){
+            e.getStackTrace();
+        }
         //snippet-end:[cognito.java2.add_login_provider.main]
     }
 }
-//snippet-end:[cognito.java2.new_admin_user.complete]
