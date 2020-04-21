@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[dynamodb]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[3/15/2020]
+//snippet-sourcedate:[4/20/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*

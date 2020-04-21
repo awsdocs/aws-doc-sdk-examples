@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-02]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[4/16/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,17 +21,16 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[cognito.java2.add_login_provider.complete]
 
 package com.example.cognito;
-//snippet-start:[cognito.java2.add_login_provider.import]
 
+//snippet-start:[cognito.java2.add_login_provider.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.CognitoIdentityProvider;
 import software.amazon.awssdk.services.cognitoidentity.model.UpdateIdentityPoolRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.UpdateIdentityPoolResponse;
-
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import java.util.HashMap;
 //snippet-end:[cognito.java2.add_login_provider.import]
 
@@ -42,51 +41,64 @@ public class AddLoginProvider {
                 "Usage:\n" +
                 "    AddLoginProvider <app_id> <identity_pool_name> <identity_pool_id>\n\n" +
                 "Where:\n" +
-                "    app_id - the application id from login provider.\n\n" +
-                "    identity_pool_name - the name of your identity pool.\n\n" +
-                "    identity_pool_id  - the Region and GUID of your id of your identity pool.\n\n" +
+                "    app_id - the application ID from the login provider\n\n" +
+                "    identity_pool_name - the name of your identity pool\n\n" +
+                "    identity_pool_id  - the AWS Region and GUID of the ID of your identity pool\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
-        if (args.length < 3) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+         if (args.length < 3) {
+             System.out.println(USAGE);
+             System.exit(1);
+         }
 
-        //snippet-start:[cognito.java2.add_login_provider.main]
         /* Read the name from command args */
-        String app_id = args[0];
-        String identity_pool_name = args[1];
-        String identity_pool_id = args[2];
-
-        HashMap<String, String> potential_providers = new HashMap<>();
-        potential_providers.put("facebook", "graph.facebook.com");
-        potential_providers.put("google", "accounts.google.com");
-        potential_providers.put("amazon", "www.amazon.com");
-        potential_providers.put("twitter", "api.twitter.com");
-        potential_providers.put("digits", "www.digits.com");
-
-        HashMap<String, String> login_provider = new HashMap<>();
-        login_provider.put(potential_providers.get("amazon"), app_id);
+        String appId = args[0];
+        String identityPoolName = args[1];
+        String identityPoolId = args[2];
 
         CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        UpdateIdentityPoolResponse response = cognitoclient
+        setLoginProvider(cognitoclient, appId, identityPoolName, identityPoolId) ;
+    }
+
+    //snippet-start:[cognito.java2.add_login_provider.main]
+    public static void setLoginProvider(CognitoIdentityClient cognitoclient,
+                                    String appId,
+                                    String identityPoolName,
+                                    String identityPoolId) {
+
+        HashMap<String, String> potentialProviders = new HashMap<>();
+        potentialProviders.put("facebook", "graph.facebook.com");
+        potentialProviders.put("google", "accounts.google.com");
+        potentialProviders.put("amazon", "www.amazon.com");
+        potentialProviders.put("twitter", "api.twitter.com");
+        potentialProviders.put("digits", "www.digits.com");
+
+        HashMap<String, String> loginProvider = new HashMap<>();
+        loginProvider.put(potentialProviders.get("amazon"), appId);
+
+        try {
+
+            UpdateIdentityPoolResponse response = cognitoclient
                 .updateIdentityPool(
                         UpdateIdentityPoolRequest.builder()
                                 .allowUnauthenticatedIdentities(false)
-                                .identityPoolName(identity_pool_name)
-                                .identityPoolId(identity_pool_id)
-                                .supportedLoginProviders(login_provider)
+                                .identityPoolName(identityPoolName)
+                                .identityPoolId(identityPoolId)
+                                .supportedLoginProviders(loginProvider)
                                 .build()
                 );
 
-        for (CognitoIdentityProvider cip : response.cognitoIdentityProviders()) {
-            System.out.println("Client ID for " + cip.providerName() + " = " + cip.clientId());
+
+            for (CognitoIdentityProvider cip : response.cognitoIdentityProviders()) {
+                System.out.println("Client ID for " + cip.providerName() + " = " + cip.clientId());
+             }
+        } catch (CognitoIdentityProviderException e){
+            e.getStackTrace();
         }
         //snippet-end:[cognito.java2.add_login_provider.main]
     }
 }
-//snippet-end:[cognito.java2.add_login_provider.complete]
