@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the regions and zones from an EC2 client.]
+//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the regions and zones from an Amazon EC2 client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/11/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +21,11 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.describe_region_and_zones.complete]
+
 // snippet-start:[ec2.java2.describe_region_and_zones.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
-import software.amazon.awssdk.services.ec2.model.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
@@ -36,17 +37,24 @@ import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRespon
 public class DescribeRegionsAndZones {
 
     public static void main(String[] args) {
-        // snippet-start:[ec2.java2.describe_region_and_zones.main]
-        // snippet-start:[ec2.java2.describe_region_and_zones.client]
-        Ec2Client ec2 = Ec2Client.create();
-        // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
-        // snippet-start:[ec2.java2.describe_region_and_zones.region]
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        describeEC2RegionsAndZones(ec2);
+    }
+
+    // snippet-start:[ec2.java2.describe_region_and_zones.main]
+     public static void describeEC2RegionsAndZones(Ec2Client ec2) {
+
         try {
-
+            // snippet-start:[ec2.java2.describe_region_and_zones.region]
             DescribeRegionsResponse regionsResponse = ec2.describeRegions();
 
-            for(Region region : regionsResponse.regions()) {
+            for(software.amazon.awssdk.services.ec2.model.Region region : regionsResponse.regions()) {
                 System.out.printf(
                     "Found region %s " +
                             "with endpoint %s",
@@ -75,8 +83,7 @@ public class DescribeRegionsAndZones {
     } catch (Ec2Exception e) {
         e.getStackTrace();
     }
-        // snippet-end:[ec2.java2.describe_region_and_zones.main]
+    // snippet-end:[ec2.java2.describe_region_and_zones.main]
     }
 }
 
-// snippet-end:[ec2.java2.describe_region_and_zones.complete]
