@@ -1,39 +1,35 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- *
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudfront.php.disabledistribution.complete]
 // snippet-start:[cloudfront.php.disabledistribution.import]
-
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.disabledistribution.import]
 
-
-/**
- * Disable an Amazon CloudFront Distribution so that it can be deleted.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Disables an Amazon CloudFront distribution.
  *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+ * Prerequisites: An existing Amazon CloudFront distribution.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
+ * - $distributionId: The distribution's ID.
+ * - $distributionConfig: ... This value comes from the companion 
+ *   getDisributionConfig function.
+ * - $eTag: The ETag header value for the distribution. This value comes from
+ *   the companion getDistributionETag function.
+ *
+ * Returns: Information about the deletion request; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
-//Create a CloudFront Client 
 // snippet-start:[cloudfront.php.disabledistribution.main]
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
@@ -95,8 +91,7 @@ try {
  
 // snippet-end:[cloudfront.php.disabledistribution.main]
 // snippet-end:[cloudfront.php.disabledistribution.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DisableDistribution.php demonstrates how to disable an Amazon CloudFront Distribution so it can be deleted.]
+// snippet-sourcedescription:[DisableDistributionS3.php demonstrates how to disable an Amazon CloudFront distribution.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

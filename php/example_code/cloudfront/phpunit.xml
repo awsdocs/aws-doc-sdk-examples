@@ -3,10 +3,19 @@
     <const name="AWS_PROFILE" value="default"/>
     <const name="CLOUDFRONT_VERSION" value="2018-06-18"/>
     <const name="AWS_REGION" value="us-east-1"/>
+    <const name="CLOUDFRONT_DISTRIBUTION_ID" value="E17G7YNEXAMPLE"/>
+    <const name="CLOUDFRONT_CALLER_REFERENCE" value="my-unique-value"/>
+    <const name="CLOUDFRONT_DISTRIBUTION_ETAG" value="E2QWRUHEXAMPLE"/>
   </php>
   <testsuites>
     <testsuite name="cloudfront-createdistributions3">
       <file>tests/CreateDistributionS3Test.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-createinvalidation">
+      <file>tests/CreateInvalidationTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-deletedistribution">
+      <file>tests/DeleteDistributionTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>
