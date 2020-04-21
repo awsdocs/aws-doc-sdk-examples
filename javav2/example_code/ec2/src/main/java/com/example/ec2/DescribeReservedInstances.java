@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[DescribeReservedInstances.java demonstrates how to get information about EC2 Reserved Instances.]
+//snippet-sourcedescription:[DescribeReservedInstances.java demonstrates how to get information about Amazon EC2 Reserved Instances.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,9 +21,8 @@
  */
 package com.example.ec2;
 
-// snippet-start:[ec2.java2.describe_reserved_instances.complete]
 // snippet-start:[ec2.java2.describe_reserved_instances.import]
-
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesResponse;
@@ -47,9 +46,17 @@ public class DescribeReservedInstances {
         }
 
         String instanceID = args[0];
-        // snippet-start:[ec2.java2.describe_reserved_instances.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        describeReservedEC2Instances(ec2, instanceID);
+    }
+    // snippet-start:[ec2.java2.describe_reserved_instances.main]
+    public static void describeReservedEC2Instances( Ec2Client ec2, String instanceID) {
         try {
             DescribeReservedInstancesRequest request = DescribeReservedInstancesRequest.builder().reservedInstancesIds(instanceID).build();
 
@@ -75,4 +82,3 @@ public class DescribeReservedInstances {
       // snippet-end:[ec2.java2.describe_reserved_instances.main]
   }
 }
-// snippet-end:[ec2.java2.describe_reserved_instances.complete]
