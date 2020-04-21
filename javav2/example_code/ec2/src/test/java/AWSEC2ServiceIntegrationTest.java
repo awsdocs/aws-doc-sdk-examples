@@ -1,10 +1,12 @@
+import com.example.ec2.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.*;
-import software.amazon.awssdk.services.ec2.model.Tag;
 import java.io.*;
 import java.util.*;
+import  software.amazon.awssdk.regions.Region;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -24,7 +26,12 @@ public class AWSEC2ServiceIntegrationTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        ec2 = Ec2Client.create();
+
+        Region region = Region.US_WEST_2;
+        ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
         try (InputStream input = AWSEC2ServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();
@@ -36,7 +43,6 @@ public class AWSEC2ServiceIntegrationTest {
 
             //load a properties file from class path, inside static method
             prop.load(input);
-           // instanceId = prop.getProperty("instanceId");
             ami = prop.getProperty("ami");
             instanceName = prop.getProperty("instanceName");
             keyName = prop.getProperty("keyPair");
@@ -58,35 +64,12 @@ public class AWSEC2ServiceIntegrationTest {
 
     @Test
     @Order(2)
-    public void CreateIntance() {
-
-        RunInstancesRequest runRequest = RunInstancesRequest.builder()
-                .imageId(ami)
-                .instanceType(InstanceType.T1_MICRO)
-                .maxCount(1)
-                .minCount(1)
-                .build();
-
-        RunInstancesResponse response = ec2.runInstances(runRequest);
-        instanceId = response.instances().get(0).instanceId();
-
-        Tag tag = Tag.builder()
-                .key("Name")
-                .value(instanceName)
-                .build();
-
-        CreateTagsRequest tagRequest = CreateTagsRequest.builder()
-                .resources(instanceId)
-                .tags(tag)
-                .build();
+    public void CreateInstance() {
 
         try {
-            ec2.createTags(tagRequest);
-
-            System.out.printf(
-                    "Successfully started EC2 instance %s based on AMI %s",
-                    instanceId, ami);
-        } catch (Ec2Exception e) {
+            instanceId = CreateInstance.createEC2Instance(ec2,instanceName,ami);
+            assertTrue(!instanceId.isEmpty());
+            } catch (Ec2Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -97,18 +80,8 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(3)
     public void CreateKeyPair()
     {
-
        try {
-
-           CreateKeyPairRequest request = CreateKeyPairRequest.builder()
-                .keyName(keyName).build();
-
-           CreateKeyPairResponse response = ec2.createKeyPair(request);
-
-           System.out.printf(
-                "Successfully created key pair named %s",
-                keyName);
-
+           CreateKeyPair.createEC2KeyPair(ec2, keyName);
     } catch (Ec2Exception e) {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
@@ -121,21 +94,7 @@ public class AWSEC2ServiceIntegrationTest {
     public void DescribeKeyPair() {
 
      try {
-        //Just describe the speicific key pair just created
-        DescribeKeyPairsRequest request = DescribeKeyPairsRequest.builder()
-                .keyNames(keyName)
-                .build();
-
-        DescribeKeyPairsResponse response = ec2.describeKeyPairs(request);
-
-        for(KeyPairInfo keyPair : response.keyPairs()) {
-            System.out.printf(
-                    "Found key pair with name %s " +
-                            "and fingerprint %s",
-                    keyPair.keyName(),
-                    keyPair.keyFingerprint());
-            System.out.println("");
-        }
+         DescribeKeyPairs.describeEC2Keys(ec2);
      } catch (Ec2Exception e) {
          System.err.println(e.awsErrorDetails().errorMessage());
          System.exit(1);
@@ -148,61 +107,20 @@ public class AWSEC2ServiceIntegrationTest {
     public void DeleteKeyPair() {
 
         try {
-            DeleteKeyPairRequest request = DeleteKeyPairRequest.builder()
-                .keyName(keyName)
-                .build();
-
-            DeleteKeyPairResponse response = ec2.deleteKeyPair(request);
-
+            DeleteKeyPair.deleteKeys(ec2,keyName);
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
        System.out.println("\n Test 5 passed");
     }
-
 
     @Test
     @Order(6)
     public void CreateSecurityGroup() {
 
       try {
-
-          CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
-                .groupName(groupName)
-                .description(groupDesc)
-                .vpcId(vpcId)
-                .build();
-
-          CreateSecurityGroupResponse createResponse =
-                ec2.createSecurityGroup(createRequest);
-
-          IpRange ipRange = IpRange.builder()
-               .cidrIp("0.0.0.0/0").build();
-
-          IpPermission ipPerm = IpPermission.builder()
-                .ipProtocol("tcp")
-                .toPort(80)
-                .fromPort(80)
-                .ipRanges(ipRange)
-                // .ipv4Ranges(ip_range)
-                .build();
-
-          IpPermission ipPerm2 = IpPermission.builder()
-                .ipProtocol("tcp")
-                .toPort(22)
-                .fromPort(22)
-                .ipRanges(ipRange)
-                .build();
-
-          AuthorizeSecurityGroupIngressRequest authRequest =
-                AuthorizeSecurityGroupIngressRequest.builder()
-                        .groupName(groupName)
-                        .ipPermissions(ipPerm, ipPerm2)
-                        .build();
-
-           ec2.authorizeSecurityGroupIngress(authRequest);
+          CreateSecurityGroup.createEC2SecurityGroup(ec2,groupName,groupDesc,vpcId);
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
@@ -216,23 +134,7 @@ public class AWSEC2ServiceIntegrationTest {
     public void DescribeSecurityGroup() {
 
       try {
-        DescribeSecurityGroupsRequest request =
-                DescribeSecurityGroupsRequest.builder()
-                        .groupNames(groupName)
-                        .build();
-
-        DescribeSecurityGroupsResponse response =
-                ec2.describeSecurityGroups(request);
-
-       for(SecurityGroup group : response.securityGroups()) {
-            System.out.printf(
-                    "Found security group with id %s, " +
-                            "vpc id %s " +
-                            "and description %s",
-                    group.groupId(),
-                    group.vpcId(),
-                    group.description());
-        }
+          DescribeSecurityGroups.describeEC2SecurityGroups(ec2,groupName);
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
@@ -246,17 +148,12 @@ public class AWSEC2ServiceIntegrationTest {
     public void DeleteSecurityGroup(){
 
       try {
-        DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
-                .groupName(groupName)
-                .build();
-
-        ec2.deleteSecurityGroup(request);
+          DeleteSecurityGroup.deleteEC2SecGroup(ec2, groupName);
 
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
       }
-
         System.out.println("\n Test 8 passed");
     }
 
@@ -266,22 +163,7 @@ public class AWSEC2ServiceIntegrationTest {
     public void DescribeAccount() {
 
       try{
-            DescribeAccountAttributesResponse accountResults = ec2.describeAccountAttributes();
-
-            List<AccountAttribute> accountList = accountResults.accountAttributes();
-
-            for (ListIterator iter = accountList.listIterator(); iter.hasNext(); ) {
-
-                AccountAttribute attribute = (AccountAttribute) iter.next();
-                System.out.print("\n The name of the attribute is "+attribute.attributeName());
-                List<AccountAttributeValue> values = attribute.attributeValues();
-
-                //iterate through the attribute values
-                for (ListIterator iterVals = values.listIterator(); iterVals.hasNext(); ) {
-                    AccountAttributeValue myValue = (AccountAttributeValue) iterVals.next();
-                    System.out.print("\n The value of the attribute is "+myValue.attributeValue());
-                }
-            }
+          DescribeAccount.describeEC2Account(ec2);
 
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
@@ -295,38 +177,11 @@ public class AWSEC2ServiceIntegrationTest {
     public void DescribeInstances() {
 
        try {
-        boolean done = false;
-
-        String nextToken = null;
-        do {
-            DescribeInstancesRequest request = DescribeInstancesRequest.builder().maxResults(6).nextToken(nextToken).build();
-            DescribeInstancesResponse response = ec2.describeInstances(request);
-
-            for (Reservation reservation : response.reservations()) {
-                for (Instance instance : reservation.instances()) {
-                    System.out.printf(
-                            "Found reservation with id %s, " +
-                                    "AMI %s, " +
-                                    "type %s, " +
-                                    "state %s " +
-                                    "and monitoring state %s",
-                            instance.instanceId(),
-                            instance.imageId(),
-                            instance.instanceType(),
-                            instance.state().name(),
-                            instance.monitoring().state());
-                    System.out.println("");
-                }
-            }
-            nextToken = response.nextToken();
-
-        } while (nextToken != null);
-
+           DescribeInstances.describeEC2Instances(ec2);
        } catch (Ec2Exception e) {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
        }
-
        System.out.println("\n Test 10 passed");
     }
 
@@ -335,36 +190,12 @@ public class AWSEC2ServiceIntegrationTest {
     public void DescribeRegionsAndZones () {
 
       try {
-        DescribeRegionsResponse regionsResponse = ec2.describeRegions();
+          DescribeRegionsAndZones.describeEC2RegionsAndZones(ec2);
 
-        for(Region region : regionsResponse.regions()) {
-            System.out.printf(
-                    "Found region %s " +
-                            "with endpoint %s",
-                    region.regionName(),
-                    region.endpoint());
-            System.out.println();
-        }
-
-        DescribeAvailabilityZonesResponse zonesResponse =
-                ec2.describeAvailabilityZones();
-
-        for(AvailabilityZone zone : zonesResponse.availabilityZones()) {
-            System.out.printf(
-                    "Found availability zone %s " +
-                            "with status %s " +
-                            "in region %s",
-                    zone.zoneName(),
-                    zone.state(),
-                    zone.regionName());
-            System.out.println();
-
-        }
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
       }
-
         System.out.println("\n Test 11 passed");
     }
 
@@ -373,20 +204,7 @@ public class AWSEC2ServiceIntegrationTest {
     public void DescribeVPCs () {
 
       try {
-        DescribeVpcsRequest request = DescribeVpcsRequest.builder().vpcIds(vpcId).build();
-
-        DescribeVpcsResponse response =
-                ec2.describeVpcs(request);
-
-        for (Vpc vpc : response.vpcs()) {
-            System.out.printf(
-                    "Found vpc with id %s, " +
-                            "vpc state %s " +
-                            "and tennancy %s",
-                    vpc.vpcId(),
-                    vpc.stateAsString(),
-                    vpc.instanceTenancyAsString());
-        }
+          DescribeVPCs.describeEC2Vpcs(ec2,vpcId);
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
@@ -394,46 +212,11 @@ public class AWSEC2ServiceIntegrationTest {
         System.out.println("\n Test 12 passed");
     }
 
-
     @Test
     @Order(13)
    public void FindRunningInstances() {
       try {
-        String nextToken = null;
-        do {
-            // Create a Filter to find all running instances
-            Filter filter = Filter.builder()
-                    .name("instance-state-name")
-                    .values("running")
-                    .build();
-
-            //Create a DescribeInstancesRequest
-            DescribeInstancesRequest request = DescribeInstancesRequest.builder()
-                    .filters(filter)
-                    .build();
-
-            // Find the running instances
-            DescribeInstancesResponse response = ec2.describeInstances(request);
-
-            for (Reservation reservation : response.reservations()) {
-                for (Instance instance : reservation.instances()) {
-                    System.out.printf(
-                            "Found reservation with id %s, " +
-                                    "AMI %s, " +
-                                    "type %s, " +
-                                    "state %s " +
-                                    "and monitoring state %s",
-                            instance.instanceId(),
-                            instance.imageId(),
-                            instance.instanceType(),
-                            instance.state().name(),
-                            instance.monitoring().state());
-
-                }
-            }
-            nextToken = response.nextToken();
-
-        } while (nextToken != null);
+          FindRunningInstances.findRunningEC2Instances(ec2);
 
       } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
@@ -444,20 +227,27 @@ public class AWSEC2ServiceIntegrationTest {
 
     @Test
     @Order(14)
+    public void DescribeAddressed() {
+
+        try{
+            DescribeAddresses.describeEC2Address(ec2);
+        } catch (Ec2Exception e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+        System.out.println("\n Test 14 passed");
+    }
+
+    @Test
+    @Order(15)
    public void  TerminateInstance() {
 
        try {
-           // Create an Ec2Client object
-           TerminateInstancesRequest ti = TerminateInstancesRequest.builder()
-                   .instanceIds(instanceId)
-                   .build();
-
-           ec2.terminateInstances(ti);
-
+           TerminateInstance.terminateEC2(ec2, instanceId);
        } catch (Ec2Exception e) {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
        }
-        System.out.println("\n Test 14 passed");
+        System.out.println("\n Test 15 passed");
     }
 }
