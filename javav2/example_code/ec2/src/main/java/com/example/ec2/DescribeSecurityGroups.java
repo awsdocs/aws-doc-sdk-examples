@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get information about all the EC2 security groups.]
+//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get information about all the Amazon EC2 security groups.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,9 +20,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 package com.example.ec2;
-// snippet-start:[ec2.java2.describe_security_groups.complete]
+
 // snippet-start:[ec2.java2.describe_security_groups.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
@@ -45,9 +48,18 @@ public class DescribeSecurityGroups {
         }
 
         String groupId = args[0];
-        // snippet-start:[ec2.java2.describe_security_groups.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        describeEC2SecurityGroups(ec2, groupId);
+
+    }
+        // snippet-start:[ec2.java2.describe_security_groups.main]
+     public static void describeEC2SecurityGroups(Ec2Client ec2, String groupId) {
 
         try {
 
@@ -58,8 +70,6 @@ public class DescribeSecurityGroups {
             DescribeSecurityGroupsResponse response =
                 ec2.describeSecurityGroups(request);
 
-
-            // snippet-end:[ec2.java2.describe_security_groups.main]
              for(SecurityGroup group : response.securityGroups()) {
                 System.out.printf(
                     "Found security group with id %s, " +
@@ -72,7 +82,7 @@ public class DescribeSecurityGroups {
         } catch (Ec2Exception e) {
             e.getStackTrace();
         }
+         // snippet-end:[ec2.java2.describe_security_groups.main]
     }
 }
 
-// snippet-end:[ec2.java2.describe_security_groups.complete]
