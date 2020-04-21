@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[CreateKeyPair.java demonstrates how to create an EC2 key pair.]
+//snippet-sourcedescription:[CreateKeyPair.java demonstrates how to create an Amazon EC2 key pair.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,8 +20,9 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.create_key_pair.complete]
+
 // snippet-start:[ec2.java2.create_key_pair.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
@@ -44,17 +45,24 @@ public class CreateKeyPair {
         }
 
         String keyName = args[0];
-        // snippet-start:[ec2.java2.create_key_pair.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        createEC2KeyPair(ec2, keyName) ;
+    }
+
+    // snippet-start:[ec2.java2.create_key_pair.main]
+    public static void createEC2KeyPair(Ec2Client ec2,String keyName ) {
 
         try {
-
             CreateKeyPairRequest request = CreateKeyPairRequest.builder()
                 .keyName(keyName).build();
 
             CreateKeyPairResponse response = ec2.createKeyPair(request);
-
             System.out.printf(
                 "Successfully created key pair named %s",
                 keyName);
@@ -65,4 +73,3 @@ public class CreateKeyPair {
         // snippet-end:[ec2.java2.create_key_pair.main]
       }
     }
-// snippet-end:[ec2.java2.create_key_pair.complete]
