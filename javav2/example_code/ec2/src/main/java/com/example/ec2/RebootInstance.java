@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot an EC2 instance in code.]
+//snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot an Amazon EC2 instance in code.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-01-10]
+//snippet-sourcedate:[2/12/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +20,12 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.reboot_instance.complete]
+
 // snippet-start:[ec2.java2.reboot_instance.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
-import software.amazon.awssdk.services.ec2.model.RebootInstancesResponse;
 
 // snippet-end:[ec2.java2.reboot_instance.import]
 /**
@@ -43,19 +44,33 @@ public class RebootInstance {
         }
 
         String instanceId = args[0];
-        // snippet-start:[ec2.java2.reboot_instance.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
 
-        RebootInstancesRequest request = RebootInstancesRequest.builder()
+        rebootEC2Instance(ec2, instanceId);
+    }
+
+    // snippet-start:[ec2.java2.reboot_instance.main]
+    public static void rebootEC2Instance(Ec2Client ec2, String instanceId) {
+
+      try {
+
+            RebootInstancesRequest request = RebootInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
-        RebootInstancesResponse response = ec2.rebootInstances(request);
-
-        // snippet-end:[ec2.java2.reboot_instance.main]
-        System.out.printf(
+            ec2.rebootInstances(request);
+            System.out.printf(
                 "Successfully rebooted instance %s", instanceId);
-    }
+    } catch (
+    Ec2Exception e) {
+        e.getStackTrace();
+      }
+  }
+    // snippet-end:[ec2.java2.reboot_instance.main]
 }
 
-// snippet-end:[ec2.java2.reboot_instance.complete]
+
