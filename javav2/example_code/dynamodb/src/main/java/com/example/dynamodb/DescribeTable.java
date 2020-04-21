@@ -54,7 +54,7 @@ public class DescribeTable {
         }
 
         /* Read the name from command args */
-        String tableName = "Greeting" ; //args[0];
+        String tableName = args[0];
         System.out.format("Getting description for %s\n\n", tableName);
 
         // Create the DynamoDbClient object
