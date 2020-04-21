@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an EC2 instance.]
+//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an Amazon EC2 instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/15/2020]
 //snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.create_instance.complete]
 
 // snippet-start:[ec2.java2.create_instance.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
@@ -50,8 +51,17 @@ public class CreateInstance {
         String name = args[0];
         String amiId = args[1];
 
-        // snippet-start:[ec2.java2.create_instance.main]
-        Ec2Client ec2 = Ec2Client.create();
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        String instanceId = createEC2Instance(ec2,name, amiId) ;
+        System.out.println("The instance ID is "+instanceId);
+    }
+
+    // snippet-start:[ec2.java2.create_instance.main]
+   public static String createEC2Instance(Ec2Client ec2,String name, String amiId ) {
 
         RunInstancesRequest runRequest = RunInstancesRequest.builder()
                 .imageId(amiId)
@@ -61,7 +71,6 @@ public class CreateInstance {
                 .build();
 
         RunInstancesResponse response = ec2.runInstances(runRequest);
-
         String instanceId = response.instances().get(0).instanceId();
 
         Tag tag = Tag.builder()
@@ -79,13 +88,13 @@ public class CreateInstance {
             System.out.printf(
                     "Successfully started EC2 instance %s based on AMI %s",
                     instanceId, amiId);
-       
+
+          return instanceId;
+
         } catch (Ec2Exception e) {
             System.err.println(e.getMessage());
-            System.exit(1);
         }
         // snippet-end:[ec2.java2.create_instance.main]
-        System.out.println("Done!");
+        return "";
     }
 }
-// snippet-end:[ec2.java2.create_instance.complete]
