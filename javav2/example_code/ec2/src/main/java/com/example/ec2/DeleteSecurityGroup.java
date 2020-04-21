@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an EC2 security group.]
+//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an Amazon EC2 security group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.delete_security_group.complete]
+
 // snippet-start:[ec2.java2.delete_security_group.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-
 // snippet-end:[ec2.java2.delete_security_group.import]
 /**
  * Deletes an EC2 security group
@@ -44,12 +44,20 @@ public class DeleteSecurityGroup {
         }
 
         String groupId = args[0];
-        // snippet-start:[ec2.java2.delete_security_group.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        deleteEC2SecGroup(ec2,groupId);
+    }
+
+    // snippet-start:[ec2.java2.delete_security_group.main]
+    public static void deleteEC2SecGroup(Ec2Client ec2,String groupId) {
 
         try {
-
             DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
                 .groupId(groupId)
                 .build();
@@ -65,4 +73,3 @@ public class DeleteSecurityGroup {
         // snippet-end:[ec2.java2.delete_security_group.main]
     }
 }
-// snippet-end:[ec2.java2.delete_security_group.complete]
