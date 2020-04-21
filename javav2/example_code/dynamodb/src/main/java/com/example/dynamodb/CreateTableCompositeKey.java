@@ -52,14 +52,14 @@ public class CreateTableCompositeKey {
                 "Example:\n" +
                 "    CreateTable Music3\n";
 
-      //  if (args.length < 1) {
-      //      System.out.println(USAGE);
-      //      System.exit(1);
-      //  }
+       if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
 
         /* Read the table name from command args */
-        String tableName = "Music103"; //args[0];
+        String tableName = args[0];
 
         // Create the DynamoDbClient object
         Region region = Region.US_EAST_1;
