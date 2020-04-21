@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[DescribeVPCs.java demonstrates how to get information about all the EC2 VPCs.]
+//snippet-sourcedescription:[DescribeVPCs.java demonstrates how to get information about all the Amazon EC2 VPCs.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.describe_vpc.complete]
 
 // snippet-start:[ec2.java2.describe_vpc.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
@@ -45,9 +46,18 @@ public class DescribeVPCs {
         }
 
         String vpcId = args[0];
-        // snippet-start:[ec2.java2.describe_vpc.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        describeEC2Vpcs(ec2, vpcId);
+    }
+
+    // snippet-start:[ec2.java2.describe_vpc.main]
+    public static void describeEC2Vpcs(Ec2Client ec2, String vpcId) {
 
         try {
             DescribeVpcsRequest request = DescribeVpcsRequest.builder()
@@ -57,7 +67,6 @@ public class DescribeVPCs {
             DescribeVpcsResponse response =
                 ec2.describeVpcs(request);
 
-            // snippet-end:[ec2.java2.describe_vpc.main]
             for (Vpc vpc : response.vpcs()) {
                 System.out.printf(
                     "Found vpc with id %s, " +
@@ -66,12 +75,11 @@ public class DescribeVPCs {
                     vpc.vpcId(),
                     vpc.stateAsString(),
                     vpc.instanceTenancyAsString());
-
                 }
-
             } catch (Ec2Exception e) {
                 e.getStackTrace();
         }
+        // snippet-end:[ec2.java2.describe_vpc.main]
     }
 }
-// snippet-end:[ec2.java2.describe_vpc.complete]
+
