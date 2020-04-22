@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete an EC2 key pair.]
+//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete an Amazon EC2 key pair.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,15 +20,17 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 package com.example.ec2;
-// snippet-start:[ec2.java2.delete_key_pair.complete]
+
 // snippet-start:[ec2.java2.delete_key_pair.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-
 // snippet-end:[ec2.java2.delete_key_pair.import]
+
 /**
  * Deletes a key pair.
  */
@@ -44,9 +47,18 @@ public class DeleteKeyPair {
         }
 
         String keyName = args[0];
-        // snippet-start:[ec2.java2.delete_key_pair.main]
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
+        deleteKeys(ec2,keyName);
+    }
+
+    // snippet-start:[ec2.java2.delete_key_pair.main]
+    public static void deleteKeys(Ec2Client ec2, String keyName) {
 
        try {
 
@@ -65,5 +77,3 @@ public class DeleteKeyPair {
         }
     }
 }
-
-// snippet-end:[ec2.java2.delete_key_pair.complete]

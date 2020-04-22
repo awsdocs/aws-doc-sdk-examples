@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an EC2 security group.]
+//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon EC2 security group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[2/11/2020]
 //snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,11 +21,11 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.create_security_group.complete]
+
 // snippet-start:[ec2.java2.create_security_group.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
-import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
@@ -51,29 +52,31 @@ public class CreateSecurityGroup {
         String groupDesc = args[1];
         String vpcId = args[2];
 
-        // snippet-start:[ec2.java2.create_security_group.main]
-        // snippet-start:[ec2.java2.create_security_group.client]
-        Ec2Client ec2 = Ec2Client.create();
-        // snippet-end:[ec2.java2.create_security_group.client]
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
 
+        createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
+    }
+
+    // snippet-start:[ec2.java2.create_security_group.main]
+    public static void createEC2SecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
         try {
 
-            // snippet-start:[ec2.java2.create_security_group.create]
             CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
                 .groupName(groupName)
                 .description(groupDesc)
                 .vpcId(vpcId)
                 .build();
 
-            CreateSecurityGroupResponse createResponse =
-                ec2.createSecurityGroup(createRequest);
-            // snippet-end:[ec2.java2.create_security_group.create]
+            ec2.createSecurityGroup(createRequest);
 
             System.out.printf(
                 "Successfully created security group named %s",
                 groupName);
 
-            // snippet-start:[ec2.java2.create_security_group.config]
             IpRange ipRange = IpRange.builder()
                 .cidrIp("0.0.0.0/0").build();
 
@@ -82,7 +85,6 @@ public class CreateSecurityGroup {
                 .toPort(80)
                 .fromPort(80)
                 .ipRanges(ipRange)
-                // .ipv4Ranges(ip_range)
                 .build();
 
             IpPermission ipPerm2 = IpPermission.builder()
@@ -99,9 +101,8 @@ public class CreateSecurityGroup {
                         .build();
 
             AuthorizeSecurityGroupIngressResponse authResponse =
-                ec2.authorizeSecurityGroupIngress(authRequest);
+            ec2.authorizeSecurityGroupIngress(authRequest);
 
-            // snippet-end:[ec2.java2.create_security_group.config]
             // snippet-end:[ec2.java2.create_security_group.main]
             System.out.printf(
                 "Successfully added ingress policy to security group %s",
@@ -113,4 +114,3 @@ public class CreateSecurityGroup {
     }
 }
 
-// snippet-end:[ec2.java2.create_security_group.complete]
