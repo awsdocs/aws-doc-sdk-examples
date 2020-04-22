@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StartStopInstance.java demonstrates how to start and stop an Amazon EC2 instance]
+//snippet-sourcedescription:[StartStopInstance.java demonstrates how to start and stop an Amazon EC2 instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -28,12 +28,12 @@ import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 // snippet-end:[ec2.java2.start_stop_instance.import]
 
 /**
- * Starts or stops an EC2 instance
+ * Starts or stops an Amazon EC2 instance
  */
 public class StartStopInstance {
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply an instance id and start or stop\n" +
+                "To run this example, supply an instance ID and start or stop.\n" +
                         "Ex: StartStopInstance <instance-id> <start|stop>\n";
 
         if (args.length != 2) {
@@ -83,7 +83,6 @@ public class StartStopInstance {
         ec2.stopInstances(request);
 
         // snippet-end:[ec2.java2.start_stop_instance.stop]
-        System.out.printf("Successfully stop instance %s", instanceId);
+        System.out.printf("Successfully stopped instance %s", instanceId);
     }
 }
-

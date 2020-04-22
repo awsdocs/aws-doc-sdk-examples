@@ -39,7 +39,7 @@ public class DescribeSecurityGroups {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a group id\n" +
+                "To run this example, supply a group ID.\n" +
                         "Ex: DescribeSecurityGroups <group-id>\n";
 
         if (args.length != 1) {
@@ -49,7 +49,7 @@ public class DescribeSecurityGroups {
 
         String groupId = args[0];
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -72,8 +72,8 @@ public class DescribeSecurityGroups {
 
              for(SecurityGroup group : response.securityGroups()) {
                 System.out.printf(
-                    "Found security group with id %s, " +
-                            "vpc id %s " +
+                    "Found security group with ID %s, " +
+                            "VPC ID %s " +
                             "and description %s",
                     group.groupId(),
                     group.vpcId(),
@@ -85,4 +85,3 @@ public class DescribeSecurityGroups {
          // snippet-end:[ec2.java2.describe_security_groups.main]
     }
 }
-
