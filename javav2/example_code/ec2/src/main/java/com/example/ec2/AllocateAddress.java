@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[AllocateAddress.java demonstrates how to allocate an elastic IP address for an Amazon EC2 instance.]
+//snippet-sourcedescription:[AllocateAddress.java demonstrates how to allocate an Elastic IP address for an Amazon EC2 instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -33,13 +33,13 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.allocate_address.import]
 
 /**
- * Allocates an elastic IP address for an EC2 instance
+ * Allocates an Elastic IP address for an Amazon EC2 instance
  */
 public class AllocateAddress {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply an instance id that you can obtain from the AWS Console\n" +
+                "To run this example, supply an instance ID obtained from the AWS Management Console.\n" +
                         "Ex: AllocateAddress <instance_id>\n";
 
         if (args.length != 1) {

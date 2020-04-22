@@ -31,13 +31,13 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
 
 /**
- * Describes reserved instances
+ * Describes Reserved Instances
  */
 public class DescribeReservedInstances {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a group id\n" +
+                "To run this example, supply a group ID.\n" +
                         "Ex: DescribeReservedInstances <vpc-id>\n";
 
         if (args.length != 1) {
@@ -47,7 +47,7 @@ public class DescribeReservedInstances {
 
         String instanceID = args[0];
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -65,8 +65,8 @@ public class DescribeReservedInstances {
 
             for (ReservedInstances instance : response.reservedInstances()) {
                 System.out.printf(
-                    "Found a reserved instance with id %s, " +
-                            "in AZ %s, " +
+                    "Found a Reserved Instance with ID %s, " +
+                            "in Availability Zone %s, " +
                             "type %s, " +
                             "state %s " +
                             "and monitoring state %s",

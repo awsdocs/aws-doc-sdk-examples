@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeInstances.java demonstrates how to get information about all the EC2 instances associated with an AWS account.]
+//snippet-sourcedescription:[DescribeInstances.java demonstrates how to get information about all the Amazon EC2 instances associated with an AWS account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -33,14 +33,14 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_instances.import]
 
 /**
- * Describes all EC2 instances associated with an AWS account
+ * Describes all Amazon EC2 instances associated with an AWS account
  */
 public class DescribeInstances {
 
     public static void main(String[] args) {
 
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -64,7 +64,7 @@ public class DescribeInstances {
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
                     System.out.printf(
-                            "Found reservation with id %s, " +
+                            "Found reservation with ID %s, " +
                                     "AMI %s, " +
                                     "type %s, " +
                                     "state %s " +
