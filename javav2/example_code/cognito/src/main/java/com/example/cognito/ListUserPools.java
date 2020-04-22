@@ -64,7 +64,8 @@ public class ListUserPools {
                System.out.println("UserPool " + userpool.name() + ", User ID " + userpool.id() + ", Status " + userpool.status());
            }
         } catch (CognitoIdentityProviderException e){
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
         //snippet-end:[cognito.java2.ListUserPools.main]
     }

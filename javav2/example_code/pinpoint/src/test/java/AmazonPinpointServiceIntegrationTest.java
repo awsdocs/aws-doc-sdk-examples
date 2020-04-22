@@ -63,46 +63,26 @@ public class AmazonPinpointServiceIntegrationTest {
     @Order(2)
     public void CreateApp() {
 
-        try {
-            appId = CreateApp.createApplication(pinpoint, appName);
-            assertTrue(!appId.isEmpty());
-
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 2 passed");
+      appId = CreateApp.createApplication(pinpoint, appName);
+      assertTrue(!appId.isEmpty());
+      System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void CreateEndpoint()
     {
-       try {
-
-           EndpointResponse response = CreateEndpoint.createEndpoint(pinpoint, appId);
-           endpointId2 = response.id() ;
-           assertTrue(!endpointId2.isEmpty());
-
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 3 passed");
+       EndpointResponse response = CreateEndpoint.createEndpoint(pinpoint, appId);
+       endpointId2 = response.id() ;
+       assertTrue(!endpointId2.isEmpty());
+       System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void DeleteEndpoint() {
 
-        try {
-
-            DeleteEndpoint.deletePinEncpoint(pinpoint, appId, endpointId2 );
-           } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
+        DeleteEndpoint.deletePinEncpoint(pinpoint, appId, endpointId2 );
         System.out.println("Test 4 passed");
     }
 
@@ -110,81 +90,48 @@ public class AmazonPinpointServiceIntegrationTest {
     @Order(5)
     public void SendMessage() {
 
-        try {
-        SendMessage.sendSMSMessage(pinpoint, "Hello, this is a Pinpoint test");
-
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("Test 5 passed");
+       SendMessage.sendSMSMessage(pinpoint, "Hello, this is a Pinpoint test");
+       System.out.println("Test 5 passed");
     }
-
 
     @Test
     @Order(6)
     public void ImportSegments() {
 
-        try {
-            ImportSegment.createImportSegment(pinpoint, appId, bucket, path, roleArn);
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 6 passed");
+       ImportSegment.createImportSegment(pinpoint, appId, bucket, path, roleArn);
+       System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void ListSegments() {
 
-        try {
-            ListSegments.listSegs(pinpoint, appId);
-        } catch ( PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 7 passed");
+     ListSegments.listSegs(pinpoint, appId);
+     System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void CreateSegment() {
 
-        try {
-            SegmentResponse createSegmentResult =  CreateSegment.createSegment(pinpoint, appId);
-            segmentId =  createSegmentResult.id();
-            assertTrue(!segmentId.isEmpty());
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        SegmentResponse createSegmentResult =  CreateSegment.createSegment(pinpoint, appId);
+        segmentId =  createSegmentResult.id();
+        assertTrue(!segmentId.isEmpty());
         System.out.println("Test 8 passed");
-        }
+   }
 
     @Test
     @Order(9)
     public void CreateCampaign() {
 
-      try {
-           CreateCampaign.createPinCampaign(pinpoint, appId, segmentId );
-          } catch (PinpointException e) {
-              System.err.println(e.awsErrorDetails().errorMessage());
-              System.exit(1);
-          }
-        System.out.println("Test 9 passed");
+       CreateCampaign.createPinCampaign(pinpoint, appId, segmentId );
+       System.out.println("Test 9 passed");
     }
 
     @Test
     @Order(10)
     public void DeleteApp() {
-        try {
-            DeleteApp.deletePinApp(pinpoint, appId);
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 10 passed");
+         DeleteApp.deletePinApp(pinpoint, appId);
+         System.out.println("Test 10 passed");
     }
 }

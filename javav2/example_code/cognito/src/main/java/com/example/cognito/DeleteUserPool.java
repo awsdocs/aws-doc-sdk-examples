@@ -67,7 +67,8 @@ public class DeleteUserPool {
             System.out.println("User Pool " + response.toString() + " deleted. ID: " + request.userPoolId());
 
         } catch (CognitoIdentityProviderException e){
-        e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
     }
         //snippet-end:[cognito.java2.DeleteUserPool.main]
     }

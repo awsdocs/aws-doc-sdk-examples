@@ -68,7 +68,8 @@ public class GetIdentityCredentials {
           System.out.println("Identity ID " + response.identityId() + ", Access Key Id " + response.credentials().accessKeyId() );
 
        } catch (CognitoIdentityProviderException e){
-        e.getStackTrace();
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
        }
         //snippet-end:[cognito.java2.GetIdentityCredentials.main]
     }

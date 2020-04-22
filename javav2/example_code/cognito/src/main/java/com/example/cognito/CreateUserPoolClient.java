@@ -77,7 +77,8 @@ public class CreateUserPoolClient {
             System.out.println("User Pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
 
         } catch (CognitoIdentityProviderException e){
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
         //snippet-end:[cognito.java2.user_pool.create_user_pool_client.main]
     }

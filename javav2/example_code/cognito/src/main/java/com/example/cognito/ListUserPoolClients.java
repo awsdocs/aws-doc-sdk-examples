@@ -61,7 +61,7 @@ public class ListUserPoolClients {
     //snippet-start:[cognito.java2.ListUserPoolClients.main]
     public static void listAllUserPoolClients(CognitoIdentityProviderClient cognitoclient, String userPoolId) {
 
-        try {
+     try {
 
             ListUserPoolClientsResponse response = cognitoclient.listUserPoolClients(ListUserPoolClientsRequest.builder()
                 .userPoolId(userPoolId)
@@ -70,9 +70,9 @@ public class ListUserPoolClients {
             for(UserPoolClientDescription userPoolClient : response.userPoolClients()) {
                 System.out.println("User Pool Client " + userPoolClient.clientName() + ", Pool Id " + userPoolClient.userPoolId() + ", Client Id " + userPoolClient.clientId() );
             }
-    } catch (
-    CognitoIdentityProviderException e){
-        e.getStackTrace();
+    } catch (CognitoIdentityProviderException e){
+        System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
     }
         //snippet-end:[cognito.java2.ListUserPoolClients.main]
     }
