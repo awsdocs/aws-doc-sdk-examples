@@ -1,11 +1,9 @@
 import com.example.kinesis.CreateDataStream;
 import com.example.kinesis.DescribeLimits;
 import org.junit.jupiter.api.*;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
-import software.amazon.awssdk.services.kinesis.model.*;
 import java.io.*;
 import com.example.kinesis.*;
 import java.util.*;
@@ -60,12 +58,7 @@ public class KinesisServiceIntegrationTest {
     @Order(2)
     public void CreateDataStream() {
 
-        try {
-            CreateDataStream.createStream(kinesisClient, streamName);
-        } catch (KinesisException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        CreateDataStream.createStream(kinesisClient, streamName);
         System.out.println("Test 2 passed");
     }
 
@@ -73,15 +66,9 @@ public class KinesisServiceIntegrationTest {
     @Order(3)
     public void DescribeLimits() {
 
-        try {
-            DescribeLimits.describeKinLimits(kinesisClient);
-        } catch (KinesisException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        DescribeLimits.describeKinLimits(kinesisClient);
         System.out.println("Test 3 passed");
     }
-
 
     @Test
     @Order(4)
@@ -91,7 +78,7 @@ public class KinesisServiceIntegrationTest {
             //Wait 60 secs for table to complete
             TimeUnit.SECONDS.sleep(60);
             ListShards.listKinShards(kinesisClient, streamName);
-        } catch (KinesisException | InterruptedException e) {
+        } catch (InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -102,12 +89,7 @@ public class KinesisServiceIntegrationTest {
     @Order(5)
     public void PutRecords() {
 
-        try {
-            StockTradesWriter.setStockData(kinesisClient, streamName);
-        } catch (KinesisException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        StockTradesWriter.setStockData(kinesisClient, streamName);
         System.out.println("Test 5 passed");
     }
 
@@ -115,13 +97,7 @@ public class KinesisServiceIntegrationTest {
     @Order(6)
     public void GetRecords() {
 
-        try {
-            GetRecords.getStockTrades(kinesisClient, streamName);
-
-        } catch (KinesisException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        GetRecords.getStockTrades(kinesisClient, streamName);
         System.out.println("Test 6 passed");
     }
 
@@ -129,12 +105,7 @@ public class KinesisServiceIntegrationTest {
     @Order(7)
     public void DeleteDataStreem() {
 
-        try {
-            DeleteDataStream.deleteStream(kinesisClient, streamName);
-        } catch (KinesisException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        DeleteDataStream.deleteStream(kinesisClient, streamName);
         System.out.println("Test 7 passed");
     }
 }
