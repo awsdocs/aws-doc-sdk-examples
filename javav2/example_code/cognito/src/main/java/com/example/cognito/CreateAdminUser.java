@@ -85,7 +85,8 @@ public class CreateAdminUser {
             System.out.println("User " + response.user().username() + "is created. Status: " + response.user().userStatus());
 
         } catch (CognitoIdentityProviderException e){
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
         //snippet-end:[cognito.java2.add_login_provider.main]
     }
