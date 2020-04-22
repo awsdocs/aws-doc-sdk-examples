@@ -80,7 +80,8 @@ public class AllocateAddress {
             return associateResponse.associationId();
 
          } catch (Ec2Exception e) {
-           e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
        return "";
         // snippet-end:[ec2.java2.allocate_address.main]

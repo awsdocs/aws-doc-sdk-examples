@@ -65,10 +65,10 @@ public class RebootInstance {
             ec2.rebootInstances(request);
             System.out.printf(
                 "Successfully rebooted instance %s", instanceId);
-    } catch (
-    Ec2Exception e) {
-        e.getStackTrace();
-      }
-  }
+    } catch (Ec2Exception e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+ }
     // snippet-end:[ec2.java2.reboot_instance.main]
 }

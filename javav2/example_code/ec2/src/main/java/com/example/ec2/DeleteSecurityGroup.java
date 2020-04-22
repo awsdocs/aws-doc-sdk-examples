@@ -68,7 +68,8 @@ public class DeleteSecurityGroup {
                 "Successfully deleted security group with ID %s", groupId);
 
         } catch (Ec2Exception e) {
-            e.getStackTrace();
+             System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
         // snippet-end:[ec2.java2.delete_security_group.main]
     }
