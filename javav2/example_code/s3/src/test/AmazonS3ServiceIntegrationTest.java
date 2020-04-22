@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
 import java.io.*;
 import java.util.*;
 import com.example.s3.*;
@@ -67,84 +66,51 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(2)
    public void createBucket() {
 
-        try {
-            S3ObjectOperations.createBucket(s3,bucketName,region);
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 2 passed");
+      S3ObjectOperations.createBucket(s3,bucketName,region);
+      System.out.println("Test 2 passed");
    }
 
     @Test
     @Order(3)
    public void putObject() {
 
-        try {
-            //Put a file into the bucket
-            String result = PutObject.putS3Object(s3, bucketName, objectKey, objectPath);
-            assertTrue(!result.isEmpty());
-        } catch (S3Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 3 passed");
+       String result = PutObject.putS3Object(s3, bucketName, objectKey, objectPath);
+       assertTrue(!result.isEmpty());
+       System.out.println("Test 3 passed");
    }
 
     @Test
     @Order(4)
    public void copyBucketObject() {
 
-      //  CopyObject2 copyObjectEx = new CopyObject2();
-        try {
-            String result = CopyObject.CopyBucketObject(s3,bucketName,objectKey,toBucket);
-            assertTrue(!result.isEmpty());
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 4 passed");
+      String result = CopyObject.CopyBucketObject(s3,bucketName,objectKey,toBucket);
+      assertTrue(!result.isEmpty());
+      System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void setBucketPolicy() {
 
-      try {
-            // Set the Bucket Policy
-          SetBucketPolicy.SetPolicy(s3, bucketName, policyText);
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 5 passed");
+     SetBucketPolicy.SetPolicy(s3, bucketName, policyText);
+     System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void getBucketPolicy() {
 
-        try {
-            String polText = GetBucketPolicy.GetPolicy(s3, bucketName );
-            assertTrue(!polText.isEmpty());
-         } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-      System.out.println("Test 6 passed");
+    String polText = GetBucketPolicy.GetPolicy(s3, bucketName );
+    assertTrue(!polText.isEmpty());
+    System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void deleteBucketPolicy() {
 
-    try {
-        DeleteBucketPolicy.DeleteS3BucketPolicy(s3,bucketName );
-    } catch (S3Exception e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
-        System.out.println("Test 7 passed");
+   DeleteBucketPolicy.DeleteS3BucketPolicy(s3,bucketName );
+   System.out.println("Test 7 passed");
     }
 
     @Test
@@ -154,13 +120,7 @@ public class AmazonS3ServiceIntegrationTest {
         System.out.format("Running Amazon S3 Test 8");
         System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
-
-        try {
-            SetAcl.SetBucketAcl(s3, bucketName, objectKey, id,access );
-        } catch (S3Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        SetAcl.SetBucketAcl(s3, bucketName, objectKey, id,access );
         System.out.println("Test 8 passed");
     }
 
@@ -168,38 +128,24 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(9)
     public void getACL(){
 
-        try {
-            String result = GetAcl.getBucketACL(s3,objectKey,bucketName);
-            assertTrue(!result.isEmpty());
-         } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        String result = GetAcl.getBucketACL(s3,objectKey,bucketName);
+        assertTrue(!result.isEmpty());
         System.out.println("Test 9 passed");
     }
 
      @Test
     @Order(10)
     public void deleteObjects() {
-        try {
-            DeleteObjects.DeleteBucketObjects(s3,bucketName,objectKey);
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 10 passed");
+
+       DeleteObjects.DeleteBucketObjects(s3,bucketName,objectKey);
+       System.out.println("Test 10 passed");
     }
 
     @Test
     @Order(11)
     public void deleteBucket() {
 
-       try {
-           S3ObjectOperations.deleteBucket(s3,bucketName);
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 11 passed");
+    S3ObjectOperations.deleteBucket(s3,bucketName);
+    System.out.println("Test 11 passed");
     }
 }
