@@ -65,13 +65,8 @@ public class EnhancedClientIntegrationTest {
     @Order(2)
     public void CreateTable() {
 
-        try {
-            CreateTable.createTable(ddb, enhancedTableName, enhancedTableKey );
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 2 passed");
+      CreateTable.createTable(ddb, enhancedTableName, enhancedTableKey );
+      System.out.println("\n Test 2 passed");
     }
 
     @Test
@@ -83,7 +78,7 @@ public class EnhancedClientIntegrationTest {
             TimeUnit.SECONDS.sleep(20);
             EnhancedTableSchema.putRecord(enhancedClient);
 
-        } catch (DynamoDbException | InterruptedException e) {
+        } catch (InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -94,42 +89,25 @@ public class EnhancedClientIntegrationTest {
     @Order(4)
     public void PutBatchItems() {
 
-        try {
-            EnhancedBatchWriteItems.putBatchRecords(enhancedClient);
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 4 passed");
+       EnhancedBatchWriteItems.putBatchRecords(enhancedClient);
+       System.out.println("\n Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void GetItem() {
 
-        try {
-            String result = EnhancedGetItem.getItem(enhancedClient);
-            assertTrue(!result.isEmpty());
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-
-        System.out.println("\n Test 5 passed");
+      String result = EnhancedGetItem.getItem(enhancedClient);
+      assertTrue(!result.isEmpty());
+      System.out.println("\n Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void QueryRecords() {
 
-        try {
-            //Create a DynamoDbTable object
-            String result = EnhancedQueryRecords.queryTable(enhancedClient);
-            assertTrue(!result.isEmpty());
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        String result = EnhancedQueryRecords.queryTable(enhancedClient);
+        assertTrue(!result.isEmpty());
         System.out.println("\n Test 6 passed");
     }
 
@@ -137,25 +115,15 @@ public class EnhancedClientIntegrationTest {
     @Order(7)
     public void ScanRecords() {
 
-        try {
-            EnhancedScanRecords.scan(enhancedClient);
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 7 passed");
+       EnhancedScanRecords.scan(enhancedClient);
+       System.out.println("\n Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void DeleteTable() {
 
-        try {
-            DeleteTable.deleteDynamoDBTable(ddb,enhancedTableName);
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 8 passed");
+       DeleteTable.deleteDynamoDBTable(ddb,enhancedTableName);
+       System.out.println("\n Test 8 passed");
     }
 }
