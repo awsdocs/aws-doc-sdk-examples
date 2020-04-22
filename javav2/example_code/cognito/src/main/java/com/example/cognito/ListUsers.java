@@ -71,7 +71,8 @@ public class ListUsers {
             }
 
            } catch (CognitoIdentityProviderException e){
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
           }
         //snippet-end:[cognito.java2.ListUsers.main]
     }
