@@ -71,7 +71,8 @@ public class CreateIdentityPool {
 
            return response.identityPoolId();
     } catch (CognitoIdentityProviderException e){
-        e.getStackTrace();
+        System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
     }
        return "";
         //snippet-end:[cognito.java2.create_identity_pool.main]
