@@ -30,13 +30,13 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.create_key_pair.import]
 
 /**
- * Creates an EC2 key pair
+ * Creates an Amazon EC2 key pair
  */
 public class CreateKeyPair {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a key pair name\n" +
+                "To run this example, supply a key pair name.\n" +
                         "Ex: CreateKeyPair <key-pair-name>\n";
 
         if (args.length != 1) {
@@ -46,7 +46,7 @@ public class CreateKeyPair {
 
         String keyName = args[0];
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)

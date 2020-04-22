@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ReleaseAddress.java demonstrates how to release an elastic IP address.]
+//snippet-sourcedescription:[ReleaseAddress.java demonstrates how to release an Elastic IP address.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -30,7 +30,7 @@ import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 // snippet-end:[ec2.java2.release_instance.import]
 
 /**
- * Releases an elastic IP address
+ * Releases an Elastic IP address
  */
 public class ReleaseAddress {
 
@@ -46,7 +46,7 @@ public class ReleaseAddress {
 
         String allocId = args[0];
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -63,7 +63,7 @@ public class ReleaseAddress {
             ReleaseAddressResponse response = ec2.releaseAddress(request);
 
          System.out.printf(
-                "Successfully released elastic IP address %s", allocId);
+                "Successfully released Elastic IP address %s", allocId);
         } catch (
                 Ec2Exception e) {
             e.getStackTrace();

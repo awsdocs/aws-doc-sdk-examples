@@ -34,13 +34,13 @@ import software.amazon.awssdk.services.ec2.model.IpRange;
 // snippet-end:[ec2.java2.create_security_group.import]
 
 /**
- * Creates an EC2 security group.
+ * Creates an Amazon EC2 security group
  */
 public class CreateSecurityGroup {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a group name, group description and vpc id\n" +
+                "To run this example, supply a group name, group description, and VPC ID.\n" +
                         "Ex: CreateSecurityGroup <group-name> <group-description> <vpc-id>\n";
 
         if (args.length != 3) {
@@ -52,7 +52,7 @@ public class CreateSecurityGroup {
         String groupDesc = args[1];
         String vpcId = args[2];
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -113,4 +113,3 @@ public class CreateSecurityGroup {
         }
     }
 }
-

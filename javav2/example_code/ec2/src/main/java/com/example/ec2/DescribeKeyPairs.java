@@ -36,7 +36,7 @@ public class DescribeKeyPairs {
 
     public static void main(String[] args) {
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
