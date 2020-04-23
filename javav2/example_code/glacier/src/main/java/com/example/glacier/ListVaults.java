@@ -64,15 +64,14 @@ public class ListVaults {
                         .marker(newMarker)
                         .build();
                 response = glacier.listVaults(request);
-            }
-            else {
+            } else {
                 ListVaultsRequest request = ListVaultsRequest.builder()
                         .build();
                 response = glacier.listVaults(request);
             }
 
-            List<DescribeVaultOutput> vault_list = response.vaultList();
-            for (DescribeVaultOutput v: vault_list) {
+            List<DescribeVaultOutput> vaultList = response.vaultList();
+            for (DescribeVaultOutput v: vaultList) {
                 totalVaults += 1;
                 System.out.println("* " + v.vaultName());
             }
@@ -87,8 +86,8 @@ public class ListVaults {
                 System.out.println("  no vaults found.");
             }
         } catch(GlacierException e) {
-            e.getStackTrace();
-
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
 }
