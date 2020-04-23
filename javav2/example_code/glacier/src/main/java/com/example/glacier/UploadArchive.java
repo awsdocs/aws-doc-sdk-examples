@@ -62,7 +62,7 @@ public class UploadArchive {
                 .region(Region.US_EAST_1)
                 .build();
 
-     String archiveId =   uploadContent(glacier, path, vaultName, myFile );
+     String archiveId = uploadContent(glacier, path, vaultName, myFile );
      System.out.println("The ID of the archived item is " +archiveId);
     }
 
@@ -81,10 +81,9 @@ public class UploadArchive {
             UploadArchiveResponse res = glacier.uploadArchive(uploadRequest, path);
             return res.archiveId();
 
-
         } catch(GlacierException e) {
-            e.getStackTrace();
-
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
         return "";
         // snippet-end:[glacier.java2.upload.import]
