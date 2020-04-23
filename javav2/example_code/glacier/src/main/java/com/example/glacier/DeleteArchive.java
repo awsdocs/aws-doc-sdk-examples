@@ -21,8 +21,6 @@ package com.example.glacier;
 // snippet-start:[glacier.java2.delete.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
-import software.amazon.awssdk.services.glacier.model.DeleteArchiveResponse;
-import software.amazon.awssdk.services.glacier.model.DeleteVaultResponse;
 import software.amazon.awssdk.services.glacier.model.DeleteArchiveRequest;
 import software.amazon.awssdk.services.glacier.model.GlacierException;
 // snippet-end:[glacier.java2.delete.import]
@@ -65,10 +63,10 @@ public class DeleteArchive {
                     .archiveId(archiveId)
                     .build();
 
-            DeleteArchiveResponse delVaultResult = glacier.deleteArchive(delArcRequest);
+            glacier.deleteArchive(delArcRequest);
             System.out.println("The vault was deleted!");
         } catch(GlacierException e) {
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
 
         }
