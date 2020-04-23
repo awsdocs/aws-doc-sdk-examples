@@ -31,12 +31,14 @@ public class DeleteArchive {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "DeleteVault - deletes an Amazon Glacier vault\n\n" +
-                "Usage: DeleteVault <vaultName>\n\n" +
+                "DeleteArchive - deletes an Amazon Glacier vault\n\n" +
+                "Usage: DeleteArchive <vaultName><accountId><archiveId>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault to delete.\n\n";
+                "  vaultName - the name of the vault to delete.\n\n" +
+                "  accountId - the account id.\n\n"+
+                "  archiveId - the archive id.\n\n";
 
-        if (args.length < 1) {
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
