@@ -4,3 +4,5 @@ files:
     services:
       - cloudformation
   - path: CfnCrudOps_test.go
+    services:
+      - cloudformation
