@@ -69,7 +69,7 @@ function createsTheS3Distribution()
             'QueryString' => false,
             'QueryStringCacheKeys' => [
                 'Quantity' => 0
-            ],
+            ]
         ],
         'LambdaFunctionAssociations' => ['Quantity' => 0],
         'MaxTTL' => 0,

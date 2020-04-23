@@ -17,5 +17,11 @@
     <testsuite name="cloudfront-deletedistribution">
       <file>tests/DeleteDistributionTest.php</file>
     </testsuite>
+    <testsuite name="cloudfront-disabledistribution">
+      <file>tests/DisableDistributionS3Test.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-getdistribution">
+      <file>tests/GetDistributionTest.php</file>
+    </testsuite>
   </testsuites>
 </phpunit>

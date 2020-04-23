@@ -50,7 +50,14 @@ function getDistributionETag($cloudFrontClient, $distributionId)
         $result = $cloudFrontClient->getDistribution([
             'Id' => $distributionId,
         ]);
-        return $result["ETag"];
+        
+        if (isset($result['ETag']))
+        {
+            return $result['ETag'];
+        } else {
+            return 'Error: Cannot find distribution ETag header value.';
+        }
+
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -73,8 +80,7 @@ function deleteADistribution()
     if (strpos($eTag, 'Error:') === false) {
         echo deleteDistribution($cloudFrontClient, $distributionId, $eTag);
     } else {
-        echo 'Error: Cannot delete the distribution. Could not get ' . 
-            'its ETag header value.';
+        exit($eTag);
     }
 }
 

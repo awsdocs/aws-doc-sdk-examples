@@ -21,74 +21,126 @@ use Aws\Exception\AwsException;
  * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
  *   for CloudFront.
  * - $distributionId: The distribution's ID.
- * - $distributionConfig: ... This value comes from the companion 
- *   getDisributionConfig function.
+ * - $distributionConfig: A collection of settings for the distribution. 
+ *   This value comes from the companion getDistributionConfig function.
  * - $eTag: The ETag header value for the distribution. This value comes from
  *   the companion getDistributionETag function.
  *
- * Returns: Information about the deletion request; otherwise, 
+ * Returns: Information about the disable request; otherwise, 
  * the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[cloudfront.php.disabledistribution.main]
-$client = new Aws\CloudFront\CloudFrontClient([
-    'profile' => 'default',
-    'version' => '2018-06-18',
-    'region' => 'us-east-2'
-]);
-
-
-$id = 'E1A2B3C4D5E';
-
-try {
-    $result = $client->getDistribution([
-        'Id' => $id,
-    ]);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+function disableDistribution($cloudFrontClient, $distributionId, 
+    $distributionConfig, $eTag)
+{
+    try {
+        $result = $cloudFrontClient->updateDistribution([
+            'DistributionConfig' => $distributionConfig,
+            'Id' => $distributionId,
+            'IfMatch' => $eTag
+        ]);
+        return 'The distribution with the following effective URI has ' .
+            'been disabled: ' . $result['@metadata']['effectiveUri'];
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
 
-$enabled = false;
-$currentConfig = $result["Distribution"]["DistributionConfig"];
-$ETag = $result["ETag"];
+function getDistributionConfig($cloudFrontClient, $distributionId)
+{
+    try {
+        $result = $cloudFrontClient->getDistribution([
+            'Id' => $distributionId,
+        ]);
 
-$distribution = [
-    'CacheBehaviors' => $currentConfig["CacheBehaviors"], //REQUIRED 
-    'CallerReference' => $currentConfig["CallerReference"], // REQUIRED
-    'Comment' => $currentConfig["Comment"], // REQUIRED
-    'DefaultCacheBehavior' => $currentConfig["DefaultCacheBehavior"], // REQUIRED 
-    'DefaultRootObject' => $currentConfig["DefaultRootObject"],
-    'Enabled' => $enabled, // REQUIRED
-    'Origins' => $currentConfig["Origins"], // REQUIRED 
-    'Aliases' => $currentConfig["Aliases"],
-    'CustomErrorResponses' => $currentConfig["CustomErrorResponses"],
-    'HttpVersion' => $currentConfig["HttpVersion"],
-    'IsIPV6Enabled' => $currentConfig["IsIPV6Enabled"],
-    'Logging' => $currentConfig["Logging"],
-    'PriceClass' => $currentConfig["PriceClass"],
-    'Restrictions' => $currentConfig["Restrictions"],
-    'ViewerCertificate' => $currentConfig["ViewerCertificate"],
-    'WebACLId' => $currentConfig["WebACLId"],
-];
+        if (isset($result['Distribution']['DistributionConfig']))
+        {
+            return $result['Distribution']['DistributionConfig'];
+        } else {
+            return 'Error: Cannot find distribution configuration details.';
+        }
 
-//var_dump($distribution);
-
-try {
-    $result = $client->updateDistribution([
-        'DistributionConfig' => $distribution,
-        'Id' => $id,
-        'IfMatch' => $ETag
-    ]);
-    print("<p>For The Distribution " . $result['Distribution']['Id'] . " enabled is set to " . $result['Distribution']['DistributionConfig']['Enabled'] . "</p>");
-    var_dump($result['Distribution']['DistributionConfig']['Enabled']);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
- 
+
+function getDistributionETag($cloudFrontClient, $distributionId)
+{
+    try {
+        $result = $cloudFrontClient->getDistribution([
+            'Id' => $distributionId,
+        ]);
+
+        if (isset($result['ETag']))
+        {
+            return $result['ETag'];
+        } else {
+            return 'Error: Cannot find distribution ETag header value.';
+        }
+
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
+}
+
+function disableADistribution()
+{
+    $distributionId = 'E1BTGP2EXAMPLE';
+
+    $cloudFrontClient = new Aws\CloudFront\CloudFrontClient([
+        'profile' => 'default',
+        'version' => '2018-06-18',
+        'region' => 'us-east-1'
+    ]);
+
+    // To disable a distribution, you must first get the distribution's 
+    // ETag header value.
+    $eTag = getDistributionETag($cloudFrontClient, $distributionId);
+
+    if (strpos($eTag, 'Error:') === false) {
+
+    } else {
+        exit($eTag);
+    }
+
+    // To delete a distribution, you must also first get information about 
+    // the distribution's current configuration. Then you must use that 
+    // information to build a new configuration, including setting the new
+    // configuration to disabled.
+    $currentConfig = getDistributionConfig($cloudFrontClient, $distributionId);
+
+    if (is_array($currentConfig)) {
+
+    } else {
+        exit($currentConfig);
+    }
+
+    $distributionConfig = [
+        'CacheBehaviors' => $currentConfig["CacheBehaviors"],
+        'CallerReference' => $currentConfig["CallerReference"],
+        'Comment' => $currentConfig["Comment"],
+        'DefaultCacheBehavior' => $currentConfig["DefaultCacheBehavior"],
+        'DefaultRootObject' => $currentConfig["DefaultRootObject"],
+        'Enabled' => false,
+        'Origins' => $currentConfig["Origins"],
+        'Aliases' => $currentConfig["Aliases"],
+        'CustomErrorResponses' => $currentConfig["CustomErrorResponses"],
+        'HttpVersion' => $currentConfig["HttpVersion"],
+        'Logging' => $currentConfig["Logging"],
+        'PriceClass' => $currentConfig["PriceClass"],
+        'Restrictions' => $currentConfig["Restrictions"],
+        'ViewerCertificate' => $currentConfig["ViewerCertificate"],
+        'WebACLId' => $currentConfig["WebACLId"]
+    ];
+
+    echo disableDistribution($cloudFrontClient, $distributionId,
+        $distributionConfig, $eTag);
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// disableADistribution();
 // snippet-end:[cloudfront.php.disabledistribution.main]
 // snippet-end:[cloudfront.php.disabledistribution.complete]
 // snippet-sourcedescription:[DisableDistributionS3.php demonstrates how to disable an Amazon CloudFront distribution.]

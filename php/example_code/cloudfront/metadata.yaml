@@ -6,4 +6,28 @@ files:
   - path: tests/CreateDistributionS3Test.php
     services: 
       - cloudfront
+  - path: CreateInvalidation.php
+    services: 
+      - cloudfront
+  - path: tests/CreateInvalidationTest.php
+    services: 
+      - cloudfront
+  - path: DeleteDistribution.php
+    services: 
+      - cloudfront
+  - path: tests/DeleteDistributionTest.php
+    services: 
+      - cloudfront
+  - path: DisableDistributionS3.php
+    services: 
+      - cloudfront
+  - path: tests/DisableDistributionS3Test.php
+    services: 
+      - cloudfront
+  - path: GetDistribution.php
+    services: 
+      - cloudfront
+  - path: tests/GetDistributionTest.php
+    services: 
+      - cloudfront
 ...

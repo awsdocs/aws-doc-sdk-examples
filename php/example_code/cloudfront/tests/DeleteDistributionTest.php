@@ -17,9 +17,16 @@ use Aws\CloudFront\CloudFrontClient;
 
 class DeleteDistributionTest extends TestCase
 {
-    public function testDeletesADistribution()
+    public static function setUpBeforeClass(): void
     {
         require('./DeleteDistribution.php');
+    }
+
+    protected function setUp(): void
+    {
+        global $cloudFrontClient;
+        global $distributionId;
+        global $eTag;
 
         $distributionId = CLOUDFRONT_DISTRIBUTION_ID;
         $eTag = CLOUDFRONT_DISTRIBUTION_ETAG;
@@ -33,12 +40,32 @@ class DeleteDistributionTest extends TestCase
             'region' => AWS_REGION,
             'handler' => $mock
         ]);
+    }
 
+    protected function tearDown(): void
+    {
+        unset($GLOBALS['cloudFrontClient']);
+    }
+
+    public function testDeletesADistribution()
+    {
         $this->assertEquals(deleteDistribution(
-            $cloudFrontClient, $distributionId, $eTag
+            $GLOBALS['cloudFrontClient'], 
+            $GLOBALS['distributionId'], 
+            $GLOBALS['eTag']
         ), 'The distribution at the following effective URI has ' . 
             'been deleted: ' . 'https://cloudfront.amazonaws.com/' .
             CLOUDFRONT_VERSION. '/distribution/' . 
             CLOUDFRONT_DISTRIBUTION_ID);
+    }
+
+    public function testGetsADistributionETag()
+    {
+        // Tests to make sure non-AWS error message is returned.
+        // An AWS error message is a failure in this case.
+        $this->assertEquals(getDistributionETag(
+            $GLOBALS['cloudFrontClient'], 
+            $GLOBALS['distributionId']
+        ), 'Error: Cannot find distribution ETag header value.');
     }
 }

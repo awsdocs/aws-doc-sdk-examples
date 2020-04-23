@@ -5,24 +5,121 @@ SPDX-License-Identifier: Apache-2.0
 */
 
 /*
-Relies on PHPUnit to test the functionality in ./DeleteDistribution.php.
+Relies on PHPUnit to test the functionality in ./DisableDistributionS3.php.
 Related custom constants are defined in ./phpunit.xml.
 Example PHPUnit run command from this file's parent directory:
-./vendor/bin/phpunit --testsuite cloudfront-deletedistribution
+./vendor/bin/phpunit --testsuite cloudfront-disabledistribution
 */
 use PHPUnit\Framework\TestCase;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\CloudFront\CloudFrontClient;
 
-class DeleteDistributionTest extends TestCase
+class DisableDistributionTest extends TestCase
 {
-    public function testDeletesADistribution()
+    public static function setUpBeforeClass(): void
     {
-        require('./DeleteDistribution.php');
+        require('./DisableDistributionS3.php');
+    }
+
+    protected function setUp(): void
+    {
+        global $cloudFrontClient;
+        global $distributionId;
+        global $eTag;
+        global $distributionConfig;
 
         $distributionId = CLOUDFRONT_DISTRIBUTION_ID;
         $eTag = CLOUDFRONT_DISTRIBUTION_ETAG;
+
+        $distributionConfig = [
+            'CacheBehaviors' => [
+                'Quantity' => 0 
+            ],
+            'CallerReference' => 'my-',
+            'Comment' => '',
+            'DefaultCacheBehavior' => [
+                'TargetOriginId' => 'my-target-origin-id',
+                'ForwardedValues' => [
+                    'Cookies' => [
+                        'Forward' => 'none'
+                    ],
+                    'Headers' => [
+                        'Quantity' => 0
+                    ],
+                    'QueryString' => false,
+                    'QueryStringCacheKeys' => [
+                        'Quantity' => 0
+                    ]
+                ],
+                'ViewerProtocolPolicy' => 'allow-all',
+                'MinTTL' => '0',
+                'AllowedMethods' => [
+                    'CachedMethods' => [
+                        'Items' => ['HEAD', 'GET'],
+                        'Quantity' => 2
+                    ],
+                    'Items' => ['HEAD', 'GET'],
+                    'Quantity' => 2
+                ],
+                'SmoothStreaming' => false,
+                'DefaultTTL' => '86400',
+                'MaxTTL' => '31536000',
+                'Compress' => false,
+                'LambdaFunctionAssociations' => [
+                    'Quantity' => 0
+                ],
+                'FieldLevelEncryptionId' => '',
+                'TrustedSigners' => [
+                    'Enabled' => false,
+                    'Quantity' => 0
+                ]
+            ],
+            'DefaultRootObject' => '',
+            'Enabled' => false,
+            'Origins' => [
+                'Items' => [
+                    [
+                        'DomainName' => 'my-bucket-name.s3.amazonaws.com',
+                        'Id' => 'my-unique-origin-name',
+                        'OriginPath' => '',
+                        'CustomHeaders' => [
+                            'Quantity' => 0
+                        ],
+                        'S3OriginConfig' => [
+                            'OriginAccessIdentity' => ''
+                        ]
+                    ]
+                ],
+                'Quantity' => 1
+            ],
+            'Aliases' => [ 
+                'Quantity' => 0
+            ],
+            'CustomErrorResponses' => [
+              'Quantity' => 0
+            ],
+            'HttpVersion' => 'http2',
+            'Logging' => [
+                'Enabled' => false,
+                'IncludeCookies' => false,
+                'Bucket' => '',
+                'Prefix' => ''
+            ],
+            'PriceClass' => 'PriceClass_All',
+            'Restrictions' => [
+                'GeoRestriction' => [
+                    'RestrictionType' => 'none',
+                    'Quantity' => 0
+                ]
+            ],
+            'ViewerCertificate' => [
+                'CloudFrontDefaultCertificate' => true,
+                'MinimumProtocolVersion' => 'TLSv1',
+                'CertificateSource' => 'cloudfront',
+                'WebACLId' => ''
+            ]
+        ];
 
         $mock = new MockHandler();
         $mock->append(new Result(array(true)));
@@ -33,12 +130,44 @@ class DeleteDistributionTest extends TestCase
             'region' => AWS_REGION,
             'handler' => $mock
         ]);
+    }
 
-        $this->assertEquals(deleteDistribution(
-            $cloudFrontClient, $distributionId, $eTag
-        ), 'The distribution at the following effective URI has ' . 
-            'been deleted: ' . 'https://cloudfront.amazonaws.com/' .
+    protected function tearDown(): void
+    {
+        unset($GLOBALS['cloudFrontClient']);
+    }
+
+    public function testDisablesADistribution()
+    {
+        $this->assertEquals(disableDistribution(
+            $GLOBALS['cloudFrontClient'],
+            $GLOBALS['distributionId'],
+            $GLOBALS['distributionConfig'],
+            $GLOBALS['eTag']
+        ), 'The distribution with the following effective URI has ' . 
+            'been disabled: ' . 'https://cloudfront.amazonaws.com/' . 
             CLOUDFRONT_VERSION. '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID);
+            CLOUDFRONT_DISTRIBUTION_ID . '/config');
+    }
+
+    public function testGetsADistributionConfig()
+    {
+        // Tests to make sure non-AWS error message is returned.
+        // An AWS error message is a failure in this case.
+        $this->assertEquals(getDistributionConfig(
+            $GLOBALS['cloudFrontClient'], 
+            $GLOBALS['distributionId']
+        ), 'Error: Cannot find distribution configuration details.');
+    }
+
+    public function testGetsADistributionETag()
+    {
+        // Tests to make sure non-AWS error message is returned.
+        // An AWS error message is a failure in this case.
+        $this->assertEquals(getDistributionETag(
+            $GLOBALS['cloudFrontClient'], 
+            $GLOBALS['distributionId']
+        ), 'Error: Cannot find distribution ETag header value.');
     }
 }
+
