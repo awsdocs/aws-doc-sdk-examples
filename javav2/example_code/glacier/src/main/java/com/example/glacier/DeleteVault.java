@@ -63,7 +63,7 @@ public class DeleteVault {
             DeleteVaultResponse delVaultResult = glacier.deleteVault(delVaultRequest);
             System.out.println("The vault was deleted!");
         } catch(GlacierException e) {
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
 
         }
