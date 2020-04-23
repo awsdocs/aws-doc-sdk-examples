@@ -1,89 +1,51 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-#
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at http://aws.amazon.com/apache2.0/.
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
 
 """
 Contains common test fixtures used to run SQS tests.
 """
 
-import time
-from unittest.mock import MagicMock
-import pytest
-from botocore.stub import Stubber
-
-import queue_wrapper
-
-def pytest_addoption(parser):
-    """Add an option to run tests against a real AWS account instead of the Stubber."""
-    parser.addoption(
-        "--use-real-aws-may-incur-charges", action="store_true", default=False,
-        help="Connect to real AWS services while testing. WARNING: THIS MAY INCUR "
-             "CHARGES ON YOUR ACCOUNT!"
-    )
+import sys
+# This is needed so Python can find test_tools on the path.
+sys.path.append('../..')
+from test_tools.fixtures.common import *
 
 
-@pytest.fixture(name='sqs_stubber')
-def fixture_sqs_stubber(request):
+@pytest.fixture(name='make_queue')
+def fixture_make_queue(request, make_unique_name):
     """
-    Create a botocore Stubber that can be used to intercept requests and return mocked
-    responses.
+    Return a factory function that can be used to make a queue for testing.
 
-    When tests are run against a real AWS account, create a mocked Stubber. This
-    causes test code that sets up the Stubber to be ignored, so that requests
-    are sent through to AWS instead of being intercepted by the Stubber.
-
-    After tests complete, the Stubber checks that no more responses remain in its
-    queue. This lets tests verify that all expected calls to the Stubber were
-    actually made during the test.
-
-    :param request: An object that contains configuration parameters.
-    :return: The Stubber or mocked Stubber object.
+    :param request: The Pytest request object that contains configuration data.
+    :param make_unique_name: A fixture that returns a unique name.
+    :return: The factory function to make a test queue.
     """
-    if request.config.getoption("--use-real-aws-may-incur-charges"):
-        stubber = MagicMock(unsafe=True)
-        stubber.client = queue_wrapper.sqs.meta.client
-        stubber.needs_cleanup = True
-    else:
-        stubber = Stubber(queue_wrapper.sqs.meta.client)
-        stubber.needs_cleanup = False
+    def _make_queue(sqs_stubber, sqs_resource):
+        """
+        Make a queue that can be used for testing. When stubbing is used, a stubbed
+        queue is created. When AWS services are used, the queue is deleted after
+        the test completes.
 
-    stubber.activate()
-    yield stubber
-    stubber.assert_no_pending_responses()
-    stubber.deactivate()
+        :param sqs_stubber: The SqsStubber object, configured for stubbing or AWS.
+        :param sqs_resource: The SQS resource, used to create the queue.
+        :return: The test queue.
+        """
+        queue_name = make_unique_name('queue')
+        sqs_stubber.add_response(
+            'create_queue',
+            expected_params={
+                'QueueName': queue_name,
+                'Attributes': {}
+            },
+            service_response={'QueueUrl': 'url-' + queue_name}
+        )
+        queue = sqs_resource.create_queue(QueueName=queue_name, Attributes={})
 
+        def fin():
+            if not sqs_stubber.use_stubs:
+                queue.delete()
+        request.addfinalizer(fin)
 
-@pytest.fixture(name='unique_queue_name')
-def fixture_unique_queue_name():
-    """
-    Creates a unique queue name based on the current time in nanoseconds.
+        return queue
 
-    :return: A unique name that can be used to create a queue.
-    """
-    name = f"queue{time.time_ns()}"
-    print(f"unique_queue_name={name}")
-    return name
-
-
-@pytest.fixture(name='queue_stub')
-def fixture_queue_stub(sqs_stubber, unique_queue_name):
-    """Create a standard queue to use for message testing. In non-stubbed
-    scenarios, delete the queue after the test completes."""
-    sqs_stubber.add_response(
-        'create_queue',
-        expected_params={
-            'QueueName': unique_queue_name,
-            'Attributes': {}
-        },
-        service_response={'QueueUrl': 'url' + unique_queue_name}
-    )
-    queue = queue_wrapper.create_queue(unique_queue_name)
-    yield queue
-    if sqs_stubber.needs_cleanup:
-        queue.delete()
+    return _make_queue

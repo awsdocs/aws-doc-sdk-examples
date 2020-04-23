@@ -1,12 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-#
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at http://aws.amazon.com/apache2.0/.
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
 
 """
 Purpose
@@ -53,6 +46,8 @@ def create_queue(name, attributes=None):
     """
     Creates an SQS queue.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param name: The name of the queue. This is part of the URL assigned to the queue.
     :param attributes: The attributes of the queue, such as maximum message size or
                        whether it's a FIFO queue.
@@ -79,6 +74,8 @@ def get_queue(name):
     """
     Gets an SQS queue by name.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param name: The name that was used to create the queue.
     :return: A Queue object.
     """
@@ -96,6 +93,8 @@ def get_queues(prefix=None):
     """
     Gets a list of SQS queues. When a prefix is specified, only queues with names
     that start with the prefix are returned.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param prefix: The prefix used to restrict the list of returned queues.
     :return: A list of Queue objects.
@@ -117,6 +116,8 @@ def remove_queue(queue):
     Removes an SQS queue. When run against an AWS account, it can take up to
     60 seconds before the queue is actually deleted.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param queue: The queue to delete.
     :return: None
     """
@@ -126,3 +127,58 @@ def remove_queue(queue):
     except ClientError as error:
         logger.exception("Couldn't delete queue with URL=%s!", queue.url)
         raise error
+
+
+def usage_demo():
+    """Demonstrates some ways to use the functions in this module."""
+    prefix = 'sqs-usage-demo-'
+    river_queue = create_queue(
+        prefix + 'peculiar-river',
+        {
+            'MaximumMessageSize': str(1024),
+            'ReceiveMessageWaitTimeSeconds': str(20)
+        }
+    )
+    print(f"Created queue with URL: {river_queue.url}.")
+
+    lake_queue = create_queue(
+        prefix + 'strange-lake.fifo',
+        {
+            'MaximumMessageSize': str(4096),
+            'ReceiveMessageWaitTimeSeconds': str(10),
+            'VisibilityTimeout': str(300),
+            'FifoQueue': str(True),
+            'ContentBasedDeduplication': str(True)
+        }
+    )
+    print(f"Created queue with URL: {lake_queue.url}.")
+
+    stream_queue = create_queue(prefix + 'boring-stream')
+    print(f"Created queue with URL: {stream_queue.url}.")
+
+    alias_queue = get_queue(prefix + 'peculiar-river')
+    print(f"Got queue with URL: {alias_queue.url}.")
+
+    remove_queue(stream_queue)
+    print(f"Removed queue with URL: {stream_queue.url}.", )
+
+    queues = get_queues(prefix=prefix)
+    print(f"Got {len(queues)} queues.")
+    for queue in queues:
+        remove_queue(queue)
+        print(f"Removed queue with URL: {queue.url}.")
+
+
+def main():
+    go = input("Running the usage demonstration uses your default AWS account "
+               "credentials and may incur charges on your account. Do you want "
+               "to continue (y/n)? ")
+    if go.lower() == 'y':
+        print("Starting the usage demo. Enjoy!")
+        usage_demo()
+    else:
+        print("Thanks anyway!")
+
+
+if __name__ == '__main__':
+    main()
