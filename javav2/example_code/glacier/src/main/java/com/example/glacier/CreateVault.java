@@ -61,7 +61,8 @@ public class CreateVault {
            CreateVaultResponse createVaultResult = glacier.createVault(vaultRequest);
            System.out.println("The URI of the new vault is " + createVaultResult.location());
        } catch(GlacierException e) {
-           e.getStackTrace();
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
 
        }
         // snippet-end:[glacier.java2.create.main]
