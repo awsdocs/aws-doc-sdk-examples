@@ -69,7 +69,7 @@ public class DescribeVault {
                             "\nVaultARN: " + desVaultResult.vaultARN() +
                             "\nVaultName: " + desVaultResult.vaultName());
         } catch(GlacierException e) {
-            e.getStackTrace();
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         // snippet-end:[glacier.java2.describe.main]
