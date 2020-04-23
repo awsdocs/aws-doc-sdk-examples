@@ -75,7 +75,8 @@ public class ArchiveDownload {
             System.out.println("The relative URI path of the job is: "+reponse.location()) ;
 
     } catch(GlacierException e) {
-         e.printStackTrace();
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
 
     }
         System.out.println("Done");
