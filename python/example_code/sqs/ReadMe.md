@@ -17,9 +17,17 @@ queues. Learn how to send, receive, and delete messages from a queue.
 
 ## Running the code
 
-Run individual functions in the Python shell to make requests to your AWS account.
-For example, run the following commands to create a queue, send a message,
-receive a message, print the message body, and delete the queue.  
+Both `queue_wrapper.py` and `message_wrapper.py` contain `usage_demo` functions
+that demonstrate ways to use the functions in their respective modules. 
+For example, to see the queue demonstration, run the module in a command window.
+
+```
+python -m queue_wrapper
+``` 
+
+You can also run individual functions in the Python shell to make requests to 
+your AWS account. For example, run the following commands to create a queue, 
+send a message, receive a message, print the message body, and delete the queue.  
 
     > python
     >>> import queue_wrapper
@@ -67,4 +75,10 @@ been cleaned up.
   available only in specific Regions. For more information, see the 
   "AWS Regional Table" on the AWS website.
 - Running this code might result in charges to your AWS account.
-- For more information about using SQS with Boto 3, see the [Boto 3 SQS documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html).
+- For more information about using Amazon SQS with Boto 3, see 
+  the [Boto 3 SQS documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html).
+
+---
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -1,12 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-#
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at http://aws.amazon.com/apache2.0/.
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
 
 """
 Purpose
@@ -51,36 +44,31 @@ import message_wrapper
         'key': {'StringValue': 'D Minor', 'DataType': 'String'}
     })
 ])
-def test_send_message(sqs_stubber, queue_stub, body, attributes):
+def test_send_message(make_stubber, make_queue, body, attributes):
     """Test that sending a message returns a message ID."""
-    sqs_stubber.add_response(
-        'send_message',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'MessageBody': body,
-            'MessageAttributes': attributes
-        },
-        service_response={'MessageId': '1234-5678'}
-    )
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+    message_id = '1234-5678'
 
-    response = message_wrapper.send_message(queue_stub, body, attributes)
-    assert response['MessageId']
+    sqs_stubber.stub_send_message(queue.url, body, attributes, message_id)
+
+    response = message_wrapper.send_message(queue, body, attributes)
+    if sqs_stubber.use_stubs:
+        assert response['MessageId'] == message_id
+    else:
+        assert response['MessageId']
 
 
-def test_send_message_no_body(sqs_stubber, queue_stub):
+def test_send_message_no_body(make_stubber, make_queue):
     """Test that sending a message with no body raises an exception."""
-    sqs_stubber.add_client_error(
-        'send_message',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'MessageBody': '',
-            'MessageAttributes': {}
-        },
-        service_error_code='MissingParameter'
-    )
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
 
-    with pytest.raises(ClientError):
-        message_wrapper.send_message(queue_stub, '')
+    sqs_stubber.stub_send_message(queue.url, '', {}, '', error_code='MissingParameter')
+
+    with pytest.raises(ClientError) as exc_info:
+        message_wrapper.send_message(queue, '')
+    assert exc_info.value.response['Error']['Code'] == 'MissingParameter'
 
 
 @pytest.mark.parametrize("body_template,attributes,count", [
@@ -91,126 +79,73 @@ def test_send_message_no_body(sqs_stubber, queue_stub):
     }, 10),
     ("Just {} message.", {}, 1)
 ])
-def test_send_messages(sqs_stubber, queue_stub, body_template, attributes, count):
+def test_send_messages(make_stubber, make_queue, body_template, attributes, count):
     """Test that sending various batches of messages returns the expected list of
     successful sends."""
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+
     messages = [{
         'body': body_template.format(ind),
         'attributes': attributes
     } for ind in range(1, count+1)]
 
-    sqs_stubber.add_response(
-        'send_message_batch',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'Entries': [{
-                'Id': str(ind),
-                'MessageBody': msg['body'],
-                'MessageAttributes': msg['attributes']
-            } for ind, msg in enumerate(messages)]
-        },
-        service_response={
-            'Successful': [{
-                'Id': str(ind),
-                'MessageId': f'{ind}-1234',
-                'MD5OfMessageBody': 'Test-MD5-Body',
-            } for ind in range(0, len(messages))],
-            'Failed': []
-        }
-    )
+    sqs_stubber.stub_send_message_batch(queue.url, messages)
 
-    response = message_wrapper.send_messages(queue_stub, messages)
+    response = message_wrapper.send_messages(queue, messages)
     assert len(response['Successful']) == count
 
 
 @pytest.mark.parametrize("count", [0, 20])
-def test_send_messages_wrong_size(sqs_stubber, queue_stub, count):
+def test_send_messages_wrong_size(make_stubber, make_queue, count):
     """Test that sending batches of messages that are too big or too small
     raises exceptions."""
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+
     messages = [{
         'body': f'Another body {ind}',
         'attributes': {}
     } for ind in range(0, count)]
 
-    sqs_stubber.add_client_error(
-        'send_message_batch',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'Entries': [{
-                'Id': str(ind),
-                'MessageBody': msg['body'],
-                'MessageAttributes': msg['attributes']
-            } for ind, msg in enumerate(messages)]
-        },
-        service_error_code='AWS.SimpleQueueService.EmptyBatchRequest' if count == 0
-            else 'AWS.SimpleQueueService.TooManyEntriesInBatchRequest'
-    )
+    sqs_stubber.stub_send_message_batch(
+        queue.url,
+        messages,
+        'AWS.SimpleQueueService.EmptyBatchRequest' if count == 0
+        else 'AWS.SimpleQueueService.TooManyEntriesInBatchRequest')
 
+    with pytest.raises(ClientError) as exc_info:
+        message_wrapper.send_messages(queue, messages)
     if count == 0:
-        with pytest.raises(sqs_stubber.client.exceptions.EmptyBatchRequest):
-            message_wrapper.send_messages(queue_stub, messages)
-    elif count > 10:
-        with pytest.raises(sqs_stubber.client.exceptions.TooManyEntriesInBatchRequest):
-            message_wrapper.send_messages(queue_stub, messages)
+        assert exc_info.value.response['Error']['Code'] == \
+               'AWS.SimpleQueueService.EmptyBatchRequest'
+    else:
+        assert exc_info.value.response['Error']['Code'] == \
+               'AWS.SimpleQueueService.TooManyEntriesInBatchRequest'
 
 
 @pytest.mark.parametrize("send_count,receive_count,wait_time", [
     (5, 3, 5), (2, 10, 0), (1, 1, 1), (0, 5, 0)
 ])
-def test_receive_messages(sqs_stubber, queue_stub, send_count, receive_count,
+def test_receive_messages(make_stubber, make_queue, send_count, receive_count,
                           wait_time):
     """Test that receiving various numbers of messages returns the expected
     number of messages."""
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+
     sent_messages = [{
         'body': f"I have several bodies. This is #{ind}.",
         'attributes': {}
     } for ind in range(0, send_count)]
     if send_count > 0:
-        sqs_stubber.add_response(
-            'send_message_batch',
-            expected_params={
-                'QueueUrl': queue_stub.url,
-                'Entries': [{
-                    'Id': str(ind),
-                    'MessageBody': msg['body'],
-                    'MessageAttributes': msg['attributes']
-                } for ind, msg in enumerate(sent_messages)]
-            },
-            service_response={
-                'Successful': [{
-                    'Id': str(ind),
-                    'MessageId': f'{ind}-1234',
-                    'MD5OfMessageBody': 'Test-MD5-Body',
-                } for ind in range(0, len(sent_messages))],
-                'Failed': []
-            }
-        )
+        sqs_stubber.stub_send_message_batch(queue.url, sent_messages)
+        message_wrapper.send_messages(queue, sent_messages)
 
-        message_wrapper.send_messages(queue_stub, sent_messages)
-
-    sqs_stubber.add_response(
-        'receive_message',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'MessageAttributeNames': ['All'],
-            'MaxNumberOfMessages': receive_count,
-            'WaitTimeSeconds': wait_time
-        },
-        service_response={
-            'Messages': [{
-                'MessageId': f'{ind}-1234',
-                'Body': msg['body'],
-                'MD5OfBody': 'Test-MD5-Body',
-                'ReceiptHandle': f'Receipt-{ind}'
-            } for ind, msg in enumerate(sent_messages) if ind < receive_count]
-        }
-    )
+    sqs_stubber.stub_receive_messages(queue.url, sent_messages, receive_count)
 
     received_messages = message_wrapper.receive_messages(
-        queue_stub,
-        receive_count,
-        wait_time
-    )
+        queue, receive_count, wait_time)
 
     if send_count > 0:
         assert received_messages
@@ -220,149 +155,72 @@ def test_receive_messages(sqs_stubber, queue_stub, send_count, receive_count,
 
 
 @pytest.mark.parametrize("receive_count", [0, 20])
-def test_receive_messages_bad_params(sqs_stubber, queue_stub, receive_count):
+def test_receive_messages_bad_params(make_stubber, make_queue, receive_count):
     """Test that trying to receive a number of messages that is too large or too small
     raises an exception."""
-    sqs_stubber.add_client_error(
-        'receive_message',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'MessageAttributeNames': ['All'],
-            'MaxNumberOfMessages': receive_count,
-            'WaitTimeSeconds': 1
-        },
-        service_error_code='InvalidParameterValue'
-    )
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+
+    sqs_stubber.stub_receive_messages(
+        queue.url, [], receive_count, 'InvalidParameterValue')
 
     with pytest.raises(ClientError):
-        message_wrapper.receive_messages(queue_stub, receive_count, 1)
+        message_wrapper.receive_messages(queue, receive_count, 1)
 
 
 @pytest.mark.parametrize("message_count", [1, 5, 10])
-def test_delete_messages(sqs_stubber, queue_stub, message_count):
+def test_delete_messages(make_stubber, make_queue, message_count):
     """Test that deleting a single message or a batch of messages returns
     the expected success response."""
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+
     body = "I'm not long for this world."
     wait_time = 1
 
-    sqs_stubber.add_response(
-        'send_message_batch',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'Entries': [{
-                'Id': str(ind),
-                'MessageBody': body,
-                'MessageAttributes': {}
-            } for ind in range(0, message_count)]
-        },
-        service_response={
-            'Successful': [{
-                'Id': str(ind),
-                'MessageId': f'{ind}-1234',
-                'MD5OfMessageBody': 'Test-MD5-Body',
-            } for ind in range(0, message_count)],
-            'Failed': []
-        }
-    )
-    sqs_stubber.add_response(
-        'receive_message',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'MessageAttributeNames': ['All'],
-            'MaxNumberOfMessages': message_count,
-            'WaitTimeSeconds': wait_time
-        },
-        service_response={
-            'Messages': [{
-                'MessageId': f'{ind}-1234',
-                'Body': body,
-                'MD5OfBody': 'Test-MD5-Body',
-                'ReceiptHandle': f'Receipt-{ind}'
-            } for ind in range(0, message_count)]
-        }
-    )
+    messages = [{'body': body, 'attributes': {}}]*message_count
 
-    message_wrapper.send_messages(queue_stub,
-                                  [{'body': body, 'attributes': {}}]*message_count)
-    messages = message_wrapper.receive_messages(queue_stub, message_count, wait_time)
+    sqs_stubber.stub_send_message_batch(queue.url, messages)
+    sqs_stubber.stub_receive_messages(queue.url, messages, message_count)
+
+    message_wrapper.send_messages(queue, messages)
+    messages = message_wrapper.receive_messages(queue, message_count, wait_time)
 
     if message_count == 1:
-        sqs_stubber.add_response(
-            'delete_message',
-            expected_params={
-                'QueueUrl': queue_stub.url,
-                'ReceiptHandle': messages[0].receipt_handle
-            },
-            service_response={}
-        )
-
+        sqs_stubber.stub_delete_message(queue.url, messages[0])
         messages[0].delete()
     else:
-        sqs_stubber.add_response(
-            'delete_message_batch',
-            expected_params={
-                'QueueUrl': queue_stub.url,
-                'Entries': [{
-                    'Id': str(ind),
-                    'ReceiptHandle': msg.receipt_handle
-                } for ind, msg in enumerate(messages)]
-            },
-            service_response={
-                'Successful': [{
-                    'Id': str(ind)
-                } for ind in range(0, message_count)],
-                'Failed': []
-            }
-        )
-
-        message_wrapper.delete_messages(queue_stub, messages)
+        sqs_stubber.stub_delete_message_batch(queue.url, messages, len(messages), 0)
+        message_wrapper.delete_messages(queue, messages)
 
 
-def test_delete_message_not_exist(sqs_stubber, queue_stub):
+def test_delete_message_not_exist(make_stubber, make_queue):
     """Test that deleting a message that doesn't exist raises an exception."""
-    message = queue_stub.Message(receipt_handle='fake-handle')
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
+    message = queue.Message(receipt_handle='fake-handle')
 
-    sqs_stubber.add_client_error(
-        'delete_message',
-        expected_params={
-            'QueueUrl': message.queue_url,
-            'ReceiptHandle': message.receipt_handle
-        },
-        service_error_code='ReceiptHandleIsInvalid'
-    )
+    sqs_stubber.stub_delete_message(queue.url, message,
+                                    error_code='ReceiptHandleIsInvalid')
 
-    with pytest.raises(sqs_stubber.client.exceptions.ReceiptHandleIsInvalid):
+    with pytest.raises(ClientError) as exc_info:
         message.delete()
+    assert exc_info.value.response['Error']['Code'] == 'ReceiptHandleIsInvalid'
 
 
-def test_delete_messages_not_exist(sqs_stubber, queue_stub):
+def test_delete_messages_not_exist(make_stubber, make_queue):
     """Test that deleting a batch of messages that don't exist succeeds
     and returns the expected list of failed messages."""
+    sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
+    queue = make_queue(sqs_stubber, message_wrapper.sqs)
     messages = [
-        queue_stub.Message(receipt_handle=f'fake-handle-{ind}')
+        queue.Message(receipt_handle=f'fake-handle-{ind}')
         for ind in range(0, 5)
     ]
 
-    sqs_stubber.add_response(
-        'delete_message_batch',
-        expected_params={
-            'QueueUrl': queue_stub.url,
-            'Entries': [{
-                'Id': str(ind),
-                'ReceiptHandle': msg.receipt_handle
-            } for ind, msg in enumerate(messages)]
-        },
-        service_response={
-            'Successful': [],
-            'Failed': [{
-                'Id': str(ind),
-                'Code': 'ReceiptHandleIsInvalid',
-                'SenderFault': False
-            } for ind in range(0, len(messages))]
-        }
-    )
+    sqs_stubber.stub_delete_message_batch(queue.url, messages, 0, len(messages))
 
-    response = message_wrapper.delete_messages(queue_stub, messages)
+    response = message_wrapper.delete_messages(queue, messages)
 
     assert len(response['Failed']) == len(messages)
     assert all([failed['Code'] == 'ReceiptHandleIsInvalid'
