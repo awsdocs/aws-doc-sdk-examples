@@ -4,7 +4,7 @@ files:
     services:
       - sqs
   - path: ConfigureLPQueue/ConfigureLPQueue.go
-    service:
+    services:
     - sqs
   - path: CreateLPQueue/CreateLPQueue.go
     services:
