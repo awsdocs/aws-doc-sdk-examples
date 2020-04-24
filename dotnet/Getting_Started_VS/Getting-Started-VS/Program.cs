@@ -11,9 +11,7 @@ Purpose
   have any DB instances or buckets, the example still connects to your AWS
   account and reports what it can't find.
 
-  This code example was created by using Visual Studio 2019.
-  This code example uses .NET Core 3.1 to create a cross-platform application.
-  This code example creates a console application.
+  This code example uses .NET Core 3.1 to create a cross-platform console application.
 
 
 Prerequisites
@@ -27,25 +25,40 @@ To build and run this example, you need the following:
   you can specify them in a local AWS config file such as C:\Users\username\.aws\config,
   and an AWS credentials file such as C:\Users\username\.aws\credentials. For
   more information, see the AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide (https://docs.aws.amazon.com/credref/latest/refdocs/overview.html).
+  Credentials Reference Guide (https://docs.aws.amazon.com/credref/latest/refdocs/overview.html)
+  or the AWS SDK for .NET Developer Guide (https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-creds.html).
 
 - The AWSSDK.RDS package. This is already referenced in the solution.
 
 - The AWSSDK.S3 package. This is already referenced in the solution.
 
 
-Running the code
+Running the code from Visual Studio
 
   1. Open the solution in Visual Studio.
   2. To build the solution, choose Build, Build Solution.
   3. To run the code, choose Debug, Start Debugging.
 
 
-Running the tests
+Running the tests from Visual Studio
 
   1. Open the solution in Visual Studio.
   2. (Optional) To open the Test Explorer window, choose Test, Test Explorer.
   3. To run the tests, choose Test, Run All Tests.
+
+
+Running the code from the .NET Core command-line interface
+
+  1. Open a command window.
+  2. Navigate to the code project directory.
+  3. Type dotnet run and press enter.
+
+
+Running the tests from the .NET Core command-line interface
+
+  1. Open a command window.
+  2. Navigate to the test project directory.
+  3. Type dotnet test and press enter.
 
 
 Additional information
@@ -68,7 +81,7 @@ namespace Getting_Started_VS
 
     public class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.WriteLine("Hello...");
             Console.WriteLine();
@@ -76,7 +89,8 @@ namespace Getting_Started_VS
             try
             {
                 Console.WriteLine("Checking your DB instances...");
-                Task.Run(CheckRDSInstances).Wait();
+
+                await CheckRDSInstances();
             }
             catch (Exception e)
             {
@@ -88,7 +102,8 @@ namespace Getting_Started_VS
             {
                 Console.WriteLine();
                 Console.WriteLine("Checking your S3 buckets...");
-                Task.Run(CheckS3Buckets).Wait();
+
+                await CheckS3Buckets();
             }
             catch (Exception e)
             {
@@ -101,14 +116,13 @@ namespace Getting_Started_VS
         } // main
 
 
-        /*
-        Purpose
-          This task connects to your AWS account and reads the names of your DB instances
-          This task looks for DB instances in one Region only
-
-        Outputs
-          This task writes the names of your DB instances to the console
-        */
+        //Purpose
+        //  This task connects to your AWS account and reads the names of your DB instances
+        //  This task looks for DB instances in one Region only
+        //
+        //Outputs
+        //  This task writes the names of your DB instances to the console
+        //
         public static async Task CheckRDSInstances()
         {
             Amazon.RDS.AmazonRDSClient client;
@@ -134,13 +148,12 @@ namespace Getting_Started_VS
         }
 
 
-        /*
-        Purpose
-          This task connects to your AWS account and reads the names of your S3 buckets
-
-        Outputs
-          This task writes the names of your S3 buckets to the console
-        */
+        //Purpose
+        //  This task connects to your AWS account and reads the names of your S3 buckets
+        //
+        //Outputs
+        //  This task writes the names of your S3 buckets to the console
+        //
         public static async Task CheckS3Buckets()
         {
             Amazon.S3.AmazonS3Client client;

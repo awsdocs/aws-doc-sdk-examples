@@ -12,15 +12,17 @@ namespace Getting_Started_VS.Tests
     public class ProgramTests
     {
         [TestMethod()]
-        public void CheckRDSInstancesTest()
+        public async Task CheckRDSInstancesTest()
         {
-            Task.Run(Program.CheckRDSInstances).Wait();
+            await Program.CheckRDSInstances();
+
+            //Task.Run(Program.CheckRDSInstances).Wait();
         }
 
         [TestMethod()]
-        public void CheckS3BucketsTest()
+        public async Task CheckS3BucketsTest()
         {
-            Task.Run(Program.CheckS3Buckets).Wait();
+            await Program.CheckS3Buckets();
         }
     }
 }
