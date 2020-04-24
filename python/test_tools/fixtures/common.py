@@ -17,8 +17,8 @@ def pytest_addoption(parser):
     the Stubber."""
     parser.addoption(
         "--use-real-aws-may-incur-charges", action="store_true", default=False,
-        help="Connect to real AWS services while testing. WARNING: THIS MAY INCUR "
-             "CHARGES ON YOUR ACCOUNT!"
+        help="Connect to real AWS services while testing. **Warning: this might incur "
+             "charges on your account!**"
     )
 
 
@@ -35,9 +35,10 @@ def pytest_runtest_setup(item):
     skip_if_real_aws = 'skip_if_real_aws' in [m.name for m in item.iter_markers()]
     if skip_if_real_aws:
         if item.config.getoption("--use-real-aws-may-incur-charges"):
-            pytest.skip("Non-stubbed AWS will fail because of test data. To run this "
-                        "test under AWS, you must first substitute actual data, such "
-                        "as user IDs, for test data.")
+            pytest.skip("When run with actual AWS services instead of stub functions, "
+                        "this test will fail because it uses test data. To run this "
+                        "test with AWS services, you must first substitute actual "
+                        "data, such as user IDs, for test data.")
 
 
 @pytest.fixture(name="use_real_aws")
@@ -100,7 +101,8 @@ def fixture_make_unique_name():
         """
         Creates a unique name based on a prefix and the current time in nanoseconds.
 
-        :return: A unique name that can be used to create something, such as a bucket.
+        :return: A unique name that can be used to create something, such as
+                 an Amazon S3 bucket.
         """
         return f"{prefix}{time.time_ns()}"
     return _make_unique_name
@@ -123,7 +125,7 @@ def fixture_make_bucket(request):
         :param s3_stub: The S3Stubber object, configured for stubbing or AWS.
         :param wrapper: The bucket wrapper object, used to create the bucket.
         :param bucket_name: The unique name for the bucket.
-        :param region_name: The Region in which to create the bucket.
+        :param region_name: The AWS Region in which to create the bucket.
         :return: The test bucket.
         """
         if not region_name:

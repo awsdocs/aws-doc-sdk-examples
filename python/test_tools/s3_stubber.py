@@ -302,7 +302,7 @@ class S3Stubber(ExampleStubber):
 
     def stub_get_object(self, bucket_name, object_key, object_data):
         """Stub the get_object function. When the object data is a string,
-        treat as a filename and open the file and read it as bytes."""
+        treat it as a file name, open the file, and read it as bytes."""
         if isinstance(object_data, bytes):
             data = object_data
         else:

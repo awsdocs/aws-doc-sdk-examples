@@ -101,7 +101,7 @@ def test_create_dead_letter_queue(make_stubber, make_unique_name):
     queue_name = make_unique_name('queue')
     url = 'url-' + queue_name
 
-    # Create dead-letter queue.
+    # Create a dead-letter queue.
     sqs_stubber.stub_create_queue(dl_queue_name, {}, dl_url)
     dl_queue = queue_wrapper.create_queue(dl_queue_name)
 

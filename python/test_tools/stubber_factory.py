@@ -5,7 +5,7 @@
 A factory function that returns the stubber for an AWS service, based on the
 name of the service that is used by Boto 3.
 
-This foctory is used by the make_stubber fixture found in the set of common fixtures.
+This factory is used by the make_stubber fixture found in the set of common fixtures.
 """
 
 from test_tools.s3_stubber import S3Stubber

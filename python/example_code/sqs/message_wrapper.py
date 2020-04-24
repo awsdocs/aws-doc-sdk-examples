@@ -49,7 +49,7 @@ sqs = boto3.resource('sqs')
 
 def send_message(queue, message_body, message_attributes=None):
     """
-    Send a message to an SQS queue.
+    Send a message to an Amazon SQS queue.
 
     Usage is shown in usage_demo at the end of this module.
 
@@ -125,7 +125,7 @@ def receive_messages(queue, max_number, wait_time):
 
     :param queue: The queue from which to receive messages.
     :param max_number: The maximum number of messages to receive. The actual number
-                       of messages received may be less.
+                       of messages received might be less.
     :param wait_time: The maximum time to wait (in seconds) before returning. When
                       this number is greater than zero, long polling is used. This
                       can result in reduced costs and fewer false empty responses.
@@ -175,7 +175,7 @@ def delete_messages(queue, messages):
     :param queue: The queue from which to delete the messages.
     :param messages: The list of messages to delete.
     :return: The response from SQS that contains the list of successful and failed
-             deletions.
+             message deletions.
     """
     try:
         entries = [{
@@ -264,7 +264,7 @@ def usage_demo():
 
 def main():
     go = input("Running the usage demonstration uses your default AWS account "
-               "credentials and may incur charges on your account. Do you want "
+               "credentials and might incur charges on your account. Do you want "
                "to continue (y/n)? ")
     if go.lower() == 'y':
         print("Starting the usage demo. Enjoy!")

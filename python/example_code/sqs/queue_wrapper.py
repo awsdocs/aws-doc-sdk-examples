@@ -44,7 +44,7 @@ sqs = boto3.resource('sqs')
 
 def create_queue(name, attributes=None):
     """
-    Creates an SQS queue.
+    Creates an Amazon SQS queue.
 
     Usage is shown in usage_demo at the end of this module.
 
@@ -171,7 +171,7 @@ def usage_demo():
 
 def main():
     go = input("Running the usage demonstration uses your default AWS account "
-               "credentials and may incur charges on your account. Do you want "
+               "credentials and might incur charges on your account. Do you want "
                "to continue (y/n)? ")
     if go.lower() == 'y':
         print("Starting the usage demo. Enjoy!")

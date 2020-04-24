@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Contains common test fixtures used to run SQS tests.
+Contains common test fixtures used to run Amazon SQS tests.
 """
 
 import sys

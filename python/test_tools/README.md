@@ -38,7 +38,7 @@ test the most common functions of the specified client.
 All of the stubbers honor the `--use-real-aws-may-incur-charges` command line option.
 When this option is not present, stubs are used in all tests and no requests are
 made to your AWS account. When this option *is* present, the stubbers let requests
-flow through to your actual AWS account, which may incur charges. 
+flow through to your actual AWS account, which might incur charges. 
 
 ### Example
 
