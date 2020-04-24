@@ -28,7 +28,7 @@ import java.util.List;
 // snippet-end:[glacier.java2.list_vaults.import]
 
 /**
- * List your Amazon Glacier vaults.
+ * Lists your Amazon Glacier vaults
  *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -75,7 +75,7 @@ public class ListVaults {
                 totalVaults += 1;
                 System.out.println("* " + v.vaultName());
             }
-            // check for further results.
+            // Check for further results
             newMarker = response.marker();
             if (newMarker == null) {
                 listComplete = true;
@@ -83,7 +83,7 @@ public class ListVaults {
             }
 
             if (totalVaults == 0) {
-                System.out.println("  no vaults found.");
+                System.out.println("No vaults found.");
             }
         } catch(GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

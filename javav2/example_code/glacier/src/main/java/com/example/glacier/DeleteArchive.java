@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Glacier vault.]
+//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Glacier archive.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
@@ -31,12 +31,12 @@ public class DeleteArchive {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "DeleteArchive - deletes an Amazon Glacier vault\n\n" +
+                "DeleteArchive - deletes an Amazon Glacier archive\n\n" +
                 "Usage: DeleteArchive <vaultName><accountId><archiveId>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault to delete.\n\n" +
-                "  accountId - the account id.\n\n"+
-                "  archiveId - the archive id.\n\n";
+                "  vaultName - the name of the vault that contains the archive to delete\n\n" +
+                "  accountId - the account ID\n\n"+
+                "  archiveId - the archive ID\n\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);

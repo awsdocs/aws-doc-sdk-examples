@@ -34,7 +34,7 @@ public class CreateVault {
                 "CreateVault - create an Amazon Glacier vault\n\n" +
                 "Usage: CreateVault <vaultName>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault to create.\n\n";
+                "  vaultName - the name of the vault to create\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

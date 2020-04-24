@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve vault inventory.]
+//snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon Glacier vault.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
@@ -35,8 +35,8 @@ public class ArchiveDownload {
                 "ArchiveDownload - start a job to retrieve vault inventory\n\n" +
                 "Usage: ArchiveDownload <vaultName> <accountId>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault.\n" +
-                "  accountId - the account id.\n\n";
+                "  vaultName - the name of the vault\n" +
+                "  accountId - the account ID\n\n";
 
            if (args.length < 2) {
                System.out.println(USAGE);
@@ -69,10 +69,10 @@ public class ArchiveDownload {
                 .vaultName(vaultName)
                 .build();
 
-            InitiateJobResponse reponse = glacier.initiateJob(initJob);
+            InitiateJobResponse response = glacier.initiateJob(initJob);
 
-            System.out.println("The Job ID is: " +reponse.jobId()) ;
-            System.out.println("The relative URI path of the job is: "+reponse.location()) ;
+            System.out.println("The job ID is: " +response.jobId()) ;
+            System.out.println("The relative URI path of the job is: " +response.location()) ;
 
     } catch(GlacierException e) {
         System.err.println(e.awsErrorDetails().errorMessage());

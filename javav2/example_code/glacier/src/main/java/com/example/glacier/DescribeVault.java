@@ -34,7 +34,7 @@ public class DescribeVault {
                 "DescribeVault - describes an Amazon Glacier vault\n\n" +
                 "Usage: DescribeVault <vaultName>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault.\n\n";
+                "  vaultName - the name of the vault\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

@@ -43,8 +43,8 @@ public class UploadArchive {
                 "UploadArchive - uploads an archive to an Amazon Glacier vault\n\n" +
                 "Usage: UploadArchive <strPath> <vaultName> \n\n" +
                 "Where:\n" +
-                "  strPath - the path to the archive to upload (ie,  C:\\AWS\\test.pdf).\n" +
-                "  vaultName - the name of the vault.\n\n";
+                "  strPath - the path to the archive to upload (i.e., C:\\AWS\\test.pdf)\n" +
+                "  vaultName - the name of the vault\n\n";
 
       if (args.length < 2) {
            System.out.println(USAGE);
@@ -69,7 +69,7 @@ public class UploadArchive {
     // snippet-start:[glacier.java2.upload.import]
     public static String uploadContent(GlacierClient glacier, Path path, String vaultName, File myFile) {
 
-       // Get a SHA-256 Tree Hash value
+       // Get an SHA-256 tree hash value
         String checkVal = computeSHA256(myFile);
 
         try {
@@ -93,7 +93,7 @@ public class UploadArchive {
 
         try {
             byte[] treeHash = computeSHA256TreeHash(inputFile);
-            System.out.printf("SHA-256 Tree Hash = %s\n", toHex(treeHash));
+            System.out.printf("SHA-256 tree hash = %s\n", toHex(treeHash));
             return toHex(treeHash);
 
         } catch (IOException ioe) {
@@ -117,8 +117,8 @@ public class UploadArchive {
         }
 
         /**
-         * Computes a SHA256 checksum for each 1 MB chunk of the input file. This
-         * includes the checksum for the last chunk even if it is smaller than 1 MB.
+         * Computes an SHA256 checksum for each 1 MB chunk of the input file. This
+         * includes the checksum for the last chunk, even if it's smaller than 1 MB.
          *
          * @param file
          *            A file to compute checksums on
@@ -217,7 +217,7 @@ public class UploadArchive {
                         md.update(prevLvlHashes[i + 1]);
                         currLvlHashes[j] = md.digest();
 
-                    } else { // Take care of remaining odd chunk
+                    } else { // Take care of the remaining odd chunk
                         currLvlHashes[j] = prevLvlHashes[i];
                     }
                 }
@@ -232,8 +232,8 @@ public class UploadArchive {
          * Returns the hexadecimal representation of the input byte array
          *
          * @param data
-         *            a byte[] to convert to Hex characters
-         * @return A String containing Hex characters
+         *            a byte[] to convert to hex characters
+         * @return A String containing hex characters
          */
         public static String toHex(byte[] data) {
             StringBuilder sb = new StringBuilder(data.length * 2);
@@ -242,7 +242,7 @@ public class UploadArchive {
                 String hex = Integer.toHexString(data[i] & 0xFF);
 
                 if (hex.length() == 1) {
-                    // Append leading zero.
+                    // Append leading zero
                     sb.append("0");
                 }
                 sb.append(hex);
@@ -250,4 +250,3 @@ public class UploadArchive {
             return sb.toString().toLowerCase();
         }
     }
-
