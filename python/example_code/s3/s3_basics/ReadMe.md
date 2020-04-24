@@ -16,9 +16,17 @@ Learn how to create, get, remove, and configure buckets and objects.
 
 ## Running the code
 
-Run individual functions in the Python shell to make requests to your AWS account.
-For example, run the following commands to create a bucket, upload an object, get
-the object, empty the bucket, and delete the bucket.  
+Both `bucket_wrapper.py` and `object_wrapper.py` contain `usage_demo` functions
+that demonstrate ways to use the functions in their respective modules. 
+For example, to see the bucket demonstration, run the module in a command window.
+
+```
+python -m bucket_wrapper
+``` 
+
+You can also run individual functions in the Python shell to make requests to your 
+AWS account. For example, run the following commands to create a bucket, upload 
+an object, get the object, empty the bucket, and delete the bucket.  
 
     > python
     >>> import time
@@ -37,7 +45,7 @@ The best way to learn how to use this service is to run the tests.
 Tests can be run in two modes. By default, tests use the botocore Stubber,
 which captures requests before they are sent to AWS and returns a mocked response.
 Tests can also be run against your AWS account, in which case they will create and 
-manipulate AWS resources, which may incur charges on your account.
+manipulate AWS resources, which might incur charges on your account.
 
 To run all of the S3 tests with the botocore Stubber, run the following in
 your [GitHub root]/python/example_code/s3 folder.

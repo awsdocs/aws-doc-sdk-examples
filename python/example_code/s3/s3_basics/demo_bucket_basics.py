@@ -26,6 +26,7 @@ from botocore.exceptions import ClientError
 
 
 def get_s3(region=None):
+    """Get a Boto 3 S3 resource with a specific Region or with your default Region."""
     return boto3.resource('s3', region_name=region) if region else boto3.resource('s3')
 
 

@@ -109,35 +109,38 @@ def fixture_make_unique_name():
 
 
 @pytest.fixture(name='make_bucket')
-def fixture_make_bucket(request):
+def fixture_make_bucket(request, make_unique_name):
     """
     Return a factory function that can be used to make a bucket for testing.
 
     :param request: The Pytest request object that contains configuration data.
+    :param make_unique_name: A function that creates a unique name.
     :return: The factory function to make a test bucket.
     """
-    def _make_bucket(s3_stub, wrapper, bucket_name, region_name=None):
+    def _make_bucket(s3_stubber, s3_resource, region_name=None):
         """
         Make a bucket that can be used for testing. When stubbing is used, a stubbed
         bucket is created. When AWS services are used, the bucket is deleted after
         the test completes.
 
         :param s3_stub: The S3Stubber object, configured for stubbing or AWS.
-        :param wrapper: The bucket wrapper object, used to create the bucket.
-        :param bucket_name: The unique name for the bucket.
         :param region_name: The AWS Region in which to create the bucket.
         :return: The test bucket.
         """
+        bucket_name = make_unique_name('bucket')
         if not region_name:
-            region_name = s3_stub.region_name
-        s3_stub.stub_create_bucket(bucket_name, region_name)
-        # Bucket.wait_until_exists calls head_bucket on a timer until it returns 200.
-        s3_stub.stub_head_bucket(bucket_name)
+            region_name = s3_resource.meta.client.meta.region_name
+        s3_stubber.stub_create_bucket(bucket_name, region_name)
 
-        bucket = wrapper.create_bucket(bucket_name, region_name)
+        bucket = s3_resource.create_bucket(
+            Bucket=bucket_name,
+            CreateBucketConfiguration={
+                'LocationConstraint': region_name
+            }
+        )
 
         def fin():
-            if not s3_stub.use_stubs and wrapper.bucket_exists(bucket_name):
+            if not s3_stubber.use_stubs:
                 bucket.delete()
         request.addfinalizer(fin)
 
