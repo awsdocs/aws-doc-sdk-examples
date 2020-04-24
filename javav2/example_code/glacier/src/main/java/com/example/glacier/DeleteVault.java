@@ -35,7 +35,7 @@ public class DeleteVault {
                 "DeleteVault - deletes an Amazon Glacier vault\n\n" +
                 "Usage: DeleteVault <vaultName>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault to delete.\n\n";
+                "  vaultName - the name of the vault to delete\n\n";
 
        if (args.length < 1) {
            System.out.println(USAGE);
