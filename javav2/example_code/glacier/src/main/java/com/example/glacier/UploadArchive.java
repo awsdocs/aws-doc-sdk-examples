@@ -66,7 +66,7 @@ public class UploadArchive {
      System.out.println("The ID of the archived item is " +archiveId);
     }
 
-    // snippet-start:[glacier.java2.upload.import]
+    // snippet-start:[glacier.java2.upload.main]
     public static String uploadContent(GlacierClient glacier, Path path, String vaultName, File myFile) {
 
        // Get an SHA-256 tree hash value
@@ -86,7 +86,7 @@ public class UploadArchive {
             System.exit(1);
         }
         return "";
-        // snippet-end:[glacier.java2.upload.import]
+        // snippet-end:[glacier.java2.upload.main]
     }
 
     private static String computeSHA256(File inputFile) {
