@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[ReleaseAddress.java demonstrates how to release an elastic IP address.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,15 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-
+// snippet-start:[ec2.java2.release_instance.complete]
 // snippet-start:[ec2.java2.release_instance.import]
-import software.amazon.awssdk.regions.Region;
+
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressRequest;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
-// snippet-end:[ec2.java2.release_instance.import]
 
+// snippet-end:[ec2.java2.release_instance.import]
 /**
  * Releases an elastic IP address
  */
@@ -45,29 +44,19 @@ public class ReleaseAddress {
         }
 
         String allocId = args[0];
+        // snippet-start:[ec2.java2.release_instance.main]
 
-        //Create an Ec2Client object
-        Region region = Region.US_WEST_2;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
-    }
+        Ec2Client ec2 = Ec2Client.create();
 
-    // snippet-start:[ec2.java2.release_instance.main]
-    public static void releaseEC2Address(Ec2Client ec2,String allocId) {
-
-        try {
-            ReleaseAddressRequest request = ReleaseAddressRequest.builder()
+        ReleaseAddressRequest request = ReleaseAddressRequest.builder()
                 .allocationId(allocId).build();
 
-            ReleaseAddressResponse response = ec2.releaseAddress(request);
+        ReleaseAddressResponse response = ec2.releaseAddress(request);
 
-         System.out.printf(
+        // snippet-end:[ec2.java2.release_instance.main]
+        System.out.printf(
                 "Successfully released elastic IP address %s", allocId);
-        } catch (
-                Ec2Exception e) {
-            e.getStackTrace();
-        }
-     }
-    // snippet-end:[ec2.java2.release_instance.main]
+    }
 }
+
+// snippet-end:[ec2.java2.release_instance.complete]
