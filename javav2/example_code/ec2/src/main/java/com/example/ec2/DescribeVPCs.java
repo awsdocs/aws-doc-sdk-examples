@@ -32,12 +32,12 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_vpc.import]
 
 /**
- * Describes the VPCs
+ * Describes VPCs
  */
 public class DescribeVPCs {
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a group ID.\n" +
+                "To run this example, supply a group id\n" +
                         "Ex: DescribeVPCs <vpc-id>\n";
 
         if (args.length != 1) {
@@ -47,7 +47,7 @@ public class DescribeVPCs {
 
         String vpcId = args[0];
 
-        // Create an Ec2Client object
+        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -69,9 +69,9 @@ public class DescribeVPCs {
 
             for (Vpc vpc : response.vpcs()) {
                 System.out.printf(
-                    "Found VPC with ID %s, " +
-                            "VPC state %s " +
-                            "and tenancy %s",
+                    "Found vpc with id %s, " +
+                            "vpc state %s " +
+                            "and tennancy %s",
                     vpc.vpcId(),
                     vpc.stateAsString(),
                     vpc.instanceTenancyAsString());
@@ -82,3 +82,4 @@ public class DescribeVPCs {
         // snippet-end:[ec2.java2.describe_vpc.main]
     }
 }
+

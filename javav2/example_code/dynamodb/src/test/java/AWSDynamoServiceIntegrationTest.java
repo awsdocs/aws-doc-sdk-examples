@@ -75,27 +75,37 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(2)
     public void CreateTable() {
 
-       String result = CreateTable.createTable(ddb, tableName, key);
-       assertTrue(!result.isEmpty());
-       System.out.println("\n Test 2 passed");
+        try {
+            String result = CreateTable.createTable(ddb, tableName, key);
+            assertTrue(!result.isEmpty());
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void DescribeTable() {
 
-       DescribeTable.describeDymamoDBTable(ddb,tableName);
-       System.out.println("\n Test 3 passed");
+       try {
+           DescribeTable.describeDymamoDBTable(ddb,tableName);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void PutItem() {
 
-       //Wait 15 secs for table to complete
-     try{
-       TimeUnit.SECONDS.sleep(15);
-       PutItem.putItemInTable(ddb,
+          try {
+            //Wait 15 secs for table to complete
+            TimeUnit.SECONDS.sleep(15);
+            PutItem.putItemInTable(ddb,
                      tableName,
                      key,
                      keyVal,
@@ -106,7 +116,14 @@ public class AWSDynamoServiceIntegrationTest {
                      songTitle,
                      songTitleVal);
 
-       } catch (InterruptedException e) {
+        } catch (ResourceNotFoundException e) {
+            System.err.format("Error: The table \"%s\" can't be found.\n", tableName);
+            System.err.println("Be sure that it exists and that you've typed its name correctly!");
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("\n Test 4 passed");
@@ -117,33 +134,57 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(5)
     public void ListTables() {
 
-       ListTables.listAllTables(ddb);
-       System.out.println("\n Test 5 passed");
+            try {
+                ListTables.listAllTables(ddb);
+            } catch (DynamoDbException e) {
+                System.err.println(e.getMessage());
+                System.exit(1);
+            }
+      System.out.println("\n Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void QueryTable() {
 
-      // A pass returns only 1 record
-       int response = Query.queryTable(ddb,tableName, key,keyVal,"#a" );
-       assertEquals(response, 1);
-       System.out.println("\n Test 6 passed");
+        try {
+            // A pass returns only 1 record
+            int response = Query.queryTable(ddb,tableName, key,keyVal,"#a" );
+            assertEquals(response, 1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void updateItem() {
 
-         UpdateItem.updateTableItem(ddb,tableName, key, keyVal, awards, "40");
-         System.out.println("\n Test 7 passed");
+        try {
+            //Update the Awards value to 40
+            UpdateItem.updateTableItem(ddb,tableName, key, keyVal, awards, "40");
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void getItem() {
 
-        GetItem.getDynamoDBItem(ddb, tableName,key,keyVal );
+        try {
+            GetItem.getDynamoDBItem(ddb, tableName,key,keyVal );
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
         System.out.println("\n Test 8 passed");
     }
 
@@ -151,15 +192,24 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(9)
     public void scanItems() {
 
-      DynamoDBScanItems.scanItems(ddb, tableName);
-      System.out.println("\n Test 9 passed");
-     }
+        try {
+            DynamoDBScanItems.scanItems(ddb, tableName);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 9 passed");
+        }
 
     @Test
     @Order(10)
     public void DeleteItem() {
-
-        DeleteItem.deleteDymamoDBItem(ddb,tableName,key,keyVal);
+        try {
+            DeleteItem.deleteDymamoDBItem(ddb,tableName,key,keyVal);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
         System.out.println("\n Test 10 passed");
     }
 
@@ -168,20 +218,31 @@ public class AWSDynamoServiceIntegrationTest {
     @Order(11)
    public void SycnPagination(){
 
-        SyncPagination.manualPagination(ddb);
-        SyncPagination.autoPagination(ddb);
-        SyncPagination.autoPaginationWithResume(ddb);;
-        System.out.println("\n Test 11 passed");
+        try {
+            SyncPagination.manualPagination(ddb);
+            SyncPagination.autoPagination(ddb);
+            SyncPagination.autoPaginationWithResume(ddb);;
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+       System.out.println("\n Test 11 passed");
    }
 
     @Test
     @Order(12)
    public void updateTable(){
 
-       Long readCapacity = Long.parseLong("16");
-       Long writeCapacity = Long.parseLong("10");
-       UpdateTable.updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity);
-       System.out.println("\n Test 12 passed");
+        try {
+            Long readCapacity = Long.parseLong("16");
+            Long writeCapacity = Long.parseLong("10");
+            UpdateTable.updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity);
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 12 passed");
     }
 
     @Test
@@ -192,12 +253,10 @@ public class AWSDynamoServiceIntegrationTest {
             //Wait 15 secs for table to update based on test 10
             TimeUnit.SECONDS.sleep(15);
             DeleteTable.deleteDynamoDBTable(ddb,tableName);
-        } catch (InterruptedException e) {
+        } catch (DynamoDbException | InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("\n Test 13 passed");
     }
 }
-
-
