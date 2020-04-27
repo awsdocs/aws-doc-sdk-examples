@@ -1,14 +1,14 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[FindRunningInstances.java demonstrates how to use a Filter to find running instances]
-// snippet-service:[Amazon EC2]
+// snippet-service:[ec2]
 // snippet-keyword:[Java]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2/12/2020]
+// snippet-sourcedate:[2020-01-10]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,10 +22,10 @@
  *
  */
 
+// snippet-start:[ec2.java2.running_instances.complete]
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.running_instances.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
@@ -40,23 +40,15 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class FindRunningInstances {
     public static void main(String[] args) {
-
-        Region region = Region.US_WEST_2;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
-
-        findRunningEC2Instances(ec2);
-    }
-
-   // snippet-start:[ec2.java2.running_instances.main]
-   public static void findRunningEC2Instances(Ec2Client ec2) {
+        Ec2Client ec2 = Ec2Client.create();
+        // snippet-start:[ec2.java2.running_instances.main]
 
        try {
 
            String nextToken = null;
 
            do {
+
                 // Create a Filter to find all running instances
                 Filter filter = Filter.builder()
                     .name("instance-state-name")
@@ -94,6 +86,8 @@ public class FindRunningInstances {
         } catch (Ec2Exception e) {
             e.getStackTrace();
         }
+
         // snippet-end:[ec2.java2.running_instances.main]
     }
 }
+// snippet-end:[ec2.java2.running_instances.complete]

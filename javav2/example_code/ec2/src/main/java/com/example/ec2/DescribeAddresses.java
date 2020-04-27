@@ -1,13 +1,12 @@
 //snippet-sourcedescription:[DescribeAddresses.java demonstrates how to get information about elastic IP addresses.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/11/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon]
-
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,14 +20,13 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-
+// snippet-start:[ec2.java2.describe_addresses.complete]
 // snippet-start:[ec2.java2.describe_addresses.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
-// snippet-end:[ec2.java2.describe_addresses.import]
 
+// snippet-end:[ec2.java2.describe_addresses.import]
 /**
  * Describes all elastic IP addresses
  */
@@ -36,17 +34,8 @@ public class DescribeAddresses {
 
     public static void main(String[] args) {
 
-        //Create an Ec2Client object
-        Region region = Region.US_WEST_2;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
-
-        describeEC2Address(ec2 );
-    }
-
-    // snippet-start:[ec2.java2.describe_addresses.main]
-    public static void describeEC2Address(Ec2Client ec2 ) {
+        // snippet-start:[ec2.java2.describe_addresses.main]
+        Ec2Client ec2 = Ec2Client.create();
 
         DescribeAddressesResponse response = ec2.describeAddresses();
 
@@ -64,3 +53,5 @@ public class DescribeAddresses {
         // snippet-end:[ec2.java2.describe_addresses.main]
     }
 }
+
+// snippet-end:[ec2.java2.describe_addresses.complete]
