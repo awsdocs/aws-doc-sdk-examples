@@ -73,8 +73,7 @@ public class DeleteKeyPair {
                 "Successfully deleted key pair named %s", keyName);
 
         } catch (Ec2Exception e) {
-             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.getStackTrace();
         }
     }
 }

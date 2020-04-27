@@ -81,8 +81,7 @@ public class DescribeInstances {
             } while (nextToken != null);
 
         } catch (Ec2Exception e) {
-             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.getStackTrace();
         }
         // snippet-end:[ec2.java2.describe_instances.main]
     }

@@ -64,9 +64,9 @@ public class ReleaseAddress {
 
          System.out.printf(
                 "Successfully released Elastic IP address %s", allocId);
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+        } catch (
+                Ec2Exception e) {
+            e.getStackTrace();
         }
      }
     // snippet-end:[ec2.java2.release_instance.main]
