@@ -29,13 +29,13 @@ import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 
 // snippet-end:[ec2.java2.reboot_instance.import]
 /**
- * Reboots an Amazon EC2 instance
+ * Reboots and EC2 instance
  */
 public class RebootInstance {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply an instance ID.\n" +
+                "To run this example, supply an instance id\n" +
                         "Ex: RebootInstance <instance_id>\n";
 
         if (args.length != 1) {
@@ -45,7 +45,7 @@ public class RebootInstance {
 
         String instanceId = args[0];
 
-        // Create an Ec2Client object
+        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)

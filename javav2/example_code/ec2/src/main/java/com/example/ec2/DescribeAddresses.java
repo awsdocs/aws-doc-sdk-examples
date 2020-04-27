@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeAddresses.java demonstrates how to get information about Elastic IP addresses.]
+//snippet-sourcedescription:[DescribeAddresses.java demonstrates how to get information about elastic IP addresses.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -30,13 +30,13 @@ import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
 // snippet-end:[ec2.java2.describe_addresses.import]
 
 /**
- * Describes all Elastic IP addresses
+ * Describes all elastic IP addresses
  */
 public class DescribeAddresses {
 
     public static void main(String[] args) {
 
-        // Create an Ec2Client object
+        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -54,8 +54,8 @@ public class DescribeAddresses {
             System.out.printf(
                     "Found address with public IP %s, " +
                             "domain %s, " +
-                            "allocation ID %s " +
-                            "and NIC ID %s",
+                            "allocation id %s " +
+                            "and NIC id %s",
                     address.publicIp(),
                     address.domain(),
                     address.allocationId(),

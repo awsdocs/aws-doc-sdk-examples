@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the AWS Regions and Availability Zones from an Amazon EC2 client.]
+//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the regions and zones from an EC2 client.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRespon
 // snippet-end:[ec2.java2.describe_region_and_zones.import]
 
 /**
- * Describes all AWS Regions and Availability Zones
+ * Describes all regions and zones
  */
 public class DescribeRegionsAndZones {
 
@@ -66,9 +66,9 @@ public class DescribeRegionsAndZones {
 
             for(AvailabilityZone zone : zonesResponse.availabilityZones()) {
                 System.out.printf(
-                        "Found Availability Zone %s " +
+                        "Found availability zone %s " +
                                 "with status %s " +
-                                "in Region %s",
+                                "in region %s",
                         zone.zoneName(),
                         zone.state(),
                         zone.regionName());

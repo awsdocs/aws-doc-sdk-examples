@@ -36,7 +36,7 @@ public class TerminateInstance {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply an instance ID. \n" +
+                "To run this example, supply an instance id \n" +
                          "Ex: TerminateInstance <instance-id>\n";
 
         if (args.length < 1) {

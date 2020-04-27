@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[FindRunningInstances.java demonstrates how to use a filter to find running Amazon EC2 instances.]
+// snippet-sourcedescription:[FindRunningInstances.java demonstrates how to use a Filter to find running instances]
 // snippet-service:[Amazon EC2]
 // snippet-keyword:[Java]
 // snippet-keyword:[Code Sample]
@@ -36,7 +36,7 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
 /**
- * Locates all running Amazon EC2 instances by using a filter
+ * Locates all running EC2 instances using a Filter
  */
 public class FindRunningInstances {
     public static void main(String[] args) {
@@ -57,13 +57,13 @@ public class FindRunningInstances {
            String nextToken = null;
 
            do {
-                // Create a Filter object to find all running instances
+                // Create a Filter to find all running instances
                 Filter filter = Filter.builder()
                     .name("instance-state-name")
                     .values("running")
                     .build();
 
-                // Create a DescribeInstancesRequest object
+                //Create a DescribeInstancesRequest
                 DescribeInstancesRequest request = DescribeInstancesRequest.builder()
                     .filters(filter)
                     .build();
@@ -74,8 +74,8 @@ public class FindRunningInstances {
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
                     System.out.printf(
-                            "Found reservation with ID %s, " +
-                                    "Amazon Machine Image (AMI) %s, " +
+                            "Found reservation with id %s, " +
+                                    "AMI %s, " +
                                     "type %s, " +
                                     "state %s " +
                                     "and monitoring state %s",

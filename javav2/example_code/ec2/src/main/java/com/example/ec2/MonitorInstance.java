@@ -29,14 +29,14 @@ import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
 // snippet-end:[ec2.java2.monitor_instance.import]
 
 /**
- * Toggles detailed monitoring for an Amazon EC2 instance
+ * Toggles detailed monitoring for an EC2 instance
  */
 public class MonitorInstance {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply an instance ID and a monitoring " +
-                        "status.\n" +
+                "To run this example, supply an instance id and a monitoring " +
+                        "status\n" +
                         "Ex: MonitorInstance <instance-id> <true|false>\n";
 
         if (args.length != 2) {
@@ -47,7 +47,7 @@ public class MonitorInstance {
         String instanceId = args[0];
         boolean monitor = Boolean.valueOf(args[1]);
 
-        // Create an Ec2Client object
+        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)

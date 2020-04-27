@@ -34,13 +34,13 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.create_instance.import]
 
 /**
- * Creates an Amazon EC2 instance
+ * Creates an EC2 instance
  */
 public class CreateInstance {
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply an instance name and Amazon Machine Image (AMI) ID.\n" +
-                        "Both values can be obtained from the AWS Management Console.\n" +
+                "To run this example, supply an instance name and AMI image id\n" +
+                        "Both values can be obtained from the AWS Console\n" +
                         "Ex: CreateInstance <instance-name> <ami-image-id>\n";
 
         if (args.length != 2) {
