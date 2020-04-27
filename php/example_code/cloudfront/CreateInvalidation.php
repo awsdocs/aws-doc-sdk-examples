@@ -46,9 +46,19 @@ function createInvalidation($cloudFrontClient, $distributionId,
                 ],
             ]
         ]);
-        return 'The invalidation location is: ' . $result['Location'] . 
-            "\n" . 'The effective URI is: ' . 
-            $result['@metadata']['effectiveUri'];
+
+        $message = '';
+
+        if (isset($result['Location']))
+        {
+            $message = 'The invalidation location is: ' . 
+                $result['Location'];
+        }
+
+        $message .= ' and the effective URI is ' . 
+            $result['@metadata']['effectiveUri'] . '.';
+
+        return $message;
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -56,7 +66,7 @@ function createInvalidation($cloudFrontClient, $distributionId,
 
 function createTheInvalidation()
 {
-    $distributionId = 'E17G7YNEXAMPLE';
+    $distributionId = 'E1WICG14DUW2AP'; // 'E17G7YNEXAMPLE';
     $callerReference = 'my-unique-value';
     $paths = ['/*'];
     $quantity = 1;

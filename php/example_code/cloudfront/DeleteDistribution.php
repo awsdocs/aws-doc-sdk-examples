@@ -53,13 +53,21 @@ function getDistributionETag($cloudFrontClient, $distributionId)
         
         if (isset($result['ETag']))
         {
-            return $result['ETag'];
+            return [
+                'ETag' => $result['ETag'],
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ]; 
         } else {
-            return 'Error: Cannot find distribution ETag header value.';
+            return [
+                'Error' => 'Error: Cannot find distribution ETag header value.',
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
         }
 
     } catch (AwsException $e) {
-        return 'Error: ' . $e->getAwsErrorMessage();
+        return [
+            'Error' => 'Error: ' . $e->getAwsErrorMessage()
+        ];
     }
 }
 
@@ -77,10 +85,11 @@ function deleteADistribution()
     // ETag header value.
     $eTag = getDistributionETag($cloudFrontClient, $distributionId);
 
-    if (strpos($eTag, 'Error:') === false) {
-        echo deleteDistribution($cloudFrontClient, $distributionId, $eTag);
+    if (array_key_exists('Error', $eTag)) {
+        exit($eTag['Error']);
     } else {
-        exit($eTag);
+        echo deleteDistribution($cloudFrontClient, $distributionId, 
+            $eTag['ETag']);
     }
 }
 

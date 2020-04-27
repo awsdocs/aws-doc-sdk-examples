@@ -56,32 +56,49 @@ function getDistributionConfig($cloudFrontClient, $distributionId)
 
         if (isset($result['Distribution']['DistributionConfig']))
         {
-            return $result['Distribution']['DistributionConfig'];
+            return [
+                'DistributionConfig' => $result['Distribution']['DistributionConfig'],
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
         } else {
-            return 'Error: Cannot find distribution configuration details.';
+            return [
+                'Error' => 'Error: Cannot find distribution configuration details.',
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
         }
 
     } catch (AwsException $e) {
-        return 'Error: ' . $e->getAwsErrorMessage();
+        return [
+            'Error' => 'Error: ' . $e->getAwsErrorMessage()
+        ];
     }
 }
 
 function getDistributionETag($cloudFrontClient, $distributionId)
 {
+
     try {
         $result = $cloudFrontClient->getDistribution([
             'Id' => $distributionId,
         ]);
-
+        
         if (isset($result['ETag']))
         {
-            return $result['ETag'];
+            return [
+                'ETag' => $result['ETag'],
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ]; 
         } else {
-            return 'Error: Cannot find distribution ETag header value.';
+            return [
+                'Error' => 'Error: Cannot find distribution ETag header value.',
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
         }
 
     } catch (AwsException $e) {
-        return 'Error: ' . $e->getAwsErrorMessage();
+        return [
+            'Error' => 'Error: ' . $e->getAwsErrorMessage()
+        ];
     }
 }
 
@@ -99,10 +116,8 @@ function disableADistribution()
     // ETag header value.
     $eTag = getDistributionETag($cloudFrontClient, $distributionId);
 
-    if (strpos($eTag, 'Error:') === false) {
-
-    } else {
-        exit($eTag);
+    if (array_key_exists('Error', $eTag)) {
+        exit($eTag['Error']);
     }
 
     // To delete a distribution, you must also first get information about 
@@ -111,32 +126,30 @@ function disableADistribution()
     // configuration to disabled.
     $currentConfig = getDistributionConfig($cloudFrontClient, $distributionId);
 
-    if (is_array($currentConfig)) {
-
-    } else {
-        exit($currentConfig);
+    if (array_key_exists('Error', $currentConfig)) {
+        exit($currentConfig['Error']);
     }
 
     $distributionConfig = [
-        'CacheBehaviors' => $currentConfig["CacheBehaviors"],
-        'CallerReference' => $currentConfig["CallerReference"],
-        'Comment' => $currentConfig["Comment"],
-        'DefaultCacheBehavior' => $currentConfig["DefaultCacheBehavior"],
-        'DefaultRootObject' => $currentConfig["DefaultRootObject"],
+        'CacheBehaviors' => $currentConfig['DistributionConfig']["CacheBehaviors"],
+        'CallerReference' => $currentConfig['DistributionConfig']["CallerReference"],
+        'Comment' => $currentConfig['DistributionConfig']["Comment"],
+        'DefaultCacheBehavior' => $currentConfig['DistributionConfig']["DefaultCacheBehavior"],
+        'DefaultRootObject' => $currentConfig['DistributionConfig']["DefaultRootObject"],
         'Enabled' => false,
-        'Origins' => $currentConfig["Origins"],
-        'Aliases' => $currentConfig["Aliases"],
-        'CustomErrorResponses' => $currentConfig["CustomErrorResponses"],
-        'HttpVersion' => $currentConfig["HttpVersion"],
-        'Logging' => $currentConfig["Logging"],
-        'PriceClass' => $currentConfig["PriceClass"],
-        'Restrictions' => $currentConfig["Restrictions"],
-        'ViewerCertificate' => $currentConfig["ViewerCertificate"],
-        'WebACLId' => $currentConfig["WebACLId"]
+        'Origins' => $currentConfig['DistributionConfig']["Origins"],
+        'Aliases' => $currentConfig['DistributionConfig']["Aliases"],
+        'CustomErrorResponses' => $currentConfig['DistributionConfig']["CustomErrorResponses"],
+        'HttpVersion' => $currentConfig['DistributionConfig']["HttpVersion"],
+        'Logging' => $currentConfig['DistributionConfig']["Logging"],
+        'PriceClass' => $currentConfig['DistributionConfig']["PriceClass"],
+        'Restrictions' => $currentConfig['DistributionConfig']["Restrictions"],
+        'ViewerCertificate' => $currentConfig['DistributionConfig']["ViewerCertificate"],
+        'WebACLId' => $currentConfig['DistributionConfig']["WebACLId"]
     ];
 
     echo disableDistribution($cloudFrontClient, $distributionId,
-        $distributionConfig, $eTag);
+        $distributionConfig, $eTag['ETag']);
 }
 
 // Uncomment the following line to run this code in an AWS account.
@@ -153,5 +166,5 @@ function disableADistribution()
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-04-24]
+// snippet-sourceauthor:[pccornel (AWS)]

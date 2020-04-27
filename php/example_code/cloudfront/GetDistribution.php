@@ -12,6 +12,20 @@ use Aws\CloudFront\CloudFrontClient;
 use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.getdistribution.import]
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Gets information about an Amazon CloudFront distribution.
+ *
+ * Prerequisites: An existing Amazon CloudFront distribution.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
+ * - $distributionId: The distribution's ID.
+ *
+ * Returns: Information about the distribution; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
+
 // snippet-start:[cloudfront.php.getdistribution.main]
 function getDistribution($cloudFrontClient, $distributionId)
 {
@@ -20,15 +34,25 @@ function getDistribution($cloudFrontClient, $distributionId)
             'Id' => $distributionId
         ]);
 
+        $message = '';
+
         if (isset($result['Distribution']['Status']))
         {
-            return 'The status of the distribution with the ID of ' . 
-            $result['Distribution']['Id'] . ' is currently ' . 
-            $result['Distribution']['Status'] . '.';
+            $message = 'The status of the distribution with the ID of ' . 
+                $result['Distribution']['Id'] . ' is currently ' . 
+                $result['Distribution']['Status'];
+        }
+        
+        if (isset($result['@metadata']['effectiveUri']))
+        {
+            $message .= ', and the effective URI is ' . 
+                $result['@metadata']['effectiveUri'] . '.';
         } else {
-            return 'Error: Could not get the specified distribution. ' .
+            $message = 'Error: Could not get the specified distribution. ' .
                 'The distribution\'s status is not available.';
         }
+
+        return $message;
 
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
@@ -61,5 +85,5 @@ function getsADistribution()
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-04-24]
+// snippet-sourceauthor:[pccornel (AWS)]

@@ -139,35 +139,45 @@ class DisableDistributionTest extends TestCase
 
     public function testDisablesADistribution()
     {
-        $this->assertEquals(disableDistribution(
+        $result = disableDistribution(
             $GLOBALS['cloudFrontClient'],
             $GLOBALS['distributionId'],
             $GLOBALS['distributionConfig'],
             $GLOBALS['eTag']
-        ), 'The distribution with the following effective URI has ' . 
-            'been disabled: ' . 'https://cloudfront.amazonaws.com/' . 
+        );
+
+        $this->assertStringContainsString(
+            'https://cloudfront.amazonaws.com/' . 
             CLOUDFRONT_VERSION. '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID . '/config');
+            CLOUDFRONT_DISTRIBUTION_ID . '/config',
+            $result
+        );
     }
 
     public function testGetsADistributionConfig()
     {
-        // Tests to make sure non-AWS error message is returned.
-        // An AWS error message is a failure in this case.
-        $this->assertEquals(getDistributionConfig(
+        $result = getDistributionConfig(
             $GLOBALS['cloudFrontClient'], 
             $GLOBALS['distributionId']
-        ), 'Error: Cannot find distribution configuration details.');
+        );
+
+        $this->assertContains('https://cloudfront.amazonaws.com/' .
+            CLOUDFRONT_VERSION. '/distribution/' . 
+            CLOUDFRONT_DISTRIBUTION_ID, $result
+        );
     }
 
     public function testGetsADistributionETag()
     {
-        // Tests to make sure non-AWS error message is returned.
-        // An AWS error message is a failure in this case.
-        $this->assertEquals(getDistributionETag(
+        $result = getDistributionETag(
             $GLOBALS['cloudFrontClient'], 
             $GLOBALS['distributionId']
-        ), 'Error: Cannot find distribution ETag header value.');
+        );
+
+        $this->assertContains('https://cloudfront.amazonaws.com/' .
+            CLOUDFRONT_VERSION. '/distribution/' . 
+            CLOUDFRONT_DISTRIBUTION_ID, $result
+        );
     }
 }
 

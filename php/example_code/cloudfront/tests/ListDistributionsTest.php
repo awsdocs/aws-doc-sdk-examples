@@ -5,23 +5,21 @@ SPDX-License-Identifier: Apache-2.0
 */
 
 /*
-Relies on PHPUnit to test the functionality in ./GetDistribution.php.
+Relies on PHPUnit to test the functionality in ./ListDistributions.php.
 Related custom constants are defined in ./phpunit.xml.
 Example PHPUnit run command from this file's parent directory:
-./vendor/bin/phpunit --testsuite cloudfront-getdistribution
+./vendor/bin/phpunit --testsuite cloudfront-listdistributions
 */
 use PHPUnit\Framework\TestCase;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\CloudFront\CloudFrontClient;
 
-class GetDistributionTest extends TestCase
+class ListDistributionsTest extends TestCase
 {
-    public function testGetsADistribution()
+    public function testListsTheDistributions()
     {
-        require('./GetDistribution.php');
-
-        $distributionId = CLOUDFRONT_DISTRIBUTION_ID;
+        require('./ListDistributions.php');
 
         $mock = new MockHandler();
         $mock->append(new Result(array(true)));
@@ -33,11 +31,10 @@ class GetDistributionTest extends TestCase
             'handler' => $mock
         ]);
 
-        $result = getDistribution($cloudFrontClient, $distributionId);
+        $result = listDistributions($cloudFrontClient);
 
-        $this->assertStringContainsString(
-            'https://cloudfront.amazonaws.com/' . 
-            CLOUDFRONT_VERSION . '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID, $result);
+        $this->assertContains('https://cloudfront.amazonaws.com/' . 
+            CLOUDFRONT_VERSION . '/distribution', 
+            $result['@metadata']);
     }
 }

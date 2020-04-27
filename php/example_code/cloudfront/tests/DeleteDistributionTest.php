@@ -49,23 +49,27 @@ class DeleteDistributionTest extends TestCase
 
     public function testDeletesADistribution()
     {
-        $this->assertEquals(deleteDistribution(
+        $result = deleteDistribution(
             $GLOBALS['cloudFrontClient'], 
             $GLOBALS['distributionId'], 
             $GLOBALS['eTag']
-        ), 'The distribution at the following effective URI has ' . 
-            'been deleted: ' . 'https://cloudfront.amazonaws.com/' .
+        );
+
+        $this->assertStringContainsString('https://cloudfront.amazonaws.com/' .
             CLOUDFRONT_VERSION. '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID);
+            CLOUDFRONT_DISTRIBUTION_ID,
+            $result
+        );
     }
 
     public function testGetsADistributionETag()
     {
-        // Tests to make sure non-AWS error message is returned.
-        // An AWS error message is a failure in this case.
-        $this->assertEquals(getDistributionETag(
+        $result = getDistributionETag(
             $GLOBALS['cloudFrontClient'], 
-            $GLOBALS['distributionId']
-        ), 'Error: Cannot find distribution ETag header value.');
+            $GLOBALS['distributionId']);
+
+        $this->assertContains('https://cloudfront.amazonaws.com/' .
+        CLOUDFRONT_VERSION. '/distribution/' . 
+        CLOUDFRONT_DISTRIBUTION_ID, $result);
     }
 }

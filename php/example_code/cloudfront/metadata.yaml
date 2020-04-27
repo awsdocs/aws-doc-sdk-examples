@@ -30,4 +30,22 @@ files:
   - path: tests/GetDistributionTest.php
     services: 
       - cloudfront
+  - path: GetInvalidation.php
+    services: 
+      - cloudfront
+  - path: tests/GetInvalidationTest.php
+    services: 
+      - cloudfront
+  - path: ListDistributions.php
+    services: 
+      - cloudfront
+  - path: tests/ListDistributionsTest.php
+    services: 
+      - cloudfront
+  - path: ListInvalidations.php
+    services: 
+      - cloudfront
+  - path: tests/ListInvalidationsTest.php
+    services: 
+      - cloudfront
 ...

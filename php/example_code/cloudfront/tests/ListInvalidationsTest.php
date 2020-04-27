@@ -5,27 +5,22 @@ SPDX-License-Identifier: Apache-2.0
 */
 
 /*
-Relies on PHPUnit to test the functionality in ./CreateInvalidation.php.
+Relies on PHPUnit to test the functionality in ./ListInvalidations.php.
 Related custom constants are defined in ./phpunit.xml.
 Example PHPUnit run command from this file's parent directory:
-./vendor/bin/phpunit --testsuite cloudfront-createinvalidation
+./vendor/bin/phpunit --testsuite cloudfront-listinvalidations
 */
 use PHPUnit\Framework\TestCase;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\CloudFront\CloudFrontClient;
 
-class CreateInvalidationTest extends TestCase
+class ListInvalidationsTest extends TestCase
 {
-    public function testCreatesAnInvalidation()
+    public function testListsTheInvalidations()
     {
-        require('./CreateInvalidation.php');
+        require('./ListInvalidations.php');
 
-        $distributionId = CLOUDFRONT_DISTRIBUTION_ID;
-        $callerReference = CLOUDFRONT_CALLER_REFERENCE;
-        $paths = ['/*'];
-        $quantity = 1;
-        
         $mock = new MockHandler();
         $mock->append(new Result(array(true)));
 
@@ -36,18 +31,12 @@ class CreateInvalidationTest extends TestCase
             'handler' => $mock
         ]);
 
-        $result = createInvalidation(
-            $cloudFrontClient,
-            $distributionId,
-            $callerReference,
-            $paths,
-            $quantity
-        );
+        $result = listInvalidations($cloudFrontClient, 
+            CLOUDFRONT_DISTRIBUTION_ID);
 
-        $this->assertStringContainsString('https://cloudfront.amazonaws.com/'. 
+        $this->assertContains('https://cloudfront.amazonaws.com/' .
             CLOUDFRONT_VERSION . '/distribution/' . 
             CLOUDFRONT_DISTRIBUTION_ID . '/invalidation', 
-            $result
-        );
+            $result['@metadata']);
     }
 }
