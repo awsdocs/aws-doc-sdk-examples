@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.allocate_address.import]
 
 /**
- * Allocates an Elastic IP address for an Amazon EC2 instance
+ * Allocates an Elastic IP address for an Amazon EC2 instance.
  */
 public class AllocateAddress {
 
