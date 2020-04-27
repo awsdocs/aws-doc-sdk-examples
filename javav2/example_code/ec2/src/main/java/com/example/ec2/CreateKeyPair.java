@@ -68,8 +68,7 @@ public class CreateKeyPair {
                 keyName);
 
         } catch (Ec2Exception e) {
-             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+        e.getStackTrace();
         }
         // snippet-end:[ec2.java2.create_key_pair.main]
       }

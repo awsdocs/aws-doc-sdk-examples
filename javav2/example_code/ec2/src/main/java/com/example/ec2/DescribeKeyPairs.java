@@ -61,8 +61,7 @@ public class DescribeKeyPairs {
              System.out.println("");
             }
         } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.getStackTrace();
          }
         // snippet-end:[ec2.java2.describe_key_pairs.main]
     }

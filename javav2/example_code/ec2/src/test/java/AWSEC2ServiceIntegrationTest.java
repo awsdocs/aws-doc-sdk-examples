@@ -21,7 +21,6 @@ public class AWSEC2ServiceIntegrationTest {
     private static String keyName="";
     private static String groupName="";
     private static String groupDesc="";
-    private static String groupId="";
     private static String vpcId="";
 
     @BeforeAll
@@ -67,8 +66,13 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(2)
     public void CreateInstance() {
 
-        instanceId = CreateInstance.createEC2Instance(ec2,instanceName,ami);
-        assertTrue(!instanceId.isEmpty());
+        try {
+            instanceId = CreateInstance.createEC2Instance(ec2,instanceName,ami);
+            assertTrue(!instanceId.isEmpty());
+            } catch (Ec2Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
         System.out.println("\n Test 2 passed");
     }
 
@@ -76,7 +80,12 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(3)
     public void CreateKeyPair()
     {
-        CreateKeyPair.createEC2KeyPair(ec2, keyName);
+       try {
+           CreateKeyPair.createEC2KeyPair(ec2, keyName);
+    } catch (Ec2Exception e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
         System.out.println("\n Test 3 passed");
     }
 
@@ -84,32 +93,53 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(4)
     public void DescribeKeyPair() {
 
-      DescribeKeyPairs.describeEC2Keys(ec2);
-      System.out.println("\n Test 4 passed");
+     try {
+         DescribeKeyPairs.describeEC2Keys(ec2);
+     } catch (Ec2Exception e) {
+         System.err.println(e.awsErrorDetails().errorMessage());
+         System.exit(1);
+     }
+        System.out.println("\n Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void DeleteKeyPair() {
 
-         DeleteKeyPair.deleteKeys(ec2,keyName);
-         System.out.println("\n Test 5 passed");
+        try {
+            DeleteKeyPair.deleteKeys(ec2,keyName);
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+       System.out.println("\n Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void CreateSecurityGroup() {
 
-        groupId = CreateSecurityGroup.createEC2SecurityGroup(ec2,groupName,groupDesc,vpcId);
-       System.out.println("\n Test 6 passed");
+      try {
+          CreateSecurityGroup.createEC2SecurityGroup(ec2,groupName,groupDesc,vpcId);
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+
+      System.out.println("\n Test 6 passed");
    }
 
     @Test
     @Order(7)
     public void DescribeSecurityGroup() {
 
-       DescribeSecurityGroups.describeEC2SecurityGroups(ec2,groupId);
-       System.out.println("\n Test 7 passed");
+      try {
+          DescribeSecurityGroups.describeEC2SecurityGroups(ec2,groupName);
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+        System.out.println("\n Test 7 passed");
     }
 
 
@@ -117,8 +147,14 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(8)
     public void DeleteSecurityGroup(){
 
-      DeleteSecurityGroup.deleteEC2SecGroup(ec2, groupId);
-      System.out.println("\n Test 8 passed");
+      try {
+          DeleteSecurityGroup.deleteEC2SecGroup(ec2, groupName);
+
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+        System.out.println("\n Test 8 passed");
     }
 
 
@@ -126,15 +162,26 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(9)
     public void DescribeAccount() {
 
-     DescribeAccount.describeEC2Account(ec2);
-     System.out.println("\n Test 9 passed");
+      try{
+          DescribeAccount.describeEC2Account(ec2);
+
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+        System.out.println("\n Test 9 passed");
     }
 
     @Test
     @Order(10)
     public void DescribeInstances() {
 
-       DescribeInstances.describeEC2Instances(ec2);
+       try {
+           DescribeInstances.describeEC2Instances(ec2);
+       } catch (Ec2Exception e) {
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
+       }
        System.out.println("\n Test 10 passed");
     }
 
@@ -142,30 +189,52 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(11)
     public void DescribeRegionsAndZones () {
 
-      DescribeRegionsAndZones.describeEC2RegionsAndZones(ec2);
-      System.out.println("\n Test 11 passed");
+      try {
+          DescribeRegionsAndZones.describeEC2RegionsAndZones(ec2);
+
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+        System.out.println("\n Test 11 passed");
     }
 
     @Test
     @Order(12)
     public void DescribeVPCs () {
 
-      DescribeVPCs.describeEC2Vpcs(ec2,vpcId);
-      System.out.println("\n Test 12 passed");
+      try {
+          DescribeVPCs.describeEC2Vpcs(ec2,vpcId);
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+        System.out.println("\n Test 12 passed");
     }
 
     @Test
     @Order(13)
    public void FindRunningInstances() {
-       FindRunningInstances.findRunningEC2Instances(ec2);
-       System.out.println("\n Test 13 passed");
+      try {
+          FindRunningInstances.findRunningEC2Instances(ec2);
+
+      } catch (Ec2Exception e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
+        System.out.println("\n Test 13 passed");
     }
 
     @Test
     @Order(14)
     public void DescribeAddressed() {
 
-       DescribeAddresses.describeEC2Address(ec2);
+        try{
+            DescribeAddresses.describeEC2Address(ec2);
+        } catch (Ec2Exception e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
         System.out.println("\n Test 14 passed");
     }
 
@@ -173,7 +242,12 @@ public class AWSEC2ServiceIntegrationTest {
     @Order(15)
    public void  TerminateInstance() {
 
-       TerminateInstance.terminateEC2(ec2, instanceId);
-       System.out.println("\n Test 15 passed");
+       try {
+           TerminateInstance.terminateEC2(ec2, instanceId);
+       } catch (Ec2Exception e) {
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
+       }
+        System.out.println("\n Test 15 passed");
     }
 }

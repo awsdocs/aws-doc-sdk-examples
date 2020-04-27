@@ -72,8 +72,7 @@ public class TerminateInstance {
                     System.out.println("The ID of the terminated instance is "+sc.instanceId());
                 }
             } catch (Ec2Exception e) {
-                 System.err.println(e.awsErrorDetails().errorMessage());
-                 System.exit(1);
+                e.getStackTrace();
             }
          }
     // snippet-end:[ec2.java2.terminate_instance]

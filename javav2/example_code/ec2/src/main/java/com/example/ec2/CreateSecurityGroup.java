@@ -30,18 +30,17 @@ import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRe
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
-import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.IpRange;
 // snippet-end:[ec2.java2.create_security_group.import]
 
 /**
- * Creates an EC2 security group.
+ * Creates an Amazon EC2 security group
  */
 public class CreateSecurityGroup {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a group name, group description and vpc id\n" +
+                "To run this example, supply a group name, group description, and VPC ID.\n" +
                         "Ex: CreateSecurityGroup <group-name> <group-description> <vpc-id>\n";
 
         if (args.length != 3) {
@@ -53,20 +52,17 @@ public class CreateSecurityGroup {
         String groupDesc = args[1];
         String vpcId = args[2];
 
-        //Create an Ec2Client object
+        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
                 .build();
 
-        String id = createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
-        System.out.printf(
-                "Successfully created security group with this ID %s",
-                id);
+        createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
     }
 
     // snippet-start:[ec2.java2.create_security_group.main]
-    public static String createEC2SecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
+    public static void createEC2SecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
         try {
 
             CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
@@ -75,7 +71,11 @@ public class CreateSecurityGroup {
                 .vpcId(vpcId)
                 .build();
 
-            CreateSecurityGroupResponse resp= ec2.createSecurityGroup(createRequest);
+            ec2.createSecurityGroup(createRequest);
+
+            System.out.printf(
+                "Successfully created security group named %s",
+                groupName);
 
             IpRange ipRange = IpRange.builder()
                 .cidrIp("0.0.0.0/0").build();
@@ -108,13 +108,8 @@ public class CreateSecurityGroup {
                 "Successfully added ingress policy to security group %s",
                 groupName);
 
-            return resp.groupId();
-
         } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.getStackTrace();
         }
-        return "";
     }
 }
-
