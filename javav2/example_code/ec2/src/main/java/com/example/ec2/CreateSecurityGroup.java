@@ -54,10 +54,13 @@ public class CreateSecurityGroup {
         String vpcId = args[2];
 
         //Create an Ec2Client object
+        // snippet-start:[ec2.java2.create_security_group.client]
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
                 .build();
+        // snippet-end:[ec2.java2.create_security_group.client]
+
 
         String id = createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
         System.out.printf(
@@ -117,4 +120,3 @@ public class CreateSecurityGroup {
         return "";
     }
 }
-
