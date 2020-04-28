@@ -389,7 +389,7 @@ def generate_presigned_post(bucket_name, object_key, expires_in):
 
     :param bucket_name: The name of the bucket that receives the posted object.
     :param object_key: The object key to identify the uploaded object.
-    :param expires_in: The number of seconds the presigned POST is valid for.
+    :param expires_in: The number of seconds the presigned POST is valid.
     :return: A dictionary that contains the URL and form fields that contain
              required access data.
     """

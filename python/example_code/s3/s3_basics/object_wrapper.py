@@ -145,7 +145,7 @@ def copy_object(source_bucket, source_object_key, dest_bucket, dest_object_key):
 
 def delete_object(bucket, object_key):
     """
-    Remove an object from a bucket.
+    Removes an object from a bucket.
 
     Usage is shown in usage_demo at the end of this module.
 
@@ -249,7 +249,7 @@ def put_acl(bucket, object_key, email):
 
 def get_acl(bucket, object_key):
     """
-    Get the ACL of an object.
+    Gets the ACL of an object.
 
     Usage is shown in usage_demo at the end of this module.
 
@@ -306,8 +306,9 @@ def usage_demo():
     except ClientError as error:
         if error.response['Error']['Code'] == 'UnresolvableGrantByEmailAddress':
             print("Couldn't apply the ACL to the object because the specified "
-                  "email is a test user and does not exist. For this request to "
-                  "succeed, you must replace the user email with an actual AWS user.")
+                  "email is for a test user who does not exist. For this request to "
+                  "succeed, you must replace the user email with one for an "
+                  "actual AWS user.")
         else:
             raise
 
