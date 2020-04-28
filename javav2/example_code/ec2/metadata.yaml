@@ -57,9 +57,4 @@ files:
   - path: src/main/java/com/example/ec2/StartStopInstance.java
     services:
       - ec2
-  - path: src/main/java/com/example/ec2/TerminateInstance.java
-    services:
-      - ec2    
   - path: src/test/java/AWSEC2ServiceIntegrationTest.java
-    services:
-      - ec2
