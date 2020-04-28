@@ -61,3 +61,5 @@ files:
     services:
       - ec2    
   - path: src/test/java/AWSEC2ServiceIntegrationTest.java
+    services:
+      - ec2
