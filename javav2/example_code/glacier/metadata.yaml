@@ -1,0 +1,23 @@
+--- 
+files:
+  - path: src/main/java/com/example/glacier/ArchiveDownload.java
+    services:
+      - glacier
+  - path: src/main/java/com/example/glacier/CreateVault.java
+    services:
+      - glacier
+  - path: src/main/java/com/example/glacier/DeleteArchive.java
+    services:
+      - glacier
+  - path: src/main/java/com/example/glacier/DeleteVault.java
+    services:
+      - glacier
+  - path: src/main/java/com/example/glacier/DescribeVault.java
+    services:
+      - glacier
+  - path: src/main/java/com/example/glacier/ListVaults.java
+    services:
+      - glacier
+  - path: src/main/java/com/example/glacier/UploadArchive.java
+    services:
+      - glacier
