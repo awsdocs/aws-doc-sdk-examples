@@ -50,3 +50,17 @@ class ExampleStubber(Stubber):
         """When using stubs, verify no more responses are waiting in the queue."""
         if self.use_stubs:
             super().assert_no_pending_responses()
+
+    def _stub_bifurcator(
+            self, method, expected_params=None, response=None, error_code=None):
+        if not expected_params:
+            expected_params = {}
+        if not response:
+            response = {}
+        if not error_code:
+            self.add_response(
+                method, expected_params=expected_params, service_response=response)
+        else:
+            self.add_client_error(
+                method, expected_params=expected_params, service_error_code=error_code)
+
