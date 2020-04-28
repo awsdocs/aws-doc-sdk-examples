@@ -41,6 +41,18 @@ Creates a new item in a DynamoDB table.
 
 The unit test accepts similar values in _config.json_.
 
+### GetItem/GetItem.go
+
+This example retrieves an item from a DynamoDB table.
+
+`go run GetItem.go -t TABLE -n NAME -y YEAR`
+
+- _TABLE_ is the name of the table
+- _NAME_ is the name of the movie
+- _YEAR_ is when the movie was released
+
+The unit test mocks the DynamoDB service and `GetItem` function.
+
 ### ListTables/ListTables.go
 
 This example lists your DynamoDB tables.
@@ -53,6 +65,17 @@ This example lists your DynamoDB tables.
   it is set to 10.
 
 The unit test accepts a similar value in _config.json_.
+
+### LoadTableItems/LoadTableItems.go
+
+This example adds items from a JSON file to a table.
+
+`go run LoadTableItems.go -j JSON-FILE -d TABLE`
+
+- _JSON-FILE_ is the name of the JSON file containing the items to load into the table.
+- _TABLE_ is the name of the table.
+
+The unit test accepts similar values in _config.json_.
 
 ### UpdateItem/UpdateItem.go
 

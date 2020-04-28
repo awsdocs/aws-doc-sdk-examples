@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-// snippet-start:[dynamodb.go.create_item]
+// snippet-start:[dynamodb.go.create_new_item]
 package main
 
-// snippet-start:[dynamodb.go.create_item.imports]
+// snippet-start:[dynamodb.go.create_new_item.imports]
 import (
     "flag"
     "fmt"
@@ -14,17 +14,17 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
-// snippet-end:[dynamodb.go.create_item.imports]
+// snippet-end:[dynamodb.go.create_new_item.imports]
 
 // Item holds info about new item
-// snippet-start:[dynamodb.go.create_item.struct]
+// snippet-start:[dynamodb.go.create_new_item.struct]
 type Item struct {
     Year   int
     Title  string
     Plot   string
     Rating float64
 }
-// snippet-end:[dynamodb.go.create_item.struct]
+// snippet-end:[dynamodb.go.create_new_item.struct]
 
 // AddTableItem adds an item to an Amazon DynamoDB table
 // Inputs:
@@ -38,7 +38,7 @@ type Item struct {
 //     If success, nil
 //     Otherwise, an error from the call to PutItem
 func AddTableItem(svc dynamodbiface.DynamoDBAPI, year *int, table, title, plot *string, rating *float64) error {
-    // snippet-start:[dynamodb.go.create_item.assign_struct]
+    // snippet-start:[dynamodb.go.create_new_item.assign_struct]
     item := Item{
         Year:   *year,
         Title:  *title,
@@ -47,17 +47,17 @@ func AddTableItem(svc dynamodbiface.DynamoDBAPI, year *int, table, title, plot *
     }
 
     av, err := dynamodbattribute.MarshalMap(item)
-    // snippet-end:[dynamodb.go.create_item.assign_struct]
+    // snippet-end:[dynamodb.go.create_new_item.assign_struct]
     if err != nil {
         return err
     }
 
-    // snippet-start:[dynamodb.go.create_item.call]
+    // snippet-start:[dynamodb.go.create_new_item.call]
     _, err = svc.PutItem(&dynamodb.PutItemInput{
         Item:      av,
         TableName: table,
     })
-    // snippet-end:[dynamodb.go.create_item.call]
+    // snippet-end:[dynamodb.go.create_new_item.call]
     if err != nil {
         return err
     }
@@ -66,7 +66,7 @@ func AddTableItem(svc dynamodbiface.DynamoDBAPI, year *int, table, title, plot *
 }
 
 func main() {
-    // snippet-start:[dynamodb.go.create_item.args]
+    // snippet-start:[dynamodb.go.create_new_item.args]
     table := flag.String("d", "", "The name of the database table")
     year := flag.Int("y", 0, "The year the movie debuted")
     title := flag.String("t", "", "The title of the movie")
@@ -79,15 +79,15 @@ func main() {
         fmt.Println("-d TABLE -y YEAR -t TITLE -r RATING")
         return
     }
-    // snippet-end:[dynamodb.go.create_item.args]
+    // snippet-end:[dynamodb.go.create_new_item.args]
 
-    // snippet-start:[dynamodb.go.create_item.session]
+    // snippet-start:[dynamodb.go.create_new_item.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
     svc := dynamodb.New(sess)
-    // snippet-end:[dynamodb.go.create_item.session]
+    // snippet-end:[dynamodb.go.create_new_item.session]
 
     err := AddTableItem(svc, year, table, title, plot, rating)
     if err != nil {
@@ -98,4 +98,4 @@ func main() {
 
     fmt.Println("Successfully added '"+*title+"' ("+strconv.Itoa(*year)+") to table "+*table+" with rating", *rating)
 }
-// snippet-end:[dynamodb.go.create_item]
+// snippet-end:[dynamodb.go.create_new_item]

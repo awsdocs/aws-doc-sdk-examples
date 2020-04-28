@@ -1,16 +1,4 @@
 files:
-  - path: UpdateItem/UpdateItem.go
-    services:
-      - dynamodb
-  - path: UpdateItem/UpdateItem_test.go
-    services:
-      - dynamodb
-  - path: ListTables/ListTables.go
-    services:
-      - dynamodb
-  - path: ListTables/ListTables_test.go
-    services:
-      - dynamodb
   - path: CreateTable/CreateTable.go
     services:
       - dynamodb
@@ -21,5 +9,29 @@ files:
     services:
       - dynamodb
   - path: CreateTableItem/CreateTableItem_test.go
+    services:
+      - dynamodb
+  - path: GetItem/GetItem.go
+    services:
+      - dynamodb
+  - path: GetItem/GetItem_test.go
+    services:
+      - dynamodb
+  - path: ListTables/ListTables.go
+    services:
+      - dynamodb
+  - path: ListTables/ListTables_test.go
+    services:
+      - dynamodb
+  - path: LoadTableItems/LoadTableItems.go
+    services:
+      - dynamodb
+  - path: LoadTableItems/LoadTableItems_test.go
+    services:
+      - dynamodb
+  - path: UpdateItem/UpdateItem.go
+    services:
+      - dynamodb
+  - path: UpdateItem/UpdateItem_test.go
     services:
       - dynamodb

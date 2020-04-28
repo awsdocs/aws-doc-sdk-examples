@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. // SPDX-License-Identifier: MIT-0
-// snippet-start:[dynamodb.go.create_table]
+// snippet-start:[dynamodb.go.create_new_table]
 package main
 
-// snippet-start:[dynamodb.go.create_table.imports]
+// snippet-start:[dynamodb.go.create_new_table.imports]
 import (
     "flag"
     "fmt"
@@ -12,7 +12,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
-// snippet-end:[dynamodb.go.create_table.imports]
+// snippet-end:[dynamodb.go.create_new_table.imports]
 
 // MakeTable creates an Amazon DynamoDB table
 // Inputs:
@@ -25,7 +25,7 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to CreateTable
 func MakeTable(svc dynamodbiface.DynamoDBAPI, attributeDefinitions []*dynamodb.AttributeDefinition, keySchema []*dynamodb.KeySchemaElement, provisionedThroughput *dynamodb.ProvisionedThroughput, tableName *string) error {
-    // snippet-start:[dynamodb.go.create_table.call]
+    // snippet-start:[dynamodb.go.create_new_table.call]
 
     _, err := svc.CreateTable(&dynamodb.CreateTableInput{
         AttributeDefinitions:  attributeDefinitions,
@@ -33,12 +33,12 @@ func MakeTable(svc dynamodbiface.DynamoDBAPI, attributeDefinitions []*dynamodb.A
         ProvisionedThroughput: provisionedThroughput,
         TableName:             tableName,
     })
-    // snippet-end:[dynamodb.go.create_table.call]
+    // snippet-end:[dynamodb.go.create_new_table.call]
     return err
 }
 
 func main() {
-    // snippet-start:[dynamodb.go.create_table.args]
+    // snippet-start:[dynamodb.go.create_new_table.args]
     tableName := flag.String("t", "", "The name of the table")
     flag.Parse()
 
@@ -46,17 +46,17 @@ func main() {
         fmt.Println("You must supply a table name (-t TABLE)")
         return
     }
-    // snippet-end:[dynamodb.go.create_table.args]
+    // snippet-end:[dynamodb.go.create_new_table.args]
 
-    // snippet-start:[dynamodb.go.create_table.session]
+    // snippet-start:[dynamodb.go.create_new_table.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
 
     svc := dynamodb.New(sess)
-    // snippet-end:[dynamodb.go.create_table.session]
+    // snippet-end:[dynamodb.go.create_new_table.session]
 
-    // snippet-start:[dynamodb.go.create_table.create_input]
+    // snippet-start:[dynamodb.go.create_new_table.create_input]
     attributeDefinitions := []*dynamodb.AttributeDefinition{
         {
             AttributeName: aws.String("Year"),
@@ -83,7 +83,7 @@ func main() {
         ReadCapacityUnits:  aws.Int64(10),
         WriteCapacityUnits: aws.Int64(10),
     }
-    // snippet-end:[dynamodb.go.create_table.create_input]
+    // snippet-end:[dynamodb.go.create_new_table.create_input]
 
     err := MakeTable(svc, attributeDefinitions, keySchema, provisionedThroughput, tableName)
     if err != nil {
@@ -94,4 +94,4 @@ func main() {
 
     fmt.Println("Created the table", *tableName)
 }
-// snippet-end:[dynamodb.go.create_table]
+// snippet-end:[dynamodb.go.create_new_table]

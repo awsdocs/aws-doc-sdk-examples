@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. // SPDX-License-Identifier: MIT-0
-// snippet-start:[dynamodb.go.list_tables]
+// snippet-start:[dynamodb.go.list_all_tables]
 package main
 
-// snippet-start:[dynamodb.go.list_tables.imports]
+// snippet-start:[dynamodb.go.list_all_tables.imports]
 import (
     "flag"
     "fmt"
@@ -10,7 +10,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
 )
-// snippet-end:[dynamodb.go.list_tables.imports]
+// snippet-end:[dynamodb.go.list_all_tables.imports]
 
 // GetTables retrieves a list of your Amazon DynamoDB tables
 // Inputs:
@@ -20,13 +20,13 @@ import (
 //     If success, a list of the tables and nil
 //     Otherwise, nil and an error from the call to ListTables
 func GetTables(sess *session.Session, limit *int64) ([]*string, error) {
-    // snippet-start:[dynamodb.go.list_tables.call]
+    // snippet-start:[dynamodb.go.list_all_tables.call]
     svc := dynamodb.New(sess)
 
     result, err := svc.ListTables(&dynamodb.ListTablesInput{
         Limit: limit,
     })
-    // snippet-end:[dynamodb.go.list_tables.call]
+    // snippet-end:[dynamodb.go.list_all_tables.call]
     if err != nil {
         return nil, err
     }
@@ -35,20 +35,20 @@ func GetTables(sess *session.Session, limit *int64) ([]*string, error) {
 }
 
 func main() {
-    // snippet-start:[dynamodb.go.list_tables.args]
+    // snippet-start:[dynamodb.go.list_all_tables.args]
     limit := flag.Int64("l", 100, "How many tables to return")
     flag.Parse()
 
     if *limit < int64(0) {
         *limit = int64(10)
     }
-    // snippet-end:[dynamodb.go.list_tables.args]
+    // snippet-end:[dynamodb.go.list_all_tables.args]
 
-    // snippet-start:[dynamodb.go.list_tables.session]
+    // snippet-start:[dynamodb.go.list_all_tables.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-    // snippet-end:[dynamodb.go.list_tables.session]
+    // snippet-end:[dynamodb.go.list_all_tables.session]
 
     tables, err := GetTables(sess, limit)
     if err != nil {
@@ -62,4 +62,4 @@ func main() {
         fmt.Println(*n)
     }
 }
-// snippet-end:[dynamodb.go.list_tables]
+// snippet-end:[dynamodb.go.list_all_tables]
