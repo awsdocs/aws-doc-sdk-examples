@@ -21,3 +21,7 @@ files:
   - path: src/main/java/com/example/glacier/UploadArchive.java
     services:
       - glacier
+  - path: src/test/java/AWSGlacierServiceIntegrationTest.java
+    services:
+      - glacier
+   
