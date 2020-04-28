@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/2/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -41,6 +41,10 @@ public class DescribeRegionsAndZones {
         Ec2Client ec2 = Ec2Client.create();
         // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
+        describeEC2RegionsAndZones(ec2);
+
+    }
+    public static void describeEC2RegionsAndZones( Ec2Client ec2) {
         // snippet-start:[ec2.java2.describe_region_and_zones.region]
         try {
 
@@ -48,33 +52,34 @@ public class DescribeRegionsAndZones {
 
             for(Region region : regionsResponse.regions()) {
                 System.out.printf(
-                    "Found region %s " +
-                            "with endpoint %s",
-                    region.regionName(),
-                    region.endpoint());
+                        "Found region %s " +
+                                "with endpoint %s",
+                        region.regionName(),
+                        region.endpoint());
                 System.out.println();
-            // snippet-end:[ec2.java2.describe_region_and_zones.region]
-        }
+                // snippet-end:[ec2.java2.describe_region_and_zones.region]
+            }
 
             // snippet-start:[ec2.java2.describe_region_and_zones.avail_zone]
             DescribeAvailabilityZonesResponse zonesResponse =
-                ec2.describeAvailabilityZones();
+                    ec2.describeAvailabilityZones();
 
             for(AvailabilityZone zone : zonesResponse.availabilityZones()) {
                 System.out.printf(
-                    "Found availability zone %s " +
-                            "with status %s " +
-                            "in region %s",
-                    zone.zoneName(),
-                    zone.state(),
-                    zone.regionName());
+                        "Found availability zone %s " +
+                                "with status %s " +
+                                "in region %s",
+                        zone.zoneName(),
+                        zone.state(),
+                        zone.regionName());
                 System.out.println();
-            // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
-        }
+                // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
+            }
 
-    } catch (Ec2Exception e) {
-        e.getStackTrace();
-    }
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         // snippet-end:[ec2.java2.describe_region_and_zones.main]
     }
 }

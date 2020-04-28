@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[MonitorInstance.java demonstrates how to toggle detailed monitoring for an EC2 instance.]
+//snippet-sourcedescription:[MonitorInstance.java demonstrates how to toggle detailed monitoring for an Amazon EC2 instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-01-10]
+//snippet-sourcedate:[2/12/2020]
 //snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,13 +20,14 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java2.monitor_instance.complete]
+
 // snippet-start:[ec2.java2.monitor_instance.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
-
 // snippet-end:[ec2.java2.monitor_instance.import]
+
 /**
  * Toggles detailed monitoring for an EC2 instance
  */
@@ -46,18 +47,22 @@ public class MonitorInstance {
         String instanceId = args[0];
         boolean monitor = Boolean.valueOf(args[1]);
 
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
+
         if (monitor) {
-            monitorInstance(instanceId);
+            monitorInstance(ec2, instanceId);
         } else {
-            unmonitorInstance(instanceId);
+            unmonitorInstance(ec2, instanceId);
         }
     }
 
 
-    public static void monitorInstance(String instanceId) {
+    public static void monitorInstance( Ec2Client ec2, String instanceId) {
         // snippet-start:[ec2.java2.monitor_instance.main]
-        Ec2Client ec2 = Ec2Client.create();
-
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
@@ -69,10 +74,8 @@ public class MonitorInstance {
                 instanceId);
     }
 
-    public static void unmonitorInstance(String instanceId) {
+    public static void unmonitorInstance( Ec2Client ec2, String instanceId) {
         // snippet-start:[ec2.java2.monitor_instance.stop]
-        Ec2Client ec2 = Ec2Client.create();
-
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
@@ -84,5 +87,3 @@ public class MonitorInstance {
     }
 
 }
-
-// snippet-end:[ec2.java2.monitor_instance.complete]
