@@ -13,10 +13,10 @@ import demo_bucket_basics
 
 @pytest.mark.parametrize("region,keep", [
     ('us-west-2', False), ('us-east-2', True), ('ap-southeast-1', False)])
-def test_create_and_delete_my_bucket(make_stubber, make_unique_name, region, keep):
+def test_create_and_delete_my_bucket(stub_and_patch, make_unique_name, region, keep):
     """Test that running the demo with various AWS Regions and arguments works as
     expected."""
-    stubber = make_stubber(demo_bucket_basics, 'get_s3', region)
+    stubber = stub_and_patch(demo_bucket_basics, 'get_s3', region)
     s3 = demo_bucket_basics.get_s3(region)
     bucket_name = make_unique_name('bucket')
 
@@ -31,7 +31,7 @@ def test_create_and_delete_my_bucket(make_stubber, make_unique_name, region, kee
         stubber.stub_delete_bucket(bucket_name)
         stubber.stub_head_bucket(bucket_name, 404)
         stubber.stub_list_buckets([])
-        stubber.stub_head_bucket_error(bucket_name, 404)
+        stubber.stub_head_bucket(bucket_name, error_code=404)
 
     demo_bucket_basics.create_and_delete_my_bucket(bucket_name, region, keep)
     if keep:
@@ -44,16 +44,16 @@ def test_create_and_delete_my_bucket(make_stubber, make_unique_name, region, kee
         assert exc_info.value.response['Error']['Code'] == '404'
 
 
-def test_create_bucket_fails(make_stubber, make_unique_name, make_bucket):
+def test_create_bucket_fails(stub_and_patch, make_unique_name, make_bucket):
     """Test that the demo exits gracefully when bucket creation fails."""
-    stubber = make_stubber(demo_bucket_basics, 'get_s3')
+    stubber = stub_and_patch(demo_bucket_basics, 'get_s3')
     s3 = demo_bucket_basics.get_s3()
     bucket_name = make_unique_name('bucket')
 
     stubber.stub_create_bucket(bucket_name, stubber.region_name)
     stubber.stub_list_buckets([])
-    stubber.stub_create_bucket_error(bucket_name, 'BucketAlreadyOwnedByYou',
-                                     stubber.region_name)
+    stubber.stub_create_bucket(bucket_name, stubber.region_name,
+                               error_code='BucketAlreadyOwnedByYou')
 
     bucket = s3.create_bucket(
         Bucket=bucket_name,

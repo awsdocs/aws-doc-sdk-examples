@@ -12,16 +12,23 @@ Running the tests
     For instructions on testing, see the README.
 
 Running the code
-    Run individual functions in the Python shell to make calls to your AWS account.
+    Run the usage_demo function in a command window or individual functions in
+    the Python shell to make calls to your AWS account.
     For instructions on running the code, see the README.
 
 Additional information
     Running this code might result in charges to your AWS account.
 """
 
+import json
 import logging
+import os
+import random
+import uuid
 
 from botocore.exceptions import ClientError
+
+import bucket_wrapper
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +36,8 @@ logger = logging.getLogger(__name__)
 def put_object(bucket, object_key, data):
     """
     Upload data to a bucket and identify it with the specified object key.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param bucket: The bucket to receive the data.
     :param object_key: The key of the object in the bucket.
@@ -62,6 +71,8 @@ def get_object(bucket, object_key):
     """
     Gets an object from a bucket.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param bucket: The bucket that contains the object.
     :param object_key: The key of the object to retrieve.
     :return: The object data in bytes.
@@ -80,6 +91,8 @@ def get_object(bucket, object_key):
 def list_objects(bucket, prefix=None):
     """
     Lists the objects in a bucket, optionally filtered by a prefix.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param bucket: The bucket to query.
     :param prefix: When specified, only objects that start with this prefix are listed.
@@ -102,6 +115,8 @@ def list_objects(bucket, prefix=None):
 def copy_object(source_bucket, source_object_key, dest_bucket, dest_object_key):
     """
     Copies an object from one bucket to another.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param source_bucket: The bucket that contains the source object.
     :param source_object_key: The key of the source object.
@@ -130,7 +145,9 @@ def copy_object(source_bucket, source_object_key, dest_bucket, dest_object_key):
 
 def delete_object(bucket, object_key):
     """
-    Remove an object from a bucket.
+    Removes an object from a bucket.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param bucket: The bucket that contains the object.
     :param object_key: The key of the object to delete.
@@ -150,6 +167,8 @@ def delete_objects(bucket, object_keys):
     """
     Removes a list of objects from a bucket.
     This operation is done as a batch in a single request.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param bucket: The bucket that contains the objects.
     :param object_keys: The list of keys that identify the objects to remove.
@@ -198,6 +217,8 @@ def put_acl(bucket, object_key, email):
     Applies an ACL to an object that grants read access to an AWS user identified
     by email address.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param bucket: The bucket that contains the object.
     :param object_key: The key of the object to update.
     :param email: The email address of the user to grant access.
@@ -228,7 +249,9 @@ def put_acl(bucket, object_key, email):
 
 def get_acl(bucket, object_key):
     """
-    Get the ACL of an object.
+    Gets the ACL of an object.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param bucket: The bucket that contains the object.
     :param object_key: The key of the object to retrieve.
@@ -243,3 +266,69 @@ def get_acl(bucket, object_key):
         raise
     else:
         return acl
+
+
+def usage_demo():
+    """Demonstrated ways to use the functions in this module."""
+    bucket = bucket_wrapper.create_bucket(
+        'usage-demo-object-wrapper-' + str(uuid.uuid1()),
+        bucket_wrapper.s3_resource.meta.client.meta.region_name)
+
+    object_key = os.path.split(__file__)[-1]
+    put_object(bucket, object_key, __file__)
+    print(f"Put file object with key {object_key} in bucket {bucket.name}.")
+
+    with open(__file__) as file:
+        lines = file.readlines()
+
+    for _ in range(10):
+        line = random.randint(0, len(lines))
+        put_object(bucket, f'line-{line}', bytes(lines[line], 'utf-8'))
+    print(f"Put 10 random lines from this script as objects.")
+
+    listed_lines = list_objects(bucket, 'line-')
+    print(f"They are: {', '.join(l.key for l in listed_lines)}")
+
+    line_to_delete = listed_lines.pop()
+    line_body = get_object(bucket, line_to_delete.key)
+    print(f"Got object with key {line_to_delete.key} and body {line_body}.")
+    delete_object(bucket, line_to_delete.key)
+    print(f"Deleted object with key {line_to_delete.key}.")
+
+    copy_key = listed_lines[0].key + '-copy'
+    copy_object(bucket, listed_lines[0].key, bucket, copy_key)
+    print(f"Made a copy of object {listed_lines[0].key}, named {copy_key}.")
+
+    try:
+        put_acl(bucket, copy_key, 'arnav@example.net')
+        acl = get_acl(bucket, copy_key)
+        print(f"Put ACL grants on object {object_key}: {json.dumps(acl.grants)}")
+    except ClientError as error:
+        if error.response['Error']['Code'] == 'UnresolvableGrantByEmailAddress':
+            print("Couldn't apply the ACL to the object because the specified "
+                  "email is for a test user who does not exist. For this request to "
+                  "succeed, you must replace the user email with one for an "
+                  "actual AWS user.")
+        else:
+            raise
+
+    empty_bucket(bucket)
+    print(f"Emptied bucket {bucket.name} in preparation for deleting it.")
+
+    bucket_wrapper.delete_bucket(bucket)
+    print(f"Deleted bucket {bucket.name}.")
+
+
+def main():
+    go = input("Running the usage demonstration uses your default AWS account "
+               "credentials and might incur charges on your account. Do you want "
+               "to continue (y/n)? ")
+    if go.lower() == 'y':
+        print("Starting the usage demo. Enjoy!")
+        usage_demo()
+    else:
+        print("Thanks anyway!")
+
+
+if __name__ == '__main__':
+    main()

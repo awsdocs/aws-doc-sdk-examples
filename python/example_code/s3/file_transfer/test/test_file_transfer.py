@@ -21,6 +21,7 @@ import file_transfer
 
 _demo_sse_key = hashlib.sha256('demo_passphrase'.encode('utf-8')).digest()
 
+
 def make_mock_upload(expect_filename, expect_bucket, expect_key,
                      expect_extra_args=None, expect_config=None):
     """Make a mock upload function that asserts against expected arguments and
