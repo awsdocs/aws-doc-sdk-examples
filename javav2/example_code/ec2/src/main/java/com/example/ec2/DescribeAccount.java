@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeAccount.java demonstrates how to get information about an Amazon EC2 account.]
+//snippet-sourcedescription:[DescribeAccount.java demonstrates how to get information about the Amazon EC2 account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -38,7 +38,7 @@ public class DescribeAccount {
 
     public static void main(String[] args) {
 
-        // Create an Ec2Client object
+        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -62,7 +62,7 @@ public class DescribeAccount {
                 System.out.print("\n The name of the attribute is "+attribute.attributeName());
                 List<AccountAttributeValue> values = attribute.attributeValues();
 
-                // Iterate through the attribute values
+                //iterate through the attribute values
                 for (ListIterator iterVals = values.listIterator(); iterVals.hasNext(); ) {
                     AccountAttributeValue myValue = (AccountAttributeValue) iterVals.next();
                     System.out.print("\n The value of the attribute is "+myValue.attributeValue());

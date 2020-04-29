@@ -29,13 +29,13 @@ import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.delete_security_group.import]
 /**
- * Deletes an Amazon EC2 security group
+ * Deletes an EC2 security group
  */
 public class DeleteSecurityGroup {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a security group ID.\n" +
+                "To run this example, supply a security group id\n" +
                         "Ex: DeleteSecurityGroup <security-group-id>\n";
 
         if (args.length != 1) {
@@ -45,7 +45,7 @@ public class DeleteSecurityGroup {
 
         String groupId = args[0];
 
-        // Create an Ec2Client object
+        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -65,10 +65,10 @@ public class DeleteSecurityGroup {
             DeleteSecurityGroupResponse response = ec2.deleteSecurityGroup(request);
 
             System.out.printf(
-                "Successfully deleted security group with ID %s", groupId);
+                "Successfully deleted security group with id %s", groupId);
 
         } catch (Ec2Exception e) {
-             System.err.println(e.awsErrorDetails().errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         // snippet-end:[ec2.java2.delete_security_group.main]

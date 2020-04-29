@@ -15,12 +15,11 @@ import object_wrapper
 
 
 @pytest.mark.parametrize("object_data", [b"Test data", __file__])
-def test_put_get_delete_object(make_stubber, make_unique_name, make_bucket,
+def test_put_get_delete_object(stub_and_patch, make_unique_name, make_bucket,
                                object_data):
     """Test that put, get, delete of an object into a test bucket works as expected."""
-    stubber = make_stubber(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
-    bucket = make_bucket(stubber, bucket_wrapper, bucket_name, stubber.region_name)
+    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
     object_key = make_unique_name('object')
 
     stubber.stub_put_object(bucket.name, object_key)
@@ -28,7 +27,7 @@ def test_put_get_delete_object(make_stubber, make_unique_name, make_bucket,
     stubber.stub_get_object(bucket.name, object_key, object_data)
     stubber.stub_delete_object(bucket.name, object_key)
     stubber.stub_head_object(bucket.name, object_key, 404)
-    stubber.stub_get_object_error(bucket.name, object_key, 'NoSuchKey')
+    stubber.stub_get_object(bucket.name, object_key, error_code='NoSuchKey')
 
     object_wrapper.put_object(bucket, object_key, object_data)
     data = object_wrapper.get_object(bucket, object_key)
@@ -43,12 +42,11 @@ def test_put_get_delete_object(make_stubber, make_unique_name, make_bucket,
     assert exc_info.value.response['Error']['Code'] == 'NoSuchKey'
 
 
-def test_put_not_file_expect_error(make_stubber, make_unique_name, make_bucket):
+def test_put_not_file_expect_error(stub_and_patch, make_unique_name, make_bucket):
     """Test that putting an object using a string that is not a file name
     raises an error."""
-    stubber = make_stubber(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
-    bucket = make_bucket(stubber, bucket_wrapper, bucket_name, stubber.region_name)
+    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
     object_key = make_unique_name('object')
 
     with pytest.raises(IOError):
@@ -56,13 +54,12 @@ def test_put_not_file_expect_error(make_stubber, make_unique_name, make_bucket):
 
 
 @pytest.mark.parametrize("object_count", [5, 1, 0])
-def test_list_objects_empty_bucket(make_stubber, make_unique_name, make_bucket,
+def test_list_objects_empty_bucket(stub_and_patch, make_unique_name, make_bucket,
                                    object_count):
     """Test that listing the objects in a test bucket returns the expected list
     and that the bucket can be emptied of objects."""
-    stubber = make_stubber(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
-    bucket = make_bucket(stubber, bucket_wrapper, bucket_name, stubber.region_name)
+    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
     object_key = make_unique_name('object')
 
     put_keys = []
@@ -74,12 +71,12 @@ def test_list_objects_empty_bucket(make_stubber, make_unique_name, make_bucket,
         object_wrapper.put_object(bucket, key, data)
         put_keys.append(key)
 
-    stubber.stub_list_objects(bucket_name, put_keys)
-    stubber.stub_list_objects(bucket_name, put_keys, "object")
-    stubber.stub_list_objects(bucket_name, put_keys)
+    stubber.stub_list_objects(bucket.name, put_keys)
+    stubber.stub_list_objects(bucket.name, put_keys, "object")
+    stubber.stub_list_objects(bucket.name, put_keys)
     if put_keys:
-        stubber.stub_delete_objects(bucket_name, put_keys)
-    stubber.stub_list_objects(bucket_name)
+        stubber.stub_delete_objects(bucket.name, put_keys)
+    stubber.stub_list_objects(bucket.name)
 
     all_objects = object_wrapper.list_objects(bucket)
     assert set(put_keys).issubset([o.key for o in all_objects])
@@ -89,11 +86,11 @@ def test_list_objects_empty_bucket(make_stubber, make_unique_name, make_bucket,
     assert [] == object_wrapper.list_objects(bucket)
 
 
-def test_copy_object(make_stubber, make_unique_name, make_bucket):
+def test_copy_object(stub_and_patch, make_unique_name, make_bucket):
     """Test that copying an object from one bucket to another works as expected."""
-    stubber = make_stubber(bucket_wrapper, 'get_s3')
-    src_bucket = make_bucket(stubber, bucket_wrapper, make_unique_name('src-bucket'))
-    dest_bucket = make_bucket(stubber, bucket_wrapper, make_unique_name('dest-bucket'))
+    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+    src_bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+    dest_bucket = make_bucket(stubber, bucket_wrapper.get_s3())
     src_object_key = make_unique_name('src-object')
     dest_object_key = make_unique_name('dest-object')
 
@@ -118,10 +115,10 @@ def test_copy_object(make_stubber, make_unique_name, make_bucket):
     object_wrapper.empty_bucket(src_bucket)
 
 
-def test_delete_objects(make_stubber, make_unique_name, make_bucket):
+def test_delete_objects(stub_and_patch, make_unique_name, make_bucket):
     """Test that deleting objects from a bucket works as expected."""
-    stubber = make_stubber(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper, make_unique_name('bucket'))
+    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
     object_key = make_unique_name('object')
 
     put_keys = []
@@ -147,14 +144,14 @@ def test_delete_objects(make_stubber, make_unique_name, make_bucket):
 
 
 @pytest.mark.skip_if_real_aws
-def test_put_get_acl(make_stubber, make_unique_name, make_bucket):
+def test_put_get_acl(stub_and_patch, make_unique_name, make_bucket):
     """
     Test that put and get of an object ACL works as expected.
     To run this test against the non-stubbed AWS service, you must replace the
     email and canonical_user values with an existing AWS user or the test will fail.
     """
-    stubber = make_stubber(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper, make_unique_name('bucket'))
+    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
     object_key = make_unique_name('object')
 
     email = 'arnav@example.net'

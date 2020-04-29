@@ -35,19 +35,7 @@ class S3Stubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_bucket(self, bucket_name, region_name):
-        self.add_response(
-            'create_bucket',
-            expected_params={
-                'Bucket': bucket_name,
-                'CreateBucketConfiguration': {
-                    'LocationConstraint': region_name
-                }
-            },
-            service_response={}
-        )
-
-    def stub_create_bucket_error(self, bucket_name, error_code, region_name=None):
+    def stub_create_bucket(self, bucket_name, region_name=None, error_code=None):
         expected_params = {
             'Bucket': bucket_name
         }
@@ -56,41 +44,48 @@ class S3Stubber(ExampleStubber):
                 'LocationConstraint': region_name
             }
 
-        self.add_client_error(
-            'create_bucket',
-            expected_params=expected_params,
-            service_error_code=error_code
-        )
+        if not error_code:
+            self.add_response(
+                'create_bucket',
+                expected_params=expected_params,
+                service_response={}
+            )
+        else:
+            self.add_client_error(
+                'create_bucket',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
-    def stub_head_bucket(self, bucket_name, status_code=200):
+    def stub_head_bucket(self, bucket_name, status_code=200, error_code=None):
         """The head bucket function is used by the bucket waiter to determine
         bucket existence."""
-        self.add_response(
-            'head_bucket',
-            expected_params={'Bucket': bucket_name},
-            service_response={'ResponseMetadata': {'HTTPStatusCode': status_code}}
-        )
+        if not error_code:
+            self.add_response(
+                'head_bucket',
+                expected_params={'Bucket': bucket_name},
+                service_response={'ResponseMetadata': {'HTTPStatusCode': status_code}}
+            )
+        else:
+            self.add_client_error(
+                'head_bucket',
+                expected_params={'Bucket': bucket_name},
+                service_error_code=str(error_code)
+            )
 
-    def stub_head_bucket_error(self, bucket_name, error_code):
-        self.add_client_error(
-            'head_bucket',
-            expected_params={'Bucket': bucket_name},
-            service_error_code=str(error_code)
-        )
-
-    def stub_delete_bucket(self, bucket_name):
-        self.add_response(
-            'delete_bucket',
-            expected_params={'Bucket': bucket_name},
-            service_response={}
-        )
-
-    def stub_delete_bucket_error(self, bucket_name, error_code):
-        self.add_client_error(
-            'delete_bucket',
-            expected_params={'Bucket': bucket_name},
-            service_error_code=error_code
-        )
+    def stub_delete_bucket(self, bucket_name, error_code=None):
+        if not error_code:
+            self.add_response(
+                'delete_bucket',
+                expected_params={'Bucket': bucket_name},
+                service_response={}
+            )
+        else:
+            self.add_client_error(
+                'delete_bucket',
+                expected_params={'Bucket': bucket_name},
+                service_error_code=error_code
+            )
 
     def stub_list_buckets(self, buckets):
         self.add_response(
@@ -161,21 +156,21 @@ class S3Stubber(ExampleStubber):
             service_response={}
         )
 
-    def stub_get_bucket_cors(self, bucket_name, cors_rules):
-        self.add_response(
-            'get_bucket_cors',
-            expected_params={'Bucket': bucket_name},
-            service_response={
-                'CORSRules': cors_rules
-            }
-        )
-
-    def stub_get_bucket_cors_error(self, bucket_name, error_code):
-        self.add_client_error(
-            'get_bucket_cors',
-            expected_params={'Bucket': bucket_name},
-            service_error_code=error_code
-        )
+    def stub_get_bucket_cors(self, bucket_name, cors_rules=None, error_code=None):
+        if not error_code:
+            self.add_response(
+                'get_bucket_cors',
+                expected_params={'Bucket': bucket_name},
+                service_response={
+                    'CORSRules': cors_rules
+                }
+            )
+        else:
+            self.add_client_error(
+                'get_bucket_cors',
+                expected_params={'Bucket': bucket_name},
+                service_error_code=error_code
+            )
 
     def stub_put_bucket_cors(self, bucket_name, cors_rules):
         self.add_response(
@@ -196,39 +191,38 @@ class S3Stubber(ExampleStubber):
             service_response={}
         )
 
-    def stub_get_bucket_policy(self, bucket_name, policy):
-        self.add_response(
-            'get_bucket_policy',
-            expected_params={'Bucket': bucket_name},
-            service_response={'Policy': json.dumps(policy)}
-        )
+    def stub_get_bucket_policy(self, bucket_name, policy=None, error_code=None):
+        if not error_code:
+            self.add_response(
+                'get_bucket_policy',
+                expected_params={'Bucket': bucket_name},
+                service_response={'Policy': json.dumps(policy)}
+            )
+        else:
+            self.add_client_error(
+                'get_bucket_policy',
+                expected_params={'Bucket': bucket_name},
+                service_error_code=error_code
+            )
 
-    def stub_get_bucket_policy_error(self, bucket_name, error_code):
-        self.add_client_error(
-            'get_bucket_policy',
-            expected_params={'Bucket': bucket_name},
-            service_error_code=error_code
-        )
+    def stub_put_bucket_policy(self, bucket_name, policy, error_code=None):
+        expected_params = {
+            'Bucket': bucket_name,
+            'Policy': json.dumps(policy)
+        }
 
-    def stub_put_bucket_policy(self, bucket_name, policy):
-        self.add_response(
-            'put_bucket_policy',
-            expected_params={
-                'Bucket': bucket_name,
-                'Policy': json.dumps(policy)
-            },
-            service_response={}
-        )
-
-    def stub_put_bucket_policy_error(self, bucket_name, policy, error_code):
-        self.add_client_error(
-            'put_bucket_policy',
-            expected_params={
-                'Bucket': bucket_name,
-                'Policy': json.dumps(policy)
-            },
-            service_error_code=error_code
-        )
+        if not error_code:
+            self.add_response(
+                'put_bucket_policy',
+                expected_params=expected_params,
+                service_response={}
+            )
+        else:
+            self.add_client_error(
+                'put_bucket_policy',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
     def stub_delete_bucket_policy(self, bucket_name):
         self.add_response(
@@ -237,40 +231,40 @@ class S3Stubber(ExampleStubber):
             service_response={}
         )
 
-    def stub_get_bucket_lifecycle_configuration(self, bucket_name, lifecycle_rules):
-        self.add_response(
-            'get_bucket_lifecycle_configuration',
-            expected_params={'Bucket': bucket_name},
-            service_response={'Rules': lifecycle_rules}
-        )
+    def stub_get_bucket_lifecycle_configuration(self, bucket_name, lifecycle_rules=None,
+                                                error_code=None):
+        if not error_code:
+            self.add_response(
+                'get_bucket_lifecycle_configuration',
+                expected_params={'Bucket': bucket_name},
+                service_response={'Rules': lifecycle_rules}
+            )
+        else:
+            self.add_client_error(
+                'get_bucket_lifecycle_configuration',
+                expected_params={'Bucket': bucket_name},
+                service_error_code=error_code
+            )
 
-    def stub_get_bucket_lifecycle_configuration_error(self, bucket_name, error_code):
-        self.add_client_error(
-            'get_bucket_lifecycle_configuration',
-            expected_params={'Bucket': bucket_name},
-            service_error_code=error_code
-        )
+    def stub_put_bucket_lifecycle_configuration(self, bucket_name, lifecycle_rules,
+                                                error_code=None):
+        expected_params = {
+            'Bucket': bucket_name,
+            'LifecycleConfiguration': {'Rules': lifecycle_rules}
+        }
 
-    def stub_put_bucket_lifecycle_configuration(self, bucket_name, lifecycle_rules):
-        self.add_response(
-            'put_bucket_lifecycle_configuration',
-            expected_params={
-                'Bucket': bucket_name,
-                'LifecycleConfiguration': {'Rules': lifecycle_rules}
-            },
-            service_response={}
-        )
-
-    def stub_put_bucket_lifecycle_configuration_error(
-            self, bucket_name, lifecycle_rules, error_code):
-        self.add_client_error(
-            'put_bucket_lifecycle_configuration',
-            expected_params={
-                'Bucket': bucket_name,
-                'LifecycleConfiguration': {'Rules': lifecycle_rules}
-            },
-            service_error_code=error_code
-        )
+        if not error_code:
+            self.add_response(
+                'put_bucket_lifecycle_configuration',
+                expected_params=expected_params,
+                service_response={}
+            )
+        else:
+            self.add_client_error(
+                'put_bucket_lifecycle_configuration',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
     def stub_delete_bucket_lifecycle_configuration(self, bucket_name):
         self.add_response(
@@ -279,56 +273,55 @@ class S3Stubber(ExampleStubber):
             service_response={}
         )
 
-    def stub_put_object(self, bucket_name, object_key, body=ANY):
-        self.add_response(
-            'put_object',
-            expected_params={
-                'Body': body,
-                'Bucket': bucket_name,
-                'Key': object_key},
-            service_response={}
-        )
+    def stub_put_object(self, bucket_name, object_key, body=ANY, error_code=None):
+        expected_params = {
+            'Body': body,
+            'Bucket': bucket_name,
+            'Key': object_key
+        }
 
-    def stub_put_object_error(self, bucket_name, object_key, error_code):
-        self.add_client_error(
-            'put_object',
-            expected_params={
-                'Body': ANY,
-                'Bucket': bucket_name,
-                'Key': object_key
-            },
-            service_error_code=error_code
-        )
+        if not error_code:
+            self.add_response(
+                'put_object',
+                expected_params=expected_params,
+                service_response={}
+            )
+        else:
+            self.add_client_error(
+                'put_object',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
-    def stub_get_object(self, bucket_name, object_key, object_data):
+    def stub_get_object(self, bucket_name, object_key, object_data=None,
+                        error_code=None):
         """Stub the get_object function. When the object data is a string,
         treat it as a file name, open the file, and read it as bytes."""
-        if isinstance(object_data, bytes):
-            data = object_data
+        expected_params = {
+            'Bucket': bucket_name,
+            'Key': object_key
+        }
+
+        if not error_code:
+            if isinstance(object_data, bytes):
+                data = object_data
+            else:
+                with open(object_data, 'rb') as file:
+                    data = file.read()
+
+            self.add_response(
+                'get_object',
+                expected_params=expected_params,
+                service_response={
+                    'Body': io.BytesIO(data)
+                }
+            )
         else:
-            with open(object_data, 'rb') as file:
-                data = file.read()
-
-        self.add_response(
-            'get_object',
-            expected_params={
-                'Bucket': bucket_name,
-                'Key': object_key
-            },
-            service_response={
-                'Body': io.BytesIO(data)
-            }
-        )
-
-    def stub_get_object_error(self, bucket_name, object_key, error_code):
-        self.add_client_error(
-            'get_object',
-            expected_params={
-                'Bucket': bucket_name,
-                'Key': object_key
-            },
-            service_error_code=error_code
-        )
+            self.add_client_error(
+                'get_object',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
     def stub_delete_object(self, bucket_name, object_key):
         self.add_response(
@@ -340,19 +333,22 @@ class S3Stubber(ExampleStubber):
             service_response={}
         )
 
-    def stub_head_object(self, bucket_name, object_key, status_code=200):
-        self.add_response(
-            'head_object',
-            expected_params={'Bucket': bucket_name, 'Key': object_key},
-            service_response={'ResponseMetadata': {'HTTPStatusCode': status_code}}
-        )
+    def stub_head_object(self, bucket_name, object_key, status_code=200,
+                         error_code=None):
+        expected_params = {'Bucket': bucket_name, 'Key': object_key}
 
-    def stub_head_object_error(self, bucket_name, object_key, error_code):
-        self.add_client_error(
-            'head_object',
-            expected_params={'Bucket': bucket_name, 'Key': object_key},
-            service_error_code=error_code
-        )
+        if not error_code:
+            self.add_response(
+                'head_object',
+                expected_params=expected_params,
+                service_response={'ResponseMetadata': {'HTTPStatusCode': status_code}}
+            )
+        else:
+            self.add_client_error(
+                'head_object',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
     def stub_list_objects(self, bucket_name, object_keys=None, prefix=None):
         if not object_keys:
