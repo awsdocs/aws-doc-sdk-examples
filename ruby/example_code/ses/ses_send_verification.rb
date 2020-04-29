@@ -22,7 +22,7 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-ses'  # v2: require 'aws-sdk'
-
+require 'rspec'
 # Replace recipient@example.com with a "To" address.
 recipient = "recipient@example.com"
 
@@ -30,10 +30,14 @@ recipient = "recipient@example.com"
 # Replace us-west-2 with the AWS Region you're using for Amazon SES.
 ses = Aws::SES::Client.new(region: 'us-west-2')
 
+module Aws
+  module SimpleEmailService
+    class SendVerification
+      def initialize(options = {})
+        @email = options[:email]
 # Try to verify email address.
-begin
   ses.verify_email_identity({
-    email_address: recipient
+    email: recipient
   })
 
   puts 'Email sent to ' + recipient
@@ -42,3 +46,6 @@ begin
 rescue Aws::SES::Errors::ServiceError => error
   puts "Email not sent. Error message: #{error}"
 end
+
+
+

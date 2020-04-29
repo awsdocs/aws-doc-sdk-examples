@@ -23,26 +23,32 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require 'rspec'
+sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
-policy  = '{
-  "Version":"2008-10-17",
-  "Id":"__default_policy_ID",
-  "Statement":[{
-    "Sid":"__default_statement_ID",
-    "Effect":"Allow",
-    "Principal":{
+module Aws
+  module SimpleNotificationService
+    class EnableResource
+      policy  = '{
+      "Version":"2008-10-17",
+      "Id":"__default_policy_ID",
+      "Statement":[{
+      "Sid":"__default_statement_ID",
+      "Effect":"Allow",
+      "Principal":{
       "AWS":"*"
-    },
-    "Action":["SNS:Publish"],
-    "Resource":"' + my-topic-arn + '",
-    "Condition":{
+      },
+      "Action":["SNS:Publish"],
+      "Resource":"' + my-topic-arn + '",
+      "Condition":{
       "ArnEquals":{
-        "AWS:SourceArn":"' + my-resource-arn + '"}
+      "AWS:SourceArn":"' + my-resource-arn + '"}
      }
   }]
 }'
-
-sns = Aws::SNS::Resource.new(region: 'us-west-2')
+    end
+# Enabling the resource with the ARN my-resource-arn to publish to the desired topic ARN
+resource = sns.resource(my-resource-arn)
 
 # Get topic by ARN
 topic = sns.topic(my-topic-arn)
@@ -52,3 +58,5 @@ topic.set_attributes({
   attribute_name: "Policy",
   attribute_value: policy
 })
+  end
+end

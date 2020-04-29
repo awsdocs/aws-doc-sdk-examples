@@ -22,9 +22,16 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
-
+require 'rspec'
 sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
+module Aws
+  module SimpleNotificationService
+    class ShowSubscriptions
+
+# Iterate over and list the ARN associated with each SNS topic
 sns.topics.each do |topic|
   puts topic.arn
-end
+    end
+    end
+    end

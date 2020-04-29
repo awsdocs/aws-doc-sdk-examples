@@ -1,4 +1,7 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# frozen_string_literal: true
+
+# snippet-comment:
+# [These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourceauthor:[Doug-AWS]
 # snippet-sourcedescription:[Subscribes a user to an SNS topic.]
 # snippet-keyword:[Amazon Simple Notification Service]
@@ -22,15 +25,41 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
-
+require 'aws-sdk-sns' # v2: require 'aws-sdk'
+require 'rspec'
 sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
-topic = sns.topic('arn:aws:sns:us-west-2:123456789:MyGroovyTopic')
+module Aws
+  module SimpleNotificationService
+    class CreateSubscription
+      # @option options [required, String] :arn
+      # @option options [required, String] :protocol
+      # @option options [required, String] :endpoint
+      # @api private
+      def initialize(options = {})
+        @arn = options[:arn]
+        @protocol = options[:protocol]
+        @endpoint = options[:endpoint]
+      end
 
-sub = topic.subscribe({
-  protocol: 'email',
-  endpoint: 'MyGroovyUser@MyGroovy.com'
-})
+      # @return [String] The Topic ARN of the topic you created earlier
+      # e.g. "arn:aws:sns:us-west-2:123456789012:MyTopic".
+      attr_reader :arn
 
-puts sub.arn
+      # @return [String] Chosen endpoint type, e.g. "email".
+      attr_reader :protocol
+
+      # @return [String] Email address that can receive notifications
+      # e.g. "peccy@amazon.com",
+      attr_reader :endpoint
+    end
+  end
+end
+
+# If the subscription exists,
+# a subscription confirmation with your subscription ID is displayed
+subscription = sns.describe_subscription({ subscriptionid: [args[0]] })
+
+if subscription.exists?
+  puts "Subscription ID:     #{subscription.subscriptionid}"
+end

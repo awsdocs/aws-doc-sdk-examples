@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourceauthor:[Doug-AWS]
 # snippet-sourcedescription:[Updates an item in a DynamoDB table.]
@@ -21,26 +23,26 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
+require 'aws-sdk-dynamodb' # v2: require 'aws-sdk'
 
 # Create dynamodb client in us-west-2 region
 dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')
 
 params = {
-    table_name: 'Movies',
-    key: {
-        year: 2015,
-        title: 'The Big New Movie'
-    },
-    update_expression: 'set info.rating = :r',
-    expression_attribute_values: {':r' => 0.1},
-    return_values: 'UPDATED_NEW'
+  table_name: 'Movies',
+  key: {
+    year: 2015,
+    title: 'The Big New Movie'
+  },
+  update_expression: 'set info.rating = :r',
+  expression_attribute_values: { ':r' => 0.1 },
+  return_values: 'UPDATED_NEW'
 }
 
 begin
   dynamodb.update_item(params)
   puts 'Rating successfully set'
-rescue  Aws::DynamoDB::Errors::ServiceError => error
+rescue Aws::DynamoDB::Errors::ServiceError => e
   puts 'Unable to set rating:'
-  puts error.message
+  puts e.message
 end

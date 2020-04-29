@@ -22,71 +22,106 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-ses'  # v2: require 'aws-sdk'
+require 'rspec'
+sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
-# Replace sender@example.com with your "From" address.
-# This address must be verified with Amazon SES.
-sender = 'sender@example.com'
+module Aws
+  module SimpleNotificationService
+    response = ses.verify_email_identity(
+        EmailAddress = 'EMAIL_ADDRESS'
+    )
+    print(response)
 
-# Replace recipient@example.com with a "To" address. If your account
-# is still in the sandbox, this address must be verified.
-recipient = 'recipient@example.com'
+    class SendEmail
+      # @option options [required, String] :sender
+      # @option options [required, String] :recipient
+      # @option options [required, String] :configset
+      # @option options [required, String] :awsregion
+      # @option options [required, String] :subject
+      # @option options [required, String] :htmlbody
+      # @option options [required, String] :textbody
+      # @option options [required, String] :encoding
+      # @option options [required, String] :resource
+      # @option options [required, String] :contents
+      # @api private
+      def initialize(options = {})
+        @sender = options[:sender]
+        @recipient = options[:recipient]
+        @configset = options[:configset]
+        @awsregion = options[:awsregion]
+        @subject = options[:subject]
+        @htmlbody = options[:htmlbody]
+        @textbody = options[:textbody]
+        @encoding = options[:encoding]
+        @resource = options[:resource]
+        @contents = options[:contents]
+      end
 
-# Specify a configuration set. To use a configuration
-# set, uncomment the next line and line 74.
-#   configsetname = "ConfigSet"
+      # @return [String] The sender's email address, which must be verified with SES, ie) 'peccy@amazon.com'
+      attr_reader :sender
 
-# The subject line for the email.
-subject = 'Amazon SES test (AWS SDK for Ruby)'
+      # @return [String] Recipient's email address, which must also be verified with SES before you use it if your
+      # account is still in the sandbox, ie) 'peccysfriend@amazon.com'
+      attr_reader :recipient
 
-# The HTML body of the email.
-htmlbody =
-  '<h1>Amazon SES test (AWS SDK for Ruby)</h1>'\
-  '<p>This email was sent with <a href="https://aws.amazon.com/ses/">'\
-  'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-ruby/">'\
-  'AWS SDK for Ruby</a>.'
+      # @return [String] Specify a configuration set. If you do not want to use a configuration set, comment the
+      # following variable and the configuration_set_name: configsetname argument below
+      attr_reader :configset
 
-# The email body for recipients with non-HTML email clients.
-textbody = 'This email was sent with Amazon SES using the AWS SDK for Ruby.'
+      # @return [String] Replace us-west-2 with the AWS Region you're using for Amazon SES, ie) us-west-2
+      attr_reader :awsregion
 
-# Specify the text encoding scheme.
-encoding = 'UTF-8'
+      # @return [String] Subject line for the email, ie) 'Re: Onboarding information'
+      attr_reader :subject
 
-# Create a new SES client in the us-west-2 region.
-# Replace us-west-2 with the AWS Region you're using for Amazon SES.
-ses = Aws::SES::Client.new(region: 'us-west-2')
+      # @return [String] HTML body of the email,
+      # ie) <h1>Amazon SES test (AWS SDK for Ruby)</h1>'\
+      #   '<p>This email was sent with <a href="https://aws.amazon.com/ses/">'\
+      #   'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-ruby/">'\
+      #   'AWS SDK for Ruby</a>.'
+      attr_reader :htmlbody
 
-# Try to send the email.
-begin
-  # Provide the contents of the email.
-  ses.send_email(
-    destination: {
-      to_addresses: [
-        recipient
-      ]
-    },
-    message: {
-      body: {
-        html: {
-          charset: encoding,
-          data: htmlbody
-        },
-        text: {
-          charset: encoding,
-          data: textbody
-        }
-      },
-      subject: {
-        charset: encoding,
-        data: subject
-      }
-    },
-    source: sender,
-    # Uncomment the following line to use a configuration set.
-    # configuration_set_name: configsetname,
-  )
+      # @return [String] Email body for recipients with non-HTML email clients, ie) 'This email was sent with Amazon
+      # SES using the AWS SDK for Ruby.'
+      attr_reader :textbody
 
-  puts 'Email sent to ' + recipient
+      # @return [String] Specify the text encoding scheme, ie) 'UTF-8'
+      attr_reader :encoding
 
+      # @return [String] Create a new SES resource and specify a region
+      # ie) ses = Aws::SES::Client.new(region: 'us-west-2')
+      attr_reader :resource
+
+      # @return [String] Provide the contents of the email
+      attr_ reader :contents
+      # ie) ses.send_email(
+      #     destination: {
+      #       to_addresses: [
+      #         recipient
+      #       ]
+      #     },
+      #     message: {
+      #       body: {
+      #         html: {
+      #           charset: encoding,
+      #           data: htmlbody
+      #         },
+      #         text: {
+      #           charset: encoding,
+      #           data: textbody
+      #         }
+      #       },
+      #       subject: {
+      #         charset: encoding,
+      #         data: subject
+      #       }
+      #     },
+      #     source: sender,
+    end
+  end
+end
+
+puts 'Email sent to ' + recipient
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error

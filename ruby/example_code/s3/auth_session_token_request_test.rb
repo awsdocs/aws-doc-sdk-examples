@@ -1,17 +1,19 @@
-#**
- #* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- #*
- #* This file is licensed under the Apache License, Version 2.0 (the "License").
- #* You may not use this file except in compliance with the License. A copy of
- #* the License is located at
- #*
- #* http://aws.amazon.com/apache2.0/
- #*
- #* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
- #* specific language governing permissions and limitations under the License.
-#**
-# snippet-sourcedescription:[auth_session_token_request_test.rb creates a temporary user to list the items in a specified bucket for one hour. To use this example, you must have AWS credentials that have the necessary permissions to create new AWS Security Token Service (AWS STS) clients, and list Amazon S3 buckets using temporary security credentials] 
+# frozen_string_literal: true
+
+# **
+# * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# *
+# * This file is licensed under the Apache License, Version 2.0 (the "License").
+# * You may not use this file except in compliance with the License. A copy of
+# * the License is located at
+# *
+# * http://aws.amazon.com/apache2.0/
+# *
+# * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# * specific language governing permissions and limitations under the License.
+# **
+# snippet-sourcedescription:[auth_session_token_request_test.rb creates a temporary user to list the items in a specified bucket for one hour. To use this example, you must have AWS credentials that have the necessary permissions to create new AWS Security Token Service (AWS STS) clients, and list Amazon S3 buckets using temporary security credentials]
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
 # snippet-sourcesyntax:[ruby]
@@ -25,7 +27,7 @@
 # This snippet example does the following:
 # The following Ruby example creates a temporary user to list the items in a specified bucket
 # for one hour. To use this example, you must have AWS credentials that have the necessary
-# permissions to create new AWS Security Token Service (AWS STS) clients, and list Amazon S3 buckets using temporary security credentials 
+# permissions to create new AWS Security Token Service (AWS STS) clients, and list Amazon S3 buckets using temporary security credentials
 # using your AWS account security credentials, the temporary security credentials are valid for only one hour. You can
 # specify session duration only if you use &IAM; user credentials to request a session.
 
@@ -33,28 +35,26 @@ require 'aws-sdk-core'
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'
 
-USAGE = <<DOC
+USAGE = <<~DOC
 
-Usage: assumerole_create_bucket_policy.rb -b BUCKET -u USER [-r REGION] [-d] [-h]
+  Usage: assumerole_create_bucket_policy.rb -b BUCKET -u USER [-r REGION] [-d] [-h]
 
-  Assumes a role for USER to list items in BUCKET for one hour.
+    Assumes a role for USER to list items in BUCKET for one hour.
 
-  BUCKET is required and must already exist.
+    BUCKET is required and must already exist.
 
-  USER is required and if not found, is created.
+    USER is required and if not found, is created.
 
-  If REGION is not supplied, defaults to us-west-2.
+    If REGION is not supplied, defaults to us-west-2.
 
-  -d gives you extra (debugging) information.
+    -d gives you extra (debugging) information.
 
-  -h displays this message and quits.
+    -h displays this message and quits.
 
 DOC
 
 def print_debug(debug, s)
-  if debug
-    puts s
-  end
+  puts s if debug
 end
 
 # Get the user if they exist, otherwise create them
@@ -65,7 +65,7 @@ def get_user(region, user_name, debug)
   user = iam.user(user_name)
 
   # If user does not exist, create them
-  if user == nil
+  if user.nil?
     user = iam.create_user(user_name: user_name)
     iam.wait_until(:user_exists, user_name: user_name)
     print_debug(debug, "Created new user #{user_name}")
@@ -83,34 +83,34 @@ bucket_name = ''
 
 i = 0
 
-while i &lt; ARGV.length
-  case ARGV[i]
+while i & lt; ARGV.length
+              case ARGV[i]
 
-    when '-b'
-      i += 1
-      bucket_name = ARGV[i]
+              when '-b'
+                i += 1
+                bucket_name = ARGV[i]
 
-    when '-u'
-      i += 1
-      user_name = ARGV[i]
+              when '-u'
+                i += 1
+                user_name = ARGV[i]
 
-    when '-r'
-      i += 1
+              when '-r'
+                i += 1
 
-      region = ARGV[i]
+                region = ARGV[i]
 
-    when '-h'
-      puts USAGE
-      exit 0
+              when '-h'
+                puts USAGE
+                exit 0
 
-    else
-      puts 'Unrecognized option: ' + ARGV[i]
-      puts USAGE
-      exit 1
+              else
+                puts 'Unrecognized option: ' + ARGV[i]
+                puts USAGE
+                exit 1
 
-  end
+              end
 
-  i += 1
+              i += 1
 end
 
 if bucket_name == ''
@@ -129,8 +129,8 @@ end
 begin
   creds = Aws::AssumeRoleCredentials.new(
     client: Aws::STS::Client.new(region: region),
-    role_arn: "arn:aws:iam::111122223333:role/assumedrolelist",
-    role_session_name: "assumerole-s3-list"
+    role_arn: 'arn:aws:iam::111122223333:role/assumedrolelist',
+    role_session_name: 'assumerole-s3-list'
   )
 
   # Create an Amazon S3 resource with temporary credentials.
@@ -142,8 +142,8 @@ begin
   s3.bucket(bucket_name).objects.limit(50).each do |obj|
     puts "  #{obj.key} => #{obj.etag}"
   end
-rescue StandardError => ex
+rescue StandardError => e
   puts 'Caught exception accessing bucket ' + bucket_name + ':'
-  puts ex.message
+  puts e.message
 end
 # snippet-end:[s3.ruby.auth_session_token_request_test.rb]

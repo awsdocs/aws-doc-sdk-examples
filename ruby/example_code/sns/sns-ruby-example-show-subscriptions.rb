@@ -23,11 +23,19 @@
 # language governing permissions and limitations under the License.
 
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
-
+require 'rspec'
 sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
+module Aws
+  module SimpleNotificationService
+    class ShowSubscriptions
+
+# Fetch the ARN associated with the topic
 topic = sns.topic('arn:aws:sns:us-west-2:123456789:MyGroovyTopic')
 
+# Iterate over and list the email addresses of the SNS subscriptions for the topic corresponding to the ARN
 topic.subscriptions.each do |s|
   puts s.attributes['Endpoint']
 end
+    end
+    end
