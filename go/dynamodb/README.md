@@ -41,6 +41,18 @@ Creates a new item in a DynamoDB table.
 
 The unit test accepts similar values in _config.json_.
 
+### DeleteItem/DeleteItem.go
+
+This example deletes an item from a DynamoDB table.
+
+`go run DeleteTable.go -t TABLE -m MOVIE -y YEAR`
+
+- _TABLE_ is the name of the table containing the item to delete.
+- _MOVIE_ is the name of the movie item to delete.
+- _YEAR_ is when the movie was released.
+
+The unit test mocks the DynamoDB service and the `DeleteItem` function.
+
 ### GetItem/GetItem.go
 
 This example retrieves an item from a DynamoDB table.
@@ -76,6 +88,18 @@ This example adds items from a JSON file to a table.
 - _TABLE_ is the name of the table.
 
 The unit test accepts similar values in _config.json_.
+
+### ScanItems/ScanItems.go
+
+This example uses the Expression Builder package to scan a table for items that fit the criteria.
+
+`go run ScanItems.go -t TABLE -r RATING -y YEAR`
+
+- _TABLE_ is the name of the table
+- _RATING_ is the minimum rating, from 0.0 to 1.0, given to the movies to retrieve
+- _YEAR_ is the year when the movies were released
+
+The unit test mocks the DynamoDB service and `Scan` function.
 
 ### UpdateItem/UpdateItem.go
 

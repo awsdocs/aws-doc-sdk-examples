@@ -11,6 +11,12 @@ files:
   - path: CreateTableItem/CreateTableItem_test.go
     services:
       - dynamodb
+  - path: DeleteItem/DeleteItem.go
+    services:
+      - dynamodb
+  - path: DeleteItem/DeleteItem_test.go
+    services:
+      - dynamodb
   - path: GetItem/GetItem.go
     services:
       - dynamodb
@@ -21,6 +27,12 @@ files:
     services:
       - dynamodb
   - path: ListTables/ListTables_test.go
+    services:
+      - dynamodb
+  - path: ScanItems/ScanItems.go
+    services:
+      - dynamodb
+  - path: ScanItems/ScanItems_test.go
     services:
       - dynamodb
   - path: LoadTableItems/LoadTableItems.go
