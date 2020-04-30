@@ -44,6 +44,7 @@ import java.util.List;
 public class ListNamedQueryExample {
 
     public static void main(String[] args) throws Exception {
+        
         // Build an Athena client
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
@@ -56,7 +57,6 @@ public class ListNamedQueryExample {
     public static void listNamedQueries(AthenaClient athenaClient) {
 
        try{
-
            // Build the request
            ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder().build();
 
