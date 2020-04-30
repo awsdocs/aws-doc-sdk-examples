@@ -32,10 +32,13 @@ const region = 'REGION'
 const s3 = new S3({region});
 
 // **DO THIS**:
-//   Replace BUCKET_NAME with the name of the bucket,  FILE_NAME with the name of the file to upload (including relative page), and EXPIRATION with the duration of validity in seconds (e.g., 60 *5)
+//   Replace BUCKET_NAME with the name of the bucket,  FILE_NAME with the name of the file to upload (including relative path).
 const Bucket = 'BUCKET_NAME'
 const Key = 'FILE_NAME'
+// **DO THIS**:
+// Adjust duration of validity in seconds, as required(e.g., 60 *5)
 const Expires = 60*5
+
 const urlParams = {
     Bucket : Bucket,
     Key: Key,
