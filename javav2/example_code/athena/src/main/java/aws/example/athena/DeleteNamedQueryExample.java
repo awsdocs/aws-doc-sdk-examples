@@ -59,7 +59,7 @@ public class DeleteNamedQueryExample {
 
         /* Read the name from command args */
         String name = args[0];
-       
+
         // Build an Athena client
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
@@ -83,7 +83,7 @@ public class DeleteNamedQueryExample {
        }
      }
 
-    private static String getNamedQueryId(AthenaClient athenaClient, String name) {
+    public static String getNamedQueryId(AthenaClient athenaClient, String name) {
         try {
             // Create the NameQuery Request.
             CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
