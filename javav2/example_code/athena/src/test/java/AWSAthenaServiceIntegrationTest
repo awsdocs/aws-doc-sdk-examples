@@ -87,8 +87,15 @@ public class AWSAthenaServiceIntegrationTest {
     @Order(6)
     public void StartQueryExample() {
 
-     StartQueryExample.submitAthenaQuery(athenaClient);
-     System.out.println("Test 6 passed");
+        try {
+            String queryExecutionId = StartQueryExample.submitAthenaQuery(athenaClient);
+            StartQueryExample.waitForQueryToComplete(athenaClient, queryExecutionId);
+            StartQueryExample.processResultRows(athenaClient, queryExecutionId);
+             System.out.println("Test 6 passed");
+
+        }catch (InterruptedException e) {
+         e.getMessage();
+        }
     }
 
     @Test
