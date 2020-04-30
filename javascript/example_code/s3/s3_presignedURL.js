@@ -27,26 +27,25 @@
 
 // snippet-start:[s3.JavaScript.presignedURL.complete]
 
-const AWS = require('aws-sdk');
-
-// Create S3 service object
-const s3 = new AWS.S3();
-
-// Set the REGION 
-AWS.config.update({region: 'REGION'});
+const S3 = require('aws-sdk/clients/s3');
+const region = 'REGION'
+const s3 = new S3({region});
 
 // **DO THIS**:
 //   Replace BUCKET_NAME with the name of the bucket,  FILE_NAME with the name of the file to upload (including relative page), and EXPIRATION with the duration of validity in seconds (e.g., 60 *5)
-const myBucket = 'BUCKET_NAME'
-const myKey = 'FILE_NAME'
-const signedUrlExpireSeconds = EXPIRATION
-
-const presignedURL = s3.getSignedUrl('putObject', {
-Bucket: myBucket,
-Key: myKey,
-Expires: signedUrlExpireSeconds
-})
-
-console.log(presignedURL)
-
+const Bucket = 'BUCKET_NAME'
+const Key = 'FILE_NAME'
+const Expires = 60*5
+const urlParams = {
+    Bucket : Bucket,
+    Key: Key,
+    Expires: Expires
+}
+generatePresignedURL = ()=> {
+    const preSignedURL = s3.getSignedUrl('putObject', urlParams
+        )
+    console.log('This the the pre-signed URL:' + preSignedURL)
+    };
+generatePresignedURL();
 //<!-- snippet-end:[s3.JavaScript.presignedURL.complete] -->
+exports.generatePresignedURL = generatePresignedURL;
