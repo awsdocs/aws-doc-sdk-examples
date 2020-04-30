@@ -1,95 +1,57 @@
 --- 
-created: 2020-02-26
-files: 
- - path: /src/main/java/com/example/s3/CopyObject.java
-   apis: 
-      - service: s3
-        operations: 
-        - CopyObject
- - path: /src/main/java/com/example/s3/DeleteBucketPolicy.java
-   apis: 
-      - service: s3
-        operations: 
-        - DeleteBucketPolicy
- - path: /src/main/java/com/example/s3/DeleteObjects.java
-   apis: 
-      - service: s3
-        operations: 
-        - DeleteObjects   
- - path: /src/main/java/com/example/s3/DeleteWebsiteConfiguration.java
-   apis: 
-      - service: s3
-        operations: 
-        - DeleteBucketWebsite 
- - path: /src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java
-   apis: 
-      - service: s3
-        operations: 
-        - PresignPutObject
- - path: /src/main/java/com/example/s3/GetAcl.java
-   apis: 
-      - service: s3
-        operations: 
-        - GetObjectAcl
- - path: /src/main/java/com/example/s3/GetBucketPolicy.java
-   apis: 
-      - service: s3
-        operations: 
-        - GetBucketPolicy
- - path: /src/main/java/com/example/s3/GetObjectPresignedUrl.java
-   apis: 
-      - service: s3
-        operations: 
-        - PresignGetObject
- - path: /src/main/java/com/example/s3/GetObjectTags.java
-   apis: 
-      - service: s3
-        operations: 
-        - GetObjectTagging
- - path: /src/main/java/com/example/s3/ListObjects.java
-   apis: 
-      - service: s3
-        operations: 
-        - ListObjects
- - path: /src/main/java/com/example/s3/S3AsyncOps.java
-   apis: 
-      - service: s3
-        operations: 
-        - PutObject
- - path: /src/main/java/com/example/s3/S3BucketDeletion.java
-   apis: 
-      - service: s3
-        operations: 
-        - DeleteBucket
- - path: /src/main/java/com/example/s3/S3AsyncStreamOps.java
-   apis: 
-      - service: s3
-        operations: 
-        - GetObject        
- - path: /src/main/java/com/example/s3/S3BucketOps.java
-   apis: 
-      - service: s3
-        operations: 
-        - CreateBucket
- - path: /src/main/java/com/example/s3/S3ObjectOperations.java
-   apis: 
-      - service: s3
-        operations: 
-        - DeleteObject
-        - CompleteMultipartUpload
-        - UploadPart
- - path: /src/main/java/com/example/s3/SetAcl.java
-   apis: 
-      - service: s3
-        operations: 
-        - PutBucketAcl
- - path: /src/main/java/com/example/s3/SetBucketPolicy.java
-   apis: 
-      - service: s3
-        operations: 
-        - PutBucketPolicy
- - path: /src/main/java/com/example/s3/SetWebsiteConfiguration.java
-   apis: 
-      - service: s3
-        operations: 
-        - PutBucketWebsite
+files:
+  - path: src/main/java/com/example/s3/CopyObject.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/DeleteBucketPolicy.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/DeleteObjects.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/DeleteWebsiteConfiguration.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/GetAcl.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/GetBucketPolicy.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/GetObjectPresignedUrl.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/GetObjectTags.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/ListObjects.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/S3AsyncOps.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/S3BucketDeletion.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/S3AsyncStreamOps.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/S3BucketOps.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/S3ObjectOperations.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/SetAcl.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/SetBucketPolicy.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/SetWebsiteConfiguration.java
+    services:
+      - s3
+  - path: src/test/AmazonS3ServiceIntegrationTest.java

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeLimits.java demonstrates how to  display the shard limit and usage for a given account .]
+//snippet-sourcedescription:[DescribeLimits.java demonstrates how to display the shard limit and usage for a given AWS account.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[SDK for Java 2.0]
@@ -6,10 +6,10 @@
 //snippet-keyword:[Amazon Kinesis]
 //snippet-service:[kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-06-28]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:3/26/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,44 +22,45 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[kinesis.java2.DescribeLimits.complete]
 
 package com.example.kinesis;
 //snippet-start:[kinesis.java2.DescribeLimits.import]
-
-import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
-import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.kinesis.KinesisClient;
 import software.amazon.awssdk.services.kinesis.model.DescribeLimitsRequest;
 import software.amazon.awssdk.services.kinesis.model.DescribeLimitsResponse;
-
-import java.util.concurrent.ExecutionException;
+import software.amazon.awssdk.services.kinesis.model.KinesisException;
 //snippet-end:[kinesis.java2.DescribeLimits.import]
 
 public class DescribeLimits {
 
     public static void main(String[] args) {
         // snippet-start:[kinesis.java2.DescribeLimits.client]
-        KinesisAsyncClient client = KinesisAsyncClient.builder()
-                .httpClientBuilder(NettyNioAsyncHttpClient.builder()
-                        .maxConcurrency(100)
-                        .maxPendingConnectionAcquires(10_000))
+        Region region = Region.US_EAST_1;
+        KinesisClient kinesisClient = KinesisClient.builder()
+                .region(region)
                 .build();
+
+        describeKinLimits(kinesisClient);
+    }
+
+    public static void describeKinLimits(KinesisClient kinesisClient) {
 
         // snippet-end:[kinesis.java2.DescribeLimits.client]
-
-
+        try {
         // snippet-start:[kinesis.java2.DescribeLimits.main]
         DescribeLimitsRequest request = DescribeLimitsRequest.builder()
-                .build();
+                 .build();
 
-
-        DescribeLimitsResponse response = client.describeLimits(request).join();
+        DescribeLimitsResponse response = kinesisClient.describeLimits(request);
 
         System.out.println("Number of open shards: " + response.openShardCount());
         System.out.println("Maximum shards allowed: " + response.shardLimit());
-
+        } catch (KinesisException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
         // snippet-end:[kinesis.java2.DescribeLimits.main]
     }
-
 }
-//snippet-end:[kinesis.java2.DescribeLimits.complete]

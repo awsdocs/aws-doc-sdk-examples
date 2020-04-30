@@ -24,6 +24,29 @@ import (
 )
 // snippet-end:[sqs.go.change_message_visibility.imports]
 
+// GetQueueURL gets the URL of an Amazon SQS queue
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     queueName is the name of the queue
+// Output:
+//     If success, the URL of the queue and nil
+//     Otherwise, an empty string and an error from the call to
+func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
+    // Create an SQS service client
+    // snippet-start:[sqs.go.get_queue_url.call]
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queue,
+    })
+    // snippet-end:[sqs.go.get_queue_url.call]
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
 // SetMsgVisibility sets the visibility timeout for a message in an SQS queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
@@ -52,13 +75,13 @@ func SetMsgVisibility(sess *session.Session, handle *string, queueURL *string, v
 }
 
 func main() {
-    queueURL := flag.String("u", "", "The URL of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     handle := flag.String("h", "", "The receipt handle of the message")
     visibility := flag.Int64("v", 30, "The duration, in seconds, that the message is not visible to other consumers")
     flag.Parse()
 
-    if *queueURL == "" || *handle == "" {
-        fmt.Println("You must supply a queue URL (-u QUEUE-URL) and message receipt handle (-h HANDLE)")
+    if *queue == "" || *handle == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE) and message receipt handle (-h HANDLE)")
         return
     }
 
@@ -78,7 +101,17 @@ func main() {
     }))
     // snippet-end:[sqs.go.change_message_visibility.sess]
 
-    err := SetMsgVisibility(sess, handle, queueURL, visibility)
+    // Get URL of queue
+    result, err := GetQueueURL(sess, queue)
+    if err != nil {
+        fmt.Println("Got an error getting the queue URL:")
+        fmt.Println(err)
+        return
+    }
+
+    queueURL := result.QueueUrl
+
+    err = SetMsgVisibility(sess, handle, queueURL, visibility)
     if err != nil {
         fmt.Println("Got an error setting the visibility of the message:")
         fmt.Println(err)

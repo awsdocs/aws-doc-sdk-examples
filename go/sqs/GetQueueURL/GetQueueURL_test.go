@@ -29,7 +29,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueName string `json:"QueueName"`
+    Queue string `json:"Queue"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -38,7 +38,7 @@ var configFileName = "config.json"
 // globalConfig contains the configuration values
 var globalConfig Config
 
-func populateConfiguration() error {
+func populateConfiguration(t *testing.T) error {
     // Get configuration from config.json
 
     // Get entire file as a JSON string
@@ -55,6 +55,8 @@ func populateConfiguration() error {
     if err != nil {
         return err
     }
+
+    t.Log("Queue: " + globalConfig.Queue)
 
     return nil
 }
@@ -77,7 +79,7 @@ func createQueue(sess *session.Session, queueName string) (string, error) {
     return *result.QueueUrl, nil
 }
 
-func getFakeURL(sess *session.Session, queueName string) (string, error) {
+func getFakeURL(sess *session.Session, queue string) (string, error) {
     // Construct URL based on known pattern
     // For example, for the queue MyGroovyQueue:
     //     https://sqs.REGION.amazonaws.com/ACCOUNT-ID/MyGroovyQueue
@@ -94,7 +96,7 @@ func getFakeURL(sess *session.Session, queueName string) (string, error) {
 
     accountID := aws.StringValue(result.Account)
 
-    return "https://sqs." + *region + ".amazonaws.com/" + accountID + "/" + queueName, nil
+    return "https://sqs." + *region + ".amazonaws.com/" + accountID + "/" + queue, nil
 }
 
 func deleteQueue(sess *session.Session, queueURL string) error {
@@ -112,7 +114,7 @@ func deleteQueue(sess *session.Session, queueURL string) error {
 }
 
 func TestQueue(t *testing.T) {
-    err := populateConfiguration()
+    err := populateConfiguration(t)
     if err != nil {
         t.Fatal(err)
     }
@@ -125,12 +127,12 @@ func TestQueue(t *testing.T) {
 
     queueCreated := false
 
-    if globalConfig.QueueName == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        _, err = createQueue(sess, globalConfig.QueueName)
+        _, err = createQueue(sess, globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
@@ -138,30 +140,30 @@ func TestQueue(t *testing.T) {
         queueCreated = true
     }
 
-    newURL, err := GetQueueURL(sess, &globalConfig.QueueName)
+    result, err := GetQueueURL(sess, &globalConfig.Queue)
     if err != nil {
         t.Fatal(err)
     }
 
-    fakeURL, err := getFakeURL(sess, globalConfig.QueueName)
+    fakeURL, err := getFakeURL(sess, globalConfig.Queue)
     if err != nil {
         t.Fatal(err)
     }
 
-    if newURL != fakeURL {
-        msg := "The URL returned by GetQueueUrl: " + newURL + " does not match the expected URL: " + fakeURL
+    if *result.QueueUrl != fakeURL {
+        msg := "The URL returned by GetQueueUrl: " + *result.QueueUrl + " does not match the expected URL: " + fakeURL
         t.Fatal(msg)
     }
 
-    t.Log("The URL created matched the URL retrieved: " + newURL)
+    t.Log("The URL created matched the URL retrieved: " + *result.QueueUrl)
 
     if queueCreated {
-        err = deleteQueue(sess, newURL)
+        err = deleteQueue(sess, *result.QueueUrl)
         if err != nil {
-            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + globalConfig.QueueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }

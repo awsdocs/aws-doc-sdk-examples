@@ -23,9 +23,9 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.my_widget_service-stack]
-import core = require('@aws-cdk/core');
+import * as core from '@aws-cdk/core';
 // snippet-start:[cdk.typescript.my_widget_service-stack.import]
-import widget_service = require('../lib/widget_service');
+import * as widget_service from '../lib/widget_service';
 // snippet-end:[cdk.typescript.my_widget_service-stack.import]
 
 export class MyWidgetServiceStack extends core.Stack {

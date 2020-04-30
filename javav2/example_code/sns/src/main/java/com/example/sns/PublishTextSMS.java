@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.PublishTextSMS.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.PublishTextSMS.import]
@@ -47,12 +47,18 @@ public class PublishTextSMS {
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.PublishTextSMS.main]
         String message = args[0];
         String phoneNumber = args[1];
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_WEST_2).build();
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
+        pubTextSMS(snsClient, message, phoneNumber);
+    }
+
+    //snippet-start:[sns.java2.PublishTextSMS.main]
+    public static void pubTextSMS(SnsClient snsClient, String message, String phoneNumber) {
         try {
             PublishRequest request = PublishRequest.builder()
                 .message(message)
@@ -72,4 +78,4 @@ public class PublishTextSMS {
         //snippet-end:[sns.java2.PublishTextSMS.main]
     }
 }
-//snippet-end:[sns.java2.PublishTextSMS.complete]
+

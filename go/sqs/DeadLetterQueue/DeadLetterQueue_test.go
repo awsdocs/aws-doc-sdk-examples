@@ -28,8 +28,8 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueURL   string `json:"QueueURL"`
-    DlQueueURL string `json:"DlQueueURL"`
+    Queue   string `json:"Queue"`
+    DlQueue string `json:"DlQueue"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -56,18 +56,18 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    t.Log("QueueURL:   " + globalConfig.QueueURL)
-    t.Log("DlQueueURL: " + globalConfig.DlQueueURL)
+    t.Log("Queue:   " + globalConfig.Queue)
+    t.Log("DlQueue: " + globalConfig.DlQueue)
 
     return nil
 }
 
-func createQueue(sess *session.Session, queueName *string) (string, error) {
+func createQueue(sess *session.Session, queue *string) (string, error) {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: queueName,
+        QueueName: queue,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -80,12 +80,12 @@ func createQueue(sess *session.Session, queueName *string) (string, error) {
     return *result.QueueUrl, nil
 }
 
-func deleteQueue(sess *session.Session, queueURL string) error {
+func deleteQueue(sess *session.Session, queueURL *string) error {
     // Create an SQS service client
     svc := sqs.New(sess)
 
     _, err := svc.DeleteQueue(&sqs.DeleteQueueInput{
-        QueueUrl: aws.String(queueURL),
+        QueueUrl: queueURL,
     })
     if err != nil {
         return err
@@ -106,64 +106,64 @@ func TestDeadLetterQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    queueName := ""
-    dlQueueName := ""
+    queueURL := ""
+    dlQueueURL := ""
     dlARN := ""
     queueCreated := false
     dlQueueCreated := false
 
     id := uuid.New()
 
-    if globalConfig.QueueURL == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
-        queueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
 
-        globalConfig.QueueURL, err = createQueue(sess, &queueName)
+        queueURL, err = createQueue(sess, &globalConfig.Queue)
         if err != nil {
             t.Fatal(err)
         }
 
-        t.Log("Created queue " + queueName)
+        t.Log("Created queue " + globalConfig.Queue)
         queueCreated = true
     }
 
-    if globalConfig.DlQueueURL == "" {
+    if globalConfig.DlQueue == "" {
         // Create a unique, random queue name
-        dlQueueName = "mydlqueue-" + id.String()
+        globalConfig.DlQueue = "mydlqueue-" + id.String()
 
-        globalConfig.DlQueueURL, err = createQueue(sess, &dlQueueName)
+        dlQueueURL, err = createQueue(sess, &globalConfig.DlQueue)
         if err != nil {
             t.Fatal(err)
         }
 
-        dlARN = GetQueueArn(&globalConfig.DlQueueURL)
+        dlARN = GetQueueArn(&dlQueueURL)
 
-        t.Log("Created dead-letter queue " + dlQueueName)
+        t.Log("Created dead-letter queue " + globalConfig.DlQueue)
         dlQueueCreated = true
     }
 
-    err = ConfigureDeadLetterQueue(sess, &dlARN, &globalConfig.QueueURL)
+    err = ConfigureDeadLetterQueue(sess, &dlARN, &queueURL)
     if err != nil {
         t.Fatal(err)
     }
 
     if queueCreated {
-        err = deleteQueue(sess, globalConfig.QueueURL)
+        err = deleteQueue(sess, &queueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + queueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + queueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 
     if dlQueueCreated {
-        err = deleteQueue(sess, globalConfig.DlQueueURL)
+        err = deleteQueue(sess, &dlQueueURL)
         if err != nil {
-            t.Log("You'll have to delete queue " + dlQueueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.DlQueue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + dlQueueName)
+        t.Log("Deleted queue " + globalConfig.DlQueue)
     }
 }

@@ -32,13 +32,13 @@ import (
 // Output:
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to CreateQueue
-func CreateQueue(sess *session.Session, queueName *string) (*string, error) {
+func CreateQueue(sess *session.Session, queue *string) (*sqs.CreateQueueOutput, error) {
     // Create an SQS service client
     // snippet-start:[sqs.go.create_queue.call]
     svc := sqs.New(sess)
 
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
-        QueueName: queueName,
+        QueueName: queue,
         Attributes: map[string]*string{
             "DelaySeconds":           aws.String("60"),
             "MessageRetentionPeriod": aws.String("86400"),
@@ -49,16 +49,16 @@ func CreateQueue(sess *session.Session, queueName *string) (*string, error) {
         return nil, err
     }
 
-    return result.QueueUrl, nil
+    return result, nil
 }
 
 func main() {
     // snippet-start:[sqs.go.create_queue.args]
-    queueName := flag.String("n", "", "The name of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     flag.Parse()
 
-    if *queueName == "" {
-        fmt.Println("You must supply a queue name (-n QUEUE-NAME")
+    if *queue == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE")
         return
     }
     // snippet-end:[sqs.go.create_queue.args]
@@ -71,13 +71,15 @@ func main() {
     }))
     // snippet-end:[sqs.go.create_queue.sess]
 
-    url, err := CreateQueue(sess, queueName)
+    result, err := CreateQueue(sess, queue)
     if err != nil {
         fmt.Println("Got an error creating the queue:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("URL for queue " + *queueName + ": " + *url)
+    // snippet-start:[sqs.go.create_queue.print]
+    fmt.Println("URL: " + *result.QueueUrl)
+    // snippet-end:[sqs.go.create_queue.print]
 }
 // snippet-end:[sqs.go.create_queue]

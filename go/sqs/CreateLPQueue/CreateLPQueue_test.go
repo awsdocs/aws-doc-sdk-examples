@@ -30,8 +30,8 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueName string `json:"QueueName"`
-    WaitTime  int    `json:"WaitTime"`
+    Queue    string `json:"Queue"`
+    WaitTime int    `json:"WaitTime"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -66,7 +66,7 @@ func populateConfiguration(t *testing.T) error {
         globalConfig.WaitTime = 20
     }
 
-    t.Log("QueueName: " + globalConfig.QueueName)
+    t.Log("Queue: " + globalConfig.Queue)
     t.Log("WaitTime:  " + strconv.Itoa(globalConfig.WaitTime))
 
     return nil
@@ -104,27 +104,27 @@ func TestCreateLpQueue(t *testing.T) {
 
     shouldDelete := false
 
-    if globalConfig.QueueName == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        globalConfig.QueueName = "mylpqueue-" + id.String()
+        globalConfig.Queue = "mylpqueue-" + id.String()
         shouldDelete = true
     }
 
-    url, err := CreateLPQueue(sess, &globalConfig.QueueName, &globalConfig.WaitTime)
+    url, err := CreateLPQueue(sess, &globalConfig.Queue, &globalConfig.WaitTime)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Got URL " + url + " for long polling queue " + globalConfig.QueueName)
+    t.Log("Got URL " + url + " for long polling queue " + globalConfig.Queue)
 
     if shouldDelete {
         err = deleteQueue(sess, url)
         if err != nil {
-            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + globalConfig.QueueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }

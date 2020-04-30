@@ -1,0 +1,12 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="AWS_PROFILE" value="default"/>
+    <const name="CLOUDFRONT_VERSION" value="2018-06-18"/>
+    <const name="AWS_REGION" value="us-east-1"/>
+  </php>
+  <testsuites>
+    <testsuite name="cloudfront-createdistributions3">
+      <file>tests/CreateDistributionS3Test.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

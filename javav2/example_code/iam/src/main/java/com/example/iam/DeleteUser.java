@@ -1,12 +1,13 @@
 //snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an IAM user. This is only possible for users with no associated resources.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,14 +21,14 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.delete_user.complete]
+
 // snippet-start:[iam.java2.delete_user.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-import software.amazon.awssdk.services.iam.model.DeleteConflictException;
 import software.amazon.awssdk.services.iam.model.DeleteUserRequest;
- 
+import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.delete_user.import]
+
 /**
  * Deletes an IAM user. This is only possible for users with no associated
  * resources
@@ -36,8 +37,8 @@ public class DeleteUser {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply a username\n" +
-            "Ex: DeleteUser <username>\n";
+                "To run this example, supply a username\n" +
+                        "Ex: DeleteUser <username>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,24 +47,28 @@ public class DeleteUser {
 
         String username = args[0];
 
-        // snippet-start:[iam.java2.delete_user.main]
         Region region = Region.AWS_GLOBAL;
-        IamClient iam = IamClient.builder().region(region).build();
+        IamClient iam = IamClient.builder()
+                .region(region)
+                .build();
 
-        DeleteUserRequest request = DeleteUserRequest.builder()
-        		.userName(username).build();
+        deleteIAMUser(iam, username);
+    }
+
+    // snippet-start:[iam.java2.delete_user.main]
+    public static void deleteIAMUser(IamClient iam, String username) {
 
         try {
-            iam.deleteUser(request);
-        } catch (DeleteConflictException e) {
-            System.out.println("Unable to delete user. Verify user is not" +
-                    " associated with any resources");
-            throw e;
-        }
-        // snippet-end:[iam.java2.delete_user.main]
+            DeleteUserRequest request = DeleteUserRequest.builder()
+                    .userName(username).build();
 
-        System.out.println("Successfully deleted IAM user " + username);
+            iam.deleteUser(request);
+            System.out.println("Successfully deleted IAM user " + username);
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
     }
+    // snippet-end:[iam.java2.delete_user.main]
 }
- 
-// snippet-end:[iam.java2.delete_user.complete]
