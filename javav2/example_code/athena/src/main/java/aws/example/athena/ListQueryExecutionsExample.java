@@ -21,8 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[athena.java2.ListNamedQueryExecutionsExample.complete]
-//snippet-start:[athena.java.ListNamedQueryExecutionsExample.complete]
 package aws.example.athena;
 
 //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.import]
@@ -56,6 +54,7 @@ public class ListQueryExecutionsExample {
     public static void listQueryIds(AthenaClient athenaClient) {
 
        try {
+
            // Build the request
             ListQueryExecutionsRequest listQueryExecutionsRequest = ListQueryExecutionsRequest.builder().build();
 
