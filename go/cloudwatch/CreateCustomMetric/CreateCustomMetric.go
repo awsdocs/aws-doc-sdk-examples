@@ -88,7 +88,7 @@ func main() {
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-    // snippet-start:[cloudwatch.go.create_custom_metric.session]
+    // snippet-end:[cloudwatch.go.create_custom_metric.session]
     
     err := CreateCustomMetric(sess, namespace, metricName, unit, value, dimensionName, dimensionValue)
     if err != nil {
