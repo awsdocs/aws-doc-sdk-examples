@@ -105,7 +105,7 @@ public class StartQueryExample {
      * interval of time. If a query fails or is cancelled, then it will throw an exception.
      */
 
-    private static void waitForQueryToComplete(AthenaClient athenaClient, String queryExecutionId) throws InterruptedException {
+    public static void waitForQueryToComplete(AthenaClient athenaClient, String queryExecutionId) throws InterruptedException {
         GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                 .queryExecutionId(queryExecutionId).build();
 
@@ -134,7 +134,7 @@ public class StartQueryExample {
      * The query must be in a completed state before the results can be retrieved and
      * paginated. The first row of results are the column headers.
      */
-    private static void processResultRows(AthenaClient athenaClient, String queryExecutionId) {
+    public static void processResultRows(AthenaClient athenaClient, String queryExecutionId) {
 
        try {
 
