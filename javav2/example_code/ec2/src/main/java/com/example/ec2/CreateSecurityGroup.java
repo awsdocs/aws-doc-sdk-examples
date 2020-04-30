@@ -72,6 +72,7 @@ public class CreateSecurityGroup {
     public static String createEC2SecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
         try {
 
+            // snippet-start:[ec2.java2.create_security_group.create]
             CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
                 .groupName(groupName)
                 .description(groupDesc)
@@ -79,6 +80,7 @@ public class CreateSecurityGroup {
                 .build();
 
             CreateSecurityGroupResponse resp= ec2.createSecurityGroup(createRequest);
+            // snippet-end:[ec2.java2.create_security_group.create]
 
             // snippet-start:[ec2.java2.create_security_group.config]
             IpRange ipRange = IpRange.builder()
@@ -122,4 +124,3 @@ public class CreateSecurityGroup {
         return "";
     }
 }
-
