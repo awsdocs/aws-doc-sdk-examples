@@ -1,13 +1,12 @@
-//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon EC2 security group.]
+//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an EC2 security group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
+//snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/11/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon]
-
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,16 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-
+// snippet-start:[ec2.java2.create_security_group.complete]
 // snippet-start:[ec2.java2.create_security_group.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
+import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
-import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.IpRange;
 // snippet-end:[ec2.java2.create_security_group.import]
 
@@ -53,32 +51,27 @@ public class CreateSecurityGroup {
         String groupDesc = args[1];
         String vpcId = args[2];
 
-        //Create an Ec2Client object
+        // snippet-start:[ec2.java2.create_security_group.main]
         // snippet-start:[ec2.java2.create_security_group.client]
-        Region region = Region.US_WEST_2;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2Client ec2 = Ec2Client.create();
         // snippet-end:[ec2.java2.create_security_group.client]
 
-
-        String id = createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
-        System.out.printf(
-                "Successfully created security group with this ID %s",
-                id);
-    }
-
-    // snippet-start:[ec2.java2.create_security_group.main]
-    public static String createEC2SecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
         try {
 
+            // snippet-start:[ec2.java2.create_security_group.create]
             CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
                 .groupName(groupName)
                 .description(groupDesc)
                 .vpcId(vpcId)
                 .build();
 
-            CreateSecurityGroupResponse resp= ec2.createSecurityGroup(createRequest);
+            CreateSecurityGroupResponse createResponse =
+                ec2.createSecurityGroup(createRequest);
+            // snippet-end:[ec2.java2.create_security_group.create]
+
+            System.out.printf(
+                "Successfully created security group named %s",
+                groupName);
 
             // snippet-start:[ec2.java2.create_security_group.config]
             IpRange ipRange = IpRange.builder()
@@ -89,6 +82,7 @@ public class CreateSecurityGroup {
                 .toPort(80)
                 .fromPort(80)
                 .ipRanges(ipRange)
+                // .ipv4Ranges(ip_range)
                 .build();
 
             IpPermission ipPerm2 = IpPermission.builder()
@@ -105,21 +99,18 @@ public class CreateSecurityGroup {
                         .build();
 
             AuthorizeSecurityGroupIngressResponse authResponse =
-            ec2.authorizeSecurityGroupIngress(authRequest);
-            // snippet-end:[ec2.java2.create_security_group.config]
+                ec2.authorizeSecurityGroupIngress(authRequest);
 
+            // snippet-end:[ec2.java2.create_security_group.config]
             // snippet-end:[ec2.java2.create_security_group.main]
             System.out.printf(
                 "Successfully added ingress policy to security group %s",
                 groupName);
 
-            return resp.groupId();
-
         } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.getStackTrace();
         }
-        return "";
     }
 }
 
+// snippet-end:[ec2.java2.create_security_group.complete]
