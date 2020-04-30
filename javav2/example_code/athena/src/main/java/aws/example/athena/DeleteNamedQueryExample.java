@@ -44,11 +44,27 @@ public class DeleteNamedQueryExample {
     //snippet-start:[athena.java2.DeleteNamedQueryExample.main]
     public static void main(String[] args) {
 
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DeleteNamedQueryExample <name>\n\n" +
+                "Where:\n" +
+                "    name - the name of the query \n\n" +
+                "Example:\n" +
+                "    DeleteNamedQueryExample SampleQuery\n";
+
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
+        /* Read the name from command args */
+        String name = args[0];
+       
         // Build an Athena client
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
-        String sampleNamedQueryId = getNamedQueryId(athenaClient);
+        String sampleNamedQueryId = getNamedQueryId(athenaClient, name);
         deleteQueryName(athenaClient, sampleNamedQueryId);
          }
 
@@ -67,13 +83,13 @@ public class DeleteNamedQueryExample {
        }
      }
 
-    private static String getNamedQueryId(AthenaClient athenaClient) {
+    private static String getNamedQueryId(AthenaClient athenaClient, String name) {
         try {
             // Create the NameQuery Request.
             CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
                 .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
                 .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
-                .name("CoolQuery")
+                .name(name)
                 .description("Sample Description").build();
 
             // Create the named query. If it fails, an exception is thrown.
