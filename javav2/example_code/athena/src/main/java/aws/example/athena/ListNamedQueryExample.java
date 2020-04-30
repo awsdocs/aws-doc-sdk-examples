@@ -21,8 +21,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[athena.java2.ListNamedQueryExample.complete]
-//snippet-start:[athena.java.ListNamedQueryExample.complete]
+
 package aws.example.athena;
 
 //snippet-start:[athena.java2.ListNamedQueryExample.import]
@@ -44,7 +43,6 @@ import java.util.List;
 public class ListNamedQueryExample {
 
     public static void main(String[] args) throws Exception {
-        
         // Build an Athena client
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
@@ -57,6 +55,7 @@ public class ListNamedQueryExample {
     public static void listNamedQueries(AthenaClient athenaClient) {
 
        try{
+
            // Build the request
            ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder().build();
 
