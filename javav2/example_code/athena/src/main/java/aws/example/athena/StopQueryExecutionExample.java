@@ -30,7 +30,16 @@ package aws.example.athena;
 //snippet-start:[athena.java2.StopQueryExecutionExample.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
-import software.amazon.awssdk.services.athena.model.*;
+import software.amazon.awssdk.services.athena.model.StopQueryExecutionRequest;
+import software.amazon.awssdk.services.athena.model.StopQueryExecutionResponse;
+import software.amazon.awssdk.services.athena.model.GetQueryExecutionRequest;
+import software.amazon.awssdk.services.athena.model.GetQueryExecutionResponse;
+import software.amazon.awssdk.services.athena.model.QueryExecutionState;
+import software.amazon.awssdk.services.athena.model.AthenaException;
+import software.amazon.awssdk.services.athena.model.QueryExecutionContext;
+import software.amazon.awssdk.services.athena.model.ResultConfiguration;
+import software.amazon.awssdk.services.athena.model.StartQueryExecutionRequest;
+import software.amazon.awssdk.services.athena.model.StartQueryExecutionResponse;
 //snippet-end:[athena.java2.StopQueryExecutionExample.import]
 
 /**
