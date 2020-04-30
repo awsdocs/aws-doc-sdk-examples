@@ -91,11 +91,10 @@ class CreateDistributionS3Test extends TestCase
             'handler' => $mock
         ]);
 
-        $this->assertEquals(createS3Distribution(
-            $cloudFrontClient,
-            $distribution
-        ), 'The new distribution\'s location is: ' . '\n' . 
-            'The effective URI is: ' . 
-            'https://cloudfront.amazonaws.com/2018-06-18/distribution');
+        $result = createS3Distribution($cloudFrontClient, $distribution);
+
+        $this->assertStringContainsString('https://cloudfront.amazonaws.com/' . 
+            CLOUDFRONT_VERSION . '/distribution', 
+            $result);
     }
 }

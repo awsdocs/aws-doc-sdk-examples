@@ -32,10 +32,19 @@ function createS3Distribution($cloudFrontClient, $distribution)
         $result = $cloudFrontClient->createDistribution([
             'DistributionConfig' => $distribution
         ]);
-        return 'The new distribution\'s location is: ' .
-            $result['Location'] . '\n' .
-            'The effective URI is: ' .
-            $result['@metadata']['effectiveUri'];
+
+        $message = '';
+
+        if (isset($result['Distribution']['Id']))
+        {
+            $message = 'Distribution created with the ID of ' .
+                $result['Distribution']['Id'];
+        }
+        
+        $message .= ' and an effective URI of ' . 
+            $result['@metadata']['effectiveUri'] . '.';
+
+        return $message;
     } catch (AwsException $e) {
         return 'Error: ' . $e['message'];
     }
@@ -69,7 +78,7 @@ function createsTheS3Distribution()
             'QueryString' => false,
             'QueryStringCacheKeys' => [
                 'Quantity' => 0
-            ],
+            ]
         ],
         'LambdaFunctionAssociations' => ['Quantity' => 0],
         'MaxTTL' => 0,
@@ -108,6 +117,7 @@ function createsTheS3Distribution()
         'version' => '2018-06-18',
         'region' => 'us-east-1'
     ]);
+    
     echo createS3Distribution($cloudFrontClient, $distribution);
 }
 
