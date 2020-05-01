@@ -35,7 +35,7 @@ type Item struct {
 //     title is the movie title
 //     year is when the movie was released
 // Output:
-//     If success, the information about of the table item and nil
+//     If success, the information about the table item and nil
 //     Otherwise, nil and an error from the call to GetItem or UnmarshalMap
 func GetTableItem(svc dynamodbiface.DynamoDBAPI, table, title *string, year *int) (*Item, error) {
     // snippet-start:[dynamodb.go.get_item.call]
