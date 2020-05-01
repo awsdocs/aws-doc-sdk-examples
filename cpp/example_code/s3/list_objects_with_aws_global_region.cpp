@@ -1,5 +1,5 @@
 
-//snippet-sourcedescription:[list_objects_with_aws_global_region.cpp demonstrates how to use aws-global region in client configuration to make cross-region requests.]
+//snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build list_objects_with_aws_global_region.cpp. This example demonstrates how to use aws-global region in client configuration to make cross-region requests.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]

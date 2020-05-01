@@ -1,5 +1,5 @@
 
-//snippet-sourcedescription:[create_file_system_with_modeled_exception.cpp demonstrates how to get modeled exception from CreateFileSystem operation outout.]
+//snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build create_file_system_with_modeled_exception.cpp. This example demonstrates how to get modeled exception from CreateFileSystem operation outcome.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]

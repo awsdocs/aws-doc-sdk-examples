@@ -1,5 +1,5 @@
 
-//snippet-sourcedescription:[list_buckets_disabling_dns_cache.cpp demonstrates how to replace the default http client and override its configurations.]
+//snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build list_buckets_disabling_dns_cache.cpp. This example demonstrates how to replace the default HTTP client and override the default HTTP client configurations.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]

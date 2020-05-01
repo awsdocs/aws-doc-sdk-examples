@@ -18,6 +18,7 @@ find_package(AWSSDK REQUIRED COMPONENTS s3)
 add_definitions(-DUSE_IMPORT_EXPORT)
 
 # The executables to build.
+# Examples: list_buckets_disabling_dns_cache and list_objects_with_aws_global_region are only for AWS SDK for C++ with version higher than 1.8.
 set(EXAMPLES "")
 list(APPEND EXAMPLES "copy_object")
 list(APPEND EXAMPLES "create_bucket")
