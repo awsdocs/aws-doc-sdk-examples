@@ -57,7 +57,7 @@ def main():
     parser.add_argument('--region',
             help='The name of the AWS Region that the SMTP password will be used in.',
             required=True,
-            choices=['us-east-1','us-west-2','eu-west-1'],
+            choices=['us-east-1','us-west-2','ap-south-1','ap-southeast-2','ca-central-1','eu-central-1','eu-west-1','sa-east-1','us-gov-west-1'],
             action="store")
     args = parser.parse_args()
 
