@@ -12,10 +12,10 @@
    specific language governing permissions and limitations under the License.
 */
 
-// snippet-start: [s3.go.download_object]
+// snippet-start:[s3.go.download_object]
 package main
 
-// snippet-start: [s3.go.download_object.imports]
+// snippet-start:[s3.go.download_object.imports]
 import (
     "flag"
     "fmt"
@@ -25,7 +25,7 @@ import (
     "github.com/aws/aws-sdk-go/service/s3"
     "github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
-// snippet-end: [s3.go.download_object.imports]
+// snippet-end:[s3.go.download_object.imports]
 
 // DownloadObject downloads a file from a bucket
 // Inputs:
@@ -36,16 +36,16 @@ import (
 //     If success, nil
 //     Otherwise, an error from the call to Create or Download
 func DownloadObject(sess *session.Session, filename *string, bucket *string) error {
-    // snippet-start: [s3.go.download_object.create]
+    // snippet-start:[s3.go.download_object.create]
     file, err := os.Create(*filename)
-    // snippet-end: [s3.go.download_object.create]
+    // snippet-end:[s3.go.download_object.create]
     if err != nil {
         return err
     }
 
     defer file.Close()
     
-    // snippet-start: [s3.go.download_object.call]
+    // snippet-start:[s3.go.download_object.call]
     downloader := s3manager.NewDownloader(sess)
 
     _, err = downloader.Download(file,
@@ -53,7 +53,7 @@ func DownloadObject(sess *session.Session, filename *string, bucket *string) err
             Bucket: bucket,
             Key:    filename,
         })
-    // snippet-end: [s3.go.download_object.call]
+    // snippet-end:[s3.go.download_object.call]
     if err != nil {
         return err
     }
@@ -62,7 +62,7 @@ func DownloadObject(sess *session.Session, filename *string, bucket *string) err
 }
 
 func main() {
-    // snippet-start: [s3.go.download_object.args]
+    // snippet-start:[s3.go.download_object.args]
     bucket := flag.String("b", "", "The bucket to download from")
     filename := flag.String("f", "", "The name of the file to download")
     flag.Parse()
@@ -71,13 +71,13 @@ func main() {
         fmt.Println("You must specify a bucket name (-b BUCKET) and filename (-f FILENAME")
         return
     }
-    // snippet-end: [s3.go.download_object.args]
+    // snippet-end:[s3.go.download_object.args]
 
-    // snippet-start: [s3.go.download_object.session]
+    // snippet-start:[s3.go.download_object.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-    // snippet-end: [s3.go.download_object.session]
+    // snippet-end:[s3.go.download_object.session]
 
     err := DownloadObject(sess, filename, bucket)
     if err != nil {
@@ -88,4 +88,4 @@ func main() {
 
     fmt.Println("Downloaded " + *filename)
 }
-// snippet-end: [s3.go.download_object]
+// snippet-end:[s3.go.download_object]
