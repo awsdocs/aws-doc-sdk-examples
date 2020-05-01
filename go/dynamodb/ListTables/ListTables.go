@@ -15,7 +15,7 @@ import (
 // GetTables retrieves a list of your Amazon DynamoDB tables
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
-//     limit is the maximum numbed of tables to return
+//     limit is the maximum number of tables to return
 // Output:
 //     If success, a list of the tables and nil
 //     Otherwise, nil and an error from the call to ListTables

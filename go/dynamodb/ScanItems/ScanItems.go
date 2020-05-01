@@ -41,7 +41,7 @@ func ScanTableItems(sess *session.Session, year *int, table *string, minRating *
     // Get all movies in that year; we'll pull out those with a higher rating later
     filt := expression.Name("Year").Equal(expression.Value(year))
 
-    // Or we could get by ratings and pull out those with the right year later
+    // Or we could get the movies by ratings and pull out those with the right year later
     //    filt := expression.Name("info.rating").GreaterThan(expression.Value(min_rating))
 
     // Get back the title, year, and rating
@@ -84,7 +84,7 @@ func ScanTableItems(sess *session.Session, year *int, table *string, minRating *
             return nil, err
         }
 
-        // Which ones had a higher rating than minimum?
+        // Which ones had a higher rating than the minimum value?
         if item.Rating > *minRating {
             // Or it we had filtered by rating previously:
             //   if item.Year == year {

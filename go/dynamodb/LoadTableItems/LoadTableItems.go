@@ -27,7 +27,7 @@ type Item struct {
 }
 // snippet-end:[dynamodb.go.add_items.struct]
 
-// GetItems creates a list of table items from JSON file
+// GetItems creates a list of table items from a JSON file
 func GetItems(filename *string) ([]Item, error) {
     raw, err := ioutil.ReadFile(*filename)
     if err != nil {
@@ -87,7 +87,7 @@ func main() {
     flag.Parse()
 
     if *jsonFile == "" || *table == "" {
-        fmt.Println("You must supply a JSON filename and database table name")
+        fmt.Println("You must supply a JSON file name and database table name")
         fmt.Println("-j JSON-FILE -d TABLE")
         return
     }

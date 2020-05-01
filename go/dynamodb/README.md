@@ -25,8 +25,8 @@ The unit test accepts a similar value in _config.json_.
 
 The table has two attributes:
 
-- **Year** is an integer
-- **Title** is a string
+- **Year** is an integer.
+- **Title** is a string.
 
 ### CreateTableItem/CreateTableItem.go
 
@@ -59,9 +59,9 @@ This example retrieves an item from a DynamoDB table.
 
 `go run GetItem.go -t TABLE -n NAME -y YEAR`
 
-- _TABLE_ is the name of the table
-- _NAME_ is the name of the movie
-- _YEAR_ is when the movie was released
+- _TABLE_ is the name of the table.
+- _NAME_ is the name of the movie.
+- _YEAR_ is when the movie was released.
 
 The unit test mocks the DynamoDB service and `GetItem` function.
 
@@ -95,9 +95,9 @@ This example uses the Expression Builder package to scan a table for items that 
 
 `go run ScanItems.go -t TABLE -r RATING -y YEAR`
 
-- _TABLE_ is the name of the table
-- _RATING_ is the minimum rating, from 0.0 to 1.0, given to the movies to retrieve
-- _YEAR_ is the year when the movies were released
+- _TABLE_ is the name of the table.
+- _RATING_ is the minimum rating, from 0.0 to 1.0, given to the movies to retrieve.
+- _YEAR_ is the year when the movies were released.
 
 The unit test mocks the DynamoDB service and `Scan` function.
 

@@ -17,7 +17,7 @@ import (
 // MakeTable creates an Amazon DynamoDB table
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
-//     attributeDefinitions describe the tables attributes
+//     attributeDefinitions describe the table's attributes
 //     keySchema defines the table schema
 //     provisionedThroughput defines the throughput
 //     tableName is the name of the table
