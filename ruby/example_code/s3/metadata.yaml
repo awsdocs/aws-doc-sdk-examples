@@ -1,0 +1,5 @@
+---
+files:
+  -path: s3-select-object-content/s3-select-object-content.rb
+    services:
+      - s3

@@ -1,0 +1,5 @@
+---
+files:
+  -path: dynamodb_ruby_example_read_multiple_items/dynamodb_ruby_example_read_multiple_items.rb
+    services:
+      - dynamodb

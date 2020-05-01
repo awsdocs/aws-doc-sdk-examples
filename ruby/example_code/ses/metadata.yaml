@@ -1,0 +1,14 @@
+---
+files:
+  -path: ses_get_statistics/ses_get_statistics.rb
+   services:
+     - ses
+  -path: ses_list_emails/ses_list_emails.rb
+   services:
+     - ses
+  -path: ses_send_email/ses_send_email.rb
+   services:
+     - ses
+  -path: ses_send_verifications/ses_send_verifications.rb
+   services:
+     - ses

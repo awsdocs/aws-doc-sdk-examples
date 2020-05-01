@@ -1,0 +1,20 @@
+---
+files:
+  -path: sns-ruby-example-create-subscription/sns-ruby-example-create-subscription.rb
+    services:
+      - sns
+  -path: sns-ruby-example-create-topic/sns-ruby-example-create-topic.rb
+    services:
+      - sns
+  -path: sns-ruby-example-enable-resource/sns-ruby-example-enable-resource.rb
+    services:
+      - sns
+  -path: sns-ruby-example-send-message/sns-ruby-example-send-message.rb
+    services:
+      - sns
+  -path: sns-ruby-example-show-subscriptions/sns-ruby-example-show-subscriptions.rb
+      services:
+        - sns
+  -path: sns-ruby-example-show-topics/sns-ruby-example-show-topics.rb
+      services:
+        - sns
