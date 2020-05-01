@@ -1,65 +1,88 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- *
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudfront.php.getinvalidation.complete]
 // snippet-start:[cloudfront.php.getinvalidation.import]
-
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.getinvalidation.import]
 
-
-/**
- * Retrieve information about an invalidation issued for an Amazon CloudFront Distribution.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Gets information about an invalidation for an 
+ * Amazon CloudFront distribution.
  *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+ * Prerequisites: An existing Amazon CloudFront distribution and a 
+ * corresponding invalidation.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
+ * - $distributionId: The distribution's ID.
+ * - $invalidationId: The invalidation ID.
+ *
+ * Returns: Information about the invalidation; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
-//Create a CloudFront Client 
 // snippet-start:[cloudfront.php.getinvalidation.main]
-$client = new Aws\CloudFront\CloudFrontClient([
-    'profile' => 'default',
-    'version' => '2018-06-18',
-    'region' => 'us-east-2'
-]);
+function getInvalidation($cloudFrontClient, $distributionId, $invalidationId)
+{
+    try {
+        $result = $cloudFrontClient->getInvalidation([
+            'DistributionId' => $distributionId,
+            'Id' => $invalidationId,
+        ]);
 
-$distributionId = 'E1A2B3C4D5E';
-$invalidationID = 'I1A2B3C4D5E6F7G';
+        $message = '';
 
-try {
-    $result = $client->getInvalidation([
-        'DistributionId' => $distributionId,
-        'Id' => $invalidationID,
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+        if (isset($result['Invalidation']['Status']))
+        {
+            $message = 'The status for the invalidation with the ID of ' . 
+                $result['Invalidation']['Id'] . ' is ' . 
+                $result['Invalidation']['Status'];
+        } 
+        
+        if (isset($result['@metadata']['effectiveUri']))
+        {
+            $message .= ', and the effective URI is ' . 
+                $result['@metadata']['effectiveUri'] . '.';
+        } else {
+            $message = 'Error: Could not get information about ' .
+                'the invalidation. The invalidation\'s status ' .
+                'was not available.';
+        }
+        
+        return $message;
+
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
- 
+
+function getsAnInvalidation()
+{
+    $distributionId = 'E1BTGP2EXAMPLE';
+    $invalidationId = 'I1CDEZZEXAMPLE';
+
+    $cloudFrontClient = new Aws\CloudFront\CloudFrontClient([
+        'profile' => 'default',
+        'version' => '2018-06-18',
+        'region' => 'us-east-1'
+    ]);
+    
+    echo getInvalidation($cloudFrontClient, $distributionId, $invalidationId);
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// getsAnInvalidation();
 // snippet-end:[cloudfront.php.getinvalidation.main]
 // snippet-end:[cloudfront.php.getinvalidation.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an  Amazon CloudFront Distribution.]
+// snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an Amazon CloudFront distribution.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
@@ -68,5 +91,5 @@ try {
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-04-24]
+// snippet-sourceauthor:[pccornel (AWS)]

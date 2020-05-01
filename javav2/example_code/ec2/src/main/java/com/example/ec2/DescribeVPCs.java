@@ -83,3 +83,4 @@ public class DescribeVPCs {
         // snippet-end:[ec2.java2.describe_vpc.main]
     }
 }
+
