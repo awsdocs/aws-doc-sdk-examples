@@ -16,7 +16,7 @@ import (
 )
 // snippet-end:[dynamodb.go.scan_table_items.imports]
 
-// Item holds info about new item
+// Item holds info about the new item
 // snippet-start:[dynamodb.go.scan_table_items.struct]
 type Item struct {
     Year   int
@@ -37,7 +37,7 @@ type Item struct {
 //     Otherwise, nil and an error from the call to Scan
 func ScanTableItems(sess *session.Session, year *int, table *string, minRating *float64) (*[]Item, error) {
     // snippet-start:[dynamodb.go.scan_table_items.expr]
-    // Create the Expression to fill the input struct with.
+    // Create the expression to fill the input struct.
     // Get all movies in that year; we'll pull out those with a higher rating later
     filt := expression.Name("Year").Equal(expression.Value(year))
 
