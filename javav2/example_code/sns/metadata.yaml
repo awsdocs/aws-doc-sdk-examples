@@ -1,103 +1,57 @@
 --- 
-created: 2020-02-25
-files: 
- - path: /src/main/java/com/example/sns/CheckOptOut.java
-   apis: 
-      - service: sns
-        operations: 
-        - CheckIfPhoneNumberIsOptedOut
-       
- - path: /src/main/java/com/example/sns/ConfirmSubscription.java
-   apis: 
-      - service: sns
-        operations: 
-        - ConfirmSubscription
- - path: /src/main/java/com/example/sns/CreateTopic.java
-   apis: 
-      - service: sns
-        operations: 
-        - CreateTopic
-       
- - path: /src/main/java/com/example/sns/DeleteTopic.java
-   apis: 
-      - service: sns
-        operations: 
-        - DeleteTopic
- - path: /src/main/java/com/example/sns/GetSMSAtrributes.java
-   apis: 
-      - service: sns
-        operations: 
-        - GetSubscriptionAttributes
-        
- - path: /src/main/java/com/example/sns/GetTopicAttributes.java
-   apis: 
-      - service: sns
-        operations: 
-        - GetTopicAttributes
- - path: /src/main/java/com/example/sns/ListOptOut.java
-   apis: 
-      - service: sns
-        operations: 
-        - ListPhoneNumbersOptedOut
-        
- - path: /src/main/java/com/example/sns/ListSubscriptions.java
-   apis: 
-      - service: sns
-        operations: 
-        - ListSubscriptions
-            
- - path: /src/main/java/com/example/sns/ListTopics.java
-   apis: 
-      - service: sns
-        operations: 
-        - ListTopics
-            
- - path: /src/main/java/com/example/sns/PublishTextSMS.java
-   apis: 
-      - service: sns
-        operations: 
-        - Publish
-            
- - path: /src/main/java/com/example/sns/PublishTopic.java
-   apis: 
-      - service: sns
-        operations: 
-        - Publish
-      
- - path: /src/main/java/com/example/sns/SetSMSAttributes.java
-   apis: 
-      - service: sns
-        operations: 
-        - SetSMSAttributes
-        
- - path: /src/main/java/com/example/sns/SetTopicAttributes.java
-   apis: 
-      - service: sns
-        operations: 
-        - SetTopicAttributes
- - path: /src/main/java/com/example/sns/SubscribeEmail.java
-   apis: 
-      - service: sns
-        operations: 
-        - Subscribe
-       
- - path: /src/main/java/com/example/sns/SubscribeHTTPS.java
-   apis: 
-      - service: sns
-        operations: 
-        - Subscribe
- - path: /src/main/java/com/example/sns/SubscribeLambda.java
-   apis: 
-      - service: sns
-        operations: 
-        - Subscribe      
- - path: /src/main/java/com/example/sns/SubscribeTextSMS.java
-   apis: 
-      - service: sns
-        operations: 
-        - Subscribe  
- - path: /src/main/java/com/example/sns/Unsubscribe.java
-   apis: 
-      - service: sns
-        operations: 
-        - Unsubscribe  
+files:
+  - path: src/main/java/com/example/sns/CheckOptOut.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/ConfirmSubscription.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/CreateTopic.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/DeleteTopic.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/GetSMSAtrributes.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/GetTopicAttributes.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/ListOptOut.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/ListSubscriptions.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/ListTopics.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/PublishTextSMS.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/PublishTopic.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SetSMSAttributes.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SetTopicAttributes.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SubscribeEmail.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SubscribeHTTPS.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SubscribeLambda.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SubscribeTextSMS.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/Unsubscribe.java
+    services:
+      - sns
+  - path: src/main/test/java/AWSSNSServiceIntegrationTest.java

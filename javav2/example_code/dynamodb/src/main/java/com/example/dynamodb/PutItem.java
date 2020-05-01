@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[PutItem.java demonstrates how to place an item into an AWS DynamoDB table]
+//snippet-sourcedescription:[PutItem.java demonstrates how to place an item into an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
-Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 This file is licensed under the Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License. A copy of
 the License is located at
@@ -18,7 +18,7 @@ specific language governing permissions and limitations under the License.
 */
 
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.put_item.complete]
+
 // snippet-start:[dynamodb.java2.put_item.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.put_item.import]
 
 /**
- * Puts an item into an AWS DynamoDB table.
+ * Puts an item into an Amazon DynamoDB table
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -46,11 +46,11 @@ public class PutItem {
                 "    table - the table in which an item is placed (i.e., Music3),\n" +
                 "    key -  the key used in the table (iei.e., Artist),\n" +
                 "    keyval  - the key value that represents the item to get (i.e., Famous Band),\n" +
-                "    albumTitle -  album title (i.e., AlbumTitle),\n" +
+                "    albumTitle -  the album title (i.e., AlbumTitle),\n" +
                 "    AlbumTitleValue -  the name of the album (i.e., Songs About Life ),\n" +
-                "    Awards -  awards column (i.e., Awards),\n" +
+                "    Awards -  the awards column (i.e., Awards),\n" +
                 "    AwardVal -  the value of the awards (i.e., 10),\n" +
-                "    SongTitle -  song title (i.e., SongTitle),\n" +
+                "    SongTitle -  the song title (i.e., SongTitle),\n" +
                 "    SongTitleVal -  the value of the song title (i.e., Happy Day).\n" +
                 "Example:\n" +
                 "    Music3 Artist Famous Band AlbumTitle Songs About Life Awards 10 SongTitle Happy Day \n" +
@@ -62,7 +62,6 @@ public class PutItem {
             System.exit(1);
         }
 
-        // snippet-start:[dynamodb.java2.put_item.main]
         String tableName = args[0];
         String key = args[1];
         String keyVal = args[2];
@@ -76,10 +75,25 @@ public class PutItem {
         // Create the DynamoDbClient object
         Region region = Region.US_WEST_2;
         DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        System.out.println("Done!");
+
+    }
+
+    // snippet-start:[dynamodb.java2.put_item.main]
+    public static void putItemInTable(DynamoDbClient ddb,
+                                      String tableName,
+                                      String key,
+                                      String keyVal,
+                                      String albumTitle,
+                                      String albumTitleValue,
+                                      String awards,
+                                      String awardVal,
+                                      String songTitle,
+                                      String songTitleVal){
 
         HashMap<String,AttributeValue> itemValues = new HashMap<String,AttributeValue>();
 
-        // Add content to the table
+        // Add all content to the table
         itemValues.put(key, AttributeValue.builder().s(keyVal).build());
         itemValues.put(songTitle, AttributeValue.builder().s(songTitleVal).build());
         itemValues.put(albumTitle, AttributeValue.builder().s(albumTitleValue).build());
@@ -104,7 +118,5 @@ public class PutItem {
             System.exit(1);
         }
         // snippet-end:[dynamodb.java2.put_item.main]
-        System.out.println("Done!");
     }
 }
-// snippet-end:[dynamodb.java2.put_item.complete]

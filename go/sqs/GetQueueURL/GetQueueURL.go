@@ -31,29 +31,29 @@ import (
 // Output:
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
-func GetQueueURL(sess *session.Session, queueName *string) (string, error) {
+func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
     // Create an SQS service client
     // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
     result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
-        QueueName: queueName,
+        QueueName: queue,
     })
     // snippet-end:[sqs.go.get_queue_url.call]
     if err != nil {
-        return "", err
+        return nil, err
     }
 
-    return *result.QueueUrl, nil
+    return result, nil
 }
 
 func main() {
     // snippet-start:[sqs.go.get_queue_url.args]
-    queueName := flag.String("n", "", "The name of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     flag.Parse()
 
-    if *queueName == "" {
-        fmt.Println("You must supply a queue name (-n QUEUE-NAME")
+    if *queue == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE")
         return
     }
     // snippet-end:[sqs.go.get_queue_url.args]
@@ -66,13 +66,15 @@ func main() {
     }))
     // snippet-end:[sqs.go.get_queue_url.sess]
 
-    url, err := GetQueueURL(sess, queueName)
+    result, err := GetQueueURL(sess, queue)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("URL for queue " + *queueName + ": " + url)
+    // snippet-start:[sqs.go.get_queue_url.print]
+    fmt.Println("URL: " + *result.QueueUrl)
+    // snippet-end:[sqs.go.get_queue_url.print]
 }
 // snippet-end:[sqs.go.get_queue_url]

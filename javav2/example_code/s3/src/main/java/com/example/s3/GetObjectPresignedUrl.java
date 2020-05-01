@@ -1,5 +1,15 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in an Amazon S3 bucket by using the S3Presigner client object]
+// snippet-service:[S3]
+// snippet-keyword:[Java]
+// snippet-keyword:[Amazon S3]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/6/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -12,18 +22,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in a S3 bucket by using the S3Presigner client object]
-// snippet-service:[S3]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-12-05]
-// snippet-sourceauthor:[AWS - scmacdon]
-
-// snippet-start:[presigned.java2.getobjectpresigned.complete]
 package com.example.s3;
 
 // snippet-start:[presigned.java2.getobjectpresigned.import]
@@ -48,12 +46,16 @@ public class GetObjectPresignedUrl {
             System.exit(1);
         }
 
-        // snippet-start:[presigned.java2.getobjectpresigned.main]
         String bucketName = args[0];
         String keyName = args[1];
 
         // Create an S3Presigner by using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
+        getPresignedUrl(presigner, bucketName,keyName);
+
+    }
+      // snippet-start:[presigned.java2.getobjectpresigned.main]
+       public static void getPresignedUrl( S3Presigner presigner, String bucketName,String keyName ) {
 
         try {
 
@@ -93,7 +95,7 @@ public class GetObjectPresignedUrl {
                 connection.setDoOutput(true);
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
                      OutputStream httpOutputStream = connection.getOutputStream()) {
-                     IoUtils.copy(signedPayload, httpOutputStream);
+                    IoUtils.copy(signedPayload, httpOutputStream);
                 }
             }
 
@@ -119,4 +121,3 @@ public class GetObjectPresignedUrl {
         // snippet-end:[presigned.java2.getobjectpresigned.main]
     }
 }
-// snippet-end:[presigned.java2.getobjectpresigned.complete]

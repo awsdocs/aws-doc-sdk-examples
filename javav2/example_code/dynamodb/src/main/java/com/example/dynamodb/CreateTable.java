@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[CreateTable.java demonstrates how to create an AWS DynamoDB table]
+//snippet-sourcedescription:[CreateTable.java demonstrates how to create an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/5/2020]
 //snippet-sourceauthor:[scmacdon]
 
 /*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
@@ -18,7 +18,6 @@
 */
 
 package com.example.dynamodb;
-// snippet-start:[dynamodb.java2.create_table.complete]
 
 // snippet-start:[dynamodb.java2.create_table.import]
 import software.amazon.awssdk.regions.Region;
@@ -34,7 +33,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 // snippet-end:[dynamodb.java2.create_table.import]
 
 /**
- * Creates an AWS DynamoDB table.
+ * Creates an Amazon DynamoDB table
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -56,7 +55,6 @@ public class CreateTable {
             System.exit(1);
         }
 
-        // snippet-start:[dynamodb.java2.create_table.main]
         /* Read the name from command args */
         String tableName = args[0];
         String key = args[1];
@@ -66,8 +64,17 @@ public class CreateTable {
                 tableName);
 
         // Create the DynamoDbClient object
-        Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
+        String result = createTable(ddb,tableName, key);
+        System.out.println("New table is "+result);
+    }
+
+    // snippet-start:[dynamodb.java2.create_table.main]
+    public static String createTable(DynamoDbClient ddb, String tableName, String key) {
 
         // Create the CreateTableRequest object
         CreateTableRequest request = CreateTableRequest.builder()
@@ -86,15 +93,16 @@ public class CreateTable {
                 .tableName(tableName)
                 .build();
 
+        String newTable ="";
         try {
             CreateTableResponse response = ddb.createTable(request);
-            System.out.println(response.tableDescription().tableName());
+            newTable = response.tableDescription().tableName();
+            return newTable;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         // snippet-end:[dynamodb.java2.create_table.main]
-        System.out.println("Done!");
+        return "";
     }
 }
-// snippet-end:[dynamodb.java2.create_table.complete]

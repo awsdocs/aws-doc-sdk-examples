@@ -1,0 +1,12 @@
+{
+  "LambdaARN": "",
+  "PolicyName": "",
+  "PolicyWait": 1,
+  "RoleARN": "",
+  "RoleName": "",
+  "RoleWait": 10,
+  "RuleName": "",
+  "Schedule": "",
+  "TargetID": "",
+  "TargetWait": 10
+}

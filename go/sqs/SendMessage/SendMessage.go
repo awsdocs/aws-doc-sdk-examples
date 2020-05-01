@@ -25,6 +25,27 @@ import (
 )
 // snippet-end:[sqs.go.send_message.imports]
 
+// GetQueueURL gets the URL of an Amazon SQS queue
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     queueName is the name of the queue
+// Output:
+//     If success, the URL of the queue and nil
+//     Otherwise, an empty string and an error from the call to
+func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
+    // Create an SQS service client
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queue,
+    })
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
 // SendMsg sends a message to an Amazon SQS queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
@@ -66,11 +87,11 @@ func SendMsg(sess *session.Session, queueURL *string) error {
 
 func main() {
     // snippet-start:[sqs.go.send_message.args]
-    queueURL := flag.String("u", "", "The URL of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     flag.Parse()
 
-    if *queueURL == "" {
-        fmt.Println("You must supply the URL of a queue (-u QUEUE-URL)")
+    if *queue == "" {
+        fmt.Println("You must supply the name of a queue (-q QUEUE)")
         return
     }
     // snippet-end:[sqs.go.send_message.args]
@@ -83,7 +104,17 @@ func main() {
     }))
     // snippet-end:[sqs.go.send_message.sess]
 
-    err := SendMsg(sess, queueURL)
+    // Get URL of queue
+    result, err := GetQueueURL(sess, queue)
+    if err != nil {
+        fmt.Println("Got an error getting the queue URL:")
+        fmt.Println(err)
+        return
+    }
+
+    queueURL := result.QueueUrl
+
+    err = SendMsg(sess, queueURL)
     if err != nil {
         fmt.Println("Got an error sending the message:")
         fmt.Println(err)

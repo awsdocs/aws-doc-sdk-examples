@@ -21,7 +21,7 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.secrets_manager]
-import core = require("@aws-cdk/core");
+import * as core from "@aws-cdk/core";
 import { SecretsManagerStack } from "../lib/SecretsManager-stack";
 
 const app = new core.App();

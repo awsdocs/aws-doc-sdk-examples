@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[ListServerCertificates.java demonstrates how to list all server certificates associated with an AWS account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,43 +20,48 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.list_server_certificates.complete]
+
 // snippet-start:[iam.java2.list_server_certificates.import]
+import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesRequest;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesResponse;
 import software.amazon.awssdk.services.iam.model.ServerCertificateMetadata;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
- 
 // snippet-end:[iam.java2.list_server_certificates.import]
+
 /**
  * Lists all server certificates associated with an AWS account
  */
 public class ListServerCertificates {
     public static void main(String[] args) {
 
-        // snippet-start:[iam.java2.list_server_certificates.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
-        boolean done = false;
-        String new_marker = null;
+        listCertificates(iam);
+    }
 
-        while(!done) {
-        	ListServerCertificatesResponse response;
+    // snippet-start:[iam.java2.list_server_certificates.main]
+    public static void listCertificates(IamClient iam) {
 
-        	if (new_marker == null) {
+        try {
+            boolean done = false;
+            String newMarker = null;
+
+            while(!done) {
+              ListServerCertificatesResponse response;
+
+            if (newMarker == null) {
                 ListServerCertificatesRequest request =
-                		ListServerCertificatesRequest.builder().build();
+                        ListServerCertificatesRequest.builder().build();
                 response = iam.listServerCertificates(request);
-        	}
-        	else {
+            } else {
                 ListServerCertificatesRequest request =
-                		ListServerCertificatesRequest.builder()
-                		.marker(new_marker).build();
+                        ListServerCertificatesRequest.builder()
+                                .marker(newMarker).build();
                 response = iam.listServerCertificates(request);
-        	}
+            }
 
             for(ServerCertificateMetadata metadata :
                     response.serverCertificateMetadataList()) {
@@ -66,13 +71,15 @@ public class ListServerCertificates {
 
             if(!response.isTruncated()) {
                 done = true;
-            }
-            else {
-            	new_marker = response.marker();
+            } else {
+                newMarker = response.marker();
             }
         }
+    } catch (IamException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
+        System.out.println("Done");
         // snippet-end:[iam.java2.list_server_certificates.main]
     }
 }
- 
-// snippet-end:[iam.java2.list_server_certificates.complete]

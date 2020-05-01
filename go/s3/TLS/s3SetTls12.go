@@ -43,6 +43,7 @@ func GetTLSVersion(tr *http.Transport) string {
 
     return "Unknown"
 }
+
 // snippet-end:[s3.go.get_tls_version]
 
 // ConfirmBucketItemExists returns nil if the bucket and item can be accessed
@@ -62,15 +63,15 @@ func ConfirmBucketItemExists(sess *session.Session, bucket *string, item *string
 }
 
 func main() {
-    bucketName := flag.String("b", "", "The bucket to check")
-    itemName := flag.String("i", "", "The bucket item to check")
+    bucket := flag.String("b", "", "The bucket to check")
+    object := flag.String("o", "", "The bucket object to check")
     region := flag.String("r", "us-west-2", "The region where the bucket lives")
     goV112 := flag.Bool("v", false, "Whether the Go version is prior to 1.13")
 
     flag.Parse()
 
-    if *bucketName == "" || *itemName == "" {
-        fmt.Println("You must supply a bucket name (-b BUCKET-NAME) and item name (-i ITEM-NAME)")
+    if *bucket == "" || *object == "" {
+        fmt.Println("You must supply a bucket name (-b BUCKET) and item name (-o OBJECT)")
         return
     }
 
@@ -114,12 +115,13 @@ func main() {
     }
     // snippet-end:[s3.go.get_tls_version_call]
 
-    err := ConfirmBucketItemExists(sess, bucketName, itemName)
+    err := ConfirmBucketItemExists(sess, bucket, object)
     if err != nil {
         fmt.Println("Could not confirm whether bucket and item exists")
         return
     }
 
-    fmt.Println("Bucket " + *bucketName + " and item " + *itemName + " can be accessed")
+    fmt.Println("Bucket " + *bucket + " and item " + *object + " can be accessed")
 }
+
 // snippet-end:[s3.go.set_tls_12]

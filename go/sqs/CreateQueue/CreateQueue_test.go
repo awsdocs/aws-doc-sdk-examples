@@ -27,7 +27,7 @@ import (
 
 // Config defines a set of configuration values
 type Config struct {
-    QueueName string `json:"QueueName"`
+    Queue string `json:"Queue"`
 }
 
 // configFile defines the name of the file containing configuration values
@@ -54,7 +54,7 @@ func populateConfiguration(t *testing.T) error {
         return err
     }
 
-    t.Log("QueueName: " + globalConfig.QueueName)
+    t.Log("Queue: " + globalConfig.Queue)
 
     return nil
 }
@@ -81,10 +81,10 @@ func TestCreateQueue(t *testing.T) {
 
     queueCreated := false
 
-    if globalConfig.QueueName == "" {
+    if globalConfig.Queue == "" {
         // Create a unique, random queue name
         id := uuid.New()
-        globalConfig.QueueName = "myqueue-" + id.String()
+        globalConfig.Queue = "myqueue-" + id.String()
         queueCreated = true
     }
 
@@ -94,20 +94,20 @@ func TestCreateQueue(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    url, err := CreateQueue(sess, &globalConfig.QueueName)
+    result, err := CreateQueue(sess, &globalConfig.Queue)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Got URL " + *url + " for queue " + globalConfig.QueueName)
+    t.Log("Got URL " + *result.QueueUrl + " for queue " + globalConfig.Queue)
 
     if queueCreated {
-        err = deleteQueue(sess, url)
+        err = deleteQueue(sess, result.QueueUrl)
         if err != nil {
-            t.Log("You'll have to delete queue " + globalConfig.QueueName + " yourself")
+            t.Log("You'll have to delete queue " + globalConfig.Queue + " yourself")
             t.Fatal(err)
         }
 
-        t.Log("Deleted queue " + globalConfig.QueueName)
+        t.Log("Deleted queue " + globalConfig.Queue)
     }
 }

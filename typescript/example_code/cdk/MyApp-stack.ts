@@ -23,8 +23,8 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.MyApp-stack]
-import core = require("@aws-cdk/core");
-import s3 = require("@aws-cdk/aws-s3");
+import * as core from "@aws-cdk/core";
+import * as s3 from "@aws-cdk/aws-s3";
 
 interface MyStackProps extends core.StackProps {
   enc: boolean;

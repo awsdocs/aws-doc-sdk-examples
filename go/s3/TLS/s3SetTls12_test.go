@@ -34,8 +34,11 @@ import (
 )
 
 type Config struct {
-    Region    string  `json:"Region"`
-    GoVersion float32 `json:"GoVersion"`
+    Bucket        string  `json:"Bucket"`
+    Object        string  `json:"Object"`
+    Region        string  `json:"Region"`
+    GoVersion     float32 `json:"GoVersion"`
+    BucketCreated bool
 }
 
 var configFileName = "config.json"
@@ -65,7 +68,7 @@ func populateConfiguration(t *testing.T) error {
     return nil
 }
 
-func createBucketAndItem(sess *session.Session, bucketName *string, itemName *string) error {
+func createBucketAndObject(sess *session.Session, bucketName *string, itemName *string) error {
     svc := s3.New(sess)
     _, err := svc.CreateBucket(&s3.CreateBucketInput{
         Bucket: bucketName,
@@ -155,31 +158,38 @@ func TestTLSVersion(t *testing.T) {
         t.Log("Client uses " + GetTLSVersion(tr))
     }
 
-    id := uuid.New()
-    bucket := "testbucket-" + id.String()
-    item := "testitem"
+    if globalConfig.Bucket == "" {
+        id := uuid.New()
+        globalConfig.Bucket = "testbucket-" + id.String()
 
-    // Create the bucket and item
-    err = createBucketAndItem(sess, &bucket, &item)
+        if globalConfig.Object == "" {
+            globalConfig.Object = "testitem"
+        }
+
+        // Create the bucket and object
+        err := createBucketAndObject(sess, &globalConfig.Bucket, &globalConfig.Object)
+        if err != nil {
+            t.Fatal(err)
+        }
+
+        t.Log("Created bucket: " + globalConfig.Bucket)
+        t.Log("With item :     " + globalConfig.Object)
+    }
+
+    err = ConfirmBucketItemExists(sess, &globalConfig.Bucket, &globalConfig.Object)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Created bucket: " + bucket)
-    t.Log("With item :     " + item)
+    t.Log("Bucket " + globalConfig.Bucket + " and object " + globalConfig.Object + " can be accessed")
 
-    err = ConfirmBucketItemExists(sess, &bucket, &item)
-    if err != nil {
-        t.Fatal(err)
+    if globalConfig.BucketCreated {
+        err = deleteBucket(sess, &globalConfig.Bucket)
+        if err != nil {
+            t.Log("You will have to delete bucket " + globalConfig.Bucket + " yourself")
+            t.Fatal(err)
+        }
+
+        t.Log("Deleted bucket: " + globalConfig.Bucket)
     }
-
-    t.Log("Bucket " + bucket + " and item " + item + " can be accessed")
-
-    err = deleteBucket(sess, &bucket)
-    if err != nil {
-        t.Log("You will have to delete bucket " + bucket)
-        t.Fatal(err)
-    }
-
-    t.Log("Deleted bucket: " + bucket)
 }

@@ -25,6 +25,29 @@ import (
 )
 // snippet-end:[sqs.go.receive_lp_message.imports]
 
+// GetQueueURL gets the URL of an Amazon SQS queue
+// Inputs:
+//     sess is the current session, which provides configuration for the SDK's service clients
+//     queueName is the name of the queue
+// Output:
+//     If success, the URL of the queue and nil
+//     Otherwise, an empty string and an error from the call to
+func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
+    // Create an SQS service client
+    // snippet-start:[sqs.go.get_queue_url.call]
+    svc := sqs.New(sess)
+
+    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+        QueueName: queue,
+    })
+    // snippet-end:[sqs.go.get_queue_url.call]
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
 // GetLPMessages gets the messages from an Amazon SQS long polling queue
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
@@ -60,13 +83,13 @@ func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) ([]
 
 func main() {
     // snippet-start:[sqs.go.receive_lp_message.args]
-    queueURL := flag.String("u", "", "The URL of the queue")
+    queue := flag.String("q", "", "The name of the queue")
     visibility := flag.Int64("v", 5, "How long, in seconds, that messages are hidden from other consumers")
     waitTime := flag.Int64("w", 10, "How long the queue waits for messages")
     flag.Parse()
 
-    if *queueURL == "" {
-        fmt.Println("You must supply a queue URL (-u QUEUE-URL")
+    if *queue == "" {
+        fmt.Println("You must supply a queue name (-q QUEUE")
         return
     }
 
@@ -94,6 +117,15 @@ func main() {
         SharedConfigState: session.SharedConfigEnable,
     }))
     // snippet-end:[sqs.go.receive_lp_message.sess]
+
+    result, err := GetQueueURL(sess, queue)
+    if err != nil {
+        fmt.Println("Got an error getting the queue URL:")
+        fmt.Println(err)
+        return
+    }
+
+    queueURL := result.QueueUrl
 
     msgs, err := GetLPMessages(sess, queueURL, waitTime)
     if err != nil {
