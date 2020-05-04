@@ -11,6 +11,12 @@ files:
   - path: CreateUser/CreateUser_test.go
     services:
       - iam
+  - path: ListAdmins/ListAdmins.go
+    services:
+      - iam
+  - path: ListAdmins/ListAdmins_test.go
+    services:
+      - iam
   - path: ListUsers/ListUsers.go
     services:
       - iam

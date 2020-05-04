@@ -43,6 +43,12 @@ This example lists the aliases for your account.
 
 The unit test mocks the service client and the `ListAccountAliases` function.
 
+### ListAdmins/ListAdmins.go
+
+This example lists the number of users and users who have administrative rights.
+
+`go run ListAdmins.go`
+
 ### ListUsers/ListUsers.go
 
 This example lists your IAM users.
