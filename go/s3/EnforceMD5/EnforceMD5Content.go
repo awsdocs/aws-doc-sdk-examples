@@ -11,10 +11,10 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-// snippet-start: [s3.go.enforce_md5]
+// snippet-start:[s3.go.enforce_md5]
 package main
 
-// snippet-start: [s3.go.enforce_md5.imports]
+// snippet-start:[s3.go.enforce_md5.imports]
 import (
     "crypto/md5"
     "encoding/base64"
@@ -27,7 +27,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/s3"
 )
-// snippet-end: [s3.go.enforce_md5.imports]
+// snippet-end:[s3.go.enforce_md5.imports]
 
 // SetMd5 enforces an MD5 checksum on the object uploaded to a bucket
 // Inputs:
@@ -38,18 +38,18 @@ import (
 //     If success, an HTTP response object and nil
 //     Otherwise, nil and an error from the call to PutObjectRequest
 func SetMd5(sess *session.Session, bucket, key *string) (*http.Response, error) {
-    // snippet-start: [s3.go.enforce_md5.client_md5]
+    // snippet-start:[s3.go.enforce_md5.client_md5]
     svc := s3.New(sess)
 
     h := md5.New()
     content := strings.NewReader("")
     _, err := content.WriteTo(h)
-    // snippet-end: [s3.go.enforce_md5.client_md5]
+    // snippet-end:[s3.go.enforce_md5.client_md5]
     if err != nil {
         return nil, err
     }
 
-    // snippet-start: [s3.go.enforce_md5.put_object]
+    // snippet-start:[s3.go.enforce_md5.put_object]
     resp, _ := svc.PutObjectRequest(&s3.PutObjectInput{
         Bucket: bucket,
         Key:    key,
@@ -59,22 +59,22 @@ func SetMd5(sess *session.Session, bucket, key *string) (*http.Response, error) 
     resp.HTTPRequest.Header.Set("Content-MD5", md5s)
 
     url, err := resp.Presign(15 * time.Minute)
-    // snippet-end: [s3.go.enforce_md5.put_object]
+    // snippet-end:[s3.go.enforce_md5.put_object]
     if err != nil {
         return nil, err
     }
 
-    // snippet-start: [s3.go.enforce_md5.new_request]
+    // snippet-start:[s3.go.enforce_md5.new_request]
     req, err := http.NewRequest("PUT", url, strings.NewReader(""))
     req.Header.Set("Content-MD5", md5s)
-    // snippet-end: [s3.go.enforce_md5.new_request]
+    // snippet-end:[s3.go.enforce_md5.new_request]
     if err != nil {
         return nil, err
     }
 
-    // snippet-start: [s3.go.enforce_md5.default_client]
+    // snippet-start:[s3.go.enforce_md5.default_client]
     defClient, err := http.DefaultClient.Do(req)
-    // snippet-end: [s3.go.enforce_md5.default_client]
+    // snippet-end:[s3.go.enforce_md5.default_client]
     if err != nil {
         return nil, err
     }
@@ -83,7 +83,7 @@ func SetMd5(sess *session.Session, bucket, key *string) (*http.Response, error) 
 }
 
 func main() {
-    // snippet-start: [s3.go.enforce_md5.args]
+    // snippet-start:[s3.go.enforce_md5.args]
     bucket := flag.String("b", "", "The name of the bucket")
     key := flag.String("k", "", "The object key")
     flag.Parse()
@@ -92,13 +92,13 @@ func main() {
         fmt.Println("You must supply a bucket name (-b BUCKET) and key name (-k KEY)")
         return
     }
-    // snippet-end: [s3.go.enforce_md5.args]
+    // snippet-end:[s3.go.enforce_md5.args]
 
-    // snippet-start: [s3.go.enforce_md5.session]
+    // snippet-start:[s3.go.enforce_md5.session]
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
-    // snippet-end: [s3.go.enforce_md5.session]
+    // snippet-end:[s3.go.enforce_md5.session]
 
     defClient, err := SetMd5(sess, bucket, key)
     if err != nil {
@@ -109,4 +109,4 @@ func main() {
 
     fmt.Println(defClient, err)
 }
-// snippet-end: [s3.go.enforce_md5]
+// snippet-end:[s3.go.enforce_md5]
