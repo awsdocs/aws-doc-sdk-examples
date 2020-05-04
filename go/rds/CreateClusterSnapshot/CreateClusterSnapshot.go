@@ -17,7 +17,7 @@ import (
 )
 // snippet-end:[rds.go.create_db_cluster_snapshot.imports]
 
-// MakeClusterSnapshot creates a snapshot for an Amazon RDS cluste
+// MakeClusterSnapshot creates a snapshot for an Amazon RDS cluster
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     clusterID is the ID of the cluster

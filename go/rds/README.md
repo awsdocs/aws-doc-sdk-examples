@@ -1,8 +1,8 @@
-# AWS SDK for Go Code Examples for Amazon RDS
+# AWS SDK for Go code examples for Amazon RDS
 
 ## Purpose
 
-These examples demonstrates how to perform several Amazon RDS operations.
+These examples demonstrate how to perform several Amazon RDS operations.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ This example copies a snapshot of an Amazon RDS cluster to an Amazon S3 bucket.
 - _KMS-KEY is the KMS key used to encrypt the snapshot in the bucket.
 - _BUCKET-NAME is the name of the bucket.
 - _SNAPSHOT-NAME is the name of the snapshot.
-- _EXPORT-NAME_ is name given to the snapshot in the bucket.
+- _EXPORT-NAME_ is the name given to the snapshot in the bucket.
 
 The unit test mocks the service client and the `DescribeDBSnapshots` and `StartExportTask` functions.
 
@@ -39,7 +39,7 @@ The unit test mocks the service client and the `CreateClusterSnapshot` function.
 
 ### CreateInstanceSnapshot/CreateInstanceSnapshot.go
 
-This example creates a snapshop of an Amazon RDS instance.
+This example creates a snapshot of an Amazon RDS instance.
 
 `go run CreateInstanceSnapshot.go -i INSTANCE`
 
@@ -49,7 +49,7 @@ The unit test mocks the service client and the `CreateDBSnapshot` function.
 
 ### ListClusterSnapshots/ListClusterSnapshots.go
 
-This example lists your Amazon RDS cluste snapshots.
+This example lists your Amazon RDS cluster snapshots.
 
 `go run ListClusterSnapshots.go`
 
@@ -90,7 +90,7 @@ This example lists your Amazon RDS subnet groups.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
   in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all Regions.
+- This code has not been tested in all AWS Regions.
   Some AWS services are available only in specific
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
@@ -101,19 +101,19 @@ Unit tests should delete any resources they create.
 However, they might result in charges to your
 AWS account.
 
-To run a unit test, enter the following:
+To run a unit test, enter the following.
 
 `go test`
 
 You should see something like the following,
-where PATH is the path to folder containing the Go files:
+where PATH is the path to the folder containing the Go files.
 
 ```sh
 PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter the following.
+To see any log messages, enter the following.
 
 `go test -test.v`
 

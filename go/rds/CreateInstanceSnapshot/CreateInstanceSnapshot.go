@@ -17,14 +17,14 @@ import (
 )
 // snippet-end:[rds.go.create_instance_snapshot.imports]
 
-// MakeInstanceSnapshop creates a snapshot for an Amazon RDS instance
+// MakeInstanceSnapshot creates a snapshot for an Amazon RDS instance
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     instance is the name of the instance
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to CreateDBSnapshot
-func MakeInstanceSnapshop(svc rdsiface.RDSAPI, instance *string) error {
+func MakeInstanceSnapshot(svc rdsiface.RDSAPI, instance *string) error {
     // snippet-start:[rds.go.create_instance_snapshot.call]
     // Get the current date and time to uniquely identify snapshot
     currentTime := time.Now()
@@ -63,7 +63,7 @@ func main() {
     svc := rds.New(sess)
     // snippet-end:[rds.go.create_instance_snapshot.session]
 
-    err := MakeInstanceSnapshop(svc, instance)
+    err := MakeInstanceSnapshot(svc, instance)
     if err != nil {
         fmt.Println("Got an error creating instance snapshot:")
         fmt.Println(err)

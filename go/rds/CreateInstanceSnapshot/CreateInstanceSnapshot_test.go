@@ -41,7 +41,7 @@ func TestCreateInstanceSnapshot(t *testing.T) {
 
     mockSvc := &mockRDSClient{}
 
-    err := MakeInstanceSnapshop(mockSvc, &instance)
+    err := MakeInstanceSnapshot(mockSvc, &instance)
     if err != nil {
         t.Fatal(err)
     }

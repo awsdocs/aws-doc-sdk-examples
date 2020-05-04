@@ -17,7 +17,7 @@ import (
 )
 // snippet-end:[rds.go.copy_snapshot_to_s3.imports]
 
-// StoreInstance save an Amazon RDS instance snapshot to an Amazon S3 bucket.
+// StoreInstance saves an Amazon RDS instance snapshot to an Amazon S3 bucket.
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     rdsSnapshotName is the name of the snapshot
@@ -43,7 +43,7 @@ func StoreInstance(svc rdsiface.RDSAPI, rdsSnapshotName, exportRDSSnapshotName, 
     IndentifierSnapshotTime := currentTime.Format("20060102")
     exportIdentifier := *exportRDSSnapshotName + IndentifierSnapshotTime
 
-    // Getting latest snapsnot from rds snapshot list
+    // Get latest snapshot from RDS snapshot list
     for _, s := range result.DBSnapshots {
         if strings.Contains(*s.DBSnapshotArn, rdsSnapshot) {
             result, err := svc.StartExportTask(&rds.StartExportTaskInput{
