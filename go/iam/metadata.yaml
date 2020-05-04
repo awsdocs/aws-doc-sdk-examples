@@ -1,0 +1,19 @@
+files:
+  - path: CreateUser/CreateUser.go
+    services:
+      - iam
+  - path: CreateUser/CreateUser_test.go
+    services:
+      - iam
+  - path: ListUsers/ListUsers.go
+    services:
+      - iam
+  - path: ListUsers/ListUsers_test.go
+    services:
+      - iam
+  - path: UpdateUser/UpdateUser.go
+    services:
+      - iam
+  - path: UpdateUser/UpdateUser_test.go
+    services:
+      - iam
