@@ -13,6 +13,16 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### CreateAccountAlias/CreateAccountAlias.go
+
+This example creates an alias for your IAM account.
+
+`go run CreateAccountAlias.go -a ALIAS`
+
+- _ALIAS_ is the alias for the account.
+
+The unit test mocks the service client and the `CreateAccountAlias` function.
+
 ### CreateUser/CreateUser.go
 
 This example creates a new IAM user.
@@ -22,6 +32,16 @@ This example creates a new IAM user.
 - _USERNAME_ is the name of the user.
 
 The unit test mocks the service client and the `CreateUser` function.
+
+### ListAccountAliases/ListAccountAliases.go
+
+This example lists the aliases for your account.
+
+`go run ListAccountAliases -m MAX-ITEMS`
+
+- \_MAX-ITEMS is the maximum number of aliases to show.
+
+The unit test mocks the service client and the `ListAccountAliases` function.
 
 ### ListUsers/ListUsers.go
 

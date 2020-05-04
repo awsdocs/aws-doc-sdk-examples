@@ -1,4 +1,10 @@
 files:
+  - path: CreateAccountAlias/CreateAccountAlias.go
+    services:
+      - iam
+  - path: CreateAccountAlias/CreateAccountAlias_test.go
+    services:
+      - iam
   - path: CreateUser/CreateUser.go
     services:
       - iam

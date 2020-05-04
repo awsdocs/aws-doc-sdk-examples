@@ -11,7 +11,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/iam"
 )
-
 // snippet-end:[iam.go.list_users.imports]
 
 // GetUsers retrieves a list of your IAM users
@@ -63,5 +62,4 @@ func main() {
         fmt.Println(*user.UserName+" created on", *user.CreateDate)
     }
 }
-
 // snippet-end:[iam.go.list_users]

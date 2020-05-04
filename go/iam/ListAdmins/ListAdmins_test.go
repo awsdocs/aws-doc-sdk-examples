@@ -3,6 +3,7 @@
 package main
 
 import (
+    "strconv"
     "testing"
     "time"
 
@@ -18,12 +19,10 @@ func TestListUsers(t *testing.T) {
         SharedConfigState: session.SharedConfigEnable,
     }))
 
-    maxUsers := int64(10)
-
-    _, err := GetUsers(sess, &maxUsers)
+    users, admins, err := GetNumUsersAndAdmins(sess)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("Retrieved list of users")
+    t.Log("Got " + strconv.Itoa(admins) + " admin(s) out of " + strconv.Itoa(users) + " user(s)")
 }
