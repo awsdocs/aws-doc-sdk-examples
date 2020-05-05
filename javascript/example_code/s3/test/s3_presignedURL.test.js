@@ -1,4 +1,4 @@
-const {urlParams} = require("./presignedv2");
+const {urlParams} = require("./s3_presignedURL");
 const mockedCreateBucket = jest.fn();
 jest.mock("aws-sdk/clients/s3", () => {
   return class S3 {
@@ -9,7 +9,7 @@ jest.mock("aws-sdk/clients/s3", () => {
 });
 
 it("has to mock S3#createBucket",  () => {
-  const generatePresignedURL = require("./presignedv2").generatePresignedURL;
+  const generatePresignedURL = require("./s3_presignedURL").generatePresignedURL;
    generatePresignedURL();
   expect(mockedCreateBucket).toHaveBeenCalledWith(urlParams);
 });
