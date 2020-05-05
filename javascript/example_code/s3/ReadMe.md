@@ -5,7 +5,7 @@
 
 ## Purpose
 
-This example using a Node.js function to generate a pre-signed URL that uploads a file to an S3 bucket. A pre-signed URL is signed with the creator's credentials, and enables users who don’t have permission to directly run AWS operations in your account.
+This example uses a Node.js function to generate a pre-signed URL that uploads a file to an S3 bucket. A pre-signed URL is signed with the creator's credentials, and enables users who don’t have permission to directly run AWS operations in your account.
 
 ## Prerequisites
 
