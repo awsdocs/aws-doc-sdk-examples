@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
- * Copyright 2010-2020 Amazon.com
-=======
  * Copyright Amazon.com
->>>>>>> 73d4a4c1a80b6d05c9b8dc822bbcf40e35d4639d
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
