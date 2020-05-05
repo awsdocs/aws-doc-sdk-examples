@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2020 Amazon.com
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,31 +22,41 @@
 //snippet-sourcedate:[2021-04-21]
 //snippet-sourceauthor:[AWS-JSDG]
 
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/AmazonS3/latest/dev/
+/* ABOUT THIS NODE.JS SAMPLE: 
+Purpose:
+  This function generates a pre-signed URL that enables anyone to upload the specified key (filename) to the specified bucket.
+  This sample is part of the SDK for JavaScript Developer Guide topic at
+  https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html
+
+Inputs:
+  - bucketName: the name of the bucket (e.g. test-bucket)
+  - objectKey: the name and relative path to the file to upload
+  - expiry: Duration until pre-signed URL expires in seconds (e.g. 60*5)
+
+[Outputs | Returns]:
+  Returns pre-signed URL in console.log.
+
+*/
 
 // snippet-start:[s3.JavaScript.presignedURL.complete]
 
-const S3 = require("aws-sdk/clients/s3");
-const region = "REGION";
-const s3 = new S3({ region });
+const S3 = require('aws-sdk/clients/s3');
+const s3 = new S3({apiVersion: '2006-03-01'});
 
-// **DO THIS**:
-//   Replace BUCKET_NAME with the name of the bucket,  FILE_NAME with the name of the file to upload (including relative page).
-const Bucket = "BUCKET_NAME";
-const Key = "FILE_NAME";
-// **DO THIS**:
-// Adjust duration of validity in seconds, as required(e.g., 60 *5)
-const Expires = 60 * 5;
-const urlParams = {
-  Bucket: Bucket,
-  Key: Key,
-  Expires: Expires,
-};
-generatePresignedURL = () => {
-  const preSignedURL = s3.getSignedUrl("putObject", urlParams);
+const  urlParams = {
+  Bucket: "bucketName",
+  Key: "objectKey",
+  Expires: expiry
+}
+
+generatePresignedURL = async (bucketName, objectKey, expiry) =>{
+
+  const preSignedURL =  await s3.getSignedUrl("putObject", urlParams);
   console.log("This the the pre-signed URL:" + preSignedURL);
+
 };
-generatePresignedURL();
+generatePresignedURL()
+
 //<!-- snippet-end:[s3.JavaScript.presignedURL.complete] -->
-exports.generatePresignedURL = generatePresignedURL;
+exports.generatePresignedURL = generatePresignedURL
+exports.urlParams = urlParams
