@@ -28,7 +28,7 @@ npm init
 node <code example filename>
 ```
 
-## Running the tests
+## Running the unit test
 The following assumes you've just run the code as described above.
 
 1. Install jest. For more information, see the [Jest website](https://jestjs.io/).

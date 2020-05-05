@@ -4,5 +4,5 @@ files:
   - path: ./s3/create-presignedURL/s3_presignedURL.js
     services:
       - s3
-  - path: ./test/s3_presignedURL.test.js  
+  - path: ./s3/create-presignedURL/test/s3_presignedURL.test.js  
 ...

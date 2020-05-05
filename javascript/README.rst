@@ -37,8 +37,7 @@ The Node.js examples are all run from the command line.
 Running the unit tests
 ======================
 
-The unit test are run using Jest. 
-
+The unit test are run using Jest. The ReadMe file associated with each example provides specific details.
 
 SDK Downloads
 =============
