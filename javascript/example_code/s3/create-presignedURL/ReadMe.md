@@ -9,7 +9,7 @@ This example uses a Node.js function to generate a pre-signed URL that uploads a
 To build and run this example, you need the following:
 - Node.js. For more information about installing Node.js, see the [Node.js website](https://nodejs.org).
 - The AWS SDK for JavaScript.  For more information about installing the AWS SDK for JavaScript, see see *Step 3* on the [Getting Started in Node.js in the JavaScript SDK Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html).
-- AWS credentials, either configured in a local AWS credentials file, or by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables. For more information, see  [Setting Credentials in the JavaScript SDK Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html).
+- AWS credentials, either configured in a local AWS credentials file, or by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables. For more information, see  [Setting Credentials in the JavaScript SDK Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials.html).
 - Create an S3 bucket. For more information, see [Working with Amazon S3 Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#create-bucket-intro).
 
 ## Assumptions
@@ -34,7 +34,7 @@ The following assumes you've just run the code as described above.
 1. Install jest. For more information, see the [Jest website](https://jestjs.io/).
 2. Update the package.json 'scripts' key with the value-property key "test":"jest", as below:
 ```json
-{ ... "scripts": { "test": "jest" } ... }
+"scripts": { "test": "jest" } 
 ```
 3. Copy the test file into the local folder you created.
 *Note*:The test filename is located in the 'test' folder. 
