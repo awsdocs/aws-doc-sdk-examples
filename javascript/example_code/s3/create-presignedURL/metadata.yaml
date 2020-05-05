@@ -1,8 +1,0 @@
----
-# High-value example
-files:
-  - path: ./s3_presignedURL.js
-    services:
-      - s3
-  - path: ../test/s3_presignedURL.test.js  
-...

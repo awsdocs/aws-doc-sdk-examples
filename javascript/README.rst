@@ -34,6 +34,12 @@ in the *AWS SDK for JavaScript Developer Guide*.
 
 The Node.js examples are all run from the command line.
 
+Running the unit tests
+======================
+
+The unit test are run using Jest. 
+
+
 SDK Downloads
 =============
 
