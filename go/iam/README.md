@@ -13,6 +13,37 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### AccessKeyLastUsed/AccessKeyLastUsed.go
+
+This example retrieves when an access key was last used,
+including in which service and region.
+
+`go run AccessKeyLastUsed.go -k KEY-ID`
+
+- _KEY-ID_ is the ID of the access key.
+
+The unit test mocks the IAM service client an `AccessKeyLastUsed` function.
+
+### AttachUserPolicy/AttachUserPolicy.go
+
+This example attaches a DynamoDB full-access policy to an IAM role.
+
+`go run AttachUserPolicy.go -r ROLE`
+
+- _ROLE_ is the role name.
+
+The unit test mocks the service client and the `AttachRolePolicy` function.
+
+### CreateAccessKey/CreateAccessKey.go
+
+This example creates a new access key ID and secret key for a user.
+
+`go run CreateAccessKey.go -u USER`
+
+- _USER_ is the name of the user to created the access key ID and secret key.
+
+The unit test mocks the IAM service client and `CreateAccessKey` function.
+
 ### CreateAccountAlias/CreateAccountAlias.go
 
 This example creates an alias for your IAM account.
@@ -23,6 +54,16 @@ This example creates an alias for your IAM account.
 
 The unit test mocks the service client and the `CreateAccountAlias` function.
 
+### CreatePolicy/CreatePolicy.go
+
+This example creates a new policy.
+
+`go run CreatePolicy.go -n POLICY`
+
+- _POLICY_ is the name of the policy.
+
+The unit test mocks the service client and the `CreatePolicy` function.
+
 ### CreateUser/CreateUser.go
 
 This example creates a new IAM user.
@@ -32,6 +73,54 @@ This example creates a new IAM user.
 - _USERNAME_ is the name of the user.
 
 The unit test mocks the service client and the `CreateUser` function.
+
+### DeleteAccountAlias/DeleteAccountAlias
+
+This example removes an alias for an IAM account.
+
+`go run DeleteAccountAlias.go -a ALIAS`
+
+- _ALIAS_ is the alias for the account.
+
+The unit test mocks the IAM service client and the `DeleteAccountAlias` function.
+
+### DeleteUser/DeleteUser.go
+
+This example deletes an IAM user.
+
+`go run DeleteUser.go -u USERNAME`
+
+- _USERNAME_ is the name of the user to delete.
+
+The unit test mocks the service client and the `DeleteUser` function.
+
+### DetachUserPolicy/DetachUserPolicy.go
+
+This example detaches a DynamoDB full-access policy from an IAM role.
+
+`go run DetachUserPolicy.go -r ROLE`
+
+- _ROLE_ is the role name.
+
+The unit test mocks the service client and the `DetachRolePolicy` function.
+
+### GetPolicy/GetPolicy.go
+
+This example retrieves the description for a policy.
+
+`go run GetPolicy.go -a POLICY-ARN`
+
+- _POLICY-ARN_ is the ARN of a policy.
+
+The unit test mocks the IAM service client and the `GetPolicy` function.
+
+### ListAccessKeys/ListAccessKeys.go
+
+This example lists the accesss keys for a specif user.
+
+`go run ListAccessKeys -u USER`
+
+The unit test mocks the IAM service client and the `ListAccessKeys` function.
 
 ### ListAccountAliases/ListAccountAliases.go
 
@@ -59,6 +148,17 @@ This example lists your IAM users.
   The default is 10.
 
 The unit test accepts a similar value in _config.json_.
+
+### UpdateAccessKey/UpdateAccessKey.go
+
+This example activates an access key.
+
+`go run UpdateAccessKey.go -k KEY-ID -u USER-NAME`
+
+- _KEY-ID_ is the ID of an access key.
+- _USER-NAME_ is the name of a user.
+
+The unit test mocks the IAM service client and the `UpdateAccessKey` function.
 
 ### UpdateUser/UpdateUser.go
 

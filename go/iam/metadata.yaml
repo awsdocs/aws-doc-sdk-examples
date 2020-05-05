@@ -1,14 +1,74 @@
 files:
+  - path: AccessKeyLastUsed/AccessKeyLastUsed.go
+    services:
+      - iam
+  - path: AccessKeyLastUsed/AccessKeyLastUsed_test.go
+    services:
+      - iam
+  - path: AttachUserPolicy/AttachUserPolicy.go
+    services:
+      - iam
+  - path: AttachUserPolicy/AttachUserPolicy_test.go
+    services:
+      - iam
+  - path: CreateAccessKey/CreateAccessKey.go
+    services:
+      - iam
+  - path: CreateAccessKey/CreateAccessKey_test.go
+    services:
+      - iam
   - path: CreateAccountAlias/CreateAccountAlias.go
     services:
       - iam
   - path: CreateAccountAlias/CreateAccountAlias_test.go
     services:
       - iam
+  - path: CreatePolicy/CreatePolicy.go
+    services:
+      - iam
+  - path: CreatePolicy/CreatePolicy_test.go
+    services:
+      - iam
   - path: CreateUser/CreateUser.go
     services:
       - iam
   - path: CreateUser/CreateUser_test.go
+    services:
+      - iam
+  - path: DeleteAccountAlias/DeleteAccountAlias.go
+    services:
+      - iam
+  - path: DeleteAccountAlias/DeleteAccountAlias_test.go
+    services:
+      - iam
+  - path: DeleteUser/DeleteUser.go
+    services:
+      - iam
+  - path: DeleteUser/DeleteUser_test.go
+    services:
+      - iam
+  - path: DetachUserPolicy/DetachUserPolicy.go
+    services:
+      - iam
+  - path: DetachUserPolicy/DetachUserPolicy_test.go
+    services:
+      - iam
+  - path: GetPolicy/GetPolicy.go
+    services:
+      - iam
+  - path: GetPolicy/GetPolicy_test.go
+    services:
+      - iam
+  - path: ListAccessKeys/ListAccessKeys.go
+    services:
+      - iam
+  - path: ListAccessKeys/ListAccessKeys_test.go
+    services:
+      - iam
+  - path: ListAccountAliases/ListAccountAliases.go
+    services:
+      - iam
+  - path: ListAccountAliases/ListAccountAliases_test.go
     services:
       - iam
   - path: ListAdmins/ListAdmins.go
@@ -21,6 +81,12 @@ files:
     services:
       - iam
   - path: ListUsers/ListUsers_test.go
+    services:
+      - iam
+  - path: UpdateAccessKey/UpdateAccessKey.go
+    services:
+      - iam
+  - path: UpdateAccessKey/UpdateAccessKey_test.go
     services:
       - iam
   - path: UpdateUser/UpdateUser.go
