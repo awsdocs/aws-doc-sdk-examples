@@ -35,10 +35,22 @@ files:
   - path: CreateUser/CreateUser_test.go
     services:
       - iam
+  - path: DeleteAccessKey/DeleteAccessKey.go
+    services:
+      - iam
+  - path: DeleteAccessKey/DeleteAccessKey_test.go
+    services:
+      - iam
   - path: DeleteAccountAlias/DeleteAccountAlias.go
     services:
       - iam
   - path: DeleteAccountAlias/DeleteAccountAlias_test.go
+    services:
+      - iam
+  - path: DeleteServerCert/DeleteServerCert.go
+    services:
+      - iam
+  - path: DeleteServerCert/DeleteServerCert_test.go
     services:
       - iam
   - path: DeleteUser/DeleteUser.go
@@ -59,6 +71,18 @@ files:
   - path: GetPolicy/GetPolicy_test.go
     services:
       - iam
+  - path: GetPublicKeys/GetPublicKeys.go
+    services:
+      - iam
+  - path: GetPublicKeys/GetPublicKeys_test.go
+    services:
+      - iam
+  - path: GetServerCert/GetServerCert.go
+    services:
+      - iam
+  - path: GetServerCert/GetServerCert_test.go
+    services:
+      - iam
   - path: ListAccessKeys/ListAccessKeys.go
     services:
       - iam
@@ -77,6 +101,12 @@ files:
   - path: ListAdmins/ListAdmins_test.go
     services:
       - iam
+  - path: ListServerCerts/ListServerCerts.go
+    services:
+      - iam
+  - path: ListServerCerts/ListServerCerts_test.go
+    services:
+      - iam
   - path: ListUsers/ListUsers.go
     services:
       - iam
@@ -87,6 +117,12 @@ files:
     services:
       - iam
   - path: UpdateAccessKey/UpdateAccessKey_test.go
+    services:
+      - iam
+  - path: UpdateServerCert/UpdateServerCert.go
+    services:
+      - iam
+  - path: UpdateServerCert/UpdateServerCert_test.go
     services:
       - iam
   - path: UpdateUser/UpdateUser.go

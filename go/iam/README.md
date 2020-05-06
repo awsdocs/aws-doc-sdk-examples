@@ -74,6 +74,17 @@ This example creates a new IAM user.
 
 The unit test mocks the service client and the `CreateUser` function.
 
+### DeleteAccessKey/DeleteAccessKey.go
+
+This example deletes an IAM access key.
+
+`go run DeleteAccessKey.go -k KEY-ID -u USER-NAME`
+
+- _KEY-ID_ is the ID of the access key.
+- _USER-NAME_ is the name of a user.
+
+The unit test mocks the IAM service client and the `DeleteAccessKey` function.
+
 ### DeleteAccountAlias/DeleteAccountAlias
 
 This example removes an alias for an IAM account.
@@ -83,6 +94,16 @@ This example removes an alias for an IAM account.
 - _ALIAS_ is the alias for the account.
 
 The unit test mocks the IAM service client and the `DeleteAccountAlias` function.
+
+### DeleteServerCert/DeleteServerCert.go
+
+This example deletes an IAM server certificate.
+
+`go run DeleteServerCert.go -c CERT-NAME`
+
+- _CERT-NAME_ is the name of the cerificate.
+
+The unit test mocks the IAM service client and the `DeleteServerCertificate` function.
 
 ### DeleteUser/DeleteUser.go
 
@@ -114,6 +135,26 @@ This example retrieves the description for a policy.
 
 The unit test mocks the IAM service client and the `GetPolicy` function.
 
+### GetPublicKeys/GetPublicKeys.go
+
+This example gets the bodies of a user's public SSH keys.
+
+`go run GetPublicKeys -u USER-NAME`
+
+- _USER-NAME_ is the name of a user.
+
+The unit test mocks the IAM service client and the `ListSSHPublicKeys` function.
+
+### GetServerCert/GetServerCert.go
+
+This example retrieves information about an IAM server certificate.
+
+`go run GetServerCert.go -c CERT-NAME`
+
+- _CERT-NAME_ is the name of a server certificate.
+
+The unit test mocks the IAM service client and the `GetServerCertificate` function.
+
 ### ListAccessKeys/ListAccessKeys.go
 
 This example lists the accesss keys for a specif user.
@@ -128,7 +169,7 @@ This example lists the aliases for your account.
 
 `go run ListAccountAliases -m MAX-ITEMS`
 
-- \_MAX-ITEMS is the maximum number of aliases to show.
+- _MAX-ITEMS_ is the maximum number of aliases to show.
 
 The unit test mocks the service client and the `ListAccountAliases` function.
 
@@ -137,6 +178,14 @@ The unit test mocks the service client and the `ListAccountAliases` function.
 This example lists the number of users and users who have administrative rights.
 
 `go run ListAdmins.go`
+
+### ListServerCerts/ListServerCerts.go
+
+This example lists the metadata about your server certificates.
+
+`go run ListServerCerts.go`
+
+The unit test mocks the IAM service client and the `ListServerCertificates` function.
 
 ### ListUsers/ListUsers.go
 
@@ -159,6 +208,17 @@ This example activates an access key.
 - _USER-NAME_ is the name of a user.
 
 The unit test mocks the IAM service client and the `UpdateAccessKey` function.
+
+### UpdateServerCert/UpdateServerCert.go
+
+This example renames an IAM server certificate.
+
+`go run UpdateServerCert.go -c CERT-NAME -n NEW-NAME`
+
+- _CERT-NAME_ is the original name of the server certificate.
+- _NEW-NAME_ is the new name of the server certificate.
+
+The unit test mocks the IAM service client and the `UpdateServerCertificate` function.
 
 ### UpdateUser/UpdateUser.go
 
