@@ -37,9 +37,9 @@ The Node.js examples are all run from the command line.
 Running the unit tests
 ======================
 
-The unit test are run using Jest. The ReadMe file associated with each example provides specific details.
+The unit tests are run using Jest. The README file associated with each example provides specific details.
 
-SDK Downloads
+SDK downloads
 =============
 
 You can download minified and non-minified distributable versions of the current AWS SDK for JavaScript at:

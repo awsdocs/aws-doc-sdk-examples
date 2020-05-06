@@ -25,7 +25,7 @@
 Purpose:
   This function generates a pre-signed URL that enables anyone to upload the specified key (filename) to the specified bucket.
   This sample is part of the SDK for JavaScript Developer Guide topic at
-  https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html
+  https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html.
 
 Inputs:
   - bucketName: the name of the bucket (e.g. test-bucket)
@@ -33,7 +33,7 @@ Inputs:
   - expiry: Duration until pre-signed URL expires in seconds (e.g. 60*5)
 
 [Outputs | Returns]:
-  Returns pre-signed URL in console.log.
+  Returns presigned URL in console.log.
 
 */
 
