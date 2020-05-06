@@ -77,7 +77,7 @@ function listTheInvalidations()
 // listTheInvalidations();
 // snippet-end:[cloudfront.php.listinvalidation.main]
 // snippet-end:[cloudfront.php.listinvalidation.complete]
-// snippet-sourcedescription:[ListInvalidations.php demonstrates how to list invalidation batches in a Amazon CloudFront distribution.]
+// snippet-sourcedescription:[ListInvalidations.php demonstrates how to list invalidation batches in an Amazon CloudFront distribution.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
