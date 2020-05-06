@@ -24,11 +24,11 @@ public class ListQueryExecutionsExample
 {
   public static void main(String[] args) throws Exception
   {
-      // Build an Athena client
+      // Build an Athena client.
       AthenaClientFactory factory = new AthenaClientFactory();
       AmazonAthena athenaClient = factory.createClient();
 
-      // Build the request
+      // Build the request.
       ListQueryExecutionsRequest listQueryExecutionsRequest = new ListQueryExecutionsRequest();
 
       // Get the list results.
@@ -38,11 +38,11 @@ public class ListQueryExecutionsExample
       boolean hasMoreResults = true;
       while (hasMoreResults) {
           List<String> queryExecutionIds = listQueryExecutionsResult.getQueryExecutionIds();
-          // process queryExecutionIds.
+          // Process the query execution IDs.
 
           System.out.println(queryExecutionIds);
 
-          //If nextToken is not null, then there are more results. Get the next page of results.
+          // If nextToken is not null, there are more results. Get the next page of results.
           if (listQueryExecutionsResult.getNextToken() != null) {
               listQueryExecutionsResult = athenaClient.listQueryExecutions(
                       listQueryExecutionsRequest.withNextToken(listQueryExecutionsResult.getNextToken()));
