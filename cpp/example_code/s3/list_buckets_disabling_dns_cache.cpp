@@ -1,4 +1,3 @@
-
 //snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build list_buckets_disabling_dns_cache.cpp. This example demonstrates how to replace the default HTTP client and override the default HTTP client configurations.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
@@ -9,19 +8,11 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
-/*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
@@ -39,6 +30,9 @@ using namespace Aws::S3::Model;
 
 static const char ALLOCATION_TAG[] = "OverrideDefaultHttpClient";
 
+/**
+ * Extending Default CurlHttpClient, and override OverrideOptionsOnConnectionHandle() to disable DNS caching with CURLOPT_DNS_CACHE_TIMEOUT setting to 0.
+ */
 class MyCurlHttpClient : public Aws::Http::CurlHttpClient
 {
 public:
@@ -52,6 +46,9 @@ protected:
     }
 };
 
+/**
+ * Extending the default HttpClientFactory to return the custom HttpClient we just created.
+ */
 class MyHttpClientFactory : public Aws::Http::HttpClientFactory
 {
     std::shared_ptr<Aws::Http::HttpClient> CreateHttpClient(const Aws::Client::ClientConfiguration& clientConfiguration) const override
@@ -84,6 +81,10 @@ class MyHttpClientFactory : public Aws::Http::HttpClientFactory
     }
 };
 
+/**
+ * With AWS SDK for C++ version 1.8, it's much easier to override the default HTTP client configuration with the virtual functions: OverrideOptionsOn*Handle()
+ * In this example, we override the default HTTP client and disable DNS caching with some low level Curl APIs.
+ */
 int main(int argc, char *argv[])
 {
     SDKOptions options;

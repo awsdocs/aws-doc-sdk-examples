@@ -1,4 +1,3 @@
-
 //snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build list_objects_with_aws_global_region.cpp. This example demonstrates how to use aws-global region in client configuration to make cross-region requests.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
@@ -9,19 +8,11 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
-/*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
 #include <aws/core/Aws.h>
 #include <aws/core/utils/logging/LogLevel.h>
 #include <aws/core/client/ClientConfiguration.h>
@@ -38,6 +29,10 @@ using namespace Aws::S3::Model;
 
 static const char BUCKET_NAME[] = "aws-sdk-cpp-list-objects-with-aws-global-region";
 
+/**
+ * With AWS SDK for C++ version 1.8, you are able to make cross region requests by specifying aws-global as region in client configuration.
+ * In this example, an S3 client in aws-global region is able to list objects in the S3 bucket in us-west-2.
+ */
 int main(int argc, char *argv[])
 {
     SDKOptions options;

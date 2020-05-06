@@ -1,4 +1,3 @@
-
 //snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build create_file_system_with_modeled_exception.cpp. This example demonstrates how to get modeled exception from CreateFileSystem operation outcome.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
@@ -9,19 +8,11 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
 
-/*
-   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
@@ -40,6 +31,15 @@ using namespace Aws::EFS::Model;
 
 static const char FILE_SYSTEM_CREATION_TOKEN[] = "file-system-creation-token-test";
 
+/**
+ * Create file system with Elastic File System client.
+ *
+ * If request fails with exception FILE_SYSTEM_ALREADY_EXISTS, we can get a FileSystemAlreadyExists object
+ * with createFileSystemOutcome.GetError<FileSystemAlreadyExists>(), and FileSystemId as its member.
+ *
+ * @param efsClient An Elastic File System client used to make request to create file systems.
+ * @return Id for the file system just created, return empty string if request fails.
+ */
 Aws::String CreateFileSystem(const Aws::EFS::EFSClient efsClient)
 {
     Aws::String fileSystemId = "";
@@ -67,6 +67,11 @@ Aws::String CreateFileSystem(const Aws::EFS::EFSClient efsClient)
     return fileSystemId;
 }
 
+/**
+ * With AWS SDK for C++ version 1.8, you may get more operation specific details from the exception,
+ * besides general information, like error message, error type.
+ * In this example, we attempt to get FileSystemId from the FileSystemAlreadyExists exception.
+ */
 int main(int argc, char *argv[])
 {
     SDKOptions options;
