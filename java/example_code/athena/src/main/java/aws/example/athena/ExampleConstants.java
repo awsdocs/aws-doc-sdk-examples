@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ExampleConstants.java demonstrates how to query a table created by the getting started tutorial in Athena]
+//snippet-sourcedescription:[ExampleConstants.java demonstrates how to query a table created using the getting started tutorial in Amazon Athena.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -13,7 +13,7 @@ public class ExampleConstants {
 
 	public static final int CLIENT_EXECUTION_TIMEOUT = 100000;
 	public static final String ATHENA_OUTPUT_BUCKET = "s3://my-athena-bucket";
-	// This is querying a table created by the getting started tutorial in Athena
+	// This is querying a table created using the getting started tutorial in Amazon Athena.
 	public static final String ATHENA_SAMPLE_QUERY = "SELECT elb_name, "
 			+ " count(1)"
 			+ " FROM elb_logs"

@@ -24,32 +24,32 @@ import com.amazonaws.services.athena.model.StopQueryExecutionResult;
 * StopQueryExecutionExample
 * -------------------------------------
 * This code runs an example query, immediately stops the query, and checks the status of the query to
-* ensure that it was cancelled.
+* ensure that it was canceled.
 */
 public class StopQueryExecutionExample
 {
   public static void main(String[] args) throws Exception
   {
-      // Build an Athena client
+      // Build an Athena client.
       AthenaClientFactory factory = new AthenaClientFactory();
       AmazonAthena athenaClient = factory.createClient();
 
       String sampleQueryExecutionId = submitAthenaQuery(athenaClient);
 
-      // Submit the stop query Request
+      // Submit the stop query request.
       StopQueryExecutionRequest stopQueryExecutionRequest = new StopQueryExecutionRequest()
               .withQueryExecutionId(sampleQueryExecutionId);
 
       StopQueryExecutionResult stopQueryExecutionResult = athenaClient.stopQueryExecution(stopQueryExecutionRequest);
 
-      // Ensure that the query was stopped
+      // Ensure that the query was stopped.
       GetQueryExecutionRequest getQueryExecutionRequest = new GetQueryExecutionRequest()
               .withQueryExecutionId(sampleQueryExecutionId);
 
       GetQueryExecutionResult getQueryExecutionResult = athenaClient.getQueryExecution(getQueryExecutionRequest);
       if (getQueryExecutionResult.getQueryExecution().getStatus().getState().equals(QueryExecutionState.CANCELLED)) {
-          // Query was cancelled.
-          System.out.println("Query has been cancelled");
+          // Query was canceled.
+          System.out.println("Query has been canceled");
       }
   }
 

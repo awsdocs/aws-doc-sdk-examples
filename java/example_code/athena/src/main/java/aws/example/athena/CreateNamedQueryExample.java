@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query]
+//snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -22,7 +22,7 @@ public class CreateNamedQueryExample
 {
   public static void main(String[] args) throws Exception
   {
-      // Build an Athena client
+      // Build an Athena client.
       AthenaClientFactory factory = new AthenaClientFactory();
       AmazonAthena athenaClient = factory.createClient();
 
@@ -33,7 +33,7 @@ public class CreateNamedQueryExample
               .withDescription("Sample Description")
               .withName("SampleQuery2");
 
-      // Call Athena to create the named query. If it fails, an exception is thrown.
+      // Call Athena to create the named query. If it fails, throw an exception.
       CreateNamedQueryResult createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
   }
 }
