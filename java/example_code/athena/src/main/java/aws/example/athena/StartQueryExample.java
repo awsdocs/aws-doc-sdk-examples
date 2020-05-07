@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Amazon Athena for execution, wait until results are available, and then process the results.]
+//snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Athena for execution, wait till results are available, and then process the results.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -27,14 +27,14 @@ import java.util.List;
 /**
 * StartQueryExample
 * -------------------------------------
-* This code shows how to submit a query to Amazon Athena for execution, wait until results
+* This code shows how to submit a query to Athena for execution, wait till results
 * are available, and then process the results.
 */
 public class StartQueryExample
 {
   public static void main(String[] args) throws InterruptedException
   {
-      // Build an Athena client.
+      // Build an AmazonAthena client
       AthenaClientFactory factory = new AthenaClientFactory();
       AmazonAthena athenaClient = factory.createClient();
 
@@ -50,16 +50,16 @@ public class StartQueryExample
    */
   private static String submitAthenaQuery(AmazonAthena athenaClient)
   {
-      // The QueryExecutionContext allows us to set the database.
+      // The QueryExecutionContext allows us to set the Database.
       QueryExecutionContext queryExecutionContext = new QueryExecutionContext().withDatabase(ExampleConstants.ATHENA_DEFAULT_DATABASE);
 
-      // The result configuration specifies where the results of the query should go in Amazon S3 and encryption options.
+      // The result configuration specifies where the results of the query should go in S3 and encryption options
       ResultConfiguration resultConfiguration = new ResultConfiguration()
               // You can provide encryption options for the output that is written.
               // .withEncryptionConfiguration(encryptionConfiguration)
               .withOutputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET);
 
-      // Create the StartQueryExecutionRequest to send to Athena, which will start the query.
+      // Create the StartQueryExecutionRequest to send to Athena which will start the query.
       StartQueryExecutionRequest startQueryExecutionRequest = new StartQueryExecutionRequest()
               .withQueryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
               .withQueryExecutionContext(queryExecutionContext)
@@ -70,8 +70,8 @@ public class StartQueryExample
   }
 
   /**
-   * Wait for an Athena query to complete or fail, or to be canceled. This is done by polling Athena over an
-   * interval of time. If a query fails or is canceled, it will throw an exception.
+   * Wait for an Athena query to complete, fail or to be cancelled. This is done by polling Athena over an
+   * interval of time. If a query fails or is cancelled, then it will throw an exception.
    */
 
        private static void waitForQueryToComplete(AmazonAthena athenaClient, String queryExecutionId) throws InterruptedException
@@ -85,19 +85,19 @@ public class StartQueryExample
           getQueryExecutionResult = athenaClient.getQueryExecution(getQueryExecutionRequest);
           String queryState = getQueryExecutionResult.getQueryExecution().getStatus().getState();
           if (queryState.equals(QueryExecutionState.FAILED.toString())) {
-              throw new RuntimeException("Query failed to run with error message: " + getQueryExecutionResult.getQueryExecution().getStatus().getStateChangeReason());
+              throw new RuntimeException("Query Failed to run with Error Message: " + getQueryExecutionResult.getQueryExecution().getStatus().getStateChangeReason());
           }
           else if (queryState.equals(QueryExecutionState.CANCELLED.toString())) {
-              throw new RuntimeException("Query was canceled.");
+              throw new RuntimeException("Query was cancelled.");
           }
           else if (queryState.equals(QueryExecutionState.SUCCEEDED.toString())) {
               isQueryStillRunning = false;
           }
           else {
-              // Sleep an amount of time before retrying.
+              // Sleep an amount of time before retrying again.
               Thread.sleep(ExampleConstants.SLEEP_AMOUNT_IN_MS);
           }
-          System.out.println("Current state is: " + queryState);
+          System.out.println("Current Status is: " + queryState);
       }
   }
 
@@ -109,8 +109,8 @@ public class StartQueryExample
   private static void processResultRows(AmazonAthena athenaClient, String queryExecutionId)
   {
       GetQueryResultsRequest getQueryResultsRequest = new GetQueryResultsRequest()
-              // MaxResults can be set, but if it is not set,
-              // it will choose the maximum page size.
+              // Max Results can be set but if its not set,
+              // it will choose the maximum page size
               // As of the writing of this code, the maximum value is 1000
               // .withMaxResults(1000)
               .withQueryExecutionId(queryExecutionId);
@@ -138,34 +138,34 @@ public class StartQueryExample
       for (int i = 0; i < columnInfoList.size(); ++i) {
           switch (columnInfoList.get(i).getType()) {
               case "varchar":
-                  // Convert and process as String.
+                  // Convert and Process as String
                   break;
               case "tinyint":
-                  // Convert and process as tinyint.
+                  // Convert and Process as tinyint
                   break;
               case "smallint":
-                  // Convert and process as smallint.
+                  // Convert and Process as smallint
                   break;
               case "integer":
-                  // Convert and process as integer.
+                  // Convert and Process as integer
                   break;
               case "bigint":
-                  // Convert and process as bigint.
+                  // Convert and Process as bigint
                   break;
               case "double":
-                  // Convert and process as double.
+                  // Convert and Process as double
                   break;
               case "boolean":
-                  // Convert and process as boolean.
+                  // Convert and Process as boolean
                   break;
               case "date":
-                  // Convert and process as date.
+                  // Convert and Process as date
                   break;
               case "timestamp":
-                  // Convert and process as timestamp.
+                  // Convert and Process as timestamp
                   break;
               default:
-                  throw new RuntimeException("Unexpected type is not expected" + columnInfoList.get(i).getType());
+                  throw new RuntimeException("Unexpected Type is not expected" + columnInfoList.get(i).getType());
           }
       }
   }
