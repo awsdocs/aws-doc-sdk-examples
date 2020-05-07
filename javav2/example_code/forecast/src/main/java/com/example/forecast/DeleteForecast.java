@@ -24,7 +24,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DeleteForecastRequest;
 import software.amazon.awssdk.services.forecast.model.ForecastException;
-// snippet-start:[forecast.java2.delete_forecast.import]
+// snippet-end:[forecast.java2.delete_forecast.import]
 
 public class DeleteForecast {
 
