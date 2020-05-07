@@ -25,7 +25,7 @@ import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.CreateForecastRequest;
 import software.amazon.awssdk.services.forecast.model.CreateForecastResponse;
 import software.amazon.awssdk.services.forecast.model.ForecastException;
-// snippet-start:[forecast.java2.create_forecast.import]
+// snippet-end:[forecast.java2.create_forecast.import]
 
 public class CreateForecast {
 
