@@ -24,31 +24,31 @@ public class DeleteNamedQueryExample
 {
     private static String getNamedQueryId(AmazonAthena athenaClient)
     {
-        // Create the named query request.
+        // Create the NameQuery Request.
         CreateNamedQueryRequest createNamedQueryRequest = new CreateNamedQueryRequest()
                 .withDatabase(ExampleConstants.ATHENA_DEFAULT_DATABASE)
                 .withQueryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
                 .withName("SampleQueryName")
                 .withDescription("Sample Description");
 
-        // Create the named query. If it fails, throw an exception.
+        // Create the named query. If it fails, an exception is thrown.
         CreateNamedQueryResult createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
         return createNamedQueryResult.getNamedQueryId();
     }
 
     public static void main(String[] args) throws Exception
     {
-        // Build an Athena client.
+        // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
         AmazonAthena athenaClient = factory.createClient();
 
         String sampleNamedQueryId = getNamedQueryId(athenaClient);
 
-        // Create the delete named query request.
+        // Create the delete named query request
         DeleteNamedQueryRequest deleteNamedQueryRequest = new DeleteNamedQueryRequest()
                 .withNamedQueryId(sampleNamedQueryId);
 
-        // Delete the named query.
+        // Delete the named query
         DeleteNamedQueryResult deleteNamedQueryResult = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
     }
 }

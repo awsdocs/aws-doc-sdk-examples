@@ -5,10 +5,10 @@
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/24/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[2019-04-15]
+//snippet-sourceauthor:[jschwarzwalder AWS]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,13 +26,11 @@
 package aws.example.athena;
 
 //snippet-start:[athena.java2.DeleteNamedQueryExample.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
-import software.amazon.awssdk.services.athena.model.DeleteNamedQueryRequest;
-import software.amazon.awssdk.services.athena.model.DeleteNamedQueryResponse;
-import software.amazon.awssdk.services.athena.model.AthenaException;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
+import software.amazon.awssdk.services.athena.model.DeleteNamedQueryRequest;
+import software.amazon.awssdk.services.athena.model.DeleteNamedQueryResponse;
 //snippet-end:[athena.java2.DeleteNamedQueryExample.import]
 
 /**
@@ -42,65 +40,32 @@ import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
  */
 public class DeleteNamedQueryExample {
     //snippet-start:[athena.java2.DeleteNamedQueryExample.main]
-    public static void main(String[] args) {
-
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    DeleteNamedQueryExample <name>\n\n" +
-                "Where:\n" +
-                "    name - the name of the query \n\n" +
-                "Example:\n" +
-                "    DeleteNamedQueryExample SampleQuery\n";
-
-        if (args.length < 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
-
-        /* Read the name from command args */
-        String name = args[0];
-
-        // Build an Athena client
-        AthenaClient athenaClient = AthenaClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
-        String sampleNamedQueryId = getNamedQueryId(athenaClient, name);
-        deleteQueryName(athenaClient, sampleNamedQueryId);
-         }
-
-   public static void deleteQueryName(AthenaClient athenaClient, String sampleNamedQueryId) {
-
-       try {
-            // Create the delete named query request
-            DeleteNamedQueryRequest deleteNamedQueryRequest = DeleteNamedQueryRequest.builder()
-               .namedQueryId(sampleNamedQueryId).build();
-
-            // Delete the named query
-            DeleteNamedQueryResponse deleteNamedQueryResponse = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
-       } catch (AthenaException e) {
-           e.printStackTrace();
-           System.exit(1);
-       }
-     }
-
-    public static String getNamedQueryId(AthenaClient athenaClient, String name) {
-        try {
-            // Create the NameQuery Request.
-            CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
+    private static String getNamedQueryId(AthenaClient athenaClient) {
+        // Create the NameQuery Request.
+        CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
                 .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
                 .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
-                .name(name)
+                .name("SampleQueryName")
                 .description("Sample Description").build();
 
-            // Create the named query. If it fails, an exception is thrown.
-            CreateNamedQueryResponse createNamedQueryResponse = athenaClient.createNamedQuery(createNamedQueryRequest);
-            return createNamedQueryResponse.namedQueryId();
-
-    } catch (AthenaException e) {
-        e.printStackTrace();
-        System.exit(1);
+        // Create the named query. If it fails, an exception is thrown.
+        CreateNamedQueryResponse createNamedQueryResponse = athenaClient.createNamedQuery(createNamedQueryRequest);
+        return createNamedQueryResponse.namedQueryId();
     }
-        return null;
+
+    public static void main(String[] args) throws Exception {
+        // Build an Athena client
+        AthenaClientFactory factory = new AthenaClientFactory();
+        AthenaClient athenaClient = factory.createClient();
+
+        String sampleNamedQueryId = getNamedQueryId(athenaClient);
+
+        // Create the delete named query request
+        DeleteNamedQueryRequest deleteNamedQueryRequest = DeleteNamedQueryRequest.builder()
+                .namedQueryId(sampleNamedQueryId).build();
+
+        // Delete the named query
+        DeleteNamedQueryResponse deleteNamedQueryResponse = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
     }
     //snippet-end:[athena.java2.DeleteNamedQueryExample.main]
 }
