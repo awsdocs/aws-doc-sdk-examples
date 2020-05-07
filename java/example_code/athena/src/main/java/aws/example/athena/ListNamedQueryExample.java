@@ -28,7 +28,7 @@ public class ListNamedQueryExample
         AthenaClientFactory factory = new AthenaClientFactory();
         AmazonAthena athenaClient = factory.createClient();
 
-        // Build the request
+        // Build the request.
         ListNamedQueriesRequest listNamedQueriesRequest = new ListNamedQueriesRequest();
 
         // Get the list results.
@@ -39,7 +39,7 @@ public class ListNamedQueryExample
 
         while (hasMoreResults) {
             List<String> namedQueryIds = listNamedQueriesResult.getNamedQueryIds();
-            // process named query IDs
+            // Process the named query IDs.
 
             // If nextToken is not null,  there are more results. Get the next page of results.
             if (listNamedQueriesResult.getNextToken() != null) {
