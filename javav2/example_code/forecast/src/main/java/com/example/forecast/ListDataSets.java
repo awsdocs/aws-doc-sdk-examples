@@ -27,7 +27,7 @@ import software.amazon.awssdk.services.forecast.model.ListDatasetsResponse;
 import software.amazon.awssdk.services.forecast.model.ForecastException;
 import java.util.Iterator;
 import java.util.List;
-// snippet-start:[forecast.java2.list_datasets.import]
+// snippet-end:[forecast.java2.list_datasets.import]
 
 public class ListDataSets {
 
