@@ -14,7 +14,7 @@ import (
 )
 // snippet-end:[iam.go.detach_user_policy.imports]
 
-// DetachDynamoFullPolicy detaches a DynamoDB full-access policy from an IAM role
+// DetachDynamoFullPolicy detaches an Amazon DynamoDB full-access policy from an IAM role
 // Inputs:
 //     svc is the current session, which provides configuration for the SDK's service clients
 //     roleName is the name of the IAM role

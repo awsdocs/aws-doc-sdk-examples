@@ -14,7 +14,7 @@ import (
 )
 // snippet-end:[iam.go.delete_user.imports]
 
-// RemoveUser deletss an IAM user
+// RemoveUser deletes an IAM user
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     userName is the name of the user

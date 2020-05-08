@@ -40,7 +40,7 @@ func main() {
     flag.Parse()
 
     if *keyID == "" || *userName == "" {
-        fmt.Println("You must supply the key ID and username (-k KEY-ID -u USER-NAME")
+        fmt.Println("You must supply the key ID and user name (-k KEY-ID -u USER-NAME")
         return
     }
     // snippet-end:[iam.go.delete_access_key.args]

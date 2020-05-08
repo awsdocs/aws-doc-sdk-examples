@@ -16,7 +16,7 @@ import (
 )
 // snippet-end:[iam.go.create_policy.imports]
 
-// StatementEntry will dictate what this policy will allow or not allow.
+// StatementEntry will dictate what this policy allows or doesn't allow.
 // snippet-start:[iam.go.create_policy.structs]
 type StatementEntry struct {
     Effect   string

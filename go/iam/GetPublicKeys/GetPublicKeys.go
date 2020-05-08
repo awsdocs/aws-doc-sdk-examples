@@ -36,7 +36,7 @@ func GetPublicKeyBodies(svc iamiface.IAMAPI, userName *string) ([]*string, error
 
     // snippet-start:[iam.go.get_public_keys.bodies]
     for _, key := range result.SSHPublicKeys {
-        // Get a SSH public key.
+        // Get an SSH public key.
         keyResult, err := svc.GetSSHPublicKey(&iam.GetSSHPublicKeyInput{
             UserName:       userName,
             SSHPublicKeyId: key.SSHPublicKeyId,

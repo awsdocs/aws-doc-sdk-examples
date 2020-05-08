@@ -14,7 +14,7 @@ import (
 )
 // snippet-end:[iam.go.access_key_last_used.imports]
 
-// WhenWasKeyUsed retrieves when an access key was last used, including the region and with which service
+// WhenWasKeyUsed retrieves when an access key was last used, including the AWS Region and with which service
 // Inputs:
 //     svc is an IAM service client
 //     keyID is the ID of an access key

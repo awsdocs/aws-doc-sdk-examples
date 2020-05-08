@@ -108,7 +108,7 @@ func usersGroupsHaveAdmin(svc *iam.IAM, user *iam.UserDetail, admin string) (boo
 }
 // snippet-end:[iam.go.list_admins_users_groups_have_admin]
 
-// GetNumUsersAndAdmins determines how many users have administrator priveleges.
+// GetNumUsersAndAdmins determines how many users have administrator privileges.
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     name is the name of the RESOURCE

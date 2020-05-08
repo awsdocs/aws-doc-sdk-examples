@@ -1,8 +1,8 @@
-# AWS SDK for Go Code Examples for AWS Identity and Access Management (IAM)
+# AWS SDK for Go code examples for AWS Identity and Access Management (IAM)
 
 ## Purpose
 
-These examples demonstrates how to perform several DynamoDB operations.
+These examples demonstrate how to perform several IAM operations.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ in the AWS SDK for Go Developer Guide.
 ### AccessKeyLastUsed/AccessKeyLastUsed.go
 
 This example retrieves when an access key was last used,
-including in which service and region.
+including in which service and AWS Region.
 
 `go run AccessKeyLastUsed.go -k KEY-ID`
 
@@ -26,7 +26,7 @@ The unit test mocks the IAM service client an `AccessKeyLastUsed` function.
 
 ### AttachUserPolicy/AttachUserPolicy.go
 
-This example attaches a DynamoDB full-access policy to an IAM role.
+This example attaches an Amazon DynamoDB full-access policy to an IAM role.
 
 `go run AttachUserPolicy.go -r ROLE`
 
@@ -117,7 +117,7 @@ The unit test mocks the service client and the `DeleteUser` function.
 
 ### DetachUserPolicy/DetachUserPolicy.go
 
-This example detaches a DynamoDB full-access policy from an IAM role.
+This example detaches an Amazon DynamoDB full-access policy from an IAM role.
 
 `go run DetachUserPolicy.go -r ROLE`
 
@@ -157,7 +157,7 @@ The unit test mocks the IAM service client and the `GetServerCertificate` functi
 
 ### ListAccessKeys/ListAccessKeys.go
 
-This example lists the accesss keys for a specif user.
+This example lists the accesss keys for a specific user.
 
 `go run ListAccessKeys -u USER`
 
@@ -249,19 +249,19 @@ Unit tests should delete any resources they create.
 However, they might result in charges to your
 AWS account.
 
-To run a unit test, enter:
+To run a unit test, enter the following:
 
 `go test`
 
 You should see something like the following,
-where PATH is the path to the folder containing the Go files:
+where PATH is the path to the folder containing the Go files.
 
 ```sh
 PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter:
+If you want to see any log messages, enter the following:
 
 `go test -test.v`
 

@@ -16,7 +16,7 @@ type mockIAMClient struct {
     iamiface.IAMAPI
 }
 
-var expectedDescription = "Provides Put, Get access to S3 and full access to CloudWatch Logs."
+var expectedDescription = "Provides Put, Get access to Amazon S3 and full access to Amazon CloudWatch Logs."
 
 // Then for every *real* call you make in the example:
 func (m *mockIAMClient) GetPolicy(input *iam.GetPolicyInput) (*iam.GetPolicyOutput, error) {
