@@ -53,7 +53,7 @@ public class ListQueryExecutionsExample {
         listQueryIds(athenaClient);
     }
 
-    //snippet-start:[athena.java2.listNamedQueryExecutionsExample.main]
+    //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.main]
     public static void listQueryIds(AthenaClient athenaClient) {
 
        try {
