@@ -34,7 +34,7 @@ public class DeleteForecast {
                 "Usage:\n" +
                 "    DeleteForecast <forecastArn> \n\n" +
                 "Where:\n" +
-                "    name - the ARN that belongs to the forecast to delete \n\n" +
+                "    name - the Amazon Resource Name (ARN) that belongs to the forecast to delete \n\n" +
                 "Example:\n" +
                 "    DeleteForecast arn:aws:forecast:us-west-2:81454e33:forecast/MyForecast\n";
 

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListDataSetGroups.java demonstrates how to list data set groups for the Amazon Forecast service.]
+//snippet-sourcedescription:[ListDataSetGroups.java demonstrates how to list dataset groups for the Amazon Forecast service.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
@@ -58,7 +58,7 @@ public static void listDataGroups(ForecastClient forecast) {
         while(groupsIterator.hasNext()) {
 
             DatasetGroupSummary myGroup = groupsIterator.next();
-            System.out.println("The Data Set name is " +myGroup.datasetGroupName()) ;
+            System.out.println("The dataset name is " +myGroup.datasetGroupName()) ;
         }
     } catch (ForecastException e) {
         System.err.println(e.awsErrorDetails().errorMessage());
