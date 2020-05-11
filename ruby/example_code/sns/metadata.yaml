@@ -18,3 +18,21 @@ files:
   -path: sns-ruby-example-show-topics/sns-ruby-example-show-topics.rb
       services:
         - sns
+  -path: sns-ruby-example-create-subscription_spec/sns-ruby-example-create-subscription_spec.rb
+    services:
+       - sns
+  -path: sns-ruby-example-create-topic_spec/sns-ruby-example-create-topic_spec.rb
+      services:
+        - sns
+  -path: sns-ruby-example-enable-resource_spec/sns-ruby-example-enable-resource_spec.rb
+      services:
+        - sns
+  -path: sns-ruby-example-send-message_spec/sns-ruby-example-send-message_spec.rb
+      services:
+        - sns
+  -path: sns-ruby-example-show-subscriptions_spec/sns-ruby-example-show-subscriptions_spec.rb
+      services:
+        - sns
+  -path: sns-ruby-example-show-topics_spec/sns-ruby-example-show-topics_spec.rb
+      services:
+        - sns

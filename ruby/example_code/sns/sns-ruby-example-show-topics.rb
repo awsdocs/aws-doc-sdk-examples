@@ -35,17 +35,42 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require 'aws-sdk-sns'  # v3: require 'aws-sdk'
 require 'rspec'
 sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
-module Aws
-  module SimpleNotificationService
-    class ShowSubscriptions
+     module Aws
+       module SimpleNotificationService
+         class ShowTopics
+           def initialize(*args)
+             @client = opts[:showtopic_client || Aws::ShowTopic::Client.new]
+           end
 
-# Iterate over and list the ARN associated with each SNS topic
-sns.topics.each do |topic|
-  puts topic.arn
-    end
-    end
-    end
+           def show_topics()
+             resp = @simplenotificationservice.show_topics
+             puts
+             puts "Found #{resp.topics.endpoint} topics(s)."
+             puts
+
+
+             resp.topics.each do |topic|
+               show_topic(topic)
+             end
+           end
+
+           private
+           def show_topic(topic)
+             puts 'Topics:'
+
+             if !topic.topics.nil?
+               topic.topics.each do |t|
+                 puts " Name:   #{t.topic_name}"
+                 puts " ARN:    #{t.topic_arn}"
+                 puts
+               end
+             end
+
+             puts
+           end
+         end
+

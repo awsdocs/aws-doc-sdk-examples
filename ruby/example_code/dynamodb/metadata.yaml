@@ -3,3 +3,6 @@ files:
   -path: dynamodb_ruby_example_read_multiple_items/dynamodb_ruby_example_read_multiple_items.rb
     services:
       - dynamodb
+  -path: dynamodb_ruby_example_read_multiple_items_spec/dynamodb_ruby_example_read_multiple_items_spec.rb
+      services:
+        - dynamodb

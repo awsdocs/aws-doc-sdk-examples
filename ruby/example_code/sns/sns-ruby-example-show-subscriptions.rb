@@ -35,20 +35,46 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require 'aws-sdk-sns'  # v3: require 'aws-sdk'
 require 'rspec'
 sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
 module Aws
-  module SimpleNotificationService
-    class ShowSubscriptions
+   module SimpleNotificationService
+     class ShowSubscription
+       def initialize(*args)
+         @client = opts[:showsubscription_client || Aws::ShowSubscription::Client.new]
+       end
 
-# Fetch the ARN associated with the topic
-topic = sns.topic('arn:aws:sns:us-west-2:123456789:MyGroovyTopic')
+       def show_subscriptions()
+         resp = @simplenotificationservice.show_subscription
+         puts
+         puts "Found #{resp.subscription.endpoint} subscription(s)."
+         puts
 
-# Iterate over and list the email addresses of the SNS subscriptions for the topic corresponding to the ARN
-topic.subscriptions.each do |s|
-  puts s.attributes['Endpoint']
-end
-    end
-    end
+
+         resp.subscriptions.each do |subscription|
+           show_subscription(subscription)
+         end
+       end
+     end
+
+     private
+
+     def show_subscription(subscription)
+       puts "ARN #{subscription.arn}"
+       puts "Topic #{subscription.topic}"
+       puts 'Attributes:'
+
+       if !subscription.attributes.nil?
+         subscription.attributes.each do |a|
+           puts " Endpoint: #{a.attribute_endpoint}"
+           puts
+         end
+       end
+
+       puts
+     end
+     end
+
+

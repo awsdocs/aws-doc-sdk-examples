@@ -46,45 +46,41 @@ for the BatchGetItem call."
 The following example Query request reads items from table(s) and uses the hash key to 
 identify retrievable items. 
 
-    dynamodb.batch_get_item({
+    dynamodb.batch_get_item(
         request_items: { # required
             "TableName" => {
                  keys: [ # required
-                   {
-                    "AttributeName" => "value", # value <Hash,Array,String,Numeric,Boolean,IO,Set,nil>
-                   },
-                  ],
-                  attributes_to_get: ["AttributeName"],
-                  consistent_read: false,
-                  projection_expression: "ProjectionExpression",
-                  expression_attribute_names: {
-                     "ExpressionAttributeNameVariable" => "AttributeName",
+                        {
+                            "AttributeName" => "value", # value <Hash,Array,String,Numeric,Boolean,IO,Set,nil>
+                        },
+                        ],
+                            attributes_to_get: ["AttributeName"],
+                                consistent_read: false,
+                                    projection_expression: "ProjectionExpression",
+                                        expression_attribute_names: {
+                                             "ExpressionAttributeNameVariable" => "AttributeName",
                     },
                    },
                   },
-            "TableName" => {
-                 keys: [ # required
+               "TableName" => {
+                     keys: [ # required
                     {
-                     "AttributeName" => "value", # value <Hash,Array,String,Numeric,Boolean,IO,Set,nil>
-                     },
-                    ],
-                    attributes_to_get: ["AttributeName"],
-                    consistent_read: false,
-                    projection_expression: "ProjectionExpression",
-                    expression_attribute_names: {
-                        "ExpressionAttributeNameVariable" => "AttributeName",
+                            "AttributeName" => "value", # value <Hash,Array,String,Numeric,Boolean,IO,Set,nil>
+                         },
+                        ],
+                                    attributes_to_get: ["AttributeName"],
+                                        consistent_read: false,
+                                            projection_expression: "ProjectionExpression",
+                                                expression_attribute_names: {
+                                                       "ExpressionAttributeNameVariable" => "AttributeName",
                        },
                       },
                     },
-          return_consumed_capacity: "INDEXES", # accepts INDEXES, TOTAL, NONE
-         })
+                            return_consumed_capacity: "INDEXES", # accepts INDEXES, TOTAL, NONE
+         )
 
  
 ## Sample Response
-    (Types::BatchGetItemOutput) — Returns a response object which responds to the following methods:
-    #responses => Hash<String,Array<Hash<String,Types::AttributeValue>>>
-    #unprocessed_keys => Hash<String,Types::KeysAndAttributes>
-    #consumed_capacity => Array<Types::ConsumedCapacity>
     
   - The following data is returned in JSON format by the service:
       - ConsumedCapacity
@@ -128,7 +124,7 @@ identify retrievable items.
 
 
 ## Testing the Amazon DynamoDB Ruby files
-You can test the Amazon SNS ruby code examples by running RSpec 4.0 and is located in the 
+You can test the Amazon DynamoDB ruby code examples by running RSpec 4.0 and is located in the 
 ses/spec folder.
 
 You can execute the RSpec tests from a Ruby IDE, such as RubyMine, or from the command

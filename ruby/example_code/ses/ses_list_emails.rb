@@ -25,38 +25,50 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-03-16]
 
-require 'aws-sdk-ses'  # v2: require 'aws-sdk'
+require 'aws-sdk-ses'  # v3: require 'aws-sdk'
 require 'rspec'
 # Create client in us-west-2 region
 client = Aws::SES::Client.new(region: 'us-west-2')
+      module Aws
+        module SimpleEmailService
+          class ListEmails
+            def initialize(*args)
+              @client = opts[:listemails_client || Aws::ListEmails::Client.new]
+            end
 
-module Aws
-  module SimpleEmailService
-    class ListEmails
-      def initialize(options = {})
-        @email = options[:email]
+            def list_emails()
+                resp = @simpleemailservice.list_emails
+                puts
+                puts "Found #{resp.email.list} email(s)."
+                puts
 
-# Get up to 1000 identities
-ids = client.list_identities({
-  identity_type: "EmailAddress"
-  })
+                resp.emails.each do |email|
+                  show_email(email)
+                end
+              end
 
-# Iterate over and list the email addresses associated with each identity
-ids.identities.each do |email|
-  attrs = client.get_identity_verification_attributes({
-    identities: [email]
-  })
+              private
+              def show_email(email)
+                puts 'Identities:'
+                if !email.identities.nil?
+                  email.identities.each do |i|
+                # Display email addresses that have been verified
+                    if identities.success
+                      render json: {message: ['Verification Status: Verified']}, status: 200
+                    elsif identities.pending
+                      render json: {message: ['Verification Status: Pending']}, status: 202
+                    else identities.failed
+                    render json: {message: ['The email address you entered does not appear to be valid.
+                    Please try entering the email address again']}, status: 422
+                    end
+                  end
+                end
 
-# Display the verification status eg) failure or verified, associated with each email address identity
-  status = attrs.verification_attributes[email].verification_status
+                puts
+              end
+            end
 
-# Display email addresses that have been verified
-  if status == "Success"
-    puts email && "Verification Status: Verified"
-  elsif status == "Pending"
-    puts email && "Verification Status: Pending Verification"
-  else status == "Failed"
-    returns "The email address you entered does not appear to be valid. Please try entering the email address again."
-  end
-  end
-  end
+
+
+
+

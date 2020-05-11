@@ -28,41 +28,43 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-03-16]
 
-require 'aws-sdk-sns' # v2: require 'aws-sdk'
+require 'aws-sdk-sns' # v3: require 'aws-sdk'
 require 'rspec'
 sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
 module Aws
   module SimpleNotificationService
     class CreateSubscription
-      # @option options [required, String] :arn
-      # @option options [required, String] :protocol
-      # @option options [required, String] :endpoint
-      # @api private
-      def initialize(options = {})
-        @arn = options[:arn]
-        @protocol = options[:protocol]
-        @endpoint = options[:endpoint]
+      def initialize(*args)
+        @client = opts[:createsubscription_client || Aws::CreateSubscription::Client.new]
       end
 
-      # @return [String] The Topic ARN of the topic you created earlier
-      # e.g. "arn:aws:sns:us-west-2:123456789012:MyTopic".
-      attr_reader :arn
+  def create_subscription()
+  resp = @simplenotificationservice.create_subscription
+  puts
+  puts "Found #{resp.subscription.id} subscription(s)."
+  puts
 
-      # @return [String] Chosen endpoint type, e.g. "email".
-      attr_reader :protocol
 
-      # @return [String] Email address that can receive notifications
-      # e.g. "peccy@amazon.com",
-      attr_reader :endpoint
-    end
+  resp.subscriptions.each do |subscriptions|
+    show_subscriptions(subscriptions)
+  end
   end
 end
 
-# If the subscription exists,
-# a subscription confirmation with your subscription ID is displayed
-subscription = sns.describe_subscription({ subscriptionid: [args[0]] })
+    private
 
-if subscription.exists?
-  puts "Subscription ID:     #{subscription.subscriptionid}"
-end
+    def show_subscription(subscription)
+      puts "Protocol: #{subscription.protocol}"
+      puts "Endpoint: #{subscription.endpoint}"
+      puts 'Email:'
+
+      if !subscription.email.nil?
+        subscription.email.each do |e|
+          puts "  ARN:  #{e.email_arn}"
+        end
+      end
+      puts
+      end
+      end
+

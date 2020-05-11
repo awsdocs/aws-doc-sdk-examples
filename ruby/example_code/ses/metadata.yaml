@@ -12,3 +12,15 @@ files:
   -path: ses_send_verifications/ses_send_verifications.rb
    services:
      - ses
+  -path: ses_get_statistics_spec/ses_get_statistics_spec.rb
+    services:
+      - ses
+  -path: ses_list_emails_spec/ses_list_emails_spec.rb
+    services:
+      - ses
+  -path: ses_send_email_spec/ses_send_email_spec.rb
+    services:
+      - ses
+  -path: ses_send_verifications_spec/ses_send_verifications_spec.rb
+    services:
+      - ses

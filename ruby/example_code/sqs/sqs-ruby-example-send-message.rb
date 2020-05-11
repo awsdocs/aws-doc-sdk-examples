@@ -21,8 +21,25 @@
 # OF ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+
 require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
-
+# Create a new SES resource in the us-west-2 region.
+# Replace us-west-2 with the AWS Region you're using for Amazon SES.
 sqs = Aws::SQS::Client.new(region: 'us-west-2')
+module Aws
+  module SimpleQueueService
+    class SendMessage
+      def initialize(options = {})
+        @body = options[:body]
+        @groupid = options[:groupid]
+        @deduplicationid = options[:deduplicationid]
+        @attributes = options[:attributes]
+      end
+    end
+  end
+end
+end
 
+if message.exists?
 sqs.send_message(queue_url: URL, message_body: 'Hello world')
+end

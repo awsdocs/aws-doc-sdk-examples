@@ -3,3 +3,6 @@ files:
   -path: s3-select-object-content/s3-select-object-content.rb
     services:
       - s3
+  -path: s3-select-object-content_spec/s3-select-object-content_spec.rb
+    services:
+      - s3

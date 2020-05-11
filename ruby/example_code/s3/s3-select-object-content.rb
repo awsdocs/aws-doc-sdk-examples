@@ -33,13 +33,13 @@ resp.buckets.each do |b|
 end
 
 # Create a S3 bucket from S3::client
-s3.create_bucket(bucket: 'peccy-bucket')
+s3.create_bucket(bucket: 'bucket')
 
 # puts data into an object, replacing the current contents
 resp = client.put_object(bucket: ‘peccy-bucket’, key: 's3://peccy-bucket/s3-select-object-content-file.csv',
                          body: ‘Hello, Bucket!’)
 # check if the file exists
-resp = s3.list_objects_v2(bucket: bucket)
+resp = s3.list_objects_v3(bucket: bucket)
 resp.contents.each do |obj|
 puts obj.key
 end

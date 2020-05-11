@@ -24,14 +24,14 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-03-16]
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
-require 'rspec'
-sns = Aws::SNS::Resource.new(region: 'us-west-2')
+      require 'aws-sdk-sns'  # v3: require 'aws-sdk'
+      require 'rspec'
+      sns = Aws::SNS::Resource.new(region: 'us-west-2')
 
-module Aws
-  module SimpleNotificationService
-    class EnableResource
-      policy  = '{
+      module Aws
+        module SimpleNotificationService
+          class EnableResource
+            policy  = '{
       "Version":"2008-10-17",
       "Id":"__default_policy_ID",
       "Statement":[{
@@ -48,17 +48,44 @@ module Aws
      }
   }]
 }'
+          end
+module Aws
+  module SimpleNotificationService
+    class EnableResource
+      def initialize(*args)
+      @client = opts[:enableresource_client || Aws::EnableResource::Client.new]
     end
-# Enabling the resource with the ARN my-resource-arn to publish to the desired topic ARN
-resource = sns.resource(my-resource-arn)
 
-# Get topic by ARN
-topic = sns.topic(my-topic-arn)
+    def enable_resource()
+      resp = @simplenotificationservice.enable_resource
+      puts
+      puts "Found #{resp.resource.count} resource(s)."
+      puts
 
-# Add policy to topic
-topic.set_attributes({
-  attribute_name: "Policy",
-  attribute_value: policy
-})
+
+    resp.resources.each do |resource|
+      show_resources(resources)
+    end
+    end
+    end
+
+    private
+
+    def show_resources(resource)
+    puts "Attribute Name: #{resource.attributename}"
+    puts "Attribute Value: #{resource.attributevalue}"
+    puts 'ARN:'
+
+    if !resource.topic.nil?
+      resource.each do |r|
+        puts "  ARN:  #{r.topic_arn}"
+      end
+    end
+
+    puts
   end
 end
+
+
+
+

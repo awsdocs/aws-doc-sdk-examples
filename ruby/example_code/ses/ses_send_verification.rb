@@ -23,7 +23,7 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-03-16]
 
-require 'aws-sdk-ses'  # v2: require 'aws-sdk'
+require 'aws-sdk-ses'  # v3: require 'aws-sdk'
 require 'rspec'
 # Replace recipient@example.com with a "To" address.
 recipient = "recipient@example.com"
@@ -35,19 +35,45 @@ ses = Aws::SES::Client.new(region: 'us-west-2')
 module Aws
   module SimpleEmailService
     class SendVerification
-      def initialize(options = {})
-        @email = options[:email]
-# Try to verify email address.
-  ses.verify_email_identity({
-    email: recipient
-  })
+      def initialize(*args)
+        @client = opts[:sendverification_client || Aws::SendVerification::Client.new]
+      end
 
-  puts 'Email sent to ' + recipient
+        def send_email()
+          begin
+            resp = @simpleemailservice.send_verification
+            puts
+            puts "Found #{resp.verfication.count} email(s)."
+            puts
 
-# If something goes wrong, display an error message.
-rescue Aws::SES::Errors::ServiceError => error
-  puts "Email not sent. Error message: #{error}"
-end
+
+            resp.verfication.each do |verification|
+              show_verfication(verification)
+            end
+          end
+
+          private
+          def show_verfication(verification)
+            puts "Email: #{verification_email}"
+            puts 'All Identities:'
+
+
+          if !email.allidentities.nil?
+            email.allidentities.each do |a|
+              puts "Email Address Identities: #{a.allidentities_emailaddressidentities}"
+              puts "Verification Status:  #{a.allidentities.verificationstatus}"
+              puts
+            end
+          end
+
+            puts
+          end
+
+        rescue ServiceError => e
+          puts "Service Error 'The request has failed due to a temporary failure of the server': #{e} (#{e.class})"
+        end
+    end
+
 
 
 

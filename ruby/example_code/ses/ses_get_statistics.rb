@@ -23,42 +23,52 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2018-03-16]
 
-require 'aws-sdk-ses'  # v2: require 'aws-sdk'
+require 'aws-sdk-ses'  # v3: require 'aws-sdk'
 
 # Create a new SES resource in the us-west-2 region.
 # Replace us-west-2 with the AWS Region you're using for Amazon SES.
 ses = Aws::SES::Client.new(region: 'us-west-2')
+      module Aws
+        module SimpleEmailService
+          class GetStatistics
+            def initialize(*args)
+              @client = opts[:getstatistics_client || Aws::GetStatistics::Client.new]
+            end
 
-module Aws
-  module SimpleEmailService
-    class GetStatistics
-      def initialize
-        @dp = input.to_i
-      end
+            def get_statistics()
+              begin
+              resp = @simpleemailservice.get_statistics
+              puts
+              puts "Found #{resp.email.dps} email(s)."
+              puts
 
-#valid data points fall somewhere in the range of 0-100%
-      def valid_dp?
-        dp.between?(0.0, 1.0)
-      end
-      end
 
-begin
-# Get send statistics so we don't ruin our reputation
-  resp = ses.get_send_statistics({})
-  dps = resp.send_data_points
-  puts "Got #{dps.count} data point(s):"
+              resp.dps.each do |dp|
+                show_dp(dp)
+              end
+              end
 
-# Iterate over the list of data points and display the data for timestamps, attempts, bounces, complaints, and rejects.
-# Each contains statistics for a 15-minute period of sending activity.
-  dps.each do |dp|
-    puts "Timestamp:  #{dp.timestamp}" #=> Time of the data point
-    puts "Attempts:   #{dp.delivery_attempts}" #=> Integer, number of emails that have been sent
-    puts "Bounces:    #{dp.bounces}" #=> Integer, number of emails that have bounced
-    puts "Complaints: #{dp.complaints}" #=> Integer, number of unwanted emails that were rejected by recipients
-    puts "Rejects:    #{dp.rejects}"  #=> Integer, number of emails rejected by Amazon SES
-  end
+              private
 
-# If something goes wrong, display an error message
-rescue Aws::SES::Errors::ServiceError => error
-  puts "Error: #{error}"
-  end
+              def show_statistic(statistic)
+                puts 'Metrics:'
+
+                if !statistic.metrics.nil?
+                  statistic.metrics.each do |m|
+                    puts "Timestamp:  #{dp.timestamp}" #=> Time
+                    puts "Attempts:   #{dp.delivery_attempts}" #=> Integer
+                    puts "Bounces:    #{dp.bounces}" #=> Integer
+                    puts "Complaints: #{dp.complaints}" #=> Integer
+                    puts "Rejects:    #{dp.rejects}"  #-> Integer
+                    puts
+                  end
+                end
+
+                puts
+              end
+              end
+
+            rescue ServiceError => e
+              puts "Service Error 'The request has failed due to a temporary failure of the server': #{e} (#{e.class})"
+            end
+
