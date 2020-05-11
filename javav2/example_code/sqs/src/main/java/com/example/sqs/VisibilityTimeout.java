@@ -1,11 +1,11 @@
 //snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for messages in a queue.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[sqs]
+//snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/24/2020]
 //snippet-sourceauthor:[scmacdon-aws]
-// snippet-start:[sqs.java2.visibility_timeout.complete]
+
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,8 +20,10 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-// snippet-start:[sqs.java2.visibility_timeout.import]
+
 package com.example.sqs;
+
+// snippet-start:[sqs.java2.visibility_timeout.import]
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
@@ -134,4 +136,3 @@ public class VisibilityTimeout {
 
 }
 // snippet-end:[sqs.java2.visibility_timeout.main]
-// snippet-end:[sqs.java2.visibility_timeout.complete]
