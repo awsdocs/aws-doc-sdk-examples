@@ -5,7 +5,6 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/20/2020]
 //snippet-sourceauthor:[scmacdon-aws]
-// snippet-start:[sqs.java2.long_polling.complete]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
