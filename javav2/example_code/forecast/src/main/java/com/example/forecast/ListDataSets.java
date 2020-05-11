@@ -41,7 +41,7 @@ public class ListDataSets {
         listForecastDataSets(forecast);
     }
 
-    // snippet-start:[forecast.java2.list_datasets.import]
+    // snippet-start:[forecast.java2.list_datasets.main]
     public static void listForecastDataSets(ForecastClient forecast) {
 
        try {
@@ -62,6 +62,6 @@ public class ListDataSets {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
        }
-      // snippet-end:[forecast.java2.list_datasets.import]
+      // snippet-end:[forecast.java2.list_datasets.main]
     }
 }
