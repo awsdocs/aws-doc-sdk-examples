@@ -1,9 +1,9 @@
 //snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling on a queue.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[sqs]
+//snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/24/2020]
+//snippet-sourcedate:[2/20/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 // snippet-start:[sqs.java2.long_polling.complete]
 /*
@@ -20,8 +20,10 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-// snippet-start:[sqs.java2.long_polling.import]
+// snippet-start:[sqs.java2.long_polling.complete]
 package com.example.sqs;
+
+// snippet-start:[sqs.java2.long_polling.import]
 import java.util.Date;
 import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
@@ -32,9 +34,8 @@ import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
-
 // snippet-end:[sqs.java2.long_polling.import]
-// snippet-start:[sqs.java2.long_polling.main]
+
 /*
  While the regular short polling returns immediately,
  long polling doesn't return a response until a message arrives
@@ -44,12 +45,18 @@ public class LongPolling {
 
     private static final String QueueName = "testQueue" + new Date().getTime();
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         // Create a SqsClient object
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
-                .build() ;
+                .build();
+
+        setLongPoll(sqsClient) ;
+    }
+
+    // snippet-start:[sqs.java2.long_polling.main]
+    public static void setLongPoll( SqsClient sqsClient) {
 
         // Enable long polling when creating a queue
         HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
