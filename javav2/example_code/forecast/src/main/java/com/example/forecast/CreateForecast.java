@@ -36,7 +36,7 @@ public class CreateForecast {
                 "    CreateForecast <name><predictorArn> \n\n" +
                 "Where:\n" +
                 "    name - the name of the forecast \n\n" +
-                "    predictorArn - the arn of the predictor to use \n\n" +
+                "    predictorArn - the Amazon Resource Name (ARN) of the predictor to use \n\n" +
                 "Example:\n" +
                 "    CreateForecast MyForecast arn:aws:forecast:us-west-2:81454e33:predictor/MyPredictor\n";
 

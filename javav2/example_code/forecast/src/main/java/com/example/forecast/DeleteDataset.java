@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteDataset.java demonstrates how to delete a data set that belongs to the Amazon Forecast service.]
+//snippet-sourcedescription:[DeleteDataset.java demonstrates how to delete a dataset that belongs to the Amazon Forecast service.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
@@ -34,7 +34,7 @@ public class DeleteDataset {
                 "Usage:\n" +
                 "    DeleteDataset <datasetARN> \n\n" +
                 "Where:\n" +
-                "    name - the ARN of the data set to delete \n\n" +
+                "    name - the Amazon Resource Name (ARN) of the dataset to delete \n\n" +
                 "Example:\n" +
                 "    DeleteDataset datasetARN\n";
 
@@ -64,7 +64,7 @@ public class DeleteDataset {
                     .build();
 
             forecast.deleteDataset(deleteRequest);
-            System.out.println("The Data Set was deleted") ;
+            System.out.println("The dataset was deleted") ;
 
         } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

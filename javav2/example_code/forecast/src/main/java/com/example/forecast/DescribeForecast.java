@@ -35,7 +35,7 @@ public class DescribeForecast {
                 "Usage:\n" +
                 "    DescribeForecast <forecastarn> \n\n" +
                 "Where:\n" +
-                "    forecastarn - the arn of the forecast (i.e., \"arn:aws:forecast:us-west-2:81333322:forecast/my_forecast)\n\n" +
+                "    forecastarn - the Amazon Resource Name (ARN) of the forecast (i.e., \"arn:aws:forecast:us-west-2:81333322:forecast/my_forecast)\n\n" +
                 "Example:\n" +
                 "    DescribeForecast arn:aws:forecast:us-west-2:81333322:forecast/my_forecast\n";
 

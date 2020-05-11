@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDataSet.java demonstrates how to create a data set for the Amazon Forecast service.]
+//snippet-sourcedescription:[CreateDataSet.java demonstrates how to create a dataset for the Amazon Forecast service.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
@@ -39,7 +39,7 @@ public class CreateDataSet {
                 "Usage:\n" +
                 "    CreateDataSet <name> \n\n" +
                 "Where:\n" +
-                "    name - the name of the data set \n\n" +
+                "    name - the name of the dataset \n\n" +
                 "Example:\n" +
                 "    CreateDataSet MyDataSet\n";
 
@@ -57,7 +57,7 @@ public class CreateDataSet {
                 .build();
 
         String myDataSetARN = createForecastDataSet(forecast, name);
-        System.out.println("The ARN of the new data set is "+myDataSetARN) ;
+        System.out.println("The ARN of the new dataset is "+myDataSetARN) ;
     }
 
     // snippet-start:[forecast.java2.create_forecast_dataset.main]
@@ -65,7 +65,7 @@ public class CreateDataSet {
 
        try {
 
-           //Create a Schema object required for the data set
+           // Create a Schema object, required for the dataset
            Schema schema = Schema.builder()
                 .attributes(getSchema())
                 .build();
@@ -90,7 +90,7 @@ public class CreateDataSet {
       // snippet-end:[forecast.java2.create_forecast_dataset.main]
     }
 
-    // Create a SchemaAttribute list required to create a data set
+    // Create a SchemaAttribute list, required to create a dataset
     private static List<SchemaAttribute> getSchema() {
 
         List<SchemaAttribute> schemaList = new ArrayList();
@@ -110,7 +110,7 @@ public class CreateDataSet {
                 .attributeType("float")
                 .build();
 
-        //Push the SchemaAttribute objects to the List
+        // Push the SchemaAttribute objects to the List
         schemaList.add(att1);
         schemaList.add(att2);
         schemaList.add(att3);
