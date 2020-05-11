@@ -37,7 +37,7 @@ Before running the Amazon Forecast JUnit tests, you must define values in the **
 
 Define these values to successfully run the JUnit tests:
 
-- **forecastName** - a named query.  
+- **forecastName** - the name of a forecast used in the tests.  
 - **predictorARN** - a ARN of an existing predictor.
 - **dataSet** - the name of a data set to create. 
 - **forecastARNToDelete** - an ARN of an existing forecast to delete (you cannot delete the forecast that is created because there is a time delay).
