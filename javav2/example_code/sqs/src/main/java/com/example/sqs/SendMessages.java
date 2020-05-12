@@ -41,8 +41,8 @@ public class SendMessages {
                 "SendMessages - send a message\n\n" +
                 "Usage: SendMessages <queueName> <message>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue.\n\n" +
-                "  message - the message to send.\n\n";
+                "  queueName - the name of the queue\n\n" +
+                "  message - the message to send\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);

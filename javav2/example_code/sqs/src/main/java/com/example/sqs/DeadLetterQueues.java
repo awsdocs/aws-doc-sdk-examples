@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeadLetterQueues.java demonstrates how to set a queue as a dead letter queue.]
+//snippet-sourcedescription:[DeadLetterQueues.java demonstrates how to set a queue as a dead-letter queue.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
@@ -67,7 +67,7 @@ public class DeadLetterQueues {
                 .queueName(DLQueueName)
                 .build();
 
-            // Get dead-letter queue ARN
+            // Get dead-letter queue Amazon Resource Name (ARN)
             String dlQueueUrl = sqs.getQueueUrl(getRequest)
                 .queueUrl();
 
@@ -78,7 +78,7 @@ public class DeadLetterQueues {
 
             String dlQueueArn = queueAttrs.attributes().get(QueueAttributeName.QUEUE_ARN);
 
-            // Set dead letter queue with redrive policy on source queue.
+            // Set dead-letter queue with redrive policy on source queue
             GetQueueUrlRequest getRequestSource = GetQueueUrlRequest.builder()
                 .queueName(DLQueueName)
                 .build();

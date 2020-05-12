@@ -46,7 +46,7 @@ public class VisibilityTimeout {
         final String queueName = "testQueue" + new Date().getTime();
         SqsClient sqs = SqsClient.builder().build();
 
-        // first, create a queue (unless it exists already)
+        // First, create a queue (unless it already exists)
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
                 .queueName(queueName)
                 .build();
@@ -70,19 +70,19 @@ public class VisibilityTimeout {
             sqs.sendMessage(sendRequest);
         }
 
-        // change visibility timeout (single)
+        // Change visibility timeout (single)
         changeMessageVisibilitySingle(queueName, 3600);
 
-        // change visibility timeout (multiple)
+        // Change visibility timeout (multiple)
         changeMessageVisibilityMultiple(queueName, 2000);
     }
 
-    // Change the visibility timeout for a single message
+    // Change visibility timeout for a single message
     public static void changeMessageVisibilitySingle(
             String queueName, int timeout) {
         SqsClient sqs = SqsClient.builder().build();
 
-        // Get the receipt handle for the first message in the queue.
+        // Get the receipt handle for the first message in the queue
         ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueName)
                 .build();
@@ -99,7 +99,7 @@ public class VisibilityTimeout {
         sqs.changeMessageVisibility(visibilityRequest);
     }
 
-    // Change the visibility timeout for multiple messages.
+    // Change the visibility timeout for multiple messages
     public static void changeMessageVisibilityMultiple(String queue_url, int timeout) {
         SqsClient sqs = SqsClient.builder().build();
 

@@ -36,9 +36,9 @@ import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 // snippet-end:[sqs.java2.long_polling.import]
 
 /*
- While the regular short polling returns immediately,
+ Although the regular short polling returns immediately,
  long polling doesn't return a response until a message arrives
- in the message queue, or the long poll times out.
+ in the message queue, or the long polling times out.
  */
 public class LongPolling {
 
@@ -46,7 +46,7 @@ public class LongPolling {
 
     public static void main(String[] args) {
 
-        // Create a SqsClient object
+        // Create an SqsClient object
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();

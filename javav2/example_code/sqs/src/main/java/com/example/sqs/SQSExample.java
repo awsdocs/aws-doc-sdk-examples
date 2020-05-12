@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SQSExample.java demonstrates how to create, list and delete queues.]
+//snippet-sourcedescription:[SQSExample.java demonstrates how to create, list, and delete queues.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
@@ -52,7 +52,7 @@ public class SQSExample {
                 .region(Region.US_WEST_2)
                 .build();
 
-        //Create a Queue
+        // Create a queue
         String queueUrl= createQueue(sqsClient, queueName );
         listQueues(sqsClient);
         listQueuesFilter(sqsClient, queueUrl);
@@ -63,7 +63,7 @@ public class SQSExample {
 
     public static String createQueue(SqsClient sqsClient,String queueName ) {
 
-        System.out.println("\nCreate Queue");
+        System.out.println("\nCreate queue");
         // snippet-start:[sqs.java2.sqs_example.create_queue]
 
         CreateQueueRequest createQueueRequest = CreateQueueRequest.builder()
@@ -73,7 +73,7 @@ public class SQSExample {
         sqsClient.createQueue(createQueueRequest);
         // snippet-end:[sqs.java2.sqs_example.create_queue]
 
-        System.out.println("\nGet queue url");
+        System.out.println("\nGet queue URL");
         // snippet-start:[sqs.java2.sqs_example.get_queue]
         GetQueueUrlResponse getQueueUrlResponse =
                 sqsClient.getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
@@ -147,7 +147,7 @@ public class SQSExample {
 
     public static void changeMessages(SqsClient sqsClient, String queueUrl, List<Message> messages) {
 
-        System.out.println("\nChange Message Visibility");
+        System.out.println("\nChange message visibility");
         for (Message message : messages) {
             ChangeMessageVisibilityRequest req = ChangeMessageVisibilityRequest.builder()
                     .queueUrl(queueUrl)
@@ -160,7 +160,7 @@ public class SQSExample {
     }
 
     public static void deleteMessages(SqsClient sqsClient, String queueUrl,  List<Message> messages) {
-        System.out.println("\nDelete Messages");
+        System.out.println("\nDelete messages");
         // snippet-start:[sqs.java2.sqs_example.delete_message]
         for (Message message : messages) {
             DeleteMessageRequest deleteMessageRequest = DeleteMessageRequest.builder()
