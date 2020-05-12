@@ -113,7 +113,7 @@ func main() {
 
     // snippet-start:[sqs.go.change_message_visibility.url]
     queueURL := urlResult.QueueUrl
-    // snippet-end:[sqs.go.change_message_visibility.url
+    // snippet-end:[sqs.go.change_message_visibility.url]
     
     err = SetMsgVisibility(sess, handle, queueURL, visibility)
     if err != nil {

@@ -39,7 +39,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 	urlResult, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
 		QueueName: queue,
 	})
-	// snippet-start:[sqs.go.receive_messages.queue_url]
+	// snippet-end:[sqs.go.receive_messages.queue_url]
 	if err != nil {
 		return nil, err
 	}
