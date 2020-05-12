@@ -1,0 +1,6 @@
+---
+files:
+  - path: CreateBucket.php
+    services: 
+      - s3api
+...

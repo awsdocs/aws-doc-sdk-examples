@@ -1,12 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-#
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at http://aws.amazon.com/apache2.0/.
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
 
 """
 Purpose
@@ -43,9 +36,12 @@ Additional information
 """
 
 import logging
+import sys
 
 import boto3
 from botocore.exceptions import ClientError
+
+import queue_wrapper
 
 logger = logging.getLogger(__name__)
 sqs = boto3.resource('sqs')
@@ -53,7 +49,9 @@ sqs = boto3.resource('sqs')
 
 def send_message(queue, message_body, message_attributes=None):
     """
-    Send a message to an SQS queue.
+    Send a message to an Amazon SQS queue.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue that receives the message.
     :param message_body: The body text of the message.
@@ -82,6 +80,8 @@ def send_messages(queue, messages):
     This request may return overall success even when some messages were not sent.
     The caller must inspect the Successful and Failed lists in the response and
     resend any failed messages.
+
+    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue to receive the messages.
     :param messages: The messages to send to the queue. These are simplified to
@@ -121,9 +121,11 @@ def receive_messages(queue, max_number, wait_time):
     """
     Receive a batch of messages in a single request from an SQS queue.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param queue: The queue from which to receive messages.
     :param max_number: The maximum number of messages to receive. The actual number
-                       of messages received may be less.
+                       of messages received might be less.
     :param wait_time: The maximum time to wait (in seconds) before returning. When
                       this number is greater than zero, long polling is used. This
                       can result in reduced costs and fewer false empty responses.
@@ -150,6 +152,8 @@ def delete_message(message):
     Delete a message from a queue. Clients must delete messages after they
     are received and processed to remove them from the queue.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param message: The message to delete. The message's queue URL is contained in
                     the message's metadata.
     :return: None
@@ -166,10 +170,12 @@ def delete_messages(queue, messages):
     """
     Delete a batch of messages from a queue in a single request.
 
+    Usage is shown in usage_demo at the end of this module.
+
     :param queue: The queue from which to delete the messages.
     :param messages: The list of messages to delete.
     :return: The response from SQS that contains the list of successful and failed
-             deletions.
+             message deletions.
     """
     try:
         entries = [{
@@ -190,3 +196,82 @@ def delete_messages(queue, messages):
         logger.exception("Couldn't delete messages from queue %s", queue)
     else:
         return response
+
+
+def usage_demo():
+    """
+    Demonstrates some ways to use the functions in this module.
+
+    This demonstration reads the lines from this Python file and sends the lines in
+    batches of 10 as messages to a queue. It then receives the messages in batches
+    until the queue is empty. It reassembles the lines of the file and verifies
+    they match the original file.
+    """
+    def pack_message(msg_path, msg_body, msg_line):
+        return {
+            'body': msg_body,
+            'attributes': {
+                'path': {'StringValue': msg_path, 'DataType': 'String'},
+                'line': {'StringValue': str(msg_line), 'DataType': 'String'}
+            }
+        }
+
+    def unpack_message(msg):
+        return (msg.message_attributes['path']['StringValue'],
+                msg.body,
+                int(msg.message_attributes['line']['StringValue']))
+
+    queue = queue_wrapper.create_queue('sqs-usage-demo-message-wrapper')
+
+    with open(__file__) as file:
+        lines = file.readlines()
+
+    line = 0
+    batch_size = 10
+    received_lines = [None]*len(lines)
+    print(f"Sending file lines in batches of {batch_size} as messages.")
+    while line < len(lines):
+        messages = [pack_message(__file__, lines[index], index)
+                    for index in range(line, min(line + batch_size, len(lines)))]
+        line = line + batch_size
+        send_messages(queue, messages)
+        print('.', end='')
+        sys.stdout.flush()
+    print(f"Done. Sent {len(lines) - 1} messages.")
+
+    print(f"Receiving, handling, and deleting messages in batches of {batch_size}.")
+    more_messages = True
+    while more_messages:
+        received_messages = receive_messages(queue, batch_size, 2)
+        print('.', end='')
+        sys.stdout.flush()
+        for message in received_messages:
+            path, body, line = unpack_message(message)
+            received_lines[line] = body
+        if received_messages:
+            delete_messages(queue, received_messages)
+        else:
+            more_messages = False
+    print('Done.')
+
+    if all([lines[index] == received_lines[index] for index in range(len(lines))]):
+        print(f"Successfully reassembled all file lines!")
+    else:
+        print(f"Uh oh, some lines were missed!")
+
+    queue.delete()
+
+
+def main():
+    go = input("Running the usage demonstration uses your default AWS account "
+               "credentials and might incur charges on your account. Do you want "
+               "to continue (y/n)? ")
+    if go.lower() == 'y':
+        print("Starting the usage demo. Enjoy!")
+        usage_demo()
+    else:
+        print("Thanks anyway!")
+
+
+if __name__ == '__main__':
+    main()

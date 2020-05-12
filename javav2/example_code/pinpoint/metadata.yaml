@@ -21,7 +21,7 @@ files:
  - path: src/main/java/com/example/pinpoint/ImportSegment.java
    services:
      - pinpoint
- - path: src/main/java/com/example/pinpoint/ListSegements.java
+ - path: src/main/java/com/example/pinpoint/ListSegments.java
    services:
      - pinpoint
  - path: src/main/java/com/example/pinpoint/SendMessage.java

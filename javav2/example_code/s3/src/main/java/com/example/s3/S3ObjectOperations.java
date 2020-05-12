@@ -149,7 +149,9 @@ public class S3ObjectOperations {
 
 
     public static void createBucket( S3Client s3Client, String bucketName, Region region) {
-        s3Client.createBucket(CreateBucketRequest
+        
+        try{
+            s3Client.createBucket(CreateBucketRequest
                 .builder()
                 .bucket(bucketName)
                 .createBucketConfiguration(
@@ -158,7 +160,11 @@ public class S3ObjectOperations {
                                 .build())
                 .build());
 
-        System.out.println(bucketName);
+            System.out.println(bucketName);
+         } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 
     public static void deleteBucket(S3Client client, String bucket) {

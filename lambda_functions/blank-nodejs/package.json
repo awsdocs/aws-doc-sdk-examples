@@ -1,0 +1,15 @@
+{
+  "name": "blank-nodejs",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "aws-sdk": "2.631.0",
+    "jest": "25.4.0"
+  },
+  "dependencies": {
+    "aws-xray-sdk-core": "1.1.2"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
