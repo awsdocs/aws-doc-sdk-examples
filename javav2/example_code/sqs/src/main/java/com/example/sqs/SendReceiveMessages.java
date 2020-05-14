@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to send multiple messages to a queue, check for those messages and delete the messages once received.]
+//snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to send multiple messages to a queue, check for those messages, and delete the messages once received.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[sqs]
@@ -84,13 +84,13 @@ public class SendReceiveMessages {
                 .build();
              sqsClient.sendMessageBatch(sendBatchRequest);
 
-            // receive messages from the queue
+            // Receive messages from the queue
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .build();
             List<Message> messages = sqsClient.receiveMessage(receiveRequest).messages();
 
-            // print out the messages
+            // Print out the messages
              for (Message m : messages) {
                 System.out.println("\n" +m.body());
             }

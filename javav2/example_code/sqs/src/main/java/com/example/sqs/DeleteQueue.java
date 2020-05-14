@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteQueue.java demonstrates how to delete an Amazon Simple Queue Service queue.]
+//snippet-sourcedescription:[DeleteQueue.java demonstrates how to delete an Amazon SQS queue.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
@@ -39,7 +39,7 @@ public class DeleteQueue {
                 "DeleteQueue - delete a queue\n\n" +
                 "Usage: DeleteQueue <queueName>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue.\n\n" ;
+                "  queueName - the name of the queue\n\n" ;
 
         if (args.length < 1) {
             System.out.println(USAGE);
