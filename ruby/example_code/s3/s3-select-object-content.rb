@@ -1,16 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-   http://aws.amazon.com/apache2.0/
-
-    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
- */
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 require ‘aws-sdk-s3’
 require 'csv'
@@ -38,10 +27,11 @@ s3.create_bucket(bucket: 'bucket')
 # puts data into an object, replacing the current contents
 resp = client.put_object(bucket: ‘peccy-bucket’, key: 's3://peccy-bucket/s3-select-object-content-file.csv',
                          body: ‘Hello, Bucket!’)
+
 # check if the file exists
 resp = s3.list_objects_v3(bucket: bucket)
-resp.contents.each do |obj|
-puts obj.key
+  resp.contents.each do |obj|
+  puts obj.key
 end
 
 # retrieves an object for an S3 bucket
@@ -52,7 +42,6 @@ module Aws
         class SelectObjectContent
             def self.client
                 @client ||= Aws::S3::Client.new
-            end
 
 # Use a Ruby block statement to process events
             client.select_object_content(params) do |stream|
@@ -91,7 +80,7 @@ module Aws
                  # Add :event_stream_handler option
                   params[:event_stream_handler] = handler
                   client.select_object_content(params)
-                end
+                  end
 
 # or,
 # use a Ruby Proc object, also following the same pattern as the EventStream object

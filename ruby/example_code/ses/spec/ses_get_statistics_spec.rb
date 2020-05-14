@@ -1,95 +1,36 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-    CONDITIONS OF ANY KIND, either express or implied. See the License for the
-    specific language governing permissions and limitations under the License.
- */
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 require_relative 'spec_helper'
 sns = Aws::SES::Resource.new(region: 'us-west-2')
-      RSpec.describe ShowStatistics do
-        let(:getstatistics_client) { Aws::GetStatistics::Client.new(stub_responses: true) }
-        let(:getstatistics) do
-          ShowStatistics.new(
-              getstatistics_client: getstatistics_client
-          )
-        end
 
-        describe '#showstatistics' do
-          it 'get SES statistics to avoid damaging your reputation when emails are bounced or rejected' do
-            getstatistics_client.stub_responses(
-                :getstatistics, :statistics => [
-                { :statistics_timestamp => "2020-03-13T22:22:00Z",
-                  :statistics_attempts => "4",
-                  :statistics_bounces => "0",
-                  :statistics_complaints => "0",
-                  :statistics_rejects => "0"   },
-                { :statistics_timestamp => "2019-06-12T22:24:00Z",
-                  :statistics_attempts => "2",
-                  :statistics_bounces => "0",
-                  :statistics_complaints => "0",
-                  :statistics_rejects => "0"}
-            ]
-            )
-          end
-          getstatistics.getstatistics()
-        end
-      end
-                                                                       end
-
-
-
-
-module Aws
-  describe SimpleEmailServices do
-    let(:simpleemailservices) { SimpleEmailServices.simpleemailservices }
-
-# making sure the dp percentages fall within 0.0 and 1.0
-    describe '#attempts' do
-      it 'confirms a valid dp range' do
-        expect(dp).to be >= 0.0 && <= 1.0
-        end
-# testing to confirm whether 10% is accurately recognized as a valid percentage, and 110% as an invalid one
-      it 'recognizes a valid dp percentage' do
-        expect(dp(0.1)).to be_valid
-        end
-      it 'recognizes an invalid dp percentage' do
-        expect(dp(1.1)).not_to be_valid
-        end
-        end
-
-# testing to confirm the correct message is given for a service error
-     describe 'an error is returned if get statistics cannot be reached' do
-          it 'returns the correct service error and message if we are missing a timestamp' do
-          dp.delete('timestamp')
-          result = ses.record(dp)
-              expect(result).not_to be_success &
-              expect(result.dp_id).to eq(nil) &
-              expect(result.error_message).to include('timestamp is required')
-          end
-
-# testing to make sure the data point API saves and displays the desired data points
-     describe 'Send Data Points API' do
-          it 'records submitted data points' do
-            dps = {
-                'timestamp' => '2020-03-13T22:22:00Z',
-                'attempts'=> '4',
-                'bounces' => '0',
-                'complaints' => '0',
-                'rejects' => '0'
-            }
-            post '/dps', JSON.generate(simpleemailsevice.dps)
-          end
-        end
-      end
-    end
+RSpec.describe ShowStatistics do
+  let(:getstatistics_client) { Aws::GetStatistics::Client.new(stub_responses: true) }
+  let(:getstatistics) do
+    ShowStatistics.new(
+        getstatistics_client: getstatistics_client
+    )
   end
+
+  describe '#showstatistics' do
+    it 'get SES statistics to avoid damaging your reputation when emails are bounced or rejected' do
+      getstatistics_client.stub_responses(
+          :getstatistics, :statistics => [
+          { :statistics_timestamp => "2020-03-13T22:22:00Z",
+            :statistics_attempts => "4",
+            :statistics_bounces => "0",
+            :statistics_complaints => "0",
+            :statistics_rejects => "0"   },
+          { :statistics_timestamp => "2019-06-12T22:24:00Z",
+            :statistics_attempts => "2",
+            :statistics_bounces => "0",
+            :statistics_complaints => "0",
+            :statistics_rejects => "0"}
+      ]
+      )
+    getstatistic.getstatistics()
   end
+
+
+
 
