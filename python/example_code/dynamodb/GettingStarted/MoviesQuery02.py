@@ -1,54 +1,47 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.python.codeexample.MoviesQuery02] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-from __future__ import print_function # Python 2/3 compatibility
+"""
+Purpose
+
+Shows how to query for items from an Amazon DynamoDB table that stores movies
+and project the returned items so that a particular subset of data is returned.
+Items are queried by a key expression that returns only items that were released
+in a specified year and have titles that start within a specified range of the
+alphabet.
+Returned items are projected to return only year, title, genres, and the lead actor.
+"""
+
+# snippet-start:[dynamodb.python.codeexample.MoviesQuery02]
+from pprint import pprint
 import boto3
-import json
-import decimal
-from boto3.dynamodb.conditions import Key, Attr
+from boto3.dynamodb.conditions import Key
 
-# Helper class to convert a DynamoDB item to JSON.
-class DecimalEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, decimal.Decimal):
-            return str(o)
-        return super(DecimalEncoder, self).default(o)
 
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+def query_and_project_movies(year, title_range, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-table = dynamodb.Table('Movies')
+    table = dynamodb.Table('Movies')
+    print(f"Get year, title, genres, and lead actor")
 
-print("Movies from 1992 - titles A-L, with genres and lead actor")
+    # Expression attribute names can only reference items in the projection expression.
+    response = table.query(
+        ProjectionExpression="#yr, title, info.genres, info.actors[0]",
+        ExpressionAttributeNames={"#yr": "year"},
+        KeyConditionExpression=
+            Key('year').eq(year) & Key('title').between(title_range[0], title_range[1])
+    )
+    return response['Items']
 
-response = table.query(
-    ProjectionExpression="#yr, title, info.genres, info.actors[0]",
-    ExpressionAttributeNames={ "#yr": "year" }, # Expression Attribute Names for Projection Expression only.
-    KeyConditionExpression=Key('year').eq(1992) & Key('title').between('A', 'L')
-)
 
-for i in response[u'Items']:
-    print(json.dumps(i, cls=DecimalEncoder))
+if __name__ == '__main__':
+    query_year = 1992
+    query_range = ('A', 'L')
+    print(f"Get movies from {query_year} with titles from "
+          f"{query_range[0]} to {query_range[1]}")
+    movies = query_and_project_movies(query_year, query_range)
+    for movie in movies:
+        print(f"\n{movie['year']} : {movie['title']}")
+        pprint(movie['info'])
 # snippet-end:[dynamodb.python.codeexample.MoviesQuery02]

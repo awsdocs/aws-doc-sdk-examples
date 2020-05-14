@@ -53,14 +53,25 @@ class ExampleStubber(Stubber):
 
     def _stub_bifurcator(
             self, method, expected_params=None, response=None, error_code=None):
+<<<<<<< HEAD
         if expected_params is None:
             expected_params = {}
         if response is None:
             response = {}
         if error_code is None:
+=======
+        if not expected_params:
+            expected_params = {}
+        if not response:
+            response = {}
+        if not error_code:
+>>>>>>> de7d6e2f... Clean up dynamodb GettingStarted code examples.
             self.add_response(
                 method, expected_params=expected_params, service_response=response)
         else:
             self.add_client_error(
                 method, expected_params=expected_params, service_error_code=error_code)
+<<<<<<< HEAD
 
+=======
+>>>>>>> de7d6e2f... Clean up dynamodb GettingStarted code examples.
