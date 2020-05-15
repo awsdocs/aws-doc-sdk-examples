@@ -34,17 +34,16 @@ function disableAlarmActions($cloudWatchClient, $alarmNames)
             'AlarmNames' => $alarmNames
         ]);
 
-        $message = '';
-
         if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= 'Actions for any matching alarms have been disabled.';
+            return 'At the effective URI of ' . 
+                $result['@metadata']['effectiveUri'] . 
+                ', actions for any matching alarms have been disabled.';
         } else {
-            $message .= 'Actions for some matching alarms ' . 
+            return 'Actions for some matching alarms ' . 
                 'might not have been disabled.';
         }
 
-        return $message;
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -64,7 +63,7 @@ function disableTheAlarmActions()
 }
 
 // Uncomment the following line to run this code in an AWS account.
-disableTheAlarmActions();
+// disableTheAlarmActions();
 // snippet-end:[cloudwatch.php.disable_alarms_actions.main]
 // snippet-end:[cloudwatch.php.disable_alarms_actions.complete]
 // snippet-sourcedescription:[DisableAlarmActions.php demonstrates how to disable actions for specified AWS CloudWatch alarms.]

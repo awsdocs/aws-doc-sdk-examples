@@ -30,29 +30,39 @@ function listMetrics($cloudWatchClient)
 
         $message = ''; 
 
-        if (count($result['Metrics']) > 0)
+        if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= "Metrics found:\n\n";
-
-            foreach($result['Metrics'] as $metric) 
+            $message .= 'For the effective URI at ' . 
+                $result['@metadata']['effectiveUri'] . ":\n\n";
+        
+            if ((isset($result['Metrics'])) and 
+                (count($result['Metrics']) > 0))
             {
-                $message .= 'For metric ' . $metric['MetricName'] . 
-                    ' in namepsace ' . $metric['Namespace'] . ":\n";
-                
-                if (count($metric['Dimensions']) > 0) 
+                $message .= "Metrics found:\n\n";
+
+                foreach($result['Metrics'] as $metric) 
                 {
-                    $message .= "Dimensions:\n";
-
-                    foreach ($metric['Dimensions'] as $dimension)
+                    $message .= 'For metric ' . $metric['MetricName'] . 
+                        ' in namepsace ' . $metric['Namespace'] . ":\n";
+                    
+                    if ((isset($metric['Dimensions'])) and 
+                        (count($metric['Dimensions']) > 0))
                     {
-                        $message .= 'Name: ' . $dimension['Name'] . 
-                            ', Value: ' . $dimension['Value'] . "\n";
-                    }
+                        $message .= "Dimensions:\n";
 
-                    $message .= "\n";
-                } else {
-                    $message .= "No dimensions.\n\n";
+                        foreach ($metric['Dimensions'] as $dimension)
+                        {
+                            $message .= 'Name: ' . $dimension['Name'] . 
+                                ', Value: ' . $dimension['Value'] . "\n";
+                        }
+
+                        $message .= "\n";
+                    } else {
+                        $message .= "No dimensions.\n\n";
+                    }
                 }
+            } else {
+                $message .= 'No metrics found.';
             }
         } else {
             $message .= 'No metrics found.';

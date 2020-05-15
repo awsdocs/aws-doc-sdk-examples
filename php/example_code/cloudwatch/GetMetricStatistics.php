@@ -22,11 +22,11 @@ use Aws\Exception\AwsException;
  * - $namespace: The metric's namespace.
  * - $metricName: The metric's name.
  * - $dimensions: Any required dimensions for the specified metric.
- * - $startTime: 
- * - $endTime:
- * - $period:
- * - $statistics:
- * - $unit: 
+ * - $startTime: The datapoints' start time.
+ * - $endTime: The datapoints' end time.
+ * - $period: The time period to report datapoints for.
+ * - $statistics: The datapoints' measurement type.
+ * - $unit: The datapoints' unit of measurement.
  * 
  * Returns: Statistical information for the specific metric;
  * otherwise, the error message.
@@ -50,16 +50,30 @@ function getMetricStatistics($cloudWatchClient, $namespace, $metricName,
         
         $message = '';
 
-        if (count($result['Datapoints']) > 0)
+        if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= "Datapoints found:\n";
-
-            foreach($result['Datapoints'] as $datapoint)
+            $message .= 'For the effective URI at ' . 
+                $result['@metadata']['effectiveUri'] . "\n\n";
+        
+            if ((isset($result['Datapoints'])) and 
+                (count($result['Datapoints']) > 0))
             {
-                $message .= $datapoint;
+                $message .= "Datapoints found:\n\n";
+
+                foreach($result['Datapoints'] as $datapoint)
+                {
+                    foreach ($datapoint as $key => $value)
+                    {
+                        $message .= $key . ' = ' . $value . "\n";
+                    }
+
+                    $message .= "\n";
+                }
+            } else {
+                $message .= 'No datapoints found.';
             }
         } else {
-            $message .= 'No datapoints found for ' . $metricName . '.';
+            $message .= 'No datapoints found.';
         }
 
         return $message;
@@ -70,23 +84,33 @@ function getMetricStatistics($cloudWatchClient, $namespace, $metricName,
 
 function getTheMetricStatistics()
 {
-    $namespace = 'AWS/S3';
-    $metricName = 'BucketSizeBytes';
+    // Average number of Amazon EC2 vCPUs every 5 minutes within 
+    // the past 3 hours.
+    $namespace = 'AWS/Usage';
+    $metricName = 'ResourceCount';
     $dimensions = [
         [
-            'Name' => 'StorageTypes',
-            'Value'=> 'StandardStorage'
+            'Name' => 'Service',
+            'Value' => 'EC2'
         ],
         [
-            'Name' => 'BucketName',
-            'Value' => 'my-bucket-992648334831-2'
+            'Name' => 'Resource',
+            'Value'=> 'vCPU'
+        ],
+        [
+            'Name' => 'Type',
+            'Value' => 'Resource'
+        ],
+        [
+            'Name' => 'Class',
+            'Value'=> 'Standard/OnDemand'
         ]
     ];
-    $startTime = strtotime('-3 days');
+    $startTime = strtotime('-3 hours');
     $endTime = strtotime('now');
-    $period = 86400; // Seconds. (1 day = 86400 seconds.)
+    $period = 300; // Seconds. (5 minutes = 300 seconds.)
     $statistics = array('Average');
-    $unit = 'Bytes';
+    $unit = 'None';
 
     $cloudWatchClient = new CloudWatchClient([
         'profile' => 'default',
@@ -95,7 +119,39 @@ function getTheMetricStatistics()
     ]);
 
     echo getMetricStatistics($cloudWatchClient, $namespace, $metricName, 
+        $dimensions, $startTime, $endTime, $period, $statistics, $unit);
+
+    // Another example: average number of bytes of standard storage in the 
+    // specified Amazon S3 bucket each day for the past 3 days.
+
+    /*
+    $namespace = 'AWS/S3';
+    $metricName = 'BucketSizeBytes';
+    $dimensions = [
+        [
+            'Name' => 'StorageType',
+            'Value'=> 'StandardStorage'
+        ],
+        [
+            'Name' => 'BucketName',
+            'Value' => 'my-bucket'
+        ]
+    ];
+    $startTime = strtotime('-3 days');
+    $endTime = strtotime('now');
+    $period = 86400; // Seconds. (1 day = 86400 seconds.)
+    $statistics = array('Average');
+    $unit = 'Bytes';
+    
+    $cloudWatchClient = new CloudWatchClient([
+        'profile' => 'default',
+        'region' => 'us-east-1',
+        'version' => '2010-08-01'
+    ]);
+
+    echo getMetricStatistics($cloudWatchClient, $namespace, $metricName, 
     $dimensions, $startTime, $endTime, $period, $statistics, $unit);
+    */
 }
 
 // Uncomment the following line to run this code in an AWS account.

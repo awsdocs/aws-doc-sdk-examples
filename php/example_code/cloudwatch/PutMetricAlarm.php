@@ -115,7 +115,7 @@ function putTheMetricAlarm()
 }
 
 // Uncomment the following line to run this code in an AWS account.
-putTheMetricAlarm();
+// putTheMetricAlarm();
 // snippet-end:[cloudwatch.php.put_metric_alarm.main]
 // snippet-end:[cloudwatch.php.put_metric_alarm.complete]
 // snippet-sourcedescription:[PutMetricAlarm.php demonstrates how to create or update an alarm and associate it with the specified AWS CloudWatch metric.]

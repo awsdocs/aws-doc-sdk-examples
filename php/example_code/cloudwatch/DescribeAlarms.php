@@ -30,26 +30,34 @@ function describeAlarms($cloudWatchClient)
 
         $message = '';
 
-        if (count($result['CompositeAlarms']) > 0)
+        if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= "Composite alarms:\n";
+            $message .= 'Alarms at the effective URI of ' . 
+                $result['@metadata']['effectiveUri'] . "\n\n";
 
-            foreach ($result['CompositeAlarms'] as $alarm) {
-                $message .= $alarm['AlarmName'] . "\n";
+            if (isset($result['CompositeAlarms']))
+            {
+                $message .= "Composite alarms:\n";
+
+                foreach ($result['CompositeAlarms'] as $alarm) {
+                    $message .= $alarm['AlarmName'] . "\n";
+                }
+            } else {
+                $message .= "No composite alarms found.\n";
+            }
+            
+            if (isset($result['MetricAlarms']))
+            {
+                $message .= "Metric alarms:\n";
+
+                foreach ($result['MetricAlarms'] as $alarm) {
+                    $message .= $alarm['AlarmName'] . "\n";
+                }
+            } else {
+                $message .= 'No metric alarms found.';
             }
         } else {
-            $message .= "No composite alarms found.\n";
-        }
-
-        if (count($result['MetricAlarms']) > 0)
-        {
-            $message .= "Metric alarms:\n";
-
-            foreach ($result['MetricAlarms'] as $alarm) {
-                $message .= $alarm['AlarmName'] . "\n";
-            }
-        } else {
-            $message .= 'No metric alarms found.';
+            $message .= 'No alarms found.';
         }
         
         return $message;

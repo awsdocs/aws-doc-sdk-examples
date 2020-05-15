@@ -41,16 +41,25 @@ function describeAlarmsForMetric($cloudWatchClient, $metricName,
 
         $message = '';
 
-        if (count($result['MetricAlarms']) > 0)
+        if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= 'Matching alarms for ' . $metricName . ":\n";
+            $message .= 'At the effective URI of ' .
+                $result['@metadata']['effectiveUri'] . ":\n\n";
 
-            foreach ($result['MetricAlarms'] as $alarm)
+            if ((isset($result['MetricAlarms'])) and 
+                (count($result['MetricAlarms']) > 0))
             {
-                $message .= $alarm['AlarmName'] . "\n";
+                $message .= 'Matching alarms for ' . $metricName . ":\n\n";
+
+                foreach ($result['MetricAlarms'] as $alarm)
+                {
+                    $message .= $alarm['AlarmName'] . "\n";
+                }
+            } else {
+                $message .= 'No matching alarms found for ' . $metricName . '.';
             }
         } else {
-            $message .= 'No matching alarms found for ' . $metricName . ".";
+            $message .= 'No matching alarms found for ' . $metricName . '.';
         }
 
         return $message;
@@ -65,7 +74,7 @@ function describeTheAlarmsForMetric()
     $namespace = 'AWS/S3';
     $dimensions = [
         [
-            'Name' => 'StorageTypes',
+            'Name' => 'StorageType',
             'Value'=> 'StandardStorage'
         ],
         [

@@ -34,17 +34,16 @@ function enableAlarmActions($cloudWatchClient, $alarmNames)
             'AlarmNames' => $alarmNames
         ]);
         
-        $message = '';
-
         if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= 'Actions for any matching alarms have been enabled.';
+            return 'At the effective URI of ' . 
+                $result['@metadata']['effectiveUri'] . 
+                ', actions for any matching alarms have been enabled.';
         } else {
-            $message .= 'Actions for some matching alarms ' . 
+            return'Actions for some matching alarms ' . 
                 'might not have been enabled.';
         }
-        
-        return $message;
+
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -64,7 +63,7 @@ function enableTheAlarmActions()
 }
 
 // Uncomment the following line to run this code in an AWS account.
-enableTheAlarmActions();
+// enableTheAlarmActions();
 // snippet-end:[cloudwatch.php.enable_alarm.main]
 // snippet-end:[cloudwatch.php.enable_alarm.complete]
 // snippet-sourcedescription:[EnableAlarmActions.php demonstrates how to enable actions for specified Amazon CloudWatch alarms.]

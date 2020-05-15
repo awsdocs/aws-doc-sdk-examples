@@ -1,0 +1,69 @@
+---
+files:
+  - path: DeleteAlarms.php
+    services: 
+      - cloudwatch
+  - path: tests/DeleteAlarmsTest.php
+    services: 
+      - cloudwatch
+  - path: DescribeAlarmHistory.php
+    services: 
+      - cloudwatch
+  - path: tests/DescribeAlarmHistoryTest.php
+    services: 
+      - cloudwatch
+  - path: DescribeAlarms.php
+    services: 
+      - cloudwatch
+  - path: tests/DescribeAlarmsTest.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+  - path: .php
+    services: 
+      - cloudwatch
+  - path: tests/Test.php
+    services: 
+      - cloudwatch
+...

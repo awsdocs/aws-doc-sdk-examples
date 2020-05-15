@@ -16,7 +16,7 @@ use Aws\Exception\AwsException;
  * Purpose: Provides history information for an existing Amazon CloudWatch 
  * alarm.
  *
- * Prerequisites: At least one existing CloudWatch alarm.
+ * Prerequisites: An existing CloudWatch alarm.
  * 
  * Inputs:
  * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
@@ -37,14 +37,23 @@ function describeAlarmHistory($cloudWatchClient, $alarmName)
 
         $message = '';
 
-        if (count($result['AlarmHistoryItems']) > 0)
+        if (isset($result['@metadata']['effectiveUri']))
         {
-            $message .= 'Alarm history for ' . $alarmName . ":\n";
+            $message .= 'Alarm history at the effective URI ' . 
+                $result['@metadata']['effectiveUri'] . 
+                ' for alarm ' . $alarmName . ":\n\n";
 
-            foreach ($result['AlarmHistoryItems'] as $alarm) {
-                $message .= $alarm['HistoryItemType'] . ' at ' . 
-                    $alarm['Timestamp'] . "\n";
-            }    
+            if ((isset($result['AlarmHistoryItems'])) and 
+                (count($result['AlarmHistoryItems']) > 0))
+            {
+                foreach ($result['AlarmHistoryItems'] as $alarm) {
+                    $message .= $alarm['HistoryItemType'] . ' at ' . 
+                        $alarm['Timestamp'] . "\n";
+                }
+            } else {
+                $message .= 'No alarm history found for ' . 
+                    $alarmName . '.';
+            }
         } else {
             $message .= 'No such alarm or no history found for ' . 
                 $alarmName . '.';
@@ -73,7 +82,7 @@ function describeTheAlarmHistory()
 // describeTheAlarmHistory();
 // snippet-end:[cloudwatch.php.describe_alarm_history.main]
 // snippet-end:[cloudwatch.php.describe_alarm_history.complete]
-// snippet-sourcedescription:[DescribeAlarmHistory.php demonstrates how to retrieve the history for the specified alarm in Amazon CloudWatch.]
+// snippet-sourcedescription:[DescribeAlarmHistory.php demonstrates how to retrieve history for the specified alarm in Amazon CloudWatch.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

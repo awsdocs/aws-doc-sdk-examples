@@ -33,9 +33,11 @@ function deleteAlarms($cloudWatchClient, $alarmNames)
         $result = $cloudWatchClient->deleteAlarms([
             'AlarmNames' => $alarmNames
         ]);
+
         return 'The specified alarms at the following effective URI have ' . 
             'been deleted or do not currently exist: ' . 
             $result['@metadata']['effectiveUri'];
+
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -55,10 +57,10 @@ function deleteTheAlarms()
 }
 
 // Uncomment the following line to run this code in an AWS account.
-deleteTheAlarms();
+// deleteTheAlarms();
 // snippet-end:[cloudwatch.php.delete_alarm.main]
 // snippet-end:[cloudwatch.php.delete_alarm.complete]
-// snippet-sourcedescription:[DeleteAlarms.php demonstrates how to delete one or more Amazon CloudWatch alarms given the alarm names.]
+// snippet-sourcedescription:[DeleteAlarms.php demonstrates how to delete one or more specified Amazon CloudWatch alarms.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
