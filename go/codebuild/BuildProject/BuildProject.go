@@ -14,13 +14,13 @@ import (
 )
 // snippet-end:[codebuild.go.build_project.imports]
 
-// BldProject builds a CodeBuild project
+// BldProject builds an AWS CodeBuild project
 // Inputs:
 //     svc is a CodeBuild service client
 //     proj is the name of the project
 // Output:
 //     If success, nil
-//     Otherwise, an error from the call to
+//     Otherwise, an error from the call to StartBuild
 func BldProject(svc codebuildiface.CodeBuildAPI, project *string) error {
     // snippet-start:[codebuild.go.build_project.call]
     _, err := svc.StartBuild(&codebuild.StartBuildInput{

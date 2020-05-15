@@ -41,7 +41,7 @@ This example lists your CodeBuild projects.
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
+  in the *AWS Identity and Access Management User Guide*.
 - This code has not been tested in all AWS Regions.
   Some AWS services are available only in specific
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -53,7 +53,7 @@ Unit tests should delete any resources they create.
 However, they might result in charges to your
 AWS account.
 
-To run a unit test, enter the following:
+To run a unit test, enter the following.
 
 `go test`
 
@@ -65,7 +65,7 @@ PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter the following:
+To see any log messages, enter the following.
 
 `go test -test.v`
 

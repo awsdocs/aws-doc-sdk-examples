@@ -13,7 +13,7 @@ import (
 )
 // snippet-end:[codebuild.go.list_projects.imports]
 
-// GetProjects retrieves a list of your CodeBuild projects
+// GetProjects retrieves a list of your AWS CodeBuild projects
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 // Output:
