@@ -15,18 +15,18 @@ in the AWS SDK for Go Developer Guide.
 
 ### CreateStack/CreateStack.go
 
-This example creates a CloudFormation stack.
+This example creates an AWS CloudFormation stack.
 
 `go run CreateStack -s STACK-NAME -t TEMPLATE-FILE`
 
 - _STACK-NAME_ is the name of the stack to create.
-- _TEMPLATE-FILE_ is the name of the file containing the CloudFormation template.
+- _TEMPLATE-FILE_ is the name of the file containing the AWS CloudFormation template.
 
 The unit test mocks the service client and the `CreateStack` function.
 
 ### DeleteStack/DeleteStack.go
 
-This example deletes a CloudFormation stack.
+This example deletes an AWS CloudFormation stack.
 
 `go run DeleteStack -s STACK-NAME`
 
@@ -36,7 +36,7 @@ The unit test mocks the service client and the `DeleteStack` function.
 
 ### ListStacks/ListStacks.go
 
-This example lists your CloudFormation stacks.
+This example lists your AWS CloudFormation stacks.
 
 `go run ListStacks -s STATUS`
 
@@ -61,7 +61,7 @@ Unit tests should delete any resources they create.
 However, they might result in charges to your
 AWS account.
 
-To run a unit test, enter the following:
+To run a unit test, enter the following.
 
 `go test`
 
@@ -73,7 +73,7 @@ PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter the following:
+If you want to see any log messages, enter the following.
 
 `go test -test.v`
 

@@ -14,9 +14,9 @@ import (
 )
 // snippet-end:[cfn.go.delete_stack.imports]
 
-// RemoveStack deletes a CloudFormation stack
+// RemoveStack deletes an AWS CloudFormation stack
 // Inputs:
-//     svc is a CloudFormation service client
+//     svc is an AWS CloudFormation service client
 //     stackName is the name of the new stack
 // Output:
 //     If success, nil

@@ -15,11 +15,11 @@ import (
 )
 // snippet-end:[cfn.go.create_stack.imports]
 
-// MakeStack creates a CloudFormation stack
+// MakeStack creates an AWS CloudFormation stack
 // Inputs:
-//     svc is a CloudFormation service client
+//     svc is an AWS CloudFormation service client
 //     stackName is the name of the new stack
-//     templateBody is the contents of the CloudFormation template
+//     templateBody is the contents of the AWS CloudFormation template
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to CreateStack
