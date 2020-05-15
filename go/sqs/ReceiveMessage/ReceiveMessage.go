@@ -23,7 +23,6 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
-
 // snippet-end:[sqs.go.receive_messages.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -34,17 +33,18 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
-    // Create an SQS service client
+    // snippet-start:[sqs.go.receive_messages.queue_url]
     svc := sqs.New(sess)
 
-    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+    urlResult, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
         QueueName: queue,
     })
+    // snippet-end:[sqs.go.receive_messages.queue_url]
     if err != nil {
         return nil, err
     }
 
-    return result, nil
+    return urlResult, nil
 }
 
 // GetMessages gets the messages from an Amazon SQS queue
@@ -57,10 +57,10 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 //     Otherwise, nil and an error from the call to ReceiveMessage
 func GetMessages(sess *session.Session, queueURL *string, timeout *int64) (*sqs.ReceiveMessageOutput, error) {
     // Create an SQS service client
-    // snippet-start:[sqs.go.receive_messages.call]
     svc := sqs.New(sess)
 
-    result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
+    // snippet-start:[sqs.go.receive_messages.call]
+    msgResult, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
         AttributeNames: []*string{
             aws.String(sqs.MessageSystemAttributeNameSentTimestamp),
         },
@@ -76,7 +76,7 @@ func GetMessages(sess *session.Session, queueURL *string, timeout *int64) (*sqs.
         return nil, err
     }
 
-    return result, nil
+    return msgResult, nil
 }
 
 func main() {
@@ -115,20 +115,21 @@ func main() {
         return
     }
 
+    // snippet-start:[sqs.go.receive_message.url]
     queueURL := urlResult.QueueUrl
+    // snippet-end:[sqs.go.receive_message.url]
 
-    result, err := GetMessages(sess, queueURL, timeout)
+    msgResult, err := GetMessages(sess, queueURL, timeout)
     if err != nil {
         fmt.Println("Got an error receiving messages:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Message ID:     " + *result.Messages[0].MessageId)
+    fmt.Println("Message ID:     " + *msgResult.Messages[0].MessageId)
 
     // snippet-start:[sqs.go.receive_messages.print_handle]
-    fmt.Println("Message Handle: " + *result.Messages[0].ReceiptHandle)
+    fmt.Println("Message Handle: " + *msgResult.Messages[0].ReceiptHandle)
     // snippet-end:[sqs.go.receive_messages.print_handle]
 }
-
 // snippet-end:[sqs.go.receive_messages]
