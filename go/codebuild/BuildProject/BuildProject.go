@@ -50,7 +50,7 @@ func main() {
     }))
 
     svc := codebuild.New(sess)
-    // snippet-end:[codebuild.go.build_project.args.session]
+    // snippet-end:[codebuild.go.build_project.session]
 
     err := BldProject(svc, project)
     if err != nil {
