@@ -1,11 +1,11 @@
 //snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for messages in a queue.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[sqs]
+//snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2/24/2020]
 //snippet-sourceauthor:[scmacdon-aws]
-// snippet-start:[sqs.java2.visibility_timeout.complete]
+
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -20,8 +20,10 @@
  * License for the specific language governing permissions and
  * limitations under the License.
  */
-// snippet-start:[sqs.java2.visibility_timeout.import]
+
 package com.example.sqs;
+
+// snippet-start:[sqs.java2.visibility_timeout.import]
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
@@ -44,7 +46,7 @@ public class VisibilityTimeout {
         final String queueName = "testQueue" + new Date().getTime();
         SqsClient sqs = SqsClient.builder().build();
 
-        // first, create a queue (unless it exists already)
+        // First, create a queue (unless it already exists)
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
                 .queueName(queueName)
                 .build();
@@ -68,19 +70,19 @@ public class VisibilityTimeout {
             sqs.sendMessage(sendRequest);
         }
 
-        // change visibility timeout (single)
+        // Change visibility timeout (single)
         changeMessageVisibilitySingle(queueName, 3600);
 
-        // change visibility timeout (multiple)
+        // Change visibility timeout (multiple)
         changeMessageVisibilityMultiple(queueName, 2000);
     }
 
-    // Change the visibility timeout for a single message
+    // Change visibility timeout for a single message
     public static void changeMessageVisibilitySingle(
             String queueName, int timeout) {
         SqsClient sqs = SqsClient.builder().build();
 
-        // Get the receipt handle for the first message in the queue.
+        // Get the receipt handle for the first message in the queue
         ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueName)
                 .build();
@@ -97,7 +99,7 @@ public class VisibilityTimeout {
         sqs.changeMessageVisibility(visibilityRequest);
     }
 
-    // Change the visibility timeout for multiple messages.
+    // Change the visibility timeout for multiple messages
     public static void changeMessageVisibilityMultiple(String queue_url, int timeout) {
         SqsClient sqs = SqsClient.builder().build();
 
@@ -134,4 +136,3 @@ public class VisibilityTimeout {
 
 }
 // snippet-end:[sqs.java2.visibility_timeout.main]
-// snippet-end:[sqs.java2.visibility_timeout.complete]

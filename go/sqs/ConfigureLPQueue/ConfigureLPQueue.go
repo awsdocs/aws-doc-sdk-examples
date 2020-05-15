@@ -34,12 +34,13 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
-    // Create an SQS service client
+    // snippet-start:[sqs.go.configure_lp_queue.get_url]
     svc := sqs.New(sess)
 
     result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
         QueueName: queue,
     })
+    // snippet-end:[sqs.go.configure_lp_queue.get_url]    
     if err != nil {
         return nil, err
     }
@@ -74,6 +75,7 @@ func ConfigureLPQueue(sess *session.Session, queueURL *string, waitTime *int) er
 }
 
 func main() {
+    // snippet-start:[sqs.go.configure_lp_queue.args]
     queue := flag.String("q", "", "The name of the queue")
     waitTime := flag.Int("w", 10, "The wait time, in seconds, for long polling")
     flag.Parse()
@@ -90,7 +92,8 @@ func main() {
     if *waitTime > 20 {
         *waitTime = 20
     }
-
+    // snippet-end:[sqs.go.configure_lp_queue.args]
+    
     // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.configure_lp_queue.sess]
@@ -106,8 +109,10 @@ func main() {
         return
     }
 
+    // snippet-start:[sqs.go.configure_lp_queue.url]    
     queueURL := result.QueueUrl
-
+    // snippet-end:[sqs.go.configure_lp_queue.url]
+    
     err = ConfigureLPQueue(sess, queueURL, waitTime)
     if err != nil {
         fmt.Println("Got an error deleting the queue:")
