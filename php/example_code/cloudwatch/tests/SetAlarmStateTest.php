@@ -23,7 +23,7 @@ class SetAlarmStateTest extends TestCase
 
         $alarmName = 'my-ec2-resources';
         $stateValue = 'OK';
-        $stateReason = 'AWS SDK PHP example code set the state of the alarm ' . 
+        $stateReason = 'AWS SDK for PHP example code set the state of the alarm ' . 
             $alarmName . ' to ' . $stateValue;
 
         $mock = new MockHandler();

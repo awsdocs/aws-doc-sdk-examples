@@ -16,8 +16,7 @@ use Aws\Exception\AwsException;
  * Purpose: Provides information about published metrics in Amazon CloudWatch.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * 
  * Returns: Information about published metrics; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */

@@ -17,8 +17,7 @@ use Aws\Exception\AwsException;
  * in Amazon CloudWatch.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * - $namespace: The metric's namespace.
  * - $metricName: The metric's name.
  * - $dimensions: Any required dimensions for the specified metric.

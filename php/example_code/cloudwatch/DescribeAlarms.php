@@ -16,8 +16,7 @@ use Aws\Exception\AwsException;
  * Purpose: Provides information for existing alarms in Amazon CloudWatch.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * 
  * Returns: Information about any alarms found; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */

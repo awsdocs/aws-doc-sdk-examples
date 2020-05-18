@@ -19,8 +19,7 @@ use Aws\Exception\AwsException;
  * Prerequisites: An existing CloudWatch alarm.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * - $alarmName: The name of the alarm to provide history information about.
  * 
  * Returns: Information about any alarm history if found; 

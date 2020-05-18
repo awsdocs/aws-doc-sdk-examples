@@ -16,8 +16,7 @@ use Aws\Exception\AwsException;
  * Purpose: Publishes datapoints for a metric to Amazon CloudWatch.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * - $cloudWatchRegion: The AWS Region to publish the datapoints to.
  * - $namespace: The metric's namespace.
  * - $metricData: The metric's datapoints.

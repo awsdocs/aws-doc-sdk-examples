@@ -18,14 +18,13 @@ use Aws\Exception\AwsException;
  * Prerequisites: At least one CloudWatch alarm.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * - $cloudWatchRegion: The alarm's AWS Region.
  * - $alarmName: The alarm's name.
  * - $stateValue: The alarm's new state.
  * - $stateReason: The reason for the alarm.
  * 
- * Returns: Information about the alarm' state change request; 
+ * Returns: Information about the alarm's state change request; 
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
@@ -61,7 +60,7 @@ function setTheAlarmState()
 {
     $alarmName = 'my-ec2-resources';
     $stateValue = 'OK';
-    $stateReason = 'AWS SDK PHP example code set the state of the alarm ' . 
+    $stateReason = 'AWS SDK for PHP example code set the state of the alarm ' . 
         $alarmName . ' to ' . $stateValue;
 
     $cloudWatchRegion = 'us-east-1';

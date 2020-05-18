@@ -17,10 +17,9 @@ use Aws\Exception\AwsException;
  * metric in Amazon CloudWatch.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
- * - $metricName: The name of the metric, for example BucketSizeBytes.
- * - $namespace: The related namespace for the metric, for example AWS/S3.
+ * - $cloudWatchClient: An initialized CloudWatch client.
+ * - $metricName: The name of the metric, for example, BucketSizeBytes.
+ * - $namespace: The related namespace for the metric, for example, AWS/S3.
  * - $dimensions: Any related dimensions, if the metric requires them to
  *   be specified.
  * 
@@ -97,7 +96,7 @@ function describeTheAlarmsForMetric()
 // describeTheAlarmsForMetric();
 // snippet-end:[cloudwatch.php.describe_alarms_metric.main]
 // snippet-end:[cloudwatch.php.describe_alarms_metric.complete]
-// snippet-sourcedescription:[DescribeAlarmsForMetric.php demonstrates how to retrieves the alarms for the specified AWS CloudWatch metric.]
+// snippet-sourcedescription:[DescribeAlarmsForMetric.php demonstrates how to retrieve the alarms for the specified AWS CloudWatch metric.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

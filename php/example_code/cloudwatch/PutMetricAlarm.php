@@ -18,8 +18,7 @@ use Aws\Exception\AwsException;
  * in Amazon CloudWatch.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * - $cloudWatchRegion: The AWS Region for the new or updated alarm.
  * - $alarmName: The name of a new alarm to create or existing alarm to update.
  * - $namespace: The metric's namespace.
@@ -27,7 +26,7 @@ use Aws\Exception\AwsException;
  * - $dimensions: Any required dimensions for the specified metric.
  * - $statistic: The statistic for the specified metric.
  * - $period: The number of seconds between times the metric is evaluated.
- * - $comparison: The arithmetic operation to use when comparing the 
+ * - $comparison: The arithmetic operation to use when comparing the threshold.
  * - $threshold: The value against which the specified statistic is compared.
  * - $evaluationPeriods: The number of periods over which data is compared to 
  *   the specified threshold.
@@ -118,7 +117,7 @@ function putTheMetricAlarm()
 // putTheMetricAlarm();
 // snippet-end:[cloudwatch.php.put_metric_alarm.main]
 // snippet-end:[cloudwatch.php.put_metric_alarm.complete]
-// snippet-sourcedescription:[PutMetricAlarm.php demonstrates how to create or update an alarm and associate it with the specified AWS CloudWatch metric.]
+// snippet-sourcedescription:[PutMetricAlarm.php demonstrates how to create or update an alarm and associate it with the specified Amazon CloudWatch metric.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

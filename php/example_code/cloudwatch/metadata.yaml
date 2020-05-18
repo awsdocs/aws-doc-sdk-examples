@@ -18,52 +18,52 @@ files:
   - path: tests/DescribeAlarmsTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: DescribeAlarmsForMetric.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/DescribeAlarmsForMetricTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: DisableAlarmActions.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/DisableAlarmActionsTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: EnableAlarmActions.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/EnableAlarmActionsTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: GetMetricStatistics.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/GetMetricStatisticsTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: ListMetrics.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/ListMetricsTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: PutMetricAlarm.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/PutMetricAlarmTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: PutMetricData.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/PutMetricDataTest.php
     services: 
       - cloudwatch
-  - path: .php
+  - path: SetAlarmState.php
     services: 
       - cloudwatch
-  - path: tests/Test.php
+  - path: tests/SetAlarmStateTest.php
     services: 
       - cloudwatch
 ...

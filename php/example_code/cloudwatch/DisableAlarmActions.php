@@ -18,8 +18,7 @@ use Aws\Exception\AwsException;
  * Prerequisites: At least one existing CloudWatch alarm.
  * 
  * Inputs:
- * - $cloudWatchClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudWatch.
+ * - $cloudWatchClient: An initialized CloudWatch client.
  * - $alarmNames: The names of the alarms to disable actions for.
  * 
  * Returns: Information about the results of the request;
@@ -66,7 +65,7 @@ function disableTheAlarmActions()
 // disableTheAlarmActions();
 // snippet-end:[cloudwatch.php.disable_alarms_actions.main]
 // snippet-end:[cloudwatch.php.disable_alarms_actions.complete]
-// snippet-sourcedescription:[DisableAlarmActions.php demonstrates how to disable actions for specified AWS CloudWatch alarms.]
+// snippet-sourcedescription:[DisableAlarmActions.php demonstrates how to disable actions for specified Amazon CloudWatch alarms.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
