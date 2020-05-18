@@ -8,6 +8,7 @@ event and removes the specified delete marker from the bucket.
 
 # snippet-start:[s3.python.lambda.remove_delete_marker]
 import logging
+from urllib import parse
 import boto3
 from botocore.exceptions import ClientError
 
@@ -19,7 +20,7 @@ s3 = boto3.client('s3')
 
 def lambda_handler(event, context):
     """
-    Removes a delete marker from the specified bucket.
+    Removes a delete marker from the specified versioned object.
 
     :param event: The S3 batch event that contains the ID of the delete marker
                   to remove.
@@ -40,7 +41,7 @@ def lambda_handler(event, context):
     task_id = task['taskId']
 
     try:
-        obj_key = task['s3Key']
+        obj_key = parse.unquote(task['s3Key'], encoding='utf-8')
         obj_version_id = task['s3VersionId']
         bucket_name = task['s3BucketArn'].split(':')[-1]
 

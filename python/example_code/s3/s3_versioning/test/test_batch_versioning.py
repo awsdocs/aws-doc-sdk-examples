@@ -6,6 +6,7 @@ Unit tests for batch_versionin.py functions.
 """
 
 from unittest.mock import MagicMock
+from urllib import parse
 
 import pytest
 
@@ -161,7 +162,8 @@ def test_prepare_for_revival(make_stubber, make_unique_name):
     bucket_name = make_unique_name('bucket')
     obj_prefix = 'test-prefix'
 
-    delete_markers = [s3_stubber.make_version(f'key-{index}', f'version-{index}', True)
+    # include a space in the key to test url-encoding/decoding
+    delete_markers = [s3_stubber.make_version(f'key {index}', f'version-{index}', True)
                       for index in range(5)]
 
     s3_stubber.stub_list_object_versions(
@@ -169,7 +171,9 @@ def test_prepare_for_revival(make_stubber, make_unique_name):
 
     manifest_lines = batch_versioning.prepare_for_revival(
          batch_versioning.s3.Bucket(bucket_name), obj_prefix)
-    assert len(manifest_lines) == len(delete_markers)
+    assert manifest_lines == [
+        f"{bucket_name},{parse.quote(ver['Key'])},{ver['VersionId']}"
+        for ver in delete_markers]
 
 
 def test_prepare_for_revival_failure(make_stubber, make_unique_name):
@@ -191,9 +195,9 @@ def test_prepare_for_cleanup(make_stubber, make_unique_name):
     bucket_name = make_unique_name('bucket')
     obj_prefix = 'test-prefix'
 
-    versions = [s3_stubber.make_version(f'key-{index}', f'version-{index}', True)
+    versions = [s3_stubber.make_version(f'key {index}', f'version-{index}', True)
                 for index in range(5)]
-    delete_markers = [s3_stubber.make_version(f'key-{index}', f'version-{index}', True)
+    delete_markers = [s3_stubber.make_version(f'key {index}', f'version-{index}', True)
                       for index in range(5)]
     s3_stubber.stub_list_object_versions(
         bucket_name, f'{obj_prefix}stanza', versions=versions,
@@ -203,7 +207,9 @@ def test_prepare_for_cleanup(make_stubber, make_unique_name):
         batch_versioning.s3.Bucket(bucket_name), obj_prefix,
         [MagicMock(), MagicMock(), MagicMock()]
     )
-    assert len(manifest_lines) == len(delete_markers)
+    assert manifest_lines == [
+        f"{bucket_name},{parse.quote(ver['Key'])},{ver['VersionId']}"
+        for ver in delete_markers]
 
 
 @pytest.mark.parametrize("fail_at", ["put_object", "list_versions"])

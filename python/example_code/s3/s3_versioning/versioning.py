@@ -22,11 +22,9 @@ import uuid
 import boto3
 from botocore.exceptions import ClientError
 
+logging.basicConfig(
+    format='%(levelname)s:%(message)s', level=logging.INFO, stream=stdout)
 logger = logging.getLogger(__name__)
-log_handler = logging.StreamHandler(stdout)
-log_handler.setLevel(logging.INFO)
-logger.addHandler(log_handler)
-logger.setLevel(logging.INFO)
 
 s3 = boto3.resource('s3')
 
@@ -44,6 +42,8 @@ def create_versioned_bucket(bucket_name, prefix):
     Usage is shown in the usage_demo_single_object function at the end of this module.
 
     :param bucket_name: The name of the bucket to create.
+    :param prefix: Identifies which objects are automatically expired under the
+                   configured lifecycle rules.
     :return: The newly created bucket.
     """
     try:
@@ -109,25 +109,33 @@ def rollback_object(bucket, object_key, version_id):
 
     logger.debug(
         "Got versions:\n%s",
-        '\n'.join([f"    {version.version_id}, last modified {version.last_modified}"
+        '\n'.join([f"\t{version.version_id}, last modified {version.last_modified}"
                    for version in versions]))
 
-    print(f"Rolling back to version {version_id}")
-    for version in versions:
-        if version.version_id != version_id:
-            version.delete()
-            print(f"Deleted version {version.version_id}")
-        else:
-            break
+    if version_id in [ver.version_id for ver in versions]:
+        print(f"Rolling back to version {version_id}")
+        for version in versions:
+            if version.version_id != version_id:
+                version.delete()
+                print(f"Deleted version {version.version_id}")
+            else:
+                break
 
-    print(f"Active version is now {bucket.Object(object_key).version_id}")
+        print(f"Active version is now {bucket.Object(object_key).version_id}")
+    else:
+        raise KeyError(f"{version_id} was not found in the list of versions for "
+                       f"{object_key}.")
 # snippet-end:[s3.python.versioning.rollback_object]
 
 
 # snippet-start:[s3.python.versioning.revive_object]
 def revive_object(bucket, object_key):
     """
-    Revives an object that was deleted by removing the object's active delete marker.
+    Revives a versioned object that was deleted by removing the object's active
+    delete marker.
+    A versioned object presents as deleted when its latest version is a delete marker.
+    By removing the delete marker, we make the previous version the latest version
+    and the object then presents as *not* deleted.
 
     Usage is shown in the usage_demo_single_object function at the end of this module.
 

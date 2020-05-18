@@ -32,11 +32,9 @@ from botocore.exceptions import ClientError
 
 import versioning
 
+logging.basicConfig(
+    format='%(levelname)s:%(message)s', level=logging.INFO, stream=stdout)
 logger = logging.getLogger(__name__)
-log_handler = logging.StreamHandler(stdout)
-log_handler.setLevel(logging.INFO)
-logger.addHandler(log_handler)
-logger.setLevel(logging.INFO)
 
 iam = boto3.resource('iam')
 s3 = boto3.resource('s3')
@@ -279,7 +277,7 @@ def prepare_for_revival(bucket, obj_prefix):
         response = s3.meta.client.list_object_versions(
             Bucket=bucket.name, Prefix=f'{obj_prefix}stanza')
         manifest_lines = [
-            f"{bucket.name},{marker['Key']},{marker['VersionId']}"
+            f"{bucket.name},{parse.quote(marker['Key'])},{marker['VersionId']}"
             for marker in response['DeleteMarkers']
             if marker['IsLatest']
         ]
@@ -324,7 +322,7 @@ def prepare_for_cleanup(bucket, obj_prefix, stanza_objects):
               f"versions in {bucket.name}.")
 
         manifest_lines = [
-            f"{bucket.name},{marker['Key']},{marker['VersionId']}"
+            f"{bucket.name},{parse.quote(marker['Key'])},{marker['VersionId']}"
             for marker in response['DeleteMarkers']
         ]
     except ClientError:

@@ -53,11 +53,11 @@ class ExampleStubber(Stubber):
 
     def _stub_bifurcator(
             self, method, expected_params=None, response=None, error_code=None):
-        if not expected_params:
+        if expected_params is None:
             expected_params = {}
-        if not response:
+        if response is None:
             response = {}
-        if not error_code:
+        if error_code is None:
             self.add_response(
                 method, expected_params=expected_params, service_response=response)
         else:

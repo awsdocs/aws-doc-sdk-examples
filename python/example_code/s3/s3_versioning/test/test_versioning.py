@@ -50,11 +50,12 @@ def test_create_versioned_bucket(
         assert bucket.name == bucket_name
 
 
-def test_rollback_object(make_stubber, make_unique_name, stub_controller):
+@pytest.mark.parametrize("rollback_version", ["version-2", "non-existent-version"])
+def test_rollback_object(
+        make_stubber, make_unique_name, stub_controller, rollback_version):
     s3_stubber = make_stubber(versioning.s3.meta.client)
     bucket_name = make_unique_name('bucket')
     obj_key = make_unique_name('object')
-    rollback_version = 'version-2'
     versions = [
         s3_stubber.make_version(
             obj_key, f'version-{index}', True,
@@ -65,26 +66,33 @@ def test_rollback_object(make_stubber, make_unique_name, stub_controller):
             obj_key, f'version-{index}', True,
             datetime.now() + timedelta(minutes=index))
         for index in range(10, 15)]
+    sorted_versions = \
+        sorted(versions + delete_markers, key=itemgetter('LastModified'), reverse=True)
 
     stub_controller.add(
         s3_stubber.stub_list_object_versions, (bucket_name,),
         kwargs={'prefix': obj_key, 'versions': versions,
                 'delete_markers': delete_markers})
-    for version in sorted(versions + delete_markers, key=itemgetter('LastModified'),
-                          reverse=True):
-        if version['VersionId'] != rollback_version:
-            stub_controller.add(
-                s3_stubber.stub_delete_object, (bucket_name, obj_key),
-                {'obj_version_id': version['VersionId']})
-        else:
-            break
-    stub_controller.add(
-        s3_stubber.stub_head_object, (bucket_name, obj_key))
+    if rollback_version in [ver['VersionId'] for ver in sorted_versions]:
+        for version in sorted_versions:
+            if version['VersionId'] != rollback_version:
+                stub_controller.add(
+                    s3_stubber.stub_delete_object, (bucket_name, obj_key),
+                    {'obj_version_id': version['VersionId']})
+            else:
+                break
+        stub_controller.add(
+            s3_stubber.stub_head_object, (bucket_name, obj_key))
 
     stub_controller.run()
 
-    versioning.rollback_object(
-        versioning.s3.Bucket(bucket_name), obj_key, rollback_version)
+    if rollback_version == 'non-existent-version':
+        with pytest.raises(KeyError):
+            versioning.rollback_object(
+                versioning.s3.Bucket(bucket_name), obj_key, rollback_version)
+    else:
+        versioning.rollback_object(
+            versioning.s3.Bucket(bucket_name), obj_key, rollback_version)
 
 
 @pytest.mark.parametrize(
