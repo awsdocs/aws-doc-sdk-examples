@@ -1,0 +1,31 @@
+files:
+  - path: CreateInstance/CreateInstance.go
+    services:
+      - ec2
+  - path: CreateInstance/CreateInstance_test.go
+    services:
+      - ec2
+  - path: CreateImage/CreateImage.go
+    services:
+      - ec2
+  - path: CreateImage/CreateImage_test.go
+    services:
+      - ec2
+  - path: DescribeInstances/DescribeInstances.go
+    services:
+      - ec2
+  - path: DescribeInstances/DescribeInstances_test.go
+    services:
+      - ec2
+  - path: MonitorInstances/MonitorInstances.go
+    services:
+      - ec2
+  - path: MonitorInstances/MonitorInstances_test.go
+    services:
+      - ec2
+  - path: StartStopInstances/StartStopInstances.go
+    services:
+      - ec2
+  - path: StartStopInstances/StartStopInstances_test.go
+    services:
+      - ec2
