@@ -22,7 +22,7 @@ For systems with bash support.
 
  ## Testing the Amazon SES Java files
 
-You can test the AWS IAM  Java code examples by running a test file named **SendMessageMockTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
+You can test the Amazon SES Java code examples by running a test file named **SendMessageMockTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
 
 Unlike the other Java V2 Service examples, this services uses **org.mockito.Mockito.mock** API. Mock does not manipulate real Amazon resources. You can execute the tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that test 3 passed:
 
