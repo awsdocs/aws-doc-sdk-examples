@@ -1,30 +1,33 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- *
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudfront.php.updatedistribution.complete]
 // snippet-start:[cloudfront.php.updatedistribution.import]
-
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.updatedistribution.import]
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Gets information about Amazon CloudFront distribution
+ * invalidations.
+ *
+ * Prerequisites: At least one existing Amazon CloudFront invalidation for the 
+ * specified distribution.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
+ * - $distributionId: The ID of the distribution to get invalidation 
+ *   information about.
+ * 
+ * Returns: Information about existing distribution invalidations; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
 /**
  * Updating an Amazon CloudFront Distribution.
@@ -33,12 +36,24 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a CloudFront Client 
 // snippet-start:[cloudfront.php.updatedistribution.main]
+function updateDistribution($cloudFrontClient)
+{
+
+}
+
+function updateADistribution()
+{
+
+}
+
+// Uncomment the following line to run this code in an AWS account.
+updateADistribution();
+
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2018-06-18',
-    'region' => 'us-east-2'
+    'region' => 'us-east-1'
 ]);
 
 
@@ -49,7 +64,6 @@ try {
         'Id' => $id,
     ]);
 } catch (AwsException $e) {
-    // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
@@ -91,8 +105,7 @@ try {
  
 // snippet-end:[cloudfront.php.updatedistribution.main]
 // snippet-end:[cloudfront.php.updatedistribution.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront Distribution and change any of the configurations. To make changes replace the $currentConfig value with a new value]
+// snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront distribution and change any of the configurations. To make changes, replace the current configuration value with a new value.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
@@ -102,5 +115,5 @@ try {
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-05-18]
+// snippet-sourceauthor:[pccornel (AWS)]

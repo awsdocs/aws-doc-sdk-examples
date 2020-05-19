@@ -1,29 +1,33 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudfront.php.signed_cookie_policy.complete]
 // snippet-start:[cloudfront.php.signed_cookie_policy.import]
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient;
 use Aws\Exception\AwsException;
-
 // snippet-end:[cloudfront.php.signed_cookie_policy.import]
+
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Gets information about Amazon CloudFront distribution
+ * invalidations.
+ *
+ * Prerequisites: At least one existing Amazon CloudFront invalidation for the 
+ * specified distribution.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
+ * - $distributionId: The ID of the distribution to get invalidation 
+ *   information about.
+ * 
+ * Returns: Information about existing distribution invalidations; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
 /**
  * Get a signed cookie for an Amazon CloudFront Distribution using a custom policy.
@@ -33,14 +37,25 @@ use Aws\Exception\AwsException;
  */
 
 // snippet-start:[cloudfront.php.signed_cookie_policy.main]
-// Create a CloudFront Client
+function signCookiePolicy($cloudFrontClient)
+{
+
+}
+
+function signACookiePolicy()
+{
+
+}
+
+// Uncomment the following line to run this code in an AWS account.
+signACookiePolicy();
+
 $client = new Aws\CloudFront\CloudFrontClient([
     'profile' => 'default',
     'version' => '2014-11-06',
-    'region' => 'us-east-2'
+    'region' => 'us-east-1'
 ]);
 
-// Set up parameter values for the resource
 $resourceKey = 'https://example-distribution.cloudfront.net/videos/example.mp4';
 $customPolicy = <<<POLICY
 {
@@ -56,7 +71,6 @@ $customPolicy = <<<POLICY
 }
 POLICY;
 
-// Create a signed cookie for the resource using a custom policy
 $signedCookieCustomPolicy = $client->getSignedCookie([
     'policy' => $customPolicy,
     'private_key' => '/path/to/your/cloudfront-private-key.pem',
@@ -68,8 +82,7 @@ foreach ($signedCookieCustomPolicy as $name => $value) {
 }
 // snippet-end:[cloudfront.php.signed_cookie_policy.main]
 // snippet-end:[cloudfront.php.signed_cookie_policy.complete] 
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SignCookiePolicy.php demonstrates how to grant users access to your private content using signed cookies, a custom policy and an Amazon CloudFront Distribution.]
+// snippet-sourcedescription:[SignCookiePolicy.php demonstrates how to grant users access to your private content using signed cookies, a custom policy, and an Amazon CloudFront distribution.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
@@ -78,5 +91,5 @@ foreach ($signedCookieCustomPolicy as $name => $value) {
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-05-18]
+// snippet-sourceauthor:[pccornel (AWS)]
