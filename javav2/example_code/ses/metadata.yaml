@@ -1,0 +1,11 @@
+--- 
+files:
+  - path: src/main/java/aws/example/ses/SendMessage.java
+    services:
+      - SES
+  - path: src/main/java/aws/example/ses/SendMessageAttachment.java
+    services:
+      - SES
+  - path: src/test/java/SendMessageMockTest.java
+    services:
+      - SES
