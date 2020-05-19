@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using a SesClient object]
+// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email with an attachment by using an SesClient object.]
 // snippet-service:[ses]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Simple Email Service]
@@ -58,22 +58,22 @@ public class SendMessageAttachment {
     public static void main(String[] args) throws IOException {
 
         if (args.length < 4) {
-           System.out.println("Please specify a sender email address, a recipient email address, a subject line, and file location");
+           System.out.println("Specify a sender email address, a recipient email address, a subject line, and a file location.");
             System.exit(1);
        }
 
         String sender = args[0];
         String recipient = args[1];
         String subject = args[2];
-        String fileLocation = args[3]; // select an .XLS file
+        String fileLocation = args[3]; // Choose an .xls file
 
-        // The email body for recipients with non-HTML email clients.
-        String bodyText = "Hello,\r\n" + "Please see the attached file for a list "
+        // Email body for recipients with non-HTML email clients
+        String bodyText = "Hello!\r\n" + "See the attached file for a list "
                 + "of customers to contact.";
 
-        // The HTML body of the email.
+        // HTML body of the email
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
+                + "<p>See the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
 
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
@@ -103,42 +103,42 @@ public class SendMessageAttachment {
 
        Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object.
+        // Create a new MimeMessage object
         MimeMessage message = new MimeMessage(session);
 
-        // Add subject, from and to lines.
+        // Add subject, from, and to lines
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
-        // Create a multipart/alternative child container.
+        // Create a multipart/alternative child container
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts.
+        // Create a wrapper for the HTML and text parts
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part.
+        // Define the text part
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part.
+        // Define the HTML part
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container.
+        // Add the text and HTML parts to the child container
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object.
+        // Add the child container to the wrapper object
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent container
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message.
+        // Add the parent container to the message
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message.
+        // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
         // Define the attachment
@@ -149,7 +149,7 @@ public class SendMessageAttachment {
         String reportName = "WorkReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message.
+        // Add the attachment to the message
         msg.addBodyPart(att);
 
         try {
@@ -179,8 +179,7 @@ public class SendMessageAttachment {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Email sent with attachment");
+        System.out.println("Email sent with attachment.");
         // snippet-end:[ses.java2.sendmessageattachment.main]
     }
 }
-
