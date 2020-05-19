@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-A Lambda handler that receives an Amazon S3 batch event. The handler unpacks the
+An AWS Lambda handler that receives an Amazon S3 batch event. The handler unpacks the
 event and removes the specified delete marker from the bucket.
 """
 

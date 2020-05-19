@@ -32,7 +32,7 @@ s3 = boto3.resource('s3')
 # snippet-start:[s3.python.versioning.create_versioned_bucket]
 def create_versioned_bucket(bucket_name, prefix):
     """
-    Creates an Amazon S3 bucket, enable it for versioning, and configure a lifecycle
+    Creates an Amazon S3 bucket, enables it for versioning, and configures a lifecycle
     that expires noncurrent object versions after 7 days.
 
     Adding a lifecycle configuration to a versioned bucket is a best practice.

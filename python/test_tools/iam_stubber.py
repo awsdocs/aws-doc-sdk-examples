@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Stub functions that are used by the AWS IAM unit tests.
+Stub functions that are used by the AWS Identity and Access Management (IAM) unit tests.
 
 When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto 3 client.
@@ -23,7 +23,7 @@ def random_string(length):
 class IamStubber(ExampleStubber):
     """
     A class that implements a variety of stub functions that are used by the
-    AWS IAM unit tests.
+    IAM unit tests.
 
     The stubbed functions all expect certain parameters to be passed to them as
     part of the tests, and will raise errors when the actual parameters differ from

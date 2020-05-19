@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-A Lambda handler that receives an Amazon S3 batch event. The handler unpacks the
+An AWS Lambda handler that receives an Amazon S3 batch event. The handler unpacks the
 event and applies the specified revision to the specified object.
 """
 
@@ -22,8 +22,8 @@ def lambda_handler(event, context):
     """
     Applies the specified revision to the specified object.
 
-    :param event: The S3 batch event that contains the ID of the object to revise
-                  and the revision type to apply.
+    :param event: The Amazon S3 batch event that contains the ID of the object to
+                  revise and the revision type to apply.
     :param context: Context about the event.
     :return: A result structure that Amazon S3 uses to interpret the result of the
              operation.

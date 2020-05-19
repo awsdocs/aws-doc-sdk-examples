@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Unit tests for batch_versionin.py functions.
+Unit tests for batch_versioning.py functions.
 """
 
 from unittest.mock import MagicMock
@@ -238,9 +238,9 @@ def test_create_batch_job(make_stubber, make_unique_name):
     bucket_name = make_unique_name('bucket')
     obj_prefix = 'test-prefix'
     manifest = {
-        'name': 'manitest',
+        'name': 'test-manifest',
         'lines': 'bucket,obj\nbucket,obj\n',
-        'key': f'{obj_prefix}manitest.csv',
+        'key': f'{obj_prefix}test-manifest.csv',
         'e_tag': 'test-e-tag',
         'bucket': batch_versioning.s3.Bucket(bucket_name),
         'obj_prefix': obj_prefix,
@@ -271,7 +271,7 @@ def test_create_batch_job_failure(make_stubber, make_unique_name, fail_at):
     obj_prefix = 'test-prefix'
     manifest = {
         'lines': 'bucket,obj\nbucket,obj\n',
-        'key': f'{obj_prefix}manitest.csv',
+        'key': f'{obj_prefix}test-manifest.csv',
         'e_tag': 'test-e-tag',
         'bucket': batch_versioning.s3.Bucket(bucket_name),
         'obj_prefix': obj_prefix,

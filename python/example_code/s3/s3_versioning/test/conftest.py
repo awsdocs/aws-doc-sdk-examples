@@ -8,7 +8,7 @@ from urllib import parse
 from botocore.stub import ANY
 
 import sys
-# This is needed so Python can find test_tools on the path.
+# This is needed so Python can find test_tools in the path.
 sys.path.append('../../..')
 from test_tools.fixtures.common import *
 

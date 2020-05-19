@@ -5,7 +5,7 @@
 Purpose
 
 Demonstrates how to manipulate Amazon S3 versioned objects in batches by creating jobs
-that call Lambda functions to perform processing. The demo has three phases: setup,
+that call AWS Lambda functions to perform processing. The demo has three phases: setup,
 processing, and teardown.
 
 For more detail, including usage and testing instructions, see the README.
@@ -89,8 +89,8 @@ def custom_retry(callback, error_code, max_tries):
 
 def create_iam_role(role_name):
     """
-    Creates an AWS IAM role and attached policy that has the permissions needed by
-    the Lambda functions used in this demo.
+    Creates an AWS Identity and Access Management (IAM) role and attached policy
+    that has the permissions needed by the Lambda functions used in this demo.
 
     :param role_name: The name of the role.
     :return: The created role object.
@@ -176,12 +176,12 @@ def create_lambda_function(iam_role, function_name, function_file_name, handler,
     """
     Creates a Lambda function.
 
-    :param iam_role: The AWS IAM role associated with the function.
+    :param iam_role: The IAM role associated with the function.
     :param function_name: The name of the function.
     :param function_file_name: The local file name that contains the function code.
-    :param handler: The fully-qualified name of the handler function.
+    :param handler: The fully qualified name of the handler function.
     :param description: A friendly description of the function's purpose.
-    :return: The ARN of the created function.
+    :return: The Amazon Resource Name (ARN) of the created function.
     """
     buffer = BytesIO()
     with ZipFile(buffer, 'w') as zipped:
@@ -335,9 +335,8 @@ def prepare_for_cleanup(bucket, obj_prefix, stanza_objects):
 def create_batch_job(job, manifest):
     """
     Creates an Amazon S3 batch job. The manifest is uploaded to the S3
-    bucket and the job is created. After the job is created, Amazon S3
-    processes it asynchronously. Jobs can be queried or cancelled by using
-    the returned job ID.
+    bucket and the job is created. Then Amazon S3 processes the job asynchronously.
+    Jobs can be queried or canceled by using the returned job ID.
 
     :param job: The information about the job to create.
     :param manifest: The manifest that defines the objects affected by the job.
@@ -409,7 +408,7 @@ def report_job_status(account_id, job_id):
     :param job_id: The ID of the job.
     """
     try:
-        # Get job status until the job is complete, failed, or cancelled.
+        # Get job status until the job is complete, failed, or canceled.
         job_status = None
         print(f"Status of job {job_id}:")
         while job_status not in ('Complete', 'Failed', 'Cancelled'):
@@ -431,10 +430,10 @@ def report_job_status(account_id, job_id):
 def setup_demo(role_name, bucket_name, function_info, obj_prefix):
     """
     Sets up the demo. Creates the IAM role, Lambda functions, and S3 bucket
-    used by the demo.
+    that the demo uses.
 
     This function also has the side effect of filling the function_info
-    dictionary with the ARNs of the created functions.
+    dictionary with the Amazon Resource Names (ARNs) of the created functions.
 
     :param role_name: The name to give the IAM role.
     :param bucket_name: The name to give the S3 bucket.
@@ -467,7 +466,7 @@ def usage_demo_batch_operations(
     """
     Performs the main processing part of the usage demonstration.
 
-    :param role_arn: The ARN of the role used by the created jobs.
+    :param role_arn: The ARN of the role that the created jobs use.
     :param function_info: Information about the Lambda functions used in the demo.
     :param bucket: The bucket that contains all of the objects created by the demo.
     :param stanza_objects: The initial set of stanza objects created during setup.
@@ -484,7 +483,7 @@ def usage_demo_batch_operations(
         print("Creating a batch job to perform a series of random revisions on "
               "each stanza...")
     revision_manifest = prepare_for_random_revisions(bucket, stanza_objects)
-    job['description'] = "perform a series of random revisions to each stanza"
+    job['description'] = "Perform a series of random revisions to each stanza."
     job['function_arn'] = function_info['revise_stanza']['arn']
     manifest['key'] = f"{obj_prefix}revision-manifest.csv"
     manifest['lines'] = revision_manifest
@@ -510,7 +509,7 @@ def usage_demo_batch_operations(
         print("Creating a batch job to revive any stanzas that were deleted as part of "
               "the random revisions...")
     revival_manifest = prepare_for_revival(bucket, obj_prefix)
-    job['description'] = "remove delete markers"
+    job['description'] = "Remove delete markers."
     job['function_arn'] = function_info['remove_delete_marker']['arn']
     manifest['key'] = f"{obj_prefix}revival-manifest.csv"
     manifest['lines'] = revival_manifest
@@ -530,7 +529,7 @@ def usage_demo_batch_operations(
         print("Creating a batch job to clean up excess delete markers sprinkled "
               "throughout the bucket...")
     cleanup_manifest = prepare_for_cleanup(bucket, obj_prefix, stanza_objects)
-    job['description'] = "clean up all delete markers"
+    job['description'] = "Clean up all delete markers."
     job['function_arn'] = function_info['remove_delete_marker']['arn']
     manifest['key'] = f"{obj_prefix}cleanup-manifest.csv"
     manifest['lines'] = cleanup_manifest
@@ -549,9 +548,9 @@ def usage_demo_batch_operations(
 
 def teardown_demo(role_name, function_info, bucket_name):
     """
-    Tears down the demo. Deletes everything created by the demo and returns the
+    Tears down the demo. Deletes everything the demo created and returns the
     AWS account to its initial state. This is a good-faith effort. You should
-    verify that all resources have actually been deleted.
+    verify that all resources are deleted.
 
     :param role_name: The name of the IAM role to delete.
     :param function_info: Information about the Lambda functions to delete.
@@ -622,7 +621,7 @@ def main():
     with header():
         print("Welcome to the usage demonstration of Amazon S3 batch versioning.\n")
         print("This demonstration manipulates Amazon S3 objects in batches "
-              "by creating jobs that call Lambda functions to perform processing. "
+              "by creating jobs that call AWS Lambda functions to perform processing. "
               "It uses the stanzas from the poem 'You Are Old, Father William' "
               "by Lewis Carroll, treating each stanza as a separate object.")
 

@@ -6,7 +6,7 @@ Demonstrates how to set up an Amazon S3 bucket for versioning, and how to perfor
 tasks on a version-enabled bucket.
 
 Demonstrates how to manipulate Amazon S3 versioned objects in batches by creating jobs
-that call Lambda functions to perform processing.
+that call AWS Lambda functions to perform processing.
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ that call Lambda functions to perform processing.
 
 ## Running the code
 
-This module contains two usage demonstrations. 
+This module contains two usage demonstrations: single object and batch object. 
 
 #### Single-object demo
 
@@ -50,8 +50,8 @@ demonstrate how to use Lambda functions to perform batch operations on versioned
 objects. The scripts perform the following actions.
 
 `setup_demo`
-1. Creates an AWS IAM role and attached policy that has the permissions needed by
-the Lambda functions used in this demo.
+1. Creates an AWS Access and Identity Management (IAM) role and attached policy that 
+has the permissions needed by the Lambda functions used in this demo.
 1. Creates Lambda functions that perform revisions on objects and remove delete markers
 from versioned objects.
 1. Creates a version-enabled bucket and uploads the stanzas from the poem *You Are Old,
@@ -62,12 +62,12 @@ Father William* by Lewis Carroll.
 object, using the `revise_stanza` Lambda function.
 1. Creates a batch job that revives any stanzas that were deleted during the revision
 step, using the `remove_delete_marker` Lambda function.
-1. Creates a mess of delete markers and other revisions in the bucket.
+1. Creates many delete markers and other revisions in the bucket.
 1. Creates a batch job that removes all delete markers from the bucket, using the
 `remove_delete_marker` Lambda function.
 
 `teardown_demo`
-1. Deletes IAM role and policies created during setup.
+1. Deletes the IAM role and policies created during setup.
 1. Deletes Lambda functions created during setup.
 1. Empties and deletes the bucket created during setup.
 

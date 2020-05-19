@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Unit tests for versionin.py functions.
+Unit tests for versioning.py functions.
 """
 
 from datetime import datetime, timedelta
