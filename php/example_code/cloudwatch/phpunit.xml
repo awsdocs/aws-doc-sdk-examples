@@ -1,0 +1,51 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="AWS_PROFILE" value="default"/>
+    <const name="CLOUDWATCH_VERSION" value="2010-08-01"/>
+    <const name="AWS_REGION" value="us-east-1"/>
+    <const name="CLOUDWATCH_ALARM_NAME" value="my-alarm"/>
+    <const name="CLOUDWATCH_METRIC_NAME" value="BucketSizeBytes"/>
+    <const name="CLOUDWATCH_METRIC_NAMESPACE" value="AWS/S3"/>
+    <const name="CLOUDWATCH_METRIC_NAME_USAGE" value="ResourceCount"/>
+    <const name="CLOUDWATCH_METRIC_NAMESPACE_USAGE" value="AWS/Usage"/>
+    <const name="CLOUDWATCH_METRIC_STATISTICS" value="Average"/>
+    <const name="CLOUDWATCH_METRIC_UNIT" value="None"/>
+    <const name="CLOUDWATCH_METRIC_START_TIME" value="-3 hours"/>
+    <const name="CLOUDWATCH_METRIC_END_TIME" value="now"/>
+  </php>
+  <testsuites>
+    <testsuite name="cloudwatch-deletealarms">
+      <file>tests/DeleteAlarmsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-describealarmhistory">
+      <file>tests/DescribeAlarmHistoryTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-describealarms">
+      <file>tests/DescribeAlarmsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-describealarmsformetric">
+      <file>tests/DescribeAlarmsForMetricTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-disablealarmactions">
+      <file>tests/DisableAlarmActionsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-enablealarmactions">
+      <file>tests/EnableAlarmActionsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-getmetricstatistics">
+      <file>tests/GetMetricStatisticsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-listmetrics">
+      <file>tests/ListMetricsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-putmetricalarm">
+      <file>tests/PutMetricAlarmTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-putmetricdata">
+      <file>tests/PutMetricDataTest.php</file>
+    </testsuite>
+    <testsuite name="cloudwatch-setalarmstate">
+      <file>tests/SetAlarmStateTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
