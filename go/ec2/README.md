@@ -13,6 +13,16 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### AllocateAddress/AllocateAddress.go
+
+This example allocates a VPC Elastic IP address and associates it with an instance.
+
+`go run AllocateAddress.go -i INSTANCE-ID`
+
+- _INSTANCE-ID_ is the ID of an instance.
+
+The unit test mocks the service client and the `AllocateAddress` and `AssociateAddress` functions.
+
 ### CreateImage/CreateImage.go
 
 This example creates an Amazon EC2 image.
@@ -36,11 +46,71 @@ This example creates an Amazon EC2 instance.
 
 The unit test mocks the service client and the `RunInstances` and `CreateTags` functions.
 
+### CreateKeyPair/CreateKeyPair.go
+
+This example creates a new Amazon EC2 key pair.
+
+`go run CreateKeyPair.go -k KEY-NAME`
+
+- _KEY-NAME_ is the name of the new key pair.
+
+The unit test mocks the service client and the `CreateKeyPair` function.
+
+### CreateSecurityGroup/CreateSecurityGroup.go
+
+This example creates a security group.
+
+`go run CreateSecurityGroup.go -n NAME -d DESCRIPTION [-v VPC-ID]`
+
+- _NAME_ is the name of the security group.
+- _DESCRIPTION_ is a description of the security group.
+- _VPC-ID_ is the ID of the VPC associated with the group.
+
+The unit test mocks the service client and the `DescribeVpcs`, `CreateSecurityGroup`, and `AuthorizeSecurityGroupIngress` functions.
+
+### DeleteKeyPair/DeleteKeyPair.go
+
+This example deletes a new Amazon EC2 key pair.
+
+`go run DeleteKeyPair.go -k KEY-NAME`
+
+- _KEY-NAME_ is the name of the key pair to delete.
+
+The unit test mocks the service client and the `DeleteKeyPair` function.
+
+### DeleteSecurityGroup/DeleteSecurityGroup.go
+
+This example deletes a security group.
+
+`go run DeleteSecurityGroup.go -n NAME`
+
+- _NAME_ is the name of the security group to delete.
+
+The unit test mocks the service client and the `DeleteSecurityGroup` function.
+
+### DescribeAddresses/DescribeAddresses.go
+
+This example displays some information about the Elastic IP addresses for your account's VPC.
+
+`go run DescribeAddresses.go`
+
 ### DescribeInstances/DescribeInstances.go
 
 This example lists your reservation IDs and instance IDs.
 
 `go run DescribeInstances.go`
+
+### DescribeKeyPairs/DescribeKeyPairs.go
+
+This example retrieves a list of Key Pairs stored in Amazon EC2.
+
+`go run DescribeKeyPairs.go`
+
+### DescribeSecurityGroups/DescribeSecurityGroups.go
+
+This example displays information about your security groups.
+
+`go run DescribeSecurityGroups.go`
 
 ### MonitorInstances/MonitorInstances.go
 
@@ -52,6 +122,34 @@ This example enables or disables monitoring for an instance.
 - _STATE_ is **ON** or **OFF**.
 
 The unit test mocks the service client and the `MonitorInstances` and `UnmonitorInstances` functions.
+
+### RebootInstances/RebootInstances.go
+
+This example reboots an Amazon EC2 instance.
+
+`go run RebootInstances.go -i INSTANCE-ID`
+
+- _INSTANCE-ID_ is the ID of an instance.
+
+The unit test mocks the service client and the `RebootInstances` function.
+
+### RegionsAndZones/RegionsAndZones.go
+
+This example lists the regions where Amazon EC2 is available,
+and the availability zones within the current AWS Region.
+
+`go run RegionsAndZones.go`
+
+### ReleaseAddress/ReleaseAddress.go
+
+This example releases an Elastic IP address.
+If the address is associated with a EC2 instance, the association is removed.
+
+`go run ReleaseAddress.go -a ALLOCATION-ID`
+
+- _ALLOCATION-ID_ is the ID of an Elastic IP address.
+
+The unit test mocks the service client and the `ReleaseAddress` function.
 
 ### StartStopInstances/StartStopInstances.go
 
