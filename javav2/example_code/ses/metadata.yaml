@@ -1,9 +1,9 @@
 --- 
 files:
-  - path: src/main/java/aws/example/ses/SendMessage.java
+  - path: src/main/java/com/example/ses/SendMessage.java
     services:
       - SES
-  - path: src/main/java/aws/example/ses/SendMessageAttachment.java
+  - path: src/main/java/com/example/ses/SendMessageAttachment.java
     services:
       - SES
   - path: src/test/java/SendMessageMockTest.java
