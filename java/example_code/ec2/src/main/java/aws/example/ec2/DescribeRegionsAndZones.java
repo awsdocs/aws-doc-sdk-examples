@@ -22,12 +22,14 @@
  * permissions and limitations under the License.
  */
 package aws.example.ec2;
+// snippet-start:[ec2.java1.describe_region_and_zones.import]
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
 import com.amazonaws.services.ec2.model.Region;
 import com.amazonaws.services.ec2.model.AvailabilityZone;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+// snippet-end:[ec2.java1.describe_region_and_zones.import]
 
 /**
  * Describes all regions and zones
