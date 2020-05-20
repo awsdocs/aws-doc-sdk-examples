@@ -23,7 +23,7 @@ func GetRegions(sess *session.Session) (*ec2.DescribeRegionsOutput, error) {
     svc := ec2.New(sess)
 
     resultRegions, err := svc.DescribeRegions(nil)
-    // snippet-end:[ec2.go.regions_and_zones.reqions]
+    // snippet-end:[ec2.go.regions_and_zones.regions]
     if err != nil {
         return nil, err
     }

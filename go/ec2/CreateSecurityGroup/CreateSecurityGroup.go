@@ -51,6 +51,7 @@ func MakeSecurityGroup(svc ec2iface.EC2API, name, description, vpcID *string) (s
         Description: description,
         VpcId:       aws.String(vID),
     })
+    // snippet-end:[ec2.go.create_new_security_group.call]    
     if err != nil {
         return "", "", err
     }

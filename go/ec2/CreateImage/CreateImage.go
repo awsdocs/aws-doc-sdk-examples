@@ -25,7 +25,7 @@ import (
 //     If success, the SOMETHING of the RESOURCE and nil
 //     Otherwise, an empty string and an error from the call to FUNCTION
 func MakeImage(svc ec2iface.EC2API, description, instanceID, name *string) (*ec2.CreateImageOutput, error) {
-    // snippet-start:[ec2.go.create_image_call]
+    // snippet-start:[ec2.go.create_image.call]
     opts := &ec2.CreateImageInput{
         Description: description,
         InstanceId:  instanceID,
