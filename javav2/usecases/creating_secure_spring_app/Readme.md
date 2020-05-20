@@ -1,0 +1,3 @@
+# Creating your first AWS Java Web Application
+
+You can develop an AWS Web Application that lets users submit data to an Amazon DynamoDB table. In addition to using Amazon DynamoDB, this web application also uses Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk. This application uses the **software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient** to store data within a DynamoDB table. After the DynamoDB table is updated, the application uses Amazon SNS to send a text message to notify a user. This application also uses Spring Boot APIs to build a model, views, and a controller.
