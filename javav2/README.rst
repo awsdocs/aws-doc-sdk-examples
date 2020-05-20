@@ -1,4 +1,4 @@
-.. Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -35,9 +35,11 @@ Java Developer Guide*.
 Building the examples
 =====================
 
-The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
+The AW Service specific Java examples are located under the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
 each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
 that wraps the Maven commands for those of you who also have ``make`` installed.
+
+Under the **usecases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK.  
 
 To build, open a command-line (terminal) window and change to the directory containing the examples
 you want to build/run. Then type::
