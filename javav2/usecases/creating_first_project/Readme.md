@@ -631,7 +631,7 @@ If this is your first time accessing this service, you see the **Welcome to AWS 
 
 9. Once done, you will see the application state the Health is **Ok**.  
 
-![AWS Tracking Application](images/greet13.png)
+![AWS Tracking Application](images/greet13_1.png)
 
 10. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value 5000.
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
