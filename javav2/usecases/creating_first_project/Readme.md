@@ -503,7 +503,7 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
        }
       }
 
-**Note**: Besude to specify a valid mobile number for the **phoneNumber** variable. 
+**Note**: Be sure to specify a valid mobile number for the **phoneNumber** variable. 
 	
 ## Create the HTML files
 
