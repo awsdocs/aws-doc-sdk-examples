@@ -32,15 +32,20 @@ see `Set up AWS Credentials and Region for Development
 <http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
 Java Developer Guide*.
 
-Building the examples
-=====================
+AWS Java code examples
+======================
 
 The AW Service specific Java examples are located under the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
 each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
 that wraps the Maven commands for those of you who also have ``make`` installed.
 
-Under the **usecases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK.  
+Under the **usecases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these use cases:
++ **Creating your first AWS Java Web Application** - an article that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
++ **Creating a Secure Spring Application using AWS Services** - an article that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
 
+
+Building the examples
+=====================
 To build, open a command-line (terminal) window and change to the directory containing the examples
 you want to build/run. Then type::
 
