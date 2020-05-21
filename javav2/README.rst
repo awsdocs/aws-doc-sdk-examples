@@ -40,6 +40,7 @@ each, you'll find a ``pom.xml`` file used for building the examples with Maven, 
 that wraps the Maven commands for those of you who also have ``make`` installed.
 
 Under the **usecases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these use cases:
+
 + **Creating your first AWS Java Web Application** - an article that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
 + **Creating a Secure Spring Application using AWS Services** - an article that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
 
