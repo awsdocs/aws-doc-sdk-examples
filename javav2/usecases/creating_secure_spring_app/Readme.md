@@ -1771,25 +1771,25 @@ The **login.html** file is the login page that lets a user log into the applicat
 
 The following HTML code represents the login form. 
 
-    <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-      <title>Spring Security Example </title>
-      <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
-        form {border: 3px solid #f1f1f1;}
+    	<!DOCTYPE html>
+	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+    	<title>Spring Security Example </title>
+    	<style>
+         body {font-family: Arial, Helvetica, sans-serif;}
+         form {border: 3px solid #f1f1f1;}
 
-        input[type=text], input[type=password] {
+         input[type=text], input[type=password] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
             box-sizing: border-box;
-        }
+          }
 
-        button {
+          button {
             background-color: #4CAF50;
             color: white;
             padding: 14px 20px;
@@ -1797,7 +1797,7 @@ The following HTML code represents the login form.
             border: none;
             cursor: pointer;
             width: 100%;
-        }
+           }
 
         button:hover {
             opacity: 0.8;
@@ -1837,18 +1837,18 @@ The following HTML code represents the login form.
             .cancelbtn {
                 width: 100%;
             }
-        }
-    </style>
-    </head>
-    <body>
-    <div th:if="${param.error}">
-      Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post">
-      <div class="container">
+          }
+    	</style>
+	</head>
+	<body>
+	 <div th:if="${param.error}">
+    	   Invalid username and password.
+	</div>
+   	<div th:if="${param.logout}">
+     	  You have been logged out.
+	</div>
+	<form th:action="@{/login}" method="post">
+    	<div class="container">
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" id="username" name="username" value ="user" required>
 
@@ -1857,75 +1857,62 @@ The following HTML code represents the login form.
 
         <button type="submit">Login</button>
 
-      </div>
+       </div>
 
-      <div class="container" style="background-color:#f1f1f1">
+       <div class="container" style="background-color:#f1f1f1">
         <button type="button" class="cancelbtn">Cancel</button>
         <span class="psw">Forgot <a href="#">password?</a></span>
-      </div>
-    </form>
+       </div>
+       </form>
 
-    </body>
-    </html>
+       </body>
+      </html>
 
 #### Index HTML file
 
 The following HTML code represents the index HTML file. This file represents the application's home view.
 
     <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-    <link rel="stylesheet" href="../public/css/all.min.css" th:href="@{/css/all.min.css}" />
-    <link rel="stylesheet" href="../public/css/loading.css" th:href="@{/css/loading.css}" />
-    <link rel="stylesheet" th:href="|http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css|"/>
-    <link rel="stylesheet" th:href="|https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.2.1/dist/messagebox.min.css|"/>
-    <link rel="stylesheet" th:href="|https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|"/>
-    <link rel="stylesheet" th:href="|https://fonts.googleapis.com/css?family=Montserrat:400,700|"/>
+      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-    <script src="../public/js/jquery.1.10.2.min.js" th:src="@{/js/jquery.1.10.2.min.js}"></script>
-    <script src="../public/js/jquery.loading.js" th:src="@{/js/jquery.loading.js}"></script>
-    <script src="../public/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script src="../public/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+      <title>AWS Item Tracker</title>
+     </head>
 
-    <title>AWS Item Tracker</title>
-    </head>
+     <body>
+      <header th:replace="layout :: site-header"/>
+      <div class="container">
 
-    <body>
-    <header th:replace="layout :: site-header"/>
+      <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-     <div class="container">
+      <h2>AWS Item Tracker</h2>
 
-    <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+      <p>The AWS Item Tracker application is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
-    <h2>AWS Item Tracker</h2>
-
-    <p>The AWS Item Tracker application is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
-
-    <ol>
-    <li>Enter work items into the system by clicking the <i>Add Items</i> menu item. Fill in the form and then click the <i>Create Item</i> button.</li>
-    <li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
-    <li>You can view all of your items by clicking the <i>Get Items</i> menu item. Next, click the <i>Get Active Items</i> button in the dialog.</li>
-    <li>You can modify an Active Item by selecting an item in the table and then clicking the <i>Get Single Item</i> button. The item appears in the Modify Item section where you can modify the description or status.</li>
-    <li>Modify the item and then click the <i>Update Item</i> button. Note that you cannot modify the ID value. </li>
-    <li>You can archive any item by selecting the item and clicking the <i>Archive Item</i> button. Notice that the table is updated with only active items.</li>
-    <li>You can display all archived items by clicking the <i>Get Archived Items</i> button. Note that you cannot modify an archived item.</li>
-    <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog and then clicking the <i>Report</i> button. Note only Active data can be sent in a report.</li>
-    <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+      <ol>
+     	<li>Enter work items into the system by clicking the <i>Add Items</i> menu item. Fill in the form and then click the <i>Create Item</i> button.</li>
+    	<li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
+    	<li>You can view all of your items by clicking the <i>Get Items</i> menu item. Next, click the <i>Get Active Items</i> button in the dialog.</li>
+    	<li>You can modify an Active Item by selecting an item in the table and then clicking the <i>Get Single Item</i> button. The item appears in the Modify Item section where you can modify the description or status.</li>
+    	<li>Modify the item and then click the <i>Update Item</i> button. Note that you cannot modify the ID value. </li>
+    	<li>You can archive any item by selecting the item and clicking the <i>Archive Item</i> button. Notice that the table is updated with only active items.</li>
+    	<li>You can display all archived items by clicking the <i>Get Archived Items</i> button. Note that you cannot modify an archived item.</li>
+    	<li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog and then clicking the <i>Report</i> button. Note only Active data can be sent in a report.</li>
+    	<li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
     </body>
     </html>
-    
-
+ 
 #### Add HTML file
 
 The following HTML code represents the add view that lets users add new items. 
@@ -1933,16 +1920,14 @@ The following HTML code represents the add view that lets users add new items.
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
 	<head>
-    	<title>Enter new items</title>
-
-    	<script src="../public/js/jquery.1.10.2.min.js" th:src="@{/js/jquery.1.10.2.min.js}"></script>
-    	<script src="../public/js/jquery-ui.min.js" th:src="@{/js/jquery-ui.min.js}"></script>
+    	<title>Add Items</title>
+    	<script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    	<script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
     	<script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
 
     	<!-- CSS files -->
-    	<link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    	<link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
     	<link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-
 	</head>
 	<body>
 	<header th:replace="layout :: site-header"/>
@@ -1992,24 +1977,21 @@ The following HTML code represents the items HTML file. This file represents the
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
 	<head>
-    	<title>Modify Items</title>
+    	  <title>Modify Items</title>
 
- 	<script src="../public/js/jquery.1.10.2.min.js" th:src="@{/js/jquery.1.10.2.min.js}"></script>
-    	<script src="../public/js/jquery-ui.min.js" th:src="@{/js/jquery-ui.min.js}"></script>
-    	<script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
-    	<script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js|"></script>
-    	<script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+    	  <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    	  <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+    	  <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+    	  <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js|"></script>
+    	  <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
 
-    	<!-- CSS files -->
-    	<link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
-    	<link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
-    	<link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-    	<link rel="stylesheet" href="../public/css/fancy-box/jquery.fancybox2.css" th:href="@{/css/fancy-box/jquery.fancybox2.css}" />
-    	<link rel="stylesheet" href="../public/css/formBuilder/formBuilder2.css" th:href="@{/css/formBuilder/formBuilder2.css}" />
-    	<link rel="stylesheet" href="../public/css/col.css" th:href="@{/css/col.css}" />
-    	<link rel="stylesheet" href="../public/css/button.css" th:href="@{/css/button.css}" />
-    	<link rel="stylesheet" href="../public/css/all.min.css" th:href="@{/css/all.min.css}" />
-    	<link rel="stylesheet" href="../public/css/loading.css" th:href="@{/css/loading.css}" />
+    	  <!-- CSS files  -->
+    	  <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+    	  <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
+    	  <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    	  <link rel="stylesheet" href="../public/css/col.css" th:href="@{/css/col.css}" />
+    	  <link rel="stylesheet" href="../public/css/button.css" th:href="@{/css/button.css}" />
+    	  <link rel="stylesheet" href="../public/css/all.min.css" th:href="@{/css/all.min.css}" />
 
 	</head>
 	<body>
@@ -2238,10 +2220,10 @@ The following HTML code represents the layout HTML file that represents the appl
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<head th:fragment="site-head">
-    	<meta charset="UTF-8" />
-    	<link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-    	<script src="../public/js/jquery.1.10.2.min.js" th:src="@{/js/jquery.1.10.2.min.js}"></script>
-    	<meta th:include="this :: head" th:remove="tag"/>
+    	 <meta charset="UTF-8" />
+    	 <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+    	 <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    	 <meta th:include="this :: head" th:remove="tag"/>
 	</head>
 	<body>
 	<!-- th:hef calls a controller method - which returns the view -->
