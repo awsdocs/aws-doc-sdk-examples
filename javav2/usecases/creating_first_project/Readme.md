@@ -527,13 +527,12 @@ The following HTML code represents the **greeting.html** file.
 	<!DOCTYPE HTML>
 	<html xmlns:th="https://www.thymeleaf.org">
 	<head>
-   	 <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
-    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-    	<link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    	 <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
+    	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    	 <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
 	</head>
-	<body>
 	
+	<body>
 	<h1>Submit to a DynamoDB table</h1>
 	<p>You can submit data to a DynamoDB table by using the enhanced client</p>
 	<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
