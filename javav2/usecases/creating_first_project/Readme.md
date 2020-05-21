@@ -650,6 +650,5 @@ You need **/greeting** at the end of the URL so that a request is made to the /g
 
 ![AWS Blog Application](images/greet15.png)
 
-**Note:** The final task that you have to perform is to add the **bootstrap.min.css** file to the **resources\public\css** folder. This is the CSS file for the Spring Form. 
-
+You have created your first Web application that interacts with AWS services. 
 
