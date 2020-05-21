@@ -35,7 +35,7 @@ Java Developer Guide*.
 AWS Java code examples
 ======================
 
-The AW Service specific Java examples are located under the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
+The AWS service specific Java examples are located under the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
 each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
 that wraps the Maven commands for those of you who also have ``make`` installed.
 
