@@ -847,11 +847,8 @@ The following Java code represents the **InjectWorkService** class.
             // Create a Connection object
             c =  ConnectionHelper.getConnection();
 
-            //Use prepared statements to protected against SQL injection attacks
-            //  PreparedStatement pstmt = null;
+            // Use prepared statements 
             PreparedStatement ps = null;
-
-
             String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
 
             ps = c.prepareStatement(query);
@@ -870,8 +867,7 @@ The following Java code represents the **InjectWorkService** class.
     }
 
     //Inject a new submission
-    public String injestNewSubmission(WorkItem item)
-    {
+    public String injestNewSubmission(WorkItem item) {
         Connection c = null;
         int rowCount= 0;
         try {
@@ -879,8 +875,7 @@ The following Java code represents the **InjectWorkService** class.
             // Create a Connection object
             c =  ConnectionHelper.getConnection();
 
-            //Use prepared statements to protected against SQL injection attacks
-            //  PreparedStatement pstmt = null;
+            // Use prepared statements
             PreparedStatement ps = null;
 
             //Convert rev to int
