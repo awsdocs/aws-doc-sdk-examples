@@ -35,19 +35,38 @@ Java Developer Guide*.
 AWS Java code examples
 ======================
 
-The AWS service specific Java examples are located under the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
-each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
-that wraps the Maven commands for those of you who also have ``make`` installed.
+The javav2 folder in this repository contains examples of complete use cases, as well as AWS service-based code examples.
 
-Under the **usecases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these use cases:
+Use cases
+---------
+
+Under the **use_cases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these use cases:
 
 + **Creating your first AWS Java Web Application** - an article that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
 + **Creating a Secure Spring Application using AWS Services** - an article that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
 
+AWS service examples
+--------------------
 
-Building the examples
-=====================
-To build, open a command-line (terminal) window and change to the directory containing the examples
+The AWS service specific Java examples are located under the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
+each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
+that wraps the Maven commands for those of you who also have ``make`` installed.
+
+
+
+
+
+Build and run the service examples
+==================================
+
+To build and run any of the use cases, follow the included instructions.
+
+For the service-based code examples, see below.
+
+Build the examples
+------------------
+
+To build any of the service examples, open a command-line (terminal) window and change to the directory containing the examples
 you want to build/run. Then type::
 
    mvn package
@@ -66,8 +85,8 @@ Once the examples have been built, you can run them to see them in action.
    still have Maven installed, however (the Makefile wraps Maven commands).
 
 
-Running the examples
-====================
+Run the service examples
+------------------------
 
 **IMPORTANT**
 
@@ -93,7 +112,7 @@ Once you set the ``CLASSPATH``, you can run a particular example like this::
     java com.example.s3.S3BucketOps
 
 For systems with bash support
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As an alternative to setting the ``CLASSPATH`` and specifying the full namespace of the class to
 run, we've included a ``bash`` script, ``run_example.sh``, that you can use on Linux, Unix or OS X
