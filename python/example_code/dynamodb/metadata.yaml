@@ -50,3 +50,31 @@ files:
     services:
       - dynamodb
 ...
+---
+# Amazon DynamoDB Accelerator (DAX) examples
+files:
+  - path: TryDax/01-create-table.py
+    services:
+      - dynamodb
+  - path: TryDax/02-write-data.py
+    services:
+      - dynamodb
+  - path: TryDax/03-getitem-test.py
+    services:
+      - dynamodb
+  - path: TryDax/04-query-test.py
+    services:
+      - dynamodb
+  - path: TryDax/05-scan-test.py
+    services:
+      - dynamodb
+  - path: TryDax/06-delete-table.py
+    services:
+      - dynamodb
+  - path: TryDax/test/conftest.py
+    services:
+      - dynamodb
+  - path: TryDax/test/test_try_dax.py
+    services:
+      - dynamodb
+...
