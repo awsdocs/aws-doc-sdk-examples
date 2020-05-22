@@ -24,7 +24,7 @@ The application you create is named *AWS Tracker*, and uses Spring Boot APIs to 
 + Setup the RDS instance. 
 + Deploy the application to the AWS Elastic Beanstalk.
 
-### Introduction
+### Understand the AWS Tracker application
 This application uses a model that is based on a work item and contains these attributes: 
 
 + **date**: the start date of the item 
