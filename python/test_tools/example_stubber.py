@@ -63,4 +63,3 @@ class ExampleStubber(Stubber):
         else:
             self.add_client_error(
                 method, expected_params=expected_params, service_error_code=error_code)
-
