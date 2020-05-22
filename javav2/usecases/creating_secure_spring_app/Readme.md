@@ -2609,7 +2609,9 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 5. On the **Create database** page, make sure that the **Standard Create** option is chosen, and then choose MySQL.
 ![AWS Tracking Application](images/trackerSQL.png)
 
-6. In the **Templates** section, choose **Dev/Test**.
+6. In the **Templates** section, choose **Free tier**.
+
+![AWS Tracking Application](images/Rdstemplates.png)
 
 7. In the **Settings** section, set these values:
 
@@ -2621,10 +2623,10 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 
 ![AWS Tracking Application](images/trackSettings.png)
 
-8. In the DB instance size section, set these values:
+8. In the **DB instance size** section, set these values:
 
 + **DB instance performance type** – Burstable
-+ **DB instance class**  – db.t2.small
++ **DB instance class**  – db.t2.micro
 
 9. In the **Availability & durability** section, use the default values.
 
