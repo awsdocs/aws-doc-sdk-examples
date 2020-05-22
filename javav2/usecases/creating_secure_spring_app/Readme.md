@@ -10,6 +10,7 @@ The application you create is named *AWS Tracker*, and uses Spring Boot APIs to 
 
 **Topics**
 
++ Understand the AWS Tracker application
 + Create an IntelliJ project named AWSItemTracker.
 + Add the Spring POM dependencies to your project.	
 + Setup the Java packages in your project.
