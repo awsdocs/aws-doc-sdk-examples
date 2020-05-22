@@ -101,15 +101,12 @@ The following figure shows the **work** table.
 
 ## Create an IntelliJ project named AWSItemTracker
 
-**Create a new IntelliJ project named AWSItemTracker**
-
-1. From within the IntelliJ IDE, click **File**, **New**, **Project**. 
-2. In the **New Project** dialog, select **Maven**. 
-3. Click **Next**.
-4. In the **GroupId** field, enter **spring-aws**. 
-5. In the **ArtifactId** field, enter **AWSItemTracker**. 
-6. Click **Next**.
-7. Click **Finish**. 
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
+3. For **GroupId**, enter **spring-aws**. 
+4. For **ArtifactId**, enter **AWSItemTracker**. 
+6. Choose **Next**.
+7. Choose **Finish**. 
 
 ## Add the Spring POM dependencies to your project
 
