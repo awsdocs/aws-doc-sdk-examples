@@ -1,12 +1,12 @@
-#  Creating a Secure Spring Application using AWS Services
+#  Creating a secure Spring application using AWS services
 
-You can develop a secure Spring application that tracks and reports on work items by using these Amazon Web Services:
+You can develop a secure Spring application that tracks and reports on work items by using the following AWS services:
 
-+ Amazon Relational Database Service (RDS)
-+ Amazon Simple Email Service (SES)
++ Amazon Relational Database Service (Amazon RDS)
++ Amazon Simple Email Service (Amazon SES)
 + AWS Elastic Beanstalk
 
-In addition, the *AWS Tracking* application uses Spring Boot APIs to build a model, views, and a controller. The *AWS Tracking* application is a secure web application that uses Spring Boot Security and requires a user to log into the application. For more information, see https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm. 
+The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information,  see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm) . 
 
 This application uses a model that is based on a work item and contains these attributes: 
 
