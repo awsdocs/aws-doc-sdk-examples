@@ -6,8 +6,25 @@ You can develop a secure Spring application that tracks and reports on work item
 + Amazon Simple Email Service (Amazon SES)
 + AWS Elastic Beanstalk
 
-The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information,  see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm) . 
+The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information,  see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
+**Topics**
+
++ Create an IntelliJ project named AWSItemTracker.
++ Add the Spring POM dependencies to your project.	
++ Setup the Java packages in your project.
++ Create the Java logic for a secure web application.
++ Create the main controller class.
++ Create the WorkItem class.
++ Create the JDBC Classes.
++ Create the Service classes.
++ Create the HTML files.
++ Create a Script file that performs AJAX requests. 
++ Create a JAR file for the AWS Tracker application. 
++ Setup the RDS instance. 
++ Deploy the application to the AWS Elastic Beanstalk.
+
+### Introduction
 This application uses a model that is based on a work item and contains these attributes: 
 
 + **date**: the start date of the item 
@@ -78,21 +95,6 @@ To follow along with the document, you require the following:
 
 **Note**: Please be sure to terminate all of the resources created during this document to ensure that you are no longer charged.
 
-This document contains the following sections: 
-
-+ Create an IntelliJ project named AWSItemTracker.
-+ Add the Spring POM dependencies to your project.	
-+ Setup the Java packages in your project.
-+ Create the Java logic for a secure web application.
-+ Create the main controller class.
-+ Create the WorkItem class.
-+ Create the JDBC Classes.
-+ Create the Service classes.
-+ Create the HTML files.
-+ Create a Script file that performs AJAX requests. 
-+ Create a JAR file for the AWS Tracker application. 
-+ Setup the RDS instance. 
-+ Deploy the application to the AWS Elastic Beanstalk.
 
 ## Create an IntelliJ project named AWSItemTracker
 
