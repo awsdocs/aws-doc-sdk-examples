@@ -26,16 +26,16 @@ The application you create is named *AWS Tracker*, and uses Spring Boot APIs to 
 + Deploy the application to the AWS Elastic Beanstalk.
 
 ### Understand the AWS Tracker application
-This application uses a model that is based on a work item and contains these attributes: 
+The *AWS Tracker* application uses a model that is based on a work item and contains these attributes: 
 
-+ **date**: the start date of the item 
-+ **description**: the description of the item
-+ **guide**: the deliverable that is impacted by the item 
-+ **username**: the person whom performs the work item
-+ **status**: the status of the item 
-+ **archive**: whether this item is completed or still being worked on
++ **date** - The start date of the item. 
++ **description** - The description of the item.
++ **guide** - The deliverable that is impacted by the item. 
++ **username** - The person who performs the work item.
++ **status** - The status of the item. 
++ **archive** - Whether this item is completed or is still being worked on.
 
-The following illustration shows the login page. 
+The following figure shows the login page. 
 
 ![AWS Tracking Application](images/newtrack1.png)
 
