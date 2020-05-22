@@ -1410,7 +1410,7 @@ The **SendMessage** class uses the SES Java V2 API to send an email message with
 
 **Note**: An email address that you send an email message to must be verified. For information, see [Verifying an Email Address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code reprents the **SendMessage** class. In the following Java code, notice that an **EnvironmentVariableCredentialsProvider** is used. The reason is because this code is deployed to the AWS Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can setup environment variables on the AWS Elastic Beanstalk to reflect your AWS credentials. 
+The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to the AWS Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can setup environment variables on the Elastic Beanstalk to reflect your AWS credentials. 
 
     package com.aws.services;
 
@@ -1565,7 +1565,7 @@ The following Java code reprents the **SendMessage** class. In the following Jav
     
 #### WriteExcel class
 
-The **WriteExcel** class is responsible for dynamically creating an Excel report with the MySQL data marked as active. The following codw represents this class. 
+The **WriteExcel** class dynamically creates an Excel report with the MySQL data marked as active. The following code represents this class. 
 
     package com.aws.services;
 
@@ -1746,15 +1746,15 @@ The **WriteExcel** class is responsible for dynamically creating an Excel report
       }
     }
     
-#### Create the Service classes: 
+#### To create the service classes
 
 1. Create the **com.aws.services** package. 
-2. Create the **SendMessages** class in this package and add the Java code to it. .  
-3. Create the **WriteExcel** class in this package and add the Java code to it.
+2. Create the **SendMessages** class and add the Java code to it. .  
+3. Create the **WriteExcel** class and add the Java code to it.
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS *Tracking Application*. Under the resource folder, create a template folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Tracking application. Under the resource folder, create a template folder and then create the following HTML files:
 
 + **login.html**
 + **index.html**
@@ -1762,13 +1762,13 @@ At this point, you have created all of the Java files required for the AWS *Trac
 + **items.html**
 + **layout.html**
 
-The following illustration shows these files. 
+The following figure shows these files. 
 
 ![AWS Tracking Application](images/AWT3.png)
 
-The **login.html** file is the login page that lets a user log into the application. This html file contains a form that sends a request to the **/login** handler that is defined in the **MainController**. After a successful login, the **index.html** is used as the application's home view. The **add.html** file represents the view for adding an item to the system. The **items.html** file is used to view and modify the items. Finally, the **layout.html** represents the menu visible in all views.  
+The **login.html** file is the login page where a user logs into the application. This HTML file contains a form that sends a request to the **/login** handler that is defined in the **MainController** class. After a successful login, the **index.html** file is used as the application's home view. The **add.html** file represents the view for adding an item to the system. The **items.html** file is used to view and modify the items. Finally, the **layout.html** file represents the menu visible in all views.  
 
-#### Login HTML file
+#### login.html
 
 The following HTML code represents the login form. 
 
@@ -1869,9 +1869,9 @@ The following HTML code represents the login form.
        </body>
       </html>
 
-#### Index HTML file
+#### index.html
 
-The following HTML code represents the index HTML file. This file represents the application's home view.
+The following HTML code represents the index.html. This file represents the application's home view.
 
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1914,9 +1914,9 @@ The following HTML code represents the index HTML file. This file represents the
     </body>
     </html>
  
-#### Add HTML file
+#### add.html
 
-The following HTML code represents the add view that lets users add new items. 
+The following code represents the add.html file that enables users to add new items. 
 
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -1970,9 +1970,9 @@ The following HTML code represents the add view that lets users add new items.
 	</body>
 	</html>
 
-#### Items HTML file
+#### items.html
 
-The following HTML code represents the items HTML file. This file represents the application's view that lets users modify items and sends reports. 
+The following code represents the items.html file. This file enables users to modify items and send reports. 
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2214,9 +2214,9 @@ The following HTML code represents the items HTML file. This file represents the
 	</body>
 	</html>
 
-#### Layout HTML file
+#### layout.html
 
-The following HTML code represents the layout HTML file that represents the application's menu. 
+The following code represents the layout.html file that represents the application's menu. 
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2246,11 +2246,14 @@ The following HTML code represents the layout HTML file that represents the appl
 	</body>
 	</html>
 
-#### Create the HTML files 
+#### To create the HTML files 
 
 1. In the **resources** folder, create a new folder named **templates**. 
 2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file. 
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file. .  
+3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file. 
+4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file. 
+5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
+6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file. 
 
 ## Create a Script file that performs AJAX requests 
 
