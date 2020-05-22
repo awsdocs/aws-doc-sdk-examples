@@ -16,6 +16,8 @@ The following figure shows you the structure of the Java project.
 
 **Note**: All of the Java code required to complete this document is located in this Github repository. 
 
+#### Prerequisites
+
 To follow along with the document, you require the following:
 
 + An AWS Account.
@@ -27,7 +29,7 @@ To follow along with the document, you require the following:
 
 **Note**: Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
-**Topics**
+#### Topics
 
 + Understand the AWS Tracker application
 + Create an IntelliJ project named AWSItemTracker.
