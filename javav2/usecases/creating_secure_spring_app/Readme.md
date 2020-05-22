@@ -2658,7 +2658,9 @@ In the **Connectivity & security** section, view the **Endpoint** and **Port** o
 
 ![AWS Tracking Application](images/trackEndpoint.png)
 
-Next, you have to modify the **ConnectionHelper** class by updating the **url** value with the endpoint of the database. 
+#### Modify the ConnectionHelper class
+
+Modify the **ConnectionHelper** class by updating the **url** value with the endpoint of the database. 
       
       url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
 
@@ -2666,6 +2668,8 @@ In the previous line of code, notice **awstracker**. This is the database schema
 
      Class.forName("com.mysql.jdbc.Driver").newInstance();
             return DriverManager.getConnection(instance.url, "root","root1234");
+
+**Note**: If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database. 
 
 #### Create the database schema and table
 
