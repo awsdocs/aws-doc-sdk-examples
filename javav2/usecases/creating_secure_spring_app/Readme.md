@@ -2628,7 +2628,7 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 + **DB instance performance type** – Burstable
 + **DB instance class**  – db.t2.micro
 
-9. In the **Availability & durability** section, use the default values.
+9. In the **Storage** section, use the default values.
 
 10. In the **Connectivity** section, open **Additional connectivity configuration** and set these values:
 
@@ -2648,7 +2648,7 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 
 12. To create your Amazon RDS MySQL DB instance, choose **Create database**. Your new DB instance appears in the Databases list with the status **Creating**.
 
-13. Wait for the Status of your new DB instance to show as Available. Then choose the DB instance name to show its details.
+13. Wait for the Status of your new DB instance to show as **Available**. Then choose the DB instance name to show its details.
 
 **Note**: You must setup inbound rules for the security group to connect to the database. You can setup one inbound rule for your development environment and another one for the Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you setup the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up Security Group Inbound Rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html). 
 
