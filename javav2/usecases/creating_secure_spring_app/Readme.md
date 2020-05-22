@@ -2735,36 +2735,31 @@ If this is your first time accessing this service, you will see a **Welcome to A
 
 ![AWS Tracking Application](images/AWT6.png)
 
-4. Click **Create**.
-5. Click the **Create a new environment** button. 
-6. Select the **Web server environment** option.
-7. Click **Select**. 
-8. In the Environment information section, you can leave the default values (or you can enter custom information).
+4. Choose **Create**.
+5. Choose **Create a new environment**. 
+6. Choose **Web server environment**.
+7. Choose **Select**. 
+8. In the **Environment information** section, leave the default values.
 9. In the **Platform** section, choose **Managed platform**.
-10. From the **Platform** dropdown field, choose **Java** (accept the default values for the other fields).
+10. For **Platform**, choose **Java** (accept the default values for the other fields).
 
 ![AWS Tracking Application](images/AWT7.png)
-
  
-11. In the **Application code** section, select the **Upload your code** option. 
-12. Click **Local file** and click **Choose file**. Browse to the JAR file that you created. 
-13. Click the **Create environment** button. You'll see the application being created. 
+11. In the **Application code** section, choose **Upload your code**. 
+12. Choose **Local file** and then select **Choose file**. Browse to the JAR file that you created. 
+13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state the **Health** is **Ok** .
 
 ![AWS Tracking Application](images/AWT8.png)
 
-9. Once done, you will see the application state the Health is **Ok**.  
-
 ![AWS Tracking Application](images/AWT9.png)
 
-10. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value 5000.
+14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.
-
-**NOTE:** If you don't know how to set variables, see https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html.
-
-13. Once the variables are configured, you'll see the URL for accessing the application. 
+12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.  Once the variables are configured, you'll see the URL for accessing the application. 
 
 ![AWS Tracking Application](images/AWT10.png)
+
+**NOTE:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
 To access the application, open your browser and enter the URL for your application. You will see the login page for your application.
 
