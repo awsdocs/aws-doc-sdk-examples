@@ -8,6 +8,25 @@ You can develop a secure Spring application that tracks and reports on work item
 
 The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information,  see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
+This development document guides you through creating the AWS Tracker application. Once the application is developed, this document teaches you how to deploy it to the AWS Elastic Beanstalk.
+
+The following illustration shows you the structure of the Java project that you create by following this development document.
+
+![AWS Tracking Application](images/newtrack3_1.png)
+
+**Note**: All of the Java code required to complete this document is located in this Github repository. 
+
+To follow along with the document, you require the following:
+
++ An AWS Account.
++ A Java IDE (for this development document, the IntelliJ IDE is used).
++ Java 1.8 JDK 
++ Maven 3.6 or higher.
+
+**Cost to Complete**: The AWS Services included in this document are included in the AWS Free Tier.
+
+**Note**: Please be sure to terminate all of the resources created during this document to ensure that you are no longer charged.
+
 **Topics**
 
 + Understand the AWS Tracker application
@@ -39,62 +58,45 @@ The following figure shows the login page.
 
 ![AWS Tracking Application](images/newtrack1.png)
 
-After a user logs into the system, the home view is displayed.
+When a user logs into the system, they see the **Home** view .
 
 ![AWS Tracking Application](images/AWT4.png)
 
-The user can click a menu option and perform these tasks: 
+#### Application functionality
+A user can perform these tasks in the AWS Tracker application: 
 
-+ Enter a new item into the system.
-+ View all active items.
-+ View archived items that have been completed. 
-+ Modify active items.
-+ Send a report to an email recipient. 
++ Enter a new item into the system
++ View all active items
++ View archived items that are complete 
++ Modify active items
++ Send a report to an email recipient 
 
-The following illustration shows the new item section of the application. 
+The following figure shows the new item section of the application. 
 
 ![AWS Tracking Application](images/AWT1.png)
 
-A user can retrieve either *active* or *archive* items. For example, a user can click the **Get Active Items** button to get a data set that is retrieved from an Amazon RDS database and displayed in the web application, as shown in this illustration. 
+A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a data set that is retrieved from an Amazon RDS database and displayed in the web application. 
 
 ![AWS Tracking Application](images/AWT2.png)
 
-The database is MySQL and contains a table named **work** that contains these fields:
-
-+ **idwork**: a VARCHAR(45) value that represents the PK. 
-+ **date**: a Date value that specifies the date the item was created
-+ **description**: a VARCHAR(400) that describes the item 
-+ **guide**: a VARCHAR(45) value that represents the deliverable being worked on
-+ **status**: a  VARCHAR(400) value that describes describes the status
-+ **username**: a VARCHAR(45) value that represents the user whom entered the item 
-+ **archive**: a TINYINT(4)value that represents whether this is an active or archive item 
-
-The following illustration shows the **work** table. 
-
-![AWS Tracking Application](images/trackMySQL2.png)
-
-Finally, the user can select the email recipient from the **Select Manager** dropdown field and click the **Send Report** button. All active items are placed into a data set and used to dynamically create an Excel document by using the **jxl.write.WritableWorkbook** API. Then the application uses Amazon SES to email the document to the selected email recipient. The following illustration shows an example of a report. 
+The user can select the email recipient from the **Select Manager** dropdown field and choose **Send Report**. Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
 ![AWS Tracking Application](images/AWT12.png)
 
-This development document guides you through creating the *AWS Tracker* application. Once the application is developed, this document teaches you how to deploy it to the AWS Elastic Beanstalk.
+#### Work table
+The database is MySQL and contains a table named **work**. The table contains the following fields:
 
-The following illustration shows you the structure of the Java project that you create by following this development document.
++ **idwork** - A VARCHAR(45) value that represents the PK. 
++ **date** - A date value that specifies the date the item was created.
++ **description** - A VARCHAR(400) value that describes the item. 
++ **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
++ **status** - A VARCHAR(400) value that describes the status.
++ **username** - A VARCHAR(45) value that represents the user who entered the item. 
++ **archive** - A TINYINT(4) value that represents whether this is an active or archive item. 
 
-![AWS Tracking Application](images/newtrack3_1.png)
+The following figure shows the **work** table. 
 
-**Note**: All of the Java code required to complete this document is located in this Github repository. 
-
-To follow along with the document, you require the following:
-
-+ An AWS Account.
-+ A Java IDE (for this development document, the IntelliJ IDE is used).
-+ Java 1.8 JDK 
-+ Maven 3.6 or higher.
-
-**Cost to Complete**: The AWS Services included in this document are included in the AWS Free Tier.
-
-**Note**: Please be sure to terminate all of the resources created during this document to ensure that you are no longer charged.
+![AWS Tracking Application](images/trackMySQL2.png)
 
 
 ## Create an IntelliJ project named AWSItemTracker
