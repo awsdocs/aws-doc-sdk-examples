@@ -8,7 +8,7 @@ You can develop a secure Spring application that tracks and reports on work item
 
 The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information,  see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to the AWS Elastic Beanstalk.
+This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
 The following figure shows you the structure of the Java project.
 
