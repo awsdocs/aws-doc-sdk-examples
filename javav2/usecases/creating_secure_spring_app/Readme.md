@@ -127,32 +127,32 @@ In the **pom.xml** file's **project** element, add the **spring-boot-starter-par
     
 In the **dependencies** element, add the following Spring Boot **dependency** elements.
 
-    		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		 <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		  </dependency>
+ 	<dependency>
+   	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	</dependency>
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+	 <dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-test</artifactId>
+	  <scope>test</scope>
+	  <exclusions>
+	   <exclusion>
+	    <groupId>org.junit.vintage</groupId>
+	    <artifactId>junit-vintage-engine</artifactId>
+	   </exclusion>
+	  </exclusions>
+	</dependency>
       
 Add the following dependency (required for Java version 2 of the Amazon SES API). 
 
-   	<dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
-            <version>2.10.41</version>
+ 	<dependency>
+          <groupId>software.amazon.awssdk</groupId>
+          <artifactId>ses</artifactId>
+          <version>2.10.41</version>
         </dependency>
     
 **Note**: Ensure that you are using Java 1.8 (as shown below).
