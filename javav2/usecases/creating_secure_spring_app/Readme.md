@@ -96,7 +96,6 @@ The following figure shows the **work** table.
 
 ![AWS Tracking Application](images/trackMySQL2.png)
 
-
 ## Create an IntelliJ project named AWSItemTracker
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
@@ -112,7 +111,7 @@ At this point, you have a new project named **AWSItemTracker**.
 
 ![AWS Tracking Application](images/track5.png)
 
-In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency:
+In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
   
      <parent>
         <groupId>org.springframework.boot</groupId>
