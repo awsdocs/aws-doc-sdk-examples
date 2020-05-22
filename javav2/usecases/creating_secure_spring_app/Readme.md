@@ -58,20 +58,20 @@ The following figure shows the login page.
 
 ![AWS Tracking Application](images/newtrack1.png)
 
-When a user logs into the system, they see the **Home** view .
+When a user logs into the system, they see the **Home** page .
 
 ![AWS Tracking Application](images/AWT4.png)
 
 #### Application functionality
 A user can perform these tasks in the AWS Tracker application: 
 
-+ Enter a new item into the system
++ Enter an item into the system
 + View all active items
 + View archived items that are complete 
 + Modify active items
 + Send a report to an email recipient 
 
-The following figure shows the new item section of the application. 
+The following figure shows the new item section. 
 
 ![AWS Tracking Application](images/AWT1.png)
 
@@ -79,7 +79,7 @@ A user can retrieve *active* or *archive* items. For example, a user can choose 
 
 ![AWS Tracking Application](images/AWT2.png)
 
-The user can select the email recipient from the **Select Manager** dropdown field and choose **Send Report**. Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** dropdown field and choose **Send Report** (see the dropdown field in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
 ![AWS Tracking Application](images/AWT12.png)
 
