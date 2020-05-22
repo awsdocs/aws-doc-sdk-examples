@@ -18,14 +18,14 @@ The following figure shows you the structure of the Java project.
 
 #### Prerequisites
 
-To follow along with the document, you require the following:
+To follow along with the tutorial, you need the following:
 
 + An AWS Account.
-+ A Java IDE (for this development document, the IntelliJ IDE is used).
++ A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK 
 + Maven 3.6 or higher.
 
-**Cost to Complete**: The AWS Services included in this document are included in the AWS Free Tier. See [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
+**Cost to complete**: The AWS Services included in this document are included in the AWS Free Tier. See [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
 
 **Note**: Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
@@ -112,11 +112,11 @@ The following figure shows the **work** table.
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **AWSItemTracker**, as shown in this illustration. 
+At this point, you have a new project named **AWSItemTracker**. 
 
 ![AWS Tracking Application](images/track5.png)
 
-Inside the **project** element in the **pom.xml** file, add the **spring-boot-starter-parent** dependency:
+In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency:
   
      <parent>
         <groupId>org.springframework.boot</groupId>
@@ -125,7 +125,7 @@ Inside the **project** element in the **pom.xml** file, add the **spring-boot-st
         <relativePath /> <!-- lookup parent from repository -->
       </parent>
     
-Also, add the following Spring Boot **dependency** elements inside the **dependencies** element.
+In the **dependencies** element, add the following Spring Boot **dependency** elements.
 
     		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -147,17 +147,17 @@ Also, add the following Spring Boot **dependency** elements inside the **depende
 			</exclusions>
 		  </dependency>
       
-In addition, you need to add this dependency (required for Java version 2 of the AWS SES API). 
+Add the following dependency (required for Java version 2 of the Amazon SES API). 
 
-   	 <dependency>
+   	<dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
             <version>2.10.41</version>
         </dependency>
     
-**Note**: Ensure that you are using Java 1.8 (shown below).
+**Note**: Ensure that you are using Java 1.8 (as shown below).
   
-Ensure that the **pom.xml** file resembles the following file. 
+Ensure that the **pom.xml** file looks like the following. 
 
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -364,24 +364,22 @@ Create a Java package in the **main/java** folder named **com.aws**.
 
 ![AWS Tracking Application](images/track6.png)
 
-The Java files go into these subpackages:
+The Java files go into the following sub-packages.
 
 ![AWS Tracking Application](images/newtrack7_1.png)
 
-The following list describes these packages:
+These packages contain the following:
 
-+ **entities** - contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
-+ **jdbc** - contains Java files that use the JDBC API to interact with the RDS database.
-+ **services** - contains Java files that invoke AWS Services. For example, the  **com.amazonaws.services.simpleemail.AmazonSimpleEmailService** is used within a Java file to send email messages.
-+ **securingweb** - contains all of the Java files required for Spring Security. 
++ **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
++ **jdbc** - Contains Java files that use the JDBC API to interact with the RDS database.
++ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
++ **securingweb** - Contains Java files required for Spring Security. 
 
 ## Create the Java logic for a secure web application
 
-Create Spring Security application logic that secures the web application with a login form that requires a user to provide credentials. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
+Create Spring security application logic that secures the web application with a login form that requires a user to provide credentials. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
-**NOTE**: For more information about Spring Security, see https://spring.io/guides/gs/securing-web/. 
-
-### Create the Spring Security classes
+### Create the Spring security classes
 
 Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
 
@@ -389,7 +387,7 @@ Create a Java package named **com.aws.securingweb**. Next, create these classes 
 + **WebSecurityConfig**
 
 #### SecuringWebApplication class 
-The following Java code represents the **SecuringWebApplication** class.
+The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. 
 
     package com.aws.securingweb;
 
@@ -405,7 +403,7 @@ The following Java code represents the **SecuringWebApplication** class.
     }
 
 #### WebSecurityConfig class 
-The following Java code represents the **WebSecurityConfig** class.
+The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. 
 
     package com.aws.securingweb;
 
