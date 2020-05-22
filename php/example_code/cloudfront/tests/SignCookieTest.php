@@ -8,7 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 Relies on PHPUnit to test the functionality in ./SignCookie.php.
 Related custom constants are defined in ./phpunit.xml.
 Example PHPUnit run command from this file's parent directory:
-./vendor/bin/phpunit --testsuite cloudfront-signcookietest
+./vendor/bin/phpunit --testsuite cloudfront-signcookie
 */
 use PHPUnit\Framework\TestCase;
 use Aws\MockHandler;
@@ -36,17 +36,9 @@ class SignCookieTest extends TestCase
         $privateKey = dirname(__DIR__) . '/tests/my-private-key.pem';
         $keyPairId = CLOUDFRONT_KEY_PAIR_ID;
 
-        $result = $cloudFrontClient->getSignedCookie([
-            'url' => $resourceKey,
-            'expires' => $expires, 
-            'private_key' => $privateKey,
-            'key_pair_id' => $keyPairId
-        ]);
+        $result = signCookie($cloudFrontClient, $resourceKey, $expires, 
+            $privateKey, $keyPairId);
 
         $this->assertArrayHasKey('CloudFront-Signature', $result);
-
-        // echo $result['CloudFront-Expires'] // 1589926678
-        // echo $result['CloudFront-Signature'] // 'Lv1DyC2q....2HPXaQ__'
-        // echo $result['CloudFront-Key-Pair-Id'] // 'APKAJIKZATYYYEXAMPLE'
     }
 }

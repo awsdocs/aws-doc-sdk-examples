@@ -48,7 +48,7 @@
       <file>tests/SignPrivateDistributionPolicyTest.php</file>
     </testsuite>
     <testsuite name="cloudfront-updatedistribution">
-      <file>tests/UpdateDistributionTest.php</file>
+      <file>tests/UpdateDistributionS3Test.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

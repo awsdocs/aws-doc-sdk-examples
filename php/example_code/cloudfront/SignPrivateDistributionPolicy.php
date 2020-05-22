@@ -13,50 +13,50 @@ use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.private_distribution_policy.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets information about Amazon CloudFront distribution
- * invalidations.
+ * Purpose: Gets a signed URL that viewers need in order to 
+ * access restricted content in a specially-configured Amazon CloudFront 
+ * distribution.
  *
- * Prerequisites: At least one existing Amazon CloudFront invalidation for the 
- * specified distribution.
+ * Prerequisites: A CloudFront distribution that is specially configured for 
+ * restricted access, and a CloudFront key pair. For more information, see 
+ * "Serving Private Content with Signed URLs and Signed Cookies" in the 
+ * Amazon CloudFront Developer Guide.
  * 
  * Inputs:
- * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudFront.
- * - $distributionId: The ID of the distribution to get invalidation 
- *   information about.
+ * - $cloudFrontClient: An initialized CloudFront client.
+ * - $resourceKey: A CloudFront URL to the restricted content.
+ * - $customPolicy: A policy statement that controls the access that a signed 
+ *   URL grants to a user.
+ * - $privateKey: The path to the CloudFront private key file, in .pem format.
+ * - $keyPairId: The corresponding CloudFront key pair ID.
  * 
- * Returns: Information about existing distribution invalidations; otherwise, 
- * the error message.
+ * Returns: The signed URL; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
-/**
- * Get a Signed URL for an Amazon CloudFront Distribution using a custom policy.
- *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
-
 // snippet-start:[cloudfront.php.private_distribution_policy.main]
-function signPrivateDistributionPolicy($cloudFrontClient)
+function signPrivateDistributionPolicy($cloudFrontClient, $resourceKey, 
+    $customPolicy, $privateKey, $keyPairId)
 {
+    try {
+        $result = $cloudFrontClient->getSignedUrl([
+            'url' => $resourceKey,
+            'policy' => $customPolicy,
+            'private_key' => $privateKey,
+            'key_pair_id' => $keyPairId
+        ]);
 
+        return $result;
+
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
 
 function signAPrivateDistributionPolicy()
 {
-
-}
-
-// Uncomment the following line to run this code in an AWS account.
-signAPrivateDistributionPolicy();
-
-$client = new Aws\CloudFront\CloudFrontClient([
-    'profile' => 'default',
-    'version' => '2014-11-06',
-    'region' => 'us-east-1'
-]);
-
-$customPolicy = <<<POLICY
+    $resourceKey = 'https://d13l49jEXAMPLE.cloudfront.net/my-file.txt';
+    $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
+    $customPolicy = <<<POLICY
 {
     "Statement": [
         {
@@ -69,18 +69,21 @@ $customPolicy = <<<POLICY
     ]
 }
 POLICY;
-
-$resourceKey = 'rtmp://example-distribution.cloudfront.net/videos/example.mp4';
-
-$signedUrlCannedPolicy = $client->getSignedUrl([
-    'url' => $resourceKey,
-    'policy' => $customPolicy,
-    'private_key' => '/path/to/your/cloudfront-private-key.pem',
-    'key_pair_id' => '<CloudFront key pair id>'
-]);
-foreach ($signedUrlCannedPolicy  as $name => $value) {
-    setcookie($name, $value, 0, "", "example-distribution.cloudfront.net", true, true);
+    $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
+    $keyPairId = 'APKAJIKZATYYYEXAMPLE';
+    
+    $cloudFrontClient = new CloudFrontClient([
+        'profile' => 'default',
+        'version' => '2014-11-06',
+        'region' => 'us-east-1'
+    ]);
+    
+    echo signPrivateDistributionPolicy($cloudFrontClient, $resourceKey, 
+        $customPolicy, $privateKey, $keyPairId);
 }
+
+// Uncomment the following line to run this code in an AWS account.
+// signAPrivateDistributionPolicy();
 // snippet-end:[cloudfront.php.private_distribution_policy.main]
 // snippet-end:[cloudfront.php.private_distribution_policy.complete] 
 // snippet-sourcedescription:[SignPriveDistributionPolicy.php demonstrates how to provide users access to your private content using an Amazon CloudFront distribution and custom policy.]
@@ -92,5 +95,5 @@ foreach ($signedUrlCannedPolicy  as $name => $value) {
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-18]
+// snippet-sourcedate:[2020-05-22]
 // snippet-sourceauthor:[pccornel (AWS)]

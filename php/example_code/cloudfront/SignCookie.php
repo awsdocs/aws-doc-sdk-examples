@@ -13,28 +13,26 @@ use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.signed_cookie.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets information about Amazon CloudFront distribution
- * invalidations.
+ * Purpose: Gets coookie signing information that viewers need in order to 
+ * access restricted content in a specially-configured Amazon CloudFront 
+ * distribution.
  *
- * Prerequisites: At least one existing Amazon CloudFront invalidation for the 
- * specified distribution.
+ * Prerequisites: A CloudFront distribution that is specially configured for 
+ * restricted access, and a CloudFront key pair. For more information, see 
+ * "Serving Private Content with Signed URLs and Signed Cookies" in the 
+ * Amazon CloudFront Developer Guide.
  * 
  * Inputs:
- * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
- *   for CloudFront.
- * - $distributionId: The ID of the distribution to get invalidation 
- *   information about.
+ * - $cloudFrontClient: An initialized CloudFront client.
+ * - $resourceKey: A CloudFront URL to the restricted content.
+ * - $expires: The expiration date and time for access requests, in 
+ *   UTC Unix timestamp format.
+ * - $privateKey: The path to the CloudFront private key file, in .pem format.
+ * - $keyPairId: The corresponding CloudFront key pair ID.
  * 
- * Returns: Information about existing distribution invalidations; otherwise, 
- * the error message.
+ * Returns: Information about required Set-Cookie headers for cookie signing; 
+ * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
-
-/**
- * Get a signed cookie for an Amazon CloudFront Distribution.
- *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
 
 // snippet-start:[cloudfront.php.signed_cookie.main]
 function signCookie($cloudFrontClient, $resourceKey, $expires, 
@@ -72,11 +70,9 @@ function signACookie()
         $privateKey, $keyPairId);
 
     /* If successful, returns something like:
-       [
-           'CloudFront-Expires' => 1589926678,
-           'CloudFront-Signature' => 'Lv1DyC2q....2HPXaQ__',
-           'CloudFront-Key-Pair-Id' => 'APKAJIKZATYYYEXAMPLE'
-       ]
+    CloudFront-Expires = 1589926678
+    CloudFront-Signature = Lv1DyC2q...2HPXaQ__
+    CloudFront-Key-Pair-Id = APKAJIKZATYYYEXAMPLE
     */
     foreach($result as $key => $value)
     {
@@ -97,5 +93,5 @@ function signACookie()
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-18]
+// snippet-sourcedate:[2020-05-20]
 // snippet-sourceauthor:[pccornel (AWS)]

@@ -17,7 +17,7 @@ use Aws\CloudFront\CloudFrontClient;
 
 class SignPrivateDistributionTest extends TestCase
 {
-    public function testListsTheInvalidations()
+    public function testSignsTheURL()
     {
         require('./SignPrivateDistribution.php');
 
@@ -31,12 +31,14 @@ class SignPrivateDistributionTest extends TestCase
             'handler' => $mock
         ]);
 
-        $result = listInvalidations($cloudFrontClient, 
-            CLOUDFRONT_DISTRIBUTION_ID);
+        $resourceKey = CLOUDFRONT_RESOURCE_KEY;
+        $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
+        $privateKey = dirname(__DIR__) . '/tests/my-private-key.pem';
+        $keyPairId = CLOUDFRONT_KEY_PAIR_ID;
 
-        $this->assertContains('https://cloudfront.amazonaws.com/' .
-            CLOUDFRONT_VERSION . '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID . '/invalidation', 
-            $result['@metadata']);
+        $result = signPrivateDistribution($cloudFrontClient, $resourceKey, 
+            $expires, $privateKey, $keyPairId);
+
+        $this->assertStringContainsStringIgnoringCase($resourceKey, $result);
     }
 }

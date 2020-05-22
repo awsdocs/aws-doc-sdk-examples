@@ -17,7 +17,7 @@ use Aws\CloudFront\CloudFrontClient;
 
 class SignCookiePolicyTest extends TestCase
 {
-    public function testListsTheInvalidations()
+    public function testSignsTheCookie()
     {
         require('./SignCookiePolicy.php');
 
@@ -31,12 +31,29 @@ class SignCookiePolicyTest extends TestCase
             'handler' => $mock
         ]);
 
-        $result = listInvalidations($cloudFrontClient, 
-            CLOUDFRONT_DISTRIBUTION_ID);
+        $resourceKey = CLOUDFRONT_RESOURCE_KEY;
+        $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
 
-        $this->assertContains('https://cloudfront.amazonaws.com/' .
-            CLOUDFRONT_VERSION . '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID . '/invalidation', 
-            $result['@metadata']);
+        $customPolicy = <<<POLICY
+{
+    "Statement": [
+        {
+            "Resource": "{$resourceKey}",
+            "Condition": {
+                "IpAddress": {"AWS:SourceIp": "192.0.2.0/24"},
+                "DateLessThan": {"AWS:EpochTime": {$expires}}
+            }
+        }
+    ]
+}
+POLICY;
+
+        $privateKey = dirname(__DIR__) . '/tests/my-private-key.pem';
+        $keyPairId = CLOUDFRONT_KEY_PAIR_ID;
+
+        $result = signCookiePolicy($cloudFrontClient, $customPolicy, 
+            $privateKey, $keyPairId);
+
+        $this->assertArrayHasKey('CloudFront-Signature', $result);
     }
 }

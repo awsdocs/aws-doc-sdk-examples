@@ -17,7 +17,7 @@ use Aws\CloudFront\CloudFrontClient;
 
 class SignPrivateDistributionPolicyTest extends TestCase
 {
-    public function testListsTheInvalidations()
+    public function testSignsTheURL()
     {
         require('./SignPrivateDistributionPolicy.php');
 
@@ -31,12 +31,29 @@ class SignPrivateDistributionPolicyTest extends TestCase
             'handler' => $mock
         ]);
 
-        $result = listInvalidations($cloudFrontClient, 
-            CLOUDFRONT_DISTRIBUTION_ID);
+        $resourceKey = CLOUDFRONT_RESOURCE_KEY;
+        $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
+        
+        $customPolicy = <<<POLICY
+{
+    "Statement": [
+        {
+            "Resource": "{$resourceKey}",
+            "Condition": {
+                "IpAddress": {"AWS:SourceIp": "192.0.2.0/24"},
+                "DateLessThan": {"AWS:EpochTime": {$expires}}
+            }
+        }
+    ]
+}
+POLICY;
 
-        $this->assertContains('https://cloudfront.amazonaws.com/' .
-            CLOUDFRONT_VERSION . '/distribution/' . 
-            CLOUDFRONT_DISTRIBUTION_ID . '/invalidation', 
-            $result['@metadata']);
+        $privateKey = dirname(__DIR__) . '/tests/my-private-key.pem';
+        $keyPairId = CLOUDFRONT_KEY_PAIR_ID;
+
+        $result = signPrivateDistributionPolicy($cloudFrontClient, $resourceKey, 
+            $customPolicy, $privateKey, $keyPairId);
+
+        $this->assertStringContainsStringIgnoringCase($resourceKey, $result);
     }
 }
