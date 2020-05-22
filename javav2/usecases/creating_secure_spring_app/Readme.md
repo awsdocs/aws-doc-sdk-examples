@@ -460,20 +460,20 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
      }
     }
    
- **Note** - In this example, the user credentials to log into the application are user/password.  
+**Note**: In this example, the user credentials to log into the application are **user** and **password**.  
  
-#### Create the SecuringWebApplication and WebSecurityConfig classes 
+#### To create the SecuringWebApplication and WebSecurityConfig classes 
 
 1. Create the **com.aws.securingweb** package. 
-2. Create the **SecuringWebApplication** class in this package and paste the code into it.
-3. Create the **WebSecurityConfig** class in this package and paste the code into it.
+2. Create the **SecuringWebApplication** class and paste the code into it.
+3. Create the **WebSecurityConfig** class and paste the code into it.
 
 
-## Create the main controller class
+### Create the main controller class
 
-Within the **com.aws.securingweb** package, create the controller class named **MainController**. This class is responsible for handling the HTTP Requests. For example, if a POST operation is made by the view, the **MainController** handles the request and returns a data set that is displayed in the view. In this example, the data set is obtained from the MySQL database located in the AWS Cloud. 
+In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
-**NOTE**: In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this document. 
+**Note**: In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this document. 
 
 #### MainController class
 
@@ -670,14 +670,14 @@ The following Java code represents the **MainController** class.
     }
    }
 
-#### Create the MainController class: 
+#### To create the MainController class 
 
 1. In the **com.aws.securingweb** package, create the **MainController** class. 
 2. Copy the code from the **MainController** class and paste it into this class in your project.
 
-## Create the WorkItem class
+### Create the WorkItem class
 
-Create a new Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
+Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
 
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
@@ -756,19 +756,18 @@ The following Java code represents the **WorkItem** class.
       }
     }
 
-#### Create the WorkItem class
+#### To create the WorkItem class
 1. In the **com.aws.entities** package, create the **WorkItem** class. 
 2. Copy the code from the **WorkItem** class and paste it into this class in your project.
 
 
-## Create the JDBC Classes
+### Create the JDBC Classes
 
-Create a new Java package named **com.aws.jdbc**. Next, create these Java classes required to perform database operations:
+Create a Java package named **com.aws.jdbc**. Next, create these Java classes that are required to perform database operations:
 
-+ **ConnectionHelper** - creates a connection to the RDS MySQL instance. 
-+ **InjectWorkService** - injects items into the MySQL instance. 
-+ **RetrieveItems** - retrieves items from the MySQL instance. 
-
++ **ConnectionHelper** - Creates a connection to the RDS MySQL instance. 
++ **InjectWorkService** - Injects items into the MySQL instance. 
++ **RetrieveItems** - Retrieves items from the MySQL instance. 
 
 #### ConnectionHelper class
 
@@ -819,7 +818,7 @@ The following Java code represents the **ConnectionHelper** class.
       }
     }
     
-**NOTE**: Notice the **URL** value is *localhost:3306*. This value is modified later after the RDS instance is created. This is how the *AWS Tracker* application communicates with the RDS MySQL instance. You must also ensure that you specify the user name and password for your RDS instance. 
+**Note**: The **URL** value is *localhost:3306*. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance. 
 
 #### InjectWorkService class
 
@@ -1392,24 +1391,24 @@ The following Java code represents the **RetrieveItems** class.
       }
     }
 
-#### Create the JDBC classes 
+#### To create the JDBC classes 
 
 1. Create the **com.aws.jdbc** package. 
-2. Create the **ConnectionHelper** class in this package and paste the Java code into the class.  
-3. Create the **InjectWorkService** class in this package and paste the Java code into the class.
-4. Create the **RetrieveItems** class in this package and paste the Java code into the class.
+2. Create the **ConnectionHelper** class and paste the Java code into the class.  
+3. Create the **InjectWorkService** class and paste the Java code into the class.
+4. Create the **RetrieveItems** class and paste the Java code into the class.
 
-## Create the Service classes
+### Create the service classes
 
-The service classes contain Java application logic that make use of AWS Services. In this section, you create these classes: 
+The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
 
-+ **SendMessages** - uses the Amazon Simple Email Service (Amazon SES) to send email messages
-+ **WriteExcel** - uses the Java Excel API to dynamically create a report (this does not use AWS Java APIs) 
++ **SendMessages** - Uses the Amazon SES API to send email messages.
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS Java APIs). 
 
 #### SendMessage class 
 The **SendMessage** class uses the SES Java V2 API to send an email message with an attachment (the Excel document) to an email recipient. 
 
-**NOTE**: An email address that you send an email message to must be whitelisted. For information, see https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html.
+**Note**: An email address that you send an email message to must be verified. For information, see [Verifying an Email Address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 The following Java code reprents the **SendMessage** class. In the following Java code, notice that an **EnvironmentVariableCredentialsProvider** is used. The reason is because this code is deployed to the AWS Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can setup environment variables on the AWS Elastic Beanstalk to reflect your AWS credentials. 
 
