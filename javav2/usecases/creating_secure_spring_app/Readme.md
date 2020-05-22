@@ -2728,8 +2728,8 @@ If this is your first time accessing this service, you will see a **Welcome to A
 #### To deploy the AWS Tracker application to Elastic Beanstalk
 
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
-2. Click **Applications** in left menu, then click the **Create a new application** button. This opens a wizard that creates your application and launches an appropriate environment.
-3. In the **Create New Application** section, enter the following values. 
+2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
+3. On the **Create New Application** page, enter the following values: 
    + **Application Name** - AWS Tracker
    + **Description** - A description for the application 
 
