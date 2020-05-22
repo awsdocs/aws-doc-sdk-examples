@@ -14,7 +14,7 @@ The following figure shows you the structure of the Java project.
 
 ![AWS Tracking Application](images/newtrack3_1.png)
 
-**Note**: All of the Java code required to complete this document is located in this Github repository. 
+**Note**: All of the Java code required to complete this tutorial is located in this Github repository. 
 
 #### Prerequisites
 
