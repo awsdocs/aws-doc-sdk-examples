@@ -2255,17 +2255,18 @@ The following code represents the layout.html file that represents the applicati
 5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
 6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file. 
 
-## Create a Script file that performs AJAX requests 
+## Create script files 
 
-Both the add and items views use script files to communicate with the Spring controllers. You have to ensure that these files are part of your project; otherwise, your application does not work. Add these two JS files to your project under resources\public\js.
+Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work. 
+
 + **items.js**
 + **contact_me.js**
 
-Both files contain application that sends a request to the Spring MainController. In addition, these files handle the response and set the data in the view. 
+Both files contain application logic that sends a request to the Spring MainController. In addition, these files handle the response and set the data in the view. 
 
 #### items.js file
 
-The following JavaScript code represents the items.js that is used in the **item.html** view. 
+The following JavaScript code represents the items.js file that is used in the **item.html** view. 
 
 	$(function() {
 
@@ -2336,8 +2337,7 @@ The following JavaScript code represents the items.js that is used in the **item
     }
 
 
-     //Handler for the uploadSave call
-     //This will populate the Data Table widget
+     //Handler for the changewi call
      function loadMods(event) {
 
     var msg = event.target.responseText;
@@ -2557,7 +2557,7 @@ The following JavaScript code represents the items.js that is used in the **item
 
  #### contact_me.js file
 
-The following JavaScript code represents the contact_me.js that is used in the **add.html** view. 
+The following JavaScript code represents the contact_me.js file that is used in the **add.html** view. 
 
 	$(function() {
 
@@ -2596,13 +2596,13 @@ The following JavaScript code represents the contact_me.js that is used in the *
 
       });
 
-**NOTE**: There are other JS and CSS files located in the Github repository that you must add to your project. Ensure all of the files under resources are included in your project. 
+**Note**: There are other CSS files located in the Github repository that you must add to your project. Ensure all of the files under the resources folder are included in your project. 
 
 ## Setup the RDS instance 
 
-In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the *AWS Tracker* application. 
+In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application. 
 
-#### Setup a MySQL DB instance
+#### To setup a MySQL DB instance
 
 1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
 2. In the upper-right corner of the AWS Management Console, choose the AWS Region in which you want to create the DB instance. This example uses the US West (Oregon) Region.
@@ -2613,15 +2613,15 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 5. On the **Create database** page, make sure that the **Standard Create** option is chosen, and then choose MySQL.
 ![AWS Tracking Application](images/trackerSQL.png)
 
-6. In the Templates section, choose **Dev/Test**.
+6. In the **Templates** section, choose **Dev/Test**.
 
-7. In the Settings section, set these values:
+7. In the **Settings** section, set these values:
 
 + **DB instance identifier** – awstracker
 + **Master username** – root
 + **Auto generate a password** – Disable the option
-+ **Master password** – root1234.
-+ **Confirm password** – root1234. 
++ **Master password** – root1234
++ **Confirm password** – root1234 
 
 ![AWS Tracking Application](images/trackSettings.png)
 
@@ -2630,9 +2630,9 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 + **DB instance performance type** – Burstable
 + **DB instance class**  – db.t2.small
 
-9. In the **Storage and Availability & durability** sections, use the default values.
+9. In the **Availability & durability** section, use the default values.
 
-10. In the Connectivity section, open Additional connectivity configuration and set these values:
+10. In the **Connectivity** section, open **Additional connectivity configuration** and set these values:
 
 + **Virtual Private Cloud (VPC)** – Choose the default.
 
@@ -2642,21 +2642,21 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 
 + **VPC security groups** – Choose an existing VPC security group that is configured for access.
 
-+ **Availability zone** – No Preference
++ **Availability Zone** – No Preference
 
 + **Database port** – 3306
 
-11. Open the Additional configuration section, and enter sample for Initial database name. Keep the default settings for the other options.
+11. Open the **Additional configuration** section, and enter **awstracker** for the Initial database name. Keep the default settings for the other options.
 
 12. To create your Amazon RDS MySQL DB instance, choose **Create database**. Your new DB instance appears in the Databases list with the status **Creating**.
 
 13. Wait for the Status of your new DB instance to show as Available. Then choose the DB instance name to show its details.
 
-**Note**: You must setup inbound rules for the security group to connect to the database. You can setup a inbound rule for your development environment and another one for the Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means whitelisting an IP address. Once you setup the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up Security Group Inbound Rules, see *Controlling Access with Security Groups* at https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html. 
+**Note**: You must setup inbound rules for the security group to connect to the database. You can setup one inbound rule for your development environment and another one for the Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you setup the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up Security Group Inbound Rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html). 
 
-#### Obtain the Endpoint
+#### Obtain the endpoint
 
-In the Connectivity & security section, view the Endpoint and Port of the DB instance.
+In the **Connectivity & security** section, view the **Endpoint** and **Port** of the DB instance.
 
 ![AWS Tracking Application](images/trackEndpoint.png)
 
@@ -2669,17 +2669,19 @@ In the previous line of code, notice **awstracker**. This is the database schema
      Class.forName("com.mysql.jdbc.Driver").newInstance();
             return DriverManager.getConnection(instance.url, "root","root1234");
 
-#### Create the Database schema and table
+#### Create the database schema and table
 
-You can use MySQL Workbench to connect to the RDS MySQL instance and create a database schema and the work table. To connect to the database, open the MySQL Workbench and connect to database. 
+You can use MySQL Workbench to connect to the RDS MySQL instance and create a database schema and the work table. To connect to the database, open MySQL Workbench and connect to database. 
 
 ![AWS Tracking Application](images/trackMySQLWB.png)
 
-Create a new schema named **awstracker** by using this SQL command.
+**Note**: If you have issues connecting to the database, double recheck your inbound rules. 
+
+Create a schema named **awstracker** by using this SQL command.
 
     CREATE SCHEMA awstracker;
     
-In the **awstracker** schema, create a table named **work** by using this SQL command:
+In the **awstracker** schema, create a table named **work** by using this SQL command.
 
     CREATE TABLE work(
         idwork VARCHAR(45) PRIMARY KEY,
@@ -2691,7 +2693,7 @@ In the **awstracker** schema, create a table named **work** by using this SQL co
         archive BOOLEAN
     )  ENGINE=INNODB;
 
-Once done, you will see a new table in your database. 
+After you're done, you see a new table in your database. 
 
 ![AWS Tracking Application](images/trackTable.png)
 
@@ -2707,23 +2709,23 @@ Enter a new record into this table by using these values:
 
 ## Create a JAR file for the AWS Tracker application 
 
-Package up the project into a JAR file that you can deploy to Elastic Beanstalk by using the following Maven command.
+Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
 
 	mvn package
 	
-The JAR is located in the target folder, as shown in the following figure.
+The JAR file is located in the target folder.
 
 ![AWS Tracking Application](images/AWT5png.png)
 
-## Deploy the application to the AWS Elastic Beanstalk
+## Deploy the application to Elastic Beanstalk
 
 Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev or prod-web, prod-worker, qa-web, qa-worker).
 
-If this is your first time accessing this service, you will see a *Welcome to AWS Elastic Beanstalk* page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
+If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
 
 ![AWS Tracking Application](images/SpringBean.png)
 
-To deploy the *AWS Tracker* application to the AWS Elastic Beanstalk:
+#### To deploy the AWS Tracker application to Elastic Beanstalk
 
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
 2. Click **Applications** in left menu, then click the **Create a new application** button. This opens a wizard that creates your application and launches an appropriate environment.
