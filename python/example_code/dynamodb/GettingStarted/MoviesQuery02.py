@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to query for items from an Amazon DynamoDB table that stores movies
-and project the returned items so that a particular subset of data is returned.
+and projects the returned items so that a particular subset of data is returned.
 Items are queried by a key expression that returns only items that were released
 in a specified year and have titles that start within a specified range of the
 alphabet.

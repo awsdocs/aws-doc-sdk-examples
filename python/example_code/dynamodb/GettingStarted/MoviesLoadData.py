@@ -7,7 +7,7 @@ Purpose
 Shows how to load items into an Amazon DynamoDB table that stores movies.
 The items are retrieved from a JSON-formatted file and put directly into the table.
 This works because every item contains the required year and title keys. All
-additional data is added as additional data for the item.
+additional data is added as non-key attributes for the item.
 """
 
 # snippet-start:[dynamodb.python.codeexample.MoviesLoadData]

@@ -5,7 +5,7 @@
 Stub functions that are used by the Amazon DynamoDB unit tests.
 
 When tests are run against an actual AWS account, the stubber class does not
-set up stubs and passes all calls through to the Boto 3 client.
+set up stubs and passes all calls through to the Boto3 client.
 """
 
 from decimal import Decimal

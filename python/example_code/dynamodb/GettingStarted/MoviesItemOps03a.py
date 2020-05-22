@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to update an item in an Amazon DynamoDB table that stores movies.
-The update is performed in two steps.
+The update is performed in two steps:
     1. The item is retrieved by using its primary and secondary keys.
     2. The item is updated on the client and put into the table with updated data.
 The item is retrieved again to verify the update was made as expected.

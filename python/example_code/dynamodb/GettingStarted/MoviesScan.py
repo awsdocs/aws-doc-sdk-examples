@@ -8,10 +8,10 @@ Shows how to scan items in an Amazon DynamoDB table that stores movies and retur
 only items that pass a specified filter.
 Items are filtered so that only movies within a specified range of release years
 are returned.
-The scan operation scans every item in the table and returns after 1000 items have been
+The scan operation scans every item in the table and returns after 1000 items are
 scanned. Because the table contains approximately 5000 entries, the scan operation
 is called in a loop, passing the last evaluated key as the start key for the next
-scan, until every item has been evaluated.
+scan, until every item is evaluated.
 """
 
 # snippet-start:[dynamodb.python.codeexample.MoviesScan]
