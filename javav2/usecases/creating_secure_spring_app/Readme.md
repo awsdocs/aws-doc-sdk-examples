@@ -2763,7 +2763,7 @@ When you’re done, you will see the application state the **Health** is **Ok** 
 
 ![AWS Tracking Application](images/AWT10.png)
 
-**NOTE:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
+**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
 To access the application, open your browser and enter the URL for your application. You will see the login page for your application.
 
