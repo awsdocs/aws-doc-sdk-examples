@@ -23,9 +23,9 @@ To follow along with the document, you require the following:
 + Java 1.8 JDK 
 + Maven 3.6 or higher.
 
-**Cost to Complete**: The AWS Services included in this document are included in the AWS Free Tier.
+**Cost to Complete**: The AWS Services included in this document are included in the AWS Free Tier. See [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
 
-**Note**: Please be sure to terminate all of the resources created during this document to ensure that you are no longer charged.
+**Note**: Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 **Topics**
 
