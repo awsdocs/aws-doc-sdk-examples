@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ImportSegment.java demonstrates how to import a segment into Pinpoint.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mobiletargeting]
 //snippet-sourcetype:[full-example]

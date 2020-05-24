@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetSecretValue.java demonstrates how to get the value of a secret from AWS Secrets Manager.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[secretsmanager]
 //snippet-sourcetype:[full-example]
@@ -48,7 +49,7 @@ public class GetSecretValue {
       String secret;
       ByteBuffer binarySecretData;
       GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest()
-              .withSecretId(secretName);
+              .withSecretId(secretName).withVersionStage("AWSCURRENT");
       GetSecretValueResult getSecretValueResult = null;
       try {
           getSecretValueResult = client.getSecretValue(getSecretValueRequest);

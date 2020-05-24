@@ -5,6 +5,7 @@
 # snippet-keyword:[create_subnet method]
 # snippet-keyword:[Subnet.create_tags method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

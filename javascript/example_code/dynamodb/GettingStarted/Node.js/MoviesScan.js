@@ -1,6 +1,7 @@
-// snippet-sourcedescription:[MoviesScan.js demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ ]

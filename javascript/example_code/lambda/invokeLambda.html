@@ -1,0 +1,107 @@
+<!--
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+-->
+
+<!--
+ snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+ snippet-sourcedescription:[invokeLambda.html demonstrates invoking a Lambda function code]
+ snippet-service:[lambda]
+ snippet-keyword:[HTML]
+ snippet-keyword:[AWS Lambda]
+ snippet-keyword:[Code Sample]
+ snippet-sourcetype:[full-example]
+ snippet-sourcedate:[]
+ snippet-sourceauthor:[AWS_JSDG]
+
+ ABOUT THIS BROWSER SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
+ https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/browser-invoke-lambda-function-full.html
+-->
+
+<!-- snippet-start:[lambda.HTML.invokeLambda.complete] -->
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Emoji Slots</title>
+<link href="emojislots.css" rel="stylesheet" type="text/css">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+   // Configure AWS SDK for JavaScript
+   AWS.config.update({region: 'REGION'});
+   AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'IDENTITY_POOL_ID'});
+
+   var pullReturned = null;
+   var slotResults;	
+   var isSpinning = false;
+	
+   // Prepare to call Lambda function
+   var lambda = new AWS.Lambda({region: 'REGION', apiVersion: '2015-03-31'});
+   var pullParams = {
+      FunctionName : 'slotPull',
+      InvocationType : 'RequestResponse',
+      LogType : 'None'
+   };
+		
+   function pullHandle() {
+      if (isSpinning == false) {
+         // Show the handle pulled down
+         slot_handle.src = "lever-dn.png";
+      }
+   }
+	
+   function initiatePull() {
+      // Show the handle flipping back up
+      slot_handle.src = "lever-up.png";	
+      // Set all three wheels "spinning"
+      slot_L.src = "slotpullanimation.gif";
+      slot_M.src = "slotpullanimation.gif";
+      slot_R.src = "slotpullanimation.gif";
+      // Set app status to spinning
+      isSpinning = true;
+      // Call the Lambda function to collect the spin results
+      lambda.invoke(pullParams, function(err, data) {
+         if (err) {
+            prompt(err);
+         } else {
+            pullResults = JSON.parse(data.Payload);
+            displayPull();
+         }
+      });	
+   }
+	
+   function displayPull() {
+      isSpinning = false;
+      if (pullResults.isWinner) {
+         winner_light.visibility = visible;
+      }
+      $("#slot_L").delay(4000).attr("src", pullResults.leftWheelImage.file.S);
+      $("#slot_M").delay(6500).attr("src", pullResults.midWheelImage.file.S);
+      $("#slot_R").delay(9000).attr("src", pullResults.rightWheelImage.file.S);
+   }
+
+</script>
+</head>
+<body>
+   <div id="appframe">
+
+   <img id="slot_L" src="puppy.png" height="199" width="80" alt="slot wheel 1"/>
+   <img id="slot_M" src="puppy.png" height="199" width="80" alt="slot wheel 2"/>
+   <img id="slot_R" src="puppy.png" height="199" width="80" alt="slot wheel 3"/>
+   <img id="winner_light" src="winner.png" height="48" width="247" alt="winner indicator"/>
+
+   </div>
+</body>
+</html>
+<!-- snippet-end:[lambda.HTML.invokeLambda.complete] -->

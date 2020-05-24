@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[list_users.cpp demonstrates how to list IAM users.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

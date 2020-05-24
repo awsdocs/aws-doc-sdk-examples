@@ -13,6 +13,8 @@
 # snippet-sourcedescription:[pinpoint_send_sms_message_api demonstrates how to send a transactional SMS message by using the SendMessages operation in the Amazon Pinpoint API.]
 # snippet-service:[mobiletargeting]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Pinpoint]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[SendMessages]

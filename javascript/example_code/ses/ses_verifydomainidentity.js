@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_verifydomainidentity.js demonstrates how to add a domain to the list of Amazon SES identities and attempts to verify it.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

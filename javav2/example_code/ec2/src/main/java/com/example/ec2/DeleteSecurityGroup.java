@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an EC2 security group.]
+//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an Amazon EC2 security group.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/11/2020]
+//snippet-sourceauthor:[scmacdon]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,37 +20,57 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
+
+// snippet-start:[ec2.java2.delete_security_group.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
-
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+// snippet-end:[ec2.java2.delete_security_group.import]
 /**
  * Deletes an EC2 security group
  */
-public class DeleteSecurityGroup
-{
-    public static void main(String[] args)
-    {
+public class DeleteSecurityGroup {
+
+    public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply a security group id\n" +
-            "Ex: DeleteSecurityGroup <security-group-id>\n";
+                "To run this example, supply a security group id\n" +
+                        "Ex: DeleteSecurityGroup <security-group-id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String group_id = args[0];
+        String groupId = args[0];
 
-        Ec2Client ec2 = Ec2Client.create();
+        //Create an Ec2Client object
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
 
-        DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
-            .groupId(group_id)
-            .build();
+        deleteEC2SecGroup(ec2,groupId);
+    }
 
-        DeleteSecurityGroupResponse response = ec2.deleteSecurityGroup(request);
+    // snippet-start:[ec2.java2.delete_security_group.main]
+    public static void deleteEC2SecGroup(Ec2Client ec2,String groupId) {
 
-        System.out.printf(
-            "Successfully deleted security group with id %s", group_id);
+        try {
+            DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
+                .groupId(groupId)
+                .build();
+
+            DeleteSecurityGroupResponse response = ec2.deleteSecurityGroup(request);
+
+            System.out.printf(
+                "Successfully deleted security group with id %s", groupId);
+
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        // snippet-end:[ec2.java2.delete_security_group.main]
     }
 }

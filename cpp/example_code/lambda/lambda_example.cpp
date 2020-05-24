@@ -1,13 +1,11 @@
- 
 //snippet-sourcedescription:[lambda_example.cpp demonstrates how to programatically create, invoke, and manage an AWS Lambda function.]
-//snippet-keyword:[C++]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Lambda]
 //snippet-service:[lambda]
+//snippet-keyword:[AWS Lambda]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-
 
 /*
 Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -52,7 +50,8 @@ static void CreateFunction(Aws::String functionName, Aws::String handler,
     Aws::StringStream buffer;
     buffer << fc.rdbuf();
 
-    functionCode.SetZipFile(Aws::Utils::ByteBuffer((unsigned char*)buffer.str().c_str(), buffer.str().length()));
+    functionCode.SetZipFile(Aws::Utils::ByteBuffer((unsigned char*)buffer.str().c_str(), 
+                                                   buffer.str().length()));
     createFunctionRequest.SetCode(functionCode);
     createFunctionRequest.SetRuntime(runtime);
 
@@ -64,7 +63,7 @@ static void CreateFunction(Aws::String functionName, Aws::String handler,
             done = true;
         else
         {
-            // Handles case were ROLE is not yet ready
+            // Handles case where ROLE is not yet ready
             if (outcome.GetError().GetMessage().find("assume") != std::string::npos)
                 std::this_thread::sleep_for(std::chrono::seconds(2));
             else
@@ -150,8 +149,8 @@ int main(int argc, char **argv)
         "    handler- function name in code to call\n"
         "    runtime- runtime to use for function:\n"
         "             nodejs,nodejs4.3,java8,python2.7,dotnetcore1.0,nodejs4.3.edge\n"
-        "    rolearn- rule lambda will assume when running functuion\n"
-        "    zipfile- zip file containign function and other dependencies\n"
+        "    rolearn- rule lambda will assume when running function\n"
+        "    zipfile- zip file containing function and other dependencies\n"
         "    region - optional region, e.g. us-east-2\n\n"
         "Example:\n"
         "    create_function helloLambdaWorld helloLambdaWorld.handler python2_7 ***arn*** helloLambdaWorld.zip\n\n";
@@ -170,7 +169,9 @@ int main(int argc, char **argv)
         if (logging)
             Aws::Utils::Logging::InitializeAWSLogging(
                 Aws::MakeShared<Aws::Utils::Logging::DefaultLogSystem>(
-                    "create_function", Aws::Utils::Logging::LogLevel::Trace, "create_function_"));
+                    "create_function",
+                    Aws::Utils::Logging::LogLevel::Trace,
+                    "create_function_"));
 
         const Aws::String functionName(argv[1]);
         const Aws::String functionHandler(argv[2]);
@@ -183,9 +184,11 @@ int main(int argc, char **argv)
         Aws::Client::ClientConfiguration clientConfig;
         if (!region.empty())
             clientConfig.region = region;
-        m_client = Aws::MakeShared<Aws::Lambda::LambdaClient>(ALLOCATION_TAG, clientConfig);
+        m_client = Aws::MakeShared<Aws::Lambda::LambdaClient>(ALLOCATION_TAG, 
+                                                              clientConfig);
 
-        CreateFunction(functionName, functionHandler, functionRuntime, functionRoleARN, functionZipFile);
+        CreateFunction(functionName, functionHandler, functionRuntime,
+                       functionRoleARN, functionZipFile);
 
         ListFunctions();
 

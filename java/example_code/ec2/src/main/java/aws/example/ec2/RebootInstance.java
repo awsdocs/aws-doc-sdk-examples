@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot and EC2 instance.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
@@ -35,7 +36,7 @@ public class RebootInstance
     {
         final String USAGE =
             "To run this example, supply an instance id\n" +
-            "Ex: RebootInstnace <instance_id>\n";
+            "Ex: RebootInstance <instance_id>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);

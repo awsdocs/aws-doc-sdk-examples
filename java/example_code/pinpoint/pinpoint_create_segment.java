@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_export_endpoints demonstrates how to create a segment that is based on data reported by an app.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateSegment]

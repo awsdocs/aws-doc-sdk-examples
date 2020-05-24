@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_createtopic.js demonstrates how to create an Amazom SNS topic to which notifications can be published.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

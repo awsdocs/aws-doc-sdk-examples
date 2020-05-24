@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_updatetemplate.js demonstrates how to update an Amazon SES email template.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]
@@ -48,7 +49,7 @@ var templatePromise = new AWS.SES({apiVersion: '2010-12-01'}).updateTemplate(par
 templatePromise.then(
   function(data) {
     console.log("Template Updated");
-  }).switch(
+  }).catch(
     function(err) {
     console.error(err, err.stack);
   });

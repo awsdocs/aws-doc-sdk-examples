@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListVaults.java demonstrates how to list your Amazon Glacier vaults.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Glacier]
 //snippet-service:[glacier]

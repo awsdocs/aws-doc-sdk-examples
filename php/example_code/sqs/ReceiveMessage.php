@@ -16,10 +16,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/sqs-examples-send-receive-messages.html
  *
  */
+// snippet-start:[sqs.php.recieve_message.complete]
+// snippet-start:[sqs.php.recieve_message.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient;
+use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[sqs.php.recieve_message.import]
 
 /**
  * Receive SQS message
@@ -27,8 +30,9 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-
+// snippet-start:[sqs.php.recieve_message.main]
 $queueUrl = "QUEUE_URL";
+ 
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -44,7 +48,7 @@ try {
         'QueueUrl' => $queueUrl, // REQUIRED
         'WaitTimeSeconds' => 0,
     ));
-    if (count($result->get('Messages')) > 0) {
+    if (!empty($result->get('Messages'))) {
         var_dump($result->get('Messages')[0]);
         $result = $client->deleteMessage([
             'QueueUrl' => $queueUrl, // REQUIRED
@@ -58,10 +62,13 @@ try {
     error_log($e->getMessage());
 }
  
-
+ 
+// snippet-end:[sqs.php.recieve_message.main]
+// snippet-end:[sqs.php.recieve_message.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ReceiveMessage.php demonstrates how to retrieve up to 10 messages from a specified queue.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Queue Service]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[StopQueryExecutionExample.java demonstrates how to stop a query and check its status.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

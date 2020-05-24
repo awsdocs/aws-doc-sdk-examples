@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS Key Management Service]
 // snippet-keyword:[CreateKey function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[kms]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -1,6 +1,7 @@
-// snippet-sourcedescription:[DynamoDBMapperCRUDExample.java demonstrates how to ]
+// snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ ]
@@ -122,7 +123,9 @@ public class DynamoDBMapperCRUDExample {
         System.out.println(itemRetrieved);
 
         // Retrieve the updated item.
-        DynamoDBMapperConfig config = new DynamoDBMapperConfig(DynamoDBMapperConfig.ConsistentReads.CONSISTENT);
+        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
+            .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+        .build();
         CatalogItem updatedItem = mapper.load(CatalogItem.class, 601, config);
         System.out.println("Retrieved the previously updated item:");
         System.out.println(updatedItem);

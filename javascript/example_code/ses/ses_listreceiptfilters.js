@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_listreceiptfilters.js demonstrates how to list the Amazon SES IP filters for an AWS account.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

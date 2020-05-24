@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS CodeBuild]
 # snippet-keyword:[list_projects method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[codebuild]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_deletereceiptrule.js demonstrates how to delete an Amazon SES receipt rule.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

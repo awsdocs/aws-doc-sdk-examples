@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-service:[athena]

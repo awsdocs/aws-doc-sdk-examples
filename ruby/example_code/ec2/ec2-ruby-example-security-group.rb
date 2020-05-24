@@ -7,6 +7,7 @@
 # snippet-keyword:[delete_security_group method]
 # snippet-keyword:[describe_security_groups method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -86,8 +87,8 @@ end
 def describe_ip_permission(ip_permission)
   puts "-" * 22
   puts "IP Protocol: #{ip_permission.ip_protocol}"
-  puts "From Port: #{ip_permission.from_port.to_s}"
-  puts "To Port: #{ip_permission.to_port.to_s}"
+  puts "From Port: #{ip_permission.from_port}"
+  puts "To Port: #{ip_permission.to_port}"
   if ip_permission.ip_ranges.count > 0
     puts "IP Ranges:"
     ip_permission.ip_ranges.each do |ip_range|

@@ -12,10 +12,13 @@ project(redshift-examples)
 set (CMAKE_CXX_STANDARD 11)
 
 # Locate the aws sdk for c++ package.
-find_package(AWSSDK REQUIRED COMPONENTS redshift)
+# Note: authorize_cluster_access.cpp needs to link with the EC2 library.
+find_package(AWSSDK REQUIRED COMPONENTS redshift ec2)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "fetch_redshift_table")
+list(APPEND EXAMPLES "authorize_cluster_access")
+list(APPEND EXAMPLES "create_cluster")
+list(APPEND EXAMPLES "create_cluster_subnet_group")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

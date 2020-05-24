@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[access_key_last_used.cpp demonstrates how to retrieve information about the last time an IAM access key was used.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

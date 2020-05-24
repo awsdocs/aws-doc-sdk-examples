@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[Resource.create_bucket method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

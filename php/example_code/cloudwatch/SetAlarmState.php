@@ -1,58 +1,91 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
+// snippet-start:[cloudwatch.php.set_alarm.complete]
+// snippet-start:[cloudwatch.php.set_alarm.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient;
+use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[cloudwatch.php.set_alarm.import]
 
-/**
- * Set Alarm State in CloudWatch
- *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Sets the state of the specified alarm in Amazon CloudWatch.
+ * 
+ * Prerequisites: At least one CloudWatch alarm.
+ * 
+ * Inputs:
+ * - $cloudWatchClient: An initialized CloudWatch client.
+ * - $cloudWatchRegion: The alarm's AWS Region.
+ * - $alarmName: The alarm's name.
+ * - $stateValue: The alarm's new state.
+ * - $stateReason: The reason for the alarm.
+ * 
+ * Returns: Information about the alarm's state change request; 
+ * otherwise, the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
-$alarmName = "<ALARM_NAME>";
+// snippet-start:[cloudwatch.php.set_alarm.main]
+function setAlarmState($cloudWatchClient, $cloudWatchRegion, $alarmName, 
+    $stateValue, $stateReason)
+{
+    try {
+        $result = $cloudWatchClient->setAlarmState([
+            'AlarmName' => $alarmName,
+            'StateValue' => $stateValue,
+            'StateReason' => $stateReason
+        ]);
 
-$client = new CloudWatchClient([
-    'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2010-08-01'
-]);
-
-try {
-    $result = $client->setAlarmState(array(
-        'AlarmName' => $alarmName, //REQUIRED
-        'StateValue' => 'OK', //REQUIRED. Allowed Values : OK | ALARM | INSUFFICIENT_DATA
-        'StateReason' => 'Testing Sample Code' //REQUIRED
-    ));
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
+        if (isset($result['@metadata']['effectiveUri']))
+        {
+            if ($result['@metadata']['effectiveUri'] == 
+                'https://monitoring.' . $cloudWatchRegion . '.amazonaws.com')
+            {
+                return 'Successfully changed state of specified alarm.';
+            } else {
+                return 'Could not change state of specified alarm.';
+            }
+        } else {
+            return 'Could not change state of specified alarm.';
+        }
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
- 
 
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SetAlarmState.php demonstrates how to set Alarm State in Amazon CloudWatch.]
+function setTheAlarmState()
+{
+    $alarmName = 'my-ec2-resources';
+    $stateValue = 'OK';
+    $stateReason = 'AWS SDK for PHP example code set the state of the alarm ' . 
+        $alarmName . ' to ' . $stateValue;
+
+    $cloudWatchRegion = 'us-east-1';
+    $cloudWatchClient = new CloudWatchClient([
+        'profile' => 'default',
+        'region' => $cloudWatchRegion,
+        'version' => '2010-08-01'
+    ]);
+
+    echo setAlarmState($cloudWatchClient, $cloudWatchRegion, 
+        $alarmName, $stateValue, $stateReason);
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// setTheAlarmState();
+// snippet-end:[cloudwatch.php.set_alarm.main]
+// snippet-end:[cloudwatch.php.set_alarm.complete]
+// snippet-sourcedescription:[SetAlarmState.php demonstrates how to set the state of an alarm in Amazon CloudWatch.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Cloudwatch]
 // snippet-service:[cloudwatch]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-05-08]
+// snippet-sourceauthor:[pccornel (AWS)]
 

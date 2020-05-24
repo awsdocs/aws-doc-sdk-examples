@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ddb_putitem.js demonstrates how to create or update an item in an Amazon DynamoDB table.]
 //snippet-service:[dynamodb]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]

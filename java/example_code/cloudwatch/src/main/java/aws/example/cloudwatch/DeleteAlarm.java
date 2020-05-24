@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteAlarm.java demonstrates how to delete a CloudWatch alarm.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cloudwatch]
 //snippet-service:[cloudwatch]

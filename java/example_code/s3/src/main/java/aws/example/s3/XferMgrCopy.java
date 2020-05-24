@@ -1,6 +1,6 @@
-
 //snippet-sourcedescription:[XferMgrCopy.java demonstrates how to copy an object from one Amazon S3 bucket to another using S3 TransferManager.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[TransferManager copy]
@@ -24,22 +24,26 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
-import aws.example.s3.XferMgrProgress;
+// snippet-start:[s3.java1.s3_xfer_mgr_copy.import]
+
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.transfer.Copy;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+// snippet-end:[s3.java1.s3_xfer_mgr_copy.import]
+
+// snippet-start:[s3.java1.s3_xfer_mgr_copy.complete]
 
 /**
  * Copy an object from one Amazon S3 bucket to another using S3 TransferManager.
- *
+ * 
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class XferMgrCopy
-{
+public class XferMgrCopy {
     public static void copyObjectSimple(String from_bucket, String from_key,
-            String to_bucket, String to_key) {
+                                        String to_bucket, String to_key) {
+        // snippet-start:[s3.java1.s3_xfer_mgr_copy.copy_object]
         System.out.println("Copying s3 object: " + from_key);
         System.out.println("      from bucket: " + from_bucket);
         System.out.println("     to s3 object: " + to_key);
@@ -57,21 +61,21 @@ public class XferMgrCopy
             System.exit(1);
         }
         xfer_mgr.shutdownNow();
+        // snippet-end:[s3.java1.s3_xfer_mgr_copy.copy_object]
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "Usage:\n" +
-            "    Copy <s3_src> <s3_dest>\n\n" +
-            "Where:\n" +
-            "    s3_src  - the source (bucket/key) of the object to copy.\n\n" +
-            "    s3_dest - the destination of the object. A key name is optional.\n" +
-            "              If a destination key name is not given, the object\n" +
-            "              will be copied with the same name.\n\n" +
-            "Examples:\n" +
-            "    Copy my_photos/cat_happy.png public_photos/funny_cat.png\n" +
-            "    Copy my_photos/cat_sad.png public_photos\n\n";
+                "Usage:\n" +
+                "    Copy <s3_src> <s3_dest>\n\n" +
+                "Where:\n" +
+                "    s3_src  - the source (bucket/key) of the object to copy.\n\n" +
+                "    s3_dest - the destination of the object. A key name is optional.\n" +
+                "              If a destination key name is not given, the object\n" +
+                "              will be copied with the same name.\n\n" +
+                "Examples:\n" +
+                "    Copy my_photos/cat_happy.png public_photos/funny_cat.png\n" +
+                "    Copy my_photos/cat_sad.png public_photos\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -80,8 +84,8 @@ public class XferMgrCopy
 
         // only the first '/' character is of interest to get the bucket name.
         // Subsequent ones are part of the key name.
-        String src[] = args[0].split("/", 2);
-        String dst[] = args[1].split("/", 2);
+        String[] src = args[0].split("/", 2);
+        String[] dst = args[1].split("/", 2);
 
         if (src.length < 2) {
             System.out.println("I need both a bucket and key name to copy!");
@@ -96,3 +100,4 @@ public class XferMgrCopy
         }
     }
 }
+// snippet-end:[s3.java1.s3_xfer_mgr_copy.complete]

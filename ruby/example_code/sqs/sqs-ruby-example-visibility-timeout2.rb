@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Queue Service]
 # snippet-keyword:[QueuePoller.poll method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sqs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -23,7 +24,7 @@
 require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 # Process the message
-def do_something(msg)
+def do_something(_)
   true
 end
 

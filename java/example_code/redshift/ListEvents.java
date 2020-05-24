@@ -15,35 +15,35 @@
 // snippet-sourcedescription:[ListEvents demonstrates how to list Amazon Redshift events.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DescribeEvents]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2015-02-19]
+// snippet-sourcedate:[2019-01-31]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.ListEvents.complete]
-import java.io.IOException;
+
+package com.amazonaws.services.redshift;
+
 import java.util.Date;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.PropertiesCredentials;
-import com.amazonaws.services.redshift.AmazonRedshiftClient;
+import java.io.IOException;
+
 import com.amazonaws.services.redshift.model.*;
 
 public class ListEvents {
 
-    public static AmazonRedshiftClient client;
+    public static AmazonRedshift client;
     public static String clusterIdentifier = "***provide cluster identifier***";
-    public static String eventSourceType = "***provide source type***"; // e.g. cluster-snapshot
+    public static String eventSourceType = "cluster"; // e.g. cluster-snapshot
 
     public static void main(String[] args) throws IOException {
 
-        AWSCredentials credentials = new PropertiesCredentials(
-                ListEvents.class
-                .getResourceAsStream("AwsCredentials.properties"));
+        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
 
-        client = new AmazonRedshiftClient(credentials);
+       client = AmazonRedshiftClientBuilder.defaultClient();
 
-        try {
+      try {
              listEvents();
         } catch (Exception e) {
             System.err.println("Operation failed: " + e.getMessage());
@@ -85,5 +85,6 @@ public class ListEvents {
         System.out.format("Message: %s\n", event.getMessage());
         System.out.format("Date: %s\n", event.getDate());
     }
+
 }
-// snippet-end:[redshift.java.ListEvents.complete]
+ // snippet-end:[redshift.java.ListEvents.complete]

@@ -6,6 +6,7 @@
 # snippet-keyword:[create_internet_gateway method]
 # snippet-keyword:[create_tags method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

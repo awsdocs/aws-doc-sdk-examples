@@ -1,71 +1,54 @@
-# snippet-sourcedescription:[MoviesScan.py demonstrates how to ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Python]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.python.codeexample.MoviesScan] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-from __future__ import print_function # Python 2/3 compatibility
+"""
+Purpose
+
+Shows how to scan items in an Amazon DynamoDB table that stores movies and return
+only items that pass a specified filter.
+Items are filtered so that only movies within a specified range of release years
+are returned.
+The scan operation scans every item in the table and returns after 1000 items are
+scanned. Because the table contains approximately 5000 entries, the scan operation
+is called in a loop, passing the last evaluated key as the start key for the next
+scan, until every item is evaluated.
+"""
+
+# snippet-start:[dynamodb.python.codeexample.MoviesScan]
+from pprint import pprint
 import boto3
-import json
-import decimal
-from boto3.dynamodb.conditions import Key, Attr
-
-# Helper class to convert a DynamoDB item to JSON.
-class DecimalEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, decimal.Decimal):
-            if o % 1 > 0:
-                return float(o)
-            else:
-                return int(o)
-        return super(DecimalEncoder, self).default(o)
-
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
-
-table = dynamodb.Table('Movies')
-
-fe = Key('year').between(1950, 1959)
-pe = "#yr, title, info.rating"
-# Expression Attribute Names for Projection Expression only.
-ean = { "#yr": "year", }
-esk = None
+from boto3.dynamodb.conditions import Key
 
 
-response = table.scan(
-    FilterExpression=fe,
-    ProjectionExpression=pe,
-    ExpressionAttributeNames=ean
-    )
+def scan_movies(year_range, display_movies, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-for i in response['Items']:
-    print(json.dumps(i, cls=DecimalEncoder))
+    table = dynamodb.Table('Movies')
+    scan_kwargs = {
+        'FilterExpression': Key('year').between(*year_range),
+        'ProjectionExpression': "#yr, title, info.rating",
+        'ExpressionAttributeNames': {"#yr": "year"}
+    }
 
-while 'LastEvaluatedKey' in response:
-    response = table.scan(
-        ProjectionExpression=pe,
-        FilterExpression=fe,
-        ExpressionAttributeNames= ean,
-        ExclusiveStartKey=response['LastEvaluatedKey']
-        )
+    done = False
+    start_key = None
+    while not done:
+        if start_key:
+            scan_kwargs['ExclusiveStartKey'] = start_key
+        response = table.scan(**scan_kwargs)
+        display_movies(response.get('Items', []))
+        start_key = response.get('LastEvaluatedKey', None)
+        done = start_key is None
 
-    for i in response['Items']:
-        print(json.dumps(i, cls=DecimalEncoder))
+
+if __name__ == '__main__':
+    def print_movies(movies):
+        for movie in movies:
+            print(f"\n{movie['year']} : {movie['title']}")
+            pprint(movie['info'])
+
+    query_range = (1950, 1959)
+    print(f"Scanning for movies released from {query_range[0]} to {query_range[1]}...")
+    scan_movies(query_range, print_movies)
 # snippet-end:[dynamodb.python.codeexample.MoviesScan]

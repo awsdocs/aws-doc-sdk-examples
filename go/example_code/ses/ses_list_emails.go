@@ -6,6 +6,7 @@
 // snippet-keyword:[GetIdentityVerificationAttributes function]
 // snippet-keyword:[ListIdentities function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ses]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

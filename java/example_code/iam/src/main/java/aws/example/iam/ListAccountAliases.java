@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListAccountAliases.java demonstrates how to list all aliases associated with an AWS account.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

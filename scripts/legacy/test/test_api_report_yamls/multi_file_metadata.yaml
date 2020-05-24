@@ -1,0 +1,55 @@
+---
+# Metadata for multiple examples separated as yaml documents.
+name: Simple S3 example
+description: Creates an S3 bucket.
+created: 2020-01-31
+author: Laren-AWS
+tier: 1
+files:
+  - path: create_bucket.py
+    apis:
+      - service: s3
+        operations:
+          - CreateBucket
+          - DeleteBucket
+...
+---
+name: Some other S3 example
+description: Does some other S3 stuff.
+created: 2020-01-31
+author: Laren-AWS
+tier: 1
+files:
+  - path: fix_the_bucket.py
+    apis:
+      - service: s3
+        operations:
+          - CreateBucket
+          - CreateObject
+          - DeleteObject
+  - path: kick_the_bucket.py
+    apis:
+      - service: s3
+        operations:
+          - DeleteBucket
+...
+---
+name: Some other S3 example
+description: Does some other S3 stuff.
+created: 2020-01-31
+author: Laren-AWS
+tier: 1
+files:
+  - path: fix_the_bucket.py
+    apis:
+      - service: s3
+        operations:
+          - CreateBucket
+          - CreateObject
+          - DeleteObject
+  - path: kick_the_bucket.py
+    apis:
+      - service: s3
+        operations:
+          - DeleteBucket
+...

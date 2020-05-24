@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateUser.java demonstrates how to create an IAM user.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

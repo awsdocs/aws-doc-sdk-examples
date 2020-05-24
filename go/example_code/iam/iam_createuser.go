@@ -5,6 +5,7 @@
 // snippet-keyword:[CreateUser function]
 // snippet-keyword:[GetUser function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[iam]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

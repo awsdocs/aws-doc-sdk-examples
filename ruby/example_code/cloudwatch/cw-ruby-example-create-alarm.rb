@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon CloudWatch]
 # snippet-keyword:[put_metric_alarm method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudwatch]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

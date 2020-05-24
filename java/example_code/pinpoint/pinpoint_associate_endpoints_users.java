@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_associate_endpoints_users demonstrates how to associate users with endpoints in Amazon Pinpoint.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[UpdateEndpoint]

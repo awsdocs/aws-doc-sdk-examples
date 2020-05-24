@@ -8,6 +8,7 @@
 # snippet-keyword:[set_queue_attributes method]
 # snippet-keyword:[QueuePoller.poll method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sqs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

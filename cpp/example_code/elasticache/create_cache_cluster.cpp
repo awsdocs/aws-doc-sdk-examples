@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[create_cache_cluster.cpp demonstrates how to create an Amazon ElastiCache cluster.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon ElastiCache]
 //snippet-service:[elasticache]
@@ -42,7 +43,7 @@ int main(int argc, char ** argv)
     Aws::String cluster_id(argv[1]);
     Aws::String engine(argv[2]);
     Aws::String cache_node_type(argv[3]);
-    int num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt64(argv[4]);
+    auto num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt32(argv[4]);
 
     Aws::ElastiCache::ElastiCacheClient elasticache;
 

@@ -1,66 +1,75 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- *
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudfront.php.listdistribution.complete]
 // snippet-start:[cloudfront.php.listdistribution.import]
-
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.listdistribution.import]
 
-
-/**
- * Lists all Amazon CloudFront Distributions.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Gets information about Amazon CloudFront distributions.
  *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+ * Prerequisites: At least one existing Amazon CloudFront distribution.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ *   for CloudFront.
+ * 
+ * Returns: Information about existing distributions; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
-//Create a CloudFront Client 
 // snippet-start:[cloudfront.php.listdistribution.main]
-$client = new Aws\CloudFront\CloudFrontClient([
-    'profile' => 'default',
-    'version' => '2018-06-18',
-    'region' => 'us-east-2'
-]);
-
-try {
-    $result = $client->listDistributions([
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+function listDistributions($cloudFrontClient)
+{
+    try {
+        $result = $cloudFrontClient->listDistributions([]);
+        return $result;
+    } catch (AwsException $e) {
+        exit('Error: ' . $e->getAwsErrorMessage());
+    }
 }
- 
+
+function listTheDistributions()
+{
+    $cloudFrontClient = new Aws\CloudFront\CloudFrontClient([
+        'profile' => 'default',
+        'version' => '2018-06-18',
+        'region' => 'us-east-2'
+    ]);
+
+    $distributions = listDistributions($cloudFrontClient);
+
+    if (count($distributions) == 0)
+    {
+        echo 'Could not find any distributions.';
+    } else {
+        foreach ($distributions['DistributionList']['Items'] as $distribution)
+        {
+            echo 'The distribution with the ID of ' . $distribution['Id'] . 
+                ' has the status of ' . $distribution['Status'] . '.' . "\n";
+        }
+    }
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// listTheDistributions();
 // snippet-end:[cloudfront.php.listdistribution.main]
 // snippet-end:[cloudfront.php.listdistribution.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListDistributions.php demonstrates how to list Amazon CloudFront distributions.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[listDistributions]
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-04-24]
+// snippet-sourceauthor:[pccornel (AWS)]

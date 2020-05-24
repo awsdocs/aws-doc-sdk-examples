@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[AccessKeyLastUsed.java demonstrates how to get the time that an access key was last used.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

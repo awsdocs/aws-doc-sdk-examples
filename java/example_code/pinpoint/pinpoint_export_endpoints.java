@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_export_endpoints demonstrates how to export information about several existing endpoints to an Amazon S3 bucket that you specify.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateExportJob]

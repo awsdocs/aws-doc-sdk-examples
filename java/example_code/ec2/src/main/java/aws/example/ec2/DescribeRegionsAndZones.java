@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get a description of all regions and zones.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

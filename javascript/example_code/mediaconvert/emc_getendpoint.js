@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[emc_getendpoint.js demonstrates how to retrieve information about the endpoints for an AWS account.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
@@ -27,7 +28,7 @@
 // snippet-start:[mediaconvert.JavaScript.endoint.describeEndpoints]
 // Load the SDK for JavaScript
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the Region 
 AWS.config.update({region: 'us-west-2'});
 
 // Create empty request parameters

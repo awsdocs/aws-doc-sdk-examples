@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_send_email_smtp demonstrates how to send a transactional email by using the Amazon Pinpoint SMTP interface.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[snippet]

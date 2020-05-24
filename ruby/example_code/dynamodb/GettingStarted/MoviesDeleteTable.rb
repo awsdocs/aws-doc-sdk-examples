@@ -1,6 +1,7 @@
-# snippet-sourcedescription:[MoviesDeleteTable.rb demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ ]
@@ -36,7 +37,7 @@ params = {
 }
 
 begin
-    result = dynamodb.delete_table(params)
+    dynamodb.delete_table(params)
     puts "Deleted table."
 
 rescue  Aws::DynamoDB::Errors::ServiceError => error

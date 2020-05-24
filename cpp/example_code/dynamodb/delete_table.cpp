@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_table.cpp demonstrates how to delete an Amazon DynamoDB table.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
@@ -63,7 +64,7 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         const Aws::String table(argv[1]);
-        const Aws::String region(argc > 1 ? argv[2] : "");
+        const Aws::String region(argc > 2 ? argv[2] : "");
 
         // snippet-start:[dynamodb.cpp.delete_table.code]
         Aws::Client::ClientConfiguration clientConfig;

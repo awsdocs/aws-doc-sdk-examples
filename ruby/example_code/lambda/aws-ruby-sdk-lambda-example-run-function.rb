@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS Lambda]
 # snippet-keyword:[invoke function]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[lambda]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

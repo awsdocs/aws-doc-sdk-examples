@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[send_message.cpp demonstrates how to deliver a message to an Amazon SQS queue.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

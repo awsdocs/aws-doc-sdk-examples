@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_deadletterqueue.js demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]

@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-collection-java-list-faces-in-collection.java demonstrates how to list the faces in an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ListFaces]

@@ -29,7 +29,7 @@ To build and run these examples, you'll need:
 
 For information about how to set AWS credentials and the region for use with the AWS SDK for Java,
 see `Set up AWS Credentials and Region for Development
-<http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html>`_ in the *AWS
+<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
 Java Developer Guide*.
 
 Building the examples

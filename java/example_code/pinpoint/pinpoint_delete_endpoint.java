@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_delete_endpoint demonstrates how to delete an existing endpoint in Amazon Pinpoint.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DeleteEndpoint]
