@@ -9,6 +9,7 @@
 # snippet-keyword:[copy_object method]
 # snippet-keyword:[delete_objects method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -40,8 +41,8 @@ s3 = Aws::S3::Client.new(profile: profile_name, region: region)
 
 # Display a List of Amazon S3 Buckets
 resp = s3.list_buckets
-resp.buckets.each do |bucket|
-  puts bucket.name
+resp.buckets.each do |b|
+  puts b.name
 end
 
 # Create a S3 bucket from S3::client

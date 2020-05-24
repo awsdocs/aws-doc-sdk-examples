@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListDetectors.java demonstrates how to list GuardDuty Detectors in the current AWS Region.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]

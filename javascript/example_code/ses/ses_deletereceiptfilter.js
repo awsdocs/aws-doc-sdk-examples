@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_deletereceiptfilter.js demonstrates how to delete an Amazon SES IP address filter.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

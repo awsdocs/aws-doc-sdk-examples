@@ -16,11 +16,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+// snippet-start:[secretsmanager.php.add_new_secret_value.complete]
+// snippet-start:[secretsmanager.php.add_new_secret_value.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient;
+use Aws\SecretsManager\SecretsManagerClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[secretsmanager.php.add_new_secret_value.import]
 
 /**
  * Create a new version of a secret with a new value in an AWS Secret Manager Secret. 
@@ -29,7 +32,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client
+//Create a Secrets Manager Client 
+// snippet-start:[secretsmanager.php.add_new_secret_value.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
@@ -50,10 +54,13 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
-
+ 
+// snippet-end:[secretsmanager.php.add_new_secret_value.main]
+// snippet-end:[secretsmanager.php.add_new_secret_value.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[AddNewSecretValue.php demonstrates how to create a new version with a new secret value in AWS Secrets Manager.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Secrets Manager]

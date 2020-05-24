@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DisableAlarmActions.java demonstrates how to disables actions on a CloudWatch alarm.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cloudwatch]
 //snippet-service:[cloudwatch]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete a key pair.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from a table in DynamoDB.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

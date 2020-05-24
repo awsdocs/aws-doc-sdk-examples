@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon WorkDocs]
 # snippet-keyword:[describe_users method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[workdocs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

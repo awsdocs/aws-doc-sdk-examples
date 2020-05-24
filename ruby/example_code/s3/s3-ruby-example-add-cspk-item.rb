@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[put_object method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -45,7 +46,7 @@ begin
   )
 
   puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
-rescue StandardError => err
+rescue StandardError
   puts 'Could not add item'
   puts 'Error:'
   puts ex.message

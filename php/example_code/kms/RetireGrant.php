@@ -15,12 +15,17 @@
  *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-grants.html
  *
+ *
+ *
  */
+// snippet-start:[kms.php.retire_grant.complete]
+// snippet-start:[kms.php.retire_grant.import]
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient;
+use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[kms.php.retire_grant.import]
 
 /**
  * Creating an Amazon KMS client.
@@ -29,7 +34,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KMSClient
+//Create a KmsClient 
+// snippet-start:[kms.php.retire_grant.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
     'version' => '2014-11-01',
@@ -66,10 +72,13 @@ try {
     echo "\n";
 }
 
-
+ 
+// snippet-end:[kms.php.retire_grant.main]
+// snippet-end:[kms.php.retire_grant.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[RetireGrant.php demonstrates how to retire a grant for an AWS Key Management Service customer master key.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Key Management Service (KMS)]

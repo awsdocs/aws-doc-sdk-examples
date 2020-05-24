@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[start_gateway.cpp demonstrates how to start an AWS Storage Gateway resource that was previously shut down.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Storage Gateway]
 //snippet-service:[storagegateway]
@@ -24,6 +25,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/StartGatewayRequest.h>
 #include <aws/storagegateway/model/StartGatewayResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -39,11 +41,11 @@ int main(int argc, char ** argv)
   {
     Aws::String gateway_arn(argv[1]);
 
-    Aws::StorageGateway::StorageGatewayClient sg;
+    Aws::StorageGateway::StorageGatewayClient storagegateway;
 
     Aws::StorageGateway::Model::StartGatewayRequest sg_req;
 
-    sg.SetGatewayARN(gateway_arn);
+    sg_req.SetGatewayARN(gateway_arn);
 
     auto sg_out = storagegateway.StartGateway(sg_req);
 

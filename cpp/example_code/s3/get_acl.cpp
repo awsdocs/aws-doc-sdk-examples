@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[get_acl.cpp demonstrates how to retrieve the access control list of an Amazon S3 bucket.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]

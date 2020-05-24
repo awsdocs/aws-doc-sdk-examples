@@ -1,0 +1,25 @@
+//snippet-sourcedescription:[This IAM identity-based permission policy demonstrates how to grant a user permission to view and download agrements.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS Artifact]
+//snippet-service:[artifact]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[artifact.iam_policy.grants_attached_user_access_to_view_and_download_agreements]
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "artifact:DownloadAgreement"
+            ],
+            "Resource": [
+                "arn:aws:artifact::*:customer-agreement/*",
+                "arn:aws:artifact:::agreement/*"
+            ]
+        }
+    ]
+}
+//snippet-end:[artifact.iam_policy.grants_attached_user_access_to_view_and_download_agreements]

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[s3_getbucketwebsite.js demonstrates how to retrieve the website configuration of an Amazon S3 bucket.]
 //snippet-service:[s3]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-sourcetype:[full-example]
@@ -34,7 +35,8 @@ AWS.config.update({region: 'REGION'});
 s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 var bucketParams = {Bucket: process.argv[2]};
-// call S3 to retrieve policy for selected bucket
+
+// call S3 to retrieve the website configuration for selected bucket
 s3.getBucketWebsite(bucketParams, function(err, data) {
   if (err) {
     console.log("Error", err);

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ec2_monitorinstances.js demonstrates how to enable detailed monitoring for Amazon EC2 instances.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]

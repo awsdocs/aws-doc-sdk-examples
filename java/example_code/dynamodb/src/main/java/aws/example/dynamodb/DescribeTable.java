@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DescribeTable.java demonstrates how to get information about (describe) a DynamoDB table.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

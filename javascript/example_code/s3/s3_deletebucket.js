@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[s3_deletebucket.js demonstrates how to delete an Amazon S3 bucket.]
 //snippet-service:[s3]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-sourcetype:[full-example]
@@ -33,7 +34,7 @@ AWS.config.update({region: 'REGION'});
 // Create S3 service object
 s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
-// Create params for S3.createBucket
+// Create params for S3.deleteBucket
 var bucketParams = {
   Bucket : 'BUCKET_NAME'
 };

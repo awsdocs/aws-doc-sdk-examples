@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cwl_describesubscriptionfilters.js demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.]
 //snippet-service:[cs_logs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch Logs]
 //snippet-sourcetype:[full-example]

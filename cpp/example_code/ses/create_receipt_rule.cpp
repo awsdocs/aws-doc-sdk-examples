@@ -1,20 +1,22 @@
- 
 //snippet-sourcedescription:[create_receipt_rule.cpp demonstrates how to create an Amazon SES receipt rule.]
-//snippet-keyword:[C++]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]
+//snippet-keyword:[Amazon Simple Email Service]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[tapasweni-pathak]
 
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
+
     http://aws.amazon.com/apache2.0/
+
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
@@ -39,7 +41,7 @@ int main(int argc, char **argv)
   if (argc != 7)
   {
     std::cout << "Usage: create_receipt_rule <s3_bucket_name> <s3_object_key_prefix>"
-      "<rule_name> <rule_set_name> <tls_policy_val> <receipients_value>";
+      "<rule_name> <rule_set_name> <tls_policy_val> <recipients_value>";
     return 1;
   }
   Aws::SDKOptions options;

@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS Identity and Access Management]
 // snippet-keyword:[ListServerCertificates function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[iam]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

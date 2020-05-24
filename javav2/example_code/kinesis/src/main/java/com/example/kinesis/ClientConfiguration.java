@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[ClientConfiguration.java demonstrates how to configure an HTTP client in the Kinesis asynchronous client.]
+//snippet-sourcedescription:[ClientConfiguration.java demonstrates how to create Kinesis asynchronous clients.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
+//snippet-sourcedate:[4/9/2020]
 //snippet-sourceauthor:[soo-aws]
 /*
  * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,24 +20,31 @@
  * limitations under the License.
  */
 package com.example.kinesis;
+// snippet-start:[kinesis.java2.client_configuration.complete]
+// snippet-start:[kinesis.java2.client_configuration.import]
 
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
+// snippet-end:[kinesis.java2.client_configuration.import]
 
+// snippet-start:[kinesis.java2.client_configuration.main]
 public class ClientConfiguration {
 
 	public static void main(String[] args) {
 		// If configured with an httpClientBuilder, the SDK will manage the lifecycle of the HTTP client
         // and it will be shutdown when the client is shut down.
+	// snippet-start:[kinesis.java2.client_configuration.client]
         KinesisAsyncClient client = KinesisAsyncClient.builder()
                           .httpClientBuilder(NettyNioAsyncHttpClient.builder()
                                                                     .maxConcurrency(100)
                                                                     .maxPendingConnectionAcquires(10_000))
                           .build();
 
-        // When passing in the httpClient directly, the lifecycle must be managed by the caller and the HTTP client
+        // snippet-end:[kinesis.java2.client_configuration.client]
+	// When passing in the httpClient directly, the lifecycle must be managed by the caller and the HTTP client
         // will not be shut down when the client is shut down.
+	// snippet-start:[kinesis.java2.client_configuration.httpclient]
         SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
                 .maxConcurrency(100)
                 .maxPendingConnectionAcquires(10_000)
@@ -48,6 +55,10 @@ public class ClientConfiguration {
         		.build();
 
         httpClient.close();
+	// snippet-end:[kinesis.java2.client_configuration.httpclient]
 	}
 
 }
+ 
+// snippet-end:[kinesis.java2.client_configuration.main]
+// snippet-end:[kinesis.java2.client_configuration.complete]

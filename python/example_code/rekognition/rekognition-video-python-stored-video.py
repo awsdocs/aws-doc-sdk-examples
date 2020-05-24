@@ -1,6 +1,7 @@
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[rekognition-video-python-stored-video.py demonstrates how to use Amazon Rekognition videos stored in an Amazon S3 Bucket.]
 #snippet-keyword:[Python]
+#snippet-sourcesyntax:[python]
 #snippet-keyword:[AWS SDK for Python (Boto3)]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[Amazon Rekognition]

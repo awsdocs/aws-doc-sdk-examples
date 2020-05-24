@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_lookup_endpoint demonstrates how to display information about an existing endpoint in Amazon Pinpoint.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[GetEndpoint]

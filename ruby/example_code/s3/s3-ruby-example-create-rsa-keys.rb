@@ -3,6 +3,7 @@
 # snippet-sourcedescription:[Creates RSA public and private keys.]
 # snippet-keyword:[RSA]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -5,6 +5,7 @@
 # snippet-keyword:[put_rule method]
 # snippet-keyword:[put_target method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudwatch]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -29,7 +30,7 @@
 
 # To test this code, you must have:
 # 1. An AWS Lambda function that uses the hello-world blueprint to serve as the target for events. To learn how,
-#    see "Step 1: Create a Lambda Function" of the "Tutorial: Log the State of an EC2 Intance Using CloudWatch Events"
+#    see "Step 1: Create a Lambda Function" of the "Tutorial: Log the State of an EC2 Instance Using CloudWatch Events"
 #    topic in the Amazon CloudWatch Events User Guide.
 #    Make a note of the AWS Lambda function Amazon Resource Name (ARN), as you will need it later in the code.
 # 2. An AWS IAM service role containing a policy granting permission to Amazon CloudWatch Events.

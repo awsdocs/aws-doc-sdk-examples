@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[list_account_aliases method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -54,7 +55,8 @@ s3.buckets.each do |b|
         break
       end
     end
-  rescue
+  rescue StandardError
+    puts 'Got error'
   end
 end
 

@@ -5,6 +5,7 @@
 # snippet-keyword:[describe_availability_zones method]
 # snippet-keyword:[describe_regions method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -42,7 +43,7 @@ describe_availability_zones_result.availability_zones.each do |zone|
   puts "#{zone.zone_name} is #{zone.state}"
   if zone.messages.count > 0
     zone.messages.each do |message|
-      "  #{message.message}"
+      puts "  #{message.message}"
     end
   end
 end

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ddbdoc_delete.js demonstrates how to use a DocumentClient to delete an item from an Amazon DynamoDB table.]
 //snippet-service:[dynamodb]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]

@@ -1,50 +1,35 @@
-# snippet-sourcedescription:[MoviesLoadData.py demonstrates how to ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Python]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.python.codeexample.MoviesLoadData] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-from __future__ import print_function # Python 2/3 compatibility
-import boto3
+"""
+Purpose
+
+Shows how to load items into an Amazon DynamoDB table that stores movies.
+The items are retrieved from a JSON-formatted file and put directly into the table.
+This works because every item contains the required year and title keys. All
+additional data is added as non-key attributes for the item.
+"""
+
+# snippet-start:[dynamodb.python.codeexample.MoviesLoadData]
+from decimal import Decimal
 import json
-import decimal
+import boto3
 
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
 
-table = dynamodb.Table('Movies')
+def load_movies(movies, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-with open("moviedata.json") as json_file:
-    movies = json.load(json_file, parse_float = decimal.Decimal)
+    table = dynamodb.Table('Movies')
     for movie in movies:
         year = int(movie['year'])
         title = movie['title']
-        info = movie['info']
-
         print("Adding movie:", year, title)
+        table.put_item(Item=movie)
 
-        table.put_item(
-           Item={
-               'year': year,
-               'title': title,
-               'info': info,
-            }
-        )
+
+if __name__ == '__main__':
+    with open("moviedata.json") as json_file:
+        movie_list = json.load(json_file, parse_float=Decimal)
+    load_movies(movie_list)
 # snippet-end:[dynamodb.python.codeexample.MoviesLoadData]

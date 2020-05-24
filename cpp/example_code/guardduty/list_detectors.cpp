@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[list_detectors.cpp demonstrates how to list the detector IDs of enabled Amazon GuardDuty detectors.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon GuardDuty]
 //snippet-service:[guardduty]

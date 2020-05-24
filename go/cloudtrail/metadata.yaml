@@ -1,0 +1,12 @@
+---
+files:
+  - path: cloudtrailOps.go
+    services:
+      - cloudtrail
+      - s3
+      - sts
+  - path: cloudtrailOps_test.go
+    services:
+      - cloudtrail
+      - s3
+      - sts

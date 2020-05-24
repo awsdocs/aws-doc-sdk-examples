@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-detect-labels.java demonstrates how to detect labels in an image loaded from an S3 Bucket.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DetectLabels]

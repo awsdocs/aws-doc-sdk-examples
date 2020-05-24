@@ -1,6 +1,7 @@
-# snippet-sourcedescription:[MoviesItemOps02.rb demonstrates how to ]
+# snippet-sourcedescription:[ ]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ ]
@@ -35,11 +36,6 @@ table_name = 'Movies'
 
 year = 2015
 title = "The Big New Movie"
-
-key = {
-    year: year,
-    title: title
-}
 
 params = {
     table_name: table_name,

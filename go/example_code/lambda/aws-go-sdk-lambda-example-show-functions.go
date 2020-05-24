@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[ListFunctions function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

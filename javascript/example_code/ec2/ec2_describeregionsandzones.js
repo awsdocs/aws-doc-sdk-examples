@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ec2_describeresionsandzones.js demonstrates how to retrieve information about Amazon EC2 regions and availability zones.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]

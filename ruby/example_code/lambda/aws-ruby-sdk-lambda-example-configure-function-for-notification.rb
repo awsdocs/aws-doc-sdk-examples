@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS Lambda]
 # snippet-keyword:[add_permission function]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[lambda]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -31,4 +32,4 @@ args[:action] = 'lambda:InvokeFunction'
 args[:principal] = 's3.amazonaws.com'
 args[:source_arn] = 'my-resource-arn'
 
-client.add_permission{args]
+client.add_permission(args)

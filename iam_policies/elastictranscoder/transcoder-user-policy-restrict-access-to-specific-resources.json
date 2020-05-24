@@ -1,0 +1,43 @@
+//snippet-sourcedescription:[This IAM identity-based permission policy demonstrates how to restrict a users access to specific resources.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Elastic Transcoder]
+//snippet-service:[elastictranscoder]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[elastictranscoder.iam_policy.denies_attached_user_access_to_specified_resources]
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Sid":"1",
+         "Effect":"Allow",
+         "Action":[
+            "s3:ListAllMyBuckets",
+            "s3:GetBucketLocation",
+            "s3:ListBucket",
+            "s3:GetObject",
+            "s3:PutObject"
+            ],
+         "Resource":[
+             "arn:aws:s3:::<example_bucket>",
+             "arn:aws:s3:::<example_bucket/*>"
+         ]
+      },
+      {
+         "Sid":"2",
+         "Effect":"Allow",
+         "Action":[
+            "elastictranscoder:List*",
+            "elastictranscoder:Read*",
+            "elastictranscoder:CreateJob"
+         ],
+         "Resource":[
+            "arn:aws:elastictranscoder:region:account:pipeline/<example_pipeline>",
+            "arn:aws:elastictranscoder:region:account:job/*"
+         ]
+      }
+   ]
+}
+//snippet-end:[elastictranscoder.iam_policy.denies_attached_user_access_to_specified_resources]

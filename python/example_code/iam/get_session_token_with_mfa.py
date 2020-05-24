@@ -12,6 +12,8 @@
 # snippet-sourcedescription:[get_session_token_with_mfa.py demonstrates how to call GetSessionToken with MFA authentication.]
 # snippet-service:[iam]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GetSessionToken]

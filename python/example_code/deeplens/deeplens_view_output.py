@@ -1,3 +1,15 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_view_output.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-service:[deeplens]
+# snippet-keyword:[AWS DeepLens]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
@@ -27,8 +39,8 @@ client = greengrasssdk.client('iot-data')
 # a topic and a message body.
 # This is the topic that this code uses to send messages to the Cloud.
 iotTopic = '$aws/things/{}/infer'.format(os.environ['AWS_IOT_THING_NAME'])
-ret, frame = awscam.getLastFrame()
-ret,jpeg = cv2.imencode('.jpg', frame) 
+_, frame = awscam.getLastFrame()
+_,jpeg = cv2.imencode('.jpg', frame)
 Write_To_FIFO = True
 class FIFO_Thread(Thread):
     def __init__(self):
@@ -56,7 +68,7 @@ def greengrass_infinite_infer_run():
         max_threshold = 0.25
         outMap = ({ 1: 'aeroplane', 2: 'bicycle', 3: 'bird', 4: 'boat', 
                     5: 'bottle', 6: 'bus', 7 : 'car', 8 : 'cat', 
-                    9 : 'chair', 10 : 'cow', 11 : 'dinning table', 
+                    9 : 'chair', 10 : 'cow', 11 : 'dining table',
                    12 : 'dog', 13 : 'horse', 14 : 'motorbike', 
                    15 : 'person', 16 : 'pottedplant', 17 : 'sheep', 
                    18 : 'sofa', 19 : 'train', 20 : 'tvmonitor' })
@@ -126,16 +138,3 @@ greengrass_infinite_infer_run()
 def function_handler(event, context):
     return
 # snippet-end:[deeplens.python.deeplens_view_output.lambda_function]
-
-
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[deeplens_view_output.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-# snippet-keyword:[Python]
-# snippet-keyword:[AWS GreenGrass SDK]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[AWS DeepLens]
-# snippet-keyword:[AWS Lambda]
-# snippet-service:[deeplens]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-07]
-# snippet-sourceauthor:[AWS]

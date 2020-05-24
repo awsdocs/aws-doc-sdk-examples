@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to a role.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

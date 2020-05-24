@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[batch_get_item.cpp demonstrates how to batch get items from different Amazon DynamoDB tables.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]
@@ -79,7 +80,7 @@ int main(int argc, char** argv)
 		Aws::String t2Name = "ProductCatalog";
 		Aws::DynamoDB::Model::KeysAndAttributes t2KeyAttrs;
 		//Table2: Projection expression
-		t1KeyAttrs.SetProjectionExpression("Title, Price, Color");
+		t2KeyAttrs.SetProjectionExpression("Title, Price, Color");
 
 		// Table2: Set key name, type and value to search
 		//

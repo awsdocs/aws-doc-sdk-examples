@@ -44,6 +44,8 @@ print("\n\rUnformatted Policy Document: \n\r" + str(policy_document))
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[get_policy_version.py demonstrates how to retrieve details about the current version of an IAM policy.]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]

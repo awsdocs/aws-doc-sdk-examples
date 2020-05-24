@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[put_bucket_policy method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -30,6 +31,8 @@ bucket = 'my_bucket'
 iam = Aws::IAM::Resource.new(region: region)
 user = iam.current_user
 arn = user.arn
+
+puts 'User ARN: ' + arn
 
 s3 = Aws::S3::Client.new(region: region)
 

@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[05-scan-test.js demonstrates how to ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ ]
@@ -47,9 +48,8 @@ var iterations = 5;
 var params = {
     TableName: tableName
 };
-
+var startTime = new Date().getTime();
 for (var i = 0; i < iterations; i++) {
-    var startTime = new Date().getTime();
 
     client.scan(params, function(err, data) {
         if (err) {

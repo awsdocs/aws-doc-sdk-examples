@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[create_nfs_file_share.cpp demonstrates how to create a Network File System (NFS) file share on an AWS Storage Gateway resource.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Storage Gateway]
 //snippet-service:[storagegateway]
@@ -24,6 +25,7 @@
 #include <aws/storagegateway/StorageGatewayClient.h>
 #include <aws/storagegateway/model/CreateNFSFileShareRequest.h>
 #include <aws/storagegateway/model/CreateNFSFileShareResult.h>
+#include <aws/core/utils/Outcome.h>
 #include <iostream>
 
 int main(int argc, char ** argv)
@@ -46,10 +48,10 @@ int main(int argc, char ** argv)
 
     Aws::StorageGateway::Model::CreateNFSFileShareRequest cnfsfs_req;
 
-    cnfsfs.SetGatewayARN(gateway_arn);
-    cnfsfs.SetRole(role);
-    cnfsfs.SetLocationARN(location_arn);
-    cnfsfs.AddClientList(client_token);
+    cnfsfs_req.SetGatewayARN(gateway_arn);
+    cnfsfs_req.SetRole(role);
+    cnfsfs_req.SetLocationARN(location_arn);
+    cnfsfs_req.AddClientList(client_token);
 
     auto cnfsfs_out = storagegateway.CreateNFSFileShare(cnfsfs_req);
 

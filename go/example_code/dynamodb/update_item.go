@@ -4,10 +4,11 @@
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[UpdateItem function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2019-03-12]
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -25,12 +26,25 @@
 package main
 
 import (
-    "fmt"
-
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
+    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+    
+    "fmt"
+    "os"
 )
+
+// ItemInfo holds info to update
+type ItemInfo struct {
+    Rating float64 `json:"rating"`
+}
+
+// Item identifies the item in the table
+type Item struct {
+    Year  int    `json:"year"`
+    Title string `json:"title"`
+}
 
 func main() {
     // Initialize a session in us-west-2 that the SDK will use to load
@@ -42,28 +56,39 @@ func main() {
     // Create DynamoDB client
     svc := dynamodb.New(sess)
 
-    // Create item in table Movies
+   info := ItemInfo{
+        Rating: 0.5,
+    }
+
+    item := Item{
+        Year:  2015,
+        Title: "The Big New Movie",
+    }
+
+    expr, err := dynamodbattribute.MarshalMap(info)
+    if err != nil {
+        fmt.Println("Got error marshalling info:")
+        fmt.Println(err.Error())
+        os.Exit(1)
+    }
+
+    key, err := dynamodbattribute.MarshalMap(item)
+    if err != nil {
+        fmt.Println("Got error marshalling item:")
+        fmt.Println(err.Error())
+        os.Exit(1)
+    }
+
+    // Update item in table Movies
     input := &dynamodb.UpdateItemInput{
-        ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
-            ":r": {
-                N: aws.String("0.5"),
-            },
-        },
-        TableName: aws.String("Movies"),
-        Key: map[string]*dynamodb.AttributeValue{
-            "year": {
-                N: aws.String("2015"),
-            },
-            "title": {
-                S: aws.String("The Big New Movie"),
-            },
-        },
-        ReturnValues:     aws.String("UPDATED_NEW"),
-        UpdateExpression: aws.String("set info.rating = :r"),
+        ExpressionAttributeValues: expr,
+        TableName:                 aws.String("Movies"),
+        Key:                       key,
+        ReturnValues:              aws.String("UPDATED_NEW"),
+        UpdateExpression:          aws.String("set info.rating = :r"),
     }
 
     _, err = svc.UpdateItem(input)
-
     if err != nil {
         fmt.Println(err.Error())
         return

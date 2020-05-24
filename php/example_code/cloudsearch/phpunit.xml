@@ -1,0 +1,17 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="CLOUDSEARCH_DOMAIN_NAME" value="my-search-domain"/>
+    <const name="CLOUDSEARCH_DOMAIN_ID" value="7kbitd6nyiglhdtmssxEXAMPLE"/>
+    <const name="AWS_REGION_ID" value="us-east-1"/>
+    <const name="CLOUDSEARCH_DOMAIN_SEARCH_STRING" value="q=star+wars&amp;return=title"/>
+    <const name="CLOUDSEARCH_DOMAIN_PREFIX" value="search-"/>
+    <const name="CLOUDSEARCH_DOMAIN" value="cloudsearch.amazonaws.com"/>
+    <const name="CLOUDSEARCH_VERSION" value="2013-01-01"/>
+    <const name="CLOUDSEARCH_SEARCH_PREFIX" value="search-"/>
+  </php>
+  <testsuites>
+    <testsuite name="cloudsearch-signdomainrequest">
+      <file>tests/SignDomainRequestTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

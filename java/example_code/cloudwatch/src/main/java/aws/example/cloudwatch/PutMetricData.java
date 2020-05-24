@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[PutMetricData.java demonstrates how to put a sample metric data point.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cloudwatch]
 //snippet-service:[cloudwatch]

@@ -15,38 +15,36 @@
 // snippet-sourcedescription:[CreateAndModifyClusterSecurityGroup demonstrates how to create and modify an Amazon Redshift security group.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateClusterSecurityGroup]
 // snippet-keyword:[DescribeClusterSecurityGroups]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2015-02-19]
+// snippet-sourcedate:[2019-02-01]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndModifyClusterSecurityGroup.complete]
+
+package com.amazonaws.services.redshift;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.PropertiesCredentials;
-import com.amazonaws.services.redshift.AmazonRedshiftClient;
 import com.amazonaws.services.redshift.model.*;
+
 
 public class CreateAndModifyClusterSecurityGroup {
 
-    public static AmazonRedshiftClient client;
+    public static AmazonRedshift client;
     public static String clusterSecurityGroupName = "securitygroup1";
-    public static String clusterIdentifier = "***provide cluster identifier***";
-    public static String ownerID = "***provide account id****";
+    public static String clusterIdentifier = "***provide a cluster identifier***";
+    public static String ownerID = "***provide a 12-digit account number***";
 
     public static void main(String[] args) throws IOException {
 
-        AWSCredentials credentials = new PropertiesCredentials(
-                CreateAndModifyClusterSecurityGroup.class
-                        .getResourceAsStream("AwsCredentials.properties"));
-
-        client = new AmazonRedshiftClient(credentials);
+        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+       client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
              createClusterSecurityGroup();

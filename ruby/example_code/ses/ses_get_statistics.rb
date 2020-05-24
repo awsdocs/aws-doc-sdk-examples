@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Email Service]
 # snippet-keyword:[get_send_statistics method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ses]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

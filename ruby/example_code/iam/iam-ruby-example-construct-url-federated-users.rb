@@ -12,6 +12,7 @@
 # snippet-sourcedescription:[construct-url-federated-users.py demonstrates how to programmatically construct a URL that gives federated users direct access to the AWS Management Console.]
 # snippet-service:[iam]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[AWS Identity and Access Management (IAM)]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AssumeRole]
@@ -87,5 +88,6 @@ issuer_param = "&Issuer=" + CGI.escape(issuer_url)
 destination_param = "&Destination=" + CGI.escape(console_url)
 login_url = signin_url + "?Action=login" + signin_token_param + 
 issuer_param + destination_param
+puts 'Login URL: ' + login_url
 # snippet-end:[iam.ruby.construct-url-federated-users.complete]
 

@@ -15,10 +15,10 @@ set (CMAKE_CXX_STANDARD 11)
 find_package(AWSSDK REQUIRED COMPONENTS elasticbeanstalk ec2)
 
 set(EXAMPLES "")
-list(APPEND EXAMPLES "describe_volumes")
 list(APPEND EXAMPLES "attach_volume")
 list(APPEND EXAMPLES "create_volume")
 list(APPEND EXAMPLES "delete_volume")
+list(APPEND EXAMPLES "describe_volumes")
 
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)

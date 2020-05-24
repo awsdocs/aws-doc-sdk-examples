@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-detect-labels-local-file.java demonstrates how to detect unsafe content in an image loaded from a local file.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DetectLabels]

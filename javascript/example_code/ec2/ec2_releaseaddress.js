@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ec2_releaseaddress.js demonstrates how to release an Elastic IP address.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]

@@ -1,3 +1,15 @@
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
+# snippet-service:[deeplens]
+# snippet-keyword:[AWS DeepLens]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2019-01-07]
+# snippet-sourceauthor:[AWS]
+
 # Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
@@ -21,6 +33,13 @@ import cv2
 import greengrasssdk
 
 # snippet-end:[deeplens.python.deeplens_inference_lambda.import]
+#snippet-start:[deeplens.python.deeplens_inference_lambda.lambda_handler]
+
+def lambda_handler(event, context):
+    """Empty entry point to the Lambda function invoked from the edge."""
+    return
+
+#snippet-end:[deeplens.python.deeplens_inference_lambda.lambda_handler]
 # snippet-start:[deeplens.python.deeplens_inference_lambda.class_LocalDisplay]
 
 class LocalDisplay(Thread):
@@ -85,7 +104,7 @@ class LocalDisplay(Thread):
 
 # snippet-start:[deeplens.python.deeplens_inference_lambda.inference_loop]
 def infinite_infer_run():
-    """ Entry point of the lambda function"""
+    """ Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
         # of labels is small, create a dictionary that converts the machine
@@ -146,7 +165,7 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and tickness
+            # Method signature: image, text, origin, font face, font scale, color, and thickness
             cv2.putText(frame, output_map[top_k[0]['label']], (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 165, 20), 8)
             # Set the next frame in the local display stream.
@@ -173,6 +192,10 @@ import numpy as np
 import awscam
 import cv2
 import greengrasssdk
+
+def lambda_handler(event, context):
+    """Empty entry point to the Lambda function invoked from the edge."""
+    return
 
 class LocalDisplay(Thread):
     """ Class for facilitating the local display of inference results
@@ -234,7 +257,7 @@ class LocalDisplay(Thread):
         self.stop_request.set()
 
 def infinite_infer_run():
-    """ Entry point of the lambda function"""
+    """ Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
         # of labels is small, create a dictionary that converts the machine
@@ -279,7 +302,7 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and tickness
+            # Method signature: image, text, origin, font face, font scale, color, and thickness
             cv2.putText(frame, output_map[top_k[0]['label']], (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 165, 20), 8)
             # Set the next frame in the local display stream.
@@ -294,15 +317,3 @@ def infinite_infer_run():
 
 infinite_infer_run()
 # snippet-end:[deeplens.python.deeplens_inference_lambda.complete]
-
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[deeplens_inference_lambda.py demonstrates how to create an inference Lambda function on an AWS DeepLens model.]
-# snippet-keyword:[Python]
-# snippet-keyword:[AWS Greengrass SDK]
-# snippet-keyword:[AWS Lambda]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[AWS DeepLens]
-# snippet-service:[deeplens]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-07]
-# snippet-sourceauthor:[AWS]

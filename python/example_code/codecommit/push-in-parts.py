@@ -1,12 +1,8 @@
-# Copyright 2015 Amazon.com, Inc. or its affiliates. All Rights Reserved. Licensed under the Amazon Software License (the "License"). 
-# You may not use this file except in compliance with the License. A copy of the License is located at 
-#    http://aws.amazon.com/asl/ 
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for
-# the specific language governing permissions and limitations under the License.
-
 # snippet-sourcedescription:[push-in-parts.py demonstrates how to migrate a Git repository in increments and repushes only those increments that did not succeed until the migration is complete.]
 # snippet-service:[codecommit]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CodeCommit]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Git]
@@ -14,7 +10,11 @@
 # snippet-sourcedate:[2015-07-09]
 # snippet-sourceauthor:[AWS]
 # snippet-start:[codecommit.python.push-in-parts.complete]
-
+# Copyright 2015 Amazon.com, Inc. or its affiliates. All Rights Reserved. Licensed under the Amazon Software License (the "License"). 
+# You may not use this file except in compliance with the License. A copy of the License is located at 
+#    http://aws.amazon.com/asl/ 
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for
+# the specific language governing permissions and limitations under the License.
 
 #!/usr/bin/env python
 

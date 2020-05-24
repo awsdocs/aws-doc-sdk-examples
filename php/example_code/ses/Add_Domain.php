@@ -16,14 +16,18 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/ses-verify.html
  *
  */
+// snippet-start:[ses.php.add_domain.complete]
+// snippet-start:[ses.php.add_domain.import]
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient;
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+// snippet-end:[ses.php.add_domain.import]
 
-//Create a SESClient
-$SesClient = new Aws\SES\SESClient([
+//Create a SESClient 
+// snippet-start:[ses.php.add_domain.main]
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -42,10 +46,13 @@ try {
     echo "\n";
 }
  
-
+ 
+// snippet-end:[ses.php.add_domain.main]
+// snippet-end:[ses.php.add_domain.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Add_Domain.php demonstrates how to add a sending domain to your Amazon SES account. By verifying a domain, you demonstrate that you're the owner of that domain. When you verify a domain, you allow Amazon SES to send email from any address on that domain.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

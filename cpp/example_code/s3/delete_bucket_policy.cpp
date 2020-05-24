@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_bucket_policy.cpp demonstrates how to delete an Amazon S3 bucket policy.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-service:[s3]

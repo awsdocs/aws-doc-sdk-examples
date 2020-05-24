@@ -5,6 +5,7 @@
 # snippet-keyword:[list_metrics method]
 # snippet-keyword:[put_metric_data method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudwatch]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

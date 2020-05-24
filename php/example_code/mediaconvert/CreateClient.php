@@ -13,11 +13,13 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
+// snippet-start:[mediaconvert.php.create_client.complete]
+// snippet-start:[mediaconvert.php.create_client.import]
 require 'vendor/autoload.php';
 
 use Aws\MediaConvert\MediaConvertClient;
 
+// snippet-end:[mediaconvert.php.create_client.import]
 /**
  * Creating an Amazon Elemental MediaConvert Client.
  *
@@ -26,6 +28,7 @@ use Aws\MediaConvert\MediaConvertClient;
  */
 
 //Create a MediaConvert Client
+// snippet-start:[mediaconvert.php.create_client.main]
 $client = new Aws\MediaConvert\MediaConvertClient([
     'profile' => 'default',
     'version' => '2017-08-29',
@@ -35,9 +38,12 @@ $client = new Aws\MediaConvert\MediaConvertClient([
 var_dump($client);
  
 
+// snippet-end:[mediaconvert.php.create_client.main]
+// snippet-end:[mediaconvert.php.create_client.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateClient.php demonstrates how to create a AWS Elemental MediaConvert Client that you can use to manage jobs.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Elemental MediaConvert]

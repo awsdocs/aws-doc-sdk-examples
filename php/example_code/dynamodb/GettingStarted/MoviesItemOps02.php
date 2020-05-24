@@ -2,6 +2,7 @@
 // snippet-sourcedescription:[MoviesItemOps02.php demonstrates how to ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ ]

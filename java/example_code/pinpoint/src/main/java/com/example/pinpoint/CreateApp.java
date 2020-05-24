@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateApp.java demonstrates how to create an application in the Pinpoint dashboard.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mobiletargeting]
 //snippet-sourcetype:[full-example]

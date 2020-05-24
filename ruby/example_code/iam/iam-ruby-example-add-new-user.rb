@@ -5,6 +5,7 @@
 # snippet-keyword:[create_user method]
 # snippet-keyword:[wait_until method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

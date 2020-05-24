@@ -5,6 +5,7 @@
 # snippet-keyword:[disable_alarm_actions method]
 # snippet-keyword:[put_metric_alarm method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudwatch]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

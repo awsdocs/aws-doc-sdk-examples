@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[ec2_deletekeypair.js demonstrates how to delete a key pair from an Amazon EC2 instance.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]

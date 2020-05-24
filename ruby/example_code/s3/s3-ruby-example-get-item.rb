@@ -6,6 +6,7 @@
 # snippet-keyword:[Bucket.object method]
 # snippet-keyword:[Object.getmethod]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

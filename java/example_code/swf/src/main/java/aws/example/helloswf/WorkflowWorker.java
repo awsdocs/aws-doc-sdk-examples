@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[WorkflowWorker.java demonstrates how to poll for a decision task in a task list.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[swf]
 //snippet-sourcetype:[full-example]
@@ -18,20 +19,27 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+//snippet-start:[swf.java.workflow_worker.complete]
 package aws.example.helloswf;
 
+//snippet-start:[swf.java.workflow_worker.import]
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+//snippet-end:[swf.java.workflow_worker.import]
 
 public class WorkflowWorker {
+    //snippet-start:[swf.java.workflow_worker.client]
     private static final AmazonSimpleWorkflow swf =
-        AmazonSimpleWorkflowClientBuilder.defaultClient();
+            AmazonSimpleWorkflowClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
+    //snippet-end:[swf.java.workflow_worker.client]
 
     public static void main(String[] args) {
+        //snippet-start:[swf.java.workflow_worker.main]
         PollForDecisionTaskRequest task_request =
             new PollForDecisionTaskRequest()
                 .withDomain(HelloTypes.DOMAIN)
@@ -54,6 +62,7 @@ public class WorkflowWorker {
                 }
             }
         }
+        //snippet-end:[swf.java.workflow_worker.main]
     }
 
     /**
@@ -64,13 +73,16 @@ public class WorkflowWorker {
      */
     private static void executeDecisionTask(String taskToken, List<HistoryEvent> events)
             throws Throwable {
+        //snippet-start:[swf.java.workflow_worker.execute_decision_task_token]
         List<Decision> decisions = new ArrayList<Decision>();
         String workflow_input = null;
         int scheduled_activities = 0;
         int open_activities = 0;
         boolean activity_completed = false;
         String result = null;
+        //snippet-end:[swf.java.workflow_worker.execute_decision_task_token]
 
+        //snippet-start:[swf.java.workflow_worker.execute_decision_task_history_events]
         System.out.println("Executing the decision task for the history events: [");
         for (HistoryEvent event : events) {
             System.out.println("  " + event);
@@ -105,7 +117,9 @@ public class WorkflowWorker {
             }
         }
         System.out.println("]");
+        //snippet-end:[swf.java.workflow_worker.execute_decision_task_history_events]
 
+        //snippet-start:[swf.java.workflow_worker.task_decision]
         if (activity_completed) {
             decisions.add(
                 new Decision()
@@ -135,10 +149,14 @@ public class WorkflowWorker {
         }
 
         System.out.println("Exiting the decision task with the decisions " + decisions);
+        //snippet-end:[swf.java.workflow_worker.task_decision]
 
+        //snippet-start:[swf.java.workflow_worker.return_decision_objects]
         swf.respondDecisionTaskCompleted(
             new RespondDecisionTaskCompletedRequest()
                 .withTaskToken(taskToken)
                 .withDecisions(decisions));
+        //snippet-end:[swf.java.workflow_worker.return_decision_objects]
     }
 }
+//snippet-end:[swf.java.workflow_worker.complete]

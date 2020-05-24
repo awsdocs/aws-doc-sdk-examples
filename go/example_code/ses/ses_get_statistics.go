@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon SES]
 // snippet-keyword:[GetSendStatistics function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ses]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -30,7 +31,6 @@ import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/ses"
-    "github.com/aws/aws-sdk-go/aws/awserr"
 
     "fmt"
 )

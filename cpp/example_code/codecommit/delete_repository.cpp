@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_repository.cpp demonstrates how to delete an AWS CodeCommit repository.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeCommit]
 //snippet-service:[codecommit]

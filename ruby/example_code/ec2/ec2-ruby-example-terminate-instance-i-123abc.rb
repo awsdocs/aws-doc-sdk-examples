@@ -5,6 +5,7 @@
 # snippet-keyword:[instance method]
 # snippet-keyword:[Instance.terminate method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
