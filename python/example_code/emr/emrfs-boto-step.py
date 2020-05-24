@@ -29,7 +29,7 @@ connect_to_region("us-west-1")
 myStep = JarStep(name='Boto EMRFS Sync',
                jar='s3://elasticmapreduce/libs/script-runner/script-runner.jar',
                action_on_failure="CONTINUE",
-               step_args=['/home/hadoop/bin/emrfs',
+               step_args=['/usr/bin/emrfs',
                           'sync',
                           's3://elasticmapreduce/samples/cloudfront'])
 
