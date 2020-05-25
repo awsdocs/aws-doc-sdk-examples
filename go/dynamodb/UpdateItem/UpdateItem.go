@@ -1,16 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
 // snippet-start:[dynamodb.go.update_movie]
 package main
 
@@ -18,10 +7,12 @@ package main
 import (
     "flag"
     "fmt"
+    "strconv"
 
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
+    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
 // snippet-end:[dynamodb.go.update_movie.imports]
 
@@ -35,23 +26,21 @@ import (
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to UpdateItem
-func UpdateMovie(sess *session.Session, tableName, movieName, movieYear, movieRating *string) error {
+func UpdateMovie(svc dynamodbiface.DynamoDBAPI, table, movie, year, rating *string) error {
     // snippet-start:[dynamodb.go.update_movie.call]
-    svc := dynamodb.New(sess)
-
     input := &dynamodb.UpdateItemInput{
         ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
             ":r": {
-                N: movieRating,
+                N: rating,
             },
         },
-        TableName: tableName,
+        TableName: table,
         Key: map[string]*dynamodb.AttributeValue{
             "Year": {
-                N: movieYear,
+                N: year,
             },
             "Title": {
-                S: movieName,
+                S: movie,
             },
         },
         ReturnValues:     aws.String("UPDATED_NEW"),
@@ -69,15 +58,40 @@ func UpdateMovie(sess *session.Session, tableName, movieName, movieYear, movieRa
 
 func main() {
     // snippet-start:[dynamodb.go.update_movie.args]
-    tableName := flag.String("t", "", "The name of the table")
-    movieName := flag.String("m", "", "The name of the movie")
-    movieYear := flag.String("y", "", "The year the movie was made")
-    movieRating := flag.String("r", "", "The rating, from 0 (zero) to 1 (one)")
+    table := flag.String("t", "", "The name of the table")
+    movie := flag.String("m", "", "The name of the movie")
+    year := flag.String("y", "", "The year the movie was made")
+    rating := flag.String("r", "", "The rating, from 0 (zero) to 1 (one)")
     flag.Parse()
 
-    if *tableName == "" || *movieName == "" || *movieYear == "" || *movieRating == "" {
+    if *table == "" || *movie == "" || *year == "" || *rating == "" {
         fmt.Println("You must supply a table name (-t TABLE), movie name (-m MOVIE), movie year (-y YEAR), and rating (-r RATING)")
         return
+    }
+
+    // Make sure rating is in the range 0 to 1, and year is in the range 1900 - 2020
+    yearInt, err := strconv.Atoi(*year)
+    if err != nil {
+        fmt.Println("Year is not an integer value")
+        return
+    }
+
+    if yearInt < 1900 {
+        *year = "1900"
+    } else if yearInt > 2020 {
+        *year = "2020"
+    }
+
+    ratingFloat, err := strconv.ParseFloat(*rating, 64)
+    if err != nil {
+        fmt.Println("Rating is not a floating-point value")
+        return
+    }
+
+    if ratingFloat < 0.0 {
+        *rating = "0.0"
+    } else if ratingFloat > 1.0 {
+        *rating = "1.0"
     }
     // snippet-end:[dynamodb.go.update_movie.args]
 
@@ -85,16 +99,18 @@ func main() {
     sess := session.Must(session.NewSessionWithOptions(session.Options{
         SharedConfigState: session.SharedConfigEnable,
     }))
+
+    svc := dynamodb.New(sess)
     // snippet-end:[dynamodb.go.update_movie.session]
 
-    err := UpdateMovie(sess, tableName, movieName, movieYear, movieRating)
+    err = UpdateMovie(svc, table, movie, year, rating)
     if err != nil {
         fmt.Println(err)
         return
     }
 
     // snippet-start:[dynamodb.go.update_movie.print]
-    fmt.Println("Successfully updated '" + *movieName + "' (" + *movieYear + ") rating to " + *movieRating)
+    fmt.Println("Successfully updated '" + *movie + "' (" + *year + ") rating to " + *rating)
     // snippet-end:[dynamodb.go.update_movie.print]
 }
 // snippet-end:[dynamodb.go.update_movie]

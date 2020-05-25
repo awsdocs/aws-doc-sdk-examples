@@ -33,12 +33,13 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
-    // Create an SQS service client
+    // snippet-start:[sqs.go.send_receive_long_polling.get_url]
     svc := sqs.New(sess)
 
     result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
         QueueName: queue,
     })
+    // snippet-end:[sqs.go.send_receive_long_polling.get_url]
     if err != nil {
         return nil, err
     }
@@ -94,9 +95,9 @@ func SendMsg(sess *session.Session, queueURL *string) error {
 //     Otherwise, an error from the call to ReceiveMessage
 func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) (*sqs.ReceiveMessageOutput, error) {
     // Create an SQS service client
-    // snippet-start:[sqs.go.receive_lp_message.call]
     svc := sqs.New(sess)
 
+    // snippet-start:[sqs.go.receive_lp_message.call]
     results, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
         QueueUrl: queueURL,
         AttributeNames: aws.StringSlice([]string{
@@ -164,7 +165,6 @@ func main() {
     fmt.Println("Sent message to queue with URL " + *queueURL)
 
     // Get messages and show them
-    // snippet-start:[sqs.go.send_receive_long_polling.get_msgs]
     results, err := GetLPMessages(sess, queueURL, waitTime)
     if err != nil {
         fmt.Println("Got error retrieving LP messages:")
@@ -172,11 +172,12 @@ func main() {
         return
     }
 
+    // snippet-start:[sqs.go.send_receive_long_polling.print_msgs]
     fmt.Println("Message IDs:")
-
+    
     for _, msg := range results.Messages {
         fmt.Println("    " + *msg.MessageId)
     }
-    // snippet-end:[sqs.go.send_receive_long_polling.get_msgs]
+    // snippet-end:[sqs.go.send_receive_long_polling.print_msgs]
 }
 // snippet-end:[sqs.go.send_receive_long_polling]
