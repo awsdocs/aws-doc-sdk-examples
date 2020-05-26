@@ -100,7 +100,7 @@ The following figure shows the **work** table.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
 2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
-3. For **GroupId**, enter **spring-aws**. 
+3. For **GroupId**, enter **aws-spring**. 
 4. For **ArtifactId**, enter **AWSItemTracker**. 
 6. Choose **Next**.
 7. Choose **Finish**. 
@@ -142,7 +142,7 @@ In the **dependencies** element, add the following Spring Boot **dependency** el
       </exclusions>
     </dependency>
       
-Add the following dependency (required for Java version 2 of the Amazon SES API). 
+Add the following dependency for the Amazon SES API (AWS Java SDK version 2). 
 
  	<dependency>
           <groupId>software.amazon.awssdk</groupId>
@@ -249,7 +249,6 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
-            <version>2.10.41</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
