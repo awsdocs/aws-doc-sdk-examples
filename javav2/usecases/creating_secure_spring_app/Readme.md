@@ -276,7 +276,6 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>protocol-core</artifactId>
-            <version>2.5.27</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
