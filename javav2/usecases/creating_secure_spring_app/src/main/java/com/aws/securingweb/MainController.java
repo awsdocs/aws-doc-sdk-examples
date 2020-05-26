@@ -73,7 +73,7 @@ public class MainController {
         myWork.setName(name);
 
         iw.injestNewSubmission(myWork);
-        return "Report is created";
+        return "Item added";
     }
 
     // Builds and emails a report
