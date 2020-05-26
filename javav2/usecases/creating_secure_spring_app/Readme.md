@@ -1894,15 +1894,15 @@ The following HTML code represents the index.html. This file represents the appl
 
       <p>The AWS Item Tracker application is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
-      <ol>
-     	<li>Enter work items into the system by clicking the <i>Add Items</i> menu item. Fill in the form and then click the <i>Create Item</i> button.</li>
+     <ol>
+    	<li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
     	<li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
-    	<li>You can view all of your items by clicking the <i>Get Items</i> menu item. Next, click the <i>Get Active Items</i> button in the dialog.</li>
-    	<li>You can modify an Active Item by selecting an item in the table and then clicking the <i>Get Single Item</i> button. The item appears in the Modify Item section where you can modify the description or status.</li>
-    	<li>Modify the item and then click the <i>Update Item</i> button. Note that you cannot modify the ID value. </li>
-    	<li>You can archive any item by selecting the item and clicking the <i>Archive Item</i> button. Notice that the table is updated with only active items.</li>
-    	<li>You can display all archived items by clicking the <i>Get Archived Items</i> button. Note that you cannot modify an archived item.</li>
-    	<li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog and then clicking the <i>Report</i> button. Note only Active data can be sent in a report.</li>
+    	<li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i>in the dialog box.</li>
+    	<li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
+    	<li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
+    	<li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
+    	<li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
+    	<li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Report</i>.Only Active data is sent in a report.</li>
     	<li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
