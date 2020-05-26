@@ -122,25 +122,25 @@ In the **pom.xml** file's **project** element, add the **spring-boot-starter-par
     
 In the **dependencies** element, add the following Spring Boot **dependency** elements.
 
- 	<dependency>
-   	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-thymeleaf</artifactId>
-	</dependency>
-	<dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-web</artifactId>
-	</dependency>
-	 <dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-test</artifactId>
-	  <scope>test</scope>
-	  <exclusions>
-	   <exclusion>
-	    <groupId>org.junit.vintage</groupId>
-	    <artifactId>junit-vintage-engine</artifactId>
-	   </exclusion>
-	  </exclusions>
-	</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-test</artifactId>
+     <scope>test</scope>
+      <exclusions>
+       <exclusion>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+       </exclusion>
+      </exclusions>
+    </dependency>
       
 Add the following dependency (required for Java version 2 of the Amazon SES API). 
 
@@ -563,74 +563,73 @@ The following Java code represents the **MainController** class.
        	return "Report is created";
      }
 
-    
-    	// Archives a work item
-    	@RequestMapping(value = "/archive", method = RequestMethod.POST)
-    	@ResponseBody
-	String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
+    // Archives a work item
+    @RequestMapping(value = "/archive", method = RequestMethod.POST)
+    @ResponseBody
+    String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
         
-		String id = request.getParameter("id");
-	        RetrieveItems ri = new RetrieveItems();
-        	ri.flipItemArchive(id );
-        	return id ;
-    	}
+      String id = request.getParameter("id");
+      RetrieveItems ri = new RetrieveItems();
+      ri.flipItemArchive(id );
+      return id ;
+    }
 
-    	// Modifies the value of a work item
-    	@RequestMapping(value = "/changewi", method = RequestMethod.POST)
-    	@ResponseBody
-	String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
-        	String id = request.getParameter("id");
-        	String description = request.getParameter("description");
-        	String status = request.getParameter("status");
-
-        	InjectWorkService ws = new InjectWorkService();
-        	String value = ws.modifySubmission(id, description, status);
-        	return value;
-    	}
-
+    // Modifies the value of a work item
+    @RequestMapping(value = "/changewi", method = RequestMethod.POST)
+    @ResponseBody
+    String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
     
-    	// Retrieve all items for a given user
-    	@RequestMapping(value = "/retrieve", method = RequestMethod.POST)
-    	@ResponseBody
-	String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+      String id = request.getParameter("id");
+      String description = request.getParameter("description");
+      String status = request.getParameter("status");
 
-        	//Get the Logged in User
-        	String name = getLoggedUser();
+      InjectWorkService ws = new InjectWorkService();
+      String value = ws.modifySubmission(id, description, status);
+      return value;
+    }
 
-        	RetrieveItems ri = new RetrieveItems();
-        	String type = request.getParameter("type");
+    // Retrieve all items for a given user
+    @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+    @ResponseBody
+    String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        	//Pass back all data from the database
-        	String xml="";
+      //Get the Logged in User
+      String name = getLoggedUser();
 
-        	if (type.equals("active")) {
-            	  xml = ri.getItemsDataSQL(name);
-            	  return xml;
-        	} else {
-           	   xml = ri.getArchiveData(name);
-            	  return xml;
-         	 }
-    	 	}
+      RetrieveItems ri = new RetrieveItems();
+      String type = request.getParameter("type");
 
-    	// Returns a work item to modify
-    	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-    	@ResponseBody
-    	String modifyWork(HttpServletRequest request, HttpServletResponse response) {
-        	String id = request.getParameter("id");
-        	RetrieveItems ri = new RetrieveItems();
-        	String xmlRes = ri.getItemSQL(id) ;
-        	return xmlRes;
-     	}
+      //Pass back all data from the database
+      String xml="";
 
+      if (type.equals("active")) {
+       	  xml = ri.getItemsDataSQL(name);
+       	  return xml;
+      } else {
+         xml = ri.getArchiveData(name);
+         return xml;
+      }
+    }
+
+    // Returns a work item to modify
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyWork(HttpServletRequest request, HttpServletResponse response) {
     
-    	private String getLoggedUser() {
+      String id = request.getParameter("id");
+      RetrieveItems ri = new RetrieveItems();
+      String xmlRes = ri.getItemSQL(id) ;
+      return xmlRes;
+     }
 
-		// Get the logged-in Useruser
-        	org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        	String name = user2.getUsername();
-        	return name;
-    	    }
-	  }
+    private String getLoggedUser() {
+
+     // Get the logged-in Useruser
+      org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+     String name = user2.getUsername();
+     return name;
+     }
+    }
 
 #### To create the MainController class 
 
