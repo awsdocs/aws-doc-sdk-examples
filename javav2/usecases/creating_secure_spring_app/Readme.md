@@ -643,65 +643,65 @@ Create a Java package named **com.aws.entities**. Next, create a class, named **
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
 
-     package com.aws.entities;
+    package com.aws.entities;
 
     public class WorkItem {
 
-      private String id;
-      private String name;
-      private String guide ;
-      private String date;
-      private String description;
-      private String status;
+     private String id;
+     private String name;
+     private String guide ;
+     private String date;
+     private String description;
+     private String status;
 
-      public void setId (String id) {
+     public void setId (String id) {
          this.id = id;
-     	}
+     }
 
-      public String getId() {
-          return this.id;
-      }
+     public String getId() {
+         return this.id;
+     }
 
-    public void setStatus (String status) {
+     public void setStatus (String status) {
         this.status = status;
-    }
+     }
 
-    public String getStatus() {
-        return this.status;
-    }
+     public String getStatus() {
+       return this.status;
+     }
 
-    public void setDescription (String description) {
+     public void setDescription (String description) {
         this.description = description;
-    }
+     }
 
-    public String getDescription() {
+     public String getDescription() {
        return this.description;
-    }
+     }
 
-    public void setDate (String date) {
+     public void setDate (String date) {
        this.date = date;
-    }
+     }
 
-    public String getDate() {
+     public String getDate() {
        return this.date;
-    }
+     }
 
-    public void setName (String name) {
+     public void setName (String name) {
        this.name = name;
-    }
+     }
 
-    public String getName() {
+     public String getName() {
        return this.name;
-    }
+     }
 
-    public void setGuide (String guide) {
+     public void setGuide (String guide) {
       this.guide = guide;
-    }
+     }
 
-    public String getGuide() {
+     public String getGuide() {
       return this.guide;
-    }
-   }	
+      }
+     }	
 
 #### To create the WorkItem class
 1. In the **com.aws.entities** package, create the **WorkItem** class. 
@@ -758,7 +758,7 @@ The following Java code represents the **ConnectionHelper** class.
             e.printStackTrace();
         }
       }
-    }
+     }
     
 **Note**: The **URL** value is *localhost:3306*. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance. 
 
