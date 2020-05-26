@@ -75,7 +75,7 @@ The following figure shows the new item section.
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a data set that is retrieved from an Amazon RDS database and displayed in the web application. 
 
-![AWS Tracking Application](images/AWT2.png)
+![AWS Tracking Application](images/AWSItemsAll3.png)
 
 The user can select the email recipient from the **Select Manager** dropdown field and choose **Send Report** (see the dropdown field in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
