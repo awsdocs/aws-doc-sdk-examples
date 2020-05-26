@@ -632,8 +632,8 @@ The following Java code represents the **MainController** class.
         	org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         	String name = user2.getUsername();
         	return name;
-    	  }
-	}
+    	    }
+	  }
 
 #### To create the MainController class 
 
