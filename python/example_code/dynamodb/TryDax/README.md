@@ -16,12 +16,12 @@ information, see [In-Memory Acceleration with DynamoDB Accelerator (DAX)](https:
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- An Amazon Virtual Private Cloud (VPC)
+- An Amazon Virtual Private Cloud (Amazon VPC)
 - A DAX cluster set up in your VPC 
-- An Amazon Elastic Compute Cloud (EC2) instance running in your VPC with the
-  following installed
+- An Amazon Elastic Compute Cloud (Amazon EC2) instance running in your VPC with the
+  following installed:
     - Python 3.6 or later
-    - Boto 3 1.11.10 or later
+    - Boto3 1.11.10 or later
     - Amazon DAX Client for Python 1.1.7 or later
 - PyTest 5.3.5 or later (to run unit tests)
 
@@ -33,8 +33,8 @@ application tutorial in the
 section of the *Amazon DynamoDB Developer Guide*.
 
 When run on your local computer, only the Boto3 client works. To run the 
-scripts with the DAX client, you must run them on an EC2 instance within your VPC, 
-as described in the tutorial.
+scripts with the DAX client, you must run them on an Amazon EC2 instance within your 
+VPC, as described in the tutorial.
 
 Each file can be run separately at a command prompt. For example, create the
 table by running the following from a command prompt window.
@@ -65,8 +65,8 @@ python -m pytest
 
 ## Additional information
 
-- [Boto 3 Amazon DynamoDB examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html)
-- [Boto 3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
+- [Boto3 Amazon DynamoDB examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html)
+- [Boto3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 

@@ -71,7 +71,7 @@ if __name__ == '__main__':
             test_start, test_end = query_test(
                 test_partition_key, test_sort_keys, test_iterations, dyn_resource=dax)
     else:
-        print(f"Querying the table {test_iterations} times, using the Boto 3 client.")
+        print(f"Querying the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = query_test(
             test_partition_key, test_sort_keys, test_iterations)
 

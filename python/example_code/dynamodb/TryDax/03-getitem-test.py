@@ -69,7 +69,7 @@ if __name__ == '__main__':
                 test_key_count, test_iterations, dyn_resource=dax)
     else:
         print(f"Getting each item from the table {test_iterations} times, "
-              f"using the Boto 3 client.")
+              f"using the Boto3 client.")
         test_start, test_end = get_item_test(
             test_key_count, test_iterations)
     print(f"Total time: {test_end - test_start:.4f} sec. Average time: "

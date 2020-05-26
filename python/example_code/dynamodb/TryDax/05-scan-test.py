@@ -59,7 +59,7 @@ if __name__ == '__main__':
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = scan_test(test_iterations, dyn_resource=dax)
     else:
-        print(f"Scanning the table {test_iterations} times, using the Boto 3 client.")
+        print(f"Scanning the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = scan_test(test_iterations)
     print(f"Total time: {test_end - test_start:.4f} sec. Average time: "
           f"{(test_end - test_start)/test_iterations}.")
