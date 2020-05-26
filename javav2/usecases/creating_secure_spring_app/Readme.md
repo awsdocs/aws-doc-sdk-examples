@@ -715,6 +715,8 @@ Create a Java package named **com.aws.jdbc**. Next, create these Java classes th
 + **InjectWorkService** - Injects items into the MySQL instance. 
 + **RetrieveItems** - Retrieves items from the MySQL instance. 
 
+**Note**: This tutorial uses the JDBC API to interact with the MySQL instance. For more informatin about using Amazon RDS, see [Amazon Relational Database Service](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html).  
+
 #### ConnectionHelper class
 
 The following Java code represents the **ConnectionHelper** class.
