@@ -31,7 +31,7 @@ To follow along with the tutorial, you need the following:
 
 #### Topics
 
-+ Understand the AWS Tracker application
++ Understand the AWS Tracker application.
 + Create an IntelliJ project named AWSItemTracker.
 + Add the Spring POM dependencies to your project.	
 + Setup the Java packages in your project.
