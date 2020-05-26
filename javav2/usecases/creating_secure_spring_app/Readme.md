@@ -474,24 +474,24 @@ In the **com.aws.securingweb** package, create the controller class named **Main
 
 The following Java code represents the **MainController** class. 
 
-    	package com.aws.securingweb;
-
-	 import com.aws.entities.WorkItem;
-	 import com.aws.jdbc.RetrieveItems;
-	 import org.springframework.security.core.context.SecurityContextHolder;
-	 import org.springframework.stereotype.Controller;
-	 import org.springframework.ui.Model;
-	 import org.springframework.web.bind.annotation.GetMapping;
-	 import org.springframework.web.bind.annotation.RequestMapping;
-	 import org.springframework.web.bind.annotation.ResponseBody;
-	 import org.springframework.web.bind.annotation.RequestMethod;
-	 import com.aws.jdbc.InjectWorkService;
-	 import com.aws.services.WriteExcel;
-	 import com.aws.services.SendMessages;
-	 import javax.servlet.http.HttpServletRequest;
-	 import javax.servlet.http.HttpServletResponse;
-	 import java.io.IOException;
-	 import java.util.List;
+  	package com.aws.securingweb;
+	
+	import com.aws.entities.WorkItem;
+	import com.aws.jdbc.RetrieveItems;
+	import org.springframework.security.core.context.SecurityContextHolder;
+	import org.springframework.stereotype.Controller;
+	import org.springframework.ui.Model;
+	import org.springframework.web.bind.annotation.GetMapping;
+	import org.springframework.web.bind.annotation.RequestMapping;
+	import org.springframework.web.bind.annotation.ResponseBody;
+	import org.springframework.web.bind.annotation.RequestMethod;
+	import com.aws.jdbc.InjectWorkService;
+	import com.aws.services.WriteExcel;
+	import com.aws.services.SendMessages;
+	import javax.servlet.http.HttpServletRequest;
+	import javax.servlet.http.HttpServletResponse;
+	import java.io.IOException;
+	import java.util.List;
 
 	 @Controller
 	 public class MainController {
@@ -521,110 +521,111 @@ The following Java code represents the **MainController** class.
     	@ResponseBody
     	String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-         // Get the Logged in User
-         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-         String name = user2.getUsername();
+            // Get the Logged in User
+            org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = user2.getUsername();
 
-         String guide = request.getParameter("guide");
-         String description = request.getParameter("description");
-         String status = request.getParameter("status");
+            String guide = request.getParameter("guide");
+            String description = request.getParameter("description");
+            String status = request.getParameter("status");
 
-         InjectWorkService iw = new InjectWorkService();
+            InjectWorkService iw = new InjectWorkService();
 
-         // Create a Work Item object to pass to the injestNewSubmission method
-         WorkItem myWork = new WorkItem();
-         myWork.setGuide(guide);
-         myWork.setDescription(description);
-         myWork.setStatus(status);
-         myWork.setName(name);
+            // Create a Work Item object to pass to the injestNewSubmission method
+            WorkItem myWork = new WorkItem();
+            myWork.setGuide(guide);
+            myWork.setDescription(description);
+            myWork.setStatus(status);
+            myWork.setName(name);
 
-         iw.injestNewSubmission(myWork);
-         return "Report is created";
-     	}
+            iw.injestNewSubmission(myWork);
+            return "Report is created";
+     	   }
 
-     	// Builds and emails a report
-    	@RequestMapping(value = "/report", method = RequestMethod.POST)
+     	 / Builds and emails a report
+    	 @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     	String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-         // Get the Logged in User
-         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-         String name = user2.getUsername();
+            // Get the Logged in User
+            org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = user2.getUsername();
 
-         String email = request.getParameter("email");
-         RetrieveItems ri = new RetrieveItems();
-         List<WorkItem> theList = ri.getItemsDataSQLReport(name);
+            String email = request.getParameter("email");
+            RetrieveItems ri = new RetrieveItems();
+            List<WorkItem> theList = ri.getItemsDataSQLReport(name);
 
-         WriteExcel writeExcel = new WriteExcel();
-         SendMessages sm = new SendMessages();
-         java.io.InputStream is = writeExcel.exportExcel(theList);
+            WriteExcel writeExcel = new WriteExcel();
+            SendMessages sm = new SendMessages();
+            java.io.InputStream is = writeExcel.exportExcel(theList);
 
-         try {
-            sm.sendReport(is, email);
+            try {
+              sm.sendReport(is, email);
 
-        } catch (IOException e) {
-          e.getStackTrace();
+           } catch (IOException e) {
+             e.getStackTrace();
             }
-        return "Report is created";
-    	}
+        
+	   return "Report is created";
+    	 }
 
     	// Archives a work item
     	@RequestMapping(value = "/archive", method = RequestMethod.POST)
     	@ResponseBody
-    	String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
-         String id = request.getParameter("id");
+    	    String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
+            String id = request.getParameter("id");
 
-         RetrieveItems ri = new RetrieveItems();
-         ri.flipItemArchive(id );
-         return id ;
-    	}
+            RetrieveItems ri = new RetrieveItems();
+            ri.flipItemArchive(id );
+            return id ;
+    	  }
 
     	// Modifies the value of a work item
     	@RequestMapping(value = "/changewi", method = RequestMethod.POST)
     @ResponseBody
-    	 String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
-         String id = request.getParameter("id");
-         String description = request.getParameter("description");
-         String status = request.getParameter("status");
+    	    String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
+            String id = request.getParameter("id");
+            String description = request.getParameter("description");
+            String status = request.getParameter("status");
 
-         InjectWorkService ws = new InjectWorkService();
-         String value = ws.modifySubmission(id, description, status);
-         return value;
-    	}
+            InjectWorkService ws = new InjectWorkService();
+            String value = ws.modifySubmission(id, description, status);
+            return value;
+    	   }
 
     	// Retrieve all items for a given user
     	@RequestMapping(value = "/retrieve", method = RequestMethod.POST)
     @ResponseBody
-    	 String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+    	    String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-         //Get the Logged in User
-         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-         String name = user2.getUsername();
+            //Get the Logged in User
+            org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = user2.getUsername();
 
-         RetrieveItems ri = new RetrieveItems();
-         String type = request.getParameter("type");
+            RetrieveItems ri = new RetrieveItems();
+            String type = request.getParameter("type");
 
-         //Pass back all data from the database
-         String xml="";
+            //Pass back all data from the database
+            String xml="";
 
-         if (type.equals("active")) {
-            xml = ri.getItemsDataSQL(name);
-            return xml;
-        } else {
-            xml = ri.getArchiveData(name);
-            return xml;
-         }
-    	}
+            if (type.equals("active")) {
+              xml = ri.getItemsDataSQL(name);
+              return xml;
+           } else {
+               xml = ri.getArchiveData(name);
+               return xml;
+           }
+    	 }
 
     	// Returns a work item to modify
     	@RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
-    	 String modifyWork(HttpServletRequest request, HttpServletResponse response) {
-         String id = request.getParameter("id");
-         RetrieveItems ri = new RetrieveItems();
-         String xmlRes = ri.getItemSQL(id) ;
-         return xmlRes;
-     	}
+    	String modifyWork(HttpServletRequest request, HttpServletResponse response) {
+          String id = request.getParameter("id");
+          RetrieveItems ri = new RetrieveItems();
+          String xmlRes = ri.getItemSQL(id) ;
+          return xmlRes;
+     	 }
 
     	private String getLoggedUser() {
 
