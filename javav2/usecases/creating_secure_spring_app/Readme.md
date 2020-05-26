@@ -643,65 +643,65 @@ Create a Java package named **com.aws.entities**. Next, create a class, named **
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
 
-    	package com.aws.entities;
+     package com.aws.entities;
 
-	public class WorkItem {
+    public class WorkItem {
 
-    	private String id;
-    	private String name;
-    	private String guide ;
-    	private String date;
-    	private String description;
-    	private String status;
+      private String id;
+      private String name;
+      private String guide ;
+      private String date;
+      private String description;
+      private String status;
 
-    	public void setId (String id) {
+      public void setId (String id) {
          this.id = id;
      	}
 
-     	public String getId() {
+      public String getId() {
           return this.id;
-    	}
+      }
 
-    	public void setStatus (String status) {
-          this.status = status;
-     	}
+    public void setStatus (String status) {
+        this.status = status;
+    }
 
-    	public String getStatus() {
-          return this.status;
-    	}
+    public String getStatus() {
+        return this.status;
+    }
 
-    	public void setDescription (String description) {
-          this.description = description;
-    	}
+    public void setDescription (String description) {
+        this.description = description;
+    }
 
-    	public String getDescription() {
-          return this.description;
-    	}
+    public String getDescription() {
+       return this.description;
+    }
 
-    	public void setDate (String date) {
-          this.date = date;
-    	}
+    public void setDate (String date) {
+       this.date = date;
+    }
 
-    	public String getDate() {
-          return this.date;
-    	}
+    public String getDate() {
+       return this.date;
+    }
 
-    	public void setName (String name) {
-          this.name = name;
-    	}
+    public void setName (String name) {
+       this.name = name;
+    }
 
-    	public String getName() {
-          return this.name;
-    	}
+    public String getName() {
+       return this.name;
+    }
 
-    	public void setGuide (String guide) {
-          this.guide = guide;
-    	}
+    public void setGuide (String guide) {
+      this.guide = guide;
+    }
 
-    	public String getGuide() {
-          return this.guide;
-    	}
-	}	
+    public String getGuide() {
+      return this.guide;
+    }
+   }	
 
 #### To create the WorkItem class
 1. In the **com.aws.entities** package, create the **WorkItem** class. 
@@ -720,23 +720,22 @@ Create a Java package named **com.aws.jdbc**. Next, create these Java classes th
 
 The following Java code represents the **ConnectionHelper** class.
 
-    	package com.aws.jdbc;
+    package com.aws.jdbc;
 
-	import java.sql.Connection;
-	import java.sql.DriverManager;
-	import java.sql.SQLException;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
 
-	public class ConnectionHelper {
+    public class ConnectionHelper {
 
-    	private String url;
-	private static ConnectionHelper instance;
-
-    	private ConnectionHelper() {
+      private String url;
+      private static ConnectionHelper instance;
+      
+      private ConnectionHelper() {
           url = "jdbc:mysql://localhost:3306/mydb";
-    	}
+       }
 
-
-    	public static Connection getConnection() throws SQLException {
+      public static Connection getConnection() throws SQLException {
          if (instance == null) {
             instance = new ConnectionHelper();
          }
@@ -750,7 +749,7 @@ The following Java code represents the **ConnectionHelper** class.
         return null;
     	}
     
-    	public static void close(Connection connection) {
+       public static void close(Connection connection) {
          try {
             if (connection != null) {
                 connection.close();
@@ -767,141 +766,142 @@ The following Java code represents the **ConnectionHelper** class.
 
 The following Java code represents the **InjectWorkService** class.
 
-    	package com.aws.jdbc;
+    package com.aws.jdbc;
 
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.SQLException;
-	import java.text.ParseException;
-	import java.text.SimpleDateFormat;
-	import java.time.LocalDateTime;
-	import java.time.format.DateTimeFormatter;
-	import java.util.Date;
-	import java.util.UUID;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.SQLException;
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
+    import java.time.LocalDateTime;
+    import java.time.format.DateTimeFormatter;
+    import java.util.Date;
+    import java.util.UUID;
+    import com.aws.entities.WorkItem;
+    import org.springframework.stereotype.Component;
 
-	import com.aws.entities.WorkItem;
-	import org.springframework.stereotype.Component;
+    @Component
+    public class InjectWorkService {
 
-	@Component
-	public class InjectWorkService {
-
-    	// Inject a new submission
-    	public String modifySubmission(String id, String desc, String status) {
+      // Inject a new submission
+      public String modifySubmission(String id, String desc, String status) {
         
-	 Connection c = null;
-         int rowCount= 0;
-         
-	 try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            // Use prepared statements
-            PreparedStatement ps = null;
-
-            String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
-
-            ps = c.prepareStatement(query);
-            ps.setString(1, desc);
-            ps.setString(2, status);
-            ps.execute();
-            return id;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-     // Inject a new submission
-      public String injestNewSubmission(WorkItem item) {
-        Connection c = null;
+	Connection c = null;
         int rowCount= 0;
-        try {
+         
+	try {
+        
+	  // Create a Connection object
+          c = ConnectionHelper.getConnection();
 
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
+          // Use prepared statements
+          PreparedStatement ps = null;
 
-            // Use a prepared statement
-            PreparedStatement ps = null;
-
-            // Convert rev to int
-            String name = item.getName();
-            String guide = item.getGuide();
-            String description = item.getDescription();
-            String status = item.getStatus();
-
-            // generate the work item ID
-            UUID uuid = UUID.randomUUID();
-            String workId = uuid.toString();
-
-            // Date conversion
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            String sDate1 = dtf.format(now);
-            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-            java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
-
-            // Inject an item into the system
-            String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
-            ps = c.prepareStatement(insert);
-            ps.setString(1, workId);
-            ps.setString(2, name);
-            ps.setDate(3, sqlDate);
-            ps.setString(4, description);
-            ps.setString(5, guide );
-            ps.setString(6, status );
-            ps.setBoolean(7, false);
-            ps.execute();
-            return workId;
-
-        } catch (SQLException | ParseException e) {
+          String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
+          ps = c.prepareStatement(query);
+          ps.setString(1, desc);
+          ps.setString(2, status);
+          ps.execute();
+          return id;
+      } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(c);
         }
         return null;
     }
-}
+
+    // Inject a new submission
+    public String injestNewSubmission(WorkItem item) {
+    
+       Connection c = null;
+       int rowCount= 0;
+       try {
+
+          // Create a Connection object
+          c = ConnectionHelper.getConnection();
+
+         // Use a prepared statement
+         PreparedStatement ps = null;
+
+        // Convert rev to int
+        String name = item.getName();
+        String guide = item.getGuide();
+        String description = item.getDescription();
+        String status = item.getStatus();
+
+        // generate the work item ID
+        UUID uuid = UUID.randomUUID();
+        String workId = uuid.toString();
+
+        // Date conversion
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String sDate1 = dtf.format(now);
+        Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
+        java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
+
+        // Inject an item into the system
+        String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
+        ps = c.prepareStatement(insert);
+        ps.setString(1, workId);
+        ps.setString(2, name);
+        ps.setDate(3, sqlDate);
+        ps.setString(4, description);
+        ps.setString(5, guide );
+        ps.setString(6, status );
+        ps.setBoolean(7, false);
+        ps.execute();
+        return workId;
+
+     } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(c);
+        }
+        return null;
+      }
+    }
+
 #### RetrieveItems class
 
 The following Java code represents the **RetrieveItems** class. 
 
-     package com.aws.jdbc;
+    package com.aws.jdbc;
 
-     import java.io.StringWriter;
-     import java.sql.Connection;
-     import java.sql.ResultSet;
-     import java.sql.Statement;
-     import java.sql.PreparedStatement;
-     import java.sql.SQLException;
-     import java.util.ArrayList ;
-     import java.util.List;
-     import com.aws.entities.WorkItem;
-     import org.springframework.stereotype.Component;
-     import org.w3c.dom.Document;
-     import javax.xml.parsers.DocumentBuilder;
-     import javax.xml.parsers.DocumentBuilderFactory;
-     import org.w3c.dom.Element;
-     import javax.xml.parsers.ParserConfigurationException;
-     import javax.xml.transform.Transformer;
-     import javax.xml.transform.TransformerException;
-     import javax.xml.transform.TransformerFactory;
-     import javax.xml.transform.dom.DOMSource;
-     import javax.xml.transform.stream.StreamResult;
+    import java.io.StringWriter;
+    import java.sql.Connection;
+    import java.sql.ResultSet;
+    import java.sql.Statement;
+    import java.sql.PreparedStatement;
+    import java.sql.SQLException;
+    import java.util.ArrayList ;
+    import java.util.List;
+    import com.aws.entities.WorkItem;
+    import org.springframework.stereotype.Component;
+    import org.w3c.dom.Document;
+    import javax.xml.parsers.DocumentBuilder;
+    import javax.xml.parsers.DocumentBuilderFactory;
+    import org.w3c.dom.Element;
+    import javax.xml.parsers.ParserConfigurationException;
+    import javax.xml.transform.Transformer;
+    import javax.xml.transform.TransformerException;
+    import javax.xml.transform.TransformerFactory;
+    import javax.xml.transform.dom.DOMSource;
+    import javax.xml.transform.stream.StreamResult;
 
-	@Component	
-	public class RetrieveItems {
 
-    	  // Retrieves an item based on the ID
-    	public String flipItemArchive(String id ) {
+    @Component	
+    public class RetrieveItems {
 
-          Connection c = null;
-          String query = "";
+        // Retrieves an item based on the ID
+        public String flipItemArchive(String id ) {
 
-          try {
+        Connection c = null;
+        String query = "";
+
+        try {
           
 	    // Create a Connection object
             c = ConnectionHelper.getConnection();
@@ -918,7 +918,6 @@ The following Java code represents the **RetrieveItems** class.
             query = "update work set archive = ? where idwork ='" +id + "' ";
 
             PreparedStatement updateForm = c.prepareStatement(query);
-
             updateForm.setBoolean(1, true);
             updateForm.execute();
 
@@ -1015,7 +1014,6 @@ The following Java code represents the **RetrieveItems** class.
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-
                 description = rs.getString(1);
                 status = rs.getString(2);
             }
@@ -1258,6 +1256,7 @@ The following Java code represents the **RetrieveItems** class.
         return null;
       }
      }
+
 #### To create the JDBC classes 
 
 1. Create the **com.aws.jdbc** package. 
@@ -1423,6 +1422,8 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
       }
      }
     
+**Note**: Update the email **sender** address.     
+
 #### WriteExcel class
 
 The **WriteExcel** class dynamically creates an Excel report with the MySQL data marked as active. The following code represents this class. 
