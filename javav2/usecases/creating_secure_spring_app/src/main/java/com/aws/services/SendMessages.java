@@ -8,6 +8,7 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+
 package com.aws.services;
 
 import org.apache.commons.io.IOUtils;
@@ -19,7 +20,6 @@ import javax.activation.DataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
@@ -37,29 +37,27 @@ import software.amazon.awssdk.services.ses.model.SesException;
 
 public class SendMessages {
 
-
-    private String SENDER = "REPLACE WITH SENDER EMAIL";
+    private String sender = "scmacdon@amazon.com";
 
     // The subject line for the email.
-    private String SUBJECT = "Weekly Status Report";
+    private String subject = "Weekly AWS Status Report";
+
 
     // The email body for recipients with non-HTML email clients.
-    private String BODY_TEXT = "Hello,\r\n" + "Please see the attached file for a weekly update.";
+    private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
     // The HTML body of the email.
-    private String BODY_HTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+    private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
-    public void SendReport(InputStream is, String emailAddress ) throws IOException {
+    public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
         //Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
             send(fileContent,emailAddress);
-        }
-        catch (Exception e)
-        {
+        } catch (MessagingException e) {
             e.getStackTrace();
         }
     }
@@ -67,62 +65,58 @@ public class SendMessages {
     public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
 
         MimeMessage message = null;
-        try {
-            Session session = Session.getDefaultInstance(new Properties());
+        Session session = Session.getDefaultInstance(new Properties());
 
-            // Create a new MimeMessage object.
-            message = new MimeMessage(session);
+        // Create a new MimeMessage object.
+        message = new MimeMessage(session);
 
-            // Add subject, from and to lines.
-            message.setSubject(SUBJECT, "UTF-8");
-            message.setFrom(new InternetAddress(SENDER));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
+        // Add subject, from and to lines.
+        message.setSubject(subject, "UTF-8");
+        message.setFrom(new InternetAddress(sender));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-            // Create a multipart/alternative child container.
-            MimeMultipart msg_body = new MimeMultipart("alternative");
+        // Create a multipart/alternative child container.
+        MimeMultipart msgBody = new MimeMultipart("alternative");
 
-            // Create a wrapper for the HTML and text parts.
-            MimeBodyPart wrap = new MimeBodyPart();
+        // Create a wrapper for the HTML and text parts.
+        MimeBodyPart wrap = new MimeBodyPart();
 
-            // Define the text part.
-            MimeBodyPart textPart = new MimeBodyPart();
-            textPart.setContent(BODY_TEXT, "text/plain; charset=UTF-8");
+        // Define the text part.
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-            // Define the HTML part.
-            MimeBodyPart htmlPart = new MimeBodyPart();
-            htmlPart.setContent(BODY_HTML, "text/html; charset=UTF-8");
+        // Define the HTML part.
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-            // Add the text and HTML parts to the child container.
-            msg_body.addBodyPart(textPart);
-            msg_body.addBodyPart(htmlPart);
+        // Add the text and HTML parts to the child container.
+        msgBody.addBodyPart(textPart);
+        msgBody.addBodyPart(htmlPart);
 
-            // Add the child container to the wrapper object.
-            wrap.setContent(msg_body);
+        // Add the child container to the wrapper object.
+        wrap.setContent(msgBody);
 
-            // Create a multipart/mixed parent container.
-            MimeMultipart msg = new MimeMultipart("mixed");
+        // Create a multipart/mixed parent container.
+        MimeMultipart msg = new MimeMultipart("mixed");
 
-            // Add the parent container to the message.
-            message.setContent(msg);
+        // Add the parent container to the message.
+        message.setContent(msg);
 
-            // Add the multipart/alternative part to the message.
-            msg.addBodyPart(wrap);
+        // Add the multipart/alternative part to the message.
+        msg.addBodyPart(wrap);
 
-            // Define the attachment
-            MimeBodyPart att = new MimeBodyPart();
-            DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            att.setDataHandler(new DataHandler(fds));
+        // Define the attachment
+        MimeBodyPart att = new MimeBodyPart();
+        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        att.setDataHandler(new DataHandler(fds));
 
-            String reportName = "WorkReport.xls";
-            att.setFileName(reportName);
+        String reportName = "WorkReport.xls";
+        att.setFileName(reportName);
 
-            // Add the attachment to the message.
-            msg.addBodyPart(att);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        // Add the attachment to the message.
+        msg.addBodyPart(att);
 
-        // Try to send the email.
+       // Try to send the email.
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
 
