@@ -19,64 +19,51 @@ public class WorkItem {
     private String description;
     private String status;
 
-    public void SetId (String id)
-    {
+    public void setId (String id) {
         this.id = id;
     }
 
-    public String getId()
-    {
+    public String getId() {
         return this.id;
     }
 
-    public void SetStatus (String status)
-    {
+    public void setStatus (String status) {
         this.status = status;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return this.status;
     }
 
-    public void SetDescription (String description)
-    {
+    public void setDescription (String description) {
         this.description = description;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return this.description;
     }
 
-    public void SetDate (String date)
-    {
+    public void setDate (String date) {
         this.date = date;
     }
 
-    public String getDate()
-    {
+    public String getDate() {
         return this.date;
     }
 
-
-    public void SetName (String name)
-    {
+    public void setName (String name) {
         this.name = name;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    public void SetGuide (String guide)
-    {
+    public void setGuide (String guide) {
         this.guide = guide;
     }
 
-    public String getGuide()
-    {
+    public String getGuide() {
         return this.guide;
     }
 }
