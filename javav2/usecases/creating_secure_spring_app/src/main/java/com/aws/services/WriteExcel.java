@@ -15,7 +15,6 @@ import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.UnderlineStyle;
-import jxl.write.Formula;
 import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.WritableCellFormat;
@@ -23,9 +22,7 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 import com.aws.entities.WorkItem;
-import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
@@ -38,15 +35,12 @@ public class WriteExcel {
     private WritableCellFormat times;
 
     // Returns an InputStream that represents the Excel Report
-    public java.io.InputStream exportExcel( List<WorkItem> list)
-    {
-        try
-        {
-            java.io.InputStream is =  write( list);
+    public java.io.InputStream exportExcel( List<WorkItem> list) {
+
+        try {
+            java.io.InputStream is = write( list);
             return is ;
-        }
-        catch(Exception e)
-        {
+        } catch(WriteException | IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -59,18 +53,18 @@ public class WriteExcel {
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        //Create a Workbook - pass the OutputStream
+        // Create a Workbook - pass the OutputStream
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
-        createLabel(excelSheet)   ;
-        int size =  createContent(excelSheet, list);
+        createLabel(excelSheet) ;
+        int size = createContent(excelSheet, list);
 
-        //Close the workbook
+        // Close the workbook
         workbook.write();
         workbook.close();
 
-        //Get an inputStram that represents the Report
+        // Get an inputStram that represents the Report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -141,7 +135,6 @@ public class WriteExcel {
             addLabel(sheet, 4, i+2, status);
 
         }
-
         return size;
     }
 
@@ -176,8 +169,7 @@ public class WriteExcel {
 
     }
 
-    private int countString (String ss)
-    {
+    private int countString (String ss) {
         int count = 0;
         //Counts each character except space
         for(int i = 0; i < ss.length(); i++) {
