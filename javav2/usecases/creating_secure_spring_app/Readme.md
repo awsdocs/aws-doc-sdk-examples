@@ -2089,8 +2089,8 @@ The following code represents the items.html file. This file enables users to mo
         <tr>
             <td>
                 <select id="manager">
-                    <option value="scmacdon@amazon.com">scmacdon@amazon.com</option>
-                    <option value="careybur@amazon.com">careybur@amazon.com</option>
+                   <option value="scmacdon@amazon.com">tblue@nomail.com</option>
+                   <option value="susfer@amazon.com">swhite@nomail.com</option>
                 </select>
             </td>
             <td>
