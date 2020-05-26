@@ -13,7 +13,7 @@ use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.signed_cookie.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets coookie signing information that viewers need in order to 
+ * Purpose: Gets coookie-signing information that viewers need to 
  * access restricted content in a specially-configured Amazon CloudFront 
  * distribution.
  *

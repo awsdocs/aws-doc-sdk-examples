@@ -13,8 +13,8 @@ use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.private_distribution.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets a signed URL that viewers need in order to 
- * access restricted content in a specially-configured Amazon CloudFront 
+ * Purpose: Gets a signed URL that viewers need to 
+ * access restricted content in a specially configured Amazon CloudFront 
  * distribution.
  *
  * Prerequisites: A CloudFront distribution that is specially configured for 
