@@ -18,7 +18,7 @@ sqs = Aws::SQS::Resource.new(region: 'us-west-2')
 module Aws
 describe SimpleQueueServices do
 let(:simplequeueservices) { SimpleQueueServices.simplequeueservices }
-# testing to confirm whether the attribute selection options include the selections: Default Visbility Timeout,
+# Testing to confirm whether the attribute selection options include the selections: Default Visbility Timeout,
 # Message Retention Period, Maximum Message Size, Delivery Delay, Receive Message Wait Time, Content-Based Deduplication
           describe '#attributes' do
             it 'returns a list of supported attributes' do
@@ -32,14 +32,14 @@ let(:simplequeueservices) { SimpleQueueServices.simplequeueservices }
             end
           end
 
-# testing to confirm whether a valid queue name inputted matches the one returned to the user
+# Testing to confirm whether a valid queue name inputted matches the one returned to the user
               describe '#name' do
                 it 'returns the name as inputted' do
                   name = simplequeueervices.simplequeueservice('aws').arn('MyQueue.fifo')
                   expect(name).to be_kind_of(SimpleQueueServices::Name) &
                                           expect(queue.name).to eq('MyQueue.fifo')
 
-# testing to make sure a fitting error message is out putted for an invalid queue name entered
+# Testing to make sure a fitting error message is out putted for an invalid queue name entered
                   it 'returns an error message for an invalid queue name' do
                     expect do
                       simplequeueservices.simplequeueservice('aws').name('9999.jpeg')
@@ -49,7 +49,7 @@ let(:simplequeueservices) { SimpleQueueServices.simplequeueservices }
               end
             end
 
-# testing to make sure the queue creation API saves and displays the desired queue
+# Testing to make sure the queue creation API saves and displays the desired queue
             describe 'Create Queue API' do
               it 'records submitted queue parameters' do
                 createqueue = {
@@ -58,5 +58,5 @@ let(:simplequeueservices) { SimpleQueueServices.simplequeueservices }
                     'arn' => 'arn:aws:sqs:us-west-2:751363017507:MyQueue.fifo'
                 }
                 post '/queueconfig', JSON.generate(createqueue)
-                expect(last_response.status).to eq(200)
+                expect(last_response.status).to eq(202)
               end

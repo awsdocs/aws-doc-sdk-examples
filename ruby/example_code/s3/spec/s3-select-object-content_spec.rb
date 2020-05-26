@@ -18,14 +18,14 @@ let(:client) { Client.new }
         S3::BUCKET_REGIONS.clear
   end
 
-      it 'raises an error when a region is missing' do
+      it 'raises an error when a Region is missing' do
         expect do
           Client.new(region: nil)
         end.to raise_error(Aws::Errors::MissingRegionError)
       end
 
 describe '#list_objects' do
-  it 'raises an error of the bucket name ends with a dash' do
+  it 'raises an error if the bucket name ends with a dash' do
     client = Client.new(stub_responses: true)
     expect do
       client.list_objects(bucket: 'bucket-name/key-prefix')

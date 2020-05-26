@@ -13,7 +13,7 @@ SNS = Aws::SNS::Resource.new(region: 'us-west-2')
    end
 
    describe '#showtopics'do
-     it 'lists the ARNs of your Amazon SNS topics in each respective region' do
+     it 'lists the ARNs of your Amazon SNS topics in each respective AWS Region' do
        showtopic_client.stub_resposnes(
            :show_topics, :topics => [
            {  :topic_name => "ExampleTopic",

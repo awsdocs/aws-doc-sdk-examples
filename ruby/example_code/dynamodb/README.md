@@ -1,49 +1,49 @@
-# AWS SDK for Ruby Code Examples for DynamoDB
+# AWS SDK for Ruby code examples for DynamoDB
 
 ## Purpose
 
 These examples demonstrate how to read multiple items from tables using a batch of 
-GetItem requests. 
+``` GetItem```
+requests. 
 
 ## Prerequisites 
 
 - You must have an AWS account, and have your default credentials and AWS Regions configured
-as described in [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html)
-in the AWS SDK for Ruby Developer Guide. 
+as described in [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html).
 - RubyGems 3.1.2 or later 
-- AWS SDK for Ruby. For download and installation instructions, see [Installing the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html)
-- Ruby 2.6 or later. After you install Ruby, add the path to Ruby in your environment
- variables so that you can run Ruby from any command prompt. 
+- AWS SDK for Ruby. For download and installation instructions, see [Installing the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html).
+- Ruby 2.6 or later. After you install Ruby, add the path to Ruby in your environment variables so that you can run 
+Ruby from any command prompt. 
 - RSpec 4.0 or later (to run unit tests)
-- Download run DynamoDB on your computer. For more information, see 
-[Setting Up DynamoDB Local (Downloadable Version)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+- Download and run Amazon DynamoDB on your computer. For more information, see 
+[Setting Up DynamoDB Local (Downloadable Version)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
 - Set up an AWS access key to use the AWS SDKs. For more information, 
-see [Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html)
-To use the Amazon DynamoDB web service:
-    1. [Sign Up for AWS](https://portal.aws.amazon.com/billing/signup#/)
-    2. [Get an AWS access key (used to access DynamoDB programmatically if you do not
-    plan on only using the console)](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fiam%2F%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Fiam&forceMobileApp=0)
-    3. [Configure your credentials (also used to access DynamoDB programmatically)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.CLI.html)
+see [Setting Up DynamoDB (Web Service)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html).
+To use the DynamoDB web service:
+    1. [Sign Up for AWS](https://portal.aws.amazon.com/billing/signup#/).
+    2. [Get an AWS access key (used to access DynamoDB programmatically if you don't
+    plan on using only the console)](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fiam%2F%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Fiam&forceMobileApp=0).
+    3. [Configure your credentials (also used to access DynamoDB programmatically)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.CLI.html).
 
-##  Running the Code 
+##  Running the code 
 
 ### dynamodb_ruby_example_read_multiple_items/dynamodb_ruby_example_read_multiple_items.rb
 
-This example illustrates how to use the AWS SDK for Ruby to implement the BatchGetItem 
-operation, which returns the attributes of one or more items from one or more tables. 
-Requested items are identified by primary key.
+This example shows how to use the AWS SDK for Ruby to implement the 
+``` BatchGetItem ```
+operation. This returns the attributes of one or more items from one or more tables. 
+Requested items are identified by their primary keys.
                                                                           
-**IMPORTANT**: If you request more than 100 items, or use over 16MB of data, 
-BatchGetItem returns a ValidationException with the message "Too many items requested 
-for the BatchGetItem call."
+**IMPORTANT**: If you request more than 100 items, or use over 16 MB of data, ``` BatchGetItem```returns 
+a ``` ValidationException``` with the message, "Too many items requested for the BatchGetItem call."
 
-####Response Elements
+####Response elements
 
 `HTTP/1.1 200 OK`
-- If the action is successful, the service sends back an HTTP 200 response.
+- If the action succeeds, the service sends back an HTTP 200 response.
 
-## Sample Request 
-The following example Query request reads items from table(s) and uses the hash key to 
+## Sample request 
+The following example Query request reads items from tables and uses the hash key to 
 identify retrievable items. 
 
     dynamodb.batch_get_item(
@@ -80,57 +80,63 @@ identify retrievable items.
          )
 
  
-## Sample Response
+## Sample response
     
   - The following data is returned in JSON format by the service:
-      - ConsumedCapacity
-        The read capacity units consumed by the entire BatchGetItem operation.
+      - ``` ConsumedCapacity```:
+        The read capacity units consumed by the entire ``` BatchGetItem``` operation.
         
-        Each element consists of:
+        Each element consists of the following:
         
-        TableName - The table that consumed the provisioned throughput.
-        CapacityUnits - The total number of capacity units consumed.
-        Type: Array of ConsumedCapacity objects
+        ``` TableName``` - The table that consumed the provisioned throughput.
+        
+        ```CapacityUnits``` - The total number of capacity units consumed.
+        
+        ```Type```: Array of ```ConsumedCapacity``` objects
        
-      - Responses
-        A map of table name to a list of items. Each object in Responses consists of a table name, along with a map of attribute data consisting of the data type and attribute value.
+      - Responses:
+        A map of the table name to a list of items. Each object in Responses consists of a table name, with a map of 
+        attribute data. This data consists of the data type and attribute value.
         
-        Type: String to array of string to AttributeValue object maps map
+        Type - String to array of string to AttributeValue object maps map
         
-        Key Length Constraints: Minimum length of 3. Maximum length of 255.
+        Key length constraints -  Minimum length of 3. Maximum length of 255.
         
-        Key Pattern: [a-zA-Z0-9_.-]+
+        Key pattern - [a-zA-Z0-9_.-]+
         
-        Key Length Constraints: Maximum length of 65535.
+        Key length constraints - Maximum length of 65535.
         
-       - UnprocessedKeys
-         A map of tables and their respective keys that were not processed with the current response. The UnprocessedKeys value is in the same form as RequestItems, so the value can be provided directly to a subsequent BatchGetItem operation. For more information, see RequestItems in the Request Parameters section.
+       - ```UnprocessedKeys```:
+         A map of tables and their respective keys that were not processed with the current response. 
+         The ```UnprocessedKeys``` value is in the same form as ```RequestItems```, so the value can be provided directly to a 
+         subsequent ```BatchGetItem``` operation. For more information, see ```RequestItems``` in the Request parameters section.
          
-         Each element consists of:
+         Each element consists of the following:
          
-         Keys - An array of primary key attribute values that define specific items in the table.
-         ProjectionExpression - One or more attributes to be retrieved from the table or index. By default, all attributes are returned. If a requested attribute is not found, it does not appear in the result.
-         ConsistentRead - The consistency of a read operation. If set to true, then a strongly consistent read is used; otherwise, an eventually consistent read is used.
-         If there are no unprocessed keys remaining, the response contains an empty UnprocessedKeys map.
+         ```Keys``` - An array of primary key attribute values that define specific items in the table.
          
-         Type: String to KeysAndAttributes object map
+         ```ProjectionExpression``` - One or more attributes to be retrieve from the table or index. By default, all attributes are returned. If a requested attribute is not found, it does not appear in the result.
+        
+         ```ConsistentRead``` - The consistency of a read operation. If set to true, a strongly consistent read is used; otherwise, an eventually consistent read is used.
+         If there are no unprocessed keys remaining, the response contains an empty ```UnprocessedKeys``` map.
          
-         Key Length Constraints: Minimum length of 3. Maximum length of 255.
+         Type -  String to ```KeysAndAttributes``` object map
          
-         Key Pattern: [a-zA-Z0-9_.-]+
+         Key length constraints -  Minimum length of 3. Maximum length of 255.
+         
+         Key pattern - [a-zA-Z0-9_.-]+
 
 
 
 
 
 ## Testing the Amazon DynamoDB Ruby files
-You can test the Amazon DynamoDB ruby code examples by running RSpec 4.0 and is located in the 
-ses/spec folder.
+You can test the DynamoDB Ruby code 4.0, which is located in the ses/spec folder.
 
 You can execute the RSpec tests from a Ruby IDE, such as RubyMine, or from the command
 line using a command line console. There is a green dot for every passing spec, and one
 red `F` for every failing test. For example, the following message informs you that a 
-test has passed:
+test has passed.
 
     Finished in 0.00217 seconds (files took 0.13631 seconds to load)
     3 examples, 0 failures
@@ -138,10 +144,10 @@ test has passed:
     0
     $ 
     
-### Command Line 
+### Command line 
 To execute RSpec tests from the command line, you can save the example files into a 
 directory on your local machine, `cd` into the directory in which it is saved, and 
-type `rspec` followed by the name of the spec file:
+type `rspec` followed by the name of the spec file.
 
      $ rspec ses_get_statistics_spec.rb
      .

@@ -4,10 +4,10 @@
 require ‘aws-sdk-s3’
 require 'csv'
 s3 = Aws::S3::Resource.new(region: 'us-west-2')
-#Trying a SQL query against a CSV file in Amazon S3. Given that we have a CSV document
+#Trying an SQL query against a CSV file in Amazon S3. Given that we have a CSV document
 # named s3-select-object-content-file.csv
 # stored in an S3 bucket named peccy-bucket in the AWS Regions us-west-w, with contents describing
-# id, name, favorite plant, number_of_national_parks_visited_in_lifetime
+# ID, name, favorite plant, number_of_national_parks_visited_in_lifetime
 CSV.read("s3://peccy-bucket/s3-select-object-content-file.csv")
 profile_name = 'peccy'
 region = 'us-west-2'
@@ -15,26 +15,26 @@ bucket = 'peccy-bucket'
 client = Aws::S3::Client.new(profile: peccy, region: us-west-2)
 # Some basic S3 client usage
 
-# Display a List of Amazon S3 Buckets
+# Display a list of Amazon S3 buckets
 resp = s3.list_buckets
 resp.buckets.each do |b|
   puts b.name
 end
 
-# Create a S3 bucket from S3::client
+# Create an S3 bucket from S3::client
 s3.create_bucket(bucket: 'bucket')
 
-# puts data into an object, replacing the current contents
+# Put data into an object, replacing the current contents
 resp = client.put_object(bucket: ‘peccy-bucket’, key: 's3://peccy-bucket/s3-select-object-content-file.csv',
                          body: ‘Hello, Bucket!’)
 
-# check if the file exists
+# Check if the file exists
 resp = s3.list_objects_v3(bucket: bucket)
   resp.contents.each do |obj|
   puts obj.key
 end
 
-# retrieves an object for an S3 bucket
+# Retrieve an object for an S3 bucket
 resp = client.get_object({bucket: ‘peccy-bucket’, key: 's3://peccy-bucket/s3-select-object-content-file.csv'})
 
 module Aws
@@ -52,7 +52,7 @@ module Aws
             # => :records / :stats / :end / :cont etc
             # Do Something with event object
             end
-# use a Ruby block statement to catch unmodeled error events in the stream
+# Use a Ruby block statement to catch unmodeled error events in the stream
               client.select_object_content(params) do |stream|
                   stream.on_error_event do |event|
               raise event
@@ -62,7 +62,7 @@ module Aws
                   #         # event.error_message => String
                   end
 
-# pass in an EventStream object as the :event_stream_handler
+# Pass in an EventStream object as the :event_stream_handler
                 def self.run_query(sql:, bucket:, key:)
                   data = ""
                   handler = Aws::S3::EventStreams::SelectObjectContentEventStream.new
@@ -73,7 +73,7 @@ module Aws
                   end
 
                   handler.on_stats_event do |event|
-                    # get :stats event that contains progress information
+                    # Get :stats event that contains progress information
                     puts event.details.inspect
                     # => Aws::S3::Types::Stats bytes_scanned=xx, bytes_processed=xx, bytes_returned=xx
                   end
@@ -106,7 +106,7 @@ module Aws
         expression: 'SELECT * FROM S3Object WHERE number_of_national_parks_visited_in_lifetime > 60',
         request_progress: enabled: false # indicates whether periodic request progress information should be enabled '
         },
-# describes the format of the data in the object that is being queried
+# Describe the format of the data in the object that is being queried
     input_serialization = {
         csv: {
         file_header_info: "USE", # accepts USE, IGNORE, NONE
@@ -149,7 +149,7 @@ client.select_object_content(params)
     end
     )
 
-# sample response for a CSV object after tOutputSerialization element directs S3 to return results in CSV
+# Sample response for a CSV object after tOutputSerialization element directs S3 to return results in CSV format
 # HTTP/1.1 200 OK
 # x-amz-id-2: ZRihv3y6+kE7KG11GEkQhU7/2/cHR3Yb2fCb2S04nxI423Dqwg2XiQ0B/UZlzYQvPiBlZNRcovw=
 # x-amz-request-id: 8V541CD3C4BA79E0

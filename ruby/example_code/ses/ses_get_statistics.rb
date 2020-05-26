@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 require 'aws-sdk-ses'  # v3: require 'aws-sdk'
-# Create a new SES resource in the us-west-2 region.
+# Create a new SES resource in the AWS Region.
 # Replace us-west-2 with the AWS Region you're using for Amazon SES.
 ses = Aws::SES::Client.new(region: 'us-west-2')
 

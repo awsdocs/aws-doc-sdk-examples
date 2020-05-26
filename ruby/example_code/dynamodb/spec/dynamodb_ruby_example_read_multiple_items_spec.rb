@@ -57,7 +57,7 @@ let(:read_multiple_items) do
  end
 
 describe '#read_multiple_items' do
-   it 'allows for an AWS DynamoDB Read Multiple Items function' do_
+   it 'allows for an Amazon DynamoDB Read Multiple Items function' do_
        expect_any_instance_of(Aws::DynamoDB::Client)
            .to receive(:read_multiple_items).with(
                name: table_name, keys: key_name

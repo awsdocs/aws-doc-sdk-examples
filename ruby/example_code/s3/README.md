@@ -1,32 +1,33 @@
-# AWS SDK for Ruby Code Examples for S3
+# AWS SDK for Ruby code examples for Amazon S3
 
 ## Purpose
 
-This example explains how to use the SelectObjectContent operation to filter and parse 
-object data into records, only returning records that match the specified SQL expression.
+This example explains how to use the ```SelectObjectContent``` operation to filter and parse 
+object data into records, returning only records that match the specified SQL expression.
 
 ## Prerequisites 
 
 - You must have an AWS account, and have your default credentials and AWS Regions configured
 as described in [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html)
-in the AWS SDK for Ruby Developer Guide. 
-- RubyGems 3.1.2 or later 
-- AWS SDK for Ruby. For download and installation instructions, see [Installing the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html)
+in the *AWS SDK for Ruby Developer Guide*. 
+- RubyGems 3.1.2 or **later**.
+- AWS SDK for Ruby. For download and installation instructions, see 
+[Installing the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html).
 - Ruby 2.6 or later. After you install Ruby, add the path to Ruby in your environment
  variables so that you can run Ruby from any command prompt. 
-- RSpec 4.0 or later (to run unit tests)
+- RSpec 4.0 or later (to run unit tests).
 - Create an IAM administrator user 
-   - Follow the instructions in the IAM User Guide to create your first IAM administrator user and group. 
+   - Follow the instructions in the *AWS Identity and Access Management User Guide* to create your first IAM administrator user and group. 
     For more information, see [Creating Your First IAM Admin User and Group ](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html)
     - Sign in as an IAM user with your user name and password. Before you sign in as an IAM user, you
-     can verify the sign-in link for IAM users in the IAM console. 
+     can verify under the sign-in link for IAM users in the IAM console. 
      On the IAM Dashboard, under IAM users sign-in link, you can see the sign-in link 
      for your AWS account. The URL for your sign-in link contains your AWS account ID 
      without dashes (‐).
 
 - Permissions: You must have s3:GetObject permission for this operation. Amazon S3 
 Select does not support anonymous access. For more information about permissions, 
-see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html)
+see [Specifying Permissions in a Policy](HTTPS://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html)
     - If the object you are querying is encrypted with a customer-provided encryption 
     key (SSE-C), you must use https, and you must provide the encryption key in the 
     request.
@@ -34,7 +35,7 @@ see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/la
 ## Limits
 
 - The following limits apply when using Amazon S3 Select:
-    - The maximum length of a SQL expression is 256 KB.
+    - The maximum length of an SQL expression is 256 KB.
     - The maximum length of a record in the input or result is 1 MB.
     - Amazon S3 Select can only emit nested data using the JSON output format.
 
@@ -44,46 +45,50 @@ see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/la
     - Amazon S3 Select doesn't support Parquet output. You must specify the output format as CSV or JSON.
     - The maximum uncompressed row group size is 256 MB.
     - You must use the data types specified in the object's schema.
-    - Selecting on a repeated field returns only the last value.
+    - Selecting a repeated field returns only the last value.
 
 
-## Object Data Formats
+## Object data formats
 
 - You can use Amazon S3 Select to query objects that have the following format properties:
   
     - CSV, JSON, and Parquet - Objects must be in CSV, JSON, or Parquet format.
-    - UTF-8 - UTF-8 is the only encoding type Amazon S3 Select supports.
+    - UTF-8 - UTF-8 - The only encoding type Amazon S3 Select supports.
     - GZIP or BZIP2 - CSV and JSON files can be compressed using GZIP or BZIP2. GZIP and BZIP2 are the only compression formats that Amazon S3 Select supports for CSV and JSON files. Amazon S3 Select supports columnar compression for Parquet using GZIP or Snappy. Amazon S3 Select does not support whole-object compression for Parquet objects.
     - Server-side encryption - Amazon S3 Select supports querying objects that are
      protected with server-side encryption. For objects that are encrypted with 
      customer-provided encryption keys (SSE-C), you must use HTTPS, and you must use 
-     the headers that are documented in the GetObject. 
+     the headers that are documented in the ``GetObject``. 
      For more information about SSE-C, see Server-Side Encryption 
-     (Using Customer-Provided Encryption Keys) in the Amazon Simple Storage 
-     Service Developer Guide. For objects that are encrypted with Amazon S3 managed encryption keys (SSE-S3) and customer master keys (CMKs) stored in AWS Key Management Service (SSE-KMS), server-side encryption is handled transparently, so you don't need to specify anything. For more information about server-side encryption, including SSE-S3 and SSE-KMS, see Protecting Data Using Server-Side Encryption in the Amazon Simple Storage Service Developer Guide.
+     (Using Customer-Provided Encryption Keys) in the [Amazon Simple Storage Service Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html). 
+     For objects that are encrypted with Amazon S3 managed encryption keys (SSE-S3) and 
+     customer master keys (CMKs) stored in AWS Key Management Service (SSE-KMS), server-side encryption is handled 
+     transparently, so you don't need to specify anything. For more information about server-side encryption, 
+     including SSE-S3 and SSE-KMS, see Protecting Data Using Server-Side Encryption in the 
+     *Amazon Simple Storage Service Developer Guide*.
 
     
-##  Running the Code 
+##  Running the code 
 
 
 
 ### s3-select-object-content/s3-select-object-content.rb
 
- - This example illustrates how to use the AWS SDK for Ruby to implement the 
-  SelectObjectContent api, enabling the retrieval of a subset of data from 
- using simple SQL expressions. Streaming the responses as a 
+ - This example shows how to use the AWS SDK for Ruby to implement the 
+  ``SelectObjectContent`` API, enabling the retrieval of a subset of data from 
+ using simple SQL expressions. When responses are streamed as a 
  series of events, instead of returning the full response all at once, 
- there is an added performance benefit of process response messages as they come in. 
+ there is an added performance benefit of processing response.
  Events are processed asynchronously, instead of needing to wait for the full response
   load before processing.
 
                 
-####Response Elements
+####Response elements
 
    
    `HTTP/1.1 200 OK`
  
- - If the action is successful, the service sends back an HTTP 200 response.
+ - If the action succeeds, the service sends back an HTTP 200 response.
     
    
    
@@ -93,16 +98,16 @@ see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/la
     
     A series of messages
     
- - x-amz-id-2: A special token that is used together with the x-amz-request-id header to help AWS troubleshoot problems. For information about AWS support using these request IDs, see Troubleshooting Amazon S3.
-    - Type: String
-    - Default: None
- - x-amz-request-id: A value created by Amazon S3 that uniquely identifies the request. This value is used together with the x-amz-id-2 header to help AWS troubleshoot problems. For information about AWS support using these request IDs, see Troubleshooting Amazon S3.
-    - Type: String
+ - x-amz-id-2 - A special token that is used together with the x-amz-request-id header to help AWS troubleshoot problems. 
+ For information about AWS support using these request IDs, see [ Troubleshooting Amazon S3 ](https://docs.aws.amazon.com/AmazonS3/latest/dev/troubleshooting.html).
+    - Type -  String
+    - Default - None
+ - x-amz-request-id - A value that Amazon S3 creates uniquely identifies the request. This value is used together with the x-amz-id-2 header to help AWS troubleshoot problems. For information about AWS support using these request IDs, see Troubleshooting Amazon S3.
+    - Type - String
 
-#### CSV Input Data Request
-   - When making an API call, you may pass CSVInput data as a hash. 
-   The following describes how an uncompressed comma-separated values
-    (CSV)-formatted input object is formatted.
+#### CSV input data request
+   - When making an API call, CSVInput can pass as a hash. 
+   The following describes how an uncompressed comma-separated values, (CSV)-formatted input object is formatted.
     
           {
           file_header_info: "USE", # accepts USE, IGNORE, NONE
@@ -126,11 +131,11 @@ see [Specifying Permissions in a Policy](https://docs.aws.amazon.com/AmazonS3/la
    - quote_escape_character ⇒ String
     A single character used for escaping the quotation mark character inside an already escaped value.
    - record_delimiter ⇒ String
-    A single character used to separate individual records in the inpu
+    A single character used to separate individual records in the input
     
   
-## Sample Request 
-The following example Query request reads items from table(s) and uses the hash key to 
+## Sample request 
+The following example Query request reads items from tables and uses the hash key to 
 identify retrievable items. 
 
     POST /exampleobject.csv?select&select-type=2 HTTP/1.1
@@ -203,7 +208,7 @@ identify retrievable items.
    - Required: No
  
  
-####Response Syntax
+####Response syntax
     HTTP/1.1 200
     <?xml version="1.0" encoding="UTF-8"?>
     <Payload>
@@ -257,7 +262,7 @@ identify retrievable items.
   
 
 ## Testing the Amazon S3 Ruby files
-You can test the Amazon SNS ruby code examples by running RSpec 4.0 and is located in the 
+You can test the Amazon S3 ruby code examples by running RSpec 4.0 and is located in the 
 ses/spec folder.
 
 You can execute the RSpec tests from a Ruby IDE, such as RubyMine, or from the command
@@ -271,10 +276,10 @@ test has passed:
     0
     $ 
     
-### Command Line 
+### Command line 
 To execute RSpec tests from the command line, you can save the example files into a 
 directory on your local machine, `cd` into the directory in which it is saved, and 
-type `rspec` followed by the name of the spec file:
+type `rspec` followed by the name of the spec file.
 
      $ rspec ses_get_statistics_spec.rb
      .

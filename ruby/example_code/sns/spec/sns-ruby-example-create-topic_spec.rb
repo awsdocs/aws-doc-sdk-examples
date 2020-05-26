@@ -13,7 +13,7 @@ sns = Aws::SNS::Resource.new(region: 'us-west-2')
    end
 
    describe '#createtopic' do
-     it 'creates the topic with the desired topic name and region and displays the resulting topic ARN'
+     it 'creates the topic with the desired topic name and AWS Region and displays the resulting topic ARN'
      createtopic_client.stub_responses(
          create_topic, :topics => [
          { :topic_arn => "arn:aws:sqs:*:444455556666:queue1",
