@@ -58,7 +58,7 @@ The following figure shows the login page.
 
 When a user logs into the system, they see the **Home** page .
 
-![AWS Tracking Application](images/AWT4.png)
+![AWS Tracking Application](images/AWSHome2.png)
 
 #### Application functionality
 A user can perform these tasks in the AWS Tracker application: 
