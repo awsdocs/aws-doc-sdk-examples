@@ -56,9 +56,8 @@ public class MainController {
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        // Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
+        //Get the Logged in User
+        String name = getLoggedUser();
 
         String guide = request.getParameter("guide");
         String description = request.getParameter("description");
@@ -82,9 +81,8 @@ public class MainController {
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-        // Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
+        //Get the Logged in User
+        String name = getLoggedUser();
 
         String email = request.getParameter("email");
         RetrieveItems ri = new RetrieveItems();
@@ -133,8 +131,7 @@ public class MainController {
     String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
         //Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
+        String name = getLoggedUser();
 
         RetrieveItems ri = new RetrieveItems();
         String type = request.getParameter("type");
