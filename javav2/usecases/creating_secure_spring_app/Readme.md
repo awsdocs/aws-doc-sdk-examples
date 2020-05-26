@@ -2114,7 +2114,7 @@ Both files contain application logic that sends a request to the Spring MainCont
 
 #### items.js file
 
-The following JavaScript code represents the items.js file that is used in the **item.html** view. 
+The following JavaScript code represents the **items.js** file that is used in the **items.html** view. 
 
 	$(function() {
 
@@ -2405,7 +2405,7 @@ The following JavaScript code represents the items.js file that is used in the *
 
  #### contact_me.js file
 
-The following JavaScript code represents the contact_me.js file that is used in the **add.html** view. 
+The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view. 
 
 	$(function() {
 
