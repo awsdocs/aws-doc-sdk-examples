@@ -2209,6 +2209,7 @@ The following code represents the items.html file. This file enables users to mo
 	</body>
 	</html>
 
+**Note**: Replace the default email addresses with real email addresses in this file. 
 #### layout.html
 
 The following code represents the layout.html file that represents the application's menu. 
