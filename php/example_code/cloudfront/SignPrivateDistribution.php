@@ -57,7 +57,7 @@ function signAPrivateDistribution()
     $resourceKey = 'https://d13l49jEXAMPLE.cloudfront.net/my-file.txt';
     $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
     $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
-    $keyPairId = 'APKAJIKZATYYYEXAMPLE';
+    $keyPairId = 'AAPKAJIKZATYYYEXAMPLE';
     
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',

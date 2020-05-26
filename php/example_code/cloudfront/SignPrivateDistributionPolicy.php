@@ -70,7 +70,7 @@ function signAPrivateDistributionPolicy()
 }
 POLICY;
     $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
-    $keyPairId = 'APKAJIKZATYYYEXAMPLE';
+    $keyPairId = 'AAPKAJIKZATYYYEXAMPLE';
     
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',

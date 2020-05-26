@@ -8,7 +8,7 @@
     <const name="CLOUDFRONT_CALLER_REFERENCE" value="my-unique-value"/>
     <const name="CLOUDFRONT_DISTRIBUTION_ETAG" value="E2QWRUHEXAMPLE"/>
     <const name="CLOUDFRONT_RESOURCE_KEY" value="https://d13l49jEXAMPLE.cloudfront.net/my-file.txt"/>
-    <const name="CLOUDFRONT_KEY_PAIR_ID" value="APKAJIKZATYYYEXAMPLE"/>
+    <const name="CLOUDFRONT_KEY_PAIR_ID" value="AAPKAJIKZATYYYEXAMPLE"/>
   </php>
   <testsuites>
     <testsuite name="cloudfront-createdistributions3">

@@ -69,7 +69,7 @@ function signACookiePolicy()
 }
 POLICY;
     $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
-    $keyPairId = 'APKAJIKZATYYYEXAMPLE';
+    $keyPairId = 'AAPKAJIKZATYYYEXAMPLE';
 
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',
@@ -83,7 +83,7 @@ POLICY;
     /* If successful, returns something like:
     CloudFront-Policy = eyJTdGF0...fX19XX0_
     CloudFront-Signature = RowqEQWZ...N8vetw__
-    CloudFront-Key-Pair-Id = APKAJIKZATYYYEXAMPLE
+    CloudFront-Key-Pair-Id = AAPKAJIKZATYYYEXAMPLE
     */
     foreach ($result as $key => $value) {
         echo $key . ' = ' . $value . "\n";

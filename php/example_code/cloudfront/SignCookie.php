@@ -58,7 +58,7 @@ function signACookie()
     $resourceKey = 'https://d13l49jEXAMPLE.cloudfront.net/my-file.txt';
     $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
     $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
-    $keyPairId = 'APKAJIKZATYYYEXAMPLE';
+    $keyPairId = 'AAPKAJIKZATYYYEXAMPLE';
 
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',
@@ -72,7 +72,7 @@ function signACookie()
     /* If successful, returns something like:
     CloudFront-Expires = 1589926678
     CloudFront-Signature = Lv1DyC2q...2HPXaQ__
-    CloudFront-Key-Pair-Id = APKAJIKZATYYYEXAMPLE
+    CloudFront-Key-Pair-Id = AAPKAJIKZATYYYEXAMPLE
     */
     foreach($result as $key => $value)
     {
