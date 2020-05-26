@@ -1272,9 +1272,7 @@ The service classes contain Java application logic that uses AWS services. In th
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS Java APIs). 
 
 #### SendMessage class 
-The **SendMessage** class uses the SES Java V2 API to send an email message with an attachment (the Excel document) to an email recipient. 
-
-**Note**: An email address that you send an email message to must be verified. For information, see [Verifying an Email Address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+The **SendMessage** class uses the SES Java V2 API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an Email Address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to the AWS Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can setup environment variables on the Elastic Beanstalk to reflect your AWS credentials. 
 
@@ -1422,7 +1420,7 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
       }
      }
     
-**Note**: Update the email **sender** address with a real email address. To use an email address with Amazon SES, you must verify the email address. For more information, see [Verifying Email Addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).     
+**Note**: Update the email **sender** address with a verified email address.      
 
 #### WriteExcel class
 
