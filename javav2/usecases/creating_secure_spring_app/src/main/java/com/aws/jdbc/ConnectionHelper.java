@@ -8,21 +8,23 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
+
 package com.aws.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionHelper
-{
+public class ConnectionHelper {
+
     private String url;
 
     private static ConnectionHelper instance;
-    private ConnectionHelper()
-    {
-        url = "jdbc:mysql://localhost:3306/mydb"; // REPLACE with URL to RDS instance
+
+    private ConnectionHelper() {
+        url = "localhost:3306/mydb";
     }
+
 
     public static Connection getConnection() throws SQLException {
         if (instance == null) {
@@ -31,15 +33,13 @@ public class ConnectionHelper
         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root"); //REPLACE with user name and password to RDS instance
-        }
-        catch (Exception e) {
+            return DriverManager.getConnection(instance.url, "root","root1234");
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.getStackTrace();
         }
         return null;
     }
-    public static void close(Connection connection)
-    {
+    public static void close(Connection connection) {
         try {
             if (connection != null) {
                 connection.close();
@@ -48,4 +48,6 @@ public class ConnectionHelper
             e.printStackTrace();
         }
     }
+
+
 }
