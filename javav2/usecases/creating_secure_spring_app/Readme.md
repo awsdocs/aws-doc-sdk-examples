@@ -474,196 +474,166 @@ In the **com.aws.securingweb** package, create the controller class named **Main
 
 The following Java code represents the **MainController** class. 
 
-    package com.aws.securingweb;
+    	package com.aws.securingweb;
 
-    import com.aws.entities.WorkItem;
-    import com.aws.jdbc.RetrieveItems;
-    import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.ui.Model;
-    import org.springframework.web.bind.annotation.*;
-    import com.aws.jdbc.InjectWorkService;
-    import com.aws.services.WriteExcel;
-    import com.aws.services.SendMessages;
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import java.util.List;
+	import com.aws.entities.WorkItem;
+	import com.aws.jdbc.RetrieveItems;
+	import org.springframework.security.core.context.SecurityContextHolder;
+	import org.springframework.stereotype.Controller;
+	import org.springframework.ui.Model;
+	import org.springframework.web.bind.annotation.GetMapping;
+	import org.springframework.web.bind.annotation.RequestMapping;
+	import org.springframework.web.bind.annotation.ResponseBody;
+	import org.springframework.web.bind.annotation.RequestMethod;
+	import com.aws.jdbc.InjectWorkService;
+	import com.aws.services.WriteExcel;
+	import com.aws.services.SendMessages;
+	import javax.servlet.http.HttpServletRequest;
+	import javax.servlet.http.HttpServletResponse;
+	import java.io.IOException;
+	import java.util.List;
 
-    @Controller
-    public class MainController {
+	@Controller
+	public class MainController {
 
-    @GetMapping("/")
-    public String root() {
-        return "index";
-    }
+    	@GetMapping("/")
+    	public String root() {
+          return "index";
+    	}
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
+    	@GetMapping("/login")
+    	public String login(Model model) {
+          return "login";
+    	}
 
-    @GetMapping("/add")
-    public String designer() {
-        return "add";
-    }
+    	@GetMapping("/add")
+    	public String designer() {
+          return "add";
+    	}
 
-    @GetMapping("/items")
-    public String items() {
-        return "items";
-    }
+    	@GetMapping("/items")
+    	public String items() {
+          return "items";
+    	}
 
-    // Invoked when we want to add a new item to the database
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    	// Adds a new item to the database
+    	@RequestMapping(value = "/add", method = RequestMethod.POST)
+    	@ResponseBody
+    	String addItems(HttpServletRequest request, HttpServletResponse response) {
+
+         // Get the Logged in User
+         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         String name = user2.getUsername();
+
+         String guide = request.getParameter("guide");
+         String description = request.getParameter("description");
+         String status = request.getParameter("status");
+
+         InjectWorkService iw = new InjectWorkService();
+
+         // Create a Work Item object to pass to the injestNewSubmission method
+         WorkItem myWork = new WorkItem();
+         myWork.setGuide(guide);
+         myWork.setDescription(description);
+         myWork.setStatus(status);
+         myWork.setName(name);
+
+         iw.injestNewSubmission(myWork);
+         return "Report is created";
+     	}
+
+     	// Builds and emails a report
+    	@RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
-    String addItems(HttpServletRequest request, HttpServletResponse response) {
+    	String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-        // Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
+         // Get the Logged in User
+         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         String name = user2.getUsername();
 
-        String guide = request.getParameter("guide");
-        String description = request.getParameter("description");
-        String status = request.getParameter("status");
+         String email = request.getParameter("email");
+         RetrieveItems ri = new RetrieveItems();
+         List<WorkItem> theList = ri.getItemsDataSQLReport(name);
 
-        InjectWorkService iw = new InjectWorkService();
+         WriteExcel writeExcel = new WriteExcel();
+         SendMessages sm = new SendMessages();
+         java.io.InputStream is = writeExcel.exportExcel(theList);
 
-        // Create a Work Item object to pass to  the injestNewSubmission method
-        WorkItem myWork = new WorkItem();
-        myWork.SetGuide(guide);
-        myWork.SetDescription(description);
-        myWork.SetStatus(status);
-        myWork.SetName(name);
+         try {
+            sm.sendReport(is, email);
 
-        try {
-
-            iw.injestNewSubmission(myWork);
-        }
-        catch (Exception e){
-            e.getStackTrace();
-        }
+        } catch (IOException e) {
+          e.getStackTrace();
+            }
         return "Report is created";
-    }
+    	}
 
-    // Invoked when we want to build and email a report
-    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    	// Archives a work item
+    	@RequestMapping(value = "/archive", method = RequestMethod.POST)
+    	@ResponseBody
+    	String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
+         String id = request.getParameter("id");
+
+         RetrieveItems ri = new RetrieveItems();
+         ri.flipItemArchive(id );
+         return id ;
+    	}
+
+    	// Modifies the value of a work item
+    	@RequestMapping(value = "/changewi", method = RequestMethod.POST)
     @ResponseBody
-    String getReport(HttpServletRequest request, HttpServletResponse response) {
+    	 String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
+         String id = request.getParameter("id");
+         String description = request.getParameter("description");
+         String status = request.getParameter("status");
 
-        // Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
+         InjectWorkService ws = new InjectWorkService();
+         String value = ws.modifySubmission(id, description, status);
+         return value;
+    	}
 
-        String email = request.getParameter("email");
-        RetrieveItems ri = new RetrieveItems();
-        List<WorkItem> theList =  ri.getItemsDataSQLReport(name);
-
-        WriteExcel writeExcel = new WriteExcel();
-        SendMessages sm = new SendMessages();
-        java.io.InputStream is = writeExcel.exportExcel(theList);
-
-        try {
-           sm.SendReport(is, email);
-        } catch (Exception e){
-            e.getStackTrace();
-        }
-        return "Report is created";
-    }
-
-    // Invoked when we want to archive a work item
-    @RequestMapping(value = "/archive", method = RequestMethod.POST)
+    	// Retrieve all items for a given user
+    	@RequestMapping(value = "/retrieve", method = RequestMethod.POST)
     @ResponseBody
-    String ArchieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("id");
+    	 String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        RetrieveItems ri = new RetrieveItems();
-        WorkItem item= ri.GetWorkItembyId(id);
-        ri.FlipItemArchive(id );
-        return id ;
-    }
+         //Get the Logged in User
+         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         String name = user2.getUsername();
 
-    // Invoked when we want to change the value of a work item
-    @RequestMapping(value = "/changewi", method = RequestMethod.POST)
-    @ResponseBody
-    String ChangeWorkItem(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("id");
-        String description = request.getParameter("description");
-        String status   = request.getParameter("status");
+         RetrieveItems ri = new RetrieveItems();
+         String type = request.getParameter("type");
 
-        InjectWorkService ws = new InjectWorkService();
-        String value = ws.modifySubmission(id, description, status);
-        return value;
-    }
+         //Pass back all data from the database
+         String xml="";
 
-    // Invoked when we retrieve all items for a given user
-    @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
-    @ResponseBody
-    String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
-
-        //Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
-
-        RetrieveItems ri = new RetrieveItems();
-        String type = request.getParameter("type");
-
-        //Pass back all data from the database
-        String xml="";
-
-        if (type.equals("active")) {
+         if (type.equals("active")) {
             xml = ri.getItemsDataSQL(name);
             return xml;
-        }
-        else {
+        } else {
             xml = ri.getArchiveData(name);
             return xml;
-        }
-    }
+         }
+    	}
 
-    // Invoked when we want to return a work item to modify
-    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    	// Returns a work item to modify
+    	@RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
-    String modifyWork(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("id");
-        RetrieveItems ri = new RetrieveItems();
-        String xmlRes = ri.GetItemSQL(id) ;
-        return  xmlRes;
-     }
+    	 String modifyWork(HttpServletRequest request, HttpServletResponse response) {
+         String id = request.getParameter("id");
+         RetrieveItems ri = new RetrieveItems();
+         String xmlRes = ri.getItemSQL(id) ;
+         return xmlRes;
+     	}
 
-    // Invoked when we retrieve all items for a given user
-    @RequestMapping(value = "/work", method = RequestMethod.POST)
-    @ResponseBody
-    String getWork(HttpServletRequest request, HttpServletResponse response) {
+    	private String getLoggedUser() {
 
-        InjectWorkService ws = new InjectWorkService();
-
-        WorkItem item = new WorkItem();
-        String description = request.getParameter("description");
-        String date = request.getParameter("date");
-        String guide = request.getParameter("guide");
-        String status = request.getParameter("status");
-
-        item.SetDate(date);
-        item.SetName(getLoggedUser());
-        item.SetDescription(description);
-        item.SetGuide(guide);
-        item.SetStatus(status);
-
-        // Persist the data
-        String itemNum =ws.injestNewSubmission(item);
-
-        //Document xml = s3.toXml(allBuckets);
-        //String bucketsStr= s3.convertToString(xml);
-        return itemNum ;
-    }
-
-    private String getLoggedUser()
-    {
-        //Get the Logged in User
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
-        return name;
-    }
-   }
+         // Get the logged-in Useruser
+         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         String name = user2.getUsername();
+         return name;
+    	}
+	}
 
 #### To create the MainController class 
 
@@ -677,79 +647,65 @@ Create a Java package named **com.aws.entities**. Next, create a class, named **
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
 
-    package com.aws.entities;
+    	package com.aws.entities;
 
-    public class WorkItem {
+	public class WorkItem {
 
-      private String id;
-      private String name;
-      private String guide ;
-      private String date;
-      private String description;
-      private String status;
+    	private String id;
+    	private String name;
+    	private String guide ;
+    	private String date;
+    	private String description;
+    	private String status;
 
+    	public void setId (String id) {
+         this.id = id;
+     	}
 
-      public void SetId (String id)
-      {
-        this.id = id;
-      }
+     	public String getId() {
+          return this.id;
+    	}
 
-      public String getId()
-      {
-        return this.id;
-      }
+    	public void setStatus (String status) {
+          this.status = status;
+     	}
 
-      public void SetStatus (String status)
-      {
-        this.status = status;
-      }
+    	public String getStatus() {
+          return this.status;
+    	}
 
-      public String getStatus()
-      {
-        return this.status;
-      }
+    	public void setDescription (String description) {
+          this.description = description;
+    	}
 
-      public void SetDescription (String description)
-      {
-        this.description = description;
-      }
+    	public String getDescription() {
+          return this.description;
+    	}
 
-      public String getDescription()
-      {
-        return this.description;
-      }
+    	public void setDate (String date) {
+          this.date = date;
+    	}
 
+    	public String getDate() {
+          return this.date;
+    	}
 
-      public void SetDate (String date)
-      {
-        this.date = date;
-      }
+    	public void setName (String name) {
+          this.name = name;
+    	}
 
-      public String getDate()
-      {
-        return this.date;
-      }
+    	public String getName() {
+          return this.name;
+    	}
 
-      public void SetName (String name)
-      {
-        this.name = name;
-      }
+    	public void setGuide (String guide) {
+          this.guide = guide;
+    	}
 
-      public String getName()
-      {
-        return this.name;
-      }
-
-      public void SetGuide (String guide)
-      {
-        this.guide = guide;
-      }
-
-      public String getGuide()
-      {
-        return this.guide;
-      }
-    }
+    	public String getGuide() {
+          return this.guide;
+    	}
+	}	
 
 #### To create the WorkItem class
 1. In the **com.aws.entities** package, create the **WorkItem** class. 
@@ -768,42 +724,38 @@ Create a Java package named **com.aws.jdbc**. Next, create these Java classes th
 
 The following Java code represents the **ConnectionHelper** class.
 
-    package com.aws.jdbc;
+    	package com.aws.jdbc;
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
+	import java.sql.Connection;
+	import java.sql.DriverManager;
+	import java.sql.SQLException;
 
-    public class ConnectionHelper
-    {
-      private String url;
+	public class ConnectionHelper {
 
-      private static ConnectionHelper instance;
-      private ConnectionHelper()
-      {
-          url = "jdbc:mysql://localhost:3306/mydb"; // Replace with your RDS instance URL
-      }
-    
-      public static Connection getConnection() throws SQLException {
-        if (instance == null) {
+    	private String url;
+	private static ConnectionHelper instance;
+
+    	private ConnectionHelper() {
+          url = "jdbc:mysql://localhost:3306/mydb";
+    	}
 
 
+    	public static Connection getConnection() throws SQLException {
+         if (instance == null) {
             instance = new ConnectionHelper();
-        }
-        try {
+         }
+         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root"); // Replace with your RDS user name and password
-        }
-        catch (Exception e) {
+            return DriverManager.getConnection(instance.url, "root","root");
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.getStackTrace();
         }
         return null;
-      }
+    	}
     
-      public static void close(Connection connection)
-      {
-        try {
+    	public static void close(Connection connection) {
+         try {
             if (connection != null) {
                 connection.close();
             }
@@ -819,32 +771,37 @@ The following Java code represents the **ConnectionHelper** class.
 
 The following Java code represents the **InjectWorkService** class.
 
-    package com.aws.jdbc;
+    	package com.aws.jdbc;
 
-    import java.sql.Connection;
-    import java.sql.PreparedStatement;
-    import java.text.SimpleDateFormat;
-    import java.time.LocalDateTime;
-    import java.time.format.DateTimeFormatter;
-    import java.util.Date;
-    import java.util.UUID;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
+	import java.sql.Connection;
+	import java.sql.PreparedStatement;
+	import java.sql.SQLException;
+	import java.text.ParseException;
+	import java.text.SimpleDateFormat;
+	import java.time.LocalDateTime;
+	import java.time.format.DateTimeFormatter;
+	import java.util.Date;
+	import java.util.UUID;
 
-      @Component
-      public class InjectWorkService {
+	import com.aws.entities.WorkItem;
+	import org.springframework.stereotype.Component;
 
-    //Inject a new submission
-    public String modifySubmission(String id, String desc, String status)
-    {
-        Connection c = null;
-        int rowCount= 0;
-        try {
+	@Component
+	public class InjectWorkService {
+
+    	// Inject a new submission
+    	public String modifySubmission(String id, String desc, String status) {
+        
+	 Connection c = null;
+         int rowCount= 0;
+         
+	 try {
             // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection();
 
-            // Use prepared statements 
+            // Use prepared statements
             PreparedStatement ps = null;
+
             String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
 
             ps = c.prepareStatement(query);
@@ -852,49 +809,46 @@ The following Java code represents the **InjectWorkService** class.
             ps.setString(2, status);
             ps.execute();
             return id;
-        }
-        catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             ConnectionHelper.close(c);
         }
         return null;
     }
 
-    //Inject a new submission
-    public String injestNewSubmission(WorkItem item) {
+     // Inject a new submission
+      public String injestNewSubmission(WorkItem item) {
         Connection c = null;
         int rowCount= 0;
         try {
 
             // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection();
 
-            // Use prepared statements
+            // Use a prepared statement
             PreparedStatement ps = null;
 
-            //Convert rev to int
+            // Convert rev to int
             String name = item.getName();
             String guide = item.getGuide();
             String description = item.getDescription();
             String status = item.getStatus();
 
-            //generate the work item ID
+            // generate the work item ID
             UUID uuid = UUID.randomUUID();
             String workId = uuid.toString();
 
-            //Date conversion
-            // Date date1 = new SimpleDateFormat("yyyy/mm/dd").parse(date);
+            // Date conversion
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-            String sDate1 =   dtf.format(now);
+            String sDate1 = dtf.format(now);
             Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
             java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
 
-            //Inject a new Formstr template into the system
+            // Inject an item into the system
             String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
             ps = c.prepareStatement(insert);
             ps.setString(1, workId);
@@ -906,68 +860,65 @@ The following Java code represents the **InjectWorkService** class.
             ps.setBoolean(7, false);
             ps.execute();
             return workId;
-        }
-        catch (Exception e) {
+
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             ConnectionHelper.close(c);
         }
         return null;
     }
-   }
-
+}
 #### RetrieveItems class
 
 The following Java code represents the **RetrieveItems** class. 
 
-    package com.aws.jdbc;
+     package com.aws.jdbc;
 
-    import java.io.StringWriter;
-    import java.sql.Connection;
-    import java.sql.PreparedStatement;
-    import java.sql.ResultSet;
-    import java.sql.Statement;
-    import java.util.ArrayList ;
-    import java.util.Date;
-    import java.util.List;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
-    import org.w3c.dom.Document;
-    import javax.xml.parsers.DocumentBuilder;
-    import javax.xml.parsers.DocumentBuilderFactory;
-    import org.w3c.dom.Element;
-    import javax.xml.transform.Transformer;
-    import javax.xml.transform.TransformerFactory;
-    import javax.xml.transform.dom.DOMSource;
-    import javax.xml.transform.stream.StreamResult;
+     import java.io.StringWriter;
+     import java.sql.Connection;
+     import java.sql.ResultSet;
+     import java.sql.Statement;
+     import java.sql.PreparedStatement;
+     import java.sql.SQLException;
+     import java.util.ArrayList ;
+     import java.util.List;
+     import com.aws.entities.WorkItem;
+     import org.springframework.stereotype.Component;
+     import org.w3c.dom.Document;
+     import javax.xml.parsers.DocumentBuilder;
+     import javax.xml.parsers.DocumentBuilderFactory;
+     import org.w3c.dom.Element;
+     import javax.xml.parsers.ParserConfigurationException;
+     import javax.xml.transform.Transformer;
+     import javax.xml.transform.TransformerException;
+     import javax.xml.transform.TransformerFactory;
+     import javax.xml.transform.dom.DOMSource;
+     import javax.xml.transform.stream.StreamResult;
 
-    @Component
-    public class RetrieveItems {
+	@Component	
+	public class RetrieveItems {
 
-    //Retrieves an item based on the ID
-    public String FlipItemArchive(String id ) {
+    	  // Retrieves an item based on the ID
+    	public String flipItemArchive(String id ) {
 
-        Connection c = null;
+          Connection c = null;
+          String query = "";
 
-        //Define a list in which all work items are stored
-        String query = "";
-        String status="" ;
-        String description="";
-
-        try {
-            // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+          try {
+          
+	    // Create a Connection object
+            c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            //Use prepared statements to protected against SQL injection attacks
+            // Use prepared statements
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            //Specify the SQL Statement to query data from, the empployee table
+            // Specify the SQL Statement to query data
             query = "update work set archive = ? where idwork ='" +id + "' ";
 
             PreparedStatement updateForm = c.prepareStatement(query);
@@ -975,7 +926,7 @@ The following Java code represents the **RetrieveItems** class.
             updateForm.setBoolean(1, true);
             updateForm.execute();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(c);
@@ -983,123 +934,56 @@ The following Java code represents the **RetrieveItems** class.
         return null;
     }
 
-    // Retrieves archive data from the MySQL Database
+
+    // Retrieves archive data from the MySQL database
     public String getArchiveData(String username) {
 
         Connection c = null;
 
-        //Define a list in which all work items are stored
+        // Define a list in which work items are stored
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
         WorkItem item = null;
+
         try {
             // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            //Use prepared statements to protected against SQL injection attacks
+            // Use prepared statements
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            //Specify the SQL Statement to query data from, the work table
             int arch = 1;
 
-            //Specify the SQL Statement to query data from, the work table
+            // Specify the SQL Statement to query data
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
 
-            while (rs.next())
-            {
-                // For each item - create a WorkItem instance
+            while (rs.next()) {
+                // For each record, create a WorkItem object
                 item = new WorkItem();
 
-                //Populate the object with data from MySQL
-                item.SetId(rs.getString(1));
-                item.SetName(rs.getString(2));
-                item.SetDate(rs.getDate(3).toString().trim());
-                item.SetDescription(rs.getString(4));
-                item.SetGuide(rs.getString(5));
-                item.SetStatus(rs.getString(6));
+                // Populate the WorkItem object
+                item.setId(rs.getString(1));
+                item.setName(rs.getString(2));
+                item.setDate(rs.getDate(3).toString().trim());
+                item.setDescription(rs.getString(4));
+                item.setGuide(rs.getString(5));
+                item.setStatus(rs.getString(6));
 
-                //Push the Employee Object to the list
+                // Push the WorkItem object to the list
                 itemList.add(item);
             }
 
             return convertToString(toXml(itemList));
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-
-    }
-
-    //Retrieve an item based on an ID and return a WorkItem
-    public WorkItem GetWorkItembyId(String id ) {
-
-        Connection c = null;
-
-        //Define a list in which all work items are stored
-        String query = "";
-        String status="" ;
-        String description="";
-        String writer ="";
-        String guide ="";
-        Date mydate ;
-        String mydate2="";
-
-        try {
-            // Create a Connection object
-            c =  ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            //Use prepared statements to protected against SQL injection attacks
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            //Specify the SQL Statement to query data from, the empployee table
-            query = "Select * FROM work where idwork ='" +id + "' ";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            WorkItem theWork = new WorkItem();
-            while (rs.next())
-            {
-                writer = rs.getString(2);
-                mydate = rs.getDate(3);
-                description =rs.getString(4);
-                guide = rs.getString(5);
-                status = rs.getString(6);
-
-                mydate2 = mydate.toString();
-                theWork.SetId(id);
-                theWork.SetDate(mydate2);
-                theWork.SetName(writer);
-                theWork.SetDescription(description);
-                theWork.SetStatus(status);
-                theWork.SetGuide(guide);
-            }
-
-            //Now that we have the Item - delete the record
-            //Specify the SQL Statement to query data from, the empployee table
-            query = "Delete FROM work where idwork ='" +id + "' ";
-            pstmt = c.prepareStatement(query);
-            pstmt.executeUpdate();
-
-            return theWork;
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(c);
@@ -1107,42 +991,42 @@ The following Java code represents the **RetrieveItems** class.
         return null;
     }
 
-    //Retrieves an item based on the ID
-    public String GetItemSQL(String id ) {
+    // Retrieves an item based on the ID
+    public String getItemSQL(String id ) {
 
         Connection c = null;
 
-        //Define a list in which all work items are stored
+        // Define a list in which all work items are stored
         String query = "";
         String status="" ;
         String description="";
 
         try {
             // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            //Use prepared statements to protected against SQL injection attacks
+            // Use prepared statements
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            //Specify the SQL Statement to query data from, the empployee table
+            //Specify the SQL Statement to query data
             query = "Select description, status FROM work where idwork ='" +id + "' ";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
 
-            while (rs.next())
-            {
+            while (rs.next()) {
+
                 description = rs.getString(1);
                 status = rs.getString(2);
             }
             return convertToString(toXmlItem(id,description,status));
 
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(c);
@@ -1150,7 +1034,7 @@ The following Java code represents the **RetrieveItems** class.
         return null;
     }
 
-    //Get Items Data from MySQL
+    // Get Items data from MySQL
     public List<WorkItem> getItemsDataSQLReport(String username) {
 
         Connection c = null;
@@ -1160,46 +1044,44 @@ The following Java code represents the **RetrieveItems** class.
         int rowCount = 0;
         String query = "";
         WorkItem item = null;
+
         try {
             // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            //Use prepared statements to protected against SQL injection attacks
+            // Use prepared statements
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
             int arch = 0;
 
-            //Specify the SQL Statement to query data from, the work table
+            // Specify the SQL Statement to query data
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
 
-            while (rs.next())
-            {
-                // For each tem - create an item instance
+            while (rs.next()) {
+                // For each record-- create a WorkItem instance
                 item = new WorkItem();
 
-                // Populate Employee object with data from MySQL
-                item.SetId(rs.getString(1));
-                item.SetName(rs.getString(2));
-                item.SetDate(rs.getDate(3).toString().trim());
-                item.SetDescription(rs.getString(4));
-                item.SetGuide(rs.getString(5));
-                item.SetStatus(rs.getString(6));
+                // Populate WorkItem with data from MySQL
+                item.setId(rs.getString(1));
+                item.setName(rs.getString(2));
+                item.setDate(rs.getDate(3).toString().trim());
+                item.setDescription(rs.getString(4));
+                item.setGuide(rs.getString(5));
+                item.setStatus(rs.getString(6));
 
-                // Push the item object to the list
+                // Push the WorkItem Object to the list
                 itemList.add(item);
             }
-
             return itemList;
 
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(c);
@@ -1208,56 +1090,54 @@ The following Java code represents the **RetrieveItems** class.
     }
 
 
-    //Get Items Data from MySQL
+    // Get Items Data from MySQL
     public String getItemsDataSQL(String username) {
 
         Connection c = null;
 
-        //Define a list in which all work items are stored
+        // Define a list in which all work items are stored
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
         WorkItem item = null;
         try {
             // Create a Connection object
-            c =  ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            //Use prepared statements to protected against SQL injection attacks
+            // Use prepared statements
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
             int arch = 0;
 
-            //Specify the SQL Statement to query data from, the work table
+            // Specify the SQL Statement to query data
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
 
-            while (rs.next())
-            {
-                //For each employee record-- create an Employee instance
+            while (rs.next()) {
+
+                // For each record-- create a WorkItem instance
                 item = new WorkItem();
 
-                //Populate Employee object with data from MySQL
-                item.SetId(rs.getString(1));
-                item.SetName(rs.getString(2));
-                item.SetDate(rs.getDate(3).toString().trim());
-                item.SetDescription(rs.getString(4));
-                item.SetGuide(rs.getString(5));
-                item.SetStatus(rs.getString(6));
+                //Populate WorkItem object with data
+                item.setId(rs.getString(1));
+                item.setName(rs.getString(2));
+                item.setDate(rs.getDate(3).toString().trim());
+                item.setDescription(rs.getString(4));
+                item.setGuide(rs.getString(5));
+                item.setStatus(rs.getString(6));
 
-                //Push the Employee Object to the list
+                // Push the WorkItem Object to the list
                 itemList.add(item);
             }
-
             return convertToString(toXml(itemList));
 
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(c);
@@ -1265,127 +1145,123 @@ The following Java code represents the **RetrieveItems** class.
         return null;
     }
 
-    //Convert Work item data retrieved from MySQL
-    //into an XML schema to pass back to client
+    // Convert Work item data retrieved from MySQL
+    // into XML to pass back to the view
     private Document toXml(List<WorkItem> itemList) {
-        try
-        {
+
+        try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            //Start building the XML to pass back to the AEM client
+            // Start building the XML
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            //Get the elements from the collection
+            // Get the elements from the collection
             int custCount = itemList.size();
 
-            //Iterate through the collection to build up the DOM
+            // Iterate through the collection
             for ( int index=0; index < custCount; index++) {
 
-                //Get the Employee object from the collection
-                WorkItem myItem = (WorkItem)itemList.get(index);
+                // Get the WorkItem object from the collection
+                WorkItem myItem = itemList.get(index);
 
-                Element Item = doc.createElement( "Item" );
-                root.appendChild( Item );
+                Element item = doc.createElement( "Item" );
+                root.appendChild( item );
 
-                //Add rest of data as child elements
-                //Set Id
+                // Set Id
                 Element id = doc.createElement( "Id" );
                 id.appendChild( doc.createTextNode(myItem.getId() ) );
-                Item.appendChild( id );
+                item.appendChild( id );
 
-                //Set Name
+                // Set Name
                 Element name = doc.createElement( "Name" );
                 name.appendChild( doc.createTextNode(myItem.getName() ) );
-                Item.appendChild( name );
+                item.appendChild( name );
 
-                //Set Date
+                // Set Date
                 Element date = doc.createElement( "Date" );
                 date.appendChild( doc.createTextNode(myItem.getDate() ) );
-                Item.appendChild( date );
+                item.appendChild( date );
 
-                //Set Description
+                // Set Description
                 Element desc = doc.createElement( "Description" );
                 desc.appendChild( doc.createTextNode(myItem.getDescription() ) );
-                Item.appendChild( desc );
+                item.appendChild( desc );
 
-                //Set Guide
+                // Set Guide
                 Element guide = doc.createElement( "Guide" );
                 guide.appendChild( doc.createTextNode(myItem.getGuide() ) );
-                Item.appendChild( guide );
+                item.appendChild( guide );
 
-                //Set Status
+                // Set Status
                 Element status = doc.createElement( "Status" );
                 status.appendChild( doc.createTextNode(myItem.getStatus() ) );
-                Item.appendChild( status );
+                item.appendChild( status );
             }
 
             return doc;
-        }
-        catch(Exception e)
-        {
+        } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private String convertToString(Document xml)
-    {
-        try {
+        private String convertToString(Document xml) {
+         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
             transformer.transform(source, result);
             return result.getWriter().toString();
-        } catch(Exception ex) {
+
+        } catch(TransformerException ex) {
             ex.printStackTrace();
         }
         return null;
     }
 
-    //Convert Work item data retrieved from MySQL
-    //into an XML schema to pass back to client
-    private Document toXmlItem(String id2, String desc2, String status2) {
-        try
-        {
+
+       // Convert Work item data retrieved from MySQL
+       // into an XML schema to pass back to client
+       private Document toXmlItem(String id2, String desc2, String status2) {
+
+        try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            //Start building the XML to pass back to the AEM client
+            //Start building the XML
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            Element Item = doc.createElement( "Item" );
-            root.appendChild( Item );
+            Element item = doc.createElement( "Item" );
+            root.appendChild( item );
 
             //Set Id
             Element id = doc.createElement( "Id" );
             id.appendChild( doc.createTextNode(id2 ) );
-            Item.appendChild( id );
+            item.appendChild( id );
 
             //Set Description
             Element desc = doc.createElement( "Description" );
             desc.appendChild( doc.createTextNode(desc2 ) );
-            Item.appendChild( desc );
+            item.appendChild( desc );
 
             //Set Status
             Element status = doc.createElement( "Status" );
             status.appendChild( doc.createTextNode(status2 ) );
-            Item.appendChild( status );
+            item.appendChild( status );
 
             return doc;
-        }
-        catch(Exception e)
-        {
+
+        } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
       }
-    }
-
+     }
 #### To create the JDBC classes 
 
 1. Create the **com.aws.jdbc** package. 
@@ -1418,7 +1294,6 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
     import javax.mail.Message;
     import javax.mail.MessagingException;
     import javax.mail.Session;
-    import javax.mail.internet.AddressException;
     import javax.mail.internet.InternetAddress;
     import javax.mail.internet.MimeMessage;
     import javax.mail.internet.MimeMultipart;
@@ -1436,91 +1311,85 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
 
     public class SendMessages {
 
-    private String SENDER = "scmacdon@amazon.com";
+     private String sender = "tblue@nomailserver.com";
 
-    // The subject line for the email.
-    private String SUBJECT = "Weekly AWS Status Report";
+     // The subject line for the email.
+     private String subject = "Weekly AWS Status Report";
 
-    // The email body for recipients with non-HTML email clients.
-    private String BODY_TEXT = "Hello,\r\n" + "Please see the attached file for a weekly update.";
+     // The email body for recipients with non-HTML email clients.
+     private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
-    // The HTML body of the email.
-    private String BODY_HTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+     // The HTML body of the email.
+     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
-    public void SendReport(InputStream is, String emailAddress ) throws IOException {
+     public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
         //Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
             send(fileContent,emailAddress);
-        }
-        catch (Exception e)
-        {
+        } catch (MessagingException e) {
             e.getStackTrace();
         }
-      }
+    }
 
-    public void send(byte[] attachment, String emailAddress) throws AddressException, MessagingException, IOException {
+    public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
 
         MimeMessage message = null;
-        try {
-            Session session = Session.getDefaultInstance(new Properties());
+        Session session = Session.getDefaultInstance(new Properties());
 
-            // Create a new MimeMessage object.
-            message = new MimeMessage(session);
+        // Create a new MimeMessage object.
+        message = new MimeMessage(session);
 
-            // Add subject, from and to lines.
-            message.setSubject(SUBJECT, "UTF-8");
-            message.setFrom(new InternetAddress(SENDER));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
+        // Add subject, from and to lines.
+        message.setSubject(subject, "UTF-8");
+        message.setFrom(new InternetAddress(sender));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-            // Create a multipart/alternative child container.
-            MimeMultipart msg_body = new MimeMultipart("alternative");
+        // Create a multipart/alternative child container.
+        MimeMultipart msgBody = new MimeMultipart("alternative");
 
-            // Create a wrapper for the HTML and text parts.
-            MimeBodyPart wrap = new MimeBodyPart();
+        // Create a wrapper for the HTML and text parts.
+        MimeBodyPart wrap = new MimeBodyPart();
 
-            // Define the text part.
-            MimeBodyPart textPart = new MimeBodyPart();
-            textPart.setContent(BODY_TEXT, "text/plain; charset=UTF-8");
+        // Define the text part.
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-            // Define the HTML part.
-            MimeBodyPart htmlPart = new MimeBodyPart();
-            htmlPart.setContent(BODY_HTML, "text/html; charset=UTF-8");
+        // Define the HTML part.
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-            // Add the text and HTML parts to the child container.
-            msg_body.addBodyPart(textPart);
-            msg_body.addBodyPart(htmlPart);
+        // Add the text and HTML parts to the child container.
+        msgBody.addBodyPart(textPart);
+        msgBody.addBodyPart(htmlPart);
 
-            // Add the child container to the wrapper object.
-            wrap.setContent(msg_body);
+        // Add the child container to the wrapper object.
+        wrap.setContent(msgBody);
 
-            // Create a multipart/mixed parent container.
-            MimeMultipart msg = new MimeMultipart("mixed");
+        // Create a multipart/mixed parent container.
+        MimeMultipart msg = new MimeMultipart("mixed");
 
-            // Add the parent container to the message.
-            message.setContent(msg);
+        // Add the parent container to the message.
+        message.setContent(msg);
 
-            // Add the multipart/alternative part to the message.
-            msg.addBodyPart(wrap);
+        // Add the multipart/alternative part to the message.
+        msg.addBodyPart(wrap);
 
-            // Define the attachment
-            MimeBodyPart att = new MimeBodyPart();
-            DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            att.setDataHandler(new DataHandler(fds));
+        // Define the attachment
+        MimeBodyPart att = new MimeBodyPart();
+        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        att.setDataHandler(new DataHandler(fds));
 
-            String reportName = "WorkReport.xls";
-            att.setFileName(reportName);
+        String reportName = "WorkReport.xls";
+        att.setFileName(reportName);
 
-            // Add the attachment to the message.
-            msg.addBodyPart(att);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        // Add the attachment to the message.
+        msg.addBodyPart(att);
 
-        // Try to send the email.
+       // Send the email
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
 
@@ -1568,7 +1437,6 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     import jxl.Workbook;
     import jxl.WorkbookSettings;
     import jxl.format.UnderlineStyle;
-    import jxl.write.Formula;
     import jxl.write.Label;
     import jxl.write.Number;
     import jxl.write.WritableCellFormat;
@@ -1576,9 +1444,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     import jxl.write.WritableSheet;
     import jxl.write.WritableWorkbook;
     import jxl.write.WriteException;
-    import jxl.write.biff.RowsExceededException;
     import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Service;
     import org.springframework.stereotype.Component;
     import java.io.IOException;
     import java.util.List;
@@ -1590,40 +1456,37 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    //Returns an InputStream that represents the Excel Report
-    public java.io.InputStream exportExcel( List<WorkItem> list)
-    {
-        try
-        {
-            java.io.InputStream is =  write( list);
+    // Returns an InputStream that represents the Excel Report
+    public java.io.InputStream exportExcel( List<WorkItem> list) {
+
+        try {
+            java.io.InputStream is = write( list);
             return is ;
-        }
-        catch(Exception e)
-        {
+        } catch(WriteException | IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    //Generates the report and returns an inputstream
+    // Generates the report and returns an inputstream
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        //Create a Workbook - pass the OutputStream
+        // Create a Workbook - pass the OutputStream
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
-        createLabel(excelSheet)   ;
-        int size =  createContent(excelSheet, list);
+        createLabel(excelSheet) ;
+        int size = createContent(excelSheet, list);
 
-        //Close the workbook
+        // Close the workbook
         workbook.write();
         workbook.close();
 
-        //Get an inputStram that represents the Report
+        // Get an inputStram that represents the Report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -1632,7 +1495,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return is ;
     }
 
-    //Create Headings in the Excel spreadsheet
+    // Create Headings in the Excel spreadsheet
     private void createLabel(WritableSheet sheet)
             throws WriteException {
         // Create a times font
@@ -1662,16 +1525,15 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         addCaption(sheet, 4, 0, "Status");
     }
 
-    //Write the Work Item Data to the Excel Report
-    private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException,
-            RowsExceededException {
+    // Write the Work Item Data to the Excel Report
+    private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
 
         // Add customer data to the Excel report
         for (int i = 0; i < size; i++) {
 
-            WorkItem wi =  (WorkItem)list.get(i) ;
+            WorkItem wi = list.get(i);
 
             //Get tne work item values
             String name = wi.getName();
@@ -1693,13 +1555,13 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
 
             // Fifth column
             addLabel(sheet, 4, i+2, status);
-        }
 
+        }
         return size;
-     }
+    }
 
     private void addCaption(WritableSheet sheet, int column, int row, String s)
-            throws RowsExceededException, WriteException {
+            throws WriteException {
         Label label;
         label = new Label(column, row, s, timesBoldUnderline);
 
@@ -1709,14 +1571,14 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     }
 
     private void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException, RowsExceededException {
+                           Integer integer) throws WriteException {
         Number number;
         number = new Number(column, row, integer, times);
         sheet.addCell(number);
     }
 
     private void addLabel(WritableSheet sheet, int column, int row, String s)
-            throws WriteException, RowsExceededException {
+            throws WriteException {
         Label label;
         label = new Label(column, row, s, times);
         int cc = countString(s);
@@ -1729,8 +1591,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
 
     }
 
-    private int countString (String ss)
-    {
+    private int countString (String ss) {
         int count = 0;
         //Counts each character except space
         for(int i = 0; i < ss.length(); i++) {
@@ -1738,7 +1599,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
                 count++;
         }
         return count;
-      }
+     }
     }
     
 #### To create the service classes
