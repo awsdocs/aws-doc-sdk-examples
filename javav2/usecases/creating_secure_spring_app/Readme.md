@@ -1422,7 +1422,7 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
       }
      }
     
-**Note**: Update the email **sender** address.     
+**Note**: Update the email **sender** address with a real email address. To use an email address with Amazon SES, you must verify the email address. For more information, see see [Verifying Email Addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).     
 
 #### WriteExcel class
 
