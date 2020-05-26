@@ -22,7 +22,7 @@ To follow along with the tutorial, you need the following:
 
 + An AWS Account.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK 
++ Java 1.8 JDK. 
 + Maven 3.6 or higher.
 
 **Cost to complete**: The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
