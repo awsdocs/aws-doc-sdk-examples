@@ -537,7 +537,7 @@ The following Java code represents the **MainController** class.
       myWork.setName(name);
 
       iw.injestNewSubmission(myWork);
-      return "Report is created";
+      return "Item added";
     }
 
     // Builds and emails a report
