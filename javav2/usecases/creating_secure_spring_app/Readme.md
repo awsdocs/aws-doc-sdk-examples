@@ -516,7 +516,7 @@ The following Java code represents the **MainController** class.
           return "items";
     	}
 
-    	// Adds a new item to the database
+    	// Adds a new item to the RDS database
     	@RequestMapping(value = "/add", method = RequestMethod.POST)
     	@ResponseBody
     	String addItems(HttpServletRequest request, HttpServletResponse response) {
