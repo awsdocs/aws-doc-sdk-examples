@@ -2621,7 +2621,7 @@ To access the application, open your browser and enter the URL for your applicat
 
 ![AWS Blog Application](images/AWT11.png)
 
-Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS Services. 
+Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS Services. As stated at this start of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 
 
