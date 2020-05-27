@@ -188,14 +188,17 @@ class DynamoStubber(ExampleStubber):
         self._stub_bifurcator('scan', expected_params, response, error_code=error_code)
 
     def stub_query(self, table_name, output_items, key_condition=None,
-                   projection=None, expression_attrs=None, error_code=None):
+                   projection=None, expression_attrs=None, expression_attr_vals=None,
+                   error_code=None):
         expected_params = {'TableName': table_name}
-        if key_condition:
+        if key_condition is not None:
             expected_params['KeyConditionExpression'] = key_condition
-        if projection:
+        if projection is not None:
             expected_params['ProjectionExpression'] = projection
-        if expression_attrs:
+        if expression_attrs is not None:
             expected_params['ExpressionAttributeNames'] = expression_attrs
+        if expression_attr_vals is not None:
+            expected_params['ExpressionAttributeValues'] = expression_attr_vals
         response_items = [
             self._build_out_item(output_item) for output_item in output_items
         ]
