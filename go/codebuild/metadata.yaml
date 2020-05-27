@@ -1,0 +1,19 @@
+files:
+  - path: BuildProject/BuildProject.go
+    services:
+      - codebuild
+  - path: BuildProject/BuildProject_test.go
+    services:
+      - codebuild
+  - path: ListBuilds/ListBuilds.go
+    services:
+      - codebuild
+  - path: ListBuilds/ListBuilds_test.go
+    services:
+      - codebuild
+  - path: ListProjects/ListProjects.go
+    services:
+      - codebuild
+  - path: ListProjects/ListProjects_test.go
+    services:
+      - codebuild
