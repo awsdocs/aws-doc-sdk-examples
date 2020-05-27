@@ -35,6 +35,7 @@ AWS.config.update({region: 'REGION'});
 var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 var params = {
+   // Remove DelaySeconds parameter and value for FIFO queues
   DelaySeconds: 10,
   MessageAttributes: {
     "Title": {
