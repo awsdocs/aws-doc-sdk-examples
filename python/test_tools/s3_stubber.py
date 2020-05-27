@@ -35,6 +35,18 @@ class S3Stubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
+    @staticmethod
+    def make_version(key, version_id, is_latest=None, last_modified=None):
+        version = {
+            'Key': key,
+            'VersionId': version_id
+        }
+        if is_latest is not None:
+            version['IsLatest'] = is_latest
+        if last_modified:
+            version['LastModified'] = last_modified
+        return version
+
     def stub_create_bucket(self, bucket_name, region_name=None, error_code=None):
         expected_params = {
             'Bucket': bucket_name
@@ -273,18 +285,31 @@ class S3Stubber(ExampleStubber):
             service_response={}
         )
 
-    def stub_put_object(self, bucket_name, object_key, body=ANY, error_code=None):
+    def stub_put_bucket_versioning(self, bucket_name, status, error_code=None):
+        self._stub_bifurcator(
+            'put_bucket_versioning',
+            expected_params={
+                'Bucket': bucket_name,
+                'VersioningConfiguration': {'Status': status}
+            },
+            error_code=error_code)
+
+    def stub_put_object(self, bucket_name, object_key, body=ANY, e_tag=None,
+                        error_code=None):
         expected_params = {
             'Body': body,
             'Bucket': bucket_name,
             'Key': object_key
         }
+        response = {}
+        if e_tag:
+            response['ETag'] = e_tag
 
         if not error_code:
             self.add_response(
                 'put_object',
                 expected_params=expected_params,
-                service_response={}
+                service_response=response
             )
         else:
             self.add_client_error(
@@ -294,48 +319,57 @@ class S3Stubber(ExampleStubber):
             )
 
     def stub_get_object(self, bucket_name, object_key, object_data=None,
-                        error_code=None):
+                        version_id=None, error_code=None):
         """Stub the get_object function. When the object data is a string,
         treat it as a file name, open the file, and read it as bytes."""
         expected_params = {
             'Bucket': bucket_name,
             'Key': object_key
         }
-
-        if not error_code:
+        if object_data:
             if isinstance(object_data, bytes):
                 data = object_data
             else:
                 with open(object_data, 'rb') as file:
                     data = file.read()
+            response = {'Body': io.BytesIO(data)}
+        else:
+            response = {}
+        if version_id:
+            response['VersionId'] = version_id
 
+        self._stub_bifurcator(
+            'get_object',
+            expected_params=expected_params,
+            response=response,
+            error_code=error_code)
+
+    def stub_delete_object(self, bucket_name, object_key, obj_version_id=None,
+                           error_code=None):
+        expected_params = {
+            'Bucket': bucket_name,
+            'Key': object_key
+        }
+        if obj_version_id:
+            expected_params['VersionId'] = obj_version_id
+        if not error_code:
             self.add_response(
-                'get_object',
+                'delete_object',
                 expected_params=expected_params,
-                service_response={
-                    'Body': io.BytesIO(data)
-                }
+                service_response={}
             )
         else:
             self.add_client_error(
-                'get_object',
+                'delete_object',
                 expected_params=expected_params,
                 service_error_code=error_code
             )
 
-    def stub_delete_object(self, bucket_name, object_key):
-        self.add_response(
-            'delete_object',
-            expected_params={
-                'Bucket': bucket_name,
-                'Key': object_key
-            },
-            service_response={}
-        )
-
-    def stub_head_object(self, bucket_name, object_key, status_code=200,
-                         error_code=None):
+    def stub_head_object(self, bucket_name, object_key, obj_version_id=None,
+                         status_code=200, error_code=None, response_meta=None):
         expected_params = {'Bucket': bucket_name, 'Key': object_key}
+        if obj_version_id:
+            expected_params['VersionId'] = obj_version_id
 
         if not error_code:
             self.add_response(
@@ -347,25 +381,35 @@ class S3Stubber(ExampleStubber):
             self.add_client_error(
                 'head_object',
                 expected_params=expected_params,
-                service_error_code=error_code
+                service_error_code=error_code,
+                response_meta=response_meta
             )
 
-    def stub_list_objects(self, bucket_name, object_keys=None, prefix=None):
+    def stub_list_objects(self, bucket_name, object_keys=None, prefix=None,
+                          error_code=None):
         if not object_keys:
             object_keys = []
 
         expected_params = {'Bucket': bucket_name}
         if prefix:
             expected_params['Prefix'] = prefix
-        self.add_response(
-            'list_objects',
-            expected_params=expected_params,
-            service_response={
-                'Contents': [{
-                    'Key': key
-                } for key in object_keys]
-            }
-        )
+
+        if not error_code:
+            self.add_response(
+                'list_objects',
+                expected_params=expected_params,
+                service_response={
+                    'Contents': [{
+                        'Key': key
+                    } for key in object_keys]
+                }
+            )
+        else:
+            self.add_client_error(
+                'list_objects',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
 
     def stub_delete_objects(self, bucket_name, object_keys):
         self.add_response(
@@ -456,4 +500,40 @@ class S3Stubber(ExampleStubber):
                     'ID': '123456789EXAMPLE'
                 }
             }
+        )
+
+    def stub_list_object_versions(self, bucket_name, prefix=None, versions=None,
+                                  delete_markers=None, max_keys=None, error_code=None):
+        expected_params = {'Bucket': bucket_name}
+        if prefix:
+            expected_params['Prefix'] = prefix
+        if max_keys:
+            expected_params['MaxKeys'] = max_keys
+        if not error_code:
+            response = {}
+            if versions:
+                response['Versions'] = versions
+            if delete_markers:
+                response['DeleteMarkers'] = delete_markers
+            self.add_response(
+                'list_object_versions',
+                expected_params=expected_params,
+                service_response=response
+            )
+        else:
+            self.add_client_error(
+                'list_object_versions',
+                expected_params=expected_params,
+                service_error_code=error_code
+            )
+
+    def stub_delete_object_versions(self, bucket_name, obj_key_versions,
+                                    error_code=None):
+        self._stub_bifurcator(
+            'delete_objects',
+            expected_params={
+                'Bucket': bucket_name,
+                'Delete': {'Objects': obj_key_versions}
+            },
+            error_code=error_code
         )

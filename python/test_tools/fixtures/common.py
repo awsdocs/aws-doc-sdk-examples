@@ -147,3 +147,30 @@ def fixture_make_bucket(request, make_unique_name):
         return bucket
 
     return _make_bucket
+
+
+class StubController:
+    default_error = 'TestException'
+
+    def __init__(self):
+        self.stubs = []
+
+    def add(self, func, args=None, kwargs=None):
+        if not kwargs:
+            kwargs = {}
+        self.stubs.append({'func': func, 'args': args, 'kwargs': kwargs})
+
+    def run(self, func_name=None, error_code=default_error, stop_on_error=True,
+            stop_always=False):
+        for index, stub in enumerate(self.stubs):
+            stub_error = error_code if func_name == stub['func'].__name__ else None
+            stub['func'](*stub['args'], **stub['kwargs'], error_code=stub_error)
+            if stop_always:
+                break
+            elif stop_on_error and stub_error:
+                break
+
+
+@pytest.fixture
+def stub_controller():
+    return StubController()
