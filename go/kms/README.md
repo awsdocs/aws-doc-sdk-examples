@@ -1,8 +1,8 @@
-# AWS SDK for Go code examples for AWS Key Management Service (AWS KMS)
+# AWS SDK for Go code examples for AWS KMS
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS KMS operations.
+These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) operations.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ The unit test mocks the service client and the `CreateKey` function.
 
 ### DecryptData/DecryptData.go
 
-This example decrypts some text that was encrypted with an AWS Key Management Service (AWS KMS) customer master key (CMK).
+This example decrypts some text that was encrypted with an AWS KMS customer master key (CMK).
 
 `go run DecryptData.go -d DATA`
 
@@ -62,7 +62,7 @@ The unit test mocks the service client and the `ReEncrypt` function.
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
+  in the *AWS Identity and Access Management User Guide*.
 - This code has not been tested in all AWS Regions.
   Some AWS services are available only in specific
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -86,11 +86,11 @@ PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter the following.
+To see any log messages, enter the following.
 
 `go test -test.v`
 
-You should see some additional log messages.
+You should see additional log messages.
 The last two lines should be similar to the previous output shown.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

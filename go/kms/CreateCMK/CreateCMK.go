@@ -14,7 +14,7 @@ import (
 )
 // snippet-end:[kms.go.create_key.imports]
 
-// MakeKey creates AWS Key Management Service (AWS KMS) customer master key (CMK).
+// MakeKey creates an AWS Key Management Service (AWS KMS) customer master key (CMK).
 // Inputs:
 //     svc is an AWS KMS service client
 //     key is the name of the key
