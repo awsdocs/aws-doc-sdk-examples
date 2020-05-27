@@ -1,0 +1,13 @@
+files:
+  - path: MakeFunction/MakeFunction.go
+    services:
+      - lambda
+  - path: MakeFunction/MakeFunction_test.go
+    services:
+      - lambda
+  - path: ShowFunctions/ShowFunctions.go
+    services:
+      - lambda
+  - path: ShowFunctions/ShowFunctions_test.go
+    services:
+      - lambda
