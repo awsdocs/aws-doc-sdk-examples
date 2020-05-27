@@ -1,71 +1,42 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.python.codeexample.MoviesItemOps03a] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-from __future__ import print_function # Python 2/3 compatibility
+"""
+Purpose
+
+Shows how to update an item in an Amazon DynamoDB table that stores movies.
+The update is performed in two steps:
+    1. The item is retrieved by using its primary and secondary keys.
+    2. The item is updated on the client and put into the table with updated data.
+The item is retrieved again to verify the update was made as expected.
+"""
+
+# snippet-start:[dynamodb.python.codeexample.MoviesItemOps03a]
+from decimal import Decimal
+from pprint import pprint
 import boto3
-import json
-import decimal
 
-# Helper class to convert a DynamoDB item to JSON.
-class DecimalEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, decimal.Decimal):
-            if o % 1 > 0:
-                return float(o)
-            else:
-                return int(o)
-        return super(DecimalEncoder, self).default(o)
 
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+def update_movie(title, year, rating, plot, actors, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-table = dynamodb.Table('Movies')
+    table = dynamodb.Table('Movies')
 
-title = "The Big New Movie"
-year = 2015
+    resp = table.get_item(Key={'year': year, 'title': title})
+    item = resp['Item']
+    item['info']['rating'] = Decimal(rating)
+    item['info']['plot'] = plot
+    item['info']['actors'] = actors
 
-response = table.get_item(
-    Key={
-        'year': year,
-        'title': title
-    })
+    table.put_item(Item=item)
+    return table.get_item(Key={'year': year, 'title': title})['Item']
 
-item = response['Item']
 
-item['info']['rating'] = decimal.Decimal(5.5)
-item['info']['plot'] = "Everything happens all at once."
-item['info']['actors'] = ["Larry", "Moe", "Curly"]
-
-table.put_item(Item=item)
-
-response = table.get_item(
-    Key={
-        'year': year,
-        'title': title
-    })
-item = response['Item']
-
-print(json.dumps(item, indent=4, cls=DecimalEncoder))
+if __name__ == '__main__':
+    movie = update_movie(
+        "The Big New Movie", 2015, 5.5, "Everything happens all at once.",
+        ["Larry", "Moe", "Curly"])
+    print("Update movie succeeded:")
+    pprint(movie, sort_dicts=False)
 # snippet-end:[dynamodb.python.codeexample.MoviesItemOps03a]
