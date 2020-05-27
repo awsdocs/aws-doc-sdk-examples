@@ -8,6 +8,7 @@ When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto 3 client.
 """
 
+import datetime
 import io
 import json
 from botocore.stub import ANY
@@ -36,15 +37,24 @@ class StsStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_get_caller_identity(self, account_id, error_code=None):
-        if not error_code:
-            self.add_response(
-                'get_caller_identity',
-                expected_params={},
-                service_response={'Account': account_id}
-            )
-        else:
-            self.add_client_error(
-                'get_caller_identity',
-                expected_params={},
-                service_error_code=error_code
-            )
+        response = {'Account': account_id}
+        self._stub_bifurcator(
+            'get_caller_identity', response=response, error_code=error_code)
+
+    def stub_assume_role(self, role_arn, session_name, mfa_serial_number=None,
+                         mfa_totp=None, error_code=None):
+        expected_params = {'RoleArn': role_arn, 'RoleSessionName': session_name}
+        if mfa_serial_number is not None:
+            expected_params['SerialNumber'] = mfa_serial_number
+        if mfa_totp is not None:
+            expected_params['TokenCode'] = mfa_totp
+        response = {
+            'Credentials': {
+                'AccessKeyId': 'test-access-key-id',
+                'SecretAccessKey': 'test-secret-key',
+                'SessionToken': 'test-session-token',
+                'Expiration': datetime.datetime.now() + datetime.timedelta(minutes=5)
+            }
+        }
+        self._stub_bifurcator(
+            'assume_role', expected_params, response, error_code=error_code)
