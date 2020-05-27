@@ -8,7 +8,7 @@ The DynamoDB enhanced client lets you map your client-side classes to Amazon Dyn
 * Perform various create, read, update, and delete (CRUD) operations
 * Execute queries
 
-**Note:** For more information about the DynamoDB enhanced client, see https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb-enhanced.html. 
+**Note:** For more information about the DynamoDB enhanced client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb-enhanced.html). 
 
 The following shows the application you'll create.
 
