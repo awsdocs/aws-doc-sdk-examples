@@ -22,11 +22,11 @@ After the table is updated with a new item, a text message is sent to notify a m
 
 ![AWS Blog Application](images/phone2.png)
 
-This development article guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
+This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
 
 ## Prerequisites
 
-To create the application, you need the following items in your development environment:
+To follow along with the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this example uses IntelliJ)
@@ -650,5 +650,5 @@ You need **/greeting** at the end of the URL so that a request is made to the /g
 
 ![AWS Blog Application](images/greet15.png)
 
-You have created your first Web application that interacts with AWS services. 
+You have created your first Web application that interacts with AWS services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
