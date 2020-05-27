@@ -17,7 +17,7 @@ import (
 )
 // snippet-end:[glacier.go.upload_archive.imports]
 
-// ArchiveFile archives a file in an Amazon Simple Storage Service Glacier vault.
+// ArchiveFile archives a file in an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.
 // Inputs:
 //     svc is an Amazon S3 Glacier service client
 //     vaultName is the name of the vault
@@ -71,7 +71,7 @@ func main() {
     flag.Parse()
 
     if *vaultName == "" || *fileName == "" {
-        fmt.Println("You must supply a vault name and filename")
+        fmt.Println("You must supply a vault name and file name")
         fmt.Println("-v VAULT-NAME -f FILE-NAME")
         return
     }
