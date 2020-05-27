@@ -636,7 +636,7 @@ If this is your first time accessing this service, you see the **Welcome to AWS 
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
 12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.
 
-**NOTE:** If you don't know how to set variables, see https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html.
+**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
 13. Once the variables are configured, you'll see the URL for accessing the application. 
 
