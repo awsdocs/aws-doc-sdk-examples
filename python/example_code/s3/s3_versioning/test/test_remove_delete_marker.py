@@ -5,6 +5,7 @@
 Unit tests for remove_delete_marker.py functions.
 """
 
+import json
 from urllib import parse
 import pytest
 
@@ -28,6 +29,9 @@ def test_remove_delete_marker(make_stubber, make_unique_name, make_event, make_r
 
     result = remove_delete_marker.lambda_handler(event, None)
     assert result == make_result('Succeeded')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
 
 
 def test_remove_delete_marker_not_deleted(
@@ -43,6 +47,9 @@ def test_remove_delete_marker_not_deleted(
 
     result = remove_delete_marker.lambda_handler(event, None)
     assert result == make_result('PermanentFailure')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
 
 
 def test_remove_delete_marker_no_delete_marker(
@@ -61,6 +68,9 @@ def test_remove_delete_marker_no_delete_marker(
 
     result = remove_delete_marker.lambda_handler(event, None)
     assert result == make_result('PermanentFailure')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
 
 
 @pytest.mark.parametrize('error_code', ['TestException', 'RequestTimeout'])
@@ -85,3 +95,6 @@ def test_remove_delete_marker_delete_fails(
         assert result == make_result('TemporaryFailure')
     else:
         assert result == make_result('PermanentFailure')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
