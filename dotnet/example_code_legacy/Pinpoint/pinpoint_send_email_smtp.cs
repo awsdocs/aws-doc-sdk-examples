@@ -57,7 +57,7 @@ namespace PinpointEmailSMTP
         // Replace smtp_username with your Amazon Pinpoint SMTP user name.
         static string smtpUsername = "AKIAIOSFODNN7EXAMPLE";
 
-        // Replace smtp_password with your Amazon Pinpoint SMTP user name.
+        // Replace smtp_password with your Amazon Pinpoint SMTP password.
         static string smtpPassword = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
 
         // (Optional) the name of a configuration set to use for this message.

@@ -5,6 +5,7 @@
 Unit tests for revise_stanza.py functions.
 """
 
+import json
 import pytest
 
 import revise_stanza
@@ -38,6 +39,9 @@ def test_revise_stanza(make_stubber, make_unique_name, make_event, make_result,
 
     result = revise_stanza.lambda_handler(event, None)
     assert result == make_result('Succeeded')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
 
 
 def test_revise_stanza_object_not_exist(make_stubber, make_event, make_result):
@@ -49,6 +53,9 @@ def test_revise_stanza_object_not_exist(make_stubber, make_event, make_result):
 
     result = revise_stanza.lambda_handler(event, None)
     assert result == make_result('Succeeded')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
 
 
 def test_revise_stanza_not_authorized(make_stubber, make_event, make_result):
@@ -60,6 +67,9 @@ def test_revise_stanza_not_authorized(make_stubber, make_event, make_result):
 
     result = revise_stanza.lambda_handler(event, None)
     assert result == make_result('PermanentFailure')
+    for res in result['results']:
+        # S3 processor serializes to JSON. Make sure it works.
+        json.dumps(res['resultString'])
 
 
 def test_revise_stanza_bad_revision(make_stubber, make_event):

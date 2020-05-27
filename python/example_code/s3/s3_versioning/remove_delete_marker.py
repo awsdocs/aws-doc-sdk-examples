@@ -87,7 +87,7 @@ def lambda_handler(event, context):
     except Exception as error:
         # Mark all other exceptions as permanent failures.
         result_code = 'PermanentFailure'
-        result_string = error
+        result_string = str(error)
         logger.exception(error)
     finally:
         results.append({
