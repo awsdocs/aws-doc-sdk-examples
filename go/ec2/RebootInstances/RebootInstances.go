@@ -16,7 +16,7 @@ import (
 )
 // snippet-end:[ec2.go.reboot_instances.imports]
 
-// RestartInstance reboots Amazon Elastic Compute Cloud (Amazon EC2) instance.
+// RestartInstance reboots an Amazon EC2 instance.
 // Inputs:
 //     svc is an Amazon EC2 service client
 //     instanceID is the ID of an instance
@@ -25,7 +25,7 @@ import (
 //     Otherwise, an error from the call to RebootInstances
 func RestartInstance(svc ec2iface.EC2API, instanceID *string) error {
     // snippet-start:[ec2.go.reboot_instances.call]
-    // Set DryRun to true to check to see if the instance exists and we have the
+    // Set DryRun to true to check whether the instance exists and we have the
     // necessary permissions to monitor the instance.
     input := &ec2.RebootInstancesInput{
         InstanceIds: []*string{
@@ -37,9 +37,9 @@ func RestartInstance(svc ec2iface.EC2API, instanceID *string) error {
     awsErr, ok := err.(awserr.Error)
 
     // If the error code is `DryRunOperation` it means we have the necessary
-    // permissions to Start this instance
+    // permissions to start this instance
     if ok && awsErr.Code() == "DryRunOperation" {
-        // Let's now set dry run to be false. This will allow us to reboot the instances
+        // Set DryRun to false to reboot the instance
         input.DryRun = aws.Bool(false)
         _, err := svc.RebootInstances(input)
         // snippet-end:[ec2.go.reboot_instances.call]

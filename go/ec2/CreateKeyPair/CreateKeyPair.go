@@ -14,7 +14,7 @@ import (
 )
 // snippet-end:[ec2.go.create_key_pair.imports]
 
-// MakeKeyPair creates a new Amazon Elastic Compute Cloud (Amazon EC2) key pair.
+// MakeKeyPair creates a Amazon Elastic Compute Cloud (Amazon EC2) key pair.
 // Inputs:
 //     svc is an Amazon EC2 service client
 //     keyName is the name of the key pair
@@ -53,7 +53,7 @@ func main() {
     svc := ec2.New(sess)
     // snippet-end:[ec2.go.create_key_pair.session]
 
-    // Creates a new  key pair with the given name
+    // Creates a key pair with the given name
     result, err := MakeKeyPair(svc, keyName)
     if err != nil {
         fmt.Println("Got an error creating the key pair:")

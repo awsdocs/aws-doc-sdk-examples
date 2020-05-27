@@ -31,11 +31,11 @@ func GetRegions(sess *session.Session) (*ec2.DescribeRegionsOutput, error) {
     return resultRegions, nil
 }
 
-// GetZones retrieves the availability zones within the current region.
+// GetZones retrieves the Availability Zones within the current AWS Region.
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 // Output:
-//     If success, the list of availability zones and nil
+//     If success, the list of Availability Zones and nil
 //     Otherwise, nil and an error from the call to
 func GetZones(sess *session.Session) (*ec2.DescribeAvailabilityZonesOutput, error) {
     svc := ec2.New(sess)
@@ -59,24 +59,24 @@ func main() {
 
     resultRegions, err := GetRegions(sess)
     if err != nil {
-        fmt.Println("Got an error retrieving the regions:")
+        fmt.Println("Got an error retrieving the Regions:")
         fmt.Println(err)
         return
     }
 
     resultAvalZones, err := GetZones(sess)
     if err != nil {
-        fmt.Println("Got an error retrieving the availability zones:")
+        fmt.Println("Got an error retrieving the Availability Zones:")
         fmt.Println(err)
         return
     }
 
     // snippet-start:[ec2.go.regions_and_zones.display]
-    fmt.Println("Regions:", resultRegions.Regions)
+    fmt.Println("AWS Regions:", resultRegions.Regions)
     fmt.Println("")
     fmt.Println("Zones:  ", resultAvalZones.AvailabilityZones)
     fmt.Println("")
-    fmt.Println("Found", len(resultRegions.Regions), "regions; found", len(resultAvalZones.AvailabilityZones), "availability zones", "in", *sess.Config.Region)
+    fmt.Println("Found", len(resultRegions.Regions), "AWS Regions; found", len(resultAvalZones.AvailabilityZones), "Availability Zones", "in", *sess.Config.Region)
     // snippet-end:[ec2.go.regions_and_zones.display]
 }
 // snippet-end:[ec2.go.regions_and_zones]

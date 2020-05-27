@@ -16,7 +16,7 @@ import (
 )
 // snippet-end:[ec2.go.create_new_security_group.imports]
 
-// MakeSecurityGroup creates a new security group with access to ports 80 and 22 access.
+// MakeSecurityGroup creates a security group with access to ports 80 and 22 access.
 // Inputs:
 //     svc is an Amazon EC2 service client
 //     name is the name of the security group
@@ -26,7 +26,7 @@ import (
 //     If success, the ID of the VPC, ID of the group, and nil
 //     Otherwise, two empty strings and an error from the call to DescribeVpcs, CreateSecurityGroup, or AuthorizeSecurityGroupIngress
 func MakeSecurityGroup(svc ec2iface.EC2API, name, description, vpcID *string) (string, string, error) {
-    // If the VPC ID wasn't provided in the CLI retrieve the first in the account.
+    // If the VPC ID wasn't provided in the CLI, retrieve the first in the account.
     vID := *vpcID
     gID := ""
     // snippet-start:[ec2.go.create_new_security_group.vpcid]
@@ -44,7 +44,7 @@ func MakeSecurityGroup(svc ec2iface.EC2API, name, description, vpcID *string) (s
     }
     // snippet-end:[ec2.go.create_new_security_group.vpcid]
 
-    // Create the security group with the VPC, name and description.
+    // Create the security group with the VPC, name, and description.
     // snippet-start:[ec2.go.create_new_security_group.call]
     result, err := svc.CreateSecurityGroup(&ec2.CreateSecurityGroupInput{
         GroupName:   name,
@@ -63,7 +63,7 @@ func MakeSecurityGroup(svc ec2iface.EC2API, name, description, vpcID *string) (s
     _, err = svc.AuthorizeSecurityGroupIngress(&ec2.AuthorizeSecurityGroupIngressInput{
         GroupName: name,
         IpPermissions: []*ec2.IpPermission{
-            // Can use setters to simplify seting multiple values without the
+            // Can use setters to simplify setting multiple values without
             // needing to use aws.String or associated helper utilities.
             (&ec2.IpPermission{}).
                 SetIpProtocol("tcp").

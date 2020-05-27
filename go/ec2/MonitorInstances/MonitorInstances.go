@@ -19,7 +19,7 @@ import (
 // EnableMonitoring enables monitoring for an Amazon EC2 instance.
 // Inputs:
 //     svc is an Amazon EC2 service client
-//     instanceID is ID of an instance
+//     instanceID is the ID of an instance
 // Output:
 //     If success, the SOMETHING of the RESOURCE and nil
 //     Otherwise, an empty string and an error from the call to FUNCTION
@@ -51,7 +51,7 @@ func EnableMonitoring(svc ec2iface.EC2API, instanceID *string) (*ec2.MonitorInst
 // DisableMonitoring disable monitoring for an Amazon EC2 instance.
 // Inputs:
 //     svc is an Amazon EC2 service client
-//     instanceID is ID of an instance
+//     instanceID is the ID of an instance
 // Output:
 //     If success, the SOMETHING of the RESOURCE and nil
 //     Otherwise, an empty string and an error from the call to FUNCTION
@@ -87,7 +87,7 @@ func main() {
 
     if *instanceID == "" || (*monitor != "ON" && *monitor != "OFF") {
         fmt.Println("You must supply the ID of the instance to enable/disable monitoring (-i INSTANCE-ID)")
-        fmt.Println("and whether to enable monitoring (-m ON) of disable monitoring (-m OFF)")
+        fmt.Println("and whether to enable monitoring (-m ON) or disable monitoring (-m OFF)")
         return
     }
     // snippet-end:[ec2.go.monitor_instances.args]

@@ -1,8 +1,8 @@
-# AWS SDK for Go code examples for Amazon Elastic Compute Cloud (Amazon EC2)
+# AWS SDK for Go code examples for Amazon EC2
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon EC2 operations.
+These examples demonstrate how to perform several Amazon Elastic Compute Cloud (Amazon EC2) operations.
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ The unit test mocks the service client and the `RunInstances` and `CreateTags` f
 
 ### CreateKeyPair/CreateKeyPair.go
 
-This example creates a new Amazon EC2 key pair.
+This example creates an Amazon EC2 key pair.
 
 `go run CreateKeyPair.go -k KEY-NAME`
 
@@ -70,7 +70,7 @@ The unit test mocks the service client and the `DescribeVpcs`, `CreateSecurityGr
 
 ### DeleteKeyPair/DeleteKeyPair.go
 
-This example deletes a new Amazon EC2 key pair.
+This example deletes an Amazon EC2 key pair.
 
 `go run DeleteKeyPair.go -k KEY-NAME`
 
@@ -135,15 +135,15 @@ The unit test mocks the service client and the `RebootInstances` function.
 
 ### RegionsAndZones/RegionsAndZones.go
 
-This example lists the regions where Amazon EC2 is available,
-and the availability zones within the current AWS Region.
+This example lists the AWS Regions where Amazon EC2 is available,
+and the Availability Zones within the current AWS Region.
 
 `go run RegionsAndZones.go`
 
 ### ReleaseAddress/ReleaseAddress.go
 
 This example releases an Elastic IP address.
-If the address is associated with a EC2 instance, the association is removed.
+If the address is associated with an Amazon EC2 instance, the association is removed.
 
 `go run ReleaseAddress.go -a ALLOCATION-ID`
 
@@ -192,11 +192,11 @@ PASS
 ok      PATH 6.593s
 ```
 
-If you want to see any log messages, enter the following.
+To see any log messages, enter the following.
 
 `go test -test.v`
 
-You should see some additional log messages.
+You should see additional log messages.
 The last two lines should be similar to the previous output shown.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

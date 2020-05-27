@@ -12,7 +12,7 @@ import (
 )
 // snippet-end:[ec2.go.describe_keypairs.imports]
 
-// GetKeyPairs retrieves a list of Key Pairs stored in Amazon EC2.
+// GetKeyPairs retrieves a list of key pairs stored in Amazon EC2.
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 // Output:

@@ -19,7 +19,7 @@ import (
 // StartInstance starts an Amazon EC2 instance.
 // Inputs:
 //     svc is an Amazon EC2 service client
-//     instance ID is the ID of the instance
+//     instanceID is the ID of the instance
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to StartInstances
@@ -35,7 +35,7 @@ func StartInstance(svc ec2iface.EC2API, instanceID *string) error {
     awsErr, ok := err.(awserr.Error)
 
     if ok && awsErr.Code() == "DryRunOperation" {
-        // Let's now set dry run to be false. This will allow us to start the instances
+        // Set DryRun to be false to enable starting the instances
         input.DryRun = aws.Bool(false)
         _, err = svc.StartInstances(input)
         // snippet-end:[ec2.go.start_stop_instances.start]
@@ -113,7 +113,7 @@ func main() {
     } else if *state == "STOP" {
         err := StopInstance(svc, instanceID)
         if err != nil {
-            fmt.Println("Got an error stopping instance")
+            fmt.Println("Got an error stopping the instance")
             fmt.Println(err)
             return
         }

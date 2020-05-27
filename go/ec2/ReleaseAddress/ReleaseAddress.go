@@ -15,7 +15,7 @@ import (
 // snippet-end:[ec2.go.release_address.imports]
 
 // ClearAddress releases an Elastic IP address.
-// If the address is associated with a EC2 instance, the association is removed.
+// If the address is associated with an Amazon EC2 instance, the association is removed.
 // Inputs:
 //     svc is an Amazon EC2 service client
 //     allocationID is the ID of the Elastic IP address
