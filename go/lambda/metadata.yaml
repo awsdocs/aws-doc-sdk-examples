@@ -1,8 +1,20 @@
 files:
+  - path: ConfigureFunction/ConfigureFunction.go
+    services:
+      - lambda
+  - path: ConfigureFunction/ConfigureFunction_test.go
+    services:
+      - lambda
   - path: MakeFunction/MakeFunction.go
     services:
       - lambda
   - path: MakeFunction/MakeFunction_test.go
+    services:
+      - lambda
+  - path: RunFunction/RunFunction.go
+    services:
+      - lambda
+  - path: RunFunction/RunFunction_test.go
     services:
       - lambda
   - path: ShowFunctions/ShowFunctions.go

@@ -13,6 +13,17 @@ in the _AWS SDK for Go Developer Guide_.
 
 ## Running the code
 
+### ConfigureFunction/ConfigureFunction.go
+
+This example enables an Amazon S3 bucket to send notifications to a Lambda function.
+
+`go run ConfigureFunction.go -f FUNCTION -a ARN`
+
+- _FUNCTION_ is the name of the Lambda function.
+- _ARN_ is the ARN of the S3 bucket sending a notification to the function.
+
+The unit test mocks the service client and the `AddPermission` function.
+
 ### MakeFunction/MakeFunction.go
 
 This example creates a Lambda function.
@@ -27,6 +38,18 @@ This example creates a Lambda function.
 - _RUNTIME_ is the identifier of the function's runtime.
 
 The unit test mocks the service client and the `CreateFunction` function.
+
+### RunFunction/RunFunction.go
+
+This example executes a Lambda function.
+
+`go run RunFunction.go -f FUNCTION -f FUNCTION [-m MAX-ITEMS]`
+
+- _FUNCTION_ is the name of the Lambda function to call.
+- _MAX-ITEMS_ is the maximum number of items to retrieve.
+  This argument is optional, and if not supplied, defaults to 10.
+
+The unit test mocks the service client and the `Invoke` function.
 
 ### ShowFunctions/ShowFunctions.go
 
