@@ -2,7 +2,7 @@
 
 A README that discusses how to run and test the Java Amazon Polly Service code examples.
 
-## Running the Java Amazon SES Java files
+## Running the Amazon Polly Java files
 
 **IMPORTANT**
 
