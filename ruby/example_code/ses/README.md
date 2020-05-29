@@ -61,7 +61,7 @@ addresses.
 This example shows how to use the AWS SDK for Ruby to send a message to an Amazon
 SES email address. 
 
-####Response Elements
+####Response elements
 `MessageId`
 - The unique message identifier returned from the `SendEmail` action.
 - *Type* -  String.
@@ -72,10 +72,10 @@ SES email address.
 This example provides instruction on how to use the AWS SDK for Ruby to verify an
 Amazon SES email address.
 
-####Response Elements
+####Response elements
 `MessageId`
 - The unique message identifier returned from the `SendEmail` action.
-- *Type* String
+- *Type* - String
 
 
 ## Testing the Amazon SES Ruby files

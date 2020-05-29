@@ -26,25 +26,25 @@ module Aws
     resp  = client.batch_get_item({
     request_items: {
                 'Movies': {
-                keys: [
+                   keys: [
                      {
-                'Year': '2005',
-                'MovieTitle': 'The Big New Movie',
-                'Plot': 'Action',
-                'Rating':'Excellent'
-            },
-                 'Year': '2009',
-                 'MovieTitle': 'A Nature Documentary',
-                 'Plot': 'Documentary Short',
-                 'Rating': 'Fair'
-            },
-            {
-                 'Year': '1983',
-                 'MovieTitle': 'An Animated Fairy Tale',
-                 'Plot': 'Children Fiction',
-                 'Rating': 'Good'
-            },
-        ],
+                       'Year': '2005',
+                       'MovieTitle': 'The Big New Movie',
+                       'Plot': 'Action',
+                       'Rating':'Excellent'
+                     },
+                        'Year': '2009',
+                        'MovieTitle': 'A Nature Documentary',
+                        'Plot': 'Documentary Short',
+                        'Rating': 'Fair'
+                     },
+                     {
+                        'Year': '1983',
+                        'MovieTitle': 'An Animated Fairy Tale',
+                        'Plot': 'Children Fiction',
+                        'Rating': 'Good'
+                     },
+                      ],
 # To parse the response by item, we include the primary key values for the items in our request with the
 # projection_expression parameter
         projection_expression: 'FilmDirector, MonthsInTheatre, AcademyAwardWinnerStatus',
@@ -55,20 +55,20 @@ module Aws
     resp  = client.batch_get_item({
     request_items: {
                'Plays': {
-               keys: [
-            {
-                'Year': '2019',
-                'PlayTitle': 'King Sear',
-                'Plot': 'Tragedy',
-                'Rating': 'Poor'
-            },
-            {
-                'Year': '1913',
-                'PlayTitle': 'A Midautumn Night's Dream',
-                'Plot': 'Comedy',
-                'Rating': 'Excellent'
-            },
-        ],
+                  keys: [
+                   {
+                     'Year': '2019',
+                     'PlayTitle': 'King Sear',
+                     'Plot': 'Tragedy',
+                     'Rating': 'Poor'
+                   },
+                   {
+                     'Year': '1913',
+                     'PlayTitle': 'A Midautumn Night's Dream',
+                     'Plot': 'Comedy',
+                     'Rating': 'Excellent'
+                   },
+                ],
         projection_expression: 'PlayDirector, WeeksInTheatre, TonyAwardWinnerStatus',
             }
          },
@@ -77,36 +77,36 @@ module Aws
 resp.to_h outputs the following:
 {
     responses: {
-        'Movies': [
-            {
-                'FilmDirector': 'John Doe',
-                'MonthsInTheatre': '9',
-                'AcademyAwardWinnerStatus': 'Yes'
-            },
-            {
-                'FilmDirector': 'Jane Doe',
-                'MonthsInTheatre': '4',
-                'AcademyAwardWinnerStatus': 'No'
-            },
-            {
-                'FilmDirector': 'Mr. Director',
-                'MonthsInTheatre': '2',
-                'AcademyAwardWinnerStatus': 'Yes'
-            },
-        ],
-        'Plays': [
-            {
-                'PlayDirector': 'Willy Shakes',
-                'WeeksInTheatre': '3',
-                'TonyAwardWinnerStatus': 'No'
-            },
-            {
-                'PlayDirector': 'W.E. Shakingspear',
-                'WeeksInTheatre': '23',
-                'TonyAwardWinnerStatus': 'Yes'
-            },
-        ],
-       }
+              'Movies': [
+                 {
+                    'FilmDirector': 'John Doe',
+                    'MonthsInTheatre': '9',
+                    'AcademyAwardWinnerStatus': 'Yes'
+                 },
+                 {
+                    'FilmDirector': 'Jane Doe',
+                    'MonthsInTheatre': '4',
+                    'AcademyAwardWinnerStatus': 'No'
+                 },
+                 {
+                    'FilmDirector': 'Mr. Director',
+                    'MonthsInTheatre': '2',
+                    'AcademyAwardWinnerStatus': 'Yes'
+                },
+                 ],
+               'Plays': [
+                {
+                    'PlayDirector': 'Willy Shakes',
+                    'WeeksInTheatre': '3',
+                    'TonyAwardWinnerStatus': 'No'
+                },
+                {
+                    'PlayDirector': 'W.E. Shakingspear',
+                    'WeeksInTheatre': '23',
+                    'TonyAwardWinnerStatus': 'Yes'
+                },
+             ],
+           }
 
 # batch_get_item retrieves the attributes of our items from the Movies table and Plays table in parallel to minimize
 # response latency.

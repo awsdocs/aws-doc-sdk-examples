@@ -22,8 +22,8 @@ module Aws
               :sendverifications, :verifications => [
               { :verification_emailaddressidentities => "example@amazon.com",
                 :verification_verificationstatus => "Verified" },
-              {  :verification_emailaddressidentities => "sample@amazon.com",
-                 :verification_verificationstatus => "Pending Verification (Resend)" }
+              { :verification_emailaddressidentities => "sample@amazon.com",
+                :verification_verificationstatus => "Pending Verification (Resend)" }
           ]
           )
           sendverification.sendverifications()

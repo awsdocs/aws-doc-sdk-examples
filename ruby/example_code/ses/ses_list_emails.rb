@@ -35,7 +35,7 @@ module Aws
             elsif identities.pending
               render json: {message: ['Verification Status: Pending']}, status: 202
             else identities.failed
-            render json: {message: ['The email address you entered does not appear to be valid.
+              render json: {message: ['The email address you entered does not appear to be valid.
                     Please try entering the email address again']}, status: 422
             end
           end

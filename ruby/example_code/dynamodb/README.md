@@ -14,7 +14,7 @@ as described in [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/s
 - AWS SDK for Ruby. For download and installation instructions, see [Installing the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html).
 - Ruby 2.6 or later. After you install Ruby, add the path to Ruby in your environment variables so that you can run 
 Ruby from any command prompt. 
-- RSpec 4.0 or later (to run unit tests)
+- RSpec 4.0 or later (to run unit tests).
 - Download and run Amazon DynamoDB on your computer. For more information, see 
 [Setting Up DynamoDB Local (Downloadable Version)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
 - Set up an AWS access key to use the AWS SDKs. For more information, 
@@ -92,7 +92,7 @@ identify retrievable items.
         
         ```CapacityUnits``` - The total number of capacity units consumed.
         
-        ```Type```: Array of ```ConsumedCapacity``` objects
+        ```Type``` - Array of ```ConsumedCapacity``` objects
        
       - Responses:
         A map of the table name to a list of items. Each object in Responses consists of a table name, with a map of 

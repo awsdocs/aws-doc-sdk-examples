@@ -60,7 +60,7 @@ notifications can be published. Users can create at most 100,000 topics.
 This example shows how to use the AWS SDK for Ruby to enable the resource with the 
 ARN to publish to the desired topic ARN.
 
-####Response Elements
+####Response elements
 Constructor details: `#initialize(options = {}) ⇒ Resource`
 - Returns a new instance of Resource.
 - *Parameters* options ({}) (defaults to: {})
@@ -101,7 +101,7 @@ on the authorization of the user.
 ####Response elements
 `TopicArn`
 - The ARN of the topic whose properties you want to get.
-- *Type* String
+- *Type* - String
 - Required: Yes
 
 

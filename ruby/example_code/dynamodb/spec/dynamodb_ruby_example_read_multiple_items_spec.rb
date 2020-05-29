@@ -29,8 +29,8 @@ RSpec.describe ReadMultipleItems do
            },
            ]
             'Plays': {
-              keys: [
-                  {
+                keys: [
+                   {
                          'Year': '2019',
                          'PlayTitle': 'King Sear',
                          'Plot': 'Tragedy',
