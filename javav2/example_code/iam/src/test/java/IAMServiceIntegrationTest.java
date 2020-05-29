@@ -2,7 +2,6 @@ import com.example.iam.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import software.amazon.awssdk.services.iam.model.*;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import java.io.*;
@@ -60,14 +59,8 @@ public class IAMServiceIntegrationTest {
     @Order(2)
     public void CreatUser() {
 
-        try {
-           String result = CreateUser.createIAMUser(iam, userName);
-            assertTrue(!result.isEmpty());
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        String result = CreateUser.createIAMUser(iam, userName);
+        assertTrue(!result.isEmpty());
         System.out.println("\n Test 2 passed");
     }
 
@@ -75,27 +68,17 @@ public class IAMServiceIntegrationTest {
     @Order(3)
     public void CreatePolicy() {
 
-         try {
-             policyARN = CreatePolicy.createIAMPolicy(iam, policyName);
-             assertTrue(!policyARN.isEmpty());
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 3 passed");
+         policyARN = CreatePolicy.createIAMPolicy(iam, policyName);
+         assertTrue(!policyARN.isEmpty());
+         System.out.println("\n Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void CreateAccessKey() {
 
-        try {
-            keyId = CreateAccessKey.createIAMAccessKey(iam,userName);
-            assertTrue(!keyId.isEmpty());
-           } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        keyId = CreateAccessKey.createIAMAccessKey(iam,userName);
+        assertTrue(!keyId.isEmpty());
         System.out.println("\n Test 4 passed");
     }
 
@@ -107,7 +90,7 @@ public class IAMServiceIntegrationTest {
             //Wait 20 secs for the policy to be created - otherwise the test fails
             TimeUnit.SECONDS.sleep(20);
             AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN );
-        } catch (IamException | InterruptedException e) {
+        } catch (InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -118,12 +101,7 @@ public class IAMServiceIntegrationTest {
     @Order(6)
     public void DetachRolePolicy() {
 
-        try {
-            DetachRolePolicy.detachPolicy(iam, roleName, policyARN);
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        DetachRolePolicy.detachPolicy(iam, roleName, policyARN);
         System.out.println("\n Test 6 passed");
     }
 
@@ -131,13 +109,7 @@ public class IAMServiceIntegrationTest {
     @Order(7)
     public void GetPolicy() {
 
-        try {
-            GetPolicy.getIAMPolicy(iam, policyARN);
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        GetPolicy.getIAMPolicy(iam, policyARN);
         System.out.println("\n Test 7 passed");
     }
 
@@ -145,12 +117,7 @@ public class IAMServiceIntegrationTest {
     @Order(8)
     public void ListAccessKeys() {
 
-        try {
-            ListAccessKeys.listKeys(iam,userName);
-        } catch (  IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        ListAccessKeys.listKeys(iam,userName);
         System.out.println("\n Test 8 passed");
     }
 
@@ -158,13 +125,7 @@ public class IAMServiceIntegrationTest {
     @Order(9)
     public void ListUsers() {
 
-       try {
-
-           ListUsers.listAllUsers(iam);
-       } catch (IamException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+       ListUsers.listAllUsers(iam);
        System.out.println("\n Test 9 passed");
    }
 
@@ -172,27 +133,15 @@ public class IAMServiceIntegrationTest {
     @Order(10)
    public void CreateAccountAlias() {
 
-        try {
-            CreateAccountAlias.createIAMAccountAlias(iam, accountAlias);
-
-        } catch (
-                IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 10 passed");
+       CreateAccountAlias.createIAMAccountAlias(iam, accountAlias);
+       System.out.println("\n Test 10 passed");
     }
 
     @Test
     @Order(11)
     public void DeleteAccountAlias() {
 
-        try {
-            DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias);
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias);
         System.out.println("\n Test 11 passed");
     }
 
@@ -200,26 +149,15 @@ public class IAMServiceIntegrationTest {
     @Order(12)
     public void DeletePolicy() {
 
-        try {
-            DeletePolicy.deleteIAMPolicy(iam, policyARN);
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 12 passed");
+       DeletePolicy.deleteIAMPolicy(iam, policyARN);
+       System.out.println("\n Test 12 passed");
     }
 
     @Test
     @Order(13)
    public void DeleteAccessKey() {
 
-       try {
-          DeleteAccessKey.deleteKey(iam, userName, keyId);
-       } catch (IamException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+       DeleteAccessKey.deleteKey(iam, userName, keyId);
        System.out.println("\n Test 13 passed");
    }
 
@@ -227,12 +165,7 @@ public class IAMServiceIntegrationTest {
     @Order(14)
     public void DeleteUser() {
 
-        try {
-            DeleteUser.deleteIAMUser(iam,userName);
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        DeleteUser.deleteIAMUser(iam,userName);
         System.out.println("\n Test 14 passed");
     }
 }

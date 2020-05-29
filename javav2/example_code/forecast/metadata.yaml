@@ -1,0 +1,29 @@
+--- 
+files:
+  - path: src/main/java/com/example/forecast/CreateDataSet.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/CreateForecast.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/DeleteDataset.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/DeleteForecast.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/DescribeForecast.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/ListDataSetGroups.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/ListDataSets.java
+    services:
+      - forecast
+  - path: src/main/java/com/example/forecast/ListForecasts.java
+    services:
+      - forecast      
+  - path: src/test/java/AWSAthenaServiceIntegrationTest.java
+    services:
+      - forecast

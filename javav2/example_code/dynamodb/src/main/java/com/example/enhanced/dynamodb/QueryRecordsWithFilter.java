@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[QueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.]
+//snippet-sourcedescription:[QueryRecordsWithFilter.java demonstrates how to query an Amazon DynamoDB table with a filter and by using a DynamoDbEnhancedClient object.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]

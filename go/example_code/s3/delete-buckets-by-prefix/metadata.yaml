@@ -1,6 +1,8 @@
 ---
 files:
   - path: s3_delete_buckets.go
-    service:
+    services:
       - s3
   - path: s3_delete_buckets_test.go
+    services:
+      - s3

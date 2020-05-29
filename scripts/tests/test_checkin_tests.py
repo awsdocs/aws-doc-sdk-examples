@@ -66,6 +66,14 @@ def test_verify_no_secret_keys(file_contents, expected_error_count):
     ("snippet" + "-start:[this.is.a.snippet.tag]\n"
      "This is not code.\n"
      "snippet" + "-end:[this.is.a.snippet.tag.with.extra.stuff]\n", 2),
+    ("snippet" + "-start:[this.is.a.snippet.tag]\n"
+     "snippet" + "-start:[this.is.a.snippet.tag]\n"
+     "This is not code.\n"
+     "snippet" + "-end:[this.is.a.snippet.tag]\n", 1),
+    ("snippet" + "-start:[this.is.a.snippet.tag]\n"
+      "This is not code.\n"
+      "snippet" + "-end:[this.is.a.snippet.tag]\n"
+      "snippet" + "-end:[this.is.a.snippet.tag]\n", 1),
 ])
 def test_verify_snippet_start_end(file_contents, expected_error_count):
     """Test that various kinds of mismatched snippet-start and -end tags are

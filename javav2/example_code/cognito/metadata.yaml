@@ -1,0 +1,35 @@
+--- 
+files:
+  - path: src/main/java/com/example/cognito/AddLoginProvider.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/CreateAdminUser.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/CreateIdentityPool.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/CreateUserPool.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/CreateUserPoolClient.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/DeleteUserPool.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/GetId.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/GetIdentityCredentials.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/ListUserPoolClients.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/ListUserPools.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/ListUsers.java
+    services:
+      - cognito    

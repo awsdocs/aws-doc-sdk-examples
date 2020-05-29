@@ -35,6 +35,7 @@ AWS.config.update({region: 'REGION'});
 var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 var params = {
+   // Remove DelaySeconds parameter and value for FIFO queues
   DelaySeconds: 10,
   MessageAttributes: {
     "Title": {
@@ -52,7 +53,7 @@ var params = {
   },
   MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
   // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
-  // MessageId: "Group1",  // Required for FIFO queues
+  // MessageGroupId: "Group1",  // Required for FIFO queues
   QueueUrl: "SQS_QUEUE_URL"
 };
 

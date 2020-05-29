@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateTable.java demonstrates how to use the Amazon DynamoDB enhanced client to create a table.]
+//snippet-sourcedescription:[CreateTable.java demonstrates how to use the DynamoDbEnhancedClient object to create a table.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]

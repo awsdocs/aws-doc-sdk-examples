@@ -50,10 +50,12 @@ public class AttachRolePolicy {
         String roleName = args[0];
         String policyArn = args[1];
 
+        // snippet-start:[iam.java2.attach_role_policy.client] 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
+        // snippet-end:[iam.java2.attach_role_policy.client]
 
         attachIAMRolePolicy(iam, roleName, policyArn);
     }

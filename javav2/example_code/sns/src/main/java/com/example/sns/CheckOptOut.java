@@ -43,7 +43,7 @@ public class CheckOptOut {
             System.out.println(USAGE);
             System.exit(1);
         }
-        //snippet-start:[sns.java2.CheckOptOut.main]
+        
         String phoneNumber = args[0];
 
         SnsClient snsClient = SnsClient.builder()

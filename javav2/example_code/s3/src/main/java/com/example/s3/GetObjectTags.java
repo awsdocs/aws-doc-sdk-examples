@@ -1,15 +1,15 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectTags.java demonstrates how to read tags that belong to an object located in an S3 bucket]
-// snippet-service:[S3]
+// snippet-sourcedescription:[GetObjectTags.java demonstrates how to read tags that belong to an object located in an Amazon S3 bucket]
+// snippet-service:[Amazon S3]
 // snippet-keyword:[SDK for Java 2.0]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-01-09]
-// snippet-sourceauthor:[AWS-scmacdon]
+//snippet-sourcedate:[2/6/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,9 +22,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
-// snippet-start:[s3.java2.getobjecttags.complete]
-
 package com.example.s3;
 
 // snippet-start:[s3.java2.getobjecttags.import]
@@ -42,20 +39,27 @@ public class GetObjectTags {
 
     public static void main(String[] args) {
 
-        if (args.length < 2) {
-            System.out.println("Please specify a bucket name and key name");
-            System.exit(1);
-        }
+         if (args.length < 2) {
+              System.out.println("Please specify a bucket name and key name");
+              System.exit(1);
+          }
 
-        // snippet-start:[s3.java2.getobjecttags.main]
         String bucketName = args[0];
         String keyName = args[1];
 
-        try {
-            Region region = Region.US_WEST_2;
-            S3Client s3 = S3Client.builder().region(region).build();
+        Region region = Region.US_WEST_2;
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
 
-            // create a GetObjectTaggingRequest instance
+        ListTags(s3,bucketName,keyName );
+    }
+
+    // snippet-start:[s3.java2.getobjecttags.main]
+    public static void ListTags (S3Client s3, String bucketName, String keyName ) {
+
+         try {
+           // create a GetObjectTaggingRequest instance
             GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest
                     .builder()
                     .key(keyName)
@@ -71,7 +75,6 @@ public class GetObjectTags {
             while(tagIterator.hasNext()) {
 
                 Tag tag = (Tag)tagIterator.next();
-
                 System.out.println(tag.key());
                 System.out.println(tag.value());
             }
@@ -82,4 +85,3 @@ public class GetObjectTags {
         // snippet-end:[s3.java2.getobjecttags.main]
     }
 }
-// snippet-end:[s3.java2.getobjecttags.complete]
