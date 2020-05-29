@@ -4,42 +4,50 @@
 package main
 
 import (
+    "errors"
     "testing"
     "time"
-    
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/SERVICE"
-    "github.com/aws/aws-sdk-go/service/SERVIVE/SERVICEiface"
+
+    "github.com/aws/aws-sdk-go/service/ses"
+    "github.com/aws/aws-sdk-go/service/ses/sesiface"
 )
 
 // Define a mock struct to use in unit tests
-//type mockSERVICEClient struct {
-//    SERVICEiface.SERVICEAPI
-//}
+type mockSESClient struct {
+    sesiface.SESAPI
+}
 
-// Then for every *real* call you make in the example:
-// func (m *mockSERVICEClient) API(input *SERVICE.APIInput) (*SERVIVE.APIOutput, error) {
-       // Check that required inputs exist
-       
-//     resp := SERVICE.APIOutput{}
-//     return &resp, nil
-// }
+func (m *mockSESClient) ListIdentities(input *ses.ListIdentitiesInput) (*ses.ListIdentitiesOutput, error) {
+    // Check that required inputs exist
+    if input.IdentityType == nil || *input.IdentityType == "" {
+        return nil, errors.New("ListIdentitiesInput.IdentityType is nil or an empty string")
+    }
 
-func Test???(t *testing.T) {
+    resp := ses.ListIdentitiesOutput{}
+    return &resp, nil
+}
+
+func (m *mockSESClient) GetIdentityVerificationAttributes(input *ses.GetIdentityVerificationAttributesInput) (*ses.GetIdentityVerificationAttributesOutput, error) {
+    // Check that required inputs exist
+    if input.Identities == nil {
+        return nil, errors.New("GetIdentityVerificationAttributesInput.Identities is nil")
+    }
+
+    resp := ses.GetIdentityVerificationAttributesOutput{}
+    return &resp, nil
+}
+
+func TestListAddresses(t *testing.T) {
     thisTime := time.Now()
     nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
     t.Log("Starting unit test at " + nowString)
 
-    // mock resource
-    RESOURCE := "test-RESOURCE"
+    mockSvc := &mockSESClient{}
 
-    mockSvc := &mockSERVICEClient{}
-
-    err := EXAMPLE(mockSvc, &RESOURCE)
+    _, err := GetAddresses(mockSvc)
     if err != nil {
         t.Fatal(err)
     }
 
-    t.Log("VERB RESOURCE " + RESOURCE)
+    t.Log("Retrieved email addresses")
 }
