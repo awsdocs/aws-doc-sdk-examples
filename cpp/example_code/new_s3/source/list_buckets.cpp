@@ -1,3 +1,19 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/*
+ * snippet-sourcedescription:[list_buckets.cpp demonstrates how to list all the buckets in an AWS account.]
+ * snippet-keyword:[C++]
+ * snippet-sourcesyntax:[cpp]
+ * snippet-keyword:[Code Sample]
+ * snippet-keyword:[Amazon S3]
+ * snippet-service:[s3]
+ * snippet-sourcetype:[full-example]
+ * snippet-sourcedate:[]
+ * snippet-sourceauthor:[AWS]
+ */
+
 #include <awsdoc/s3/s3_examples.h>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>

@@ -1,3 +1,18 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * snippet-sourcedescription:[list_objects.cpp demonstrates how to list the objects in an Amazon S3 bucket.]
+ * snippet-keyword:[C++]
+ * snippet-sourcesyntax:[cpp]
+ * snippet-keyword:[Code Sample]
+ * snippet-keyword:[Amazon S3]
+ * snippet-service:[s3]
+ * snippet-sourcetype:[full-example]
+ * snippet-sourcedate:[]
+ * snippet-sourceauthor:[AWS]
+ */
+
 #include <awsdoc/s3/s3_examples.h>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/memory/stl/AWSString.h>

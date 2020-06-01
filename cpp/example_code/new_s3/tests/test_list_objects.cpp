@@ -1,3 +1,8 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include <awsdoc/s3/s3_examples.h>
 #include <aws/core/Aws.h>
 
