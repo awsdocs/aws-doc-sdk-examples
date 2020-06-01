@@ -6,7 +6,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const char bucketName[] = "wangpush";
+        const char bucketName[] = "";
         if (!AwsDoc::S3::ListObjects(bucketName))
         {
             return 1;

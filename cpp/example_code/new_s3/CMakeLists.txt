@@ -20,11 +20,13 @@ if(NOT BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
+# Link to shared libraries.
+if(MSVC AND BUILD_SHARED_LIBS)
+    add_definitions(-DUSE_IMPORT_EXPORT)
+endif()
+
 # Locate the aws sdk for c++ package.
 find_package(AWSSDK REQUIRED COMPONENTS s3)
-
-# Link to shared libraries.
-add_definitions(-DUSE_IMPORT_EXPORT)
 
 # Header files
 file(GLOB AWSDOC_S3_HEADERS
@@ -49,11 +51,11 @@ foreach(file ${AWSDOC_S3_SOURCE})
     # Build example executables
     set(EXAMPLE_EXE run_${EXAMPLE})
 
-    if(USE_WINDOWS_DLL_SEMANTICS AND BUILD_SHARED_LIBS)
+    add_executable(${EXAMPLE_EXE} ${AWSDOC_S3_HEADERS} ${file})
+    if(MSVC AND BUILD_SHARED_LIBS)
+        target_compile_definitions(${EXAMPLE_EXE} PUBLIC "USE_IMPORT_EXPORT")
         target_compile_definitions(${EXAMPLE_EXE} PRIVATE "AWSDOC_S3_EXPORTS")
     endif()
-
-    add_executable(${EXAMPLE_EXE} ${AWSDOC_S3_HEADERS} ${file})
     target_include_directories(${EXAMPLE_EXE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
@@ -64,11 +66,11 @@ foreach(file ${AWSDOC_S3_SOURCE})
         # Build example libs
         set(EXAMPLE_LIB ${EXAMPLE})
 
-        if(USE_WINDOWS_DLL_SEMANTICS AND BUILD_SHARED_LIBS)
+        add_library(${EXAMPLE_LIB} ${AWSDOC_S3_HEADERS} ${file})
+        if(MSVC AND BUILD_SHARED_LIBS)
+            target_compile_definitions(${EXAMPLE_LIB} PUBLIC "USE_IMPORT_EXPORT")
             target_compile_definitions(${EXAMPLE_LIB} PRIVATE "AWSDOC_S3_EXPORTS")
         endif()
-
-        add_library(${EXAMPLE_LIB} ${AWSDOC_S3_HEADERS} ${file})
         target_include_directories(${EXAMPLE_LIB} PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>)
