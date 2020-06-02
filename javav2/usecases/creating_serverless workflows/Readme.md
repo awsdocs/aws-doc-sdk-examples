@@ -58,7 +58,9 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 #### Create an IAM role
 
 1. Open the AWS Management Console. When the screen loads, type **IAM** in the search bar, then select **IAM** to open the service console.
+
 2.  Choose **Roles** from the left column, and then choose **Create Role**. 
+
 3.	Choose **AWS Service** and choose **Lambda**.
 
 ![AWS Tracking Application](images/lambda21.png)
@@ -76,9 +78,13 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 ![AWS Tracking Application](images/lambda17.png)
 
 9.	Choose **Create role**. 
+
 10.	Click on **lambda-support** to view the overview page. 
+
 11.	Choose **Attach Policies**.
+
 12.	Search for **AmazonDynamoDBFullAccess** and choose **Attach policy**.
+
 13.	Search for **AmazonSESFullAccess** and choose **Attach policy**. Once done, you will see the permissions. 
 
 ![AWS Tracking Application](images/lambda16.png)
