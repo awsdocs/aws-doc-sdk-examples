@@ -119,19 +119,19 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
         "Type": "Task",
         "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
         "Next": "Assign Case"
-        }, 
-       "Assign Case": {
-       "Type": "Task",
-       "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
-       "Next": "Send Email"
-       },
-       "Send Email": {
-       "Type": "Task",
-       "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
-        "End": true
+          }, 
+         "Assign Case": {
+         "Type": "Task",
+         "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
+         "Next": "Send Email"
+         },
+         "Send Email": {
+         "Type": "Task",
+         "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
+         "End": true
+          }
+          }
          }
-        }
-       }
 **Note**: Do not worry about the errors related to the Lambda resource values. These values will be updated later in this tutorial. 
 
 5.	Choose **Next**. 
