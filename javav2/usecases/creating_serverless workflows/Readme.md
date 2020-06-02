@@ -25,13 +25,13 @@ To follow along with the tutorial, you need the following:
 
 + Understand the workflow.
 + Create an IAM role that is used to execute Lambda functions.
-+	Create a workflow by using AWS Step functions.
-+	Create an IntelliJ project named LambdaFunctions.
-+	Add the POM dependencies to your project.
-+	Create Lambda functions by using the Java Lambda API.
-+	Package the project that contains Lambda functions. 
-+	Deploy Lambda functions.
-+	Add Lambda functions to workflows.
++ Create a workflow by using AWS Step functions.
++ Create an IntelliJ project named LambdaFunctions.
++ Add the POM dependencies to your project.
++ Create Lambda functions by using the Java Lambda API.
++ Package the project that contains Lambda functions. 
++ Deploy Lambda functions.
++ Add Lambda functions to workflows.
 + Invoke the workflow from the AWS Console.
 
 **Note**: Before following this tutorial, create an Amazon DynamoDB table named Cases with a key named Id. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
@@ -43,9 +43,9 @@ The following figure shows the workflow that is created by following this tutori
 ![AWS Tracking Application](images/lambda1.png)
 
 The following describes each step: 
-+	**Open Case** – Handles a support ticket Id value (the id value is passed to the workflow). 
-+	**Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table. 
-+	**Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (SES) to inform them there is a new ticket. 
++ **Open Case** – Handles a support ticket Id value (the Id value is passed to the workflow). 
++ **Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table. 
++ **Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (SES) to inform them there is a new ticket. 
 
 ## Create an IAM role that is used to execute Lambda functions
 
