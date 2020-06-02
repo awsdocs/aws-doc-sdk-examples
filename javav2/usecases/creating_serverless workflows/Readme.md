@@ -42,6 +42,12 @@ The following figure shows the workflow that is created by following this tutori
 
 ![AWS Tracking Application](images/lambda1.png)
 
+The following describes each step: 
++	**Open Case** – Handles a support ticket Id value (the id value is passed to the workflow). 
++	**Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table. 
++	**Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (SES) to inform them there is a new ticket. 
+
+
 
 
 
