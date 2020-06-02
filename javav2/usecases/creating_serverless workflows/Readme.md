@@ -59,9 +59,9 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 
 1. Open the AWS Management Console. When the screen loads, type **IAM** in the search bar, then select **IAM** to open the service console.
 
-2.  Choose **Roles** from the left column, and then choose **Create Role**. 
+2. Choose **Roles** from the left column, and then choose **Create Role**. 
 
-3.	Choose **AWS Service** and choose **Lambda**.
+3. Choose **AWS service** and choose **Lambda**.
 
 ![AWS Tracking Application](images/lambda21.png)
 
