@@ -61,7 +61,7 @@ public class ListLexicons {
         // Get each voice
         while (iterator.hasNext()) {
             LexiconDescription lexDescription = iterator.next();
-            System.out.println("The name of the Lexicon is " +lexDescription.name());
+            System.out.println("The name of the lexicon is " +lexDescription.name());
         }
 
         } catch (PollyException e) {
