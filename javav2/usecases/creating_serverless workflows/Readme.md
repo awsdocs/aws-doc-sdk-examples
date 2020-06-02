@@ -698,3 +698,80 @@ The following Java class represents the **SendMessage** class. This class uses t
           }
          }
        }
+## Package the project that contains Lambda functions
+
+Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
+
+    mvn package
+    
+The JAR file is located in the target folder.
+
+![AWS Tracking Application](images/lambda10.png)
+
+## Deploy Lambda functions
+
+1. Open the Lambda console at https://us-west-2.console.aws.amazon.com/lambda/home. 
+
+2. Choose **Create Function**. 
+
+3. Choose **Author from scratch**.
+
+4. In the **Basic** information section, enter **TicStep1** as the name.
+
+5. In the **Runtime** field, choose **Java 8**.
+
+6. Choose **Use an existing role** and then choose **lambda-support** (the IAM role that you created).
+
+![AWS Tracking Application](images/lambda20.png)
+
+7. Choose **Create function**.
+
+8. In the **Code entry type** field, choose **Upload a .zip or .jar file**.
+
+9. Choose **Upload** and browse to the JAR file that you created. 
+
+10. In the **Handler** field, enter the fully qualified name of the function. For example, **example.Handler::handleRequest**. (**example.Handler** specifies the package and class followed by :: and method name). 
+
+![AWS Tracking Application](images/lambda11.png)
+
+11. Choose **Save.** 
+
+**Note**: Repeat this procedure for the **Handler2** and **Handler3** classes. Name the corresponding Lambda functions **TicStep2** and **TicStep3**. Once done, you will have three Lambda functions that you can reference in the Amazon States Language document. 
+
+## Add Lambda functions to workflows
+
+Open up the Lambda console view. Notice that you can view the Lambda ARN value in the top right corner. 
+
+![AWS Tracking Application](images/lambda12.png)
+
+Copy the value and then paste it into step 1 of the Amazon States Language document located in AWS Steps function console.
+
+![AWS Tracking Application](images/lambda13.png)
+
+Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the Java SDK into a workflow created by using AWS Step Functions. 
+
+## Execute your Workflow
+
+You can invoke the workflow by using the AWS Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow. 
+
+     {
+	"inputCaseID": "001"
+     }
+
+
+#### Execute your Workflow by using the AWS Step Functions console
+
+1. From the AWS Step Functions console, choose **Start execution**. 
+2. In the **input** section, pass the JSON data. View the workflow. As each step is completed, it turns green.
+
+![AWS Tracking Application](images/lambda1.png)
+
+If the step turns red, that indicates that an error occurred. You can click on the step and then view the logs that are accessible from the right hand side. 
+
+![AWS Tracking Application](images/lambda14.png)
+
+Once the workflow has finished, you can view the data in the DynamoDB table. 
+
+![AWS Tracking Application](images/lambda15.png)
+
+Congratulations, you have created an AWS Serverless workflow by using the Java SDK. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
