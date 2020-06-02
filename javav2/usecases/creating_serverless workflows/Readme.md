@@ -569,7 +569,7 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
 
 ### SendMessage class
 
-The following Java class represents the **SendMessage** class. This class uses the SES API to send an email message to the employee. 
+The following Java class represents the **SendMessage** class. This class uses the SES API to send an email message to the employee. An email address that you send an email message to must be verified. For information, see [Verifying an Email Address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html) .
 
        package example;
 
