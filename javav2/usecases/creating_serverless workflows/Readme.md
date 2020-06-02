@@ -95,7 +95,7 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 
 You can create a workflow that processes support tickets. To define a workflow by using AWS Step functions, you create an Amazon States Language (JSON-based) document to define your state machine. An Amazon States Language document describes each step. Once you define the document, AWS Step functions presents you with a visual representation of the workflow. The following figure shows the Amazon States Language document and the visual representation of the workflow. 
 
-![AWS Tracking Application](images/lambda2.png)
+![AWS Tracking Application](images/Lambda2.png)
 
 Workflows can pass data between steps. For example, the **Open Case** step processes a case ID value (passed to the workflow) and passes that value to the **Assign Case** step. You create application logic in the Lambda function to read and process the data values (this is shown later in this tutorial). 
 
@@ -146,4 +146,4 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 9.	Choose **Create state machine**. You will see a message that states the state machine was successfully created.
 
-![AWS Tracking Application](images/lambda19.png)
+![AWS Tracking Application](images/lambda7.png)
