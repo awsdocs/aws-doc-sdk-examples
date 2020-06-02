@@ -1,12 +1,12 @@
 --- 
 files:
-  - path: src/main/java/aws/example/polly/DescribeVoicesSample.java
+  - path: src/main/java/com/example/polly/DescribeVoicesSample.java
     services:
       - Polly
-  - path: src/main/java/aws/example/polly/ListLexicons.java
+  - path: src/main/java/com/example/polly/ListLexicons.java
     services:
       - Polly
-  - path: src/main/java/aws/example/polly/PollyDemo.java
+  - path: src/main/java/com/example/polly/PollyDemo.java
     services:
       - Polly      
   - path: src/test/java/AWSPollyServiceIntegrationTest.java
