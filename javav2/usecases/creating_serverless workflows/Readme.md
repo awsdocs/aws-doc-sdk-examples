@@ -323,3 +323,378 @@ Create the Java classes that define the Lamdba functions by using the Lambda run
 The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**. 
 
 ![AWS Tracking Application](images/lambda9.png)
+
+To create a Lambda function by using the Lambda run-time API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that is executed when the workflow step is invoked is located in a method named **handleRequest**. The return value of this method is passed to the next step in a workflow. 
+
+Create these Java classes: 
++ **Handler** - Used as the first step in the workflow that processes the ticket ID value.  
++ **Handler2** - Used as the second step in the workflow that assigns the ticket to an employee and stores the data in a database.
++ **Handler3** - Used as the third step in the workflow that sends an email message to the employee to notify them about the ticket. 
++ **PersistCase** - Uses the Amazon DynamoDB API to store the data into a DynamoDB table. 
++ **SendMessage** - Uses the Amazon SES API to send an email message. 
+
+### Handler class
+
+The following Java code represents the **Handler** class. This class creates a Lamdba function that reads the ticket ID value that is passed to the workflow. Notice that you can log message to CloudWatch logs by using a **LambdaLogger** object. The **handleRequest** method returns the ticket ID value that is passed to the second step in the workflow. 
+package example;
+
+     import com.amazonaws.services.lambda.runtime.Context;
+     import com.amazonaws.services.lambda.runtime.RequestHandler;
+     import com.amazonaws.services.lambda.runtime.LambdaLogger;
+     import com.google.gson.Gson;
+     import com.google.gson.GsonBuilder;
+     import java.util.Map;
+
+     // Handler value: example.Handler
+     public class Handler implements RequestHandler<Map<String,String>, String>{
+
+    @Override
+    public String handleRequest(Map<String,String> event, Context context)
+    {
+        LambdaLogger logger = context.getLogger();
+        Gson gson = new GsonBuilder().create();
+
+        // log execution details
+        logger.log("ENVIRONMENT VARIABLES: " + gson.toJson(System.getenv()));
+        logger.log("CONTEXT: " + gson.toJson(context));
+        // process event
+        logger.log("EVENT Data: " + gson.toJson(event));
+
+        String myCaseID = event.get("inputCaseID");
+        logger.log("CaseId44: " + myCaseID);
+        return myCaseID;
+       }
+      }
+     
+### Handler2 class
+
+The **Handler2** class is the second step in the workflow and uses basic Java application logic to select an employee to assign the ticket. Then a **PersistCase** object is created and used to store the ticket data into a DynamoDB table named **Case**. The email address of the employee is passed to the third step.
+
+      package example;
+
+      import com.amazonaws.services.lambda.runtime.Context;
+      import com.amazonaws.services.lambda.runtime.LambdaLogger;
+      import com.amazonaws.services.lambda.runtime.RequestHandler;
+      
+      // Handler value: example.Handler
+     public class Handler2 implements RequestHandler<String, String> {
+
+    @Override
+    public String handleRequest(String event, Context context)
+    {
+
+        PersistCase perCase = new PersistCase();
+
+        LambdaLogger logger = context.getLogger();
+        String val = event ;
+       logger.log("CASE is about to be assigned " +val);
+
+       // Create very simple logic to assign case to an employee
+        int tmp = (Math.random() <= 0.5) ? 1 : 2;
+
+        logger.log("TMP IS " +tmp);
+
+        String emailEmp= "";
+
+        if (tmp == 1) {
+            // assign to tblue
+            emailEmp = "tblue@noServer.com";
+            perCase.putRecord(val, "Tom Blue", emailEmp );
+        } else {
+            // assign to swhite
+            emailEmp = "swhite@noServer.com";
+            perCase.putRecord(val, "Sarah White", emailEmp);
+        }
+
+        logger.log("emailEmp IS " +emailEmp);
+        //return email - used in the next step
+        return emailEmp;
+        }
+      }
+
+### Handler3 class
+
+The **Handler3** class is the third step in the workflow and creates a **SendMessage** object. An email message is sent to the employee to notify them about the new ticket. The email address that is passed from the second step is used. 
+
+       package example;
+
+       import com.amazonaws.services.lambda.runtime.Context;
+       import com.amazonaws.services.lambda.runtime.LambdaLogger;
+       import com.amazonaws.services.lambda.runtime.RequestHandler;
+       import java.io.IOException;
+
+       // Handler value: example.Handler
+       public class Handler3 implements RequestHandler<String, String> {
+
+       @Override
+       public String handleRequest(String event, Context context)
+       {
+        LambdaLogger logger = context.getLogger();
+        String email = event ;
+        
+	// log execution details
+        logger.log("Email value " + email);
+
+        SendMessage msg = new SendMessage();
+        
+       try {
+           msg.sendMessage(email);
+
+       } catch (IOException e)
+       {
+           e.getStackTrace();
+       }
+
+        return "";
+     }
+    } 
+
+### PersistCase class
+
+The following class uses the Amazon DynamoDB API to store the data in a table. For more information, see [DynamoDB Examples Using the AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb.html). 
+
+       package example;
+
+       import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+       import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+       import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+       import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+       import software.amazon.awssdk.regions.Region;
+       import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+       import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+       import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+       import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+       import java.time.Instant;
+       import java.time.LocalDate;
+       import java.time.LocalDateTime;
+       import java.time.ZoneOffset;
+
+       /*
+        Prior to running this code example, create a table named Case with a PK named id
+       */
+      
+      public class PersistCase {
+
+
+      // Puts an item into a DynamoDB table
+      public void putRecord(String caseId, String employeeName, String email) {
+
+        // Create a DynamoDbClient object
+        Region region = Region.US_WEST_2;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
+        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(ddb)
+                .build();
+
+
+        try {
+            // Create a DynamoDbTable object
+            DynamoDbTable<Case> custTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
+
+            // Create an Instat
+            LocalDate localDate = LocalDate.parse("2020-04-07");
+            LocalDateTime localDateTime = localDate.atStartOfDay();
+            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
+
+            // Populate the Table
+            Case custRecord = new Case();
+            custRecord.setName(employeeName);
+            custRecord.setId(caseId);
+            custRecord.setEmail(email);
+            custRecord.setRegistrationDate(instant) ;
+
+            // Put the customer data into a DynamoDB table
+            custTable.putItem(custRecord);
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("done");
+    }
+
+
+    // Create the Case table to track open cases created in the workflow
+    @DynamoDbBean
+    public static class Case {
+
+        private String id;
+        private String name;
+        private String email;
+        private Instant regDate;
+
+        @DynamoDbPartitionKey
+        public String getId() {
+            return this.id;
+        };
+
+        public void setId(String id) {
+
+            this.id = id;
+        }
+
+        @DynamoDbSortKey
+        public String getName() {
+            return this.name;
+
+        }
+
+        public void setName(String name) {
+
+            this.name = name;
+        }
+
+        public String getEmail() {
+            return this.email;
+        }
+
+        public void setEmail(String email) {
+
+            this.email = email;
+        }
+
+        public Instant getRegistrationDate() {
+            return regDate;
+        }
+        public void setRegistrationDate(Instant registrationDate) {
+
+            this.regDate = registrationDate;
+        }
+       }
+      } 
+
+### SendMessage class
+
+The following Java class represents the **SendMessage** class. This class uses the SES API to send an email message to the employee. 
+
+       package example;
+
+       import software.amazon.awssdk.regions.Region;
+       import software.amazon.awssdk.services.ses.SesClient;
+       import javax.mail.Message;
+       import javax.mail.MessagingException;
+       import javax.mail.Session;
+       import javax.mail.internet.AddressException;
+       import javax.mail.internet.InternetAddress;
+       import javax.mail.internet.MimeMessage;
+       import javax.mail.internet.MimeMultipart;
+       import javax.mail.internet.MimeBodyPart;
+       import java.io.ByteArrayOutputStream;
+       import java.io.IOException;
+       import java.nio.ByteBuffer;
+       import java.util.Properties;
+       import software.amazon.awssdk.core.SdkBytes;
+       import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
+       import software.amazon.awssdk.services.ses.model.RawMessage;
+       import software.amazon.awssdk.services.ses.model.SesException;
+
+       public class SendMessage {
+
+        public void sendMessage(String email) throws IOException {
+
+        //Sender
+        String sender = "scmacdon@amazon.com" ;
+
+        String subject = "New Case";
+
+        // The email body for recipients with non-HTML email clients.
+        String bodyText = "Hello,\r\n" + "You are assigned a new case";
+
+        // The HTML body of the email.
+        String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+                + "<p>Please check the database for new ticket assigned to you.</p>" + "</body>" + "</html>";
+
+        Region region = Region.US_WEST_2;
+        SesClient client = SesClient.builder()
+                .region(region)
+                .build();
+
+        try {
+            send(client, sender,email, subject,bodyText,bodyHTML);
+
+        } catch (IOException | MessagingException e) {
+            e.getStackTrace();
+        }
+      }
+
+    public static void send(SesClient client,
+                            String sender,
+                            String recipient,
+                            String subject,
+                            String bodyText,
+                            String bodyHTML
+    ) throws AddressException, MessagingException, IOException {
+
+        Session session = Session.getDefaultInstance(new Properties());
+
+        // Create a new MimeMessage object.
+        MimeMessage message = new MimeMessage(session);
+
+        // Add subject, from and to lines.
+        message.setSubject(subject, "UTF-8");
+        message.setFrom(new InternetAddress(sender));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+
+        // Create a multipart/alternative child container.
+        MimeMultipart msgBody = new MimeMultipart("alternative");
+
+        // Create a wrapper for the HTML and text parts.
+        MimeBodyPart wrap = new MimeBodyPart();
+
+        // Define the text part.
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
+
+        // Define the HTML part.
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
+
+        // Add the text and HTML parts to the child container.
+        msgBody.addBodyPart(textPart);
+        msgBody.addBodyPart(htmlPart);
+
+        // Add the child container to the wrapper object.
+        wrap.setContent(msgBody);
+
+        // Create a multipart/mixed parent container.
+        MimeMultipart msg = new MimeMultipart("mixed");
+
+        // Add the parent container to the message.
+        message.setContent(msg);
+
+        // Add the multipart/alternative part to the message.
+        msg.addBodyPart(wrap);
+
+        try {
+            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            message.writeTo(outputStream);
+
+            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
+
+            byte[] arr = new byte[buf.remaining()];
+            buf.get(arr);
+
+            SdkBytes data = SdkBytes.fromByteArray(arr);
+
+            RawMessage rawMessage = RawMessage.builder()
+                    .data(data)
+                    .build();
+
+            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
+                    .rawMessage(rawMessage)
+                    .build();
+
+            client.sendRawEmail(rawEmailRequest);
+
+          } catch (SesException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+          }
+         }
+       }
