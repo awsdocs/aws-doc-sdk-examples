@@ -16,3 +16,32 @@ To follow along with the tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK. 
 + Maven 3.6 or higher.
+
+**Cost to complete**: The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
+
+**Note**: Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+
+#### Topics
+
++ Understand the workflow.
++ Create an IAM role that is used to execute Lambda functions.
++	Create a workflow by using AWS Step functions.
++	Create an IntelliJ project named LambdaFunctions.
++	Add the POM dependencies to your project.
++	Create Lambda functions by using the Java Lambda API.
++	Package the project that contains Lambda functions. 
++	Deploy Lambda functions.
++	Add Lambda functions to workflows.
++ Invoke the workflow from the AWS Console.
+
+**Note**: Before following this tutorial, create an Amazon DynamoDB table named Cases with a key named Id. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+## Understand the workflow
+
+The following figure shows the workflow that is created by following this tutorial. 
+
+![AWS Tracking Application](images/lambda1.png)
+
+
+
+
