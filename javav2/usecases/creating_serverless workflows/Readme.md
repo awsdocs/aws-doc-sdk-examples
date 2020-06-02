@@ -47,6 +47,40 @@ The following describes each step:
 +	**Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table. 
 +	**Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (SES) to inform them there is a new ticket. 
 
+## Create an IAM role that is used to execute Lambda functions
+
+Create two IAM roles:
++ **lambda-support** - Used to invoke Lamdba functions.
++ **workflow-support** - Used to AWS Step functions to invoke workflow.
+
+The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The lambda-support role has to have policies that enables it to invoke these services. This is how you can invoke AWS Services from a Lambda function. 
+
+#### Create an IAM role
+
+1. Open the AWS Management Console. When the screen loads, type **IAM** in the search bar, then select **IAM** to open the service console.
+2.  Choose **Roles** from the left column, and then choose **Create Role**. 
+3.	Choose **AWS Service** and choose **Lambda**.
+
+![AWS Tracking Application](images/lambda21.png)
+4.	Choose **Permissions**. 
+5.	Search for **AWSLambdaBasicExecutionRole**.
+6.	Choose **Next Tags**. 
+7.	Choose **Review**. 
+8.	Name the role **lambda-support**.
+
+![AWS Tracking Application](images/lambda17.png)
+
+9.	Choose **Create role**. 
+10.	Click on **lambda-support** to view the overview page. 
+11.	Choose **Attach Policies**.
+12.	Search for **AmazonDynamoDBFullAccess** and choose **Attach policy**.
+13.	Search for **AmazonSESFullAccess** and choose **Attach policy**. Once done, you will see the permissions. 
+
+![AWS Tracking Application](images/lambda16.png)
+
+**Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. It’s not necessary to perform steps 11-13. 
+
+## Create a serverless workflow by using AWS Step functions
 
 
 
