@@ -147,3 +147,179 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 9.	Choose **Create state machine**. You will see a message that states the state machine was successfully created.
 
 ![AWS Tracking Application](images/lambda7.png)
+
+## Create an IntelliJ project named LambdaFunctions
+
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
+
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+
+3. For **GroupId**, enter **LambdaFunctions**.
+
+4. For **ArtifactId**, enter **LambdaFunctions**.
+
+5. Choose **Next**.
+
+6. Choose **Finish**.
+
+## Add the POM dependencies to your project
+
+At this point, you have a new project named **LambdaFunctions**.
+
+![AWS Tracking Application](images/lambda8.png)
+
+Add the following dependency for the Amazon SES API (AWS Java SDK version 2).
+
+     <dependency>
+       <groupId>software.amazon.awssdk</groupId>
+       <artifactId>ses</artifactId>
+       <version>2.10.41</version>
+     </dependency>
+     
+Add the following dependencies for the Amazon DynamoDB API (AWS Java SDK version 2).
+
+     <dependency>
+       <groupId>software.amazon.awssdk</groupId>
+       <artifactId>dynamodb-enhanced</artifactId>
+       <version>2.11.4-PREVIEW</version>
+     </dependency>
+     <dependency>
+       <groupId>software.amazon.awssdk</groupId>
+       <artifactId>dynamodb</artifactId>
+       <version>2.5.10</version>
+     </dependency>
+
+Ensure that the pom.xml file looks like the following.
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+      <groupId>LambdaFunctions</groupId>
+      <artifactId>LambdaFunctions</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <packaging>jar</packaging>
+      <name>java-basic-function</name>
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+      </properties>
+      <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-lambda-java-core</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j18-impl -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j18-impl</artifactId>
+            <version>2.13.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
+            <version>2.11.4-PREVIEW</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+            <version>2.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>ses</artifactId>
+            <version>2.10.41</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+       </dependencies>
+       <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+           </plugins>
+          </build>
+        </project>
+## Create Lambda functions by using the Java Lambda API
+
+Create the Java classes that define the Lamdba functions by using the Lambda run-time API. In this example, there are three workflow steps where each step has a corresponding Java class. In addition, there are two extra classes which invoke the Amazon DynamoDB service and the Amazon SES service. 
+
+The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**. 
+
+![AWS Tracking Application](images/lambda9.png)
