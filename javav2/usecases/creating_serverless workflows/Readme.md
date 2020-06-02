@@ -64,7 +64,7 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 ![AWS Tracking Application](images/lambda21.png)
 4.	Choose **Permissions**. 
 5.	Search for **AWSLambdaBasicExecutionRole**.
-6.	Choose **Next Tags**. 
+6.	Choose **Next Tags**.
 7.	Choose **Review**. 
 8.	Name the role **lambda-support**.
 
