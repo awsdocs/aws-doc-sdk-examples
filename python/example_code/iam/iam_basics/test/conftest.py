@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Contains common test fixtures used to run AWS Identity and Access Management tests.
+Contains common test fixtures used to run AWS Identity and Access Management (IAM)
+tests.
 """
 
 import sys

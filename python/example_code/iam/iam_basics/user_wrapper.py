@@ -39,8 +39,8 @@ def create_user(user_name):
 
 def delete_user(user_name):
     """
-    Deletes a user. Before a user can be deleted, all associated resources must
-    be deleted or detached, such as access keys and policies.
+    Deletes a user. Before a user can be deleted, all associated resources,
+    such as access keys and policies, must be deleted or detached.
 
     :param user_name: The name of the user.
     """
@@ -121,7 +121,7 @@ def usage_demo():
     """
     Shows how to manage users, keys, and policies.
     This demonstration creates two users: one user who can only put objects in an
-    Amazon S3 bucket and another user who can only get objects from the bucket.
+    Amazon S3 bucket, and another user who can only get objects from the bucket.
     The demo then shows how the users can perform only the actions they are permitted
     to perform.
     """

@@ -21,7 +21,7 @@ iam = boto3.resource('iam')
 def create_alias(alias):
     """
     Creates an alias for the current account. The alias can be used in place of the
-    Account ID in the sign-in URL. An account can have only one alias. When a new
+    account ID in the sign-in URL. An account can have only one alias. When a new
     alias is created, it replaces any existing alias.
 
     :param alias: The alias to assign to the account.
@@ -108,17 +108,17 @@ def get_summary():
 
 def generate_credential_report():
     """
-    Starts generation of a credential report about the current account. After
+    Starts generation of a credentials report about the current account. After
     calling this function to generate the report, call get_credential_report
     to get the latest report. A new report can be generated a minimum of four hours
     after the last one was generated.
     """
     try:
         response = iam.meta.client.generate_credential_report()
-        logger.info("Generating credential report for your account. "
+        logger.info("Generating credentials report for your account. "
                     "Current state is %s.", response['State'])
     except ClientError:
-        logger.exception("Couldn't generate a credential report for your account.")
+        logger.exception("Couldn't generate a credentials report for your account.")
         raise
     else:
         return response
@@ -126,15 +126,15 @@ def generate_credential_report():
 
 def get_credential_report():
     """
-    Gets the most recently generated credential report about the current account.
+    Gets the most recently generated credentials report about the current account.
 
-    :return: The credential report.
+    :return: The credentials report.
     """
     try:
         response = iam.meta.client.get_credential_report()
         logger.debug(response['Content'])
     except ClientError:
-        logger.exception("Couldn't get credential report.")
+        logger.exception("Couldn't get credentials report.")
         raise
     else:
         return response['Content']
@@ -167,7 +167,7 @@ def usage_demo():
 
     print('-'*88)
     print("You can get various reports about your account.")
-    print("Let's generate a credential report...")
+    print("Let's generate a credentials report...")
     report_state = None
     while report_state != 'COMPLETE':
         cred_report_response = generate_credential_report()
@@ -182,7 +182,7 @@ def usage_demo():
     print()
     cred_report = get_credential_report()
     col_count = 3
-    print(f"Got credential report. Showing only the first {col_count} columns.")
+    print(f"Got credentials report. Showing only the first {col_count} columns.")
     cred_lines = [line.split(',')[:col_count] for line
                   in cred_report.decode('utf-8').split('\n')]
     col_width = max([len(item) for line in cred_lines for item in line]) + 2

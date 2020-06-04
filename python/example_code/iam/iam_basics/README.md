@@ -27,8 +27,8 @@ Shows how to create and manage IAM roles, including how to attach and detach pol
 **user_wrapper.py**
 
 Shows how to create and manage IAM users, including how to attach a policy to a user.
-Also includes a complete demonstration that creates users with different permissions
-and shows how they can only perform the actions allowed by their attached policies. 
+Also includes a complete demonstration that creates users with different permissions.
+It also shows how they can only perform the actions allowed by their attached policies. 
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ python user_wrapper.py
 ## Running the tests
 
 The unit tests in this module use the botocore Stubber, which captures requests before 
-they are sent to AWS and returns a mocked response. To run all of the tests, 
+they are sent to AWS, and returns a mocked response. To run all of the tests, 
 run the following in your [GitHub root]/python/example_code/iam/iam_basics 
 folder.
 

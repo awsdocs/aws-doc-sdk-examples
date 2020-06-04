@@ -112,7 +112,7 @@ def list_policies(scope):
     Lists the policies in the current account.
 
     :param scope: Limits the kinds of policies that are returned. For example,
-                  'Local' specifies that only locally-managed policies are returned.
+                  'Local' specifies that only locally managed policies are returned.
     :return: The list of policies.
     """
     try:
@@ -139,7 +139,7 @@ def get_default_policy_statement(policy_arn):
         logger.info("Got default policy doc for %s.", policy.policy_name)
         logger.info(policy_doc)
     except ClientError:
-        logger.exception("Couldn't get default policy statment for %s.", policy_arn)
+        logger.exception("Couldn't get default policy statement for %s.", policy_arn)
         raise
     else:
         return policy_statement
