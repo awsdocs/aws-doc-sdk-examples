@@ -1,6 +1,6 @@
 #  Create AWS Serverless workflows using the Java SDK
 
-You can create an AWS Serverless workflow by using the AWS Java SDK and AWS Step Functions. 
+You can create an AWS Serverless workflow by using the AWS Java SDK (AWS Service clients use version 2) and AWS Step Functions. 
 Each workflow step is implemented by using a Lambda function. AWS Lambda is a compute service that lets you run 
 code without provisioning or managing servers.
 
@@ -28,13 +28,13 @@ To follow along with the tutorial, you need the following:
 + Create a workflow by using AWS Step functions.
 + Create an IntelliJ project named LambdaFunctions.
 + Add the POM dependencies to your project.
-+ Create Lambda functions by using the Java Lambda API.
++ Create Lambda functions by using the Lambda API in the AWS SDK for Java.
 + Package the project that contains Lambda functions. 
 + Deploy Lambda functions.
 + Add Lambda functions to workflows.
 + Invoke the workflow from the AWS Console.
 
-**Note**: Before following this tutorial, create an Amazon DynamoDB table named Cases with a key named Id. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+**Note**: Before following this tutorial, create an Amazon DynamoDB table named **Case** with a key named **Id**. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Understand the workflow
 
@@ -57,7 +57,7 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 
 #### Create an IAM role
 
-1. Open the AWS Management Console. When the screen loads, type **IAM** in the search bar, then select **IAM** to open the service console.
+1. Open the AWS Management Console and type **IAM** in the search bar, then select **IAM** to open the service console.
 
 2. Choose **Roles** from the left column, and then choose **Create Role**. 
 
@@ -77,19 +77,19 @@ The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The l
 
 ![AWS Tracking Application](images/lambda17.png)
 
-9.	Choose **Create role**. 
+9. Choose **Create role**. 
 
-10.	Click on **lambda-support** to view the overview page. 
+10. Click on **lambda-support** to view the overview page. 
 
-11.	Choose **Attach Policies**.
+11. Choose **Attach Policies**.
 
-12.	Search for **AmazonDynamoDBFullAccess** and choose **Attach policy**.
+12. Search for **AmazonDynamoDBFullAccess** and choose **Attach policy**.
 
-13.	Search for **AmazonSESFullAccess** and choose **Attach policy**. Once done, you will see the permissions. 
+13. Search for **AmazonSESFullAccess** and choose **Attach policy**. Once done, you will see the permissions. 
 
 ![AWS Tracking Application](images/lambda16.png)
 
-**Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. It’s not necessary to perform steps 11-13. 
+14. Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. It’s not necessary to perform steps 11-13. 
 
 ## Create a serverless workflow by using AWS Step functions
 
@@ -189,7 +189,7 @@ Add the following dependencies for the Amazon DynamoDB API (AWS Java SDK version
        <version>2.5.10</version>
      </dependency>
 
-Ensure that the pom.xml file looks like the following.
+The pom.xml file looks like the following.
 
       <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -316,9 +316,9 @@ Ensure that the pom.xml file looks like the following.
            </plugins>
           </build>
         </project>
-## Create Lambda functions by using the Java Lambda API
+## Create Lambda functions by using the AWS SDK for Java Lambda API
 
-Create the Java classes that define the Lamdba functions by using the Lambda run-time API. In this example, there are three workflow steps where each step has a corresponding Java class. In addition, there are two extra classes which invoke the Amazon DynamoDB service and the Amazon SES service. 
+Create the Java classes that define the Lamdba functions by using the AWS SDK for Java Lambda API. In this example, there are three workflow steps where each step has a corresponding Java class. In addition, there are two extra classes which invoke the Amazon DynamoDB service and the Amazon SES service. 
 
 The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**. 
 
@@ -368,7 +368,7 @@ package example;
      
 ### Handler2 class
 
-The **Handler2** class is the second step in the workflow and uses basic Java application logic to select an employee to assign the ticket. Then a **PersistCase** object is created and used to store the ticket data into a DynamoDB table named **Case**. The email address of the employee is passed to the third step.
+The **Handler2** class is the second step in the workflow and uses basic Java application logic to select the employee to assign the ticket to. Then a **PersistCase** object is created and used to store the ticket data into a DynamoDB table named **Case**. The email address of the employee is passed to the third step.
 
       package example;
 
@@ -451,7 +451,7 @@ The **Handler3** class is the third step in the workflow and creates a **SendMes
 
 ### PersistCase class
 
-The following class uses the Amazon DynamoDB API to store the data in a table. For more information, see [DynamoDB Examples Using the AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb.html). 
+The following class uses the Amazon DynamoDB API from the SDK for Java to store the data in a table. For more information, see [DynamoDB Examples Using the AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb.html). 
 
        package example;
 
@@ -475,7 +475,6 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
       
       public class PersistCase {
 
-
       // Puts an item into a DynamoDB table
       public void putRecord(String caseId, String employeeName, String email) {
 
@@ -490,25 +489,24 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
                 .dynamoDbClient(ddb)
                 .build();
 
-
         try {
             // Create a DynamoDbTable object
-            DynamoDbTable<Case> custTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
+            DynamoDbTable<Case> caseTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
 
-            // Create an Instat
+            // Create an Instat object
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            // Populate the Table
-            Case custRecord = new Case();
-            custRecord.setName(employeeName);
-            custRecord.setId(caseId);
-            custRecord.setEmail(email);
-            custRecord.setRegistrationDate(instant) ;
+            // Populate the table
+            Case caseRecord = new Case();
+            caseRecord.setName(employeeName);
+            caseRecord.setId(caseId);
+            caseRecord.setEmail(email);
+            caseRecord.setRegistrationDate(instant) ;
 
-            // Put the customer data into a DynamoDB table
-            custTable.putItem(custRecord);
+            // Put the case data into a DynamoDB table
+            caseTable.putItem(caseRecord);
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -752,7 +750,7 @@ Update the Resource for the **Assign Case** and **Send Email** steps. This is ho
 
 ## Execute your Workflow
 
-You can invoke the workflow by using the AWS Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow. 
+You can invoke the workflow by using the AWS Step Functions console. To invoke a workflow, you can pass JSON input. For this example, you can pass the following JSON data to the workflow. 
 
      {
 	"inputCaseID": "001"
@@ -762,6 +760,7 @@ You can invoke the workflow by using the AWS Step Functions console.  An executi
 #### Execute your Workflow by using the AWS Step Functions console
 
 1. From the AWS Step Functions console, choose **Start execution**. 
+
 2. In the **input** section, pass the JSON data. View the workflow. As each step is completed, it turns green.
 
 ![AWS Tracking Application](images/lambda1.png)
