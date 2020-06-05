@@ -38,22 +38,24 @@ To follow along with the tutorial, you need the following:
 
 ## Understand the workflow
 
-The following figure shows the workflow that is created by following this tutorial. 
+The following figure shows the workflow you'll create with this tutorial.
 
 ![AWS Tracking Application](images/lambda1.png)
 
-The following describes each step: 
-+ **Open Case** – Handles a support ticket Id value (the Id value is passed to the workflow). 
+The following is what happens at each step in the workflow: 
++ **Start** -  Initiates the workflow.
++ **Open Case** – Handles a support ticket ID value by passing it to the workflow. 
 + **Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table. 
-+ **Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (SES) to inform them there is a new ticket. 
++ **Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (Amazon SES) to inform them there is a new ticket.
++ **End** - Stops the workflow.
 
-## Create an IAM role that is used to execute Lambda functions
+## Create an IAM role that's used to execute Lambda functions
 
-Create two IAM roles:
+Create the following two IAM roles:
 + **lambda-support** - Used to invoke Lamdba functions.
-+ **workflow-support** - Used to AWS Step functions to invoke workflow.
++ **workflow-support** - Used to enable AWS Step Functions to invoke the workflow.
 
-The AWS Services used in this tutorial are Amazon DynamoDB and Amazon SES. The lambda-support role has to have policies that enables it to invoke these services. This is how you can invoke AWS Services from a Lambda function. 
+This tutorial uses the DynamoDB and Amazon SES services. The ``lambda-support`` role has to have policies that enable it to invoke these services from a Lambda function.  
 
 #### Create an IAM role
 
