@@ -26,9 +26,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-/*
-    Prior to running this code example, create a table named Case with a PK named id
- */
+       /*
+        Prior to running this code example, create a table named Case with a PK named id
+       */
+
 public class PersistCase {
 
 
@@ -49,22 +50,22 @@ public class PersistCase {
 
         try {
             // Create a DynamoDbTable object
-            DynamoDbTable<Case> custTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
+            DynamoDbTable<Case> caseTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
 
-            // Create an Instat
+            // Create an Instat object
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            // Populate the Table
-            Case custRecord = new Case();
-            custRecord.setName(employeeName);
-            custRecord.setId(caseId);
-            custRecord.setEmail(email);
-            custRecord.setRegistrationDate(instant) ;
+            // Populate the table
+            Case caseRecord = new Case();
+            caseRecord.setName(employeeName);
+            caseRecord.setId(caseId);
+            caseRecord.setEmail(email);
+            caseRecord.setRegistrationDate(instant) ;
 
-            // Put the customer data into a DynamoDB table
-            custTable.putItem(custRecord);
+            // Put the case data into a DynamoDB table
+            caseTable.putItem(caseRecord);
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -74,7 +75,7 @@ public class PersistCase {
     }
 
 
-    //Create the Case table to track open cases created in the workflow
+    // Create the Case table to track open cases created in the workflow
     @DynamoDbBean
     public static class Case {
 
@@ -121,4 +122,4 @@ public class PersistCase {
             this.regDate = registrationDate;
         }
     }
-  }
+}
