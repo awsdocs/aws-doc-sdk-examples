@@ -750,7 +750,7 @@ Update the Resource for the **Assign Case** and **Send Email** steps. This is ho
 
 ## Execute your Workflow
 
-You can invoke the workflow by using the AWS Step Functions console. To invoke a workflow, you can pass JSON input. For this example, you can pass the following JSON data to the workflow. 
+You can invoke the workflow by using the AWS Step Functions console. To invoke a workflow, you can pass JSON data. For this example, you can pass the following JSON data to the workflow. 
 
      {
 	"inputCaseID": "001"
@@ -765,7 +765,7 @@ You can invoke the workflow by using the AWS Step Functions console. To invoke a
 
 ![AWS Tracking Application](images/lambda1.png)
 
-If the step turns red, that indicates that an error occurred. You can click on the step and then view the logs that are accessible from the right hand side. 
+If the step turns red, that indicates that an error occurred. You can click on the step and then view the logs that are accessible from the right hand side of the page. 
 
 ![AWS Tracking Application](images/lambda14.png)
 
@@ -773,4 +773,8 @@ Once the workflow has finished, you can view the data in the DynamoDB table.
 
 ![AWS Tracking Application](images/lambda15.png)
 
+### Next steps
 Congratulations, you have created an AWS Serverless workflow by using the Java SDK. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+
+You can read more AWS multi service examples by clicking 
+[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
