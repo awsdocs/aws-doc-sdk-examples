@@ -30,7 +30,7 @@ The following figure shows you the structure of the Java project.
 + Create the Java classes.
 + Create the HTML files.
 + Create script files. 
-+ Setup the RDS instance.
++ Set up the RDS instance.
 + Create a JAR file for the application. 
 + Deploy the application to Elastic Beanstalk.
 
@@ -48,7 +48,7 @@ The *AWS Tracker* application uses a model that is based on a work item and cont
 
 + **date** - The start date of the item. 
 + **description** - The description of the item.
-+ **guide** - The deliverable that this item has impact on. 
++ **guide** - The deliverable that this item has an impact on. 
 + **username** - The person who performs the work item.
 + **status** - The status of the item. 
 + **archive** - Whether this item is completed or is still being worked on.
