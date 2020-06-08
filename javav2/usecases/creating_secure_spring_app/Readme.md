@@ -3,10 +3,10 @@
 You can develop a secure Spring application that tracks and reports on work items by using the following AWS services:
 
 + Amazon Relational Database Service (Amazon RDS)
-+ Amazon Simple Email Service (Java SDK v2 is used to access Amazon SES)
++ Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
 + AWS Elastic Beanstalk
 
-The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information,  see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
 This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
@@ -14,23 +14,15 @@ The following figure shows you the structure of the Java project.
 
 ![AWS Tracking Application](images/newtrack3_1.png)
 
-**Note**: All of the Java code required to complete this tutorial is located in this Github repository (or you can copy the code from this document). 
+**Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
-#### Prerequisites
+**Cost to complete:** The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
 
-To follow along with the tutorial, you need the following:
-
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK. 
-+ Maven 3.6 or higher.
-
-**Cost to complete**: The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
-
-**Note**: Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
++ Prerequisites
 + Understand the AWS Tracker application.
 + Create an IntelliJ project named AWSItemTracker.
 + Add the Spring POM dependencies to your project.	
@@ -42,7 +34,16 @@ To follow along with the tutorial, you need the following:
 + Create a JAR file for the application. 
 + Deploy the application to Elastic Beanstalk.
 
-### Understand the AWS Tracker application
+## Prerequisites
+
+To follow along with the tutorial, you need the following:
+
++ An AWS Account.
++ A Java IDE (for this tutorial, the IntelliJ IDE is used).
++ Java 1.8 JDK. 
++ Maven 3.6 or higher.
+
+## Understand the AWS Tracker application
 The *AWS Tracker* application uses a model that is based on a work item and contains these attributes: 
 
 + **date** - The start date of the item. 
