@@ -41,12 +41,12 @@ class IamStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     @staticmethod
-    def _add_role(response, role_name):
+    def _add_role(response, role_name, role_arn=None):
         response['Role'] = {
             'RoleName': role_name,
             'Path': '/',
             'RoleId': random_string(16),
-            'Arn': random_string(20),
+            'Arn': random_string(20) if role_arn is None else role_arn,
             'CreateDate': datetime.datetime.now()
         }
         return response
@@ -118,22 +118,12 @@ class IamStubber(ExampleStubber):
                 service_error_code=error_code
             )
 
-    def stub_get_role(self, role_name, status_code=200, error_code=None):
+    def stub_get_role(self, role_name, role_arn=None, status_code=200, error_code=None):
         expected_params = {'RoleName': role_name}
-        if not error_code:
-            self.add_response(
-                'get_role',
-                expected_params=expected_params,
-                service_response=self._add_role({
-                    'ResponseMetadata': {'HTTPStatusCode': status_code}
-                }, role_name)
-            )
-        else:
-            self.add_client_error(
-                'get_role',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        response = {'ResponseMetadata': {'HTTPStatusCode': status_code}}
+        self._add_role(response, role_name, role_arn)
+        self._stub_bifurcator(
+            'get_role', expected_params, response, error_code=error_code)
 
     def stub_delete_role(self, role_name, error_code=None):
         self._stub_bifurcator(
@@ -356,6 +346,18 @@ class IamStubber(ExampleStubber):
         self._stub_bifurcator(
             'create_user', expected_params, response, error_code=error_code)
 
+    def stub_get_user(self, user_name, user_arn, error_code=None):
+        expected_params = {'UserName': user_name} if user_name is not None else {}
+        response = {'User': {
+            'UserName': user_name if user_name is not None else 'test-user',
+            'UserId': 'test-id-plus-extra-characters',
+            'Arn': user_arn,
+            'Path': '/',
+            'CreateDate': datetime.datetime.now()
+        }}
+        self._stub_bifurcator(
+            'get_user', expected_params, response, error_code=error_code)
+
     def stub_delete_user(self, user_name, error_code=None):
         expected_params = {'UserName': user_name}
         self._stub_bifurcator(
@@ -374,6 +376,27 @@ class IamStubber(ExampleStubber):
         self._stub_bifurcator(
             'list_users', response=response, error_code=error_code)
 
+    def stub_put_user_policy(
+            self, user_name, policy_name, policy_doc=ANY, error_code=None):
+        expected_params = {
+            'UserName': user_name,
+            'PolicyName': policy_name,
+            'PolicyDocument': policy_doc
+        }
+        self._stub_bifurcator(
+            'put_user_policy', expected_params, error_code=error_code)
+
+    def stub_list_user_policies(self, user_name, policy_names, error_code=None):
+        expected_params = {'UserName': user_name}
+        response = {'PolicyNames': policy_names}
+        self._stub_bifurcator(
+            'list_user_policies', expected_params, response, error_code=error_code)
+
+    def stub_delete_user_policy(self, user_name, policy_name, error_code=None):
+        expected_params = {'UserName': user_name, 'PolicyName': policy_name}
+        self._stub_bifurcator(
+            'delete_user_policy', expected_params, error_code=error_code)
+
     def stub_update_user(self, current_name, new_name, error_code=None):
         expected_params = {'UserName': current_name, 'NewUserName': new_name}
         self._stub_bifurcator(
@@ -388,3 +411,46 @@ class IamStubber(ExampleStubber):
         expected_params = {'UserName': user_name, 'PolicyArn': policy_arn}
         self._stub_bifurcator(
             'detach_user_policy', expected_params, error_code=error_code)
+
+    def stub_create_virtual_mfa_device(self, mfa_device, error_code=None):
+        expected_params = {'VirtualMFADeviceName': mfa_device.device_name}
+        response = {
+            'VirtualMFADevice': {
+                'SerialNumber': mfa_device.serial_number,
+                'QRCodePNG': mfa_device.qr_code_png
+            }
+        }
+        self._stub_bifurcator(
+            'create_virtual_mfa_device', expected_params, response,
+            error_code=error_code)
+
+    def stub_delete_virtual_mfa_device(self, serial_number, error_code=None):
+        expected_params = {'SerialNumber': serial_number}
+        self._stub_bifurcator(
+            'delete_virtual_mfa_device', expected_params, error_code=error_code)
+
+    def stub_enable_mfa_device(
+            self, user_name, mfa_serial_number, code1, code2, error_code=None):
+        expected_params = {
+            'UserName': user_name,
+            'SerialNumber': mfa_serial_number,
+            'AuthenticationCode1': code1,
+            'AuthenticationCode2': code2
+        }
+        self._stub_bifurcator(
+            'enable_mfa_device', expected_params, error_code=error_code)
+
+    def stub_list_mfa_devices(self, user_name, serial_numbers, error_code=None):
+        expected_params = {'UserName': user_name}
+        response = {'MFADevices': [{
+            'UserName': user_name,
+            'SerialNumber': serial_number,
+            'EnableDate': datetime.datetime.now()
+        } for serial_number in serial_numbers]}
+        self._stub_bifurcator(
+            'list_mfa_devices', expected_params, response, error_code=error_code)
+
+    def stub_deactivate_mfa_device(self, user_name, serial_number, error_code=None):
+        expected_params = {'UserName': user_name, 'SerialNumber': serial_number}
+        self._stub_bifurcator(
+            'deactivate_mfa_device', expected_params, error_code=error_code)
