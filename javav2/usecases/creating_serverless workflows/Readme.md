@@ -437,7 +437,6 @@ The **Handler3** class is the third step in the workflow and creates a **SendMes
         
 	// log execution details
         logger.log("Email value " + email);
-
         SendMessage msg = new SendMessage();
         
        try {
@@ -598,7 +597,7 @@ The following Java class represents the **SendMessage** class. This class uses t
         public void sendMessage(String email) throws IOException {
 
         //Sender
-        String sender = "scmacdon@amazon.com" ;
+        String sender = "SPECIFY an email address" ; // REPLACE WITH AN EMAIL ADDRESSS
 
         String subject = "New Case";
 
