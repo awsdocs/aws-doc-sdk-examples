@@ -48,7 +48,7 @@ The *AWS Tracker* application uses a model that is based on a work item and cont
 
 + **date** - The start date of the item. 
 + **description** - The description of the item.
-+ **guide** - The deliverable that is impacted by the item. 
++ **guide** - The deliverable that this item has impact on. 
 + **username** - The person who performs the work item.
 + **status** - The status of the item. 
 + **archive** - Whether this item is completed or is still being worked on.
@@ -74,16 +74,16 @@ The following figure shows the new item section.
 
 ![AWS Tracking Application](images/AWT1.png)
 
-A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a data set that is retrieved from an Amazon RDS database and displayed in the web application. 
+A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from an Amazon RDS database and displayed in the web application.
 
 ![AWS Tracking Application](images/AWSItemsAll3.png)
 
-The user can select the email recipient from the **Select Manager** dropdown field and choose **Send Report** (see the dropdown field in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
 ![AWS Tracking Application](images/AWT12.png)
 
 #### Work table
-The database is MySQL and contains a table named **work**. The table contains the following fields:
+The database is MySQL and contains a table named **Work**. The table contains the following fields:
 
 + **idwork** - A VARCHAR(45) value that represents the PK. 
 + **date** - A date value that specifies the date the item was created.
@@ -143,7 +143,7 @@ In the **dependencies** element, add the following Spring Boot **dependency** el
       </exclusions>
     </dependency>
       
-Add the following dependency for the Amazon SES API (AWS Java SDK version 2). 
+Add the following dependency for the Amazon SES API (AWS SDK for Java version 2). 
 
  	<dependency>
           <groupId>software.amazon.awssdk</groupId>
@@ -352,13 +352,13 @@ Ensure that the **pom.xml** file looks like the following.
      </dependencies>
     </project>
 
-## Setup the Java packages in your project
+## Set up the Java packages in your project
 
 Create a Java package in the **main/java** folder named **com.aws**. 
 
 ![AWS Tracking Application](images/track6.png)
 
-The Java files go into the following sub-packages.
+The Java files go into the following subpackages.
 
 ![AWS Tracking Application](images/newtrack7_1.png)
 
@@ -367,11 +367,11 @@ These packages contain the following:
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
 + **jdbc** - Contains Java files that use the JDBC API to interact with the RDS database.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
-+ **securingweb** - Contains Java files required for Spring Security. 
++ **securingweb** - Contains Java files required for Spring security. 
 
 ## Create the Java classes
 
-Create the Java classes, including the Spring security classes that secures the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
+Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
 ### Create the Spring security classes
 
@@ -467,7 +467,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
-**Note**: In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this document. 
+**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial. 
 
 #### MainController class
 
@@ -1270,12 +1270,12 @@ The following Java code represents the **RetrieveItems** class.
 The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
 
 + **SendMessages** - Uses the Amazon SES API to send email messages.
-+ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS Java APIs). 
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
 
 #### SendMessage class 
-The **SendMessage** class uses the SES Java V2 API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an Email Address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to the AWS Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can setup environment variables on the Elastic Beanstalk to reflect your AWS credentials. 
+The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
 
     package com.aws.services;
 
@@ -1421,7 +1421,7 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
       }
      }
     
-**Note**: Update the email **sender** address with a verified email address.      
+**Note:** Update the email **sender** address with a verified email address.      
 
 #### WriteExcel class
 
@@ -1601,7 +1601,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
 #### To create the service classes
 
 1. Create the **com.aws.services** package. 
-2. Create the **SendMessages** class and add the Java code to it. .  
+2. Create the **SendMessages** class and add the Java code to it.   
 3. Create the **WriteExcel** class and add the Java code to it.
 
 ## Create the HTML files
@@ -1719,7 +1719,7 @@ The following HTML code represents the login form.
 
 #### index.html
 
-The following HTML code represents the index.html. This file represents the application's home view.
+The following HTML code represents the **index.html** file. This file represents the application's home view.
 
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1764,7 +1764,7 @@ The following HTML code represents the index.html. This file represents the appl
  
 #### add.html
 
-The following code represents the add.html file that enables users to add new items. 
+The following code represents the **add.html** file that enables users to add new items. 
 
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -1820,7 +1820,7 @@ The following code represents the add.html file that enables users to add new it
 
 #### items.html
 
-The following code represents the items.html file. This file enables users to modify items and send reports. 
+The following code represents the **items.html** file. This file enables users to modify items and send reports. 
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2062,10 +2062,10 @@ The following code represents the items.html file. This file enables users to mo
 	</body>
 	</html>
 
-**Note**: Replace the default email addresses with real email addresses in this file. 
+**Note:** Replace the default email addresses with real email addresses in this file. 
 #### layout.html
 
-The following code represents the layout.html file that represents the application's menu. 
+The following code represents the **layout.html** file that represents the application's menu. 
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2097,7 +2097,7 @@ The following code represents the layout.html file that represents the applicati
 
 #### To create the HTML files 
 
-1. In the **resources** folder, create a new folder named **templates**. 
+1. In the **resources** folder, create a folder named **templates**.  
 2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file. 
 3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file. 
 4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file. 
@@ -2445,13 +2445,13 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
       });
 
-**Note**: There are other CSS files located in the Github repository that you must add to your project. Ensure all of the files under the resources folder are included in your project. 
+**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project. 
 
-## Setup the RDS instance 
+## Set up the RDS instance 
 
 In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application. 
 
-#### To setup a MySQL DB instance
+#### To set up a MySQL DB instance
 
 1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
 2. In the upper-right corner of the AWS Management Console, choose the AWS Region in which you want to create the DB instance. This example uses the US West (Oregon) Region.
@@ -2503,7 +2503,7 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 
 13. Wait for the Status of your new DB instance to show as **Available**. Then choose the DB instance name to show its details.
 
-**Note**: You must setup inbound rules for the security group to connect to the database. You can setup one inbound rule for your development environment and another one for the Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you setup the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up Security Group Inbound Rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html). 
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
 
 #### Obtain the endpoint
 
@@ -2522,7 +2522,7 @@ In the previous line of code, notice **awstracker**. This is the database schema
      Class.forName("com.mysql.jdbc.Driver").newInstance();
             return DriverManager.getConnection(instance.url, "root","root1234");
 
-**Note**: If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database. 
+**Note:** If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database. 
 
 #### Create the database schema and table
 
@@ -2530,7 +2530,7 @@ You can use MySQL Workbench to connect to the RDS MySQL instance and create a da
 
 ![AWS Tracking Application](images/trackMySQLWB.png)
 
-**Note**: If you have issues connecting to the database, double recheck your inbound rules. 
+**Note:** If you have issues connecting to the database, be sure to recheck your inbound rules. 
 
 Create a schema named **awstracker** by using this SQL command.
 
@@ -2601,7 +2601,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 ![AWS Tracking Application](images/AWT7.png)
  
 11. In the **Application code** section, choose **Upload your code**. 
-12. Choose **Local file** and then select **Choose file**. Browse to the JAR file that you created. 
+12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
 13. Choose **Create environment**. You'll see the application being created. 
 
 ![AWS Tracking Application](images/AWT8.png)
@@ -2622,9 +2622,11 @@ To access the application, open your browser and enter the URL for your applicat
 
 ![AWS Blog Application](images/AWT11.png)
 
+### Next steps
 Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS Services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
-
+You can read more AWS multi service examples by clicking 
+[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
 
 
 
