@@ -27,6 +27,16 @@ To use the DynamoDB web service:
 
 ##  Running the code 
 
+### Creating tables and loading data for code examples in DynamoDB
+You will use the AWS Management Console to create tables in Amazon DynamoDB. Next, you will load 
+data into the tables you have created using the AWS Command Line Interface (AWS CLI).
+To create the tables, load and query the data, and clean up: 
+    1. [Create Example Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
+    2. [Load Data into Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.LoadData.html).
+    3. [Query the Data](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.Query.html).
+    4. [Clean Up](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.DeleteTables.html).
+    
+
 ### dynamodb_ruby_example_read_multiple_items/dynamodb_ruby_example_read_multiple_items.rb
 
 This example shows how to use the AWS SDK for Ruby to implement the 
