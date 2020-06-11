@@ -194,28 +194,27 @@ Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java ver
 The pom.xml file looks like the following.
 
       <?xml version="1.0" encoding="UTF-8"?>
-      <project xmlns="http://maven.apache.org/POM/4.0.0"
+	<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
-      <groupId>LambdaFunctions</groupId>
-      <artifactId>LambdaFunctions</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <packaging>jar</packaging>
+     <modelVersion>4.0.0</modelVersion>
+     <groupId>LambdaFunctions</groupId>
+     <artifactId>LambdaFunctions</artifactId>
+     <version>1.0-SNAPSHOT</version>
+     <packaging>jar</packaging>
       <name>java-basic-function</name>
-      <properties>
+     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-      </properties>
-      <dependencies>
+     </properties>
+     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-core</artifactId>
             <version>1.2.1</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -233,7 +232,6 @@ The pom.xml file looks like the following.
             <version>2.13.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j18-impl -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j18-impl</artifactId>
@@ -252,7 +250,6 @@ The pom.xml file looks like the following.
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
@@ -266,7 +263,7 @@ The pom.xml file looks like the following.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>2.5.10</version>
+            <version>2.10.41</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -283,10 +280,10 @@ The pom.xml file looks like the following.
             <artifactId>javax.mail</artifactId>
             <version>1.5.5</version>
         </dependency>
-       </dependencies>
-       <build>
+     </dependencies>
+     <build>
         <plugins>
-            <plugin>
+               <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
             </plugin>
@@ -315,9 +312,9 @@ The pom.xml file looks like the following.
                     <target>1.8</target>
                 </configuration>
             </plugin>
-           </plugins>
-          </build>
-        </project>
+        </plugins>
+       </build>
+     </project>
 ## Create Lambda functions by using the AWS SDK for Java Lambda API
 
 Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are three workflow steps that each correspond to a Java class. There are also two extra classes that invoke the Amazon DynamoDB service and the Amazon SES service.  
