@@ -701,7 +701,7 @@ Package up the project into a .jar (JAR) file that you can deploy as a Lambda fu
 
     mvn package
     
-The JAR file is located in the target folder.
+The JAR file is located in the **target** folder (which is a child folder of the project folder).
 
 ![AWS Tracking Application](images/lambda10.png)
 
