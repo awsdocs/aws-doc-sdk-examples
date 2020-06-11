@@ -739,7 +739,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 Open the Lambda console. Notice that you can view the Lambda Amazon Resource Name (ARN) value in the upper-right corner. 
 
-![AWS Tracking Application](images/lambda12.png)
+![AWS Tracking Application](images/lambda12A.png)
 
 Copy the value and then paste it into step 1 of the Amazon States Language document, located in the Step Functions console.
 
