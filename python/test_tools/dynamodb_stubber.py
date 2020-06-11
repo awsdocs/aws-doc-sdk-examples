@@ -89,11 +89,18 @@ class DynamoStubber(ExampleStubber):
             'create_table', table_input,{'TableDescription': table_output},
             error_code=error_code)
 
-    def stub_describe_table(self, table_name, status='ACTIVE', error_code=None):
+    def stub_describe_table(
+            self, table_name, schema=None, provisioned_throughput=None, status='ACTIVE',
+            error_code=None):
+        response = {'Table': {'TableStatus': status}}
+        if schema is not None:
+            self._add_table_schema(response['Table'], table_name, schema)
+        if provisioned_throughput is not None:
+            response['Table']['ProvisionedThroughput'] = provisioned_throughput
         self._stub_bifurcator(
             'describe_table',
             expected_params={'TableName': table_name},
-            response={'Table': {'TableStatus': status}},
+            response=response,
             error_code=error_code
         )
 
@@ -204,3 +211,24 @@ class DynamoStubber(ExampleStubber):
         ]
         self._stub_bifurcator(
             'query', expected_params, {'Items': response_items}, error_code=error_code)
+
+    def stub_batch_write_item(
+            self, request_items, unprocessed_items=None, error_code=None):
+        expected_params = {'RequestItems': request_items}
+        response = {
+            'UnprocessedItems': unprocessed_items
+            if unprocessed_items is not None else {}}
+        self._stub_bifurcator(
+            'batch_write_item', expected_params, response, error_code=error_code)
+
+    def stub_batch_get_item(
+            self, request_items, response_items=None, unprocessed_keys=None,
+            error_code=None):
+        expected_params = {'RequestItems': request_items}
+        response = {
+            'UnprocessedKeys': unprocessed_keys
+            if unprocessed_keys is not None else {}}
+        if response_items is not None:
+            response['Responses'] = response_items
+        self._stub_bifurcator(
+            'batch_get_item', expected_params, response, error_code=error_code)
