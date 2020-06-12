@@ -1,5 +1,5 @@
 ---
-# AWS Security Token Service (STS) examples
+# AWS Security Token Service (AWS STS) examples
 files:
   - path: sts_temporary_credentials/assume_role.py
     services:

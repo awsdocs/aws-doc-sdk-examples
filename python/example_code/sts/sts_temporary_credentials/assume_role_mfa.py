@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to assume a role that requires a multi-factor authentication token,
+Shows how to assume a role that requires a multi-factor authentication (MFA) token,
 using AWS Security Token Service (STS) credentials.
 """
 
@@ -33,7 +33,7 @@ def unique_name(base_name):
 def setup(iam_resource):
     """
     Creates a new user with no permissions.
-    Creates a new virtual multi-factor authentication (MFA) device.
+    Creates a new virtual MFA device.
     Displays the QR code to seed the device.
     Asks for two codes from the MFA device.
     Registers the MFA device for the user.
@@ -143,7 +143,7 @@ def try_to_assume_role_without_mfa(assume_role_arn, session_name, sts_client):
     Shows that attempting to assume the role without sending MFA credentials results
     in an AccessDenied error.
 
-    :param assume_role_arn: The Amazon Resource Number (ARN) of the role to assume.
+    :param assume_role_arn: The Amazon Resource Name (ARN) of the role to assume.
     :param session_name: The name of the STS session.
     :param sts_client: A Boto3 STS instance that has permission to assume the role.
     """
@@ -163,7 +163,7 @@ def list_buckets_from_assumed_role_with_mfa(
     """
     Assumes a role from another account and uses the temporary credentials from
     that role to list the Amazon S3 buckets that are owned by the other account.
-    Requires a multi-factor authentication (MFA) device serial number and token.
+    Requires an MFA device serial number and token.
 
     The assumed role must grant permission to list the buckets in the other account.
 
@@ -171,8 +171,8 @@ def list_buckets_from_assumed_role_with_mfa(
                             grants access to list the other account's buckets.
     :param session_name: The name of the STS session.
     :param mfa_serial_number: The serial number of the MFA device. For a virtual MFA
-                              device, this is an Amazon Resource Number (ARN).
-    :param mfa_totp: A time-based one-time password issued by the MFA device.
+                              device, this is an ARN.
+    :param mfa_totp: A time-based, one-time password issued by the MFA device.
     :param sts_client: A Boto3 STS instance that has permission to assume the role.
     """
     response = sts_client.assume_role(

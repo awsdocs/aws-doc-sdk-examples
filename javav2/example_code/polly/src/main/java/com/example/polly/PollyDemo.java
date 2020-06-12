@@ -47,8 +47,8 @@ import javazoom.jl.player.advanced.PlaybackListener;
 public class PollyDemo {
 
     private static final String SAMPLE = "Congratulations. You have successfully built this working demo "+
-            " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "+
-            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
+            " of Amazon Polly in the AWS SDK for Java version 2. Have fun building voice-enabled apps with Amazon Polly (that's me!), and always "+
+            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS.";
 
     public static void main(String args[]) {
 

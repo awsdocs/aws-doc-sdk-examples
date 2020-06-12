@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DescribeVoicesSample Produces a list of all voices available for use when requesting speech synthesis with Amazon Polly..]
+// snippet-sourcedescription:[DescribeVoicesSample produces a list of all voices available for use when requesting speech synthesis with Amazon Polly.]
 // snippet-service:[Amazon Polly]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Polly]

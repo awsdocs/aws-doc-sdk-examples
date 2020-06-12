@@ -4,8 +4,8 @@
 """
 Purpose
 
-Shows how to get a session token that requires a multi-factor authentication token,
-using AWS Security Token Service (STS) credentials.
+Shows how to get a session token that requires a multi-factor authentication (MFA)
+token, using AWS Security Token Service (AWS STS) credentials.
 """
 
 import json
@@ -107,11 +107,11 @@ def list_buckets_with_session_token_with_mfa(mfa_serial_number, mfa_totp, sts_cl
     Gets a session token with MFA credentials and uses the temporary session
     credentials to list Amazon S3 buckets.
 
-    Requires a multi-factor authentication (MFA) device serial number and token.
+    Requires an MFA device serial number and token.
 
     :param mfa_serial_number: The serial number of the MFA device. For a virtual MFA
-                              device, this is an Amazon Resource Number (ARN).
-    :param mfa_totp: A time-based one-time password issued by the MFA device.
+                              device, this is an Amazon Resource Name (ARN).
+    :param mfa_totp: A time-based, one-time password issued by the MFA device.
     :param sts_client: A Boto3 STS instance that has permission to assume the role.
     """
     if mfa_serial_number is not None:

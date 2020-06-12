@@ -1,4 +1,4 @@
-# AWS Security Token Service temporary credential examples
+# AWS STS temporary credential examples
 
 ## Purpose
 
@@ -21,13 +21,13 @@ demonstrates how to set up and use a multi-factor authentication (MFA) device.
 ## Running the code
 
 This module contains several demonstrations of how to get temporary credentials:
-* Assume a role with and without multi-factor authentication (MFA).
+* Assume a role with and without MFA.
 * Get a session token to access APIs that require MFA.
 * Construct a federated URL that lets you connect to another AWS account through 
 the AWS Management Console with limited permissions.
 
-Each script can be run from a command window. For example, to see the *assume role*
-demo, run the following at a command prompt:
+You can run each script from a command window. For example, to see the *assume role*
+demo, run the following at a command prompt.
 
 ```
 python assume_role.py
@@ -40,7 +40,14 @@ python assume_role.py
 Shows how to get temporary credentials by assuming a role that grants specific 
 permissions, and how to use those credentials to perform permitted actions.
 
-The demonstration has three parts:
+This example shows how to use AWS STS when you need more control than is available 
+from the Boto3 credential provider. For many scenarios, you can add a profile to 
+your credentials file so that Boto3 assumes a role on your behalf. 
+For more information, see 
+[Assume role provider](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#assume-role-provider) 
+in the Boto3 *Credentials user guide*.
+
+The demonstration has three parts: setup, usage, and teardown.
 
 ##### Setup
 
@@ -66,14 +73,20 @@ The demonstration has three parts:
 
 Shows how to get temporary credentials by assuming a role that grants specific 
 permissions, and how to use those credentials to perform permitted actions. In this
-demo, the assumed role requires multi-factor authentication to be present.
+demo, the assumed role requires MFA to be present.
 
-The demonstration has three parts:
+This example shows how to use AWS STS when you need more control than is available 
+from the Boto3 credential provider. For many scenarios, you can add a profile to 
+your credentials file so that Boto3 assumes a role on your behalf. 
+For more information, see 
+[Assume role provider](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#assume-role-provider) 
+in the Boto3 *Credentials user guide*.
+
+The demonstration has three parts: setup, usage, and teardown.
 
 ##### Setup
 
-* Creates a virtual multi-factor authentication device and registers it with an
-  actual MFA device you own, such as Google Authenticator.
+* Creates a virtual MFA device and registers it with an actual MFA device you own.
 * Creates a user, a role, and a policy.
 * The user has permission only to assume the role.
 * For demo purposes, the user is created in the current account, but in practice
@@ -102,7 +115,7 @@ For more information, see
 [Enabling Custom Identity Broker Access to the AWS Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
 in the *AWS Identity and Access Management User Guide*.
 
-The demonstration has three parts:
+The demonstration has three parts: setup, usage, and teardown.
 
 ##### Setup
 
@@ -111,8 +124,8 @@ The demonstration has three parts:
 
 ##### Usage
 
-* Acquires temporary credentials from AWS Security Token Service (STS) that can
-  be used to assume a role with limited permissions.
+* Acquires temporary credentials from AWS STS that can be used to assume a role 
+  with limited permissions.
 * Uses the temporary credentials to request a sign-in token from the
   AWS federation endpoint.
 * Builds a URL that can be used in a browser to gain direct access to the AWS
@@ -125,17 +138,16 @@ The demonstration has three parts:
 #### session_token.py
 
 Shows how to get a session token that can be used to call an API function that
-requires MFA. This use case typically occurs when specific, sensitive, APIs have 
-additional MFA protection. For example, a user may be allowed to manipulate objects 
-in an Amazon S3 bucket with ordinary credentials, but be required to present MFA 
-credentials to delete the bucket itself.
+requires MFA. This use case typically occurs when specific, sensitive APIs have 
+additional MFA protection. For example, a user may be allowed to present ordinary
+credentials to manipulate objects in an Amazon S3 bucket, but be required to 
+present MFA credentials to delete the bucket.
 
-The demonstration has three parts:
+The demonstration has three parts: setup, usage, and teardown.
 
 ##### Setup
 
-* Creates a virtual multi-factor authentication device and registers it with an
-  actual MFA device you own, such as Google Authenticator.
+* Creates a virtual MFA device and registers it with an actual MFA device you own.
 * Creates a user with an inline policy that lets the user list buckets for the 
   account, but only when MFA is present.
 
@@ -151,7 +163,7 @@ The demonstration has three parts:
 ## Running the tests
 
 All tests use the botocore Stubber, which captures requests before they are sent to 
-AWS and returns a mocked response. Run the following in your 
+AWS, and returns a mocked response. Run the following in your 
 `[GitHub root]/python/example_code/sts/sts_assume_role` folder.
 
 ```
@@ -161,6 +173,7 @@ python -m pytest
 ## Additional information
 
 - [Boto3 AWS Security Token Service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sts.html)
+- [Boto3 Assume role provider](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#assume-role-provider)
 - [Boto3 Identity and Access Management (IAM) examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/iam-examples.html)
 - [Boto3 Identity and Access Management (IAM) service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html)
 - As an AWS best practice, grant this code least privilege, or only the 

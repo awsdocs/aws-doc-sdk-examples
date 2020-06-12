@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Contains common test fixtures used to run AWS Security Token Service tests.
+Contains common test fixtures used to run AWS Security Token Service (AWS STS) tests.
 """
 
 import sys

@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to assume a role using AWS Security Token Service (STS) credentials.
+Shows how to assume a role using AWS Security Token Service (AWS STS) credentials.
 """
 
 import json

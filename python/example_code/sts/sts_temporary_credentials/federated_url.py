@@ -66,8 +66,8 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     Constructs a URL that gives federated users direct access to the AWS Management
     Console.
 
-    1. Acquires temporary credentials from AWS Security Token Service (STS) that can
-       be used to assume a role with limited permissions.
+    1. Acquires temporary credentials from AWS Security Token Service (AWS STS) that
+       can be used to assume a role with limited permissions.
     2. Uses the temporary credentials to request a sign-in token from the
        AWS federation endpoint.
     3. Builds a URL that can be used in a browser to navigate to the AWS federation
@@ -99,7 +99,7 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     aws_federated_signin_endpoint = 'https://signin.aws.amazon.com/federation'
 
     # Make a request to the AWS federation endpoint to get a sign-in token.
-    # The requests.get function URL-encodes the params and builds the query string
+    # The requests.get function URL-encodes the parameters and builds the query string
     # before making the request.
     response = requests.get(
         aws_federated_signin_endpoint,
