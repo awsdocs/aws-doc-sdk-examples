@@ -16,7 +16,7 @@ import (
 
 // GetVoices retrieves a list of the voices for US English.
 // Inputs:
-//     svc is a Polly service client
+//     svc is an Amazon Polly service client
 // Output:
 //     If success, the list of voices and nil
 //     Otherwise, nil and an error from the call to DescribeVoices

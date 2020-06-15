@@ -32,7 +32,7 @@ func MakeSpeech(svc pollyiface.PollyAPI, fileName *string) (*polly.SynthesizeSpe
     contents, err := ioutil.ReadFile(*fileName)
     // snippet-end:[polly.go.synthesize_speech.read_file]
     if err != nil {
-        return nil, errors.New("Got error opening file " + *fileName)
+        return nil, errors.New("Got an error opening the file " + *fileName)
     }
 
     // snippet-start:[polly.go.synthesize_speech.call]
@@ -67,7 +67,7 @@ func main() {
 
     output, err := MakeSpeech(svc, fileName)
     if err != nil {
-        fmt.Println("Got error calling SynthesizeSpeech:")
+        fmt.Println("Got an error calling SynthesizeSpeech:")
         fmt.Print(err)
         return
     }
@@ -80,7 +80,7 @@ func main() {
 
     outFile, err := os.Create(mp3File)
     if err != nil {
-        fmt.Println("Got error creating " + mp3File + ":")
+        fmt.Println("Got an error creating the file " + mp3File + ":")
         fmt.Print(err)
         return
     }
@@ -88,7 +88,7 @@ func main() {
     defer outFile.Close()
     _, err = io.Copy(outFile, output.AudioStream)
     if err != nil {
-        fmt.Println("Got error saving MP3:")
+        fmt.Println("Got an error saving the MP3 to the file:")
         fmt.Print(err)
         return
     }

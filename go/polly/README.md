@@ -23,7 +23,8 @@ The unit test mocks the service client and the `DescribeVoices` function.
 
 ### ListLexicons/ListLexicons.go
 
-This example lists the Amazon Polly lexicons.
+This example lists the Amazon Polly lexicons,
+which enable you to customize the pronunciation of words.
 
 `go run ListLexicons.go`
 
