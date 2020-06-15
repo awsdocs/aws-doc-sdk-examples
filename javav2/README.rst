@@ -44,6 +44,7 @@ Under the **use_cases** folder, you will locate step by step development article
 
 + **Creating your first AWS Java Web Application** - an article that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
 + **Creating a Secure Spring Application using AWS Services** - an article that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
++ **Creating AWS Serverless workflows using the Java SDK** - an article that discusses using the AWS Java SDK and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using a Lambda function.
 
 AWS service examples
 --------------------
