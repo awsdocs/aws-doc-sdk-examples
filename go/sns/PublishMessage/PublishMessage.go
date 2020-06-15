@@ -18,7 +18,7 @@ import (
 // Inputs:
 //     svc is an Amazon SNS service object
 //     msg is the message to publish
-//     topicARN is the ARN of the topic to publish through
+//     topicARN is the Amazon Resource Name (ARN) of the topic to publish through
 // Output:
 //     If success, information about the publication and nil
 //     Otherwise, nil and an error from the call to Publish
@@ -57,7 +57,7 @@ func main() {
 
 	result, err := PublishMessage(svc, msg, topicARN)
 	if err != nil {
-		fmt.Println("Got an error publishing message:")
+		fmt.Println("Got an error publishing the message:")
 		fmt.Println(err)
 		return
 	}

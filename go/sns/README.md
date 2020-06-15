@@ -30,13 +30,13 @@ This example publishes a message to an Amazon SNS topic.
 `go run PublishMessage.go -m MESSAGE -t TOPIC-ARN`
 
 - _MESSAGE_ is the message to publish.
-- _TOPIC-ARN_ is the ARN of the topic to which the user subscribes.
+- _TOPIC-ARN_ is the Amazon Resource Name (ARN) of the topic to which the user subscribes.
 
 The unit test mocks the service client and the `Publish` function.
 
 ### ShowSubscriptions/ShowSubscriptions.go
 
-This example displays the ARNs of your Amazon SNS subscriptions.
+This example displays the Amazon Resource Names (ARNs) of your Amazon SNS subscriptions.
 
 `go run ShowSubscriptions.go`
 
@@ -44,7 +44,7 @@ The unit test mocks the service client and the `ListSubscriptions` function.
 
 ### ShowTopics/ShowTopics.go
 
-This example displays the ARNs of your Amazon SNS topics.
+This example displays the Amazon Resource Names (ARNs) of your Amazon SNS topics.
 
 `go run ShowTopics.go`
 
@@ -57,7 +57,7 @@ This example subscribes a user to a topic by their email address.
 `go run SubscribeTopic.go -e EMAIL -t TOPIC-ARN`
 
 - _EMAIL_ is the email address of the user.
-- _TOPIC-ARN_ is the ARN of the topic.
+- _TOPIC-ARN_ is the Amazon Resource Name (ARN) of the topic.
 
 The unit test mocks the service client and the `Subscribe` function.
 

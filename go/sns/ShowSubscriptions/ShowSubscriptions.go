@@ -38,7 +38,7 @@ func main() {
 
     result, err := GetSubscriptions(svc)
     if err != nil {
-        fmt.Println("Got an error retrieving subscriptions:")
+        fmt.Println("Got an error retrieving the subscriptions:")
         fmt.Println(err)
         return
     }

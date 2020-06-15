@@ -60,7 +60,7 @@ func main() {
 
     result, err := SubscribeTopic(svc, email, topicARN)
     if err != nil {
-        fmt.Println("Got an error subscribing to topic:")
+        fmt.Println("Got an error subscribing to the topic:")
         fmt.Println(err)
         return
     }
