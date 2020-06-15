@@ -2,11 +2,12 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[s3.cpp.create_bucket.inc]
-#include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CreateBucketRequest.h>
 #include <aws/s3/model/BucketLocationConstraint.h>
+#include <aws/core/utils/UUID.h>
+#include <aws/core/utils/StringUtils.h>
 // snippet-end:[s3.cpp.create_bucket.inc]
 #include <awsdoc/s3/s3_examples.h>
 
@@ -21,8 +22,8 @@
  * ///////////////////////////////////////////////////////////////////////// */
 
  // snippet-start:[s3.cpp.create_bucket.code]
-bool AwsDoc::S3::CreateBucket(Aws::String bucketName, 
-        Aws::S3::Model::BucketLocationConstraint region)
+bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName, 
+    const Aws::S3::Model::BucketLocationConstraint &region)
 {
 	Aws::S3::S3Client s3_client;
 
@@ -47,6 +48,7 @@ bool AwsDoc::S3::CreateBucket(Aws::String bucketName,
         auto err = outcome.GetError();
         std::cout << "Error: CreateBucket: " <<
             err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+
         return false;
     }
 
@@ -55,18 +57,29 @@ bool AwsDoc::S3::CreateBucket(Aws::String bucketName,
 // snippet-end:[s3.cpp.create_bucket.code]
 
 int main()
-{	
-    Aws::String bucket_name = "my-bucket";
-    Aws::S3::Model::BucketLocationConstraint region = 
-        Aws::S3::Model::BucketLocationConstraint::us_east_1;
-
+{
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::S3::Model::BucketLocationConstraint region =
+            Aws::S3::Model::BucketLocationConstraint::us_east_1;
+
+        // Create a unique bucket name to increase the chance of success 
+        // when trying to create the bucket.
+        // Format: "my-bucket-" + lowercase UUID.
+        Aws::String uuid = Aws::Utils::UUID::RandomUUID();
+        Aws::String bucket_name = "my-bucket-" + 
+            Aws::Utils::StringUtils::ToLower(uuid.c_str());
+
+        // Create the bucket.
         if (AwsDoc::S3::CreateBucket(bucket_name, region))
         {
             std::cout << "Created bucket " << bucket_name <<
                 " in the specified AWS Region." << std::endl;
+        }
+        else
+        {
+            return 1;
         }
     }
     ShutdownAPI(options);
