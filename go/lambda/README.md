@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Lambda operations.
+These examples demonstrate how to perform several AWS Lambda operations.
 
 ## Prerequisites
 
@@ -15,25 +15,25 @@ in the _AWS SDK for Go Developer Guide_.
 
 ### ConfigureFunction/ConfigureFunction.go
 
-This example enables an Amazon S3 bucket to send notifications to a Lambda function.
+This example enables an Amazon S3 bucket to send notifications to an AWS Lambda function.
 
 `go run ConfigureFunction.go -f FUNCTION -a ARN`
 
-- _FUNCTION_ is the name of the Lambda function.
-- _ARN_ is the ARN of the S3 bucket sending a notification to the function.
+- _FUNCTION_ is the name of the AWS Lambda function.
+- _ARN_ is the Amazon Resource Name (ARN) of the S3 bucket sending a notification to the function.
 
 The unit test mocks the service client and the `AddPermission` function.
 
 ### MakeFunction/MakeFunction.go
 
-This example creates a Lambda function.
+This example creates an AWS Lambda function.
 
 `go run MakeFunction.go -z ZIPFILE -b BUCKET -f FUNCTION -h HANDLER -a ROLE-ARN -r RUNTIME`
 
-- _ZIPFILE_ is the name of the zip file, without the .zip extension, containing the Lambda function code.
-- _BUCKET_ is the name of an Amazon S3 bucket in the same region as the Lambda function.
-- _FUNCTION_ is the name of the Lambda function.
-- _HANDLER_ is the name of the method within your code that Lambda calls.
+- _ZIPFILE_ is the name of the zip file, without the .zip extension, containing the AWS Lambda function code.
+- _BUCKET_ is the name of an Amazon S3 bucket in the same AWS Region as the AWS Lambda function.
+- _FUNCTION_ is the name of the AWS Lambda function.
+- _HANDLER_ is the name of the method within your code that AWS Lambda calls.
 - _ROLE-ARN_ is the ARN of the function's execution role.
 - _RUNTIME_ is the identifier of the function's runtime.
 
@@ -41,11 +41,11 @@ The unit test mocks the service client and the `CreateFunction` function.
 
 ### RunFunction/RunFunction.go
 
-This example executes a Lambda function.
+This example executes an AWS Lambda function.
 
 `go run RunFunction.go -f FUNCTION -f FUNCTION [-m MAX-ITEMS]`
 
-- _FUNCTION_ is the name of the Lambda function to call.
+- _FUNCTION_ is the name of the AWS Lambda function to call.
 - _MAX-ITEMS_ is the maximum number of items to retrieve.
   This argument is optional, and if not supplied, defaults to 10.
 
@@ -53,7 +53,7 @@ The unit test mocks the service client and the `Invoke` function.
 
 ### ShowFunctions/ShowFunctions.go
 
-This example displays a list of your Lambda functions.
+This example displays a list of your AWS Lambda functions.
 
 `go run ShowFunctions.go`
 

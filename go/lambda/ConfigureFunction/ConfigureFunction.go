@@ -15,11 +15,11 @@ import (
 )
 // snippet-end:[lambda.go.config_function.imports]
 
-// AddPerm enables an Amazon S3 bucket to send notifications to a Lambda function.
+// AddPerm enables an Amazon S3 bucket to send notifications to an AWS Lambda function.
 // Inputs:
 //     svc is a Lambda service client
 //     function is the name of the Lambda function
-//     s3ARN is the ARN of the Amazon S3 bucket
+//     s3ARN is the Amazon Resource Name (ARN) of the Amazon S3 bucket
 // Output:
 //     If success, nil
 //     Otherwise, an error from the call to AddPermission
@@ -39,7 +39,7 @@ func AddPerm(svc lambdaiface.LambdaAPI, function, s3ARN *string) error {
 func main() {
     // snippet-start:[lambda.go.config_function.args]
     function := flag.String("f", "", "The name of the Lambda function")
-    s3ARN := flag.String("a", "", "The ARN of the S3 bucket sending a notification to the function")
+    s3ARN := flag.String("a", "", "The ARN of the Amazon S3 bucket sending a notification to the function")
     flag.Parse()
 
     if *function == "" || *s3ARN == "" {
@@ -59,11 +59,11 @@ func main() {
 
     err := AddPerm(svc, function, s3ARN)
     if err != nil {
-        fmt.Println("Got error configuring function for notifications:")
+        fmt.Println("Got an error configuring the function for notifications:")
         fmt.Println(err)
         return
     }
 
-    fmt.Println("Configured function for notifications")
+    fmt.Println("Configured the function for notifications")
 }
 // snippet-end:[lambda.go.config_function]

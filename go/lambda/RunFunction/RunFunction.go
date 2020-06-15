@@ -48,11 +48,11 @@ type getItemsResponse struct {
 }
 // snippet-end:[lambda.go.run_function.structs]
 
-// CallFunction call a Lambda function
+// CallFunction calls an AWS Lambda function
 // Inputs:
-//     svc is a Lambda service client
+//     svc is an AWS Lambda service client
 //     maxItems is the maximum number of items to retrieve
-//     function is the name of the Lambda function
+//     function is the name of the AWS Lambda function
 // Output:
 //     If success, the results of the function call and nil
 //     Otherwise, nil and an error from the call to Invoke
@@ -63,7 +63,7 @@ func CallFunction(svc lambdaiface.LambdaAPI, maxItems *int, function *string) (*
     payload, err := json.Marshal(request)
     // snippet-end:[lambda.go.run_function.marshall]
     if err != nil {
-        fmt.Println("Error marshalling request")
+        fmt.Println("Got an error marshalling the request")
         return nil, err
     }
 
@@ -78,12 +78,12 @@ func CallFunction(svc lambdaiface.LambdaAPI, maxItems *int, function *string) (*
 
 func main() {
     // snippet-start:[lambda.go.run_function.args]
-    function := flag.String("f", "", "The name of the Lambda function to invoke")
+    function := flag.String("f", "", "The name of the AWS Lambda function to invoke")
     maxItems := flag.Int("m", 10, "The maximum number of items to retrieve")
     flag.Parse()
 
     if *function == "" || *maxItems < 0 {
-        fmt.Println("You must supply a function to call and maximum number of items to retrieve greater than zero")
+        fmt.Println("You must supply a function to call and maximum number of items to retrieve that is greater than zero")
         return
     }
     // snippet-end:[lambda.go.run_function.args]
@@ -109,7 +109,7 @@ func main() {
     err = json.Unmarshal(result.Payload, &resp)
     // snippet-end:[lambda.go.run_function.unmarshall]
     if err != nil {
-        fmt.Println("Got error unmarshalling response:")
+        fmt.Println("Got an error unmarshalling the response")
         fmt.Println(err)
         return
     }

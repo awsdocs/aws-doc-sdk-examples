@@ -16,14 +16,14 @@ import (
 )
 // snippet-end:[lambda.go.make_function.imports]
 
-// MakeFunction creates a Lambda function
+// MakeFunction creates an AWS Lambda function
 // Inputs:
 //     svc is a Lambda service client
-//     zipFile is the name of the zip file
+//     zipFile is the name of the .zip file
 //     bucket is the name of the bucket
 //     function is the name of the Lambda function
 //     handler is the name of the function that is called in the Lambda function
-//     resource is the
+//     resource is the Amazon Resource Name (ARN) of the function's execution role
 //     runtime is the compute runtime environment that runs the Lambda function
 // Output:
 //     If success, information about the Lambda function and nil
@@ -66,12 +66,12 @@ func main() {
     function := flag.String("f", "", "The name of the Lambda function")
     handler := flag.String("h", "", "The name of the package.class handling the call")
     resource := flag.String("a", "", "The ARN of the role that calls the function")
-    runtime := flag.String("r", "", "The runtime for the function.")
+    runtime := flag.String("r", "", "The runtime for the function")
 
     flag.Parse()
 
     if *zipFile == "" || *bucket == "" || *function == "" || *handler == "" || *resource == "" || *runtime == "" {
-        fmt.Println("You must supply a zip file name, bucket name, function name, handler, ARN, and runtime.")
+        fmt.Println("You must supply a zip file name, bucket name, function name, handler, Amazon Resource Name (ARN), and runtime.")
         fmt.Println("-z ZIP-FILE -b BUCKET -f FUNCTION-NAME -h HANDLER -a ROLE-ARN -r RUNTIME")
         return
     }
