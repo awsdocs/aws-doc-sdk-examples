@@ -99,16 +99,14 @@ class S3Stubber(ExampleStubber):
                 service_error_code=error_code
             )
 
-    def stub_list_buckets(self, buckets):
-        self.add_response(
-            'list_buckets',
-            expected_params={},
-            service_response={
-                'Buckets': [{
-                    'Name': b.name
-                } for b in buckets]
-            }
-        )
+    def stub_list_buckets(self, buckets, error_code=None):
+        response = {
+            'Buckets': [{
+                'Name': b.name
+            } for b in buckets]
+        }
+        self._stub_bifurcator(
+            'list_buckets', response=response, error_code=error_code)
 
     def stub_get_bucket_acl(self, bucket_name, grant_names=None):
         service_response = {
