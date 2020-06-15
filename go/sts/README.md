@@ -19,7 +19,7 @@ This example gets temporary security credentials to access resources.
 
 `go run TakeRole.go -r ROLE-ARN -S SESSION-NAME`
 
-- _ROLE-ARN_ is the ARN of the role to assume.
+- _ROLE-ARN_ is the Amazon Resource Name (ARN) of the role to assume.
 - _SESSION-NAME_ is a unique identifier for the session.
 
 The unit test mocks the service client and the `AssumeRole` function.

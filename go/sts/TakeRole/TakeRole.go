@@ -16,11 +16,11 @@ import (
 
 // TakeRole gets temporary security credentials to access resources
 // Inputs:
-//     svc is an Amazon STS service client
-//     roleARN is the ARN of the role to assume
-//     sessionName is a unique identifier for session
+//     svc is an AWS STS service client
+//     roleARN is the Amazon Resource Name (ARN) of the role to assume
+//     sessionName is a unique identifier for the session
 // Output:
-//     If success, information about the assumed rold and nil
+//     If success, information about the assumed role and nil
 //     Otherwise, nil and an error from the call to AssumeRole
 func TakeRole(svc stsiface.STSAPI, roleARN, sessionName *string) (*sts.AssumeRoleOutput, error) {
     // snippet-start:[sts.go.take_role.call]
@@ -35,7 +35,7 @@ func TakeRole(svc stsiface.STSAPI, roleARN, sessionName *string) (*sts.AssumeRol
 
 func main() {
     // snippet-start:[sts.go.take_role.args]
-    roleARN := flag.String("r", "", "The ARN of the role to assume")
+    roleARN := flag.String("r", "", "The Amazon Resource Name (ARN) of the role to assume")
     sessionName := flag.String("s", "", "A unique identifier for the session")
 
     if *roleARN == "" || *sessionName == "" {
