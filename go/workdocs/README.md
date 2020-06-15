@@ -1,4 +1,4 @@
-# AWS SDK for Go code examples for Amazon WorkdDocs
+# AWS SDK for Go code examples for Amazon WorkDocs
 
 ## Purpose
 

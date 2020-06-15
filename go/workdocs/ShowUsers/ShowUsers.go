@@ -20,7 +20,7 @@ import (
 //     orgID is the ID of the organization
 // Output:
 //     If success, information about the users and nil
-//     Otherwise, nil and an error from the call to DesribeUsers
+//     Otherwise, nil and an error from the call to DescribeUsers
 func ShowUsers(svc workdocsiface.WorkDocsAPI, orgID *string) (*workdocs.DescribeUsersOutput, error) {
     // snippet-start:[workdocs.go.show_users.call]
     result, err := svc.DescribeUsers(&workdocs.DescribeUsersInput{
