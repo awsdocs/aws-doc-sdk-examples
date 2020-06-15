@@ -37,7 +37,7 @@ func main() {
     flag.Parse()
 
     if *address == "" {
-        fmt.Println("You must specify a address email address")
+        fmt.Println("You must specify an email address")
         fmt.Println("-a ADDRESS")
         return
     }
@@ -53,12 +53,12 @@ func main() {
 
     err := RemoveAddress(svc, address)
     if err != nil {
-        fmt.Println("Got an error attempting to remove email address: " + *address)
+        fmt.Println("Got an error attempting to remove the email address: " + *address)
         fmt.Println(err)
         return
     }
 
     // Display success message
-    fmt.Println("Removed email address: " + *address)
+    fmt.Println("Removed the email address: " + *address)
 }
 // snippet-end:[ses.go.delete_address]

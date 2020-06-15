@@ -17,18 +17,18 @@ import (
 
 // snippet-start:[ses.go.send_message.consts]
 const (
-    // Subject is the subject line for the email.
+    // Subject is the subject line for the email
     Subject = "Amazon SES Test (AWS SDK for Go)"
 
-    // HTMLBody is the HTML body for the email.
+    // HTMLBody is the HTML body for the email
     HTMLBody = "<h1>Amazon SES Test Email (AWS SDK for Go)</h1><p>This email was sent with " +
         "<a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the " +
         "<a href='https://aws.amazon.com/sdk-for-go/'>AWS SDK for Go</a>.</p>"
 
-    // TextBody is the email body for recipients with non-HTML email clients.
+    // TextBody is the email body for recipients with non-HTML email clients
     TextBody = "This email was sent with Amazon SES using the AWS SDK for Go."
 
-    // CharSet is the character encoding for the email.
+    // CharSet is the character encoding for the email
     CharSet = "UTF-8"
 )
 // snippet-end:[ses.go.send_message.consts]
