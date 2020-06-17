@@ -1,0 +1,30 @@
+{
+  "name": "PhotoExample",
+  "version": "1.0.0",
+  "description": "A browser-based photo app demonstrating JS SDK V3.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack s3_PhotoExample.js --mode development --target web --devtool false -o main.js",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awsdocs/aws-doc-sdk-examples.git"
+  },
+  "author": "brmur",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/awsdocs/aws-doc-sdk-examples/issues"
+  },
+  "homepage": "https://github.com/awsdocs/aws-doc-sdk-examples#readme",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^1.0.0-beta.5",
+    "@aws-sdk/client-dynamodb": "^1.0.0-beta.5",
+    "@aws-sdk/client-s3": "^1.0.0-beta.5",
+    "@aws-sdk/credential-provider-cognito-identity": "^1.0.0-beta.5"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

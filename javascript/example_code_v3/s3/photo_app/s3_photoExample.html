@@ -1,0 +1,33 @@
+<!--
+//Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+ ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
+ https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html
+
+ NOTES:
+ - For the JavaScript code, see s3_photoexample.js.
+ - For IAM role policy and CORS setup, see the JavaScript Developer Guide topic at
+   https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html
+-->
+
+<!-- snippet-start:[s3.HTML.photoAlbumExample.complete] -->
+<!DOCTYPE html>
+<html>
+  <head>
+     <!-- **DO THIS**: -->
+    <!--   Replace SDK_VERSION_NUMBER with the current SDK version number -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-SDK_VERSION_NUMBER.js"></script>
+    <script src="./app.js"></script>
+    <script>
+       function getHtml(template) {
+          return template.join('\n');
+       }
+       listAlbums();
+    </script>
+  </head>
+  <body>
+    <h1>My Photo Albums App</h1>
+    <div id="app"></div>
+  </body>
+</html>
+<!-- snippet-end:[s3.HTML.photoAlbumExample.complete] -->
