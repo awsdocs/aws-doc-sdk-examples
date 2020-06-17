@@ -58,3 +58,28 @@ class StsStubber(ExampleStubber):
         }
         self._stub_bifurcator(
             'assume_role', expected_params, response, error_code=error_code)
+
+    def stub_get_session_token(
+            self, serial_number, token_code, credentials=None, error_code=None):
+        expected_params = {}
+        if serial_number is not None:
+            expected_params['SerialNumber'] = serial_number
+        if token_code is not None:
+            expected_params['TokenCode'] = token_code
+        response = {'Credentials': {}}
+        if credentials is not None:
+            response['Credentials'] = {
+                'AccessKeyId': credentials.id,
+                'SecretAccessKey': credentials.secret,
+                'SessionToken': credentials.token,
+                'Expiration': datetime.datetime.now() + datetime.timedelta(seconds=10)
+            }
+        else:
+            response['Credentials'] = {
+                'AccessKeyId': 'test-key-id-plus-more',
+                'SecretAccessKey': 'test-access-key-secret',
+                'SessionToken': 'test-session-token',
+                'Expiration': datetime.datetime.now() + datetime.timedelta(seconds=10)
+            }
+        self._stub_bifurcator(
+            'get_session_token', expected_params, response, error_code=error_code)
