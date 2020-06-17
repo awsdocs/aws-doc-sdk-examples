@@ -36,7 +36,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
     // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
-    result, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
+    urlResult, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
         QueueName: queue,
     })
     // snippet-end:[sqs.go.get_queue_url.call]
@@ -44,7 +44,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
         return nil, err
     }
 
-    return result, nil
+    return urlResult, nil
 }
 
 // SetMsgVisibility sets the visibility timeout for a message in an SQS queue
@@ -75,6 +75,7 @@ func SetMsgVisibility(sess *session.Session, handle *string, queueURL *string, v
 }
 
 func main() {
+    // snippet-start:[sqs.go.change_message_visibility.args]
     queue := flag.String("q", "", "The name of the queue")
     handle := flag.String("h", "", "The receipt handle of the message")
     visibility := flag.Int64("v", 30, "The duration, in seconds, that the message is not visible to other consumers")
@@ -92,6 +93,7 @@ func main() {
     if *visibility > 12*60*60 {
         *visibility = 12 * 60 * 60
     }
+    // snippet-end:[sqs.go.change_message_visibility.args]
 
     // Create a session that gets credential values from ~/.aws/credentials
     // and the default Region from ~/.aws/config
@@ -102,15 +104,17 @@ func main() {
     // snippet-end:[sqs.go.change_message_visibility.sess]
 
     // Get URL of queue
-    result, err := GetQueueURL(sess, queue)
+    urlResult, err := GetQueueURL(sess, queue)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
         return
     }
 
-    queueURL := result.QueueUrl
-
+    // snippet-start:[sqs.go.change_message_visibility.url]
+    queueURL := urlResult.QueueUrl
+    // snippet-end:[sqs.go.change_message_visibility.url]
+    
     err = SetMsgVisibility(sess, handle, queueURL, visibility)
     if err != nil {
         fmt.Println("Got an error setting the visibility of the message:")

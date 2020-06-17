@@ -54,10 +54,9 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 //     If success, nil
 //     Otherwise, an error from the call to DeleteMessage
 func DeleteMessage(sess *session.Session, queueURL *string, messageHandle *string) error {
-    // Create an SQS service client
+    // snippet-start:[sqs.go.delete_message.call]
     svc := sqs.New(sess)
 
-    // snippet-start:[sqs.go.delete_message.call]
     _, err := svc.DeleteMessage(&sqs.DeleteMessageInput{
         QueueUrl:      queueURL,
         ReceiptHandle: messageHandle,

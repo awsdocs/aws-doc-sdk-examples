@@ -36,7 +36,7 @@ job_flow_step_01 = {
     'HadoopJarStep': {
         'Jar': 's3://elasticmapreduce/libs/script-runner/script-runner.jar',
         'Args': [
-            '/home/hadoop/bin/emrfs',
+            '/usr/bin/emrfs',
             'sync',
             's3://elasticmapreduce/samples/cloudfront'
         ]
