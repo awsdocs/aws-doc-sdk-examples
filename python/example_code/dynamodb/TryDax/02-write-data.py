@@ -1,51 +1,47 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
+#!/usr/bin/env python3
 
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-#
-#  http://aws.amazon.com/apache2.0/
-#
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Purpose
+
+Writes test data to the Amazon DynamoDB table, in preparation for the demonstration.
+"""
 
 # snippet-start:[dynamodb.Python.TryDax.02-write-data]
-
-import os
 import boto3
 
-table_name = 'TryDaxTable'
-some_data = 'X' * 1000
-pk_max = 10
-sk_max = 10
 
-region = os.environ.get('AWS_DEFAULT_REGION', 'us-west-2')
-dynamodb = boto3.client('dynamodb', region_name=region)
-for ipk in range(1, pk_max+1):
-    for isk in range(1, sk_max+1):
-        params = {
-            'TableName': table_name,
-            'Item': {
-                'pk': {'N': str(ipk)},
-                'sk': {'N': str(isk)},
-                'someData': {'S': some_data}
-            }
-        }
+def write_data_to_dax_table(key_count, item_size, dyn_resource=None):
+    """
+    Writes test data to the demonstration table.
 
-        dynamodb.put_item(**params)
-        print(f'PutItem ({ipk}, {isk}) succeeded')
+    :param key_count: The number of partition and sort keys to use to populate the
+                      table. The total number of items is key_count * key_count.
+    :param item_size: The size of non-key data for each test item.
+    :param dyn_resource: Either a Boto3 or DAX resource.
+    """
+    if dyn_resource is None:
+        dyn_resource = boto3.resource('dynamodb')
 
+    table = dyn_resource.Table('TryDaxTable')
+    some_data = 'X' * item_size
+
+    for partition_key in range(1, key_count + 1):
+        for sort_key in range(1, key_count + 1):
+            table.put_item(Item={
+                'partition_key': partition_key,
+                'sort_key': sort_key,
+                'some_data': some_data
+            })
+            print(f"Put item ({partition_key}, {sort_key}) succeeded.")
+
+
+if __name__ == '__main__':
+    write_key_count = 10
+    write_item_size = 1000
+    print(f"Writing {write_key_count*write_key_count} items to the table. "
+          f"Each item is {write_item_size} characters.")
+    write_data_to_dax_table(write_key_count, write_item_size)
 # snippet-end:[dynamodb.Python.TryDax.02-write-data]

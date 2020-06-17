@@ -1,0 +1,25 @@
+files:
+  - path: CreateCMK/CreateCMK.go
+    services:
+      - kms
+  - path: CreateCMK/CreateCMK_test.go
+    services:
+      - kms
+  - path: DecryptData/DecryptData.go
+    services:
+      - kms
+  - path: DecryptData/DecryptData_test.go
+    services:
+      - kms
+  - path: EncryptData/EncryptData.go
+    services:
+      - kms
+  - path: EncryptData/EncryptData_test.go
+    services:
+      - kms
+  - path: ReEncryptData/ReEncryptData.go
+    services:
+      - kms
+  - path: ReEncryptData/ReEncryptData_test.go
+    services:
+      - kms

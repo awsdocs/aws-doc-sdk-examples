@@ -41,6 +41,7 @@ node s3_listobjects.js
 Returns a list of buckets in the associated S3 account.
 */
 // snippet-start:[s3.javascript.bucket_operations.list_create_delete]
+
 if (process.argv.length < 4) {
     console.log('Usage: node s3.js <the bucket name> <the AWS Region to use>\n' +
       'Example: node s3.js my-test-bucket us-east-2');
