@@ -34,7 +34,7 @@ import software.amazon.awssdk.services.comprehend.model.DocumentClassifierInputD
 //snippet-end:[comprehend.java2.classifier.import]
 
 /**
- * Before running this code example, you can setup the necessary resources, such as the CSV file and IAM Roles, by following this document:
+ * Before running this code example, you can set up the necessary resources, such as the CSV file and IAM roles, by following this blog post:
  * https://aws.amazon.com/blogs/machine-learning/building-a-custom-classifier-using-amazon-comprehend/
  */
 
@@ -46,8 +46,8 @@ public class DocumentClassifierDemo {
                 "DocumentClassifierDemo - trains a custom classifier\n\n" +
                 "Usage: DocumentClassifierDemo <dataAccessRoleArn><s3Uri><documentClassifierName>\n\n" +
                 "Where:\n" +
-                "  dataAccessRoleArn - the ARN value of the role used for this operation.\n\n" +
-                "  s3Uri - the S3 bucket that contains the CSV file.\n\n" +
+                "  dataAccessRoleArn - the Amazon Resource Name (ARN) value of the role used for this operation.\n\n" +
+                "  s3Uri - the Amazon S3 bucket that contains the CSV file.\n\n" +
                 "  documentClassifierName - the name of the document classifier.\n\n";
 
         if (args.length < 3) {
@@ -85,7 +85,7 @@ public class DocumentClassifierDemo {
 
             CreateDocumentClassifierResponse createDocumentClassifierResult = comClient.createDocumentClassifier(createDocumentClassifierRequest);
             String documentClassifierArn = createDocumentClassifierResult.documentClassifierArn();
-            System.out.println("Document Classifier ARN: " + documentClassifierArn);
+            System.out.println("Document classifier ARN: " + documentClassifierArn);
 
         } catch (ComprehendException e) {
              System.err.println(e.awsErrorDetails().errorMessage());

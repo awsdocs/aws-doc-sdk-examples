@@ -42,7 +42,7 @@ public class DetectLanguage {
 
     public static void main(String[] args) {
 
-        //Specify French text - "It is raining today in Seattle"
+        // Specify French text - "It is raining today in Seattle"
         String text = "Il pleut aujourd'hui à Seattle";
         Region region = Region.US_EAST_1;
 

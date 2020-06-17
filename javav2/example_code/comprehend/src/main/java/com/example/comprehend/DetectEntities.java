@@ -41,7 +41,7 @@ public class DetectEntities {
 
     public static void main(String[] args) {
 
-        String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing.";
+        String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5, 1994 by Jeff Bezos, enabling customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle-based companies are Starbucks and Boeing.";
         Region region = Region.US_EAST_1;
         ComprehendClient comClient = ComprehendClient.builder()
                 .region(region)
