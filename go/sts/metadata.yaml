@@ -1,0 +1,7 @@
+files:
+  - path: TakeRole/TakeRole.go
+    services:
+      - sts
+  - path: TakeRole/TakeRole_test.go
+    services:
+      - sts
