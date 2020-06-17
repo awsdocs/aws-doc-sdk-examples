@@ -47,6 +47,16 @@ This example creates an Amazon S3 bucket and a dummy object in that bucket.
 
 The unit test accepts similar values from *config.json*.
 
+### CRUD/S3CrudOps.go
+
+This example creates, reads, updates, and deletes an Amazon S3 bucket.
+
+`go run S3CrudOps.go -b BUCKET`
+
+- *BUCKET* is the name of the bucket to create, read, update, and delete.
+
+The unit test accepts a similar value from *config.json*.
+
 ### CustomClient/CustomHTTPClient.go
 
 This example either creates a custom HTTP client and uses it to get an Amazon S3 bucket object,

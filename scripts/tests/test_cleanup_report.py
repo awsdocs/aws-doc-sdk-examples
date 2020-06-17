@@ -158,7 +158,8 @@ def test_write_empty_report(mock_opened_file):
     handle.write.assert_called()
 
 
-def test_write_single_report(mock_opened_file):
+@pytest.mark.parametrize("summarize", [True, False])
+def test_write_single_report(mock_opened_file, summarize):
     """Tests writing a report of a single file."""
     path = 'test_path.py'
     service = 'testsvc'
@@ -168,12 +169,14 @@ def test_write_single_report(mock_opened_file):
             'path': path,
             'services': [service]
         }]
-    }], [cleanup_report.make_github_url('', path)], 'test.csv')
+    }], [cleanup_report.make_github_url('', path)], 'test.csv', summarize)
     handle = mock_opened_file()
     calls = make_expected_calls(
         1, 1, 1,
         [','.join([cleanup_report.GITHUB_URL + path, 'Python', service])]
     )
+    if summarize:
+        calls = calls[:-2]
     handle.write.assert_has_calls(calls)
 
 
@@ -203,26 +206,51 @@ def test_write_report_missing_file(mock_opened_file):
     handle.write.assert_has_calls(calls)
 
 
-def test_write_report_unclean_files(mock_opened_file):
+@pytest.mark.parametrize("clean_files,repo_files,dirty", [
+    (['example_path1.py'],
+     ['example_path1.py', 'example_path2.py', 'example_path3.py'], True),
+    (['example_path1.py'],
+     ['example_path1.py', 'example_path2.py', 'example_path3.py'], False),
+    (['Example_Path1.py'],
+     ['example_path1.py', 'example_path2.py', 'example_path3.py'], True),
+    (['example_path2.py'],
+     ['Example_Path1.py', 'Example_Path2.py', 'Example_Path3.py'], True),
+    (['example_path2.py'], ['Example_Path2.py'], True),
+])
+def test_write_report_unclean_files(mock_opened_file, clean_files, repo_files, dirty):
     """Tests writing a report when files exist in the repo that have not been
     cleaned."""
     handle = mock_opened_file()
     cleanup_report.write_report([{
         'metadata_path': 'metadata.yaml',
         'files': [
-            {'path': 'example_path1.py', 'services': ['example_svc']},
+            {'path': file, 'services': ['example_svc']}
+            for file in clean_files
         ]
     }], [
-        cleanup_report.make_github_url('', 'example_path1.py'),
-        cleanup_report.make_github_url('', 'example_path2.py'),
-        cleanup_report.make_github_url('', 'example_path3.py')
-    ], 'test.csv')
+        cleanup_report.make_github_url('', file)
+        for file in repo_files
+    ], 'test.csv', summarize=False, dirty=dirty)
     calls = make_expected_calls(
-        1, 1, 3, [
-            ','.join([cleanup_report.make_github_url(
-                '', 'example_path1.py'), 'Python', 'example_svc'])
-        ]
-    )
+        1, len(clean_files), len(repo_files), [
+            ','.join([cleanup_report.make_github_url('', file),
+                      'Python', 'example_svc'])
+            for file in clean_files
+        ])
+    if dirty:
+        repo_lookup = [file.lower() for file in repo_files]
+        clean_lookup = [file.lower() for file in clean_files]
+        dirty_files = sorted([file for file in repo_lookup if file not in clean_lookup])
+
+        calls.append(call("\n"))
+        if dirty_files:
+            calls.append(call("**Dirty files found:**\n"))
+            calls.append(call('\n'.join([
+                cleanup_report.make_github_url('', file)
+                for file in dirty_files
+            ])))
+        else:
+            calls.append(call("**No dirty files found!**"))
     handle.write.assert_has_calls(calls)
 
 

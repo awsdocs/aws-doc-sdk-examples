@@ -3,7 +3,6 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.*;
 import java.io.*;
 import java.util.*;
 
@@ -64,13 +63,7 @@ public class AWSSNSServiceIntegrationTest {
     @Order(2)
     public void CreateTopic() {
 
-        try {
-            topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
-        } catch (SnsException e) {
-
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
         System.out.println("Test 2 passed");
     }
 
@@ -78,83 +71,47 @@ public class AWSSNSServiceIntegrationTest {
     @Order(3)
     public void ListTopics() {
 
-       try {
-               ListTopics.listSNSTopics(snsClient);
-             } catch (SnsException e) {
-
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("Test 3 passed");
+       ListTopics.listSNSTopics(snsClient);
+       System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void SetTopicAttributes() {
 
-        try {
-
-            SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 4 passed");
+      SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
+      System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void GetTopicAttributes() {
 
-        try {
-            GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 5 passed");
+       GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
+       System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void SubscribeEmail() {
 
-        try {
-            SubscribeEmail.subEmail(snsClient, topicArn, email);
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 6 passed");
+     SubscribeEmail.subEmail(snsClient, topicArn, email);
+     System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void SubscribeLambda() {
 
-        try {
-
-            subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Test 7 passed");
+     subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
+     System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void Unsubscribe() {
 
-        try {
-
-            Unsubscribe.unSub(snsClient, subArn);
-         } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
+        Unsubscribe.unSub(snsClient, subArn);
         System.out.println("Test 8 passed");
     }
 
@@ -162,12 +119,7 @@ public class AWSSNSServiceIntegrationTest {
     @Order(9)
     public void PublishTopic() {
 
-        try {
-            PublishTopic.pubTopic(snsClient, message, topicArn);
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        PublishTopic.pubTopic(snsClient, message, topicArn);
         System.out.println("Test 9 passed");
     }
 
@@ -175,27 +127,14 @@ public class AWSSNSServiceIntegrationTest {
     @Order(10)
     public void SubscribeTextSMS() {
 
-        try {
-            SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("Test 10 passed");
+       SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
+       System.out.println("Test 10 passed");
     }
 
     @Test
     @Order(11)
     public void PublishTextSMS() {
-        try {
-            PublishTextSMS.pubTextSMS(snsClient, message, phone);
-        } catch (SnsException e) {
-
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
+        PublishTextSMS.pubTextSMS(snsClient, message, phone);
         System.out.println("Test 11 passed");
     }
 
@@ -203,13 +142,7 @@ public class AWSSNSServiceIntegrationTest {
     @Order(12)
     public void ListSubscriptions() {
 
-        try {
-            ListSubscriptions.listSNSSubscriptions(snsClient);
-        } catch (SnsException e) {
-
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        ListSubscriptions.listSNSSubscriptions(snsClient);
         System.out.println("Test 12 passed");
     }
 
@@ -217,12 +150,7 @@ public class AWSSNSServiceIntegrationTest {
     @Order(13)
     public void DeleteTopic() {
 
-        try {
-            DeleteTopic.deleteSNSTopic(snsClient, topicArn);
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        DeleteTopic.deleteSNSTopic(snsClient, topicArn);
         System.out.println("Test 13 passed");
     }
 }

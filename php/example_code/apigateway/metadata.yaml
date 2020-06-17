@@ -1,0 +1,21 @@
+---
+files:
+  - path: Get_BasePathmapping.php
+    services: 
+      - apigateway
+  - path: tests/Get_BasePathmappingTest.php
+    services: 
+      - apigateway
+  - path: List_BasePathmapping.php
+    services: 
+      - apigateway
+  - path: tests/List_BasePathmappingTest.php
+    services: 
+      - apigateway
+  - path: Update_BasePathmapping.php
+    services: 
+      - apigateway
+  - path: tests/Update_BasePathmappingTest.php
+    services: 
+      - apigateway
+...

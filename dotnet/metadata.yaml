@@ -2,18 +2,16 @@
 #   (such as test files) with just the path and no services block.
 # Otherwise, they'll be picked up as not yet cleaned.
 #
-# ---
-# High-value example 1
-# files:
-#  - path: <file path relative to this metadata.yaml>
-#    services:
-#      - s3
-#      - sqs
-#  - path: <file 2>
-#    services:
-#      - dynamodb
+---
+#Code example Getting Started
+files:
+ - path: Getting_Started_VS/Getting-Started-VS/Program.cs
+   services:
+     - rds
+     - s3
+ - path: Getting_Started_VS/Getting_Started_VS_Tests/ProgramTests.cs
+...
 #
-# ...
 # ---
 # High-value example 2
 # files:

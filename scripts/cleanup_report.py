@@ -40,6 +40,7 @@ from urllib.parse import urljoin
 import urllib.request as request
 import yaml
 from yaml.scanner import ScannerError
+from yaml.parser import ParserError
 
 METADATA_FILENAME = 'metadata.yaml'
 GITHUB_URL = 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/'
@@ -56,9 +57,7 @@ EXT_LOOKUP = {
     'php': 'PHP',
     'py': 'Python',
     'rb': 'Ruby',
-    'ts': 'TypeScript',
-    'sh': 'AWS-CLI',
-    'cmd': 'AWS-CLI'
+    'ts': 'TypeScript'
 }
 
 IGNORE_FOLDERS = {
@@ -130,12 +129,12 @@ def read_metadata(file_path, examples):
             for example_meta in meta_docs:
                 example_meta['metadata_path'] = file_path
                 examples.append(example_meta)
-        except ScannerError as err:
+        except (ScannerError, ParserError) as err:
             print(f"Yaml parser error in {file_path}, skipping.")
             print(err)
 
 
-def write_report(examples, repo_files, report_path=None):
+def write_report(examples, repo_files, report_path=None, summarize=False, dirty=False):
     """
     Writes a report of files cleaned versus files awaiting cleanup.
     Files that are listed in metadata but do not exist in the repo are output
@@ -148,6 +147,8 @@ def write_report(examples, repo_files, report_path=None):
     :param report_path: The output file to write the report. If this file exists,
                         it is overwritten. If no file is specified, the report
                         is written to sys.stdout.
+    :param summarize: Omit CSV output and only print the summary.
+    :param dirty: Include dirty files in the full report.
     """
     lines = ["File,Language,Service"]
     clean_files = []
@@ -191,9 +192,20 @@ def write_report(examples, repo_files, report_path=None):
         if total_count > 0:
             report.write(f"Percent clean: "
                          f"{clean_count/total_count:.0%}.")
-        if len(lines) > 1:
-            report.write("\n")
-            report.write('\n'.join(lines))
+        if not summarize:
+            if len(lines) > 1:
+                report.write("\n")
+                report.write('\n'.join(lines))
+            if dirty:
+                clean_lookup = [file.lower() for file in clean_files]
+                dirty_files = sorted([file for file in repo_files_lookup
+                                      if file not in clean_lookup])
+                report.write("\n")
+                if dirty_files:
+                    report.write("**Dirty files found:**\n")
+                    report.write('\n'.join(dirty_files))
+                else:
+                    report.write("**No dirty files found!**")
     finally:
         if report is not sys.stdout:
             report.close()
@@ -202,25 +214,34 @@ def write_report(examples, repo_files, report_path=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Reads API metadata and writes a report of API coverage. To"
-                    "scan a folder tree and write to a file, specify root and report. "
-                    "To verify a single file and write to the console, specify verify.")
+        description="Reads file metadata and writes a report of cleanup progress.")
     parser.add_argument(
         "--root",
         default=".",
-        help="The folder to start the search for metadata files. Defaults to the"
+        help="The folder to start the search for metadata files. Defaults to the "
              "current folder."
     )
     parser.add_argument(
         "--report",
-        default="report.csv",
-        help="The file path to write the report. Defaults to 'report.csv'."
+        help="The file path to write the report. When not specified, writes "
+             "to stdout."
+    )
+    parser.add_argument(
+        "--summarize",
+        action='store_true',
+        help="Omits full CSV report and outputs only a summary."
+    )
+    parser.add_argument(
+        "--dirty",
+        action='store_true',
+        help="Includes dirty files in the full report. This is most useful along with "
+             "--root, to verify that you've added all new files in a subfolder."
     )
     args = parser.parse_args()
 
     try:
         examples, files = gather_data(args.root)
-        write_report(examples, files, args.report)
+        write_report(examples, files, args.report, args.summarize, args.dirty)
     except KeyError as error:
         print(error)
 
