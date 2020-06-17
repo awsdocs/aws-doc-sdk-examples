@@ -5,9 +5,8 @@
 // snippet-keyword:[Amazon Comprehend Medical]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6/3/2020]
+// snippet-sourcedate:[6/15/2020]
 // snippet-sourceauthor:[scmacdon AWS]
-
 
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,9 +22,9 @@
  * specific language governing permissions and limitations under the License.
  */
 
-
 package com.example.comprehend.medical;
 
+//snippet-start:[comprehendmed.java2.detect_entities.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehendmedical.ComprehendMedicalClient;
 import software.amazon.awssdk.services.comprehendmedical.model.DetectEntitiesRequest;
@@ -34,6 +33,7 @@ import software.amazon.awssdk.services.comprehendmedical.model.Entity;
 import software.amazon.awssdk.services.comprehendmedical.model.ComprehendMedicalException;
 import java.util.Iterator;
 import java.util.List;
+//snippet-end:[comprehendmed.java2.detect_entities.import]
 
 public class DetectMedicalEntities {
 
@@ -60,6 +60,7 @@ public class DetectMedicalEntities {
         detectAllEntities(medClient, text) ;
 
     }
+    //snippet-start:[comprehendmed.java2.detect_entities.main]
     public static void detectAllEntities(ComprehendMedicalClient medClient, String text ) {
 
         try {
@@ -80,7 +81,6 @@ public class DetectMedicalEntities {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
+        //snippet-end:[comprehendmed.java2.detect_entities.main]
     }
-
 }
