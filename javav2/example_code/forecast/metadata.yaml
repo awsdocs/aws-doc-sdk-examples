@@ -24,6 +24,6 @@ files:
   - path: src/main/java/com/example/forecast/ListForecasts.java
     services:
       - forecast      
-  - path: src/test/java/AWSAthenaServiceIntegrationTest.java
+  - path: src/test/java/AmazonForecastServiceIntegrationTest.java
     services:
       - forecast
