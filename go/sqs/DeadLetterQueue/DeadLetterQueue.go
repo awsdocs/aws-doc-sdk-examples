@@ -35,7 +35,6 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
-    // Create an SQS service client
     // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
@@ -51,11 +50,15 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 }
 
 // GetQueueArn gets the ARN of a queue based on its URL
-func GetQueueArn(queueURL *string) string {
+func GetQueueArn(queueURL *string) *string {
+    // snippet-start:[sqs.go.get_queue_url.arn]
     parts := strings.Split(*queueURL, "/")
     subParts := strings.Split(parts[2], ".")
 
-    return "arn:aws:" + subParts[0] + ":" + subParts[1] + ":" + parts[3] + ":" + parts[4]
+    arn := "arn:aws:" + subParts[0] + ":" + subParts[1] + ":" + parts[3] + ":" + parts[4]
+    // snippet-end:[sqs.go.get_queue_url.arn]
+
+    return &arn
 }
 
 // ConfigureDeadLetterQueue configures an Amazon SQS queue for messages that could not be delivered to another queue
@@ -128,8 +131,10 @@ func main() {
         return
     }
 
+    // snippet-start:[sqs.go.dead_letter_queue.url]
     queueURL := result.QueueUrl
-
+    // snippet-end:[sqs.go.dead_letter_queue.url]
+    
     result, err = GetQueueURL(sess, dlQueue)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
@@ -140,9 +145,9 @@ func main() {
     dlQueueURL := result.QueueUrl
 
     // Get the ARN for the dead-letter queue
-    dlQueueARN := GetQueueArn(dlQueueURL)
+    arn := GetQueueArn(dlQueueURL)
 
-    err = ConfigureDeadLetterQueue(sess, &dlQueueARN, queueURL)
+    err = ConfigureDeadLetterQueue(sess, arn, queueURL)
     if err != nil {
         fmt.Println("Got an error configuring the dead-letter queue:")
         fmt.Println(err)

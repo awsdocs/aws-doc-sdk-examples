@@ -35,10 +35,9 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to CreateQueue
 func CreateLPQueue(sess *session.Session, queueName *string, waitTime *int) (string, error) {
-    // Create an SQS service client
+    // snippet-start:[sqs.go.create_lp_queue.call]
     svc := sqs.New(sess)
 
-    // snippet-start:[sqs.go.create_lp_queue.call]
     result, err := svc.CreateQueue(&sqs.CreateQueueInput{
         QueueName: queueName,
         Attributes: aws.StringMap(map[string]string{
@@ -54,6 +53,7 @@ func CreateLPQueue(sess *session.Session, queueName *string, waitTime *int) (str
 }
 
 func main() {
+    // snippet-start:[sqs.go.create_lp_queue.args]
     queue := flag.String("q", "", "The name of the queue")
     waitTime := flag.Int("w", 10, "How long, in seconds, to wait for long polling")
     flag.Parse()
@@ -70,7 +70,8 @@ func main() {
     if *waitTime > 20 {
         *waitTime = 20
     }
-
+    // snippet-end:[sqs.go.create_lp_queue.args]
+    
     // Create a session that gets credential values from ~/.aws/credentials
     // and the default region from ~/.aws/config
     // snippet-start:[sqs.go.create_lp_queue.sess]
