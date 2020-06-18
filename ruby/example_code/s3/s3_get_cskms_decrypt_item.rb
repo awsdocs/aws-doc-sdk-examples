@@ -38,7 +38,7 @@ item = 'my_item'
 kms = Aws::KMS::Client.new
 
 # Create S3 encryption client
-client = Aws::S3::Encryption::Client.new(
+client = Aws::S3::EncryptionV2::Client.new(
   kms_key_id: key,
   kms_client: kms,
 )

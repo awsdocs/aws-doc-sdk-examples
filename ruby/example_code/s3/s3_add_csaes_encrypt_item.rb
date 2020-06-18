@@ -40,7 +40,7 @@ item = 'my_item'
 contents = File.read(item)
 
 # Create S3 encryption client
-client = Aws::S3::Encryption::Client.new(region: 'us-west-2', encryption_key: key)
+client = Aws::S3::EncryptionV2::Client.new(region: 'us-west-2', encryption_key: key)
 
 # Add encrypted item to bucket
 client.put_object(
