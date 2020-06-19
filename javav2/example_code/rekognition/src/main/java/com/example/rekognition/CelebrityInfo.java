@@ -39,7 +39,7 @@ public class CelebrityInfo {
                 "CelebrityInfo - how to get information about a detected celebrity\n\n" +
                 "Usage: CelebrityInfo <id>\n\n" +
                 "Where:\n" +
-                "id - the id value of the celebrity. You can use the RecognizeCelebrities example to get the ID value \n\n";
+                "id - the ID value of the celebrity; you can use the RecognizeCelebrities example to get the ID value \n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

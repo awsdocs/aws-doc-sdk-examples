@@ -51,7 +51,7 @@ public class AddFacesToCollection {
                 "Usage: AddFacesToCollection <collectionName><path>\n\n" +
                 "Where:\n" +
                 "  collectionName - the name of the collection \n" +
-                "  path - the path to the image (ie, C:\\AWS\\pic1.png ) \n\n";
+                "  path - the path to the image (i.e., C:\\AWS\\pic1.png ) \n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
