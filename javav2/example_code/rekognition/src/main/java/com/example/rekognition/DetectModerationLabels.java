@@ -45,10 +45,10 @@ public class DetectModerationLabels {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "DetectModerationLabels - detects unsafe content in an image.\n\n" +
+                "DetectModerationLabels - detects unsafe content in an image\n\n" +
                 "Usage: DetectModerationLabels <path>\n\n" +
                 "Where:\n" +
-                "path - the path to the image (ie, C:\\AWS\\pic1.png) \n\n";
+                "path - the path to the image (i.e., C:\\AWS\\pic1.png) \n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

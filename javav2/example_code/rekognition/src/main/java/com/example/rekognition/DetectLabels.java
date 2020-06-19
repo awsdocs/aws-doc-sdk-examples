@@ -46,7 +46,7 @@ public class DetectLabels {
                 "DetectLabels - how to capture labels within an image\n\n" +
                 "Usage: DetectLabels <path>\n\n" +
                 "Where:\n" +
-                "path - the path to the image (ie, C:\\AWS\\pic1.png) \n\n";
+                "path - the path to the image (i.e., C:\\AWS\\pic1.png) \n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

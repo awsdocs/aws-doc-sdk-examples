@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[CompareFaces.java demonstrates how to compare 2 faces.]
+// snippet-sourcedescription:[CompareFaces.java demonstrates how to compare two faces.]
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Rekognition]
@@ -50,8 +50,8 @@ public class CompareFaces {
                 "CompareFaces - how to compare two faces in two images\n\n" +
                 "Usage: CompareFaces <pathSource> <pathTarget>\n\n" +
                 "Where:\n" +
-                "pathSource - the path to the source image (ie, C:\\AWS\\pic1.png) \n " +
-                "pathTarget - the path to the target image (ie, C:\\AWS\\pic2.png) \n\n";
+                "pathSource - the path to the source image (i.e., C:\\AWS\\pic1.png) \n " +
+                "pathTarget - the path to the target image (i.e., C:\\AWS\\pic2.png) \n\n";
 
         Float similarityThreshold = 70F;
         String sourceImage = args[0];

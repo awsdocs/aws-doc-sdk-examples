@@ -48,7 +48,7 @@ public class SearchFaceMatchingImageCollection {
                 "Usage: SearchFaceMatchingImageCollection <collectionName><path>\n\n" +
                 "Where:\n" +
                 "  collectionName - the name of the collection  \n" +
-                "  path - the path to the image (ie, C:\\AWS\\pic1.png ) \n\n";
+                "  path - the path to the image (i.e., C:\\AWS\\pic1.png ) \n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -63,7 +63,7 @@ public class SearchFaceMatchingImageCollection {
                 .region(region)
                 .build();
 
-        System.out.println("Searching for a face in a collections");
+        System.out.println("Searching for a face in a collection");
         searchFaceInCollection(rekClient, collectionId, sourceImage ) ;
     }
 

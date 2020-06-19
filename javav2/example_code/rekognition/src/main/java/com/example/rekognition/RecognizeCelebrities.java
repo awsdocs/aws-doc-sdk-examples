@@ -44,10 +44,10 @@ public class RecognizeCelebrities {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "RecognizeCelebrities -  recognize celebrities in a given image.\n\n" +
+                "RecognizeCelebrities -  recognize celebrities in a given image\n\n" +
                 "Usage: RecognizeCelebrities <path>\n\n" +
                 "Where:\n" +
-                "path - the path to the image (ie, C:\\AWS\\pic1.png) \n\n";
+                "path - the path to the image (i.e., C:\\AWS\\pic1.png) \n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

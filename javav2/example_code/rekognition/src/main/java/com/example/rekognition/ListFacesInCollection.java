@@ -48,7 +48,7 @@ public class ListFacesInCollection {
             System.exit(1);
         }
 
-        // Read the collection id value
+        // Read the collection ID value
         String collectionId = args[0];
 
         Region region = Region.US_EAST_2;
