@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to use AWS SDK for Python (Boto3) with the Amazon Elastic Compute Cloud
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Elastic Compute Cloud
 (Amazon EC2) API to create an instance, perform some management tasks on the instance,
 and clean up everything created during the demo.
 """
@@ -36,7 +36,8 @@ def setup_demo(current_ip_address, ami_image_id, key_file_name):
                          instances for the demo.
     :param key_file_name: The name of a local file that contains the private key
                           that is used to connect to the instances using SSH.
-    :return: The newly created instances, security groups, key pair, and Elastic IP.
+    :return: The newly created instances, security groups, key pair, and
+             Elastic IP object.
     """
     key_pair = ec2_setup.create_key_pair(make_unique_name('key'), key_file_name)
     print(f"Created a key pair {key_pair.key_name} and saved the private key to "
@@ -105,14 +106,14 @@ def management_demo(ssh_instance, no_ssh_instance, key_file_name, elastic_ip):
     print(f"\tssh -i {key_file_name} ec2-user@{ssh_instance.public_ip_address}")
     print("If the connection attempt times out, you might have to manually update "
           "the SSH ingress rule for your IP address in the AWS Management Console.")
-    input("Press enter when you're ready to continue the demo.")
+    input("Press Enter when you're ready to continue the demo.")
 
     ec2_instance_management.associate_elastic_ip(
         elastic_ip.allocation_id, ssh_instance.instance_id)
     print(f"Associated the Elastic IP with instance {ssh_instance.instance_id}.")
     print(f"You can now SSH to the instance at another command prompt by running")
     print(f"\t'ssh -i {key_file_name} ec2-user@{elastic_ip.public_ip}'")
-    input("Press enter when you're ready to continue the demo.")
+    input("Press Enter when you're ready to continue the demo.")
 
     print("Just for fun, let's stop the instance.")
     ec2_instance_management.stop_instance(ssh_instance.instance_id)
@@ -147,7 +148,7 @@ def management_demo(ssh_instance, no_ssh_instance, key_file_name, elastic_ip):
     print(f"\tchmod 400 {key_file_name}")
     print("Then connect to the second instance by running:")
     print(f"\tssh -i {key_file_name} ec2-user@{no_ssh_instance.private_ip_address}")
-    input("When you're done, come back here and press enter to continue.")
+    input("When you're done, come back here and press Enter to continue.")
 
     ec2_instance_management.change_security_group(
         no_ssh_instance.instance_id,
@@ -157,7 +158,7 @@ def management_demo(ssh_instance, no_ssh_instance, key_file_name, elastic_ip):
           f"allow SSH from this computer.")
     print("Connect to it at another command prompt:")
     print(f"\tssh -i {key_file_name} ec2-user@{no_ssh_instance.public_ip_address}")
-    input("When you're done, come back here and press enter to continue.")
+    input("When you're done, come back here and press Enter to continue.")
 
 
 def teardown_demo(instances, security_groups, key_pair, key_file_name, elastic_ip):

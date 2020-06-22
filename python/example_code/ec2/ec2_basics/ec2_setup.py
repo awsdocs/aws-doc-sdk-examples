@@ -4,8 +4,8 @@
 """
 Purpose
 
-Shows how to use AWS SDK for Python (Boto3) with the Amazon Elastic Compute Cloud (Amazon EC2)
-API to create security resources and instances.
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Elastic Compute Cloud
+(Amazon EC2) API to create security resources and instances.
 """
 
 import logging

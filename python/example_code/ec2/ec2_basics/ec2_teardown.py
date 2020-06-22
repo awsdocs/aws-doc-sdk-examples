@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to use AWS SDK for Python (Boto3) with the Amazon Elastic Compute Cloud
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Elastic Compute Cloud
 (Amazon EC2) API to terminate an instance and clean up additional resources.
 """
 

@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Stub functions that are used by the Amazon Elastic Compute Cloud (EC2) unit tests.
+Stub functions that are used by the Amazon Elastic Compute Cloud (Amazon EC2)
+unit tests.
 
 When tests are run against an actual AWS account, the stubber class does not
-set up stubs and passes all calls through to the Boto 3 client.
+set up stubs and passes all calls through to the Boto3 client.
 """
 
 from test_tools.example_stubber import ExampleStubber

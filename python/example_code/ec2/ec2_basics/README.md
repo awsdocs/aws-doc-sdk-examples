@@ -23,25 +23,25 @@ and clean up everything created during the demo.
 
 Shows how to create the following security resources and instances:
 
-* security keys
-* security groups and inbound rules
-* instances using an Amazon Machine Image (AMI)
+* Security keys
+* Security groups and inbound rules
+* Instances using an Amazon Machine Image (AMI)
 
 **ec2_instance_management.py**
 
 Shows how to manage the following aspects of an Amazon EC2 instance:
 
-* start and stop instances
-* create, associate, and release an Elastic IP address
-* get an instance's console output
-* update the security group associated with an instance
+* Start and stop instances.
+* Create, associate, and release an Elastic IP address.
+* Get an instance's console output.
+* Update the security group associated with an instance.
 
 **ec2_teardown.py**
 
 Shows how to terminate instances and clean up the following security resources:
 
-* security key pairs
-* security groups
+* Security key pairs
+* Security groups
 
 ## Prerequisites
 
@@ -55,7 +55,7 @@ Shows how to terminate instances and clean up the following security resources:
 
 ## Running the code
 
-Run the demonstration at a command prompt by running the following command:
+Start the demonstration by running the following command at a command prompt:
 
 ```
 python ec2_basics_demo.py
@@ -66,7 +66,7 @@ window, which you use to connect to Amazon EC2 instances using SSH.
 
 ## Running the tests
 
-The unit tests in this module use the botocore Stubber, which captures requests before 
+The unit tests in this module use the botocore Stubber. This captures requests before 
 they are sent to AWS, and returns a mocked response. To run all of the tests, 
 run the following in your [GitHub root]/python/example_code/ec2/ec2_basics 
 folder.
@@ -87,7 +87,8 @@ python -m pytest
   User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are 
   available only in specific Regions. For more information, see the 
-  "AWS Regional Table" on the AWS website.
+  [AWS Regional Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
 - Running this code might result in charges to your AWS account.
 
 ---

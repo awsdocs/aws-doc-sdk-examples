@@ -57,10 +57,10 @@ def stop_instance(instance_id):
 def allocate_elastic_ip():
     """
     Allocates an Elastic IP address that can be associated with an instance. By using
-    an Elastic IP, you can keep the public IP address constant even when you change
-    the associated instance.
+    an Elastic IP address, you can keep the public IP address constant even when you
+    change the associated instance.
 
-    :return: The newly created Elastic IP address. By default, this address is not
+    :return: The newly created Elastic IP object. By default, the address is not
              associated with any instance.
     """
     try:
@@ -100,11 +100,11 @@ def associate_elastic_ip(allocation_id, instance_id):
 
 def disassociate_elastic_ip(allocation_id):
     """
-    Removes an association between an Elastic IP and an instance. When the association
-    is removed, the instance is assigned a new public IP address.
+    Removes an association between an Elastic IP address and an instance. When the
+    association is removed, the instance is assigned a new public IP address.
 
-    :param allocation_id: The allocation ID assigned to the Elastic IP when it was
-                          created.
+    :param allocation_id: The allocation ID assigned to the Elastic IP address when
+                          it was created.
     """
     try:
         elastic_ip = ec2.VpcAddress(allocation_id)
@@ -119,10 +119,11 @@ def disassociate_elastic_ip(allocation_id):
 
 def release_elastic_ip(allocation_id):
     """
-    Releases an Elastic IP. After the Elastic IP is releases, it can no longer be used.
+    Releases an Elastic IP address. After the Elastic IP address is released,
+    it can no longer be used.
 
-    :param allocation_id: The allocation ID assigned to the Elastic IP when it was
-                          created.
+    :param allocation_id: The allocation ID assigned to the Elastic IP address when
+                          it was created.
     """
     try:
         elastic_ip = ec2.VpcAddress(allocation_id)
