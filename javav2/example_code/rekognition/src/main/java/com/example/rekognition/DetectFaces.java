@@ -49,7 +49,7 @@ public class DetectFaces {
                 "DetectFaces - how to detect faces in an image\n\n" +
                 "Usage: DetectFaces <path>\n\n" +
                 "Where:\n" +
-                "path - the path to the image (i.e., C:\\AWS\\pic1.png) \n\n";
+                "path - the path to the image (ie, C:\\AWS\\pic1.png) \n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -93,9 +93,8 @@ public class DetectFaces {
                     System.out.println("The detected face is estimated to be between "
                             + ageRange.low().toString() + " and " + ageRange.high().toString()
                             + " years old.");
-                    System.out.println("The gender appears as : "+face.gender().value().toString());
-
-                System.out.println("There is a smile : "+face.smile().value().toString());
+        
+                    System.out.println("There is a smile : "+face.smile().value().toString());
             }
 
         } catch (RekognitionException | FileNotFoundException e) {
