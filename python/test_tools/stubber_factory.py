@@ -9,6 +9,7 @@ This factory is used by the make_stubber fixture found in the set of common fixt
 """
 
 from test_tools.dynamodb_stubber import DynamoStubber
+from test_tools.ec2_stubber import Ec2Stubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.lambda_stubber import LambdaStubber
 from test_tools.pinpoint_stubber import PinpointStubber
@@ -25,6 +26,8 @@ class StubberFactoryNotImplemented(Exception):
 def stubber_factory(service_name):
     if service_name == 'dynamodb':
         return DynamoStubber
+    elif service_name == 'ec2':
+        return Ec2Stubber
     elif service_name == 'iam':
         return IamStubber
     elif service_name == 'lambda':
