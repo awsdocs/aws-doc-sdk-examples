@@ -72,6 +72,6 @@ public class ListCreatedArtifacts {
         System.out.println(e.getMessage());
         System.exit(1);
     }
-   // snippet-start:[migration.java2.list_artifacts.main]
+   // snippet-end:[migration.java2.list_artifacts.main]
   }
  }
