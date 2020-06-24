@@ -40,3 +40,4 @@ run();
 // snippet-end:[s3.JavaScript.v3.buckets.upload_putcommand]
 //for unit tests only
 exports.run = run;
+python/example_code/sts/sts_temporary_credentials/federated_url.py
