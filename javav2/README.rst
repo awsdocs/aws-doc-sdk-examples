@@ -60,6 +60,8 @@ that wraps the Maven commands for those of you who also have ``make`` installed.
 Build and run the service examples
 ==================================
 
+You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS Java examples. The POM file ensures you have access to the Java dependencies. If you are not sure how to setup an IntelliJ project and include a POM file, see this document [Creating your first AWS Java Web Application]https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/usecases/creating_first_project/Readme.md). 
+
 To build and run any of the use cases, follow the included instructions.
 
 For the service-based code examples, see below.
