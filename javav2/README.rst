@@ -74,7 +74,7 @@ you want to build/run. Then type::
 
 Ensure that the POM file has the required plugin to build the JAR with the dependencies. 
 
-    ```xml
+    ```
     <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-shade-plugin</artifactId>
@@ -88,7 +88,7 @@ Ensure that the POM file has the required plugin to build the JAR with the depen
         </execution>
         </executions>
        </plugin>
-      ``` 
+      ```
     
           
 This will build a JAR file. For example, if you execute this command from the S3 directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the target folder.           
