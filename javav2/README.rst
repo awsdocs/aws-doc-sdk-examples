@@ -28,9 +28,7 @@ To build and run these examples, you'll need:
   not set, the default region used will be ``us-east-1``.
 
 For information about how to set AWS credentials and the region for use with the AWS SDK for Java,
-see `Set up AWS Credentials and Region for Development
-<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
-Java Developer Guide*.
+see https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/usecases/creating_first_project/Readme.md.
 
 AWS Java code examples
 ======================
