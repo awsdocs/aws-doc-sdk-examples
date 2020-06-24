@@ -72,7 +72,7 @@ you want to build/run. Then type::
 
    mvn package
 
-Ensure that the POM file has the required plugin to build the JAR with the dependencies. 
+You can use the Apache Maven Shade Plugin to package your JAR with the artifacts in an uber-jar, which consists of all dependencies required to run the project. Ensure that the POM file has the required plugin to build the JAR with the dependencies. 
 
    
     <plugin>
@@ -102,7 +102,7 @@ Ensure that the POM file has the required plugin to build the JAR with the depen
      
     
           
-This will build a JAR file. For example, if you execute this command from the S3 directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the target folder.           
+For example, if you execute this command from the S3 directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the **target** folder.           
 
 or, if you have ``make``, you can simply type::
 
@@ -133,7 +133,7 @@ Run the service examples
    may delete or modify AWS resources in your account. It's best to create separate test-only
    resources when experimenting with these examples.
 
-Because you built the JAR that contains the depedencies, you can run an example using the following command. For example, you can run an S3 Java V2 example using this command:
+Because you built the JAR that contains the depedencies, you can run an example using the following command. For example, you can run a S3 Java V2 example using this command:
 
           java -cp target/S3J2Project-1.0-SNAPSHOT.jar com.example.s3.ListObjects mybucket
 
