@@ -1,3 +1,5 @@
+process.argv.push('--arg1', 'us-west-2');
+process.argv.push('--arg2', 'TABLE_NAME');
 const mockPutItem = jest.fn();
 jest.mock('@aws-sdk/client-dynamodb/commands/PutItemCommand', () => ({
     DynamoDB: function DynamoDB() {
