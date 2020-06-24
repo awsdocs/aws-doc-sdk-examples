@@ -37,6 +37,6 @@ async function run() {
     }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.upload]
+// snippet-end:[s3.JavaScript.v3.buckets.upload_putcommand]
 //for unit tests only
 exports.run = run;
