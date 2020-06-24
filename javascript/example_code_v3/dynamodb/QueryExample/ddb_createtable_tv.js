@@ -4,7 +4,7 @@ Purpose:
 ddb_createtable_tv.js creates a table for creating a table for the match query example https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html .
 
 Inputs:
-- REGION
+- REGION (into command line below)
 
 Running the code:
 node ddb_createtable_tv.js REGION

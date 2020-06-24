@@ -11,8 +11,8 @@ ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB t
 Inputs:
 - REGION (into command line below)
 - TABLE (into command line below)
-- KEY_NAME(S)(into code)
-- KEY_VALUE(S)(into code)
+- KEY_NAME (into code)
+- KEY_VALUE (into code)
 - ATTRIBUTE_NAME (into code)
 
 Running the code:

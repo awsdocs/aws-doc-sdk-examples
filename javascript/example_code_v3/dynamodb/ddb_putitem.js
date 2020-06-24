@@ -9,7 +9,7 @@ ddb_putitem.js demonstrates how to create or update an item in an Amazon DynamoD
 
 Inputs:
 - REGION (into command line below)
-- TableName
+- TABLE_NAME (into command line below)
 
 Running the code:
 node ddb_putitem.js REGION TABLE_NAME

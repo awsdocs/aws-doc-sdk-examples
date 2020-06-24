@@ -10,10 +10,11 @@ ddb_batchwriteitem.js demonstrates how to put or delete items into an Amazon Dyn
 
 Inputs:
 - REGION (into command line below)
-- KEY (into code; the key of the table)
-- KEY_VALUE (into code; the value of the key to which you're adding the attributes)
-- ATTRIBUTE_1_VALUE (into code; the name of the first attribute to add)
-- ATTRIBUTE_2_VALUE (into code; the value of the key to identify the row to add the new attributes values to)
+- TABLE_NAME (into command line below)
+- KEYS (into code)
+- KEY_VALUES (into code)
+- ATTRIBUTE_VALUES (into code)
+
 Running the code:
 node ddb_batchwriteitem.js REGION
 */

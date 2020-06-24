@@ -9,8 +9,8 @@ Purpose:
 ddb_deleteitem.js demonstrates how to delete an item from an Amazon DynamoDB table.
 
 Inputs:
-- REGION
-- TABLE_NAME
+- REGION (into command line below)
+- TABLE_NAME (into command line below)
 
 Running the code:
 node.js ddb_deleteitem.js REGION TABLE_NAME

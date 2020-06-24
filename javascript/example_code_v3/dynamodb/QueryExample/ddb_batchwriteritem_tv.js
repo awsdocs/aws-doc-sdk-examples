@@ -6,7 +6,7 @@ Purpose:
 ddb_batchwriteritem_tv.js populates the table used for the match query example https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html .
 
 Inputs:
-- REGION
+- REGION (into command line below)
 
 Running the code:
 node ddb_batchwriteritem_tv.js REGION
