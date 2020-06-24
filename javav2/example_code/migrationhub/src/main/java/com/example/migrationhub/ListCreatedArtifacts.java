@@ -54,7 +54,7 @@ public class ListCreatedArtifacts {
             ListCreatedArtifactsRequest listCreatedArtifactsRequest = ListCreatedArtifactsRequest.builder()
                     .maxResults(10)
                     .migrationTaskName("SampleApp5")
-                    .progressUpdateStream("ProgressSteamB")
+                    .progressUpdateStream("ProgressStreamB")
                     .build();
 
             ListCreatedArtifactsResponse response = migrationClient.listCreatedArtifacts(listCreatedArtifactsRequest);
@@ -64,7 +64,7 @@ public class ListCreatedArtifacts {
 
             while(appIterator.hasNext()) {
                 CreatedArtifact artifact = appIterator.next();
-                System.out.println("APp Id is " +artifact.description());
+                System.out.println("App ID is " +artifact.description());
                 System.out.println("The name is " +artifact.name());
             }
 

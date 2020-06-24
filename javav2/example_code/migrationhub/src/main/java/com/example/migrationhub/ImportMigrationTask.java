@@ -37,7 +37,7 @@ public class ImportMigrationTask {
         final String USAGE = "\n" +
                 "To run this example, supply the name of a migration task and progress stream\n" +
                 "\n" +
-                "Ex: ImportMigrationTask SampleApp ProgressSteam\n";
+                "Ex: ImportMigrationTask SampleApp ProgressStream\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);

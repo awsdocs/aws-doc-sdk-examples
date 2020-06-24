@@ -63,7 +63,7 @@ public class ListApplications {
 
         while(appIterator.hasNext()) {
             ApplicationState appState = appIterator.next();
-            System.out.println("App Id is " +appState.applicationId());
+            System.out.println("App ID is " +appState.applicationId());
             System.out.println("The status is " +appState.applicationStatus().toString());
         }
 

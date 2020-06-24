@@ -37,7 +37,7 @@ public class DescribeAppState {
 
 
         final String USAGE = "\n" +
-                "To run this example, supply the application id value\n" +
+                "To run this example, supply the application ID value\n" +
                 "\n" +
                 "Ex: DescribeAppState appId\n";
 
