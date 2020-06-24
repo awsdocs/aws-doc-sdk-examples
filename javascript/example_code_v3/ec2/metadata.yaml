@@ -1,0 +1,49 @@
+---
+# Amazon Elastic Compute Cloud (EC2) basic usage examples
+files:
+  - path: ec2/ec2_allocateaddress.js
+    services:
+      - ec2
+  - path: ec2/ec2_createinstances.js
+    services:
+      - ec2
+  - path: ec2/ec2_createkeypair.js
+    services:
+      - ec2
+  - path: ec2/ec2_createsecuritygroup.js
+      services:
+        - ec2
+  - path: ec2/ec2_deletekeypair.js
+      services:
+        - ec2
+  - path: ec2/ec2_deletesecuritygroup.js
+      services:
+        - ec2
+  - path: ec2/ec2_describeaddresses.js
+      services:
+        - ec2
+  - path: ec2/ec2_describeinstances.js
+      services:
+        - ec2
+  - path: ec2/ec2_describekeypairs.js
+      services:
+        - ec2
+  - path: ec2/ec2_describeregionsandzones.js
+      services:
+        - ec2
+  - path: ec2/ec2_describesecuritygroups.js
+      services:
+        - ec2
+  - path: ec2/ec2_monitorinstances.js
+      services:
+        - ec2
+  - path: ec2/ec2_rebootinstances.js
+      services:
+        - ec2
+  - path: ec2/ec2_releaseaddress.js
+      services:
+        - ec2
+  - path: ec2/ec2_startstopinstances.js
+      services:
+        - ec2
+...
