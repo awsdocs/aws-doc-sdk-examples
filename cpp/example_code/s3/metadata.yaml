@@ -1,0 +1,9 @@
+---
+files:
+  - path: create_bucket.cpp
+    services: 
+    - s3
+  - path: tests/test_create_bucket.cpp
+    services: 
+    - s3
+...

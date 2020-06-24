@@ -6,6 +6,9 @@ files:
   - path: dynamodb_stubber.py
     services:
         - dynamodb
+  - path: ec2_stubber.py
+    services:
+        - ec2
   - path: example_stubber.py
   - path: pinpoint_stubber.py
     services:

@@ -161,57 +161,22 @@ Ensure that the **pom.xml** file looks like the following.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
 
-    <groupId>aws-spring</groupId>
-    <artifactId>AWSItemTracker</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+     <groupId>aws-spring</groupId>
+     <artifactId>AWSItemTracker</artifactId>
+     <version>1.0-SNAPSHOT</version>
+     <packaging>jar</packaging>
 
-    <parent>
+     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
-    </parent>
+     </parent>
 
-    <properties>
+     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-    </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <configLocation>check.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-     </build>
+     </properties>
      <dependencyManagement>
         <dependencies>
             <dependency>
@@ -349,8 +314,17 @@ Ensure that the **pom.xml** file looks like the following.
                 </exclusion>
             </exclusions>
         </dependency>
-     </dependencies>
-    </project>
+       </dependencies>
+       <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+      </build>
+     </project>
+
 
 ## Set up the Java packages in your project
 

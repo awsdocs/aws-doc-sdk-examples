@@ -36,7 +36,7 @@ key = OpenSSL::PKey::RSA.new(public_key)
 
 begin
   # encryption client
-  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
+  enc_client = Aws::S3::EncryptionV2::Client.new(encryption_key: key)
 
   # Add encrypted item to bucket
   enc_client.put_object(
