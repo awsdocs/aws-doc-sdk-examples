@@ -61,6 +61,7 @@ def setup(iam_resource):
     return role
 
 
+# snippet-start:[iam.python.construct_federated_url]
 def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     """
     Constructs a URL that gives federated users direct access to the AWS Management
@@ -74,10 +75,6 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
        endpoint, includes the sign-in token for authentication, and redirects to
        the AWS Management Console with permissions defined by the role that was
        specified in step 1.
-
-    For more information, see Enabling Custom Identity Broker Access to the AWS Console
-    [https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html]
-    in the AWS Identity and Access Management User Guide.
 
     :param assume_role_arn: The role that specifies the permissions that are granted.
                             The current user must have permission to assume the role.
@@ -120,6 +117,7 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     })
     federated_url = f'{aws_federated_signin_endpoint}?{query_string}'
     return federated_url
+# snippet-end:[iam.python.construct_federated_url]
 
 
 def teardown(role):
