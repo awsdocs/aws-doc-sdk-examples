@@ -60,16 +60,23 @@ that wraps the Maven commands for those of you who also have ``make`` installed.
 Build and run the service examples
 ==================================
 
-You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS Java examples. The POM file ensures you have access to the Java dependencies. If you are not sure how to setup an IntelliJ project and include a POM file, see `Set up AWS Credentials and Region for Development
-<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
-Java Developer Guide*.
+Build the examples from a Java IDE 
+----------------------------------
 
-To build and run any of the use cases, follow the included instructions.
+You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS Java examples. The POM file ensures you have access to the Java dependencies. To create an IntelliJ project. 
 
-For the service-based code examples, see below.
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
+2. In the **New Project** dialog box, choose **Maven**. 
+3. Choose **Next**.
+4. In **GroupId**, enter **aws-project**. 
+5. In **ArtifactId**, enter **aws-project**. 
+6. Choose **Next**.
+7. Choose **Finish**. 
 
-Build the examples
-------------------
+**Note**: Add the POM file you find in a service specific folder to the POM file in the project. Then create a package that you find in the examples and you can start adding the Java classes to your project. 
+
+Build the examples from the command line 
+-----------------------------------------
 
 To build any of the service examples, open a command-line (terminal) window and change to the directory containing the examples
 you want to build/run. Then type::
