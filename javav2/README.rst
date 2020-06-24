@@ -72,6 +72,24 @@ you want to build/run. Then type::
 
    mvn package
 
+Ensure that the POM file has the required plugin to build the JAR with the dependencies. 
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+            <execution>
+            <phase>package</phase>
+            <goals>
+                 <goal>shade</goal>
+                 </goals>
+                </execution>
+                </executions>
+          </plugin>
+          
+This will build a JAR file. For example, if you execute this command from the S3 directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the target folder.           
+
 or, if you have ``make``, you can simply type::
 
    make
@@ -101,16 +119,9 @@ Run the service examples
    may delete or modify AWS resources in your account. It's best to create separate test-only
    resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your ``CLASSPATH``::
+Because you built the JAR that contains the depedencies, you can run an example using the following command. For example, you can run an S3 Java V2 example using this command:
 
-    export CLASSPATH=target/sdk-s3-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Where ``/path/to/aws-java-sdk/<jar-file-name>.jar`` is the path to where you extracted
-or built the AWS Java SDK jar.
-
-Once you set the ``CLASSPATH``, you can run a particular example like this::
-
-    java com.example.s3.S3BucketOps
+          java -cp target/S3J2Project-1.0-SNAPSHOT.jar com.example.s3.ListObjects mybucket
 
 For systems with bash support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
