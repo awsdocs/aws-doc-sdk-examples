@@ -28,7 +28,9 @@ To build and run these examples, you'll need:
   not set, the default region used will be ``us-east-1``.
 
 For information about how to set AWS credentials and the region for use with the AWS SDK for Java,
-see https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/usecases/creating_first_project/Readme.md.
+see `Set up AWS Credentials and Region for Development
+<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
+Java Developer Guide*.
 
 AWS Java code examples
 ======================
@@ -59,7 +61,8 @@ Build and run the service examples
 ==================================
 
 You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS Java examples. The POM file ensures you have access to the Java dependencies. If you are not sure how to setup an IntelliJ project and include a POM file, see `Set up AWS Credentials and Region for Development
-<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>. 
+<http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
+Java Developer Guide*.
 
 To build and run any of the use cases, follow the included instructions.
 
