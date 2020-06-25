@@ -99,6 +99,10 @@ ALLOW_LIST = {
     'videoMetaData=celebrityRecognitionResult',
     'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
     'com/v1/documentation/api/latest/guide/s3',
+    '@aws-sdk/client-iam/commands/GetAccessKeyLastUsedCommand',
+    '@aws-sdk/client-iam/commands/GetAccessKeyLastUsedCommand',
+    '@aws-sdk/client-iam/commands/GetServerCertificateCommand',
+    '@aws-sdk/client-iam/commands/GetAccessKeyLastUsedCommand'
 }
 
 
