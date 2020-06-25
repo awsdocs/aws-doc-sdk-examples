@@ -27,11 +27,12 @@ const params = {AlarmNames: [process.argv[3]]};
 async function run() {
   try {
     const data = await cw.send(new DeleteAlarmsCommand(params));
-    console.log("Success", data);
+    console.log("Success, alarm deleted; requestID:", data.$metadata.requestId);
   }
   catch(err){
     console.log("Error", err);
   }
 };
+run();
 // snippet-end:[cw.JavaScript.v3.alarms.deleteAlarms]
 exports.run = run; //for unit tests only
