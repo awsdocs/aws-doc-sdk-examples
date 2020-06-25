@@ -5,35 +5,38 @@ ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Develo
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_accesskeylastused.js demonstrates how to retrieve information about the last time an IAM access key was used.
+iam_listaccesskeys.js demonstrates how to retrieve information about the access keys of an IAM User.
 
 Inputs (into command line below):
 - REGION
-- ACCESS_KEY_ID
+- IAM_USER_NAME
 
 Running the code:
-node iam_accesskeylastused.js REGION ACCESS_KEY_ID
-
+node iam_listaccesskeys.js REGION IAM_USER_NAME
  */
-// snippet-start:[iam.JavaScript.v3.keys.getAccessKeyLastUsed]
+
+// snippet-start:[iam.JavaScript.v3.keys.listAccessKeys]
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, GetAccessKeyLastUsedCommand} = require("@aws-sdk/client-iam");
+const {IAMClient, ListAccessKeysCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
 const region = process.argv[2];
 // Create IAM service object
 const iam = new IAMClient(region);
 // Set the parameters
-const params = {AccessKeyId: process.argv[3]};
+const params = {
+  MaxItems: 5,
+  UserName: process.argv[3]
+};
 
 async function run() {
   try {
-    const data = await iam.send(new GetAccessKeyLastUsedCommand(params));
-    console.log('Success', data.AccessKeyLastUsed);
-      }
+    const data = await iam.send(new ListAccessKeysCommand(params));
+    console.log("Success", data);
+  }
   catch (err) {
-    console.log('Error', err);
-      }
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.keys.getAccessKeyLastUsed]
+// snippet-end:[iam.JavaScript.v3.keys.listAccessKeys]
 exports.run = run; //for unit tests only
