@@ -37,7 +37,7 @@ public class DeleteProgressStream {
         final String USAGE = "\n" +
         "To run this example, supply the name of a progress stream\n" +
                 "\n" +
-                "Ex: DeleteProgressStream ProgressSteam\n";
+                "Ex: DeleteProgressStream ProgressStream\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);

@@ -64,7 +64,7 @@ public class ListMigrationTasks {
             while(appIterator.hasNext()) {
                 MigrationTaskSummary migration = appIterator.next();
                 System.out.println("Migration task name is " +migration.migrationTaskName());
-                System.out.println("The Progress update stream is " +migration.progressUpdateStream());
+                System.out.println("The progress update stream is " +migration.progressUpdateStream());
             }
 
         } catch(MigrationHubException e) {
