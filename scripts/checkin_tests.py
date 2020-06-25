@@ -103,6 +103,7 @@ ALLOW_LIST = {
     'iam/commands/GetAccessKeyLastUsedCommand',
     'iam/commands/GetAccessKeyLastUsedCommand',
     'iam/commands/GetServerCertificateCommand',
+    'cloudwatch/commands/PutMetricDataCommand'
 }
 
 
