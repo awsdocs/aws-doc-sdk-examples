@@ -1,0 +1,62 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
+
+Purpose:
+iam_createpolicy.js demonstrates how to create a managed policy for an AWS Account.
+
+Inputs (into command line below):
+- REGION
+- RESOURCE_ARN
+- DYNAMODB_POLICY_NAME (e.g. "myDynamoDBName")
+
+Running the code:
+node iam_createpolicy.js REGION RESOURCE_ARN DYNAMODB_POLICY_NAME
+ */
+// snippet-start:[iam.JavaScript.v3.policies.createPolicy]
+// Import required AWS SDK clients and commands for Node.js
+const {IAMClient, CreatePolicyCommand} = require("@aws-sdk/client-iam");
+// Set the AWS Region
+const region = process.argv[2];
+// Create IAM service object
+const iam = new IAMClient(region);
+// Set the parameters
+const myManagedPolicy = {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": process.argv[3]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "dynamodb:PutItem",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": process.argv[3]
+        }
+    ]
+};
+const params = {
+    PolicyDocument: JSON.stringify(myManagedPolicy),
+    PolicyName: process.argv[4],
+};
+
+async function run() {
+    try {
+        const data = await iam.send(new CreatePolicyCommand(params));
+        console.log("Success", data);
+    } catch (err) {
+        console.log('Error', err);
+    }
+};
+run();
+// snippet-end:[iam.JavaScript.v3.policies.createPolicy]
+exports.run = run; //for unit tests only
