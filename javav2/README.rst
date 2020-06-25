@@ -60,17 +60,60 @@ that wraps the Maven commands for those of you who also have ``make`` installed.
 Build and run the service examples
 ==================================
 
-To build and run any of the use cases, follow the included instructions.
+Build the examples from a Java IDE 
+----------------------------------
 
-For the service-based code examples, see below.
+You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS Java examples. The POM file ensures you have access to the Java dependencies. To create an IntelliJ project. 
 
-Build the examples
-------------------
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
+2. In the **New Project** dialog box, choose **Maven**. 
+3. Choose **Next**.
+4. In **GroupId**, enter **aws-project**. 
+5. In **ArtifactId**, enter **aws-project**. 
+6. Choose **Next**.
+7. Choose **Finish**. 
+
+**Note**: Add the POM file you find in a service specific folder to the POM file in the project. Then create a package that you find in the examples and you can start adding the Java classes to your project. 
+
+Build the examples from the command line 
+-----------------------------------------
 
 To build any of the service examples, open a command-line (terminal) window and change to the directory containing the examples
 you want to build/run. Then type::
 
    mvn package
+
+You can use the Apache Maven Shade Plugin to package your JAR with the artifacts in an uber-jar, which consists of all dependencies required to run the project. Ensure that the POM file has the required plugin to build the JAR with the dependencies. 
+
+   
+    <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       
+       <artifactId>maven-shade-plugin</artifactId>
+       
+       <version>3.0.0</version>
+       
+       <executions>
+       
+       <execution>
+       
+       <phase>package</phase>
+       
+       <goals>
+       
+       <goal>shade</goal>
+       
+       </goals>
+       
+       </execution>
+       
+       </executions>
+       
+       </plugin>
+     
+    
+          
+For example, if you execute this command from the S3 directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the **target** folder.           
 
 or, if you have ``make``, you can simply type::
 
@@ -101,16 +144,9 @@ Run the service examples
    may delete or modify AWS resources in your account. It's best to create separate test-only
    resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your ``CLASSPATH``::
+Because you built the JAR that contains the depedencies, you can run an example using the following command. For example, you can run a S3 Java V2 example using this command:
 
-    export CLASSPATH=target/sdk-s3-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Where ``/path/to/aws-java-sdk/<jar-file-name>.jar`` is the path to where you extracted
-or built the AWS Java SDK jar.
-
-Once you set the ``CLASSPATH``, you can run a particular example like this::
-
-    java com.example.s3.S3BucketOps
+          java -cp target/S3J2Project-1.0-SNAPSHOT.jar com.example.s3.ListObjects mybucket
 
 For systems with bash support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
