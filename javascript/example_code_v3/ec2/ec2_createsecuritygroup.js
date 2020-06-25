@@ -26,6 +26,8 @@ const region = process.argv[2];
 const ec2client = new EC2(region);
 // Set the parameters
 const params = {KeyName: process.argv[3]};
+// Variable to hold a ID of a VPC
+const vpc = null;
 
 async function run(){
     try {

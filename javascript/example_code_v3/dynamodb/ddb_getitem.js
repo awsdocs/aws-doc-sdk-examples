@@ -10,7 +10,7 @@ ddb_getitem.js demonstrates how to retrieve the attributes of an item from an Am
 Inputs:
 - REGION (into command line below)
 - TABLE_NAME (into command line below)
-- KEY_NAME (into code; the primary key of the table e.g.'CUSTOMER_ID')
+- KEY_NAME (into code; the primary key of the table, e.g., 'CUSTOMER_ID')
 - KEY_NAME_VALUE (into code; the value of the primary key row containing the attribute value)
 - ATTRIBUTE_NAME (into code; the name of the attribute column containing the attribute value)
 

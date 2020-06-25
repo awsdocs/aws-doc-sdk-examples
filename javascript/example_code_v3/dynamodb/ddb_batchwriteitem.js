@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html.
 
 Purpose:
-ddb_batchwriteitem.js demonstrates how to put or delete items into an Amazon DynamoDB table.
+ddb_batchwriteitem.js demonstrates how to put items or delete items into an Amazon DynamoDB table.
 
 Inputs:
 - REGION (into command line below)

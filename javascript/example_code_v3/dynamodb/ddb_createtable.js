@@ -12,7 +12,7 @@ Inputs:
 - TABLE_NAME (into command line below)
 - ATTRIBUTE_NAME_1 : (in code; the name of the partition key)
 - ATTRIBUTE_NAME_2 : (in code; the name of the sort key (optional))
-- ATTRIBUTE_TYPE (in code; the type of the attribute (e.g. N [for a number], S [for a string] etc.)
+- ATTRIBUTE_TYPE (in code; the type of the attribute (e.g., N [for a number], S [for a string] etc.)
 
 Running the code:
 node ddb_createtable.js REGION TABLE_NAME
