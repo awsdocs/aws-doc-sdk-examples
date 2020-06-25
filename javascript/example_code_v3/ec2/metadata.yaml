@@ -1,5 +1,5 @@
 ---
-# Amazon Elastic Compute Cloud (EC2) basic usage examples
+# Amazon EC2 basic usage examples
 files:
   - path: ec2_allocateaddress.js
     services:

@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ec2-example-security-groups.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-security-groups.html
 
 Purpose:
 ec2_createsecuritygroup.js demonstrates how to create a security group for an Amazon EC2 instance.
@@ -16,11 +16,18 @@ Inputs:
 Running the code:
 node ec2_createsecuritygroup.js REGION KEY_PAIR_NAME SECURITY_GROUP_NAME SECURITY_GROUP_ID
  */
+// snippet-start:[ec2.JavaScript.v3.SecurityGroups.createSecurityGroup]
+// Import required AWS SDK clients and commands for Node.js
+const {EC2, DescribeVpcsCommand, CreateSecurityGroupCommand,
+    AuthorizeSecurityGroupIngressCommand} = require("@aws-sdk/client-ec2");
+// Set the AWS region
+const region = process.argv[2];
+// Create EC2 service object
+const ec2client = new EC2(region);
+// Set the parameters
+const params = {KeyName: process.argv[3]};
+
 async function run(){
-    const {EC2, DescribeVpcsCommand, CreateSecurityGroupCommand, AuthorizeSecurityGroupIngressCommand} = require("@aws-sdk/client-ec2");
-    const region = process.argv[2];
-    const ec2client = await new EC2(region);
-    const params = {KeyName: process.argv[3]};
     try {
         var data = await ec2client.send(new DescribeVpcsCommand(params));
         vpc = data.Vpcs[0].VpcId;
@@ -66,55 +73,5 @@ async function run(){
     }
 }
 run();
-// snippet-start:[ec2.JavaScript.v3.SecurityGroups.createSecurityGroup]
-
-var vpc = null;
-
-// Retrieve the ID of a VPC
-ec2.describeVpcs(function(err, data) {
-   if (err) {
-     console.log("Cannot retrieve a VPC", err);
-   } else {
-     vpc = data.Vpcs[0].VpcId;
-     var paramsSecurityGroup = {
-        Description: 'DESCRIPTION',
-        GroupName: 'SECURITY_GROUP_NAME',
-        VpcId: vpc
-     };
-     // Create the instance
-     ec2.createSecurityGroup(paramsSecurityGroup, function(err, data) {
-        if (err) {
-           console.log("Error", err);
-        } else {
-           var SecurityGroupId = data.GroupId;
-           console.log("Success", SecurityGroupId);
-           var paramsIngress = {
-             GroupId: 'SECURITY_GROUP_ID',
-             IpPermissions:[
-                {
-                   IpProtocol: "tcp",
-                   FromPort: 80,
-                   ToPort: 80,
-                   IpRanges: [{"CidrIp":"0.0.0.0/0"}]
-               },
-               {
-                   IpProtocol: "tcp",
-                   FromPort: 22,
-                   ToPort: 22,
-                   IpRanges: [{"CidrIp":"0.0.0.0/0"}]
-               }
-             ]
-           };
-           ec2.authorizeSecurityGroupIngress(paramsIngress, function(err, data) {
-             if (err) {
-               console.log("Error", err);
-             } else {
-               console.log("Ingress Successfully Set", data);
-             }
-          });
-        }
-     });
-   }
-});
 // snippet-end:[ec2.JavaScript.v3.SecurityGroups.createSecurityGroup]
-exports.run = run;
+exports.run = run; //for unit tests only

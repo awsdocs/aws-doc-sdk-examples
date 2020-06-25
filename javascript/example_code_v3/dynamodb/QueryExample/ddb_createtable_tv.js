@@ -1,7 +1,12 @@
-/* ABOUT THIS NODE.JS EXAMPLE:This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE:This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic at
+ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
+
 Purpose:
-ddb_createtable_tv.js creates a table for creating a table for the match query example https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html .
+ddb_createtable_tv.js creates a table for creating a table for the match query example
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
 Inputs:
 - REGION (into command line below)
@@ -10,9 +15,9 @@ Running the code:
 node ddb_createtable_tv.js REGION
 */
 // snippet-start:[dynamodb.JavaScript.v3.batch.CreateTableTV]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, CreateTableCommand} = require("@aws-sdk/client-dynamodb");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(region);

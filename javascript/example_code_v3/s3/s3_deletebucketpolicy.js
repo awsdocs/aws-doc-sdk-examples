@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide top
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-bucket-policies.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) top
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html.
 
 Purpose:
 s3_deletebucketpolicy.js demonstrates how to delete an Amazon S3 bucket policy.]
@@ -16,7 +16,7 @@ node s3_deletebucketpolicy.js REGION BUCKET_NAME
 */
 // snippet-start:[s3.JavaScript.v3.policy.deleteBucketPolicy]
 
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const  {S3}  = require('@aws-sdk/client-s3/');
 // Create S3 service object
 const region = process.argv[2];

@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide//ec2-example-elastic-ip-addresses.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-elastic-ip-addresses.html
 
 Purpose:
 ec2_allocateaddress.js demonstrates how to allocate and associate an Elastic IP address to an Amazon EC2 instance.
@@ -14,14 +14,19 @@ Inputs:
 Running the code:
 node ec2_allocateaddress.js REGION INSTANCE_ID
 */
- // snippet-start:[ec2.JavaScript.v3.Addresses.allocateAddress]
+// snippet-start:[ec2.JavaScript.v3.Addresses.allocateAddress]
+// Import required AWS SDK clients and commands for Node.js
+const {
+    EC2, AllocateAddressCommand, AssociateAddressCommand
+} = require("@aws-sdk/client-ec2");
+// Set the AWS region
+const region = process.argv[2];
+// Create EC2 service object
+const ec2client = new EC2(region);
+// Set the parameters
+const paramsAllocateAddress = {Domain: 'vpc'};
+
 async function run(){
-    const {
-        EC2, AllocateAddressCommand, AssociateAddressCommand
-    } = require("@aws-sdk/client-ec2");
-    const region = process.argv[2];
-    const ec2client = new EC2(region);
-    const paramsAllocateAddress = {Domain: 'vpc'};
     try {
         const data = await ec2client.allocateAddress(paramsAllocateAddress);
         console.log("Address allocated:", data.AllocationId);
@@ -43,4 +48,4 @@ async function run(){
 };
 run();
 // snippet-end:[ec2.JavaScript.v3.Addresses.allocateAddress]
-exports.run = run;
+exports.run = run; //for unit tests only

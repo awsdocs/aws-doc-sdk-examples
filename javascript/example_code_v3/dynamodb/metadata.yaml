@@ -1,5 +1,5 @@
 ---
-# Amazon Elastic Compute Cloud (ddb) basic usage examples
+# Amazon DynamoDB basic usage examples
 files:
   - path: ddb_batchgetitem.js
     services:

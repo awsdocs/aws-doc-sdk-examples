@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide top
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-static-web-host.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) top
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
 
 Purpose:
 s3_deletebucketwebsite.js demonstrates how to delete the website configuration from an Amazon S3 bucket.
@@ -16,7 +16,7 @@ node s3_deletebucketwebsite.js REGION BUCKET_NAME
  */
 // snippet-start:[s3.JavaScript.v3.website.deleteBucketWebsite]
 
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {S3, DeleteBucketWebsiteCommand } = require("@aws-sdk/client-s3");
 // Set the AWS region
 const region = process.argv[2];

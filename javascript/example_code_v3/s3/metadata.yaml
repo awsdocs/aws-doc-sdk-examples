@@ -1,5 +1,5 @@
 ---
-# Amazon Simple Storage Service (S3) examples
+# Amazon S3 examples
 files:
   - path: s3_createbucket.js
     services:

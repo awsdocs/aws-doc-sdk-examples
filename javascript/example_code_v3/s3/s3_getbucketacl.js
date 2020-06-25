@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-access-permissions.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html.
 
 Purpose:
 s3_getbucketacl.js demonstrates how to retrieve the access control list of an Amazon S3 bucket.
@@ -19,7 +19,7 @@ Lists the buckets in the associated AWS account, then creates a bucket, then del
 */
 //snippet-start:[s3.JavaScript.v3.perms.getBucketAcl]
 
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const  {S3, GetBucketAclCommand}  = require('@aws-sdk/client-s3/');
 // Set the AWS region
 const region = process.argv[2];

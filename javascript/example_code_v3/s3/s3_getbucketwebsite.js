@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-static-web-host.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
 
 Purpose:
 s3_getbucketwebsite.js demonstrates how to retrieve the website configuration of an Amazon S3 bucket.
@@ -17,7 +17,7 @@ node S3.js  REGION BUCKET_NAME
 // snippet-start:[s3.JavaScript.v3.website.getBucketWebsite]
  */
 
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const { S3, GetBucketWebsiteCommand } = require("@aws-sdk/client-s3");
 // Set the AWS region
 const region = process.argv[2];

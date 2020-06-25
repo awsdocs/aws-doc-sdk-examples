@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide top
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-static-web-host.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) top
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
 
 Purpose:
 This function applies a bucket website configuration to a selected bucket, and is part of an exmample
@@ -19,7 +19,7 @@ node s3_setbucketwebsite.js REGION BUCKET_NAME INDEX_PAGE ERROR_PAGE
  */
 // snippet-start:[s3.JavaScript.v3.website.putBucketWebsite]
 async function run(){
-    // Import required AWS-SDK clients and commands for Node.js
+    // Import required AWS SDK clients and commands for Node.js
     const  {S3, PutBucketWebsiteCommand}  = require('@aws-sdk/client-s3/');
     const region = process.argv[2];
     const s3 = new S3(region);
