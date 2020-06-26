@@ -10,7 +10,7 @@ iam_createpolicy.js demonstrates how to create a managed policy for an AWS Accou
 Inputs (into command line below):
 - REGION
 - RESOURCE_ARN
-- DYNAMODB_POLICY_NAME (e.g. "myDynamoDBName")
+- DYNAMODB_POLICY_NAME (e.g., "myDynamoDBName")
 
 Running the code:
 node iam_createpolicy.js REGION RESOURCE_ARN DYNAMODB_POLICY_NAME
