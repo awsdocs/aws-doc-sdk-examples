@@ -1,8 +1,37 @@
-# AWS Identity and Access Management (IAM) examples
+# AWS Identity and Access Management (IAM) getting started examples
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to manage IAM resources.
+Shows how to use the AWS SDK for Python (Boto3) to manage IAM resources. Learn
+to accomplish the following tasks:
+
+* Create and manage IAM user access keys.
+* Manage the alias of an account.
+* Acquire reports about account usage.
+* Create and manage IAM policies, including versioned policies.
+* Create and manage IAM roles, including how to attach and detach policies.
+* Create and manage IAM users, including how to attach a policy to a user.
+
+## Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.6 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+## Running the code
+
+Each file can be run separately at a command prompt. For example, see the user
+demonstration by running the following from a command prompt window.
+
+```
+python user_wrapper.py
+```  
+
+### Example structure
+
 The examples are divided into the following files:
 
 **access_key_wrapper.py**
@@ -29,24 +58,6 @@ Shows how to create and manage IAM roles, including how to attach and detach pol
 Shows how to create and manage IAM users, including how to attach a policy to a user.
 Also includes a complete demonstration that creates users with different permissions.
 It also shows how they can only perform the actions allowed by their attached policies. 
-
-## Prerequisites
-
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
-- Boto3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
-
-## Running the code
-
-Each file can be run separately at a command prompt. For example, see the user
-demonstration by running the following from a command prompt window.
-
-```
-python user_wrapper.py
-```  
 
 ## Running the tests
 

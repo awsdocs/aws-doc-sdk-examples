@@ -2,9 +2,18 @@
 
 ## Purpose
 
-Demonstrates how to use the AWS Python SDK (Boto3) to access the AWS Security Token 
+Shows how to use the AWS Python SDK (Boto3) to access the AWS Security Token 
 Service (STS) to acquire temporary credentials that grant specific permissions. Also
-demonstrates how to set up and use a multi-factor authentication (MFA) device.
+demonstrates how to set up and use a multi-factor authentication (MFA) device. Learn
+to accomplish the following tasks:
+
+* Assume a role that grants specific permissions, and use those credentials to 
+perform permitted actions.
+* Add a new MFA device to a user. 
+* Assume a role that requires MFA to be present.
+* Construct a URL that gives federated users direct access to an account through the
+AWS Management Console.
+* Get a session token that can be used to call an API function that requires MFA.
 
 ## Prerequisites
 
