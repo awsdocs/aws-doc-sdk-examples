@@ -81,7 +81,7 @@ public class SetWebsiteConfiguration {
             s3.putBucketWebsite(pubWebsiteReq);
         } catch (S3Exception e) {
             System.out.format(
-                    "Failed to set website configuration for bucket '%s'!\n",
+                    "Failed to set the website configuration for bucket '%s'!\n",
                     bucketName);
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
