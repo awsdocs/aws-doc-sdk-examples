@@ -8,15 +8,15 @@ Purpose:
 cw_disablealarmactions.js demonstrates how to disable actions for an Amazon CloudWatch alarm.
 Inputs:
 - REGION
-- ALARM_NAME (e.g. Web_Server_CPU_Utilization)
+- ALARM_NAME (e.g., Web_Server_CPU_Utilization)
 
 Running the code:
 node cw_disablealarmactions.js REGION ALARM_NAME
 */
 // snippet-start:[cw.JavaScript.v3.alarms.disableAlarmActions]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, DisableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create CloudWatch service object
 const cw = new CloudWatch(region);

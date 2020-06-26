@@ -14,9 +14,9 @@ Running the code:
 node cw_deletealarm.js REGION IAM_ROLE_ARN
 */
 // snippet-start:[cwEvents.JavaScript.v3.cwe.putRule]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {CloudWatchEvents, PutRuleCommand} = require("@aws-sdk/client-cloudwatch-events");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create CloudWatch service object
 const cwevents = new CloudWatchEvents(region);
