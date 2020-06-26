@@ -39,7 +39,7 @@ public class GetAcl {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "Usage:\n" +
+                "Usage: \n" +
                 "  GetAcl <bucket> [object]\n\n" +
                 "Where:\n" +
                 "  bucket - the bucket to get the access control list (ACL) for\n" +

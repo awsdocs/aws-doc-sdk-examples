@@ -48,12 +48,11 @@ public class ListObjects {
                 .region(region)
                 .build();
 
-        ListBucketObjects(s3, bucketName);
-
+        listBucketObjects(s3, bucketName);
     }
 
     // snippet-start:[s3.java2.list_objects.main]
-    public static void ListBucketObjects(  S3Client s3, String bucketName ) {
+    public static void listBucketObjects(S3Client s3, String bucketName ) {
 
        try {
             ListObjectsRequest listObjects = ListObjectsRequest
@@ -69,7 +68,7 @@ public class ListObjects {
                 System.out.print("\n The name of the key is " + myValue.key());
                 System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
                 System.out.print("\n The owner is " + myValue.owner());
-            }
+                }
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -78,7 +77,6 @@ public class ListObjects {
     //convert bytes to kbs
     private static long calKb(Long val) {
         return val/1024;
-
     }
-    // snippet-end:[s3.java2.list_objects.main]
+   // snippet-end:[s3.java2.list_objects.main]
 }

@@ -42,7 +42,7 @@ public class GetObjectPresignedUrl {
 
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.out.println("Please specify a bucket name and a key name");
+            System.out.println("Please specify a bucket name and key name");
             System.exit(1);
         }
 
