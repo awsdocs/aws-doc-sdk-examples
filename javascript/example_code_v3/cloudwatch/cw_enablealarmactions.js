@@ -15,10 +15,10 @@ Running the code:
 node cw_enablealarmactions.js REGION ACTION_ARN
 */
 // snippet-start:[cw.JavaScript.v3.alarms.enableAlarmActions]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, PutMetricAlarmCommand,
   EnableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create CloudWatch service object
 const cw = new CloudWatch(region);
