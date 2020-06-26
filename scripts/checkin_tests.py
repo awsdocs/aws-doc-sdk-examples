@@ -103,7 +103,13 @@ ALLOW_LIST = {
     'iam/commands/GetAccessKeyLastUsedCommand',
     'iam/commands/GetAccessKeyLastUsedCommand',
     'iam/commands/GetServerCertificateCommand',
-    'cloudwatch/commands/PutMetricDataCommand'
+    'cloudwatch/commands/PutMetricDataCommand',
+    'ses/commands/VerifyDomainIdentityCommand',
+    'ses/commands/DeleteReceiptRuleSetCommand',
+    'ses/commands/DeleteReceiptRuleSetCommand',
+    'ses/commands/CreateReceiptRuleSetCommand',
+    'ses/commands/VerifyDomainIdentityCommand',
+    'ses/commands/VerifyDomainIdentityCommand'
 }
 
 
