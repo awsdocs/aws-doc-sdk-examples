@@ -53,7 +53,7 @@ public class GeneratePresignedUrlAndUploadObject {
     }
 
     // snippet-start:[presigned.java2.generatepresignedurl.main]
-    public static void signBucket( S3Presigner presigner,  String bucketName,  String keyName) {
+    public static void signBucket(S3Presigner presigner, String bucketName, String keyName) {
 
         try {
             PresignedPutObjectRequest presignedRequest =
