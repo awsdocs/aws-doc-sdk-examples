@@ -2,26 +2,26 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-ip-filters.html..
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-ip-filters.html.
 
 Purpose:
-ses_createreceiptfilter.js demonstrates how to create an Amazon SES IP address filter.]
+ses_createreceiptfilter.js demonstrates how to create an Amazon SES IP address filter.
 
 Inputs:
-- REGION (in command line input below)
-- IP_ADDRESS_OR_RANGE (replace in code): Either a single IP address (10.0.0.1) or an IP
+- REGION (into command line below)
+- IP_ADDRESS_OR_RANGE (in code; either a single IP address (10.0.0.1) or an IP
   address range in CIDR notation (10.0.0.1/24)
-- Policy (replace in code): 'ALLOW' or 'BLOCK' email traffic from the filtered addressesOptions.
-- NAME (replace in code): The filter name.
+- Policy (in code; 'ALLOW' or 'BLOCK' email traffic from the filtered addressesOptions.)
+- NAME (in code; the filter name.)
 
 Running the code:
 node ses_createreceiptfilter.js REGION IP_ADDRESS_OR_RANGE ALLOW|BLOCK NAME
  */
 
 // snippet-start:[ses.JavaScript.v3.filters.createReceiptFilter]
-// Import required AWS-SDK clients and commands for Node.js
-const {SES, CreateReceiptFilterCommand} = require("@aws-sdk/client-sns");
-// Set the AWS region
+// Import required AWS SDK clients and commands for Node.js
+const {SES, CreateReceiptFilterCommand} = require("@aws-sdk/client-ses");
+// Set the AWS Region
 const region = process.argv[2];
 // Create SES service object
 const ses = new SES(region);
@@ -38,7 +38,7 @@ const params = {
 async function run() {
     try {
         const data = await ses.send(new CreateReceiptFilterCommand(params));
-        console.log(data)
+        console.log("Success, IP Address Filter created; requestId:", data.$metadata.requestId)
     } catch (err) {
         console.error(err, err.stack);
     }

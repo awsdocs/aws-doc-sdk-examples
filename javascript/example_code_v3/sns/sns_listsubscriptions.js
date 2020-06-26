@@ -1,0 +1,38 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html.
+
+Purpose:
+sns_listsubscriptions.js demonstrates how to retrieve a list of Amazon SNS subscriptions.
+
+Inputs:
+- REGION (into command line below)
+- TOPIC_ARN  (into command line below)
+
+Running the code:
+node sns_listsubscriptions.js REGION TOPIC_ARN
+*/
+// snippet-start:[sns.JavaScript.v3.subscriptions.listSubscriptionsByTopic]
+
+// Import required AWS SDK clients and commands for Node.js
+const {SNS, ListSubscriptionsByTopicCommand} = require("@aws-sdk/client-sns");
+// Set the AWS Region //
+const region = process.argv[2];
+//Create SNS service object
+const sns = new SNS(region);
+// Set the parameters
+const params = {TopicArn : process.argv[3]}
+
+async function run() {
+  try {
+    const data = await sns.send(new ListSubscriptionsByTopicCommand(params));
+    console.log("Success. Subscriptions:", data.Subscriptions);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
+};
+run();
+// snippet-end:[sns.JavaScript.v3.subscriptions.listSubscriptionsByTopic]
+exports.run = run; //for unit tests only
