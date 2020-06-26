@@ -83,7 +83,7 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(4)
    public void copyBucketObject() {
 
-      String result = CopyObject.CopyBucketObject(s3,bucketName,objectKey,toBucket);
+      String result = CopyObject.copyBucketObject(s3,bucketName,objectKey,toBucket);
       assertTrue(!result.isEmpty());
       System.out.println("Test 4 passed");
     }
@@ -92,7 +92,7 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(5)
     public void setBucketPolicy() {
 
-     SetBucketPolicy.SetPolicy(s3, bucketName, policyText);
+     SetBucketPolicy.setPolicy(s3, bucketName, policyText);
      System.out.println("Test 5 passed");
     }
 
@@ -100,7 +100,7 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(6)
     public void getBucketPolicy() {
 
-    String polText = GetBucketPolicy.GetPolicy(s3, bucketName );
+    String polText = GetBucketPolicy.getPolicy(s3, bucketName );
     assertTrue(!polText.isEmpty());
     System.out.println("Test 6 passed");
     }
@@ -109,7 +109,7 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(7)
     public void deleteBucketPolicy() {
 
-   DeleteBucketPolicy.DeleteS3BucketPolicy(s3,bucketName );
+   DeleteBucketPolicy.deleteS3BucketPolicy(s3,bucketName );
    System.out.println("Test 7 passed");
     }
 
@@ -120,7 +120,7 @@ public class AmazonS3ServiceIntegrationTest {
         System.out.format("Running Amazon S3 Test 8");
         System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
-        SetAcl.SetBucketAcl(s3, bucketName, objectKey, id,access );
+        SetAcl.setBucketAcl(s3, bucketName, id,access );
         System.out.println("Test 8 passed");
     }
 
@@ -137,7 +137,7 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(10)
     public void deleteObjects() {
 
-       DeleteObjects.DeleteBucketObjects(s3,bucketName,objectKey);
+       DeleteObjects.deleteBucketObjects(s3,bucketName,objectKey);
        System.out.println("Test 10 passed");
     }
 
