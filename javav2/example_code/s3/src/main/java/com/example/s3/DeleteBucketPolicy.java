@@ -56,10 +56,10 @@ public class DeleteBucketPolicy {
         S3Client s3 = S3Client.builder().region(region).build();
 
         //Delete the bucket policy
-        DeleteS3BucketPolicy(s3, bucketName);
+        deleteS3BucketPolicy(s3, bucketName);
     }
     // snippet-start:[s3.java2.delete_bucket_policy.main]
-    public static void DeleteS3BucketPolicy(S3Client s3, String bucketName) {
+    public static void deleteS3BucketPolicy(S3Client s3, String bucketName) {
 
         //Create a DeleteBucketPolicyRequest object
         DeleteBucketPolicyRequest delReq = DeleteBucketPolicyRequest.builder()
