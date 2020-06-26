@@ -42,9 +42,11 @@ Use cases
 
 Under the **use_cases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these use cases:
 
-+ **Creating your first AWS Java Web Application** - an article that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
-+ **Creating a Secure Spring Application using AWS Services** - an article that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
-+ **Creating AWS Serverless workflows using the Java SDK** - an article that discusses using the AWS Java SDK and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using a Lambda function.
++ **Creating your first AWS Java Web Application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
++ **Creating a Secure Spring Application using AWS Services** - A tutorial that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
++ **Creating AWS Serverless workflows using the Java SDK** - A tutorial that discusses using the AWS Java SDK and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using a Lambda function.
+
++ **Create a Sample AWS Photo Analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS Java SDK and various AWS Services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 
 AWS service examples
 --------------------
