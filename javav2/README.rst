@@ -40,7 +40,7 @@ The javav2 folder in this repository contains examples of complete use cases, as
 Use cases
 ---------
 
-Under the **use_cases** folder, you will locate step by step development articles that use multiple AWS services. By following these articles, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these use cases:
+Under the **use_cases** folder, you will locate step by step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding on how to create Java based applications that use the AWS Java SDK. You will find these tutorials:
 
 + **Creating your first AWS Java Web Application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk.
 + **Creating a Secure Spring Application using AWS Services** - A tutorial that discusses using Amazon Relational Database Service (RDS), Amazon Simple Email Service (SES), and AWS Elastic Beanstalk.
