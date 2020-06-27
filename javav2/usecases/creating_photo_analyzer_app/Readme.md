@@ -1,6 +1,6 @@
 #  Create a Sample AWS Photo Analyzer application using the AWS SDK for Java
 
-You can create an AWS application that analyzes nature images located in a S3 bucket. You can use the Amazon Rekognition service to analyze images. 
+You can create an AWS application that analyzes nature images located in a S3 bucket by using the Amazon Rekognition service. 
 The application can analyze many images and generate a report that breaks down each image into a series of labels. 
 For example, the following image shows a lake.
 
