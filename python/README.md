@@ -52,12 +52,12 @@ groups.
 * Clean up security keys and security groups.
 * Permanently terminate instances. 
 
-### [AWS Identity and Access Management (IAM) getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
+### [AWS IAM getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
 
 #### Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to manage IAM resources. Learn
-to accomplish the following tasks:
+Shows how to use the AWS SDK for Python (Boto3) to manage AWS Identity and Access 
+Management (IAM) resources. Learn to accomplish the following tasks:
 
 * Create and manage IAM user access keys.
 * Manage the alias of an account.
@@ -124,7 +124,7 @@ send, receive, and delete messages from a queue.
 #### Purpose
 
 Shows how to use the AWS Python SDK (Boto3) to access the AWS Security Token 
-Service (STS) to acquire temporary credentials that grant specific permissions. Also
+Service (AWS STS) to acquire temporary credentials that grant specific permissions. Also
 demonstrates how to set up and use a multi-factor authentication (MFA) device. Learn
 to accomplish the following tasks:
 

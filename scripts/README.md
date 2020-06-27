@@ -106,11 +106,11 @@ To suppress most output, add the `--quiet` option.
 To run the unit tests associated with this script, in a command window at the 
 `scripts\tests` folder of the repository, run `python -m pytest test_checkin_tests.py`.
 
-## Readme summarizer
+## README summarizer
 
 Gathers titles and purpose statements from README.md files and generates a top-level
-README.md file at the specified root. This README lists all of the examples along 
-with their purposes. Any existing README.md file at the root is overwritten.
+README.md file at the specified root. This README lists all of the examples and 
+their purposes. Any existing README.md file at the root is overwritten.
 
 This script is currently intended for use only with the Python subsection of the
 repo, but could be expanded in the future.

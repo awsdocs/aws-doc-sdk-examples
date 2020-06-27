@@ -1,9 +1,9 @@
-# AWS Identity and Access Management (IAM) getting started examples
+# AWS IAM getting started examples
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to manage IAM resources. Learn
-to accomplish the following tasks:
+Shows how to use the AWS SDK for Python (Boto3) to manage AWS Identity and Access 
+Management (IAM) resources. Learn to accomplish the following tasks:
 
 * Create and manage IAM user access keys.
 * Manage the alias of an account.
@@ -24,7 +24,7 @@ to accomplish the following tasks:
 ## Running the code
 
 Each file can be run separately at a command prompt. For example, see the user
-demonstration by running the following from a command prompt window.
+demonstration by running the following at a command prompt.
 
 ```
 python user_wrapper.py

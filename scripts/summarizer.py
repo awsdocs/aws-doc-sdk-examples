@@ -5,7 +5,7 @@
 Purpose
 
 Gathers titles and purpose statements from README.md files and generates a top-level
-README.md file at the specified root that lists all of the examples along with their
+README.md file at the specified root that lists all of the examples and their
 purposes. Any existing README.md file at the root is overwritten.
 
 Currently this script requires a very specific README format and works only for the
@@ -142,11 +142,11 @@ def write_super_summary(root_folder, summaries):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Reads readme files and writes a summary of their purposes.")
+        description="Reads README files and writes a summary of their purposes.")
     parser.add_argument(
         "--root",
         default=".",
-        help="The folder to start the search for readme files. Defaults to the "
+        help="The folder to start the search for README files. Defaults to the "
              "current folder."
     )
     args = parser.parse_args()

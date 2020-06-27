@@ -3,7 +3,7 @@
 ## Purpose
 
 Shows how to use the AWS Python SDK (Boto3) to access the AWS Security Token 
-Service (STS) to acquire temporary credentials that grant specific permissions. Also
+Service (AWS STS) to acquire temporary credentials that grant specific permissions. Also
 demonstrates how to set up and use a multi-factor authentication (MFA) device. Learn
 to accomplish the following tasks:
 
