@@ -49,7 +49,7 @@ public class PutObject {
         }
 
         String bucketName = args[0];
-        String objectKey =  args[1];
+        String objectKey = args[1];
         String objectPath = args[2];
 
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
@@ -66,7 +66,7 @@ public class PutObject {
     }
 
     // snippet-start:[s3.java2.s3_object_upload.main]
-    public static  String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
+    public static String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
 
         try {
             //Put a file into the bucket
@@ -77,7 +77,6 @@ public class PutObject {
                     RequestBody.fromBytes(getObjectFile(objectPath)));
 
             return response.eTag();
-
         } catch (S3Exception | FileNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);

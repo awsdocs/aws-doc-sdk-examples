@@ -52,7 +52,7 @@ public class SetAcl {
                 "Examples:\n" +
                 "   SetAcl testbucket testobject <uda0cb5d2c39f310136ead6278...> WRITE\n\n";
 
-        if (args.length < 3) {
+        if (args.length < 4) {
              System.out.println(USAGE);
             System.exit(1);
         }
@@ -70,12 +70,12 @@ public class SetAcl {
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
 
-        SetBucketAcl(s3, bucketName, objectKey, id,access );
+        setBucketAcl(s3, bucketName, id,access);
         System.out.println("Done!");
     }
 
     // snippet-start:[s3.java2.set_acl.main]
-    public static void SetBucketAcl(S3Client s3,  String bucketName, String objectKey, String id,String access  ) {
+    public static void setBucketAcl(S3Client s3, String bucketName, String id, String access) {
 
        try {
             // set access for the grantee  in acl

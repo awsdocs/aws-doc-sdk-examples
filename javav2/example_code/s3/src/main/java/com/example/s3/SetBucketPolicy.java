@@ -62,8 +62,7 @@ public class SetBucketPolicy {
         }
 
         String bucketName = args[0];
-        String policyText = "";
-        policyText = getBucketPolicyFromFile(args[1]);
+        String policyText = getBucketPolicyFromFile(args[1]);
 
         System.out.println("Setting policy:");
         System.out.println("----");
@@ -78,15 +77,15 @@ public class SetBucketPolicy {
                 .build();
 
         // Set the Bucket Policy
-        SetPolicy(s3, bucketName, policyText);
+        setPolicy(s3, bucketName, policyText);
     }
 
     // snippet-start:[s3.java2.set_bucket_policy.main]
-    public static void SetPolicy(S3Client s3, String bucketName, String policyText) {
+    public static void setPolicy(S3Client s3, String bucketName, String polText) {
 
         try {
 
-            policyText = getBucketPolicyFromFile(policyText);
+            String policyText = getBucketPolicyFromFile(polText);
             PutBucketPolicyRequest policyReq = PutBucketPolicyRequest.builder()
                     .bucket(bucketName)
                     .policy(policyText)
@@ -96,10 +95,8 @@ public class SetBucketPolicy {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         System.out.println("Done!");
     }
-
 
     // Loads a JSON-formatted policy from a file, verifying it with the Policy
     // class.

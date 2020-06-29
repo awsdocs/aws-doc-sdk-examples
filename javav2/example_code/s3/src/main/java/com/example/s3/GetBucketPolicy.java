@@ -57,12 +57,12 @@ public class GetBucketPolicy {
                 .region(region)
                 .build();
 
-        String polText = GetPolicy(s3, bucketName );
+        String polText = getPolicy(s3, bucketName );
         System.out.println("Policy Text: "+polText);
     }
 
     // snippet-start:[s3.java2.get_bucket_policy.main]
-    public static String GetPolicy(S3Client s3, String bucketName) {
+    public static String getPolicy(S3Client s3, String bucketName) {
 
         String policyText = "";
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);

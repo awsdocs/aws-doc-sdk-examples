@@ -1,9 +1,9 @@
-# Amazon S3 managed file transfers
+# Amazon S3 managed file transfer example
 
 ## Purpose
 
-Use the Boto 3 transfer manager to manage multipart uploads to and downloads
-from an Amazon S3 bucket.
+Shows how to use the AWS SDK for Python (Boto3) transfer manager to manage multipart
+uploads to and downloads from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 When the file to transfer is larger than the specified threshold, the transfer
 manager automatically uses multipart uploads or downloads. This example
