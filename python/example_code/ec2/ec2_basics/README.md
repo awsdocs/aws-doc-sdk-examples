@@ -1,9 +1,38 @@
-# Amazon EC2 examples
+# Amazon EC2 getting started examples
 
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to manage Amazon Compute Cloud 
-(Amazon EC2) resources.
+(Amazon EC2) resources. Learn to accomplish the following tasks:
+
+* Create security keys, groups, and instances.
+* Start and stop instances, use Elastic IP addresses, and update security 
+groups.
+* Clean up security keys and security groups.
+* Permanently terminate instances. 
+
+## Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.6 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+- An SSH client, such as Open SSH (to connect to demo instances)
+
+## Running the code
+
+Start the demonstration by running the following command at a command prompt:
+
+```
+python ec2_basics_demo.py
+```  
+
+During the demonstration, you are prompted to open a second command prompt
+window, which you use to connect to Amazon EC2 instances using SSH.
+
+### Example structure
 
 The examples are divided into the following files:
 
@@ -42,27 +71,6 @@ Shows how to terminate instances and clean up the following security resources:
 
 * Security key pairs
 * Security groups
-
-## Prerequisites
-
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
-- Boto3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
-- An SSH client, such as Open SSH (to connect to demo instances)
-
-## Running the code
-
-Start the demonstration by running the following command at a command prompt:
-
-```
-python ec2_basics_demo.py
-```  
-
-During the demonstration, you are prompted to open a second command prompt
-window, which you use to connect to Amazon EC2 instances using SSH.
 
 ## Running the tests
 

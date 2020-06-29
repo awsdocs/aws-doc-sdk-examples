@@ -1,12 +1,26 @@
-# Amazon S3 versioning examples
+# Amazon S3 batch and versioning examples
 
 ## Purpose
 
-Demonstrates how to set up an Amazon S3 bucket for versioning, and how to perform
-tasks on a version-enabled bucket.
+Shows how to use the AWS SDK for Python (Boto3) to set up an Amazon S3 bucket for 
+versioning, and how to perform taks on a version-enabled bucket. Learn to 
+accomplish the following tasks:
 
-Demonstrates how to manipulate Amazon S3 versioned objects in batches by creating jobs
-that call AWS Lambda functions to perform processing.
+* Create a version-enabled bucket and apply revisions to its objects.
+* Get a full series of object versions.
+* Roll back to a previous version.
+* Revive a deleted object.
+* Permanently delete all versions of an object.
+
+Shows how to manipulate Amazon S3 versioned objects in batches by creating jobs
+that call AWS Lambda functions to perform processing. Learn to accomplish the
+following tasks:
+
+* Create Lambda functions that operate on versioned objects.
+* Create a manifest of objects to update.
+* Create batch jobs that invoke Lambda functions to update objects.
+* Delete Lambda functions.
+* Empty and delete a versioned bucket.
 
 ## Prerequisites
 
