@@ -14,6 +14,9 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::S3::Model::BucketLocationConstraint region =
+            Aws::S3::Model::BucketLocationConstraint::us_east_1;
+
         // Create a unique bucket name to increase the chance of success 
         // when trying to create the bucket.
         // Format: "my-bucket-" + lowercase UUID.
@@ -22,14 +25,16 @@ int main()
             Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
         // Create the bucket.
-        if (!AwsDoc::S3::CreateBucket(bucket_name, 
-            AwsDoc::S3::TestConstants::S3_REGION))
+        if (!AwsDoc::S3::CreateBucket(bucket_name, region))
         {
             return 1;
         }
 
         // Delete the bucket, leaving the AWS account in its previous state.
-        Aws::S3::S3Client s3_client;
+        Aws::Client::ClientConfiguration config;
+        config.region = "us-east-1";
+
+        Aws::S3::S3Client s3_client(config);
         Aws::S3::Model::DeleteBucketRequest request;
         request.SetBucket(bucket_name);
 
@@ -38,10 +43,11 @@ int main()
         
         if (!outcome.IsSuccess())
         {
-            // If the bucket cannot be deleted, notify the caller that they 
-            // will need to delete the bucket themselves.
-            std::cout << "Cannot delete bucket " << bucket_name
-                << ". You will need to delete this bucket yourself.";
+            auto err = outcome.GetError();
+            std::cout << "Error: CreateBucket test cleanup: Delete bucket: " <<
+                err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+            std::cout << "To clean up, you must delete the bucket '" <<
+                bucket_name << "' yourself." << std::endl;
 
             return 1;
         }

@@ -8,8 +8,8 @@
 #include <aws/s3/model/BucketLocationConstraint.h>
 #include <aws/core/utils/UUID.h>
 #include <aws/core/utils/StringUtils.h>
-// snippet-end:[s3.cpp.create_bucket.inc]
 #include <awsdoc/s3/s3_examples.h>
+// snippet-end:[s3.cpp.create_bucket.inc]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Creates a bucket in Amazon S3.
@@ -21,9 +21,9 @@
  * Outputs: true if the bucket was created; otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
- // snippet-start:[s3.cpp.create_bucket.code]
-bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName, 
-    const Aws::S3::Model::BucketLocationConstraint &region)
+// snippet-start:[s3.cpp.create_bucket.code]
+bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName, 
+    const Aws::S3::Model::BucketLocationConstraint& region)
 {
 	Aws::S3::S3Client s3_client;
 
@@ -54,7 +54,6 @@ bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName,
 
     return true;
 }
-// snippet-end:[s3.cpp.create_bucket.code]
 
 int main()
 {
@@ -86,3 +85,4 @@ int main()
 
 	return 0;
 }
+// snippet-end:[s3.cpp.create_bucket.code]

@@ -1,38 +1,112 @@
-//snippet-sourcedescription:[get_put_object_acl.cpp demonstrates how to retrieve and modify the access control list of an Amazon S3 object.]
-//snippet-service:[s3]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[snippet]
-//snippet-sourceauthor:[AWS]
-
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
 //snippet-start:[s3.cpp.get_put_object_acl.inc]
 #include <aws/core/Aws.h>
+#include <aws/s3/model/Permission.h>
+#include <aws/s3/model/Type.h>
 #include <aws/s3/S3Client.h>
+#include <aws/s3/model/Owner.h>
+#include <aws/s3/model/Grantee.h>
+#include <aws/s3/model/Grant.h>
+#include <aws/s3/model/AccessControlPolicy.h>
 #include <aws/s3/model/AccessControlPolicy.h>
 #include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/PutObjectAclRequest.h>
-#include <aws/s3/model/Grant.h>
-#include <aws/s3/model/Grantee.h>
-#include <aws/s3/model/Permission.h>
+#include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.get_put_object_acl.inc]
 
-Aws::S3::Model::Permission GetPermission(Aws::String access)
+/* ////////////////////////////////////////////////////////////////////////////
+ * Function: SetGranteePermission
+ *
+ * Purpose: Converts a human-readable string to a
+ * built-in permission enumeration.
+ *
+ * Inputs: A human-readable string.
+ *
+ * Outputs: A related built-in permission enumeration, if one exists;
+ * otherwise, the enumeration Aws::S3::Model::Permission::NOT_SET.
+ * ////////////////////////////////////////////////////////////////////////////
+ * Function: GetGranteeType
+ *
+ * Purpose: Converts a built-in permission enumeration to a
+ * human-readable string.
+ *
+ * Inputs: A built-in permission enumeration.
+ *
+ * Outputs: A related human-readable string, if one exists; otherwise,
+ * the string "Not set".
+ * ////////////////////////////////////////////////////////////////////////////
+ * Function: SetGranteeType
+ *
+ * Purpose: Converts a human-readable string to a
+ * built-in type enumeration.
+ *
+ * Prerequisites:
+ *
+ * Inputs: A human-readable string.
+ *
+ * Outputs: A related built-in type enumeration, if one exists; otherwise,
+ * the enumeration Aws::S3::Model::Type::NOT_SET.
+ * ////////////////////////////////////////////////////////////////////////////
+ * Function: PutObjectAcl
+ *
+ * Purpose: Set the access control list (ACL) for an object in 
+ * an Amazon S3 bucket.
+ *
+ * Prerequisites: An existing bucket that contains the object you want to set 
+ * the ACL for.
+ *
+ * Inputs:
+ * - bucketName: The name of the bucket to set the ACL for. For example,
+ *   "my-bucket".
+ * - objectKey: The name of the key for the object. For example, "my-file.txt".
+ * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
+ * - ownerID: The canonical ID of the bucket owner. For example,
+ *   "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE".
+ * - granteePermission: The access level to enable for the grantee. For example:
+ *   - "FULL_CONTROL": Can read the object's data and its metadata, 
+ *     and read/write the object's permissions.
+ *   - "READ": Can read the object's data and its metadata.
+ *   - "WRITE_ACP": Can write the object's permissions.
+ *   - "READ_ACP": Can read the object's permissions.
+ * - granteeType: The type of grantee. For example:
+ *   - "Amazon customer by email": A user identified by the email associated with
+ *     their AWS account.
+ *   - "Canonical user": A user identified by their canonical ID or display name.
+ *   - "Group": A built-in access group. For example, all authenticated users.
+ * - granteeID: The canonical ID of the grantee. For example,
+ *   "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE".
+ * - granteeDisplayName: The display name of the grantee. For example, "janedoe".
+ * - granteeEmailAddress: The email address associated with the grantee's AWS
+ *   account. For example, "janedoe@example.com".
+ * - granteeURI: The URI of a built-in access group. For example,
+ *   "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"
+ *   for all authenticated users.
+ *
+ * Outputs: true if the ACL was set for the object; otherwise, false.
+ * ////////////////////////////////////////////////////////////////////////////
+ * Function: GetObjectAcl
+ *
+ * Purpose: Gets information about the access control list (ACL) for an
+ * object in an Amazon S3 bucket.
+ *
+ * Prerequisites: An existing bucket that contains the object you want to get 
+ * information about the ACL for.
+ *
+ * Inputs:
+ * - bucketName: The name of the bucket. For example,
+ *   "my-bucket".
+ * - objectKey: The name of the key for the object to get the ACL information 
+ *   about. For example, "my-file.txt".
+ * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
+ *
+ * Outputs: true if ACL information was retrieved for the bucket;
+ * otherwise, false.
+ * ///////////////////////////////////////////////////////////////////////// */
+
+// snippet-start:[s3.cpp.get_object_acl.code]
+Aws::S3::Model::Permission SetGranteePermission(const Aws::String& access)
 {
     if (access == "FULL_CONTROL")
         return Aws::S3::Model::Permission::FULL_CONTROL;
@@ -47,128 +121,218 @@ Aws::S3::Model::Permission GetPermission(Aws::String access)
     return Aws::S3::Model::Permission::NOT_SET;
 }
 
-void SetAclForObject(Aws::String bucket_name,
-    Aws::String object_name,
-    Aws::String grantee_id,
-    Aws::String permission)
+Aws::String GetGranteeType(const Aws::S3::Model::Type& type)
 {
-    // snippet-start:[s3.cpp.get_object_acl.code]
-    // Set up the get request
-    Aws::S3::S3Client s3_client;
-    Aws::S3::Model::GetObjectAclRequest get_request;
-    get_request.SetBucket(bucket_name);
-    get_request.SetKey(object_name);
+    if (type == Aws::S3::Model::Type::AmazonCustomerByEmail)
+        return "Amazon customer by email";
+    if (type == Aws::S3::Model::Type::CanonicalUser)
+        return "Canonical user";
+    if (type == Aws::S3::Model::Type::Group)
+        return "Group";
+    return "Not set";
+}
 
-    // Get the current access control policy
-    auto get_outcome = s3_client.GetObjectAcl(get_request);
-    if (!get_outcome.IsSuccess())
+Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
+{
+    if (type == "Amazon customer by email")
+        return Aws::S3::Model::Type::AmazonCustomerByEmail;
+    if (type == "Canonical user")
+        return Aws::S3::Model::Type::CanonicalUser;
+    if (type == "Group")
+        return Aws::S3::Model::Type::Group;
+    return Aws::S3::Model::Type::NOT_SET;
+}
+
+bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
+    const Aws::String& objectKey, 
+    const Aws::String& region, 
+    const Aws::String& ownerID, 
+    const Aws::String& granteePermission, 
+    const Aws::String& granteeType, 
+    Aws::String granteeID = "", 
+    Aws::String granteeDisplayName = "", 
+    Aws::String granteeEmailAddress = "", 
+    Aws::String granteeURI = ""
+)
+{
+    Aws::Client::ClientConfiguration config;
+    config.region = region;
+
+    Aws::S3::S3Client s3_client(config);
+
+    Aws::S3::Model::Owner owner;
+    owner.SetID(ownerID);
+
+    Aws::S3::Model::Grantee grantee;
+    grantee.SetType(SetGranteeType(granteeType));
+
+    if (granteeEmailAddress != "")
     {
-        auto error = get_outcome.GetError();
-        std::cout << "Original GetObjectAcl error: " << error.GetExceptionName()
-            << " - " << error.GetMessage() << std::endl;
-        return;
+        grantee.SetEmailAddress(granteeEmailAddress);
     }
-    // snippet-end:[s3.cpp.get_object_acl.code]
 
-    // snippet-start:[s3.cpp.put_object_acl.code]
-    // Reference the retrieved access control policy
-    auto result = get_outcome.GetResult();
+    if (granteeID != "")
+    {
+        grantee.SetID(granteeID);
+    }
 
-    // Copy the result to an access control policy object (cannot type cast)
+    if (granteeDisplayName != "")
+    {
+        grantee.SetDisplayName(granteeDisplayName);
+    }
+
+    if (granteeURI != "")
+    {
+        grantee.SetURI(granteeURI);
+    }
+
+    Aws::S3::Model::Grant grant;
+    grant.SetGrantee(grantee);
+    grant.SetPermission(SetGranteePermission(granteePermission));
+
+    Aws::Vector<Aws::S3::Model::Grant> grants;
+    grants.push_back(grant);
+
     Aws::S3::Model::AccessControlPolicy acp;
-    acp.SetOwner(result.GetOwner());
-    acp.SetGrants(result.GetGrants());
+    acp.SetOwner(owner);
+    acp.SetGrants(grants);
 
-    // Define and add new grant
-    Aws::S3::Model::Grant new_grant;
-    Aws::S3::Model::Grantee new_grantee;
-    new_grantee.SetID(grantee_id);
-    new_grantee.SetType(Aws::S3::Model::Type::CanonicalUser);
-    new_grant.SetGrantee(new_grantee);
-    new_grant.SetPermission(GetPermission(permission));
-    acp.AddGrants(new_grant);
+    Aws::S3::Model::PutObjectAclRequest request;
+    request.SetAccessControlPolicy(acp);
+    request.SetBucket(bucketName);
+    request.SetKey(objectKey);
 
-    // Set up the put request
-    Aws::S3::Model::PutObjectAclRequest put_request;
-    put_request.SetAccessControlPolicy(acp);
-    put_request.SetBucket(bucket_name);
-    put_request.SetKey(object_name);
+    Aws::S3::Model::PutObjectAclOutcome outcome =
+        s3_client.PutObjectAcl(request);
 
-    // Set the new access control policy
-    auto set_outcome = s3_client.PutObjectAcl(put_request);
-    // snippet-end:[s3.cpp.put_object_acl.code]
-    if (!set_outcome.IsSuccess())
+    if (outcome.IsSuccess())
     {
-        auto error = set_outcome.GetError();
-        std::cout << "PutObjectAcl error: " << error.GetExceptionName()
-            << " - " << error.GetMessage() << std::endl;
-        return;
+        return true;
     }
-
-    // Verify the operation by retrieving the updated ACP
-    get_outcome = s3_client.GetObjectAcl(get_request);
-    if (!get_outcome.IsSuccess())
+    else
     {
-        auto error = get_outcome.GetError();
-        std::cout << "Updated GetObjectAcl error: " << error.GetExceptionName()
+        auto error = outcome.GetError();
+        std::cout << "Error: PutObjectAcl: " << error.GetExceptionName()
             << " - " << error.GetMessage() << std::endl;
-        return;
-    }
-    result = get_outcome.GetResult();
 
-    // Output some settings of the updated ACP
-    std::cout << "Updated Object ACL:\n";
-    auto grants = result.GetGrants();
-    for (auto & grant : grants) {
-        auto grantee = grant.GetGrantee();
-        std::cout << "  Grantee Display Name: "
-            << grantee.GetDisplayName() << std::endl;
-
-        std::cout << "  Permission: ";
-        auto perm = grant.GetPermission();
-        switch (perm)
-        {
-        case Aws::S3::Model::Permission::NOT_SET:
-            std::cout << "NOT_SET\n";
-            break;
-        case Aws::S3::Model::Permission::FULL_CONTROL:
-            std::cout << "FULL_CONTROL\n";
-            break;
-        case Aws::S3::Model::Permission::WRITE:
-            std::cout << "WRITE\n";
-            break;
-        case Aws::S3::Model::Permission::WRITE_ACP:
-            std::cout << "WRITE_ACP\n";
-            break;
-        case Aws::S3::Model::Permission::READ:
-            std::cout << "READ\n";
-            break;
-        case Aws::S3::Model::Permission::READ_ACP:
-            std::cout << "READ_ACP\n";
-            break;
-        default:
-            std::cout << "UNKNOWN VALUE\n";
-            break;
-        }
+        return false;
     }
 }
 
-/**
- * Exercise SetAclForObject()
- */
-int main(int argc, char** argv)
+bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
+    const Aws::String& objectKey, 
+    const Aws::String& region)
+{
+    Aws::Client::ClientConfiguration config;
+    config.region = region;
+
+    Aws::S3::S3Client s3_client(config);
+
+    Aws::S3::Model::GetObjectAclRequest request;
+    request.SetBucket(bucketName);
+    request.SetKey(objectKey);
+
+    Aws::S3::Model::GetObjectAclOutcome outcome =
+        s3_client.GetObjectAcl(request);
+
+    if (outcome.IsSuccess())
+    {
+        Aws::S3::Model::Owner owner = outcome.GetResult().GetOwner();
+        Aws::Vector<Aws::S3::Model::Grant> grants =
+            outcome.GetResult().GetGrants();
+
+        std::cout << "Object ACL information for object '" << objectKey <<
+            "' in bucket '" << bucketName << "':" << std::endl << std::endl;
+
+        std::cout << "Owner:" << std::endl << std::endl;
+        std::cout << "Display name:  " << owner.GetDisplayName() << std::endl;
+        std::cout << "ID:            " << owner.GetID() << std::endl <<
+            std::endl;
+
+        std::cout << "Grantees:" << std::endl << std::endl;
+
+        for (auto it = std::begin(grants); it != end(grants); ++it) {
+            auto grantee = it->GetGrantee();
+            std::cout << "Display name:  " << grantee.GetDisplayName() <<
+                std::endl;
+            std::cout << "Email address: " << grantee.GetEmailAddress() <<
+                std::endl;
+            std::cout << "ID:            " << grantee.GetID() << std::endl;
+            std::cout << "Type:          " << GetGranteeType(
+                grantee.GetType()) <<
+                std::endl;
+            std::cout << "URI:           " << grantee.GetURI() << std::endl <<
+                std::endl;
+        }
+
+        return true;
+    }
+    else
+    {
+        auto error = outcome.GetError();
+        std::cout << "Error: GetObjectAcl: " << error.GetExceptionName()
+            << " - " << error.GetMessage() << std::endl;
+
+        return false;
+    }
+}
+
+int main()
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // Assign these values before compiling the program
-        const Aws::String bucket_name = "BUCKET_NAME";
-        const Aws::String object_name = "OBJECT_NAME";
-        const Aws::String grantee_id = "AWS_USER_CANONICAL_ID";
-        const Aws::String permission = "READ";
+        const Aws::String bucket_name = "my-bucket-992648334831-1"; // "my-bucket";
+        const Aws::String object_key = "my-file.txt";
 
-        // Set the access control list for an object
-        SetAclForObject(bucket_name, object_name, grantee_id, permission);
+        // Set the ACL's owner information. 
+        const Aws::String owner_id = "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769efede32";
+            // "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
+
+        // Set the ACL's grantee information.
+        const Aws::String grantee_permission = "READ";
+
+        // If the grantee is by canonical user, then either the user's ID or 
+        // display name must be specified:
+        const Aws::String grantee_type = "Canonical user";
+        const Aws::String grantee_id = "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772eff835c";
+            // "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";
+        // const Aws::String grantee_display_name = "janedoe";
+
+        // If the grantee is by Amazon customer by email, then the email 
+        // address must be specified:
+        // const Aws::String grantee_type = "Amazon customer by email";
+        // const Aws::String grantee_email_address = "janedoe@example.com";
+
+        // If the grantee is by group, then the predefined group URI must 
+        // be specified:
+        // const Aws::String grantee_type = "Group";
+        // const Aws::String grantee_uri = 
+        //     "http://acs.amazonaws.com/groups/global/AuthenticatedUsers";
+
+        // Set the object's ACL.
+        if (!AwsDoc::S3::PutObjectAcl(bucket_name,
+            object_key, 
+            "us-east-1", 
+            owner_id, 
+            grantee_permission, 
+            grantee_type, 
+            grantee_id))
+            // grantee_display_name, 
+            // grantee_email_address, 
+            // grantee_uri));
+        {
+            return 1;
+        }
+
+        // Get the object's ACL information that was just set.
+        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_key, "us-east-1"))
+        {
+            return 1;
+        }
     }
     Aws::ShutdownAPI(options);
+
+    return 0;
 }
+// snippet-end:[s3.cpp.get_object_acl.code]
