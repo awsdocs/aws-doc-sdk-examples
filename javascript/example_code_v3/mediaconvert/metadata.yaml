@@ -1,0 +1,31 @@
+---
+# Amazon MediaConvert basic usage examples
+files:
+  - path: emc_canceljob.test.js
+    services:
+      - mediaconvert
+  - path: emc_createjob.test.js
+    services:
+    - mediaconvert
+  - path: emc_create_jobtemplate.test.js
+    services:
+      - mediaconvert
+  - path: emc_createjob.test.js
+    services:
+      - mediaconvert
+  - path: emc_deletetemplate.test.js
+    services:
+      - mediaconvert
+  - path: emc_getendpoint.test.js
+    services:
+      - mediaconvert
+  - path: emc_listjobs.test.js
+    services:
+      - mediaconvert
+  - path: emc_listtemplates.test.js
+    services:
+        - mediaconvert
+  - path: emc_template_createjob.test.js
+    services:
+      - mediaconvert
+...

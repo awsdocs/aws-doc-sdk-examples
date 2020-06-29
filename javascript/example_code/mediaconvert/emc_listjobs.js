@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_listjobs.js demonstrates how to retrieve a list of the most-recently created transcoding jobs.]
+//snippet-sourcedescription:[emc_listjobs.test.js demonstrates how to retrieve a list of the most-recently created transcoding jobs.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
@@ -28,7 +28,7 @@
 // snippet-start:[mediaconvert.JavaScript.jobs.listJobs]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the Region 
+// Set the Region
 AWS.config.update({region: 'us-west-2'});
 // Set the customer endpoint
 AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
