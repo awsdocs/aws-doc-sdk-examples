@@ -14,9 +14,9 @@ Running the code:
 node cw_putmetricdata.js REGION
 */
 // snippet-start:[cw.JavaScript.v3.metrics.putMetricData]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, PutMetricDataCommand} = require("@aws-sdk/client-cloudwatch");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create CloudWatch service object
 const cw = new CloudWatch(region);

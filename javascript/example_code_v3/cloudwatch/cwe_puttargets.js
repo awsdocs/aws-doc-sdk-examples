@@ -16,9 +16,9 @@ Running the code:
 node cwe_puttargets.js REGION LAMBDA_FUNCTION_ARN
 */
 // snippet-start:[cwEvents.JavaScript.v3.cwe.putTargets]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {CloudWatchEvents, PutTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create CloudWatch service object
 const cwevents = new CloudWatchEvents(region);

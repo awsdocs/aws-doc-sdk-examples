@@ -17,9 +17,9 @@ Running the code:
 node cwl_putsubscriptionfilter.js REGION LAMBDA_FUNCTION_ARN FILTER_NAME LOG_GROUP
 */
 // snippet-start:[cwLogs.JavaScript.v3.cwl.putSubscriptionFilter]
-// Import required AWS-SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js
 const {CloudWatchLogs, PutSubscriptionFilterCommand} = require("@aws-sdk/client-cloudwatch-logs");
-// Set the AWS region
+// Set the AWS Region
 const region = process.argv[2];
 // Create CloudWatch service object
 const cwl = new CloudWatchLogs(region);

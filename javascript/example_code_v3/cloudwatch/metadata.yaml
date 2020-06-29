@@ -1,5 +1,5 @@
 ---
-# Amazon cloudwatch basic usage examples
+# Amazon Cloudwatch basic usage examples
 files:
   - path: cw_deletealarms.js
     services:
