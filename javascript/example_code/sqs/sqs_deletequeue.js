@@ -1,3 +1,4 @@
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -28,7 +29,7 @@
 // snippet-start:[sqs.JavaScript.queues.deleteQueue]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the region
 AWS.config.update({region: 'REGION'});
 
 // Create an SQS service object

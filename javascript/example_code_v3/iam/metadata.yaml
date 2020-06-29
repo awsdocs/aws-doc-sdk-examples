@@ -1,0 +1,67 @@
+---
+# AWS IAM examples
+files:
+  - path: iam_accesskeylastused.js
+    services:
+      - iam
+  - path: iam_attachrolepolicy.js
+    services:
+      - iam
+  - path: iam_createaccesskeys.js
+    services:
+      - iam
+  - path: iam_createaccountalias.js
+    services:
+      - iam
+  - path: iam_createpolicy.js
+    services:
+      - iam
+  - path: iam_createuser.js
+    services:
+      - iam
+  - path: iam_deleteaccesskey.js
+    services:
+      - iam
+  - path: iam_deleteaccountalias.js
+    services:
+      - iam
+  - path: iam_deleteservercert.js
+    services:
+      - iam
+  - path: iam_deleteuser.js
+    services:
+      - iam
+  - path: iam_deleterolepolicy.js
+    services:
+      - iam
+  - path: iam_getpolicy.js
+    services:
+      - iam
+  - path: iam_getservercert.js
+    services:
+      - iam
+  - path: iam_listaccesskeys.js
+    services:
+      - iam
+  - path: iam_listaccountaliases.js
+    services:
+      - iam
+  - path: iam_listservercerts.js
+    services:
+      - iam
+  - path: iam_listusers.js
+    services:
+      - iam
+  - path: iam_updateaccesskey.js
+    services:
+      - iam
+  - path: iam_updateservercert.js
+    services:
+      - iam
+  - path: iam_updateuser.js
+    services:
+      - iam
+  - path: sts_assumerole.js
+    services:
+      - sts
+...

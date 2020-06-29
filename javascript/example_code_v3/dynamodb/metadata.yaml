@@ -11,24 +11,24 @@ files:
     services:
       - dynamodb
   - path: ddb_describetable.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
   - path: ddb_getitem.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
   - path: ddb_listtables.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
   - path: ddb_putitem.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
   - path: ddb_query.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
   - path: QueryExample/ddb_batchwriteritem_tv.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
   - path: QueryExample/ddb_createtable_tv.js
-      services:
-        - dynamodb
+    services:
+      - dynamodb
 ...
