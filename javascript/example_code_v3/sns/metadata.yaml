@@ -11,39 +11,39 @@ files:
     services:
       - sns
   - path: sns_gettopicattributes.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_listnumbersoptedout.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_listsubscriptions.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_listtopics.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_publishsms.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_publishtotopic.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_setsmstype.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_settopicattributes.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_subscribeapp.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_subscribeemail.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_subscribelambda.js
-      services:
-        - sns
+    services:
+      - sns
   - path: sns_unsubscribe.js
-      services:
-        - sns
+    services:
+      - sns
 ...

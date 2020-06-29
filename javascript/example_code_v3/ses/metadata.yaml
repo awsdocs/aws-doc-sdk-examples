@@ -11,51 +11,51 @@ files:
     services:
       - ses
   - path: ses_createtemplate.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_deleteidentity.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_deletereceiptfilter.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_deletereceiptrule.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_deletereceiptruleset.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_deletetemplate.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_gettemplate.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_listidentities.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_listreceiptfilters.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_listtemplates.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_sendbulktemplatedemail.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_sendemail.js
-      services:
-        - ses
+    services:
+      - ses
   - path: ses_sendtemplatedemail.js
-      services:
-        - ses
-    - path: ses_updatetemplate.js
-        services:
-          - ses
-    - path: ses_verifydomainidentity.js
-        services:
-          - ses
-    - path: ses_verifyemailidentity.js
-        services:
-          - ses
+    services:
+      - ses
+  - path: ses_updatetemplate.js
+    services:
+      - ses
+  - path: ses_verifydomainidentity.js
+    services:
+      - ses
+  - path: ses_verifyemailidentity.js
+    services:
+      - ses
 ...

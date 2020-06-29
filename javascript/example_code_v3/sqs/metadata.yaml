@@ -12,26 +12,26 @@ files:
       - sqs
   - path: sqs_deletequeue.js
       services:
-        - sqs
+      - sqs
   - path: sqs_getqueueurl.js
       services:
-        - sqs
+      - sqs
   - path: sqs_listqueues.js
       services:
-        - sqs
+      - sqs
   - path: sqs_longpolling_createqueue.js
       services:
-        - sqs
+      - sqs
   - path: sqs_longpolling_existingqueue.js
       services:
-        - sqs
+      - sqs
   - path: sqs_longpolling_receivemessage.js
       services:
-        - sqs
+      - sqs
   - path: sqs_receivemessage.js
       services:
-        - sqs
+      - sqs
   - path: sqs_sendmessage.js
       services:
-        - sqs
+      - sqs
 ...
