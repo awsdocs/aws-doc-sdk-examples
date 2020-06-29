@@ -30,27 +30,27 @@
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_config]
 // Load the SDK for JavaScript
 var AWS = require('aws-sdk');
-// Set the Region 
-AWS.config.update({region: 'us-west-2'});
+// Set the Region
+AWS.config.update({region: 'us-east-1'});
 // Set the custom endpoint for your account
-AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
+AWS.config.mediaconvert = {endpoint : 'https://q25wbt2lc.mediaconvert.us-east-1.amazonaws.com'};
 // snippet-end:[mediaconvert.JavaScript.jobs.createJob_config]
 
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_define]
 var params = {
-  "Queue": "JOB_QUEUE_ARN",
+  "Queue": "arn:aws:mediaconvert:us-east-1:129280475482:queues/Default",
   "UserMetadata": {
     "Customer": "Amazon"
   },
-  "Role": "IAM_ROLE_ARN",
+  "Role": "brmur-mediaconvert",
   "Settings": {
     "OutputGroups": [
       {
         "Name": "File Group",
         "OutputGroupSettings": {
-          "Type": "FILE_GROUP_SETTINGS",
+          "Type": "arn:aws:s3:::brmur-test-bucket2",
           "FileGroupSettings": {
-            "Destination": "s3://OUTPUT_BUCKET_NAME/"
+            "Destination": "arn:aws:s3:::brmur-test-bucket/slide1.mp3"
           }
         },
         "Outputs": [

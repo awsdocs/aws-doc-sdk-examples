@@ -11,33 +11,33 @@ files:
     services:
       - cloudwatch
   - path: cw_enablealarmactions.js
-      services:
+    services:
         - cloudwatch
   - path: cw_listmetrics.js
-      services:
+    services:
         - cloudwatch
   - path: cw_putmetricalarm.js
-      services:
+    services:
         - cloudwatch
   - path: cw_putmetricdata.js
-      services:
+    services:
         - cloudwatch
   - path: cwe_putevents.js
-      services:
+    services:
         - cloudwatch
   - path: cwe_putrule.js
-      services:
+    services:
         - cloudwatch
   - path: cw_puttargets.js
-      services:
+    services:
         - cloudwatch
   - path: cwl_deletesubscriptionfilter.js
-      services:
+    services:
         - cloudwatch
   - path: cwl_describesubscriptionfilters.js
-      services:
+    services:
         - cloudwatch
   - path: cwl_putsubscriptionfilter.js
-      services:
+    services:
         - cloudwatch
 ...

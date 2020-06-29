@@ -11,39 +11,39 @@ files:
     services:
       - ec2
   - path: ec2_createsecuritygroup.js
-      services:
+    services:
         - ec2
   - path: ec2_deletekeypair.js
-      services:
+    services:
         - ec2
   - path: ec2_deletesecuritygroup.js
-      services:
+    services:
         - ec2
   - path: ec2_describeaddresses.js
-      services:
+    services:
         - ec2
   - path: ec2_describeinstances.js
-      services:
+    services:
         - ec2
   - path: ec2_describekeypairs.js
-      services:
+    services:
         - ec2
   - path: ec2_describeregionsandzones.js
-      services:
+    services:
         - ec2
   - path: ec2_describesecuritygroups.js
-      services:
+    services:
         - ec2
   - path: ec2_monitorinstances.js
-      services:
+    services:
         - ec2
   - path: ec2_rebootinstances.js
-      services:
+    services:
         - ec2
   - path: ec2_releaseaddress.js
-      services:
+    services:
         - ec2
   - path: ec2_startstopinstances.js
-      services:
+    services:
         - ec2
 ...

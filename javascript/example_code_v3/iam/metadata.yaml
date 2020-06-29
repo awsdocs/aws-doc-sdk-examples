@@ -11,57 +11,57 @@ files:
     services:
       - iam
   - path: iam_createaccountalias.js
-      services:
+    services:
         - iam
   - path: iam_createpolicy.js
-      services:
+    services:
         - iam
   - path: iam_createuser.js
-      services:
+    services:
         - iam
   - path: iam_deleteaccesskey.js
-      services:
+    services:
         - iam
   - path: iam_deleteaccountalias.js
-      services:
+    services:
         - iam
   - path: iam_deleteservercert.js
-      services:
+    services:
         - iam
   - path: iam_deleteuser.js
-      services:
+    services:
         - iam
   - path: iam_deleterolepolicy.js
-      services:
+    services:
         - iam
   - path: iam_getpolicy.js
-      services:
+    services:
         - iam
   - path: iam_getservercert.js
-      services:
+    services:
         - iam
   - path: iam_listaccesskeys.js
-      services:
+    services:
         - iam
   - path: iam_listaccountaliases.js
-      services:
+    services:
         - iam
   - path: iam_listservercerts.js
-      services:
+    services:
         - iam
   - path: iam_listusers.js
-      services:
+    services:
         - iam
   - path: iam_updateaccesskey.js
-      services:
+    services:
         - iam
   - path: iam_updateservercert.js
-      services:
+    services:
         - iam
   - path: iam_updateuser.js
-      services:
+    services:
         - iam
   - path: sts_assumerole.js
-      services:
+    services:
         - sts
 ...
