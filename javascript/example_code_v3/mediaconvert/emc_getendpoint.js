@@ -38,5 +38,6 @@ async function run() {
     }
 };
 run();
-// snippet-end:[mediaconvert.JavaScriptc.v3.endoint.describeEndpoints]
+// snippet-end:[mediaconvert.JavaScript.v3.endoint.describeEndpoints]
+
 exports.run = run; //for unit tests only

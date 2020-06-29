@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_template_createjob.js demonstrates how to create a transcoding job using a template.]
+//snippet-sourcedescription:[emc_template_createjob.test.js demonstrates how to create a transcoding job using a template.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
@@ -28,7 +28,7 @@
 // snippet-start:[mediaconvert.JavaScript.templates.createJob]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the Region 
+// Set the Region
 AWS.config.update({region: 'us-west-2'});
 // Set the custom endpoint for your account
 AWS.config.mediaconvert = {endpoint : 'ACCOUNT_ENDPOINT'};
