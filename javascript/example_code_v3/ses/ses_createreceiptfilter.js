@@ -1,7 +1,10 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic
+ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS JavaScript SDK,
+which is scheduled for release by September 2020. The pre-release version of the SDK is available
+at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
+scheduled for release September 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-ip-filters.html.
 
 Purpose:
@@ -10,9 +13,9 @@ ses_createreceiptfilter.js demonstrates how to create an Amazon SES IP address f
 Inputs:
 - REGION (into command line below)
 - IP_ADDRESS_OR_RANGE (in code; either a single IP address (10.0.0.1) or an IP
-  address range in CIDR notation (10.0.0.1/24)
+  address range in CIDR notation (10.0.0.1/24))
 - Policy (in code; 'ALLOW' or 'BLOCK' email traffic from the filtered addressesOptions.)
-- NAME (in code; the filter name.)
+- NAME (in code; the filter name)
 
 Running the code:
 node ses_createreceiptfilter.js REGION IP_ADDRESS_OR_RANGE ALLOW|BLOCK NAME

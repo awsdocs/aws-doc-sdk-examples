@@ -1,7 +1,10 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) top
+ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS JavaScript SDK,
+which is scheduled for release by September 2020. The pre-release version of the SDK is available
+at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
+scheduled for release September 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-receipt-rules.html.
 
 Purpose:
@@ -12,7 +15,7 @@ Inputs:
 - REGION (into command line below)
 - S3_BUCKET_NAME (into command line below)
 - DOMAIN | EMAIL_ADDRESS (in command line below; specify a domain to add all
-  email addresses belonging to that domain, or specify individual email addresses.)
+  email addresses belonging to that domain, or specify individual email addresses)
 - RULE_NAME (into command line below)
 - RULE_SET_NAME (into command line below)
 

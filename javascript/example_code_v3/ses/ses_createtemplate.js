@@ -1,7 +1,10 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) top
+ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS JavaScript SDK,
+which is scheduled for release by September 2020. The pre-release version of the SDK is available
+at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
+scheduled for release September 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-creating-template.html.
 
 Purpose:
@@ -10,9 +13,9 @@ ses_createtemplate.js demonstrates how to create an Amazon SES email template.
 Inputs:
 - REGION (into command line below)
 - TEMPLATE_NAME (into command line below)
-- HTML_CONTENT (into code; HTML tagged content of email.)
-- SUBJECT (into code; the subject of the email.)
-- TEXT_CONTENT (into code; text content of the email.)
+- HTML_CONTENT (into code; HTML tagged content of email)
+- SUBJECT (into code; the subject of the email)
+- TEXT_CONTENT (into code; text content of the email)
 
 Running the code:
 node ses_createtemplate.js REGION TEMPLATE_NAME
