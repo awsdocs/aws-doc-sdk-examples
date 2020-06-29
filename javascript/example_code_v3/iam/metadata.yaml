@@ -1,5 +1,5 @@
 ---
-# Amazon IAM examples
+# AWS IAM examples
 files:
   - path: iam_accesskeylastused.js
     services:

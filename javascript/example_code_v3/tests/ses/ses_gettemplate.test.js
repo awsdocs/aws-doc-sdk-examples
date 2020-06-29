@@ -40,7 +40,10 @@ test("has to mock SES#gettemplate",  async (done) => {
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[AWS-JSDG]
 
-// ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic at
+// ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS JavaScript SDK,
+which is scheduled for release by September 2020. The pre-release version of the SDK is available
+at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
+scheduled for release September 2020, and the topic containing this example will be hosted at
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-creating-template.html
 
 // snippet-start:[ses.JavaScript.templates.getTemplate]

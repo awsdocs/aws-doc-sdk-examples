@@ -1,11 +1,14 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) topic at
+ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS JavaScript SDK,
+which is scheduled for release by September 2020. The pre-release version of the SDK is available
+at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
+scheduled for release September 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sts-examples-policies.html.
 
 Purpose:
-sts_assumerole.js demonstrates how to use STS to assume an IAM Role.
+sts_assumerole.js demonstrates how to use AWS STS to assume an IAM role.
 
 Inputs (into command line below):
 - REGION
@@ -35,7 +38,7 @@ async function run() {
             secretAccessKey: data.Credentials.SecretAccessKey,
             sessionToken: data.Credentials.SessionToken
         };
-        //Get Arn of current identity
+        //Get Amazon Resource Name (ARN) of current identity
         try {
             const stsParams = {credentials: rolecreds};
             const stsClient = new STSClient(stsParams);
