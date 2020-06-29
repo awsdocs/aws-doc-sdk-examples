@@ -282,12 +282,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String bucket_name = "my-bucket-992648334831-1"; // "my-bucket";
+        const Aws::String bucket_name = "my-bucket";
         const Aws::String object_key = "my-file.txt";
 
         // Set the ACL's owner information. 
-        const Aws::String owner_id = "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769efede32";
-            // "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
+        const Aws::String owner_id = 
+            "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
         const Aws::String grantee_permission = "READ";
@@ -295,8 +295,8 @@ int main()
         // If the grantee is by canonical user, then either the user's ID or 
         // display name must be specified:
         const Aws::String grantee_type = "Canonical user";
-        const Aws::String grantee_id = "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772eff835c";
-            // "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";
+        const Aws::String grantee_id = 
+            "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";
         // const Aws::String grantee_display_name = "janedoe";
 
         // If the grantee is by Amazon customer by email, then the email 

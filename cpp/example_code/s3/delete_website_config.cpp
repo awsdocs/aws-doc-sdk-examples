@@ -6,7 +6,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteBucketWebsiteRequest.h>
 #include <awsdoc/s3/s3_examples.h>
-// snippet-start:[s3.cpp.delete_website_config.inc]
+// snippet-end:[s3.cpp.delete_website_config.inc]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Removes the website configuration for a bucket in Amazon S3.
