@@ -28,7 +28,7 @@ files:
   - path: cwe_putrule.js
     services:
       - cloudwatch
-  - path: cw_puttargets.js
+  - path: cwe_puttargets.js
     services:
       - cloudwatch
   - path: cwl_deletesubscriptionfilter.js

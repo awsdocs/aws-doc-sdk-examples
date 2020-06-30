@@ -28,7 +28,7 @@
 // snippet-start:[mediaconvert.JavaScript.endoint.describeEndpoints]
 // Load the SDK for JavaScript
 var AWS = require('aws-sdk');
-// Set the Region 
+// Set the Region
 AWS.config.update({region: 'us-west-2'});
 
 // Create empty request parameters
