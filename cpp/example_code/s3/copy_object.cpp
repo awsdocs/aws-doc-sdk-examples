@@ -1,6 +1,7 @@
-// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
+#include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CopyObjectRequest.h>

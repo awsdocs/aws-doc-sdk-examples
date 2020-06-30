@@ -1,7 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
 //snippet-start:[s3.cpp.get_put_object_acl.inc]
+#include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/model/Permission.h>
 #include <aws/s3/model/Type.h>
