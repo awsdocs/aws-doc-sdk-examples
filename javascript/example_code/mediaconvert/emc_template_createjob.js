@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_template_createjob.test.js demonstrates how to create a transcoding job using a template.]
+//snippet-sourcedescription:[emc_template_createjob.js demonstrates how to create a transcoding job using a template.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]

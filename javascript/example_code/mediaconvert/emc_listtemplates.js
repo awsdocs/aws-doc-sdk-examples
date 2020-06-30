@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_listtemplates.test.js demonstrates how to retrieve transcoding job templates.]
+//snippet-sourcedescription:[emc_listtemplates.js demonstrates how to retrieve transcoding job templates.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
