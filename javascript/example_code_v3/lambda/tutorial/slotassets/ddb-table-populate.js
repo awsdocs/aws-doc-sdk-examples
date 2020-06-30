@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-ddb-setup.html.
 
  Purpose:
-    ddb-table-populate.js demonstrates how to populate an Amazon DynamoDB table.
+    ddb-table-populate.test.js demonstrates how to populate an Amazon DynamoDB table.
 
 Inputs:
 - REGION (into command line below)

@@ -8,14 +8,14 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-iam-role-setup.html.
 
 Purpose:
-    lambda-role-setup.js demonstrates how create an Amazon IAM role.
+    lambda-role-setup.test.js demonstrates how create an Amazon IAM role.
 
 Inputs:
 - REGION (into command line below)
 - NEW_ROLENAME (into command line below)
 
 Running the code:
-    node lambda-role-setup.js REGION NEW_ROLENAME
+    node lambda-role-setup.test.js REGION NEW_ROLENAME
 */
 // snippet-start:[lambda.JavaScript.v3.LambdaRoleSetUp]
 // Import a non-modular IAM client

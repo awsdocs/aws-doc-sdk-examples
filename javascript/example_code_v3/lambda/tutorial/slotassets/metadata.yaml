@@ -1,16 +1,16 @@
 ---
 # AWS Lambda examples
 files:
-  - path: ddb-table-create.js
+  - path: ddb-table-create.test.js
     services:
       - DynamoDB
-  - path: ddb-table-populate.js
+  - path: ddb-table-populate.test.js
     services:
       - DynamoDB
-  - path: lambda-function-setup.js
+  - path: lambda-function-setup.test.js
     services:
       - Lambda
-  - path: lambda-role-setup.js
+  - path: lambda-role-setup.test.js
     services:
       - Lambda
   - path: s3-bucket-setup.js

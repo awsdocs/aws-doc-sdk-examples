@@ -15,7 +15,7 @@ Inputs:
 
 
 Running the code:
-node ddb-table-create.js REGION
+node ddb-table-create.test.js REGION
 */
 // snippet-start:[lambda.JavaScript.v3.CreateTable]
 // Load the DynamoDB client

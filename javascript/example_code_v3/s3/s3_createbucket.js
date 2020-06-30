@@ -18,7 +18,7 @@ Running the code:
 node s3_createbucket.js REGION BUCKET_NAME
 */
 
-// snippet-start:[s3.JavaScript.v3.buckets.deleteBucket]
+// snippet-start:[s3.JavaScript.v3.buckets.createBucket]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3 } = require("@aws-sdk/client-s3");
@@ -40,6 +40,6 @@ async function run(){
     }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.deleteBucket]
+// snippet-end:[s3.JavaScript.v3.buckets.createBucket]
 //for unit tests only
 exports.run = run;

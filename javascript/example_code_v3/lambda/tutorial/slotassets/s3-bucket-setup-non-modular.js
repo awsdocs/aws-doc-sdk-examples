@@ -21,17 +21,17 @@ Running the code:
 // Import a non-modular S3 client
 const { S3 } = require('@aws-sdk/client-s3');
 // Instantiate the S3 client
-const s3 = new S3({region: 'us-west-2'});
+const region = process.argv[2];
+const s3 = new S3(region);
 
 // Create params JSON for S3.createBucket
 const bucketParams = {
-  Bucket: process.argv[2],
-  ACL: 'public-read'
+  Bucket: process.argv[3]
 };
 
 // Create params JSON for S3.setBucketWebsite
 const staticHostParams = {
-  Bucket: process.argv[2],
+  Bucket: process.argv[3],
   WebsiteConfiguration: {
     ErrorDocument: {
       Key: 'error.html'
@@ -41,20 +41,23 @@ const staticHostParams = {
     },
   }
 };
-
+async function run() {
 // call S3 to create the bucket
-s3.createBucket(bucketParams, function (err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Bucket URL is ", data.Location);
-    const putWebsiteOn = s3.putBucketWebsite(staticHostParams).promise();
-    putWebsiteOn.then(function (data) {
-      // update the displayed policy for the selected bucket
-      console.log("Success", data);
-    }).catch(function (err) {
-      console.log(err);
-    });
+  try {
+    const data = await s3.createBucket(bucketParams)
+    console.log('Success, bucket created');
   }
-});
+  catch (err) {
+    console.log("Error", err)
+  }
+  try {
+    // update the displayed policy for the selected bucket
+    const putWebsiteOn = await s3.putBucketWebsite(staticHostParams);
+    console.log("Success, bucket policy updated");
+  } catch (err){
+    console.log(err);
+  }
+};
+run();
 // snippet-end:[lambda.JavaScript.v3.BucketSetUp.NonModular]
+exports.run = run;

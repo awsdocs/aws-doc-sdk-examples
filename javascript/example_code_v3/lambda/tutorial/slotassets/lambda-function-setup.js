@@ -7,7 +7,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/using-lambda-function-prep.html.
 Purpose:
-    lambda-function-setup.js demostrates how to create a lambda function.
+    lambda-function-setup.test.js demostrates how to create a lambda function.
 
 Inputs:
 - REGION (into command line below)
@@ -15,7 +15,7 @@ Inputs:
 - ZIP_FILE_NAME (in code)
 
 Running the code:
-    node lambda-function-setup.js REGION ACCESS_KEY_ID
+    node lambda-function-setup.test.js REGION ACCESS_KEY_ID
 */
 
 // snippet-start:[lambda.JavaScript.v3.LambdaFunctionSetUp]
