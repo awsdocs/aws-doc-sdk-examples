@@ -9,14 +9,14 @@ files:
       - DynamoDB
   - path: lambda-function-setup.js
     services:
-      - DynamoDB
+      - Lambda
   - path: lambda-role-setup.js
     services:
-      - DynamoDB
+      - Lambda
   - path: s3-bucket-setup.js
     services:
-      - DynamoDB
+      - S3
   - path: bucket-setup-non-modular.js
     services:
-      - DynamoDB
+      - S3
 ...
