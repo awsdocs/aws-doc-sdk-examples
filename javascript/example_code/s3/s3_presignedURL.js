@@ -1,52 +1,38 @@
-/**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
 
-//snippet-sourcedescription:[s3_presignedURL.js demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.]
-//snippet-service:[s3]
-//snippet-keyword:[JavaScript]
-//snippet-sourcesyntax:[javascript]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2021-04-21]
-//snippet-sourceauthor:[AWS-JSDG]
+ABOUT THIS NODE.JS SAMPLE: This sample is part of the Amazon S3 Developer Guide topic at
+https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadObjectPreSignedURLJavaScriptSDK.html
 
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/AmazonS3/latest/dev/
+Purpose:
+s3_put_presignedURL.js demonstrates how to generate a presigned URL that a non-authenticate user
+can use to upload (put) an object to an S3 bucket.
 
+Inputs:
+- REGION (into command line below)
+- BUCKET_NAME (into command line below)
+- FILE_NAME (into command line below)
+- EXPIRATION (into code; in seconds, e.g., 60*5)
+
+Running the code:
+node s3_presignedURLs.js REGION BUCKET_NAME FILE_NAME
+*/
 // snippet-start:[s3.JavaScript.presignedURL.complete]
-
 const AWS = require('aws-sdk');
-
+// Set the AWS region
+const region = process.argv[2]; // REGION
+AWS.config.update(region);
 // Create S3 service object
 const s3 = new AWS.S3();
-
-// Set the region 
-AWS.config.update({region: 'REGION'});
-
-// **DO THIS**:
-//   Replace BUCKET_NAME with the name of the bucket,  FILE_NAME with the name of the file you want to upload (including relative page), and EXPIRATION with the duration in validaty in seconds (e.g 60 *5)
-const myBucket = 'BUCKET_NAME'
-const myKey = 'FILE_NAME'
-const signedUrlExpireSeconds = EXPIRATION
+// Set the parameters
+const myBucket = process.argv[3]; //BUCKET_NAME
+const myKey = process.argv[4]; // FILE_NAME
+const signedUrlExpireSeconds = 60*5; //EXPIRATION
 
 const presignedURL = s3.getSignedUrl('putObject', {
-Bucket: myBucket,
-Key: myKey,
-Expires: signedUrlExpireSeconds
+    Bucket: myBucket,
+    Key: myKey,
+    Expires: signedUrlExpireSeconds
 })
-
 console.log(presignedURL)
-
 //<!-- snippet-end:[s3.JavaScript.presignedURL.complete] -->
