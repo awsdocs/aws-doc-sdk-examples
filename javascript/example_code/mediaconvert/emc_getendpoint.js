@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_getendpoint.test.js demonstrates how to retrieve information about the endpoints for an AWS account.]
+//snippet-sourcedescription:[emc_getendpoint.js demonstrates how to retrieve information about the endpoints for an AWS account.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]

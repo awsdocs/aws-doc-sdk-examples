@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_listjobs.test.js demonstrates how to retrieve a list of the most-recently created transcoding jobs.]
+//snippet-sourcedescription:[emc_listjobs.js demonstrates how to retrieve a list of the most-recently created transcoding jobs.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
