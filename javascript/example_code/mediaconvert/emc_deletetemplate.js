@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_deletetemplate.js demonstrates how to delete a transcoding job template.]
+//snippet-sourcedescription:[emc_deletetemplate.test.js demonstrates how to delete a transcoding job template.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]

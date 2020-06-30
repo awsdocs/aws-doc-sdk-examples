@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_canceljob.js demonstrates how to remove a transcoding job from the queue.]
+//snippet-sourcedescription:[emc_canceljob.test.js demonstrates how to remove a transcoding job from the queue.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]

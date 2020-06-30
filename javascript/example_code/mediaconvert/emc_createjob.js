@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[emc_createjob.js demonstrates how to create a transcoding job.]
+//snippet-sourcedescription:[emc_createjob.test.js demonstrates how to create a transcoding job.]
 //snippet-service:[mediaconvert]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
