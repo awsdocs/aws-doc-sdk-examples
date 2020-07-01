@@ -1,27 +1,5 @@
-//snippet-sourcedescription:[SnsSendMessage demonstrates how to send a message to a topic using Amazon SNS.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[Sep 18, 2019]
-//snippet-sourceauthor:[Doug-AWS]
-/*******************************************************************************
-* Copyright 2009-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License"). You may
-* not use this file except in compliance with the License. A copy of the
-* License is located at
-*
-* http://aws.amazon.com/apache2.0/
-*
-* or in the "license" file accompanying this file. This file is
-* distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied. See the License for the specific
-* language governing permissions and limitations under the License.
-*******************************************************************************/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 /* Build 
    Don't forget to use the Visual Studio command prompt
    Tested with csc /version == 2.10.0.0
@@ -41,6 +19,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Amazon;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 
