@@ -6,11 +6,12 @@ which is scheduled for release later in 2020. The prerelease version of the SDK 
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-function-prep.html.
+
 Purpose:
-lambda-function-setup.js demostrates how to create a lambda function.
+slotpull.js runs the lambda function for this example.
 
 Running the code:
-node lambda-function-setup.js REGION ACCESS_KEY_ID
+node lambda-function-setup.js 
 */
 'use strict';
 
