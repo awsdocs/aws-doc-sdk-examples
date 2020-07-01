@@ -8,14 +8,14 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-s3-setup.html.
 
 Purpose:
-    s3-bucket-setup.js demonstrates how to create an Amazon S3 bucket.
+s3-bucket-setup-non-modular.js demonstrates how to create an Amazon S3 bucket.
 
-    Inputs:
+Inputs:
 - REGION (into command line below)
 - BUCKET_NAME (into command line below)
 
 Running the code:
-    node s3-bucket-setup.js REGION BUCKET_NAME
+node s3-bucket-setup-non-modular.js REGION BUCKET_NAME
 */
 // snippet-start:[lambda.JavaScript.v3.BucketSetUp.NonModular]
 // Import a non-modular S3 client
@@ -42,7 +42,7 @@ const staticHostParams = {
   }
 };
 async function run() {
-// call S3 to create the bucket
+// Call S3 to create the bucket
   try {
     const data = await s3.createBucket(bucketParams)
     console.log('Success, bucket created');
@@ -51,7 +51,7 @@ async function run() {
     console.log("Error", err)
   }
   try {
-    // update the displayed policy for the selected bucket
+    // Update the displayed policy for the selected bucket
     const putWebsiteOn = await s3.putBucketWebsite(staticHostParams);
     console.log("Success, bucket policy updated");
   } catch (err){

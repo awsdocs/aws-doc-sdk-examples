@@ -7,15 +7,15 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-ddb-setup.html.
 
- Purpose:
-    ddb-table-populate.test.js demonstrates how to populate an Amazon DynamoDB table.
+Purpose:
+ddb-table-populate.js demonstrates how to populate an Amazon DynamoDB table.
 
 Inputs:
 - REGION (into command line below)
 - TABLE_NAME (into command line below)
 
 Running the code:
-    node ddb-table-populate.js REGION TABLE_NAME
+node ddb-table-populate.js REGION TABLE_NAME
 */
 
 // snippet-start:[lambda.JavaScript.v3.PopulateTable]
@@ -27,7 +27,7 @@ const ddb = new DynamoDBClient(region);
 
 const myTable = process.argv[3]; //TABLE_NAME
 
-// Add the four spade results
+// Add the four spades results
 async function run() {
   let params = {
     TableName: myTable,
@@ -57,7 +57,7 @@ async function run() {
   };
   await post(params);
 
-  // Add the four heart results
+  // Add the four hearts results
   params = {
     TableName: myTable,
     Item: {'slotPosition' : {N: '4'}, 'imageFile' : {S: 'hart_a.png'}
@@ -114,6 +114,8 @@ async function run() {
     }
   };
   await post(params);
+
+  // Add the four clubs results
 
   params = {
     TableName: myTable,

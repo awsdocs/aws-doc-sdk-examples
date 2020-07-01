@@ -1,7 +1,7 @@
 {
   "name": "slotassets",
   "version": "1.0.0",
-  "description": "A simulated browser-based slot machine game demonstrating JS SDK V3.",
+  "description": "A simulated browser-based slot machine game demonstrating the AWS SDK for JavaScript V3.",
   "main": "index.js",
   "scripts": {
     "build:frontend": "webpack MyLambdaApp/index.js --mode development --target web --devtool false -o MylambdaApp/main.js",

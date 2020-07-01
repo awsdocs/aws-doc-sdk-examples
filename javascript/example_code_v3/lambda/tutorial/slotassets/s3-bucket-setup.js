@@ -48,19 +48,19 @@ const staticHostParams = {
 
 async function run() {
   try {
-    // call S3 to create the bucket
+    // Call S3 to create the bucket
     const response = await s3.send(new CreateBucketCommand(bucketParams));
     console.log('Bucket URL is ', response.Location);
   } catch(err) {
     console.log('Error', err);
   }
   try {
-    // set the new policy on the cewly created bucket
+    // Set the new policy on the newly created bucket
     const response = await s3.send(new PutBucketWebsiteCommand(staticHostParams));
-    // update the displayed policy for the selected bucket
+    // Update the displayed policy for the selected bucket
     console.log('Success', response);
   } catch(err) {
-    // display error message
+    // Display error message
     console.log('Error', err);
   }
 }
