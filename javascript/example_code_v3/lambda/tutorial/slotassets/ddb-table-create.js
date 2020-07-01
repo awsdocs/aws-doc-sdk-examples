@@ -12,10 +12,10 @@ ddb-table-create.js demonstrates how to create a Amazon DynamoDB database table.
 
 Inputs:
 - REGION (into command line below)
-
+- TABLE_NAME (into command line below)
 
 Running the code:
-node ddb-table-create.test.js REGION
+node ddb-table-create.test.js REGION TABLE_NAME
 */
 // snippet-start:[lambda.JavaScript.v3.CreateTable]
 // Load the DynamoDB client
@@ -41,8 +41,8 @@ var tableParams = {
     ReadCapacityUnits: 5,
     WriteCapacityUnits: 5
   },
-  //TODO: change back to TABLE_NAME
-  TableName: 'v3-lambda-tutorial-table',
+
+  TableName: process.argv[3],
   StreamSpecification: {
     StreamEnabled: false
   }

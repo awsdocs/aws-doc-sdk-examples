@@ -11,7 +11,7 @@ Purpose:
 slotpull.js runs the lambda function for this example.
 
 Running the code:
-node lambda-function-setup.js 
+node lambda-function-setup.js
 */
 'use strict';
 
