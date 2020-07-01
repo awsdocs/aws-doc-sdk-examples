@@ -10,9 +10,6 @@ files:
   - path: emc_create_jobtemplate.js
     services:
       - mediaconvert
-  - path: emc_createjob.js
-    services:
-      - mediaconvert
   - path: emc_deletetemplate.js
     services:
       - mediaconvert
