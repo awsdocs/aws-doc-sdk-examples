@@ -21,7 +21,7 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS s3 sts)
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++, 
+# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
@@ -50,7 +50,7 @@ if(WIN32)
 endif()
 
 foreach(file ${AWSDOC_S3_SOURCE})
-    get_filename_component(EXAMPLE ${file} NAME_WLE)
+    get_filename_component(EXAMPLE ${file} NAME_WE)
 
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
@@ -62,10 +62,10 @@ foreach(file ${AWSDOC_S3_SOURCE})
         target_compile_definitions(${EXAMPLE_EXE} PRIVATE "AWSDOC_S3_EXPORTS")
     endif()
 
-    target_include_directories(${EXAMPLE_EXE} PUBLIC 
+    target_include_directories(${EXAMPLE_EXE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
-    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
+    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS})
 
     if(BUILD_TESTING)
@@ -85,7 +85,7 @@ foreach(file ${AWSDOC_S3_SOURCE})
         target_include_directories(${EXAMPLE_LIB} PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>)
-        target_link_libraries(${EXAMPLE_LIB} ${AWSSDK_LINK_LIBRARIES} 
+        target_link_libraries(${EXAMPLE_LIB} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
 
         # Build the code example unit tests.

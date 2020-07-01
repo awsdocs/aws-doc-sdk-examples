@@ -14,7 +14,7 @@
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <awsdoc/s3/s3_examples.h>
 
-bool CreateBucket(const Aws::S3::S3Client& s3Client, 
+bool CreateBucket(const Aws::S3::S3Client& s3Client,
     const Aws::String& bucketName)
 {
     Aws::S3::Model::CreateBucketRequest request;
@@ -26,10 +26,10 @@ bool CreateBucket(const Aws::S3::S3Client& s3Client,
     if (!outcome.IsSuccess())
     {
         auto err = outcome.GetError();
-        std::cout << "Error: CopyObject test setup: Create bucket '" << 
+        std::cout << "Error: CopyObject test setup: Create bucket '" <<
             bucketName << "': " <<
             err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        std::cout << "The other bucket might have already been created. " 
+        std::cout << "The other bucket might have already been created. "
             "To clean up, you need to delete the other bucket if it exists." << std::endl;
 
         return false;
@@ -53,7 +53,7 @@ bool DeleteObject(const Aws::S3::S3Client& s3Client,
     {
         auto err = outcome.GetError();
         std::cout << "Error: CreateBucket test cleanup: Delete object '" <<
-            objectKey << "' from bucket '" << bucketName << "': " << 
+            objectKey << "' from bucket '" << bucketName << "': " <<
             err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
         std::cout << "To clean up, you must delete the bucket '" <<
             bucketName << "' and the other bucket yourself." << std::endl;
@@ -101,29 +101,29 @@ int main()
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
 
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         // 1/8. Create the bucket to copy the object from.
-        // Create a unique bucket name to increase the chance of success 
+        // Create a unique bucket name to increase the chance of success
         // when trying to create the bucket.
         // Format: "my-from-bucket-" + lowercase UUID.
         Aws::String from_uuid = Aws::Utils::UUID::RandomUUID();
         Aws::String from_bucket_name = "my-from-bucket-" +
             Aws::Utils::StringUtils::ToLower(from_uuid.c_str());
-        
+
         if (!CreateBucket(s3_client, from_bucket_name))
         {
             return 1;
         }
 
-        // 2/8. Create the object to upload, and then upload the object 
-        // to the 'from' bucket. 
+        // 2/8. Create the object to upload, and then upload the object
+        // to the 'from' bucket.
         // For this test, create a text file named 'my-file.txt' in the same
         // directory as this test.
         std::ofstream myFile(file_name);
         myFile << "My content.";
         myFile.close();
-        
+
         Aws::S3::Model::PutObjectRequest put_object_request;
         put_object_request.SetBucket(from_bucket_name);
         put_object_request.SetKey(file_name);
@@ -140,7 +140,7 @@ int main()
         if (!put_object_outcome.IsSuccess())
         {
             auto err = put_object_outcome.GetError();
-            std::cout << "Error: CopyObject test setup: Upload object '" << file_name << "' " << 
+            std::cout << "Error: CopyObject test setup: Upload object '" << file_name << "' " <<
                 "to bucket '" << from_bucket_name << "': " <<
                 err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
             std::cout << "To clean up, you must delete the bucket '" <<
@@ -150,7 +150,7 @@ int main()
         }
 
         // 3/8. Create the bucket to copy the object to.
-        // Create a unique bucket name to increase the chance of success 
+        // Create a unique bucket name to increase the chance of success
         // when trying to create the bucket.
         // Format: "my-to-bucket-" + lowercase UUID.
         Aws::String to_uuid = Aws::Utils::UUID::RandomUUID();
@@ -166,10 +166,10 @@ int main()
         if (!AwsDoc::S3::CopyObject(Aws::String(file_name), from_bucket_name,
             to_bucket_name))
         {
-            std::cout << "Error: CopyObject test: Copy object '" << file_name << "' from bucket '" << 
+            std::cout << "Error: CopyObject test: Copy object '" << file_name << "' from bucket '" <<
                 from_bucket_name << "' to bucket '" << to_bucket_name << "'. To clean up, "
                 "you must delete the buckets '" <<
-                from_bucket_name << "' and '" << 
+                from_bucket_name << "' and '" <<
                 to_bucket_name << "' yourself." << std::endl;
 
             return 1;

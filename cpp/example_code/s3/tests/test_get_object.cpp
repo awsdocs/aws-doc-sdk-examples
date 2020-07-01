@@ -26,16 +26,16 @@ int main()
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
 
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         // 1/5. Create the bucket to upload the object to.
-        // Create a unique bucket name to increase the chance of success 
+        // Create a unique bucket name to increase the chance of success
         // when trying to create the bucket.
         // Format: "my-bucket-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
         Aws::String bucket_name = "my-bucket-" +
             Aws::Utils::StringUtils::ToLower(uuid.c_str());
-        
+
         Aws::S3::Model::CreateBucketRequest create_bucket_request;
         create_bucket_request.SetBucket(bucket_name);
 
@@ -53,14 +53,14 @@ int main()
             return 1;
         }
 
-        // 2/5. Create the object to upload, and then upload the object 
-        // to the bucket. 
+        // 2/5. Create the object to upload, and then upload the object
+        // to the bucket.
         // For this test, create a text file named 'my-file.txt' in the same
         // directory as this test.
         std::ofstream myFile(file_name);
         myFile << "My content.";
         myFile.close();
-        
+
         Aws::S3::Model::PutObjectRequest put_object_request;
         put_object_request.SetBucket(bucket_name);
         put_object_request.SetKey(file_name);
@@ -77,7 +77,7 @@ int main()
         if (!put_object_outcome.IsSuccess())
         {
             auto err = put_object_outcome.GetError();
-            std::cout << "Error: GetObject test setup: Upload object '" << file_name << "' " << 
+            std::cout << "Error: GetObject test setup: Upload object '" << file_name << "' " <<
                 "to bucket '" << bucket_name << "': " <<
                 err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
             std::cout << "To clean up, you must delete the bucket '" <<

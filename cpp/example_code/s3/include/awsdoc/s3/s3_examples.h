@@ -12,17 +12,16 @@ namespace AwsDoc
     namespace S3
     {
         // Need to fix up implementation for this.
-        AWSDOC_S3_API bool CopyObject(const Aws::String &objectKey, 
+        AWSDOC_S3_API bool CopyObject(const Aws::String &objectKey,
             const Aws::String &fromBucket, const Aws::String &toBucket);
 
-        AWSDOC_S3_API bool CreateBucket(const Aws::String &bucketName, 
+        AWSDOC_S3_API bool CreateBucket(const Aws::String &bucketName,
             const Aws::S3::Model::BucketLocationConstraint &region);
-        
+
         // Need to fix up implementation for these.
         AWSDOC_S3_API bool DeleteBucket(const Aws::String &bucketName,
             const Aws::String &region);
-        AWSDOC_S3_API bool DeleteBucketPolicy(const Aws::String &bucketName,
-            const Aws::String &region);
+        AWSDOC_S3_API bool DeleteBucketPolicy(const Aws::String &bucketName);
         AWSDOC_S3_API bool DeleteObject(const Aws::String &objectKey,
             const Aws::String &fromBucket);
         AWSDOC_S3_API bool DeleteBucketWebsite(const Aws::String &bucketName,
@@ -31,15 +30,21 @@ namespace AwsDoc
             const Aws::String &region);
         AWSDOC_S3_API bool GetBucketPolicy(const Aws::String &bucketName,
             const Aws::String &region);
-        
+
         // Need to create implementations for these.
         AWSDOC_S3_API bool GetObject(const Aws::String &objectKey,
             const Aws::String& fromBucket);
-        AWSDOC_S3_API bool PutBucketAcl(const Aws::String &bucketName, 
-            const Aws::String &granteeId, const Aws::String &permission);
+        AWSDOC_S3_API bool PutBucketAcl(const Aws::String& bucketName,
+            const Aws::String& region, const Aws::String& ownerID,
+            const Aws::String& granteePermission, const Aws::String& granteeType,
+            const Aws::String& granteeID = "", const Aws::String& granteeDisplayName = "",
+            const Aws::String& granteeEmailAddress = "", const Aws::String& granteeURI = "");
         AWSDOC_S3_API bool PutObjectAcl(const Aws::String& bucketName,
-            const Aws::String &objectKey, const Aws::String &granteeId, 
-            const Aws::String &permission);
+            const Aws::String& objectKey, const Aws::String& region,
+            const Aws::String& ownerID, const Aws::String& granteePermission,
+            const Aws::String& granteeType, const Aws::String& granteeID = "",
+            const Aws::String& granteeDisplayName = "", const Aws::String& granteeEmailAddress = "",
+            const Aws::String& granteeURI = "");
 
         // Need to fix up implementation for this.
         AWSDOC_S3_API bool GetObjectAcl(const Aws::String &bucketName,
@@ -58,7 +63,7 @@ namespace AwsDoc
             Aws::String DELETE_BUCKET_POLICY_NAME = "my-bucket";     // test_delete_bucket_policy.cpp
             Aws::String DELETE_FROM_BUCKET = "my-bucket";            // test_delete_object.cpp
             Aws::String DELETE_OBJECT_KEY = "my-key";                // test_delete_object.cpp
- 
+
             // Replace this with a randomly-created bucket already enabled as a bucket website.
             Aws::String DELETE_BUCKET_WEBSITE_NAME = "my-bucket";    // test_delete_website_config.cpp
 

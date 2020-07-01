@@ -27,10 +27,10 @@ int main()
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
 
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         // 1/6. Create the bucket to upload the object to.
-        // Create a unique bucket name to increase the chance of success 
+        // Create a unique bucket name to increase the chance of success
         // when trying to create the bucket.
         // Format: "my-bucket-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
@@ -104,15 +104,15 @@ int main()
             owner_id = list_buckets_outcome.GetResult().GetOwner().GetID();
         }
 
-        if (!AwsDoc::S3::PutObjectAcl(bucket_name, 
-            file_name, 
+        if (!AwsDoc::S3::PutObjectAcl(bucket_name,
+            file_name,
             "us-east-1",
             owner_id,
             "READ",
             "Canonical user",
-            owner_id, 
-            "", 
-            "", 
+            owner_id,
+            "",
+            "",
             ""))
         {
             std::cout << "Error: PutObjectAcl test: Set ACL for object '" <<
