@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SD
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/using-lambda-function-prep.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-function-prep.html.
 Purpose:
 lambda-function-setup.js demonstrates how to create an AWS Lambda function.
 
