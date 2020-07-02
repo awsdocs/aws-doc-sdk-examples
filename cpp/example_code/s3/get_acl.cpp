@@ -1,291 +1,171 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+ 
+//snippet-sourcedescription:[get_acl.cpp demonstrates how to retrieve the access control list of an Amazon S3 bucket.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 
-// snippet-start:[s3.cpp.get_acl.inc]
-#include <iostream>
+
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+//snippet-start:[s3.cpp.get_acl.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketAclRequest.h>
 #include <aws/s3/model/GetObjectAclRequest.h>
-#include <aws/s3/model/Grant.h>
 #include <aws/s3/model/Permission.h>
-#include <awsdoc/s3/s3_examples.h>
-// snippet-end:[s3.cpp.get_acl.inc]
+#include <aws/s3/model/Grant.h>
+//snippet-end:[s3.cpp.get_acl.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * GetBucketAcl:
- * 
- * Purpose: Gets information about an access control list (ACL) for a bucket 
- * in Amazon S3.
- *
- * Prerequisites: The bucket to get the ACL information about.
- *
- * Inputs:
- * - bucketName: The name of the bucket to get the ACL information about.
- * - region: The AWS Region for the bucket.
- *
- * Outputs: true if information about the ACL was retrieved; otherwise, false.
- * ////////////////////////////////////////////////////////////////////////////
- * GetGranteeTypeString:
- *
- * Purpose: Converts a type enumeration to a human-readable string.
- *
- * Inputs:
- * - permission: The type enumeration.
- *
- * Outputs: A human-readable string for the associated type enumeration.
- * ////////////////////////////////////////////////////////////////////////////
- * GetPermissionString:
- *
- * Purpose: Converts a permission enumeration to a human-readable string.
- *
- * Inputs:
- * - type: The type of resource (bucket or object).
- * - permission: The permission enumeration.
- *
- * Outputs: A human-readable string for the associated permission enumeration.
- * ///////////////////////////////////////////////////////////////////////// */
-
-Aws::String GetGranteeTypeString(const Aws::S3::Model::Type& type)
+Aws::String GetPermissionString(const Aws::S3::Model::Permission p)
 {
-    switch (type)
+    switch (p)
     {
-    case Aws::S3::Model::Type::AmazonCustomerByEmail:
-        return "Email address of an AWS account";
-    case Aws::S3::Model::Type::CanonicalUser:
-        return "Canonical user ID of an AWS account";
-    case Aws::S3::Model::Type::Group:
-        return "Predefined Amazon S3 group";
-    case Aws::S3::Model::Type::NOT_SET:
-        return "Not set";
+    case Aws::S3::Model::Permission::NOT_SET:
+        return "NOT_SET";
+    case Aws::S3::Model::Permission::FULL_CONTROL:
+        return "FULL_CONTROL";
+    case Aws::S3::Model::Permission::WRITE:
+        return "WRITE";
+    case Aws::S3::Model::Permission::READ:
+        return "READ";
+    case Aws::S3::Model::Permission::WRITE_ACP:
+        return "WRITE_ACP";
+    case Aws::S3::Model::Permission::READ_ACP:
+        return "READ_ACP";
     default:
-        return "Type unknown";
+        return "*unknown!*";
     }
 }
 
-Aws::String GetPermissionString(const Aws::String& type, 
-    const Aws::S3::Model::Permission& permission)
+void GetAclForBucket(Aws::String bucket_name, Aws::String user_region)
 {
-    if (type == "bucket")
-    {
-        switch (permission)
-        {
-        case Aws::S3::Model::Permission::FULL_CONTROL:
-            return "Can list objects in this bucket, create/overwrite/delete "
-                "objects in this bucket, and read/write this "
-                "bucket's permissions";
-        case Aws::S3::Model::Permission::NOT_SET:
-            return "Permission not set";
-        case Aws::S3::Model::Permission::READ:
-            return "Can list objects in this bucket";
-        case Aws::S3::Model::Permission::READ_ACP:
-            return "Can read this bucket's permissions";
-        case Aws::S3::Model::Permission::WRITE:
-            return "Can create, overwrite, and delete objects in this bucket";
-        case Aws::S3::Model::Permission::WRITE_ACP:
-            return "Can write this bucket's permissions";
-        default:
-            return "Permission unknown";
-        }
-    }
+    std::cout << "Retrieving ACL for bucket: " << bucket_name << std::endl;
 
-    if (type == "object")
-    {
-        switch (permission)
-        {
-        case Aws::S3::Model::Permission::FULL_CONTROL:
-            return "Can read this object's data and its metadata, "
-                "and read/write this object's permissions";
-        case Aws::S3::Model::Permission::NOT_SET:
-            return "Permission not set";
-        case Aws::S3::Model::Permission::READ:
-            return "Can read this object's data and its metadata";
-        case Aws::S3::Model::Permission::READ_ACP:
-            return "Can read this object's permissions";
-        // case Aws::S3::Model::Permission::WRITE // Not applicable.
-        case Aws::S3::Model::Permission::WRITE_ACP:
-            return "Can write this object's permissions";
-        default:
-            return "Permission unknown";
-        }
-    }
-
-    return "Permission unknown";
-}
-
-// snippet-start:[s3.cpp.get_acl_bucket.code]
-bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName, 
-    const Aws::String& region)
-{
     Aws::Client::ClientConfiguration config;
-    config.region = region;
-
+    config.region = user_region;
     Aws::S3::S3Client s3_client(config);
 
+    // snippet-start:[s3.cpp.get_acl_bucket.code]
     Aws::S3::Model::GetBucketAclRequest request;
-    request.SetBucket(bucketName);
+    request.SetBucket(bucket_name);
 
-    Aws::S3::Model::GetBucketAclOutcome outcome = 
-        s3_client.GetBucketAcl(request);
-
-    if (outcome.IsSuccess())
-    {
-        Aws::Vector<Aws::S3::Model::Grant> grants = 
-            outcome.GetResult().GetGrants();
-
-        for (auto it = grants.begin(); it != grants.end(); it++)
-        {
-            Aws::S3::Model::Grant grant = *it;
-            Aws::S3::Model::Grantee grantee = grant.GetGrantee();
-            
-            std::cout << "For bucket " << bucketName << ": " 
-                << std::endl << std::endl;
-
-            if (grantee.TypeHasBeenSet())
-            {
-                std::cout << "Type:          "
-                    << GetGranteeTypeString(grantee.GetType()) << std::endl;
-            }
-            
-            if (grantee.DisplayNameHasBeenSet())
-            {
-                std::cout << "Display name:  " 
-                    << grantee.GetDisplayName() << std::endl;
-            }
-
-            if (grantee.EmailAddressHasBeenSet())
-            {
-                std::cout << "Email address: " 
-                    << grantee.GetEmailAddress() << std::endl;
-            }
-
-            if (grantee.IDHasBeenSet())
-            {
-                std::cout << "ID:            " 
-                    << grantee.GetID() << std::endl;
-            }
-            
-            if (grantee.URIHasBeenSet())
-            {
-                std::cout << "URI:           " 
-                    << grantee.GetURI() << std::endl;
-            }
-            
-            std::cout << "Permission:    " << 
-                GetPermissionString("bucket", grant.GetPermission()) << 
-                std::endl << std::endl;
-        }
-    }
-    else
-    {
-        auto err = outcome.GetError();
-        std::cout << "Error: GetBucketAcl: " 
-            << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-
-        return false;
-    }
-
-    return true;
-}
-// snippet-end:[s3.cpp.get_acl_bucket.code]
-
-// snippet-start:[s3.cpp.get_acl_object.code]
-bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName, 
-    const Aws::String& objectKey, const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
-    config.region = region;
-
-    Aws::S3::S3Client s3_client(config);
-
-    Aws::S3::Model::GetObjectAclRequest request;
-    request.SetBucket(bucketName);
-    request.SetKey(objectKey);
-
-    Aws::S3::Model::GetObjectAclOutcome outcome =
-        s3_client.GetObjectAcl(request);
+    auto outcome = s3_client.GetBucketAcl(request);
 
     if (outcome.IsSuccess())
     {
         Aws::Vector<Aws::S3::Model::Grant> grants =
             outcome.GetResult().GetGrants();
-
         for (auto it = grants.begin(); it != grants.end(); it++)
         {
-            std::cout << "For object " << objectKey << ": " 
-                << std::endl << std::endl;
-
             Aws::S3::Model::Grant grant = *it;
-            Aws::S3::Model::Grantee grantee = grant.GetGrantee();
-
-            if (grantee.TypeHasBeenSet())
-            {
-                std::cout << "Type:          "
-                    << GetGranteeTypeString(grantee.GetType()) << std::endl;
-            }
-
-            if (grantee.DisplayNameHasBeenSet())
-            {
-                std::cout << "Display name:  "
-                    << grantee.GetDisplayName() << std::endl;
-            }
-
-            if (grantee.EmailAddressHasBeenSet())
-            {
-                std::cout << "Email address: "
-                    << grantee.GetEmailAddress() << std::endl;
-            }
-
-            if (grantee.IDHasBeenSet())
-            {
-                std::cout << "ID:            "
-                    << grantee.GetID() << std::endl;
-            }
-
-            if (grantee.URIHasBeenSet())
-            {
-                std::cout << "URI:           "
-                    << grantee.GetURI() << std::endl;
-            }
-
-            std::cout << "Permission:    " <<
-                GetPermissionString("object", grant.GetPermission()) <<
-                std::endl << std::endl;
+            std::cout << grant.GetGrantee().GetDisplayName() << ": "
+                << GetPermissionString(grant.GetPermission())
+                << std::endl;
         }
     }
     else
     {
-        auto err = outcome.GetError();
-        std::cout << "Error: GetObjectAcl: "
-            << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-
-        return false;
+        std::cout << "GetBucketAcl error: "
+            << outcome.GetError().GetExceptionName() << " - "
+            << outcome.GetError().GetMessage() << std::endl;
     }
-
-    return true;
+    // snippet-end:[s3.cpp.get_acl_bucket.code]
 }
-// snippet-end:[s3.cpp.get_acl_object.code]
 
-int main()
+void GetAclForObject(Aws::String bucket_name, Aws::String object_key,
+    Aws::String user_region)
 {
-    Aws::String bucket_name = "my-bucket";
-    Aws::String object_name = "my-file.txt";
-    Aws::String region = "us-east-1";
+    std::cout << "Retrieving ACL for object: " << object_key << std::endl
+        << "                in bucket: " << bucket_name << std::endl;
+
+    Aws::Client::ClientConfiguration config;
+    config.region = user_region;
+    Aws::S3::S3Client s3_client(config);
+
+    // snippet-start:[s3.cpp.get_acl_object.code]
+    Aws::S3::Model::GetObjectAclRequest request;
+    request.SetBucket(bucket_name);
+    request.SetKey(object_key);
+
+    auto outcome = s3_client.GetObjectAcl(request);
+
+    if (outcome.IsSuccess())
+    {
+        Aws::Vector<Aws::S3::Model::Grant> grants =
+            outcome.GetResult().GetGrants();
+        for (auto it = grants.begin(); it != grants.end(); it++)
+        {
+            Aws::S3::Model::Grant grant = *it;
+            std::cout << grant.GetGrantee().GetDisplayName() << ": "
+                << GetPermissionString(grant.GetPermission())
+                << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "GetObjectAcl error: "
+            << outcome.GetError().GetExceptionName() << " - "
+            << outcome.GetError().GetMessage() << std::endl;
+    }
+    // snippet-end:[s3.cpp.get_acl_object.code]
+}
+
+/**
+ * Get an Amazon S3 bucket website configuration.
+ */
+int main(int argc, char** argv)
+{
+    if (argc < 2)
+    {
+        std::cout << "get_acl - get the access control list (ACL) for" << std::endl
+            << "          an S3 bucket (or object)" << std::endl
+            << "\nUsage:" << std::endl
+            << "  get_acl <bucket> [object] [region]" << std::endl
+            << "\nWhere:" << std::endl
+            << "  bucket - the bucket name" << std::endl
+            << "  object - the object name" << std::endl
+            << "           (optional, if specified, the ACL will be retrieved" << std::endl
+            << "            for the named object instead of the bucket)" << std::endl
+            << "  region - AWS region for the bucket" << std::endl
+            << "           (optional, default: us-east-1)" << std::endl
+            << "\nExample:" << std::endl
+            << "  get_acl testbucket" << std::endl << std::endl;
+        exit(1);
+    }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (!AwsDoc::S3::GetBucketAcl(bucket_name, region))
-        {
-            return 1;
-        }
+        int cur_arg = 1;
+        const Aws::String bucket_name = argv[cur_arg++];
+        const Aws::String object_key = (argc >= 4) ? argv[cur_arg++] : "";
+        const Aws::String user_region = (argc > cur_arg) ? argv[cur_arg] : "us-east-1";
 
-        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_name, region))
+        if (object_key == "")
         {
-            return 1;
+            GetAclForBucket(bucket_name, user_region);
+        }
+        else
+        {
+            GetAclForObject(bucket_name, object_key, user_region);
         }
     }
     Aws::ShutdownAPI(options);
-
-    return 0;
 }
+
