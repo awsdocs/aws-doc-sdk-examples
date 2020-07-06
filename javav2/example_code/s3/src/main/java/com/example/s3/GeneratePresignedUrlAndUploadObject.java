@@ -43,13 +43,13 @@ public class GeneratePresignedUrlAndUploadObject {
 
     public static void main(String[] args) {
 
-     //   if (args.length < 2) {
-     //       System.out.println("Please specify a bucket name and a key name that represents a PDF document");
-     //       System.exit(1);
-     //   }
+        if (args.length < 2) {
+            System.out.println("Please specify a bucket name and a key name that represents a PDF document");
+            System.exit(1);
+        }
 
-        String bucketName = "bucketscott2"; //args[0];
-        String keyName = "notejuly5.txt"; //args[1];
+        String bucketName = args[0];
+        String keyName = args[1];
 
         // Create a S3Presigner by using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
