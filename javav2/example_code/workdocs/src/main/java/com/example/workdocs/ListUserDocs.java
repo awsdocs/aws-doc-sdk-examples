@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[6/30/2020]
 //snippet-sourceauthor:[scmacdon - aws]
-
+// snippet-start:[workdocs.java2.list_user_docs.complete]
 package com.example.workdocs;
 
 // snippet-start:[workdocs.java2.list_user_docs.import]
