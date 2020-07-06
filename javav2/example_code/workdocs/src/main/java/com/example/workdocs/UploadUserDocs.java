@@ -44,7 +44,7 @@ public class UploadUserDocs {
         // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
 
         final String USAGE = "\n" +
-                "To run this example, supply your organization ID and a user email\n" +
+                " To run this example, supply your organization ID, a user email, the document name, and the path where the document is located \n" +
                 "\n" +
                 "Ex: list_user_docs <organizationId> <useremail> <filename> <filepath>\n";
 
