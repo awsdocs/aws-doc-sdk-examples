@@ -31,4 +31,4 @@ namespace ComprehendSamples1
         }
     }
 }
-// snippet-start:[comprehend.dotNET.DetectEntities]
+// snippet-end:[comprehend.dotNET.DetectEntities]
