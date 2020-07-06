@@ -1,69 +1,81 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+ 
+//snippet-sourcedescription:[delete_object.cpp demonstrates how to delete an object from an Amazon S3 bucket.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 
-// snippet-start:[s3.cpp.delete_object.inc]
-#include <iostream>
+
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+//snippet-start:[s3.cpp.delete_object.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteObjectRequest.h>
-#include <awsdoc/s3/s3_examples.h>
-// snippet-end:[s3.cpp.delete_object.inc]
+#include <fstream>
+//snippet-end:[s3.cpp.delete_object.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Deletes an object from a bucket in Amazon S3.
+/**
+ * Delete an object from an Amazon S3 bucket.
  *
- * Prerequisites: The bucket containing the object to be deleted.
- *
- * Inputs:
- * - objectKey: The name of the object to delete.
- * - fromBucket: The name of the bucket to delete the object from.
- *
- * Outputs: true if the object was deleted; otherwise, false.
- * ///////////////////////////////////////////////////////////////////////// */
-
-// snippet-start:[s3.cpp.delete_object.code]
-bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey, 
-    const Aws::String& fromBucket)
+ * ++ warning ++ This will actually delete the named object!
+ */
+int main(int argc, char** argv)
 {
-    Aws::S3::S3Client s3_client;
-    Aws::S3::Model::DeleteObjectRequest request;
-
-    request.WithKey(objectKey)
-        .WithBucket(fromBucket);
-
-    Aws::S3::Model::DeleteObjectOutcome outcome = 
-        s3_client.DeleteObject(request);
-
-    if (!outcome.IsSuccess())
+    if (argc < 3)
     {
-        auto err = outcome.GetError();
-        std::cout << "Error: DeleteObject: " <<
-            err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-
-        return false;
+        std::cout << std::endl <<
+            "To run this example, supply the name of an S3 bucket and object to"
+            << std::endl << "delete from it." << std::endl << std::endl <<
+            "Ex: delete_object <bucketname> <filename>\n" << std::endl;
+        exit(1);
     }
-    else
-    {
-        return true;
-    }
-}
-
-int main()
-{
-    Aws::String object_key = "my-key";
-    Aws::String from_bucket = "my-bucket";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (AwsDoc::S3::DeleteObject(object_key, from_bucket))
-        {
-            std::cout << "Deleted object " << object_key <<
-                " from " << from_bucket << "." << std::endl;
-        }
-    }
-    ShutdownAPI(options);
+        const Aws::String bucket_name = argv[1];
+        const Aws::String key_name = argv[2];
 
-    return 0;
+        std::cout << "Deleting" << key_name << " from S3 bucket: " <<
+            bucket_name << std::endl;
+
+        // snippet-start:[s3.cpp.delete_object.code]
+        Aws::S3::S3Client s3_client;
+
+        Aws::S3::Model::DeleteObjectRequest object_request;
+        object_request.WithBucket(bucket_name).WithKey(key_name);
+
+        auto delete_object_outcome = s3_client.DeleteObject(object_request);
+
+        if (delete_object_outcome.IsSuccess())
+        {
+            std::cout << "Done!" << std::endl;
+        }
+        else
+        {
+            std::cout << "DeleteObject error: " <<
+                delete_object_outcome.GetError().GetExceptionName() << " " <<
+                delete_object_outcome.GetError().GetMessage() << std::endl;
+        }
+        // snippet-end:[s3.cpp.delete_object.code]
+    }
+
+    Aws::ShutdownAPI(options);
 }
-// snippet-end:[s3.cpp.delete_object.code]
+
