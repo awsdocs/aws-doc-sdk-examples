@@ -50,7 +50,7 @@ if(WIN32)
 endif()
 
 foreach(file ${AWSDOC_S3_SOURCE})
-    get_filename_component(EXAMPLE ${file} NAME_WLE)
+    get_filename_component(EXAMPLE ${file} NAME_WE)
 
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
