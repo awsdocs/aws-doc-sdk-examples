@@ -2,8 +2,8 @@
 
 ## Purpose
 
-Centralize test fixtures and stubbers so they can be used across all Python
-code examples and can take advantage of a common structure.
+Centralizes PyTest fixtures and specialized stubbers based on the botocore Stubber 
+that Python code examples can use for unit tests.
 
 ## Prerequisites
 

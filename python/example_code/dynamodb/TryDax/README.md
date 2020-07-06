@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Demonstrates how to use the AWS SDK for Python (Boto3) and the Amazon DAX Client for  
+Shows how to use the AWS SDK for Python (Boto3) and the Amazon DAX Client for  
 Python to read items from an Amazon DynamoDB table. Retrieval, query, and scan speeds
 are measured for both Boto3 and DAX clients to show some of the performance 
 advantages of using DAX.

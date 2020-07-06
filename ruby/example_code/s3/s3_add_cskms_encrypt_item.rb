@@ -41,7 +41,7 @@ contents = File.read(item)
 kms = Aws::KMS::Client.new
 
 # Create encryption client
-client = Aws::S3::Encryption::Client.new(
+client = Aws::S3::EncryptionV2::Client.new(
   kms_key_id: key,
   kms_client: kms
 )

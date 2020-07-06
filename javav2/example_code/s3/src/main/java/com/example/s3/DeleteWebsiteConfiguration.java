@@ -55,6 +55,8 @@ public class DeleteWebsiteConfiguration {
         // Create a S3Client object
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
+
+        deleteBucketWebsiteConfig(s3, bucketName);
     }
 
     // snippet-start:[s3.java2.delete_website_configuration.main]

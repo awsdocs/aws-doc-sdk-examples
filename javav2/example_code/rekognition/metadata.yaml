@@ -1,0 +1,42 @@
+--- 
+files:
+ - path: src/main/java/com/example/rekognition/AddFacesToCollection.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/CelebrityInfo.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/CompareFaces.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/CreateCollection.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DeleteCollection.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DetectFaces.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DetectLabels.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DetectModerationLabels.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/ListCollections.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/ListFacesInCollection.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/RecognizeCelebrities.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/SearchFaceMatchingImageCollection.java
+   services:
+     - rekognition      
+ - path: src/test/java/RekognitionServiceIntegrationTest.java
+   services:
+     - rekognition
+ 
