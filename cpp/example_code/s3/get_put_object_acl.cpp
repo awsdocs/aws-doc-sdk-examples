@@ -106,7 +106,6 @@
  * otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
-// snippet-start:[s3.cpp.get_object_acl.code]
 Aws::S3::Model::Permission SetGranteePermission(const Aws::String& access)
 {
     if (access == "FULL_CONTROL")
@@ -144,6 +143,7 @@ Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
     return Aws::S3::Model::Type::NOT_SET;
 }
 
+// snippet-start:[s3.cpp.put_object_acl.code]
 bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
     const Aws::String& objectKey, 
     const Aws::String& region, 
@@ -219,7 +219,9 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
         return false;
     }
 }
+// snippet-end:[s3.cpp.put_object_acl.code]
 
+// snippet-start:[s3.cpp.get_object_acl.code]
 bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
     const Aws::String& objectKey, 
     const Aws::String& region)
@@ -277,6 +279,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
         return false;
     }
 }
+// snippet-end:[s3.cpp.get_object_acl.code]
 
 int main()
 {
@@ -336,4 +339,3 @@ int main()
 
     return 0;
 }
-// snippet-end:[s3.cpp.get_object_acl.code]
