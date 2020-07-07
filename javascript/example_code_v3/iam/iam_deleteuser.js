@@ -17,7 +17,7 @@ Inputs (into command line below):
 Running the code:
 node iam_deleteuser.js REGION USER_NAME
  */
-// snippet-start:[iam.JavaScript.users.deleteUser]
+// snippet-start:[iam.JavaScript.users.deleteUserV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, DeleteUserCommand, GetUserCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
