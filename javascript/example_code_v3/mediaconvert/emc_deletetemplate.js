@@ -17,7 +17,7 @@ Inputs: (all into command line below)
 Running the code:
 node emc_deletetemplate.js ACCOUNT_END_POINT TEMPLATE_NAME
 */
-// snippet-start:[mediaconvert.JavaScript.v3.templates.deleteJobTemplate]
+// snippet-start:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, DeleteJobTemplateCommand} = require("@aws-sdk/client-mediaconvert");
 // Create a new service object and set MediaConvert to customer endpoint
@@ -35,5 +35,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.templates.deleteJobTemplate]
+// snippet-end:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
 exports.run = run; //for unit tests only

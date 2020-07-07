@@ -18,7 +18,7 @@ Running the code:
 node ses_verifyemailidentity.js REGION ADDRESS@DOMAIN.EXT
 
  */
-// snippet-start:[ses.JavaScript.v3.identities.verifyEmailIdentity]
+// snippet-start:[ses.JavaScript.identities.verifyEmailIdentityV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SES, VerifyEmailIdentityCommand} = require("@aws-sdk/client-ses");
 // Set the AWS Region
@@ -37,5 +37,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.identities.verifyEmailIdentity]
+// snippet-end:[ses.JavaScript.identities.verifyEmailIdentityV3]
 exports.run = run; //for unit tests only

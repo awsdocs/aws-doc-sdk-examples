@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node sns_listsubscriptions.js REGION TOPIC_ARN
 */
-// snippet-start:[sns.JavaScript.v3.subscriptions.listSubscriptionsByTopic]
+// snippet-start:[sns.JavaScript.subscriptions.listSubscriptionsByTopicV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, ListSubscriptionsByTopicCommand} = require("@aws-sdk/client-sns");
@@ -37,5 +37,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.subscriptions.listSubscriptionsByTopic]
+// snippet-end:[sns.JavaScript.subscriptions.listSubscriptionsByTopicV3]
 exports.run = run; //for unit tests only

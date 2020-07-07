@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node ses_listreceiptfilters.js REGION
 */
-// snippet-start:[ses.JavaScript.v3.filters.listReceiptFilters]
+// snippet-start:[ses.JavaScript.filters.listReceiptFiltersV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SES, ListReceiptFiltersCommand} = require("@aws-sdk/client-ses");
@@ -35,5 +35,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.filters.listReceiptFilters]
+// snippet-end:[ses.JavaScript.filters.listReceiptFiltersV3]
 exports.run = run; //for unit tests only

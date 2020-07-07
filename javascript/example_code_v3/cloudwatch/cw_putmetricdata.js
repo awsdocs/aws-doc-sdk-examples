@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node cw_putmetricdata.js REGION
 */
-// snippet-start:[cw.JavaScript.v3.metrics.putMetricData]
+// snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, PutMetricDataCommand} = require("@aws-sdk/client-cloudwatch");
 // Set the AWS Region
@@ -51,5 +51,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.metrics.putMetricData]
+// snippet-end:[cw.JavaScript.metrics.putMetricDataV3]
 exports.run = run; //for unit tests only

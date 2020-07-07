@@ -18,7 +18,7 @@ Running the code:
 node lambda-function-setup.js REGION ACCESS_KEY_ID
 */
 
-// snippet-start:[lambda.JavaScript.v3.LambdaFunctionSetUp]
+// snippet-start:[lambda.JavaScript.LambdaFunctionSetUpV3]
 // Load the Lambda client
 const { LambdaClient, CreateFunctionCommand } = require('@aws-sdk/client-lambda');
 // Instantiate a Lambda client
@@ -41,4 +41,4 @@ lambda.send(new CreateFunctionCommand(params)).then(
   err => {console.log(err)} // an error occurred
 );
 
-// snippet-end:[lambda.JavaScript.v3.LambdaFunctionSetUp]
+// snippet-end:[lambda.JavaScript.LambdaFunctionSetUpV3]

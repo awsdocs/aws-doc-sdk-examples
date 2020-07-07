@@ -18,7 +18,7 @@ Inputs:
 Running the code:
     node ec2_createinstances.js REGION AMI_ID KEY_PAIR_NAME
 */
-// snippet-start:[ec2.JavaScript.v3.Instances.create_instances]
+// snippet-start:[ec2.JavaScript.Instances.create_instancesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, CreateTagsCommand,
     RunInstancesCommand} = require("@aws-sdk/client-ec2");
@@ -63,6 +63,6 @@ async function run() {
     }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.Instances.create_instances]
+// snippet-end:[ec2.JavaScript.Instances.create_instancesV3]
 exports.run = run; //for unit tests only
 

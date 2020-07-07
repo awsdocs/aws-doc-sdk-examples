@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node sqs_longpolling_createqueue.js REGION SQS_QUEUE_NAME
 */
-// snippet-start:[sqs.JavaScript.v3.longPoll.createQueue]
+// snippet-start:[sqs.JavaScript.longPoll.createQueueV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, CreateQueueCommand} = require("@aws-sdk/client-sqs");
 // Set the AWS Region
@@ -40,5 +40,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.longPoll.createQueue]
+// snippet-end:[sqs.JavaScript.longPoll.createQueueV3]
 exports.run = run; //for unit tests only

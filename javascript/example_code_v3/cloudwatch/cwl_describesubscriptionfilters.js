@@ -17,7 +17,7 @@ Inputs: (all into command line below)
 Running the code:
 node cwl_describesubscriptionfilters.js REGION GROUP_NAME
 */
-// snippet-start:[cwLogs.JavaScript.v3.cwl.describeSubscriptionFilters]
+// snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3V3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchLogs, DescribeSubscriptionFiltersCommand} = require("@aws-sdk/client-cloudwatch-logs");
 // Set the AWS Region
@@ -40,5 +40,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cwLogs.JavaScript.v3.cwl.describeSubscriptionFilters]
+// snippet-end:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3V3]
 exports.run = run; //for unit tests only

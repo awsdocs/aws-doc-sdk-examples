@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node cw_disablealarmactions.js REGION ALARM_NAME
 */
-// snippet-start:[cw.JavaScript.v3.alarms.disableAlarmActions]
+// snippet-start:[cw.JavaScript.alarms.disableAlarmActionsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, DisableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
 // Set the AWS Region
@@ -36,5 +36,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.disableAlarmActions]
+// snippet-end:[cw.JavaScript.alarms.disableAlarmActionsV3]
 exports.run = run; //for unit tests only

@@ -22,7 +22,7 @@ Inputs:
 Running the code:
 node ses_createreceiptrule.js REGION S3_BUCKET_NAME DOMAIN | EMAIL_ADDRESS RULE_NAME RULE_SET_NAME
 */
-// snippet-start:[ses.JavaScript.v3.rules.createReceiptRule]
+// snippet-start:[ses.JavaScript.rules.createReceiptRuleV3]
 // Import required AWS SDK clients and commands for Node.js
 const { SES, CreateReceiptRuleCommand } = require("@aws-sdk/client-ses");
 // Set the AWS Region
@@ -62,5 +62,5 @@ async function run(){
     }
 }
 run();
-// snippet-end:[ses.JavaScript.v3.rules.createReceiptRule]
+// snippet-end:[ses.JavaScript.rules.createReceiptRuleV3]
 exports.run = run; //for unit tests only

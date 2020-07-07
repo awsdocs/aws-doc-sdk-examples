@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node sns_publishsms.js REGION PHONE_NUMBER
  */
-// snippet-start:[sns.JavaScript.v3.SMS.publish]
+// snippet-start:[sns.JavaScript.SMS.publishV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, PublishCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -40,5 +40,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.SMS.publish]
+// snippet-end:[sns.JavaScript.SMS.publishV3]
 exports.run = run; //for unit tests only

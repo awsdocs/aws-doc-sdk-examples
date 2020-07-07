@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node cw_describealarms.js REGION
 */
-// snippet-start:[cw.JavaScript.v3.alarms.describeAlarms]
+// snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, DescribeAlarmsCommand} = require("@aws-sdk/client-cloudwatch");
 // Set the AWS Region
@@ -38,5 +38,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.describeAlarms]
+// snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
 exports.run = run; //for unit tests only

@@ -18,7 +18,7 @@ Inputs (into command line below):
 Running the code:
 node iam_updateuser.js REGION ORIGINGAL_USER_NAME NEW_USER_NAME
  */
-// snippet-start:[iam.JavaScript.v3.users.updateUser]
+// snippet-start:[iam.JavaScript.users.updateUserV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, UpdateUserCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -40,5 +40,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.users.updateUser]
+// snippet-end:[iam.JavaScript.users.updateUserV3]
 exports.run = run; //for unit tests only

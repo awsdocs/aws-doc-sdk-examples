@@ -20,7 +20,7 @@ node S3.js  REGION BUCKET_NAME
 Outputs:
 Lists the buckets in the associated AWS account, then creates a bucket, then deletes it
 */
-//snippet-start:[s3.JavaScript.v3.perms.getBucketAcl]
+//snippet-start:[s3.JavaScript.perms.getBucketAclV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const  {S3, GetBucketAclCommand}  = require('@aws-sdk/client-s3/');
@@ -41,6 +41,6 @@ async function run(){
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.perms.getBucketAcl]
+// snippet-end:[s3.JavaScript.perms.getBucketAclV3]
 //for unit tests only
 exports.run = run;

@@ -19,7 +19,7 @@ Inputs:
 Running the code:
 node sqs_longpolling_receivemessage.js REGION SQS_QUEUE_URL
  */
-// snippet-start:[sqs.JavaScript.v3.longPoll.receiveMessage]
+// snippet-start:[sqs.JavaScript.longPoll.receiveMessageV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, ReceiveMessageCommand} = require("@aws-sdk/client-sqs");
 // Set the AWS Region
@@ -48,5 +48,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.longPoll.receiveMessage]
+// snippet-end:[sqs.JavaScript.longPoll.receiveMessageV3]
 exports.run = run; //for unit tests only

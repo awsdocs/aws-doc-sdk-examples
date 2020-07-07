@@ -18,7 +18,7 @@ Running the code:
 node iam_updateaccesskey.js REGION ACCESS_KEY_ID USER_NAME
  */
 
-// snippet-start:[iam.JavaScript.v3.keys.updateAccessKey]
+// snippet-start:[iam.JavaScript.keys.updateAccessKeyV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, UpdateAccessKeyCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -41,5 +41,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.keys.updateAccessKey]
+// snippet-end:[iam.JavaScript.keys.updateAccessKeyV3]
 exports.run = run; //for unit tests only

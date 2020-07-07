@@ -18,7 +18,7 @@ Inputs: (all into command line below)
 Running the code:
 node emc_canceljob.js ACCOUNT_ENDPOINT JOB_ID
 */
-// snippet-start:[mediaconvert.JavaScript.v3.jobs.cancelJob]
+// snippet-start:[mediaconvert.JavaScript.jobs.cancelJobV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, CancelJobCommand} = require("@aws-sdk/client-mediaconvert");
 // Create MediaConvert service object
@@ -36,5 +36,5 @@ async function run(){
     }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.jobs.cancelJob]
+// snippet-end:[mediaconvert.JavaScript.jobs.cancelJobV3]
 exports.run = run; //for unit tests only

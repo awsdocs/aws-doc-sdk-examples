@@ -19,7 +19,7 @@ Inputs (in the commandline input below):
 Running the code:
 node s3_upload_putcommand.js REGION BUCKET_NAME KEY BODY
 */
-// snippet-start:[s3.JavaScript.v3.buckets.upload_putcommand]
+// snippet-start:[s3.JavaScript.buckets.upload_putcommandV3]
 async function run() {
 // call S3 to retrieve upload file to specified bucket
     // Import required AWS SDK clients and commands for Node.js
@@ -40,7 +40,7 @@ async function run() {
     }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.upload_putcommand]
+// snippet-end:[s3.JavaScript.buckets.upload_putcommandV3]
 //for unit tests only
 exports.run = run;
 python/example_code/sts/sts_temporary_credentials/federated_url.py

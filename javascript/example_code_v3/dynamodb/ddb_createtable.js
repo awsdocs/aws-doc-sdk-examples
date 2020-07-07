@@ -21,7 +21,7 @@ Running the code:
 node ddb_createtable.js REGION TABLE_NAME
 */
 
-// snippet-start:[dynamodb.JavaScript.v3.table.createTable]
+// snippet-start:[dynamodb.JavaScript.table.createTableV3]
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, CreateTableCommand} = require("@aws-sdk/client-dynamodb");
 // Set the AWS Region
@@ -70,6 +70,6 @@ async function run() {
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.table.createTable]
+// snippet-end:[dynamodb.JavaScript.table.createTableV3]
 //for unit tests only
 exports.run = run; //for unit tests only

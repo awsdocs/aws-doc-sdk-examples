@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node sns_publishtotopic.js REGION TOPIC_ARN
  */
-// snippet-start:[sns.JavaScript.v3.topics.publishMessages]
+// snippet-start:[sns.JavaScript.topics.publishMessagesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, PublishCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -41,5 +41,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.publishMessages]
+// snippet-end:[sns.JavaScript.topics.publishMessagesV3]
 exports.run = run; //for unit tests only

@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node cw_enablealarmactions.js REGION ACTION_ARN
 */
-// snippet-start:[cw.JavaScript.v3.alarms.enableAlarmActions]
+// snippet-start:[cw.JavaScript.alarms.enableAlarmActionsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, PutMetricAlarmCommand,
   EnableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
@@ -67,5 +67,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.enableAlarmActions]
+// snippet-end:[cw.JavaScript.alarms.enableAlarmActionsV3]
 exports.run = run;

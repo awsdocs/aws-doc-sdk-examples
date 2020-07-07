@@ -17,7 +17,7 @@ Inputs (into command line below):
 Running the code:
 node s3_getcors.js REGION BUCKET_NAME
  */
-// snippet-start:[s3.JavaScript.v3.cors.getBucketCors]
+// snippet-start:[s3.JavaScript.cors.getBucketCors]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3, GetBucketCorsCommand } = require("@aws-sdk/client-s3");
@@ -38,7 +38,7 @@ async function run(){
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.cors.getBucketCors]
+// snippet-end:[s3.JavaScript.cors.getBucketCorsV3]
 //for unit testing only
 exports.run = run;
 

@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node ec2_describeaddresses.js REGION
 */
-// snippet-start:[ec2.JavaScript.v3.Addresses.describeAddresses]
+// snippet-start:[ec2.JavaScript.Addresses.describeAddressesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, DescribeAddressesCommand} = require("@aws-sdk/client-ec2");
 // Set the AWS region
@@ -40,5 +40,5 @@ async function run(){
   }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.Addresses.describeAddresses]
+// snippet-end:[ec2.JavaScript.Addresses.describeAddressesV3]
 exports.run = run; //for unit tests only

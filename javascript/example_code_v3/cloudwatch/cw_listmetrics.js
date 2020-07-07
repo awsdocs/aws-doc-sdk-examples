@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node cw_listmetrics.js REGION
 */
-// snippet-start:[cw.JavaScript.v3.metrics.listMetrics]
+// snippet-start:[cw.JavaScript.metrics.listMetricsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, ListMetricsCommand} = require("@aws-sdk/client-cloudwatch");
 // Set the AWS Region
@@ -44,5 +44,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.metrics.listMetrics]
+// snippet-end:[cw.JavaScript.metrics.listMetricsV3]
 exports.run = run; //for unit tests only

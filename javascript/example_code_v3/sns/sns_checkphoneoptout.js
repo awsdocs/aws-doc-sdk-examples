@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node sns_checkphoneoptout.js REGION PHONE_NUMBER
  */
-// snippet-start:[sns.JavaScript.v3.SMS.checkIfPhoneNumberIsOptedOut]
+// snippet-start:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, CheckIfPhoneNumberIsOptedOutCommand} = require("@aws-sdk/client-sns");
@@ -37,5 +37,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.SMS.checkIfPhoneNumberIsOptedOut]
+// snippet-end:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
 exports.run = run; //for unit tests only

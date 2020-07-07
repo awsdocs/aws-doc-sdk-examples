@@ -17,7 +17,7 @@ Inputs: (all into command line below)
 Running the code:
 node emc_listjobs.js ACCOUNT_END_POINT QUEUE_ARN
 */
-// snippet-start:[mediaconvert.JavaScript.v3.jobs.listJobs]
+// snippet-start:[mediaconvert.JavaScript.jobs.listJobsV3]
 
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvertClient, ListJobsCommand} = require("@aws-sdk/client-mediaconvert");
@@ -41,5 +41,5 @@ async function run(){
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.jobs.listJobs]
+// snippet-end:[mediaconvert.JavaScript.jobs.listJobsV3]
 exports.run = run; //for unit tests only

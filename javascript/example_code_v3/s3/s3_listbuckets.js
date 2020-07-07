@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node s3_listobjects.js REGION
 */
-// snippet-start:[s3.JavaScript.v3.buckets.listBuckets]
+// snippet-start:[s3.JavaScript.buckets.listBucketsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3 } = require("@aws-sdk/client-s3");
@@ -36,7 +36,7 @@ async function run() {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.listBuckets]
+// snippet-end:[s3.JavaScript.buckets.listBucketsV3]
 //for unit tests only
 exports.run = run;
 

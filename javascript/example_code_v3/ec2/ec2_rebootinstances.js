@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node ec2_rebootinstances.js
 */
-// snippet-start:[ec2.JavaScript.v3.Instances.rebootInstances]
+// snippet-start:[ec2.JavaScript.Instances.rebootInstancesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, RebootInstancesCommandInput} = require("@aws-sdk/client-ec2");
 // Set the AWS region
@@ -35,5 +35,5 @@ async function run() {
                 console.log("Error", err);
 }
 };
-// snippet-end:[ec2.JavaScript.v3.Instances.rebootInstances]
+// snippet-end:[ec2.JavaScript.Instances.rebootInstancesV3]
 exports.run = run; //for unit tests only

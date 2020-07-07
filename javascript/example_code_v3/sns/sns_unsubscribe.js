@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node sns_subscribeapp.js  REGION TOPIC_SUBSCRIPTION_ARN
  */
-// snippet-start:[sns.JavaScript.v3.subscriptions.unsubscribe]
+// snippet-start:[sns.JavaScript.subscriptions.unsubscribeV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, UnsubscribeCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -36,5 +36,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.subscriptions.unsubscribe]
+// snippet-end:[sns.JavaScript.subscriptions.unsubscribeV3]
 exports.run = run; //for unit tests only

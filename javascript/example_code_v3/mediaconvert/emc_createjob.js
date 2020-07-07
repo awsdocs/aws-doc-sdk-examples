@@ -20,16 +20,16 @@ Inputs:
 Running the code:
 node emc_createjob.js ACCOUNT_ENDPOINT JOB_QUEUE_ARN IAM_ROLE_ARN OUTPUT_BUCKET_NAME INPUT_BUCKET_AND_FILENAME
 */
-    // snippet-start:[mediaconvert.JavaScript.v3.jobs.createJob]
-    // snippet-start:[mediaconvert.JavaScript.v3.jobs.createJob_config]
+    // snippet-start:[mediaconvert.JavaScript.jobs.createJobV3]
+    // snippet-start:[mediaconvert.JavaScript.jobs.createJob_configV3]
     // Import required AWS-SDK clients and commands for Node.js
     const {MediaConvert, CreateJobCommand} = require("@aws-sdk/client-mediaconvert");
     // Create a new service object and set MediaConvert to customer endpoint
     const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_ENDPOINT
     const mediaconvert = new MediaConvert(endpoint);
 
-    // snippet-end:[mediaconvert.JavaScript.v3.jobs.createJob_config]
-    // snippet-start:[mediaconvert.JavaScript.v3.jobs.createJob_define]
+    // snippet-end:[mediaconvert.JavaScript.jobs.createJob_configV3]
+    // snippet-start:[mediaconvert.JavaScript.jobs.createJob_defineV3]
     const params = {
       "Queue": process.argv[3], //JOB_QUEUE_ARN
       "UserMetadata": {
@@ -161,9 +161,9 @@ node emc_createjob.js ACCOUNT_ENDPOINT JOB_QUEUE_ARN IAM_ROLE_ARN OUTPUT_BUCKET_
         }
       }
     };
-    // snippet-end:[mediaconvert.JavaScript.v3.jobs.createJob_define]
+    // snippet-end:[mediaconvert.JavaScript.jobs.createJob_defineV3]
 
-    // snippet-start:[mediaconvert.JavaScript.v3.jobs.createJob_create]
+    // snippet-start:[mediaconvert.JavaScript.jobs.createJob_createV3]
 async function run(){
   try {
     const data = await mediaconvert.send(new CreateJobCommand(params));
@@ -173,6 +173,6 @@ async function run(){
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.jobs.createJob_create]
-// snippet-end:[mediaconvert.JavaScript.v3.jobs.createJob]
+// snippet-end:[mediaconvert.JavaScript.jobs.createJob_createV3]
+// snippet-end:[mediaconvert.JavaScript.jobs.createJobV3]
 exports.run = run; //for unit tests only

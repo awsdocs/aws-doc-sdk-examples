@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node sns_subscribeapp.js  REGION TOPIC_ARN EMAIL_ADDRESS
  */
-// snippet-start:[sns.JavaScript.v3.subscriptions.subscribeEmail]
+// snippet-start:[sns.JavaScript.subscriptions.subscribeEmailV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, SubscribeCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -41,5 +41,5 @@ console.log("Subscription ARN is " + data.SubscriptionArn);
 }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.subscriptions.subscribeEmail]
+// snippet-end:[sns.JavaScript.subscriptions.subscribeEmailV3]
 exports.run = run; //for unit tests only

@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node lambda-role-setup.js REGION NEW_ROLENAME
 */
-// snippet-start:[lambda.JavaScript.v3.LambdaRoleSetUp]
+// snippet-start:[lambda.JavaScript.LambdaRoleSetUpV3]
 // Import a non-modular IAM client
 const { IAMClient, CreateRoleCommand, AttachRolePolicyCommand } = require('@aws-sdk/client-iam');
 // Instantiate the IAM client
@@ -79,5 +79,5 @@ async function run() {
 }
 
 run();
-// snippet-end:[lambda.JavaScript.v3.LambdaRoleSetUp]
+// snippet-end:[lambda.JavaScript.LambdaRoleSetUpV3]
 exports.run = run;

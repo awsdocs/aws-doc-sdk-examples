@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node emc_listtemplates.js ACCOUNT_END_POINT
 */
-// snippet-start:[mediaconvert.JavaScript.v3.templates.listJobTemplates]
+// snippet-start:[mediaconvert.JavaScript.templates.listJobTemplatesV3]
 
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, ListJobTemplatesCommand} = require("@aws-sdk/client-mediaconvert");
@@ -39,5 +39,5 @@ async function run(){
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.templates.listJobTemplates]
+// snippet-end:[mediaconvert.JavaScript.templates.listJobTemplatesV3]
 exports.run = run; //for unit tests only

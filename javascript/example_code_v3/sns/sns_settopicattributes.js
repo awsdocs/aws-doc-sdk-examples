@@ -19,7 +19,7 @@ Inputs:
 Running the code:
 node sns_settopicattributes.js REGION ATTRIBUTE_NAME TOPIC_ARN NEW_ATTRIBUTE_VALUE
  */
-// snippet-start:[sns.JavaScript.v3.topics.setTopicAttributes]
+// snippet-start:[sns.JavaScript.topics.setTopicAttributesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, SetTopicAttributesCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -42,5 +42,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.setTopicAttributes]
+// snippet-end:[sns.JavaScript.topics.setTopicAttributesV3]
 exports.run = run; //for unit tests only

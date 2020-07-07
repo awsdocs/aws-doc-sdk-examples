@@ -18,7 +18,7 @@ Running the code:
 node iam_createaccesskeys.js REGION IAM_USER_NAME >newuserkeys.txt
 (This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
-// snippet-start:[iam.JavaScript.v3.keys.createAccessKey]
+// snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, CreateAccessKeyCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -38,5 +38,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.keys.createAccessKey]
+// snippet-end:[iam.JavaScript.keys.createAccessKeyV3]
 exports.run = run; //for unit tests only

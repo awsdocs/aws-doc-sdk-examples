@@ -21,7 +21,7 @@ Running the code:
 node ses_createreceiptfilter.js REGION IP_ADDRESS_OR_RANGE ALLOW|BLOCK NAME
  */
 
-// snippet-start:[ses.JavaScript.v3.filters.createReceiptFilter]
+// snippet-start:[ses.JavaScript.filters.createReceiptFilterV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SES, CreateReceiptFilterCommand} = require("@aws-sdk/client-ses");
 // Set the AWS Region
@@ -47,5 +47,5 @@ async function run() {
     }
 };
 run()
-// snippet-end:[ses.JavaScript.v3.filters.createReceiptFilter]
+// snippet-end:[ses.JavaScript.filters.createReceiptFilterV3]
 exports.run = run; //for unit tests only

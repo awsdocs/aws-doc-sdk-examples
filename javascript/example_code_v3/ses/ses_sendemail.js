@@ -22,7 +22,7 @@ Inputs:
 Running the code:
 node ses_sendemail.js REGION RECEIVER_ADDRESS SENDER_ADDRESS
 
-// snippet-start:[ses.JavaScript.v3.email.sendEmail]
+// snippet-start:[ses.JavaScript.email.sendEmailV3]
 */
 // Create the promise and SES service object
 
@@ -76,5 +76,5 @@ async function run(){
     }
 }
 run();
-// snippet-end:[ses.JavaScript.v3.email.sendEmail]
+// snippet-end:[ses.JavaScript.email.sendEmailV3]
 exports.run = run; //for unit tests only

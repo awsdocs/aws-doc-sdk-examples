@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node sns_subscribeapp.js  REGION TOPIC_ARN MOBILE_ENDPOINT_ARN
  */
-// snippet-start:[sns.JavaScript.v3.subscriptions.subscribeApp]
+// snippet-start:[sns.JavaScript.subscriptions.subscribeAppV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, SubscribeCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -41,5 +41,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.subscriptions.subscribeApp]
+// snippet-end:[sns.JavaScript.subscriptions.subscribeAppV3]
 exports.run = run; //for unit tests only

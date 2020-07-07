@@ -17,7 +17,7 @@ Inputs (into command line below):
 Running the code:
 node sts_assumerule.js REGION ARN_OF_ROLE_TO_ASSUME
  */
-// snippet-start:[iam.JavaScript.v3.sts.AssumeRole]
+// snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
 // Import required AWS SDK clients and commands for Node.js
 const {STSClient, AssumeRoleCommand, GetCallerIdentityCommand} = require("@aws-sdk/client-sts");
 // Set the AWS Region
@@ -53,5 +53,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.sts.AssumeRole]
+// snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
 exports.run = run; //for unit tests only

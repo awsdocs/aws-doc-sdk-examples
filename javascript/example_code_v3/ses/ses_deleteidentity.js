@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node ses_deleteidentity.js REGION IDENTITY_TYPE IDENTITY_NAME
 */
-// snippet-start:[ses.JavaScript.v3.identities.deleteIdentity]
+// snippet-start:[ses.JavaScript.identities.deleteIdentityV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SES, DeleteIdentityCommand} = require("@aws-sdk/client-ses");
 // Set the AWS Region
@@ -38,5 +38,5 @@ async function run() {
         }
 };
 run()
-// snippet-end:[ses.JavaScript.v3.identities.deleteIdentity]
+// snippet-end:[ses.JavaScript.identities.deleteIdentityV3]
 exports.run = run; //for unit tests only

@@ -17,7 +17,7 @@ Running the code:
 node emc_getendpoint.js ACCOUNT_END_POINT
 */
 
-// snippet-start:[mediaconvert.JavaScript.v3.endoint.describeEndpoints]
+// snippet-start:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvertClient, DescribeEndpointsCommand} = require("@aws-sdk/client-mediaconvert");
 const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_END_POINT
@@ -38,6 +38,6 @@ async function run() {
     }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.endoint.describeEndpoints]
+// snippet-end:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 
 exports.run = run; //for unit tests only

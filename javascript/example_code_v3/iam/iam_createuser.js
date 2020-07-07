@@ -19,7 +19,7 @@ Running the code:
 node iam_createuser.js REGION USER_NAME
  */
 
-// snippet-start:[iam.JavaScript.v3.users.getUser]
+// snippet-start:[iam.JavaScript.users.getUserV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, GetUserCommand, CreateUserCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -43,5 +43,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.users.getUser]
+// snippet-end:[iam.JavaScript.users.getUserV3]
 exports.run = run; //for unit tests only

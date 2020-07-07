@@ -21,7 +21,7 @@ Inputs:
 Running the code:
 node ddb_batchwriteitem.js REGION
 */
-// snippet-start:[dynamodb.JavaScript.v3.batch.WriteItem]
+// snippet-start:[dynamodb.JavaScript.batch.WriteItemV3]
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, BatchWriteItemCommand} = require("@aws-sdk/client-dynamodb");
 // Set the AWS Region
@@ -64,6 +64,6 @@ async function run() {
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.batch.WriteItem]
+// snippet-end:[dynamodb.JavaScript.batch.WriteItemV3]
 //for unit tests only
 exports.run = run; //for unit tests only

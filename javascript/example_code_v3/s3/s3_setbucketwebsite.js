@@ -20,7 +20,7 @@ Inputs:
 Running the code:
 node s3_setbucketwebsite.js REGION BUCKET_NAME INDEX_PAGE ERROR_PAGE
  */
-// snippet-start:[s3.JavaScript.v3.website.putBucketWebsite]
+// snippet-start:[s3.JavaScript.website.putBucketWebsiteV3]
 async function run(){
     // Import required AWS SDK clients and commands for Node.js
     const  {S3, PutBucketWebsiteCommand}  = require('@aws-sdk/client-s3/');
@@ -53,7 +53,7 @@ async function run(){
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.website.putBucketWebsite]
+// snippet-end:[s3.JavaScript.website.putBucketWebsiteV3]
 //for unit tests only
 exports.run = run;
 

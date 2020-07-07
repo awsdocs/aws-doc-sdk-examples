@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node sqs_listqueues.js REGION
 */
-// snippet-start:[sqs.JavaScript.v3.queues.listQueues]
+// snippet-start:[sqs.JavaScript.queues.listQueuesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, ListQueuesCommand} = require("@aws-sdk/client-sqs");
 // Set the AWS Region
@@ -33,5 +33,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.queues.listQueues]
+// snippet-end:[sqs.JavaScript.queues.listQueuesV3]
 exports.run = run; //for unit tests only

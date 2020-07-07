@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node ec2_createkeypair.js REGION MY_KEY_PAIR
  */
-// snippet-start:[ec2.JavaScript.v3.keypairs.createKeyPair]
+// snippet-start:[ec2.JavaScript.keypairs.createKeyPairV3]
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, CreateKeyPairCommand} = require("@aws-sdk/client-ec2");
 // Set the AWS region
@@ -37,5 +37,5 @@ async function run(){
    }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.keypairs.createKeyPair]
+// snippet-end:[ec2.JavaScript.keypairs.createKeyPairV3]
 exports.run = run; //for unit tests only

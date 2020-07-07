@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node ses_verifydomainidentity.js REGION DOMAIN
  */
-// snippet-start:[ses.JavaScript.v3.identities.verifyDomainIdentity]
+// snippet-start:[ses.JavaScript.identities.verifyDomainIdentityV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SES, VerifyDomainIdentityCommand} = require("@aws-sdk/client-ses");
 // Set the AWS Region
@@ -37,5 +37,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.identities.verifyDomainIdentity]
+// snippet-end:[ses.JavaScript.identities.verifyDomainIdentityV3]
 exports.run = run; //for unit tests only

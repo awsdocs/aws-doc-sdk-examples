@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node ec2_allocateaddress.js REGION INSTANCE_ID
 */
-// snippet-start:[ec2.JavaScript.v3.Addresses.allocateAddress]
+// snippet-start:[ec2.JavaScript.Addresses.allocateAddressV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
     EC2, AllocateAddressCommand, AssociateAddressCommand
@@ -50,5 +50,5 @@ async function run(){
     }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.Addresses.allocateAddress]
+// snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]
 exports.run = run; //for unit tests only

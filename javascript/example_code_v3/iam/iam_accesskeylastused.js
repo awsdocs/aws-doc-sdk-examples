@@ -18,7 +18,7 @@ Running the code:
 node iam_accesskeylastused.js REGION ACCESS_KEY_ID
 
  */
-// snippet-start:[iam.JavaScript.v3.keys.getAccessKeyLastUsed]
+// snippet-start:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, GetAccessKeyLastUsedCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -38,5 +38,5 @@ async function run() {
       }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.keys.getAccessKeyLastUsed]
+// snippet-end:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
 exports.run = run; //for unit tests only

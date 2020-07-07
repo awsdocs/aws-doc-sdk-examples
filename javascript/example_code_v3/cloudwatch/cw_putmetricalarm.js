@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node cw_putmetricalarm.js REGION
 */
-// snippet-start:[cw.JavaScript.v3.alarms.putMetricAlarm]
+// snippet-start:[cw.JavaScript.alarms.putMetricAlarmV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, PutMetricAlarmCommand} = require("@aws-sdk/client-cloudwatch");
 // Set the AWS Region
@@ -53,5 +53,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.putMetricAlarm]
+// snippet-end:[cw.JavaScript.alarms.putMetricAlarmV3]
 exports.run = run; //for unit tests only

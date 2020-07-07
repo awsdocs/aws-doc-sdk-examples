@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node ses_deletetemplate.js REGION TEMPLATE_NAME
 */
-// snippet-start:[ses.JavaScript.v3.templates.deleteTemplate]
+// snippet-start:[ses.JavaScript.templates.deleteTemplateV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SES, DeleteTemplateCommand} = require("@aws-sdk/client-ses");
 // Set the AWS Region
@@ -36,5 +36,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.templates.deleteTemplate]
+// snippet-end:[ses.JavaScript.templates.deleteTemplateV3]
 exports.run = run; //for unit tests only

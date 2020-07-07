@@ -18,7 +18,7 @@ Inputs (into command line below):
 Running the code:
 node cwl_deletesubscriptionfilter.js REGION FILTER LOG_GROUP
 */
-// snippet-start:[cwLogs.JavaScript.v3.cwl.deleteSubscriptionFilter]
+// snippet-start:[cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchLogs, DeleteSubscriptionFilterCommand} = require("@aws-sdk/client-cloudwatch-logs");
 // Set the AWS Region
@@ -41,5 +41,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cwLogs.JavaScript.v3.cwl.deleteSubscriptionFilter]
+// snippet-end:[cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3]
 exports.run = run; //for unit tests only

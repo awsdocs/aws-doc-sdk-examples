@@ -19,7 +19,7 @@ Inputs:
 Running the code:
 node ec2_createsecuritygroup.js REGION KEY_PAIR_NAME SECURITY_GROUP_NAME SECURITY_GROUP_ID
  */
-// snippet-start:[ec2.JavaScript.v3.SecurityGroups.createSecurityGroup]
+// snippet-start:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, DescribeVpcsCommand, CreateSecurityGroupCommand,
     AuthorizeSecurityGroupIngressCommand} = require("@aws-sdk/client-ec2");
@@ -78,5 +78,5 @@ async function run(){
     }
 }
 run();
-// snippet-end:[ec2.JavaScript.v3.SecurityGroups.createSecurityGroup]
+// snippet-end:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
 exports.run = run; //for unit tests only

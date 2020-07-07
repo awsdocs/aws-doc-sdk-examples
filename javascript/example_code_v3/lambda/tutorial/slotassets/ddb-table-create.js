@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node ddb-table-create.test.js REGION TABLE_NAME
 */
-// snippet-start:[lambda.JavaScript.v3.CreateTable]
+// snippet-start:[lambda.JavaScript.CreateTableV3]
 // Load the DynamoDB client
 const { DynamoDBClient, CreateTableCommand } = require('@aws-sdk/client-dynamodb');
 // Instantiate a DynamoDB client
@@ -58,5 +58,5 @@ async function run() {
 }
 
 run();
-// snippet-end:[lambda.JavaScript.v3.CreateTable]
+// snippet-end:[lambda.JavaScript.CreateTableV3]
 exports.run = run; //for unit tests only

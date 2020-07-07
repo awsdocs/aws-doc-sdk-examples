@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node ddb_query.js REGION
 */
-// snippet-start:[dynamodb.JavaScript.v3.table.query]
+// snippet-start:[dynamodb.JavaScript.table.queryV3]
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient,
   QueryCommand} = require("@aws-sdk/client-dynamodb");
@@ -49,6 +49,6 @@ async function run() {
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.table.query]
+// snippet-end:[dynamodb.JavaScript.table.queryV3]
 exports.run = run; //for unit tests only
 

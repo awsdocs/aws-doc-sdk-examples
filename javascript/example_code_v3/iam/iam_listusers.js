@@ -17,7 +17,7 @@ Running the code:
 node iam_listusers.js REGION
  */
 
-// snippet-start:[iam.JavaScript.v3.users.listUsers]
+// snippet-start:[iam.JavaScript.users.listUsersV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, ListUsersCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -39,5 +39,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.users.listUsers]
+// snippet-end:[iam.JavaScript.users.listUsersV3]
 exports.run = run; //for unit tests only

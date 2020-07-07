@@ -20,7 +20,7 @@ Inputs: (all into command line below)
 Running the code:
 node emc_template_createjob.js ACCOUNT_END_POINT QUEUE_ARN JOB_TEMPLATE_ARN ROLE_ARN FILE_INPUT
 */
-// snippet-start:[mediaconvert.JavaScript.v3.templates.createJob]
+// snippet-start:[mediaconvert.JavaScript.templates.createJobV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, CreateJobCommand} = require("@aws-sdk/client-mediaconvert");
 // Create a new service object and set MediaConvert to customer endpoint
@@ -69,5 +69,5 @@ async function run(){
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.templates.createJob]
+// snippet-end:[mediaconvert.JavaScript.templates.createJobV3]
 exports.run = run; //for unit tests only

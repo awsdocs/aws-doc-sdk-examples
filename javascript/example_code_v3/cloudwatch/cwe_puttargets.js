@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node cwe_puttargets.js REGION LAMBDA_FUNCTION_ARN
 */
-// snippet-start:[cwEvents.JavaScript.v3.cwe.putTargets]
+// snippet-start:[cwEvents.JavaScript.cwe.putTargetsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchEvents, PutTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
 // Set the AWS Region
@@ -46,5 +46,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cwEvents.JavaScript.v3.cwe.putTargets]
+// snippet-end:[cwEvents.JavaScript.cwe.putTargetsV3]
 exports.run = run; //for unit tests only

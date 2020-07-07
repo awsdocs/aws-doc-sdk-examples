@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node sqs_changingvisibility.js
  */
-// snippet-start:[sqs.JavaScript.v3.visibility.receiveMessage]
+// snippet-start:[sqs.JavaScript.visibility.receiveMessageV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, ReceiveMessageCommand, ChangeMessageVisibilityCommand} = require("@aws-sdk/client-sqs");
 // Set the AWS Region
@@ -59,5 +59,5 @@ async function run() {
       }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.visibility.receiveMessage]
+// snippet-end:[sqs.JavaScript.visibility.receiveMessageV3]
 exports.run = run; //for unit tests only

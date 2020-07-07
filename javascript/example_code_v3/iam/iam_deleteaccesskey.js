@@ -18,7 +18,7 @@ Inputs (into command line below):
 Running the code:
   node iam_deleteaccesskey.js REGION ACCESS_KEY_ID USER_NAME
  */
-// snippet-start:[iam.JavaScript.v3.keys.deleteAccessKey]
+// snippet-start:[iam.JavaScript.keys.deleteAccessKeyV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, DeleteAccessKeyCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -41,5 +41,5 @@ async function run() {
   }
 }
 run();
-// snippet-end:[iam.JavaScript.v3.keys.deleteAccessKey]
+// snippet-end:[iam.JavaScript.keys.deleteAccessKeyV3]
 exports.run = run; //for unit tests only

@@ -17,7 +17,7 @@ Inputs (into command line below):
 Running the code:
 node S3.js  REGION BUCKET_NAME
 
-// snippet-start:[s3.JavaScript.v3.website.getBucketWebsite]
+// snippet-start:[s3.JavaScript.website.getBucketWebsiteV3]
  */
 
 // Import required AWS SDK clients and commands for Node.js
@@ -39,6 +39,6 @@ async function run(){
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.website.getBucketWebsite]
+// snippet-end:[s3.JavaScript.website.getBucketWebsiteV3]
 //for unit tests only
 exports.run = run;

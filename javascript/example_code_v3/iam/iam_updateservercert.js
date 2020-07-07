@@ -18,7 +18,7 @@ Inputs (into command line below):
 Running the code:
 node iam_updateservercert.js REGION CERTIFICATE_NAME NEW_CERTIFICATE_NAME
  */
-// snippet-start:[iam.JavaScript.v3.certs.updateServerCertificate]
+// snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, UpdateServerCertificateCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -40,5 +40,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.certs.updateServerCertificate]
+// snippet-end:[iam.JavaScript.certs.updateServerCertificateV3]
 exports.run = run; //for unit tests only

@@ -18,7 +18,7 @@ Running the code:
 node ddb-table-populate.js REGION TABLE_NAME
 */
 
-// snippet-start:[lambda.JavaScript.v3.PopulateTable]
+// snippet-start:[lambda.JavaScript.PopulateTableV3]
 // Load the DynamoDB client
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
 // Instantiate a DynamoDB client
@@ -157,4 +157,4 @@ async function post (params) {
   }
 }
 
-// snippet-end:[lambda.JavaScript.v3.PopulateTable]
+// snippet-end:[lambda.JavaScript.PopulateTableV3]

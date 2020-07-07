@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node s3-bucket-setup-non-modular.js REGION BUCKET_NAME
 */
-// snippet-start:[lambda.JavaScript.v3.BucketSetUp.NonModular]
+// snippet-start:[lambda.JavaScript.BucketSetUp.NonModularV3]
 // Import a non-modular S3 client
 const { S3 } = require('@aws-sdk/client-s3');
 // Instantiate the S3 client
@@ -59,5 +59,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[lambda.JavaScript.v3.BucketSetUp.NonModular]
+// snippet-end:[lambda.JavaScript.BucketSetUp.NonModularV3]
 exports.run = run;

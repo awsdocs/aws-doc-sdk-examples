@@ -22,7 +22,7 @@ node s3_upload.js REGION BUCKET_NAME KEY BODY FILE_NAME
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
-// snippet-start:[s3.JavaScript.v3.buckets.upload]
+// snippet-start:[s3.JavaScript.buckets.uploadV3]
 async function run() {
   const path = require('path');
   const fs = require('fs');
@@ -52,5 +52,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.upload]
+// snippet-end:[s3.JavaScript.buckets.uploadV3]
 exports.run = run; //for unit tests only

@@ -17,7 +17,7 @@ Inputs (into command line below):
 Running the code:
 node iam_createaccountalias.js REGION ACCOUNT_ALIAS
  */
-// snippet-start:[iam.JavaScript.v3.alias.createAccountAlias]
+// snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, CreateAccountAliasCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -36,5 +36,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.alias.createAccountAlias]
+// snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
 exports.run = run; //for unit tests only

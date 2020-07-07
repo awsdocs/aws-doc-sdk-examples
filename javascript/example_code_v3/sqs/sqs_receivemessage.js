@@ -18,7 +18,7 @@ Inputs:
 Running the code:
 node sqs_receivemessage.js REGION SQS_QUEUE_URL
  */
-// snippet-start:[sqs.JavaScript.v3.messages.receiveMessage]
+// snippet-start:[sqs.JavaScript.messages.receiveMessageV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, ReceiveMessageCommand, DeleteMessageCommand} = require("@aws-sdk/client-sqs");
 // Set the AWS Region
@@ -64,5 +64,5 @@ async function run() {
         }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.messages.receiveMessage]
+// snippet-end:[sqs.JavaScript.messages.receiveMessageV3]
 exports.run = run; //for unit tests only

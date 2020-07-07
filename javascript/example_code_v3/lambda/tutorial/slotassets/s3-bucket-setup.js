@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node s3-bucket-setup.js REGION BUCKET_NAME
  */
-// snippet-start:[lambda.JavaScript.v3.BucketSetUp]
+// snippet-start:[lambda.JavaScript.BucketSetUpV3]
 // Import an S3 client
 const {
   S3Client, CreateBucketCommand, PutBucketWebsiteCommand
@@ -66,4 +66,4 @@ async function run() {
 }
 
 run();
-// snippet-end:[lambda.JavaScript.v3.BucketSetUp]
+// snippet-end:[lambda.JavaScript.BucketSetUpV3]

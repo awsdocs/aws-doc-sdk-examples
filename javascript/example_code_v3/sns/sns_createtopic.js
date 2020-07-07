@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node sns_createtopic.js REGION PHONE_NUMBER
  */
-// snippet-start:[sns.JavaScript.v3.topics.createTopic]
+// snippet-start:[sns.JavaScript.topics.createTopicV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, CreateTopicCommand} = require("@aws-sdk/client-sns");
@@ -37,5 +37,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.createTopic]
+// snippet-end:[sns.JavaScript.topics.createTopicV3]
 exports.run = run; //for unit tests only

@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node sns_listnumbersoptedout.js REGION
  */
-// snippet-start:[sns.JavaScript.v3.SMS.listPhoneNumbersOptedOut]
+// snippet-start:[sns.JavaScript.SMS.listPhoneNumbersOptedOutV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, ListPhoneNumbersOptedOutCommand} = require("@aws-sdk/client-sns");
@@ -34,5 +34,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.SMS.listPhoneNumbersOptedOut]
+// snippet-end:[sns.JavaScript.SMS.listPhoneNumbersOptedOutV3]
 exports.run = run; //for unit tests only

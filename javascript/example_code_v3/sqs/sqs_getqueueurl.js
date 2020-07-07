@@ -18,7 +18,7 @@ Running the code:
 node ssqs_getqueueurl.js REGION SQS_QUEUE_NAME
  */
 
-// snippet-start:[sqs.JavaScript.v3.queues.getQueueUrl]
+// snippet-start:[sqs.JavaScript.queues.getQueueUrlV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, GetQueueUrlCommand} = require("@aws-sdk/client-sqs");
 // Set the AWS Region
@@ -37,5 +37,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.queues.getQueueUrl]
+// snippet-end:[sqs.JavaScript.queues.getQueueUrlV3]
 exports.run = run; //for unit tests only

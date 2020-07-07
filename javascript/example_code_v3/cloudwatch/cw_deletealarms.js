@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node cw_deletealarm.js REGION ALARM_NAMES
 */
-// snippet-start:[cw.JavaScript.v3.alarms.deleteAlarms]
+// snippet-start:[cw.JavaScript.alarms.deleteAlarmsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, DeleteAlarmsCommand} = require("@aws-sdk/client-cloudwatch");
 // Set the AWS Region
@@ -37,5 +37,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.deleteAlarms]
+// snippet-end:[cw.JavaScript.alarms.deleteAlarmsV3]
 exports.run = run; //for unit tests only

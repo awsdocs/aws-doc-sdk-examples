@@ -16,7 +16,7 @@ Inputs:
 Running the code:
 node sns_listtopics.js REGION
  */
-// snippet-start:[sns.JavaScript.v3.topics.listTopics]
+// snippet-start:[sns.JavaScript.topics.listTopicsV3]
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, ListTopicsCommand} = require("@aws-sdk/client-sns");
 // Set the AWS Region
@@ -33,5 +33,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.listTopics]
+// snippet-end:[sns.JavaScript.topics.listTopicsV3]
 exports.run = run; //for unit tests only

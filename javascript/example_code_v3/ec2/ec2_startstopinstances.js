@@ -19,7 +19,7 @@ Running the code:
 node ec2_startstopinstances.js REGION  INSTANCE_ID COMMAND
 */
 
-// snippet-start:[ec2.JavaScript.v3.Instances.start_stopInstances]
+// snippet-start:[ec2.JavaScript.Instances.start_stopInstancesV3]
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, StartInstancesCommand, StopInstancesCommand} = require("@aws-sdk/client-ec2");
 // Set the AWS region
@@ -50,5 +50,5 @@ async function run() {
 };
 run();
 
-// snippet-end:[ec2.JavaScript.v3.Instances.start_stopInstances]
+// snippet-end:[ec2.JavaScript.Instances.start_stopInstancesV3]
 exports.run = run; //for unit tests only

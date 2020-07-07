@@ -17,7 +17,7 @@ Inputs:
 Running the code:
 node s3_deletebucketpolicy.js REGION BUCKET_NAME
 */
-// snippet-start:[s3.JavaScript.v3.policy.deleteBucketPolicy]
+// snippet-start:[s3.JavaScript.policy.deleteBucketPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const  {S3}  = require('@aws-sdk/client-s3/');
@@ -37,5 +37,5 @@ async function run(){
     }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.policy.deleteBucketPolicy]
+// snippet-end:[s3.JavaScript.policy.deleteBucketPolicyV3]
 exports.run = run; //for unit tests only

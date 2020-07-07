@@ -19,7 +19,7 @@ Inputs: (all into command line below)
 Running the code:
 node cwl_putsubscriptionfilter.js REGION LAMBDA_FUNCTION_ARN FILTER_NAME LOG_GROUP
 */
-// snippet-start:[cwLogs.JavaScript.v3.cwl.putSubscriptionFilter]
+// snippet-start:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3V3]
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchLogs, PutSubscriptionFilterCommand} = require("@aws-sdk/client-cloudwatch-logs");
 // Set the AWS Region
@@ -43,5 +43,5 @@ async function run() {
     console.log("Error", err);
   }
 };
-// snippet-end:[cwLogs.JavaScript.v3.cwl.putSubscriptionFilter]
+// snippet-end:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
 exports.run = run; //for unit tests only

@@ -18,7 +18,7 @@ Inputs (into command line below):
 Running the code:
 node iam_createpolicy.js REGION RESOURCE_ARN DYNAMODB_POLICY_NAME
  */
-// snippet-start:[iam.JavaScript.v3.policies.createPolicy]
+// snippet-start:[iam.JavaScript.policies.createPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, CreatePolicyCommand} = require("@aws-sdk/client-iam");
 // Set the AWS Region
@@ -61,5 +61,5 @@ async function run() {
     }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.policies.createPolicy]
+// snippet-end:[iam.JavaScript.policies.createPolicyV3]
 exports.run = run; //for unit tests only
