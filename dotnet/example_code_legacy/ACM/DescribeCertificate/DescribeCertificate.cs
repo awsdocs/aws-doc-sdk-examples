@@ -1,29 +1,8 @@
-//snippet-sourcedescription:[DescribeCertificate.cs demonstrates how to describe an ACM Certificate.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Certificate Manager]
-//snippet-service:[acm]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[walkerk1980]
-/*******************************************************************************
-* Copyright 2009-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License"). You may
-* not use this file except in compliance with the License. A copy of the
-* License is located at
-*
-* http://aws.amazon.com/apache2.0/
-*
-* or in the "license" file accompanying this file. This file is
-* distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied. See the License for the specific
-* language governing permissions and limitations under the License.
-*******************************************************************************/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
+// snippet-start:[acm.dotNET.DescribeCertificate]
 using System;
+using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
 using System.Threading.Tasks;
@@ -63,4 +42,4 @@ namespace DescribeCertificateExample
         }
     }
 }
-
+// snippet-end:[acm.dotNET.DescribeCertificate]

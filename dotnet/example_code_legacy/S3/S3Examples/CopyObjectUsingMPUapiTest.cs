@@ -1,33 +1,7 @@
-/*
-** Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* This file is licensed under the Apache License, Version 2.0 (the "License").
-* You may not use this file except in compliance with the License. A copy of
-* the License is located at
-*
-* http://aws.amazon.com/apache2.0/
-*
-* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-* CONDITIONS OF ANY KIND, either express or implied. See the License for the
-* specific language governing permissions and limitations under the License.
-*/
-
-// snippet-sourcedescription:[CopyObjectUsingMPUapiTest.cs demonstrates how to copy an Amazon S3 object that is larger than 5 GB from one source location to another.]
-// snippet-service:[s3]
-// snippet-keyword:[dotNET]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Upload Part - Copy]
-// snippet-keyword:[Initiate Multipart Upload]
-// snippet-keyword:[Complete Multipart Upload]
-// snippet-keyword:[InitiateMultipartUploadRequest]
-// snippet-keyword:[CopyPartRequest]
-// snippet-keyword:[CompleteMultipartUploadRequest]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-04-30]
-// snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.CopyObjectUsingMPUapiTest]
-
+using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using System;
