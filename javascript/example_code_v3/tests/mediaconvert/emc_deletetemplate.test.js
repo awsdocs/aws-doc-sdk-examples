@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
-process.argv.push('--arg1', 'TEMPLATE_NAME');
+
+
 const mockDeleteJobTemp = jest.fn();
 jest.mock('@aws-sdk/client-mediaconvert/commands/DeleteJobTemplateCommand', () => ({
     MediaConvert: function MediaConvert() {

@@ -10,25 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 Purpose:
 s3_listobjects.js demonstrates how to list the objects in an Amazon S3 bucket.
 
-Inputs:
-- REGION (into command line below)
-- BUCKET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- BUCKET_NAME
 
 Running the code:
-node s3_listobjects.js REGION BUCKET_NAME
+node s3_listobjects.js
 */
 // snippet-start:[s3.JavaScript.buckets.listObjectsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3 } = require("@aws-sdk/client-s3");
-// Set the AWS region
-const region = process.argv[2];
-// Create S3 service object
-const s3 = new S3(region);
-// Create the parameters for the bucket
-const bucketParams = {Bucket : process.argv[3]};
 
-async function run() {
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create the parameters for the bucket
+const bucketParams = {Bucket : "BUCKET_NAME"};
+
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
   try {
     const data = await s3.listObjects(bucketParams);
     console.log('Success', data);

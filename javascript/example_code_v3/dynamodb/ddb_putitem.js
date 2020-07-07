@@ -10,30 +10,34 @@ scheduled for release later in 2020, and the topic containing this example will 
 Purpose:
 ddb_putitem.js demonstrates how to create or update an item in an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
 
 Running the code:
-node ddb_putitem.js REGION TABLE_NAME
+node ddb_putitem.js
 */
 // snippet-start:[dynamodb.JavaScript.item.putItemV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, PutItemCommand} = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  TableName: process.argv[3],
+  TableName: "TABLE_NAME",
   Item: {
     'CUSTOMER_ID': {N: '001'},
     'CUSTOMER_NAME': {S: 'Richard Roe'}
   }
 };
 
-async function run(){
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
 
     const data = await dbclient.send(new PutItemCommand(params));

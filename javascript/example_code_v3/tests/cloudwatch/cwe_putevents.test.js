@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg1', 'RESOURCE_ARN');
+
+
 const mockPutEvents = jest.fn();
 jest.mock('@aws-sdk/client-cloudwatch-events/commands/PutEventsCommand', () => ({
     CloudWatch: function CloudWatch() {

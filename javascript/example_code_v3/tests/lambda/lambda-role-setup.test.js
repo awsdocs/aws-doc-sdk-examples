@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-east-1');
-process.argv.push('--arg1', 'NEW_ROLENAME');
+
+
 
 const mockLambdaRoleSetup = jest.fn();
 jest.mock('@aws-sdk/client-lambda/commands/CreateRoleCommand', () => ({

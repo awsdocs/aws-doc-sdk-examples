@@ -10,7 +10,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-t
 Purpose:
 emc_create_jobtemplate.js demonstrates how to create a transcoding job template.
 
-Inputs: (all into command line below)
+Inputs (replace in code): (all into command line below)
 - ACCOUNT_END_POINT
 - JOB_QUEUE_ARN
 - BUCKET_NAME (e.g., "s3://BUCKET_NAME/")
@@ -21,15 +21,15 @@ node emc_create_jobtemplate.js ACCOUNT_END_POINT JOB_QUEUE_ARN BUCKET_NAME
 // snippet-start:[mediaconvert.JavaScript.templates.createJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, CreateJobTemplateCommand} = require("@aws-sdk/client-mediaconvert");
-// Create a new service object and set MediaConvert to customer endpoint
-const mediaconvert = new MediaConvert(endpoint);
-const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_END_POINT
+
 // Set the parameters
+const endpoint = {endpoint: "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+
 const params = {
   Category: 'YouTube Jobs',
   Description: 'Final production transcode',
   Name: 'DemoTemplate',
-  Queue: process.argv[3], //JOB_QUEUE_ARN
+  Queue: "JOB_QUEUE_ARN", //JOB_QUEUE_ARN
   "Settings": {
     "OutputGroups": [
       {
@@ -37,7 +37,7 @@ const params = {
         "OutputGroupSettings": {
           "Type": "FILE_GROUP_SETTINGS",
           "FileGroupSettings": {
-            "Destination": process.argv[4]// BUCKET_NAME e.g., "s3://BUCKET_NAME/"
+            "Destination": "BUCKET_NAME"// BUCKET_NAME e.g., "s3://BUCKET_NAME/"
           }
         },
         "Outputs": [
@@ -155,7 +155,10 @@ const params = {
   }
 };
 
-async function run() {
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
   try {
 // Create a promise on a MediaConvert object
 const data = await mediaconvert.send(new CreateJobTemplateCommand(params));

@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'SQS_QUEUE_NAME');
+
+
 
 const mockGetQueueUrl = jest.fn();
 jest.mock('@aws-sdk/client-sqs/commands/GetQueueUrlCommand', () => ({

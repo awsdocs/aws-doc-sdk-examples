@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockListServerCertificates = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/ListServerCertificatesCommand', () => ({
     IAM: function IAM() {

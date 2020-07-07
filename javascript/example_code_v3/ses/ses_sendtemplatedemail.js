@@ -11,25 +11,23 @@ Purpose:
 ses_sendtemplatedemail.js demonstrates how to compose an Amazon SES templated email and
 queue it for sending.
 
-Inputs:
-- REGION (into command line below)
-- RECEIVER_ADDRESS (into command line below)
-- SENDER_ADDRESS (into command line below)
-- TEXT_FORMAT_BODY (replace in code; body content of email)
-- EMAIL_SUBJECT (replace in code; subject of email)
-- CcAddresses (replace in code; additional receiver addresses - optional)
-- ReplyToAddresses (replace in code; additional addresses automatically added to replies - optional)
+Inputs (replace in code):
+- REGION
+- RECEIVER_ADDRESS
+- SENDER_ADDRESS
+- TEMPLATE_NAME
 
 Running the code:
-node ses_sendtemplatedemail.js REGION RECEIVER_ADDRESS SENDER_ADDRESS TEMPLATE_NAME
+node ses_sendtemplatedemail.js
  */
 // snippet-start:[ses.JavaScript.email.sendTemplatedEmailV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SES, SendTemplatedEmailCommand} = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   Destination: { /* required */
@@ -38,18 +36,21 @@ const params = {
       /* more CC email addresses */
     ],
     ToAddresses: [
-      process.argv[3]
+      "RECEIVER_ADDRESS" // RECEIVER_ADDRESS
       /* more To-email addresses */
     ]
   },
-  Source: process.argv[4], /* required */
-  Template: process.argv[5], /* required */
+  Source: "SENDER_ADDRESS", //SENDER_ADDRESS
+  Template: "TEMPLATE_NAME", // TEMPLATE_NAME
   TemplateData: '{ \"REPLACEMENT_TAG_NAME\":\"REPLACEMENT_VALUE\" }', /* required */
   ReplyToAddresses: [
   ],
 };
 
-async function run() {
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
   try {
     const data = await ses.send(new SendTemplatedEmailCommand(params));
     console.log('Success, templated email sent; messageId:', data.MessageId)

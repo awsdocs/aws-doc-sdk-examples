@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'TOPIC_ARN');
-process.argv.push('--arg2', 'MOBILE_ENDPOINT_ARN');
+
+
+
 
 const mockSubscribe = jest.fn();
 jest.mock('@aws-sdk/client-sns/commands/SubscribeCommand', () => ({

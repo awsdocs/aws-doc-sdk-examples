@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockGetPolicy = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/GetPolicyCommand', () => ({
     IAM: function IAM() {

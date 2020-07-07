@@ -10,25 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//sns-examples-
 Purpose:
 sns_checkphoneoptout.test.js demonstrates how to determine whether a phone number has opted out of receiving AWS SMS messages.
 
-Inputs:
-- REGION (into command line below)
-- PHONE_NUMBER  (into command line below)
+Inputs (replace in code):
+- REGION
+- PHONE_NUMBER
 
 Running the code:
-node sns_checkphoneoptout.js REGION PHONE_NUMBER
+node sns_checkphoneoptout.js
  */
 // snippet-start:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, CheckIfPhoneNumberIsOptedOutCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
-// Set the parameters
-const params = {phoneNumber: process.argv[3]}
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {phoneNumber: "PHONE_NUMBER"} //PHONE_NUMBER, in the E.164 phone number structure
+
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
     try {
         const data = await sns.send(new CheckIfPhoneNumberIsOptedOutCommand(params));
         console.log("Phone Opt Out is " + data.isOptedOut);

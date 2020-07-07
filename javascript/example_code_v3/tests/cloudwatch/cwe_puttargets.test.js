@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'LAMBDA_FUNCTION_ARN');
+
+
 const mockPutTargets = jest.fn();
 jest.mock('@aws-sdk/client-cloudwatch-events/commands/PutTargetsCommand', () => ({
     CloudWatch: function CloudWatch() {

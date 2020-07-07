@@ -1,7 +1,7 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'BUCKET_NAME');
-process.argv.push('--arg3', 'index.html');
-process.argv.push('--arg4', 'error.html');
+
+
+
+
 const mockSetBucketWebSite = jest.fn();
 jest.mock('@aws-sdk/client-s3/commands/PutBucketWebsiteCommand', () => ({
     S3: function S3() {

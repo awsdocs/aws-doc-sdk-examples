@@ -10,26 +10,31 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-a
 Purpose:
 iam_deleteaccountalias.js demonstrates how to delete an alias for an AWS account.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ALIAS
 
 Running the code:
-node iam_createaccountalias.js REGION ALIAS
+node iam_createaccountalias.js
  */
 // snippet-start:[iam.JavaScript.alias.deleteAccountAliasV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, DeleteAccountAliasCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const params = {AccountAlias: process.argv[3]}
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {AccountAlias: "ALIAS"} // ALIAS
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   // Load the AWS SDK for Node.js
-  // Create IAM service object
+
+// Create IAM service object
   try {
     const data = await iam.send(new DeleteAccountAliasCommand(params));
     console.log("Success", data);

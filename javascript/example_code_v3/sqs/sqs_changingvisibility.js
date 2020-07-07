@@ -10,23 +10,24 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-m
 Purpose:
 sqs_changingvisibility.js demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.
 
-Inputs:
-- REGION (into code; part of queueURL)
-- ACCOUNT_ID (into code; part of queueURL)
-- QUEUE_NAME (into code; part of queueURL)
+Inputs (replace in code):
+- REGION (part of queueURL)
+- ACCOUNT_ID (part of queueURL)
+- QUEUE_NAME (part of queueURL)
 
 Running the code:
 node sqs_changingvisibility.js
  */
 // snippet-start:[sqs.JavaScript.visibility.receiveMessageV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, ReceiveMessageCommand, ChangeMessageVisibilityCommand} = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
-const queueURL = 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+const queueURL = 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME' // REGION, ACCOUNT_ID, QUEUE_NAME
 const params = {
   AttributeNames: ['SentTimestamp'],
   MaxNumberOfMessages: 1,
@@ -34,7 +35,10 @@ const params = {
   QueueUrl: queueURL
 };
 
-async function run() {
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
   try {
     const data = await sqs.send(new ReceiveMessageCommand(params));
     if (data.Messages != null) {

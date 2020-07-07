@@ -10,24 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ma
 Purpose:
 ec2_rebootinstances.js demonstrates how to queue a reboot request for one or more Amazon EC2 instances.
 
-Inputs:
-- REGION (into command line below)
-- INSTANCE_ID (into command line below)
+Inputs (replace in code):
+- REGION
+- INSTANCE_ID
 
 Running the code:
 node ec2_rebootinstances.js
 */
 // snippet-start:[ec2.JavaScript.Instances.rebootInstancesV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, RebootInstancesCommandInput} = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-const params = {InstanceIds: [process.argv[3]]};
 
-async function run() {
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+// Set the parameters
+const params = {InstanceIds: "INSTANCE_ID"}; //INSTANCE_ID
+
+const run = async () => {
     try {
         const data = await ec2client.send(new RebootInstancesCommandInput(params));
         console.log("Success", data.InstanceMonitorings);

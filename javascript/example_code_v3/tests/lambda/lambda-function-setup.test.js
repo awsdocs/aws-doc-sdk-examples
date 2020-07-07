@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-east-1');
+
 const mockLambdaFunSetup = jest.fn();
 jest.mock('@aws-sdk/client-lambda/commands/CreateFunctionCommand', () => ({
     Lambda: function lambda() {

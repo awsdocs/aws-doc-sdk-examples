@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockListAccountAliases = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/ListAccountAliasesCommand', () => ({
     IAM: function IAM() {

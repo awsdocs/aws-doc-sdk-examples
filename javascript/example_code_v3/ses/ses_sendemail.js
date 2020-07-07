@@ -10,17 +10,13 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 Purpose:
 ses_sendemail.js demonstrates how to send an email using AWS SES.
 
-Inputs:
-- REGION (into command line below)
-- RECEIVER_ADDRESS (into command line below)
-- SENDER_ADDRESS (into command line below)
-- TEXT_FORMAT_BODY (replace in code; body content of email)
-- EMAIL_SUBJECT (replace in code; subject of email)
-- CcAddresses (replace in code; additional receiver addresses - optional)
-- ReplyToAddresses (replace in code; additional addresses automatically added to replies - optional)
+Inputs (replace in code):
+- REGION
+- RECEIVER_ADDRESS
+- SENDER_ADDRESS
 
 Running the code:
-node ses_sendemail.js REGION RECEIVER_ADDRESS SENDER_ADDRESS
+node ses_sendemail.js
 
 // snippet-start:[ses.JavaScript.email.sendEmailV3]
 */
@@ -28,10 +24,10 @@ node ses_sendemail.js REGION RECEIVER_ADDRESS SENDER_ADDRESS
 
 // Import required AWS SDK clients and commands for Node.js
 const { SES, SendEmailCommand } = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
     Destination: { /* required */
@@ -40,7 +36,7 @@ const params = {
             /* more items */
         ],
         ToAddresses: [
-            process.argv[3]
+            "RECEIVER_ADDRESS" //RECEIVER_ADDRESS
             /* more To-email addresses */
         ]
     },
@@ -60,13 +56,16 @@ const params = {
             Data: 'EMAIL_SUBJECT'
         }
     },
-    Source: process.argv[4], /* required */
+    Source: "SENDER_ADDRESS", // SENDER_ADDRESS
     ReplyToAddresses: [
         /* more items */
     ],
 };
 
-async function run(){
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
     try{
         const data = await ses.send(new SendEmailCommand(params));
         console.log('Success', data)

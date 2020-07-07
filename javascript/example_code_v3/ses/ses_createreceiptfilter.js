@@ -10,35 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-i
 Purpose:
 ses_createreceiptfilter.js demonstrates how to create an Amazon SES IP address filter.
 
-Inputs:
-- REGION (into command line below)
-- IP_ADDRESS_OR_RANGE (in code; either a single IP address (10.0.0.1) or an IP
-  address range in CIDR notation (10.0.0.1/24))
-- Policy (in code; 'ALLOW' or 'BLOCK' email traffic from the filtered addressesOptions.)
-- NAME (in code; the filter name)
+Inputs (replace in code):
+- REGION
+- IP_ADDRESS_OR_RANGE
+- POLICY
+- NAME
 
 Running the code:
-node ses_createreceiptfilter.js REGION IP_ADDRESS_OR_RANGE ALLOW|BLOCK NAME
+node ses_createreceiptfilter.js
  */
 
 // snippet-start:[ses.JavaScript.filters.createReceiptFilterV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SES, CreateReceiptFilterCommand} = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
     Filter: {
         IpFilter: {
-            Cidr: process.argv[3],
-            Policy: process.argv[4]
+            Cidr: "IP_ADDRESS_OR_RANGE",// (in code; either a single IP address (10.0.0.1) or an IP address range in CIDR notation (10.0.0.1/24)),
+            Policy: "POLICY"// 'ALLOW' or 'BLOCK' email traffic from the filtered addressesOptions.
         },
-        Name: process.argv[5]
+        Name: "NAME" // NAME (the filter name)
     }
 };
-async function run() {
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
     try {
         const data = await ses.send(new CreateReceiptFilterCommand(params));
         console.log("Success, IP Address Filter created; requestId:", data.$metadata.requestId)

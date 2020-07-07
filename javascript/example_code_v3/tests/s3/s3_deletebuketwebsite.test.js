@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'BUCKET_NAME');
+
+
 const mockDeleteBucketWebsite = jest.fn();
 jest.mock('@aws-sdk/client-s3/commands/DeleteBucketWebsiteCommand', () => ({
     S3: function S3() {

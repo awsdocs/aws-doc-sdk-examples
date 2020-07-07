@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockListBuckets = jest.fn();
 jest.mock('@aws-sdk/client-s3', () => ({
     S3: function S3() {

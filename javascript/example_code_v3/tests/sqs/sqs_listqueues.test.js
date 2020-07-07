@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'eu-west-1');
+
 
 const mockListQueue = jest.fn();
 jest.mock('@aws-sdk/client-sqs/commands/ListQueuesCommand', () => ({

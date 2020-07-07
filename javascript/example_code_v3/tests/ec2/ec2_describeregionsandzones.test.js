@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockDescribeRegions = jest.fn();
 jest.mock('@aws-sdk/client-ec2/commands/DescribeRegionsCommand', () => ({
     EC2: function EC2() {

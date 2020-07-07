@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'ROLE_NAME');
+
+
 const mockListAttRolePolicies = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/ListAttachedRolePoliciesCommand', () => ({
     IAM: function IAM() {

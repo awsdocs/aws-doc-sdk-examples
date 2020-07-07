@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'REGION');
-process.argv.push('--arg2', 'ON');
-process.argv.push('--arg2', 'INSTANCE_ID');
+
+
+
 const mockMonitorInstancesCommand = jest.fn();
 jest.mock('@aws-sdk/client-ec2/commands/MonitorInstancesCommand', () => ({
     EC2: function EC2() {

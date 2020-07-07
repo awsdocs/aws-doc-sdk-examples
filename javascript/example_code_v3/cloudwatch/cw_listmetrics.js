@@ -10,19 +10,20 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-ex
 Purpose:
 cw_listmetrics.js demonstrates how to list metrics for Amazon CloudWatch.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 
 Running the code:
-node cw_listmetrics.js REGION
+node cw_listmetrics
 */
 // snippet-start:[cw.JavaScript.metrics.listMetricsV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, ListMetricsCommand} = require("@aws-sdk/client-cloudwatch");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cw = new CloudWatch(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   Dimensions: [
@@ -34,7 +35,10 @@ const params = {
   Namespace: 'AWS/Logs'
 };
 
-async function run() {
+// Create CloudWatch service object
+const cw = new CloudWatch(REGION);
+
+const run = async () => {
   try {
     const data = await cw.send(new ListMetricsCommand(params));
     console.log("Metrics", JSON.stringify(data.Metrics));

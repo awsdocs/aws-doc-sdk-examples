@@ -10,32 +10,32 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-j
 Purpose:
 emc_createjob.js demonstrates how to create a transcoding job.
 
-Inputs:
-- ACCOUNT_ENDPOINT (into the command line below) '
-- JOB_QUEUE_ARN (into the command line below)
-- IAM_ROLE_ARN (into the command line below)
-- OUTPUT_BUCKET_NAME (into the command line below; e.g. "s3://OUTPUT_BUCKET_NAME/")
-- INPUT_BUCKET_AND_FILENAME (into the command line below; e.g. "s3://INPUT_BUCKET/FILE_NAME")
+Inputs (replace in code):
+- ACCOUNT_ENDPOINT
+- JOB_QUEUE_ARN
+- IAM_ROLE_ARN
+- OUTPUT_BUCKET_NAME (e.g., "s3://OUTPUT_BUCKET_NAME/")
+- INPUT_BUCKET_AND_FILENAME (e.g., "s3://INPUT_BUCKET/FILE_NAME")
 
 Running the code:
-node emc_createjob.js ACCOUNT_ENDPOINT JOB_QUEUE_ARN IAM_ROLE_ARN OUTPUT_BUCKET_NAME INPUT_BUCKET_AND_FILENAME
+node emc_createjob.js
 */
     // snippet-start:[mediaconvert.JavaScript.jobs.createJobV3]
     // snippet-start:[mediaconvert.JavaScript.jobs.createJob_configV3]
     // Import required AWS-SDK clients and commands for Node.js
     const {MediaConvert, CreateJobCommand} = require("@aws-sdk/client-mediaconvert");
     // Create a new service object and set MediaConvert to customer endpoint
-    const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_ENDPOINT
+    const endpoint = {endpoint: "ACCOUNT_ENDPOINT"}; //ACCOUNT_ENDPOINT
     const mediaconvert = new MediaConvert(endpoint);
 
     // snippet-end:[mediaconvert.JavaScript.jobs.createJob_configV3]
     // snippet-start:[mediaconvert.JavaScript.jobs.createJob_defineV3]
     const params = {
-      "Queue": process.argv[3], //JOB_QUEUE_ARN
+      "Queue": "JOB_QUEUE_ARN", //JOB_QUEUE_ARN
       "UserMetadata": {
         "Customer": "Amazon"
       },
-      "Role": process.argv[4], //IAM_ROLE_ARN
+      "Role": "IAM_ROLE_ARN", //IAM_ROLE_ARN
       "Settings": {
         "OutputGroups": [
           {
@@ -43,7 +43,7 @@ node emc_createjob.js ACCOUNT_ENDPOINT JOB_QUEUE_ARN IAM_ROLE_ARN OUTPUT_BUCKET_
             "OutputGroupSettings": {
               "Type": "FILE_GROUP_SETTINGS",
               "FileGroupSettings": {
-                "Destination": process.argv[5] //OUTPUT_BUCKET_NAME, e.g., "s3://BUCKET_NAME/"
+                "Destination": "OUTPUT_BUCKET_NAME" //OUTPUT_BUCKET_NAME, e.g., "s3://BUCKET_NAME/"
               }
             },
             "Outputs": [
@@ -153,7 +153,7 @@ node emc_createjob.js ACCOUNT_ENDPOINT JOB_QUEUE_ARN IAM_ROLE_ARN OUTPUT_BUCKET_
             "DeblockFilter": "DISABLED",
             "DenoiseFilter": "DISABLED",
             "TimecodeSource": "EMBEDDED",
-            "FileInput": process.argv[6] //INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
+            "FileInput": "INPUT_BUCKET_AND_FILENAME" //INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
           }
         ],
         "TimecodeConfig": {
@@ -161,10 +161,14 @@ node emc_createjob.js ACCOUNT_ENDPOINT JOB_QUEUE_ARN IAM_ROLE_ARN OUTPUT_BUCKET_
         }
       }
     };
-    // snippet-end:[mediaconvert.JavaScript.jobs.createJob_defineV3]
 
-    // snippet-start:[mediaconvert.JavaScript.jobs.createJob_createV3]
-async function run(){
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+// snippet-end:[mediaconvert.JavaScript.jobs.createJob_defineV3]
+
+// snippet-start:[mediaconvert.JavaScript.jobs.createJob_createV3]
+const run = async () => {
   try {
     const data = await mediaconvert.send(new CreateJobCommand(params));
     console.log("Job created!", data);

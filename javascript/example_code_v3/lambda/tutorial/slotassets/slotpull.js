@@ -15,6 +15,7 @@ node lambda-function-setup.js
 */
 'use strict';
 
+
 // Load the DynamoDB client
 const { DynamoDBClient, GetItemCommand } = require('@aws-sdk/client-dynamodb');
 

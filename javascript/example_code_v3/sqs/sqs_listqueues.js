@@ -10,21 +10,24 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-u
 Purpose:
 sqs_listqueues.js demonstrates how to retrieve a list of Amazon SQS queues for an AWS account.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node sqs_listqueues.js REGION
+node sqs_listqueues.js
 */
 // snippet-start:[sqs.JavaScript.queues.listQueuesV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, ListQueuesCommand} = require("@aws-sdk/client-sqs");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
     try {
         const data = await sqs.send(new ListQueuesCommand({}));
         console.log("Subscription ARN is " + data.SubscriptionArn);

@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'FILTER');
-process.argv.push('--arg3', 'LOG_GROUP');
+
+
+
 const mockDeletSubFilter = jest.fn();
 jest.mock('@aws-sdk/client-cloudwatch-logs/commands/DeleteSubscriptionFilterCommand', () => ({
     CloudWatch: function CloudWatch() {

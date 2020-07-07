@@ -10,24 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_listusers.js demonstrates how to list IAM users.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 
 Running the code:
-node iam_listusers.js REGION
+node iam_listusers.js
  */
 
 // snippet-start:[iam.JavaScript.users.listUsersV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, ListUsersCommand} = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {MaxItems: 10};
 
-async function run() {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new ListUsersCommand(params));
     const users = data.Users || [];

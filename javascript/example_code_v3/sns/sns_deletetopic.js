@@ -10,26 +10,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-m
 Purpose:
 sns_deletetopic.js demonstrates how to delete an Amazon SNS topic and all its subscriptions.
 
-Inputs:
-- REGION (into command line below)
-- TOPIC_ARN  (into command line below)
+Inputs (replace in code):
+- REGION
+- TOPIC_ARN
 
 Running the code:
-node sns_deletetopic.js REGION TOPIC_ARN
+node sns_deletetopic.js
  */
 // snippet-start:[sns.JavaScript.topics.deleteTopicV3]
 // Load the AWS SDK for Node.js
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, DeleteTopicCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
-// Set the parameters
-const params = {TopicArn: process.argv[3]};
 
-async function run() {
+// Create SNS service object
+const sns = new SNS(REGION);
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {TopicArn: "TOPIC_ARN"}; //TOPIC_ARN
+
+const run = async () => {
     try {
         const data = await sns.send(new DeleteTopicCommand(params));
         console.log("Topic Deleted");

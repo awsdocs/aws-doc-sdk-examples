@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'ACCESS_KEY_ID');
-process.argv.push('--arg2', 'USER_NAME');
+
+
+
 const mockDeleteAccessKey = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/DeleteAccessKeyCommand', () => ({
     IAM: function IAM() {

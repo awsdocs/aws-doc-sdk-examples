@@ -11,23 +11,24 @@ scheduled for release later in 2020, and the topic containing this example will 
 Purpose:
 ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE (into command line below)
-- KEY_NAME (into code)
-- KEY_VALUE (into code)
-- ATTRIBUTE_NAME (into code)
+Inputs (replace in code):
+- REGION
+- TABLE
+- KEY_NAME
+- KEY_VALUE
+- ATTRIBUTE_NAME
 
 Running the code:
-node ddb_batchgetitem.js REGION
+node ddb_batchgetitem.js
 */
 // snippet-start:[dynamodb.JavaScript.batch.GetItemV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, BatchGetItemCommand} = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   RequestItems: {
@@ -44,9 +45,12 @@ const params = {
   }
 };
 
-async function run(){
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
-    const data = await dbclient.send(new BatchGetItemCommand(params))
+    const data = await dbclient.send(new BatchGetItemCommand(params));
     console.log("Success, items retrieved", data);
   }
   catch(err){

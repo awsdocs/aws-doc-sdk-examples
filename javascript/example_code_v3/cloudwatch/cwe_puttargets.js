@@ -10,33 +10,36 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwe_puttargets.js demonstrates how to add or update a target to an Amazon CloudWatch Events rule.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 - LAMBDA_FUNCTION_ARN
-- myCloudWatchEventsTarget
 
 Running the code:
-node cwe_puttargets.js REGION LAMBDA_FUNCTION_ARN
+node cwe_puttargets.js
 */
 // snippet-start:[cwEvents.JavaScript.cwe.putTargetsV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchEvents, PutTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cwevents = new CloudWatchEvents(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   Rule: 'DEMO_EVENT',
   Targets: [
     {
-      Arn: process.argv[3], //LAMBDA_FUNCTION_ARN
+      Arn: "LAMBDA_FUNCTION_ARN", //LAMBDA_FUNCTION_ARN
       Id: "myCloudWatchEventsTarget"
     }
   ]
 };
 
-async function run() {
+// Create CloudWatch service object
+const cwevents = new CloudWatchEvents(REGION);
+
+const run = async () => {
   try {
     const data = await cwevents.send(new PutTargetsCommand(params));
     console.log("Success, target added; requestID: ", data.$metadata.requestId);

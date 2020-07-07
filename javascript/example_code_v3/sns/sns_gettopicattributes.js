@@ -10,25 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-m
 Purpose:
 sns_gettopicattributes.js demonstrates how to retrieve the properties of an Amazon SNS topic.
 
-Inputs:
-- REGION (into command line below)
-- TOPIC_ARN (into command line below)
+Inputs (replace in code):
+- REGION
+- TOPIC_ARN
 
 Running the code:
-node sns_gettopicattributes.js REGION TOPIC_ARN
+node sns_gettopicattributes.js
 */
 // snippet-start:[sns.JavaScript.topics.getTopicAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, GetTopicAttributesCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
-// Set the parameters
-const params = {TopicArn: process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {TopicArn: "TOPIC_ARN"}; // TOPIC_ARN
+
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
     try {
         const data = await sns.send(new GetTopicAttributesCommand(params));
         console.log("Success. Attributes:", data.Attributes);

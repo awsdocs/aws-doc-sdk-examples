@@ -10,35 +10,40 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-se
 Purpose:
 ec2_createsecuritygroup.js demonstrates how to create a security group for an Amazon EC2 instance.
 
-Inputs:
-- REGION (into command line below)
-- KEY_PAIR_NAME (into command line below)
-- SECURITY_GROUP_NAME (into command line below)
-- SECURITY_GROUP_ID (into command line below)
+Inputs (replace in code):
+- REGION
+- KEY_PAIR_NAME
+- DESCRIPTION
+- SECURITY_GROUP_NAME
+- SECURITY_GROUP_ID
 
 Running the code:
-node ec2_createsecuritygroup.js REGION KEY_PAIR_NAME SECURITY_GROUP_NAME SECURITY_GROUP_ID
+node ec2_createsecuritygroup.js
  */
 // snippet-start:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, DescribeVpcsCommand, CreateSecurityGroupCommand,
     AuthorizeSecurityGroupIngressCommand} = require("@aws-sdk/client-ec2");
 // Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
-const params = {KeyName: process.argv[3]};
+const params = {KeyName: "KEY_PAIR_NAME"}; //KEY_PAIR_NAME
+
 // Variable to hold a ID of a VPC
 const vpc = null;
 
-async function run(){
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
     try {
         var data = await ec2client.send(new DescribeVpcsCommand(params));
         vpc = data.Vpcs[0].VpcId;
         var paramsSecurityGroup = {
-            Description: 'DESCRIPTION',
-            GroupName: process.argv[4],
+            Description: 'DESCRIPTION', //DESCRIPTION
+            GroupName: "SECURITY_GROUP_NAME", // SECURITY_GROUP_NAME
             VpcId: vpc
         }
     }
@@ -50,7 +55,7 @@ async function run(){
         const SecurityGroupId = data.GroupId;
         console.log("Success", SecurityGroupId);
         var paramsIngress = {
-            GroupId: process.argv[5],
+            GroupId: "SECURITY_GROUP_ID", //SECURITY_GROUP_ID
             IpPermissions:[
                 {
                     IpProtocol: "tcp",

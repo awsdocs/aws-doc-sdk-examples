@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'BUCKET_NAME');
+
+
 const mockgetCors = jest.fn();
 jest.mock('@aws-sdk/client-s3/commands/GetBucketCorsCommand', () => ({
     S3: function S3() {

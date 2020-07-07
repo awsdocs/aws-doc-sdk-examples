@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockGetItem = jest.fn();
 jest.mock('@aws-sdk/client-dynamodb/commands/GetItemCommand', () => ({
     DynamoDB: function DynamoDB() {

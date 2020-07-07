@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'TEMPLATE_NAME');
+
+
 
 const mockCreateTemplate = jest.fn();
 jest.mock('@aws-sdk/client-ses/commands/CreateTemplateCommand', () => ({

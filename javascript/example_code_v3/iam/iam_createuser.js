@@ -11,25 +11,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_createuser.js demonstrates how to create an IAM user for an AWS account.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - USER_NAME
 
 Running the code:
-node iam_createuser.js REGION USER_NAME
+node iam_createuser.js
  */
 
 // snippet-start:[iam.JavaScript.users.getUserV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, GetUserCommand, CreateUserCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const params = {UserName: process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {UserName: "USER_NAME"}; //USER_NAME
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new GetUserCommand(params));
     console.log("User " + process.argv[3] + " already exists", data.User.UserId);

@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'RULE_SET_NAME');
+
+
 
 const mockCreateReceiptFilter = jest.fn();
 jest.mock('@aws-sdk/client-ses/commands/CreateReceiptRuleSetCommand', () => ({

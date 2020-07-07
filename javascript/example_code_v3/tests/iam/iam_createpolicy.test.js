@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'RESOURCE_ARN');
-process.argv.push('--arg3', 'myDynamoDBName');
+
+
+
 const mockCreatePolicy = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/CreatePolicyCommand', () => ({
     IAM: function IAM() {

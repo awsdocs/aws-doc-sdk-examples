@@ -10,27 +10,30 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-t
 Purpose:
 emc_listtemplates.js demonstrates how to retrieve transcoding job templates.
 
-Inputs:
+Inputs (replace in code):
 - ACCOUNT_END_POINT
 
 Running the code:
-node emc_listtemplates.js ACCOUNT_END_POINT
+node emc_listtemplates.js
 */
 // snippet-start:[mediaconvert.JavaScript.templates.listJobTemplatesV3]
 
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, ListJobTemplatesCommand} = require("@aws-sdk/client-mediaconvert");
-// Create a new service object and set MediaConvert to customer endpoint
-const endpoint = {endpoint : process.argv[2]}; //ACCOUNT_END_POINT
-const mediaconvert = new MediaConvert(endpoint);
+
 // Set the parameters
+const endpoint = {endpoint : "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+
 var params = {
   ListBy: 'NAME',
   MaxResults: 10,
   Order: 'ASCENDING',
 };
 
-async function run(){
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
   try {
     const data = await mediaconvert.send(new ListJobTemplatesCommand(params));
     console.log("Success ", data.JobTemplates);

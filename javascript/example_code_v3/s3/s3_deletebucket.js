@@ -10,26 +10,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 Purpose:
 s3_deletebucket.js demonstrates how to delete an Amazon S3 bucket.
 
-Inputs (into command line below):
+Inputs (replace in code):
 - REGION
 - BUCKET_NAME
 
 Running the code:
-node s3_delete.js REGION BUCKET_NAME
+node s3_delete.js
 
 */
 // snippet-start:[s3.JavaScript.buckets.deleteBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const  {S3}  = require('@aws-sdk/client-s3/');
+
 // Set the AWS region
-const region = process.argv[2];
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the bucket parameters
+const bucketParams = {Bucket : "BUCKET_NAME"};
+
 // Create S3 service object
 const s3 = new S3();
-// Set the bucket parameters
-const bucketParams = {Bucket : process.argv[3]};
 
-async function run() {
+const run = async () => {
   try {
     const data =  await s3.deleteBucket(bucketParams);
     console.log('Success - bucket deleted')

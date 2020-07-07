@@ -10,20 +10,21 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_query.js demonstrates how to find items in an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node ddb_query.js REGION
+node ddb_query.js
 */
 // snippet-start:[dynamodb.JavaScript.table.queryV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient,
   QueryCommand} = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   KeyConditionExpression: 'Season = :s and Episode > :e',
@@ -37,7 +38,9 @@ const params = {
   TableName: 'EPISODES_TABLE'
 };
 
-async function run() {
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+const run = async () => {
   try {
     const results = await dbclient.send(new QueryCommand(params));
     results.Items.forEach(function(element, index, array) {

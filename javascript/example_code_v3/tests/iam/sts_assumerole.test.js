@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'ROLE_TO_ASSUME_ARN');
+
+
 const mockAssumeRole = jest.fn();
 jest.mock('@aws-sdk/client-sts/commands/AssumeRoleCommand', () => ({
     IAM: function IAM() {

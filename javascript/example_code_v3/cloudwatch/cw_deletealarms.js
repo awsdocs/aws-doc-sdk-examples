@@ -10,24 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cw_deletealarm.js demonstrates how to delete Amazon CloudWatch alarms.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 - ALARM_NAMES (e.g., Web_Server_CPU_Utilization)
 
 Running the code:
-node cw_deletealarm.js REGION ALARM_NAMES
+node cw_deletealarm.js
 */
 // snippet-start:[cw.JavaScript.alarms.deleteAlarmsV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, DeleteAlarmsCommand} = require("@aws-sdk/client-cloudwatch");
-// Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cw = new CloudWatch(region);
-// Set the parameters
-const params = {AlarmNames: [process.argv[3]]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g., "us-east-1"
+
+// Set the parameters
+const params = {AlarmNames: "ALARM_NAMES"}; // e.g., "Web_Server_CPU_Utilization"
+
+// Create CloudWatch service object
+const cw = new CloudWatch(REGION);
+
+const run = async () => {
   try {
     const data = await cw.send(new DeleteAlarmsCommand(params));
     console.log("Success, alarm deleted; requestID:", data.$metadata.requestId);

@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
-process.argv.push('--arg1', 'QUEUE_ARN');
+
+
 
 const mockListJobs = jest.fn();
 jest.mock('@aws-sdk/client-mediaconvert/commands/ListJobsCommand', () => ({

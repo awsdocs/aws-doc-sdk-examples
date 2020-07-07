@@ -1,9 +1,9 @@
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
-process.argv.push('--arg1', 'QUEUE_ARN');
-process.argv.push('--arg1', 'TEMPLATE_NAME');
-process.argv.push('--arg1', 'ROLE_ARN');
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
-process.argv.push('--arg1', 'INPUT_BUCKET_AND_FILENAME');
+
+
+
+
+
+
 
 const mockCreateTempJob = jest.fn();
 jest.mock('@aws-sdk/client-mediaconvert/commands/CreateJobCommand', () => ({

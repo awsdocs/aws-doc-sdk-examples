@@ -10,21 +10,22 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatch alarms.
 
-Inputs:
-- REGION (into command line below)
-- ACTION_ARN (into command line below)
+Inputs (replace in code):
+- REGION
+- ACTION_ARN
 
 Running the code:
-node cw_enablealarmactions.js REGION ACTION_ARN
+node cw_enablealarmactions.js
 */
 // snippet-start:[cw.JavaScript.alarms.enableAlarmActionsV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatch, PutMetricAlarmCommand,
   EnableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cw = new CloudWatch(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   AlarmName:  process.argv[3],
@@ -36,7 +37,7 @@ const params = {
   Statistic: 'Average',
   Threshold: 70.0,
   ActionsEnabled: true,
-  AlarmActions: ['arn:aws:automate:us-east-1:ec2:stop'],
+  AlarmActions: ['ACTION_ARN'], //e.g., "arn:aws:automate:us-east-1:ec2:stop"
   AlarmDescription: 'Alarm when server CPU exceeds 70%',
   Dimensions: [
     {
@@ -47,7 +48,10 @@ const params = {
   Unit: 'Percent'
 };
 
-async function run() {
+// Create CloudWatch service object
+const cw = new CloudWatch(REGION);
+
+const run = async () => {
   try{
     const data = await cw.send(new PutMetricAlarmCommand(params));
     console.log("Alarm action added; RequestID:", data.$metadata.requestId);

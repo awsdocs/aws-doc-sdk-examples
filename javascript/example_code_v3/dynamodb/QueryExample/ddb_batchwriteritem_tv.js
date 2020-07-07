@@ -8,19 +8,23 @@ Purpose:
 ddb_batchwriteritem_tv.js populates the table used for the match query example
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node ddb_batchwriteritem_tv.js REGION
+node ddb_batchwriteritem_tv.js
 */
 // snippet-start:[dynamodb.JavaScript.batch.BatchWriterItemTVV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, BatchWriteItemCommand } = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
+const REGION = "region"; //e.g. "us-east-1"
+
 // Create DynamoDB service object
-const client = new DynamoDBClient(region);
+const client = new DynamoDBClient(REGION);
+
 // Set the parameters
 const params = {
     RequestItems: {
@@ -70,7 +74,7 @@ const params = {
     }
 };
 
-async function run(){
+const run = async () => {
     try {
         const data = await dbclient.send(new BatchWriteItemCommand(params));
         console.log("Success", data);

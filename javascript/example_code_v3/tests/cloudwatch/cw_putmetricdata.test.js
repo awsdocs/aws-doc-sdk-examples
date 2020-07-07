@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockPutMetricData = jest.fn();
 jest.mock('@aws-sdk/client-cloudwatch/commands/PutMetricDataCommand', () => ({
     CloudWatch: function CloudWatch() {

@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
-process.argv.push('--arg2', 'JOB_QUEUE_ARN');
-process.argv.push('--arg3', 'BUCKET_NAME');
+
+
+
 const mockCreateJobTemp = jest.fn();
 jest.mock('@aws-sdk/client-mediaconvert/commands/CreateJobTemplateCommand', () => ({
     MediaConvert: function MediaConvert() {

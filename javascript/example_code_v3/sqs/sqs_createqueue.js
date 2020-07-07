@@ -10,32 +10,36 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-u
 Purpose:
 sqs_createqueue.js demonstrates how to create an Amazon SQS standard queue.
 
-Inputs:
-- REGION (into command line below)
-- SQS_QUEUE_NAME (into command line below)
-- DelaySeconds (into code; enter in seconds)
-- MessageRetentionPeriod (into code; enter in seconds)
+Inputs (replace in code):
+- REGION
+- SQS_QUEUE_NAME
+- DelaySeconds (in seconds)
+- MessageRetentionPeriod (in seconds)
 
 Running the code:
-node sqs_createqueue.js REGION SQS_QUEUE_NAME
+node sqs_createqueue.js
  */
 // snippet-start:[sqs.JavaScript.queues.createQueueV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, CreateQueueCommand} = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  QueueName: process.argv[3], //SQS_QUEUE_URL
+  QueueName: "SQS_QUEUE_NAME", //SQS_QUEUE_URL
   Attributes: {
-    'DelaySeconds': '60',
-    'MessageRetentionPeriod': '86400'
+    'DelaySeconds': '60', //number of seconds delay
+    'MessageRetentionPeriod': '86400'  //number of seconds delay
   }
 };
 
-async function run() {
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
   try {
     const data = await sqs.send(new CreateQueueCommand(params));
     console.log("Success, new queue created. Queue URL: ", data.QueueUrl);

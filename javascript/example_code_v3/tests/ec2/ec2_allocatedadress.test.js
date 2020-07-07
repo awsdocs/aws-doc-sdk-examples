@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'INSTANCE_ID');
+
+
 const mockAllocateAddresses = jest.fn();
 jest.mock('@aws-sdk/client-ec2/commands/AllocateAddressCommand', () => ({
     EC2: function EC2() {

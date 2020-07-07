@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-east-1');
+
 const mocksetUpBucketNonMod = jest.fn();
 jest.mock('@aws-sdk/client-s3', () => ({
   Lambda: function lambda() {

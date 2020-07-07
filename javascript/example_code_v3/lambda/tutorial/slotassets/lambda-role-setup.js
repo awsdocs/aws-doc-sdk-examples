@@ -10,21 +10,21 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-i
 Purpose:
 lambda-role-setup.js demonstrates how create an AWS IAM role.
 
-Inputs:
-- REGION (into command line below)
-- NEW_ROLENAME (into command line below)
+Inputs (replace in code):
+- REGION
+- NEW_ROLENAME
 
 Running the code:
-node lambda-role-setup.js REGION NEW_ROLENAME
+node lambda-role-setup.js
 */
 // snippet-start:[lambda.JavaScript.LambdaRoleSetUpV3]
 // Import a non-modular IAM client
 const { IAMClient, CreateRoleCommand, AttachRolePolicyCommand } = require('@aws-sdk/client-iam');
-// Instantiate the IAM client
-const region = process.argv[2]; //REGION
-const iam = new IAMClient(region);
 
-const ROLE = process.argv[3]; //NEW_ROLENAME
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+const ROLE = "NEW_ROLENAME"; //NEW_ROLENAME
 
 const myPolicy = {
   'Version': '2012-10-17',
@@ -54,7 +54,10 @@ const dynamoPolicyParams = {
  RoleName: ROLE
 };
 
-async function run() {
+// Instantiate the IAM client
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new CreateRoleCommand(createParams));
     console.log('Role ARN is', data.Role.Arn);  // successful response

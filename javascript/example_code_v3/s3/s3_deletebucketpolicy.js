@@ -10,24 +10,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-buc
 Purpose:
 s3_deletebucketpolicy.js demonstrates how to delete an Amazon S3 bucket policy.]
 
-Inputs:
-- REGION (into command line below)
-- BUCKET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- BUCKET_NAME
 
 Running the code:
-node s3_deletebucketpolicy.js REGION BUCKET_NAME
+node s3_deletebucketpolicy.js
 */
 // snippet-start:[s3.JavaScript.policy.deleteBucketPolicyV3]
 
+
 // Import required AWS SDK clients and commands for Node.js
 const  {S3}  = require('@aws-sdk/client-s3/');
-// Create S3 service object
-const region = process.argv[2];
-const s3 = new S3(region);
+
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the bucket parameters
 const bucketParams = {Bucket: process.argv[3]};
 
-async function run(){
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
     try {
         const data =  await s3.deleteBucketPolicy(bucketParams);
         console.log('Success', data +', bucket policy deleted');

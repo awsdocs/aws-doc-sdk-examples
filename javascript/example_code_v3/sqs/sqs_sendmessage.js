@@ -10,20 +10,21 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-s
 Purpose:
 sqs_sendmessage.js demonstrates how to deliver a message to an Amazon SQS queue.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 - SQS_QUEUE_URL (into command line below; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME')
 
 Running the code:
-node sqs_sendmessage.js REGION SQS_QUEUE_URL
+node sqs_sendmessage.js
  */
 // snippet-start:[sqs.JavaScript.messages.sendMessageV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SQS, SendMessageCommand} = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   DelaySeconds: 10,
@@ -44,9 +45,13 @@ const params = {
   MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
   // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
   // MessageGroupId: "Group1",  // Required for FIFO queues
-  QueueUrl: process.argv[3] //e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+  QueueUrl: "SQS_QUEUE_URL" //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 };
-async function run() {
+
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
   try {
     const data = await sqs.send(new SendMessageCommand(params));
     console.log("Success, message sent. MessageID:", data.MessageId);

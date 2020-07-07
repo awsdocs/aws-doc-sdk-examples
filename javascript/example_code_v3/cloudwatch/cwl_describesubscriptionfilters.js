@@ -10,27 +10,31 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwl_describesubscriptionfilters.js demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.
 
-Inputs: (all into command line below)
+Inputs (replace in code): (all into command line below)
 - REGION
 - GROUP_NAME
 
 Running the code:
-node cwl_describesubscriptionfilters.js REGION GROUP_NAME
+node cwl_describesubscriptionfilters.js
 */
 // snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3V3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchLogs, DescribeSubscriptionFiltersCommand} = require("@aws-sdk/client-cloudwatch-logs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cwl = new CloudWatchLogs(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  logGroupName: process.argv[3],
+  logGroupName: "GROUP_NAME", //GROUP_NAME
   limit: 5
 };
 
-async function run() {
+// Create CloudWatch service object
+const cwl = new CloudWatchLogs(REGION);
+
+const run = async () => {
   try {
     const data = await cwl.send(new DescribeSubscriptionFiltersCommand(params));
     console.log("Success", data.subscriptionFilters);

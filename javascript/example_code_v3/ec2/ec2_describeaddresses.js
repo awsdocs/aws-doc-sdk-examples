@@ -10,19 +10,20 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-e
 Purpose:
 ec2_describeaddresses.js demonstrates how to retrieve information about one or more Elastic IP addresses.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node ec2_describeaddresses.js REGION
+node ec2_describeaddresses.js
 */
 // snippet-start:[ec2.JavaScript.Addresses.describeAddressesV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, DescribeAddressesCommand} = require("@aws-sdk/client-ec2");
+
 // Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   Filters: [
@@ -30,7 +31,10 @@ const params = {
   ]
 };
 
-async function run(){
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
   try {
     const data = await ec2client.send(new DescribeAddressesCommand(params))
     console.log(JSON.stringify(data.Addresses));

@@ -10,25 +10,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_verifydomainidentity.js demonstrates how to add a domain to the list of Amazon SES identities and attempts to verify it.
 
-Inputs:
-- REGION (into command line below)
-- RULE_NAME (into command line below)
-- RULE_SET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- DOMAIN_NAME
 
 Running the code:
-node ses_verifydomainidentity.js REGION DOMAIN
+node ses_verifydomainidentity.js
  */
 // snippet-start:[ses.JavaScript.identities.verifyDomainIdentityV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SES, VerifyDomainIdentityCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {Domain: process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {Domain: "DOMAIN_NAME"}; //DOMAIN_NAME
+
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
     try {
         const data = await ses.send(new VerifyDomainIdentityCommand(params));
         console.log("Verification Token: " + data.VerificationToken)

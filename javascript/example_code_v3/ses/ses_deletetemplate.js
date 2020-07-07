@@ -10,24 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_deletetemplate.js demonstrates how to delete an Amazon SES email template.
 
-Inputs:
-- REGION (into command line below)
-- TEMPLATE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TEMPLATE_NAME
 
 Running the code:
-node ses_deletetemplate.js REGION TEMPLATE_NAME
+node ses_deletetemplate.js
 */
 // snippet-start:[ses.JavaScript.templates.deleteTemplateV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SES, DeleteTemplateCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {TemplateName: process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {TemplateName: "TEMPLATE_NAME"};
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
     try {
         const data = await ses.send(new DeleteTemplateCommand(params));
         console.log('Template Deleted')

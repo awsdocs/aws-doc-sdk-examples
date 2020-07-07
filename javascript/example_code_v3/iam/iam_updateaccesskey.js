@@ -9,30 +9,34 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_updateaccesskey.js demonstrates how to update the status of an IAM user's access key.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ACCESS_KEY_ID
 - USER_NAME
 
 Running the code:
-node iam_updateaccesskey.js REGION ACCESS_KEY_ID USER_NAME
+node iam_updateaccesskey.js
  */
 
 // snippet-start:[iam.JavaScript.keys.updateAccessKeyV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, UpdateAccessKeyCommand} = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 var params = {
-  AccessKeyId: process.argv[3],
+  AccessKeyId: "ACCESS_KEY_ID", //ACCESS_KEY_ID
   Status: 'Active',
-  UserName: process.argv[4]
+  UserName: "USER_NAME" //USER_NAME
 };
 
-async function run() {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
    try {
     const data = await iam.send(new UpdateAccessKeyCommand(params));
     console.log("Success", data);

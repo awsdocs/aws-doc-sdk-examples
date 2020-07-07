@@ -10,28 +10,33 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwl_deletesubscriptionfilter.js demonstrates how to delete an Amazon CloudWatch Logs filter.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - FILTER
 - LOG_GROUP
 
 Running the code:
-node cwl_deletesubscriptionfilter.js REGION FILTER LOG_GROUP
+node cwl_deletesubscriptionfilter.js
 */
 // snippet-start:[cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {CloudWatchLogs, DeleteSubscriptionFilterCommand} = require("@aws-sdk/client-cloudwatch-logs");
+
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cwl = new CloudWatchLogs(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  filterName: process.argv[3],
-  logGroupName: process.argv[4]
+  filterName: "FILTER", //FILTER
+  logGroupName: "LOG_GROUP" //LOG_GROUP
 };
 
-async function run() {
+// Create CloudWatch service object
+const cwl = new CloudWatchLogs(REGION);
+
+const run = async () => {
   try {
     const data = await cwl.send(new DeleteSubscriptionFilterCommand(params));
     console.log("Success, subscription filter deleted; requestId: ", data.$metadata.requestId);

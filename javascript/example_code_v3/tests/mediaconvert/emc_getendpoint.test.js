@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
+
 const mockDescribeEndpoints = jest.fn();
 jest.mock('@aws-sdk/client-mediaconvert/commands/DescribeEndpointsCommand', () => ({
     MediaConvert: function MediaConvert() {

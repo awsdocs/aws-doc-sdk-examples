@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg1', 'us-west-2');
+
+
+
 const mockEnableAlarmActions = jest.fn();
 jest.mock('@aws-sdk/client-cloudwatch/commands/PutMetricAlarmCommand', () => ({
     CloudWatch: function CloudWatch() {

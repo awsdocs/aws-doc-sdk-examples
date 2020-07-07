@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'KEY_PAIR_NAME');
+
+
 const mockDeleteKeyPair = jest.fn();
 jest.mock('@aws-sdk/client-ec2/commands/DeleteKeyPairCommand', () => ({
     EC2: function EC2() {

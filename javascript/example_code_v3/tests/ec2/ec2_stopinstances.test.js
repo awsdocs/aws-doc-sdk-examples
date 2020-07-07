@@ -1,6 +1,6 @@
-process.argv.push('--arg1', 'eu-west-2');
-process.argv.push('--arg2', 'STOP');
-process.argv.push('--arg3', 'INSTANCE_ID');
+
+
+
 const mockStopInstancesCommand = jest.fn();
 jest.mock('@aws-sdk/client-ec2/commands/StopInstancesCommand', () => ({
     EC2: function EC2() {

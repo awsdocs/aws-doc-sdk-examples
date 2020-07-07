@@ -10,25 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_accesskeylastused.js demonstrates how to retrieve information about the last time an IAM access key was used.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ACCESS_KEY_ID
 
 Running the code:
-node iam_accesskeylastused.js REGION ACCESS_KEY_ID
-
+node iam_accesskeylastused.js
  */
 // snippet-start:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {IAMClient, GetAccessKeyLastUsedCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const params = {AccessKeyId: process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {AccessKeyId: "ACCESS_KEY_ID"}; //ACCESS_KEY_ID
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new GetAccessKeyLastUsedCommand(params));
     console.log('Success', data.AccessKeyLastUsed);

@@ -10,20 +10,21 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//sns-examples-
 Purpose:
 sns_setsmstype.js demonstrates how to use Amazon SNS to set default SMS attributes.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node sns_setsmstype.js REGION
+node sns_setsmstype.js
 */
 
 // snippet-start:[sns.JavaScript.SMS.setSMSAttributesV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, SetSMSAttributesCommand} = require("@aws-sdk/client-sns");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   attributes: { /* required */
@@ -32,7 +33,10 @@ const params = {
   }
 };
 
-async function run() {
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
   try {
     const data = await sns.send(new SetSMSAttributesCommand(params));
     console.log("RequestId:", data.$metadata.requestId);

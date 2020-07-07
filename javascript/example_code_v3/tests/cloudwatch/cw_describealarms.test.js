@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'us-west-2');
+
 const mockDescribeAlarms = jest.fn();
 jest.mock('@aws-sdk/client-cloudwatch/commands/DescribeAlarmsCommand', () => ({
     CloudWatch: function CloudWatch() {

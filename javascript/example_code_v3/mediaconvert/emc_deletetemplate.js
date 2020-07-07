@@ -10,23 +10,25 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-t
 Purpose:
 emc_deletetemplate.js demonstrates how to delete a transcoding job template.
 
-Inputs: (all into command line below)
+Inputs (replace in code):
 - ACCOUNT_END_POINT
 - TEMPLATE_NAME
 
 Running the code:
-node emc_deletetemplate.js ACCOUNT_END_POINT TEMPLATE_NAME
+node emc_deletetemplate.js
 */
 // snippet-start:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {MediaConvert, DeleteJobTemplateCommand} = require("@aws-sdk/client-mediaconvert");
-// Create a new service object and set MediaConvert to customer endpoint
-const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_END_POINT
-const mediaconvert = new MediaConvert(endpoint);
-// Set the parameters
-const params = {Name: process.argv[3]}; //TEMPLATE_NAME
 
-async function run() {
+// Set the parameters
+const endpoint = {endpoint: "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+const params = {Name: "TEMPLATE_NAME"}; //TEMPLATE_NAME
+
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
     try {
         const data = await mediaconvert.send(new DeleteJobTemplateCommand(params));
         console.log("Success, template deleted! Request ID:", data.$metadata.requestId);

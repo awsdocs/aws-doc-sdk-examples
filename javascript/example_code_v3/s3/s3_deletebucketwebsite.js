@@ -10,25 +10,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-sta
 Purpose:
 s3_deletebucketwebsite.js demonstrates how to delete the website configuration from an Amazon S3 bucket.
 
-Inputs:
-- REGION (into command line below)
-- BUCKET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- BUCKET_NAME
 
 Running the code:
-node s3_deletebucketwebsite.js REGION BUCKET_NAME
+node s3_deletebucketwebsite.js
  */
 // snippet-start:[s3.JavaScript.website.deleteBucketWebsiteV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {S3, DeleteBucketWebsiteCommand } = require("@aws-sdk/client-s3");
-// Set the AWS region
-const region = process.argv[2];
-// Create S3 service object
-const s3 = new S3(region);
-// Create the parameters for calling
-const bucketParams = {Bucket : process.argv[3]};
 
-async function run(){
+const {S3, DeleteBucketWebsiteCommand } = require("@aws-sdk/client-s3");
+
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create the parameters for calling
+const bucketParams = {Bucket : "BUCKET_NAME"};
+
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
   try{
     const data = await s3.send(new DeleteBucketWebsiteCommand(bucketParams));
     console.log('Success', data);

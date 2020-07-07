@@ -10,25 +10,28 @@ scheduled for release later in 2020, and the topic containing this example will 
 Purpose:
 s3_getcors.js demonstrates how to retrieve the CORS configuration of an Amazon S3 bucket.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - BUCKET_NAME
 
 Running the code:
-node s3_getcors.js REGION BUCKET_NAME
+node s3_getcors.js
  */
 // snippet-start:[s3.JavaScript.cors.getBucketCorsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3, GetBucketCorsCommand } = require("@aws-sdk/client-s3");
-// Set the AWS region
-const region = process.argv[2];
-// Create S3 service object
-const s3 = new S3(region);
-// Create the parameters for calling
-const bucketParams = {Bucket : process.argv[3]};
 
-async function run(){
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create the parameters for calling
+const bucketParams = {Bucket : "BUCKET_NAME"};
+
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
   try{
     const data = await s3.send(new GetBucketCorsCommand(bucketParams));
     console.log('Success', JSON.stringify(data.CORSRules));

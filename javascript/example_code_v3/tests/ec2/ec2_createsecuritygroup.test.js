@@ -1,7 +1,7 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'MY_KEY_PAIR');
-process.argv.push('--arg3', 'SECURITY_GROUP_NAME');
-process.argv.push('--arg4', 'SECURITY_GROUP_ID');
+
+
+
+
 const mockDeleteKeyPair = jest.fn();
 jest.mock('@aws-sdk/client-ec2/commands/DeleteKeyPairCommand', () => ({
     EC2: function EC2() {

@@ -11,23 +11,24 @@ scheduled for release later in 2020, and the topic containing this example will 
 Purpose:
 ddb_batchwriteitem.js demonstrates how to put items or delete items into an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
-- KEYS (into code)
-- KEY_VALUES (into code)
-- ATTRIBUTE_VALUES (into code)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
+- KEYS
+- KEY_VALUES
+- ATTRIBUTE_VALUES
 
 Running the code:
-node ddb_batchwriteitem.js REGION
+node ddb_batchwriteitem
 */
 // snippet-start:[dynamodb.JavaScript.batch.WriteItemV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, BatchWriteItemCommand} = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   RequestItems: {
@@ -54,7 +55,10 @@ const params = {
   }
 };
 
-async function run() {
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
     const data = await dbclient.send(new BatchWriteItemCommand(params));
     console.log("Success, items inserted", data);

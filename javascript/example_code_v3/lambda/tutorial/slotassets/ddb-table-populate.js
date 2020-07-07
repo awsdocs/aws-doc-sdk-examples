@@ -10,25 +10,26 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-d
 Purpose:
 ddb-table-populate.js demonstrates how to populate an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
 
 Running the code:
-node ddb-table-populate.js REGION TABLE_NAME
+node ddb-table-populate.js
 */
 
 // snippet-start:[lambda.JavaScript.PopulateTableV3]
+
 // Load the DynamoDB client
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
-// Instantiate a DynamoDB client
-const region = process.argv[2]; //REGION
-const ddb = new DynamoDBClient(region);
+//Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
 
-const myTable = process.argv[3]; //TABLE_NAME
+//Set the parameters
+const myTable = "TABLE_NAME"; //TABLE_NAME
 
 // Add the four spades results
-async function run() {
+const run = async () => {
   let params = {
     TableName: myTable,
     Item: {'slotPosition' : {N: '0'}, 'imageFile' : {S: 'spad_a.png'}
@@ -148,7 +149,10 @@ async function run() {
 
 run();
 
-async function post (params) {
+// Instantiate a DynamoDB client
+const ddb = new DynamoDBClient(REGION);
+
+const run = async (params) => {
   try {
     const data = await ddb.send(new PutItemCommand(params));
     console.log("Success", data);
@@ -156,5 +160,5 @@ async function post (params) {
     console.log("Error", err);
   }
 }
-
+post();
 // snippet-end:[lambda.JavaScript.PopulateTableV3]

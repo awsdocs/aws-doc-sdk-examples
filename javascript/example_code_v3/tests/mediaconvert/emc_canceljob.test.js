@@ -1,4 +1,4 @@
-process.argv.push('--arg1', 'ACCOUNT_ENDPOINT');
+
 const mockCancelJob = jest.fn();
 jest.mock('@aws-sdk/client-mediaconvert/commands/CancelJobCommand', () => ({
     MediaConvert: function MediaConvert() {

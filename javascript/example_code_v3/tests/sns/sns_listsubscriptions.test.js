@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'TOPIC_ARN');
+
+
 
 const mockListSubscriptionsByTopic = jest.fn();
 jest.mock('@aws-sdk/client-sns/commands/ListSubscriptionsByTopicCommand', () => ({

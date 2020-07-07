@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'ATTRIBUTE_NAME');
+
+
 
 const mockGetSMEAttributes = jest.fn();
 jest.mock('@aws-sdk/client-sns/commands/GetSMSAttributesCommand', () => ({

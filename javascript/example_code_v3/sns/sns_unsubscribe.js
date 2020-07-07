@@ -10,24 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-s
 Purpose:
 sns_unsubscribe.js demonstrates how to delete a subscription to an Amazon SNS topic.
 
-Inputs:
-- REGION (into command line below)
-- TOPIC_SUBSCRIPTION_ARN (into command line below)
+Inputs (replace in code):
+- REGION
+- TOPIC_SUBSCRIPTION_ARN
 
 Running the code:
-node sns_subscribeapp.js  REGION TOPIC_SUBSCRIPTION_ARN
+node sns_subscribeapp.js
  */
 // snippet-start:[sns.JavaScript.subscriptions.unsubscribeV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SNS, UnsubscribeCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
-// Set the parameters
-const params = {SubscriptionArn : process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {SubscriptionArn : "TOPIC_SUBSCRIPTION_ARN"}; //TOPIC_SUBSCRIPTION_ARN
+
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
     try {
         const data = await sns.send(new UnsubscribeCommand(params));
         console.log("Subscription is unsubscribed");

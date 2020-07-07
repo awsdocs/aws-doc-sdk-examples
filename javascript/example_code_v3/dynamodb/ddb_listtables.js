@@ -10,21 +10,24 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_listtables.js demonstrates how to retrieve a list of Amazon DynamoDB table names.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 
 Running the code:
-node ddb_listtables.js REGION
+node ddb_listtables.js
 */
 // snippet-start:[dynamodb.JavaScript.table.listTablesV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, ListTablesCommand} = require("@aws-sdk/client-dynamodb");
-// Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
 
-async function run(){
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
     const data = await dbclient.send(new ListTablesCommand({}));
     console.log(data.TableNames.join("\n"));

@@ -10,31 +10,36 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_deleteitem.js demonstrates how to delete an item from an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
 
 Running the code:
-node.js ddb_deleteitem.js REGION TABLE_NAME
+node.js ddb_deleteitem.js
 
 */
 // snippet-start:[dynamodb.JavaScript.item.deleteItemV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {DynamoDBClient, DeleteItemCommand} = require("@aws-sdk/client-dynamodb");
+
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  TableName: process.argv[3],
+  TableName: "TABLE_NAME",
   Key: {
     'CUSTOMER_ID': {N: '1'},
     'CUSTOMER_NAME': {S: 'Richard Roe'}
   }
 };
 
-async function run() {
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
     const data = await dbclient.send(new DeleteItemCommand(params));
     console.log("Success, item deleted", data);

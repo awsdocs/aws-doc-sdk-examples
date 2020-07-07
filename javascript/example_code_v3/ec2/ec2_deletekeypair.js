@@ -10,24 +10,27 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ke
 Purpose:
 ec2_deletekeypair.js demonstrates how to delete a key pair from an Amazon EC2 instance.
 
-Inputs:
-- REGION (into command line below)
-- KEY_PAIR_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- KEY_PAIR_NAME
 
 Running the code:
-node ec2_deletekeypair.js REGION KEY_PAIR_NAME
+node ec2_deletekeypair.js
  */
 // snippet-start:[ec2.JavaScript.keypairs.deleteKeyPairV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {EC2, DeleteKeyPairCommand} = require("@aws-sdk/client-ec2");
 // Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-const params = {KeyName: process.argv[3]};
+const REGION = "region"; //e.g. "us-east-1"
 
-async function run(){
+// Set the parameters
+const params = {KeyName: "KEY_PAIR_NAME"}; //KEY_PAIR_NAME
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
    try {
       const data = await ec2client.send(new DeleteKeyPairCommand(params))
        console.log("Key Pair Deleted");

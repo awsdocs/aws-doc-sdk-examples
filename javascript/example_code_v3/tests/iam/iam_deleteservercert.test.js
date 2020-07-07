@@ -1,5 +1,5 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'CERTIFICATE_NAME');
+
+
 const mockDeleteServerCert = jest.fn();
 jest.mock('@aws-sdk/client-iam/commands/DeleteServerCertificateCommand', () => ({
     IAM: function IAM() {

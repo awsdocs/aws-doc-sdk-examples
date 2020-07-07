@@ -10,25 +10,29 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_verifyemailidentity.js demonstrates how to send an Amazon SES verification email.
 
-Inputs:
-- REGION (into command line below)
-- ADDRESS@DOMAIN.EXT (into command line below; e.g., name@example.com)
+Inputs (replace in code):
+- REGION
+- ADDRESS@DOMAIN.EXT
 
 Running the code:
-node ses_verifyemailidentity.js REGION ADDRESS@DOMAIN.EXT
+node ses_verifyemailidentity.js
 
  */
 // snippet-start:[ses.JavaScript.identities.verifyEmailIdentityV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {SES, VerifyEmailIdentityCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {EmailAddress: process.argv[3]};
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {EmailAddress: "ADDRESS@DOMAIN.EXT"}; //ADDRESS@DOMAIN.EXT; e.g., name@example.com
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
     try {
         const data = await ses.send(new VerifyEmailIdentityCommand(params));
         console.log("Email verification initiated")

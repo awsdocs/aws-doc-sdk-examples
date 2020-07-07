@@ -1,7 +1,7 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'ATTRIBUTE_NAME');
-process.argv.push('--arg1', 'TOPIC_ARN');
-process.argv.push('--arg2', 'NEW_ATTRIBUTE_VALUE');
+
+
+
+
 
 const mockSetTopicAttributes = jest.fn();
 jest.mock('@aws-sdk/client-sns/commands/SetTopicAttributesCommand', () => ({
