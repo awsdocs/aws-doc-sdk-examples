@@ -64,9 +64,6 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
             print(domain)
             for zone in zone_list:
                 compare = '.'.join(domain.split('.')[-2:])
-                # print (compare)
-                # Make API call to Route53 only if
-                # domain is in verification table.
                 if compare == zone['Name'][:-1]:
                     zone_id = zone['Id'].strip('/hostedzone/')
                     record_list = []
@@ -84,18 +81,12 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
                     for item in resp_iterator_rr:
                         for i in item['ResourceRecordSets']:
                             record_list.append(i)
-                    # TXTList=r53.list_resource_record_sets(HostedZoneId=zoneID)['ResourceRecordSets']
-                    # print(record_list)
                     is_txt_present = False
                     for r_set in record_list:
-                        # print(r_set)
-                    # If TXT record for domain to be verified is already
-                    # present, then append token to value field.
                         if (r_set['Name'][:-1] ==
                                                  ses_prefix+domain and
                                                  r_set['Type'] == 'TXT'):
                             is_txt_present = True
-                            # print("IF evaluated to true.")
                             txt_vals = r_set['ResourceRecords']
                             token = json.dumps(table[domain])
                             txt_vals.append({'Value': token})
@@ -125,15 +116,10 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
                                     print ("Check if TXT record",
                                            "for the domain already exists.\n")
                         else:
-                            # print("IF evaluated to false.")
                             pass
 
                     if is_txt_present is False:
-                         # print("TXT record not already present.")
-                         # If TXT not present, then do this.
                          token = json.dumps(table[domain])
-                         # print(token)
-                         # Need to pass a list of tuples.
                          batch = {
                                   "Changes": [
                                               {"Action": "UPSERT",
@@ -149,9 +135,7 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
                                    HostedZoneId=zone_id,
                                    ChangeBatch=batch
                                    )
-                         # print(add_txt)
                 else:
-                    # print("No hosted zone present for ", compare)
                     pass
     elif rec_type == 'dkimVerify':
         for zone in zone_list:
@@ -178,7 +162,6 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
                                                          )
                 print(add_txt)
             else:
-                # print("If is false. No hosted zone present for:", compare)
                 pass
 
 
@@ -187,8 +170,6 @@ def generate_dkim(identity, region):
     ses_dest_client = S.client('ses', region_name=region)
     ask = input("Do you want to configure DKIM for "+identity+"? (yes/no)")
     if ask == 'yes':
-        # dkimEnable=sesDestinationClient.set_identity_dkim_enabled
-        # (Identity=identity,DkimEnabled=True)
         if '@' in identity:
             dkim_tokens = ses_dest_client.\
                          verify_domain_dkim(
