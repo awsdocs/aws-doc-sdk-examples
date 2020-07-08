@@ -20,53 +20,56 @@ node cw_enablealarmactions.js
 // snippet-start:[cw.JavaScript.alarms.enableAlarmActionsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, PutMetricAlarmCommand,
-  EnableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
+const {
+  CloudWatch,
+  PutMetricAlarmCommand,
+  EnableAlarmActionsCommand,
+} = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  AlarmName:  process.argv[3],
-  ComparisonOperator: 'GreaterThanThreshold',
+  AlarmName: process.argv[3],
+  ComparisonOperator: "GreaterThanThreshold",
   EvaluationPeriods: 1,
-  MetricName: 'CPUUtilization',
-  Namespace: 'AWS/EC2',
+  MetricName: "CPUUtilization",
+  Namespace: "AWS/EC2",
   Period: 60,
-  Statistic: 'Average',
+  Statistic: "Average",
   Threshold: 70.0,
   ActionsEnabled: true,
-  AlarmActions: ['ACTION_ARN'], //e.g., "arn:aws:automate:us-east-1:ec2:stop"
-  AlarmDescription: 'Alarm when server CPU exceeds 70%',
+  AlarmActions: ["ACTION_ARN"], //e.g., "arn:aws:automate:us-east-1:ec2:stop"
+  AlarmDescription: "Alarm when server CPU exceeds 70%",
   Dimensions: [
     {
-      Name: 'InstanceId',
-      Value: 'INSTANCE_ID'
+      Name: "InstanceId",
+      Value: "INSTANCE_ID",
     },
   ],
-  Unit: 'Percent'
+  Unit: "Percent",
 };
 
 // Create CloudWatch service object
 const cw = new CloudWatch(REGION);
 
 const run = async () => {
-  try{
+  try {
     const data = await cw.send(new PutMetricAlarmCommand(params));
     console.log("Alarm action added; RequestID:", data.$metadata.requestId);
     var paramsEnableAlarmAction = {
-      AlarmNames: [params.AlarmName]
+      AlarmNames: [params.AlarmName],
     };
     try {
-      const data = await cw.send(new EnableAlarmActionsCommand(paramsEnableAlarmAction));
+      const data = await cw.send(
+        new EnableAlarmActionsCommand(paramsEnableAlarmAction)
+      );
       console.log("Alarm action enabled; RequestID:", data.$metadata.requestId);
-    }
-    catch(err){
+    } catch (err) {
       console.log("Error", err);
     }
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

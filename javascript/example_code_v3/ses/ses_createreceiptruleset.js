@@ -26,19 +26,21 @@ const { SES, CreateReceiptRuleSetCommand } = require("@aws-sdk/client-ses");
 const REGION = "region"; //e.g. "us-east-1" // REGION
 
 // Set the parameters
-const params = {RuleSetName: "RULE_SET_NAME"} //RULE_SET_NAME
+const params = { RuleSetName: "RULE_SET_NAME" }; //RULE_SET_NAME
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try{
-        const data = await ses.send(new CreateReceiptRuleSetCommand(params));
-        console.log("Success, receipt rule created; requestId", data.$metadata.requestId)
-    }
-    catch(err){
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new CreateReceiptRuleSetCommand(params));
+    console.log(
+      "Success, receipt rule created; requestId",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleSetV3]

@@ -19,15 +19,18 @@ node emc_listtemplates.js
 // snippet-start:[mediaconvert.JavaScript.templates.listJobTemplatesV3]
 
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, ListJobTemplatesCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvert,
+  ListJobTemplatesCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 // Set the parameters
-const endpoint = {endpoint : "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 
 var params = {
-  ListBy: 'NAME',
+  ListBy: "NAME",
   MaxResults: 10,
-  Order: 'ASCENDING',
+  Order: "ASCENDING",
 };
 
 //Set the MediaConvert Service Object

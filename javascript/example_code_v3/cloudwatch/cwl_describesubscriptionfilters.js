@@ -20,7 +20,10 @@ node cwl_describesubscriptionfilters.js
 // snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3V3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchLogs, DescribeSubscriptionFiltersCommand} = require("@aws-sdk/client-cloudwatch-logs");
+const {
+  CloudWatchLogs,
+  DescribeSubscriptionFiltersCommand,
+} = require("@aws-sdk/client-cloudwatch-logs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -28,7 +31,7 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 const params = {
   logGroupName: "GROUP_NAME", //GROUP_NAME
-  limit: 5
+  limit: 5,
 };
 
 // Create CloudWatch service object
@@ -38,8 +41,7 @@ const run = async () => {
   try {
     const data = await cwl.send(new DescribeSubscriptionFiltersCommand(params));
     console.log("Success", data.subscriptionFilters);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

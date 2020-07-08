@@ -20,24 +20,24 @@ node ses_listreceiptfilters.js
 // snippet-start:[ses.JavaScript.templates.listTemplatesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, ListTemplatesCommand} = require("@aws-sdk/client-ses");
+const { SES, ListTemplatesCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {MaxItems: "ITEMS_COUNT"}; //ITEMS_COUNT
+const params = { MaxItems: "ITEMS_COUNT" }; //ITEMS_COUNT
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new ListTemplatesCommand({params}));
-        console.log(data)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new ListTemplatesCommand({ params }));
+    console.log(data);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.templates.listTemplatesV3]

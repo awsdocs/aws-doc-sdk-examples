@@ -23,28 +23,27 @@ node ses_sendtemplatedemail.js
 // snippet-start:[ses.JavaScript.email.sendTemplatedEmailV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, SendTemplatedEmailCommand} = require("@aws-sdk/client-ses");
+const { SES, SendTemplatedEmailCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  Destination: { /* required */
+  Destination: {
+    /* required */
     CcAddresses: [
-
       /* more CC email addresses */
     ],
     ToAddresses: [
-      "RECEIVER_ADDRESS" // RECEIVER_ADDRESS
+      "RECEIVER_ADDRESS", // RECEIVER_ADDRESS
       /* more To-email addresses */
-    ]
+    ],
   },
   Source: "SENDER_ADDRESS", //SENDER_ADDRESS
   Template: "TEMPLATE_NAME", // TEMPLATE_NAME
-  TemplateData: '{ \"REPLACEMENT_TAG_NAME\":\"REPLACEMENT_VALUE\" }', /* required */
-  ReplyToAddresses: [
-  ],
+  TemplateData: '{ "REPLACEMENT_TAG_NAME":"REPLACEMENT_VALUE" }' /* required */,
+  ReplyToAddresses: [],
 };
 
 // Create SES service object
@@ -53,7 +52,7 @@ const ses = new SES(REGION);
 const run = async () => {
   try {
     const data = await ses.send(new SendTemplatedEmailCommand(params));
-    console.log('Success, templated email sent; messageId:', data.MessageId)
+    console.log("Success, templated email sent; messageId:", data.MessageId);
   } catch (err) {
     console.error(err, err.stack);
   }

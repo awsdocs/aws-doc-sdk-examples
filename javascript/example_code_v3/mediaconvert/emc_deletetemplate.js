@@ -19,22 +19,28 @@ node emc_deletetemplate.js
 */
 // snippet-start:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, DeleteJobTemplateCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvert,
+  DeleteJobTemplateCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 // Set the parameters
-const endpoint = {endpoint: "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
-const params = {Name: "TEMPLATE_NAME"}; //TEMPLATE_NAME
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
+const params = { Name: "TEMPLATE_NAME" }; //TEMPLATE_NAME
 
 //Set the MediaConvert Service Object
 const mediaconvert = new MediaConvert(endpoint);
 
 const run = async () => {
-    try {
-        const data = await mediaconvert.send(new DeleteJobTemplateCommand(params));
-        console.log("Success, template deleted! Request ID:", data.$metadata.requestId);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await mediaconvert.send(new DeleteJobTemplateCommand(params));
+    console.log(
+      "Success, template deleted! Request ID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]

@@ -26,22 +26,20 @@ const { S3, GetBucketCorsCommand } = require("@aws-sdk/client-s3");
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create the parameters for calling
-const bucketParams = {Bucket : "BUCKET_NAME"};
+const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
 const s3 = new S3(REGION);
 
 const run = async () => {
-  try{
+  try {
     const data = await s3.send(new GetBucketCorsCommand(bucketParams));
-    console.log('Success', JSON.stringify(data.CORSRules));
-  }
-  catch (err){
-    console.log('Error', err);
+    console.log("Success", JSON.stringify(data.CORSRules));
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.cors.getBucketCorsV3]
 //for unit testing only
 exports.run = run;
-

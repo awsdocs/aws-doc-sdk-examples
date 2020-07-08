@@ -19,15 +19,14 @@ node sns_listsubscriptions.js
 */
 // snippet-start:[sns.JavaScript.subscriptions.listSubscriptionsByTopicV3]
 
-
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, ListSubscriptionsByTopicCommand} = require("@aws-sdk/client-sns");
+const { SNS, ListSubscriptionsByTopicCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {TopicArn : "TOPIC_ARN"} //TOPIC_ARN
+const params = { TopicArn: "TOPIC_ARN" }; //TOPIC_ARN
 
 //Create SNS service object
 const sns = new SNS(REGION);

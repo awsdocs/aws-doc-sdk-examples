@@ -21,7 +21,7 @@ node ec2_describesecuritygroups.js
 // snippet-start:[ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {EC2, DescribeSecurityGroupsCommand} = require("@aws-sdk/client-ec2");
+const { EC2, DescribeSecurityGroupsCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -30,19 +30,19 @@ const REGION = "region"; //e.g. "us-east-1"
 const ec2client = new EC2(REGION);
 
 // Set the parameters
-const params = {GroupIds: ["SECURITY_GROUP_ID"]}; //SECURITY_GROUP_ID
+const params = { GroupIds: ["SECURITY_GROUP_ID"] }; //SECURITY_GROUP_ID
 
 const run = async () => {
-   try {
-      const data = await ec2client.send(new DescribeSecurityGroupsCommand(params))
-      console.log("Success", JSON.stringify(data.SecurityGroups));
-   }
-   catch(err){
-      console.log("Error", err);
-   }
+  try {
+    const data = await ec2client.send(
+      new DescribeSecurityGroupsCommand(params)
+    );
+    console.log("Success", JSON.stringify(data.SecurityGroups));
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-
 
 // snippet-end:[ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 exports.run = run; //for unit tests only

@@ -20,24 +20,24 @@ node ses_deletereceiptfilter.js
 // snippet-start:[ses.JavaScript.filters.deleteReceiptFilterV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, DeleteReceiptFilterCommand} = require("@aws-sdk/client-ses");
+const { SES, DeleteReceiptFilterCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {FilterName: "FILTER_NAME"}; //FILTER_NAME
+const params = { FilterName: "FILTER_NAME" }; //FILTER_NAME
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new DeleteReceiptFilterCommand(params));
-        console.log("IP Filter deleted")
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new DeleteReceiptFilterCommand(params));
+    console.log("IP Filter deleted");
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.filters.deleteReceiptFilterV3]

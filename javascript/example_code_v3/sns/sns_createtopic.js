@@ -20,24 +20,24 @@ node sns_createtopic.js
 // snippet-start:[sns.JavaScript.topics.createTopicV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, CreateTopicCommand} = require("@aws-sdk/client-sns");
+const { SNS, CreateTopicCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {Name: "TOPIC_NAME"}; //TOPIC_NAME
+const params = { Name: "TOPIC_NAME" }; //TOPIC_NAME
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new CreateTopicCommand(params));
-        console.log("Topic ARN is " + data.TopicArn);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new CreateTopicCommand(params));
+    console.log("Topic ARN is " + data.TopicArn);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.topics.createTopicV3]

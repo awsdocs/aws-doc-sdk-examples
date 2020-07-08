@@ -20,7 +20,11 @@ node sts_assumerule.js  ARN_OF_ROLE_TO_ASSUME
 // snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {STSClient, AssumeRoleCommand, GetCallerIdentityCommand} = require("@aws-sdk/client-sts");
+const {
+  STSClient,
+  AssumeRoleCommand,
+  GetCallerIdentityCommand,
+} = require("@aws-sdk/client-sts");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,32 +33,35 @@ const REGION = "region"; //e.g. "us-east-1"
 const sts = new STSClient(REGION);
 
 // Set the parameters
-const roleToAssume = {RoleArn: "ARN_OF_ROLE_TO_ASSUME" , //ARN_OF_ROLE_TO_ASSUME
-    RoleSessionName: 'session1',
-    DurationSeconds: 900,};
+const roleToAssume = {
+  RoleArn: "ARN_OF_ROLE_TO_ASSUME", //ARN_OF_ROLE_TO_ASSUME
+  RoleSessionName: "session1",
+  DurationSeconds: 900,
+};
 
 const run = async () => {
+  try {
+    //Assume Role
+    const data = await sts.send(new AssumeRoleCommand(roleToAssume));
+    const rolecreds = {
+      accessKeyId: data.Credentials.AccessKeyId,
+      secretAccessKey: data.Credentials.SecretAccessKey,
+      sessionToken: data.Credentials.SessionToken,
+    };
+    //Get Amazon Resource Name (ARN) of current identity
     try {
-        //Assume Role
-        const data = await sts.send(new AssumeRoleCommand(roleToAssume));
-        const rolecreds = {
-            accessKeyId: data.Credentials.AccessKeyId,
-            secretAccessKey: data.Credentials.SecretAccessKey,
-            sessionToken: data.Credentials.SessionToken
-        };
-        //Get Amazon Resource Name (ARN) of current identity
-        try {
-            const stsParams = {credentials: rolecreds};
-            const stsClient = new STSClient(stsParams);
-            const results = await stsClient.send(new GetCallerIdentityCommand(rolecreds));
-            console.log("Success", results);
-        } catch (err) {
-            console.log(err, err.stack);
-        }
+      const stsParams = { credentials: rolecreds };
+      const stsClient = new STSClient(stsParams);
+      const results = await stsClient.send(
+        new GetCallerIdentityCommand(rolecreds)
+      );
+      console.log("Success", results);
+    } catch (err) {
+      console.log(err, err.stack);
     }
-     catch(err) {
-        console.log("Error", err);
-    }
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[iam.JavaScript.sts.AssumeRoleV3]

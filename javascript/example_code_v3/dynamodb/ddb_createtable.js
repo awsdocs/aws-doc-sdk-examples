@@ -24,7 +24,10 @@ node ddb_createtable.js
 // snippet-start:[dynamodb.JavaScript.table.createTableV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, CreateTableCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  CreateTableCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -33,44 +36,42 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   AttributeDefinitions: [
     {
-      AttributeName: 'Season', //ATTRIBUTE_NAME_1
-      AttributeType: 'N' //ATTRIBUTE_TYPE
+      AttributeName: "Season", //ATTRIBUTE_NAME_1
+      AttributeType: "N", //ATTRIBUTE_TYPE
     },
     {
-      AttributeName: 'Episode', //ATTRIBUTE_NAME_2
-      AttributeType: 'N' //ATTRIBUTE_TYPE
-    }
+      AttributeName: "Episode", //ATTRIBUTE_NAME_2
+      AttributeType: "N", //ATTRIBUTE_TYPE
+    },
   ],
   KeySchema: [
     {
-      AttributeName: 'Season', //ATTRIBUTE_NAME_1
-      KeyType: 'HASH'
+      AttributeName: "Season", //ATTRIBUTE_NAME_1
+      KeyType: "HASH",
     },
     {
-      AttributeName: 'Episode', //ATTRIBUTE_NAME_2
-      KeyType: 'RANGE'
-    }
+      AttributeName: "Episode", //ATTRIBUTE_NAME_2
+      KeyType: "RANGE",
+    },
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 1,
-    WriteCapacityUnits: 1
+    WriteCapacityUnits: 1,
   },
   TableName: "TABLE_NAME", //TABLE_NAME
   StreamSpecification: {
-    StreamEnabled: false
-  }
+    StreamEnabled: false,
+  },
 };
 
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(REGION);
 
-
 const run = async () => {
   try {
-    const data = await dbclient.send(new CreateTableCommand(params))
+    const data = await dbclient.send(new CreateTableCommand(params));
     console.log("Table Created", data);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

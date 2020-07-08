@@ -16,21 +16,21 @@ Inputs (replace in code):
 - MOBILE_ENDPOINT_ARN
 
 Running the code:
-node sns_subscribeapp.js  REGION TOPIC_ARN MOBILE_ENDPOINT_ARN
+node sns_subscribeapp.js
  */
 // snippet-start:[sns.JavaScript.subscriptions.subscribeAppV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SubscribeCommand} = require("@aws-sdk/client-sns");
+const { SNS, SubscribeCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  Protocol: "application", /* required */
+  Protocol: "application" /* required */,
   TopicArn: "TOPIC_ARN", //TOPIC_ARN
-  Endpoint: "MOBILE_ENDPOINT_ARN" // MOBILE_ENDPOINT_ARN
+  Endpoint: "MOBILE_ENDPOINT_ARN", // MOBILE_ENDPOINT_ARN
 };
 
 // Create SNS service object

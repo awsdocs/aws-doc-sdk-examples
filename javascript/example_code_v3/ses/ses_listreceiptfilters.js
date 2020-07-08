@@ -18,9 +18,8 @@ node ses_listreceiptfilters.js
 */
 // snippet-start:[ses.JavaScript.filters.listReceiptFiltersV3]
 
-
 // Import required AWS SDK clients and commands for Node.js
-const {SES, ListReceiptFiltersCommand} = require("@aws-sdk/client-ses");
+const { SES, ListReceiptFiltersCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,12 +28,12 @@ const REGION = "region"; //e.g. "us-east-1"
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new ListReceiptFiltersCommand({}));
-        console.log(data.Filters)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new ListReceiptFiltersCommand({}));
+    console.log(data.Filters);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.filters.listReceiptFiltersV3]

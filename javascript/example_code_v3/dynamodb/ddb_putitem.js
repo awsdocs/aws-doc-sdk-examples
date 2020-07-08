@@ -20,7 +20,7 @@ node ddb_putitem.js
 // snippet-start:[dynamodb.JavaScript.item.putItemV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, PutItemCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,9 +29,9 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   TableName: "TABLE_NAME",
   Item: {
-    'CUSTOMER_ID': {N: '001'},
-    'CUSTOMER_NAME': {S: 'Richard Roe'}
-  }
+    CUSTOMER_ID: { N: "001" },
+    CUSTOMER_NAME: { S: "Richard Roe" },
+  },
 };
 
 // Create DynamoDB service object
@@ -39,11 +39,9 @@ const dbclient = new DynamoDBClient(REGION);
 
 const run = async () => {
   try {
-
     const data = await dbclient.send(new PutItemCommand(params));
     console.log(data);
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err);
   }
 };

@@ -21,7 +21,10 @@ node iam_updateservercert.js
 // snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, UpdateServerCertificateCommand} = require("@aws-sdk/client-iam");
+const {
+  IAMClient,
+  UpdateServerCertificateCommand,
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,17 +32,17 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 var params = {
   ServerCertificateName: "CERTIFICATE_NAME", //CERTIFICATE_NAME
-  NewServerCertificateName: "NEW_CERTIFICATE_NAME" //NEW_CERTIFICATE_NAME
+  NewServerCertificateName: "NEW_CERTIFICATE_NAME", //NEW_CERTIFICATE_NAME
 };
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
 
 const run = async () => {
-    try {
+  try {
     const data = await iam.send(new UpdateServerCertificateCommand(params));
     console.log("Success", data);
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

@@ -20,15 +20,18 @@ node emc_listjobs.js
 // snippet-start:[mediaconvert.JavaScript.jobs.listJobsV3]
 
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvertClient, ListJobsCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvertClient,
+  ListJobsCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 // Set the parameters
-const endpoint = {endpoint: "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 var params = {
   MaxResults: 10,
-  Order: 'ASCENDING',
+  Order: "ASCENDING",
   Queue: "QUEUE_ARN",
-  Status: 'SUBMITTED'
+  Status: "SUBMITTED",
 };
 
 //Set the MediaConvert Service Object
@@ -38,8 +41,7 @@ const run = async () => {
   try {
     const data = await mediaconvert.send(new ListJobsCommand(params));
     console.log("Success. Jobs: ", data.Jobs);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

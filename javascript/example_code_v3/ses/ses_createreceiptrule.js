@@ -31,40 +31,39 @@ const REGION = "region"; //e.g. "us-east-1" // REGION
 
 // Set the parameters
 const params = {
-    Rule: {
-        Actions: [
-            {
-                S3Action: {
-                    BucketName: "S3_BUCKET_NAME", // S3_BUCKET_NAME
-                    ObjectKeyPrefix: "email"
-                }
-            }
-        ],
-        Recipients: [
-            "EMAIL_ADDRESS", // (in command line below; specify a domain to add all email addresses belonging
-            // to that domain, or specify individual email addresses)
-            /* more items */
-        ],
-        Enabled: true | false,
-        Name: "RULE_NAME", // RULE_NAME
-        ScanEnabled: true | false,
-        TlsPolicy: "Optional"
-    },
-    RuleSetName: "RULE_SET_NAME" // RULE_SET_NAME
+  Rule: {
+    Actions: [
+      {
+        S3Action: {
+          BucketName: "S3_BUCKET_NAME", // S3_BUCKET_NAME
+          ObjectKeyPrefix: "email",
+        },
+      },
+    ],
+    Recipients: [
+      "EMAIL_ADDRESS", // (in command line below; specify a domain to add all email addresses belonging
+      // to that domain, or specify individual email addresses)
+      /* more items */
+    ],
+    Enabled: true | false,
+    Name: "RULE_NAME", // RULE_NAME
+    ScanEnabled: true | false,
+    TlsPolicy: "Optional",
+  },
+  RuleSetName: "RULE_SET_NAME", // RULE_SET_NAME
 };
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try{
-        const data = await ses.send(new CreateReceiptRuleCommand(params));
-        console.log("Rule created; requestId:", data.$metadata.requestId);
-    }
-    catch(err){
-        console.error(err, err.stack);
-    }
-}
+  try {
+    const data = await ses.send(new CreateReceiptRuleCommand(params));
+    console.log("Rule created; requestId:", data.$metadata.requestId);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
+};
 run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleV3]
 exports.run = run; //for unit tests only

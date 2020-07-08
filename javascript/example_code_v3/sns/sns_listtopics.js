@@ -19,7 +19,7 @@ node sns_listtopics.js
 // snippet-start:[sns.JavaScript.topics.listTopicsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, ListTopicsCommand} = require("@aws-sdk/client-sns");
+const { SNS, ListTopicsCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -28,12 +28,12 @@ const REGION = "region"; //e.g. "us-east-1"
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new ListTopicsCommand({}));
-        console.log(data.Topics);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new ListTopicsCommand({}));
+    console.log(data.Topics);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.topics.listTopicsV3]

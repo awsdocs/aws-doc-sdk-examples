@@ -20,25 +20,24 @@ node ses_verifydomainidentity.js
 // snippet-start:[ses.JavaScript.identities.verifyDomainIdentityV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, VerifyDomainIdentityCommand} = require("@aws-sdk/client-ses");
+const { SES, VerifyDomainIdentityCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {Domain: "DOMAIN_NAME"}; //DOMAIN_NAME
-
+const params = { Domain: "DOMAIN_NAME" }; //DOMAIN_NAME
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new VerifyDomainIdentityCommand(params));
-        console.log("Verification Token: " + data.VerificationToken)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new VerifyDomainIdentityCommand(params));
+    console.log("Verification Token: " + data.VerificationToken);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.identities.verifyDomainIdentityV3]

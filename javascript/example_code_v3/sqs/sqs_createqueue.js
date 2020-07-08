@@ -22,7 +22,7 @@ node sqs_createqueue.js
 // snippet-start:[sqs.JavaScript.queues.createQueueV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, CreateQueueCommand} = require("@aws-sdk/client-sqs");
+const { SQS, CreateQueueCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -31,9 +31,9 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   QueueName: "SQS_QUEUE_NAME", //SQS_QUEUE_URL
   Attributes: {
-    'DelaySeconds': '60', //number of seconds delay
-    'MessageRetentionPeriod': '86400'  //number of seconds delay
-  }
+    DelaySeconds: "60", //number of seconds delay
+    MessageRetentionPeriod: "86400", //number of seconds delay
+  },
 };
 
 // Create SQS service object

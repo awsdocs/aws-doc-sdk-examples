@@ -19,14 +19,14 @@ node iam_getpolicy.js
 // snippet-start:[iam.JavaScript.policies.getPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, GetPolicyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, GetPolicyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  PolicyArn: 'arn:aws:iam::aws:policy/AWSLambdaExecute'
+  PolicyArn: "arn:aws:iam::aws:policy/AWSLambdaExecute",
 };
 
 // Create IAM service object
@@ -36,10 +36,9 @@ const run = async () => {
   try {
     const data = await iam.send(new GetPolicyCommand(params));
     console.log("Success", data.Policy.Description);
+  } catch (err) {
+    console.log("Error", err);
   }
-  catch (err) {
-  console.log("Error", err);
-}
 };
 run();
 // snippet-end:[iam.JavaScript.policies.getPolicyV3]

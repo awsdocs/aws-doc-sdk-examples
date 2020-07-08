@@ -20,17 +20,17 @@ node sqs_longpolling_createqueue.js
 // snippet-start:[sqs.JavaScript.longPoll.createQueueV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, CreateQueueCommand} = require("@aws-sdk/client-sqs");
+const { SQS, CreateQueueCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params =  {
+const params = {
   QueueName: "SQS_QUEUE_NAME", //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
   Attributes: {
-    'ReceiveMessageWaitTimeSeconds': '20',
-  }
+    ReceiveMessageWaitTimeSeconds: "20",
+  },
 };
 
 // Create SQS service object
@@ -39,7 +39,10 @@ const sqs = new SQS(REGION);
 const run = async () => {
   try {
     const data = await sqs.send(new CreateQueueCommand(params));
-    console.log("Success, new SQS queue created. SQS queue URL:", data.QueueUrl);
+    console.log(
+      "Success, new SQS queue created. SQS queue URL:",
+      data.QueueUrl
+    );
   } catch (err) {
     console.error(err, err.stack);
   }

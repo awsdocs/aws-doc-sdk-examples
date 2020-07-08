@@ -20,25 +20,24 @@ node ec2_createkeypair.js
 // snippet-start:[ec2.JavaScript.keypairs.createKeyPairV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {EC2, CreateKeyPairCommand} = require("@aws-sdk/client-ec2");
+const { EC2, CreateKeyPairCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {KeyName: "MY_KEY_PAIR"}; //MY_KEY_PAIR
+const params = { KeyName: "MY_KEY_PAIR" }; //MY_KEY_PAIR
 
 // Create EC2 service object
 const ec2client = new EC2(REGION);
 
 const run = async () => {
-   try {
-      const data = await ec2client.send(new CreateKeyPairCommand(params))
-      console.log(JSON.stringify(data));
-   }
-   catch(err){
-      console.log("Error", err);
-   }
+  try {
+    const data = await ec2client.send(new CreateKeyPairCommand(params));
+    console.log(JSON.stringify(data));
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[ec2.JavaScript.keypairs.createKeyPairV3]

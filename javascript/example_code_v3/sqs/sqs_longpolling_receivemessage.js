@@ -22,7 +22,7 @@ node sqs_longpolling_receivemessage.js
 // snippet-start:[sqs.JavaScript.longPoll.receiveMessageV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, ReceiveMessageCommand} = require("@aws-sdk/client-sqs");
+const { SQS, ReceiveMessageCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -30,27 +30,23 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 var queueURL = "SQS_QUEUE_URL"; // SQS_QUEUE_URL
 var params = {
-    AttributeNames: [
-        "SentTimestamp"
-    ],
-    MaxNumberOfMessages: 1,
-    MessageAttributeNames: [
-        "All"
-    ],
-    QueueUrl: queueURL,
-    WaitTimeSeconds: 20
+  AttributeNames: ["SentTimestamp"],
+  MaxNumberOfMessages: 1,
+  MessageAttributeNames: ["All"],
+  QueueUrl: queueURL,
+  WaitTimeSeconds: 20,
 };
 
 // Create SQS service object
 const sqs = new SQS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sqs.send(new ReceiveMessageCommand(params));
-        console.log("Success, ", data);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await sqs.send(new ReceiveMessageCommand(params));
+    console.log("Success, ", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.receiveMessageV3]

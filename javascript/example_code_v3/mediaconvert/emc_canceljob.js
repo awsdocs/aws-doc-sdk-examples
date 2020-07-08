@@ -20,22 +20,25 @@ node emc_canceljob.js
 // snippet-start:[mediaconvert.JavaScript.jobs.cancelJobV3]
 
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, CancelJobCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvert,
+  CancelJobCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 // Set the parameters
-const endpoint = {endpoint : "ACCOUNT_ENDPOINT"}; //ACCOUNT_ENDPOINT
-const params = {Id: "JOB_ID"}; //JOB_ID
+const endpoint = { endpoint: "ACCOUNT_ENDPOINT" }; //ACCOUNT_ENDPOINT
+const params = { Id: "JOB_ID" }; //JOB_ID
 
 // Create MediaConvert service object
 const mediaconvert = new MediaConvert(endpoint);
 
 const run = async () => {
-    try {
-        const data = await mediaconvert.send(new CancelJobCommand(params));
-        console.log("Job  " + params.Id + " is canceled");
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await mediaconvert.send(new CancelJobCommand(params));
+    console.log("Job  " + params.Id + " is canceled");
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.jobs.cancelJobV3]

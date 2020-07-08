@@ -22,7 +22,11 @@ node ec2_monitorinstances.js
 // snippet-start:[ec2.JavaScript.Instances.monitorInstancesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {EC2, MonitorInstancesCommand, UnmonitorInstancesCommand} = require("@aws-sdk/client-ec2");
+const {
+  EC2,
+  MonitorInstancesCommand,
+  UnmonitorInstancesCommand,
+} = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -31,26 +35,25 @@ const REGION = "region"; //e.g. "us-east-1"
 const ec2client = new EC2(REGION);
 
 // Set the parameters
-const params = {InstanceIds: "INSTANCE_ID"}; // INSTANCE_ID
+const params = { InstanceIds: "INSTANCE_ID" }; // INSTANCE_ID
 const state = "STATE"; // STATE; i.e., 'ON' or 'OFF'
 
 const run = async () => {
-    if (process.argv[4].toUpperCase() === "ON") {
-        try {
-            const data = await ec2client.send(new MonitorInstancesCommand(params));
-            console.log("Success", data.InstanceMonitorings);
-        } catch (err) {
-            console.log("Error", err);
-        }
+  if (process.argv[4].toUpperCase() === "ON") {
+    try {
+      const data = await ec2client.send(new MonitorInstancesCommand(params));
+      console.log("Success", data.InstanceMonitorings);
+    } catch (err) {
+      console.log("Error", err);
     }
-    else if (process.argv[4].toUpperCase() === "OFF") {
-        try {
-            const data = await ec2client.send(new UnmonitorInstancesCommand(params));
-                    console.log("Success", data.InstanceMonitorings);
-        } catch (err) {
-            console.log("Error", err);
-                }
-        }
+  } else if (process.argv[4].toUpperCase() === "OFF") {
+    try {
+      const data = await ec2client.send(new UnmonitorInstancesCommand(params));
+      console.log("Success", data.InstanceMonitorings);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  }
 };
 run();
 // snippet-end:[ec2.JavaScript.Instances.monitorInstancesV3]

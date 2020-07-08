@@ -20,17 +20,18 @@ node sns_setsmstype.js
 // snippet-start:[sns.JavaScript.SMS.setSMSAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SetSMSAttributesCommand} = require("@aws-sdk/client-sns");
+const { SNS, SetSMSAttributesCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  attributes: { /* required */
-    'DefaultSMSType': 'Transactional', /* highest reliability */
+  attributes: {
+    /* required */
+    DefaultSMSType: "Transactional" /* highest reliability */,
     //'DefaultSMSType': 'Promotional' /* lowest cost */
-  }
+  },
 };
 
 // Create SNS service object

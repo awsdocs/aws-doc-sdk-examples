@@ -21,27 +21,28 @@ node ses_deleteidentity.js
 // snippet-start:[ses.JavaScript.identities.deleteIdentityV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, DeleteIdentityCommand} = require("@aws-sdk/client-ses");
+const { SES, DeleteIdentityCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {IdentityType: "IDENTITY_TYPE", // IDENTITY_TYPE - i.e., 'EmailAddress' or 'Domain'
-                Identity: "IDENTITY_NAME"}; // IDENTITY_NAME
-
+const params = {
+  IdentityType: "IDENTITY_TYPE", // IDENTITY_TYPE - i.e., 'EmailAddress' or 'Domain'
+  Identity: "IDENTITY_NAME",
+}; // IDENTITY_NAME
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new DeleteIdentityCommand(params));
-        console.log("Identity Deleted")
-        } catch (err) {
-        console.error(err, err.stack);
-        }
+  try {
+    const data = await ses.send(new DeleteIdentityCommand(params));
+    console.log("Identity Deleted");
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
-run()
+run();
 // snippet-end:[ses.JavaScript.identities.deleteIdentityV3]
 exports.run = run; //for unit tests only

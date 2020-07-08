@@ -19,7 +19,7 @@ node ec2_describekeypairs.js
 // snippet-start:[ec2.JavaScript.keypairs.describeKeyPairV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {EC2, DescribeKeyPairsCommand} = require("@aws-sdk/client-ec2");
+const { EC2, DescribeKeyPairsCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -28,13 +28,12 @@ const REGION = "region"; //e.g. "us-east-1"
 const ec2client = new EC2(REGION);
 
 const run = async () => {
-   try {
-      const data = await ec2client.send(new DescribeKeyPairsCommand({}));
-      console.log("Success", JSON.stringify(data.KeyPairs));
-   }
-   catch(err){
-      console.log("Error", err);
-   }
+  try {
+    const data = await ec2client.send(new DescribeKeyPairsCommand({}));
+    console.log("Success", JSON.stringify(data.KeyPairs));
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[ec2.JavaScript.keypairs.describeKeyPairV3]

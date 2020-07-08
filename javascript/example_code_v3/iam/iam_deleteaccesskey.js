@@ -21,7 +21,7 @@ Running the code:
 // snippet-start:[iam.JavaScript.keys.deleteAccessKeyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, DeleteAccessKeyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, DeleteAccessKeyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,7 +29,7 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 const params = {
   AccessKeyId: "ACCESS_KEY_ID", // ACCESS_KEY_ID
-  UserName: "USER_NAME" // USER_NAME
+  UserName: "USER_NAME", // USER_NAME
 };
 
 // Create IAM service object
@@ -39,11 +39,10 @@ const run = async () => {
   try {
     const data = await iam.send(new DeleteAccessKeyCommand(params));
     console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
-  catch (err) {
-    console.log('Error', err);
-  }
-}
+};
 run();
 // snippet-end:[iam.JavaScript.keys.deleteAccessKeyV3]
 exports.run = run; //for unit tests only

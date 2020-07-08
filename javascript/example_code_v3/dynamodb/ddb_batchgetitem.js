@@ -24,7 +24,10 @@ node ddb_batchgetitem.js
 // snippet-start:[dynamodb.JavaScript.batch.GetItemV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, BatchGetItemCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  BatchGetItemCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -32,17 +35,17 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 const params = {
   RequestItems: {
-    'TABLE_NAME': {
+    TABLE_NAME: {
       Keys: [
         {
-          'KEY_NAME': {N: 'KEY_VALUE'},
-          'KEY_NAME': {N: "KEY_VALUE"},
-          'KEY_NAME': {N: 'KEY_VALUE'}
-        }
+          KEY_NAME: { N: "KEY_VALUE" },
+          KEY_NAME: { N: "KEY_VALUE" },
+          KEY_NAME: { N: "KEY_VALUE" },
+        },
       ],
-      ProjectionExpression: 'ATTRIBUTE_NAME'
-    }
-  }
+      ProjectionExpression: "ATTRIBUTE_NAME",
+    },
+  },
 };
 
 // Create DynamoDB service object
@@ -52,8 +55,7 @@ const run = async () => {
   try {
     const data = await dbclient.send(new BatchGetItemCommand(params));
     console.log("Success, items retrieved", data);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

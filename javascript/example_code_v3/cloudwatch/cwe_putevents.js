@@ -20,7 +20,10 @@ node cwe_putevents.js
 // snippet-start:[cwEvents.JavaScript.cwe.putEventsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchEvents, PutEventsCommand} = require("@aws-sdk/client-cloudwatch-events");
+const {
+  CloudWatchEvents,
+  PutEventsCommand,
+} = require("@aws-sdk/client-cloudwatch-events");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,14 +32,14 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   Entries: [
     {
-      Detail: '{ \"key1\": \"value1\", \"key2\": \"value2\" }',
-      DetailType: 'appRequestSubmitted',
+      Detail: '{ "key1": "value1", "key2": "value2" }',
+      DetailType: "appRequestSubmitted",
       Resources: [
         "RESOURCE_ARN", //RESOURCE_ARN
       ],
-      Source: 'com.company.app'
-    }
-  ]
+      Source: "com.company.app",
+    },
+  ],
 };
 
 // Create CloudWatch service object
@@ -46,8 +49,7 @@ const run = async () => {
   try {
     const data = await cwevents.send(new PutEventsCommand(params));
     console.log("Success, event sent; requestID:", data.$metadata.requestId);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

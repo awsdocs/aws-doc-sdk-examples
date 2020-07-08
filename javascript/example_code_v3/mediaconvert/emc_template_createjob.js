@@ -22,42 +22,43 @@ node emc_template_createjob.js
 */
 // snippet-start:[mediaconvert.JavaScript.templates.createJobV3]
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, CreateJobCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvert,
+  CreateJobCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 //Set the parameters
-const endpoint = {endpoint : "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 
 const params = {
-  "Queue": "QUEUE_ARN", //QUEUE_ARN
-  "JobTemplate": "TEMPLATE_NAME", //TEMPLATE_NAME
-  "Role": "ROLE_ARN", //ROLE_ARN
-  "Settings": {
-    "Inputs": [
+  Queue: "QUEUE_ARN", //QUEUE_ARN
+  JobTemplate: "TEMPLATE_NAME", //TEMPLATE_NAME
+  Role: "ROLE_ARN", //ROLE_ARN
+  Settings: {
+    Inputs: [
       {
-        "AudioSelectors": {
+        AudioSelectors: {
           "Audio Selector 1": {
-            "Offset": 0,
-            "DefaultSelection": "NOT_DEFAULT",
-            "ProgramSelection": 1,
-            "SelectorType": "TRACK",
-            "Tracks": [
-              1
-            ]
-          }
+            Offset: 0,
+            DefaultSelection: "NOT_DEFAULT",
+            ProgramSelection: 1,
+            SelectorType: "TRACK",
+            Tracks: [1],
+          },
         },
-        "VideoSelector": {
-          "ColorSpace": "FOLLOW"
+        VideoSelector: {
+          ColorSpace: "FOLLOW",
         },
-        "FilterEnable": "AUTO",
-        "PsiControl": "USE_PSI",
-        "FilterStrength": 0,
-        "DeblockFilter": "DISABLED",
-        "DenoiseFilter": "DISABLED",
-        "TimecodeSource": "EMBEDDED",
-        "FileInput": "INPUT_BUCKET_AND_FILENAME" //INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
-      }
-    ]
-  }
+        FilterEnable: "AUTO",
+        PsiControl: "USE_PSI",
+        FilterStrength: 0,
+        DeblockFilter: "DISABLED",
+        DenoiseFilter: "DISABLED",
+        TimecodeSource: "EMBEDDED",
+        FileInput: "INPUT_BUCKET_AND_FILENAME", //INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
+      },
+    ],
+  },
 };
 
 //Set the MediaConvert Service Object
@@ -67,8 +68,7 @@ const run = async () => {
   try {
     const data = await mediaconvert.send(new CreateJobCommand(params));
     console.log("Success! ", data);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

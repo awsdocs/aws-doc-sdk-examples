@@ -21,28 +21,28 @@ node sns_publishtotopic.js
 // snippet-start:[sns.JavaScript.topics.publishMessagesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, PublishCommand} = require("@aws-sdk/client-sns");
+const { SNS, PublishCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
-    Message: 'MESSAGE_TEXT', // MESSAGE_TEXT
-    TopicArn: "TOPIC_ARN" //TOPIC_ARN
+  Message: "MESSAGE_TEXT", // MESSAGE_TEXT
+  TopicArn: "TOPIC_ARN", //TOPIC_ARN
 };
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new PublishCommand(params));
-        console.log("Message sent to the topic");
-        console.log("MessageID is " + data.MessageId);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new PublishCommand(params));
+    console.log("Message sent to the topic");
+    console.log("MessageID is " + data.MessageId);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.topics.publishMessagesV3]

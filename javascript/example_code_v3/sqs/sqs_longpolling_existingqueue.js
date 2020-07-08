@@ -22,29 +22,32 @@ node sqs_longpolling_existingqueue.js
 // snippet-start:[sqs.JavaScript.longPoll.setQueueAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, SetQueueAttributesCommand} = require("@aws-sdk/client-sqs");
+const { SQS, SetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-    Attributes: {
-        "ReceiveMessageWaitTimeSeconds": "20",
-    },
-    QueueUrl: "SQS_QUEUE_URL" //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+  Attributes: {
+    ReceiveMessageWaitTimeSeconds: "20",
+  },
+  QueueUrl: "SQS_QUEUE_URL", //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 };
 
 // Create SQS service object
 const sqs = new SQS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sqs.send(new SetQueueAttributesCommand(params));
-        console.log("Success, longpolling enabled on queue. RequestID:", data.$metadata.requestId);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sqs.send(new SetQueueAttributesCommand(params));
+    console.log(
+      "Success, longpolling enabled on queue. RequestID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.setQueueAttributesV3]

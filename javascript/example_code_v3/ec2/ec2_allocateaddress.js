@@ -21,37 +21,39 @@ node ec2_allocateaddress.js
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-    EC2, AllocateAddressCommand, AssociateAddressCommand
+  EC2,
+  AllocateAddressCommand,
+  AssociateAddressCommand,
 } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const paramsAllocateAddress = {Domain: 'vpc'};
+const paramsAllocateAddress = { Domain: "vpc" };
 
 // Create EC2 service object
 const ec2client = new EC2(REGION);
 
 const run = async () => {
-    try {
-        const data = await ec2client.allocateAddress(paramsAllocateAddress);
-        console.log("Address allocated:", data.AllocationId);
-        var paramsAssociateAddress = {
-            AllocationId: data.AllocationId,
-            InstanceId: "INSTANCE_ID" //INSTANCE_ID
-        }
-    }
-    catch(err){
-        console.log("Address Not Allocated", err);
-    }
-    try{
-        const results = await ec2client.send(new AssociateAddressCommand(paramsAssociateAddress))
-        console.log("Address associated:", results.AssociationId);
-    }
-    catch(err){
-        console.log("Address Not Associated", err);
-    }
+  try {
+    const data = await ec2client.allocateAddress(paramsAllocateAddress);
+    console.log("Address allocated:", data.AllocationId);
+    var paramsAssociateAddress = {
+      AllocationId: data.AllocationId,
+      InstanceId: "INSTANCE_ID", //INSTANCE_ID
+    };
+  } catch (err) {
+    console.log("Address Not Allocated", err);
+  }
+  try {
+    const results = await ec2client.send(
+      new AssociateAddressCommand(paramsAssociateAddress)
+    );
+    console.log("Address associated:", results.AssociationId);
+  } catch (err) {
+    console.log("Address Not Associated", err);
+  }
 };
 run();
 // snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]

@@ -19,7 +19,10 @@ node ddb_listtables.js
 // snippet-start:[dynamodb.JavaScript.table.listTablesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, ListTablesCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  ListTablesCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -38,4 +41,3 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.table.listTablesV3]
 exports.run = run; //for unit tests only
-

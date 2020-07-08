@@ -22,7 +22,7 @@ node sns_settopicattributes.js
 // snippet-start:[sns.JavaScript.topics.setTopicAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SetTopicAttributesCommand} = require("@aws-sdk/client-sns");
+const { SNS, SetTopicAttributesCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -31,7 +31,7 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   AttributeName: "ATTRIBUTE_NAME", // ATTRIBUTE_NAME
   TopicArn: "TOPIC_ARN", // TOPIC_ARN
-  AttributeValue: "NEW_ATTRIBUTE_VALUE" //NEW_ATTRIBUTE_VALUE
+  AttributeValue: "NEW_ATTRIBUTE_VALUE", //NEW_ATTRIBUTE_VALUE
 };
 
 // Create SNS service object
@@ -40,7 +40,7 @@ const sns = new SNS(REGION);
 const run = async () => {
   try {
     const data = await sns.send(new SetTopicAttributesCommand(params));
-    console.log('Success, attributed updated', data);
+    console.log("Success, attributed updated", data);
   } catch (err) {
     console.error(err, err.stack);
   }

@@ -19,7 +19,7 @@ node ec2_describeresionsandzones.js
 // snippet-start:[ec2.JavaScript.Regions.describeRegionsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {EC2, DescribeRegionsCommand} = require("@aws-sdk/client-ec2");
+const { EC2, DescribeRegionsCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,10 +29,9 @@ const ec2client = new EC2(REGION);
 
 const run = async () => {
   try {
-    const data = await ec2client.send(new DescribeRegionsCommand({}))
+    const data = await ec2client.send(new DescribeRegionsCommand({}));
     console.log("Availability Zones: ", data.Regions);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

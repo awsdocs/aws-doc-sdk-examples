@@ -19,30 +19,33 @@ node cw_putmetricalarm.js
 // snippet-start:[cw.JavaScript.alarms.putMetricAlarmV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, PutMetricAlarmCommand} = require("@aws-sdk/client-cloudwatch");
+const {
+  CloudWatch,
+  PutMetricAlarmCommand,
+} = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  AlarmName: 'Web_Server_CPU_Utilization',
-  ComparisonOperator: 'GreaterThanThreshold',
+  AlarmName: "Web_Server_CPU_Utilization",
+  ComparisonOperator: "GreaterThanThreshold",
   EvaluationPeriods: 1,
-  MetricName: 'CPUUtilization',
-  Namespace: 'AWS/EC2',
+  MetricName: "CPUUtilization",
+  Namespace: "AWS/EC2",
   Period: 60,
-  Statistic: 'Average',
+  Statistic: "Average",
   Threshold: 70.0,
   ActionsEnabled: false,
-  AlarmDescription: 'Alarm when server CPU exceeds 70%',
+  AlarmDescription: "Alarm when server CPU exceeds 70%",
   Dimensions: [
     {
-      Name: 'InstanceId',
-      Value: 'INSTANCE_ID'
+      Name: "InstanceId",
+      Value: "INSTANCE_ID",
     },
   ],
-  Unit: 'Percent'
+  Unit: "Percent",
 };
 
 // Create CloudWatch service object
@@ -51,8 +54,11 @@ const cw = new CloudWatch(REGION);
 const run = async () => {
   try {
     const data = await cw.send(new PutMetricAlarmCommand(params));
-    console.log("Success, action enabled on alarm; requestID:", data.$metadata.requestId);  }
-  catch(err){
+    console.log(
+      "Success, action enabled on alarm; requestID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
     console.log("Error", err);
   }
 };

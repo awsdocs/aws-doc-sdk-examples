@@ -20,13 +20,13 @@ node iam_listaccountaliases.js
 // snippet-start:[iam.JavaScript.alias.listAccountAliasesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListAccountAliasesCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, ListAccountAliasesCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {MaxItems: 5};
+const params = { MaxItems: 5 };
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
@@ -35,7 +35,7 @@ const run = async () => {
   try {
     const data = await iam.send(new ListAccountAliasesCommand(params));
     console.log("Success", data);
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

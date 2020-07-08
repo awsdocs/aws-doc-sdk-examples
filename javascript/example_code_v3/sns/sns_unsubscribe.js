@@ -20,24 +20,24 @@ node sns_subscribeapp.js
 // snippet-start:[sns.JavaScript.subscriptions.unsubscribeV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, UnsubscribeCommand} = require("@aws-sdk/client-sns");
+const { SNS, UnsubscribeCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {SubscriptionArn : "TOPIC_SUBSCRIPTION_ARN"}; //TOPIC_SUBSCRIPTION_ARN
+const params = { SubscriptionArn: "TOPIC_SUBSCRIPTION_ARN" }; //TOPIC_SUBSCRIPTION_ARN
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new UnsubscribeCommand(params));
-        console.log("Subscription is unsubscribed");
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new UnsubscribeCommand(params));
+    console.log("Subscription is unsubscribed");
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.subscriptions.unsubscribeV3]

@@ -19,18 +19,20 @@ node cw_deletealarm.js
 // snippet-start:[cwEvents.JavaScript.cwe.putRuleV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchEvents, PutRuleCommand} = require("@aws-sdk/client-cloudwatch-events");
-
+const {
+  CloudWatchEvents,
+  PutRuleCommand,
+} = require("@aws-sdk/client-cloudwatch-events");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  Name: 'DEMO_EVENT',
+  Name: "DEMO_EVENT",
   RoleArn: "IAM_ROLE_ARN", //IAM_ROLE_ARN
-  ScheduleExpression: 'rate(5 minutes)',
-  State: 'ENABLED'
+  ScheduleExpression: "rate(5 minutes)",
+  State: "ENABLED",
 };
 
 // Create CloudWatch service object
@@ -38,10 +40,9 @@ const cwevents = new CloudWatchEvents(REGION);
 
 const run = async () => {
   try {
-      const data = await cwevents.send(new PutRuleCommand(params));
+    const data = await cwevents.send(new PutRuleCommand(params));
     console.log("Success, scheduled rule created; Rule ARN:", data.RuleArn);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

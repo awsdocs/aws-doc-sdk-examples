@@ -20,14 +20,14 @@ node s3-bucket-setup-non-modular.js
 // snippet-start:[lambda.JavaScript.BucketSetUp.NonModularV3]
 
 // Import a non-modular S3 client
-const { S3 } = require('@aws-sdk/client-s3');
+const { S3 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create params JSON for S3.createBucket
 const bucketParams = {
-  Bucket: "BUCKET_NAME"
+  Bucket: "BUCKET_NAME",
 };
 
 // Create params JSON for S3.setBucketWebsite
@@ -35,31 +35,30 @@ const staticHostParams = {
   Bucket: process.argv[3],
   WebsiteConfiguration: {
     ErrorDocument: {
-      Key: 'error.html'
+      Key: "error.html",
     },
     IndexDocument: {
-      Suffix: 'index.html'
+      Suffix: "index.html",
     },
-  }
+  },
 };
 
 // Instantiate the S3 client
 const s3 = new S3(REGION);
 
 const run = async () => {
-// Call S3 to create the bucket
+  // Call S3 to create the bucket
   try {
-    const data = await s3.createBucket(bucketParams)
-    console.log('Success, bucket created');
-  }
-  catch (err) {
-    console.log("Error", err)
+    const data = await s3.createBucket(bucketParams);
+    console.log("Success, bucket created");
+  } catch (err) {
+    console.log("Error", err);
   }
   try {
     // Update the displayed policy for the selected bucket
     const putWebsiteOn = await s3.putBucketWebsite(staticHostParams);
     console.log("Success, bucket policy updated");
-  } catch (err){
+  } catch (err) {
     console.log(err);
   }
 };

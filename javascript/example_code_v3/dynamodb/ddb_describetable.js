@@ -20,13 +20,16 @@ node ddb_describetable.js
 // snippet-start:[dynamodb.JavaScript.table.describeTableV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, DescribeTableCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  DescribeTableCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
-const REGION= "region"; //e.g. "us-east-1"
+const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {TableName: "TABLE_NAME"}; //TABLE_NAME
+const params = { TableName: "TABLE_NAME" }; //TABLE_NAME
 
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(REGION);

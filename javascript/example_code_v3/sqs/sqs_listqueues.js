@@ -19,7 +19,7 @@ node sqs_listqueues.js
 // snippet-start:[sqs.JavaScript.queues.listQueuesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, ListQueuesCommand} = require("@aws-sdk/client-sqs");
+const { SQS, ListQueuesCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -28,12 +28,12 @@ const REGION = "region"; //e.g. "us-east-1"
 const sqs = new SQS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sqs.send(new ListQueuesCommand({}));
-        console.log("Subscription ARN is " + data.SubscriptionArn);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sqs.send(new ListQueuesCommand({}));
+    console.log("Subscription ARN is " + data.SubscriptionArn);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sqs.JavaScript.queues.listQueuesV3]

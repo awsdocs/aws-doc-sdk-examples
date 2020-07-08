@@ -23,7 +23,7 @@ node ses_updatetemplate.js
 // snippet-start:[ses.JavaScript.templates.updateTemplateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, UpdateTemplateCommand} = require("@aws-sdk/client-ses");
+const { SES, UpdateTemplateCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -32,10 +32,10 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   Template: {
     TemplateName: "TEMPLATE_NAME", //TEMPLATE_NAME
-    HtmlPart: 'HTML_CONTENT', //HTML_CONTENT; i.e., HTML content in the email
-    SubjectPart: 'SUBJECT_LINE', //SUBJECT_LINE; i.e., email subject line
-    TextPart: 'TEXT_CONTENT' //TEXT_CONTENT; i.e., body of email
-  }
+    HtmlPart: "HTML_CONTENT", //HTML_CONTENT; i.e., HTML content in the email
+    SubjectPart: "SUBJECT_LINE", //SUBJECT_LINE; i.e., email subject line
+    TextPart: "TEXT_CONTENT", //TEXT_CONTENT; i.e., body of email
+  },
 };
 
 // Create SES service object

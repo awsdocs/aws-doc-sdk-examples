@@ -20,20 +20,23 @@ node cwe_puttargets.js
 // snippet-start:[cwEvents.JavaScript.cwe.putTargetsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchEvents, PutTargetsCommand} = require("@aws-sdk/client-cloudwatch-events");
+const {
+  CloudWatchEvents,
+  PutTargetsCommand,
+} = require("@aws-sdk/client-cloudwatch-events");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  Rule: 'DEMO_EVENT',
+  Rule: "DEMO_EVENT",
   Targets: [
     {
       Arn: "LAMBDA_FUNCTION_ARN", //LAMBDA_FUNCTION_ARN
-      Id: "myCloudWatchEventsTarget"
-    }
-  ]
+      Id: "myCloudWatchEventsTarget",
+    },
+  ],
 };
 
 // Create CloudWatch service object
@@ -43,8 +46,7 @@ const run = async () => {
   try {
     const data = await cwevents.send(new PutTargetsCommand(params));
     console.log("Success, target added; requestID: ", data.$metadata.requestId);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

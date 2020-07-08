@@ -27,22 +27,20 @@ const { S3 } = require("@aws-sdk/client-s3");
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create the parameters for calling
-const bucketParams = {Bucket : "BUCKET_NAME"};
+const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
 const s3 = new S3(REGION);
 
 const run = async () => {
-  try{
+  try {
     const data = await s3.getBucketPolicy(bucketParams);
-    console.log('Success', data);
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
-  catch (err){
-    console.log('Error', err);
-  }
-}
+};
 run();
 // snippet-end:[s3.JavaScript.policy.getBucketPolicyV3]
 //for unit tests only
 exports.run = run;
-

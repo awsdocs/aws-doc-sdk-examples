@@ -19,7 +19,10 @@ node cw_listmetrics
 // snippet-start:[cw.JavaScript.metrics.listMetricsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, ListMetricsCommand} = require("@aws-sdk/client-cloudwatch");
+const {
+  CloudWatch,
+  ListMetricsCommand,
+} = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -28,11 +31,11 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   Dimensions: [
     {
-      Name: 'LogGroupName', /* required */
+      Name: "LogGroupName" /* required */,
     },
   ],
-  MetricName: 'IncomingLogEvents',
-  Namespace: 'AWS/Logs'
+  MetricName: "IncomingLogEvents",
+  Namespace: "AWS/Logs",
 };
 
 // Create CloudWatch service object
@@ -42,8 +45,7 @@ const run = async () => {
   try {
     const data = await cw.send(new ListMetricsCommand(params));
     console.log("Metrics", JSON.stringify(data.Metrics));
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

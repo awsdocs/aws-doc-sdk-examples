@@ -20,13 +20,16 @@ node iam_accesskeylastused.js
 // snippet-start:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, GetAccessKeyLastUsedCommand} = require("@aws-sdk/client-iam");
+const {
+  IAMClient,
+  GetAccessKeyLastUsedCommand,
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {AccessKeyId: "ACCESS_KEY_ID"}; //ACCESS_KEY_ID
+const params = { AccessKeyId: "ACCESS_KEY_ID" }; //ACCESS_KEY_ID
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
@@ -34,11 +37,10 @@ const iam = new IAMClient(REGION);
 const run = async () => {
   try {
     const data = await iam.send(new GetAccessKeyLastUsedCommand(params));
-    console.log('Success', data.AccessKeyLastUsed);
-      }
-  catch (err) {
-    console.log('Error', err);
-      }
+    console.log("Success", data.AccessKeyLastUsed);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[iam.JavaScript.keys.getAccessKeyLastUsedV3]

@@ -20,7 +20,7 @@ node sqs_sendmessage.js
 // snippet-start:[sqs.JavaScript.messages.sendMessageV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, SendMessageCommand} = require("@aws-sdk/client-sqs");
+const { SQS, SendMessageCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,23 +29,24 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   DelaySeconds: 10,
   MessageAttributes: {
-    "Title": {
+    Title: {
       DataType: "String",
-      StringValue: "The Whistler"
+      StringValue: "The Whistler",
     },
-    "Author": {
+    Author: {
       DataType: "String",
-      StringValue: "John Grisham"
+      StringValue: "John Grisham",
     },
-    "WeeksOn": {
+    WeeksOn: {
       DataType: "Number",
-      StringValue: "6"
-    }
+      StringValue: "6",
+    },
   },
-  MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+  MessageBody:
+    "Information about current NY Times fiction bestseller for week of 12/11/2016.",
   // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
   // MessageGroupId: "Group1",  // Required for FIFO queues
-  QueueUrl: "SQS_QUEUE_URL" //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+  QueueUrl: "SQS_QUEUE_URL", //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 };
 
 // Create SQS service object

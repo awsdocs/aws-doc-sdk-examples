@@ -21,7 +21,7 @@ node sns_deletetopic.js
 // Load the AWS SDK for Node.js
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, DeleteTopicCommand} = require("@aws-sdk/client-sns");
+const { SNS, DeleteTopicCommand } = require("@aws-sdk/client-sns");
 
 // Create SNS service object
 const sns = new SNS(REGION);
@@ -30,15 +30,15 @@ const sns = new SNS(REGION);
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {TopicArn: "TOPIC_ARN"}; //TOPIC_ARN
+const params = { TopicArn: "TOPIC_ARN" }; //TOPIC_ARN
 
 const run = async () => {
-    try {
-        const data = await sns.send(new DeleteTopicCommand(params));
-        console.log("Topic Deleted");
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new DeleteTopicCommand(params));
+    console.log("Topic Deleted");
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.topics.deleteTopicV3]

@@ -20,13 +20,13 @@ node iam_listusers.js
 // snippet-start:[iam.JavaScript.users.listUsersV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListUsersCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, ListUsersCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {MaxItems: 10};
+const params = { MaxItems: 10 };
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
@@ -35,10 +35,10 @@ const run = async () => {
   try {
     const data = await iam.send(new ListUsersCommand(params));
     const users = data.Users || [];
-    users.forEach(function(user) {
-        console.log("User " + user.UserName + " created", user.CreateDate);
+    users.forEach(function (user) {
+      console.log("User " + user.UserName + " created", user.CreateDate);
     });
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

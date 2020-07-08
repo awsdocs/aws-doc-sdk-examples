@@ -17,53 +17,56 @@ node ddb_createtable_tv.js
 // snippet-start:[dynamodb.JavaScript.batch.CreateTableTVV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, CreateTableCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  CreateTableCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
-    AttributeDefinitions: [
-        {
-            AttributeName: 'Season',
-            AttributeType: 'N'
-        },
-        {
-            AttributeName: 'Episode',
-            AttributeType: 'N'
-        }
-    ],
-    KeySchema: [
-        {
-            AttributeName: 'Season',
-            KeyType: 'HASH'
-        },
-        {
-            AttributeName: 'Episode',
-            KeyType: 'RANGE'
-        }
-    ],
-    ProvisionedThroughput: {
-        ReadCapacityUnits: 1,
-        WriteCapacityUnits: 1
+  AttributeDefinitions: [
+    {
+      AttributeName: "Season",
+      AttributeType: "N",
     },
-    TableName: 'EPISODES_TABLE',
-    StreamSpecification: {
-        StreamEnabled: false
-    }
+    {
+      AttributeName: "Episode",
+      AttributeType: "N",
+    },
+  ],
+  KeySchema: [
+    {
+      AttributeName: "Season",
+      KeyType: "HASH",
+    },
+    {
+      AttributeName: "Episode",
+      KeyType: "RANGE",
+    },
+  ],
+  ProvisionedThroughput: {
+    ReadCapacityUnits: 1,
+    WriteCapacityUnits: 1,
+  },
+  TableName: "EPISODES_TABLE",
+  StreamSpecification: {
+    StreamEnabled: false,
+  },
 };
 
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(REGION);
 
 const run = async () => {
-    try {
-        const data = await dbclient.send(new CreateTableCommand(params));
-        console.log("Table Created", data);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await dbclient.send(new CreateTableCommand(params));
+    console.log("Table Created", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[dynamodb.JavaScript.batch.CreateTableTVV3]

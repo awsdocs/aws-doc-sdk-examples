@@ -19,6 +19,7 @@ Running the code:
 node s3_setbucketwebsite.js
  */
 // snippet-start:[s3.JavaScript.website.putBucketWebsiteV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const { S3, PutBucketWebsiteCommand } = require("@aws-sdk/client-s3");
 
@@ -26,40 +27,37 @@ const { S3, PutBucketWebsiteCommand } = require("@aws-sdk/client-s3");
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create the parameters for the bucket
-const bucketParams = {Bucket : "BUCKET_NAME"};
+const bucketParams = { Bucket: "BUCKET_NAME" };
 const staticHostParams = {
-    Bucket: bucketParams,
-    WebsiteConfiguration: {
-        ErrorDocument: {
-            Key: ''
-        },
-        IndexDocument: {
-            Suffix: ''
-        },
-    }
+  Bucket: bucketParams,
+  WebsiteConfiguration: {
+    ErrorDocument: {
+      Key: "",
+    },
+    IndexDocument: {
+      Suffix: "",
+    },
+  },
 };
 
 // Create S3 service object
 const s3 = new S3(REGION);
 
 const run = async () => {
-    // Insert specified bucket name and index and error documents into params JSON
-    // from command line arguments
-    staticHostParams.Bucket = bucketParams;
-    staticHostParams.WebsiteConfiguration.IndexDocument.Suffix = "INDEX_PAGE"; // the index document inserted into params JSON
-    staticHostParams.WebsiteConfiguration.ErrorDocument.Key = "ERROR_PAGE"; // : the error document inserted into params JSON
-    // set the new website configuration on the selected bucket
-  try{
+  // Insert specified bucket name and index and error documents into params JSON
+  // from command line arguments
+  staticHostParams.Bucket = bucketParams;
+  staticHostParams.WebsiteConfiguration.IndexDocument.Suffix = "INDEX_PAGE"; // the index document inserted into params JSON
+  staticHostParams.WebsiteConfiguration.ErrorDocument.Key = "ERROR_PAGE"; // : the error document inserted into params JSON
+  // set the new website configuration on the selected bucket
+  try {
     const data = await s3.send(new PutBucketWebsiteCommand(staticHostParams));
-    console.log('Success', data);
-  }
-  catch (err){
-    console.log('Error', err);
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.website.putBucketWebsiteV3]
 //for unit tests only
 exports.run = run;
-
-

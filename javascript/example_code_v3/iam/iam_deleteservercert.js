@@ -20,13 +20,16 @@ node iam_deleteservercert.js
 // snippet-start:[iam.JavaScript.certs.deleteServerCertificateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, DeleteServerCertificateCommand} = require("@aws-sdk/client-iam");
+const {
+  IAMClient,
+  DeleteServerCertificateCommand,
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {ServerCertificateName: "CERTIFICATE_NAME"}; // CERTIFICATE_NAME
+const params = { ServerCertificateName: "CERTIFICATE_NAME" }; // CERTIFICATE_NAME
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
@@ -35,8 +38,7 @@ const run = async () => {
   try {
     const data = await iam.send(new DeleteServerCertificateCommand(params));
     console.log("Success", data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

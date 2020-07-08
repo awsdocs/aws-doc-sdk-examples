@@ -1,17 +1,14 @@
-
-
-
 const mockDeleteQueue = jest.fn();
-jest.mock('@aws-sdk/client-sqs/commands/DeleteQueueCommand', () => ({
-    SQS: function SQS() {
-        this.DeleteQueueCommand = mockDeleteQueue
-    }
+jest.mock("@aws-sdk/client-sqs/commands/DeleteQueueCommand", () => ({
+  SQS: function SQS() {
+    this.DeleteQueueCommand = mockDeleteQueue;
+  },
 }));
-const {run} = require("../../sqs/sqs_deletequeue.js");
+const { run } = require("../../sqs/sqs_deletequeue.js");
 
 //test function
-test("has to mock SQS#deletequeue",  async (done) => {
-    await run();
-    expect(mockDeleteQueue).toHaveBeenCalled;
-    done();
+test("has to mock SQS#deletequeue", async (done) => {
+  await run();
+  expect(mockDeleteQueue).toHaveBeenCalled;
+  done();
 });

@@ -23,24 +23,23 @@ Lists the buckets in the associated AWS account, then creates a bucket, then del
 //snippet-start:[s3.JavaScript.perms.getBucketAclV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const  {S3, GetBucketAclCommand}  = require('@aws-sdk/client-s3/');
+const { S3, GetBucketAclCommand } = require("@aws-sdk/client-s3/");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create the parameters for calling
-const bucketParams = {Bucket : "BUCKET_NAME"};
+const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
 const s3 = new S3(REGION);
 
 const run = async () => {
-  try{
+  try {
     const data = await s3.send(new GetBucketAclCommand(bucketParams));
-    console.log('Success', data.Grants);
-  }
-  catch (err){
-    console.log('Error', err);
+    console.log("Success", data.Grants);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();

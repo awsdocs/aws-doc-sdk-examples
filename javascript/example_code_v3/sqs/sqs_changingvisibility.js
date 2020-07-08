@@ -21,18 +21,22 @@ node sqs_changingvisibility.js
 // snippet-start:[sqs.JavaScript.visibility.receiveMessageV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, ReceiveMessageCommand, ChangeMessageVisibilityCommand} = require("@aws-sdk/client-sqs");
+const {
+  SQS,
+  ReceiveMessageCommand,
+  ChangeMessageVisibilityCommand,
+} = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const queueURL = 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME' // REGION, ACCOUNT_ID, QUEUE_NAME
+const queueURL = "https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME"; // REGION, ACCOUNT_ID, QUEUE_NAME
 const params = {
-  AttributeNames: ['SentTimestamp'],
+  AttributeNames: ["SentTimestamp"],
   MaxNumberOfMessages: 1,
-  MessageAttributeNames: ['All'],
-  QueueUrl: queueURL
+  MessageAttributeNames: ["All"],
+  QueueUrl: queueURL,
 };
 
 // Create SQS service object
@@ -46,21 +50,21 @@ const run = async () => {
         var visibilityParams = {
           QueueUrl: queueURL,
           ReceiptHandle: data.Messages[0].ReceiptHandle,
-          VisibilityTimeout: 20 // 20 second timeout
-        }
-        const results = await sqs.send(new ChangeMessageVisibilityCommand(params));
-        console.log('Timeout Changed', results)
+          VisibilityTimeout: 20, // 20 second timeout
+        };
+        const results = await sqs.send(
+          new ChangeMessageVisibilityCommand(params)
+        );
+        console.log("Timeout Changed", results);
       } catch (err) {
-        console.log('Delete Error', err);
+        console.log("Delete Error", err);
       }
+    } else {
+      console.log("No messages to change");
     }
-    else{
-      console.log('No messages to change');
-    }
+  } catch (err) {
+    console.log("Receive Error", err);
   }
-    catch(err){
-        console.log('Receive Error', err);
-      }
 };
 run();
 // snippet-end:[sqs.JavaScript.visibility.receiveMessageV3]

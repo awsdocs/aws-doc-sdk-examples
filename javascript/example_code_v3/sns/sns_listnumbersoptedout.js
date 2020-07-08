@@ -18,9 +18,8 @@ node sns_listnumbersoptedout.js
  */
 // snippet-start:[sns.JavaScript.SMS.listPhoneNumbersOptedOutV3]
 
-
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, ListPhoneNumbersOptedOutCommand} = require("@aws-sdk/client-sns");
+const { SNS, ListPhoneNumbersOptedOutCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -31,7 +30,7 @@ const sns = new SNS(REGION);
 const run = async () => {
   try {
     const data = await sns.send(new ListPhoneNumbersOptedOutCommand({}));
-    console.log('Success. Opted-out phone numbers:', data.phoneNumbers);
+    console.log("Success. Opted-out phone numbers:", data.phoneNumbers);
   } catch (err) {
     console.error(err, err.stack);
   }

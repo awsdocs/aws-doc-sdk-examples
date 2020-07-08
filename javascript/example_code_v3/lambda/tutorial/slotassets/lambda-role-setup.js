@@ -19,7 +19,11 @@ node lambda-role-setup.js
 */
 // snippet-start:[lambda.JavaScript.LambdaRoleSetUpV3]
 // Import a non-modular IAM client
-const { IAMClient, CreateRoleCommand, AttachRolePolicyCommand } = require('@aws-sdk/client-iam');
+const {
+  IAMClient,
+  CreateRoleCommand,
+  AttachRolePolicyCommand,
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -27,31 +31,31 @@ const REGION = "region"; //e.g. "us-east-1"
 const ROLE = "NEW_ROLENAME"; //NEW_ROLENAME
 
 const myPolicy = {
-  'Version': '2012-10-17',
-  'Statement': [
+  Version: "2012-10-17",
+  Statement: [
     {
-      'Effect': 'Allow',
-      'Principal': {
-        'Service': 'lambda.amazonaws.com'
+      Effect: "Allow",
+      Principal: {
+        Service: "lambda.amazonaws.com",
       },
-      'Action': 'sts:AssumeRole'
-    }
-  ]
+      Action: "sts:AssumeRole",
+    },
+  ],
 };
 
 const createParams = {
- AssumeRolePolicyDocument: JSON.stringify(myPolicy),
- RoleName: ROLE
+  AssumeRolePolicyDocument: JSON.stringify(myPolicy),
+  RoleName: ROLE,
 };
 
 const lambdaPolicyParams = {
- PolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaRole',
- RoleName: ROLE
+  PolicyArn: "arn:aws:iam::aws:policy/service-role/AWSLambdaRole",
+  RoleName: ROLE,
 };
 
 const dynamoPolicyParams = {
- PolicyArn: 'arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess',
- RoleName: ROLE
+  PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess",
+  RoleName: ROLE,
 };
 
 // Instantiate the IAM client
@@ -60,26 +64,26 @@ const iam = new IAMClient(REGION);
 const run = async () => {
   try {
     const data = await iam.send(new CreateRoleCommand(createParams));
-    console.log('Role ARN is', data.Role.Arn);  // successful response
-  } catch(err) {
-    console.log('Error when creating role.'); // an error occurred
+    console.log("Role ARN is", data.Role.Arn); // successful response
+  } catch (err) {
+    console.log("Error when creating role."); // an error occurred
     throw err;
   }
   try {
     await iam.send(new AttachRolePolicyCommand(lambdaPolicyParams));
-    console.log('AWSLambdaRole policy attached');  // successful response
+    console.log("AWSLambdaRole policy attached"); // successful response
   } catch (err) {
-    console.log('Error when attaching Lambda policy to role.'); // an error occurred
+    console.log("Error when attaching Lambda policy to role."); // an error occurred
     throw err;
   }
   try {
     await iam.send(new AttachRolePolicyCommand(dynamoPolicyParams));
-    console.log('DynamoDB read-only policy attached');  // successful response
+    console.log("DynamoDB read-only policy attached"); // successful response
   } catch (err) {
-    console.log('Error when attaching dynamodb policy to role.'); // an error occurred
+    console.log("Error when attaching dynamodb policy to role."); // an error occurred
     throw err;
   }
-}
+};
 
 run();
 // snippet-end:[lambda.JavaScript.LambdaRoleSetUpV3]

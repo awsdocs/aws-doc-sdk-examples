@@ -19,23 +19,22 @@ node ddb_query.js
 // snippet-start:[dynamodb.JavaScript.table.queryV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient,
-  QueryCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, QueryCommand } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  KeyConditionExpression: 'Season = :s and Episode > :e',
-  FilterExpression: 'contains (Subtitle, :topic)',
+  KeyConditionExpression: "Season = :s and Episode > :e",
+  FilterExpression: "contains (Subtitle, :topic)",
   ExpressionAttributeValues: {
-    ':s' : {N: '1'},
-    ':e' : {N: '2'},
-    ':topic' : {S: 'SubTitle'}
+    ":s": { N: "1" },
+    ":e": { N: "2" },
+    ":topic": { S: "SubTitle" },
   },
-  ProjectionExpression: 'Episode, Title, Subtitle',
-  TableName: 'EPISODES_TABLE'
+  ProjectionExpression: "Episode, Title, Subtitle",
+  TableName: "EPISODES_TABLE",
 };
 
 // Create DynamoDB service object
@@ -43,15 +42,13 @@ const dbclient = new DynamoDBClient(REGION);
 const run = async () => {
   try {
     const results = await dbclient.send(new QueryCommand(params));
-    results.Items.forEach(function(element, index, array) {
+    results.Items.forEach(function (element, index, array) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
     });
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err);
   }
 };
 run();
 // snippet-end:[dynamodb.JavaScript.table.queryV3]
 exports.run = run; //for unit tests only
-

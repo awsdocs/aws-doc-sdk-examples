@@ -22,18 +22,18 @@ node ddb_getitem.js
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, GetItemCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  TableName: 'TABLE_NAME', //TABLE_NAME
+  TableName: "TABLE_NAME", //TABLE_NAME
   Key: {
-    'KEY_NAME' : {N: 'KEY_VALUE'}
+    KEY_NAME: { N: "KEY_VALUE" },
   },
-  ProjectionExpression: 'ATTRIBUTE_NAME'
+  ProjectionExpression: "ATTRIBUTE_NAME",
 };
 
 // Create DynamoDB service object
@@ -46,4 +46,3 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.item.getItemV3]
 exports.run = run; //for unit tests only
-

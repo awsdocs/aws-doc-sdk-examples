@@ -21,7 +21,7 @@ node iam_listaccesskeys.js
 // snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListAccessKeysCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, ListAccessKeysCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,7 +29,7 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 const params = {
   MaxItems: 5,
-  UserName: "IAM_USER_NAME" //IAM_USER_NAME
+  UserName: "IAM_USER_NAME", //IAM_USER_NAME
 };
 
 // Create IAM service object
@@ -39,8 +39,7 @@ const run = async () => {
   try {
     const data = await iam.send(new ListAccessKeysCommand(params));
     console.log("Success", data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

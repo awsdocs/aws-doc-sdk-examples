@@ -23,33 +23,33 @@ node ses_sendbulktemplatedemail.js
 // snippet-start:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, SendBulkTemplatedEmailCommand} = require("@aws-sdk/client-ses");
+const { SES, SendBulkTemplatedEmailCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
-  Destinations: [ /* required */
+  Destinations: [
+    /* required */
     {
-      Destination: { /* required */
+      Destination: {
+        /* required */
         CcAddresses: [
           "RECEIVER_ADDRESS", //RECEIVER_ADDRESS
           /* more items */
         ],
         ToAddresses: [
           /* more items */
-        ]
+        ],
       },
-      ReplacementTemplateData: '{ \"REPLACEMENT_TAG_NAME\":\"REPLACEMENT_VALUE\" }'
+      ReplacementTemplateData: '{ "REPLACEMENT_TAG_NAME":"REPLACEMENT_VALUE" }',
     },
   ],
   Source: "SENDER_ADDRESS", // SENDER_ADDRESS
   Template: "TEMPLATE", //TEMPLATE
-  DefaultTemplateData: '{ \"REPLACEMENT_TAG_NAME\":\"REPLACEMENT_VALUE\" }',
-  ReplyToAddresses: [
-
-  ]
+  DefaultTemplateData: '{ "REPLACEMENT_TAG_NAME":"REPLACEMENT_VALUE" }',
+  ReplyToAddresses: [],
 };
 
 // Create SES service object
@@ -58,7 +58,7 @@ const ses = new SES(REGION);
 const run = async () => {
   try {
     const data = await ses.send(new SendBulkTemplatedEmailCommand(params));
-    console.log(data)
+    console.log(data);
   } catch (err) {
     console.error(err, err.stack);
   }

@@ -20,24 +20,23 @@ node ec2_deletesecuritygroup.js
 // snippet-start:[ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {EC2, DeleteSecurityGroupCommand} = require("@aws-sdk/client-ec2");
+const { EC2, DeleteSecurityGroupCommand } = require("@aws-sdk/client-ec2");
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {GroupId: "SECURITY_GROUP_ID"}; //SECURITY_GROUP_ID
+const params = { GroupId: "SECURITY_GROUP_ID" }; //SECURITY_GROUP_ID
 
 // Create EC2 service object
 const ec2client = new EC2(REGION);
 
 const run = async () => {
-   try {
-      const data = await ec2client.send(new DeleteSecurityGroupCommand(params));
-      console.log("Security Group Deleted");
-   }
-   catch(err){
-      console.log("Error", err);
-   }
+  try {
+    const data = await ec2client.send(new DeleteSecurityGroupCommand(params));
+    console.log("Security Group Deleted");
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3]

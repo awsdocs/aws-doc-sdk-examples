@@ -20,13 +20,13 @@ node iam_createaccountalias.js
 // snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, CreateAccountAliasCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, CreateAccountAliasCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const accountAlias = {AccountAlias: "ACCOUNT_ALIAS"}; //ACCOUNT_ALIAS
+const accountAlias = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
@@ -36,7 +36,7 @@ const run = async () => {
     const data = await iam.send(new CreateAccountAliasCommand(accountAlias));
     console.log("Success", data);
   } catch (err) {
-    console.log('Error', err);
+    console.log("Error", err);
   }
 };
 run();

@@ -21,7 +21,7 @@ node iam_updateuser.js
 // snippet-start:[iam.JavaScript.users.updateUserV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, UpdateUserCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, UpdateUserCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,7 +29,7 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 const params = {
   UserName: "ORIGINGAL_USER_NAME", //ORIGINGAL_USER_NAME
-  NewUserName: "NEW_USER_NAME" //NEW_USER_NAME
+  NewUserName: "NEW_USER_NAME", //NEW_USER_NAME
 };
 
 // Create IAM service object
@@ -39,7 +39,7 @@ const run = async () => {
   try {
     const data = await iam.send(new UpdateUserCommand(params));
     console.log("Success, username updated");
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

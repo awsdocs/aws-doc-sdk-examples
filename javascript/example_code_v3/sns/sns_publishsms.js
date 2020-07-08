@@ -21,15 +21,15 @@ node sns_publishsms.js
 // snippet-start:[sns.JavaScript.SMS.publishV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, PublishCommand} = require("@aws-sdk/client-sns");
+const { SNS, PublishCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  Message: 'MESSAGE_TEXT', /* required */
-  PhoneNumber: "PHONE_NUMBER" //PHONE_NUMBER, in the E.164 phone number structure
+  Message: "MESSAGE_TEXT" /* required */,
+  PhoneNumber: "PHONE_NUMBER", //PHONE_NUMBER, in the E.164 phone number structure
 };
 
 // Create SNS service object

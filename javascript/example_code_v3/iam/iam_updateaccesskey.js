@@ -21,7 +21,7 @@ node iam_updateaccesskey.js
 // snippet-start:[iam.JavaScript.keys.updateAccessKeyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, UpdateAccessKeyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, UpdateAccessKeyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,18 +29,18 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 var params = {
   AccessKeyId: "ACCESS_KEY_ID", //ACCESS_KEY_ID
-  Status: 'Active',
-  UserName: "USER_NAME" //USER_NAME
+  Status: "Active",
+  UserName: "USER_NAME", //USER_NAME
 };
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
 
 const run = async () => {
-   try {
+  try {
     const data = await iam.send(new UpdateAccessKeyCommand(params));
     console.log("Success", data);
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

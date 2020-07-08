@@ -24,7 +24,10 @@ node ddb_batchwriteitem
 // snippet-start:[dynamodb.JavaScript.batch.WriteItemV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, BatchWriteItemCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  BatchWriteItemCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -32,27 +35,27 @@ const REGION = "region"; //e.g. "us-east-1"
 // Set the parameters
 const params = {
   RequestItems: {
-    "TABLE_NAME": [
+    TABLE_NAME: [
       {
         PutRequest: {
           Item: {
-            "KEY": {"N": "KEY_VALUE"},
-            "ATTRIBUTE_1": {"S": "ATTRIBUTE_1_VALUE"},
-            "ATTRIBUTE_2": {"N": "ATTRIBUTE_2_VALUE"}
-          }
-        }
+            KEY: { N: "KEY_VALUE" },
+            ATTRIBUTE_1: { S: "ATTRIBUTE_1_VALUE" },
+            ATTRIBUTE_2: { N: "ATTRIBUTE_2_VALUE" },
+          },
+        },
       },
       {
         PutRequest: {
           Item: {
-            "KEY": {"N": "KEY_VALUE"},
-            "ATTRIBUTE_1": {"S": "ATTRIBUTE_1_VALUE"},
-            "ATTRIBUTE_2": {"N": "ATTRIBUTE_2_VALUE"}
-          }
-        }
-      }
-    ]
-  }
+            KEY: { N: "KEY_VALUE" },
+            ATTRIBUTE_1: { S: "ATTRIBUTE_1_VALUE" },
+            ATTRIBUTE_2: { N: "ATTRIBUTE_2_VALUE" },
+          },
+        },
+      },
+    ],
+  },
 };
 
 // Create DynamoDB service object
@@ -62,8 +65,7 @@ const run = async () => {
   try {
     const data = await dbclient.send(new BatchWriteItemCommand(params));
     console.log("Success, items inserted", data);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

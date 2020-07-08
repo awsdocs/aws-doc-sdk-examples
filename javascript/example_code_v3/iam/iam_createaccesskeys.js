@@ -21,7 +21,7 @@ node iam_createaccesskeys.js >newuserkeys.txt
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, CreateAccessKeyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, CreateAccessKeyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -33,13 +33,12 @@ const userName = "IAM_USER_NAME"; //IAM_USER_NAME
 const iam = new IAMClient(REGION);
 
 const run = async () => {
-  try{
+  try {
     const data = await iam.send(new CreateAccessKeyCommand(userName));
     console.log("Success", data.AccessKey);
-    }
-  catch (err) {
-  console.log('Error', err);
-    }
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[iam.JavaScript.keys.createAccessKeyV3]

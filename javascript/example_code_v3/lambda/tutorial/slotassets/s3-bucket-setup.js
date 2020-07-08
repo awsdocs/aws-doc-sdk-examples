@@ -21,8 +21,10 @@ node s3-bucket-setup.js
 
 // Import an S3 client
 const {
-  S3Client, CreateBucketCommand, PutBucketWebsiteCommand
-} = require('@aws-sdk/client-s3');
+  S3Client,
+  CreateBucketCommand,
+  PutBucketWebsiteCommand,
+} = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -30,21 +32,21 @@ const REGION = "region"; //e.g. "us-east-1"
 // Create params JSON for S3.createBucket
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME
 const bucketParams = {
-  Bucket : bucketName,
-  ACL : 'public-read'
+  Bucket: bucketName,
+  ACL: "public-read",
 };
 
 // Create params JSON for S3.setBucketWebsite
 const staticHostParams = {
   Bucket: bucketName,
   WebsiteConfiguration: {
-  ErrorDocument: {
-    Key: 'error.html'
+    ErrorDocument: {
+      Key: "error.html",
+    },
+    IndexDocument: {
+      Suffix: "index.html",
+    },
   },
-  IndexDocument: {
-    Suffix: 'index.html'
-  },
-  }
 };
 
 // Instantiate an S3 client
@@ -54,20 +56,22 @@ const run = async () => {
   try {
     // Call S3 to create the bucket
     const response = await s3.send(new CreateBucketCommand(bucketParams));
-    console.log('Bucket URL is ', response.Location);
-  } catch(err) {
-    console.log('Error', err);
+    console.log("Bucket URL is ", response.Location);
+  } catch (err) {
+    console.log("Error", err);
   }
   try {
     // Set the new policy on the newly created bucket
-    const response = await s3.send(new PutBucketWebsiteCommand(staticHostParams));
+    const response = await s3.send(
+      new PutBucketWebsiteCommand(staticHostParams)
+    );
     // Update the displayed policy for the selected bucket
-    console.log('Success', response);
-  } catch(err) {
+    console.log("Success", response);
+  } catch (err) {
     // Display error message
-    console.log('Error', err);
+    console.log("Error", err);
   }
-}
+};
 
 run();
 // snippet-end:[lambda.JavaScript.BucketSetUpV3]

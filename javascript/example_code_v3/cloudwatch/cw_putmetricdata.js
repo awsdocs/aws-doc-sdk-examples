@@ -19,8 +19,10 @@ node cw_putmetricdata.js
 // snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, PutMetricDataCommand} = require("@aws-sdk/client-cloudwatch");
-
+const {
+  CloudWatch,
+  PutMetricDataCommand,
+} = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -29,18 +31,18 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   MetricData: [
     {
-      MetricName: 'PAGES_VISITED',
+      MetricName: "PAGES_VISITED",
       Dimensions: [
         {
-          Name: 'UNIQUE_PAGES',
-          Value: 'URLS'
+          Name: "UNIQUE_PAGES",
+          Value: "URLS",
         },
       ],
-      Unit: 'None',
-      Value: 1.0
+      Unit: "None",
+      Value: 1.0,
     },
   ],
-  Namespace: 'SITE/TRAFFIC'
+  Namespace: "SITE/TRAFFIC",
 };
 
 // Create CloudWatch service object
@@ -50,8 +52,7 @@ const run = async () => {
   try {
     const data = await cw.send(new PutMetricDataCommand(params));
     console.log("Success, alarm deleted; requestID:", data.$metadata.requestId);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

@@ -19,24 +19,24 @@ node ses_gettemplate.js
  */
 // snippet-start:[ses.JavaScript.templates.getTemplateV3]
 
-const {SES, GetTemplateCommand} = require("@aws-sdk/client-ses");
+const { SES, GetTemplateCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {TemplateName: "TEMPLATE_NAME"};
+const params = { TemplateName: "TEMPLATE_NAME" };
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new GetTemplateCommand(params));
-        console.log('Success. Template:', data.Template)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new GetTemplateCommand(params));
+    console.log("Success. Template:", data.Template);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.templates.getTemplateV3]

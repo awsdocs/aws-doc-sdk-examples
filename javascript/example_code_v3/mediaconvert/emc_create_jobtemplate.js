@@ -20,139 +20,140 @@ node emc_create_jobtemplate.js ACCOUNT_END_POINT JOB_QUEUE_ARN BUCKET_NAME
 */
 // snippet-start:[mediaconvert.JavaScript.templates.createJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, CreateJobTemplateCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvert,
+  CreateJobTemplateCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 // Set the parameters
-const endpoint = {endpoint: "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 
 const params = {
-  Category: 'YouTube Jobs',
-  Description: 'Final production transcode',
-  Name: 'DemoTemplate',
+  Category: "YouTube Jobs",
+  Description: "Final production transcode",
+  Name: "DemoTemplate",
   Queue: "JOB_QUEUE_ARN", //JOB_QUEUE_ARN
-  "Settings": {
-    "OutputGroups": [
+  Settings: {
+    OutputGroups: [
       {
-        "Name": "File Group",
-        "OutputGroupSettings": {
-          "Type": "FILE_GROUP_SETTINGS",
-          "FileGroupSettings": {
-            "Destination": "BUCKET_NAME"// BUCKET_NAME e.g., "s3://BUCKET_NAME/"
-          }
+        Name: "File Group",
+        OutputGroupSettings: {
+          Type: "FILE_GROUP_SETTINGS",
+          FileGroupSettings: {
+            Destination: "BUCKET_NAME", // BUCKET_NAME e.g., "s3://BUCKET_NAME/"
+          },
         },
-        "Outputs": [
+        Outputs: [
           {
-            "VideoDescription": {
-              "ScalingBehavior": "DEFAULT",
-              "TimecodeInsertion": "DISABLED",
-              "AntiAlias": "ENABLED",
-              "Sharpness": 50,
-              "CodecSettings": {
-                "Codec": "H_264",
-                "H264Settings": {
-                  "InterlaceMode": "PROGRESSIVE",
-                  "NumberReferenceFrames": 3,
-                  "Syntax": "DEFAULT",
-                  "Softness": 0,
-                  "GopClosedCadence": 1,
-                  "GopSize": 90,
-                  "Slices": 1,
-                  "GopBReference": "DISABLED",
-                  "SlowPal": "DISABLED",
-                  "SpatialAdaptiveQuantization": "ENABLED",
-                  "TemporalAdaptiveQuantization": "ENABLED",
-                  "FlickerAdaptiveQuantization": "DISABLED",
-                  "EntropyEncoding": "CABAC",
-                  "Bitrate": 5000000,
-                  "FramerateControl": "SPECIFIED",
-                  "RateControlMode": "CBR",
-                  "CodecProfile": "MAIN",
-                  "Telecine": "NONE",
-                  "MinIInterval": 0,
-                  "AdaptiveQuantization": "HIGH",
-                  "CodecLevel": "AUTO",
-                  "FieldEncoding": "PAFF",
-                  "SceneChangeDetect": "ENABLED",
-                  "QualityTuningLevel": "SINGLE_PASS",
-                  "FramerateConversionAlgorithm": "DUPLICATE_DROP",
-                  "UnregisteredSeiTimecode": "DISABLED",
-                  "GopSizeUnits": "FRAMES",
-                  "ParControl": "SPECIFIED",
-                  "NumberBFramesBetweenReferenceFrames": 2,
-                  "RepeatPps": "DISABLED",
-                  "FramerateNumerator": 30,
-                  "FramerateDenominator": 1,
-                  "ParNumerator": 1,
-                  "ParDenominator": 1
-                }
-              },
-              "AfdSignaling": "NONE",
-              "DropFrameTimecode": "ENABLED",
-              "RespondToAfd": "NONE",
-              "ColorMetadata": "INSERT"
-            },
-            "AudioDescriptions": [
-              {
-                "AudioTypeControl": "FOLLOW_INPUT",
-                "CodecSettings": {
-                  "Codec": "AAC",
-                  "AacSettings": {
-                    "AudioDescriptionBroadcasterMix": "NORMAL",
-                    "RateControlMode": "CBR",
-                    "CodecProfile": "LC",
-                    "CodingMode": "CODING_MODE_2_0",
-                    "RawFormat": "NONE",
-                    "SampleRate": 48000,
-                    "Specification": "MPEG4",
-                    "Bitrate": 64000
-                  }
+            VideoDescription: {
+              ScalingBehavior: "DEFAULT",
+              TimecodeInsertion: "DISABLED",
+              AntiAlias: "ENABLED",
+              Sharpness: 50,
+              CodecSettings: {
+                Codec: "H_264",
+                H264Settings: {
+                  InterlaceMode: "PROGRESSIVE",
+                  NumberReferenceFrames: 3,
+                  Syntax: "DEFAULT",
+                  Softness: 0,
+                  GopClosedCadence: 1,
+                  GopSize: 90,
+                  Slices: 1,
+                  GopBReference: "DISABLED",
+                  SlowPal: "DISABLED",
+                  SpatialAdaptiveQuantization: "ENABLED",
+                  TemporalAdaptiveQuantization: "ENABLED",
+                  FlickerAdaptiveQuantization: "DISABLED",
+                  EntropyEncoding: "CABAC",
+                  Bitrate: 5000000,
+                  FramerateControl: "SPECIFIED",
+                  RateControlMode: "CBR",
+                  CodecProfile: "MAIN",
+                  Telecine: "NONE",
+                  MinIInterval: 0,
+                  AdaptiveQuantization: "HIGH",
+                  CodecLevel: "AUTO",
+                  FieldEncoding: "PAFF",
+                  SceneChangeDetect: "ENABLED",
+                  QualityTuningLevel: "SINGLE_PASS",
+                  FramerateConversionAlgorithm: "DUPLICATE_DROP",
+                  UnregisteredSeiTimecode: "DISABLED",
+                  GopSizeUnits: "FRAMES",
+                  ParControl: "SPECIFIED",
+                  NumberBFramesBetweenReferenceFrames: 2,
+                  RepeatPps: "DISABLED",
+                  FramerateNumerator: 30,
+                  FramerateDenominator: 1,
+                  ParNumerator: 1,
+                  ParDenominator: 1,
                 },
-                "LanguageCodeControl": "FOLLOW_INPUT",
-                "AudioSourceName": "Audio Selector 1"
-              }
-            ],
-            "ContainerSettings": {
-              "Container": "MP4",
-              "Mp4Settings": {
-                "CslgAtom": "INCLUDE",
-                "FreeSpaceBox": "EXCLUDE",
-                "MoovPlacement": "PROGRESSIVE_DOWNLOAD"
-              }
+              },
+              AfdSignaling: "NONE",
+              DropFrameTimecode: "ENABLED",
+              RespondToAfd: "NONE",
+              ColorMetadata: "INSERT",
             },
-            "NameModifier": "_1"
-          }
-        ]
-      }
+            AudioDescriptions: [
+              {
+                AudioTypeControl: "FOLLOW_INPUT",
+                CodecSettings: {
+                  Codec: "AAC",
+                  AacSettings: {
+                    AudioDescriptionBroadcasterMix: "NORMAL",
+                    RateControlMode: "CBR",
+                    CodecProfile: "LC",
+                    CodingMode: "CODING_MODE_2_0",
+                    RawFormat: "NONE",
+                    SampleRate: 48000,
+                    Specification: "MPEG4",
+                    Bitrate: 64000,
+                  },
+                },
+                LanguageCodeControl: "FOLLOW_INPUT",
+                AudioSourceName: "Audio Selector 1",
+              },
+            ],
+            ContainerSettings: {
+              Container: "MP4",
+              Mp4Settings: {
+                CslgAtom: "INCLUDE",
+                FreeSpaceBox: "EXCLUDE",
+                MoovPlacement: "PROGRESSIVE_DOWNLOAD",
+              },
+            },
+            NameModifier: "_1",
+          },
+        ],
+      },
     ],
-    "AdAvailOffset": 0,
-    "Inputs": [
+    AdAvailOffset: 0,
+    Inputs: [
       {
-        "AudioSelectors": {
+        AudioSelectors: {
           "Audio Selector 1": {
-            "Offset": 0,
-            "DefaultSelection": "NOT_DEFAULT",
-            "ProgramSelection": 1,
-            "SelectorType": "TRACK",
-            "Tracks": [
-              1
-            ]
-          }
+            Offset: 0,
+            DefaultSelection: "NOT_DEFAULT",
+            ProgramSelection: 1,
+            SelectorType: "TRACK",
+            Tracks: [1],
+          },
         },
-        "VideoSelector": {
-          "ColorSpace": "FOLLOW"
+        VideoSelector: {
+          ColorSpace: "FOLLOW",
         },
-        "FilterEnable": "AUTO",
-        "PsiControl": "USE_PSI",
-        "FilterStrength": 0,
-        "DeblockFilter": "DISABLED",
-        "DenoiseFilter": "DISABLED",
-        "TimecodeSource": "EMBEDDED",
-      }
+        FilterEnable: "AUTO",
+        PsiControl: "USE_PSI",
+        FilterStrength: 0,
+        DeblockFilter: "DISABLED",
+        DenoiseFilter: "DISABLED",
+        TimecodeSource: "EMBEDDED",
+      },
     ],
-    "TimecodeConfig": {
-      "Source": "EMBEDDED"
-    }
-  }
+    TimecodeConfig: {
+      Source: "EMBEDDED",
+    },
+  },
 };
 
 //Set the MediaConvert Service Object
@@ -160,8 +161,8 @@ const mediaconvert = new MediaConvert(endpoint);
 
 const run = async () => {
   try {
-// Create a promise on a MediaConvert object
-const data = await mediaconvert.send(new CreateJobTemplateCommand(params));
+    // Create a promise on a MediaConvert object
+    const data = await mediaconvert.send(new CreateJobTemplateCommand(params));
     console.log("Success!", data);
   } catch (err) {
     console.log("Error", err);

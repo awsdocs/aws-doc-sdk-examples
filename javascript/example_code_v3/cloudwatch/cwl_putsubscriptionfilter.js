@@ -22,7 +22,10 @@ node cwl_putsubscriptionfilter.js
 // snippet-start:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchLogs, PutSubscriptionFilterCommand} = require("@aws-sdk/client-cloudwatch-logs");
+const {
+  CloudWatchLogs,
+  PutSubscriptionFilterCommand,
+} = require("@aws-sdk/client-cloudwatch-logs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -31,8 +34,8 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   destinationArn: "LAMBDA_FUNCTION_ARN", //LAMBDA_FUNCTION_ARN
   filterName: "FILTER_NAME", //FILTER_NAME
-  filterPattern: 'ERROR',
-  logGroupName: "LOG_GROUP" //LOG_GROUP
+  filterPattern: "ERROR",
+  logGroupName: "LOG_GROUP", //LOG_GROUP
 };
 
 // Create CloudWatch service object
@@ -42,8 +45,7 @@ const run = async () => {
   try {
     const data = await cwl.send(new PutSubscriptionFilterCommand(params));
     console.log("Success", data.subscriptionFilters);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

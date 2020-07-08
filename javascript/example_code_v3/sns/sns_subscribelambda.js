@@ -22,16 +22,16 @@ node sns_subscribelambda.js
 // snippet-start:[sns.JavaScript.subscriptions.subscribeLambdaV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SubscribeCommand} = require("@aws-sdk/client-sns");
+const { SNS, SubscribeCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  Protocol: "lambda", /* required */
+  Protocol: "lambda" /* required */,
   TopicArn: "TOPIC_ARN", //TOPIC_ARN
-  Endpoint: "LAMBDA_FUNCTION_ARN" //LAMBDA_FUNCTION_ARN
+  Endpoint: "LAMBDA_FUNCTION_ARN", //LAMBDA_FUNCTION_ARN
 };
 
 // Create SNS service object
@@ -39,7 +39,7 @@ const sns = new SNS(REGION);
 
 const run = async () => {
   try {
-       const data = await sns.send(new SubscribeCommand(params));
+    const data = await sns.send(new SubscribeCommand(params));
     console.log("Subscription ARN is " + data.SubscriptionArn);
   } catch (err) {
     console.error(err, err.stack);

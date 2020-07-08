@@ -21,24 +21,23 @@ node s3_delete.js
 // snippet-start:[s3.JavaScript.buckets.deleteBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const  {S3}  = require('@aws-sdk/client-s3/');
+const { S3 } = require("@aws-sdk/client-s3/");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the bucket parameters
-const bucketParams = {Bucket : "BUCKET_NAME"};
+const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
 const s3 = new S3();
 
 const run = async () => {
   try {
-    const data =  await s3.deleteBucket(bucketParams);
-    console.log('Success - bucket deleted')
-  }
-  catch (err) {
-    console.log('Error', err);
+    const data = await s3.deleteBucket(bucketParams);
+    console.log("Success - bucket deleted");
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();

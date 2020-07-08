@@ -21,30 +21,34 @@ node sqs_deadletterqueue.js
 // snippet-start:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, SetQueueAttributesCommand} = require("@aws-sdk/client-sqs");
+const { SQS, SetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
-    Attributes: {
-        "RedrivePolicy": "{\"deadLetterTargetArn\":\"DEAD_LETTER_QUEUE_ARN\"," +
-            "\"maxReceiveCount\":\"10\"}", //DEAD_LETTER_QUEUE_ARN
-    },
-    QueueUrl: "SQS_QUEUE_URL" //SQS_QUEUE_URL
+  Attributes: {
+    RedrivePolicy:
+      '{"deadLetterTargetArn":"DEAD_LETTER_QUEUE_ARN",' +
+      '"maxReceiveCount":"10"}', //DEAD_LETTER_QUEUE_ARN
+  },
+  QueueUrl: "SQS_QUEUE_URL", //SQS_QUEUE_URL
 };
 
 // Create SQS service object
 const sqs = new SQS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sqs.send(new SetQueueAttributesCommand(params));
-        console.log("Success, source queues configured. RequestID:", data.$metadata.requestId);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await sqs.send(new SetQueueAttributesCommand(params));
+    console.log(
+      "Success, source queues configured. RequestID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[sqs.JavaScript.deadLetter.setQueueAttributesV3]

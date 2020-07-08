@@ -20,14 +20,16 @@ node cw_disablealarmactions.js
 // snippet-start:[cw.JavaScript.alarms.disableAlarmActionsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, DisableAlarmActionsCommand} = require("@aws-sdk/client-cloudwatch");
-
+const {
+  CloudWatch,
+  DisableAlarmActionsCommand,
+} = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = {AlarmNames: "ALARM_NAME"}; // e.g., "Web_Server_CPU_Utilization"
+var params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
 // Create CloudWatch service object
 const cw = new CloudWatch(REGION);
@@ -36,8 +38,7 @@ const run = async () => {
   try {
     const data = await cw.send(new DisableAlarmActionsCommand(params));
     console.log("Success, alarm disabled:", data.$metadata.requestId);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };

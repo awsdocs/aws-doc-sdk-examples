@@ -20,24 +20,29 @@ node sns_checkphoneoptout.js
 // snippet-start:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, CheckIfPhoneNumberIsOptedOutCommand} = require("@aws-sdk/client-sns");
+const {
+  SNS,
+  CheckIfPhoneNumberIsOptedOutCommand,
+} = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {phoneNumber: "PHONE_NUMBER"} //PHONE_NUMBER, in the E.164 phone number structure
+const params = { phoneNumber: "PHONE_NUMBER" }; //PHONE_NUMBER, in the E.164 phone number structure
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new CheckIfPhoneNumberIsOptedOutCommand(params));
-        console.log("Phone Opt Out is " + data.isOptedOut);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(
+      new CheckIfPhoneNumberIsOptedOutCommand(params)
+    );
+    console.log("Phone Opt Out is " + data.isOptedOut);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]

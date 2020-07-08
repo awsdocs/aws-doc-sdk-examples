@@ -30,50 +30,51 @@ const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-    Destination: { /* required */
-        CcAddresses: [
-
-            /* more items */
-        ],
-        ToAddresses: [
-            "RECEIVER_ADDRESS" //RECEIVER_ADDRESS
-            /* more To-email addresses */
-        ]
-    },
-    Message: { /* required */
-        Body: { /* required */
-            Html: {
-                Charset: "UTF-8",
-                Data: "HTML_FORMAT_BODY"
-            },
-            Text: {
-                Charset: "UTF-8",
-                Data: "TEXT_FORMAT_BODY"
-            }
-        },
-        Subject: {
-            Charset: 'UTF-8',
-            Data: 'EMAIL_SUBJECT'
-        }
-    },
-    Source: "SENDER_ADDRESS", // SENDER_ADDRESS
-    ReplyToAddresses: [
-        /* more items */
+  Destination: {
+    /* required */
+    CcAddresses: [
+      /* more items */
     ],
+    ToAddresses: [
+      "RECEIVER_ADDRESS", //RECEIVER_ADDRESS
+      /* more To-email addresses */
+    ],
+  },
+  Message: {
+    /* required */
+    Body: {
+      /* required */
+      Html: {
+        Charset: "UTF-8",
+        Data: "HTML_FORMAT_BODY",
+      },
+      Text: {
+        Charset: "UTF-8",
+        Data: "TEXT_FORMAT_BODY",
+      },
+    },
+    Subject: {
+      Charset: "UTF-8",
+      Data: "EMAIL_SUBJECT",
+    },
+  },
+  Source: "SENDER_ADDRESS", // SENDER_ADDRESS
+  ReplyToAddresses: [
+    /* more items */
+  ],
 };
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try{
-        const data = await ses.send(new SendEmailCommand(params));
-        console.log('Success', data)
-    }
-    catch(err){
-        console.log('Error', err);
-    }
-}
+  try {
+    const data = await ses.send(new SendEmailCommand(params));
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
 run();
 // snippet-end:[ses.JavaScript.email.sendEmailV3]
 exports.run = run; //for unit tests only

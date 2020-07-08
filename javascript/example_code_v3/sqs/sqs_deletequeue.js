@@ -20,13 +20,13 @@ node sqs_deletequeue.js
 // snippet-start:[sqs.JavaScript.queues.deleteQueueV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, DeleteQueueCommand} = require("@aws-sdk/client-sqs");
+const { SQS, DeleteQueueCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {QueueUrl : "SQS_QUEUE_URL"}; //SQS_QUEUE_URL e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+const params = { QueueUrl: "SQS_QUEUE_URL" }; //SQS_QUEUE_URL e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 
 // Create SQS service object
 const sns = new SQS(REGION);

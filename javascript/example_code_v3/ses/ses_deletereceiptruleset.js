@@ -20,24 +20,24 @@ node ses_deletereceiptruleset.js
 // snippet-start:[ses.JavaScript.rules.deleteReceiptRuleSetV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, DeleteReceiptRuleSetCommand} = require("@aws-sdk/client-ses");
+const { SES, DeleteReceiptRuleSetCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {RuleSetName: "RULE_SET_NAME"}; //RULE_SET_NAME
+const params = { RuleSetName: "RULE_SET_NAME" }; //RULE_SET_NAME
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new DeleteReceiptRuleSetCommand(params));
-        console.log('Success, rule set deleted', data)
-        } catch (err) {
-        console.error(err, err.stack);
-        }
+  try {
+    const data = await ses.send(new DeleteReceiptRuleSetCommand(params));
+    console.log("Success, rule set deleted", data);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.rules.deleteReceiptRuleSetV3]

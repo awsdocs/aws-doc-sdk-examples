@@ -20,29 +20,28 @@ node ses_listidentities.js
 // snippet-start:[ses.JavaScript.identities.listIdentitiesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, ListIdentitiesCommand} = require("@aws-sdk/client-ses");
+const { SES, ListIdentitiesCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
-    IdentityType: "IDENTITY_TYPE", // IDENTITY_TYPE: "EmailAddress' or 'Domain'
-    MaxItems: 10
+  IdentityType: "IDENTITY_TYPE", // IDENTITY_TYPE: "EmailAddress' or 'Domain'
+  MaxItems: 10,
 };
 
 // Create SES service object
 const ses = new SES(REGION);
 
 const run = async () => {
-    try {
-        const data = await ses.send(new ListIdentitiesCommand(params));
-        console.log("Success. Your SES" +process.argv[3]+ "identities:", data);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await ses.send(new ListIdentitiesCommand(params));
+    console.log("Success. Your SES" + process.argv[3] + "identities:", data);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[ses.JavaScript.identities.listIdentitiesV3]
 exports.run = run; //for unit tests only
-

@@ -19,13 +19,16 @@ node cw_describealarms.js
 // snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, DescribeAlarmsCommand} = require("@aws-sdk/client-cloudwatch");
+const {
+  CloudWatch,
+  DescribeAlarmsCommand,
+} = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = {StateValue: "INSUFFICIENT_DATA"};
+var params = { StateValue: "INSUFFICIENT_DATA" };
 
 // Create CloudWatch service object
 const cw = new CloudWatch(REGION);
@@ -35,9 +38,9 @@ const run = async () => {
     const data = await cw.send(new DescribeAlarmsCommand(params));
     console.log("Success", data);
     data.MetricAlarms.forEach(function (item, index, array) {
-      console.log(item.AlarmName)});
-      }
-  catch(err){
+      console.log(item.AlarmName);
+    });
+  } catch (err) {
     console.log("Error", err);
   }
 };

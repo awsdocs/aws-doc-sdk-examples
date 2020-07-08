@@ -19,7 +19,10 @@ node iam_listservercerts.js
 // snippet-start:[iam.JavaScript.certs.listServerCertificatesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListServerCertificatesCommand} = require("@aws-sdk/client-iam");
+const {
+  IAMClient,
+  ListServerCertificatesCommand,
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -31,8 +34,7 @@ const run = async () => {
   try {
     const data = await iam.send(new ListServerCertificatesCommand({}));
     console.log("Success", data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };

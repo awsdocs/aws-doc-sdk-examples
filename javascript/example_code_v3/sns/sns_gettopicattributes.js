@@ -20,24 +20,24 @@ node sns_gettopicattributes.js
 // snippet-start:[sns.JavaScript.topics.getTopicAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, GetTopicAttributesCommand} = require("@aws-sdk/client-sns");
+const { SNS, GetTopicAttributesCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {TopicArn: "TOPIC_ARN"}; // TOPIC_ARN
+const params = { TopicArn: "TOPIC_ARN" }; // TOPIC_ARN
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new GetTopicAttributesCommand(params));
-        console.log("Success. Attributes:", data.Attributes);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new GetTopicAttributesCommand(params));
+    console.log("Success. Attributes:", data.Attributes);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.topics.getTopicAttributesV3]

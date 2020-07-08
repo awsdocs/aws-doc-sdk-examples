@@ -19,25 +19,28 @@ node emc_getendpoint.js
 
 // snippet-start:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvertClient, DescribeEndpointsCommand} = require("@aws-sdk/client-mediaconvert");
+const {
+  MediaConvertClient,
+  DescribeEndpointsCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
 //set the parameters
-const endpoint = {endpoint: "ACCOUNT_END_POINT"}; //ACCOUNT_END_POINT
-const params = {MaxResults: 0};
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
+const params = { MaxResults: 0 };
 
 //Set the MediaConvert Service Object
 const mediaconvert = new MediaConvert(endpoint);
 
 const run = async () => {
-    try {
-        // Load the required SDK for JavaScript modules
-        // Create a new service object and set MediaConvert to customer endpoint
-        const params = {MaxResults: 0};
-        const data = await mediaconvert.send(new DescribeEndpointsCommand(params));
-        console.log("Your MediaConvert endpoint is ", data.Endpoints);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    // Load the required SDK for JavaScript modules
+    // Create a new service object and set MediaConvert to customer endpoint
+    const params = { MaxResults: 0 };
+    const data = await mediaconvert.send(new DescribeEndpointsCommand(params));
+    console.log("Your MediaConvert endpoint is ", data.Endpoints);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
