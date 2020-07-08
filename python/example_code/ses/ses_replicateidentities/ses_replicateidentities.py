@@ -10,6 +10,21 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+
+# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+# snippet-sourcedescription:[ses_replicateidentities.py demonstrates how to migrate email address and domain identities from one region to another using the Amazon SES API.]
+# snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
+# snippet-keyword:[AWS SDK for Python (Boto3)]
+# snippet-keyword:[Code Sample]
+# snippet-keyword:[Amazon Simple Email Service]
+# snippet-service:[ses]
+# snippet-sourcetype:[full-example]
+# snippet-sourcedate:[2020-07-07]
+# snippet-sourceauthor:[nimbid]
+# snippet-start:[ses.python.ses_replicateidentities.complete]
+
 import json
 import sys
 import boto3
@@ -324,3 +339,5 @@ if DST_REGION in regions:
 else:
     sys.exit("Region entered invalid. \
              Please enter a region where SES is available.")
+
+# snippet-end:[ses.python.ses_replicateidentities.complete]
