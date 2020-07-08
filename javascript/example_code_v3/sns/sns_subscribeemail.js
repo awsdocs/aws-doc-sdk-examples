@@ -10,36 +10,40 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-s
 Purpose:
 sns_subscribeemail.js demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an email address.]
 
-Inputs:
-- REGION (into command line below)
-- TOPIC_ARN (into command line below)
-- EMAIL_ADDRESS (into command line below)
+Inputs (replace in code):
+- REGION
+- TOPIC_ARN
+- EMAIL_ADDRESS
 
 Running the code:
-node sns_subscribeapp.js  REGION TOPIC_ARN EMAIL_ADDRESS
+node sns_subscribeapp.js
  */
-// snippet-start:[sns.JavaScript.v3.subscriptions.subscribeEmail]
+// snippet-start:[sns.JavaScript.subscriptions.subscribeEmailV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SubscribeCommand} = require("@aws-sdk/client-sns");
+const { SNS, SubscribeCommand } = require("@aws-sdk/client-sns");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  Protocol: "email", /* required */
-  TopicArn: process.argv[3], /* required */
-  Endpoint: process.argv[4]
+  Protocol: "email" /* required */,
+  TopicArn: "TOPIC_ARN", //TOPIC_ARN
+  Endpoint: "EMAIL_ADDRESS", //EMAIL_ADDRESS
 };
 
-async function run() {
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
   try {
-const data = await sns.send(new SubscribeCommand(params));
-console.log("Subscription ARN is " + data.SubscriptionArn);
-} catch (err) {
-  console.error(err, err.stack);
-}
+    const data = await sns.send(new SubscribeCommand(params));
+    console.log("Subscription ARN is " + data.SubscriptionArn);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.subscriptions.subscribeEmail]
+// snippet-end:[sns.JavaScript.subscriptions.subscribeEmailV3]
 exports.run = run; //for unit tests only

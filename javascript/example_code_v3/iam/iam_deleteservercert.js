@@ -10,32 +10,38 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-s
 Purpose:
 iam_deleteservercert.js demonstrates how to delete an IAM SSL/TLS server certificate.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - CERTIFICATE_NAME
 
 Running the code:
-node iam_deleteservercert.js REGION CERTIFICATE_NAME
+node iam_deleteservercert.js
  */
-// snippet-start:[iam.JavaScript.v3.certs.deleteServerCertificate]
-// Import required AWS SDK clients and commands for Node.js
-const {IAMClient, DeleteServerCertificateCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const params = {ServerCertificateName: process.argv[3]};
+// snippet-start:[iam.JavaScript.certs.deleteServerCertificateV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const {
+  IAMClient,
+  DeleteServerCertificateCommand,
+} = require("@aws-sdk/client-iam");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { ServerCertificateName: "CERTIFICATE_NAME" }; // CERTIFICATE_NAME
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new DeleteServerCertificateCommand(params));
     console.log("Success", data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.certs.deleteServerCertificate]
+// snippet-end:[iam.JavaScript.certs.deleteServerCertificateV3]
 exports.run = run; //for unit tests only

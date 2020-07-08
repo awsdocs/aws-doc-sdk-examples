@@ -10,34 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-g
 Purpose:
 emc_getendpoint.js demonstrates how to retrieve information about the endpoints for an AWS account.
 
-Inputs: (all into command line below)
+Inputs (replace in code):
 - ACCOUNT_END_POINT
 
 Running the code:
-node emc_getendpoint.js ACCOUNT_END_POINT
+node emc_getendpoint.js
 */
 
-// snippet-start:[mediaconvert.JavaScript.v3.endoint.describeEndpoints]
+// snippet-start:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvertClient, DescribeEndpointsCommand} = require("@aws-sdk/client-mediaconvert");
-const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_END_POINT
-// Create a new MediaConvertClient object and set MediaConvert to customer endpoint
-const mediaconvert = new MediaConvertClient(endpoint);
-//set the parameters
-const params = {MaxResults: 0};
+const {
+  MediaConvertClient,
+  DescribeEndpointsCommand,
+} = require("@aws-sdk/client-mediaconvert");
 
-async function run() {
-    try {
-        // Load the required SDK for JavaScript modules
-        // Create a new service object and set MediaConvert to customer endpoint
-        const params = {MaxResults: 0};
-        const data = await mediaconvert.send(new DescribeEndpointsCommand(params));
-        console.log("Your MediaConvert endpoint is ", data.Endpoints);
-    } catch (err) {
-        console.log("Error", err);
-    }
+//set the parameters
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
+const params = { MaxResults: 0 };
+
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
+  try {
+    // Load the required SDK for JavaScript modules
+    // Create a new service object and set MediaConvert to customer endpoint
+    const params = { MaxResults: 0 };
+    const data = await mediaconvert.send(new DescribeEndpointsCommand(params));
+    console.log("Your MediaConvert endpoint is ", data.Endpoints);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.endoint.describeEndpoints]
+// snippet-end:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 
 exports.run = run; //for unit tests only

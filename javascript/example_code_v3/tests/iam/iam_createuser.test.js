@@ -1,16 +1,14 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'USER_NAME');
 const mockGetUser = jest.fn();
-jest.mock('@aws-sdk/client-iam/commands/GetUserCommand', () => ({
-    IAM: function IAM() {
-        this.GetUserCommand = mockGetUser
-    }
+jest.mock("@aws-sdk/client-iam/commands/GetUserCommand", () => ({
+  IAM: function IAM() {
+    this.GetUserCommand = mockGetUser;
+  },
 }));
-const {params, run} = require("../../iam/iam_createuser.js");
+const { params, run } = require("../../iam/iam_createuser.js");
 
 //test function
-test("has to mock iam#getUser",  async (done) => {
-    await run();
-    expect(mockGetUser).toHaveBeenCalled;
-    done();
+test("has to mock iam#getUser", async (done) => {
+  await run();
+  expect(mockGetUser).toHaveBeenCalled;
+  done();
 });

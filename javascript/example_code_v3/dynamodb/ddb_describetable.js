@@ -10,24 +10,31 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_describetable.js demonstrates how to retrieve information about an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
 
 Running the code:
-node ddb_describetable.js REGION TABLE_NAME
+node ddb_describetable.js
 */
-// snippet-start:[dynamodb.JavaScript.v3.table.describeTable]
-// Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, DescribeTableCommand} = require("@aws-sdk/client-dynamodb");
-// Set the AWS Region
-const region= process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
-// Set the parameters
-const params = {TableName: process.argv[3]};
+// snippet-start:[dynamodb.JavaScript.table.describeTableV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const {
+  DynamoDBClient,
+  DescribeTableCommand,
+} = require("@aws-sdk/client-dynamodb");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { TableName: "TABLE_NAME" }; //TABLE_NAME
+
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
     const data = await dbclient.send(new DescribeTableCommand(params));
     console.log("Success", data.Table.KeySchema);
@@ -36,5 +43,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.table.describeTable]
+// snippet-end:[dynamodb.JavaScript.table.describeTableV3]
 exports.run = run; //for unit tests only

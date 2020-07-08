@@ -10,44 +10,51 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ma
 Purpose:
 ec2_monitorinstances.js demonstrates how to enable detailed monitoring for Amazon EC2 instances.
 
-Inputs:
-- REGION (into command line below)
-- INSTANCE_ID (into command line below)
-- STATE (into command line below; ie.'ON' or 'OFF')
+Inputs (replace in code):
+- REGION
+- INSTANCE_ID
+- STATE: 'ON' or 'OFF'
 
 Running the code:
-node ec2_monitorinstances.js REGION INSTANCE_ID STATE
+node ec2_monitorinstances.js
  */
 
-// snippet-start:[ec2.JavaScript.v3.Instances.monitorInstances]
-// Import required AWS SDK clients and commands for Node.js
-const {EC2, MonitorInstancesCommand, UnmonitorInstancesCommand} = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-const params = {InstanceIds: [process.argv[3]]};
-const state = process.argv[4]; // 'ON' or 'OFF'
+// snippet-start:[ec2.JavaScript.Instances.monitorInstancesV3]
 
-async function run() {
-    if (process.argv[4].toUpperCase() === "ON") {
-        try {
-            const data = await ec2client.send(new MonitorInstancesCommand(params));
-            console.log("Success", data.InstanceMonitorings);
-        } catch (err) {
-            console.log("Error", err);
-        }
+// Import required AWS SDK clients and commands for Node.js
+const {
+  EC2,
+  MonitorInstancesCommand,
+  UnmonitorInstancesCommand,
+} = require("@aws-sdk/client-ec2");
+
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+// Set the parameters
+const params = { InstanceIds: "INSTANCE_ID" }; // INSTANCE_ID
+const state = "STATE"; // STATE; i.e., 'ON' or 'OFF'
+
+const run = async () => {
+  if (process.argv[4].toUpperCase() === "ON") {
+    try {
+      const data = await ec2client.send(new MonitorInstancesCommand(params));
+      console.log("Success", data.InstanceMonitorings);
+    } catch (err) {
+      console.log("Error", err);
     }
-    else if (process.argv[4].toUpperCase() === "OFF") {
-        try {
-            const data = await ec2client.send(new UnmonitorInstancesCommand(params));
-                    console.log("Success", data.InstanceMonitorings);
-        } catch (err) {
-            console.log("Error", err);
-                }
-        }
+  } else if (process.argv[4].toUpperCase() === "OFF") {
+    try {
+      const data = await ec2client.send(new UnmonitorInstancesCommand(params));
+      console.log("Success", data.InstanceMonitorings);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.Instances.monitorInstances]
+// snippet-end:[ec2.JavaScript.Instances.monitorInstancesV3]
 exports.run = run; //for unit tests only

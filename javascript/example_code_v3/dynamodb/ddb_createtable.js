@@ -10,66 +10,72 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_createtable.js demonstrates how to create an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
-- ATTRIBUTE_NAME_1 : (in code; the name of the partition key)
-- ATTRIBUTE_NAME_2 : (in code; the name of the sort key (optional))
-- ATTRIBUTE_TYPE (in code; the type of the attribute (e.g., N [for a number], S [for a string] etc.)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
+- ATTRIBUTE_NAME_1: the name of the partition key
+- ATTRIBUTE_NAME_2: the name of the sort key (optional)
+- ATTRIBUTE_TYPE: the type of the attribute (e.g., N [for a number], S [for a string] etc.)
 
 Running the code:
-node ddb_createtable.js REGION TABLE_NAME
+node ddb_createtable.js
 */
 
-// snippet-start:[dynamodb.JavaScript.v3.table.createTable]
+// snippet-start:[dynamodb.JavaScript.table.createTableV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, CreateTableCommand} = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  CreateTableCommand,
+} = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const dbclient = new DynamoDBClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   AttributeDefinitions: [
     {
-      AttributeName: 'Season', //ATTRIBUTE_NAME_1
-      AttributeType: 'N' //ATTRIBUTE_TYPE
+      AttributeName: "Season", //ATTRIBUTE_NAME_1
+      AttributeType: "N", //ATTRIBUTE_TYPE
     },
     {
-      AttributeName: 'Episode', //ATTRIBUTE_NAME_2
-      AttributeType: 'N' //ATTRIBUTE_TYPE
-    }
+      AttributeName: "Episode", //ATTRIBUTE_NAME_2
+      AttributeType: "N", //ATTRIBUTE_TYPE
+    },
   ],
   KeySchema: [
     {
-      AttributeName: 'Season', //ATTRIBUTE_NAME_1
-      KeyType: 'HASH'
+      AttributeName: "Season", //ATTRIBUTE_NAME_1
+      KeyType: "HASH",
     },
     {
-      AttributeName: 'Episode', //ATTRIBUTE_NAME_2
-      KeyType: 'RANGE'
-    }
+      AttributeName: "Episode", //ATTRIBUTE_NAME_2
+      KeyType: "RANGE",
+    },
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 1,
-    WriteCapacityUnits: 1
+    WriteCapacityUnits: 1,
   },
-  TableName: process.argv[3], //TABLE
+  TableName: "TABLE_NAME", //TABLE_NAME
   StreamSpecification: {
-    StreamEnabled: false
-  }
+    StreamEnabled: false,
+  },
 };
 
-async function run() {
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   try {
-    const data = await dbclient.send(new CreateTableCommand(params))
+    const data = await dbclient.send(new CreateTableCommand(params));
     console.log("Table Created", data);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.table.createTable]
+// snippet-end:[dynamodb.JavaScript.table.createTableV3]
 //for unit tests only
 exports.run = run; //for unit tests only

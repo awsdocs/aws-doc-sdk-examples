@@ -10,37 +10,41 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-m
 Purpose:
 sns_settopicattributes.js demonstrates how to set the attributes of an Amazon SNS topic.
 
-Inputs:
-- REGION (into command line below)
-- ATTRIBUTE_NAME (into command line below)
-- TOPIC_ARN (into command line below)
-- NEW_ATTRIBUTE_VALUE (into command line below)
+Inputs (replace in code):
+- REGION
+- ATTRIBUTE_NAME
+- TOPIC_ARN
+- NEW_ATTRIBUTE_VALUE
 
 Running the code:
-node sns_settopicattributes.js REGION ATTRIBUTE_NAME TOPIC_ARN NEW_ATTRIBUTE_VALUE
+node sns_settopicattributes.js
  */
-// snippet-start:[sns.JavaScript.v3.topics.setTopicAttributes]
+// snippet-start:[sns.JavaScript.topics.setTopicAttributesV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SetTopicAttributesCommand} = require("@aws-sdk/client-sns");
+const { SNS, SetTopicAttributesCommand } = require("@aws-sdk/client-sns");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  AttributeName: process.argv[3], /* required */
-  TopicArn: process.argv[4], /* required */
-  AttributeValue: process.argv[5]
+  AttributeName: "ATTRIBUTE_NAME", // ATTRIBUTE_NAME
+  TopicArn: "TOPIC_ARN", // TOPIC_ARN
+  AttributeValue: "NEW_ATTRIBUTE_VALUE", //NEW_ATTRIBUTE_VALUE
 };
 
-async function run() {
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
   try {
     const data = await sns.send(new SetTopicAttributesCommand(params));
-    console.log('Success, attributed updated', data);
+    console.log("Success, attributed updated", data);
   } catch (err) {
     console.error(err, err.stack);
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.setTopicAttributes]
+// snippet-end:[sns.JavaScript.topics.setTopicAttributesV3]
 exports.run = run; //for unit tests only

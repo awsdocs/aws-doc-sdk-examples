@@ -10,31 +10,35 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-a
 Purpose:
 iam_createaccountalias.js demonstrates how to create an alias for an AWS account.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ACCOUNT_ALIAS
 
 Running the code:
-node iam_createaccountalias.js REGION ACCOUNT_ALIAS
+node iam_createaccountalias.js
  */
-// snippet-start:[iam.JavaScript.v3.alias.createAccountAlias]
-// Import required AWS SDK clients and commands for Node.js
-const {IAMClient, CreateAccountAliasCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const accountAlias = {AccountAlias: process.argv[3]};
+// snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const { IAMClient, CreateAccountAliasCommand } = require("@aws-sdk/client-iam");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const accountAlias = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new CreateAccountAliasCommand(accountAlias));
     console.log("Success", data);
   } catch (err) {
-    console.log('Error', err);
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.alias.createAccountAlias]
+// snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
 exports.run = run; //for unit tests only

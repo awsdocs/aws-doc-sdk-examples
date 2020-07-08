@@ -10,31 +10,36 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-j
 Purpose:
 emc_canceljob.js demonstrates how to remove a transcoding job from the queue.
 
-Inputs: (all into command line below)
-- REGION
+Inputs (replace in code): (all into command line below)
 - ACCOUNT_ENDPOINT
 - JOB_ID
 
 Running the code:
-node emc_canceljob.js ACCOUNT_ENDPOINT JOB_ID
+node emc_canceljob.js
 */
-// snippet-start:[mediaconvert.JavaScript.v3.jobs.cancelJob]
-// Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, CancelJobCommand} = require("@aws-sdk/client-mediaconvert");
-// Create MediaConvert service object
-const endpoint = {endpoint : process.argv[2]}; //ACCOUNT_ENDPOINT
-const mediaconvert = new MediaConvert(endpoint);
-// Set the parameters
-const params = {Id: process.argv[3]}; //JOB_ID
+// snippet-start:[mediaconvert.JavaScript.jobs.cancelJobV3]
 
-async function run(){
-    try {
-        const data = await mediaconvert.send(new CancelJobCommand(params));
-        console.log("Job  " + params.Id + " is canceled");
-    } catch (err) {
-        console.log("Error", err);
-    }
+// Import required AWS-SDK clients and commands for Node.js
+const {
+  MediaConvert,
+  CancelJobCommand,
+} = require("@aws-sdk/client-mediaconvert");
+
+// Set the parameters
+const endpoint = { endpoint: "ACCOUNT_ENDPOINT" }; //ACCOUNT_ENDPOINT
+const params = { Id: "JOB_ID" }; //JOB_ID
+
+// Create MediaConvert service object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
+  try {
+    const data = await mediaconvert.send(new CancelJobCommand(params));
+    console.log("Job  " + params.Id + " is canceled");
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.jobs.cancelJob]
+// snippet-end:[mediaconvert.JavaScript.jobs.cancelJobV3]
 exports.run = run; //for unit tests only

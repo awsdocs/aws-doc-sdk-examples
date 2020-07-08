@@ -10,37 +10,45 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-e
 Purpose:
 sqs_longpolling_existingqueue.js demonstrates how to change the amount of time an Amazon SQS queue waits for a message to arrive.
 
-Inputs:
-- REGION (into command line below)
-- SQS_QUEUE_URL (into command line below)
-- ReceiveMessageWaitTimeSeconds (into code)
+Inputs (replace in code):
+- REGION
+- SQS_QUEUE_URL
+- ReceiveMessageWaitTimeSeconds
 
 Running the code:
-node sqs_longpolling_existingqueue.js REGION SQS_QUEUE_URL
+node sqs_longpolling_existingqueue.js
  */
 
-// snippet-start:[sqs.JavaScript.v3.longPoll.setQueueAttributes]
+// snippet-start:[sqs.JavaScript.longPoll.setQueueAttributesV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, SetQueueAttributesCommand} = require("@aws-sdk/client-sqs");
+const { SQS, SetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-    Attributes: {
-        "ReceiveMessageWaitTimeSeconds": "20",
-    },
-    QueueUrl: process.argv[3] //SQS_QUEUE_URL
+  Attributes: {
+    ReceiveMessageWaitTimeSeconds: "20",
+  },
+  QueueUrl: "SQS_QUEUE_URL", //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 };
-async function run() {
-    try {
-        const data = await sqs.send(new SetQueueAttributesCommand(params));
-        console.log("Success, longpolling enabled on queue. RequestID:", data.$metadata.requestId);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
+  try {
+    const data = await sqs.send(new SetQueueAttributesCommand(params));
+    console.log(
+      "Success, longpolling enabled on queue. RequestID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.longPoll.setQueueAttributes]
+// snippet-end:[sqs.JavaScript.longPoll.setQueueAttributesV3]
 exports.run = run; //for unit tests only

@@ -10,48 +10,58 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cw_putmetricalarm.js demonstrates how to create or update an Amazon CloudWatch alarm and associate it with particular metrics.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 
 Running the code:
-node cw_putmetricalarm.js REGION
+node cw_putmetricalarm.js
 */
-// snippet-start:[cw.JavaScript.v3.alarms.putMetricAlarm]
+// snippet-start:[cw.JavaScript.alarms.putMetricAlarmV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, PutMetricAlarmCommand} = require("@aws-sdk/client-cloudwatch");
+const {
+  CloudWatch,
+  PutMetricAlarmCommand,
+} = require("@aws-sdk/client-cloudwatch");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cw = new CloudWatch(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  AlarmName: 'Web_Server_CPU_Utilization',
-  ComparisonOperator: 'GreaterThanThreshold',
+  AlarmName: "Web_Server_CPU_Utilization",
+  ComparisonOperator: "GreaterThanThreshold",
   EvaluationPeriods: 1,
-  MetricName: 'CPUUtilization',
-  Namespace: 'AWS/EC2',
+  MetricName: "CPUUtilization",
+  Namespace: "AWS/EC2",
   Period: 60,
-  Statistic: 'Average',
+  Statistic: "Average",
   Threshold: 70.0,
   ActionsEnabled: false,
-  AlarmDescription: 'Alarm when server CPU exceeds 70%',
+  AlarmDescription: "Alarm when server CPU exceeds 70%",
   Dimensions: [
     {
-      Name: 'InstanceId',
-      Value: 'INSTANCE_ID'
+      Name: "InstanceId",
+      Value: "INSTANCE_ID",
     },
   ],
-  Unit: 'Percent'
+  Unit: "Percent",
 };
 
-async function run() {
+// Create CloudWatch service object
+const cw = new CloudWatch(REGION);
+
+const run = async () => {
   try {
     const data = await cw.send(new PutMetricAlarmCommand(params));
-    console.log("Success, action enabled on alarm; requestID:", data.$metadata.requestId);  }
-  catch(err){
+    console.log(
+      "Success, action enabled on alarm; requestID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.putMetricAlarm]
+// snippet-end:[cw.JavaScript.alarms.putMetricAlarmV3]
 exports.run = run; //for unit tests only

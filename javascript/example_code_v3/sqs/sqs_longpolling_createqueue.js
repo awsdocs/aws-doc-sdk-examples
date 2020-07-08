@@ -10,35 +10,43 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-e
 Purpose:
 sqs_longpolling_createqueue.test.js demonstrates how to create an Amazon SQS queue that waits for a message to arrive.
 
-Inputs:
-- REGION (into command line below)
-- SQS_QUEUE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- SQS_QUEUE_NAME
 
 Running the code:
-node sqs_longpolling_createqueue.js REGION SQS_QUEUE_NAME
+node sqs_longpolling_createqueue.js
 */
-// snippet-start:[sqs.JavaScript.v3.longPoll.createQueue]
+// snippet-start:[sqs.JavaScript.longPoll.createQueueV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, CreateQueueCommand} = require("@aws-sdk/client-sqs");
+const { SQS, CreateQueueCommand } = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
-const params =  {
-  QueueName: process.argv[3], //SQS_QUEUE_NAME
+const params = {
+  QueueName: "SQS_QUEUE_NAME", //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
   Attributes: {
-    'ReceiveMessageWaitTimeSeconds': '20',
-  }
+    ReceiveMessageWaitTimeSeconds: "20",
+  },
 };
-async function run() {
+
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
   try {
     const data = await sqs.send(new CreateQueueCommand(params));
-    console.log("Success, new SQS queue created. SQS queue URL:", data.QueueUrl);
+    console.log(
+      "Success, new SQS queue created. SQS queue URL:",
+      data.QueueUrl
+    );
   } catch (err) {
     console.error(err, err.stack);
   }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.longPoll.createQueue]
+// snippet-end:[sqs.JavaScript.longPoll.createQueueV3]
 exports.run = run; //for unit tests only

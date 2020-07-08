@@ -10,7 +10,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-t
 Purpose:
 emc_template_createjob.js demonstrates how to create a transcoding job using a template.
 
-Inputs: (all into command line below)
+Inputs (replace in code):
 - ACCOUNT_END_POINT
 - QUEUE_ARN
 - TEMPLATE_NAME
@@ -18,56 +18,60 @@ Inputs: (all into command line below)
 - INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
 
 Running the code:
-node emc_template_createjob.js ACCOUNT_END_POINT QUEUE_ARN JOB_TEMPLATE_ARN ROLE_ARN FILE_INPUT
+node emc_template_createjob.js
 */
-// snippet-start:[mediaconvert.JavaScript.v3.templates.createJob]
+// snippet-start:[mediaconvert.JavaScript.templates.createJobV3]
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvert, CreateJobCommand} = require("@aws-sdk/client-mediaconvert");
-// Create a new service object and set MediaConvert to customer endpoint
-const endpoint = {endpoint : process.argv[2]}; //ACCOUNT_END_POINT
-const mediaconvert = new MediaConvert(endpoint);
+const {
+  MediaConvert,
+  CreateJobCommand,
+} = require("@aws-sdk/client-mediaconvert");
+
+//Set the parameters
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
+
 const params = {
-  "Queue": process.argv[3], //QUEUE_ARN
-  "JobTemplate": process.argv[4], //TEMPLATE_NAME
-  "Role": process.argv[5], //ROLE_ARN
-  "Settings": {
-    "Inputs": [
+  Queue: "QUEUE_ARN", //QUEUE_ARN
+  JobTemplate: "TEMPLATE_NAME", //TEMPLATE_NAME
+  Role: "ROLE_ARN", //ROLE_ARN
+  Settings: {
+    Inputs: [
       {
-        "AudioSelectors": {
+        AudioSelectors: {
           "Audio Selector 1": {
-            "Offset": 0,
-            "DefaultSelection": "NOT_DEFAULT",
-            "ProgramSelection": 1,
-            "SelectorType": "TRACK",
-            "Tracks": [
-              1
-            ]
-          }
+            Offset: 0,
+            DefaultSelection: "NOT_DEFAULT",
+            ProgramSelection: 1,
+            SelectorType: "TRACK",
+            Tracks: [1],
+          },
         },
-        "VideoSelector": {
-          "ColorSpace": "FOLLOW"
+        VideoSelector: {
+          ColorSpace: "FOLLOW",
         },
-        "FilterEnable": "AUTO",
-        "PsiControl": "USE_PSI",
-        "FilterStrength": 0,
-        "DeblockFilter": "DISABLED",
-        "DenoiseFilter": "DISABLED",
-        "TimecodeSource": "EMBEDDED",
-        "FileInput": process.argv[6] //INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
-      }
-    ]
-  }
+        FilterEnable: "AUTO",
+        PsiControl: "USE_PSI",
+        FilterStrength: 0,
+        DeblockFilter: "DISABLED",
+        DenoiseFilter: "DISABLED",
+        TimecodeSource: "EMBEDDED",
+        FileInput: "INPUT_BUCKET_AND_FILENAME", //INPUT_BUCKET_AND_FILENAME, e.g., "s3://BUCKET_NAME/FILE_NAME"
+      },
+    ],
+  },
 };
 
-async function run(){
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
   try {
     const data = await mediaconvert.send(new CreateJobCommand(params));
     console.log("Success! ", data);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.templates.createJob]
+// snippet-end:[mediaconvert.JavaScript.templates.createJobV3]
 exports.run = run; //for unit tests only

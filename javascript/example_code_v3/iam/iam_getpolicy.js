@@ -10,33 +10,36 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-p
 Purpose:
 iam_getpolicy.js demonstrates how to retrieve information about an IAM managed policy.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 
 Running the code:
-node iam_getpolicy.js REGION
+node iam_getpolicy.js
  */
-// snippet-start:[iam.JavaScript.v3.policies.getPolicy]
+// snippet-start:[iam.JavaScript.policies.getPolicyV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, GetPolicyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, GetPolicyCommand } = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  PolicyArn: 'arn:aws:iam::aws:policy/AWSLambdaExecute'
+  PolicyArn: "arn:aws:iam::aws:policy/AWSLambdaExecute",
 };
 
-async function run() {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new GetPolicyCommand(params));
     console.log("Success", data.Policy.Description);
+  } catch (err) {
+    console.log("Error", err);
   }
-  catch (err) {
-  console.log("Error", err);
-}
 };
 run();
-// snippet-end:[iam.JavaScript.v3.policies.getPolicy]
+// snippet-end:[iam.JavaScript.policies.getPolicyV3]
 exports.run = run; //for unit tests only

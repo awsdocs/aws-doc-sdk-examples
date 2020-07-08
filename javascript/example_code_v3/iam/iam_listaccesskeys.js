@@ -10,36 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_listaccesskeys.js demonstrates how to retrieve information about the access keys of an IAM user.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - IAM_USER_NAME
 
 Running the code:
-node iam_listaccesskeys.js REGION IAM_USER_NAME
+node iam_listaccesskeys.js
  */
 
-// snippet-start:[iam.JavaScript.v3.keys.listAccessKeys]
+// snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListAccessKeysCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, ListAccessKeysCommand } = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   MaxItems: 5,
-  UserName: process.argv[3]
+  UserName: "IAM_USER_NAME", //IAM_USER_NAME
 };
 
-async function run() {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new ListAccessKeysCommand(params));
     console.log("Success", data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.keys.listAccessKeys]
+// snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
 exports.run = run; //for unit tests only

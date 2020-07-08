@@ -9,48 +9,52 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 
 Purpose:
 s3_upload.js uploads a file to an S3 bucket.
-Inputs:
-- BUCKET_NAME (into command line below)
-- KEY (into command line below): (optional)The Key parameter is set to the name of the selected file (existing or not), which you enter to run the code (see 'Running the code' below).
-- BODY (into command line below): (optional)The Body parameter is the contents of the uploaded file. Leave blank/remove to retain contents of original file.
-- FILE_NAME (into command line below): Name of the file to upload (if you don't specify KEY)
+Inputs (replace in code):
+- BUCKET_NAME
+- KEY
+- BODY
+- FILE_NAME
 - REGION
 
 Running the code:
-node s3_upload.js REGION BUCKET_NAME KEY BODY FILE_NAME
+node s3_upload.js
 
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
-// snippet-start:[s3.JavaScript.v3.buckets.upload]
-async function run() {
-  const path = require('path');
-  const fs = require('fs');
+// snippet-start:[s3.JavaScript.buckets.uploadV3]
+// Import required AWS SDK clients and commands for Node.js
+const { S3 } = require("@aws-sdk/client-s3");
+const path = require("path");
+const fs = require("fs");
 
-  // Import required AWS SDK clients and commands for Node.js
-  const { S3 } = require("@aws-sdk/client-s3");
-  // Create S3 service object
-  const region = process.argv[2];
-  const s3 = new S3(region);
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const uploadParams = { Bucket: "BUCKET_NAME", Key: "KEY", Body: "BODY" }; //BUCKET_NAME, KEY (the name of the selected file),
+// BODY (the contents of the uploaded file - leave blank/remove to retain contents of original file.)
+const file = "FILE_NAME"; //FILE_NAME (the name of the file to upload (if you don't specify KEY))
+
+// Create S3 service object
+const s3 = new S3(REGION);
 
 // call S3 to retrieve upload file to specified bucket
-  const uploadParams = {Bucket: process.argv[3], Key: process.argv[4], Body:process.argv[5]};
-  const file = process.argv[6];
-// Configure the file stream and obtain the upload parameters
+const run = async () => {
+  // Configure the file stream and obtain the upload parameters
   const fileStream = fs.createReadStream(file);
-  fileStream.on('error', function(err) {
-    console.log('File Error', err);
+  fileStream.on("error", function (err) {
+    console.log("File Error", err);
   });
   uploadParams.Key = path.basename(file);
-// call S3 to retrieve upload file to specified bucket
+  // call S3 to retrieve upload file to specified bucket
   try {
     const data = await s3.putObject(uploadParams);
-    console.log('Success', data);
-  }
-  catch (err) {
-    console.log('Error', err);
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.upload]
+// snippet-end:[s3.JavaScript.buckets.uploadV3]
 exports.run = run; //for unit tests only

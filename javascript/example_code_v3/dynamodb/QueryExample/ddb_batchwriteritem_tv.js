@@ -8,78 +8,83 @@ Purpose:
 ddb_batchwriteritem_tv.js populates the table used for the match query example
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node ddb_batchwriteritem_tv.js REGION
+node ddb_batchwriteritem_tv.js
 */
-// snippet-start:[dynamodb.JavaScript.v3.batch.BatchWriterItemTV]
+// snippet-start:[dynamodb.JavaScript.batch.BatchWriterItemTVV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, BatchWriteItemCommand } = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBClient,
+  BatchWriteItemCommand,
+} = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
+const REGION = "region"; //e.g. "us-east-1"
+
 // Create DynamoDB service object
-const client = new DynamoDBClient(region);
+const client = new DynamoDBClient(REGION);
+
 // Set the parameters
 const params = {
-    RequestItems: {
-        "EPISODES_TABLE": [
-            {
-                PutRequest: {
-                    Item: {
-                        'Season': {N: '1'},
-                        'Episode': {N: '1'},
-                        'Subtitle': {S: 'SubTitle1'},
-                        'Title': {S: 'Title1'}
-                    }
-                }
-            },
-            {
-                PutRequest: {
-                    Item: {
-                        'Season': {N: '1'},
-                        'Episode': {N: '2'},
-                        'Subtitle': {S: 'SubTitle2'},
-                        'Title': {S: 'Title2'}
-                    }
-                }
-            },
-            {
-                PutRequest: {
-                    Item: {
-                        'Season': {N: '1'},
-                        'Episode': {N: '3'},
-                        'Subtitle': {S: 'SubTitle3'},
-                        'Title': {S: 'Title3'}
-                    }
-                }
-            },
-            {
-                PutRequest: {
-                    Item: {
-                        'Season': {N: '1'},
-                        'Episode': {N: '4'},
-                        'Subtitle': {S: 'SubTitle4'},
-                        'Title': {S: 'Title4'}
-                    }
-                }
-            }
-
-        ]
-    }
+  RequestItems: {
+    EPISODES_TABLE: [
+      {
+        PutRequest: {
+          Item: {
+            Season: { N: "1" },
+            Episode: { N: "1" },
+            Subtitle: { S: "SubTitle1" },
+            Title: { S: "Title1" },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            Season: { N: "1" },
+            Episode: { N: "2" },
+            Subtitle: { S: "SubTitle2" },
+            Title: { S: "Title2" },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            Season: { N: "1" },
+            Episode: { N: "3" },
+            Subtitle: { S: "SubTitle3" },
+            Title: { S: "Title3" },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            Season: { N: "1" },
+            Episode: { N: "4" },
+            Subtitle: { S: "SubTitle4" },
+            Title: { S: "Title4" },
+          },
+        },
+      },
+    ],
+  },
 };
 
-async function run(){
-    try {
-        const data = await dbclient.send(new BatchWriteItemCommand(params));
-        console.log("Success", data);
-    }
-    catch(err){
-        console.log("Error", err);
-    }
+const run = async () => {
+  try {
+    const data = await dbclient.send(new BatchWriteItemCommand(params));
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.batch.BatchWriterItemTV]
+// snippet-end:[dynamodb.JavaScript.batch.BatchWriterItemTVV3]
 //for unit tests only
 exports.run = run;

@@ -10,30 +10,32 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ma
 Purpose:
 ec2_describeinstances.js demonstrates how to retrieve information about one or more Amazon EC2 instances.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node ec2_describeinstances.js REGION
+node ec2_describeinstances.js
  */
 
-// snippet-start:[ec2.JavaScript.v3.Instances.describeInstances]
-// Import required AWS SDK clients and commands for Node.js
-const {EC2, DescribeInstancesCommand} = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
+// snippet-start:[ec2.JavaScript.Instances.describeInstancesV3]
 
-async function run(){
+// Import required AWS SDK clients and commands for Node.js
+const { EC2, DescribeInstancesCommand } = require("@aws-sdk/client-ec2");
+
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
   try {
-    const data = await ec2client.send(new DescribeInstancesCommand({}))
+    const data = await ec2client.send(new DescribeInstancesCommand({}));
     console.log("Success", JSON.stringify(data));
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.Instances.describeInstances]
+// snippet-end:[ec2.JavaScript.Instances.describeInstancesV3]
 exports.run = run; //for unit tests only

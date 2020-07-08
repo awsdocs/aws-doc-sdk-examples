@@ -10,29 +10,34 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-s
 Purpose:
 iam_listservercerts.js demonstrates how to list the IAM SSL/TLS server certificates.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 
 Running the code:
-node iam_listservercerts.js REGION
+node iam_listservercerts.js
  */
-// snippet-start:[iam.JavaScript.v3.certs.listServerCertificates]
-// Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListServerCertificatesCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+// snippet-start:[iam.JavaScript.certs.listServerCertificatesV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const {
+  IAMClient,
+  ListServerCertificatesCommand,
+} = require("@aws-sdk/client-iam");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new ListServerCertificatesCommand({}));
     console.log("Success", data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.certs.listServerCertificates]
+// snippet-end:[iam.JavaScript.certs.listServerCertificatesV3]
 exports.run = run; //for unit tests only

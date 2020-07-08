@@ -10,28 +10,31 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-m
 Purpose:
 sns_listtopics.js demonstrates how to retrieve a list of Amazon SNS topics.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node sns_listtopics.js REGION
+node sns_listtopics.js
  */
-// snippet-start:[sns.JavaScript.v3.topics.listTopics]
-// Import required AWS SDK clients and commands for Node.js
-const {SNS, ListTopicsCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+// snippet-start:[sns.JavaScript.topics.listTopicsV3]
 
-async function run() {
-    try {
-        const data = await sns.send(new ListTopicsCommand({}));
-        console.log(data.Topics);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Import required AWS SDK clients and commands for Node.js
+const { SNS, ListTopicsCommand } = require("@aws-sdk/client-sns");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
+  try {
+    const data = await sns.send(new ListTopicsCommand({}));
+    console.log(data.Topics);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.listTopics]
+// snippet-end:[sns.JavaScript.topics.listTopicsV3]
 exports.run = run; //for unit tests only

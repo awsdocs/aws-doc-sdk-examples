@@ -10,30 +10,31 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-i
 Purpose:
 ses_listreceiptfilters.js demonstrates how to list the Amazon SES IP filters for an AWS account.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node ses_listreceiptfilters.js REGION
+node ses_listreceiptfilters.js
 */
-// snippet-start:[ses.JavaScript.v3.filters.listReceiptFilters]
+// snippet-start:[ses.JavaScript.filters.listReceiptFiltersV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SES, ListReceiptFiltersCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
+const { SES, ListReceiptFiltersCommand } = require("@aws-sdk/client-ses");
 
-async function run() {
-    try {
-        const data = await ses.send(new ListReceiptFiltersCommand({}));
-        console.log(data.Filters)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new ListReceiptFiltersCommand({}));
+    console.log(data.Filters);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.filters.listReceiptFilters]
+// snippet-end:[ses.JavaScript.filters.listReceiptFiltersV3]
 exports.run = run; //for unit tests only

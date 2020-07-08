@@ -10,31 +10,35 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-a
 Purpose:
 iam_listaccountaliases.js demonstrates how to retrieve information about the aliases for an AWS account.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 
 Running the code:
-node iam_listaccountaliases.js REGION
+node iam_listaccountaliases.js
  */
 
-// snippet-start:[iam.JavaScript.v3.alias.listAccountAliases]
-// Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListAccountAliasesCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const params = {MaxItems: 5};
+// snippet-start:[iam.JavaScript.alias.listAccountAliasesV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const { IAMClient, ListAccountAliasesCommand } = require("@aws-sdk/client-iam");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { MaxItems: 5 };
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new ListAccountAliasesCommand(params));
     console.log("Success", data);
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.alias.listAccountAliases]
+// snippet-end:[iam.JavaScript.alias.listAccountAliasesV3]
 exports.run = run; //for unit tests only

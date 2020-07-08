@@ -10,45 +10,52 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ma
 Purpose:
 ec2_startstopinstances.js demonstrates how to start and stop an Amazon EC2 instance that is backed by Amazon Elastic Block Store.
 
-Inputs:
-- REGION (into command line below)
-- INSTANCE_ID (into command line below)
-- COMMAND (into command line below; can be "START" or "STOP")
+Inputs (replace in code):
+- REGION
+- INSTANCE_ID
+- STATE: i.e., "START" or "STOP"
 
 Running the code:
-node ec2_startstopinstances.js REGION  INSTANCE_ID COMMAND
+node ec2_startstopinstances.js
 */
 
-// snippet-start:[ec2.JavaScript.v3.Instances.start_stopInstances]
-// Import required AWS SDK clients and commands for Node.js
-const {EC2, StartInstancesCommand, StopInstancesCommand} = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-var params = {InstanceIds: [process.argv[3]]};
-const command = process.argv[4]; // i.e. "START" or "STOP"
+// snippet-start:[ec2.JavaScript.Instances.start_stopInstancesV3]
 
-async function run() {
-    if (command.toUpperCase() === "START") {
-        try {
-            var data = await ec2client.send(new StartInstancesCommand(params));
-            console.log("Success", data.StartingInstances);
-        } catch (err) {
-            console.log("Error2", err);
-        }
+// Import required AWS SDK clients and commands for Node.js
+const {
+  EC2,
+  StartInstancesCommand,
+  StopInstancesCommand,
+} = require("@aws-sdk/client-ec2");
+
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+// Set the parameters
+var params = { InstanceIds: "INSTANCE_ID" }; //INSTANCE_ID
+const command = "STATE"; // STATE i.e. "START" or "STOP"
+
+const run = async () => {
+  if (command.toUpperCase() === "START") {
+    try {
+      var data = await ec2client.send(new StartInstancesCommand(params));
+      console.log("Success", data.StartingInstances);
+    } catch (err) {
+      console.log("Error2", err);
     }
-    else if (process.argv[2].toUpperCase() === "STOP") {
-        try {
-            const data = await ec2client.send(new StopInstancesCommand(params));
-            console.log("Success", data.StoppingInstances);
-        } catch (err) {
-            console.log("Error", err)
-        }
+  } else if (process.argv[2].toUpperCase() === "STOP") {
+    try {
+      const data = await ec2client.send(new StopInstancesCommand(params));
+      console.log("Success", data.StoppingInstances);
+    } catch (err) {
+      console.log("Error", err);
     }
+  }
 };
 run();
 
-// snippet-end:[ec2.JavaScript.v3.Instances.start_stopInstances]
+// snippet-end:[ec2.JavaScript.Instances.start_stopInstancesV3]
 exports.run = run; //for unit tests only

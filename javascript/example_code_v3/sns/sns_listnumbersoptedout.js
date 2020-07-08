@@ -10,29 +10,31 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//sns-examples-
 Purpose:
 sns_listnumbersoptedout.js demonstrates how to retrieve a list of phone numbers that have opted out of receiving Amazon SMS messages.
 
-Inputs:
-- REGION (into command line below)
+Inputs (replace in code):
+- REGION
 
 Running the code:
-node sns_listnumbersoptedout.js REGION
+node sns_listnumbersoptedout.js
  */
-// snippet-start:[sns.JavaScript.v3.SMS.listPhoneNumbersOptedOut]
+// snippet-start:[sns.JavaScript.SMS.listPhoneNumbersOptedOutV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, ListPhoneNumbersOptedOutCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const { SNS, ListPhoneNumbersOptedOutCommand } = require("@aws-sdk/client-sns");
 
-async function run() {
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
   try {
     const data = await sns.send(new ListPhoneNumbersOptedOutCommand({}));
-    console.log('Success. Opted-out phone numbers:', data.phoneNumbers);
+    console.log("Success. Opted-out phone numbers:", data.phoneNumbers);
   } catch (err) {
     console.error(err, err.stack);
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.SMS.listPhoneNumbersOptedOut]
+// snippet-end:[sns.JavaScript.SMS.listPhoneNumbersOptedOutV3]
 exports.run = run; //for unit tests only

@@ -10,36 +10,41 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/emc-examples-j
 Purpose:
 emc_listjobs.js demonstrates how to retrieve a list of the most-recently created transcoding jobs.
 
-Inputs: (all into command line below)
+Inputs (replace in code):
 - ACCOUNT_END_POINT
 - QUEUE_ARN
 
 Running the code:
-node emc_listjobs.js ACCOUNT_END_POINT QUEUE_ARN
+node emc_listjobs.js
 */
-// snippet-start:[mediaconvert.JavaScript.v3.jobs.listJobs]
+// snippet-start:[mediaconvert.JavaScript.jobs.listJobsV3]
 
 // Import required AWS-SDK clients and commands for Node.js
-const {MediaConvertClient, ListJobsCommand} = require("@aws-sdk/client-mediaconvert");
-// Create a new service object and set MediaConvert to customer endpoint
-const endpoint = {endpoint: process.argv[2]}; //ACCOUNT_END_POINT
-const mediaconvert = new MediaConvertClient(endpoint);
+const {
+  MediaConvertClient,
+  ListJobsCommand,
+} = require("@aws-sdk/client-mediaconvert");
+
+// Set the parameters
+const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 var params = {
   MaxResults: 10,
-  Order: 'ASCENDING',
-  Queue: process.argv[3],
-  Status: 'SUBMITTED'
+  Order: "ASCENDING",
+  Queue: "QUEUE_ARN",
+  Status: "SUBMITTED",
 };
 
-async function run(){
+//Set the MediaConvert Service Object
+const mediaconvert = new MediaConvert(endpoint);
+
+const run = async () => {
   try {
     const data = await mediaconvert.send(new ListJobsCommand(params));
     console.log("Success. Jobs: ", data.Jobs);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.v3.jobs.listJobs]
+// snippet-end:[mediaconvert.JavaScript.jobs.listJobsV3]
 exports.run = run; //for unit tests only

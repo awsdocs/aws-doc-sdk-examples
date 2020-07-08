@@ -10,35 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_updateuser.js demonstrates how to update the name of an IAM user.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ORIGINGAL_USER_NAME
 - NEW_USER_NAME
 
 Running the code:
-node iam_updateuser.js REGION ORIGINGAL_USER_NAME NEW_USER_NAME
+node iam_updateuser.js
  */
-// snippet-start:[iam.JavaScript.v3.users.updateUser]
+// snippet-start:[iam.JavaScript.users.updateUserV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, UpdateUserCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, UpdateUserCommand } = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  UserName: process.argv[3],
-  NewUserName: process.argv[4]
+  UserName: "ORIGINGAL_USER_NAME", //ORIGINGAL_USER_NAME
+  NewUserName: "NEW_USER_NAME", //NEW_USER_NAME
 };
 
-async function run() {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new UpdateUserCommand(params));
     console.log("Success, username updated");
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.users.updateUser]
+// snippet-end:[iam.JavaScript.users.updateUserV3]
 exports.run = run; //for unit tests only

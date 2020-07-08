@@ -11,57 +11,58 @@ Purpose:
 ses_sendbulktemplatedemail.js demonstrates how to compose an Amazon SES templated email for
 multiple destinations and queue it for sending.
 
-Inputs:
-- REGION (into command line below)
-- RECEIVER_ADDRESS (into command line below)
-- SENDER_ADDRESS (into command line below)
-- TEXT_FORMAT_BODY (replace in code; body content of email)
-- EMAIL_SUBJECT (replace in code; subject of email)
-- CcAddresses (replace in code; additional receiver addressses - optional)
-- ReplyToAddresses (replace in code; additional addresses automatically added to replies - optional)
+Inputs (replace in code):
+- REGION
+- RECEIVER_ADDRESS
+- SENDER_ADDRESS
+
 
 Running the code:
-node ses_sendbulktemplatedemail.js REGION RECEIVER_ADDRESS SENDER_ADDRESS TEMPLATE
+node ses_sendbulktemplatedemail.js
  */
-// snippet-start:[ses.JavaScript.v3.email.sendBulkTemplatedEmail]
+// snippet-start:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SES, SendBulkTemplatedEmailCommand} = require("@aws-sdk/client-ses");
+const { SES, SendBulkTemplatedEmailCommand } = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 var params = {
-  Destinations: [ /* required */
+  Destinations: [
+    /* required */
     {
-      Destination: { /* required */
+      Destination: {
+        /* required */
         CcAddresses: [
-          process.argv[3],
+          "RECEIVER_ADDRESS", //RECEIVER_ADDRESS
           /* more items */
         ],
         ToAddresses: [
           /* more items */
-        ]
+        ],
       },
-      ReplacementTemplateData: '{ \"REPLACEMENT_TAG_NAME\":\"REPLACEMENT_VALUE\" }'
+      ReplacementTemplateData: '{ "REPLACEMENT_TAG_NAME":"REPLACEMENT_VALUE" }',
     },
   ],
-  Source: process.argv[4], /* required */
-  Template: process.argv[5], /* required */
-  DefaultTemplateData: '{ \"REPLACEMENT_TAG_NAME\":\"REPLACEMENT_VALUE\" }',
-  ReplyToAddresses: [
-
-  ]
+  Source: "SENDER_ADDRESS", // SENDER_ADDRESS
+  Template: "TEMPLATE", //TEMPLATE
+  DefaultTemplateData: '{ "REPLACEMENT_TAG_NAME":"REPLACEMENT_VALUE" }',
+  ReplyToAddresses: [],
 };
 
-async function run() {
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
   try {
     const data = await ses.send(new SendBulkTemplatedEmailCommand(params));
-    console.log(data)
+    console.log(data);
   } catch (err) {
     console.error(err, err.stack);
   }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.email.sendBulkTemplatedEmail]
+// snippet-end:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
 exports.run = run; //for unit tests only

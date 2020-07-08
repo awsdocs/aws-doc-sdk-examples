@@ -10,32 +10,35 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ke
 Purpose:
 ec2_createkeypair.js demonstrates how to create an RSA key pair for an Amazon EC2 instance.
 
-Inputs:
-- REGION (into command line below)
-- MY_KEY_PAIR (into command line below)
+Inputs (replace in code):
+- REGION
+- MY_KEY_PAIR
 
 Running the code:
-node ec2_createkeypair.js REGION MY_KEY_PAIR
+node ec2_createkeypair.js
  */
-// snippet-start:[ec2.JavaScript.v3.keypairs.createKeyPair]
-// Import required AWS SDK clients and commands for Node.js
-const {EC2, CreateKeyPairCommand} = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-const params = {KeyName: process.argv[3]};
+// snippet-start:[ec2.JavaScript.keypairs.createKeyPairV3]
 
-async function run(){
-   try {
-      const data = await ec2client.send(new CreateKeyPairCommand(params))
-      console.log(JSON.stringify(data));
-   }
-   catch(err){
-      console.log("Error", err);
-   }
+// Import required AWS SDK clients and commands for Node.js
+const { EC2, CreateKeyPairCommand } = require("@aws-sdk/client-ec2");
+
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { KeyName: "MY_KEY_PAIR" }; //MY_KEY_PAIR
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
+  try {
+    const data = await ec2client.send(new CreateKeyPairCommand(params));
+    console.log(JSON.stringify(data));
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.keypairs.createKeyPair]
+// snippet-end:[ec2.JavaScript.keypairs.createKeyPairV3]
 exports.run = run; //for unit tests only

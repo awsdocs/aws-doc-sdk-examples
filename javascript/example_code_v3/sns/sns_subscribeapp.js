@@ -10,29 +10,33 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-s
 Purpose:
 sns_subscribeapp.js demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to a mobile app.
 
-Inputs:
-- REGION (into command line below)
-- TOPIC_ARN (into command line below)
-- MOBILE_ENDPOINT_ARN (into command line below)
+Inputs (replace in code):
+- REGION
+- TOPIC_ARN
+- MOBILE_ENDPOINT_ARN
 
 Running the code:
-node sns_subscribeapp.js  REGION TOPIC_ARN MOBILE_ENDPOINT_ARN
+node sns_subscribeapp.js
  */
-// snippet-start:[sns.JavaScript.v3.subscriptions.subscribeApp]
+// snippet-start:[sns.JavaScript.subscriptions.subscribeAppV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, SubscribeCommand} = require("@aws-sdk/client-sns");
+const { SNS, SubscribeCommand } = require("@aws-sdk/client-sns");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  Protocol: "application", /* required */
-  TopicArn: process.argv[3], /* required */
-  Endpoint: process.argv[4]
+  Protocol: "application" /* required */,
+  TopicArn: "TOPIC_ARN", //TOPIC_ARN
+  Endpoint: "MOBILE_ENDPOINT_ARN", // MOBILE_ENDPOINT_ARN
 };
 
-async function run() {
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
   try {
     const data = await sns.send(new SubscribeCommand(params));
     console.log("Subscription ARN is " + data.SubscriptionArn);
@@ -41,5 +45,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.subscriptions.subscribeApp]
+// snippet-end:[sns.JavaScript.subscriptions.subscribeAppV3]
 exports.run = run; //for unit tests only

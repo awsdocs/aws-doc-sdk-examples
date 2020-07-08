@@ -9,38 +9,40 @@ scheduled for release later in 2020, and the topic containing this example will 
 Purpose:
 ddb_getitem.js demonstrates how to retrieve the attributes of an item from an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
-- KEY_NAME (into code; the primary key of the table, e.g., 'CUSTOMER_ID')
-- KEY_NAME_VALUE (into code; the value of the primary key row containing the attribute value)
-- ATTRIBUTE_NAME (into code; the name of the attribute column containing the attribute value)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
+- KEY_NAME: the primary key of the table, e.g., 'CUSTOMER_ID'
+- KEY_NAME_VALUE: the value of the primary key row containing the attribute value
+- ATTRIBUTE_NAME: the name of the attribute column containing the attribute value
 
 Running the code:
-node ddb_getitem.js REGION TABLE
+node ddb_getitem.js
 */
-// snippet-start:[dynamodb.JavaScript.v3.item.getItem]
+// snippet-start:[dynamodb.JavaScript.item.getItemV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {DynamoDBClient, GetItemCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create DynamoDB service object
-const {DocumentClient} = require("@aws-sdk/client-docdb")
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  TableName: 'TABLE_NAME',
+  TableName: "TABLE_NAME", //TABLE_NAME
   Key: {
-    'KEY_NAME' : {N: 'KEY_VALUE'}
+    KEY_NAME: { N: "KEY_VALUE" },
   },
-  ProjectionExpression: 'ATTRIBUTE_NAME'
+  ProjectionExpression: "ATTRIBUTE_NAME",
 };
 
-async function run(){
-  const dbclient = new DynamoDBClient(region);
+// Create DynamoDB service object
+const dbclient = new DynamoDBClient(REGION);
+
+const run = async () => {
   const data = await dbclient.send(new GetItemCommand(params));
   console.log("Success", data.Item);
 };
 run();
-// snippet-end:[dynamodb.JavaScript.v3.item.getItem]
+// snippet-end:[dynamodb.JavaScript.item.getItemV3]
 exports.run = run; //for unit tests only
-
