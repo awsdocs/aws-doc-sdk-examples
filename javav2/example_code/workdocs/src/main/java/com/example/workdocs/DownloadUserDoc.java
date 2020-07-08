@@ -41,7 +41,7 @@ public class DownloadUserDoc {
 
     public static void main(String[] args) throws Exception {
         final String USAGE = "\n" +
-                "To run this example, supply your organization ID, a user email, name of the document, and path to save document\n" +
+                "To run this example, supply your organization ID, a user email, the document name, and path to save the document to\n" +
                 "\n" +
                 "Ex: download_user_doc <organizationId> <useremail><workdocsName><saveDocFullName>\n";
 
@@ -72,7 +72,7 @@ public class DownloadUserDoc {
              Map<String, String> map = getDocInfo(workDocs, orgId, userEmail, workdocsName);
 
             if (map.isEmpty()) {
-                System.out.println("Could not get info about workdoc " + workdocsName);
+                System.out.println("Could not get information about the document " + workdocsName);
                 return;
             }
 
@@ -80,7 +80,7 @@ public class DownloadUserDoc {
             String versionId = map.get("version_id");
 
             if (docId.isEmpty() || versionId.isEmpty()) {
-                System.out.println("Could not get info about workdoc " + workdocsName);
+                System.out.println("Could not get information about the document " + workdocsName);
                 return;
             }
 
@@ -133,7 +133,7 @@ public class DownloadUserDoc {
             }
 
             for (User wdUser : wdUsers) {
-                //DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
+                // DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
                 userFolder = wdUser.rootFolderId();
             }
 
@@ -194,7 +194,7 @@ public class DownloadUserDoc {
             Map<DocumentSourceType,String> sourceDoc = response.metadata().source();
             Map.Entry<DocumentSourceType,String> entry = sourceDoc.entrySet().iterator().next();
             DocumentSourceType key = entry.getKey();
-            String docUrl = entry.getValue(); // stores the URL of this document
+            String docUrl = entry.getValue(); // Stores the URL of this document
 
             return docUrl;
 

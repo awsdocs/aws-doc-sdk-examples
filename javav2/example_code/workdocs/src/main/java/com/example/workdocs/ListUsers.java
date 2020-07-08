@@ -23,7 +23,7 @@ import software.amazon.awssdk.services.workdocs.model.User;
 public class ListUsers {
 
     public static void main(String[] args) {
-        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
+        // Based on Amazon WorkDocs Developer Guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
 
         final String USAGE = "\n" +
                 "To run this example, supply your organization ID\n" +

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListUserDocs.java demonstrates how to list user docs for the current user.]
+//snippet-sourcedescription:[ListUserDocs.java demonstrates how to list user documents for the current user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
@@ -27,7 +27,7 @@ public class ListUserDocs {
 
 
     public static void main(String[] args) throws Exception {
-        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
+        // Based on Amazon WorkDocs Developer Guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
 
         final String USAGE = "\n" +
                 "To run this example, supply your organization ID and a user email\n" +
@@ -75,7 +75,7 @@ public class ListUserDocs {
             System.out.println("Name:          " + md.name());
             System.out.println("Size (bytes):  " + md.size());
             System.out.println("Last modified: " + md.modifiedTimestamp());
-            System.out.println("Doc ID:        " + doc.id());
+            System.out.println("Document ID:        " + doc.id());
             System.out.println("");
         }
 
