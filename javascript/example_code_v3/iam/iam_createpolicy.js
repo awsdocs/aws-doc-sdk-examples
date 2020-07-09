@@ -10,56 +10,60 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-p
 Purpose:
 iam_createpolicy.js demonstrates how to create a managed policy for an AWS account.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - RESOURCE_ARN
-- DYNAMODB_POLICY_NAME (e.g., "myDynamoDBName")
+- DYNAMODB_POLICY_NAME
 
 Running the code:
-node iam_createpolicy.js REGION RESOURCE_ARN DYNAMODB_POLICY_NAME
+node iam_createpolicy.js
  */
-// snippet-start:[iam.JavaScript.v3.policies.createPolicy]
+// snippet-start:[iam.JavaScript.policies.createPolicyV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, CreatePolicyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, CreatePolicyCommand } = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
+const REGION = "region"; //e.g. "us-east-1"
+
 // Create IAM service object
-const iam = new IAMClient(region);
+const iam = new IAMClient(REGION);
+
 // Set the parameters
 const myManagedPolicy = {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "logs:CreateLogGroup",
-            "Resource": process.argv[3]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:DeleteItem",
-                "dynamodb:GetItem",
-                "dynamodb:PutItem",
-                "dynamodb:Scan",
-                "dynamodb:UpdateItem"
-            ],
-            "Resource": process.argv[3]
-        }
-    ]
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Effect: "Allow",
+      Action: "logs:CreateLogGroup",
+      Resource: "RESOURCE_ARN", // RESOURCE_ARN
+    },
+    {
+      Effect: "Allow",
+      Action: [
+        "dynamodb:DeleteItem",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem",
+      ],
+      Resource: "DYNAMODB_POLICY_NAME", // DYNAMODB_POLICY_NAME; e.g., "myDynamoDBName"
+    },
+  ],
 };
 const params = {
-    PolicyDocument: JSON.stringify(myManagedPolicy),
-    PolicyName: process.argv[4],
+  PolicyDocument: JSON.stringify(myManagedPolicy),
+  PolicyName: process.argv[4],
 };
 
-async function run() {
-    try {
-        const data = await iam.send(new CreatePolicyCommand(params));
-        console.log("Success", data);
-    } catch (err) {
-        console.log('Error', err);
-    }
+const run = async () => {
+  try {
+    const data = await iam.send(new CreatePolicyCommand(params));
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.policies.createPolicy]
+// snippet-end:[iam.JavaScript.policies.createPolicyV3]
 exports.run = run; //for unit tests only

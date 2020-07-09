@@ -10,36 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_deleteaccesskey.js demonstrates how to delete the AWS access key pair for an IAM user.
 
-Inputs (into command line below):
+Inputs(in code):
 - REGION
 - ACCESS_KEY_ID
 - USER_NAME
 
 Running the code:
-  node iam_deleteaccesskey.js REGION ACCESS_KEY_ID USER_NAME
+  node iam_deleteaccesskey.js
  */
-// snippet-start:[iam.JavaScript.v3.keys.deleteAccessKey]
+// snippet-start:[iam.JavaScript.keys.deleteAccessKeyV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, DeleteAccessKeyCommand} = require("@aws-sdk/client-iam");
+const { IAMClient, DeleteAccessKeyCommand } = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  AccessKeyId: process.argv[3],
-  UserName: process.argv[4]
+  AccessKeyId: "ACCESS_KEY_ID", // ACCESS_KEY_ID
+  UserName: "USER_NAME", // USER_NAME
 };
 
-async function run() {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new DeleteAccessKeyCommand(params));
     console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
-  catch (err) {
-    console.log('Error', err);
-  }
-}
+};
 run();
-// snippet-end:[iam.JavaScript.v3.keys.deleteAccessKey]
+// snippet-end:[iam.JavaScript.keys.deleteAccessKeyV3]
 exports.run = run; //for unit tests only

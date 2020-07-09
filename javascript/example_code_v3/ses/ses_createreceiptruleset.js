@@ -10,32 +10,38 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-r
 Purpose:
 ses_createreceiptruleset.js demonstrates how to create an empty Amazon SES rule set.
 
-Inputs:
-- REGION (into command line below)
-- RULE_SET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- RULE_SET_NAME
 
 Running the code:
-node ses_createreceiptruleset.js REGION RULE_SET_NAME
+node ses_createreceiptruleset.js
 */
-// snippet-start:[ses.JavaScript.v3.rules.createReceiptRuleSet]
+// snippet-start:[ses.JavaScript.rules.createReceiptRuleSetV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const { SES, CreateReceiptRuleSetCommand } = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2]; // REGION
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {RuleSetName: process.argv[3]} //RULE_SET_NAME
 
-async function run(){
-    try{
-        const data = await ses.send(new CreateReceiptRuleSetCommand(params));
-        console.log("Success, receipt rule created; requestId", data.$metadata.requestId)
-    }
-    catch(err){
-        console.error(err, err.stack);
-    }
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1" // REGION
+
+// Set the parameters
+const params = { RuleSetName: "RULE_SET_NAME" }; //RULE_SET_NAME
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new CreateReceiptRuleSetCommand(params));
+    console.log(
+      "Success, receipt rule created; requestId",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.rules.createReceiptRuleSet]
+// snippet-end:[ses.JavaScript.rules.createReceiptRuleSetV3]
 exports.run = run; //for unit tests only

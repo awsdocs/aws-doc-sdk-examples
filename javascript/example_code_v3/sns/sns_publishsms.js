@@ -10,28 +10,32 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//sns-examples-
 Purpose:
 sns_publishsms.js demonstrates how to use Amazon SNS to send an SMS text message to a phone number.
 
-Inputs:
-- REGION (into command line below)
-- TEXT_MESSAGE (into code; the text message to send)
-- PHONE_NUMBER  (into command line below; in the E.164 phone number structure)
+Inputs (replace in code):
+- REGION
+- TEXT_MESSAGE
+- PHONE_NUMBER
 
 Running the code:
-node sns_publishsms.js REGION PHONE_NUMBER
+node sns_publishsms.js
  */
-// snippet-start:[sns.JavaScript.v3.SMS.publish]
+// snippet-start:[sns.JavaScript.SMS.publishV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, PublishCommand} = require("@aws-sdk/client-sns");
+const { SNS, PublishCommand } = require("@aws-sdk/client-sns");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  Message: 'MESSAGE_TEXT', /* required */
-  PhoneNumber: process.argv[3],
+  Message: "MESSAGE_TEXT" /* required */,
+  PhoneNumber: "PHONE_NUMBER", //PHONE_NUMBER, in the E.164 phone number structure
 };
 
-async function run() {
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
   try {
     const data = await sns.send(new PublishCommand(params));
     console.log("Success, message published. MessageID is " + data.MessageId);
@@ -40,5 +44,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.SMS.publish]
+// snippet-end:[sns.JavaScript.SMS.publishV3]
 exports.run = run; //for unit tests only

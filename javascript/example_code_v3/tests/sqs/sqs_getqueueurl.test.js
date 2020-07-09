@@ -1,17 +1,14 @@
-process.argv.push('--arg1', 'eu-west-1');
-process.argv.push('--arg2', 'SQS_QUEUE_NAME');
-
 const mockGetQueueUrl = jest.fn();
-jest.mock('@aws-sdk/client-sqs/commands/GetQueueUrlCommand', () => ({
-    SQS: function SQS() {
-        this.GetQueueUrlCommand = mockGetQueueUrl
-    }
+jest.mock("@aws-sdk/client-sqs/commands/GetQueueUrlCommand", () => ({
+  SQS: function SQS() {
+    this.GetQueueUrlCommand = mockGetQueueUrl;
+  },
 }));
-const {run} = require("../../sqs/sqs_getqueueurl.js");
+const { run } = require("../../sqs/sqs_getqueueurl.js");
 
 //test function
-test("has to mock SQS#getqueueurl",  async (done) => {
-    await run();
-    expect(mockGetQueueUrl).toHaveBeenCalled;
-    done();
+test("has to mock SQS#getqueueurl", async (done) => {
+  await run();
+  expect(mockGetQueueUrl).toHaveBeenCalled;
+  done();
 });

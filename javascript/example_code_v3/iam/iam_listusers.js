@@ -10,34 +10,38 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_listusers.js demonstrates how to list IAM users.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 
 Running the code:
-node iam_listusers.js REGION
+node iam_listusers.js
  */
 
-// snippet-start:[iam.JavaScript.v3.users.listUsers]
-// Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListUsersCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const params = {MaxItems: 10};
+// snippet-start:[iam.JavaScript.users.listUsersV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const { IAMClient, ListUsersCommand } = require("@aws-sdk/client-iam");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { MaxItems: 10 };
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
   try {
     const data = await iam.send(new ListUsersCommand(params));
     const users = data.Users || [];
-    users.forEach(function(user) {
-        console.log("User " + user.UserName + " created", user.CreateDate);
+    users.forEach(function (user) {
+      console.log("User " + user.UserName + " created", user.CreateDate);
     });
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.users.listUsers]
+// snippet-end:[iam.JavaScript.users.listUsersV3]
 exports.run = run; //for unit tests only

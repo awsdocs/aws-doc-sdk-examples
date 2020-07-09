@@ -10,35 +10,37 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-sta
 Purpose:
 s3_getbucketwebsite.js demonstrates how to retrieve the website configuration of an Amazon S3 bucket.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - BUCKET_NAME
 
 Running the code:
-node S3.js  REGION BUCKET_NAME
+node S3.js
 
-// snippet-start:[s3.JavaScript.v3.website.getBucketWebsite]
+// snippet-start:[s3.JavaScript.website.getBucketWebsiteV3]
  */
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3, GetBucketWebsiteCommand } = require("@aws-sdk/client-s3");
-// Set the AWS region
-const region = process.argv[2];
-// Create S3 service object
-const s3 = new S3(region);
-// Create the parameters for calling
-const bucketParams = {Bucket : process.argv[3]};
 
-async function run(){
-  try{
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create the parameters for calling
+const bucketParams = { Bucket: "BUCKET_NAME" };
+
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
+  try {
     const data = await s3.send(new GetBucketWebsiteCommand(bucketParams));
-    console.log('Success', data);
-  }
-  catch (err){
-    console.log('Error', err);
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.website.getBucketWebsite]
+// snippet-end:[s3.JavaScript.website.getBucketWebsiteV3]
 //for unit tests only
 exports.run = run;

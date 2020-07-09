@@ -10,42 +10,49 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_createtemplate.js demonstrates how to create an Amazon SES email template.
 
-Inputs:
-- REGION (into command line below)
-- TEMPLATE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TEMPLATE_NAME
 - HTML_CONTENT (into code; HTML tagged content of email)
 - SUBJECT (into code; the subject of the email)
 - TEXT_CONTENT (into code; text content of the email)
 
 Running the code:
-node ses_createtemplate.js REGION TEMPLATE_NAME
+node ses_createtemplate.js
 */
 
-// snippet-start:[ses.JavaScript.v3.templates.createTemplate]
+// snippet-start:[ses.JavaScript.templates.createTemplateV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SES, CreateTemplateCommand} = require("@aws-sdk/client-ses");
+const { SES, CreateTemplateCommand } = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Create createTemplate params
 const params = {
-    Template: {
-        TemplateName: process.argv[3], //TEMPLATE_NAME
-        HtmlPart: 'HTML_CONTENT',
-        SubjectPart: 'SUBJECT',
-        TextPart: 'TEXT_CONTENT'
-    }
+  Template: {
+    TemplateName: "TEMPLATE_NAME", //TEMPLATE_NAME
+    HtmlPart: "HTML_CONTENT",
+    SubjectPart: "SUBJECT",
+    TextPart: "TEXT_CONTENT",
+  },
 };
 
-async function run() {
-    try {
-        const data = await ses.send(new CreateTemplateCommand(params));
-        console.log("Success, template created; requestID", data.$metadata.requestId)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new CreateTemplateCommand(params));
+    console.log(
+      "Success, template created; requestID",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.templates.createTemplate]
+// snippet-end:[ses.JavaScript.templates.createTemplateV3]
 exports.run = run; //for unit tests only

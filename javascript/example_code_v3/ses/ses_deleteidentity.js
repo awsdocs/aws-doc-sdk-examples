@@ -10,33 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_deleteidentity.js demonstrates how to delete an Amazon SES identity.
 
-Inputs:
-- REGION (into command line below)
-- IDENTITY_TYPE (into command line; 'EmailAddress' or 'Domain')
+Inputs (replace in code):
+- REGION
+- IDENTITY_TYPE
 - IDENTITY_NAME
 
 Running the code:
-node ses_deleteidentity.js REGION IDENTITY_TYPE IDENTITY_NAME
+node ses_deleteidentity.js
 */
-// snippet-start:[ses.JavaScript.v3.identities.deleteIdentity]
-// Import required AWS SDK clients and commands for Node.js
-const {SES, DeleteIdentityCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {IdentityType: process.argv[3], // IDENTITY_TYPE
-                Identity: process.argv[4]}; // IDENTITY_NAME
+// snippet-start:[ses.JavaScript.identities.deleteIdentityV3]
 
-async function run() {
-    try {
-        const data = await ses.send(new DeleteIdentityCommand(params));
-        console.log("Identity Deleted")
-        } catch (err) {
-        console.error(err, err.stack);
-        }
+// Import required AWS SDK clients and commands for Node.js
+const { SES, DeleteIdentityCommand } = require("@aws-sdk/client-ses");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = {
+  IdentityType: "IDENTITY_TYPE", // IDENTITY_TYPE - i.e., 'EmailAddress' or 'Domain'
+  Identity: "IDENTITY_NAME",
+}; // IDENTITY_NAME
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new DeleteIdentityCommand(params));
+    console.log("Identity Deleted");
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
-run()
-// snippet-end:[ses.JavaScript.v3.identities.deleteIdentity]
+run();
+// snippet-end:[ses.JavaScript.identities.deleteIdentityV3]
 exports.run = run; //for unit tests only

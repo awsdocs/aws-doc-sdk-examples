@@ -10,52 +10,62 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-p
 Purpose:
 iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ROLE_NAME
 
 Running the code:
-node iam_attachrolepolicy.js REGION ROLE_NAME
+node iam_attachrolepolicy.js
 
  */
 
-// snippet-start:[iam.JavaScript.v3.policies.attachRolePolicy]
-// Import required AWS SDK clients and commands for Node.js
-const {IAMClient, ListAttachedRolePoliciesCommand, AttachRolePolicyCommand} = require("@aws-sdk/client-iam");
-// Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
-// Set the parameters
-const paramsRoleList = {RoleName: process.argv[3]};
+// snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
 
-async function run() {
-  const iam = new IAMClient(region);
+// Import required AWS SDK clients and commands for Node.js
+const {
+  IAMClient,
+  ListAttachedRolePoliciesCommand,
+  AttachRolePolicyCommand,
+} = require("@aws-sdk/client-iam");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const paramsRoleList = { RoleName: "ROLE_NAME" }; //ROLE_NAME
+
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
+  const iam = new IAMClient(REGION);
   try {
-    const data = await iam.send(new ListAttachedRolePoliciesCommand(paramsRoleList));
+    const data = await iam.send(
+      new ListAttachedRolePoliciesCommand(paramsRoleList)
+    );
     const myRolePolicies = data.AttachedPolicies;
     myRolePolicies.forEach(function (val, index, array) {
-      if (myRolePolicies[index].PolicyName === 'AmazonDynamoDBFullAccess') {
-        console.log("AmazonDynamoDBFullAccess is already attached to this role.")
+      if (myRolePolicies[index].PolicyName === "AmazonDynamoDBFullAccess") {
+        console.log(
+          "AmazonDynamoDBFullAccess is already attached to this role."
+        );
         process.exit();
       }
     });
     try {
       var params = {
-        PolicyArn: 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
-        RoleName: process.argv[2]
+        PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+        RoleName: process.argv[2],
       };
       const data = await iam.send(new AttachRolePolicyCommand(params));
       console.log("Role attached successfully");
+    } catch (err) {
+      console.log("Error", err);
     }
-    catch (err) {
-      console.log('Error', err);
-    }
-  }
-  catch (err) {
-    console.log('Error', err);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.policies.attachRolePolicy]
+// snippet-end:[iam.JavaScript.policies.attachRolePolicyV3]
 exports.run = run; //for unit tests only

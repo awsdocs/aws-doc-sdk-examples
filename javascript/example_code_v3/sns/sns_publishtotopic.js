@@ -10,36 +10,40 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-p
 Purpose:
 sns_publishtotopic.js demonstrates how to send a message to an Amazon SNS topic.
 
-Inputs:
-- REGION (into command line below)
-- MESSAGE_TEXT (into code)
-- TOPIC_ARN  (into command line below)
+Inputs (replace in code):
+- REGION
+- MESSAGE_TEXT
+- TOPIC_ARN
 
 Running the code:
-node sns_publishtotopic.js REGION TOPIC_ARN
+node sns_publishtotopic.js
  */
-// snippet-start:[sns.JavaScript.v3.topics.publishMessages]
+// snippet-start:[sns.JavaScript.topics.publishMessagesV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, PublishCommand} = require("@aws-sdk/client-sns");
+const { SNS, PublishCommand } = require("@aws-sdk/client-sns");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 var params = {
-    Message: 'MESSAGE_TEXT', /* required */
-    TopicArn: process.argv[3]
+  Message: "MESSAGE_TEXT", // MESSAGE_TEXT
+  TopicArn: "TOPIC_ARN", //TOPIC_ARN
 };
 
-async function run() {
-    try {
-        const data = await sns.send(new PublishCommand(params));
-        console.log("Message sent to the topic");
-        console.log("MessageID is " + data.MessageId);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
+  try {
+    const data = await sns.send(new PublishCommand(params));
+    console.log("Message sent to the topic");
+    console.log("MessageID is " + data.MessageId);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.publishMessages]
+// snippet-end:[sns.JavaScript.topics.publishMessagesV3]
 exports.run = run; //for unit tests only

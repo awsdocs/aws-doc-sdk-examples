@@ -10,108 +10,97 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-d
 Purpose:
 ddb-table-populate.js demonstrates how to populate an Amazon DynamoDB table.
 
-Inputs:
-- REGION (into command line below)
-- TABLE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TABLE_NAME
 
 Running the code:
-node ddb-table-populate.js REGION TABLE_NAME
+node ddb-table-populate.js
 */
 
-// snippet-start:[lambda.JavaScript.v3.PopulateTable]
-// Load the DynamoDB client
-const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
-// Instantiate a DynamoDB client
-const region = process.argv[2]; //REGION
-const ddb = new DynamoDBClient(region);
+// snippet-start:[lambda.JavaScript.PopulateTableV3]
 
-const myTable = process.argv[3]; //TABLE_NAME
+// Load the DynamoDB client
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+//Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+//Set the parameters
+const myTable = "TABLE_NAME"; //TABLE_NAME
 
 // Add the four spades results
-async function run() {
+const run = async () => {
   let params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '0'}, 'imageFile' : {S: 'spad_a.png'}
-    }
+    Item: { slotPosition: { N: "0" }, imageFile: { S: "spad_a.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '1'}, 'imageFile' : {S: 'spad_k.png'}
-    }
+    Item: { slotPosition: { N: "1" }, imageFile: { S: "spad_k.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '2'}, 'imageFile' : {S: 'spad_q.png'}
-    }
+    Item: { slotPosition: { N: "2" }, imageFile: { S: "spad_q.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '3'}, 'imageFile' : {S: 'spad_j.png'}
-    }
+    Item: { slotPosition: { N: "3" }, imageFile: { S: "spad_j.png" } },
   };
   await post(params);
 
   // Add the four hearts results
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '4'}, 'imageFile' : {S: 'hart_a.png'}
-    }
+    Item: { slotPosition: { N: "4" }, imageFile: { S: "hart_a.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '5'}, 'imageFile' : {S: 'hart_k.png'}
-    }
+    Item: { slotPosition: { N: "5" }, imageFile: { S: "hart_k.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '6'}, 'imageFile' : {S: 'hart_q.png'}
-    }
+    Item: { slotPosition: { N: "6" }, imageFile: { S: "hart_q.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '7'}, 'imageFile' : {S: 'hart_j.png'}
-    }
+    Item: { slotPosition: { N: "7" }, imageFile: { S: "hart_j.png" } },
   };
   await post(params);
 
   // Add the four diamonds results
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '8'}, 'imageFile' : {S: 'diam_a.png'}
-    }
+    Item: { slotPosition: { N: "8" }, imageFile: { S: "diam_a.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '9'}, 'imageFile' : {S: 'diam_k.png'}
-    }
+    Item: { slotPosition: { N: "9" }, imageFile: { S: "diam_k.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '10'}, 'imageFile' : {S: 'diam_q.png'}
-    }
+    Item: { slotPosition: { N: "10" }, imageFile: { S: "diam_q.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '11'}, 'imageFile' : {S: 'diam_j.png'}
-    }
+    Item: { slotPosition: { N: "11" }, imageFile: { S: "diam_j.png" } },
   };
   await post(params);
 
@@ -119,42 +108,41 @@ async function run() {
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '12'}, 'imageFile' : {S: 'club_a.png'}
-    }
+    Item: { slotPosition: { N: "12" }, imageFile: { S: "club_a.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '13'}, 'imageFile' : {S: 'club_k.png'}
-    }
+    Item: { slotPosition: { N: "13" }, imageFile: { S: "club_k.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '14'}, 'imageFile' : {S: 'club_q.png'}
-    }
+    Item: { slotPosition: { N: "14" }, imageFile: { S: "club_q.png" } },
   };
   await post(params);
 
   params = {
     TableName: myTable,
-    Item: {'slotPosition' : {N: '15'}, 'imageFile' : {S: 'club_j.png'}
-    }
+    Item: { slotPosition: { N: "15" }, imageFile: { S: "club_j.png" } },
   };
   await post(params);
-}
+};
 
 run();
 
-async function post (params) {
+// Instantiate a DynamoDB client
+const ddb = new DynamoDBClient(REGION);
+
+const run = async (params) => {
   try {
     const data = await ddb.send(new PutItemCommand(params));
     console.log("Success", data);
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
-}
-
-// snippet-end:[lambda.JavaScript.v3.PopulateTable]
+};
+post();
+// snippet-end:[lambda.JavaScript.PopulateTableV3]

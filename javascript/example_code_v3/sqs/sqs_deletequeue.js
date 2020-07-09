@@ -10,26 +10,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-u
 Purpose:
 sqs_deletequeue.js demonstrates how to delete an Amazon SQS queue.
 
-Inputs:
-- REGION (into command line below)
-- SQS_QUEUE_URl (into command line below; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME')
-- DelaySeconds (into code; enter in seconds)
-- MessageRetentionPeriod (into code; enter in seconds)
+Inputs (replace in code):
+- REGION
+- SQS_QUEUE_URl
 
 Running the code:
-node sqs_deletequeue.js REGION SQS_QUEUE_URL
+node sqs_deletequeue.js
 */
-// snippet-start:[sqs.JavaScript.v3.queues.deleteQueue]
-// Import required AWS SDK clients and commands for Node.js
-const {SQS, DeleteQueueCommand} = require("@aws-sdk/client-sqs");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sns = new SQS(region);
-// Set the parameters
-const params = {QueueUrl : process.argv[3]}; //SQS_QUEUE_URL
+// snippet-start:[sqs.JavaScript.queues.deleteQueueV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const { SQS, DeleteQueueCommand } = require("@aws-sdk/client-sqs");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { QueueUrl: "SQS_QUEUE_URL" }; //SQS_QUEUE_URL e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+
+// Create SQS service object
+const sns = new SQS(REGION);
+
+const run = async () => {
   try {
     const data = await sns.send(new DeleteQueueCommand(params));
     console.log("Success, queue deleted. RequestID:", data.$metadata.requestId);
@@ -38,5 +40,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.queues.deleteQueue]
+// snippet-end:[sqs.JavaScript.queues.deleteQueueV3]
 exports.run = run; //for unit tests only

@@ -10,37 +10,39 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-acc
 Purpose:
 s3_getbucketacl.js demonstrates how to retrieve the access control list of an Amazon S3 bucket.
 
-Inputs:
-- REGION (into command line below)
-- BUCKET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- BUCKET_NAME
 
 Running the code:
-node S3.js  REGION BUCKET_NAME
+node S3.js
 
 Outputs:
 Lists the buckets in the associated AWS account, then creates a bucket, then deletes it
 */
-//snippet-start:[s3.JavaScript.v3.perms.getBucketAcl]
+//snippet-start:[s3.JavaScript.perms.getBucketAclV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const  {S3, GetBucketAclCommand}  = require('@aws-sdk/client-s3/');
-// Set the AWS region
-const region = process.argv[2];
-// Create S3 service object
-const s3 = new S3(region);
-// Create the parameters for calling
-const bucketParams = {Bucket : process.argv[3]};
+const { S3, GetBucketAclCommand } = require("@aws-sdk/client-s3/");
 
-async function run(){
-  try{
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create the parameters for calling
+const bucketParams = { Bucket: "BUCKET_NAME" };
+
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
+  try {
     const data = await s3.send(new GetBucketAclCommand(bucketParams));
-    console.log('Success', data.Grants);
-  }
-  catch (err){
-    console.log('Error', err);
+    console.log("Success", data.Grants);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.perms.getBucketAcl]
+// snippet-end:[s3.JavaScript.perms.getBucketAclV3]
 //for unit tests only
 exports.run = run;

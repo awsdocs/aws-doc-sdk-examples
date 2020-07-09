@@ -10,38 +10,46 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-d
 Purpose:
 sqs_deadletterqueue.js demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.
 
-Inputs:
-- REGION (into command line below)
-- SQS_QUEUE_URL (into command line below)
-- DEAD_LETTER_QUEUE_ARN (into code)
+Inputs (replace in code):
+- REGION
+- SQS_QUEUE_URL
+- DEAD_LETTER_QUEUE_ARN
 
 Running the code:
-node sqs_deadletterqueue.js REGION SQS_QUEUE_URL
+node sqs_deadletterqueue.js
 */
-// snippet-start:[sqs.JavaScript.v3.deadLetter.setQueueAttributes]
+// snippet-start:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, SetQueueAttributesCommand} = require("@aws-sdk/client-sqs");
+const { SQS, SetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 var params = {
-    Attributes: {
-        "RedrivePolicy": "{\"deadLetterTargetArn\":\"DEAD_LETTER_QUEUE_ARN\"," +
-            "\"maxReceiveCount\":\"10\"}",
-    },
-    QueueUrl: process.argv[3] //SQS_QUEUE_URL
+  Attributes: {
+    RedrivePolicy:
+      '{"deadLetterTargetArn":"DEAD_LETTER_QUEUE_ARN",' +
+      '"maxReceiveCount":"10"}', //DEAD_LETTER_QUEUE_ARN
+  },
+  QueueUrl: "SQS_QUEUE_URL", //SQS_QUEUE_URL
 };
 
-async function run() {
-    try {
-        const data = await sqs.send(new SetQueueAttributesCommand(params));
-        console.log("Success, source queues configured. RequestID:", data.$metadata.requestId);
-    } catch (err) {
-        console.log("Error", err);
-    }
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
+  try {
+    const data = await sqs.send(new SetQueueAttributesCommand(params));
+    console.log(
+      "Success, source queues configured. RequestID:",
+      data.$metadata.requestId
+    );
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.deadLetter.setQueueAttributes]
+// snippet-end:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
 exports.run = run; //for unit tests only

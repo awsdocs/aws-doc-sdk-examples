@@ -10,32 +10,35 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-m
 Purpose:
 sns_createtopic.js demonstrates how to create an Amazom SNS topic to which notifications can be published.
 
-Inputs:
-- REGION (into command line below)
-- TOPIC_NAME  (into command line below)
+Inputs (replace in code):
+- REGION
+- TOPIC_NAME
 
 Running the code:
-node sns_createtopic.js REGION PHONE_NUMBER
+node sns_createtopic.js
  */
-// snippet-start:[sns.JavaScript.v3.topics.createTopic]
+// snippet-start:[sns.JavaScript.topics.createTopicV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {SNS, CreateTopicCommand} = require("@aws-sdk/client-sns");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SNS service object
-const sns = new SNS(region);
-// Set the parameters
-const params = {Name: process.argv[3]}; //TOPIC_NAME
+const { SNS, CreateTopicCommand } = require("@aws-sdk/client-sns");
 
-async function run() {
-    try {
-        const data = await sns.send(new CreateTopicCommand(params));
-        console.log("Topic ARN is " + data.TopicArn);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { Name: "TOPIC_NAME" }; //TOPIC_NAME
+
+// Create SNS service object
+const sns = new SNS(REGION);
+
+const run = async () => {
+  try {
+    const data = await sns.send(new CreateTopicCommand(params));
+    console.log("Topic ARN is " + data.TopicArn);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[sns.JavaScript.v3.topics.createTopic]
+// snippet-end:[sns.JavaScript.topics.createTopicV3]
 exports.run = run; //for unit tests only

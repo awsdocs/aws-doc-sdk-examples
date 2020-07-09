@@ -10,23 +10,24 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-s
 Purpose:
 s3-bucket-setup-non-modular.js demonstrates how to create an Amazon S3 bucket.
 
-Inputs:
-- REGION (into command line below)
-- BUCKET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- BUCKET_NAME
 
 Running the code:
-node s3-bucket-setup-non-modular.js REGION BUCKET_NAME
+node s3-bucket-setup-non-modular.js
 */
-// snippet-start:[lambda.JavaScript.v3.BucketSetUp.NonModular]
+// snippet-start:[lambda.JavaScript.BucketSetUp.NonModularV3]
+
 // Import a non-modular S3 client
-const { S3 } = require('@aws-sdk/client-s3');
-// Instantiate the S3 client
-const region = process.argv[2];
-const s3 = new S3(region);
+const { S3 } = require("@aws-sdk/client-s3");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
 
 // Create params JSON for S3.createBucket
 const bucketParams = {
-  Bucket: process.argv[3]
+  Bucket: "BUCKET_NAME",
 };
 
 // Create params JSON for S3.setBucketWebsite
@@ -34,30 +35,33 @@ const staticHostParams = {
   Bucket: process.argv[3],
   WebsiteConfiguration: {
     ErrorDocument: {
-      Key: 'error.html'
+      Key: "error.html",
     },
     IndexDocument: {
-      Suffix: 'index.html'
+      Suffix: "index.html",
     },
-  }
+  },
 };
-async function run() {
-// Call S3 to create the bucket
+
+// Instantiate the S3 client
+const s3 = new S3(REGION);
+
+const run = async () => {
+  // Call S3 to create the bucket
   try {
-    const data = await s3.createBucket(bucketParams)
-    console.log('Success, bucket created');
-  }
-  catch (err) {
-    console.log("Error", err)
+    const data = await s3.createBucket(bucketParams);
+    console.log("Success, bucket created");
+  } catch (err) {
+    console.log("Error", err);
   }
   try {
     // Update the displayed policy for the selected bucket
     const putWebsiteOn = await s3.putBucketWebsite(staticHostParams);
     console.log("Success, bucket policy updated");
-  } catch (err){
+  } catch (err) {
     console.log(err);
   }
 };
 run();
-// snippet-end:[lambda.JavaScript.v3.BucketSetUp.NonModular]
+// snippet-end:[lambda.JavaScript.BucketSetUp.NonModularV3]
 exports.run = run;

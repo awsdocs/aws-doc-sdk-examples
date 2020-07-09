@@ -10,48 +10,59 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sts-examples-p
 Purpose:
 sts_assumerole.js demonstrates how to use AWS STS to assume an IAM role.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - ROLE_TO_ASSUME_ARN
 
 Running the code:
-node sts_assumerule.js REGION ARN_OF_ROLE_TO_ASSUME
+node sts_assumerule.js  ARN_OF_ROLE_TO_ASSUME
  */
-// snippet-start:[iam.JavaScript.v3.sts.AssumeRole]
-// Import required AWS SDK clients and commands for Node.js
-const {STSClient, AssumeRoleCommand, GetCallerIdentityCommand} = require("@aws-sdk/client-sts");
-// Set the AWS Region
-const region = process.argv[2];
-// Create STS service object
-const sts = new STSClient(region);
-// Set the parameters
-const roleToAssume = {RoleArn: process.argv[3] ,
-    RoleSessionName: 'session1',
-    DurationSeconds: 900,};
+// snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const {
+  STSClient,
+  AssumeRoleCommand,
+  GetCallerIdentityCommand,
+} = require("@aws-sdk/client-sts");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Create STS service object
+const sts = new STSClient(REGION);
+
+// Set the parameters
+const roleToAssume = {
+  RoleArn: "ARN_OF_ROLE_TO_ASSUME", //ARN_OF_ROLE_TO_ASSUME
+  RoleSessionName: "session1",
+  DurationSeconds: 900,
+};
+
+const run = async () => {
+  try {
+    //Assume Role
+    const data = await sts.send(new AssumeRoleCommand(roleToAssume));
+    const rolecreds = {
+      accessKeyId: data.Credentials.AccessKeyId,
+      secretAccessKey: data.Credentials.SecretAccessKey,
+      sessionToken: data.Credentials.SessionToken,
+    };
+    //Get Amazon Resource Name (ARN) of current identity
     try {
-        //Assume Role
-        const data = await sts.send(new AssumeRoleCommand(roleToAssume));
-        const rolecreds = {
-            accessKeyId: data.Credentials.AccessKeyId,
-            secretAccessKey: data.Credentials.SecretAccessKey,
-            sessionToken: data.Credentials.SessionToken
-        };
-        //Get Amazon Resource Name (ARN) of current identity
-        try {
-            const stsParams = {credentials: rolecreds};
-            const stsClient = new STSClient(stsParams);
-            const results = await stsClient.send(new GetCallerIdentityCommand(rolecreds));
-            console.log("Success", results);
-        } catch (err) {
-            console.log(err, err.stack);
-        }
+      const stsParams = { credentials: rolecreds };
+      const stsClient = new STSClient(stsParams);
+      const results = await stsClient.send(
+        new GetCallerIdentityCommand(rolecreds)
+      );
+      console.log("Success", results);
+    } catch (err) {
+      console.log(err, err.stack);
     }
-     catch(err) {
-        console.log("Error", err);
-    }
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.sts.AssumeRole]
+// snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
 exports.run = run; //for unit tests only

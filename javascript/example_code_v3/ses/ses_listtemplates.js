@@ -10,31 +10,35 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_listtemplates.js demonstrates how to list the available Amazon SES email templates.
 
-Inputs:
-- REGION (into command line below)
-- ITEMS_COUNT (into command line below)
+Inputs (replace in code):
+- REGION
+- ITEMS_COUNT
 
 Running the code:
-node ses_listreceiptfilters.js REGION ITEMS_COUNT
+node ses_listreceiptfilters.js
 */
-// snippet-start:[ses.JavaScript.v3.templates.listTemplates]
-// Import required AWS SDK clients and commands for Node.js
-const {SES, ListTemplatesCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {MaxItems: process.argv[3]};
+// snippet-start:[ses.JavaScript.templates.listTemplatesV3]
 
-async function run() {
-    try {
-        const data = await ses.send(new ListTemplatesCommand({params}));
-        console.log(data)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Import required AWS SDK clients and commands for Node.js
+const { SES, ListTemplatesCommand } = require("@aws-sdk/client-ses");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { MaxItems: "ITEMS_COUNT" }; //ITEMS_COUNT
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new ListTemplatesCommand({ params }));
+    console.log(data);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.templates.listTemplates]
+// snippet-end:[ses.JavaScript.templates.listTemplatesV3]
 exports.run = run; //for unit tests only

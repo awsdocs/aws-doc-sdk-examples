@@ -1,64 +1,65 @@
-# Amazon CloudWatch Java Readme
+# Amazon CloudWatch Java code examples
 
-A README that discusses how to run and test the Java Amazon CloudWatch code examples.
+This README discusses how to run and test the Java code examples for Amazon CloudWatch.
 
 ## Running the Amazon CloudWatch Java files
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and region for which you've specified credentials, and you may incur AWS service charges by running them. Visit the AWS Pricing page for details about the charges you can expect for a given service and operation. For details, see https://aws.amazon.com/pricing/.   
+The Java code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.   
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a CloudWatch alarm. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**:
+To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
 
 	export CLASSPATH=target/sdk-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
 
-Where  **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS Java SDK jar.
+Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
 
-Once you set the **CLASSPATH**, you can run a particular example like this:
+For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
 
 	java com.example.cloudwatch.DeleteAlarm
 
-For systems with bash support.
 
  ## Testing the Amazon CloudWatch Java files
 
-You can test the Amazon CloudWatch Java code examples by running a test file named **CloudWatchServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
+You can test the Java code examples for Amazon CloudWatch by running a test file named **CloudWatchServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that test 3 passed:
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulate real Amazon CloudWatch resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real Amazon CloudWatch resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon CloudWatch JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an alarm name for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon CloudWatch JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an alarm name for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **logGroup** - the name of the  log group to use. For example, **testgroup**.
+- **logGroup** - The name of the log group to use. For example, **testgroup**.
 
-- **alarmName** – the name of the alarm to use. For example, **AlarmFeb**.
+- **alarmName** – The name of the alarm to use. For example, **AlarmFeb**.
 
-- **instanceId** – the id of the instance to use. You can obtain this value from the AWS Console. For example, **ami-04300000000**.
+- **instanceId** – The ID of the instance to use. You can obtain this value from the AWS Management Console. For example, **ami-04300000000**.
 
-- **streamName** - the name of the stream to use. This value is used to retrieve log events. 
+- **streamName** - The name of the stream to use. This value is used to retrieve log events.
 
-- **ruleResource** – the ARN of the user whom owns the rule. You can obtain this value from the AWS Console.  
--  **filterName**  - the name of the filter to use. 
+- **ruleResource** – The Amazon Resource Name (ARN) of the user who owns the rule. You can obtain this value from the AWS Management Console.  
+-  **filterName**  - The name of the filter to use.
 
-- **destinationArn** - the ARN of the destination. This value is used to  create subscription filters.
-- **roleArn** - the ARN of the user. This value is used to  create subscription filters.
+- **destinationArn** - The ARN of the destination. This value is used to create subscription filters.
 
-- **filterPattern** - the filter pattern. For example, **Error**. 
+- **roleArn** - The ARN of the user. This value is used to create subscription filters.
+
+- **filterPattern** - The filter pattern. For example, **Error**.
 
 ### Command line
 
-To execute the JUnit tests from the command line, you can use the following command:
+To run the JUnit tests from the command line, you can use the following command.
 
 		mvn test
-You will see output from the JUnit tests, as shown here:
+
+You will see output from the JUnit tests, as shown here.
 
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
@@ -81,7 +82,7 @@ You will see output from the JUnit tests, as shown here:
 
 ### Unsuccessful tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as below. You need to double check the values that you set in the properties file and run the tests again. 
+If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
 
 	[INFO]
 	[INFO] --------------------------------------

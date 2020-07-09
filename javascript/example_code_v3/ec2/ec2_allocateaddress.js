@@ -10,45 +10,51 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-e
 Purpose:
 ec2_allocateaddress.js demonstrates how to allocate and associate an Elastic IP address to an Amazon EC2 instance.
 
-Inputs:
-- REGION (into command line below)
-- INSTANCE_ID (into command line below)
+Inputs (replace in code):
+- REGION
+- INSTANCE_ID
 
 Running the code:
-node ec2_allocateaddress.js REGION INSTANCE_ID
+node ec2_allocateaddress.js
 */
-// snippet-start:[ec2.JavaScript.v3.Addresses.allocateAddress]
+// snippet-start:[ec2.JavaScript.Addresses.allocateAddressV3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {
-    EC2, AllocateAddressCommand, AssociateAddressCommand
+  EC2,
+  AllocateAddressCommand,
+  AssociateAddressCommand,
 } = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-const paramsAllocateAddress = {Domain: 'vpc'};
 
-async function run(){
-    try {
-        const data = await ec2client.allocateAddress(paramsAllocateAddress);
-        console.log("Address allocated:", data.AllocationId);
-        var paramsAssociateAddress = {
-            AllocationId: data.AllocationId,
-            InstanceId: process.argv[3]
-        }
-    }
-    catch(err){
-        console.log("Address Not Allocated", err);
-    }
-    try{
-        const results = await ec2client.send(new AssociateAddressCommand(paramsAssociateAddress))
-        console.log("Address associated:", results.AssociationId);
-    }
-    catch(err){
-        console.log("Address Not Associated", err);
-    }
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const paramsAllocateAddress = { Domain: "vpc" };
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
+  try {
+    const data = await ec2client.allocateAddress(paramsAllocateAddress);
+    console.log("Address allocated:", data.AllocationId);
+    var paramsAssociateAddress = {
+      AllocationId: data.AllocationId,
+      InstanceId: "INSTANCE_ID", //INSTANCE_ID
+    };
+  } catch (err) {
+    console.log("Address Not Allocated", err);
+  }
+  try {
+    const results = await ec2client.send(
+      new AssociateAddressCommand(paramsAssociateAddress)
+    );
+    console.log("Address associated:", results.AssociationId);
+  } catch (err) {
+    console.log("Address Not Associated", err);
+  }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.Addresses.allocateAddress]
+// snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]
 exports.run = run; //for unit tests only

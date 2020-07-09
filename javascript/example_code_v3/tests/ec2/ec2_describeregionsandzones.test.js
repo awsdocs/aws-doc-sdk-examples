@@ -1,15 +1,14 @@
-process.argv.push('--arg1', 'us-west-2');
 const mockDescribeRegions = jest.fn();
-jest.mock('@aws-sdk/client-ec2/commands/DescribeRegionsCommand', () => ({
-    EC2: function EC2() {
-        this.DescribeRegionsCommand = mockDescribeRegions
-    }
+jest.mock("@aws-sdk/client-ec2/commands/DescribeRegionsCommand", () => ({
+  EC2: function EC2() {
+    this.DescribeRegionsCommand = mockDescribeRegions;
+  },
 }));
-const {params, run} = require("../../ec2/ec2_describeregionsandzones");
+const { params, run } = require("../../ec2/ec2_describeregionsandzones");
 
 //test function
-test("has to mock ec2#describeRegionsandZones",  async (done) => {
-    await run();
-    expect(mockDescribeRegions).toHaveBeenCalled;
-    done();
+test("has to mock ec2#describeRegionsandZones", async (done) => {
+  await run();
+  expect(mockDescribeRegions).toHaveBeenCalled;
+  done();
 });

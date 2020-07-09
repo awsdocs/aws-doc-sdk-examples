@@ -10,35 +10,42 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-s
 Purpose:
 iam_updateservercert.js demonstrates how to update the name of an IAM SSL/TLS server certificate.
 
-Inputs (into command line below):
+Inputs :
 - REGION
 - CERTIFICATE_NAME
 - NEW_CERTIFICATE_NAME
 
 Running the code:
-node iam_updateservercert.js REGION CERTIFICATE_NAME NEW_CERTIFICATE_NAME
+node iam_updateservercert.js
  */
-// snippet-start:[iam.JavaScript.v3.certs.updateServerCertificate]
+// snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {IAMClient, UpdateServerCertificateCommand} = require("@aws-sdk/client-iam");
+const {
+  IAMClient,
+  UpdateServerCertificateCommand,
+} = require("@aws-sdk/client-iam");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create IAM service object
-const iam = new IAMClient(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 var params = {
-  ServerCertificateName: process.argv[3],
-  NewServerCertificateName: process.argv[4]
+  ServerCertificateName: "CERTIFICATE_NAME", //CERTIFICATE_NAME
+  NewServerCertificateName: "NEW_CERTIFICATE_NAME", //NEW_CERTIFICATE_NAME
 };
 
-async function run() {
-    try {
+// Create IAM service object
+const iam = new IAMClient(REGION);
+
+const run = async () => {
+  try {
     const data = await iam.send(new UpdateServerCertificateCommand(params));
     console.log("Success", data);
-  } catch(err) {
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.v3.certs.updateServerCertificate]
+// snippet-end:[iam.JavaScript.certs.updateServerCertificateV3]
 exports.run = run; //for unit tests only

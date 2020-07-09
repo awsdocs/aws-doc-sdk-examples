@@ -9,32 +9,35 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-se
 
 Purpose:
 ec2_deletesecuritygroup.js demonstrates how to delete a security group from an Amazon EC2 instance.
-Inputs:
-- REGION (into command line below)
-- SECURITY_GROUP_ID (into command line below)
+
+Inputs (replace in code):
+- REGION
+- SECURITY_GROUP_ID
 
 Running the code:
-node ec2_deletesecuritygroup.js REGION SECURITY_GROUP_ID
+node ec2_deletesecuritygroup.js
  */
-// snippet-start:[ec2.JavaScript.v3.SecurityGroups.deleteSecurityGroup]
-// Import required AWS SDK clients and commands for Node.js
-const {EC2, DeleteSecurityGroupCommand} = require("@aws-sdk/client-ec2");
-// Set the AWS region
-const region = process.argv[2];
-// Create EC2 service object
-const ec2client = new EC2(region);
-// Set the parameters
-const params = {GroupId: process.argv[3]};
+// snippet-start:[ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3]
 
-async function run(){
-   try {
-      const data = await ec2client.send(new DeleteSecurityGroupCommand(params));
-      console.log("Security Group Deleted");
-   }
-   catch(err){
-      console.log("Error", err);
-   }
+// Import required AWS SDK clients and commands for Node.js
+const { EC2, DeleteSecurityGroupCommand } = require("@aws-sdk/client-ec2");
+// Set the AWS region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { GroupId: "SECURITY_GROUP_ID" }; //SECURITY_GROUP_ID
+
+// Create EC2 service object
+const ec2client = new EC2(REGION);
+
+const run = async () => {
+  try {
+    const data = await ec2client.send(new DeleteSecurityGroupCommand(params));
+    console.log("Security Group Deleted");
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[ec2.JavaScript.v3.SecurityGroups.deleteSecurityGroup]
+// snippet-end:[ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3]
 exports.run = run; //for unit tests only

@@ -10,34 +10,38 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_updatetemplate.test.js demonstrates how to update an Amazon SES email template.
 
-Inputs:
-- REGION (into command line below)
-- TEMPLATE_NAME (into command line below)
-- HTML_CONTENT (replace in code; HTML content in the email)
-- SUBJECT_LINE (replace in code; email subject line)
-- TEXT_CONTENT (replace in code; body of email)
+Inputs (replace in code):
+- REGION
+- TEMPLATE_NAME
+- HTML_CONTENT
+- SUBJECT_LINE
+- TEXT_CONTENT
 
 Running the code:
-node ses_updatetemplate.js REGION TEMPLATE_NAME
+node ses_updatetemplate.js
  */
-// snippet-start:[ses.JavaScript.v3.templates.updateTemplate]
+// snippet-start:[ses.JavaScript.templates.updateTemplateV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SES, UpdateTemplateCommand} = require("@aws-sdk/client-ses");
+const { SES, UpdateTemplateCommand } = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   Template: {
-    TemplateName: process.argv[3], /* required */
-    HtmlPart: 'HTML_CONTENT',
-    SubjectPart: 'SUBJECT_LINE',
-    TextPart: 'TEXT_CONTENT'
-  }
+    TemplateName: "TEMPLATE_NAME", //TEMPLATE_NAME
+    HtmlPart: "HTML_CONTENT", //HTML_CONTENT; i.e., HTML content in the email
+    SubjectPart: "SUBJECT_LINE", //SUBJECT_LINE; i.e., email subject line
+    TextPart: "TEXT_CONTENT", //TEXT_CONTENT; i.e., body of email
+  },
 };
 
-async function run() {
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
   try {
     const data = await ses.send(new UpdateTemplateCommand(params));
     console.log("Template Updated");
@@ -46,5 +50,5 @@ async function run() {
   }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.templates.updateTemplate]
+// snippet-end:[ses.JavaScript.templates.updateTemplateV3]
 exports.run = run; //for unit tests only

@@ -10,31 +10,34 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_gettemplate.js demonstrates how to retrieve an Amazon SES email template.
 
-Inputs:
-- REGION (into command line below)
-- TEMPLATE_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- TEMPLATE_NAME
 
 Running the code:
-node ses_gettemplate.js REGION TEMPLATE_NAME
+node ses_gettemplate.js
  */
-// snippet-start:[ses.JavaScript.v3.templates.getTemplate]
-// Import required AWS SDK clients and commands for Node.js
-const {SES, GetTemplateCommand} = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
-// Set the parameters
-const params = {TemplateName: process.argv[3]};
+// snippet-start:[ses.JavaScript.templates.getTemplateV3]
 
-async function run() {
-    try {
-        const data = await ses.send(new GetTemplateCommand(params));
-        console.log('Success. Template:', data.Template)
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+const { SES, GetTemplateCommand } = require("@aws-sdk/client-ses");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+const params = { TemplateName: "TEMPLATE_NAME" };
+
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new GetTemplateCommand(params));
+    console.log("Success. Template:", data.Template);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.templates.getTemplate]
+// snippet-end:[ses.JavaScript.templates.getTemplateV3]
 exports.run = run; //for unit tests only

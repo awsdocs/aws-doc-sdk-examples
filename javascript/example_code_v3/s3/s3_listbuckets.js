@@ -10,33 +10,32 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 Purpose:
 s3_listbuckets.js demonstrates how to list all the buckets in an AWS account.
 
-Inputs:
-- REGION (into command line below)
-- BUCKET_NAME (into command line below)
+Inputs (replace in code):
+- REGION
+- BUCKET_NAME
 
 Running the code:
-node s3_listobjects.js REGION
+node s3_listobjects.js
 */
-// snippet-start:[s3.JavaScript.v3.buckets.listBuckets]
+// snippet-start:[s3.JavaScript.buckets.listBucketsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3 } = require("@aws-sdk/client-s3");
 // Set the AWS region
-const region = process.argv[2];
-// Create S3 service object
-const s3 = new S3(region);
+const REGION = "region"; //e.g. "us-east-1"
 
-async function run() {
+// Create S3 service object
+const s3 = new S3(REGION);
+
+const run = async () => {
   try {
     const data = await s3.listBuckets({});
-    console.log('Success', data.Buckets);
-  }
-  catch (err) {
-    console.log('Error', err);
+    console.log("Success", data.Buckets);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[s3.JavaScript.v3.buckets.listBuckets]
+// snippet-end:[s3.JavaScript.buckets.listBucketsV3]
 //for unit tests only
 exports.run = run;
-

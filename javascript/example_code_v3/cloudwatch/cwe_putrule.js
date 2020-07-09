@@ -10,36 +10,42 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwe_putrule.js demonstrates how to create or update an Amazon CloudWatch Events rule.
 
-Inputs:
+Inputs (replace in code):
 - REGION IAM_ROLE_ARN
 
 Running the code:
-node cw_deletealarm.js REGION IAM_ROLE_ARN
+node cw_deletealarm.js
 */
-// snippet-start:[cwEvents.JavaScript.v3.cwe.putRule]
+// snippet-start:[cwEvents.JavaScript.cwe.putRuleV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchEvents, PutRuleCommand} = require("@aws-sdk/client-cloudwatch-events");
+const {
+  CloudWatchEvents,
+  PutRuleCommand,
+} = require("@aws-sdk/client-cloudwatch-events");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cwevents = new CloudWatchEvents(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
-  Name: 'DEMO_EVENT',
-  RoleArn: process.argv[3],
-  ScheduleExpression: 'rate(5 minutes)',
-  State: 'ENABLED'
+  Name: "DEMO_EVENT",
+  RoleArn: "IAM_ROLE_ARN", //IAM_ROLE_ARN
+  ScheduleExpression: "rate(5 minutes)",
+  State: "ENABLED",
 };
 
-async function run() {
+// Create CloudWatch service object
+const cwevents = new CloudWatchEvents(REGION);
+
+const run = async () => {
   try {
-      const data = await cwevents.send(new PutRuleCommand(params));
+    const data = await cwevents.send(new PutRuleCommand(params));
     console.log("Success, scheduled rule created; Rule ARN:", data.RuleArn);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cwEvents.JavaScript.v3.cwe.putRule]
+// snippet-end:[cwEvents.JavaScript.cwe.putRuleV3]
 exports.run = run; //for unit tests only

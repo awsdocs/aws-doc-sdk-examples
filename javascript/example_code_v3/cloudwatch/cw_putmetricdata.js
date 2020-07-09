@@ -10,46 +10,52 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-ex
 Purpose:
 cw_putmetricdata.js demonstrates how to publish metric data to Amazon CloudWatch.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 
 Running the code:
-node cw_putmetricdata.js REGION
+node cw_putmetricdata.js
 */
-// snippet-start:[cw.JavaScript.v3.metrics.putMetricData]
+// snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, PutMetricDataCommand} = require("@aws-sdk/client-cloudwatch");
+const {
+  CloudWatch,
+  PutMetricDataCommand,
+} = require("@aws-sdk/client-cloudwatch");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cw = new CloudWatch(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   MetricData: [
     {
-      MetricName: 'PAGES_VISITED',
+      MetricName: "PAGES_VISITED",
       Dimensions: [
         {
-          Name: 'UNIQUE_PAGES',
-          Value: 'URLS'
+          Name: "UNIQUE_PAGES",
+          Value: "URLS",
         },
       ],
-      Unit: 'None',
-      Value: 1.0
+      Unit: "None",
+      Value: 1.0,
     },
   ],
-  Namespace: 'SITE/TRAFFIC'
+  Namespace: "SITE/TRAFFIC",
 };
 
-async function run() {
+// Create CloudWatch service object
+const cw = new CloudWatch(REGION);
+
+const run = async () => {
   try {
     const data = await cw.send(new PutMetricDataCommand(params));
     console.log("Success, alarm deleted; requestID:", data.$metadata.requestId);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.metrics.putMetricData]
+// snippet-end:[cw.JavaScript.metrics.putMetricDataV3]
 exports.run = run; //for unit tests only

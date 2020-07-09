@@ -1,16 +1,14 @@
-process.argv.push('--arg1', 'us-west-2');
-process.argv.push('--arg2', 'BUCKET_NAME');
 const mockCreateBucket = jest.fn();
-jest.mock('@aws-sdk/client-s3', () => ({
-    S3: function S3() {
-        this.createBucket = mockCreateBucket
-    }
+jest.mock("@aws-sdk/client-s3", () => ({
+  S3: function S3() {
+    this.createBucket = mockCreateBucket;
+  },
 }));
-const {bucketParams, run} = require("../../s3/s3_createBucket");
+const { bucketParams, run } = require("../../s3/s3_createBucket");
 
 //test function
-test("has to mock S3#createBucket",  async (done) => {
-    await run();
-    expect(mockCreateBucket).toHaveBeenCalledWith(bucketParams);
-    done();
+test("has to mock S3#createBucket", async (done) => {
+  await run();
+  expect(mockCreateBucket).toHaveBeenCalledWith(bucketParams);
+  done();
 });

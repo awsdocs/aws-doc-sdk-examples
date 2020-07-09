@@ -10,43 +10,49 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwe_putevents.js demonstrates how to send custom events to Amazon CloudWatch Events so they can be matched with rules.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 - RESOURCE_ARN
 
 Running the code:
-node cwe_putevents.js REGION RESOURCE_ARN
+node cwe_putevents.js
 */
-// snippet-start:[cwEvents.JavaScript.v3.cwe.putEvents]
+// snippet-start:[cwEvents.JavaScript.cwe.putEventsV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {CloudWatchEvents, PutEventsCommand} = require("@aws-sdk/client-cloudwatch-events");
+const {
+  CloudWatchEvents,
+  PutEventsCommand,
+} = require("@aws-sdk/client-cloudwatch-events");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cwevents = new CloudWatchEvents(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 const params = {
   Entries: [
     {
-      Detail: '{ \"key1\": \"value1\", \"key2\": \"value2\" }',
-      DetailType: 'appRequestSubmitted',
+      Detail: '{ "key1": "value1", "key2": "value2" }',
+      DetailType: "appRequestSubmitted",
       Resources: [
-        process.argv[3], //RESOURCE_ARN
+        "RESOURCE_ARN", //RESOURCE_ARN
       ],
-      Source: 'com.company.app'
-    }
-  ]
+      Source: "com.company.app",
+    },
+  ],
 };
 
-async function run() {
+// Create CloudWatch service object
+const cwevents = new CloudWatchEvents(REGION);
+
+const run = async () => {
   try {
     const data = await cwevents.send(new PutEventsCommand(params));
     console.log("Success, event sent; requestID:", data.$metadata.requestId);
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cwEvents.JavaScript.v3.cwe.putEvents]
+// snippet-end:[cwEvents.JavaScript.cwe.putEventsV3]
 exports.run = run; //for unit tests only

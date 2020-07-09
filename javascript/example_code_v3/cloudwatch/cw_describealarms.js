@@ -10,33 +10,40 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cw_describealarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.
 
-Inputs:
+Inputs (replace in code):
 - REGION
 
 Running the code:
-node cw_describealarms.js REGION
+node cw_describealarms.js
 */
-// snippet-start:[cw.JavaScript.v3.alarms.describeAlarms]
-// Import required AWS SDK clients and commands for Node.js
-const {CloudWatch, DescribeAlarmsCommand} = require("@aws-sdk/client-cloudwatch");
-// Set the AWS Region
-const region = process.argv[2];
-// Create CloudWatch service object
-const cw = new CloudWatch(region);
-// Set the parameters
-var params = {StateValue: "INSUFFICIENT_DATA"};
+// snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
 
-async function run() {
+// Import required AWS SDK clients and commands for Node.js
+const {
+  CloudWatch,
+  DescribeAlarmsCommand,
+} = require("@aws-sdk/client-cloudwatch");
+
+// Set the AWS Region
+const REGION = "region"; //e.g. "us-east-1"
+
+// Set the parameters
+var params = { StateValue: "INSUFFICIENT_DATA" };
+
+// Create CloudWatch service object
+const cw = new CloudWatch(REGION);
+
+const run = async () => {
   try {
     const data = await cw.send(new DescribeAlarmsCommand(params));
     console.log("Success", data);
     data.MetricAlarms.forEach(function (item, index, array) {
-      console.log(item.AlarmName)});
-      }
-  catch(err){
+      console.log(item.AlarmName);
+    });
+  } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cw.JavaScript.v3.alarms.describeAlarms]
+// snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
 exports.run = run; //for unit tests only

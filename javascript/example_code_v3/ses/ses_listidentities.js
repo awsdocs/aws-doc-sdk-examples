@@ -10,35 +10,38 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_listidentities.js demonstrates how to list all the identities for an AWS account.
 
-Inputs:
-- REGION (into command line below)
-- IDENTITY_TYPE (into command line; 'EmailAddress' or 'Domain')
+Inputs (replace in code):
+- REGION
+- IDENTITY_TYPE
 
 Running the code:
-node ses_listidentities.js  REGION IDENTITY_TYPE
+node ses_listidentities.js
 */
-// snippet-start:[ses.JavaScript.v3.identities.listIdentities]
+// snippet-start:[ses.JavaScript.identities.listIdentitiesV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SES, ListIdentitiesCommand} = require("@aws-sdk/client-ses");
+const { SES, ListIdentitiesCommand } = require("@aws-sdk/client-ses");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SES service object
-const ses = new SES(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
 var params = {
-    IdentityType: process.argv[3], // IDENTITY_TYPE: "EmailAddress' or 'Domain'
-    MaxItems: 10
+  IdentityType: "IDENTITY_TYPE", // IDENTITY_TYPE: "EmailAddress' or 'Domain'
+  MaxItems: 10,
 };
 
-async function run() {
-    try {
-        const data = await ses.send(new ListIdentitiesCommand(params));
-        console.log("Success. Your SES" +process.argv[3]+ "identities:", data);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+// Create SES service object
+const ses = new SES(REGION);
+
+const run = async () => {
+  try {
+    const data = await ses.send(new ListIdentitiesCommand(params));
+    console.log("Success. Your SES" + process.argv[3] + "identities:", data);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
-// snippet-end:[ses.JavaScript.v3.identities.listIdentities]
+// snippet-end:[ses.JavaScript.identities.listIdentitiesV3]
 exports.run = run; //for unit tests only
-

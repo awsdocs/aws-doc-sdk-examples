@@ -10,43 +10,44 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-e
 Purpose:
 sqs_longpolling_receivemessage.js demonstrates how to retrieve messages from an Amazon SQS queue using long-polling support.
 
-Inputs:
-- REGION (into command line below)
-- SQS_QUEUE_URL (into command line below)
-- MaxNumberOfMessages (into code)
-- WaitTimeSeconds (into code)
+Inputs (replace in code):
+- REGION
+- SQS_QUEUE_URL
+- MaxNumberOfMessages
+- WaitTimeSeconds
 
 Running the code:
-node sqs_longpolling_receivemessage.js REGION SQS_QUEUE_URL
+node sqs_longpolling_receivemessage.js
  */
-// snippet-start:[sqs.JavaScript.v3.longPoll.receiveMessage]
+// snippet-start:[sqs.JavaScript.longPoll.receiveMessageV3]
+
 // Import required AWS SDK clients and commands for Node.js
-const {SQS, ReceiveMessageCommand} = require("@aws-sdk/client-sqs");
+const { SQS, ReceiveMessageCommand } = require("@aws-sdk/client-sqs");
+
 // Set the AWS Region
-const region = process.argv[2];
-// Create SQS service object
-const sqs = new SQS(region);
+const REGION = "region"; //e.g. "us-east-1"
+
 // Set the parameters
-var queueURL = process.argv[3]; // SQS_QUEUE_URL
+var queueURL = "SQS_QUEUE_URL"; // SQS_QUEUE_URL
 var params = {
-    AttributeNames: [
-        "SentTimestamp"
-    ],
-    MaxNumberOfMessages: 1,
-    MessageAttributeNames: [
-        "All"
-    ],
-    QueueUrl: queueURL,
-    WaitTimeSeconds: 20
+  AttributeNames: ["SentTimestamp"],
+  MaxNumberOfMessages: 1,
+  MessageAttributeNames: ["All"],
+  QueueUrl: queueURL,
+  WaitTimeSeconds: 20,
 };
-async function run() {
-    try {
-        const data = await sqs.send(new ReceiveMessageCommand(params));
-        console.log("Success, ", data);
-    } catch (err) {
-        console.log("Error", err);
-    }
+
+// Create SQS service object
+const sqs = new SQS(REGION);
+
+const run = async () => {
+  try {
+    const data = await sqs.send(new ReceiveMessageCommand(params));
+    console.log("Success, ", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
-// snippet-end:[sqs.JavaScript.v3.longPoll.receiveMessage]
+// snippet-end:[sqs.JavaScript.longPoll.receiveMessageV3]
 exports.run = run; //for unit tests only
