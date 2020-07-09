@@ -30,9 +30,13 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Duration;
+
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
 
 public class GeneratePresignedUrlAndUploadObject {
@@ -40,7 +44,7 @@ public class GeneratePresignedUrlAndUploadObject {
     public static void main(String[] args) {
 
         if (args.length < 2) {
-            System.out.println("Please specify a bucket name and a key name");
+            System.out.println("Please specify a bucket name and a key name that represents a PDF document");
             System.exit(1);
         }
 
@@ -56,9 +60,20 @@ public class GeneratePresignedUrlAndUploadObject {
     public static void signBucket(S3Presigner presigner, String bucketName, String keyName) {
 
         try {
-            PresignedPutObjectRequest presignedRequest =
-                    presigner.presignPutObject(z -> z.signatureDuration(Duration.ofMinutes(10))
-                            .putObjectRequest(por -> por.bucket(bucketName).key(keyName)));
+
+            // Use a PutObjectRequest to set additional values
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .contentType("text/plain")
+                    .build();
+
+            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(10))
+                    .putObjectRequest(objectRequest)
+                    .build();
+
+            PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
 
             System.out.println("Pre-signed URL to upload a file to: " +
                     presignedRequest.url());
