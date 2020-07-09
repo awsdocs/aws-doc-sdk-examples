@@ -62,7 +62,7 @@ def do_batch_get(batch_keys):
 
     When Amazon DynamoDB cannot process all items in a batch, a set of unprocessed
     keys is returned. This function uses an exponential backoff algorithm to retry
-    getting the unprocessed keys until either all are retrieved or the specified
+    getting the unprocessed keys until all are retrieved or the specified
     number of tries is reached.
 
     :param batch_keys: The set of keys to retrieve. A batch can contain at most 100
@@ -161,7 +161,7 @@ def archive_movies(movie_table, movie_data):
     Uses the Boto3 Table.batch_writer() function to handle putting items into the
     archive table and deleting them from the original table. Shows how to configure
     the batch_writer to ensure there are no duplicates in the batch. If a batch
-    contains duplicates, the Amazon DynamoDB rejects the request and returns a
+    contains duplicates, Amazon DynamoDB rejects the request and returns a
     ValidationException.
 
     :param movie_table: The table that contains movie data.
@@ -202,7 +202,7 @@ def archive_movies(movie_table, movie_data):
         else:
             logger.exception(
                 "Got unexpected exception when trying to put duplicate records into "
-                "the  archive table.")
+                "the archive table.")
             raise
 
     try:
@@ -240,7 +240,7 @@ def usage_demo():
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
     print('-'*88)
-    print("Welcome to the AWS DynamoDB batch usage demo.")
+    print("Welcome to the Amazon DynamoDB batch usage demo.")
     print('-'*88)
 
     movies_file_name = '../GettingStarted/moviedata.json'
@@ -302,7 +302,7 @@ def usage_demo():
     pprint.pprint(items[actor_table.name][:2])
 
     print(
-        "Archiving the first 10 movies by creating a new table to store archived "
+        "Archiving the first 10 movies by creating a table to store archived "
         "movies and deleting them from the main movie table.")
     # Duplicate the movies in the list to demonstrate how the batch writer can be
     # configured to remove duplicate requests from the batch.
