@@ -24,16 +24,16 @@ const {
   S3Client,
   CreateBucketCommand,
   PutBucketWebsiteCommand,
+  PutBucketPolicyCommand,
 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create params JSON for S3.createBucket
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME
 const bucketParams = {
   Bucket: bucketName,
-  ACL: "public-read",
 };
 
 // Create params JSON for S3.setBucketWebsite
@@ -47,6 +47,29 @@ const staticHostParams = {
       Suffix: "index.html",
     },
   },
+};
+
+var readOnlyAnonUserPolicy = {
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Sid: "AddPerm",
+      Effect: "Allow",
+      Principal: "*",
+      Action: ["s3:GetObject"],
+      Resource: [""],
+    },
+  ],
+};
+
+// create selected bucket resource string for bucket policy
+var bucketResource = "arn:aws:s3:::" + "BUCKET_NAME" + "/*"; //BUCKET_NAME
+readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
+
+// convert policy JSON into string and assign into params
+var bucketPolicyParams = {
+  Bucket: "BUCKET_NAME",
+  Policy: JSON.stringify(readOnlyAnonUserPolicy),
 };
 
 // Instantiate an S3 client
