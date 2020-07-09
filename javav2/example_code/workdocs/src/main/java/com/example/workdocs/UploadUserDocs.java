@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UploadUserDocs.java demonstrates how to upload a document to AWS Workdocs.]
+//snippet-sourcedescription:[UploadUserDocs.java demonstrates how to upload a document to Amazon WorkDocs.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
@@ -41,7 +41,7 @@ import software.amazon.awssdk.services.workdocs.model.DocumentVersionStatus;
 public class UploadUserDocs {
 
     public static void main(String[] args) {
-        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
+        // Based on Amazon WorkDocs Developer Guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
 
         final String USAGE = "\n" +
                 " To run this example, supply your organization ID, a user email, the document name, and the path where the document is located \n" +
@@ -83,7 +83,7 @@ public class UploadUserDocs {
         if (statusValue != 200) {
              System.out.println("Error code uploading: " + statusValue);
         } else {
-             System.out.println("Success uploading doc " + docName);
+             System.out.println("Success uploading document " + docName);
         }
 
         completeUpload(workDocs, docId, versionId);
