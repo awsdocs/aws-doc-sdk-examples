@@ -18,7 +18,7 @@ Running the code:
 node createVault.js REGION VAULT_NAME
  */
 
-// snippet-start:[glacier.JavaScript.vault.createVault]
+// snippet-start:[glacier.JavaScript.vault.createVaultV3]
 // Load the SDK for JavaScript
 const {Glacier, CreateVaultCommand} = require("@aws-sdk/client-glacier");
 
@@ -42,5 +42,5 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[glacier.JavaScript.vault.createVault]
+// snippet-end:[glacier.JavaScript.vault.createVaultV3]
 exports.run = run;

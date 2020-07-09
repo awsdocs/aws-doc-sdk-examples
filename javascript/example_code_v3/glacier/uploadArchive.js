@@ -19,7 +19,7 @@ Running the code:
 node uploadArchive.js
  */
 
-// snippet-start:[glacier.JavaScript.upload.uploadArchive]
+// snippet-start:[glacier.JavaScript.upload.uploadArchiveV3]
 // Load the SDK for JavaScript
 const {Glacier, UploadArchiveCommand} = require("@aws-sdk/client-glacier");
 
@@ -46,5 +46,5 @@ const run = async () => {
     }
 };
 run();
-// snippet-end:[glacier.JavaScript.upload.uploadArchive]
+// snippet-end:[glacier.JavaScript.upload.uploadArchiveV3]
 exports.run = run;
