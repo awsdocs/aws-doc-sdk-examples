@@ -1,28 +1,6 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License"). You
-# may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# or in the "license" file accompanying this file. This file is
-# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-# ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[ses_replicateidentities.py demonstrates how to migrate email address and domain identities from one region to another using the Amazon SES API.]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[AWS SDK for Python (Boto3)]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[Amazon Simple Email Service]
-# snippet-service:[ses]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2020-07-07]
-# snippet-sourceauthor:[nimbid]
 # snippet-start:[ses.python.ses_replicateidentities.complete]
 
 import json
@@ -175,7 +153,7 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
                                                           HostedZoneId=zone_id,
                                                           ChangeBatch=batch
                                                          )
-                print(add_txt)
+                # print(add_txt)
             else:
                 pass
 
@@ -223,8 +201,7 @@ def generate_dkim(identity, region):
 # Add SNS topic for bounces, deliveries, and complaints for a single identity.
 def sns_topics(identity, region):
     ses_dest_client = S.client('ses', region_name=region)
-    ask = input("Do you want to configure an ",
-                "SNS topic for "+identity+"? (yes/no)")
+    ask = input("Do you want to configure an SNS topic for "+identity+"? (yes/no)")
     if ask == 'yes':
         bounce_topic = input("Enter ARN of bounce topic: ")
         if bounce_topic == '':
@@ -284,12 +261,12 @@ if SRC_REGION in regions:
                                                              'PageSize': 20
                                                             }
                                            )
-    for x in response_iterator:
-        for y in x['Identities']:
-            if '@' in y:
-                region_email_identities.append(y)
+    for entry in response_iterator:
+        for element in entry['Identities']:
+            if '@' in element:
+                region_email_identities.append(element)
             else:
-                region_dom_identities.append(y)
+                region_dom_identities.append(element)
     print ("Email addresses in source region:")
     print(region_email_identities)
     print ("Domains in source region:")
@@ -318,8 +295,7 @@ if DST_REGION in regions:
         print("")
 
     # SNS topic addition
-    sns = input("Do you want to add SNS notifications "
-                "for the identities? (yes/no) ")
+    sns = input("Do you want to add SNS notifications for the identities? (yes/no) ")
     if sns == 'yes':
         for addr in region_email_identities:
             sns_topics(addr, DST_REGION)
