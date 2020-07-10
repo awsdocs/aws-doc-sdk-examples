@@ -66,6 +66,26 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
 
+### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke 
+AWS Lambda functions. Learn to accomplish the following tasks:
+
+* Create and deploy AWS Lambda functions that can be invoked in different ways:
+    * By an invoke call through Boto3
+    * By Amazon API Gateway as the target of a REST request
+    * By Amazon EventBridge on a schedule
+* Create and deploy a REST API on Amazon API Gateway. The REST API targets an 
+AWS Lambda function to handle REST requests.
+* Create a schedule rule on Amazon EventBridge that targets an AWS Lambda function.
+
+These examples show how to use the low-level Boto3 client APIs to accomplish tasks
+like creating a REST API and setting an event schedule. You can also use
+[AWS Chalice](https://github.com/aws/chalice)
+to achieve similar results more easily and with additional features. 
+
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
 #### Purpose
