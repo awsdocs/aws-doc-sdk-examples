@@ -33,7 +33,6 @@ const REGION = "region"; //e.g. "us-east-1"
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME
 const bucketParams = {
   Bucket: bucketName,
-  ACL: "public-read",
 };
 
 // Create params JSON for S3.setBucketWebsite

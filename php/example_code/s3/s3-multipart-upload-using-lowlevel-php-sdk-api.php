@@ -47,7 +47,6 @@ $result = $s3->createMultipartUpload([
     'Bucket'       => $bucket,
     'Key'          => $keyname,
     'StorageClass' => 'REDUCED_REDUNDANCY',
-    'ACL'          => 'public-read',
     'Metadata'     => [
         'param1' => 'value 1',
         'param2' => 'value 2',
