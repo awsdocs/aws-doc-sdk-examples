@@ -37,8 +37,8 @@ public class PutRecord {
                 "Usage:\n" +
                 "    PutRecord <text> <streamName> \n\n" +
                 "Where:\n" +
-                "    text - the text used as the data to write to the data stream \n\n" +
-                "    streamName - the data stream name \n" ;
+                "    text - The text used as the data to write to the delivery stream \n\n" +
+                "    streamName - The delivery stream name \n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);

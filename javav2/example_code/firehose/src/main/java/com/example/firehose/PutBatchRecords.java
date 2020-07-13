@@ -41,7 +41,7 @@ public class PutBatchRecords {
                 "Usage:\n" +
                 "    PutBatchRecords <streamName> \n\n" +
                 "Where:\n" +
-                "    streamName - the data stream name \n" ;
+                "    streamName - The delivery stream name \n" ;
 
         if (args.length < 1) {
             System.out.println(USAGE);

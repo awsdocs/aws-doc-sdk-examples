@@ -34,7 +34,7 @@ public class DeleteStream {
                 "Usage:\n" +
                 "    DeleteStream <streamName> \n\n" +
                 "Where:\n" +
-                "    streamName - the data stream name \n";
+                "    streamName - The delivery stream name \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -60,7 +60,7 @@ public class DeleteStream {
                     .build();
 
              firehoseClient.deleteDeliveryStream(deleteDeliveryStreamRequest);
-            System.out.println("Delivery Stream "+streamName +" is deleted");
+            System.out.println("Delivery stream "+streamName +" is deleted");
 
         } catch (FirehoseException e) {
             System.out.println(e.getLocalizedMessage());

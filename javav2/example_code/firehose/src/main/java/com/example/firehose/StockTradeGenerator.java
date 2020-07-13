@@ -78,24 +78,24 @@ public class StockTradeGenerator {
      *
      */
     public StockTrade getRandomTrade() {
-        // pick a random stock
+        // Pick a random stock
         StockPrice stockPrice = STOCK_PRICES.get(random.nextInt(STOCK_PRICES.size()));
-        // pick a random deviation between -MAX_DEVIATION and +MAX_DEVIATION
+        // Pick a random deviation between -MAX_DEVIATION and +MAX_DEVIATION
         double deviation = (random.nextDouble() - 0.5) * 2.0 * MAX_DEVIATION;
-        // set the price using the deviation and mean price
+        // Set the price using the deviation and mean price
         double price = stockPrice.price * (1 + deviation);
-        // round price to 2 decimal places
+        // Round price to 2 decimal places
         price = Math.round(price * 100.0) / 100.0;
 
-        // set the trade type to buy or sell depending on the probability of sell
+        // Set the trade type to buy or sell depending on the probability of sell
         StockTrade.TradeType tradeType = StockTrade.TradeType.BUY;
         if (random.nextDouble() < PROBABILITY_SELL) {
             tradeType = StockTrade.TradeType.SELL;
         }
 
-        // randomly pick a quantity of shares
-        long quantity = random.nextInt(MAX_QUANTITY) + 1; // add 1 because nextInt() will return between 0 (inclusive)
-        // and MAX_QUANTITY (exclusive). we want at least 1 share.
+        // Randomly pick a quantity of shares
+        long quantity = random.nextInt(MAX_QUANTITY) + 1; // Add 1 because nextInt() will return between 0 (inclusive)
+        // and MAX_QUANTITY (exclusive). We want at least 1 share.
 
         return new StockTrade(stockPrice.tickerSymbol, tradeType, price, quantity, id.getAndIncrement());
     }
