@@ -36,9 +36,9 @@ public class CreateDeliveryStream {
                 "Usage:\n" +
                 "    CreateDeliveryStream <bucketARN> <roleARN> <streamName> \n\n" +
                 "Where:\n" +
-                "    bucketARN - the ARN of the bucket where the data stream is written \n\n" +
-                "    roleARN - the ARN of the role that has the permissions that Kinesis Data Firehose needs \n" +
-                "    streamName - the data stream name \n";
+                "    bucketARN - The Amazon Resource Name (ARN) of the bucket where the delivery stream is written \n\n" +
+                "    roleARN - The ARN of the role that has the permissions that Amazon Kinesis Data Firehose needs \n" +
+                "    streamName - The delivery stream name \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -75,7 +75,7 @@ public class CreateDeliveryStream {
 
             CreateDeliveryStreamResponse streamResponse = firehoseClient.createDeliveryStream(deliveryStreamRequest);
 
-            System.out.println("Delivery Stream ARN is "+streamResponse.deliveryStreamARN());
+            System.out.println("Delivery stream ARN is "+streamResponse.deliveryStreamARN());
 
     } catch (FirehoseException e) {
         System.out.println(e.getLocalizedMessage());
