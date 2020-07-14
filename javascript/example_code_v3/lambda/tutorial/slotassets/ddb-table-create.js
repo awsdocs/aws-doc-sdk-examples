@@ -26,7 +26,7 @@ const {
 } = require("@aws-sdk/client-dynamodb");
 
 //Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Define the table schema
 var tableParams = {
@@ -54,7 +54,7 @@ var tableParams = {
 };
 
 // Instantiate a DynamoDB client
-const ddb = new DynamoDBClient({ region: region });
+const ddb = new DynamoDBClient(REGION);
 
 const run = async () => {
   try {

@@ -23,7 +23,7 @@ node s3-bucket-setup-non-modular.js
 const { S3 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create params JSON for S3.createBucket
 const bucketParams = {
@@ -32,7 +32,7 @@ const bucketParams = {
 
 // Create params JSON for S3.setBucketWebsite
 const staticHostParams = {
-  Bucket: process.argv[3],
+  Bucket: "BUCKET_NAME",
   WebsiteConfiguration: {
     ErrorDocument: {
       Key: "error.html",

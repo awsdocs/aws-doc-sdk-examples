@@ -27,7 +27,7 @@ const {
 } = require("@aws-sdk/client-lambda");
 
 //Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 //Set the parameters
 var params = {
@@ -37,7 +37,7 @@ var params = {
   },
   FunctionName: "slotpull",
   Handler: "index.handler",
-  Role: "IAM_ROLE_ARN", // ZIP_FILE_NAME; e.g., arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role
+  Role: "IAM_ROLE_ARN", // IAM_ROLE_ARN; e.g., arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role
   Runtime: "nodejs12.x",
   Description: "Slot machine game results generator",
 };
@@ -47,10 +47,10 @@ const lambda = new LambdaClient(REGION);
 
 const run = async () => {
   try {
-    const data = await lambda.send(ddb.send(new PutItemCommand(params)));
-    console.log("Success", data);
+    const data = await lambda.send(new CreateFunctionCommand(params));
+    console.log("Success", data); // successful response
   } catch (err) {
-    console.log("Error", err);
+    console.log("Error", err); // an error occurred
   }
 };
 // snippet-end:[lambda.JavaScript.LambdaFunctionSetUpV3]
