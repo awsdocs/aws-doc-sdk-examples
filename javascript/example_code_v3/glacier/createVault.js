@@ -5,39 +5,38 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SD
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
-
-ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-example-creating-a-vault.html
 
 Purpose:
 createVault.js demonstrates how to create a vault in Amazon S3 Glacier.
 
-Inputs:
-- REGION (into command line below)
+Inputs (into code):
+- REGION
+- VAULT_NAME
 
 Running the code:
-node createVault.js REGION VAULT_NAME
+node createVault.js
  */
 
 // snippet-start:[glacier.JavaScript.vault.createVaultV3]
 // Load the SDK for JavaScript
-const {Glacier, CreateVaultCommand} = require("@aws-sdk/client-glacier");
+const { Glacier, CreateVaultCommand } = require("@aws-sdk/client-glacier");
 
 // Set the AWS Region
-const REGION = 'REGION'; // e.g. 'us-east-1'
+const REGION = "REGION"; // e.g. 'us-east-1'
 
 // Set the parameters
-const vaultname = 'VAULT_NAME'; // VAULT_NAME
-const params = {vaultName: vaultname};
+const vaultname = "VAULT_NAME"; // VAULT_NAME
+const params = { vaultName: vaultname };
 
 // Instantiate a Glacier client
 const glacier = new Glacier(REGION);
 
 const run = async () => {
-  try{
+  try {
     const data = await glacier.send(new CreateVaultCommand(params));
     console.log("Success, vault created!");
-  }
-  catch(err){
+  } catch (err) {
     console.log("Error");
   }
 };
