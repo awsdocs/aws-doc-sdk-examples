@@ -36,12 +36,12 @@ var params = { vaultName: vaultname, body: buffer };
 const glacier = new Glacier(REGION);
 
 const run = async () => {
-    try {
-        const data = await glacier.send(new UploadArchiveCommand(params));
-        console.log("Archive ID", data.archiveId);
-    } catch (err) {
-        console.log("Error uploading archive!", err);
-    }
+  try {
+    const data = await glacier.send(new UploadArchiveCommand(params));
+    console.log("Archive ID", data.archiveId);
+  } catch (err) {
+    console.log("Error uploading archive!", err);
+  }
 };
 run();
 // snippet-end:[glacier.JavaScript.upload.uploadArchiveV3]
