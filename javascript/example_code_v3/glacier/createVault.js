@@ -29,7 +29,7 @@ const REGION = "REGION"; // e.g. 'us-east-1'
 const vaultname = "VAULT_NAME"; // VAULT_NAME
 const params = { vaultName: vaultname };
 
-// Instantiate a Glacier client
+// Instantiate an S3 Glacier client
 const glacier = new Glacier(REGION);
 
 const run = async () => {
