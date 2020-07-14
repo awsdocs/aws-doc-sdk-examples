@@ -5,17 +5,17 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SD
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
-
-ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic
+https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/glacier-example-creating-a-vault.html.
 
 Purpose:
 createVault.js demonstrates how to create a vault in Amazon S3 Glacier.
 
-Inputs:
-- REGION (into command line below)
+Inputs (into code):
+- REGION
+- VAULT_NAME
 
 Running the code:
-node createVault.js REGION VAULT_NAME
+node createVault.js
  */
 
 // snippet-start:[glacier.JavaScript.vault.createVaultV3]
@@ -43,4 +43,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[glacier.JavaScript.vault.createVaultV3]
-exports.run = run;
+exports.run = run; //for unit tests only
