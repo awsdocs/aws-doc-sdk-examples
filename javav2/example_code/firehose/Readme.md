@@ -36,7 +36,7 @@ Before running the Amazon Forecast JUnit tests, you must define values in the **
 
 Define these values to successfully run the JUnit tests:
 
-- **bucketARN** - The Amazon Resource Name (ARN) of a bucket where data stream are written.   
+- **bucketARN** - The Amazon Resource Name (ARN) of a bucket where data streams are written.   
 - **roleARN** - An Amazon Resource Name (ARN) of an iAM Role that has permissions that Kinesis Data Firehose needs .
 - **newStream** - The name of a data stream to create.
 - **existingStream** - An existing data stream.
