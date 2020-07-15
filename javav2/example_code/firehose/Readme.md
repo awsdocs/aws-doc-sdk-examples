@@ -36,10 +36,10 @@ Before running the Kinesis Data Firehose JUnit tests, you must define values in 
 
 Define these values to successfully run the JUnit tests:
 
-- **bucketARN** - The Amazon Resource Name (ARN) of a bucket where delivery streams are written.   
-- **roleARN** - The ARN of an IAM role that has permissions that Kinesis Data Firehose needs.
-- **newStream** - The name of a delivery stream to create.
-- **existingStream** - An existing delivery stream.
+- **bucketARN** - The Amazon Resource Name (ARN) of a bucket where data streams are written.   
+- **roleARN** - An Amazon Resource Name (ARN) of an iAM Role that has permissions that Kinesis Data Firehose needs .
+- **newStream** - The name of a data stream to create.
+- **existingStream** - An existing data stream.
 - **textValue** - Text to use as a record for the **PutRecord** test.
 
 ### Command line
