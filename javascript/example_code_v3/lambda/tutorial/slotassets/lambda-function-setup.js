@@ -19,7 +19,7 @@ Running the code:
 node lambda-function-setup.js
 */
 
-// snippet-start:[lambda.JavaScript.LambdaFunctionSetUpV3]
+// snippet-start:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
 // Load the Lambda client
 const {
   LambdaClient,
@@ -53,5 +53,5 @@ const run = async () => {
     console.log("Error", err); // an error occurred
   }
 };
-// snippet-end:[lambda.JavaScript.LambdaFunctionSetUpV3]
+// snippet-end:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
 run();
