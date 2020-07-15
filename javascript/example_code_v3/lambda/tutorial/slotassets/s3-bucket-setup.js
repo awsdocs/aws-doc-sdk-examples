@@ -17,7 +17,7 @@ Inputs (replace in code):
 Running the code:
 node s3-bucket-setup.js
  */
-// snippet-start:[lambda.JavaScript.BucketSetUpV3]
+// snippet-start:[lambda.JavaScript.tutorial.BucketSetUpV3]
 
 // Import an S3 client
 const {
@@ -97,4 +97,4 @@ const run = async () => {
 };
 
 run();
-// snippet-end:[lambda.JavaScript.BucketSetUpV3]
+// snippet-end:[lambda.JavaScript.tutorial.BucketSetUpV3]

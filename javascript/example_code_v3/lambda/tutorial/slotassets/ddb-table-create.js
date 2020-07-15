@@ -17,7 +17,7 @@ Inputs (replace in code):
 Running the code:
 node ddb-table-create.test.js
 */
-// snippet-start:[lambda.JavaScript.CreateTableV3]
+// snippet-start:[lambda.JavaScript.tutorial.CreateTableV3]
 
 // Load the DynamoDB client
 const {
@@ -66,5 +66,5 @@ const run = async () => {
 };
 
 run();
-// snippet-end:[lambda.JavaScript.CreateTableV3]
+// snippet-end:[lambda.JavaScript.tutorial.CreateTableV3]
 exports.run = run; //for unit tests only
