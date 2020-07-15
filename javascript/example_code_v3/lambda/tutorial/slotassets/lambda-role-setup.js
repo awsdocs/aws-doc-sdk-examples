@@ -17,7 +17,7 @@ Inputs (replace in code):
 Running the code:
 node lambda-role-setup.js
 */
-// snippet-start:[lambda.JavaScript.LambdaRoleSetUpV3]
+// snippet-start:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
 // Import a non-modular IAM client
 const {
   IAMClient,
@@ -86,5 +86,5 @@ const run = async () => {
 };
 
 run();
-// snippet-end:[lambda.JavaScript.LambdaRoleSetUpV3]
+// snippet-end:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
 exports.run = run;
