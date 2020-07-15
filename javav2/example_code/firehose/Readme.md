@@ -8,7 +8,7 @@ This README discusses how to run and test the Java code examples for Amazon Kine
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a data stream by running the **DeleteStream** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a delivery stream by running the **DeleteStream** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
 To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
 
@@ -21,25 +21,25 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 	java com.example.firehose.ListDeliveryStreams
 
 
- ## Testing the Amazon Kinesis Data Firehose
+ ## Testing the Kinesis Data Firehose Java files
 
-You can test the Amazon Kinesis Data Firehose Java code examples by running a test file named **AmazonFirehoseServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
+You can test the Java code examples for Kinesis Data Firehose by running a test file named **AmazonFirehoseServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Forecast JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a stream name used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Kinesis Data Firehose JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a delivery stream name used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **bucketARN** - The Amazon Resource Name (ARN) of a bucket where data stream are written.   
-- **roleARN** - An Amazon Resource Name (ARN) of an iAM Role that has permissions that Kinesis Data Firehose needs .
-- **newStream** - The name of a data stream to create.
-- **existingStream** - An existing data stream.
+- **bucketARN** - The Amazon Resource Name (ARN) of a bucket where delivery streams are written.   
+- **roleARN** - The ARN of an IAM role that has permissions that Kinesis Data Firehose needs.
+- **newStream** - The name of a delivery stream to create.
+- **existingStream** - An existing delivery stream.
 - **textValue** - Text to use as a record for the **PutRecord** test.
 
 ### Command line
