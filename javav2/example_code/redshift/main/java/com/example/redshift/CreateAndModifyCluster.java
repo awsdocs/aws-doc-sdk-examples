@@ -47,8 +47,6 @@ public class CreateAndModifyCluster {
                 "    masterUsername - the master user name \n" +
                 "    masterUserPassword - the password that corresponds to the master user name \n" ;
 
-
-
         if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
