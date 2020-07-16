@@ -38,8 +38,7 @@ const s3 = new S3({
 });
 
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.configV3]
-// snippet-start:[s3.JavaScript.s3_PhotoViewer.listAlbumsV3]
-
+// snippet-start:[s3.JavaScript.s3_PhotoViewer.listAlbumV3]
 // A utility function to create HTML.
 function getHtml(template) {
   return template.join("\n");
@@ -156,7 +155,7 @@ const viewAlbum = async (albumName) => {
 
 //Make the viewAlbum function available to the browser
 window.viewAlbum = viewAlbum;
-// snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumsV3]
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
 //for units tests only
 exports.listAlbums = listAlbums;
