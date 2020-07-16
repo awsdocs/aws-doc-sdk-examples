@@ -75,8 +75,7 @@ public class FindReservedNodeOffer {
         Integer count = 0;
         System.out.println("\nFinding nodes to purchase.");
 
-        for (ReservedNodeOffering offering : response.reservedNodeOfferings())
-        {
+        for (ReservedNodeOffering offering : response.reservedNodeOfferings()) {
             if (offering.nodeType().equals(nodeTypeToPurchase)){
 
                 if (offering.fixedPrice() < fixedPriceLimit) {
