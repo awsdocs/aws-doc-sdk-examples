@@ -33,7 +33,7 @@ const s3 = new S3({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region }),
-    identityPoolId: "eu-west-1:73a1f209-dfce-48cf-a439-090cf9d921e6", // IDENTITY_POOL_ID
+    identityPoolId: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID e.g., eu-west-1:xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxx
   }),
 });
 
