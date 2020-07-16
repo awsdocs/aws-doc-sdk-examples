@@ -18,8 +18,8 @@ Inputs (replace in code):
 Running the code:
 node s3_PhotoExample.js
 */
-// snippet-start:[s3.JavaScript.photoAlbumExample.complete]
-// snippet-start:[s3.JavaScript.photoAlbumExample.config]
+// snippet-start:[s3.JavaScript.photoAlbumExample.completeV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.configV3]
 
 // Load the required clients and packages
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
@@ -40,8 +40,8 @@ const s3 = new S3({
 });
 
 const albumBucketName = "brmur-slotassets1"; //BUCKET_NAME
-// snippet-end:[s3.JavaScript.photoAlbumExample.config]
-// snippet-start:[s3.JavaScript.photoAlbumExample.listAlbums]
+// snippet-end:[s3.JavaScript.photoAlbumExample.configV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.listAlbumsV3]
 
 // List the photo albums that exist in the bucket
 const listAlbums = async () => {
@@ -86,8 +86,8 @@ const listAlbums = async () => {
 // Make 'listAlbums' function available to the browser
 window.listAlbums = listAlbums;
 
-// snippet-end:[s3.JavaScript.photoAlbumExample.listAlbums]
-// snippet-start:[s3.JavaScript.photoAlbumExample.createAlbum]
+// snippet-end:[s3.JavaScript.photoAlbumExample.listAlbumsV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.createAlbumV3]
 
 // Create an album in the bucket
 const createAlbum = async (albumName) => {
@@ -113,8 +113,8 @@ const createAlbum = async (albumName) => {
 // Make 'createAlbum' function available to the browser
 window.createAlbum = createAlbum;
 
-// snippet-end:[s3.JavaScript.photoAlbumExample.createAlbum]
-// snippet-start:[s3.JavaScript.photoAlbumExample.viewAlbum]
+// snippet-end:[s3.JavaScript.photoAlbumExample.createAlbumV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.viewAlbumV3]
 
 // View the contents of an album
 
@@ -179,8 +179,8 @@ const viewAlbum = async (albumName) => {
 // Make 'viewAlbum' function available to the browser
 window.viewAlbum = viewAlbum;
 
-// snippet-end:[s3.JavaScript.photoAlbumExample.viewAlbum]
-// snippet-start:[s3.JavaScript.photoAlbumExample.addPhoto]
+// snippet-end:[s3.JavaScript.photoAlbumExample.viewAlbumV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.addPhotoV3]
 
 //Add a photo to an album
 const addPhoto = async (albumName) => {
@@ -216,8 +216,8 @@ const addPhoto = async (albumName) => {
 // Make 'addPhoto' function available to the browser
 window.addPhoto = addPhoto;
 
-// snippet-end:[s3.JavaScript.photoAlbumExample.addPhoto]
-// snippet-start:[s3.JavaScript.photoAlbumExample.deletePhoto]
+// snippet-end:[s3.JavaScript.photoAlbumExample.addPhotoV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.deletePhotoV3]
 
 //Delete a photo from an album
 const deletePhoto = async (albumName, photoKey) => {
@@ -234,8 +234,8 @@ const deletePhoto = async (albumName, photoKey) => {
 // Make 'deletePhoto' function available to the browser
 window.deletePhoto = deletePhoto;
 
-// snippet-end:[s3.JavaScript.photoAlbumExample.deletePhoto]
-// snippet-start:[s3.JavaScript.photoAlbumExample.deleteAlbum]
+// snippet-end:[s3.JavaScript.photoAlbumExample.deletePhotoV3]
+// snippet-start:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
 
 //Delete an album from the bucket
 const deleteAlbum = async (albumName) => {
@@ -265,8 +265,8 @@ const deleteAlbum = async (albumName) => {
 // Make 'deleteAlbum' function available to the browser
 window.deleteAlbum = deleteAlbum;
 
-// snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbum]
-// snippet-end:[s3.JavaScript.photoAlbumExample.complete]
+// snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
+// snippet-end:[s3.JavaScript.photoAlbumExample.completeV3]
 //for units tests only
 exports.listAlbums = listAlbums;
 exports.createAlbum = createAlbum;
