@@ -21,7 +21,7 @@ files:
  - path: src/main/java/com/example/comprehend/medical/DetectMedicalEntities.java
    services:
      - comprehend
- - path: src/main/java/com/example/comprehend/DetectPHI.java
+ - path: src/main/java/com/example/comprehend/medical/DetectPHI.java
    services:
      - comprehend
  - path: src/test/java/AmazonComprehendServiceIntegrationTest.java

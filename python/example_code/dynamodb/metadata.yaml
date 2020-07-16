@@ -78,3 +78,16 @@ files:
     services:
       - dynamodb
 ...
+---
+# Amazon DynamoDB batching examples
+files:
+  - path: batching/dynamo_batching.py
+    services:
+      - dynamodb
+  - path: batching/test/conftest.py
+    services:
+      - dynamodb
+  - path: batching/test/test_dynamo_batching.py
+    services:
+      - dynamodb
+...

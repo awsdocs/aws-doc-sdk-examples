@@ -49,7 +49,7 @@ func main() {
     // snippet-end:[dynamodb.go.update_item.session]
 
     // snippet-start:[dynamodb.go.update_item.call]
-    // Create item in table Movies
+    // Update item in table Movies
     tableName := "Movies"
     movieName := "The Big New Movie"
     movieYear := "2015"

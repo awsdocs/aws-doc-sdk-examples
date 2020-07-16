@@ -106,6 +106,30 @@ To suppress most output, add the `--quiet` option.
 To run the unit tests associated with this script, in a command window at the 
 `scripts\tests` folder of the repository, run `python -m pytest test_checkin_tests.py`.
 
+## README summarizer
+
+Gathers titles and purpose statements from README.md files and generates a top-level
+README.md file at the specified root. This README lists all of the examples and 
+their purposes. Any existing README.md file at the root is overwritten.
+
+This script is currently intended for use only with the Python subsection of the
+repo, but could be expanded in the future.
+
+#### Prerequisites
+
+To run this script, you must have the following installed globally or in a virtual
+environment:
+ 
+* Python 3.6 or later
+
+#### Running the script
+
+Run the following in the root folder of your GitHub clone. 
+
+```
+python -m scripts.summarizer --root python
+``` 
+
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

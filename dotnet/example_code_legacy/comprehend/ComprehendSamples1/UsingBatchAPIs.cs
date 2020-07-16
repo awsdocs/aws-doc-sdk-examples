@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[UsingBatchAPIs.cs demonstrates how to detect entities on a batch of strings using the Comprehend client.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-service:[comprehend]
-//snippet-keyword:[Amazon Comprehend]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
+// snippet-start:[comprehend.dotNET.UsingBatchAPIs]
 using System;
 using System.Collections.Generic;
+using Amazon;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;
 
@@ -79,3 +73,4 @@ namespace ComprehendSamples1
         }
     }
 }
+// snippet-end:[comprehend.dotNET.UsingBatchAPIs]
