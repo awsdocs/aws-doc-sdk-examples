@@ -92,4 +92,4 @@ const slotHandle = document.querySelector("#slot_handle");
 slotHandle.onmousedown = pullHandle;
 slotHandle.onmouseup = initiatePull;
 
-// snippet-start:[s3.JavaScript.buckets.indexv3]
+// snippet-end:[s3.JavaScript.buckets.indexv3]

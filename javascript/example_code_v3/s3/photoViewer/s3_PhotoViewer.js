@@ -86,8 +86,8 @@ const listAlbums = async () => {
 //Make the viewAlbum function available to the browser.
 window.listAlbums = listAlbums;
 
-// snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
-// snippet-start:[s3.JavaScript.s3_PhotoViewer.listAlbumV3]
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.listAlbumV3]
+// snippet-start:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 
 // Show the photos that exist in an album.
 const viewAlbum = async (albumName) => {
@@ -156,7 +156,7 @@ const viewAlbum = async (albumName) => {
 
 //Make the viewAlbum function available to the browser
 window.viewAlbum = viewAlbum;
-// snippet-end:[s3.JavaScript.s3_PhotoViewer.listAlbumsV3]
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumsV3]
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
 //for units tests only
 exports.listAlbums = listAlbums;
