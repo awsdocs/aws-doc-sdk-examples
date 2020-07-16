@@ -56,7 +56,7 @@ public class DeleteCluster {
     public static void deleteRedshiftCluster(RedshiftClient redshiftClient, String clusterId) {
 
         try {
-            DeleteClusterRequest  deleteClusterRequest = DeleteClusterRequest.builder()
+            DeleteClusterRequest deleteClusterRequest = DeleteClusterRequest.builder()
                     .clusterIdentifier(clusterId)
                     .skipFinalClusterSnapshot(true)
                     .build();
