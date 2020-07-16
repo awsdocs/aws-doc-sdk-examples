@@ -32,7 +32,7 @@ const ddb = new DynamoDBClient(REGION);
 const myTable = "TABLE_NAME"; //TABLE_NAME
 
 // Add the four spade results
-async function run() {
+const run = async () => {
   let params = {
     TableName: myTable,
     Item: { slotPosition: { N: "0" }, imageFile: { S: "spad_a.png" } },
@@ -107,6 +107,7 @@ async function run() {
   };
   await post(params);
 
+  // Add the four clubs results
   params = {
     TableName: myTable,
     Item: { slotPosition: { N: "12" }, imageFile: { S: "club_a.png" } },
@@ -133,7 +134,7 @@ async function run() {
 }
 run();
 
-async function post(params) {
+const post = async (params) => {
   try {
     const data = await ddb.send(new PutItemCommand(params));
     console.log("Success", data);
