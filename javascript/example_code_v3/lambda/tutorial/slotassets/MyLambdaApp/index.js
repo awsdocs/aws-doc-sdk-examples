@@ -14,24 +14,23 @@ Inputs (replace in code):
 - REGION
 - IDENTITY_POOL_ID
 
-
 Running the code:
 node ddb-table-create.test.js
 */
 // snippet-start:[s3.JavaScript.buckets.indexv3]
 
+// Load the required clients and packages
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 const { fromCognitoIdentityPool } = require("@aws-sdk/credential-provider-cognito-identity");
 const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 
-// Configure AWS SDK for JavaScript & set region and credentials
 // Initialize the Amazon Cognito credentials provider
-    const region = "REGION";
+    const region = "eu-west-1"; // REGION
     const lambda = new LambdaClient({
     region: region,
     credentials: fromCognitoIdentityPool({
         client: new CognitoIdentityClient({region}),
-        identityPoolId: "IDENTITY_POOL_ID" // IDENTITY_POOL_ID
+        identityPoolId: "eu-west-1:73a1f209-dfce-48cf-a439-090cf9d921e6" // IDENTITY_POOL_ID
     })
 });
 
@@ -93,4 +92,4 @@ const slotHandle = document.querySelector("#slot_handle");
 slotHandle.onmousedown = pullHandle;
 slotHandle.onmouseup = initiatePull;
 
-// snippet-end:[s3.JavaScript.buckets.indexv3]
+// snippet-start:[s3.JavaScript.buckets.indexv3]

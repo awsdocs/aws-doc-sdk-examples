@@ -32,7 +32,7 @@ const bucketParams = {
 
 // Create params JSON for S3.setBucketWebsite
 const staticHostParams = {
-  Bucket: "BUCKET_NAME",
+  Bucket: process.argv[3],
   WebsiteConfiguration: {
     ErrorDocument: {
       Key: "error.html",
