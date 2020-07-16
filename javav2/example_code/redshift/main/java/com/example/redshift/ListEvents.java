@@ -66,7 +66,7 @@ public class ListEvents {
             Date oneWeekAgo = new Date();
             oneWeekAgo.setTime(oneWeeksAgoMilli);
 
-            DescribeEventsRequest describeEventsRequest =  DescribeEventsRequest.builder()
+            DescribeEventsRequest describeEventsRequest = DescribeEventsRequest.builder()
                     .sourceIdentifier(clusterId)
                     .sourceType(eventSourceType)
                     .startTime(oneWeekAgo.toInstant())
