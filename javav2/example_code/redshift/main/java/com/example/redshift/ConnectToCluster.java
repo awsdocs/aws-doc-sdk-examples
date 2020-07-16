@@ -21,9 +21,10 @@ package com.example.redshift;
 // snippet-start:[firehose.java2.connect.import]
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 // snippet-end:[firehose.java2.connect.import]
 
 /**
@@ -95,7 +96,7 @@ public class ConnectToCluster {
             rs.close();
             stmt.close();
             conn.close();
-        }catch(Exception ex){
+        }catch(SQLException | ClassNotFoundException ex){
             //For convenience, handle all errors here.
             ex.printStackTrace();
             System.exit(1);
@@ -104,13 +105,13 @@ public class ConnectToCluster {
             try{
                 if(stmt!=null)
                     stmt.close();
-            }catch(Exception ex){
+            }catch(SQLException ex){
                 System.exit(1);
             }// nothing we can do
             try{
                 if(conn!=null)
                     conn.close();
-            }catch(Exception ex){
+            }catch(SQLException ex){
                 ex.printStackTrace();
                 System.exit(1);
             }
