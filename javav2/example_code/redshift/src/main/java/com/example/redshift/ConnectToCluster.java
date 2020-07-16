@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ConnectToCluster.java demonstrates how to connect to a Redshift cluster using the JDBC API.]
+//snippet-sourcedescription:[ConnectToCluster.java demonstrates how to connect to an Amazon Redshift cluster using the JDBC API.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
@@ -28,7 +28,7 @@ import java.sql.ResultSet;
 // snippet-end:[firehose.java2.connect.import]
 
 /**
- * If you have issues connecting, please check your inbound rules that belong to the security group
+ * If you have issues connecting, check your inbound rules that belong to the security group
  */
 
 public class ConnectToCluster {
@@ -39,9 +39,9 @@ public class ConnectToCluster {
                 "Usage:\n" +
                 "    ConnectToCluster <dbURL><masterUsername><masterUserPassword> \n\n" +
                 "Where:\n" +
-                "    dbURL - the URL to the Redshift cluster \n" +
-                "    masterUsername - the master user name \n" +
-                "    masterUserPassword - the password that corresponds to the master user name \n" ;
+                "    dbURL - The URL to the Amazon Redshift cluster \n" +
+                "    masterUsername - The master user name \n" +
+                "    masterUserPassword - The password that corresponds to the master user name \n" ;
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -60,35 +60,35 @@ public class ConnectToCluster {
         Connection conn = null;
         Statement stmt = null;
         try{
-            //Dynamically load driver at runtime.
-            //Redshift JDBC 4.1 driver: com.amazon.redshift.jdbc41.Driver
-            //Redshift JDBC 4 driver: com.amazon.redshift.jdbc4.Driver
+            // Dynamically load driver at runtime
+            // Redshift JDBC 4.1 driver: com.amazon.redshift.jdbc41.Driver
+            // Redshift JDBC 4 driver: com.amazon.redshift.jdbc4.Driver
             Class.forName("com.amazon.redshift.jdbc.Driver");
 
-            //Open a connection and define properties.
+            // Open a connection and define properties
             System.out.println("Connecting to database...");
             Properties props = new Properties();
 
-            //Uncomment the following line if using a keystore.
-            //props.setProperty("ssl", "true");
+            // Uncomment the following line if using a key store
+            // props.setProperty("ssl", "true");
             props.setProperty("user", masterUsername);
             props.setProperty("password", masterUserPassword);
             conn = DriverManager.getConnection(dbURL, props);
 
-            //Try a simple query.
+            // Try a simple query
             System.out.println("Listing system tables...");
             stmt = conn.createStatement();
             String sql;
             sql = "select * from information_schema.tables;";
             ResultSet rs = stmt.executeQuery(sql);
 
-            //Get the data from the result set.
+            // Get the data from the result set
             while(rs.next()){
-                //Retrieve two columns.
+                // Retrieve two columns
                 String catalog = rs.getString("table_catalog");
                 String name = rs.getString("table_name");
 
-                //Display values.
+                // Display values
                 System.out.print("Catalog: " + catalog);
                 System.out.println(", Name: " + name);
             }
@@ -97,17 +97,17 @@ public class ConnectToCluster {
             stmt.close();
             conn.close();
         }catch(SQLException | ClassNotFoundException ex){
-            //For convenience, handle all errors here.
+            // For convenience, handle all errors here
             ex.printStackTrace();
             System.exit(1);
         }finally{
-            //Finally block to close resources.
+            // Finally block to close resources
             try{
                 if(stmt!=null)
                     stmt.close();
             }catch(SQLException ex){
                 System.exit(1);
-            }// nothing we can do
+            }// Nothing we can do
             try{
                 if(conn!=null)
                     conn.close();

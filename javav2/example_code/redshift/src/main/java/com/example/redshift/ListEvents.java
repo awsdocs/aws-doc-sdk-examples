@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListEvents.java demonstrates how to list events for a given cluster.]
+//snippet-sourcedescription:[ListEvents.java demonstrates how to list events for a given Amazon Redshift cluster.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift]
@@ -39,8 +39,8 @@ public class ListEvents {
                 "Usage:\n" +
                 "    ListEvents <clusterId><masterUsername><masterUserPassword> \n\n" +
                 "Where:\n" +
-                "    clusterId - the id of the cluster \n" +
-                "    eventSourceType - the event type (ie, cluster) \n" ;
+                "    clusterId - The ID of the cluster \n" +
+                "    eventSourceType - The event type (i.e., cluster) \n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);

@@ -35,7 +35,7 @@ public class DeleteCluster {
                 "Usage:\n" +
                 "    DeleteCluster <clusterId> \n\n" +
                 "Where:\n" +
-                "    clusterId - the id of the cluster to delete \n";
+                "    clusterId - The ID of the cluster to delete \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -61,7 +61,7 @@ public class DeleteCluster {
                     .skipFinalClusterSnapshot(true)
                     .build();
 
-            // Delete the Cluster
+            // Delete the cluster
             DeleteClusterResponse response = redshiftClient.deleteCluster(deleteClusterRequest);
             System.out.println("The status is "+response.cluster().clusterStatus());
 

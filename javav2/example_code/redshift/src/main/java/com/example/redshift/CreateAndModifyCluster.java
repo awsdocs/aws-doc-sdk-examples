@@ -43,9 +43,9 @@ public class CreateAndModifyCluster {
                 "Usage:\n" +
                 "    CreateAndModifyCluster <clusterId><masterUsername><masterUserPassword> \n\n" +
                 "Where:\n" +
-                "    clusterId - the id of the cluster to create \n" +
-                "    masterUsername - the master user name \n" +
-                "    masterUserPassword - the password that corresponds to the master user name \n" ;
+                "    clusterId - The ID of the cluster to create \n" +
+                "    masterUsername - The master user name \n" +
+                "    masterUserPassword - The password that corresponds to the master user name \n" ;
 
 
 
@@ -74,8 +74,8 @@ public class CreateAndModifyCluster {
        try {
         CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
                 .clusterIdentifier(clusterId)
-                .masterUsername(masterUsername) // set the user name here
-                .masterUserPassword(masterUserPassword) // set the user password here
+                .masterUsername(masterUsername) // Set the user name here
+                .masterUserPassword(masterUserPassword) // Set the user password here
                 .nodeType("ds2.xlarge")
                 .numberOfNodes(2)
                 .build();
@@ -90,7 +90,7 @@ public class CreateAndModifyCluster {
        }
     }
 
-    // Waits until the cluster is available
+    // Wait until the cluster is available
     public static void waitForClusterReady(RedshiftClient redshiftClient, String clusterId) {
 
         Boolean clusterReady = false;

@@ -98,23 +98,23 @@ public class FindReservedNodeOffer {
     }
 
     private static void printReservedNodeDetails(ReservedNode node) {
-        System.out.println("\nPurchased Node Details:");
+        System.out.println("\nPurchased node details:");
         System.out.format("Id: %s\n", node.reservedNodeOfferingId());
         System.out.format("State: %s\n", node.state());
-        System.out.format("Node Type: %s\n", node.nodeType());
-        System.out.format("Start Time: %s\n", node.startTime());
-        System.out.format("Fixed Price: %s\n", node.fixedPrice());
-        System.out.format("Offering Type: %s\n", node.offeringType());
+        System.out.format("Node type: %s\n", node.nodeType());
+        System.out.format("Start time: %s\n", node.startTime());
+        System.out.format("Fixed price: %s\n", node.fixedPrice());
+        System.out.format("Offering type: %s\n", node.offeringType());
         System.out.format("Duration: %s\n", node.duration());
     }
 
     private static void printOfferingDetails(
             ReservedNodeOffering offering) {
-        System.out.println("\nOffering Match:");
-        System.out.format("Id: %s\n", offering.reservedNodeOfferingId());
-        System.out.format("Node Type: %s\n", offering.nodeType());
-        System.out.format("Fixed Price: %s\n", offering.fixedPrice());
-        System.out.format("Offering Type: %s\n", offering.offeringType());
+        System.out.println("\nOffering match:");
+        System.out.format("ID: %s\n", offering.reservedNodeOfferingId());
+        System.out.format("Node type: %s\n", offering.nodeType());
+        System.out.format("Fixed price: %s\n", offering.fixedPrice());
+        System.out.format("Offering type: %s\n", offering.offeringType());
         System.out.format("Duration: %s\n", offering.duration());
     }
     // snippet-end:[redshift.java2._nodes.main]
