@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-//snippet-sourcedescription:[s3_photoExample.js demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.]
+//snippet-sourcedescription:[s3_PhotoExample.js demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.]
 //snippet-service:[s3]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]

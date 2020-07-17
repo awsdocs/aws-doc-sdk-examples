@@ -1,6 +1,12 @@
 ---
 # Amazon S3 examples
 files:
+  - path: photoViewer/s3_PhotoViewer.js
+    services:
+      - s3
+  - path: photoExample/s3_PhotoExample.js
+    services:
+      - s3
   - path: s3_createbucket.js
     services:
       - s3
