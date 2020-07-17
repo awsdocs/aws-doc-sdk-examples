@@ -33,6 +33,7 @@ To follow along with the tutorial, you need the following:
 + Java 1.8 SDK and Maven
 
 The following figure shows the project that's created. 
+
 ![AWS Blog Application](images/greet3.png)
 
 **Cost to complete:** The AWS services you'll use in this example are part of the AWS Free Tier.

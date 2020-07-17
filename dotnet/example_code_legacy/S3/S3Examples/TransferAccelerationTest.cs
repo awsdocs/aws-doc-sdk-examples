@@ -1,32 +1,7 @@
-/**
-* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* This file is licensed under the Apache License, Version 2.0 (the "License").
-* You may not use this file except in compliance with the License. A copy of
-* the License is located at
-*
-* http://aws.amazon.com/apache2.0/
-*
-* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-* CONDITIONS OF ANY KIND, either express or implied. See the License for the
-* specific language governing permissions and limitations under the License.
-*/
-
-// snippet-sourcedescription:[TransferAccelerationTest.cs demonstrates how to enable Transfer Acceleration on an S3 bucket.]
-// snippet-service:[s3]
-// snippet-keyword:[dotNET]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[PUT Bucket accelerate]
-// snippet-keyword:[PutBucketAccelerateConfigurationRequest]
-// snippet-keyword:[GET Bucket accelerate]
-// snippet-keyword:[GetBucketAccelerateConfigurationRequest]
-// snippet-keyword:[AccelerateConfiguration]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-04-30]
-// snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.TransferAccelerationTest]
-
+using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using System;

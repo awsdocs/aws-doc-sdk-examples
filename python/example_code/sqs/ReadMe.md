@@ -1,10 +1,11 @@
-# Amazon SQS API examples
+# Amazon SQS getting started examples
 
 ## Purpose
 
-Demonstrate basic queue and message operations in Amazon Simple Queue Service 
-(Amazon SQS). Learn how to create, get, and remove standard, FIFO, and dead-letter 
-queues. Learn how to send, receive, and delete messages from a queue.
+Shows how to use the AWS SDK for Python (Boto3) to get started using queue and 
+message operations in Amazon Simple Queue Service (Amazon SQS). Learn how to 
+create, get, and remove standard, FIFO, and dead-letter queues. Learn how to 
+send, receive, and delete messages from a queue.
 
 ## Prerequisites
 

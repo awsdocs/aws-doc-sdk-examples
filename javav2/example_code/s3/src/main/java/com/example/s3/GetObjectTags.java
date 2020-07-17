@@ -52,11 +52,11 @@ public class GetObjectTags {
                 .region(region)
                 .build();
 
-        ListTags(s3,bucketName,keyName );
+        listTags(s3,bucketName,keyName );
     }
 
     // snippet-start:[s3.java2.getobjecttags.main]
-    public static void ListTags (S3Client s3, String bucketName, String keyName ) {
+    public static void listTags(S3Client s3, String bucketName, String keyName ) {
 
          try {
            // create a GetObjectTaggingRequest instance

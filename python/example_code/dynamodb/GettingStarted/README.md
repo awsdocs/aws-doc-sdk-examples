@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Demonstrate how to use the AWS SDK for Python (Boto3) to create an Amazon DynamoDB 
+Shows how to use the AWS SDK for Python (Boto3) to create an Amazon DynamoDB 
 table for storing movies, load movies into the table from a JSON-formatted file, 
 and update and query movies in various ways.
 

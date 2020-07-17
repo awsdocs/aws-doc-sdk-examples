@@ -1,14 +1,8 @@
-//snippet-sourcedescription:[DetectEntities.cs demonstrates how to detect entities in a given sample string using the Comprehend client.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Comprehend]
-//snippet-service:[comprehend]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
+// snippet-start:[comprehend.dotNET.DetectEntities]
 using System;
+using Amazon;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;
 
@@ -37,3 +31,4 @@ namespace ComprehendSamples1
         }
     }
 }
+// snippet-end:[comprehend.dotNET.DetectEntities]

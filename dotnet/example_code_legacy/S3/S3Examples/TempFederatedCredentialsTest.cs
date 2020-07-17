@@ -1,28 +1,7 @@
-/**
-* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* This file is licensed under the Apache License, Version 2.0 (the "License").
-* You may not use this file except in compliance with the License. A copy of
-* the License is located at
-*
-* http://aws.amazon.com/apache2.0/
-*
-* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-* CONDITIONS OF ANY KIND, either express or implied. See the License for the
-* specific language governing permissions and limitations under the License.
-*/
-
-// snippet-sourcedescription:[TempFederatedCredentialsTest.cs demonstrates how to send authenticated requests using federated user temporary credentials.]
-// snippet-service:[s3]
-// snippet-keyword:[dotNET]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[AmazonSecurityTokenServiceClient]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-04-30]
-// snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.TempFederatedCredentialsTest]
-
+using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;

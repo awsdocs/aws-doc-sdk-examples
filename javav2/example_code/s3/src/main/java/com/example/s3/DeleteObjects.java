@@ -26,7 +26,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 // snippet-end:[s3.java2.delete_objects.import]
 
 /**
@@ -60,12 +59,11 @@ public class DeleteObjects {
         // Create a S3Client object
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
-
-        DeleteBucketObjects(s3, bucketName, objectName);
+        deleteBucketObjects(s3, bucketName, objectName);
     }
 
     // snippet-start:[s3.java2.delete_objects.main]
-    public static void DeleteBucketObjects(S3Client s3, String bucketName, String objectName) {
+    public static void deleteBucketObjects(S3Client s3, String bucketName, String objectName) {
 
         // Create a S3Client object
         ArrayList<ObjectIdentifier> toDelete = new ArrayList<ObjectIdentifier>();
