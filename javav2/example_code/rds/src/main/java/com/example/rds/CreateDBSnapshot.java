@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDBSnapshot.java demonstrates how to create a RDS snapshot.]
+//snippet-sourcedescription:[CreateDBSnapshot.java demonstrates how to create an Amazon RDS snapshot.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
@@ -35,8 +35,8 @@ public class CreateDBSnapshot {
                 "Usage:\n" +
                 "    CreateDBSnapshot <dbInstanceIdentifier><dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - the database instance identifier \n" +
-                "    dbSnapshotIdentifier - the snapshot identifier \n";
+                "    dbInstanceIdentifier - The database instance identifier \n" +
+                "    dbSnapshotIdentifier - The snapshot identifier \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -64,7 +64,7 @@ public class CreateDBSnapshot {
                     .build();
 
             CreateDbSnapshotResponse response = rdsClient.createDBSnapshot(snapshotRequest);
-            System.out.print("The Snapshot id is " + response.dbSnapshot().dbiResourceId());
+            System.out.print("The snapshot ID is " + response.dbSnapshot().dbiResourceId());
 
         } catch (RdsException e) {
             System.out.println(e.getLocalizedMessage());

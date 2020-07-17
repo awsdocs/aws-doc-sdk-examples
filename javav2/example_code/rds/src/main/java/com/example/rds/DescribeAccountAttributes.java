@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeAccountAttributes.java demonstrates how to retrieve attributes that belongs to an RDS account.]
+//snippet-sourcedescription:[DescribeAccountAttributes.java demonstrates how to retrieve attributes that belong to an Amazon RDS account.]
 ////snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]

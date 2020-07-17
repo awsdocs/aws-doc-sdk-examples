@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[RebootDBInstance.java demonstrates how to reboot a RDS instance.]
+//snippet-sourcedescription:[RebootDBInstance.java demonstrates how to reboot an Amazon RDS instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
@@ -36,7 +36,7 @@ public class RebootDBInstance {
                 "Usage:\n" +
                 "    RebootDBInstance <dbInstanceIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - the database instance identifier \n" ;
+                "    dbInstanceIdentifier - The database instance identifier \n" ;
 
 
         String dbInstanceIdentifier = args[0];
@@ -69,4 +69,3 @@ public class RebootDBInstance {
         // snippet-end:[rds.java2.reboot_instance.main]
     }
 }
-

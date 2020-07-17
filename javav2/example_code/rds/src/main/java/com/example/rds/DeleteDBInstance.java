@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteDBInstance.java demonstrates how to delete a RDS snapshot.]
+//snippet-sourcedescription:[DeleteDBInstance.java demonstrates how to delete an Amazon RDS snapshot.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
@@ -36,7 +36,7 @@ public class DeleteDBInstance {
                 "Usage:\n" +
                 "    DeleteDBInstance <dbInstanceIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - the database instance identifier \n";
+                "    dbInstanceIdentifier - The database instance identifier \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
