@@ -20,6 +20,7 @@ node lambda-function-setup.js
 */
 
 // snippet-start:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
+
 // Load the Lambda client
 const {
   LambdaClient,
@@ -28,6 +29,9 @@ const {
 
 //Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
+
+// Instantiate a Lambda client
+const lambda = new LambdaClient(REGION);
 
 //Set the parameters
 var params = {
@@ -41,9 +45,6 @@ var params = {
   Runtime: "nodejs12.x",
   Description: "Slot machine game results generator",
 };
-
-// Instantiate a Lambda client
-const lambda = new LambdaClient(REGION);
 
 const run = async () => {
   try {

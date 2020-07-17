@@ -28,8 +28,11 @@ const {
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
 
-const ROLE = "NEW_ROLENAME"; //NEW_ROLENAME
+// Instantiate the IAM client
+const iam = new IAMClient(REGION);
 
+// Set the parameters
+const ROLE = "NEW_ROLENAME"; //NEW_ROLENAME
 const myPolicy = {
   Version: "2012-10-17",
   Statement: [
@@ -57,9 +60,6 @@ const dynamoPolicyParams = {
   PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess",
   RoleName: ROLE,
 };
-
-// Instantiate the IAM client
-const iam = new IAMClient(REGION);
 
 const run = async () => {
   try {

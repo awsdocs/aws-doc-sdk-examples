@@ -63,12 +63,12 @@ var readOnlyAnonUserPolicy = {
 };
 
 // create selected bucket resource string for bucket policy
-var bucketResource = "arn:aws:s3:::" + "BUCKET_NAME" + "/*"; //BUCKET_NAME
+var bucketResource = "arn:aws:s3:::" + bucketName + "/*"; //BUCKET_NAME
 readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
 
 // convert policy JSON into string and assign into params
 var bucketPolicyParams = {
-  Bucket: "BUCKET_NAME",
+  Bucket: bucketName,
   Policy: JSON.stringify(readOnlyAnonUserPolicy),
 };
 
