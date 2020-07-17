@@ -39,45 +39,63 @@ const s3 = new S3({
   }),
 });
 
-const albumBucketName = "brmur-slotassets1"; //BUCKET_NAME
+const albumBucketName = "BUCKET_NAME"; //BUCKET_NAME
 // snippet-end:[s3.JavaScript.photoAlbumExample.configV3]
 // snippet-start:[s3.JavaScript.photoAlbumExample.listAlbumsV3]
+
+// A utility function to create HTML
+function getHtml(template) {
+  return template.join("\n");
+}
+// Make getHTML function available to the browser
+window.getHTML = getHtml;
 
 // List the photo albums that exist in the bucket
 const listAlbums = async () => {
   try {
     const data = await s3.send(
-      new ListObjectsCommand({ Delimiter: "/", Bucket: albumBucketName })
+        new ListObjectsCommand({ Delimiter: "/", Bucket: albumBucketName })
     );
-    const albums = data.CommonPrefixes.map(function (commonPrefix) {
-      const prefix = commonPrefix.Prefix;
-      const albumName = decodeURIComponent(prefix.replace("/", ""));
-      return getHtml([
-        "<li>",
-        "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
-        "<span onclick=\"viewAlbum('" + albumName + "')\">",
-        albumName,
-        "</span>",
-        "</li>",
-      ]);
-    });
-    const message = albums.length
-      ? getHtml([
-          "<p>Click an album name to view it.</p>",
-          "<p>Click the X to delete the album.</p>",
-        ])
-      : "<p>You don't have any albums. Please Create album.";
-    const htmlTemplate = [
-      "<h2>Albums</h2>",
-      message,
-      "<ul>",
-      getHtml(albums),
-      "</ul>",
-      "<button onclick=\"createAlbum(prompt('Enter Album Name:'))\">",
-      "Create album",
-      "</button>",
-    ];
-    document.getElementById("app").innerHTML = getHtml(htmlTemplate);
+
+    if (data.CommonPrefixes === undefined) {
+      const htmlTemplate = [
+        "<p>You don't have any albums. You need to create an album.</p>",
+        "<button onclick=\"createAlbum(prompt('Enter album name:'))\">",
+        "Create new album",
+        "</button>",
+      ];
+      document.getElementById("app").innerHTML = htmlTemplate;
+    } else {
+      var albums = data.CommonPrefixes.map(function (commonPrefix) {
+        var prefix = commonPrefix.Prefix;
+        var albumName = decodeURIComponent(prefix.replace("/", ""));
+        return getHtml([
+          "<li>",
+          "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
+          "<span onclick=\"viewAlbum('" + albumName + "')\">",
+          albumName,
+          "</span>",
+          "</li>",
+        ]);
+      });
+      var message = albums.length
+          ? getHtml([
+            "<p>Click an album name to view it.</p>",
+            "<p>Click the X to delete the album.</p>",
+          ])
+          : "<p>You do not have any albums. You need to create an album";
+      const htmlTemplate = [
+        "<h2>Albums</h2>",
+        message,
+        "<ul>",
+        getHtml(albums),
+        "</ul>",
+        "<button onclick=\"createAlbum(prompt('Enter Album Name:'))\">",
+        "Create new Album",
+        "</button>",
+      ];
+      document.getElementById("app").innerHTML = getHtml(htmlTemplate);
+    }
   } catch (err) {
     return alert("There was an error listing your albums: " + err.message);
   }
@@ -106,7 +124,7 @@ const createAlbum = async (albumName) => {
     alert("Successfully created album.");
     viewAlbum(albumName);
   } catch (err) {
-    return alert("There was an error creating your album1: " + err.message);
+    return alert("There was an error creating your album: " + err.message);
   }
 };
 
@@ -119,59 +137,76 @@ window.createAlbum = createAlbum;
 // View the contents of an album
 
 const viewAlbum = async (albumName) => {
+  const albumPhotosKey = encodeURIComponent(albumName) + "/";
   try {
-    const albumPhotosKey = encodeURIComponent(albumName) + "/";
     const data = await s3.send(
-      new ListObjectsCommand({
-        Prefix: albumPhotosKey,
-        Bucket: albumBucketName,
-      })
+        new ListObjectsCommand({
+          Prefix: albumPhotosKey,
+          Bucket: albumBucketName,
+        })
     );
-    const href = "https://s3." + region + ".amazonaws.com/";
-    const bucketUrl = href + albumBucketName + "/";
-    const photos = data.Contents.map(function (photo) {
-      const photoKey = photo.Key;
-      const photoUrl = bucketUrl + encodeURIComponent(photoKey);
-      return getHtml([
-        "<span>",
-        "<div>",
-        '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
-        "</div>",
-        "<div>",
-        "<span onclick=\"deletePhoto('" +
+    if (data.Contents.length === 1) {
+      var htmlTemplate = [
+        "<p>You don't have any photos in this album. You need to add photos.</p>",
+        '<input id="photoupload" type="file" accept="image/*">',
+        '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
+        "Add photo",
+        "</button>",
+        '<button onclick="listAlbums()">',
+        "Back to albums",
+        "</button>",
+      ];
+      document.getElementById("app").innerHTML = getHtml(htmlTemplate);
+    } else {
+      console.log(data);
+      const href = "https://s3." + region + ".amazonaws.com/";
+      const bucketUrl = href + albumBucketName + "/";
+      const photos = data.Contents.map(function (photo) {
+        const photoKey = photo.Key;
+        console.log(photo.Key);
+        const photoUrl = bucketUrl + encodeURIComponent(photoKey);
+        return getHtml([
+          "<span>",
+          "<div>",
+          '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
+          "</div>",
+          "<div>",
+          "<span onclick=\"deletePhoto('" +
           albumName +
           "','" +
           photoKey +
           "')\">",
-        "X",
-        "</span>",
-        "<span>",
-        photoKey.replace(albumPhotosKey, ""),
-        "</span>",
+          "X",
+          "</span>",
+          "<span>",
+          photoKey.replace(albumPhotosKey, ""),
+          "</span>",
+          "</div>",
+          "</span>",
+        ]);
+      });
+      var message = photos.length
+          ? "<p>Click  the X to delete the photo</p>"
+          : "<p>You don't have any photos in this album. You need to add photos.</p>";
+      const htmlTemplate = [
+        "<h2>",
+        "Album: " + albumName,
+        "</h2>",
+        message,
+        "<div>",
+        getHtml(photos),
         "</div>",
-        "</span>",
-      ]);
-    });
-    const message = photos.length
-      ? "<p>Click  the X to delete the photo</p>"
-      : "<p>You don't have any photos in this album. You need to add photos.</p>";
-    const htmlTemplate = [
-      "<h2>",
-      "Album: " + albumName,
-      "</h2>",
-      message,
-      "<div>",
-      getHtml(photos),
-      "</div>",
-      '<input id="photoupload" type="file" accept="image/*">',
-      '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
-      "Add photo",
-      "</button>",
-      '<button onclick="listAlbums()">',
-      "Back to albums",
-      "</button>",
-    ];
-    document.getElementById("app").innerHTML = getHtml(htmlTemplate);
+        '<input id="photoupload" type="file" accept="image/*">',
+        '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
+        "Add photo",
+        "</button>",
+        '<button onclick="listAlbums()">',
+        "Back to albums",
+        "</button>",
+      ];
+      document.getElementById("app").innerHTML = getHtml(htmlTemplate);
+      document.getElementsByTagName("img")[0].remove();
+    }
   } catch (err) {
     return alert("There was an error viewing your album: " + err.message);
   }
@@ -188,10 +223,11 @@ const addPhoto = async (albumName) => {
   try {
     const albumPhotosKey = encodeURIComponent(albumName) + "/";
     const data = await s3.send(
-      new ListObjectsCommand({
-        Prefix: albumPhotosKey,
-        Bucket: albumBucketName,
-      })
+        new ListObjectsCommand({
+          Prefix: albumPhotosKey,
+          Bucket: albumBucketName,
+          ACL: "public-read",
+        })
     );
     const file = files[0];
     const fileName = file.name;
@@ -200,10 +236,12 @@ const addPhoto = async (albumName) => {
       Bucket: albumBucketName,
       Key: photoKey,
       Body: file,
+      ACL: "public-read"
     };
     try {
       const data = await s3.putObject(uploadParams);
       alert("Successfully uploaded photo.");
+      viewAlbum(albumName);
     } catch (err) {
       return alert("There was an error uploading your photo: ", err.message);
     }
