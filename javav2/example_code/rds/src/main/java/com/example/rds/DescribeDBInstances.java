@@ -26,7 +26,7 @@ import software.amazon.awssdk.services.rds.model.DescribeDbInstancesResponse;
 import software.amazon.awssdk.services.rds.model.DBInstance;
 import software.amazon.awssdk.services.rds.model.RdsException;
 import java.util.List;
-// snippet-end: [rds.java2.describe_instances.import]
+// snippet-end:[rds.java2.describe_instances.import]
 
 public class DescribeDBInstances {
 
