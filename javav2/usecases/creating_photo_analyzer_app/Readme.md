@@ -735,11 +735,10 @@ The following Java class represents the **SendMessage** class. This class uses t
     @Component
     public class SendMessages {
 
-    private String sender = "scmacdon@amazon.com";
+    private String sender = "<enter email address>";
 
     // The subject line for the email.
     private String subject = "Analyzed photos report";
-
 
     // The email body for recipients with non-HTML email clients.
     private String bodyText = "Hello,\r\n" + "Please see the attached file for the analyzed photos report.";
