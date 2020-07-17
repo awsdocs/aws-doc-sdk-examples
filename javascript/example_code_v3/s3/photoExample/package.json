@@ -1,7 +1,7 @@
 {
   "name": "PhotoExample",
   "version": "1.0.0",
-  "description": "A browser-based Photo App demonstrating the AWS SDK for JavaScript V3.",
+  "description": "A browser-based Photo App demonstrating how to use the AWS SDK for JavaScript V3.",
   "main": "s3_PhotoExample.js",
   "scripts": {
     "build:frontend": "webpack s3_PhotoExample.js --mode development --target web --devtool false -o main.js",

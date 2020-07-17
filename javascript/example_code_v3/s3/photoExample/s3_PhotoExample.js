@@ -63,10 +63,10 @@ const listAlbums = async () => {
     });
     const message = albums.length
       ? getHtml([
-          "<p>Click on an album name to view it.</p>",
-          "<p>Click on the X to delete the album.</p>",
+          "<p>Click an album name to view it.</p>",
+          "<p>Click the X to delete the album.</p>",
         ])
-      : "<p>You do not have any albums. Please Create album.";
+      : "<p>You don't have any albums. Please Create album.";
     const htmlTemplate = [
       "<h2>Albums</h2>",
       message,
@@ -74,7 +74,7 @@ const listAlbums = async () => {
       getHtml(albums),
       "</ul>",
       "<button onclick=\"createAlbum(prompt('Enter Album Name:'))\">",
-      "Create New Album",
+      "Create album",
       "</button>",
     ];
     document.getElementById("app").innerHTML = getHtml(htmlTemplate);
@@ -83,7 +83,7 @@ const listAlbums = async () => {
   }
 };
 
-// Make 'listAlbums' function available to the browser
+// Make listAlbums function available to the browser
 window.listAlbums = listAlbums;
 
 // snippet-end:[s3.JavaScript.photoAlbumExample.listAlbumsV3]
@@ -110,7 +110,7 @@ const createAlbum = async (albumName) => {
   }
 };
 
-// Make 'createAlbum' function available to the browser
+// Make createAlbum function available to the browser
 window.createAlbum = createAlbum;
 
 // snippet-end:[s3.JavaScript.photoAlbumExample.createAlbumV3]
@@ -153,8 +153,8 @@ const viewAlbum = async (albumName) => {
       ]);
     });
     const message = photos.length
-      ? "<p>Click on the X to delete the photo</p>"
-      : "<p>You do not have any photos in this album. Please add photos.</p>";
+      ? "<p>Click  the X to delete the photo</p>"
+      : "<p>You don't have any photos in this album. You need to add photos.</p>";
     const htmlTemplate = [
       "<h2>",
       "Album: " + albumName,
@@ -165,10 +165,10 @@ const viewAlbum = async (albumName) => {
       "</div>",
       '<input id="photoupload" type="file" accept="image/*">',
       '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
-      "Add Photo",
+      "Add photo",
       "</button>",
       '<button onclick="listAlbums()">',
-      "Back To Albums",
+      "Back to albums",
       "</button>",
     ];
     document.getElementById("app").innerHTML = getHtml(htmlTemplate);
@@ -176,13 +176,13 @@ const viewAlbum = async (albumName) => {
     return alert("There was an error viewing your album: " + err.message);
   }
 };
-// Make 'viewAlbum' function available to the browser
+// Make viewAlbum function available to the browser
 window.viewAlbum = viewAlbum;
 
 // snippet-end:[s3.JavaScript.photoAlbumExample.viewAlbumV3]
 // snippet-start:[s3.JavaScript.photoAlbumExample.addPhotoV3]
 
-//Add a photo to an album
+// Add a photo to an album
 const addPhoto = async (albumName) => {
   const files = document.getElementById("photoupload").files;
   try {
@@ -209,17 +209,17 @@ const addPhoto = async (albumName) => {
     }
   } catch (err) {
     if (!files.length) {
-      return alert("Please choose a file to upload first.");
+      return alert("Choose a file to upload first.");
     }
   }
 };
-// Make 'addPhoto' function available to the browser
+// Make addPhoto function available to the browser
 window.addPhoto = addPhoto;
 
 // snippet-end:[s3.JavaScript.photoAlbumExample.addPhotoV3]
 // snippet-start:[s3.JavaScript.photoAlbumExample.deletePhotoV3]
 
-//Delete a photo from an album
+// Delete a photo from an album
 const deletePhoto = async (albumName, photoKey) => {
   try {
     console.log(photoKey);
@@ -231,13 +231,13 @@ const deletePhoto = async (albumName, photoKey) => {
     return alert("There was an error deleting your photo: ", err.message);
   }
 };
-// Make 'deletePhoto' function available to the browser
+// Make deletePhoto function available to the browser
 window.deletePhoto = deletePhoto;
 
 // snippet-end:[s3.JavaScript.photoAlbumExample.deletePhotoV3]
 // snippet-start:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
 
-//Delete an album from the bucket
+// Delete an album from the bucket
 const deleteAlbum = async (albumName) => {
   const albumKey = encodeURIComponent(albumName) + "/";
   try {
@@ -262,7 +262,7 @@ const deleteAlbum = async (albumName) => {
     return alert("There was an error deleting your album1: ", err.message);
   }
 };
-// Make 'deleteAlbum' function available to the browser
+// Make deleteAlbum function available to the browser
 window.deleteAlbum = deleteAlbum;
 
 // snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]

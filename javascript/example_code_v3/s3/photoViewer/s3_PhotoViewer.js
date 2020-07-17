@@ -43,7 +43,7 @@ const s3 = new S3({
 function getHtml(template) {
   return template.join("\n");
 }
-// Make 'getHTML' function available to the browser
+// Make the getHTML function available to the browser
 window.getHTML = getHtml;
 
 // List the photo albums that exist in the bucket
@@ -68,8 +68,8 @@ const listAlbums = async () => {
       ]);
     });
     var message = albums.length
-      ? getHtml(["<p>Click on an album name to view it.</p>"])
-      : "<p>You do not have any albums. Please Create album.";
+      ? getHtml(["<p>Click an album name to view it.</p>"])
+      : "<p>You don't have any albums. You need to create an album.";
     var htmlTemplate = [
       "<h2>Albums</h2>",
       message,
@@ -82,13 +82,13 @@ const listAlbums = async () => {
     return alert("There was an error listing your albums: " + err.message);
   }
 };
-//Make the viewAlbum function available to the browser.
+// Make the viewAlbum function available to the browser
 window.listAlbums = listAlbums;
 
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.listAlbumV3]
 // snippet-start:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 
-// Show the photos that exist in an album.
+// Show the photos that exist in an album
 const viewAlbum = async (albumName) => {
   try {
     var albumPhotosKey = encodeURIComponent(albumName) + "/";
@@ -98,10 +98,8 @@ const viewAlbum = async (albumName) => {
         Bucket: albumBucketName,
       })
     );
-    // 'this' references the AWS.Response instance that represents the response
     var href = "https://s3." + REGION + ".amazonaws.com/";
     var bucketUrl = href + albumBucketName + "/";
-
     var photos = data.Contents.map(function (photo) {
       var photoKey = photo.Key;
       var photoUrl = bucketUrl + encodeURIComponent(photoKey);
@@ -125,7 +123,7 @@ const viewAlbum = async (albumName) => {
     var htmlTemplate = [
       "<div>",
       '<button onclick="listAlbums()">',
-      "Back To Albums",
+      "Back To albums",
       "</button>",
       "</div>",
       "<h2>",
@@ -136,11 +134,11 @@ const viewAlbum = async (albumName) => {
       getHtml(photos),
       "</div>",
       "<h2>",
-      "End of Album: " + albumName,
+      "End of album: " + albumName,
       "</h2>",
       "<div>",
       '<button onclick="listAlbums()">',
-      "Back To Albums",
+      "Back To albums",
       "</button>",
       "</div>",
     ];
@@ -153,7 +151,7 @@ const viewAlbum = async (albumName) => {
   }
 };
 
-//Make the viewAlbum function available to the browser
+// Make the viewAlbum function available to the browser
 window.viewAlbum = viewAlbum;
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
