@@ -38,7 +38,7 @@ public class CreateDBSnapshot {
                 "    dbInstanceIdentifier - The database instance identifier \n" +
                 "    dbSnapshotIdentifier - The snapshot identifier \n";
 
-        if (args.length < 3) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
