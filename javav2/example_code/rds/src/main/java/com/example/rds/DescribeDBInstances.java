@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeDBInstances.java demonstrates how to describe RDS instances.]
+//snippet-sourcedescription:[DescribeDBInstances.java demonstrates how to describe Amazon RDS instances.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
@@ -50,8 +50,8 @@ public class DescribeDBInstances {
             List<DBInstance> instanceList = response.dbInstances();
 
             for (DBInstance instance: instanceList) {
-                System.out.println("Instance Identifier is: "+instance.dbInstanceIdentifier());
-                System.out.println("The Engine is " +instance.engine());
+                System.out.println("Instance identifier is: "+instance.dbInstanceIdentifier());
+                System.out.println("The engine is " +instance.engine());
                 System.out.println("Connection endpoint is" +instance.endpoint().address());
             }
 
@@ -62,4 +62,3 @@ public class DescribeDBInstances {
         // snippet-end:[rds.java2.describe_instances.main]
     }
 }
-

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDBInstance.java demonstrates how to create a RDS instance and wait for it to be in an available state.]
+//snippet-sourcedescription:[CreateDBInstance.java demonstrates how to create an Amazon RDS instance and wait for it to be in an available state.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
@@ -40,10 +40,10 @@ public class CreateDBInstance {
                     "Usage:\n" +
                     "    CreateDBInstance <dbInstanceIdentifier><dbName><masterUsername><masterUserPassword> \n\n" +
                     "Where:\n" +
-                    "    dbInstanceIdentifier - the database instance identifier \n" +
-                    "    dbName - the database name \n" +
-                    "    masterUsername - the master user name \n" +
-                    "    masterUserPassword - the password that corresponds to the master user name \n";
+                    "    dbInstanceIdentifier - The database instance identifier \n" +
+                    "    dbName - The database name \n" +
+                    "    masterUsername - The master user name \n" +
+                    "    masterUserPassword - The password that corresponds to the master user name \n";
 
             if (args.length < 4) {
                 System.out.println(USAGE);
@@ -132,4 +132,3 @@ public class CreateDBInstance {
         }
     }
   }
-

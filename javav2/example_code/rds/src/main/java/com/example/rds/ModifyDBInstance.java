@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ModifyDBInstance.java demonstrates how to modify a RDS instance.]
+//snippet-sourcedescription:[ModifyDBInstance.java demonstrates how to modify an Amazon RDS instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
@@ -36,8 +36,8 @@ public class ModifyDBInstance {
                 "Usage:\n" +
                 "    ModifyDBInstance <dbInstanceIdentifier><dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - the database instance identifier \n" +
-                "    masterUserPassword - the updated password that corresponds to the master user name \n";
+                "    dbInstanceIdentifier - The database instance identifier \n" +
+                "    masterUserPassword - The updated password that corresponds to the master user name \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -74,4 +74,3 @@ public class ModifyDBInstance {
 
     }
 }
-
