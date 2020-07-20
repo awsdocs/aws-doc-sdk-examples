@@ -10,6 +10,10 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-f
 Purpose:
 slotpull.js runs the lambda function for this example.
 
+Inputs (into code):
+- REGION
+- TABLE_NAME
+
 Running the code:
 node lambda-function-setup.js
 */
@@ -17,6 +21,15 @@ node lambda-function-setup.js
 
 // Load the DynamoDB client
 const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
+
+//Set the AWS Region
+const REGION = "REGION"; //e.g. "us-east-1"
+
+// Instantiate a DynamoDB client
+const ddb = new DynamoDBClient(REGION);
+
+// Set the parameters
+const tableName = "TABLE_NAME";
 
 exports.handler = (event, context, callback) => {
   // Define the object that will hold the data values returned
@@ -26,11 +39,6 @@ exports.handler = (event, context, callback) => {
     middleWheelImage: { file: { S: "" } },
     rightWheelImage: { file: { S: "" } },
   };
-
-  const tableName = "TABLE_NAME";
-
-  // Instantiate a DynamoDB client
-  const ddb = new DynamoDBClient({ region: "us-west-2" });
 
   // =============================LEFT===========================================
   // Set a random number 0-9 for the left slot position

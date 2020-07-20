@@ -75,6 +75,9 @@ public class PutItem {
         // Create the DynamoDbClient object
         Region region = Region.US_WEST_2;
         DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        
+        putItemInTable(ddb, tableName, key, keyVal, albumTitle, albumTitleValue, awards, awardVal, songTitle, songTitleVal);
+        
         System.out.println("Done!");
 
     }

@@ -17,7 +17,7 @@ Inputs (replace in code):
 Running the code:
 node lambda-role-setup.js
 */
-// snippet-start:[lambda.JavaScript.LambdaRoleSetUpV3]
+// snippet-start:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
 // Import a non-modular IAM client
 const {
   IAMClient,
@@ -26,10 +26,13 @@ const {
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
+// Instantiate the IAM client
+const iam = new IAMClient(REGION);
+
+// Set the parameters
 const ROLE = "NEW_ROLENAME"; //NEW_ROLENAME
-
 const myPolicy = {
   Version: "2012-10-17",
   Statement: [
@@ -58,9 +61,6 @@ const dynamoPolicyParams = {
   RoleName: ROLE,
 };
 
-// Instantiate the IAM client
-const iam = new IAMClient(REGION);
-
 const run = async () => {
   try {
     const data = await iam.send(new CreateRoleCommand(createParams));
@@ -86,5 +86,5 @@ const run = async () => {
 };
 
 run();
-// snippet-end:[lambda.JavaScript.LambdaRoleSetUpV3]
+// snippet-end:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
 exports.run = run;

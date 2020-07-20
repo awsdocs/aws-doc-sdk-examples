@@ -18,17 +18,20 @@ Running the code:
 node ddb-table-populate.js
 */
 
-// snippet-start:[lambda.JavaScript.PopulateTableV3]
+// snippet-start:[lambda.JavaScript.tutorial.PopulateTableV3]
 
 // Load the DynamoDB client
 const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
-//Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
 
+//Set the AWS Region
+const REGION = "REGION"; //e.g. "us-east-1"
+
+// Instantiate a DynamoDB client
+const ddb = new DynamoDBClient(REGION);
 //Set the parameters
 const myTable = "TABLE_NAME"; //TABLE_NAME
 
-// Add the four spades results
+// Add the four spade results
 const run = async () => {
   let params = {
     TableName: myTable,
@@ -54,7 +57,7 @@ const run = async () => {
   };
   await post(params);
 
-  // Add the four hearts results
+  // Add the four heart results
   params = {
     TableName: myTable,
     Item: { slotPosition: { N: "4" }, imageFile: { S: "hart_a.png" } },
@@ -105,7 +108,6 @@ const run = async () => {
   await post(params);
 
   // Add the four clubs results
-
   params = {
     TableName: myTable,
     Item: { slotPosition: { N: "12" }, imageFile: { S: "club_a.png" } },
@@ -129,20 +131,16 @@ const run = async () => {
     Item: { slotPosition: { N: "15" }, imageFile: { S: "club_j.png" } },
   };
   await post(params);
-};
-
+}
 run();
 
-// Instantiate a DynamoDB client
-const ddb = new DynamoDBClient(REGION);
-
-const run = async (params) => {
+const post = async (params) => {
   try {
     const data = await ddb.send(new PutItemCommand(params));
     console.log("Success", data);
   } catch (err) {
     console.log("Error", err);
   }
-};
-post();
-// snippet-end:[lambda.JavaScript.PopulateTableV3]
+}
+// snippet-end:[lambda.JavaScript.tutorial.PopulateTableV3]
+exports.run = run; //for unit tests only

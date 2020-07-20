@@ -17,17 +17,18 @@ Inputs (replace in code):
 Running the code:
 node s3-bucket-setup.js
  */
-// snippet-start:[lambda.JavaScript.BucketSetUpV3]
+// snippet-start:[lambda.JavaScript.tutorial.BucketSetUpV3]
 
 // Import an S3 client
 const {
   S3Client,
   CreateBucketCommand,
   PutBucketWebsiteCommand,
+  PutBucketPolicyCommand,
 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create params JSON for S3.createBucket
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME
@@ -46,6 +47,29 @@ const staticHostParams = {
       Suffix: "index.html",
     },
   },
+};
+
+var readOnlyAnonUserPolicy = {
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Sid: "AddPerm",
+      Effect: "Allow",
+      Principal: "*",
+      Action: ["s3:GetObject"],
+      Resource: [""],
+    },
+  ],
+};
+
+// create selected bucket resource string for bucket policy
+var bucketResource = "arn:aws:s3:::" + bucketName + "/*"; //BUCKET_NAME
+readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
+
+// convert policy JSON into string and assign into params
+var bucketPolicyParams = {
+  Bucket: bucketName,
+  Policy: JSON.stringify(readOnlyAnonUserPolicy),
 };
 
 // Instantiate an S3 client
@@ -73,4 +97,4 @@ const run = async () => {
 };
 
 run();
-// snippet-end:[lambda.JavaScript.BucketSetUpV3]
+// snippet-end:[lambda.JavaScript.tutorial.BucketSetUpV3]

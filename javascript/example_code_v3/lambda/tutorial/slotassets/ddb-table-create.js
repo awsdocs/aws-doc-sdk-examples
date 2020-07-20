@@ -17,54 +17,51 @@ Inputs (replace in code):
 Running the code:
 node ddb-table-create.test.js
 */
-// snippet-start:[lambda.JavaScript.CreateTableV3]
+// snippet-start:[lambda.JavaScript.tutorial.CreateTableV3]
 
-// Load the DynamoDB client
-const {
-  DynamoDBClient,
-  CreateTableCommand,
-} = require("@aws-sdk/client-dynamodb");
+// Load the required clients and packages
+const { DynamoDBClient, CreateTableCommand } = require('@aws-sdk/client-dynamodb');
 
 //Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
+
+// Instantiate a DynamoDB client
+const ddb = new DynamoDBClient(REGION);
 
 // Define the table schema
 var tableParams = {
   AttributeDefinitions: [
     {
-      AttributeName: "slotPosition",
-      AttributeType: "N",
-    },
+      AttributeName: 'slotPosition',
+      AttributeType: 'N'
+    }
   ],
   KeySchema: [
     {
-      AttributeName: "slotPosition",
-      KeyType: "HASH",
-    },
+      AttributeName: 'slotPosition',
+      KeyType: 'HASH'
+    }
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 5,
-    WriteCapacityUnits: 5,
+    WriteCapacityUnits: 5
   },
 
   TableName: "TABLE_NAME", //TABLE_NAME
   StreamSpecification: {
-    StreamEnabled: false,
-  },
+    StreamEnabled: false
+  }
 };
-
-// Instantiate a DynamoDB client
-const ddb = new DynamoDBClient({ region: region });
 
 const run = async () => {
   try {
     const data = await ddb.send(new CreateTableCommand(tableParams));
-    console.log("Success", data);
-  } catch (err) {
-    console.log("Error", err);
+    console.log('Success', data);
+  } catch(err) {
+    console.log('Error', err);
   }
 };
 
 run();
-// snippet-end:[lambda.JavaScript.CreateTableV3]
+// snippet-end:[lambda.JavaScript.tutorial.CreateTableV3]
 exports.run = run; //for unit tests only
