@@ -12,13 +12,13 @@ files:
   - path: src/main/java/com/example/rds/DescribeAccountAttributes.java
     services:
       - rds
-  - path: src/test/java/example/rds/DescribeDBInstances.java
+  - path: src/main/java/example/rds/DescribeDBInstances.java
     services:
       - rds
-  - path: src/test/java/example/rds/ModifyDBInstance.java
+  - path: src/main/java/example/rds/ModifyDBInstance.java
     services:
       - rds
-  - path: src/test/java/example/rds/RebootDBInstance.java
+  - path: src/main/java/example/rds/RebootDBInstance.java
     services:
       - rds        
   - path: src/test/java/AmazonRdsServiceIntegrationTest.java
