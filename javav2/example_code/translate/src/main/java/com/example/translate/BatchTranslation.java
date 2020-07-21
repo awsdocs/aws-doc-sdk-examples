@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[BatchTranslation.java demonstrates how to translate multiple text documents located in a S3 bucket.]
+//snippet-sourcedescription:[BatchTranslation.java demonstrates how to translate multiple text documents located in an Amazon S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
@@ -41,10 +41,10 @@ public class BatchTranslation {
                 "Usage:\n" +
                 "    BatchTranslation <s3Uri><s3UriOut><jobName><dataAccessRoleArn> \n\n" +
                 "Where:\n" +
-                "    s3Uri - the URI of the S3 bucket where the documents to translate are located \n" +
-                "    s3UriOut - the URI of the S3 bucket where the translated documents are saved to  \n" +
-                "    jobName - the job name \n" +
-                "    dataAccessRoleArn - the ARN value of the role required for translation jobs\n";
+                "    s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located \n" +
+                "    s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to  \n" +
+                "    jobName - The job name \n" +
+                "    dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs\n";
 
         if (args.length < 4) {
             System.out.println(USAGE);
@@ -93,7 +93,7 @@ public class BatchTranslation {
 
             StartTextTranslationJobResponse textTranslationJobResponse = translateClient.startTextTranslationJob(textTranslationJobRequest);
 
-            //Keep checking until job is done
+            // Keep checking until job is done
             boolean jobDone = false;
             String jobStatus = "" ;
             String jobId =  textTranslationJobResponse.jobId();
@@ -104,7 +104,7 @@ public class BatchTranslation {
 
             while (!jobDone) {
 
-                //Check status on each loop
+                // Check status on each loop
                 DescribeTextTranslationJobResponse response = translateClient.describeTextTranslationJob(jobRequest);
                 jobStatus = response.textTranslationJobProperties().jobStatusAsString();
 

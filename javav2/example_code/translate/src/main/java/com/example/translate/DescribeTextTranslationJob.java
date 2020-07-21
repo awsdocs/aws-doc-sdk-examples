@@ -32,11 +32,11 @@ public class DescribeTextTranslationJob {
     public static void main(String[] args) {
 
         if (args.length < 1) {
-            System.out.println("Please specify a translation job id value");
+            System.out.println("Specify a translation job ID value");
             System.exit(1);
         }
 
-        // Retrieve a translation job id value - you can obtain this value from the BatchTranslation example
+        // Retrieve a translation job ID value - you can obtain this value from the BatchTranslation example
         String id = args[0];
 
         Region region = Region.US_WEST_2;

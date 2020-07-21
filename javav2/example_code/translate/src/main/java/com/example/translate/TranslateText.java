@@ -46,7 +46,7 @@ public class TranslateText {
             TranslateTextRequest textRequest = TranslateTextRequest.builder()
                 .sourceLanguageCode("en")
                 .targetLanguageCode("fr")
-                .text("Its a sunny day today")
+                .text("It's a sunny day today")
                 .build();
 
             TranslateTextResponse textResponse = translateClient.translateText(textRequest);
