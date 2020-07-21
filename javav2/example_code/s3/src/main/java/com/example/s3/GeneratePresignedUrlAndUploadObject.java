@@ -44,7 +44,7 @@ public class GeneratePresignedUrlAndUploadObject {
     public static void main(String[] args) {
 
         if (args.length < 2) {
-            System.out.println("Please specify a bucket name and a key name that represents a PDF document");
+            System.out.println("Please specify a bucket name and a key name that represents a text file");
             System.exit(1);
         }
 
