@@ -54,4 +54,6 @@ files:
   - path: src/main/java/com/example/s3/SetWebsiteConfiguration.java
     services:
       - s3
-  - path: src/test/AmazonS3ServiceIntegrationTest.java
+  - path: src/test/java/AmazonS3ServiceIntegrationTest.java
+    services:
+      - s3
