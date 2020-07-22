@@ -54,7 +54,7 @@ public class ListTextTranslationJobs {
 
         for (TextTranslationJobProperties prop: props) {
             System.out.println("The job name is: "+prop.jobName());
-            System.out.println("The job id is: "+prop.jobId());
+            System.out.println("The job ID is: "+prop.jobId());
         }
 
     } catch (TranslateException e) {
