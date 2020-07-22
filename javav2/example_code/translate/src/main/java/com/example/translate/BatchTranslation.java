@@ -96,7 +96,7 @@ public class BatchTranslation {
             // Keep checking until job is done
             boolean jobDone = false;
             String jobStatus = "" ;
-            String jobId =  textTranslationJobResponse.jobId();
+            String jobId = textTranslationJobResponse.jobId();
 
             DescribeTextTranslationJobRequest jobRequest = DescribeTextTranslationJobRequest.builder()
                     .jobId(jobId)
