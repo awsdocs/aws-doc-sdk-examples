@@ -13,7 +13,7 @@ AWS Chalice to more easily create a REST API.
     For a working code example, see the `lambda/chalice_examples/lambda_rest` example
     in this GitHub repo.
 
-    For more information on AWS Chalice, see https://github.com/aws/chalice.
+    For more information about AWS Chalice, see https://github.com/aws/chalice.
 """
 
 import calendar
@@ -37,8 +37,8 @@ def create_rest_api(
     Creates a REST API in Amazon API Gateway. The REST API is backed by the specified
     AWS Lambda function.
 
-    This function takes several steps to put the pieces together:
-    1. Creates a REST API in Amazon API Gateway
+    The following is how the function puts the pieces together, in order:
+    1. Creates a REST API in Amazon API Gateway.
     2. Creates a '/demoapi' resource in the REST API.
     3. Creates a method that accepts all HTTP actions and passes them through to
        the specified AWS Lambda function.
@@ -139,7 +139,7 @@ def construct_api_url(api_id, region, api_stage, api_base_path):
     Constructs the URL of the REST API.
 
     :param api_id: The ID of the REST API.
-    :param region: The region where the REST API was created.
+    :param region: The AWS Region where the REST API was created.
     :param api_stage: The deployment stage of the REST API.
     :param api_base_path: The base path part of the REST API.
     :return: The full URL of the REST API.

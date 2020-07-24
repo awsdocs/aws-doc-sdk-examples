@@ -18,6 +18,19 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to write and retrieve Amazon DynamoDB
+data using batch functions.
+
+Boto3 features a 
+[batch_writer](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html#batch-writing) 
+function that handles all of the necessary intricacies
+of the Amazon DynamoDB batch API on your behalf. This includes buffering, removing
+duplicates, and retrying unprocessed items.
+
 ### [Amazon DynamoDB getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/GettingStarted/README.md)
 
 #### Purpose
@@ -73,7 +86,7 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke 
 AWS Lambda functions. Learn to accomplish the following tasks:
 
-* Create and deploy AWS Lambda functions that can be invoked in different ways:
+* Create and deploy Lambda functions that can be invoked in different ways:
     * By an invoke call through Boto3
     * By Amazon API Gateway as the target of a REST request
     * By Amazon EventBridge on a schedule

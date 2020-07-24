@@ -27,7 +27,7 @@ def exponential_retry(func, error_code, *func_args, **func_kwargs):
     resources have not been fully deployed.
 
     :param func: The function to retry.
-    :param error_code: The error code to retry. Other errors are reraised.
+    :param error_code: The error code to retry. Other errors are raised again.
     :param func_args: The positional arguments to pass to the function.
     :param func_kwargs: The keyword arguments to pass to the function.
     :return: The return value of the retried function.
@@ -54,7 +54,7 @@ def create_lambda_deployment_package(function_file_name):
     Creates a Lambda deployment package in ZIP format in an in-memory buffer. This
     buffer can be passed directly to AWS Lambda when creating the function.
 
-    :param function_file_name: The name of the file that contains the lambda handler
+    :param function_file_name: The name of the file that contains the Lambda handler
                                function.
     :return: The deployment package.
     """

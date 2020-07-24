@@ -182,7 +182,7 @@ def usage_demo():
     print(f"Sleeping for 3 minutes to let our function trigger a few times...")
     time.sleep(3*60)
 
-    print(f"Getting last 20 CloudWatch log events for {lambda_function_name}...")
+    print(f"Getting last 20 Amazon CloudWatch log events for {lambda_function_name}...")
     log_group_name = f'/aws/lambda/{lambda_function_name}'
     log_streams = logs_client.describe_log_streams(
         logGroupName=log_group_name, orderBy='LastEventTime', descending=True, limit=1)

@@ -5,7 +5,7 @@
 Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke 
 AWS Lambda functions. Learn to accomplish the following tasks:
 
-* Create and deploy AWS Lambda functions that can be invoked in different ways:
+* Create and deploy Lambda functions that can be invoked in different ways:
     * By an invoke call through Boto3
     * By Amazon API Gateway as the target of a REST request
     * By Amazon EventBridge on a schedule
@@ -119,7 +119,8 @@ EventBridge event.
 * Deploys an AWS Lambda function.
 * Creates an Amazon EventBridge scheduled event and makes the function the target.
 * Grants permission to let Amazon EventBridge invoke the AWS Lambda function.
-* Prints the latest CloudWatch logs to show the result of the scheduled invocations.
+* Prints the latest Amazon CloudWatch logs to show the result of the scheduled 
+  invocations.
 * Cleans up all resources created during the demo.
 
 ## Running the tests

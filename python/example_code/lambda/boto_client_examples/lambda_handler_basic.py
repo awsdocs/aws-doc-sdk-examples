@@ -14,7 +14,7 @@ import math
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-# Define a list of lambdas that are called by our Lambda.
+# Define a list of Python lambda functions that are called by this AWS Lambda function.
 ACTIONS = {
     'square': lambda x: x * x,
     'square root': lambda x: math.sqrt(x),
