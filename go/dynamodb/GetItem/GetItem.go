@@ -42,10 +42,10 @@ func GetTableItem(svc dynamodbiface.DynamoDBAPI, table, title *string, year *int
     result, err := svc.GetItem(&dynamodb.GetItemInput{
         TableName: table,
         Key: map[string]*dynamodb.AttributeValue{
-            "Year": {
+            "year": {
                 N: aws.String(strconv.Itoa(*year)),
             },
-            "Title": {
+            "title": {
                 S: title,
             },
         },
@@ -56,17 +56,17 @@ func GetTableItem(svc dynamodbiface.DynamoDBAPI, table, title *string, year *int
     }
 
     // snippet-start:[dynamodb.go.get_item.unmarshall]
+    if result.Item == nil {
+        msg := "Could not find '" + *title + "'"
+        return nil, errors.New(msg)
+    }
+
     item := Item{}
 
     err = dynamodbattribute.UnmarshalMap(result.Item, &item)
     // snippet-end:[dynamodb.go.get_item.unmarshall]
     if err != nil {
-        panic(fmt.Sprintf("Failed to unmarshal Record, %v", err))
-    }
-
-    if item.Title == "" {
-        msg := "Could not find '" + *title
-        return nil, errors.New(msg)
+        return nil, err
     }
 
     return &item, nil
@@ -99,6 +99,11 @@ func main() {
     if err != nil {
         fmt.Println("Got an error retrieving the item:")
         fmt.Println(err)
+        return
+    }
+
+    if item == nil {
+        fmt.Println("Could not find the table entry")
         return
     }
 
