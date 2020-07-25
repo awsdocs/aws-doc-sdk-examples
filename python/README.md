@@ -18,6 +18,19 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to write and retrieve Amazon DynamoDB
+data using batch functions.
+
+Boto3 features a 
+[batch_writer](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html#batch-writing) 
+function that handles all of the necessary intricacies
+of the Amazon DynamoDB batch API on your behalf. This includes buffering, removing
+duplicates, and retrying unprocessed items.
+
 ### [Amazon DynamoDB getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/GettingStarted/README.md)
 
 #### Purpose
@@ -65,6 +78,26 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM policies, including versioned policies.
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
+
+### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke 
+AWS Lambda functions. Learn to accomplish the following tasks:
+
+* Create and deploy Lambda functions that can be invoked in different ways:
+    * By an invoke call through Boto3
+    * By Amazon API Gateway as the target of a REST request
+    * By Amazon EventBridge on a schedule
+* Create and deploy a REST API on Amazon API Gateway. The REST API targets an 
+AWS Lambda function to handle REST requests.
+* Create a schedule rule on Amazon EventBridge that targets an AWS Lambda function.
+
+These examples show how to use the low-level Boto3 client APIs to accomplish tasks
+like creating a REST API and setting an event schedule. You can also use
+[AWS Chalice](https://github.com/aws/chalice)
+to achieve similar results more easily and with additional features. 
 
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 

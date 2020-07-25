@@ -8,8 +8,11 @@ name of the service that is used by Boto 3.
 This factory is used by the make_stubber fixture found in the set of common fixtures.
 """
 
+from test_tools.apigateway_stubber import ApiGatewayStubber
+from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
+from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.lambda_stubber import LambdaStubber
 from test_tools.pinpoint_stubber import PinpointStubber
@@ -24,10 +27,16 @@ class StubberFactoryNotImplemented(Exception):
 
 
 def stubber_factory(service_name):
-    if service_name == 'dynamodb':
+    if service_name == 'apigateway':
+        return ApiGatewayStubber
+    elif service_name == 'logs':
+        return CloudWatchLogsStubber
+    elif service_name == 'dynamodb':
         return DynamoStubber
     elif service_name == 'ec2':
         return Ec2Stubber
+    elif service_name == 'events':
+        return EventBridgeStubber
     elif service_name == 'iam':
         return IamStubber
     elif service_name == 'lambda':
