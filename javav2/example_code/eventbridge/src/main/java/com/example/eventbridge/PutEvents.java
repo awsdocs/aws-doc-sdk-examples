@@ -35,7 +35,7 @@ public class PutEvents {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a resource arn\n" +
+                "To run this example, supply a resource ARN\n" +
                         "Ex: PutEvents <resource-arn>\n";
 
         if (args.length != 2) {
@@ -85,7 +85,7 @@ public class PutEvents {
                 if (resultEntry.eventId() != null) {
                     System.out.println("Event Id: " + resultEntry.eventId());
                 } else {
-                    System.out.println("Injection failed with Error Code: " + resultEntry.errorCode());
+                    System.out.println("Injection failed with error code: " + resultEntry.errorCode());
                 }
             }
 
