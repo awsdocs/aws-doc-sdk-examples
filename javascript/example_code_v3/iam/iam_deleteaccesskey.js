@@ -24,7 +24,7 @@ Running the code:
 const { IAMClient, DeleteAccessKeyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {

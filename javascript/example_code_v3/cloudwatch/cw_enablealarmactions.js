@@ -12,6 +12,7 @@ cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatc
 
 Inputs (replace in code):
 - REGION
+- ALARM_NAME
 - ACTION_ARN
 
 Running the code:
@@ -27,11 +28,11 @@ const {
 } = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  AlarmName: process.argv[3],
+  AlarmName: "ALARM_NAME", //ALARM_NAME
   ComparisonOperator: "GreaterThanThreshold",
   EvaluationPeriods: 1,
   MetricName: "CPUUtilization",
