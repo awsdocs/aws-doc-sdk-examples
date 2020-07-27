@@ -104,19 +104,9 @@ class IamStubber(ExampleStubber):
             'RoleName': role_name,
             'AssumeRolePolicyDocument': assume_role_policy
         }
-
-        if not error_code:
-            self.add_response(
-                'create_role',
-                expected_params=expected_params,
-                service_response=self._add_role({}, role_name)
-            )
-        else:
-            self.add_client_error(
-                'create_role',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        response = self._add_role({}, role_name)
+        self._stub_bifurcator(
+            'create_role', expected_params, response, error_code=error_code)
 
     def stub_get_role(self, role_name, role_arn=None, status_code=200, error_code=None):
         expected_params = {'RoleName': role_name}
@@ -236,18 +226,8 @@ class IamStubber(ExampleStubber):
             'RoleName': role_name,
             'PolicyArn': policy_arn
         }
-        if not error_code:
-            self.add_response(
-                'attach_role_policy',
-                expected_params=expected_params,
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'attach_role_policy',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        self._stub_bifurcator(
+            'attach_role_policy', expected_params, error_code=error_code)
 
     def stub_list_attached_role_policies(self, role_name, policies=None,
                                          error_code=None):
