@@ -66,37 +66,52 @@ files:
   - path: tests/test_get_put_object_acl.cpp
     services:
     - s3
+  - path: get_website_config.cpp
+    services:
+    - s3
   - path: tests/test_get_website_config.cpp
+    services:
+    - s3
+  - path: list_buckets.cpp
     services:
     - s3
   - path: tests/test_list_buckets.cpp
     services:
     - s3
-  - path: tests/test_list_buckets_disabling_dns_cache.cpp
+  - path: list_objects.cpp
     services:
     - s3
   - path: tests/test_list_objects.cpp
     services:
     - s3
-  - path: tests/test_list_objects_with_aws_global_region.cpp
+  - path: put_bucket_policy.cpp
     services:
     - s3
   - path: tests/test_put_bucket_policy.cpp
     services:
     - s3
+  - path: put_object.cpp
+    services:
+    - s3
   - path: tests/test_put_object.cpp
+    services:
+    - s3
+  - path: put_object_async.cpp
     services:
     - s3
   - path: tests/test_put_object_async.cpp
     services:
     - s3
+  - path: put_object_buffer.cpp
+    services:
+    - s3
   - path: tests/test_put_object_buffer.cpp
     services:
     - s3
-  - path: tests/test_put_website_config.cpp
+  - path: put_website_config.cpp
     services:
     - s3
-  - path: tests/test_s3-demo.cpp
+  - path: tests/test_put_website_config.cpp
     services:
     - s3
 ...

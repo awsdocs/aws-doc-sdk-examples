@@ -5,7 +5,7 @@
 
 int main()
 {
-    std::cout << "Not yet implemented." << std::endl;
+    std::cout << "Test for s3-demo not implemented." << std::endl;
 
     return 1;
 }
