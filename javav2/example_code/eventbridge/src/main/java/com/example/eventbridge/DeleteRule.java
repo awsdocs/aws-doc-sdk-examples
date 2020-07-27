@@ -36,7 +36,7 @@ public class DeleteRule {
                 "Usage:\n" +
                 "    DescribeRule <ruleName> \n\n" +
                 "Where:\n" +
-                "    ruleName - the rule name to describe \n";
+                "    ruleName - The rule name to describe \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -82,4 +82,3 @@ public class DeleteRule {
         // snippet-end:[eventbridge.java2._delete_rule.main]
     }
 }
-

@@ -35,7 +35,7 @@ public class CreateRule {
                 "Usage:\n" +
                 "    DescribeRule <ruleName> \n\n" +
                 "Where:\n" +
-                "    ruleName - the rule name to describe \n";
+                "    ruleName - The rule name to describe \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -60,7 +60,7 @@ public class CreateRule {
         PutRuleRequest ruleRequest = PutRuleRequest.builder()
                  .name(ruleName)
                 .eventBusName("default")
-                .eventPattern("{\"source\":[\"aws.s3\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":{\"eventSource\":[\"s3.amazonaws.com\"],\"eventName\":[\"DeleteBucket\"]}}")
+                .eventPattern("{\"source\":[\"aws.s3\"],\"detail-type\":[\"AWS API call via AWS CloudTrail\"],\"detail\":{\"eventSource\":[\"s3.amazonaws.com\"],\"eventName\":[\"DeleteBucket\"]}}")
                 .description("A test rule created by the Java API")
                 .build();
 
