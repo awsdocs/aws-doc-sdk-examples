@@ -58,7 +58,7 @@ void PutObjectAsyncFinished(const Aws::S3::S3Client* s3Client,
 // snippet-end:[s3.cpp.put_object_async_finished.code]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Adds an object to a bucket in Amazon S3 bucket, asynchronously.
+ * Purpose: Adds an object to an Amazon S3 bucket, asynchronously.
  *
  * Prerequisites: An Amazon S3 bucket and the object to be added.
  *
@@ -130,9 +130,8 @@ int main()
         std::unique_lock<std::mutex> lock(upload_mutex);
 
         // Create and configure the Amazon S3 client. 
-        // This client must be declared here, instead of the preceding 
-        // PutObjectAsync function, as this client must exist until the 
-        // put object operation finishes.
+        // This client must be declared here, as this client must exist 
+        // until the put object operation finishes.
         Aws::Client::ClientConfiguration config;
 
         if (!region.empty())

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0 
 
+#include <awsdoc/s3/s3-demo.h>
 // snippet-start:[s3.cpp.bucket_operations.list_create_delete]
 #include <iostream>
 #include <aws/core/Aws.h>
@@ -10,7 +11,7 @@
 #include <aws/s3/model/CreateBucketRequest.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
 
-// Look for a bucket among all current available Amazon S3 buckets.
+// Look for a bucket among all currently available Amazon S3 buckets.
 bool FindTheBucket(const Aws::S3::S3Client& s3Client,
     const Aws::String& bucketName) {
 

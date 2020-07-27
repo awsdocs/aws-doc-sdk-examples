@@ -11,7 +11,7 @@
 //snippet-end:[s3.cpp.list_objects.inc]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Lists all available objects names for an Amazon S3 bucket.
+ * Purpose: Lists all available object names for an Amazon S3 bucket.
  *
  * Prerequisites: A bucket containing at least one object.
  *

@@ -10,7 +10,7 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket.
- * - objectName: The name of the object to be added to the object.
+ * - objectName: The name of the object to be added to the bucket.
  * - objectContent: The content to be added to the object.
  * - region: The AWS Region for the bucket.
  *

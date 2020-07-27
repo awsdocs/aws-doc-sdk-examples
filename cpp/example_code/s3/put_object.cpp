@@ -12,7 +12,7 @@
 //snippet-end:[s3.cpp.put_object.inc]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Adds an object to a bucket in Amazon S3 bucket.
+ * Purpose: Adds an object to an Amazon S3 bucket.
  *
  * Prerequisites: An Amazon S3 bucket and the object to be added.
  *

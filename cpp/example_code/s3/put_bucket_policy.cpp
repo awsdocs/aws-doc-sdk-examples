@@ -15,9 +15,9 @@
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Gets a string representing a bucket policy. This particular string 
  * demonstrates allowing the s3:GetObject action by the specified account's 
- * root user for all objects in the target bucket. You could of course modify 
+ * root user for all objects in the target bucket. You can modify 
  * this function's signature and implementation to form other kinds of bucket 
- * policies, for example by allowing various principals, actions, 
+ * policies, for example, by allowing various principals, actions, 
  * and resources.
  *
  * Prerequisites: The AWS account ID and Amazon S3 bucket name to be inserted
@@ -55,11 +55,11 @@ Aws::String GetPolicyString(const Aws::String& accountID,
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Adds a bucket policy to a bucket in Amazon S3.
  *
- * Prerequisites: The bucket for the bucket policy to be added along with 
+ * Prerequisites: The bucket for the bucket policy to be added with 
  * the bucket policy to add.
  *
  * Inputs:
- * - bucketName: The name of the bucket for the bucket policy to be added.
+ * - bucketName: The name of the bucket to add the bucket policy to.
  * - policyBody: The bucket policy to add.
  * - region: The AWS Region of the bucket.
  *
