@@ -41,8 +41,7 @@ const params = {
       },
     ],
     Recipients: [
-      "EMAIL_ADDRESS", // (in command line below; specify a domain to add all email addresses belonging
-      // to that domain, or specify individual email addresses)
+      "EMAIL_ADDRESS", // The email addresses, or domain
       /* more items */
     ],
     Enabled: true | false,

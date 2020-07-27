@@ -24,7 +24,7 @@ node iam_createpolicy.js
 const { IAMClient, CreatePolicyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create IAM service object
 const iam = new IAMClient(REGION);

@@ -31,7 +31,7 @@ var params = {
   MaxResults: 10,
   Order: "ASCENDING",
   Queue: "QUEUE_ARN",
-  Status: "SUBMITTED",
+  Status: "STATUS" // e.g., "SUBMITTED"
 };
 
 //Set the MediaConvert Service Object

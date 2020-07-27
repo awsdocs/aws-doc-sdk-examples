@@ -26,7 +26,7 @@ const {
 } = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
