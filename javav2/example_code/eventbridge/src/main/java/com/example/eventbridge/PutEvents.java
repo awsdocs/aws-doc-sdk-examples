@@ -1,5 +1,25 @@
+//snippet-sourcedescription:[PutEvents.java demonstrates how to send custom events to Amazon EventBridge.]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon EventBridge]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[7/22/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+
 package com.example.eventbridge;
 
+// snippet-start:[eventbridge.java2._put_event.import]
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.EventBridgeException;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
@@ -8,6 +28,7 @@ import software.amazon.awssdk.services.eventbridge.model.PutEventsResponse;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsResultEntry;
 import java.util.ArrayList;
 import java.util.List;
+// snippet-end:[eventbridge.java2._put_event.import]
 
 public class PutEvents {
 
@@ -25,13 +46,13 @@ public class PutEvents {
         EventBridgeClient eventBrClient =
                 EventBridgeClient.builder().build();
 
-
         String resourceArn = args[0];
         String resourceArn2 = args[1];
 
         putEBEvents(eventBrClient, resourceArn, resourceArn2);
     }
 
+    // snippet-start:[eventbridge.java2._put_event.main]
     public static void putEBEvents(EventBridgeClient eventBrClient, String resourceArn, String resourceArn2 ) {
 
         try {
@@ -73,5 +94,6 @@ public class PutEvents {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        // snippet-end:[eventbridge.java2._put_event.main]
     }
 }
