@@ -30,7 +30,7 @@ def domain_verify(domain_list, client):
 
 # Calls Route53 API to add a TXT record with the verification token for all
 # domains in the verification table.
-def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok='',r53=''):
+def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok='', r53=''):
     ses_prefix = "_amazonses."
     zone_list = []
     # Added pagination for listing hosted zones
@@ -96,31 +96,31 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok='',r53=''):
                                           )
                                 # print(add_txt)
                             except ClientError as err:
-                                print (err)
+                                print(err)
                                 if (err.response['Error']['Code'] ==
                                      'InvalidChangeBatch'):
-                                    print ("Check if TXT record",
+                                    print("Check if TXT record",
                                            "for the domain already exists.\n")
                         else:
                             pass
 
                     if is_txt_present is False:
-                         token = json.dumps(table[domain])
-                         batch = {
-                                  "Changes": [
-                                              {"Action": "UPSERT",
-                                              "ResourceRecordSet":
-                                               {"Name": ses_prefix+domain,
-                                                "Type": "TXT", "TTL": 1800,
-                                                "ResourceRecords":
-                                                [{"Value": token}]}
-                                               }
-                                              ]
+                        token = json.dumps(table[domain])
+                        batch = {
+                                 "Changes": [
+                                             {"Action": "UPSERT",
+                                             "ResourceRecordSet":
+                                              {"Name": ses_prefix+domain,
+                                              "Type": "TXT", "TTL": 1800,
+                                              "ResourceRecords":
+                                              [{"Value": token}]}
+                                              }
+                                             ]
                                   }
-                         add_txt = r53.change_resource_record_sets(
-                                   HostedZoneId=zone_id,
-                                   ChangeBatch=batch
-                                   )
+                        add_txt = r53.change_resource_record_sets(
+                                  HostedZoneId=zone_id,
+                                  ChangeBatch=batch
+                                  )
                 else:
                     pass
     elif rec_type == 'dkimVerify':
@@ -232,18 +232,18 @@ def sns_topics(identity, client):
 
 
 def main():
-    S = Session()
+    s = Session()
     # Returns list of regions where SES is available.
-    regions = S.get_available_regions('ses')
-    print ("This is the list of available regions:")
-    print (regions)
+    regions = s.get_available_regions('ses')
+    print("This is the list of available regions:")
+    print(regions)
 
     # Source region.
     while True:
-        SRC_REGION = input("Which region do you want to replicate from? ")
-        if SRC_REGION in regions:
+        src_region = input("Which region do you want to replicate from? ")
+        if src_region in regions:
             # Create SES client for source region.
-            ses_source_client = S.client('ses', region_name=SRC_REGION)
+            ses_source_client = s.client('ses', region_name=src_region)
             region_email_identities = []
             region_dom_identities = []
             # Added pagination for listing SES identities.
@@ -259,9 +259,9 @@ def main():
                         region_email_identities.append(element)
                     else:
                         region_dom_identities.append(element)
-            print ("Email addresses in source region:")
+            print("Email addresses in source region:")
             print(region_email_identities)
-            print ("Domains in source region:")
+            print("Domains in source region:")
             print(region_dom_identities)
             break
 
@@ -271,10 +271,10 @@ def main():
 
     # Destination region.
     while True:
-        DST_REGION = input("Which region do you want to replicate to? ")
-        if DST_REGION in regions:
+        dst_region = input("Which region do you want to replicate to? ")
+        if dst_region in regions:
             # Create SES client for destination region.
-            ses_dest_client = S.client('ses', region_name=DST_REGION)
+            ses_dest_client = s.client('ses', region_name=dst_region)
             email_call = email_verify(region_email_identities, ses_dest_client)
             verification_table = domain_verify(region_dom_identities, ses_dest_client)
 
@@ -285,8 +285,11 @@ def main():
                 # Prints domain names and their verification tokens.
                 print(verification_table)
                 print("")
-                r53_client = S.client('route53')
-                add_route_53_record(table=verification_table, rec_type='domainVerify', r53=r53_client)
+                r53_client = s.client('route53')
+                add_route_53_record(table=verification_table,
+                                    rec_type='domainVerify',
+                                    r53=r53_client
+                                    )
             elif r53dom == 'no':
                 print("Use the verification tokens returned to ",
                       "create TXT records through your DNS provider.")
