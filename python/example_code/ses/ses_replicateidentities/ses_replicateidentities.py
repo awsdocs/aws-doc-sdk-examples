@@ -8,36 +8,29 @@ import sys
 import boto3
 from boto3 import Session
 from botocore.exceptions import ClientError
-S = Session()
-# Returns list of regions where SES is available.
-regions = S.get_available_regions('ses')
-print ("This is the list of available regions:")
-print (regions)
 
 
 # Calls SES API to trigger a verification email.
-def email_verify(email_list, region):
-    ses_dest_client = S.client('ses', region_name=region)
+def email_verify(email_list, client):
     for email in email_list:
-        response = ses_dest_client.\
+        response = client.\
                    verify_email_identity(EmailAddress=email)
 
 
 # Calls SES API to generate a verification token for the domain being verified.
-def domain_verify(domain_list, region):
-    ses_dest_client = S.client('ses', region_name=region)
+def domain_verify(domain_list, client):
     token_list = []
     for domain in domain_list:
-        response = ses_dest_client.verify_domain_identity(Domain=domain)
+        response = client.verify_domain_identity(Domain=domain)
         token_list.append(response['VerificationToken'])
     verification_table = dict(zip(domain_list, token_list))
     # print(verificationTable)
     return verification_table
 
+
 # Calls Route53 API to add a TXT record with the verification token for all
 # domains in the verification table.
-def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
-    r53 = S.client('route53')
+def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok='',r53=''):
     ses_prefix = "_amazonses."
     zone_list = []
     # Added pagination for listing hosted zones
@@ -159,15 +152,13 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok=''):
 
 
 # Enable DKIM and add CNAME records for verification.
-def generate_dkim(identity, region):
+def generate_dkim(identity, client):
     ses_dest_client = S.client('ses', region_name=region)
     ask = input("Do you want to configure DKIM for "+identity+"? (yes/no)")
     if ask == 'yes':
         if '@' in identity:
-            dkim_tokens = ses_dest_client.\
-                         verify_domain_dkim(
-                                            Domain=identity.\
-                                                   split('@')[1])['DkimTokens']
+            dkim_tokens = client.verify_domain_dkim(Domain=identity.\
+                                                    split('@')[1])['DkimTokens']
             if r53dom == 'no':
                 print("Add the following DKIM tokens as \
                       CNAME records through your DNS provider:")
@@ -177,12 +168,11 @@ def generate_dkim(identity, region):
                     # Then add CNAME records
                     add_route_53_record(rec_type='dkimVerify',
                                         dkim_dom=identity.split('@')[1],
-                                        dkim_tok=token
+                                        dkim_tok=token,
+                                        r53=r53_client
                                         )
         else:
-            dkim_tokens = ses_dest_client.\
-                          verify_domain_dkim(
-                                             Domain=identity)['DkimTokens']
+            dkim_tokens = client.verify_domain_dkim(Domain=identity)['DkimTokens']
             if r53dom == 'no':
                 print("Add the following DKIM tokens as \
                       CNAME records through your DNS provider:")
@@ -192,15 +182,15 @@ def generate_dkim(identity, region):
                     # Then add CNAME records
                     add_route_53_record(rec_type='dkimVerify',
                                         dkim_dom=identity,
-                                        dkim_tok=token
+                                        dkim_tok=token,
+                                        r53=r53_client
                                         )
     elif ask == 'no':
         return
 
 
 # Add SNS topic for bounces, deliveries, and complaints for a single identity.
-def sns_topics(identity, region):
-    ses_dest_client = S.client('ses', region_name=region)
+def sns_topics(identity, client):
     ask = input("Do you want to configure an SNS topic for "+identity+"? (yes/no)")
     if ask == 'yes':
         bounce_topic = input("Enter ARN of bounce topic: ")
@@ -208,12 +198,10 @@ def sns_topics(identity, region):
             pass
         else:
             try:
-                ses_dest_client.\
-                               ses_identity_notif_topic(
-                                                        Identity=identity,
-                                                        NotifType='Bounce',
-                                                        SnsTopic=bounce_topic
-                                                        )
+                client.ses_identity_notif_topic(Identity=identity,
+                                                NotifType='Bounce',
+                                                SnsTopic=bounce_topic
+                                                )
             except ClientError:
                 print("Invalid ARN")
 
@@ -222,12 +210,10 @@ def sns_topics(identity, region):
             pass
         else:
             try:
-                ses_dest_client.\
-                               ses_identity_notif_topic(
-                                                        Identity=identity,
-                                                        NotifType='Delivery',
-                                                        SnsTopic=delivery_topic
-                                                        )
+                client.ses_identity_notif_topic(Identity=identity,
+                                                NotifType='Delivery',
+                                                SnsTopic=delivery_topic
+                                                )
             except ClientError:
                 print("Invalid ARN")
 
@@ -236,84 +222,106 @@ def sns_topics(identity, region):
             pass
         else:
             try:
-                ses_dest_client.\
-                               ses_identity_notif_topic(
-                                                        Identity=identity,
-                                                        NotifType='Complaint',
-                                                        SnsTopic=complaint_topic
-                                                        )
+                client.ses_identity_notif_topic(Identity=identity,
+                                                NotifType='Complaint',
+                                                SnsTopic=complaint_topic
+                                                )
             except ClientError:
                 print("Invalid ARN")
     elif ask == 'no':
         return
 
 
-# Main
-SRC_REGION = input("Which region do you want to replicate from? ")
-if SRC_REGION in regions:
-    ses_source_client = S.client('ses', region_name=SRC_REGION)
-    region_email_identities = []
-    region_dom_identities = []
-    # Added pagination for listing SES identities.
-    paginator = ses_source_client.get_paginator('list_identities')
-    response_iterator = paginator.paginate(PaginationConfig={
-                                                             'MaxItems': 20,
-                                                             'PageSize': 20
-                                                            }
-                                           )
-    for entry in response_iterator:
-        for element in entry['Identities']:
-            if '@' in element:
-                region_email_identities.append(element)
-            else:
-                region_dom_identities.append(element)
-    print ("Email addresses in source region:")
-    print(region_email_identities)
-    print ("Domains in source region:")
-    print(region_dom_identities)
+def main():
+    S = Session()
+    # Returns list of regions where SES is available.
+    regions = S.get_available_regions('ses')
+    print ("This is the list of available regions:")
+    print (regions)
 
-else:
-    sys.exit("Region entered invalid. \
-             Please enter a region where SES is available.")
-DST_REGION = input("Which region do you want to replicate to? ")
-if DST_REGION in regions:
-    email_call = email_verify(region_email_identities, DST_REGION)
-    verification_table = domain_verify(region_dom_identities, DST_REGION)
-    # Route53 subroutine. Based on user-input, used if
-    # domains being verified are in Route53.
-    r53dom = input("Are your domains hosted in Route53?(yes/no) ")
-    if r53dom == 'yes':
-        # Prints domain names and their verification tokens.
-        print(verification_table)
-        print("")
-        add_route_53_record(table=verification_table, rec_type='domainVerify')
-    elif r53dom == 'no':
-        print("Use the verification tokens returned to ",
-              "create TXT records through your DNS provider.")
-        # Prints domain names and their verification tokens.
-        print(verification_table)
-        print("")
+    # Source region.
+    while True:
+        SRC_REGION = input("Which region do you want to replicate from? ")
+        if SRC_REGION in regions:
+            # Create SES client for source region.
+            ses_source_client = S.client('ses', region_name=SRC_REGION)
+            region_email_identities = []
+            region_dom_identities = []
+            # Added pagination for listing SES identities.
+            paginator = ses_source_client.get_paginator('list_identities')
+            response_iterator = paginator.paginate(PaginationConfig={
+                                                                     'MaxItems': 20,
+                                                                     'PageSize': 20
+                                                                    }
+                                                   )
+            for entry in response_iterator:
+                for element in entry['Identities']:
+                    if '@' in element:
+                        region_email_identities.append(element)
+                    else:
+                        region_dom_identities.append(element)
+            print ("Email addresses in source region:")
+            print(region_email_identities)
+            print ("Domains in source region:")
+            print(region_dom_identities)
+            break
 
-    # SNS topic addition
-    sns = input("Do you want to add SNS notifications for the identities? (yes/no) ")
-    if sns == 'yes':
-        for addr in region_email_identities:
-            sns_topics(addr, DST_REGION)
-        for dom in region_dom_identities:
-            sns_topics(dom, DST_REGION)
-    elif sns == 'no':
-        pass
+        else:
+            print("Region entered invalid. ",
+                  "Please enter a region where SES is available.")
 
-    # DKIM verification
-    dkim = input("Do you want to configure DKIM for the identities? (yes/no) ")
-    if dkim == 'yes':
-        for addr in region_email_identities:
-            generate_dkim(addr, DST_REGION)
-        for dom in region_dom_identities:
-            generate_dkim(dom, DST_REGION)
+    # Destination region.
+    while True:
+        DST_REGION = input("Which region do you want to replicate to? ")
+        if DST_REGION in regions:
+            # Create SES client for destination region.
+            ses_dest_client = S.client('ses', region_name=DST_REGION)
+            email_call = email_verify(region_email_identities, ses_dest_client)
+            verification_table = domain_verify(region_dom_identities, ses_dest_client)
 
-else:
-    sys.exit("Region entered invalid. \
-             Please enter a region where SES is available.")
+            # Route53 subroutine. Based on user-input, used if
+            # domains being verified are in Route53.
+            r53dom = input("Are your domains hosted in Route53?(yes/no) ")
+            if r53dom == 'yes':
+                # Prints domain names and their verification tokens.
+                print(verification_table)
+                print("")
+                r53_client = S.client('route53')
+                add_route_53_record(table=verification_table, rec_type='domainVerify', r53=r53_client)
+            elif r53dom == 'no':
+                print("Use the verification tokens returned to ",
+                      "create TXT records through your DNS provider.")
+                # Prints domain names and their verification tokens.
+                print(verification_table)
+                print("")
+
+            # SNS topic addition
+            sns = input("Do you want to add SNS notifications for the identities? (yes/no) ")
+            if sns == 'yes':
+                for addr in region_email_identities:
+                    sns_topics(addr, ses_dest_client)
+                for dom in region_dom_identities:
+                    sns_topics(dom, ses_dest_client)
+            elif sns == 'no':
+                pass
+
+            # DKIM verification
+            dkim = input("Do you want to configure DKIM for the identities? (yes/no) ")
+            if dkim == 'yes':
+                for addr in region_email_identities:
+                    generate_dkim(addr, ses_dest_client)
+                for dom in region_dom_identities:
+                    generate_dkim(dom, ses_dest_client)
+            break
+
+
+        else:
+            print("Region entered invalid. ",
+                  "Please enter a region where SES is available.")
+
+
+if __name__ == '__main__':
+    main()
+
 
 # snippet-end:[ses.python.ses_replicateidentities.complete]
