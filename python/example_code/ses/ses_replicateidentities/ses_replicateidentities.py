@@ -152,38 +152,37 @@ def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok='',r53=''):
 
 
 # Enable DKIM and add CNAME records for verification.
-def generate_dkim(identity, client):
-    ses_dest_client = S.client('ses', region_name=region)
+def generate_dkim(identity, client, dom_check, dns_client):
     ask = input("Do you want to configure DKIM for "+identity+"? (yes/no)")
     if ask == 'yes':
         if '@' in identity:
             dkim_tokens = client.verify_domain_dkim(Domain=identity.\
                                                     split('@')[1])['DkimTokens']
-            if r53dom == 'no':
+            if dom_check == 'no':
                 print("Add the following DKIM tokens as \
                       CNAME records through your DNS provider:")
                 print(dkim_tokens)
-            elif r53dom == 'yes':
+            elif dom_check == 'yes':
                 for token in dkim_tokens:
                     # Then add CNAME records
                     add_route_53_record(rec_type='dkimVerify',
                                         dkim_dom=identity.split('@')[1],
                                         dkim_tok=token,
-                                        r53=r53_client
+                                        r53=dns_client
                                         )
         else:
             dkim_tokens = client.verify_domain_dkim(Domain=identity)['DkimTokens']
-            if r53dom == 'no':
+            if dom_check == 'no':
                 print("Add the following DKIM tokens as \
                       CNAME records through your DNS provider:")
                 print(dkim_tokens)
-            elif r53dom == 'yes':
+            elif dom_check == 'yes':
                 for token in dkim_tokens:
                     # Then add CNAME records
                     add_route_53_record(rec_type='dkimVerify',
                                         dkim_dom=identity,
                                         dkim_tok=token,
-                                        r53=r53_client
+                                        r53=dns_client
                                         )
     elif ask == 'no':
         return
@@ -309,9 +308,9 @@ def main():
             dkim = input("Do you want to configure DKIM for the identities? (yes/no) ")
             if dkim == 'yes':
                 for addr in region_email_identities:
-                    generate_dkim(addr, ses_dest_client)
+                    generate_dkim(addr, ses_dest_client, r53dom, r53_client)
                 for dom in region_dom_identities:
-                    generate_dkim(dom, ses_dest_client)
+                    generate_dkim(dom, ses_dest_client, r53dom, r53_client)
             break
 
 
