@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
     bool issue_enabled = false;
     bool is_private = false;
 
-    // Check to see if and whether correct command-line arguments were supplied.
+    // Check to see whether correct command-line arguments were supplied.
     if ((argc > 5) ||                                               // More than 5 arguments.
         (argc == 4) ||                                              // Only 4 arguments; not allowed.
         (argc == 2) ||                                              // Seeking help or incorrect syntax.

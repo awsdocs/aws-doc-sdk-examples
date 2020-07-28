@@ -2,38 +2,38 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
-Purpose: 
-
-Demonstrates how to use the AWS SDK for C++ to automate the various operations 
-for AWS Certificate Manager.
-
-Prerequisites: 
-
-* An existing AWS account. For more information, see "How do I create and 
-  activate a new AWS account" on the AWS Premium support website, at 
-  https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
-* AWS credentials. For more information, see the "AWS security credentials" 
-  topic in the AWS General Reference Guide, at 
-  https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html
-  See also the "Providing AWS Credentials" topic in the 
-  AWS SDK for C++ Developer Guide.
-* The AWS SDK for C++. To install it, see the "Setting Up the AWS SDK for C++"
-  topic in the AWS SDK for C++ Developer Guide.
-
-Building the code:
-
-To build the following code, using CMake version 3.8 or later, generate this
-project's makefiles by running the cmake command from the same directory as 
-this file. Then build this project's makefiles by running the make command 
-from the same directory as this file. For more information, see the 
-"Building Your Application with CMake" topic in the 
-AWS SDK for C++ Developer Guide.
-
-Running the code:
-
-For usage instructions, run the acm_basic_operations executable that was built,
-either without command-line arguments or with the "--help" option.
-//////////////////////////////////////////////////////////////////////////// */
+ * Purpose: 
+ *
+ * Demonstrates how to use the AWS SDK for C++ to automate the various operations 
+ * for AWS Certificate Manager.
+ *
+ * Prerequisites: 
+ *
+ * - An existing AWS account. For more information, see "How do I create and 
+ *   activate a new AWS account" on the AWS Premium support website, at 
+ *   https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/.
+ * - AWS credentials. For more information, see the "AWS security credentials" 
+ *   topic in the AWS General Reference Guide, at 
+ *   https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html.
+ *   See also the "Providing AWS Credentials" topic in the 
+ *   AWS SDK for C++ Developer Guide.
+ * - The AWS SDK for C++. To install it, see the "Setting Up the AWS SDK for C++"
+ *   topic in the AWS SDK for C++ Developer Guide.
+ *
+ * Building the code:
+ *
+ * To build the following code, using CMake version 3.8 or later, generate this
+ * project's makefiles by running the cmake command from the same directory as 
+ * this file. Then build this project's makefiles by running the make command 
+ * from the same directory as this file. For more information, see the 
+ * "Building Your Application with CMake" topic in the 
+ * AWS SDK for C++ Developer Guide.
+ *
+ * Running the code:
+ * 
+ * For usage instructions, run the acm_basic_operations executable that was built,
+ * either without command-line arguments or with the "--help" option.
+ * ///////////////////////////////////////////////////////////////////////// */
 
 // General includes.
 #include <iostream>

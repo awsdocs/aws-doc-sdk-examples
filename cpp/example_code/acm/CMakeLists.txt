@@ -22,7 +22,7 @@ endif()
 find_package(AWSSDK REQUIRED COMPONENTS acm)
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++, 
-# and building as shared libraries, then dynamically link to those shared libraries.
+# and the compiler is building shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
