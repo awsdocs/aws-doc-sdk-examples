@@ -24,7 +24,7 @@ node iam_createaccesskeys.js >newuserkeys.txt
 const { IAMClient, CreateAccessKeyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const userName = "IAM_USER_NAME"; //IAM_USER_NAME

@@ -27,7 +27,7 @@ const {
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 var paramsRoleList = { RoleName: "ROLE_NAME" }; //ROLE_NAME

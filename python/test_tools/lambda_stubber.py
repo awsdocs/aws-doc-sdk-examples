@@ -44,23 +44,34 @@ class LambdaStubber(ExampleStubber):
             'Description': ANY,
             'Publish': True
         }
-        if not error_code:
-            self.add_response(
-                'create_function',
-                expected_params=expected_params,
-                service_response={
-                    'FunctionArn': function_arn
-                }
-            )
-        else:
-            self.add_client_error(
-                'create_function',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        response = {'FunctionArn': function_arn}
+        self._stub_bifurcator(
+            'create_function', expected_params, response, error_code=error_code)
 
     def stub_delete_function(self, function_name, error_code=None):
         self._stub_bifurcator(
             'delete_function',
             expected_params={'FunctionName': function_name},
             error_code=error_code)
+
+    def stub_invoke(
+            self, function_name, in_payload, out_payload, log_type=None,
+            error_code=None):
+        expected_params = {
+            'FunctionName': function_name,
+            'Payload': in_payload
+        }
+        if log_type is not None:
+            expected_params['LogType'] = log_type
+        response = {'Payload': out_payload}
+        self._stub_bifurcator(
+            'invoke', expected_params, response, error_code=error_code)
+
+    def stub_add_permission(
+            self, func_name, action, principal, source_arn,
+            error_code=None):
+        expected_params = {
+            'FunctionName': func_name, 'StatementId': ANY, 'Action': action,
+            'Principal': principal, 'SourceArn': source_arn}
+        self._stub_bifurcator(
+            'add_permission', expected_params, error_code=error_code)

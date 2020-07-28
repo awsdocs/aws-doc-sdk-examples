@@ -23,7 +23,7 @@ node iam_createaccountalias.js
 const { IAMClient, DeleteAccountAliasCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { AccountAlias: "ALIAS" }; // ALIAS
