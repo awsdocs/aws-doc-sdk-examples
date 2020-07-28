@@ -36,7 +36,7 @@ import software.amazon.awssdk.services.textract.model.GetDocumentAnalysisRespons
 import software.amazon.awssdk.services.textract.model.FeatureType;
 import java.util.ArrayList;
 import java.util.List;
-// snippet-start:[textract.java2._start_doc_analysis.import]
+// snippet-end:[textract.java2._start_doc_analysis.import]
 
 public class StartDocumentAnalysis {
 
