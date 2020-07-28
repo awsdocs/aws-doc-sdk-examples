@@ -49,7 +49,7 @@ public class DetectDocumentText {
              "Usage:\n" +
              "    DetectDocumentText <sourceDoc> \n\n" +
              "Where:\n" +
-             "    sourceDoc - the path where the document is located  (must be an image ie - C:/AWS/book.png) \n";
+             "    sourceDoc - The path where the document is located (must be an image, i.e., C:/AWS/book.png) \n";
 
       if (args.length < 1) {
           System.out.println(USAGE);
@@ -74,7 +74,7 @@ public class DetectDocumentText {
          InputStream sourceStream = new FileInputStream(new File(sourceDoc));
          SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
-         // Get the input Document as bytes
+         // Get the input Document object as bytes
          Document myDoc = Document.builder()
                  .bytes(sourceBytes)
                  .build();
@@ -83,7 +83,7 @@ public class DetectDocumentText {
                  .document(myDoc)
                  .build();
 
-         // Invoke the De operation
+         // Invoke the Detect operation
          DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
 
          List<Block> docInfo = textResponse.blocks();

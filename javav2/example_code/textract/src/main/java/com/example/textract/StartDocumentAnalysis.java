@@ -46,8 +46,8 @@ public class StartDocumentAnalysis {
                 "Usage:\n" +
                 "    StartDocumentAnalysis <bucketName> <docName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the S3 bucket that contains the document \n\n" +
-                "    docName - the document name (must be an image ie - book.png) \n";
+                "    bucketName - The name of the Amazon S3 bucket that contains the document \n\n" +
+                "    docName - The document name (must be an image, i.e., book.png) \n";
 
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
@@ -85,7 +85,7 @@ public class StartDocumentAnalysis {
 
         StartDocumentAnalysisResponse response = textractClient.startDocumentAnalysis(documentAnalysisRequest) ;
 
-        //get the JOB id
+        // Get the job ID
         String jobId = response.jobId();
 
         String result = getJobResults(textractClient,jobId);
