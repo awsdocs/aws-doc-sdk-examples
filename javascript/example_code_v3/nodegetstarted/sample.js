@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html.
 
 Purpose:
-sample.js demonstrates how to get started using the AWS SDK for JavaScript.
+sample.js demonstrates how to get started using node.js with the AWS SDK for JavaScript.
 
 Inputs (replace in code):
  - REGION
@@ -22,7 +22,6 @@ node sample.js
 // Import required AWS SDK clients and commands for Node.js
  */
 const { S3, PutObjectCommand } = require("@aws-sdk/client-s3");
-const uuid = require('uuid');
 
 // Set the AWS region
 const REGION = "eu-west-1"; // e.g., "us-east-1"
@@ -35,7 +34,7 @@ const bucketParams= {Bucket: bucketName};
 const keyName = 'hello_world.txt';
 const objectParams = {Bucket: bucketName, Key: keyName, Body: 'Hello World!'};
 
-// Create S3 service object
+// Create an S3 client service object
 const s3 = new S3(REGION);
 
 const run = async ()=> {
