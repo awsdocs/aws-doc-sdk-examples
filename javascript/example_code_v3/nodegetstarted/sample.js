@@ -17,7 +17,7 @@ Inputs (replace in code):
 Running the code:
 node sample.js
 
-// snippet-start:[GettingStarted.JavaScript.NodeJS.getStarted]
+// snippet-start:[GettingStarted.JavaScript.NodeJS.sampleV3]
 
 // Import required AWS SDK clients and commands for Node.js
  */
@@ -55,6 +55,6 @@ const run = async ()=> {
     }
 };
 run();
-// snippet-end:[GettingStarted.JavaScript.NodeJS.getStarted]
+// snippet-end:[GettingStarted.JavaScript.NodeJS.sampleV3]
 //for unit tests only
 exports.run = run();
