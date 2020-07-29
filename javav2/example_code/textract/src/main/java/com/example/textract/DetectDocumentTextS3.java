@@ -66,44 +66,44 @@ public class DetectDocumentTextS3 {
     }
 
     // snippet-start:[textract.java2._detect_s3_text.main]
-    public static void detectDocTextS3 (TextractClient textractClient,  String bucketName, String docName) {
+    public static void detectDocTextS3 (TextractClient textractClient, String bucketName, String docName) {
 
         try {
-        S3Object s3Object = S3Object.builder()
-                .bucket(bucketName)
-                .name(docName)
-                .build();
+            S3Object s3Object = S3Object.builder()
+                    .bucket(bucketName)
+                    .name(docName)
+                    .build();
 
-        // Create a Document object and reference the s3Object instance
-        Document myDoc = Document.builder()
-                .s3Object(s3Object)
-                .build();
+            // Create a Document object and reference the s3Object instance
+            Document myDoc = Document.builder()
+                    .s3Object(s3Object)
+                    .build();
 
-        // Create a DetectDocumentTextRequest object
-        DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                .document(myDoc)
-                .build();
+            // Create a DetectDocumentTextRequest object
+            DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
+                    .document(myDoc)
+                    .build();
 
-        // Invoke the detectDocumentText method
-        DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
+            // Invoke the detectDocumentText method
+            DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
 
-        List<Block> docInfo = textResponse.blocks();
+            List<Block> docInfo = textResponse.blocks();
 
-        Iterator<Block> blockIterator = docInfo.iterator();
+            Iterator<Block> blockIterator = docInfo.iterator();
 
-        while(blockIterator.hasNext()) {
-            Block block = blockIterator.next();
-            System.out.println("The block type is " +block.blockType().toString());
+            while(blockIterator.hasNext()) {
+                Block block = blockIterator.next();
+                System.out.println("The block type is " +block.blockType().toString());
+            }
+
+            DocumentMetadata documentMetadata = textResponse.documentMetadata();
+            System.out.println("The number of pages in the document is " +documentMetadata.pages());
+
+        } catch (TextractException e) {
+
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-
-        DocumentMetadata documentMetadata = textResponse.documentMetadata();
-        System.out.println("The number of pages in the document is " +documentMetadata.pages());
-
-    } catch (TextractException e) {
-
-        System.err.println(e.getMessage());
-        System.exit(1);
-    }
         // snippet-end:[textract.java2._detect_s3_text.main]
-  }
+    }
 }
