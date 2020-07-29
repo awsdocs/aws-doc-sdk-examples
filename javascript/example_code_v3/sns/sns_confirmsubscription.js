@@ -51,6 +51,6 @@ const run = async () => {
     }
 };
 run();
-// snippet-end:[sns.JavaScript.SNS.confirmSubscriptionV3]
+// snippet-end:[sns.JavaScript.subscriptions.confirmSubscriptionV3]
 //for unit tests only
 exports.run = run();
