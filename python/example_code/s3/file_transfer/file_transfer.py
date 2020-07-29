@@ -1,30 +1,5 @@
-#
-# Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
-#
-#
-
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[s3_python_file_transfer.py shows how to use the boto3 transfer manager to upload and download large files.]
-# snippet-service:[S3]
-# snippet-keyword:[Python]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[upload_file]
-# snippet-keyword:[download_file]
-# snippet-keyword:[TransferConfig]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-12-31]
-# snippet-sourceauthor:[AWS-PCC]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[S3.Python.s3_file_transfer.complete]
 """
@@ -241,4 +216,4 @@ def download_with_sse(bucket_name, object_key, download_file_path,
         ExtraArgs=extra_args,
         Callback=transfer_callback)
     return transfer_callback.thread_info
-# # snippet-end:[S3.Python.s3_file_transfer.complete]
+# snippet-end:[S3.Python.s3_file_transfer.complete]

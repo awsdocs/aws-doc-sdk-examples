@@ -1,108 +1,63 @@
 --- 
-created: 2020-02-25
-files: 
- - path: /src/main/java/com/example/iam/AccessKeyLastUsed.java
-   apis: 
-      - service: iam
-        operations: 
-        - GetAccessKeyLastUsed
- - path: /src/main/java/com/example/iam/AttachRolePolicy.java
-   apis: 
-      - service: iam
-        operations: 
-        - ListAttachedRolePolicies 
- - path: /src/main/java/com/example/iam/CreateAccessKey.java
-   apis: 
-      - service: iam
-        operations: 
-        - CreateAccessKey        
- - path: /src/main/java/com/example/iam/CreateAccountAlias.java
-   apis: 
-      - service: iam
-        operations: 
-        - CreateAccountAlias 
- - path: /src/main/java/com/example/iam/CreatePolicy.java
-   apis: 
-      - service: iam
-        operations: 
-        - CreatePolicy    
- - path: /src/main/java/com/example/iam/CreateUser.java
-   apis: 
-      - service: iam
-        operations: 
-        - CreateUser         
- - path: /src/main/java/com/example/iam/DeleteAccessKey.java
-   apis: 
-      - service: iam
-        operations: 
-        - DeleteAccessKey 
- - path: /src/main/java/com/example/iam/DeleteAccountAlias.java
-   apis: 
-      - service: iam
-        operations: 
-        - DeleteAccountAlias    
- - path: /src/main/java/com/example/iam/DeletePolicy.java
-   apis: 
-      - service: iam
-        operations: 
-        - DeletePolicy   
- - path: /src/main/java/com/example/iam/DeleteServerCertificate.java
-   apis: 
-      - service: iam
-        operations: 
-        - DeleteServerCertificate     
- - path: /src/main/java/com/example/iam/DeleteServerCertificate.java
-   apis: 
-      - service: iam
-        operations: 
-        - DeleteServerCertificate   
- - path: /src/main/java/com/example/iam/DeleteUser.java
-   apis: 
-      - service: iam
-        operations: 
-        - DeleteUser   
- - path: /src/main/java/com/example/iam/DetachRolePolicy.java
-   apis: 
-      - service: iam
-        operations: 
-        - DetachRolePolicy  
- - path: /src/main/java/com/example/iam/GetPolicy.java
-   apis: 
-      - service: iam
-        operations: 
-        - GetPolicy    
- - path: /src/main/java/com/example/iam/ListAccessKeys.java
-   apis: 
-      - service: iam
-        operations: 
-        - ListAccessKeys   
- - path: /src/main/java/com/example/iam/ListAccountAliases.java
-   apis: 
-      - service: iam
-        operations: 
-        - ListAccountAliases        
- - path: /src/main/java/com/example/iam/ListServerCertificates.java
-   apis: 
-      - service: iam
-        operations: 
-        - ListServerCertificates   
- - path: /src/main/java/com/example/iam/ListUsers.java
-   apis: 
-      - service: iam
-        operations: 
-        - ListUsers      
- - path: /src/main/java/com/example/iam/UpdateAccessKey.java
-   apis: 
-      - service: iam
-        operations: 
-        - UpdateAccessKey  
- - path: /src/main/java/com/example/iam/UpdateServerCertificate.java
-   apis: 
-      - service: iam
-        operations: 
-        - UpdateServerCertificate     
- - path: /src/main/java/com/example/iam/UpdateUser.java
-   apis: 
-      - service: iam
-        operations: 
-        - UpdateUser 
+files:
+  - path: src/main/java/com/example/iam/AccessKeyLastUsed.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/AttachRolePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreateAccessKey.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreateAccountAlias.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreatePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreateUser.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteAccessKey.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteAccountAlias.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeletePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteServerCertificate.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteUser.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DetachRolePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/GetPolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListAccessKeys.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListAccountAliases.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListServerCertificates.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListUsers.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/UpdateAccessKey.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/UpdateServerCertificate.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/UpdateUser.java
+    services:
+      - iam
+  - path: src/test/java/IAMServiceIntegrationTest.java

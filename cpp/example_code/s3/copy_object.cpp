@@ -1,79 +1,73 @@
- 
-//snippet-sourcedescription:[copy_object.cpp demonstrates how to copy an Amazon S3 bucket object to another S3 bucket.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0 
 
-
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+#include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CopyObjectRequest.h>
-#include <fstream>
+#include <awsdoc/s3/s3_examples.h>
 
-/**
- * List objects (keys) within an Amazon S3 bucket.
- */
-int main(int argc, char** argv)
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Copies an object from one bucket in Amazon S3 to another bucket.
+ * 
+ * Prerequisites: Two buckets. One of the buckets must contain the object to 
+ * be copied to the other bucket.
+ *
+ * Inputs:
+ * - objectKey: The name of the object to copy.
+ * - fromBucket: The name of the bucket to copy the object from.
+ * - toBucket: The name of the bucket to copy the object to.
+ *
+ * Outputs: true if the object was copied; otherwise, false.
+ * ///////////////////////////////////////////////////////////////////////// */
+
+bool AwsDoc::S3::CopyObject(const Aws::String& objectKey, 
+    const Aws::String& fromBucket, const Aws::String& toBucket)
 {
-    if (argc < 4)
-    {
-        std::cout << std::endl <<
-            "To run this example, supply the name (key) of an S3 object, the bucket name that\n"
-            "it's contained within, and the bucket to copy it to.\n"
-            "\n"
-            "Ex: copy_object <objectname> <frombucket> <tobucket>\n";
-        exit(1);
-    }
+    Aws::S3::S3Client s3_client;
+    Aws::S3::Model::CopyObjectRequest request;
 
+    request.WithCopySource(fromBucket + "/" + objectKey)
+        .WithKey(objectKey)
+        .WithBucket(toBucket);
+    
+    Aws::S3::Model::CopyObjectOutcome outcome = s3_client.CopyObject(request);
+
+    if (!outcome.IsSuccess())
+    {
+        auto err = outcome.GetError();
+        std::cout << "Error: CopyObject: " <<
+            err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+int main()
+{
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String key_name = argv[1];
-        const Aws::String from_bucket = argv[2];
-        const Aws::String to_bucket = argv[3];
+        Aws::String object_key = "my-file.txt";
+        Aws::String from_bucket = "my-from-bucket";
+        Aws::String to_bucket = "my-to-bucket";
 
-        std::cout << "Copying" << key_name << " from bucket " << from_bucket <<
-            " to " << to_bucket << std::endl;
-
-        Aws::S3::S3Client s3_client;
-
-        Aws::S3::Model::CopyObjectRequest object_request;
-        object_request.WithBucket(to_bucket)
-            .WithKey(key_name)
-            .WithCopySource(from_bucket + "/" + key_name);
-
-        auto copy_object_outcome = s3_client.CopyObject(object_request);
-
-        if (copy_object_outcome.IsSuccess())
+        if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket))
         {
-            std::cout << "Done!" << std::endl;
+            std::cout << "Copied object '" << object_key <<
+                "' from '" << from_bucket << "' to '" << to_bucket << "'." << 
+                std::endl;
         }
         else
         {
-            std::cout << "CopyObject error: " <<
-                copy_object_outcome.GetError().GetExceptionName() << " " <<
-                copy_object_outcome.GetError().GetMessage() << std::endl;
+            return 1;
         }
     }
+    ShutdownAPI(options);
 
-    Aws::ShutdownAPI(options);
+    return 0;
 }
-

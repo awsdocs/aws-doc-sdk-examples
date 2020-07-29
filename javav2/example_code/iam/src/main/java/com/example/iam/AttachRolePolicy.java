@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing IAM role.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.attach_role_policy.complete]
+
 // snippet-start:[iam.java2.attach_role_policy.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -36,31 +36,35 @@ import java.util.stream.Collectors;
 
 public class AttachRolePolicy {
 
-    public static final String POLICY_ARN =
-            "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
 
     public static void main(String[] args) {
         final String USAGE =
                 "To run this example, supply a role name that you can obtain from the AWS Console\n" +
-                        "Ex: AttachRolePolicy <role-name>\n";
+                        "Ex: AttachRolePolicy <role-name> <policy-arn>\n";
 
-         if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String roleName = args[0];
+        String policyArn = args[1];
 
-        // snippet-start:[iam.java2.attach_role_policy.main]
-        // snippet-start:[iam.java2.attach_role_policy.client]        
+        // snippet-start:[iam.java2.attach_role_policy.client] 
+        Region region = Region.AWS_GLOBAL;
+        IamClient iam = IamClient.builder()
+                .region(region)
+                .build();
+        // snippet-end:[iam.java2.attach_role_policy.client]
 
-            Region region = Region.AWS_GLOBAL;
-            IamClient iam = IamClient.builder()
-                    .region(region)
-                    .build();
+        attachIAMRolePolicy(iam, roleName, policyArn);
+    }
+
+    // snippet-start:[iam.java2.attach_role_policy.main]
+    public static void attachIAMRolePolicy(IamClient iam,String roleName, String policyArn ) {
 
         try {
-            // snippet-end:[iam.java2.attach_role_policy.client]
+
             List<AttachedPolicy> matchingPolicies = new ArrayList<>();
 
             boolean done = false;
@@ -103,25 +107,23 @@ public class AttachRolePolicy {
                 return;
             }
 
-            // snippet-end:[iam.java2.attach_role_policy.main]
             // snippet-start:[iam.java2.attach_role_policy.attach]
             AttachRolePolicyRequest attachRequest =
                 AttachRolePolicyRequest.builder()
                         .roleName(roleName)
-                        .policyArn(POLICY_ARN).build();
+                        .policyArn(policyArn).build();
 
             iam.attachRolePolicy(attachRequest);
 
             // snippet-end:[iam.java2.attach_role_policy.attach]
-            System.out.println("Successfully attached policy " + POLICY_ARN +
+            System.out.println("Successfully attached policy " + policyArn +
                 " to role " + roleName);
 
          } catch (IamException e) {
                 System.err.println(e.awsErrorDetails().errorMessage());
                 System.exit(1);
           }
-
+        // snippet-end:[iam.java2.attach_role_policy.main]
      System.out.println("Done");
     }
 }
-// snippet-end:[iam.java2.attach_role_policy.complete]

@@ -40,7 +40,7 @@ begin
   key = OpenSSL::PKey::RSA.new(private_key, pass_phrase)
 
   # encryption client
-  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
+  enc_client = Aws::S3::EncryptionV2::Client.new(encryption_key: key)
 
   resp = enc_client.get_object(bucket: bucket, key: item)
 

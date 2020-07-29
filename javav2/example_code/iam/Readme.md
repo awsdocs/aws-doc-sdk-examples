@@ -1,53 +1,53 @@
-# AWS Identity and Access Management (IAM) Java Readme
+# IAM Java code examples
 
-A README that discusses how to run and test the Java AWS Identity and Access Management (IAM)  code examples.
+This README discusses how to run and test the Java code examples for AWS Identity and Access Management (IAM).
 
-## Running the Amazon AWS IAM Java files
+## Running the IAM Java files
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and region for which you've specified credentials, and you may incur AWS service charges by running them. Visit the AWS Pricing page for details about the charges you can expect for a given service and operation. For details, see https://aws.amazon.com/pricing/.
+The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you might incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that 
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that
 deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**:
+To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
 
 	export CLASSPATH=target/sdk-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
 
-Where  **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS Java SDK jar.
+Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
 
-Once you set the **CLASSPATH**, you can run a particular example like this:
+For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
 
 	java com.example.ec2.FindRunningInstances
 
-For systems with bash support.
 
- ## Testing the AWS IAM Java files
+ ## Testing the IAM Java files
 
-You can test the AWS IAM  Java code examples by running a test file named **IAMServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
+You can test the Java code examples for IAM by running a test file named **IAMServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that test 3 passed:
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulate real Amazon EC2 resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
  ### Properties file
-Before running the AWS IAM JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the IAM JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **userName** - a user name that is used to create a user.  
-- **policyName** – a policy name that is used to create a policy.
-- **roleName** – a role name. You can obtain this value from the AWS Console. 
-- **accountAlias** – a value that is used to create an account alias. For example, **myawsaccount10**.- 
+- **userName** - A user name that is used to create a user.  
+- **policyName** – A policy name that is used to create a policy.
+- **roleName** – A role name. You can obtain this value from the AWS Management Console.
+- **accountAlias** – A value that is used to create an account alias. For example, **myawsaccount10**.-
 
 ### Command line
-To execute the JUnit tests from the command line, you can use the following command:
+To run the JUnit tests from the command line, you can use the following command.
 
 		mvn test
-You will see output from the JUnit tests, as shown here:
+
+You will see output from the JUnit tests, as shown here.
 
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
@@ -70,7 +70,7 @@ You will see output from the JUnit tests, as shown here:
 
 ### Unsuccessful tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as below. You need to double check the values that you set in the properties file and run the tests again. 
+If you don't define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
 
 	[INFO]
 	[INFO] --------------------------------------

@@ -99,8 +99,10 @@ func main() {
     // snippet-end:[sqs.go.longpolling_existing_queue.enable]
 }
 
+// snippet-start:[sqs.go.longpolling_existing_queue.error]
 func exitErrorf(msg string, args ...interface{}) {
     fmt.Fprintf(os.Stderr, msg+"\n", args...)
     os.Exit(1)
 }
+// snippet-end:[sqs.go.longpolling_existing_queue.error]
 // snippet-end:[sqs.go.longpolling_existing_queue.complete]

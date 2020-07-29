@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DeleteAccessKey.java demonstrates how to delete an access key from an IAM user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.delete_access_key.complete]
+
 // snippet-start:[iam.java2.delete_access_key.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -42,25 +42,26 @@ public class DeleteAccessKey {
             System.out.println(USAGE);
             System.exit(1);
         }
-
         String username = args[0];
         String accessKey = args[1];
 
-        // snippet-start:[iam.java2.delete_access_key.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
 
-        try {
+        deleteKey(iam , username, accessKey);
+    }
 
+    // snippet-start:[iam.java2.delete_access_key.main]
+    public static void deleteKey(IamClient iam ,String username, String accessKey ) {
+
+        try {
             DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
                 .accessKeyId(accessKey)
                 .userName(username).build();
 
             iam.deleteAccessKey(request);
-
-            // snippet-end:[iam.java2.delete_access_key.main]
             System.out.println("Successfully deleted access key " + accessKey +
                 " from user " + username);
 
@@ -69,5 +70,5 @@ public class DeleteAccessKey {
             System.exit(1);
         }
     }
+    // snippet-end:[iam.java2.delete_access_key.main]
 }
-// snippet-end:[iam.java2.delete_access_key.complete]

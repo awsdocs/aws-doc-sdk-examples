@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[UpdateServerCertificate.java demonstrates how to update the name of an IAM server certificate.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,15 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.update_server_certificate.complete]
+
 // snippet-start:[iam.java2.update_server_certificate.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateResponse;
-
 // snippet-end:[iam.java2.update_server_certificate.import]
+
 /**
  * Updates a server certificate name
  */
@@ -48,12 +48,16 @@ public class UpdateServerCertificate {
         String curName = args[0];
         String newName = args[1];
 
-        // snippet-start:[iam.java2.update_server_certificate.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
-        try {
+        updateCertificate(iam, curName, newName) ;
+    }
 
+    // snippet-start:[iam.java2.update_server_certificate.main]
+    public static void updateCertificate(IamClient iam, String curName, String newName) {
+
+        try {
             UpdateServerCertificateRequest request =
                 UpdateServerCertificateRequest.builder()
                         .serverCertificateName(curName)
@@ -62,7 +66,7 @@ public class UpdateServerCertificate {
 
             UpdateServerCertificateResponse response =
                 iam.updateServerCertificate(request);
-            // snippet-end:[iam.java2.update_server_certificate.main]
+
 
             System.out.printf("Successfully updated server certificate to name %s",
                 newName);
@@ -73,5 +77,6 @@ public class UpdateServerCertificate {
         }
         System.out.println("Done");
     }
+    // snippet-end:[iam.java2.update_server_certificate.main]
 }
-// snippet-end:[iam.java2.update_server_certificate.complete]
+

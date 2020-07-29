@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+    <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+    <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+    <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+
+
+    <title>AWS Photo Analyzer</title>
+
+    <script>
+        function myFunction() {
+            alert("The form was submitted");
+        }
+    </script>
+
+</head>
+
+<body>
+<header th:replace="layout :: site-header"/>
+
+<div class="container">
+
+<h2>AWS Photo Analyzer Application</h2>
+<p>Upload images to an S3 Bucket. Each image will be analysed!</p>
+
+<form method="POST" onsubmit="myFunction()" action="/upload" enctype="multipart/form-data">
+    <input type="file" name="file" /><br/><br/>
+    <input type="submit" value="Submit" />
+</form>
+
+<div>
+    <br>
+
+    <p>Click the following button to determine the number of images in the bucket</p>
+
+    <button onclick="getImages()">Get Images</button>
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Size</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>No Data</td>
+            <td>No Data</td>
+            <td>No Data </td>
+            <td>No Data</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Size</th>
+        </tr>
+        </tfoot>
+        <div id="success3"></div>
+    </table>
+
+</div>
+</div>
+</body>
+</html>

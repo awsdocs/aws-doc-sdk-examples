@@ -1,0 +1,81 @@
+---
+files:
+  - path: CreateDistributionS3.php
+    services: 
+      - cloudfront
+  - path: tests/CreateDistributionS3Test.php
+    services: 
+      - cloudfront
+  - path: CreateInvalidation.php
+    services: 
+      - cloudfront
+  - path: tests/CreateInvalidationTest.php
+    services: 
+      - cloudfront
+  - path: DeleteDistribution.php
+    services: 
+      - cloudfront
+  - path: tests/DeleteDistributionTest.php
+    services: 
+      - cloudfront
+  - path: DisableDistributionS3.php
+    services: 
+      - cloudfront
+  - path: tests/DisableDistributionS3Test.php
+    services: 
+      - cloudfront
+  - path: GetDistribution.php
+    services: 
+      - cloudfront
+  - path: tests/GetDistributionTest.php
+    services: 
+      - cloudfront
+  - path: GetInvalidation.php
+    services: 
+      - cloudfront
+  - path: tests/GetInvalidationTest.php
+    services: 
+      - cloudfront
+  - path: ListDistributions.php
+    services: 
+      - cloudfront
+  - path: tests/ListDistributionsTest.php
+    services: 
+      - cloudfront
+  - path: ListInvalidations.php
+    services: 
+      - cloudfront
+  - path: tests/ListInvalidationsTest.php
+    services: 
+      - cloudfront
+  - path: SignCookie.php
+    services: 
+      - cloudfront  
+  - path: tests/SignCookieTest.php
+    services: 
+      - cloudfront
+  - path: SignCookiePolicy.php
+    services: 
+      - cloudfront  
+  - path: tests/SignCookiePolicyTest.php
+    services: 
+      - cloudfront
+  - path: SignPrivateDistribution.php
+    services: 
+      - cloudfront  
+  - path: tests/SignPrivateDistributionTest.php
+    services: 
+      - cloudfront
+  - path: SignPrivateDistributionPolicy.php
+    services: 
+      - cloudfront  
+  - path: tests/SignPrivateDistributionPolicyTest.php
+    services: 
+      - cloudfront
+  - path: UpdateDistributionS3.php
+    services: 
+      - cloudfront  
+  - path: tests/UpdateDistributionS3Test.php
+    services: 
+      - cloudfront
+...

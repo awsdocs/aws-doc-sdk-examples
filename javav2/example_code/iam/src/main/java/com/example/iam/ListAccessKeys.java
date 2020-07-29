@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list all access keys associated with an IAM user.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.list_access_keys.complete]
+
 // snippet-start:[iam.java2.list_access_keys.import]
 import software.amazon.awssdk.services.iam.model.AccessKeyMetadata;
 import software.amazon.awssdk.services.iam.model.IamException;
@@ -39,17 +39,22 @@ public class ListAccessKeys {
                 "To run this example, supply an IAM  username\n" +
                         "Ex: ListAccessKeys <username>\n";
 
-       if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
         String username = args[0];
 
-        // snippet-start:[iam.java2.list_access_keys.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
+
+        listKeys(iam,username) ;
+    }
+
+    // snippet-start:[iam.java2.list_access_keys.main]
+    public static void listKeys( IamClient iam,String username ){
 
         try {
             boolean done = false;
@@ -89,4 +94,3 @@ public class ListAccessKeys {
         // snippet-end:[iam.java2.list_access_keys.main]
     }
 }
-// snippet-end:[iam.java2.list_access_keys.complete]

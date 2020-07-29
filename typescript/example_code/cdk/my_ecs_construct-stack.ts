@@ -24,11 +24,11 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 // snippet-start:[cdk.typescript.my_ecs_construct-stack]
-import core = require("@aws-cdk/core");
+import * as core from "@aws-cdk/core";
 // snippet-start:[cdk.typescript.my_ecs_construct-stack.imports]
-import ec2 = require("@aws-cdk/aws-ec2");
-import ecs = require("@aws-cdk/aws-ecs");
-import ecs_patterns = require("@aws-cdk/aws-ecs-patterns");
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as ecs from "@aws-cdk/aws-ecs";
+import * as ecs_patterns from "@aws-cdk/aws-ecs-patterns";
 // snippet-end:[cdk.typescript.my_ecs_construct-stack.imports]
 
 // snippet-start:[cdk.typescript.my_ecs_construct-stack.class]

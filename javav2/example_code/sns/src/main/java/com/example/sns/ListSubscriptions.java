@@ -5,7 +5,7 @@
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -22,7 +22,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.ListSubscriptions.complete]
+
 package com.example.sns;
 
 //snippet-start:[sns.java2.ListSubscriptions.import]
@@ -39,13 +39,17 @@ public class ListSubscriptions {
                 "ListSubscriptions - returns a list of Amazon SNS subscriptions.\n" +
                 "Usage: ListSubscriptions \n\n";
 
-        //snippet-start:[sns.java2.ListSubscriptions.main]
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
+
+        listSNSSubscriptions(snsClient);
+    }
+
+    //snippet-start:[sns.java2.ListSubscriptions.main]
+    public static void listSNSSubscriptions( SnsClient snsClient) {
+
         try {
-
-            SnsClient snsClient = SnsClient.builder()
-                    .region(Region.US_WEST_2)
-                    .build();
-
             ListSubscriptionsRequest request = ListSubscriptionsRequest.builder()
                     .build();
 
@@ -60,4 +64,3 @@ public class ListSubscriptions {
         //snippet-end:[sns.java2.ListSubscriptions.main]
     }
 }
-//snippet-end:[sns.java2.ListSubscriptions.complete]

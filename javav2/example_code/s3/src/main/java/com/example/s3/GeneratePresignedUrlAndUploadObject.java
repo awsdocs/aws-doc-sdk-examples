@@ -5,11 +5,11 @@
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-12-05]
-// snippet-sourceauthor:[AWS - scmacdon]
+//snippet-sourcedate:[2/6/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -22,8 +22,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
-// snippet-start:[presigned.java2.generatepresignedurl.complete]
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
@@ -32,30 +30,50 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Duration;
+
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
 
 public class GeneratePresignedUrlAndUploadObject {
 
     public static void main(String[] args) {
+
         if (args.length < 2) {
-            System.out.println("Please specify a bucket name and a key name");
+            System.out.println("Please specify a bucket name and a key name that represents a text file");
             System.exit(1);
         }
 
-        // snippet-start:[presigned.java2.generatepresignedurl.main]
         String bucketName = args[0];
         String keyName = args[1];
 
         // Create a S3Presigner by using the default AWS Region and credentials
         S3Presigner presigner = S3Presigner.create();
+        signBucket(presigner, bucketName, keyName);
+    }
+
+    // snippet-start:[presigned.java2.generatepresignedurl.main]
+    public static void signBucket(S3Presigner presigner, String bucketName, String keyName) {
 
         try {
-            PresignedPutObjectRequest presignedRequest =
-                    presigner.presignPutObject(z -> z.signatureDuration(Duration.ofMinutes(10))
-                            .putObjectRequest(por -> por.bucket(bucketName).key(keyName)));
+
+            // Use a PutObjectRequest to set additional values
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .contentType("text/plain")
+                    .build();
+
+            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(10))
+                    .putObjectRequest(objectRequest)
+                    .build();
+
+            PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
 
             System.out.println("Pre-signed URL to upload a file to: " +
                     presignedRequest.url());
@@ -93,4 +111,3 @@ public class GeneratePresignedUrlAndUploadObject {
         // snippet-end:[presigned.java2.generatepresignedurl.main]
     }
 }
-// snippet-end:[presigned.java2.generatepresignedurl.complete]

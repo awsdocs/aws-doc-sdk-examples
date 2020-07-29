@@ -33,7 +33,6 @@ import (
 //     If success, the URL of the queue and nil
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
-    // Create an SQS service client
     // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
@@ -57,11 +56,9 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 //     Otherwise, an error from the call to ReceiveMessage
 func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
-
-    // Create an SQS service client
-    // snippet-start:[sqs.go.receive_lp_message.call]
     svc := sqs.New(sess)
-
+    
+    // snippet-start:[sqs.go.receive_lp_message.call]
     result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
         QueueUrl: queueURL,
         AttributeNames: aws.StringSlice([]string{
@@ -134,10 +131,12 @@ func main() {
         return
     }
 
+    // snippet-start:[sqs.go.receive_lp_message.display]
     fmt.Println("Message IDs:")
 
     for _, msg := range msgs {
         fmt.Println("    " + *msg.MessageId)
     }
+    // snippet-end:[sqs.go.receive_lp_message.display]
 }
 // snippet-end:[sqs.go.receive_lp_message]

@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ListServerCertificates.java demonstrates how to list all server certificates associated with an AWS account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.list_server_certificates.complete]
+
 // snippet-start:[iam.java2.list_server_certificates.import]
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesRequest;
@@ -36,12 +36,16 @@ import software.amazon.awssdk.services.iam.IamClient;
 public class ListServerCertificates {
     public static void main(String[] args) {
 
-        // snippet-start:[iam.java2.list_server_certificates.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
 
-        try {
+        listCertificates(iam);
+    }
 
+    // snippet-start:[iam.java2.list_server_certificates.main]
+    public static void listCertificates(IamClient iam) {
+
+        try {
             boolean done = false;
             String newMarker = null;
 
@@ -79,4 +83,3 @@ public class ListServerCertificates {
         // snippet-end:[iam.java2.list_server_certificates.main]
     }
 }
-// snippet-end:[iam.java2.list_server_certificates.complete]

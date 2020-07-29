@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an SNS subscription.]
+//snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an Amazon SNS subscription.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
+//snippet-sourcedate:[4/6/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,12 +21,10 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-//snippet-start:[sns.java2.Unsubscribe.complete]
 
 package com.example.sns;
 
 //snippet-start:[sns.java2.Unsubscribe.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
@@ -48,13 +46,19 @@ public class Unsubscribe {
             System.exit(1);
         }
 
-        //snippet-start:[sns.java2.Unsubscribe.main]
         String subscriptionToken = args[0];
 
-        SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+
+        unSub(snsClient, subscriptionToken);
+    }
+
+    //snippet-start:[sns.java2.Unsubscribe.main]
+    public static void unSub(SnsClient snsClient, String subscriptionToken) {
 
         try {
-
             UnsubscribeRequest request = UnsubscribeRequest.builder()
                 .subscriptionArn(subscriptionToken)
                 .build();
@@ -71,4 +75,3 @@ public class Unsubscribe {
         //snippet-end:[sns.java2.Unsubscribe.main]
     }
 }
-//snippet-end:[sns.java2.Unsubscribe.complete]

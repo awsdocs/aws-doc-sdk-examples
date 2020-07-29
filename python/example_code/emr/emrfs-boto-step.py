@@ -23,7 +23,6 @@
 # snippet-sourceauthor:[AWS]
 # snippet-start:[emr.python.addstep.emrfs]
 
-import json
 import boto3
 from botocore.exceptions import ClientError
 
@@ -37,7 +36,7 @@ job_flow_step_01 = {
     'HadoopJarStep': {
         'Jar': 's3://elasticmapreduce/libs/script-runner/script-runner.jar',
         'Args': [
-            '/home/hadoop/bin/emrfs',
+            '/usr/bin/emrfs',
             'sync',
             's3://elasticmapreduce/samples/cloudfront'
         ]
@@ -48,7 +47,7 @@ job_flow_step_01 = {
 emr_client = boto3.client('emr')
 try:
     response = emr_client.add_job_flow_steps(JobFlowId=job_flow_id,
-                                             Steps=[json.dumps(job_flow_step_01)])
+                                             Steps=[job_flow_step_01])
 except ClientError as e:
     print(e.response['Error']['Message'])
     exit(1)

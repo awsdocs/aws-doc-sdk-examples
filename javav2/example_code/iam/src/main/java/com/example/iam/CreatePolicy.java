@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[CreatePolicy.java demonstrates how to create a fixed policy with a provided policy name.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[03/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -20,7 +20,7 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java2.create_policy.complete]
+
 // snippet-start:[iam.java2.create_policy.import]
 import software.amazon.awssdk.services.iam.model.CreatePolicyRequest;
 import software.amazon.awssdk.services.iam.model.CreatePolicyResponse;
@@ -66,9 +66,14 @@ public class CreatePolicy {
 
         String policyName = args[0];
 
-        // snippet-start:[iam.java2.create_policy.main]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder().region(region).build();
+
+        String result = createIAMPolicy(iam, policyName);
+        System.out.println("Successfully created a policy with this ARN value: " +result);
+    }
+    // snippet-start:[iam.java2.create_policy.main]
+    public static String createIAMPolicy(IamClient iam, String policyName ) {
 
         try {
               CreatePolicyRequest request = CreatePolicyRequest.builder()
@@ -76,15 +81,13 @@ public class CreatePolicy {
                 .policyDocument(PolicyDocument).build();
 
               CreatePolicyResponse response = iam.createPolicy(request);
-              System.out.println("Successfully created a policy with this ARN value: " +
-                response.policy().arn());
-              // snippet-end:[iam.java2.create_policy.main]
 
-        } catch (IamException e) {
+              return response.policy().arn();
+         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Done");
+        return "" ;
     }
+    // snippet-end:[iam.java2.create_policy.main]
 }
-// snippet-end:[iam.java2.create_policy.complete]
