@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document that is retrieved from a S3 bucket.]
+// snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document that is retrieved from an Amazon S3 bucket.]
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Textract]
@@ -45,8 +45,8 @@ public class DetectDocumentTextS3 {
                 "Usage:\n" +
                 "    DetectDocumentTextS3 <bucketName> <docName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the S3 bucket that contains the document \n\n" +
-                "    docName - the document name (must be an image ie - book.png) \n";
+                "    bucketName - The name of the Amazon S3 bucket that contains the document \n\n" +
+                "    docName - The document name (must be an image, i.e., book.png) \n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -74,12 +74,12 @@ public class DetectDocumentTextS3 {
                 .name(docName)
                 .build();
 
-        // Create a Document object and reference the S3Object instance
+        // Create a Document object and reference the s3Object instance
         Document myDoc = Document.builder()
                 .s3Object(s3Object)
                 .build();
 
-        // Create a DetectDocumentTextRequest obejct
+        // Create a DetectDocumentTextRequest object
         DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
                 .document(myDoc)
                 .build();
@@ -107,4 +107,3 @@ public class DetectDocumentTextS3 {
         // snippet-end:[textract.java2._detect_s3_text.main]
   }
 }
-
