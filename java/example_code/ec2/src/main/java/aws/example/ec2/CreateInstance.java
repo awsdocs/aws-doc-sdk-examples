@@ -67,6 +67,7 @@ public class CreateInstance
             .withValue(name);
 
         CreateTagsRequest tag_request = new CreateTagsRequest()
+            .withResources(reservation_id)
             .withTags(tag);
 
         CreateTagsResult tag_response = ec2.createTags(tag_request);
