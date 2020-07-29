@@ -43,66 +43,66 @@ import java.util.List;
 
 public class DetectDocumentText {
 
- public static void main(String[] args) {
+    public static void main(String[] args) {
 
-     final String USAGE = "\n" +
-             "Usage:\n" +
-             "    DetectDocumentText <sourceDoc> \n\n" +
-             "Where:\n" +
-             "    sourceDoc - The path where the document is located (must be an image, i.e., C:/AWS/book.png) \n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DetectDocumentText <sourceDoc> \n\n" +
+                "Where:\n" +
+                "    sourceDoc - The path where the document is located (must be an image, i.e., C:/AWS/book.png) \n";
 
-      if (args.length < 1) {
-          System.out.println(USAGE);
-          System.exit(1);
-      }
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-     String sourceDoc = args[0];
+        String sourceDoc = args[0];
 
-     Region region = Region.US_EAST_2;
-     TextractClient textractClient = TextractClient.builder()
-             .region(region)
-             .build();
+        Region region = Region.US_EAST_2;
+        TextractClient textractClient = TextractClient.builder()
+                .region(region)
+                .build();
 
-     detectDocText(textractClient, sourceDoc);
- }
+        detectDocText(textractClient, sourceDoc);
+    }
 
- // snippet-start:[textract.java2._detect_doc_text.main]
- public static void detectDocText(TextractClient textractClient,String sourceDoc) {
+    // snippet-start:[textract.java2._detect_doc_text.main]
+    public static void detectDocText(TextractClient textractClient,String sourceDoc) {
 
-     try {
+        try {
 
-         InputStream sourceStream = new FileInputStream(new File(sourceDoc));
-         SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+            InputStream sourceStream = new FileInputStream(new File(sourceDoc));
+            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
-         // Get the input Document object as bytes
-         Document myDoc = Document.builder()
-                 .bytes(sourceBytes)
-                 .build();
+            // Get the input Document object as bytes
+            Document myDoc = Document.builder()
+                    .bytes(sourceBytes)
+                    .build();
 
-         DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                 .document(myDoc)
-                 .build();
+            DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
+                    .document(myDoc)
+                    .build();
 
-         // Invoke the Detect operation
-         DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
+            // Invoke the Detect operation
+            DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
 
-         List<Block> docInfo = textResponse.blocks();
+            List<Block> docInfo = textResponse.blocks();
 
-         Iterator<Block> blockIterator = docInfo.iterator();
+            Iterator<Block> blockIterator = docInfo.iterator();
 
-         while(blockIterator.hasNext()) {
-             Block block = blockIterator.next();
-             System.out.println("The block type is " +block.blockType().toString());
-         }
+            while(blockIterator.hasNext()) {
+                Block block = blockIterator.next();
+                System.out.println("The block type is " +block.blockType().toString());
+            }
 
-         DocumentMetadata documentMetadata = textResponse.documentMetadata();
-         System.out.println("The number of pages in the document is " +documentMetadata.pages());
+            DocumentMetadata documentMetadata = textResponse.documentMetadata();
+            System.out.println("The number of pages in the document is " +documentMetadata.pages());
 
-     } catch (TextractException | FileNotFoundException e) {
+        } catch (TextractException | FileNotFoundException e) {
 
-         System.err.println(e.getMessage());
-         System.exit(1);
-     }
-     // snippet-end:[textract.java2._detect_doc_text.main]
-   }
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        // snippet-end:[textract.java2._detect_doc_text.main]
+    }
 }
