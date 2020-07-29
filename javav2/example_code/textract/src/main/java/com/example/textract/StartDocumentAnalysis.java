@@ -57,59 +57,59 @@ public class StartDocumentAnalysis {
         String bucketName = args[0];
         String docName = args[1];
 
-        startDocAnalysisS3 (textractClient,  bucketName, docName);
+        startDocAnalysisS3 (textractClient, bucketName, docName);
     }
 
- // snippet-start:[textract.java2._start_doc_analysis.main]
- public static void startDocAnalysisS3 (TextractClient textractClient,  String bucketName, String docName) {
+    // snippet-start:[textract.java2._start_doc_analysis.main]
+    public static void startDocAnalysisS3 (TextractClient textractClient, String bucketName, String docName) {
 
-    try {
+        try {
 
-        List<FeatureType> myList = new ArrayList<FeatureType>();
-        myList.add(FeatureType.TABLES);
-        myList.add(FeatureType.FORMS);
+            List<FeatureType> myList = new ArrayList<FeatureType>();
+            myList.add(FeatureType.TABLES);
+            myList.add(FeatureType.FORMS);
 
-        S3Object s3Object = S3Object.builder()
-                .bucket(bucketName)
-                .name(docName)
-                .build();
+            S3Object s3Object = S3Object.builder()
+                    .bucket(bucketName)
+                    .name(docName)
+                    .build();
 
-        DocumentLocation location = DocumentLocation.builder()
-                .s3Object(s3Object)
-                .build();
+            DocumentLocation location = DocumentLocation.builder()
+                    .s3Object(s3Object)
+                    .build();
 
-        StartDocumentAnalysisRequest documentAnalysisRequest =  StartDocumentAnalysisRequest.builder()
-                .documentLocation(location)
-                .featureTypes(myList)
-                .build();
+            StartDocumentAnalysisRequest documentAnalysisRequest = StartDocumentAnalysisRequest.builder()
+                    .documentLocation(location)
+                    .featureTypes(myList)
+                    .build();
 
-        StartDocumentAnalysisResponse response = textractClient.startDocumentAnalysis(documentAnalysisRequest) ;
+            StartDocumentAnalysisResponse response = textractClient.startDocumentAnalysis(documentAnalysisRequest);
 
-        // Get the job ID
-        String jobId = response.jobId();
+            // Get the job ID
+            String jobId = response.jobId();
 
-        String result = getJobResults(textractClient,jobId);
+            String result = getJobResults(textractClient,jobId);
 
-        System.out.println("The status of the job is: "+result);
+            System.out.println("The status of the job is: "+result);
 
-    } catch (TextractException e) {
+        } catch (TextractException e) {
 
-        System.err.println(e.getMessage());
-        System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
-  }
 
-  private static String getJobResults(TextractClient textractClient, String jobId)
-  {
-      GetDocumentAnalysisRequest analysisRequest = GetDocumentAnalysisRequest.builder()
-              .jobId(jobId)
-              .maxResults(1000)
-              .build();
+    private static String getJobResults(TextractClient textractClient, String jobId) {
 
-      GetDocumentAnalysisResponse response =  textractClient.getDocumentAnalysis(analysisRequest);
-      String status = response.jobStatus().toString();
+        GetDocumentAnalysisRequest analysisRequest = GetDocumentAnalysisRequest.builder()
+                .jobId(jobId)
+                .maxResults(1000)
+                .build();
 
-      return status;
-  }
+        GetDocumentAnalysisResponse response = textractClient.getDocumentAnalysis(analysisRequest);
+        String status = response.jobStatus().toString();
+
+        return status;
+    }
     // snippet-end:[textract.java2._start_doc_analysis.main]
 }
