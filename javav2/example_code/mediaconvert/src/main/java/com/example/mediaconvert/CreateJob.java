@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[CreateJob.java demonstrates how to create mediaconvert jobs.]
+//snippet-sourcedescription:[CreateJob.java demonstrates how to create MediaConvert jobs.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[mediaconvert]
+//snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[azhchris]
+//snippet-sourcedate:[7/30/2020]
+//snippet-sourceauthor:[smacdon - AWS ]
 // snippet-start:[mediaconvert.java.createjob.complete]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ package com.example.mediaconvert;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
@@ -34,125 +35,47 @@ import software.amazon.awssdk.services.mediaconvert.model.*;
 // snippet-end:[mediaconvert.java.createjob.import]
 
 public class CreateJob {
-    private static String endpointURL;
-    private static String mcRoleARN;
-    private static String fileInput;
-    private static String fileOutput;
-    private static String thumbsOutput;
-    private static String mp4Output;
 
-    // snippet-start:[mediaconvert.java.createjob.create_output]
-    private final static Output createOutput(String customName, String nameModifier, String segmentModifier,
-            int qvbrMaxBitrate, int qvbrQualityLevel, int originWidth, int originHeight, int targetWidth) {
-        int targetHeight = Math.round(originHeight * targetWidth / originWidth)
-                - (Math.round(originHeight * targetWidth / originWidth) % 4);
-        Output output = null;
-        try {
-            output = Output.builder().nameModifier(nameModifier).outputSettings(OutputSettings.builder()
-                    .hlsSettings(HlsSettings.builder().segmentModifier(segmentModifier).audioGroupId("program_audio")
-                            .iFrameOnlyManifest(HlsIFrameOnlyManifest.EXCLUDE).build())
-                    .build())
-                    .containerSettings(ContainerSettings.builder().container(ContainerType.M3_U8)
-                            .m3u8Settings(M3u8Settings.builder().audioFramesPerPes(4)
-                                    .pcrControl(M3u8PcrControl.PCR_EVERY_PES_PACKET).pmtPid(480).privateMetadataPid(503)
-                                    .programNumber(1).patInterval(0).pmtInterval(0).scte35Source(M3u8Scte35Source.NONE)
-                                    .scte35Pid(500).nielsenId3(M3u8NielsenId3.NONE).timedMetadata(TimedMetadata.NONE)
-                                    .timedMetadataPid(502).videoPid(481)
-                                    .audioPids(482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492).build())
-                            .build())
-                    .videoDescription(
-                            VideoDescription.builder().width(targetWidth).height(targetHeight)
-                                    .scalingBehavior(ScalingBehavior.DEFAULT).sharpness(50).antiAlias(AntiAlias.ENABLED)
-                                    .timecodeInsertion(VideoTimecodeInsertion.DISABLED)
-                                    .colorMetadata(ColorMetadata.INSERT).respondToAfd(RespondToAfd.NONE)
-                                    .afdSignaling(AfdSignaling.NONE).dropFrameTimecode(DropFrameTimecode.ENABLED)
-                                    .codecSettings(VideoCodecSettings.builder().codec(VideoCodec.H_264)
-                                            .h264Settings(H264Settings.builder()
-                                                    .rateControlMode(H264RateControlMode.QVBR)
-                                                    .parControl(H264ParControl.INITIALIZE_FROM_SOURCE)
-                                                    .qualityTuningLevel(H264QualityTuningLevel.SINGLE_PASS)
-                                                    .qvbrSettings(H264QvbrSettings.builder()
-                                                            .qvbrQualityLevel(qvbrQualityLevel).build())
-                                                    .codecLevel(H264CodecLevel.AUTO)
-                                                    .codecProfile((targetHeight > 720 && targetWidth > 1280)
-                                                            ? H264CodecProfile.HIGH
-                                                            : H264CodecProfile.MAIN)
-                                                    .maxBitrate(qvbrMaxBitrate)
-                                                    .framerateControl(H264FramerateControl.INITIALIZE_FROM_SOURCE)
-                                                    .gopSize(2.0).gopSizeUnits(H264GopSizeUnits.SECONDS)
-                                                    .numberBFramesBetweenReferenceFrames(2).gopClosedCadence(1)
-                                                    .gopBReference(H264GopBReference.DISABLED)
-                                                    .slowPal(H264SlowPal.DISABLED).syntax(H264Syntax.DEFAULT)
-                                                    .numberReferenceFrames(3).dynamicSubGop(H264DynamicSubGop.STATIC)
-                                                    .fieldEncoding(H264FieldEncoding.PAFF)
-                                                    .sceneChangeDetect(H264SceneChangeDetect.ENABLED).minIInterval(0)
-                                                    .telecine(H264Telecine.NONE)
-                                                    .framerateConversionAlgorithm(
-                                                            H264FramerateConversionAlgorithm.DUPLICATE_DROP)
-                                                    .entropyEncoding(H264EntropyEncoding.CABAC).slices(1)
-                                                    .unregisteredSeiTimecode(H264UnregisteredSeiTimecode.DISABLED)
-                                                    .repeatPps(H264RepeatPps.DISABLED)
-                                                    .adaptiveQuantization(H264AdaptiveQuantization.HIGH)
-                                                    .spatialAdaptiveQuantization(
-                                                            H264SpatialAdaptiveQuantization.ENABLED)
-                                                    .temporalAdaptiveQuantization(
-                                                            H264TemporalAdaptiveQuantization.ENABLED)
-                                                    .flickerAdaptiveQuantization(
-                                                            H264FlickerAdaptiveQuantization.DISABLED)
-                                                    .softness(0).interlaceMode(H264InterlaceMode.PROGRESSIVE).build())
-                                            .build())
-                                    .build())
-                    .audioDescriptions(AudioDescription.builder().audioTypeControl(AudioTypeControl.FOLLOW_INPUT)
-                            .languageCodeControl(AudioLanguageCodeControl.FOLLOW_INPUT)
-                            .codecSettings(AudioCodecSettings.builder().codec(AudioCodec.AAC).aacSettings(AacSettings
-                                    .builder().codecProfile(AacCodecProfile.LC).rateControlMode(AacRateControlMode.CBR)
-                                    .codingMode(AacCodingMode.CODING_MODE_2_0).sampleRate(44100).bitrate(96000)
-                                    .rawFormat(AacRawFormat.NONE).specification(AacSpecification.MPEG4)
-                                    .audioDescriptionBroadcasterMix(AacAudioDescriptionBroadcasterMix.NORMAL).build())
-                                    .build())
-                            .build())
-                    .build();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return output;
-    }
-    // snippet-end:[mediaconvert.java.createjob.create_output]
-
-    // snippet-start:[mediaconvert.java.createjob.main]
     /**
      * Create a MediaConvert job. Must supply MediaConvert access role ARN, and an
      * valid video input file via S3 URL.
      */
-
     public static void main(String[] args) {
-        final String USAGE = "\n" + "Usage:\n" + "    CreateJob --role-arn <role arn> --input-file <S3 input file>\n\n"
-                + "Where:\n" + "    --role-arn - the MediaConvert Role arn.\n"
-                + "    --input-file - the input file s3 URL.\n\n" + "Example:\n"
-                + "    CreateJob --role-arn arn:aws:iam::111111111111:role/MediaConvertAccessRole --input-file s3://mybucket/myvideo.mp4\n\n";
 
-        if (args.length < 4) {
+        final String USAGE = "\n" + "Usage:\n" + "    CreateJob <role arn> <S3 input file>\n\n"
+                + "Where:\n" + "    " +
+                "      --roleArn - the MediaConvert Role ARN.\n"
+                + "    --inputFile - the input file s3 URL.\n\n" ;
+
+
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        if ((args[0].equals("--role-arn") || args[0].equals("-r"))
-                && ((args[2].equals("--input-file") || args[2].equals("-i")))) {
-            mcRoleARN = args[1];
-            fileInput = args[3];
-        } else {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+        String mcRoleARN = args[0];
+        String fileInput = args[1];
 
-        String s3path = fileInput.substring(0, fileInput.lastIndexOf('/') + 1) + "javasdk/out/$fn$_$dt$/";
-        fileOutput = s3path + "index";
-        thumbsOutput = s3path + "thumbs/";
-        mp4Output = s3path + "mp4/";
+        Region region = Region.US_WEST_2;
+        MediaConvertClient mc = MediaConvertClient.builder()
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+       String id = createMediaJob(mc, mcRoleARN, fileInput);
+       System.out.println("MediaConvert job created. Job Id = " +id );
+    }
+
+    public static String createMediaJob(MediaConvertClient mc, String mcRoleARN, String fileInput) {
+
+
+        String s3path = fileInput.substring(0, fileInput.lastIndexOf('/') + 1) + "javasdk/out/";
+        String fileOutput = s3path + "index";
+        String thumbsOutput = s3path + "thumbs/";
+        String mp4Output = s3path + "mp4/";
 
         try {
             // snippet-start:[mediaconvert.java.createjob.getendpointurl]
-            MediaConvertClient mc = MediaConvertClient.builder().build();
             DescribeEndpointsResponse res = mc
                     .describeEndpoints(DescribeEndpointsRequest.builder().maxResults(20).build());
 
@@ -160,15 +83,17 @@ public class CreateJob {
                 System.out.println("Cannot find MediaConvert service endpoint URL!");
                 System.exit(1);
             }
-            endpointURL = res.endpoints().get(0).url();
+            String endpointURL = res.endpoints().get(0).url();
             System.out.println("MediaConvert service URL: " + endpointURL);
             System.out.println("MediaConvert role arn: " + mcRoleARN);
             System.out.println("MediaConvert input file: " + fileInput);
             System.out.println("MediaConvert output path: " + s3path);
             // snippet-end:[mediaconvert.java.createjob.getendpointurl]
 
-            MediaConvertClient emc = MediaConvertClient.builder().region(Region.US_WEST_2)
-                    .endpointOverride(URI.create(endpointURL)).build();
+            MediaConvertClient emc = MediaConvertClient.builder()
+                    .region(Region.US_WEST_2)
+                    .endpointOverride(URI.create(endpointURL))
+                    .build();
 
             // output group Preset HLS low profile
             Output hls_low = createOutput("hls_low", "_low", "_$dt$", 750000, 7, 1920, 1080, 640);
@@ -288,14 +213,101 @@ public class CreateJob {
             CreateJobRequest createJobRequest = CreateJobRequest.builder().role(mcRoleARN).settings(jobSettings)
                     .build();
 
-            CreateJobResponse createJobResponse = emc.createJob(createJobRequest);
-            System.out.println("MediaConvert job created. Job Id = " + createJobResponse.job().id());
+           CreateJobResponse createJobResponse = emc.createJob(createJobRequest);
+          return createJobResponse.job().id();
+
         } catch (SdkException e) {
             System.out.println(e.toString());
-        } finally {
+            System.exit(0);
         }
-        System.exit(0);
+        return "";
+
     }
+
+
+
+    // snippet-start:[mediaconvert.java.createjob.create_output]
+    private final static Output createOutput(String customName, String nameModifier, String segmentModifier,
+                                             int qvbrMaxBitrate, int qvbrQualityLevel, int originWidth, int originHeight, int targetWidth) {
+        int targetHeight = Math.round(originHeight * targetWidth / originWidth)
+                - (Math.round(originHeight * targetWidth / originWidth) % 4);
+        Output output = null;
+        try {
+            output = Output.builder().nameModifier(nameModifier).outputSettings(OutputSettings.builder()
+                    .hlsSettings(HlsSettings.builder().segmentModifier(segmentModifier).audioGroupId("program_audio")
+                            .iFrameOnlyManifest(HlsIFrameOnlyManifest.EXCLUDE).build())
+                    .build())
+                    .containerSettings(ContainerSettings.builder().container(ContainerType.M3_U8)
+                            .m3u8Settings(M3u8Settings.builder().audioFramesPerPes(4)
+                                    .pcrControl(M3u8PcrControl.PCR_EVERY_PES_PACKET).pmtPid(480).privateMetadataPid(503)
+                                    .programNumber(1).patInterval(0).pmtInterval(0).scte35Source(M3u8Scte35Source.NONE)
+                                    .scte35Pid(500).nielsenId3(M3u8NielsenId3.NONE).timedMetadata(TimedMetadata.NONE)
+                                    .timedMetadataPid(502).videoPid(481)
+                                    .audioPids(482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492).build())
+                            .build())
+                    .videoDescription(
+                            VideoDescription.builder().width(targetWidth).height(targetHeight)
+                                    .scalingBehavior(ScalingBehavior.DEFAULT).sharpness(50).antiAlias(AntiAlias.ENABLED)
+                                    .timecodeInsertion(VideoTimecodeInsertion.DISABLED)
+                                    .colorMetadata(ColorMetadata.INSERT).respondToAfd(RespondToAfd.NONE)
+                                    .afdSignaling(AfdSignaling.NONE).dropFrameTimecode(DropFrameTimecode.ENABLED)
+                                    .codecSettings(VideoCodecSettings.builder().codec(VideoCodec.H_264)
+                                            .h264Settings(H264Settings.builder()
+                                                    .rateControlMode(H264RateControlMode.QVBR)
+                                                    .parControl(H264ParControl.INITIALIZE_FROM_SOURCE)
+                                                    .qualityTuningLevel(H264QualityTuningLevel.SINGLE_PASS)
+                                                    .qvbrSettings(H264QvbrSettings.builder()
+                                                            .qvbrQualityLevel(qvbrQualityLevel).build())
+                                                    .codecLevel(H264CodecLevel.AUTO)
+                                                    .codecProfile((targetHeight > 720 && targetWidth > 1280)
+                                                            ? H264CodecProfile.HIGH
+                                                            : H264CodecProfile.MAIN)
+                                                    .maxBitrate(qvbrMaxBitrate)
+                                                    .framerateControl(H264FramerateControl.INITIALIZE_FROM_SOURCE)
+                                                    .gopSize(2.0).gopSizeUnits(H264GopSizeUnits.SECONDS)
+                                                    .numberBFramesBetweenReferenceFrames(2).gopClosedCadence(1)
+                                                    .gopBReference(H264GopBReference.DISABLED)
+                                                    .slowPal(H264SlowPal.DISABLED).syntax(H264Syntax.DEFAULT)
+                                                    .numberReferenceFrames(3).dynamicSubGop(H264DynamicSubGop.STATIC)
+                                                    .fieldEncoding(H264FieldEncoding.PAFF)
+                                                    .sceneChangeDetect(H264SceneChangeDetect.ENABLED).minIInterval(0)
+                                                    .telecine(H264Telecine.NONE)
+                                                    .framerateConversionAlgorithm(
+                                                            H264FramerateConversionAlgorithm.DUPLICATE_DROP)
+                                                    .entropyEncoding(H264EntropyEncoding.CABAC).slices(1)
+                                                    .unregisteredSeiTimecode(H264UnregisteredSeiTimecode.DISABLED)
+                                                    .repeatPps(H264RepeatPps.DISABLED)
+                                                    .adaptiveQuantization(H264AdaptiveQuantization.HIGH)
+                                                    .spatialAdaptiveQuantization(
+                                                            H264SpatialAdaptiveQuantization.ENABLED)
+                                                    .temporalAdaptiveQuantization(
+                                                            H264TemporalAdaptiveQuantization.ENABLED)
+                                                    .flickerAdaptiveQuantization(
+                                                            H264FlickerAdaptiveQuantization.DISABLED)
+                                                    .softness(0).interlaceMode(H264InterlaceMode.PROGRESSIVE).build())
+                                            .build())
+                                    .build())
+                    .audioDescriptions(AudioDescription.builder().audioTypeControl(AudioTypeControl.FOLLOW_INPUT)
+                            .languageCodeControl(AudioLanguageCodeControl.FOLLOW_INPUT)
+                            .codecSettings(AudioCodecSettings.builder().codec(AudioCodec.AAC).aacSettings(AacSettings
+                                    .builder().codecProfile(AacCodecProfile.LC).rateControlMode(AacRateControlMode.CBR)
+                                    .codingMode(AacCodingMode.CODING_MODE_2_0).sampleRate(44100).bitrate(96000)
+                                    .rawFormat(AacRawFormat.NONE).specification(AacSpecification.MPEG4)
+                                    .audioDescriptionBroadcasterMix(AacAudioDescriptionBroadcasterMix.NORMAL).build())
+                                    .build())
+                            .build())
+                    .build();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return output;
+    }
+    // snippet-end:[mediaconvert.java.createjob.create_output]
+
+    // snippet-start:[mediaconvert.java.createjob.main]
+
+
+
 }
 // snippet-end:[mediaconvert.java.createjob.main]
 // snippet-end:[mediaconvert.java.createjob.complete]
