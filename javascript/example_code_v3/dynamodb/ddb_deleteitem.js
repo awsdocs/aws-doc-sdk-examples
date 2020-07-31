@@ -15,10 +15,10 @@ Inputs (replace in code):
 - TABLE_NAME
 
 Running the code:
-node.js ddb_deleteitem.js
+node.js ddb_deletetable.js
 
 */
-// snippet-start:[dynamodb.JavaScript.item.deleteItemV3]
+// snippet-start:[dynamodb.JavaScript.item.deleteTableV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {
@@ -29,27 +29,22 @@ const {
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 
-// Set the parameters
-const params = {
-  TableName: "TABLE_NAME",
-  Key: {
-    CUSTOMER_ID: { N: "1" },
-    CUSTOMER_NAME: { S: "Richard Roe" },
-  },
-};
-
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(REGION);
 
 const run = async () => {
   try {
     const data = await dbclient.send(new DeleteItemCommand(params));
-    console.log("Success, item deleted", data);
+    console.log("Success, table deleted", data);
   } catch (err) {
-    console.log("Error", err);
+    if (err && err.code === 'ResourceNotFoundException') {
+      console.log("Error: Table not found");
+    } else if (err && err.code === 'ResourceInUseException') {
+      console.log("Error: Table in use");
+    }
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.item.deleteItemV3]
+// snippet-end:[dynamodb.JavaScript.item.deleteTableV3]
 //for unit tests only
 exports.run = run; //for unit tests only

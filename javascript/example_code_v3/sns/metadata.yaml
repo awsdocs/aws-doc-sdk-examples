@@ -46,4 +46,7 @@ files:
   - path: sns_unsubscribe.js
     services:
       - sns
+  - path: sns_confirmsubscription.js
+      services:
+        - sns
 ...

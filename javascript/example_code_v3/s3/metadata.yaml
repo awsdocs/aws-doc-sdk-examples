@@ -46,4 +46,7 @@ files:
   - path: s3_upload_putcommand.js
     services:
       - s3
+  - path: s3_list1000plusobjects
+      services:
+        - s3
 ...

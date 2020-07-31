@@ -13,7 +13,7 @@ multiple destinations and queue it for sending.
 
 Inputs (replace in code):
 - REGION
-- RECEIVER_ADDRESS
+- RECEIVER_ADDRESSES
 - SENDER_ADDRESS
 
 
@@ -36,7 +36,7 @@ var params = {
       Destination: {
         /* required */
         CcAddresses: [
-          "RECEIVER_ADDRESS", //RECEIVER_ADDRESS
+          "RECEIVER_ADDRESSES", //RECEIVER_ADDRESS
           /* more items */
         ],
         ToAddresses: [

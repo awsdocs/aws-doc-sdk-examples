@@ -41,9 +41,10 @@ import software.amazon.awssdk.utils.IoUtils;
 public class GetObjectPresignedUrl {
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("Please specify a bucket name and key name");
-            System.exit(1);
+      
+         if (args.length < 2) {
+           System.out.println("Please specify a bucket name and a key name that represents a text file");
+           System.exit(1);
         }
 
         String bucketName = args[0];

@@ -1,0 +1,26 @@
+--- 
+files:
+  - path: src/main/java/com/example/rds/CreateDBInstance.java
+    services:
+      - rds
+  - path: src/main/java/com/example/rds/CreateDBSnapshot.java
+    services:
+      - rds
+  - path: src/main/java/com/example/rds/DeleteDBInstance.java
+    services:
+      - rds
+  - path: src/main/java/com/example/rds/DescribeAccountAttributes.java
+    services:
+      - rds
+  - path: src/main/java/com/example/rds/DescribeDBInstances.java
+    services:
+      - rds
+  - path: src/main/java/com/example/rds/ModifyDBInstance.java
+    services:
+      - rds
+  - path: src/main/java/com/example/rds/RebootDBInstance.java
+    services:
+      - rds        
+  - path: src/test/java/AmazonRdsServiceIntegrationTest.java
+    services:
+      - rds

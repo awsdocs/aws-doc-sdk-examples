@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 # REST API with AWS Chalice example
 files:
   - path: chalice_examples/lambda_rest/app.py
@@ -19,4 +20,46 @@ files:
   - path: chalice_examples/lambda_rest/test/test_covid_data.py
     services:
       - dynamodb
+=======
+# AWS Lambda Boto3 usage examples
+files:
+  - path: boto_client_examples/api_gateway_rest.py
+    services:
+      - apigateway
+      - iam
+      - lambda
+  - path: boto_client_examples/lambda_basics.py
+    services:
+      - iam
+      - lambda
+  - path: boto_client_examples/lambda_handler_basic.py
+    services:
+      - lambda
+  - path: boto_client_examples/lambda_handler_rest.py
+    services:
+      - lambda
+  - path: boto_client_examples/lambda_handler_scheduled.py
+    services:
+      - lambda
+  - path: boto_client_examples/scheduled_lambda.py
+    services:
+      - events
+      - iam
+      - lambda
+      - logs
+  - path: boto_client_examples/test/conftest.py
+    services:
+      - lambda
+  - path: boto_client_examples/test/test_api_gateway_rest.py
+    services:
+      - apigateway
+      - lambda
+  - path: boto_client_examples/test/test_lambda_basics.py
+    services:
+      - lambda
+  - path: boto_client_examples/test/test_scheduled_lambda.py
+    services:
+      - events
+      - lambda
+>>>>>>> upstream/master
 ...

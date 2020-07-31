@@ -38,7 +38,13 @@ Define these values to successfully run the JUnit tests:
 
 - **bucketName** - The name of the bucket to use. For example, **buckettestfeb7**.
 
+- **presignBucket** - The name of the bucket to use in presign operations. For example, **bucketpresign**.
+
 - **objectKey** – The name of the object to use. For example, **book.pdf**.
+
+- **presignKey** – The name of the text object to use in the presign tests. For example, **note.txt**.
+
+- **path** – The path name used in the **GetObjectData** test. For example **/AWS/AdobePDF.pdf**.
 
 - **objectPath** – The path where the object is located. For example, **/AWS/book2.pdf**.
 
@@ -89,7 +95,7 @@ You will see output from the JUnit tests, as shown here.
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS

@@ -16,9 +16,9 @@ AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
 Finding code examples
 =====================
 
-The code examples are organized by programming language. For example, all of the code examples for the
+The code examples are organized by programming language. For example, all of the code examples for the V1 version of the
 `AWS SDK for Java Developer Guide <https://www.github.com/awsdocs/aws-java-developer-guide>`_ are
-kept in the `java <java>`_ directory.
+kept in the `java <java>`_ directory (the V2 versions are in the `java2 <java2>`_ directory).
 
 You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us
 know what you think about it).
