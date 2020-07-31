@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific MediaConvert job.]
+//snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
@@ -41,7 +41,7 @@ public class GetJob {
         final String USAGE = "\n" +
                 "GetJob <jobId> \n\n" +
                 "Where:\n" +
-                "  jobId - the job id value.\n\n" ;
+                "  jobId - The job ID value.\n\n" ;
 
         if (args.length < 1) {
               System.out.println(USAGE);
