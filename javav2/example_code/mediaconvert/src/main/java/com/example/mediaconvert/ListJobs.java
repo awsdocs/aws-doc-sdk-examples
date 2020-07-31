@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListJobs.java demonstrates how to get information about all completed MediaConvert job.]
+//snippet-sourcedescription:[ListJobs.java demonstrates how to get information about all completed AWS Elemental MediaConvert jobs.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
@@ -78,7 +78,7 @@ public class ListJobs {
             List<Job> jobs = jobsResponse.jobs();
 
             for (Job job: jobs) {
-                System.out.println("The JOB ARN is : "+job.arn());
+                System.out.println("The ARN of the job is : "+job.arn());
             }
         } catch (SdkException e) {
             System.out.println(e.toString());
