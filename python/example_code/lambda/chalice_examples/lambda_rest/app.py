@@ -5,10 +5,10 @@
 Purpose
 
 Shows how to implement a REST API using AWS Chalice. This REST API stores and
-retrieves fictional data representing COVID-19 cases in US states.
+retrieves fictional data representing COVID-19 cases in the United States.
 
-Actual COVID-19 data can be found in Amazon's public data lake:
-    https://aws.amazon.com/covid-19-data-lake/
+You can find actual COVID-19 data in Amazon's public data lake.
+    * https://aws.amazon.com/covid-19-data-lake/
 """
 
 import datetime
