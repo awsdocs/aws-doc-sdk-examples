@@ -79,29 +79,7 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
 
-<<<<<<< HEAD
-### [AWS Chalice and AWS Lambda REST API example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/chalice_examples/lambda_rest/README.md)
-
-#### Purpose
-
-Shows how to use AWS Chalice together with the AWS SDK for Python (Boto3) to 
-create a serverless REST API that uses Amazon API Gateway, AWS Lambda, and 
-Amazon DynamoDB. The REST API simulates a system that tracks daily cases
-of COVID-19 in US states, using fictional data. Learn how to:
-
-* Use AWS Chalice to define routes in AWS Lambda functions that
- are called to handle REST requests that come through Amazon API Gateway.
-* Use AWS Lambda functions to retrieve and store data in an Amazon DynamoDB 
-table to serve REST requests.
-* Define table structure and security role resources in an AWS CloudFormation template.
-* Use AWS Chalice and AWS CloudFormation to package and deploy all necessary resources.
-* Use AWS CloudFormation to clean up all created resources.
-
-This example brings together some of the same information that can be found in the
-tutorials in the 
-[AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
-=======
-### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/README.md)
+### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/boto_client_examples/README.md)
 
 #### Purpose
 
@@ -120,7 +98,27 @@ These examples show how to use the low-level Boto3 client APIs to accomplish tas
 like creating a REST API and setting an event schedule. You can also use
 [AWS Chalice](https://github.com/aws/chalice)
 to achieve similar results more easily and with additional features. 
->>>>>>> upstream/master
+
+### [AWS Chalice and AWS Lambda REST API example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/chalice_examples/lambda_rest/README.md)
+
+#### Purpose
+
+Shows how to use AWS Chalice with the AWS SDK for Python (Boto3) to 
+create a serverless REST API that uses Amazon API Gateway, AWS Lambda, and 
+Amazon DynamoDB. The REST API simulates a system that tracks daily cases
+of COVID-19 in the United States, using fictional data. Learn how to:
+
+* Use AWS Chalice to define routes in AWS Lambda functions that
+ are called to handle REST requests that come through Amazon API Gateway.
+* Use AWS Lambda functions to retrieve and store data in an Amazon DynamoDB 
+table to serve REST requests.
+* Define table structure and security role resources in an AWS CloudFormation template.
+* Use AWS Chalice and AWS CloudFormation to package and deploy all necessary resources.
+* Use AWS CloudFormation to clean up all created resources.
+
+This example brings together some of the same information you can find in the
+tutorials in the 
+[AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
 
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
