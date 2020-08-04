@@ -47,6 +47,6 @@ files:
     services:
       - s3
   - path: s3_list1000plusobjects
-      services:
-        - s3
+    services:
+      - s3
 ...
