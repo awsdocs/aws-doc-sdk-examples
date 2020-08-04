@@ -28,7 +28,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
