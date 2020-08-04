@@ -47,6 +47,6 @@ files:
     services:
       - sns
   - path: sns_confirmsubscription.js
-      services:
-        - sns
+    services:
+      - sns
 ...

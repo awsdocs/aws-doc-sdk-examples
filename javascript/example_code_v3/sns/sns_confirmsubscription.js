@@ -13,7 +13,7 @@ If the token is valid, the action creates a new subscription and returns its Ama
 For more information on subscription confirmations, see https://docs.aws.amazon.com/sns/latest/api/API_ConfirmSubscription.html.
 
 Inputs (replace in code):
-- TOKEN: token sent to an endpoint during subscribe action. For example, for an email endpoint, the Token is in the URL of the Confirm Subscription page sent by email. For instance 'abc123' is the token in the URL
+- TOKEN: token sent to an endpoint during subscribe action. For example, for an email endpoint, the token is in the URL of the Confirm Subscription page sent by email. For example, 'abc123' is the token in the URL
 https://sns.us-east-1.amazonaws.com/confirmation.html?TopicArn=arn:aws:sns:us-east-1:xxxxx:my-aws-topic&Token=abc123&Endpoint=address@email.com/
 - TOPIC_ARN
 - AuthenticateOnUnsubscribe: either 'true' or 'false'

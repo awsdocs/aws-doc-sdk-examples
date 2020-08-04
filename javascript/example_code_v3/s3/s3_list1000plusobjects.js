@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_list1000plusObjects.js demonstrates how more than 1000 objects in an Amazon S3 bucket.
+s3_list1000plusObjects.js demonstrates how to list more than 1000 objects in an Amazon S3 bucket.
 
 Inputs (replace in code):
 - REGION
@@ -22,7 +22,7 @@ node s3_listobjects.js
 // Import required AWS SDK clients and commands for Node.js
 const { S3 } = require("@aws-sdk/client-s3");
 
-// Set the AWS region
+// Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create the parameters for the bucket
@@ -32,24 +32,24 @@ const bucketParams = { Bucket: "BUCKET_NAME" };
 const s3 = new S3(REGION);
 
 async function run() {
-    // declare truncated as a flag that we will base our while loop on
+    // Declare truncated as a flag that we will base our while loop on
     var truncated = true;
-    // declare a variable that we will assign the key of the last element in the response to
+    // Declare a variable that we will assign the key of the last element in the response to
     var pageMarker;
-    //while loop that runs until response.truncated is false
+    // While loop that runs until response.truncated is false
     while(truncated) {
         try {
             const response = await s3.listObjects(bucketParams);
             response.Contents.forEach(item => {
                 console.log(item.Key);
             });
-            //Log the Key of every item in the response to standard output
+            // Log the Key of every item in the response to standard output
             truncated = response.IsTruncated;
-            // if 'truncated' is true, assign the key of the final element in the response to our variable 'pageMarker'
+            // If 'truncated' is true, assign the key of the final element in the response to our variable 'pageMarker'
             if (truncated) {
                 pageMarker = response.Contents.slice(-1)[0].Key;
             }
-            //At end of the list, response.truncated is false and our function exits the while loop.
+            // At end of the list, response.truncated is false and our function exits the while loop.
         } catch(err) {
             console.log('Error', err)
         }
