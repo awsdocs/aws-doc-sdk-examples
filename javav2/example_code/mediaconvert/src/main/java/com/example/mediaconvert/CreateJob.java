@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateJob.java demonstrates how to create AWS Elemental MediaConvert jobs.]
+//snippet-sourcedescription:[CreateJob.java demonstrates how to create MediaConvert jobs.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
@@ -27,26 +27,115 @@ package com.example.mediaconvert;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
-import software.amazon.awssdk.services.mediaconvert.model.*;
+import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
+import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
+import software.amazon.awssdk.services.mediaconvert.model.Output;
+import software.amazon.awssdk.services.mediaconvert.model.MediaConvertException;
+import software.amazon.awssdk.services.mediaconvert.model.OutputGroup;
+import software.amazon.awssdk.services.mediaconvert.model.OutputGroupSettings;
+import software.amazon.awssdk.services.mediaconvert.model.HlsGroupSettings;
+import software.amazon.awssdk.services.mediaconvert.model.OutputGroupType;
+import software.amazon.awssdk.services.mediaconvert.model.HlsDirectoryStructure;
+import software.amazon.awssdk.services.mediaconvert.model.HlsManifestDurationFormat;
+import software.amazon.awssdk.services.mediaconvert.model.HlsStreamInfResolution;
+import software.amazon.awssdk.services.mediaconvert.model.HlsClientCache;
+import software.amazon.awssdk.services.mediaconvert.model.HlsCaptionLanguageSetting;
+import software.amazon.awssdk.services.mediaconvert.model.HlsManifestCompression;
+import software.amazon.awssdk.services.mediaconvert.model.HlsCodecSpecification;
+import software.amazon.awssdk.services.mediaconvert.model.HlsOutputSelection;
+import software.amazon.awssdk.services.mediaconvert.model.HlsProgramDateTime;
+import software.amazon.awssdk.services.mediaconvert.model.HlsTimedMetadataId3Frame;
+import software.amazon.awssdk.services.mediaconvert.model.HlsSegmentControl;
+import software.amazon.awssdk.services.mediaconvert.model.FileGroupSettings;
+import software.amazon.awssdk.services.mediaconvert.model.ContainerSettings;
+import software.amazon.awssdk.services.mediaconvert.model.VideoDescription;
+import software.amazon.awssdk.services.mediaconvert.model.ContainerType;
+import software.amazon.awssdk.services.mediaconvert.model.ScalingBehavior;
+import software.amazon.awssdk.services.mediaconvert.model.VideoTimecodeInsertion;
+import software.amazon.awssdk.services.mediaconvert.model.ColorMetadata;
+import software.amazon.awssdk.services.mediaconvert.model.RespondToAfd;
+import software.amazon.awssdk.services.mediaconvert.model.AfdSignaling;
+import software.amazon.awssdk.services.mediaconvert.model.DropFrameTimecode;
+import software.amazon.awssdk.services.mediaconvert.model.VideoCodecSettings;
+import software.amazon.awssdk.services.mediaconvert.model.H264Settings;
+import software.amazon.awssdk.services.mediaconvert.model.VideoCodec;
+import software.amazon.awssdk.services.mediaconvert.model.CreateJobRequest;
+import software.amazon.awssdk.services.mediaconvert.model.H264RateControlMode;
+import software.amazon.awssdk.services.mediaconvert.model.H264QualityTuningLevel;
+import software.amazon.awssdk.services.mediaconvert.model.H264SceneChangeDetect;
+import software.amazon.awssdk.services.mediaconvert.model.AacAudioDescriptionBroadcasterMix;
+import software.amazon.awssdk.services.mediaconvert.model.H264ParControl;
+import software.amazon.awssdk.services.mediaconvert.model.AacRawFormat;
+import software.amazon.awssdk.services.mediaconvert.model.H264QvbrSettings;
+import software.amazon.awssdk.services.mediaconvert.model.H264FramerateConversionAlgorithm;
+import software.amazon.awssdk.services.mediaconvert.model.H264CodecLevel;
+import software.amazon.awssdk.services.mediaconvert.model.H264FramerateControl;
+import software.amazon.awssdk.services.mediaconvert.model.AacCodingMode;
+import software.amazon.awssdk.services.mediaconvert.model.H264Telecine;
+import software.amazon.awssdk.services.mediaconvert.model.H264FlickerAdaptiveQuantization;
+import software.amazon.awssdk.services.mediaconvert.model.H264GopSizeUnits;
+import software.amazon.awssdk.services.mediaconvert.model.H264CodecProfile;
+import software.amazon.awssdk.services.mediaconvert.model.H264GopBReference;
+import software.amazon.awssdk.services.mediaconvert.model.AudioTypeControl;
+import software.amazon.awssdk.services.mediaconvert.model.AntiAlias;
+import software.amazon.awssdk.services.mediaconvert.model.H264SlowPal;
+import software.amazon.awssdk.services.mediaconvert.model.H264SpatialAdaptiveQuantization;
+import software.amazon.awssdk.services.mediaconvert.model.H264Syntax;
+import software.amazon.awssdk.services.mediaconvert.model.M3u8Settings;
+import software.amazon.awssdk.services.mediaconvert.model.InputDenoiseFilter;
+import software.amazon.awssdk.services.mediaconvert.model.H264TemporalAdaptiveQuantization;
+import software.amazon.awssdk.services.mediaconvert.model.CreateJobResponse;
+import software.amazon.awssdk.services.mediaconvert.model.H264UnregisteredSeiTimecode;
+import software.amazon.awssdk.services.mediaconvert.model.H264EntropyEncoding;
+import software.amazon.awssdk.services.mediaconvert.model.InputPsiControl;
+import software.amazon.awssdk.services.mediaconvert.model.ColorSpace;
+import software.amazon.awssdk.services.mediaconvert.model.H264RepeatPps;
+import software.amazon.awssdk.services.mediaconvert.model.H264FieldEncoding;
+import software.amazon.awssdk.services.mediaconvert.model.M3u8NielsenId3;
+import software.amazon.awssdk.services.mediaconvert.model.InputDeblockFilter;
+import software.amazon.awssdk.services.mediaconvert.model.InputRotate;
+import software.amazon.awssdk.services.mediaconvert.model.H264DynamicSubGop;
+import software.amazon.awssdk.services.mediaconvert.model.TimedMetadata;
+import software.amazon.awssdk.services.mediaconvert.model.JobSettings;
+import software.amazon.awssdk.services.mediaconvert.model.AudioDefaultSelection;
+import software.amazon.awssdk.services.mediaconvert.model.VideoSelector;
+import software.amazon.awssdk.services.mediaconvert.model.AacSpecification;
+import software.amazon.awssdk.services.mediaconvert.model.Input;
+import software.amazon.awssdk.services.mediaconvert.model.OutputSettings;
+import software.amazon.awssdk.services.mediaconvert.model.H264AdaptiveQuantization;
+import software.amazon.awssdk.services.mediaconvert.model.AudioLanguageCodeControl;
+import software.amazon.awssdk.services.mediaconvert.model.InputFilterEnable;
+import software.amazon.awssdk.services.mediaconvert.model.AudioDescription;
+import software.amazon.awssdk.services.mediaconvert.model.H264InterlaceMode;
+import software.amazon.awssdk.services.mediaconvert.model.AudioCodecSettings;
+import software.amazon.awssdk.services.mediaconvert.model.AacSettings;
+import software.amazon.awssdk.services.mediaconvert.model.AudioCodec;
+import software.amazon.awssdk.services.mediaconvert.model.AacRateControlMode;
+import software.amazon.awssdk.services.mediaconvert.model.AacCodecProfile;
+import software.amazon.awssdk.services.mediaconvert.model.HlsIFrameOnlyManifest;
+import software.amazon.awssdk.services.mediaconvert.model.FrameCaptureSettings;
+import software.amazon.awssdk.services.mediaconvert.model.AudioSelector;
+import software.amazon.awssdk.services.mediaconvert.model.M3u8PcrControl;
+import software.amazon.awssdk.services.mediaconvert.model.InputTimecodeSource;
+import software.amazon.awssdk.services.mediaconvert.model.HlsSettings;
+import software.amazon.awssdk.services.mediaconvert.model.M3u8Scte35Source;
 // snippet-end:[mediaconvert.java.createjob.import]
 
 public class CreateJob {
 
     /**
-     * Create a MediaConvert job. Must supply MediaConvert access role Amazon Resource Name (ARN), and a
-     * valid video input file via Amazon S3 URL.
+     * Create a MediaConvert job. Must supply MediaConvert access role ARN, and an
+     * valid video input file via a S3 URL.
      */
     public static void main(String[] args) {
 
         final String USAGE = "\n" + "Usage:\n" + "    CreateJob <role arn> <S3 input file>\n\n"
                 + "Where:\n" + "    " +
-                "      --roleArn - The MediaConvert role ARN.\n"
-                + "    --inputFile - The input file S3 URL.\n\n" ;
-
+                "      --roleArn - the MediaConvert Role ARN.\n"
+                + "    --inputFile - the input file s3 URL.\n\n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -59,15 +148,13 @@ public class CreateJob {
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
        String id = createMediaJob(mc, mcRoleARN, fileInput);
-       System.out.println("MediaConvert job created. Job ID = " +id );
+       System.out.println("MediaConvert job created. Job Id = " +id );
     }
 
     public static String createMediaJob(MediaConvertClient mc, String mcRoleARN, String fileInput) {
-
 
         String s3path = fileInput.substring(0, fileInput.lastIndexOf('/') + 1) + "javasdk/out/";
         String fileOutput = s3path + "index";
@@ -85,7 +172,7 @@ public class CreateJob {
             }
             String endpointURL = res.endpoints().get(0).url();
             System.out.println("MediaConvert service URL: " + endpointURL);
-            System.out.println("MediaConvert role ARN: " + mcRoleARN);
+            System.out.println("MediaConvert role arn: " + mcRoleARN);
             System.out.println("MediaConvert input file: " + fileInput);
             System.out.println("MediaConvert output path: " + s3path);
             // snippet-end:[mediaconvert.java.createjob.getendpointurl]
@@ -95,12 +182,12 @@ public class CreateJob {
                     .endpointOverride(URI.create(endpointURL))
                     .build();
 
-            // Output group Preset HLS low profile
-            Output hls_low = createOutput("hls_low", "_low", "_$dt$", 750000, 7, 1920, 1080, 640);
-            // Output group Preset HLS media profile
-            Output hls_medium = createOutput("hls_medium", "_medium", "_$dt$", 1200000, 7, 1920, 1080, 1280);
-            // Output group Preset HLS high profole
-            Output hls_high = createOutput("hls_high", "_high", "_$dt$", 3500000, 8, 1920, 1080, 1920);
+            // output group Preset HLS low profile
+            Output hlsLow = createOutput("hls_low", "_low", "_$dt$", 750000, 7, 1920, 1080, 640);
+            // output group Preset HLS media profile
+            Output hlsMedium = createOutput("hls_medium", "_medium", "_$dt$", 1200000, 7, 1920, 1080, 1280);
+            // output group Preset HLS high profole
+            Output hlsHigh = createOutput("hls_high", "_high", "_$dt$", 3500000, 8, 1920, 1080, 1920);
             // snippet-start:[mediaconvert.java.createjob.create_hls_output]
             OutputGroup appleHLS = OutputGroup.builder().name("Apple HLS").customName("Example")
                     .outputGroupSettings(OutputGroupSettings.builder().type(OutputGroupType.HLS_GROUP_SETTINGS)
@@ -118,7 +205,7 @@ public class CreateJob {
                                     .destination(fileOutput).segmentControl(HlsSegmentControl.SEGMENTED_FILES)
                                     .minFinalSegmentLength((double) 0).segmentLength(4).minSegmentLength(0).build())
                             .build())
-                    .outputs(hls_low, hls_medium, hls_high).build();
+                    .outputs(hlsLow, hlsMedium, hlsHigh).build();
             // snippet-end:[mediaconvert.java.createjob.create_hls_output]
             // snippet-start:[mediaconvert.java.createjob.create_file_output]
             OutputGroup fileMp4 = OutputGroup.builder().name("File Group").customName("mp4")
@@ -216,19 +303,23 @@ public class CreateJob {
            CreateJobResponse createJobResponse = emc.createJob(createJobRequest);
           return createJobResponse.job().id();
 
-        } catch (SdkException e) {
+        } catch (MediaConvertException e) {
             System.out.println(e.toString());
             System.exit(0);
         }
         return "";
-
     }
 
-
-
     // snippet-start:[mediaconvert.java.createjob.create_output]
-    private final static Output createOutput(String customName, String nameModifier, String segmentModifier,
-                                             int qvbrMaxBitrate, int qvbrQualityLevel, int originWidth, int originHeight, int targetWidth) {
+    private final static Output createOutput(String customName,
+                                             String nameModifier,
+                                             String segmentModifier,
+                                             int qvbrMaxBitrate,
+                                             int qvbrQualityLevel,
+                                             int originWidth,
+                                             int originHeight,
+                                             int targetWidth) {
+
         int targetHeight = Math.round(originHeight * targetWidth / originWidth)
                 - (Math.round(originHeight * targetWidth / originWidth) % 4);
         Output output = null;
@@ -297,17 +388,15 @@ public class CreateJob {
                                     .build())
                             .build())
                     .build();
-        } catch (Exception e) {
+        } catch (MediaConvertException e) {
             System.out.println(e.toString());
+            System.exit(0);
         }
         return output;
     }
     // snippet-end:[mediaconvert.java.createjob.create_output]
 
     // snippet-start:[mediaconvert.java.createjob.main]
-
-
-
 }
 // snippet-end:[mediaconvert.java.createjob.main]
 // snippet-end:[mediaconvert.java.createjob.complete]
