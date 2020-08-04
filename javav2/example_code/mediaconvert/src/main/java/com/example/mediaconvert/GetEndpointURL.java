@@ -1,14 +1,13 @@
-
-//snippet-sourcedescription:[getEndpointURL.java demonstrates how to get mediaconvert account endpoint URL.]
+//snippet-sourcedescription:[getEndpointURL.java demonstrates how to get an AWS Elemental MediaConvert account endpoint URL.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[mediaconvert]
+//snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[azhchris]
+//snippet-sourcedate:[7/30/2020]
+//snippet-sourceauthor:[smacdon - AWS]
 // snippet-start:[mediaconvert.java.getendpointurl.complete]
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,13 +37,23 @@ import software.amazon.awssdk.services.mediaconvert.model.Endpoint;
  */
 
 // snippet-start:[mediaconvert.java.getendpointurl.main]
-public class getEndpointURL {
+public class GetEndpointURL {
     public static void main(String[] args) {
         try {
             // snippet-start:[mediaconvert.java.getendpointurl.build_mediaconvertclient]
             MediaConvertClient mc = MediaConvertClient.builder().build();
             // snippet-end:[mediaconvert.java.getendpointurl.build_mediaconvertclient]
-            // snippet-start:[mediaconvert.java.getendpointurl.retrieve_endpoints]
+
+            getEndpoint(mc) ;
+
+        } catch (SdkException e) {
+            System.out.println(e.toString());
+        }
+
+    }
+    // snippet-start:[mediaconvert.java.getendpointurl.retrieve_endpoints]
+    public static void getEndpoint(MediaConvertClient mc) {
+
             DescribeEndpointsResponse res = mc
                     .describeEndpoints(DescribeEndpointsRequest.builder().maxResults(20).build());
 
@@ -53,11 +62,7 @@ public class getEndpointURL {
                 System.out.println(endpoints.next().url());
             }
             // snippet-end:[mediaconvert.java.getendpointurl.retrieve_endpoints]
-        } catch (SdkException e) {
-            System.out.println(e.toString());
-        } finally {
-        }
-    }
+     }
 }
 // snippet-end:[mediaconvert.java.getendpointurl.main]
 // snippet-end:[mediaconvert.java.getendpointurl.complete]
