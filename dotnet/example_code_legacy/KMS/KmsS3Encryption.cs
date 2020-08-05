@@ -24,11 +24,13 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using Amazon;
 using Amazon.KeyManagementService;
 using Amazon.KeyManagementService.Model;
-using Amazon.S3.Encryption;
+using Amazon.Extensions.S3.Encryption;
+using Amazon.Extensions.S3.Encryption.Primitives;
 using Amazon.S3.Model;
 
 namespace KmsS3Encryption
@@ -51,7 +53,9 @@ namespace KmsS3Encryption
 
       // Create a customer master key (CMK) and store the result
       var createKeyResponse = await MyCreateKeyAsync(regionName);
-      var kmsEncryptionMaterials = new EncryptionMaterials(createKeyResponse.KeyMetadata.KeyId);
+      var kmsEncryptionContext = new Dictionary<string, string>();
+      var kmsEncryptionMaterials = new EncryptionMaterialsV2(
+        createKeyResponse.KeyMetadata.KeyId, KmsType.KmsContext, kmsEncryptionContext);
 
       // Create the object in the bucket, then display the content of the object
       var putObjectResponse =
@@ -63,6 +67,7 @@ namespace KmsS3Encryption
       Console.ReadKey();
     }
 
+
     //
     // Method to create a customer master key
     static async Task<CreateKeyResponse> MyCreateKeyAsync(string regionName)
@@ -72,13 +77,14 @@ namespace KmsS3Encryption
       return await kmsClient.CreateKeyAsync(new CreateKeyRequest());
     }
 
+
     //
     // Method to create and encrypt an object in an S3 bucket
     static async Task<GetObjectResponse> CreateAndRetrieveObjectAsync(
-      EncryptionMaterials materials, string bucketName, string keyName)
+      EncryptionMaterialsV2 materials, string bucketName, string keyName)
     {
       // CryptoStorageMode.ObjectMetadata is required for KMS EncryptionMaterials
-      var config = new AmazonS3CryptoConfiguration()
+      var config = new AmazonS3CryptoConfigurationV2(SecurityProfile.V2AndLegacy)
       {
         StorageMode = CryptoStorageMode.ObjectMetadata
       };
