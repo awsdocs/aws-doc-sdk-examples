@@ -59,7 +59,7 @@ IGNORE_FILES = {'AssemblyInfo.cs', 'metadata.yaml', '.travis.yml'}
 DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
 
 # whitelist of 20- or 40-character strings to allow
-ALLOW_LIST = {    
+ALLOW_LIST = {
     'AKIAIOSFODNN7EXAMPLE',
     'AppStreamUsageReportsCFNGlueAthenaAccess',
     'aws/acm/model/DescribeCertificateRequest',
@@ -84,6 +84,8 @@ ALLOW_LIST = {
     'aws/neptune/model/CreateDBClusterRequest',
     'aws/neptune/model/DeleteDBClusterRequest',
     'aws/neptune/model/ModifyDBClusterRequest',
+    'aws/kms/model/ScheduleKeyDeletionRequest',
+    'KMSWithContextEncryptionMaterialsExample',
     'CertificateTransparencyLoggingPreference',
     'ChangeMessageVisibilityBatchRequestEntry',
     'com/greengrass/latest/developerguide/lra',
