@@ -30,7 +30,8 @@ IGNORE_FOLDERS = {
     '.pytest_cache',
     'aws_service',
     'scheduled_lambda',
-    'websocket'
+    'websocket',
+    'ses_replicateidentities'
 }
 
 README_HEADER = \
