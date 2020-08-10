@@ -47,9 +47,9 @@ public class WorkflowWorker {
                 "Usage:\n" +
                 "    WorkflowWorker <domain><taskList><activity><activityVersion> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (ie, mydomain) \n" +
-                "    taskList - The taskList to use (ie, HelloTasklist)  \n" +
-                "    activity - The activity to use (ie, GrayscaleTransform)  \n" +
+                "    domain - The domain to use (i.e., mydomain) \n" +
+                "    taskList - The taskList to use (i.e., HelloTasklist)  \n" +
+                "    activity - The activity to use (i.e., GrayscaleTransform)  \n" +
                 "    activityVersion - The activity version\n";
 
         if (args.length < 4) {
@@ -79,7 +79,7 @@ public class WorkflowWorker {
                         .taskList(TaskList.builder().name(taskList).build())
                         .build();
 
-           System.out.println("Polling for a decision task from the tasklist '" +
+           System.out.println("Polling for a decision task from the task list '" +
                             taskList + "' in the domain '" +
                             domain + "'.");
 
@@ -174,8 +174,8 @@ public class WorkflowWorker {
                                 .decisionType(DecisionType.SCHEDULE_ACTIVITY_TASK)
                                 .scheduleActivityTaskDecisionAttributes(attrs).build());
             } else {
-                // an instance of HelloActivity is already scheduled or running. Do nothing, another
-                // task will be scheduled once the activity completes, fails or times out
+                // An instance of HelloActivity is already scheduled or running. Do nothing, another
+                // task will be scheduled after the activity completes, fails, or times out.
             }
         }
 

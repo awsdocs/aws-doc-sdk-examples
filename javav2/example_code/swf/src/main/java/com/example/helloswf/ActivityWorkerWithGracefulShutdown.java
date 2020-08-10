@@ -45,8 +45,8 @@ public class ActivityWorkerWithGracefulShutdown {
                 "Usage:\n" +
                 "    ActivityWorkerWithGracefulShutdown <domain><taskList> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (ie, mydomain) \n" +
-                "    taskList - The taskList to use (ie, HelloTasklist)  \n" ;
+                "    domain - The domain to use (i.e., mydomain) \n" +
+                "    taskList - The taskList to use (i.e., HelloTasklist)  \n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -80,7 +80,7 @@ public class ActivityWorkerWithGracefulShutdown {
 
     public static void pollAndExecute(SwfClient swf, String domain, String taskList ) {
         while (!terminate) {
-            System.out.println("Polling for an activity task from the tasklist '"
+            System.out.println("Polling for an activity task from the task list '"
                     + taskList + "' in the domain '" +
                     domain + "'.");
 

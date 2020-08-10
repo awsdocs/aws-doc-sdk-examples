@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[WorkflowStarter.java demonstrates how to how to start a workflow.]
+//snippet-sourcedescription:[WorkflowStarter.java demonstrates how to start a workflow.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Workflow Service]
@@ -40,9 +40,9 @@ public class WorkflowStarter {
                 "Usage:\n" +
                 "    WorkflowStarter <domain><workflowInput><workflow><workflowVersion> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (ie, mydomain) \n" +
-                "    workflowInput - The input to the workflow (ie, ProcessFile)  \n" +
-                "    workflow - the name of the workflow (ie, myworkflow)\n" +
+                "    domain - The domain to use (i.e., mydomain) \n" +
+                "    workflowInput - The input to the workflow (i.e., ProcessFile)  \n" +
+                "    workflow - the name of the workflow (i.e., myworkflow)\n" +
                 "    workflowVersion - The workflow version \n" ;
 
         if (args.length < 4) {
@@ -88,7 +88,7 @@ public class WorkflowStarter {
                     .executionStartToCloseTimeout("90")
                     .build());
 
-            System.out.println("Workflow execution started with the run id '" +
+            System.out.println("Workflow execution started with the run ID '" +
                     run.runId() + "'.");
 
         } catch (SwfException e){
