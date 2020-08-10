@@ -1,14 +1,12 @@
-# Amazon Redshift Java code examples
+# Amazon Simple Workflow Service  Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon Redshift.
+This README discusses how to run and test the Java code examples for  Amazon Simple Workflow Service.
 
-## Running the Amazon Redshift Java files
+## Running the Amazon Simple Workflow Service  Java files
 
 **IMPORTANT**
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
-
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a cluster by running the **DeleteCluster** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
 To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
 
@@ -18,12 +16,12 @@ Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extr
 
 For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
 
-	java com.example.redshift.ListEvents
+	java com.example.helloswf.WorkflowStarter [params]
 
 
- ## Testing the Amazon Redshift Java files
+ ## Testing the Amazon Simple Workflow Service Java files
 
-You can test the Java code examples for Amazon Redshift by running a test file named **AmazonRedshiftServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Simple Workflow by running a test file named **AmazonSimpleWorkflowTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -32,14 +30,16 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Redshift JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Simple Workflow JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **clusterId** - The ID value for a cluster.   
-- **masterUsername** - The master user name used in the **CreateCluster** test. 
-- **masterUserPassword** - A password for the master user name.
-- **eventSourceType** - The event type (ie, cluster) used in the **ListEvents** test.
+- **domain** - The domain to use.   
+- **taskList** - The taskList to use. 
+- **workflow** - The name of the workflow.
+- **workflowVersion** - The workflow version.
+- **activity** - The activity to use (ie, GrayscaleTransform).
+- **activityVersion** - The activity version.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -51,14 +51,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonRedshiftServiceIntegrationTest
+	[INFO] Running AmazonSimpleWorkflowTest
 	Test 1 passed
 	Test 2 passed
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
