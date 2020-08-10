@@ -10,7 +10,7 @@
 // snippet-keyword:[PutObjectAsync]
 // snippet-keyword:[GetObjectAsync]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-08-06]
+// snippet-sourcedate:[2020-08-10]
 // snippet-sourceauthor:[AWS-NETSDK]
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,7 +18,7 @@
 */
 //
 // ABOUT THIS .NET EXAMPLE: This code example is part of the AWS SDK for .NET Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/kms-keys-s3-encryption.html
+// https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/kms-keys-s3-encryption.html
 //
 // snippet-start:[kms.dotnet.createkeyasync.complete]
 using System;
