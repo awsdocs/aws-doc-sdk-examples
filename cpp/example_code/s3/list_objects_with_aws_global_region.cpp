@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[This example demonstrates how to use the AWS SDK for C++, starting with SDK version 1.8, to specify aws-global as the AWS Region during Amazon S3 API client configuration in order to make requests to S3 across AWS Regions.]
+//snippet-sourcedescription:[This example demonstrates how to use the AWS SDK for C++, starting with SDK version 1.8, to specify aws-global as the AWS Region during Amazon S3 API client configuration to make requests to S3 across AWS Regions.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
