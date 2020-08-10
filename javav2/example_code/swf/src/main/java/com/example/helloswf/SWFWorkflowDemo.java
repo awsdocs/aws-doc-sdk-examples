@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SWFWorkflowDemo.java demonstrates how to register a domain, activity type and a workflow type.]
+//snippet-sourcedescription:[SWFWorkflowDemo.java demonstrates how to register a domain, an activity type, and a workflow type.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Workflow Service]
@@ -42,11 +42,11 @@ public class SWFWorkflowDemo {
                 "Usage:\n" +
                 "    HelloTypes <domain><taskList><workflow><workflowVersion><activity><activityVersion> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (ie, mydomain) \n" +
-                "    taskList - The taskList to use (ie, HelloTasklist)  \n" +
-                "    workflow - the name of the workflow (ie, myworkflow)\n" +
+                "    domain - The domain to use (i.e., mydomain) \n" +
+                "    taskList - The task list to use (i.e., HelloTasklist)  \n" +
+                "    workflow - The name of the workflow (i.e., myworkflow)\n" +
                 "    workflowVersion - The workflow version \n" +
-                "    activity - The activity to use (ie, GrayscaleTransform)  \n" +
+                "    activity - The activity to use (i.e., GrayscaleTransform)  \n" +
                 "    activityVersion - The activity version\n";
 
         if (args.length < 6) {
