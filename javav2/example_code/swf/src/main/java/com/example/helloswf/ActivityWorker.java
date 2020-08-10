@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Workflow Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8-10-2020]
+//snippet-sourcedate:[8/4/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
