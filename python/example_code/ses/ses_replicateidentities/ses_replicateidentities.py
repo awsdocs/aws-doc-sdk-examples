@@ -10,14 +10,14 @@ from boto3 import Session
 from botocore.exceptions import ClientError
 
 
-# Calls SES API to trigger a verification email.
+# Calls Amazon SES API to trigger a verification email.
 def email_verify(email_list, client):
     for email in email_list:
         response = client.\
                    verify_email_identity(EmailAddress=email)
 
 
-# Calls SES API to generate a verification token for the domain being verified.
+# Calls Amazon SES API to generate a verification token for the domain being verified.
 def domain_verify(domain_list, client):
     token_list = []
     for domain in domain_list:
@@ -28,7 +28,7 @@ def domain_verify(domain_list, client):
     return verification_table
 
 
-# Calls Route53 API to add a TXT record with the verification token for all
+# Calls Amazon Route 53 API to add a TXT record with the verification token for all
 # domains in the verification table.
 def add_route_53_record(table='', rec_type='', dkim_dom='', dkim_tok='', r53=''):
     ses_prefix = "_amazonses."
@@ -188,9 +188,9 @@ def generate_dkim(identity, client, dom_check, dns_client):
         return
 
 
-# Add SNS topic for bounces, deliveries, and complaints for a single identity.
+# Add Amazon SNS topic for bounces, deliveries, and complaints for a single identity.
 def sns_topics(identity, client):
-    ask = input("Do you want to configure an SNS topic for "+identity+"? (yes/no)")
+    ask = input("Do you want to configure an Amazon SNS topic for "+identity+"? (yes/no)")
     if ask == 'yes':
         bounce_topic = input("Enter ARN of bounce topic: ")
         if bounce_topic == '':
@@ -233,7 +233,7 @@ def sns_topics(identity, client):
 
 def main():
     s = Session()
-    # Returns list of regions where SES is available.
+    # Returns list of regions where Amazon SES is available.
     regions = s.get_available_regions('ses')
     print("This is the list of available regions:")
     print(regions)
@@ -242,11 +242,11 @@ def main():
     while True:
         src_region = input("Which region do you want to replicate from? ")
         if src_region in regions:
-            # Create SES client for source region.
+            # Create Amazon SES client for source region.
             ses_source_client = s.client('ses', region_name=src_region)
             region_email_identities = []
             region_dom_identities = []
-            # Added pagination for listing SES identities.
+            # Added pagination for listing Amazon SES identities.
             paginator = ses_source_client.get_paginator('list_identities')
             response_iterator = paginator.paginate(PaginationConfig={
                                                                      'MaxItems': 20,
@@ -266,21 +266,22 @@ def main():
             break
 
         else:
-            print("Region entered invalid. ",
-                  "Please enter a region where SES is available.")
+            print("The Region that you entered is invalid. ",
+                  "Enter a Region where Amazon SES is available.")
 
     # Destination region.
     while True:
         dst_region = input("Which region do you want to replicate to? ")
         if dst_region in regions:
-            # Create SES client for destination region.
+            # Create Amazon SES client for destination region.
             ses_dest_client = s.client('ses', region_name=dst_region)
             email_call = email_verify(region_email_identities, ses_dest_client)
             verification_table = domain_verify(region_dom_identities, ses_dest_client)
 
-            # Route53 subroutine. Based on user-input, used if
-            # domains being verified are in Route53.
-            r53dom = input("Are your domains hosted in Route53?(yes/no) ")
+            # Route 53 subroutine. Based on user-input, used if
+            # domains being verified are in Route 53.
+            r53dom = input("Is the DNS configuration for this domain managed by
+                    Amazon Route 53? (yes/no) ")
             if r53dom == 'yes':
                 # Prints domain names and their verification tokens.
                 print(verification_table)
@@ -297,8 +298,8 @@ def main():
                 print(verification_table)
                 print("")
 
-            # SNS topic addition
-            sns = input("Do you want to add SNS notifications for the identities? (yes/no) ")
+            # Amazon SNS topic addition
+            sns = input("Do you want to add Amazon SNS notifications for the identities? (yes/no) ")
             if sns == 'yes':
                 for addr in region_email_identities:
                     sns_topics(addr, ses_dest_client)
