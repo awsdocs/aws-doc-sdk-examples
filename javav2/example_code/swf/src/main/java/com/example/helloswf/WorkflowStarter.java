@@ -98,3 +98,4 @@ public class WorkflowStarter {
     }
 }
 // snippet-end:[swf.java2.start_workflow.main]
+// snippet-end:[swf.java2.start_workflow.complete]
