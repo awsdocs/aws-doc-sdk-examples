@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[S3Encrypt.java demonstrates how to use various encryption settings in Amazon S3.]
+//snippet-sourcedescription:[This example is depreciated.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -9,14 +9,11 @@
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[soo-aws]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
    the License is located at
-
     http://aws.amazon.com/apache2.0/
-
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
@@ -42,15 +39,10 @@ import java.security.NoSuchAlgorithmException;
 // snippet-end:[s3.java1.s3_encrypt.import]
 
 /**
- * Test out various cryptography settings for S3.
- * 
- * This code expects that you have AWS credentials set up per:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- * This code also requires you to install the Unlimited Strength Java(TM) Cryptography Extension Policy Files (JCE)
- * You can install this from the oracle site: http://www.oracle.com
+ * This AWS Code Example is Depreciated. To encrypt S3 content, see the S3EncryptV2 example.
  */
 public class S3Encrypt {
-    public static final String BUCKET_NAME = "s3EncryptTestBucket"; //add your bucket name
+    public static final String BUCKET_NAME = "bucketscott2"; //add your bucket name
     public static final String ENCRYPTED_KEY = "enc-key";
     public static final String NON_ENCRYPTED_KEY = "some-key";
 
@@ -74,6 +66,7 @@ public class S3Encrypt {
     // snippet-start:[s3.java1.s3_encrypt.authenticated_encryption]
     public void authenticatedEncryption_CustomerManagedKey() throws NoSuchAlgorithmException {
         // snippet-start:[s3.java1.s3_encrypt.authenticated_encryption_build]
+
         SecretKey secretKey = KeyGenerator.getInstance("AES").generateKey();
         AmazonS3Encryption s3Encryption = AmazonS3EncryptionClientBuilder
                 .standard()
