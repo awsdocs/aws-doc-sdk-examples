@@ -19,7 +19,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
+// snippet-start:[swf.java2.start_workflow.complete]
 package com.example.helloswf;
 // snippet-start:[swf.java2.start_workflow.import]
 import software.amazon.awssdk.regions.Region;
