@@ -12,7 +12,7 @@ files:
   - path: src/main/java/com/example/helloswf/WorkflowStarter.java
     services:
       - swf
-  - path: src/main/java/example/helloswf/WorkflowWorker.java
+  - path: src/main/java/com/example/helloswf/WorkflowWorker.java
     services:
       - swf
   - path: src/test/java/AmazonSimpleWorkflowTest.java
