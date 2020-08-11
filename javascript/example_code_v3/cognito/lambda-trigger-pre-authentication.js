@@ -12,19 +12,29 @@ lambda-trigger-pre-authentication.js is a sample function that prevents users fr
 to sign-in to the user pool.
 
 Running the code:
-node lambda-trigger-pre-authentication.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Pre authentication pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-authenticationV3]
 exports.handler = async (event, context) => {
-    try {
-        if (event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked") {
-            const error = new Error("Cannot authenticate users from this user pool app client");
-        }
+  try {
+    if (
+      event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked"
+    ) {
+      const error = new Error(
+        "Cannot authenticate users from this user pool app client"
+      );
     }
-    catch(err) {
-        // Return to Amazon Cognito
-        return err;
-    }
+  } catch (err) {
+    // Return to Amazon Cognito
+    return err;
+  }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.pre-authenticationV3]

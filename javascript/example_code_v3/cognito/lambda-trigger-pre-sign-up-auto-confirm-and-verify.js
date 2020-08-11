@@ -13,28 +13,34 @@ and phone_number attributes to verified if the attribute is present. Also, if al
 aliases will be created for phone_number and email when auto-verify is set.
 
 Running the code:
-node lambda-trigger-pre-sign-up-auto-confirm-and-verify.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Pre sign-up pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-and-verifyV3]
 exports.handler = async (event, context) => {
-    // Confirm the user
-        event.response.autoConfirmUser = true;
-    try {
-        // Set the email as verified if it is in the request
-        if (event.request.userAttributes.hasOwnProperty("email")) {
-            event.response.autoVerifyEmail = true;
-        }
+  // Confirm the user
+  event.response.autoConfirmUser = true;
+  try {
+    // Set the email as verified if it is in the request
+    if (event.request.userAttributes.hasOwnProperty("email")) {
+      event.response.autoVerifyEmail = true;
+    }
 
-        // Set the phone number as verified if it is in the request
-        if (event.request.userAttributes.hasOwnProperty("phone_number")) {
-            event.response.autoVerifyPhone = true;
-        }
+    // Set the phone number as verified if it is in the request
+    if (event.request.userAttributes.hasOwnProperty("phone_number")) {
+      event.response.autoVerifyPhone = true;
     }
-    catch(err){
-        // Return to Amazon Cognito
-        return err;
-    }
+  } catch (err) {
+    // Return to Amazon Cognito
+    return err;
+  }
 };
 
 // snippet-end:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-and-verifyV3]

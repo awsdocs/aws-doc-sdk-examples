@@ -13,23 +13,29 @@ The URL for the CAPTCHA image is added to the public challenge parameters as "ca
 and the expected answer is added to the private challenge parameters.
 
 Running the code:
-node lambda-trigger-auth-challenge-create.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Create Auth Challenge pane, select the lambda function.
+
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.create-auth-challengeV3]
 exports.handler = async (event, context) => {
-    try{
-        if (event.request.challengeName == 'CUSTOM_CHALLENGE')
-        {
-            event.response.publicChallengeParameters = {};
-            event.response.publicChallengeParameters.captchaUrl = 'url/123.jpg'
-            event.response.privateChallengeParameters = {};
-            event.response.privateChallengeParameters.answer = '5';
-            event.response.challengeMetadata = 'CAPTCHA_CHALLENGE';
-        }
+  try {
+    if (event.request.challengeName == "CUSTOM_CHALLENGE") {
+      event.response.publicChallengeParameters = {};
+      event.response.publicChallengeParameters.captchaUrl = "url/123.jpg";
+      event.response.privateChallengeParameters = {};
+      event.response.privateChallengeParameters.answer = "5";
+      event.response.challengeMetadata = "CAPTCHA_CHALLENGE";
     }
-    catch(err){
-        return null
-    }
+  } catch (err) {
+    return null;
+  }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.create-auth-challengeV3]

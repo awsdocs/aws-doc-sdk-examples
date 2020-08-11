@@ -12,26 +12,38 @@ node lambda-trigger-custom-message-sign-up.js is invoked to customize an email o
 when the service requires an app to send a verification code to the user.
 
 Running the code:
-node lambda-trigger-custom-message-sign-up.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Pre Token Generation pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.custom-message-sign-upV3]
 exports.handler = async (event, context) => {
-    try {
-        if (event.userPoolId === "theSpecialUserPool") {
-            // Identify why was this function invoked
-            if (event.triggerSource === "CustomMessage_SignUp") {
-                // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
-                event.response.smsMessage = "Welcome to the service. Your confirmation code is " + event.request.codeParameter;
-                event.response.emailSubject = "Welcome to the service";
-                event.response.emailMessage = "Thank you for signing up. " + event.request.codeParameter + " is your verification code";
-            }
-            // Create custom message for other events
-            // Customize messages for other user pools
-        }
-    } catch (err) {
-        // Return to Amazon Cognito
-        return null;
+  try {
+    if (event.userPoolId === "theSpecialUserPool") {
+      // Identify why was this function invoked
+      if (event.triggerSource === "CustomMessage_SignUp") {
+        // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
+        event.response.smsMessage =
+          "Welcome to the service. Your confirmation code is " +
+          event.request.codeParameter;
+        event.response.emailSubject = "Welcome to the service";
+        event.response.emailMessage =
+          "Thank you for signing up. " +
+          event.request.codeParameter +
+          " is your verification code";
+      }
+      // Create custom message for other events
+      // Customize messages for other user pools
     }
+  } catch (err) {
+    // Return to Amazon Cognito
+    return null;
+  }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.custom-message-sign-upV3]

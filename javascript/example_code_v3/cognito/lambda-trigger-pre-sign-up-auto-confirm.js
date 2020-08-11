@@ -14,27 +14,33 @@ confirm new users from a particular email domain. Any new users not in the custo
 to the user pool, but not automatically confirmed.
 
 Running the code:
-node lambda-trigger-pre-sign-up-auto-confirm.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Pre sign-up pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirmV3]
 exports.handler = async (event, context) => {
-    // Set the user pool autoConfirmUser flag after validating the email domain
-    event.response.autoConfirmUser = false;
+  // Set the user pool autoConfirmUser flag after validating the email domain
+  event.response.autoConfirmUser = false;
 
-    // Split the email address so we can compare domains
-    const address = event.request.userAttributes.email.split("@")
-    try {
-        // This example uses a custom attribute "custom:domain"
-        if (event.request.userAttributes.hasOwnProperty("custom:domain")) {
-            if (event.request.userAttributes['custom:domain'] === address[1]) {
-                event.response.autoConfirmUser = true;
-            }
-        }
+  // Split the email address so we can compare domains
+  const address = event.request.userAttributes.email.split("@");
+  try {
+    // This example uses a custom attribute "custom:domain"
+    if (event.request.userAttributes.hasOwnProperty("custom:domain")) {
+      if (event.request.userAttributes["custom:domain"] === address[1]) {
+        event.response.autoConfirmUser = true;
+      }
     }
-    catch(err){
-        // Return to Amazon Cognito
-        return null;
-    }
+  } catch (err) {
+    // Return to Amazon Cognito
+    return null;
+  }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirmV3]

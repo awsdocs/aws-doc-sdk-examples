@@ -15,7 +15,15 @@ using Amazon SES.
 Inputs (replace in code):
 
 Running the code:
-node lambda-trigger-post-confirmation.js
+Running the code:
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Post confirmation pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.post-confirmationV3]
@@ -27,43 +35,45 @@ const REGION = "region"; //e.g. "us-east-1"
 var ses = new SES();
 
 exports.handler = async (event, context) => {
-    console.log(event);
-    if (event.request.userAttributes.email) {
-         await sendTheEmail(event.request.userAttributes.email, "Congratulations " + event.userName + ", you have been confirmed:")
-        {
-            // Return to Amazon Cognito
-            callback(null, event);
-        };
-        } else {
-        // Nothing to do, the user's email ID is unknown
-        callback(null, event);
+  console.log(event);
+  if (event.request.userAttributes.email) {
+    await sendTheEmail(
+      event.request.userAttributes.email,
+      "Congratulations " + event.userName + ", you have been confirmed:"
+    );
+    {
+      // Return to Amazon Cognito
+      callback(null, event);
     }
+  } else {
+    // Nothing to do, the user's email ID is unknown
+    callback(null, event);
+  }
 };
 
-const sendTheEmail = async(to, body) =>{
-    const eParams = {
-        Destination: {
-            ToAddresses: [to]
+const sendTheEmail = async (to, body) => {
+  const eParams = {
+    Destination: {
+      ToAddresses: [to],
+    },
+    Message: {
+      Body: {
+        Text: {
+          Data: body,
         },
-        Message: {
-            Body: {
-                Text: {
-                    Data: body
-                }
-            },
-            Subject: {
-                Data: "Cognito Identity Provider registration completed"
-            }
-        },
-        // Replace source_email with your SES validated email address
-        Source: "<source_email>"
-    };
-    try{
+      },
+      Subject: {
+        Data: "Cognito Identity Provider registration completed",
+      },
+    },
+    // Replace source_email with your SES validated email address
+    Source: "<source_email>",
+  };
+  try {
     const email = await ses.send(new SendEmailCommand(eParams));
     console.log("===EMAIL SENT===");
-        }
-    catch(err){
-            console.log(err);
-        }
+  } catch (err) {
+    console.log(err);
+  }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.post-confirmationV3]

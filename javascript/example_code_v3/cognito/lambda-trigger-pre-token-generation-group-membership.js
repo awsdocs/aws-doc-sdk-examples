@@ -12,30 +12,40 @@ lambda-trigger-pre-token-generation-group-membership.js uses the Pre Token Gener
 modify the user's group membership.
 
 Running the code:
-node lambda-trigger-pre-token-generation-group-membership.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Pre Token Generation pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-token-generation-group-membershipV3]
 exports.handler = async (event, context) => {
-    try {
-        event.response = {
-            "claimsOverrideDetails": {
-                "claimsToAddOrOverride": {
-                    "attribute_key2": "attribute_value2",
-                    "attribute_key": "attribute_value"
-                },
-                "claimsToSuppress": ["email"],
-                "groupOverrideDetails": {
-                    "groupsToOverride": ["group-A", "group-B", "group-C"],
-                    "iamRolesToOverride": ["arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA", "arn:aws:iam::XXXXXXXXX:role/sns_callerB", "arn:aws:iam::XXXXXXXXXX:role/sns_callerC"],
-                    "preferredRole": "arn:aws:iam::XXXXXXXXXXX:role/sns_caller"
-                }
-            }
-        }
-    }
-    catch(err){
-        // Return to Amazon Cognito
-        return null;
-    }
+  try {
+    event.response = {
+      claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+          attribute_key2: "attribute_value2",
+          attribute_key: "attribute_value",
+        },
+        claimsToSuppress: ["email"],
+        groupOverrideDetails: {
+          groupsToOverride: ["group-A", "group-B", "group-C"],
+          iamRolesToOverride: [
+            "arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA",
+            "arn:aws:iam::XXXXXXXXX:role/sns_callerB",
+            "arn:aws:iam::XXXXXXXXXX:role/sns_callerC",
+          ],
+          preferredRole: "arn:aws:iam::XXXXXXXXXXX:role/sns_caller",
+        },
+      },
+    };
+  } catch (err) {
+    // Return to Amazon Cognito
+    return null;
+  }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.pre-token-generation-group-membershipV3]

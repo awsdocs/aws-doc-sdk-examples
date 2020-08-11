@@ -16,44 +16,53 @@ Inputs (replace in code):
 - PHONE_NUMBER: Your phone number here with +country code and no delimiters in front.
 
 Running the code:
-node lambda-trigger-pre-sign-up-auto-confirm-front-end.js
+1. On the AWS Lambda service dashboard, click Create function.
+2. On the Create function page, name the function, and click Create function.
+3. Copy and paste the code into the index.js file in the editor, and save the function.
+4. Open the AWS Cognito service.
+5. Click Manage User pools.
+6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+7. In General Settings, click Triggers.
+8. In the Pre sign-up pane, select the lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-front-endV3]
 var attributeList = [];
 var dataEmail = {
-    Name : 'email',
-    Value : 'EMAIL' // your email here
+  Name: "email",
+  Value: "EMAIL", // your email here
 };
 var dataPhoneNumber = {
-    Name : 'phone_number',
-    Value : 'PHONE_NUMBER' // your phone number here with +country code and no delimiters in front
+  Name: "phone_number",
+  Value: "PHONE_NUMBER", // your phone number here with +country code and no delimiters in front
 };
 
 var dataEmailDomain = {
-    Name: "custom:domain",
-    Value: "example.com"
-}
-var attributeEmail =
-new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
-var attributePhoneNumber =
-new AmazonCognitoIdentity.CognitoUserAttribute(dataPhoneNumber);
-var attributeEmailDomain =
-new AmazonCognitoIdentity.CognitoUserAttribute(dataEmailDomain);
+  Name: "custom:domain",
+  Value: "example.com",
+};
+var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+var attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
+  dataPhoneNumber
+);
+var attributeEmailDomain = new AmazonCognitoIdentity.CognitoUserAttribute(
+  dataEmailDomain
+);
 
 attributeList.push(attributeEmail);
 attributeList.push(attributePhoneNumber);
 attributeList.push(attributeEmailDomain);
 
-
-
 var cognitoUser;
-userPool.signUp('username', 'password', attributeList, null, function(err, result){
-    if (err) {
-        alert(err);
-        return;
-    }
-    cognitoUser = result.user;
-    console.log('user name is ' + cognitoUser.getUsername());
+userPool.signUp("username", "password", attributeList, null, function (
+  err,
+  result
+) {
+  if (err) {
+    alert(err);
+    return;
+  }
+  cognitoUser = result.user;
+  console.log("user name is " + cognitoUser.getUsername());
 });
 // snippet-end:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-front-endV3]

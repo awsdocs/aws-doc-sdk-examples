@@ -7,15 +7,15 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-define-auth-challenge.html.
 
+Purpose:
+cognito_getcreds.js generates or retrieves a Cognito ID.
+
+For more information, see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentity.html#getId-property.
+
 Inputs (into command line):
 - IDENTITY_POOL_ID: Your Cognito identity pool ID
 - AWS_ACCOUNT_ID: Your AWS account ID
 - REGION
-
-Purpose:
-cognito_getcreds.js generates or retrieves a Cognito ID.
-
-For more information, see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentity.html#getId-property
 
 Running the code:
 1. Install Webpack by entering 'yarn add webpack' in the command line.
@@ -26,11 +26,11 @@ Running the code:
 // snippet-start:[cognito.javascript.cognito_getcredsV3]
 // Load the required clients and packages
 const {
-    CognitoIdentityClient,
-    GetIdCommand,
+  CognitoIdentityClient,
+  GetIdCommand,
 } = require("@aws-sdk/client-cognito-identity");
 const {
-    fromCognitoIdentityPool,
+  fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
 
 // Set your needed values
@@ -39,27 +39,27 @@ var ACCOUNT_ID = "ACCOUNT_ID";
 
 // Initialize the Amazon Cognito credentials provider
 const cognitoidentity = new CognitoIdentityClient({
-    region: "REGION",
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: "REGION" }),
-        identityPoolId: IDENTITY_POOL_ID,
-    }),
+  region: "REGION",
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: "REGION" }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
 var getIdParams = {
-    IdentityPoolId: IDENTITY_POOL_ID,
-    AccountId: ACCOUNT_ID,
+  IdentityPoolId: IDENTITY_POOL_ID,
+  AccountId: ACCOUNT_ID,
 };
 
 const showId = async () => {
-    try {
-        const data = await cognitoidentity.send(new GetIdCommand(getIdParams));
-        var results = "Cognito Identity ID is " + data.IdentityId;
-        document.getElementById("results").innerHTML = results;
-    } catch (err) {
-        var results = "Error" + err;
-        document.getElementById("results").innerHTML = results;
-    }
+  try {
+    const data = await cognitoidentity.send(new GetIdCommand(getIdParams));
+    var results = "Cognito Identity ID is " + data.IdentityId;
+    document.getElementById("results").innerHTML = results;
+  } catch (err) {
+    var results = "Error" + err;
+    document.getElementById("results").innerHTML = results;
+  }
 };
 
 //Make function available to browser
