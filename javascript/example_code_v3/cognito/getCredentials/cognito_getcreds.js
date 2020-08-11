@@ -65,7 +65,7 @@ const showId = async () => {
 //Make function available to browser
 window.showId = showId;
 
-// snippet-start:[cognito.javascript.cognito_getcredsV3]
+// snippet-end:[cognito.javascript.cognito_getcredsV3]
 
 //for unit test
 exports.showId = showId;
