@@ -15,7 +15,7 @@ Inputs (replace in code):
 - BUCKET_NAME
 
 Running the code:
-node s3_listobjects.js
+node s3_list1000plusObjects.js
 */
 // snippet-start:[s3.JavaScript.buckets.listManyObjectsV3]
 
