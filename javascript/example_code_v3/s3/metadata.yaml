@@ -1,7 +1,7 @@
 ---
 # Amazon S3 examples
 files:
-  - path: photoViewer/s3_PhotoViewer.js
+  - path: lambda-trigger-auth-challenge-create.js
     services:
       - s3
   - path: photoExample/s3_PhotoExample.js
