@@ -34,10 +34,10 @@ Before running the Amazon Translate JUnit tests, you must define values in the *
 
 Define these values to successfully run the JUnit tests:
 
-- **s3Uri** - The URI of the S3 bucket where the documents to translate are located.   
-- **s3UriOut** - The URI of the S3 bucket where the translated documents are saved to. 
+- **s3Uri** - The URI of the Amazon S3 bucket where the documents to translate are located.   
+- **s3UriOut** - The URI of the S3 bucket where the translated documents are saved to.
 - **jobName** - The job name that translates documents.
-- **dataAccessRoleArn** - The ARN value of the role required for translation jobs.
+- **dataAccessRoleArn** - The Amazon Resource Name (ARN) value of the role required for translation jobs.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -78,5 +78,3 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
 	[ERROR];
-
-

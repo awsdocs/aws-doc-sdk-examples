@@ -1,8 +1,8 @@
-# Amazon EventBridge Java code examples
+# Amazon Kinesis Date Firehose Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon EventBridge.
+This README discusses how to run and test the Java code examples for Amazon Kinesis Date Firehose.
 
-## Running the Amazon EventBridge Java files
+## Running the Amazon Kinesis Date Firehose Java files
 
 **IMPORTANT**
 

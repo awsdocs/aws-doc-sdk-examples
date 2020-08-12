@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete a kms alias.]
+//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an AWS KMS alias.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]

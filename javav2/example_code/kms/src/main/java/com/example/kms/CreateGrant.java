@@ -34,7 +34,7 @@ public class CreateGrant {
 
     public static void main(String[] args) {
         final String USAGE =
-                "To run this example, supply a key id or ARN, a grantee principal" +
+                "To run this example, supply a key ID or ARN, a grantee principal" +
                         ", and an operation\n" +
                         "Usage: CreateGrant <key-id> <grantee-principal> <operation>\n" +
                         "Example: CreateGrant 1234abcd-12ab-34cd-56ef-1234567890ab " +

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateAlias.java demonstrates how to create a kms alias.]
+//snippet-sourcedescription:[CreateAlias.java demonstrates how to create an AWS KMS alias.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
@@ -34,7 +34,7 @@ public class CreateAlias {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id or ARN and an alias name\n" +
+                "To run this example, supply a key ID or ARN and an alias name\n" +
                         "Usage: CreateAlias <key-id> <alias-name>\n" +
                         "Example: CreateAlias 1234abcd-12ab-34cd-56ef-1234567890ab " +
                         "alias/myAlias\n";

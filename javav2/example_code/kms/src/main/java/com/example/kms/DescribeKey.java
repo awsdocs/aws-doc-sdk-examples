@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeKey.java demonstrates how to obtain information about a kms key.]
+//snippet-sourcedescription:[DescribeKey.java demonstrates how to obtain information about an AWS KMS key.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
@@ -35,7 +35,7 @@ public class DescribeKey {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id value\n" +
+                "To run this example, supply a key ID value\n" +
                         "Usage: DescribeKey <key-id>\n" +
                         "Example: DescribeKey 1234abcd-12ab-34cd-56ef-1234567890ab \n";
 
