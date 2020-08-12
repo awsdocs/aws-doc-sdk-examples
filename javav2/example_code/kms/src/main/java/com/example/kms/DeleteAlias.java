@@ -27,7 +27,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.DeleteAliasRequest;
 import software.amazon.awssdk.services.kms.model.KmsException;
-// snippet-delete:[kms.java2_delete_alias.import]
+// snippet-end:[kms.java2_delete_alias.import]
 
 public class DeleteAlias {
 
