@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EncryptDataKey.java demonstrates how to encrypt and decrypt data using a key]
+//snippet-sourcedescription:[EncryptDataKey.java demonstrates how to encrypt and decrypt data using a key.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
