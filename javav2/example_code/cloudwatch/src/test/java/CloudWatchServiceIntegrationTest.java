@@ -35,7 +35,10 @@ public class CloudWatchServiceIntegrationTest {
         cw = CloudWatchClient.builder()
                 .region(region)
                 .build();
-        cloudWatchLogsClient = CloudWatchLogsClient.builder().build();
+        
+         cloudWatchLogsClient = CloudWatchLogsClient.builder()
+                .region(region)
+                .build();
 
         try (InputStream input = CloudWatchServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
