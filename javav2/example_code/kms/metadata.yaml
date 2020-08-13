@@ -1,0 +1,44 @@
+--- 
+files:
+  - path: src/main/java/com/example/kms/CreateAlias.java
+    services:
+      - kms
+  - path: src/main/java/com/example/redshift/CreateCustomerKey.java
+    services:
+      - kms
+  - path: src/main/java/com/example/kms/CreateGrant.java
+    services:
+      - kms
+  - path: src/main/java/com/example/kms/DeleteAlias.java
+    services:
+      - kms
+  - path: src/test/java/example/kms/DescribeKey.java
+    services:
+      - kms
+  - path: src/test/java/example/kms/DisableCustomerKey.java
+    services:
+      - kms
+  - path: src/test/java/example/kms/EnableCustomerKey.java
+    services:
+      - kms 
+  - path: src/test/java/example/kms/EncryptDataKey.java
+    services:
+      - kms 
+  - path: src/test/java/example/kms/ListAliases.java
+    services:
+      - kms 
+  - path: src/test/java/example/kms/ListGrants.java
+    services:
+      - kms 
+  - path: src/test/java/example/kms/ListKeys.java
+    services:
+      - kms 
+  - path: src/test/java/example/kms/RevokeGrant.java
+    services:
+      - kms 
+  - path: src/test/java/example/kms/SetKeyPolicy.java
+    services:
+      - kms       
+  - path: src/test/java/AmazonKMSTest.java
+    services:
+      - kms  
