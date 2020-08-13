@@ -33,8 +33,13 @@ public class AmazonS3ServiceIntegrationTest {
 
         // Run tests on Real AWS Resources
         region = Region.US_WEST_2;
-        s3 = S3Client.builder().region(region).build();
-        presigner = S3Presigner.create();
+        s3 = S3Client.builder()
+            .region(region)
+            .build();
+        
+        presigner = S3Presigner.builder()
+                .region(region)
+                .build();
 
         try (InputStream input = AmazonS3ServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

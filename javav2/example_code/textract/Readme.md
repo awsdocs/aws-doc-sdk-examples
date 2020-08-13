@@ -35,8 +35,8 @@ Before running the Amazon Redshift JUnit tests, you must define values in the **
 Define these values to successfully run the JUnit tests:
 
 - **sourceDoc** - The path where the document is located.   
-- **bucketName** - The name of the S3 bucket that contains the document. 
-- **docName** - A document name (must be an image ie - book.png).
+- **bucketName** - The name of the S3 bucket that contains the document.
+- **docName** - A document name (must be an image, for example, book.png).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -77,5 +77,3 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
 	[ERROR];
-
-
