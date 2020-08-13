@@ -36,7 +36,7 @@ public class ListGrants {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id value\n" +
+                "To run this example, supply a key ID value\n" +
                         "Usage: ListGrants <key-id>\n" +
                         "Example: ListGrants 1234abcd-12ab-34cd-56ef-1234567890ab \n";
 
@@ -67,7 +67,7 @@ public class ListGrants {
         ListGrantsResponse response = kmsClient.listGrants(grantsRequest);
         List<GrantListEntry> grants = response.grants();
         for ( GrantListEntry grant: grants) {
-            System.out.println("The grant Id is : "+grant.grantId());
+            System.out.println("The grant ID is : "+grant.grantId());
         }
     } catch (KmsException e) {
         System.err.println(e.getMessage());

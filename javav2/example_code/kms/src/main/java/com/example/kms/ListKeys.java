@@ -56,7 +56,7 @@ public class ListKeys {
             List<KeyListEntry> keyListEntries = keysResponse.keys();
             for (KeyListEntry key : keyListEntries) {
                 System.out.println("The key ARN is: " + key.keyArn());
-                System.out.println("The key Id is: " + key.keyId());
+                System.out.println("The key ID is: " + key.keyId());
             }
         } catch (KmsException e) {
             System.err.println(e.getMessage());

@@ -33,7 +33,7 @@ public class EnableCustomerKey {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id value\n" +
+                "To run this example, supply a key ID value\n" +
                         "Usage: EnableCustomerKey <key-id>\n" +
                         "Example: EnableCustomerKey 1234abcd-12ab-34cd-56ef-1234567890ab \n";
 

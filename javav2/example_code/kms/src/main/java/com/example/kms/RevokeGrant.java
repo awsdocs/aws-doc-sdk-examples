@@ -34,7 +34,7 @@ public class RevokeGrant {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id and a grant id \n" +
+                "To run this example, supply a key ID and a grant ID \n" +
                         "Usage: CreateGrant <key-id> <grantee-id>\n" +
                         "Example: RevokeGrant 1234abcd-12ab-34cd-56ef-1234567890ab " +
                         "000998808f25a981d32a271f03d440dcdd3b7dda6257ba26c4864cb337b5adb0\n";

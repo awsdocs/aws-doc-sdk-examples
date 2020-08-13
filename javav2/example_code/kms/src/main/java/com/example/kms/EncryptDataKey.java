@@ -38,7 +38,7 @@ public class EncryptDataKey {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id value\n" +
+                "To run this example, supply a key ID value\n" +
                         "Usage: EncryptDataKey <key-id>\n" +
                         "Example: EncryptDataKey 1234abcd-12ab-34cd-56ef-1234567890ab \n";
 

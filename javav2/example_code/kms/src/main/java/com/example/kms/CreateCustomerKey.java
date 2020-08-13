@@ -39,7 +39,7 @@ public class CreateCustomerKey {
                 .build();
 
        String keyDesc = "Created by the AWS KMS API";
-       System.out.println("The key id is "+createKey(kmsClient, keyDesc));
+       System.out.println("The key ID is "+createKey(kmsClient, keyDesc));
     }
 
     // snippet-start:[kms.java2_create_key.main]
@@ -55,7 +55,7 @@ public class CreateCustomerKey {
         CreateKeyResponse result = kmsClient.createKey(keyRequest);
 
         System.out.printf(
-                "Created a customer key with id \"%s\"%n",
+                "Created a customer key with ID \"%s\"%n",
                 result.keyMetadata().arn());
 
         return result.keyMetadata().keyId();

@@ -34,7 +34,7 @@ public class SetKeyPolicy {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a key id and a policy name \n" +
+                "To run this example, supply a key ID and a policy name \n" +
                         "Usage: SetKeyPolicy <key-id> <policyName>\n" +
                         "Example: SetKeyPolicy 1234abcd-12ab-34cd-56ef-1234567890ab" +
                         "default\n";
@@ -61,7 +61,7 @@ public class SetKeyPolicy {
                 "  \"Version\": \"2012-10-17\"," +
                 "  \"Statement\": [{" +
                 "    \"Effect\": \"Allow\"," +
-                // Replace the following user ARN with one for a real user.
+                // Replace the following user Amazon Resource Name (ARN) with one for a real user.
                 "    \"Principal\": {\"AWS\": \"arn:aws:iam::814548047983:root\"}," +
                 "    \"Action\": \"kms:*\"," +
                 "    \"Resource\": \"*\"" +
