@@ -12,31 +12,31 @@ files:
   - path: src/main/java/com/example/kms/DeleteAlias.java
     services:
       - kms
-  - path: src/test/java/com/example/kms/DescribeKey.java
+  - path: src/main/java/com/example/kms/DescribeKey.java
     services:
       - kms
-  - path: src/test/java/com/example/kms/DisableCustomerKey.java
+  - path: src/main/java/com/example/kms/DisableCustomerKey.java
     services:
       - kms
-  - path: src/test/java/com/example/kms/EnableCustomerKey.java
+  - path: src/main/java/com/example/kms/EnableCustomerKey.java
     services:
       - kms 
-  - path: src/test/java/com/example/kms/EncryptDataKey.java
+  - path: src/main/java/com/example/kms/EncryptDataKey.java
     services:
       - kms 
-  - path: src/test/java/com/example/kms/ListAliases.java
+  - path: src/main/java/com/example/kms/ListAliases.java
     services:
       - kms 
-  - path: src/test/java/com/example/kms/ListGrants.java
+  - path: src/main/java/com/example/kms/ListGrants.java
     services:
       - kms 
-  - path: src/test/java/com/example/kms/ListKeys.java
+  - path: src/main/java/com/example/kms/ListKeys.java
     services:
       - kms 
-  - path: src/test/java/com/example/kms/RevokeGrant.java
+  - path: src/main/java/com/example/kms/RevokeGrant.java
     services:
       - kms 
-  - path: src/test/java/com/example/kms/SetKeyPolicy.java
+  - path: src/main/java/com/example/kms/SetKeyPolicy.java
     services:
       - kms       
   - path: src/test/java/AmazonKMSTest.java
