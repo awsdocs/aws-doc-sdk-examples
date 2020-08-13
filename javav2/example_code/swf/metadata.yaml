@@ -6,7 +6,7 @@ files:
   - path: src/main/java/com/example/helloswf/ActivityWorkerWithGracefulShutdown.java
     services:
       - swf
-  - path: src/main/java/com/example//SWFWorkflowDemo.java
+  - path: src/main/java/com/example/helloswf/SWFWorkflowDemo.java
     services:
       - swf
   - path: src/main/java/com/example/helloswf/WorkflowStarter.java
