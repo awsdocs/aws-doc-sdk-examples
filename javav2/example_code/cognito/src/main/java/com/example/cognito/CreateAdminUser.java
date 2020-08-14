@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateAdminUser.java demonstrates how to add a new admin to your unity Pool.]
+//snippet-sourcedescription:[CreateAdminUser.java demonstrates how to add a new admin to your user pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
