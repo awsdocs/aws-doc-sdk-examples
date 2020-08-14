@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[CreateAdminUser.java demonstrates how to add a new admin to your user pool.]
+//snippet-sourcedescription:[CreateAdminUser.java demonstrates how to add a new admin to your unity Pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -40,9 +40,9 @@ public class CreateAdminUser {
                 "Usage:\n" +
                 "    CreateAdminUser <user_pool_id> <username> <email>\n\n" +
                 "Where:\n" +
-                "    user_pool_id - the user pool ID for the user pool in which to create the user\n\n" +
-                "    username - the user name for the user\n\n" +
-                "    email  - the email to use for verifying the admin account\n\n" +
+                "    user_pool_id - The user pool ID for the user pool where the user will be created.\n\n" +
+                "    username - The username for the user.\n\n" +
+                "    email  - The email to user for verifying admin account.\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 

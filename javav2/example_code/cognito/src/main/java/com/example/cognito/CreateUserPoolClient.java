@@ -5,8 +5,8 @@
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -39,8 +39,8 @@ public class CreateUserPoolClient {
                 "Usage:\n" +
                 "    CreateUserPoolClient <clientName> <userPoolId> \n\n" +
                 "Where:\n" +
-                "    clientName - the client name for the user pool client to create\n\n" +
-                "    userPoolId - the user pool ID for the user pool in which to create a user pool client\n\n" +
+                "    clientName - The client name for the user pool client you would like to create.\n\n" +
+                "    userPoolId - The user pool ID for the user pool where you want to create a user pool client.\n\n" +
                 "Example:\n" +
                 "    CreateUserPoolClient client1 client1IdNum\n";
 

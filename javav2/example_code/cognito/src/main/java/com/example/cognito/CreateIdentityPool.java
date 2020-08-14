@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[CreateIdentityPool.java demonstrates how to create an identity pool. The identity pool is a store of user identity information that is specific to your AWS account.]
+//snippet-sourcedescription:[CreateIdentityPool.java demonstrates how to create a new identity pool. The identity pool is a store of user identity information that is specific to your AWS account.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
+//snippet-sourcedate:[8/14/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,7 +39,7 @@ public class CreateIdentityPool {
                 "Usage:\n" +
                 "    CreateIdentityPool <identity_pool_name> \n\n" +
                 "Where:\n" +
-                "    identity_pool_name - the name to give your identity pool\n\n" +
+                "    identity_pool_name - the name to give your identity pool.\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
@@ -70,8 +70,9 @@ public class CreateIdentityPool {
         );
 
            return response.identityPoolId();
-    } catch (CognitoIdentityProviderException e){
-        System.err.println(e.awsErrorDetails().errorMessage());
+
+        } catch (CognitoIdentityProviderException e){
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
     }
        return "";

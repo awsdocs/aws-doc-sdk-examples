@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to list existing users in the specified user pool.]
+//snippet-sourcedescription:[ListUsers.java demonstrates how to list existing users in the specified User Pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -39,7 +39,7 @@ public class ListUsers {
                 "Usage:\n" +
                 "    ListUsers <user_pool_id> \n\n" +
                 "Where:\n" +
-                "    user_pool_id - the ID given your user pool when created\n\n" +
+                "    user_pool_id - The id given your user pool when created.\n\n" +
                 "Example:\n" +
                 "    ListUsers us-east-2_P0oL1D\n";
 

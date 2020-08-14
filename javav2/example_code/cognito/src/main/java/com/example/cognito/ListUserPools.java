@@ -1,11 +1,11 @@
-//snippet-sourcedescription:[ListUserPools.java demonstrates how to to list existing users in the specified user pool.]
+//snippet-sourcedescription:[ListUserPools.java demonstrates how to to list existing users in the specified User Pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
+//snippet-sourcedate:[8/14/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -64,8 +64,8 @@ public class ListUserPools {
                System.out.println("UserPool " + userpool.name() + ", User ID " + userpool.id() + ", Status " + userpool.status());
            }
         } catch (CognitoIdentityProviderException e){
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
         }
         //snippet-end:[cognito.java2.ListUserPools.main]
     }

@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[ListUserPoolClients.java demonstrates how to list existing user pool clients available in the specified AWS Region in your current AWS account.]
+//snippet-sourcedescription:[ListUserPoolClients.java demonstrates how list existing User Pool Clients available in the specified region in your current AWS account.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
-//snippet-sourceauthor:[scmacdon-AWS]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -24,7 +24,6 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.ListUserPoolClients.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -40,7 +39,7 @@ public class ListUserPoolClients {
                 "Usage:\n" +
                 "    ListUserPoolClients <user_pool_id> \n\n" +
                 "Where:\n" +
-                "    userPoolId - the ID given your user pool when created\n\n" +
+                "    userPoolId - The id given your user pool when created.\n\n" +
                 "Example:\n" +
                 "    ListUserPoolClients us-east-2_P0oL1D\n";
 
@@ -61,7 +60,7 @@ public class ListUserPoolClients {
     //snippet-start:[cognito.java2.ListUserPoolClients.main]
     public static void listAllUserPoolClients(CognitoIdentityProviderClient cognitoclient, String userPoolId) {
 
-     try {
+        try {
 
             ListUserPoolClientsResponse response = cognitoclient.listUserPoolClients(ListUserPoolClientsRequest.builder()
                 .userPoolId(userPoolId)
@@ -70,8 +69,9 @@ public class ListUserPoolClients {
             for(UserPoolClientDescription userPoolClient : response.userPoolClients()) {
                 System.out.println("User Pool Client " + userPoolClient.clientName() + ", Pool Id " + userPoolClient.userPoolId() + ", Client Id " + userPoolClient.clientId() );
             }
+
     } catch (CognitoIdentityProviderException e){
-        System.err.println(e.awsErrorDetails().errorMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
     }
         //snippet-end:[cognito.java2.ListUserPoolClients.main]

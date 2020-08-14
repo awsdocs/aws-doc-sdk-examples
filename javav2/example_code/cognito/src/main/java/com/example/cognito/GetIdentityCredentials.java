@@ -1,12 +1,12 @@
-//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an identity in an identity pool.]
+//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an Identity in an Identity Pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cognito]
-// snippet-service:[cognito]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[4/16/2020]
-// snippet-sourceauthor:[scmacdon-AWS]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cognito]
+//snippet-service:[cognito]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -21,7 +21,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.GetIdentityCredentials.import]
@@ -37,40 +36,42 @@ public class GetIdentityCredentials {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetIdentityCredentials <identity_pool_id > \n\n" +
+                "    GetIdentityCredentials <identity_id > \n\n" +
                 "Where:\n" +
-                "    identityPoolId - the ID of an existing identity pool\n\n" +
+                "    identityId - The id of an existing identity.\n\n" +
                 "Example:\n" +
-                "    GetIdentityCredentials us-east-2:1234567890112-abcdefgc\n";
+                "    GetIdentityCredentials us-east-2:1234567890000-abcdefgc\n";
 
-        if (args.length < 1) {
+         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+         }
 
-        String identityPoolId = args[0];
+        String identityId = args[0];
 
+        // Create a CognitoIdentityClient instance
         CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        getCredsForIdentity(cognitoclient,identityPoolId);
+        getCredsForIdentity(cognitoclient, identityId);
     }
 
     //snippet-start:[cognito.java2.GetIdentityCredentials.main]
-    public static void getCredsForIdentity( CognitoIdentityClient cognitoclient,String identityPoolId) {
+    public static void getCredsForIdentity(CognitoIdentityClient cognitoclient, String identityId) {
 
-     try{
-          GetCredentialsForIdentityResponse response = cognitoclient.getCredentialsForIdentity(GetCredentialsForIdentityRequest.builder()
-                .identityId(identityPoolId)
-                .build());
+         try {
+                GetCredentialsForIdentityRequest getCredentialsForIdentityRequest = GetCredentialsForIdentityRequest.builder()
+                        .identityId(identityId)
+                        .build();
 
-          System.out.println("Identity ID " + response.identityId() + ", Access Key Id " + response.credentials().accessKeyId() );
+                GetCredentialsForIdentityResponse response = cognitoclient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
+                System.out.println("Identity ID " + response.identityId() + ", Access Key Id " + response.credentials().accessKeyId());
 
-       } catch (CognitoIdentityProviderException e){
-          System.err.println(e.awsErrorDetails().errorMessage());
-          System.exit(1);
-       }
-        //snippet-end:[cognito.java2.GetIdentityCredentials.main]
-    }
+            } catch (CognitoIdentityProviderException e) {
+                System.err.println(e.awsErrorDetails().errorMessage());
+                System.exit(1);
+            }
+            //snippet-end:[cognito.java2.GetIdentityCredentials.main]
+   }
 }
