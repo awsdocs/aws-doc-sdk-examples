@@ -73,7 +73,7 @@ public class AddLoginProvider {
                                     String providerName) {
 
         CognitoIdentityProvider identityProvider = CognitoIdentityProvider.builder()
-                .providerName("cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4YtkM2")
+                .providerName(providerName)
                 .clientId(appId)
                 .build();
 
