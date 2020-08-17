@@ -37,9 +37,9 @@ Before running the Amazon Redshift JUnit tests, you must define values in the **
 Define these values to successfully run the JUnit tests:
 
 - **clusterId** - The ID value for a cluster.   
-- **masterUsername** - The master user name used in the **CreateCluster** test. 
+- **masterUsername** - The master user name used in the **CreateCluster** test.
 - **masterUserPassword** - A password for the master user name.
-- **eventSourceType** - The event type (ie, cluster) used in the **ListEvents** test.
+- **eventSourceType** - The event type (i.e., cluster) used in the **ListEvents** test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -80,4 +80,3 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
 	[ERROR];
-

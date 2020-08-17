@@ -48,7 +48,7 @@ public class WorkflowWorker {
                 "    WorkflowWorker <domain><taskList><activity><activityVersion> \n\n" +
                 "Where:\n" +
                 "    domain - The domain to use (i.e., mydomain) \n" +
-                "    taskList - The taskList to use (i.e., HelloTasklist)  \n" +
+                "    taskList - The task list to use (i.e., HelloTasklist)  \n" +
                 "    activity - The activity to use (i.e., GrayscaleTransform)  \n" +
                 "    activityVersion - The activity version\n";
 

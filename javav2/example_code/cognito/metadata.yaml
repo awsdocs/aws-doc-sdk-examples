@@ -15,6 +15,9 @@ files:
   - path: src/main/java/com/example/cognito/CreateUserPoolClient.java
     services:
       - cognito
+  - path: src/main/java/com/example/cognito/DeleteIdentityPool.java
+    services:
+      - cognito
   - path: src/main/java/com/example/cognito/DeleteUserPool.java
     services:
       - cognito
@@ -24,6 +27,12 @@ files:
   - path: src/main/java/com/example/cognito/GetIdentityCredentials.java
     services:
       - cognito
+  - path: src/main/java/com/example/cognito/ListIdentities.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/ListIdentityPools.java
+    services:
+      - cognito
   - path: src/main/java/com/example/cognito/ListUserPoolClients.java
     services:
       - cognito
@@ -31,5 +40,8 @@ files:
     services:
       - cognito
   - path: src/main/java/com/example/cognito/ListUsers.java
+    services:
+      - cognito      
+  - path: src/test/java/CognitoServiceIntegrationTest.java
     services:
       - cognito    
