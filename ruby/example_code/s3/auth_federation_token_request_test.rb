@@ -18,7 +18,10 @@ require 'json'
 # @example
 #   iam = Aws::IAM::Client.new(region: 'us-east-1')
 #   user = get_user(iam, 'my-user')
-#   puts "User's name is #{user.user_name}"
+#   unless user.user_name
+#     exit 1
+#   end
+#   puts "User's name: #{user.user_name}"
 def get_user(iam, user_name)
   puts "Checking for a user with the name '#{user_name}'..."
   response = iam.get_user(user_name: user_name)
@@ -55,7 +58,10 @@ end
 #       ]
 #     }
 #   )
-#   puts "Access key ID is #{credentials.access_key_id}"
+#   unless credentials.access_key_id
+#     exit 1
+#   end
+#   puts "Access key ID: #{credentials.access_key_id}"
 def get_temporary_credentials(sts, duration_seconds, user_name, policy)
   response = sts.get_federation_token(
     duration_seconds: duration_seconds,
@@ -100,7 +106,7 @@ rescue StandardError => e
 end
 # snippet-end:[s3.ruby.auth_federation_token_request_test.rb]
 
-# Full example:
+# Full example call:
 =begin
 region = 'us-east-1'
 user_name = 'my-user'
@@ -115,7 +121,6 @@ end
 
 puts "User's name: #{user.user_name}"
 sts = Aws::STS::Client.new(region: region)
-
 credentials = get_temporary_credentials(sts, 3600, user_name,
   {
     'Version' => '2012-10-17',
@@ -128,7 +133,7 @@ credentials = get_temporary_credentials(sts, 3600, user_name,
   }
 )
 
-unless credentials
+unless credentials.access_key_id
   exit 1
 end
 

@@ -58,6 +58,6 @@ describe '#can_list_objects_in_bucket?' do
       ]
     )
     s3.stub_responses(:list_objects_v2, objects_data)
-    expect(can_list_objects_in_bucket?(s3, bucket_name)).to be
+    expect(can_list_objects_in_bucket?(s3, bucket_name)).to be(true)
   end
 end
