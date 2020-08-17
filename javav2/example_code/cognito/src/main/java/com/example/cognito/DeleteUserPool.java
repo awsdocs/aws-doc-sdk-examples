@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing UserPool.]
+//snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing user pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -38,7 +38,7 @@ public class DeleteUserPool {
                 "Usage:\n" +
                 "    DeleteUserPool <userPoolId> \n\n" +
                 "Where:\n" +
-                "    userPoolId - The id given your user pool when created.\n\n" +
+                "    userPoolId - The ID given to your user pool when it's created.\n\n" +
                 "Example:\n" +
                 "    DeleteUserPool us-east-2_P0oL1D\n";
 
@@ -66,7 +66,7 @@ public class DeleteUserPool {
                 .build();
 
             DeleteUserPoolResponse response = cognitoclient.deleteUserPool(request);
-            System.out.println("User Pool " + response.toString() + " deleted. ID: " + request.userPoolId());
+            System.out.println("User pool " + response.toString() + " deleted. ID: " + request.userPoolId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

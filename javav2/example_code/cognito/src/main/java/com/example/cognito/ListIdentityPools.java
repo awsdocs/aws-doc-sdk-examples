@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListIdentityPools.java demonstrates how list Amazon Cognito identity pool.]
+//snippet-sourcedescription:[ListIdentityPools.java demonstrates how to list Amazon Cognito identity pools.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -59,8 +59,8 @@ public class ListIdentityPools {
             List<IdentityPoolShortDescription> pools = poolReponse.identityPools();
 
             for (IdentityPoolShortDescription pool: pools) {
-                System.out.println("Pool Id: "+pool.identityPoolId());
-                System.out.println("Pool Name: "+pool.identityPoolName());
+                System.out.println("Pool ID: "+pool.identityPoolId());
+                System.out.println("Pool name: "+pool.identityPoolName());
             }
 
       } catch (CognitoIdentityProviderException e){

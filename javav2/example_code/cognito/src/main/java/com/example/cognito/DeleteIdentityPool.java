@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteIdentityPool.java demonstrates how to delete an existing IdentityPool.]
+//snippet-sourcedescription:[DeleteIdentityPool.java demonstrates how to delete an existing Amazon Cognito identity pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -39,7 +39,7 @@ public class DeleteIdentityPool {
                 "Usage:\n" +
                 "    DeleteIdentityPool <identity_pool_id> \n\n" +
                 "Where:\n" +
-                "    identityPoolId  - the Region and GUID of your id of your identity pool.\n\n" ;
+                "    identityPoolId  - The AWS Region and GUID of your identity pool.\n\n" ;
 
         String identityPoold = args[0];
 

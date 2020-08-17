@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetId.java demonstrates how to retrieve the ClientID from an identity provider.]
+//snippet-sourcedescription:[GetId.java demonstrates how to retrieve the client ID from an identity provider.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -40,7 +40,7 @@ public class GetId {
                 "Usage:\n" +
                 "    GetId <identity_pool_id>\n\n" +
                 "Where:\n" +
-                "    identityPoolId  - the Region and GUID of your id of your identity pool.\n\n" +
+                "    identityPoolId  - The AWS Region and GUID of your identity pool.\n\n" +
                 "Example:\n" +
                 "    GetId us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx\n";
 

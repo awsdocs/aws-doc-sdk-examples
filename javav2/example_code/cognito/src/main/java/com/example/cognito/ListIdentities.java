@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListIdentities.java demonstrates how list identifies that belong to an Amazon Cognito identity pool.]
+//snippet-sourcedescription:[ListIdentities.java demonstrates how to list identities that belong to an Amazon Cognito identity pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -43,7 +43,7 @@ public class ListIdentities {
                 "Usage:\n" +
                 "    ListIdentities<identity_pool_id>>\n\n" +
                 "Where:\n" +
-                "    identityPoolId  - the Region and GUID of your id of your identity pool.\n\n" +
+                "    identityPoolId  - The AWS Region and GUID of your identity pool.\n\n" +
                 "Example:\n" +
                 "    ListIdentities  us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx\n";
 

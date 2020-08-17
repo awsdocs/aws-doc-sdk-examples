@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[AddLoginProvider.java demonstrates how to associate an identity pool with an identity provider.]
+//snippet-sourcedescription:[AddLoginProvider.java demonstrates how to associate an Amazon Cognito identity pool with an identity provider.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -42,10 +42,10 @@ public class AddLoginProvider {
                 "Usage:\n" +
                 "    AddLoginProvider <app_id> <identity_pool_name> <identity_pool_id><providerName>\n\n" +
                 "Where:\n" +
-                "    appId - the application id from login provider.\n\n" +
-                "    identityPoolName - the name of your identity pool.\n\n" +
-                "    identityPoolId  - the Region and GUID of your id of your identity pool.\n\n" +
-                "    providerName  - the provider name (ie, cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4Yxxxx).\n\n";
+                "    appId - The application ID from the login provider.\n\n" +
+                "    identityPoolName - The name of your identity pool.\n\n" +
+                "    identityPoolId  - The AWS Region and GUID of your identity pool.\n\n" +
+                "    providerName  - The provider name (i.e., cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4Yxxxx).\n\n";
 
         if (args.length < 4) {
             System.out.println(USAGE);
