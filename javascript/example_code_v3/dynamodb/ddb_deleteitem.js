@@ -18,7 +18,7 @@ Running the code:
 node.js ddb_deletetable.js
 
 */
-// snippet-start:[dynamodb.JavaScript.item.deleteTableV3]
+// snippet-start:[dynamodb.JavaScript.item.deleteItemV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {
@@ -45,6 +45,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.item.deleteTableV3]
+// snippet-end:[dynamodb.JavaScript.item.deleteItemV3]
 //for unit tests only
 exports.run = run; //for unit tests only

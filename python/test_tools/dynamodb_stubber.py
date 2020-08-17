@@ -130,7 +130,10 @@ class DynamoStubber(ExampleStubber):
             'TableName': table_name,
             'Key': key
         }
-        response = {'Item': self._build_out_item(item)}
+        if item is not None:
+            response = {'Item': self._build_out_item(item)}
+        else:
+            response = {}
         self._stub_bifurcator('get_item', expected_params, response, error_code)
 
     def stub_update_item(self, table_name, update_key, update, requested_return,

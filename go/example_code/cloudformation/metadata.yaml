@@ -1,8 +1,0 @@
----
-files:
-  - path: CfnCrudOps.go
-    services:
-      - cloudformation
-  - path: CfnCrudOps_test.go
-    services:
-      - cloudformation

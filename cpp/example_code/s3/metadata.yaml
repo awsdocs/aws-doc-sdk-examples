@@ -84,6 +84,12 @@ files:
   - path: tests/test_list_objects.cpp
     services:
     - s3
+  - path: list_objects_with_aws_global_region.cpp
+    services:
+    - s3
+  - path: tests/test_list_objects_with_aws_global_region.cpp
+    services:
+    - s3
   - path: put_bucket_policy.cpp
     services:
     - s3
@@ -112,6 +118,12 @@ files:
     services:
     - s3
   - path: tests/test_put_website_config.cpp
+    services:
+    - s3
+  - path: s3-demo.cpp
+    services:
+    - s3
+  - path: tests/test_s3-demo.cpp
     services:
     - s3
 ...
