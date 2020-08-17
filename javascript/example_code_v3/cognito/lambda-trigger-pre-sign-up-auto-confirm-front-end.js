@@ -26,7 +26,7 @@ Running the code:
 8. In the Pre sign-up pane, select the lambda function.
 */
 
-// snippet-start:[cognito.javascript.lambda-trigger.presign-up-auto-confirm-front-endV3]
+// snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-front-endV3]
 var attributeList = [];
 var dataEmail = {
   Name: "email",
