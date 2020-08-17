@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an Identity in an Identity Pool.]
+//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an identity in an Amazon Cognito identity pool.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -38,7 +38,7 @@ public class GetIdentityCredentials {
                 "Usage:\n" +
                 "    GetIdentityCredentials <identity_id > \n\n" +
                 "Where:\n" +
-                "    identityId - The id of an existing identity.\n\n" +
+                "    identityId - The ID of an existing identity.\n\n" +
                 "Example:\n" +
                 "    GetIdentityCredentials us-east-2:1234567890000-abcdefgc\n";
 
@@ -66,7 +66,7 @@ public class GetIdentityCredentials {
                         .build();
 
                 GetCredentialsForIdentityResponse response = cognitoclient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
-                System.out.println("Identity ID " + response.identityId() + ", Access Key Id " + response.credentials().accessKeyId());
+                System.out.println("Identity ID " + response.identityId() + ", Access key ID " + response.credentials().accessKeyId());
 
             } catch (CognitoIdentityProviderException e) {
                 System.err.println(e.awsErrorDetails().errorMessage());

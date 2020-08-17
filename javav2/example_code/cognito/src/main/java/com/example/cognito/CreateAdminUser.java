@@ -40,9 +40,9 @@ public class CreateAdminUser {
                 "Usage:\n" +
                 "    CreateAdminUser <user_pool_id> <username> <email>\n\n" +
                 "Where:\n" +
-                "    user_pool_id - The user pool ID for the user pool where the user will be created.\n\n" +
-                "    username - The username for the user.\n\n" +
-                "    email  - The email to user for verifying admin account.\n\n" +
+                "    user_pool_id - The ID for the user pool where the user will be created.\n\n" +
+                "    username - The user name for the user.\n\n" +
+                "    email  - The email to use for verifying the admin account.\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 

@@ -39,8 +39,8 @@ public class CreateUserPoolClient {
                 "Usage:\n" +
                 "    CreateUserPoolClient <clientName> <userPoolId> \n\n" +
                 "Where:\n" +
-                "    clientName - The client name for the user pool client you would like to create.\n\n" +
-                "    userPoolId - The user pool ID for the user pool where you want to create a user pool client.\n\n" +
+                "    clientName - The name for the user pool client to create.\n\n" +
+                "    userPoolId - The ID for the user pool where you want to create a user pool client.\n\n" +
                 "Example:\n" +
                 "    CreateUserPoolClient client1 client1IdNum\n";
 
@@ -74,7 +74,7 @@ public class CreateUserPoolClient {
                         .build()
         );
 
-            System.out.println("User Pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
+            System.out.println("User pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

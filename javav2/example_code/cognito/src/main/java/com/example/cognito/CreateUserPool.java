@@ -39,7 +39,7 @@ public class CreateUserPool {
                 "Usage:\n" +
                 "    CreateUserPool <userPoolName> \n\n" +
                 "Where:\n" +
-                "    userPoolName - The name to give your user pool when created.\n\n" +
+                "    userPoolName - The name to give your user pool when it's created.\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
@@ -55,7 +55,7 @@ public class CreateUserPool {
                 .build();
 
         String id = createPool(cognitoclient,userPoolName);
-        System.out.println("User Pool ID: " + id);
+        System.out.println("User pool ID: " + id);
     }
 
     //snippet-start:[cognito.java2.create_user_pool.main]
