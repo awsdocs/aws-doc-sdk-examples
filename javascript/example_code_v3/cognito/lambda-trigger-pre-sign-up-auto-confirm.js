@@ -8,8 +8,8 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html.
 
 Purpose:
-lambda-trigger-pre-sign-up-auto-confirm.js is a sample Lambda trigger called just before sign-up
-with the user pool pre sign-up Lambda trigger. It uses a custom attribute custom:domain to automatically
+lambda-trigger-pre-sign-up-auto-confirm.js is a sample Lambda trigger called just before sign up
+with the user pool pre-signup Lambda trigger. It uses a custom attribute custom:domain to automatically
 confirm new users from a particular email domain. Any new users not in the custom domain will be added
 to the user pool, but not automatically confirmed.
 

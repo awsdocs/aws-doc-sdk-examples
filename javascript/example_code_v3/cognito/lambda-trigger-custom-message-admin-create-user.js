@@ -5,11 +5,11 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SD
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
-https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-custom-message.html..
+https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-custom-message.html.
 
 Purpose:
-lambda-trigger-custom-message-admin-create-user.js is a custom message Lambda function with the
-CustomMessage_AdminCreateUser trigger returns a user name and verification code and so include
+lambda-trigger-custom-message-admin-create-user.js is a custom message AWS Lambda function with the
+CustomMessage_AdminCreateUser trigger that returns a user name and verification code. So include
 both request.usernameParameter and request.codeParameter in the message body.
 
 Running the code:
@@ -27,9 +27,10 @@ Running the code:
 exports.handler = async (event, context) => {
   try {
     if (event.userPoolId === "theSpecialUserPool") {
-      // Identify why was this function invoked
+      // Identify this function was invoked
       if (event.triggerSource === "CustomMessage_AdminCreateUser") {
-        // Ensure that your message contains event.request.codeParameter event.request.usernameParameter. This is the placeholder for the code and username that will be sent to your user.
+        // Ensure that your message contains event.request.codeParameter event.request.usernameParameter.
+        // This is the placeholder for the code and user name that will be sent to your user.
         event.response.smsMessage =
           "Welcome to the service. Your user name is " +
           event.request.usernameParameter +
@@ -42,7 +43,7 @@ exports.handler = async (event, context) => {
           " Your temporary password is " +
           event.request.codeParameter;
       }
-      // Create custom message for other events
+      // Create custom messages for other events
 
       // Customize messages for other user pools
     }

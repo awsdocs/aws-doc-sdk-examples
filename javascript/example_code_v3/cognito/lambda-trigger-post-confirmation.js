@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-post-confirmation.html.
 
 Purpose:
-lambda-trigger-post-confirmation.js is a Lambda function sends a confirmation email message to your user
+lambda-trigger-post-confirmation.js is an AWS Lambda function that sends a confirmation email message to your user
 using Amazon SES.
 
 
@@ -43,11 +43,11 @@ exports.handler = async (event, context) => {
     );
     {
       // Return to Amazon Cognito
-      callback(null, event);
+      return null, event;
     }
   } else {
     // Nothing to do, the user's email ID is unknown
-    callback(null, event);
+    return null, event;
   }
 };
 

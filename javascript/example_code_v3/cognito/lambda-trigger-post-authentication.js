@@ -8,8 +8,8 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-post-authentication.html.
 
 Purpose:
-lambda-trigger-post-authentication.js is a post authentication sample Lambda function sends data from a successful
-sign-in to CloudWatch Logs.
+lambda-trigger-post-authentication.js is a post authentication example AWS Lambda function that sends data from a successful
+sign-in to Amazon CloudWatch logs.
 
 Running the code:
 1. On the AWS Lambda service dashboard, click Create function.
@@ -25,7 +25,7 @@ Running the code:
 // snippet-start:[cognito.javascript.lambda-trigger.post-authenticationV3]
 exports.handler = async (event, context) => {
   try {
-    // Send post authentication data to Cloudwatch logs
+    // Send post authentication data to Amazon Cloudwatch logs
     console.log("Authentication successful");
     console.log("Trigger function =", event.triggerSource);
     console.log("User pool = ", event.userPoolId);

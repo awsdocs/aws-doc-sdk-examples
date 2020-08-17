@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-define-auth-challenge.html.
 
 Purpose:
-cognito_getcreds.js generates or retrieves a Cognito ID.
+cognito_getcreds.js generates or retrieves an Amazon Cognito ID.
 
 For more information, see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentity.html#getId-property.
 
@@ -18,8 +18,8 @@ Inputs (into command line):
 - REGION
 
 Running the code:
-1. Install Webpack by entering 'yarn add webpack' in the command line.
-2. Run the following command to generate 'main.js' which is used in cognito_getcreds.html:
+1. Install webpack by entering 'yarn add webpack' at a command prompt.
+2. Run the following command to generate 'main.js' which is used in cognito_getcreds.html.
    webpack cognito_getcreds.js --mode development --target web --devtool false -o main.js
 3. Open cognito_getcreds.html in your browser.
 */
@@ -33,7 +33,7 @@ const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
 
-// Set your needed values
+// Set the paramerter
 var IDENTITY_POOL_ID = "IDENTITY_POOL_ID";
 var ACCOUNT_ID = "ACCOUNT_ID";
 
@@ -62,7 +62,7 @@ const showId = async () => {
   }
 };
 
-//Make function available to browser
+// Make function available to browser
 window.showId = showId;
 
 // snippet-end:[cognito.javascript.cognito_getcredsV3]

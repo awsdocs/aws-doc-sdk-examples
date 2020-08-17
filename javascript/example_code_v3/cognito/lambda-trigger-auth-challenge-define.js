@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-define-auth-challenge.html.
 
 Purpose:
-lambda-trigger-auth-challenge-define.js defines a series of challenges for authentication and
+lambda-trigger-auth-challenge-define.js defines a series of challenges for authentication, and
 issues tokens only if all of the challenges are successfully completed.
 
 Running the code:

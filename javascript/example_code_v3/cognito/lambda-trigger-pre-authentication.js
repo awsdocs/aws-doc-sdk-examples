@@ -8,8 +8,8 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-authentication.html.
 
 Purpose:
-lambda-trigger-pre-authentication.js is a sample function that prevents users from a specific user pool app client
-to sign-in to the user pool.
+lambda-trigger-pre-authentication.js is an example AWS Lambda function that prevents users from a specific user pool app client
+from signing in to the user pool.
 
 Running the code:
 1. On the AWS Lambda service dashboard, click Create function.

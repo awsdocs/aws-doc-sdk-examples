@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-verify-auth-challenge-response.html.
 
 Purpose:
-lambda-trigger-auth-challenge-verify.js is a Lambda function checks whether the user's response
+lambda-trigger-auth-challenge-verify.js is an example AWS Lambda function that checks whether the user's response
 to a challenge matches the expected response. The answerCorrect parameter is set to true if the
 user's response matches the expected response.
 

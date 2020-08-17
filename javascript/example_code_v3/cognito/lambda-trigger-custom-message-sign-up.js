@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
     if (event.userPoolId === "theSpecialUserPool") {
       // Identify why was this function invoked
       if (event.triggerSource === "CustomMessage_SignUp") {
-        // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
+        // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent.
         event.response.smsMessage =
           "Welcome to the service. Your confirmation code is " +
           event.request.codeParameter;

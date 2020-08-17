@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
   let user;
 
   if (event.triggerSource == "UserMigration_Authentication") {
-    // authenticate the user with your existing user directory service
+    // Authenticate the user with your existing user directory service
     try {
       user = authenticateUser(event.userName, event.request.password);
       if (user) {
@@ -45,7 +45,7 @@ exports.handler = async (event, context) => {
     }
   } else if (event.triggerSource == "UserMigration_ForgotPassword") {
     try {
-      // Lookup the user in your existing user directory service
+      // Look up the user in your existing user directory service
       user = lookupUser(event.userName);
       if (user) {
         event.response.userAttributes = {

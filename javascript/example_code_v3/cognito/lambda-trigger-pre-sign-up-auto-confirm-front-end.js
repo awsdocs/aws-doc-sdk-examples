@@ -9,7 +9,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-s
 
 Purpose:
 lambda-trigger-pre-sign-up-auto-confirm-front-end.js demonstrates how to sign up a new
-user. It will invoke a pre sign-up Lambda trigger as part of the authentication.
+user. It will invoke a pre-signup Lambda trigger as part of the authentication.
 
 Inputs (replace in code):
 - EMAIL: Your email.
@@ -26,15 +26,15 @@ Running the code:
 8. In the Pre sign-up pane, select the lambda function.
 */
 
-// snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-front-endV3]
+// snippet-start:[cognito.javascript.lambda-trigger.presign-up-auto-confirm-front-endV3]
 var attributeList = [];
 var dataEmail = {
   Name: "email",
-  Value: "EMAIL", // your email here
+  Value: "EMAIL", // Your email here
 };
 var dataPhoneNumber = {
   Name: "phone_number",
-  Value: "PHONE_NUMBER", // your phone number here with +country code and no delimiters in front
+  Value: "PHONE_NUMBER", // Your phone number here with +country code and no delimiters in front
 };
 
 var dataEmailDomain = {
