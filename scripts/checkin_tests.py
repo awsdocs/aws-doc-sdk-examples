@@ -62,6 +62,7 @@ DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
 ALLOW_LIST = {
     'AKIAIOSFODNN7EXAMPLE',
     'AppStreamUsageReportsCFNGlueAthenaAccess',
+    'aws/acm/model/DescribeCertificateRequest',
     'aws/cloudtrail/model/LookupEventsRequest',
     'aws/codebuild/model/BatchGetBuildsResult',
     'aws/codecommit/model/DeleteBranchRequest',
@@ -83,6 +84,8 @@ ALLOW_LIST = {
     'aws/neptune/model/CreateDBClusterRequest',
     'aws/neptune/model/DeleteDBClusterRequest',
     'aws/neptune/model/ModifyDBClusterRequest',
+    'aws/kms/model/ScheduleKeyDeletionRequest',
+    'KMSWithContextEncryptionMaterialsExample',
     'CertificateTransparencyLoggingPreference',
     'ChangeMessageVisibilityBatchRequestEntry',
     'com/greengrass/latest/developerguide/lra',

@@ -70,7 +70,7 @@ def main():
                 'eu-central-1',   #Europe (Frankfurt)
                 'eu-west-1',      #Europe (Ireland)
                 'eu-west-2',      #Europe (London)
-                'sa-east-1',      #South America (São Paulo)
+                'sa-east-1',      #South America (Sao Paulo)
                 'us-gov-west-1'   #AWS GovCloud (US)
             ],
             action="store")

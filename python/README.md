@@ -18,6 +18,19 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to write and retrieve Amazon DynamoDB
+data using batch functions.
+
+Boto3 features a 
+[batch_writer](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html#batch-writing) 
+function that handles all of the necessary intricacies
+of the Amazon DynamoDB batch API on your behalf. This includes buffering, removing
+duplicates, and retrying unprocessed items.
+
 ### [Amazon DynamoDB getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/GettingStarted/README.md)
 
 #### Purpose
@@ -65,6 +78,47 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM policies, including versioned policies.
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
+
+### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/boto_client_examples/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke 
+AWS Lambda functions. Learn to accomplish the following tasks:
+
+* Create and deploy Lambda functions that can be invoked in different ways:
+    * By an invoke call through Boto3
+    * By Amazon API Gateway as the target of a REST request
+    * By Amazon EventBridge on a schedule
+* Create and deploy a REST API on Amazon API Gateway. The REST API targets an 
+AWS Lambda function to handle REST requests.
+* Create a schedule rule on Amazon EventBridge that targets an AWS Lambda function.
+
+These examples show how to use the low-level Boto3 client APIs to accomplish tasks
+like creating a REST API and setting an event schedule. You can also use
+[AWS Chalice](https://github.com/aws/chalice)
+to achieve similar results more easily and with additional features. 
+
+### [AWS Chalice and AWS Lambda REST API example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/chalice_examples/lambda_rest/README.md)
+
+#### Purpose
+
+Shows how to use AWS Chalice with the AWS SDK for Python (Boto3) to 
+create a serverless REST API that uses Amazon API Gateway, AWS Lambda, and 
+Amazon DynamoDB. The REST API simulates a system that tracks daily cases
+of COVID-19 in the United States, using fictional data. Learn how to:
+
+* Use AWS Chalice to define routes in AWS Lambda functions that
+ are called to handle REST requests that come through Amazon API Gateway.
+* Use AWS Lambda functions to retrieve and store data in an Amazon DynamoDB 
+table to serve REST requests.
+* Define table structure and security role resources in an AWS CloudFormation template.
+* Use AWS Chalice and AWS CloudFormation to package and deploy all necessary resources.
+* Use AWS CloudFormation to clean up all created resources.
+
+This example brings together some of the same information you can find in the
+tutorials in the 
+[AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
 
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 

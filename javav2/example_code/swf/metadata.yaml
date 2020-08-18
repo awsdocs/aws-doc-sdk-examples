@@ -1,0 +1,20 @@
+--- 
+files:
+  - path: src/main/java/com/example/helloswf/ActivityWorker.java
+    services:
+      - swf
+  - path: src/main/java/com/example/helloswf/ActivityWorkerWithGracefulShutdown.java
+    services:
+      - swf
+  - path: src/main/java/com/example/helloswf/SWFWorkflowDemo.java
+    services:
+      - swf
+  - path: src/main/java/com/example/helloswf/WorkflowStarter.java
+    services:
+      - swf
+  - path: src/main/java/com/example/helloswf/WorkflowWorker.java
+    services:
+      - swf
+  - path: src/test/java/AmazonSimpleWorkflowTest.java
+    services:
+      - swf  

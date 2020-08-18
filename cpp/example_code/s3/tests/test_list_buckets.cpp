@@ -2,10 +2,21 @@
 // SPDX - License - Identifier: Apache - 2.0 
 
 #include <iostream>
+#include <aws/core/Aws.h>
+#include <awsdoc/s3/s3_examples.h>
 
 int main()
 {
-    std::cout << "Not yet implemented." << std::endl;
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        // List the available buckets.
+        if (!AwsDoc::S3::ListBuckets())
+        {
+            return 1;
+        }
+    }
+    ShutdownAPI(options);
 
-    return 1;
+    return 0;
 }

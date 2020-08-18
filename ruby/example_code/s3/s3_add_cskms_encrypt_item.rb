@@ -42,8 +42,11 @@ kms = Aws::KMS::Client.new
 
 # Create encryption client
 client = Aws::S3::EncryptionV2::Client.new(
-  kms_key_id: key,
-  kms_client: kms
+  kms_key_id: key_id,
+  kms_client: kms,
+  key_wrap_schema: :kms_context, # the key_wrap_schema must be kms_context for KMS
+  content_encryption_schema: :aes_gcm_no_padding,
+  security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
 )
 
 # Add encrypted item to bucket

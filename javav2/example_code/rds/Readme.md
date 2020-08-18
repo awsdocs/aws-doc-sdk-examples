@@ -1,8 +1,8 @@
-# Amazon Relational Database Service Java code examples
+# Amazon RDS Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon Relational Database Service.
+This README discusses how to run and test the Java code examples for Amazon Relational Database Service (Amazon RDS).
 
-## Running the Amazon Relational Database Service Java files
+## Running the Amazon RDS Java files
 
 **IMPORTANT**
 
@@ -21,9 +21,9 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 	java com.example.rds.DescribeDBInstances
 
 
- ## Testing the Amazon Relational Database Service Java files
+ ## Testing the Amazon RDS Java files
 
-You can test the Java code examples for Amazon Redshift by running a test file named **AmazonRdsServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon RDS by running a test file named **AmazonRdsServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -32,12 +32,12 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Relational Database Service JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a dbInstance identifier value used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon RDS JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a **dbInstance** identifier value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
 - **dbInstanceIdentifier** - The database instance identifier.   
-- **dbSnapshotIdentifier** - The snapshot identifier. 
+- **dbSnapshotIdentifier** - The snapshot identifier.
 - **dbName** - The database name.
 - **masterUsername** - The master user name .
 - **masterUserPassword** - The password that corresponds to the master user name.
@@ -82,5 +82,3 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
 	[ERROR];
-
-
