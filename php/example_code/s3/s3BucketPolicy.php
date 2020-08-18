@@ -42,7 +42,7 @@ try {
         'Bucket' => $bucket
     ]);
     echo "Succeed in receiving bucket policy:\n";
-    echo $resp->get('Policy');
+    echo (string) $resp->get('Policy');
     echo "\n";
 } catch (AwsException $e) {
     // Display error message
