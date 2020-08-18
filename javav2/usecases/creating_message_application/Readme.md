@@ -38,4 +38,4 @@ To follow along with the tutorial, you need the following:
 
 To send a message to a SQS queue, enter the message into the application and choose Send.  Once the message is sent, the application displays the message, as shown in this figure. 
 
-![AWS Message Application](images/client2.png)
+![AWS Message Application](images/client2a.png)
