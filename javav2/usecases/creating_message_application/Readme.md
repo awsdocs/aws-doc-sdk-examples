@@ -57,3 +57,10 @@ The following describes how the application handles a message:
 6. Choose **Next**.
 7. Choose **Finish**. 
 
+## Add the POM dependencies to your project
+
+At this point, you have a new project named **SpringPhotoAnalyzer**.
+
+![AWS Photo Analyzer](images/client3.png)
+
+Add the following dependencies for the Amazon services (AWS Java SDK version 2).
