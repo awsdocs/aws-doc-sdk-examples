@@ -39,3 +39,21 @@ To follow along with the tutorial, you need the following:
 To send a message to a SQS queue, enter the message into the application and choose Send.  Once the message is sent, the application displays the message, as shown in this figure. 
 
 ![AWS Message Application](images/client2a.png)
+
+The following describes how the application handles a message: 
+
++ The message and user values are posted to a Spring Controller.
++ The Spring Controller creates a custom **Message** object that stores the message Id value (a GUID value), the message text, and the user.
++ The Spring Controller passes the **Message** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue
++ The Spring Controller invokes the Message service’s **getMessages** method to read all of the messages in the queue. This method returns an XML document that contains all messages.
++ The XML is passed back to the view where the messages are parsed and displayed in the view.  
+
+## Create an IntelliJ project named SpringAWSMessage
+
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
+3. For **GroupId**, enter **aws-springmessage**. 
+4. For **ArtifactId**, enter **SpringAWSMessage**. 
+6. Choose **Next**.
+7. Choose **Finish**. 
+
