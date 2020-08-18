@@ -473,3 +473,280 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         return null;
        }
       }
+      
+## Create the HTML files
+
+At this point, you have created all of the Java files required for the AWS Message application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a template folder and then create the following HTML files:
+
++ index.html
++ message.html
++ layout.html
+
+The **index.html** file is the application's home view. The **message.html** file represents the view for sending messages. Finally, the **layout.html** file represents the menu visible in all views.
+
+### index.html
+
+The following HTML code represents the **index.html** file.
+
+     <!DOCTYPE html>
+     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+
+    <title>AWS Sample Messaging Application</title>
+    </head>
+
+    <body>
+    <header th:replace="layout :: site-header"/>
+    <div class="container">
+
+    <h2>AWS Sample Message Application</h2>
+
+    <p>The AWS Sample Messaging application is a sample application that uses the Simple Queue Service as well as other AWS Services and the Java V2 API.
+     Working with messages has never been easier! Simply perform these steps:<p>
+
+       <ol>
+        <li>You can send a new message by choosing the <i>Send Messages</i> menu item. Select a user from the form, enter a message and then choose <i>Send</i>.</li>
+        <li>The AWS Message application stores the message in a First in First Out (FIFO) queue. This queue ensure that the order of the messages are consisent.</li>
+        <li>The AWS Message application polls the queue for all messages in the FIFO queue.</li>
+        <li>The AWS Message application displays the message data in the view. The message body, user name, and an avatar is displayd.</li>
+        <li>You can send and view multiple messages by using the AWS Message application. </li>
+        </ol>
+     <div>
+    </body>
+    </html>
+
+### message.html
+
+The following HTML file represents the **message.html** file. 
+
+     <!DOCTYPE HTML>
+     <html xmlns:th="https://www.thymeleaf.org">
+     <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+     <script src="../public/js/message.js" th:src="@{/js/message.js}"></script>
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+
+     <style>
+        .messageelement {
+            margin: auto;
+            border: 2px solid #dedede;
+            background-color: #D7D1D0 ;
+            border-radius: 5px;
+            max-width: 800px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .messageelement::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .messageelement img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .messageelement img.right {
+            float: right;
+            margin-left: 20px;
+            margin-right:0;
+        }
+     </style>
+     </head>
+     <body>
+     <header th:replace="layout :: site-header"/>
+
+    <div class="container">
+     <h2>AWS Sample Messaging Application</h2>
+    <div id="messages">
+    </div>
+
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">@</span>
+    </div>
+    <select name="cars" id="username">
+        <option value="Scott">Scott</option>
+        <option value="Lam">Lam</option>
+    </select>
+    </div>
+
+    <div class="input-group">
+     <div class="input-group-prepend">
+        <span class="input-group-text">Message:</span>
+     </div>
+     <textarea class="form-control" id="textarea" aria-label="With textarea"></textarea>
+     <button type="button" onclick="pushMessage()" id="send" class="btn btn-success">Send</button>
+     <button type="button" onclick="populateChat()" id="refresh" class="btn btn-success">Refresh</button>
+     </div>
+    </div>
+
+    <!-- All of these child items are hidden and only displayed in a FancyBox ------------------------------------------------------>
+    <div id="hide" style="display: none">
+
+    <div id="base" class="messageelement">
+        <img src="../public/images/av2.png" th:src="@{/images/av2.png}" alt="Avatar" class="right" style="width:100%;">
+        <p id="text">Sweet! So, what do you wanna do today?</p>
+        <span class="time-right">11:02</span>
+     </div>
+
+    </div>
+    </body>
+    </html>
+
+### layout.html
+
+The following code represents the **layout.html** file that represents the application's menu.
+
+     <!DOCTYPE html>
+     <html xmlns:th="http://www.thymeleaf.org">
+     <head th:fragment="site-head">
+     <meta charset="UTF-8" />
+     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <meta th:include="this :: head" th:remove="tag"/>
+    </head>
+    <body>
+    <!-- th:hef calls a controller method - which returns the view -->
+    <header th:fragment="site-header">
+     <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
+     <a href="#" style="color: white" th:href="@{/}">Home</a>
+     <a href="#" style="color: white" th:href="@{/message}">Send Messages</a>
+    </header>
+    <h1>Welcome</h1>
+    <body>
+    <p>Welcome to  AWS Sample SQS app.</p>
+    </body>
+    </html>
+    
+## Create script files
+
+Create a script file named **message.js** that communicates with the Spring controller. This file is used by the **message.html** view. Place the script file in this path:
+
+**resources\public\js**
+
+The following code represents this JS file. 
+
+     $(function() {
+
+     populateChat()
+     } );
+
+
+    function populateChat() {
+
+     // Post the values to the controller
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", handle, false);
+    xhr.open("GET", "../populate", true);   //buildFormit -- a Spring MVC controller
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+    xhr.send();
+    }
+
+    function handle(event) {
+
+      var xml = event.target.responseText;
+      $("#messages").children().remove();
+      $(xml).find('Message').each(function () {
+      var $field = $(this);
+      var body = $field.find('Data').text();
+      var name = $field.find('User').text();
+
+      // Set the view
+      var userText = body +'<br><br><b>' + name  ;
+      var myTextNode = $("#base").clone();
+      myTextNode.text(userText) ;
+      var image_url;
+      var n = name.localeCompare("Scott");
+
+      if (n == 0)
+            image_url = "../images/av1.png";
+        else
+            image_url = "../images/av2.png";
+      
+      var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
+      myTextNode.html(userText) ;
+      myTextNode.append(images_div);
+      $("#messages").append(myTextNode);
+      });
+     }
+
+     function pushMessage() {
+
+       var user =  $('#username').val();
+       var message = $('#textarea').val();
+
+       // Post the values to the controller
+       var xhr = new XMLHttpRequest();
+       xhr.addEventListener("load", loadNewItems, false);
+       xhr.open("POST", "../add", true);   //buildFormit -- a Spring MVC controller
+       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+       xhr.send("user=" + user + "&message=" + message);
+       }
+
+      function loadNewItems(event) {
+
+       var xml = event.target.responseText;
+       $("#messages").children().remove();
+        $(xml).find('Message').each(function () {
+
+       var $field = $(this);
+       var body = $field.find('Data').text();
+       var name = $field.find('User').text();
+
+        // Set the view
+        var userText = body +'<br><br><b>' + name  ;
+        var myTextNode = $("#base").clone();
+        myTextNode.text(userText) ;
+        var image_url;
+
+        var n = name.localeCompare("Scott");
+        if (n == 0)
+            image_url = "../images/av1.png";
+        else
+           image_url = "../images/av2.png";
+        var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
+
+        myTextNode.html(userText) ;
+        myTextNode.append(images_div);
+        $("#messages").append(myTextNode);
+        });
+        }
+
+**Note**: Be sure to include the CSS and image files located in Github into your project. 
+
+## Package the project into an executable JAR
+
+Package up the project into an executable .jar (JAR) file by using the following Maven command.
+
+     mvn package
+     
+The JAR file is located in the target folder.
+
+![AWS Message Application](images/client6.png)
+
+## Deploy to the Elastic Beanstalk
+
+The final step is to deploy the application to the Elastic Beanstalk. To learn how to deploy a Spring application to the Elastic Beanstalk, see [Creating your first AWS Java Web Application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project). 
+
+### Next steps
+Congratulations, you have created and deployed the Spring SQS application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+
+You can read more AWS multi service examples by clicking 
+[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
