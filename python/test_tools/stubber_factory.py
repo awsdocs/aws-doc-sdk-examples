@@ -16,6 +16,7 @@ from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.lambda_stubber import LambdaStubber
+from test_tools.organizations_stubber import OrganizationsStubber
 from test_tools.pinpoint_stubber import PinpointStubber
 from test_tools.s3_stubber import S3Stubber
 from test_tools.s3control_stubber import S3ControlStubber
@@ -45,6 +46,8 @@ def stubber_factory(service_name):
         return IamStubber
     elif service_name == 'lambda':
         return LambdaStubber
+    elif service_name == 'organizations':
+        return OrganizationsStubber
     elif service_name == 'pinpoint':
         return PinpointStubber
     elif service_name == 's3':
