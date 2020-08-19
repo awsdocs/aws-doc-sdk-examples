@@ -25,6 +25,9 @@ files:
   - path: ddb_query.js
     services:
       - dynamodb
+  - path: ddb_scan.js
+    services:
+      - dynamodb
   - path: QueryExample/ddb_batchwriteritem_tv.js
     services:
       - dynamodb

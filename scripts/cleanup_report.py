@@ -64,7 +64,9 @@ IGNORE_FOLDERS = {
     'venv',
     'scripts',
     '__pycache__',
-    '.pytest_cache'
+    '.pytest_cache',
+    '.vscode',
+    'vendor'
 }
 
 

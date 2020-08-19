@@ -5,7 +5,6 @@ import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import java.io.*;
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -16,12 +15,18 @@ public class CognitoServiceIntegrationTest {
     private static  CognitoIdentityProviderClient cognitoIdentityProviderClient ;
     private static CognitoIdentityClient cognitoIdclient ;
     private static String userPoolName="";
+    private static String identityId="";
     private static String userPoolId="" ; //set in test 2
     private static String identityPoolId =""; //set in test 5
     private static String username="";
     private static String email="";
     private static String clientName="";
     private static String identityPoolName="";
+    private static String appId="";
+    private static String existingUserPoolId="";
+    private static String existingIdentityPoolId = "";
+    private static String providerName="";
+    private static String existingPoolName="";
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -59,6 +64,13 @@ public class CognitoServiceIntegrationTest {
             email= prop.getProperty("email");
             clientName = prop.getProperty("clientName");
             identityPoolName =  prop.getProperty("identityPoolName");
+            identityId = prop.getProperty("identityId"); // used in the GetIdentityCredentials test
+            appId = prop.getProperty("appId");
+            existingUserPoolId = prop.getProperty("existingUserPoolId");
+            existingIdentityPoolId = prop.getProperty("existingIdentityPoolId");
+            providerName = prop.getProperty("providerName");
+            existingPoolName =  prop.getProperty("existingPoolName");
+
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -85,7 +97,6 @@ public class CognitoServiceIntegrationTest {
     @Test
     @Order(3)
     public void CreateAdminUser() {
-
         CreateAdminUser.createAdmin(cognitoclient,userPoolId ,username, email);
         System.out.println("Test 2 passed");
     }
@@ -93,7 +104,6 @@ public class CognitoServiceIntegrationTest {
     @Test
     @Order(4)
     public void CreateUserPoolClient() {
-
         CreateUserPoolClient.createPoolClient(cognitoclient,clientName, userPoolId);
         System.out.println("Test 4 passed");
     }
@@ -101,7 +111,6 @@ public class CognitoServiceIntegrationTest {
     @Test
     @Order(5)
     public void CreateIdentityPool() {
-
         identityPoolId = CreateIdentityPool.createIdPool(cognitoIdclient, identityPoolName);
         assertTrue(!identityPoolId.isEmpty());
         System.out.println("Test 5 passed");
@@ -110,41 +119,72 @@ public class CognitoServiceIntegrationTest {
     @Test
     @Order(6)
     public void ListUserPools() {
-
         ListUserPools.listAllUserPools(cognitoclient);
         System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
-    public void ListUserPoolClients() {
-
-       ListUserPoolClients.listAllUserPoolClients(cognitoIdentityProviderClient, userPoolId);
-       System.out.println("Test 7 passed");
+    public void ListIdentityPools() {
+        ListIdentityPools.listIdPools(cognitoIdclient);
+        System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(8)
-    public void ListUsers() {
+    public void ListUserPoolClients() {
 
-      ListUsers.listAllUsers(cognitoclient, userPoolId);
-      System.out.println("Test 8 passed");
+       ListUserPoolClients.listAllUserPoolClients(cognitoIdentityProviderClient, existingUserPoolId);
+       System.out.println("Test 8 passed");
     }
 
     @Test
     @Order(9)
-    public void AddLoginProvider() {
-
-       AddLoginProvider.setLoginProvider(cognitoIdclient, userPoolId, identityPoolName, identityPoolId);
-       System.out.println("Test 9 passed");
+    public void ListUsers() {
+      ListUsers.listAllUsers(cognitoclient, existingUserPoolId);
+      System.out.println("Test 9 passed");
     }
 
     @Test
     @Order(10)
-    public void DeleteUserPool() {
-
-      DeleteUserPool.deletePool(cognitoclient, userPoolId);
-     System.out.println("Test 10 passed");
+    public void ListIdentities() {
+        ListIdentities.listPoolIdentities(cognitoIdclient, existingIdentityPoolId);
+        System.out.println("Test 9 passed");
     }
 
+    @Test
+    @Order(11)
+    public void AddLoginProvider() {
+       AddLoginProvider.setLoginProvider(cognitoIdclient, appId, existingPoolName, existingIdentityPoolId, providerName);
+       System.out.println("Test 11 passed");
+    }
+
+    @Test
+    @Order(12)
+    public void GetIdentityCredentials() {
+        GetIdentityCredentials.getCredsForIdentity(cognitoIdclient, identityId);
+        System.out.println("Test 12 passed");
+    }
+
+    @Test
+    @Order(13)
+    public void GetId() {
+        GetId.getClientID(cognitoIdclient, existingIdentityPoolId);
+        System.out.println("Test 13 passed");
+    }
+
+    @Test
+    @Order(14)
+    public void DeleteUserPool() {
+      DeleteUserPool.deletePool(cognitoclient, userPoolId);
+     System.out.println("Test 14 passed");
+    }
+
+    @Test
+    @Order(15)
+    public void DeleteIdentityPool() {
+
+        DeleteIdentityPool.deleteIdPool(cognitoIdclient, identityPoolId);
+        System.out.println("Test 15 passed");
+    }
 }

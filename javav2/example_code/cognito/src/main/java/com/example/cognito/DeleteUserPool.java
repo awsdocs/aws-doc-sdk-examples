@@ -5,8 +5,8 @@
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -38,7 +38,7 @@ public class DeleteUserPool {
                 "Usage:\n" +
                 "    DeleteUserPool <userPoolId> \n\n" +
                 "Where:\n" +
-                "    userPoolId - the ID given to your user pool when created\n\n" +
+                "    userPoolId - The ID given to your user pool when it's created.\n\n" +
                 "Example:\n" +
                 "    DeleteUserPool us-east-2_P0oL1D\n";
 
@@ -52,6 +52,8 @@ public class DeleteUserPool {
         CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
+
+
         deletePool(cognitoclient, userPoolId );
     }
 
@@ -64,7 +66,7 @@ public class DeleteUserPool {
                 .build();
 
             DeleteUserPoolResponse response = cognitoclient.deleteUserPool(request);
-            System.out.println("User Pool " + response.toString() + " deleted. ID: " + request.userPoolId());
+            System.out.println("User pool " + response.toString() + " deleted. ID: " + request.userPoolId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
