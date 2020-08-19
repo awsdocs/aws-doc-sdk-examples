@@ -9,10 +9,10 @@ require 'aws-sdk-s3'
 require 'aws-sdk-iam'
 require 'json'
 
-# Checks to see whether the specified user exists in AWS IAM; otherwise,
+# Checks to see whether the specified user exists in IAM; otherwise,
 # creates the user.
 #
-# @param iam [Aws::IAM::Client] An initialized AWS IAM client.
+# @param iam [Aws::IAM::Client] An initialized IAM client.
 # @param user_name [String] The user's name.
 # @return [Aws::IAM::Types::User] The existing or new user.
 # @example
@@ -27,7 +27,7 @@ def get_user(iam, user_name)
   response = iam.get_user(user_name: user_name)
   puts "A user with the name '#{user_name}' already exists."
   return response.user
-# If the user doesn't exit, create them.
+# If the user doesn't exist, create them.
 rescue Aws::IAM::Errors::NoSuchEntity
   puts "A user with the name '#{user_name}' doesn't exist. Creating this user..."
   response = iam.create_user(user_name: user_name)
@@ -38,12 +38,12 @@ rescue StandardError => e
   puts "Error while accessing or creating the user named '#{user_name}': #{e.message}"
 end
 
-# Gets temporary AWS credentials for the specified AWS IAM user and permissions.
+# Gets temporary AWS credentials for the specified IAM user and permissions.
 #
 # @param sts [Aws::STS::Client] An initialized AWS STS client.
 # @param duration_seconds [Integer] The number of seconds for valid credentials.
 # @param user_name [String] The user's name.
-# @param policy [Hash] The permissions' access policy.
+# @param policy [Hash] The access policy.
 # @return [Aws::STS::Types::Credentials] AWS credentials for API authentication.
 # @example
 #   sts = Aws::STS::Client.new(region: 'us-east-1')
