@@ -6,7 +6,7 @@ Purpose
 
 Shows how to copy a shell script to Amazon EMR cluster instances and run them
 to install additional libraries on the instances. This can used to automate
-instance management and is an alternate to connecting through SSH to run the
+instance management and is an alternative to connecting through SSH to run the
 script manually.
 """
 
@@ -24,7 +24,7 @@ def install_libraries_on_core_nodes(
     :param cluster_id: The ID of the cluster.
     :param script_path: The path to the script, typically an Amazon S3 object URL.
     :param emr_client: The Boto3 Amazon EMR client.
-    :param ssm_client: The Boto3 AWS SSM client.
+    :param ssm_client: The Boto3 AWS Systems Manager client.
     """
     core_nodes = emr_client.list_instances(
         ClusterId=cluster_id, InstanceGroupTypes=['CORE'])['Instances']

@@ -25,7 +25,7 @@ def run_job_flow(
 
     This example uses the 'emr-5.30.1' release. A list of recent releases can be
     found here:
-        https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html
+        https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html.
 
     :param name: The name of the cluster.
     :param log_uri: The URI where logs are stored. This can be an Amazon S3 bucket URL,
@@ -95,9 +95,9 @@ def describe_cluster(cluster_id, emr_client):
     try:
         response = emr_client.describe_cluster(ClusterId=cluster_id)
         cluster = response['Cluster']
-        logger.info("Got info for cluster %s.", cluster['Name'])
+        logger.info("Got data for cluster %s.", cluster['Name'])
     except ClientError:
-        logger.exception("Couldn't get info for cluster %s.", cluster_id)
+        logger.exception("Couldn't get data for cluster %s.", cluster_id)
         raise
     else:
         return cluster
@@ -185,9 +185,9 @@ def describe_step(cluster_id, step_id, emr_client):
     try:
         response = emr_client.describe_step(ClusterId=cluster_id, StepId=step_id)
         step = response['Step']
-        logger.info("Got info for step %s.", step_id)
+        logger.info("Got data for step %s.", step_id)
     except ClientError:
-        logger.exception("Couldnt get info for step %s.", step_id)
+        logger.exception("Couldn't get data for step %s.", step_id)
         raise
     else:
         return step

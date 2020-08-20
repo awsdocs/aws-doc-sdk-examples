@@ -7,7 +7,7 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) with the Amazon EMR API to create
 two kinds of clusters:
     * A short-lived cluster that runs a single step to estimate the value of pi and
-      then auto-terminates.
+      then automatically terminates.
     * A long-lived cluster that runs several steps to query for top-rated items from
       historical Amazon review data. The cluster is manually terminated at the end of
       the demo.
@@ -34,13 +34,13 @@ logger = logging.getLogger(__name__)
 
 def status_poller(intro, done_status, func):
     """
-    Polls a function for status info, sleeping for 10 seconds between each query,
+    Polls a function for status, sleeping for 10 seconds between each query,
     until the specified status is returned.
 
     :param intro: An introductory sentence that informs the reader what we're
                   waiting for.
-    :param done_status: The status we're waiting for. This function polls until this
-                        status is returned by func.
+    :param done_status: The status we're waiting for. This function polls the status
+                        function until it returns the specified status.
     :param func: The function to poll for status. This function must eventually
                  return the expected done_status or polling will continue indefinitely.
     """
@@ -119,7 +119,7 @@ def create_roles(job_flow_role_name, service_role_name, iam_resource):
     them broad permission to use services like Amazon DynamoDB and Amazon S3.
 
     The service role is assumed by Amazon EMR and grants it permission to use various
-    Amazon EC2, Amazon S3 and other actions.
+    Amazon EC2, Amazon S3, and other actions.
 
     For demo purposes, these roles are fairly permissive. In practice, it's more
     secure to restrict permissions to the minimum needed to perform the required
@@ -341,8 +341,8 @@ def add_top_product_step(
 
 def demo_short_lived_cluster():
     """
-    Show how to create a short-lived cluster that runs a step and auto-terminates
-    after the step completes.
+    Shows how to create a short-lived cluster that runs a step and automatically
+    terminates after the step completes.
     """
     print('-'*88)
     print(f"Welcome to the Amazon EMR short-lived cluster demo.")
@@ -410,7 +410,7 @@ def demo_short_lived_cluster():
     for obj in bucket.objects.filter(Prefix=output_prefix):
         print(obj.get()['Body'].read().decode())
 
-    # Clean up demo resources (if desired).
+    # Clean up demo resources (if you want to).
     remove_everything = input(
             f"Do you want to delete the security roles, groups, and bucket (y/n)? ")
     if remove_everything.lower() == 'y':
@@ -426,7 +426,7 @@ def demo_short_lived_cluster():
 
 def demo_long_lived_cluster():
     """
-    Show how to create a long-lived cluster that waits after all steps are run so
+    Shows how to create a long-lived cluster that waits after all steps are run so
     that more steps can be run. At the end of the demo, the cluster is optionally
     terminated.
     """
@@ -501,7 +501,7 @@ def demo_long_lived_cluster():
                 input_count, input_cat, input_keyword, cluster_id, bucket, script_key,
                 emr_client)
 
-    # Clean up demo resources (if desired).
+    # Clean up demo resources (if you want to).
     remove_everything = input(
             f"Do you want to terminate the cluster and delete the security roles, "
             f"groups, bucket, and all of its contents (y/n)? ")

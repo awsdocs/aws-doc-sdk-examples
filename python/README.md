@@ -80,7 +80,7 @@ and manage clusters and job steps. Learn to accomplish the following tasks:
   keywords in their product titles.
 * Create security roles and groups to let Amazon EMR manage cluster instances and
   to let the instances access additional AWS resources.
-* Run commands on cluster instances, such EMRFS configuration and shell scripts
+* Run commands on cluster instances, such as EMRFS configuration and shell scripts
   to install additional libraries. 
 * Query clusters for status and terminate them using the API.
 

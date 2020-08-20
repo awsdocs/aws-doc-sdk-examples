@@ -8,7 +8,7 @@ Shows how to write a script that queries historical Amazon review data that is
 stored in a public Amazon S3 bucket. The query returns the top reviewed products from
 a category that contain a keyword in their product titles.
 
-This script is intended to be run an Amazon EMR job step and uses PySpark to manage
+This script is intended to be run as an Amazon EMR job step and uses PySpark to manage
 running the query on the cluster instances.
 
 To learn more about the Amazon Customer Reviews Dataset, see the README:

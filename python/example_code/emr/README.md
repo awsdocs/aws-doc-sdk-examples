@@ -13,7 +13,7 @@ and manage clusters and job steps. Learn to accomplish the following tasks:
   keywords in their product titles.
 * Create security roles and groups to let Amazon EMR manage cluster instances and
   to let the instances access additional AWS resources.
-* Run commands on cluster instances, such EMRFS configuration and shell scripts
+* Run commands on cluster instances, such as EMRFS configuration and shell scripts
   to install additional libraries. 
 * Query clusters for status and terminate them using the API.
 
@@ -88,7 +88,7 @@ python install_libraries.py CLUSTER_ID SHELL_SCRIPT_PATH
 This example is intended to be run as part of the tutorial in 
 [Installing Additional Kernels and Libraries](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-jupyterhub-install-kernels-libs.html) 
 and requires that the cluster specified by *CLUSTER_ID* is set up to work with
-AWS Systems Manager (AWS SSM) and that you have previously uploaded a shell script
+AWS Systems Manager and that you have previously uploaded a shell script
 to the Amazon S3 location specified by *SHELL_SCRIPT_PATH*. 
 
 ### Example structure
@@ -119,7 +119,7 @@ are written both to Amazon EMR logs and to an Amazon S3 bucket.
 
 Shows how to write a job step that uses Apache Spark to read data from the
 [Amazon Customer Reviews Dataset](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
-and query the data for top rated products in specific categories that contain 
+and query the data for top-rated products in specific categories that contain 
 keywords in their product titles. Results are written to an Amazon S3 bucket. 
 
 **emrfs_step.py**
@@ -128,7 +128,7 @@ Shows how to run EMRFS commands on a running cluster instance to configure EMRFS
 
 **install_libraries.py**
 
-Shows how to run a custom shell command on a running cluster intance to install
+Shows how to run a custom shell command on a running cluster instance to install
 additional libraries.
 
 ## Running the tests
@@ -145,7 +145,7 @@ python -m pytest
 ## Additional information
 
 - [Boto3 Amazon EMR service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/emr.html)
-- [Amazon EMR Documentation](https://docs.aws.amazon.com/emr/?id=docs_gateway)
+- [Amazon EMR documentation](https://docs.aws.amazon.com/emr/?id=docs_gateway)
 - [Amazon Customer Reviews Dataset](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
 
 ---
