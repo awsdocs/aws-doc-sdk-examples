@@ -41,8 +41,8 @@ public class CreateModel {
                 "Usage:\n" +
                 "    CreateModel <dataUrl> <image> <modelName><executionRoleArn>\n\n" +
                 "Where:\n" +
-                "    dataUrl - The S3 path where the model artifacts, which result from model training, are stored.\n\n" +
-                "    image - The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. (i.e., 000555047983.dkr.ecr.us-west-2.amazonaws.com/train)\n\n" +
+                "    dataUrl - The Amazon S3 path where the model artifacts, which result from model training, are stored.\n\n" +
+                "    image - The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (i.e., 000555047983.dkr.ecr.us-west-2.amazonaws.com/train).\n\n" +
                 "    modelName  - The name of the model.\n\n" +
                 "    executionRoleArn  - The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts  (i.e., arn:aws:iam::000555047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).\n\n";
 
