@@ -50,7 +50,6 @@ Define these values to successfully run the JUnit tests:
 
 
 **Note**: To setup the model data and other requirements needed for the unit tests, follow [Build, Train, and Deploy a Machine Learning Model](https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/). 
- * 
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
