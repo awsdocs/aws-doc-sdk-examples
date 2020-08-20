@@ -23,6 +23,7 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
 )
+
 // snippet-end:[sqs.go.receive_lp_message.imports]
 
 // GetQueueURL gets the URL of an Amazon SQS queue
@@ -57,7 +58,7 @@ func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, 
 func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) ([]*sqs.Message, error) {
     var msgs []*sqs.Message
     svc := sqs.New(sess)
-    
+
     // snippet-start:[sqs.go.receive_lp_message.call]
     result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
         QueueUrl: queueURL,
@@ -81,21 +82,12 @@ func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) ([]
 func main() {
     // snippet-start:[sqs.go.receive_lp_message.args]
     queue := flag.String("q", "", "The name of the queue")
-    visibility := flag.Int64("v", 5, "How long, in seconds, that messages are hidden from other consumers")
     waitTime := flag.Int64("w", 10, "How long the queue waits for messages")
     flag.Parse()
 
     if *queue == "" {
         fmt.Println("You must supply a queue name (-q QUEUE")
         return
-    }
-
-    if *visibility < 0 {
-        *visibility = 0
-    }
-
-    if *visibility > 12*60*60 { // 12 hours
-        *visibility = 12 * 60 * 60
     }
 
     if *waitTime < 0 {
@@ -139,4 +131,5 @@ func main() {
     }
     // snippet-end:[sqs.go.receive_lp_message.display]
 }
+
 // snippet-end:[sqs.go.receive_lp_message]
