@@ -46,8 +46,8 @@ import java.util.Map;
 //snippet-end:[sagemaker.java2.train_job.import]
 
 /**
- *  To setup the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
- *  https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/
+ *  To set up the model data and other requirements to make this AWS SDK for Java V2 example work, follow this AWS tutorial before running this Java code example:
+ *  https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/.
  */
 
 public class CreateTrainingJob {
@@ -58,13 +58,13 @@ public class CreateTrainingJob {
                 "Usage:\n" +
                 "    CreateTrainingJob <s3UriData><s3Uri><trainingJobName><roleArn><s3OutputPath><channelName><trainingImage>\n\n" +
                 "Where:\n" +
-                "    s3UriData - The location where the training data is located (ie, s3://trainbucket/train.csv).\n\n" +
-                "    s3Uri - The S3 path where you want Amazon SageMaker to store checkpoints (ie, s3://trainbucket).\n\n" +
+                "    s3UriData - The location of the training data (i.e, s3://trainbucket/train.csv).\n\n" +
+                "    s3Uri - The Amazon S3 path where you want Amazon SageMaker to store checkpoints (i.e., s3://trainbucket).\n\n" +
                 "    trainingJobName - The name of the training job. \n\n" +
-                "    roleArn  -  The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker uses.\n\n" +
-                "    s3OutputPath  - The output path located in a S3 bucket (i.e., s3://trainbucket/sagemaker).\n\n" +
+                "    roleArn  -  The Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
+                "    s3OutputPath  - The output path located in an Amazon S3 bucket (i.e., s3://trainbucket/sagemaker).\n\n" +
                 "    channelName  - The channel name (i.e., s3://trainbucket/sagemaker).\n\n" +
-                "    trainingImage  - The channel name (i.e.,  000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
+                "    trainingImage  - The training image (i.e.,  000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
 
        if (args.length < 7) {
             System.out.println(USAGE);
@@ -115,7 +115,7 @@ public class CreateTrainingJob {
                     .dataSource(dataSource)
                     .build();
 
-            // Build a LIST of CHannels
+            // Build a list of channels
             List<Channel> myChannel = new ArrayList();
             myChannel.add(channel);
 
