@@ -49,7 +49,7 @@ Define these values to successfully run the JUnit tests:
  - **trainingImage** - The training image.
 
 
-**Note**:  To setup the model data and other requirements for these unit tests to work, follow this AWS tutorial prior to running the unit tests: [Build, Train, and Deploy a Machine Learning Model]( https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/). 
+**Note**:  To setup the model data and other requirements for these unit tests to work, follow this AWS tutorial prior to running the unit tests: [Build, Train, and Deploy a Machine Learning Model](https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/). 
  * 
 
 ### Command line
