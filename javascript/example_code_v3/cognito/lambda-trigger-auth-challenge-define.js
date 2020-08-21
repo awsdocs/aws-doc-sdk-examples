@@ -12,14 +12,14 @@ lambda-trigger-auth-challenge-define.js defines a series of challenges for authe
 issues tokens only if all of the challenges are successfully completed.
 
 Running the code:
-1. On the AWS Lambda service dashboard, click Create function.
-2. On the Create function page, name the function, and click Create function.
+1. On the AWS Lambda service dashboard, choose Create function.
+2. On the Create function page, name the function, and choose Create function.
 3. Copy and paste the code into the index.js file in the editor, and save the function.
-4. Open the AWS Cognito service.
-5. Click Manage User pools.
-6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
-7. In General Settings, click Triggers.
-8. In the Define Auth Challenge pane, select the lambda function.
+4. Open the Amazon Cognito service.
+5. Choose Manage user pools.
+6. Choose the user pool you want to add the trigger to. (If you don't have a user pool, create one.)
+7. In General Settings, choose Triggers.
+8. In the Define Auth Challenge pane, choose the Lambda function.
 */
 // snippet-start:[cognito.javascript.lambda-trigger.define-auth-challengeV3]
 exports.handler = async (event, context) => {
