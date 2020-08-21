@@ -2,14 +2,17 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # This code example allows a federated user with a limited set of
-# permissions to list the objects in the specified Amazon S3 bucket.
+# permissions to list the objects in an Amazon S3 bucket.
+
+# Prerequisites:
+#  - An existing Amazon S3 bucket.
 
 # snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'
 require 'json'
 
-# Checks to see whether the specified user exists in IAM; otherwise,
+# Checks to see whether a user exists in IAM; otherwise,
 # creates the user.
 #
 # @param iam [Aws::IAM::Client] An initialized IAM client.
@@ -18,9 +21,7 @@ require 'json'
 # @example
 #   iam = Aws::IAM::Client.new(region: 'us-east-1')
 #   user = get_user(iam, 'my-user')
-#   unless user.user_name
-#     exit 1
-#   end
+#   exit 1 unless user.user_name
 #   puts "User's name: #{user.user_name}"
 def get_user(iam, user_name)
   puts "Checking for a user with the name '#{user_name}'..."
@@ -38,7 +39,7 @@ rescue StandardError => e
   puts "Error while accessing or creating the user named '#{user_name}': #{e.message}"
 end
 
-# Gets temporary AWS credentials for the specified IAM user and permissions.
+# Gets temporary AWS credentials for an IAM user with the specified permissions.
 #
 # @param sts [Aws::STS::Client] An initialized AWS STS client.
 # @param duration_seconds [Integer] The number of seconds for valid credentials.
@@ -58,9 +59,7 @@ end
 #       ]
 #     }
 #   )
-#   unless credentials.access_key_id
-#     exit 1
-#   end
+#   exit 1 unless credentials.access_key_id
 #   puts "Access key ID: #{credentials.access_key_id}"
 def get_temporary_credentials(sts, duration_seconds, user_name, policy)
   response = sts.get_federation_token(
@@ -73,19 +72,17 @@ rescue StandardError => e
   puts "Error while getting federation token: #{e.message}"
 end
 
-# Lists the keys and ETags for the objects in the specified Amazon S3 bucket.
+# Lists the keys and ETags for the objects in an Amazon S3 bucket.
 #
-# @param s3 [Aws::S3::Client] An initialized Amazon S3 client.
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @param bucket_name [String] The bucket's name.
 # @return [Boolean] true if the objects were listed; otherwise, false.
 # @example
-#   s3 = Aws::S3::Client.new(region: 'us-east-1')
-#   unless can_list_objects_in_bucket?(s3, 'my-bucket')
-#     exit 1
-#   end
-def can_list_objects_in_bucket?(s3, bucket_name)
+#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   exit 1 unless list_objects_in_bucket?(s3_client, 'my-bucket')
+def list_objects_in_bucket?(s3_client, bucket_name)
   puts "Accessing the contents of the bucket named '#{bucket_name}'..."
-  response = s3.list_objects_v2(
+  response = s3_client.list_objects_v2(
     bucket: bucket_name,
     max_keys: 50
   )
@@ -102,7 +99,6 @@ def can_list_objects_in_bucket?(s3, bucket_name)
   return true
 rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
-  return false
 end
 # snippet-end:[s3.ruby.auth_federation_token_request_test.rb]
 
@@ -115,9 +111,7 @@ bucket_name = 'my-bucket'
 iam = Aws::IAM::Client.new(region: region)
 user = get_user(iam, user_name)
 
-unless user.user_name
-  exit 1
-end
+exit 1 unless user.user_name
 
 puts "User's name: #{user.user_name}"
 sts = Aws::STS::Client.new(region: region)
@@ -133,14 +127,10 @@ credentials = get_temporary_credentials(sts, 3600, user_name,
   }
 )
 
-unless credentials.access_key_id
-  exit 1
-end
+exit 1 unless credentials.access_key_id
 
 puts "Access key ID: #{credentials.access_key_id}"
-s3 = Aws::S3::Client.new(region: region, credentials: credentials)
+s3_client = Aws::S3::Client.new(region: region, credentials: credentials)
 
-unless can_list_objects_in_bucket?(s3, bucket_name)
-  exit 1
-end
+exit 1 unless list_objects_in_bucket?(s3_client, bucket_name)
 =end
