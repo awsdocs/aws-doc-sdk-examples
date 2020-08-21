@@ -12,21 +12,21 @@ node lambda-trigger-custom-message-sign-up.js is invoked to customize an email o
 when the service requires an app to send a verification code to the user.
 
 Running the code:
-1. On the AWS Lambda service dashboard, click Create function.
-2. On the Create function page, name the function, and click Create function.
+1. On the AWS Lambda service dashboard, choose Create function.
+2. On the Create function page, name the function, and choose Create function.
 3. Copy and paste the code into the index.js file in the editor, and save the function.
-4. Open the AWS Cognito service.
-5. Click Manage User pools.
-6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
-7. In General Settings, click Triggers.
-8. In the Pre Token Generation pane, select the lambda function.
+4. Open the Amazon Cognito service.
+5. Choose Manage user pools.
+6. Choose the user pool you want to add the trigger to. (If you don't have a user pool, create one.)
+7. In General Settings, choose Triggers.
+8. In the Pre Token Generation pane, select the Lambda function.
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.custom-message-sign-upV3]
 exports.handler = async (event, context) => {
   try {
     if (event.userPoolId === "theSpecialUserPool") {
-      // Identify why was this function invoked
+      // Identify why this function was invoked
       if (event.triggerSource === "CustomMessage_SignUp") {
         // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent.
         event.response.smsMessage =
