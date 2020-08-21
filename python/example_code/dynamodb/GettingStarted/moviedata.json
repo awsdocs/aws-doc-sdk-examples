@@ -6823,7 +6823,7 @@
         "year": 2013,
         "title": "Beautiful Creatures",
         "info": {
-            "directors": ["Richard LaGravenese"],
+            "directors": ["Richard Smith"],
             "release_date": "2013-02-13T00:00:00Z",
             "rating": 6,
             "genres": [
@@ -13345,7 +13345,7 @@
         "year": 2007,
         "title": "P.S. I Love You",
         "info": {
-            "directors": ["Richard LaGravenese"],
+            "directors": ["Richard Smith"],
             "release_date": "2007-12-20T00:00:00Z",
             "rating": 6.9,
             "genres": [
@@ -15805,7 +15805,7 @@
         "year": 1984,
         "title": "A Nightmare on Elm Street",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "1984-10-01T00:00:00Z",
             "rating": 7.4,
             "genres": ["Horror"],
@@ -16809,7 +16809,7 @@
         "year": 2011,
         "title": "Scream 4",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "2011-04-11T00:00:00Z",
             "rating": 6.1,
             "genres": [
@@ -21090,7 +21090,7 @@
     },
     {
         "year": 2012,
-        "title": "The Raven",
+        "title": "The Dark Bird",
         "info": {
             "directors": ["James McTeigue"],
             "release_date": "2012-03-09T00:00:00Z",
@@ -22095,7 +22095,7 @@
         "year": 1996,
         "title": "Scream",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "1996-12-18T00:00:00Z",
             "rating": 7.2,
             "genres": [
@@ -34870,7 +34870,7 @@
         "year": 2007,
         "title": "Freedom Writers",
         "info": {
-            "directors": ["Richard LaGravenese"],
+            "directors": ["Richard Smith"],
             "release_date": "2007-01-05T00:00:00Z",
             "rating": 7.3,
             "genres": [
@@ -42194,7 +42194,7 @@
         "year": 2005,
         "title": "Red Eye",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "2005-08-04T00:00:00Z",
             "rating": 6.4,
             "genres": ["Thriller"],
@@ -43080,7 +43080,7 @@
         "year": 1991,
         "title": "The People Under the Stairs",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "1991-11-01T00:00:00Z",
             "rating": 6.1,
             "genres": [
@@ -47574,7 +47574,7 @@
     },
     {
         "year": 2010,
-        "title": "Legend of the Guardians: The Owls of Ga'Hoole",
+        "title": "Legend of the Guardians: The Wise Birds of Ga'Hoole",
         "info": {
             "directors": ["Zack Snyder"],
             "release_date": "2010-09-23T00:00:00Z",
@@ -47585,7 +47585,7 @@
                 "Fantasy"
             ],
             "image_url": "http://ia.media-imdb.com/images/M/MV5BMjE0NjA5OTA4N15BMl5BanBnXkFtZTcwODA3MTA3Mw@@._V1_SX400_.jpg",
-            "plot": "When a young owl is abducted by an evil Owl army, he must escape with new-found friends and seek the legendary Guardians to stop the menace.",
+            "plot": "When a young wise bird is abducted by an evil wise bird army, he must escape with new-found friends and seek the legendary Guardians to stop the menace.",
             "rank": 2246,
             "running_time_secs": 5820,
             "actors": [
@@ -52706,7 +52706,7 @@
         "year": 1997,
         "title": "Scream 2",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "1997-12-10T00:00:00Z",
             "rating": 6,
             "genres": [
@@ -53499,7 +53499,7 @@
                 "Thriller"
             ],
             "image_url": "http://ia.media-imdb.com/images/M/MV5BMTczMDk5MTg5Ml5BMl5BanBnXkFtZTcwOTYyMjE5Mg@@._V1_SX400_.jpg",
-            "plot": "As homicide detective Thomas Craven investigates the death of his activist daughter, he uncovers not only her secret life, but a corporate cover-up and government collusion that attracts an agent tasked with cleaning up the evidence.",
+            "plot": "As homicide detective Thomas Smith investigates the death of his activist daughter, he uncovers not only her secret life, but a corporate cover-up and government collusion that attracts an agent tasked with cleaning up the evidence.",
             "rank": 2524,
             "running_time_secs": 7020,
             "actors": [
@@ -58854,7 +58854,7 @@
         "year": 2000,
         "title": "Scream 3",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "2000-02-03T00:00:00Z",
             "rating": 5.4,
             "genres": [
@@ -68040,7 +68040,7 @@
             "actors": [
                 "Gene Hackman",
                 "Denzel Washington",
-                "Matt Craven"
+                "Matt Smith"
             ]
         }
     },
@@ -81690,7 +81690,7 @@
                 "Family"
             ],
             "image_url": "http://ia.media-imdb.com/images/M/MV5BMTUwNzA3NTczNl5BMl5BanBnXkFtZTcwNzg2NDQzMQ@@._V1_SX400_.jpg",
-            "plot": "A young man (Lerman) moves from Montana to Florida with his family, where he's compelled to engage in a fight to protect a population of endangered owls.",
+            "plot": "A young man (Lerman) moves from Montana to Florida with his family, where he's compelled to engage in a fight to protect a population of endangered wise birds.",
             "rank": 3906,
             "running_time_secs": 5460,
             "actors": [
@@ -86682,7 +86682,7 @@
         "year": 1972,
         "title": "The Last House on the Left",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "1972-08-30T00:00:00Z",
             "rating": 5.9,
             "genres": ["Horror"],
@@ -91334,7 +91334,7 @@
             "rank": 4388,
             "running_time_secs": 4980,
             "actors": [
-                "Raven-Symone",
+                "Smith-Symone",
                 "Martin Lawrence",
                 "Kym Whitley"
             ]
@@ -95410,7 +95410,7 @@
         "year": 2010,
         "title": "My Soul to Take",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "2010-10-07T00:00:00Z",
             "rating": 4.6,
             "genres": [
@@ -96563,7 +96563,7 @@
         "year": 1994,
         "title": "New Nightmare",
         "info": {
-            "directors": ["Wes Craven"],
+            "directors": ["Wes Smith"],
             "release_date": "1994-08-01T00:00:00Z",
             "rating": 6.2,
             "genres": [
