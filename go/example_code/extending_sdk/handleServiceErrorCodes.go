@@ -3,6 +3,7 @@
 // snippet-sourcedescription:[Handling Errors in the AWS SDK for Go.]
 // snippet-keyword:[Error handling]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[sdk-for-go]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

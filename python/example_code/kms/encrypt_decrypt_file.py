@@ -3,6 +3,8 @@
 # snippet-service:[kms]
 # snippet-keyword:[AWS Key Management Service (KMS)]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcetype:[full-example]
 # snippet-sourcedate:[2019-03-12]
 # snippet-sourceauthor:[AWS]

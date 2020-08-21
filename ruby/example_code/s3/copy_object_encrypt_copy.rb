@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[copy_object_encrypt_copy.rb demonstrates how to copy an object and encrypt the copy.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[COPY Object]

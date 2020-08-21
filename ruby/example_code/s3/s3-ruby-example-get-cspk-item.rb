@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[Encryption.get_object method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -39,7 +40,12 @@ begin
   key = OpenSSL::PKey::RSA.new(private_key, pass_phrase)
 
   # encryption client
-  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
+  enc_client = Aws::S3::EncryptionV2::Client.new(
+    encryption_key: key,
+    key_wrap_schema: :rsa_oaep_sha1, # the key_wrap_schema must be rsa_oaep_sha1 for asymmetric keys
+    content_encryption_schema: :aes_gcm_no_padding,
+    security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
+  )
 
   resp = enc_client.get_object(bucket: bucket, key: item)
 

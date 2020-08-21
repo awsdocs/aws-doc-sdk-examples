@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get a description of all regions and zones.]
-//snippet-keyword:[Java]
+//snippet-keyword:[SDK for Java 1.0]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]
@@ -7,7 +8,7 @@
 //snippet-sourcedate:[2018-05-22]
 //snippet-sourceauthor:[soo-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,12 +22,14 @@
  * permissions and limitations under the License.
  */
 package aws.example.ec2;
+// snippet-start:[ec2.java1.describe_region_and_zones.import]
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
 import com.amazonaws.services.ec2.model.Region;
 import com.amazonaws.services.ec2.model.AvailabilityZone;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+// snippet-end:[ec2.java1.describe_region_and_zones.import]
 
 /**
  * Describes all regions and zones
@@ -37,6 +40,7 @@ public class DescribeRegionsAndZones
     {
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
+// snippet-start:[ec2.java1.describe_region_and_zones.regions]
         DescribeRegionsResult regions_response = ec2.describeRegions();
 
         for(Region region : regions_response.getRegions()) {
@@ -46,7 +50,9 @@ public class DescribeRegionsAndZones
                 region.getRegionName(),
                 region.getEndpoint());
         }
+// snippet-end:[ec2.java1.describe_region_and_zones.regions]
 
+// snippet-start:[ec2.java1.describe_region_and_zones.zones]
         DescribeAvailabilityZonesResult zones_response =
             ec2.describeAvailabilityZones();
 
@@ -59,5 +65,6 @@ public class DescribeRegionsAndZones
                 zone.getState(),
                 zone.getRegionName());
         }
+// snippet-end:[ec2.java1.describe_region_and_zones.zones]
     }
 }

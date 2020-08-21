@@ -15,10 +15,11 @@
 //snippet-sourcedescription:[ec2_createsecuritygroup.js demonstrates how to create a security group for an Amazon EC2 instance.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-02]
+//snippet-sourcedate:[2019-08-06]
 //snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
@@ -28,7 +29,7 @@
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
 // Load credentials and set region from JSON file
-AWS.config.loadFromPath('./config.json');
+AWS.config.update({region: 'REGION'});
 
 // Create EC2 service object
 var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
@@ -55,7 +56,7 @@ ec2.describeVpcs(function(err, data) {
            var SecurityGroupId = data.GroupId;
            console.log("Success", SecurityGroupId);
            var paramsIngress = {
-             GroupName: 'SECURITY_GROUP_NAME',
+             GroupId: 'SECURITY_GROUP_ID',
              IpPermissions:[
                 {
                    IpProtocol: "tcp",

@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This Lambda function is invoked to customize an email or SMS message when the service requires an app to send a verification code to the user.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

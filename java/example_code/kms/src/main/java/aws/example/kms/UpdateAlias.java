@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[UpdateAlias.java demonstrates how to associate an existing alias with a different CMK.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

@@ -48,7 +48,7 @@ try {
         'QueueUrl' => $queueUrl, // REQUIRED
         'WaitTimeSeconds' => 0,
     ));
-    if (count($result->get('Messages')) > 0) {
+    if (!empty($result->get('Messages'))) {
         var_dump($result->get('Messages')[0]);
         $result = $client->deleteMessage([
             'QueueUrl' => $queueUrl, // REQUIRED
@@ -68,6 +68,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ReceiveMessage.php demonstrates how to retrieve up to 10 messages from a specified queue.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Queue Service]

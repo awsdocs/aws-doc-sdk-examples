@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an alias.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

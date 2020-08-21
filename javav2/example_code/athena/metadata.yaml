@@ -1,0 +1,29 @@
+--- 
+files:
+  - path: src/main/java/aws/example/athena/AthenaClientFactory.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/CreateNamedQueryExample.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/DeleteNamedQueryExample.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/ExampleConstants.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/ListNamedQueryExample.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/ListQueryExecutionsExample.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/StartQueryExample.java
+    services:
+      - athena
+  - path: src/main/java/aws/example/athena/StopQueryExecutionExample.java
+    services:
+      - athena      
+  - path: src/test/java/AWSAthenaServiceIntegrationTest.java
+    services:
+      - athena

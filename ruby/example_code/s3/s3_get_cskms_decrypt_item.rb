@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[get_object method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -37,9 +38,12 @@ item = 'my_item'
 kms = Aws::KMS::Client.new
 
 # Create S3 encryption client
-client = Aws::S3::Encryption::Client.new(
-  kms_key_id: key,
+client = Aws::S3::EncryptionV2::Client.new(
+  kms_key_id: key_id,
   kms_client: kms,
+  key_wrap_schema: :kms_context, # the key_wrap_schema must be kms_context for KMS
+  content_encryption_schema: :aes_gcm_no_padding,
+  security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
 )
 
 # Get item

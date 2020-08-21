@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[<<FILENAME>> demonstrates how to change the visibility timeout for a queue.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-service:[sqs]

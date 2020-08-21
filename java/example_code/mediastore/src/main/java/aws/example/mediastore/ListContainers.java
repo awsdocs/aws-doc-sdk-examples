@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ListContainers.java demonstrates how to list your AWS Elemental MediaStore containers.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[mediastore]
 //snippet-sourcetype:[full-example]

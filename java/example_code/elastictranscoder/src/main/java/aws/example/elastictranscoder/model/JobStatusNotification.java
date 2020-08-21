@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[JobStatusNotification.java provides a model for job status notifications.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Transcoder]
 //snippet-service:[elastictranscoder]

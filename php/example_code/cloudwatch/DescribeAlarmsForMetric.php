@@ -1,70 +1,109 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/cw-examples-getting-metrics.html
- *
- *
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudwatch.php.describe_alarms_metric.complete]
 // snippet-start:[cloudwatch.php.describe_alarms_metric.import]
-
 require 'vendor/autoload.php';
 
 use Aws\CloudWatch\CloudWatchClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[cloudwatch.php.describe_alarms_metric.import]
 
-/**
- * Describe Alarms For Metric
- *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Provides a list of alarms that match the specified 
+ * metric in Amazon CloudWatch.
+ * 
+ * Inputs:
+ * - $cloudWatchClient: An initialized CloudWatch client.
+ * - $metricName: The name of the metric, for example, BucketSizeBytes.
+ * - $namespace: The related namespace for the metric, for example, AWS/S3.
+ * - $dimensions: Any related dimensions, if the metric requires them to
+ *   be specified.
+ * 
+ * Returns: Information about any matching alarms found; 
+ * otherwise, the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
  
 // snippet-start:[cloudwatch.php.describe_alarms_metric.main]
-$client = new Aws\CloudWatch\CloudWatchClient([
-    'profile' => 'default',
-    'region' => 'us-west-2',
-    'version' => '2010-08-01'
-]);
+function describeAlarmsForMetric($cloudWatchClient, $metricName, 
+    $namespace, $dimensions)
+{
+    try {
+        $result = $cloudWatchClient->describeAlarmsForMetric([
+            'MetricName' => $metricName,
+            'Namespace' => $namespace,
+            'Dimensions' => $dimensions
+        ]);
 
-try {
-    $result = $client->describeAlarmsForMetric(array(
-        // MetricName is required
-        'MetricName' => 'ApproximateNumberOfMessagesVisible',
-        // Namespace is required
-        'Namespace' => 'AWS/SQS',
-    ));
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    error_log($e->getMessage());
+        $message = '';
+
+        if (isset($result['@metadata']['effectiveUri']))
+        {
+            $message .= 'At the effective URI of ' .
+                $result['@metadata']['effectiveUri'] . ":\n\n";
+
+            if ((isset($result['MetricAlarms'])) and 
+                (count($result['MetricAlarms']) > 0))
+            {
+                $message .= 'Matching alarms for ' . $metricName . ":\n\n";
+
+                foreach ($result['MetricAlarms'] as $alarm)
+                {
+                    $message .= $alarm['AlarmName'] . "\n";
+                }
+            } else {
+                $message .= 'No matching alarms found for ' . $metricName . '.';
+            }
+        } else {
+            $message .= 'No matching alarms found for ' . $metricName . '.';
+        }
+
+        return $message;
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
- 
- 
+
+function describeTheAlarmsForMetric()
+{
+    $metricName = 'BucketSizeBytes';
+    $namespace = 'AWS/S3';
+    $dimensions = [
+        [
+            'Name' => 'StorageType',
+            'Value'=> 'StandardStorage'
+        ],
+        [
+            'Name' => 'BucketName',
+            'Value' => 'my-bucket'
+        ]
+    ];
+
+    $cloudWatchClient = new CloudWatchClient([
+        'profile' => 'default',
+        'region' => 'us-east-1',
+        'version' => '2010-08-01'
+    ]);
+
+    echo describeAlarmsForMetric($cloudWatchClient, $metricName, 
+        $namespace, $dimensions);
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// describeTheAlarmsForMetric();
 // snippet-end:[cloudwatch.php.describe_alarms_metric.main]
 // snippet-end:[cloudwatch.php.describe_alarms_metric.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DescribeAlarmsForMetric.php demonstrates how to retrieves the alarms for the specified metric.]
+// snippet-sourcedescription:[DescribeAlarmsForMetric.php demonstrates how to retrieve the alarms for the specified AWS CloudWatch metric.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Cloudwatch]
 // snippet-service:[cloudwatch]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-05-06]
+// snippet-sourceauthor:[pccornel (AWS)]
 

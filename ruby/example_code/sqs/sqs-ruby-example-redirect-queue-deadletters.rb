@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Queue Service]
 # snippet-keyword:[set_queue_attributes method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[sqs]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cw_deletealarm.js demonstrates how to delete Amazon CloudWatch alarms.]
 //snippet-service:[cloudwatch]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]

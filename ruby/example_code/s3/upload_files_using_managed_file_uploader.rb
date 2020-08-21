@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[upload_files_using_managed_file_uploader uses a managed file uploader, which makes it easy to upload files of any size from disk.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[UPLOAD file]

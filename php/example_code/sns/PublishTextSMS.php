@@ -55,6 +55,7 @@ try {
 // snippet-end:[sns.php.publish_text_SMS.complete]
 // snippet-sourcedescription:[PublishTextSMS.php demonstrates how to send a text message.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

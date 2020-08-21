@@ -5,6 +5,7 @@
 // snippet-keyword:[Handlers.Send.PushFront function]
 // snippet-keyword:[ListTables function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[PutBucketEncryption function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[s3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

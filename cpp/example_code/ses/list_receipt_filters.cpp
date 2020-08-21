@@ -2,6 +2,7 @@
 //snippet-service:[ses]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourceauthor:[AWS]

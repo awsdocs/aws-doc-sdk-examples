@@ -10,6 +10,7 @@
 # snippet-keyword:[put_object method]
 # snippet-keyword:[Resource.delete method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

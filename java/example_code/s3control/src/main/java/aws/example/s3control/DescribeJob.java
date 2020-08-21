@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[DescribeJob.java demonstrates how to retrieve the ARN and status of a current job.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

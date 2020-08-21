@@ -13,6 +13,8 @@
 # snippet-sourcedescription:[kda-python-datagenerator-hotspots.py demonstrates how to generate sample data for the HOTSPOTS SQL function.]
 # snippet-service:[kinesisanalytics]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Kinesis Data Analytics]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]

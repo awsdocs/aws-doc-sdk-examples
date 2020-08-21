@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-collection-java-add-faces-to-collection.java demonstrates how to add faces, detected in an image, to an Amazon Rekognition collection.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[IndexFaces]

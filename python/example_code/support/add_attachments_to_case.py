@@ -12,6 +12,8 @@
 # snippet-sourcedescription:[add_attachments_to_case.py demonstrates how to use AWS Support API to add attachments to an existing support case.]
 # snippet-service:[support]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS Support]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[AddAttachmentsToSet]

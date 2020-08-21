@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Storage Service]
 # snippet-keyword:[put_object method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -35,7 +36,12 @@ key = OpenSSL::PKey::RSA.new(public_key)
 
 begin
   # encryption client
-  enc_client = Aws::S3::Encryption::Client.new(encryption_key: key)
+  enc_client = Aws::S3::EncryptionV2::Client.new(
+    encryption_key: key,
+    key_wrap_schema: :rsa_oaep_sha1, # the key_wrap_schema must be rsa_oaep_sha1 for asymmetric keys
+    content_encryption_schema: :aes_gcm_no_padding,
+    security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
+  )
 
   # Add encrypted item to bucket
   enc_client.put_object(

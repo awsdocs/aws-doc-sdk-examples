@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon Simple Email Service]
 # snippet-keyword:[verify_email_identity method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ses]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]
@@ -35,7 +36,7 @@ begin
     email_address: recipient
   })
 
-  puts 'Email sent to ' + email_address
+  puts 'Email sent to ' + recipient
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error

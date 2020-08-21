@@ -66,6 +66,7 @@ echo $result['Body'];
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[PutObjectServiceOperations.php demonstrates how to send a file (or object) to an Amazon S3 bucket with an actionable result object returned.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_create_campaign demonstrates how to create and configure an Amazon Pinpoint campaign.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateCampaign]

@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_volume.cpp demonstrates how to delete an Amazon Elastic Block Store volume from an Amazon EC2 instance.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Block Store]
 //snippet-service:[ebs]

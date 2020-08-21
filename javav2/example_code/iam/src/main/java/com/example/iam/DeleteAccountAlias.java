@@ -1,12 +1,12 @@
 //snippet-sourcedescription:[DeleteAccountAlias.java demonstrates how to delete an alias from an AWS account.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[iam]
+//snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[03/02/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,15 +20,15 @@
  * permissions and limitations under the License.
  */
 package com.example.iam;
-// snippet-start:[iam.java.delete_account_alias.complete]
-// snippet-start:[iam.java.delete_account_alias.import]
+
+// snippet-start:[iam.java2.delete_account_alias.import]
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasRequest;
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasResponse;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
- 
-// snippet-end:[iam.java.delete_account_alias.import]
+import software.amazon.awssdk.services.iam.model.IamException;
+// snippet-end:[iam.java2.delete_account_alias.import]
+
 /**
  * Deletes an alias from an AWS account
  */
@@ -36,8 +36,8 @@ public class DeleteAccountAlias {
     public static void main(String[] args) {
 
         final String USAGE =
-            "To run this example, supply an account alias\n" +
-            "Ex: DeleteAccountAlias <account-alias>\n";
+                "To run this example, supply an account alias\n" +
+                        "Ex: DeleteAccountAlias <account-alias>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -45,19 +45,29 @@ public class DeleteAccountAlias {
         }
 
         String alias = args[0];
-
-        // snippet-start:[iam.java.delete_account_alias.main]
         Region region = Region.AWS_GLOBAL;
-        IamClient iam = IamClient.builder().region(region).build();
+        IamClient iam = IamClient.builder()
+                .region(region)
+                .build();
 
-        DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
-            .accountAlias(alias).build();
+        deleteIAMAccountAlias(iam, alias) ;
+    }
 
-        DeleteAccountAliasResponse response = iam.deleteAccountAlias(request); 
-        // snippet-end:[iam.java.delete_account_alias.main]
+    // snippet-start:[iam.java2.delete_account_alias.main]
+    public static void deleteIAMAccountAlias(IamClient iam,String alias ) {
 
-        System.out.println("Successfully deleted account alias " + alias);
+        try {
+            DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
+                .accountAlias(alias).build();
+
+            DeleteAccountAliasResponse response = iam.deleteAccountAlias(request);
+            System.out.println("Successfully deleted account alias " + alias);
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
+        // snippet-end:[iam.java2.delete_account_alias.main]
     }
 }
-
-// snippet-end:[iam.java.delete_account_alias.complete]

@@ -68,6 +68,7 @@ do {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ObjectUploader.php demonstrates how to upload a large file to Amazon S3. Either PutObject or MultipartUploader will be used, depending on what is best based on the payload size.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]

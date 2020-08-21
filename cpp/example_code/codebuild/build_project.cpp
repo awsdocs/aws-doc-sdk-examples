@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[build_project.cpp demonstrates how to start building a project with AWS CodeBuild.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeBuild]
 //snippet-service:[codebuild]

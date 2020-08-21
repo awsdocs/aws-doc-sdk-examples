@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CreateAndModifyCluster demonstrates how to create and modify an Amazon Redshift cluster.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateCluster]

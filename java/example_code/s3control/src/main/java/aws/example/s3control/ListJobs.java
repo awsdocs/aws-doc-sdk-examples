@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListJobs.java demonstrates how to list active and complete Amazon S3 Batch Operations.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

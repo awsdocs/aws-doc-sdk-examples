@@ -1,0 +1,54 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="AWS_PROFILE" value="default"/>
+    <const name="CLOUDFRONT_VERSION" value="2018-06-18"/>
+    <const name="AWS_REGION" value="us-east-1"/>
+    <const name="CLOUDFRONT_DISTRIBUTION_ID" value="E17G7YNEXAMPLE"/>
+    <const name="CLOUDFRONT_INVALIDATION_ID" value="I1CDEZZEXAMPLE"/>
+    <const name="CLOUDFRONT_CALLER_REFERENCE" value="my-unique-value"/>
+    <const name="CLOUDFRONT_DISTRIBUTION_ETAG" value="E2QWRUHEXAMPLE"/>
+    <const name="CLOUDFRONT_RESOURCE_KEY" value="https://d13l49jEXAMPLE.cloudfront.net/my-file.txt"/>
+    <const name="CLOUDFRONT_KEY_PAIR_ID" value="AAPKAJIKZATYYYEXAMPLE"/>
+  </php>
+  <testsuites>
+    <testsuite name="cloudfront-createdistributions3">
+      <file>tests/CreateDistributionS3Test.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-createinvalidation">
+      <file>tests/CreateInvalidationTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-deletedistribution">
+      <file>tests/DeleteDistributionTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-disabledistribution">
+      <file>tests/DisableDistributionS3Test.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-getdistribution">
+      <file>tests/GetDistributionTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-getinvalidation">
+      <file>tests/GetInvalidationTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-listdistributions">
+      <file>tests/ListDistributionsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-listinvalidations">
+      <file>tests/ListInvalidationsTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-signcookie">
+      <file>tests/SignCookieTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-signcookiepolicy">
+      <file>tests/SignCookiePolicyTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-signprivatedistribution">
+      <file>tests/SignPrivateDistributionTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-signprivatedistributionpolicy">
+      <file>tests/SignPrivateDistributionPolicyTest.php</file>
+    </testsuite>
+    <testsuite name="cloudfront-updatedistribution">
+      <file>tests/UpdateDistributionS3Test.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

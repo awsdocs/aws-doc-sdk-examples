@@ -1,99 +1,173 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- * ABOUT THIS PHP SAMPLE => This sample is part of the SDK for PHP Developer Guide topic at
- *
- *
- */
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[cloudfront.php.updatedistribution.complete]
 // snippet-start:[cloudfront.php.updatedistribution.import]
-
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[cloudfront.php.updatedistribution.import]
 
-
-/**
- * Updating an Amazon CloudFront Distribution.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Updates information about an Amazon CloudFront distribution.
  *
- * This code expects that you have AWS credentials set up per:
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
- */
+ * Prerequisites: An existing CloudFront distribution.
+ * 
+ * Inputs:
+ * - $cloudFrontClient: An initialized CloudFront client.
+ * - $distributionId: The ID of the distribution to update information about.
+ * - $distributionConfig: A collection of settings for the distribution. 
+ *   This value comes from the companion getDistributionConfig function.
+ * - $eTag: The ETag header value for the distribution. This value comes from
+ *   the companion getDistributionETag function.
+ * 
+ * Returns: Information about the updated distribution; otherwise, 
+ * the error message.
+ * ///////////////////////////////////////////////////////////////////////// */
 
-//Create a CloudFront Client 
 // snippet-start:[cloudfront.php.updatedistribution.main]
-$client = new Aws\CloudFront\CloudFrontClient([
-    'profile' => 'default',
-    'version' => '2018-06-18',
-    'region' => 'us-east-2'
-]);
+function updateDistribution($cloudFrontClient, $distributionId, 
+    $distributionConfig, $eTag)
+{
+    try {
+        $result = $cloudFrontClient->updateDistribution([
+            'DistributionConfig' => $distributionConfig,
+            'Id' => $distributionId,
+            'IfMatch' => $eTag
+        ]);
 
+        return 'The distribution with the following effective URI has ' .
+            'been updated: ' . $result['@metadata']['effectiveUri'];
 
-$id = 'E1A2B3C4D5E';
-
-try {
-    $result = $client->getDistribution([
-        'Id' => $id,
-    ]);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    } catch (AwsException $e) {
+        return 'Error: ' . $e->getAwsErrorMessage();
+    }
 }
 
-$currentConfig = $result["Distribution"]["DistributionConfig"];
-$ETag = $result["ETag"];
+function getDistributionConfig($cloudFrontClient, $distributionId)
+{
+    try {
+        $result = $cloudFrontClient->getDistribution([
+            'Id' => $distributionId,
+        ]);
 
-$distribution = [
-    'CallerReference' => $currentConfig["CallerReference"], // REQUIRED
-    'Comment' => $currentConfig["Comment"], // REQUIRED
-    'DefaultCacheBehavior' => $currentConfig["DefaultCacheBehavior"], // REQUIRED
-    'DefaultRootObject' => $currentConfig["DefaultRootObject"],
-    'Enabled' => $currentConfig["Enabled"], // REQUIRED
-    'Origins' => $currentConfig["Origins"], // REQUIRED
-    'Aliases' => $currentConfig["Aliases"],
-    'CustomErrorResponses' => $currentConfig["CustomErrorResponses"],
-    'HttpVersion' => $currentConfig["HttpVersion"],
-    'CacheBehaviors' => $currentConfig["CacheBehaviors"],
-    'Logging' => $currentConfig["Logging"],
-    'PriceClass' => $currentConfig["PriceClass"],
-    'Restrictions' => $currentConfig["Restrictions"],
-    'ViewerCertificate' => $currentConfig["ViewerCertificate"],
-    'WebACLId' => $currentConfig["WebACLId"],
-];
+        if (isset($result['Distribution']['DistributionConfig']))
+        {
+            return [
+                'DistributionConfig' => $result['Distribution']['DistributionConfig'],
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
+        } else {
+            return [
+                'Error' => 'Error: Cannot find distribution configuration details.',
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
+        }
 
-
-try {
-    $result = $client->updateDistribution([
-        'DistributionConfig' => $distribution,
-        'Id' => $id,
-        'IfMatch' => $ETag
-    ]);
-    var_dump($result);
-} catch (AwsException $e) {
-    // output error message if fails
-    echo $e->getMessage();
-    echo "\n";
+    } catch (AwsException $e) {
+        return [
+            'Error' => 'Error: ' . $e->getAwsErrorMessage()
+        ];
+    }
 }
- 
+
+function getDistributionETag($cloudFrontClient, $distributionId)
+{
+
+    try {
+        $result = $cloudFrontClient->getDistribution([
+            'Id' => $distributionId,
+        ]);
+        
+        if (isset($result['ETag']))
+        {
+            return [
+                'ETag' => $result['ETag'],
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ]; 
+        } else {
+            return [
+                'Error' => 'Error: Cannot find distribution ETag header value.',
+                'effectiveUri' => $result['@metadata']['effectiveUri']
+            ];
+        }
+
+    } catch (AwsException $e) {
+        return [
+            'Error' => 'Error: ' . $e->getAwsErrorMessage()
+        ];
+    }
+}
+
+function updateADistribution()
+{
+    // $distributionId = 'E1BTGP2EXAMPLE';
+    $distributionId = 'E1X3BKQ569KEMH';
+
+    $cloudFrontClient = new CloudFrontClient([
+        'profile' => 'default',
+        'version' => '2018-06-18',
+        'region' => 'us-east-1'
+    ]);
+
+    // To change a distribution, you must first get the distribution's 
+    // ETag header value.
+    $eTag = getDistributionETag($cloudFrontClient, $distributionId);
+
+    if (array_key_exists('Error', $eTag)) {
+        exit($eTag['Error']);
+    }
+
+    // To change a distribution, you must also first get information about 
+    // the distribution's current configuration. Then you must use that 
+    // information to build a new configuration.
+    $currentConfig = getDistributionConfig($cloudFrontClient, $distributionId);
+
+    if (array_key_exists('Error', $currentConfig)) {
+        exit($currentConfig['Error']);
+    }
+
+    // To change a distribution's configuration, you can set the 
+    // distribution's related configuration value as part of a change request, 
+    // for example:
+    // 'Enabled' => true
+    // Some configuration values are required to be specified as part of a change 
+    // request, even if you don't plan to change their values. For ones you 
+    // don't want to change but are required to be specified, you can just reuse 
+    // their current values, as follows. 
+    $distributionConfig = [
+        'CallerReference' => $currentConfig['DistributionConfig']["CallerReference"], 
+        'Comment' => $currentConfig['DistributionConfig']["Comment"], 
+        'DefaultCacheBehavior' => $currentConfig['DistributionConfig']["DefaultCacheBehavior"], 
+        'DefaultRootObject' => $currentConfig['DistributionConfig']["DefaultRootObject"],
+        'Enabled' => $currentConfig['DistributionConfig']["Enabled"], 
+        'Origins' => $currentConfig['DistributionConfig']["Origins"], 
+        'Aliases' => $currentConfig['DistributionConfig']["Aliases"],
+        'CustomErrorResponses' => $currentConfig['DistributionConfig']["CustomErrorResponses"],
+        'HttpVersion' => $currentConfig['DistributionConfig']["HttpVersion"],
+        'CacheBehaviors' => $currentConfig['DistributionConfig']["CacheBehaviors"],
+        'Logging' => $currentConfig['DistributionConfig']["Logging"],
+        'PriceClass' => $currentConfig['DistributionConfig']["PriceClass"],
+        'Restrictions' => $currentConfig['DistributionConfig']["Restrictions"],
+        'ViewerCertificate' => $currentConfig['DistributionConfig']["ViewerCertificate"],
+        'WebACLId' => $currentConfig['DistributionConfig']["WebACLId"]
+    ];
+
+    echo updateDistribution($cloudFrontClient, $distributionId,
+        $distributionConfig, $eTag['ETag']);
+}
+
+// Uncomment the following line to run this code in an AWS account.
+// updateADistribution();
 // snippet-end:[cloudfront.php.updatedistribution.main]
 // snippet-end:[cloudfront.php.updatedistribution.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront Distribution and change any of the configurations. To make changes replace the $currentConfig value with a new value]
+// snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront distribution and change any of the configurations. To make changes, replace the current configuration value with a new value.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[updateDistribution]
@@ -101,5 +175,5 @@ try {
 // snippet-keyword:[Amazon CloudFront]
 // snippet-service:[cloudfront]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-27]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
+// snippet-sourcedate:[2020-05-18]
+// snippet-sourceauthor:[pccornel (AWS)]

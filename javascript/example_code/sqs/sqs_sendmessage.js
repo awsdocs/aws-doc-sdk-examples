@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_sendmessage.js demonstrates how to deliver a message to an Amazon SQS queue.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
@@ -34,6 +35,7 @@ AWS.config.update({region: 'REGION'});
 var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 var params = {
+   // Remove DelaySeconds parameter and value for FIFO queues
   DelaySeconds: 10,
   MessageAttributes: {
     "Title": {
@@ -50,6 +52,8 @@ var params = {
     }
   },
   MessageBody: "Information about current NY Times fiction bestseller for week of 12/11/2016.",
+  // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+  // MessageGroupId: "Group1",  // Required for FIFO queues
   QueueUrl: "SQS_QUEUE_URL"
 };
 

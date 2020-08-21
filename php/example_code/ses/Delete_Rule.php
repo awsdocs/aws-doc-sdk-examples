@@ -21,13 +21,13 @@
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient; 
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[ses.php.delete_rule.import]
 
 //Create a SESClient 
 // snippet-start:[ses.php.delete_rule.main]
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -54,6 +54,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Delete_Rule.php demonstrates how to delete a specified receipt rule, provide the RuleName and RuleSetName.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

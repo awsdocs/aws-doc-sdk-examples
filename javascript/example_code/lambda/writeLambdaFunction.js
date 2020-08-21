@@ -17,6 +17,7 @@
 // snippet-sourcedescription:[writeLambdaFunction.js demonstrates how to write a Lambda function code]
 // snippet-service:[lambda]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -57,17 +58,17 @@ var thisPullParams = {
 var request = new AWS.DynamoDB({region: 'REGION', apiVersion: '2012-08-10'});
 
 // set a random number 0-9 for the slot position
-thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*10).toString();
+thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*15).toString();
 // call DynamoDB to retrieve the image to use for the Left slot result
 var myLeftPromise = request.getItem(thisPullParams).promise().then(function(data) {return URL_BASE + data.Item.imageFile.S});
 
 // set a random number 0-9 for the slot position
-thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*10).toString();
+thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*15).toString();
 // call DynamoDB to retrieve the image to use for the Left slot result
 var myMiddlePromise = request.getItem(thisPullParams).promise().then(function(data) {return URL_BASE + data.Item.imageFile.S});
 
 // set a random number 0-9 for the slot position
-thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*10).toString();
+thisPullParams.Key.slotPosition.N = Math.floor(Math.random()*15).toString();
 // call DynamoDB to retrieve the image to use for the Left slot result
 var myRightPromise = request.getItem(thisPullParams).promise().then(function(data) {return URL_BASE + data.Item.imageFile.S});
 

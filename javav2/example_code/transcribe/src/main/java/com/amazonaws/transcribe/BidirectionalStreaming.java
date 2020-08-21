@@ -22,9 +22,9 @@
 */
 
 package com.amazonaws.transcribe;
-//snippet-start:[transcribe.java.bidir_streaming.complete]
+//snippet-start:[transcribe.java2.bidir_streaming.complete]
 
-//snippet-start:[transcribe.java.bidir_streaming.import]
+//snippet-start:[transcribe.java2.bidir_streaming.import]
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
@@ -38,11 +38,11 @@ import software.amazon.awssdk.services.transcribestreaming.model.MediaEncoding;
 import software.amazon.awssdk.services.transcribestreaming.model.StartStreamTranscriptionRequest;
 import software.amazon.awssdk.services.transcribestreaming.model.StartStreamTranscriptionResponseHandler;
 import software.amazon.awssdk.services.transcribestreaming.model.TranscriptEvent;
-//snippet-end:[transcribe.java.bidir_streaming.import]
+//snippet-end:[transcribe.java2.bidir_streaming.import]
 
 public class BidirectionalStreaming {
 	
-	//snippet-start:[transcribe.java.bidir_streaming.main]
+	//snippet-start:[transcribe.java2.bidir_streaming.main]
 
 	 public static void main(String[] args) throws Exception {
 	        TranscribeStreamingAsyncClient client = TranscribeStreamingAsyncClient.builder().credentialsProvider(ProfileCredentialsProvider.create()).build();
@@ -66,7 +66,7 @@ public class BidirectionalStreaming {
 	        client.startStreamTranscription(request, publisher, response).join();
 	    }
 	 
-	//snippet-end:[transcribe.java.bidir_streaming.main]
+	//snippet-end:[transcribe.java2.bidir_streaming.main]
 
 	
 	public static TargetDataLine get() throws Exception {
@@ -81,5 +81,5 @@ public class BidirectionalStreaming {
 
 }
 
-//snippet-end:[transcribe.java.bidir_streaming.complete]
+//snippet-end:[transcribe.java2.bidir_streaming.complete]
 

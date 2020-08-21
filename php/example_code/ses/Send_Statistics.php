@@ -21,7 +21,7 @@
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient; 
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[ses.php.send_statistics.import]
 
@@ -49,6 +49,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Send_Statistics.php demonstrates how to check how many messages you are still allowed to send in a rolling 24 hour period.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

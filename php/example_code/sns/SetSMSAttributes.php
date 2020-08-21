@@ -55,6 +55,7 @@ try {
 // snippet-end:[sns.php.set_sms_attributes.complete]
 // snippet-sourcedescription:[SetSMSAttributes.php demonstrates how to update the default SMS type.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

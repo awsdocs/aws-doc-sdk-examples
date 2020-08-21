@@ -7,6 +7,7 @@
 # snippet-keyword:[delete_security_group method]
 # snippet-keyword:[describe_security_groups method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -5,6 +5,7 @@
 // snippet-keyword:[CreateTags function]
 // snippet-keyword:[RunInstances function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[ec2]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

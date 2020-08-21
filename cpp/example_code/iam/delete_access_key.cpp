@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[delete_access_key.cpp demonstrates how to delete the AWS access key pair for an IAM user.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[CreateAndModifyClusterSubnetGroup demonstrates how to create and modify an Amazon Redshift subnet group.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CreateClusterSubnetGroup]

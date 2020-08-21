@@ -4,6 +4,7 @@
 # snippet-keyword:[AWS CloudTrail]
 # snippet-keyword:[lookup_events method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[cloudtrail]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

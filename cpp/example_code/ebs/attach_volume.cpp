@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[attach_volume.cpp demonstrates how to attach an Amazon Elastic Block Store volume to an Amazon EC2 instance.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Block Store]
 //snippet-service:[ebs]

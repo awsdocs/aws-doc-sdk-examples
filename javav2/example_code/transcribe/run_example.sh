@@ -10,4 +10,3 @@ echo "## Running $className..."
 shift
 echo "## arguments $@..."
 mvn exec:java -Dexec.mainClass="com.amazonaws.transcribe.$className" -Dexec.args="$@"
-

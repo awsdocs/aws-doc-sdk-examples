@@ -21,13 +21,13 @@
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient; 
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[ses.php.list_rules_sets.import]
 
 //Create a SESClient 
 // snippet-start:[ses.php.list_rules_sets.main]
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -49,6 +49,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[List_Rules_Sets.php demonstrates how to list the receipt rule sets that exist under your AWS account in the current AWS Region.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

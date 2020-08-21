@@ -1,0 +1,17 @@
+--- 
+files:
+  - path: src/main/java/com/example/workdocs/DownloadUserDoc.java
+    services:
+      - workdocs
+  - path: src/main/java/com/example/workdocs/ListUserDocs.java
+    services:
+      - workdocs
+  - path: src/main/java/com/example/workdocs/ListUsers.java
+    services:
+      - workdocs
+  - path: src/main/java/com/example/workdocs/UploadUserDocs.java
+    services:
+      - workdocs
+  - path: src/test/java/WorkdocsServiceIntegrationTest.java
+    services:
+      - workdocs

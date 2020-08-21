@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ViewCustomerMasterKey.java demonstrates get detailed information about a customer master key (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

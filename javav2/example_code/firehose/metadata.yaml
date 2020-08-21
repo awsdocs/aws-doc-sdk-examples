@@ -1,0 +1,20 @@
+--- 
+files:
+  - path: src/main/java/com/example/firehose/CreateDeliveryStream.java
+    services:
+      - firehose
+  - path: src/main/java/com/example/firehose/DeleteStream.java
+    services:
+      - firehose
+  - path: src/main/java/com/example/firehose/ListDeliveryStreams.java
+    services:
+      - firehose
+  - path: src/main/java/com/example/firehose/PutBatchRecords.java
+    services:
+      - firehose
+  - path: src/main/java/com/example/firehose/PutRecord.java
+    services:
+      - firehose
+  - path: src/test/java/AmazonFirehoseServiceIntegrationTest.java
+    services:
+      - firehose      

@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ConnectToClusterExample demonstrates how to connect to an Amazon Redshift cluster and run a sample query.]
 // snippet-service:[redshift]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Redshift]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Connect]

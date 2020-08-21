@@ -13,6 +13,8 @@
 # snippet-sourcedescription:[MyCodePipelineFunction.py demonstrates how to use an AWS Lambda function to create or update a stack based on a supplied AWS CloudFormation template and Lambda execution role.]
 # snippet-service:[codepipeline]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CodePipeline]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[Invoke]

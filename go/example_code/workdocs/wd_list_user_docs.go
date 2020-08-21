@@ -5,12 +5,13 @@
 // snippet-keyword:[DescribeFolderContents function]
 // snippet-keyword:[DescribeUsers function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[workdocs]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-03-16]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -22,11 +23,13 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
+// snippet-start:[workdocs.go.list_user_docs.complete]
 package main
 
+// snippet-start:[workdocs.go.list_user_docs.imports]
 import (
-    "github.com/aws/aws-sdk-go/aws"
+    "os"
+
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/workdocs"
 
@@ -34,61 +37,59 @@ import (
     "fmt"
 )
 
-/*
-  Lists the docs for user USER_NAME
-
-  Usage:
-    go run wd_list_user_docs.go USER_NAME
- */
+// snippet-end:[workdocs.go.list_user_docs.imports]
 
 func main() {
-    // Initialize a session in us-west-2 that the SDK will use to load
-    // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    // snippet-start:[workdocs.go.list_user_docs.vars]
+    userPtr := flag.String("u", "", "User for whom info is retrieved")
+    orgPtr := flag.String("o", "", "Your organization ID")
 
-    // Create a Workdocs service client.
-    svc := workdocs.New(sess)
-
-    user_ptr := flag.String("u", "", "User for whom info is retrieved")
     flag.Parse()
 
-    // Show all users if we don't get a user name
-    if *user_ptr == "" {
-        fmt.Println("You must supply a user name")
-        return
+    if *userPtr == "" || *orgPtr == "" {
+        flag.PrintDefaults()
+        os.Exit(1)
     }
+    // snippet-end:[workdocs.go.list_user_docs.vars]
 
-    // Replace with your organization ID
-    org_id := "d-123456789c"
+    // Initialize a session that the SDK will use to load
+    // credentials from the shared credentials file. (~/.aws/credentials).
+    // snippet-start:[workdocs.go.list_user_docs.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
+    svc := workdocs.New(sess)
+    // snippet-end:[workdocs.go.list_user_docs.session]
+
+    // snippet-start:[workdocs.go.list_user_docs.root_folder]
     input := new(workdocs.DescribeUsersInput)
-    input.OrganizationId = &org_id
-    input.Query = user_ptr
+    input.OrganizationId = orgPtr
+    input.Query = userPtr
 
     result, err := svc.DescribeUsers(input)
-
     if err != nil {
         fmt.Println("Error getting user info", err)
         return
     }
 
-    var folder_id = ""
+    var folderID = ""
 
     if *result.TotalNumberOfUsers == 1 {
         for _, user := range result.Users {
-            folder_id = *user.RootFolderId
+            folderID = *user.RootFolderId
         }
+                // snippet-end:[workdocs.go.list_user_docs.root_folder]
 
-        result, err := svc.DescribeFolderContents(&workdocs.DescribeFolderContentsInput{FolderId: &folder_id})
+        // snippet-start:[workdocs.go.list_user_docs.describe]
+        result, err := svc.DescribeFolderContents(&workdocs.DescribeFolderContentsInput{FolderId: &folderID})
 
         if err != nil {
             fmt.Println("Error getting docs for user", err)
             return
         }
 
-        fmt.Println(*user_ptr + " docs:")
+        fmt.Println(*userPtr + " docs:")
         fmt.Println("")
 
         for _, doc := range result.Documents {
@@ -97,5 +98,7 @@ func main() {
             fmt.Println("  Last modified:", *doc.LatestVersionMetadata.ModifiedTimestamp)
             fmt.Println("")
         }
+        // snippet-end:[workdocs.go.list_user_docs.describe]
     }
 }
+// snippet-end:[workdocs.go.list_user_docs.complete]

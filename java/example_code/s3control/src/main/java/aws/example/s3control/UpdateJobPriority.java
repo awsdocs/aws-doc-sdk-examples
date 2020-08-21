@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[UpdateJobPriority.java demonstrates how to update the job priority (a higher number indicates a higher execution priority).]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

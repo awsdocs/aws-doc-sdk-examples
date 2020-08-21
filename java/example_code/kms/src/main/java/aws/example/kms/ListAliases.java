@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ ListAliases.java demonstrates how to list aliases in the account and region.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

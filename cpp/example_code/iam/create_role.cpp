@@ -2,6 +2,7 @@
 //snippet-service:[iam]
 //snippet-keyword:[Amazon Identity and Access Management (IAM)]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2019-2-8]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ViewGrants.java demonstrates how to get detailed information about the grants on an AWS KMS customer master key .]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

@@ -5,6 +5,7 @@
 // snippet-keyword:[Amazon SQS]
 // snippet-keyword:[ReceiveMessage function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[sqs]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

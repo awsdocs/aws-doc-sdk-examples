@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This example confirms all users and sets the user's email and phone_number attributes to verified if the attribute is present. Also, if aliasing is enabled, aliases will be created for phone_number and email when auto-verify is set.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

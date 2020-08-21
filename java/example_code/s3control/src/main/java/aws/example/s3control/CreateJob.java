@@ -16,6 +16,7 @@
 // snippet-sourcedescription:[CreateJob.java demonstrates how to execute an Amazon S3 Batch Operation.]
 // snippet-service:[s3]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -46,7 +47,7 @@ public class CreateJob {
         // snippet-start:[s3.java.create_batch_job.main]
         String accountId = "Account ID";
         String iamRoleArn = "IAM Role ARN";
-        String reportBucketName = "bucket-where-completion-report-goes";
+        String reportBucketName = "arn:aws:s3:::bucket-where-completion-report-goes";
         String uuid = UUID.randomUUID().toString();
 
         ArrayList tagSet = new ArrayList<S3Tag>();

@@ -14,6 +14,7 @@
 # snippet-sourcedescription:[s3_encrypt_file_upload.rb demonstrates how to specify that a file uploaded to Amazon S3 be encrypted at rest.] 
 # snippet-service:[s3]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-keyword:[Amazon S3]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[ENCRYPT UPLOAD File]

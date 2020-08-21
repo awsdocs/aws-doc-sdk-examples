@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[A custom message Lambda function with the CustomMessage_AdminCreateUser trigger returns a user name and verification code and so include both request.usernameParameter and request.codeParameter in the message body.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

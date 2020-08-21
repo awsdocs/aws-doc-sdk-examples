@@ -56,6 +56,7 @@ try {
 // snippet-end:[sns.php.set_topic_attributes.complete]
 // snippet-sourcedescription:[SetTopicAttributes.php demonstrates how to update the defaults for an AWS SNS Topic.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

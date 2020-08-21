@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_deleteidentity.js demonstrates how to delete an Amazon SES identity.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

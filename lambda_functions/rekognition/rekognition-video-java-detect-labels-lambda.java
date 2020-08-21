@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-video-java-detect-labels-lambda demonstrates how to detect labels in a video by using an AWS Lambda function.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[DetectLabels]

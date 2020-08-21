@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_longpolling_receivemessage.js demonstrates how to retrieve messages from an Amazon SQS queue using long-poll support.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]

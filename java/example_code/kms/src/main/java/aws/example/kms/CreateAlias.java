@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ ListAliases.java demonstrates how to create an alias. The alias must be unique in the account and region. If you create an alias for a CMK that already has an alias, CreateAlias creates another alias to the same CMK. It does not replace the existing alias.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

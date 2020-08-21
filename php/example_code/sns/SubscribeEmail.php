@@ -58,6 +58,7 @@ try {
 // snippet-end:[sns.php.subscribe_email.complete]
 // snippet-sourcedescription:[SubscribeEmail.php demonstrates how to send a confirmation message to an email address.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

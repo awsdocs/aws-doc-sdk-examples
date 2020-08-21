@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS CodeBuild]
 // snippet-keyword:[StartBuild function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[codebuild]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

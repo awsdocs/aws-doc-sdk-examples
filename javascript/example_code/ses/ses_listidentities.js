@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_listidentities.js demonstrates how to list all the identities for an AWS account.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

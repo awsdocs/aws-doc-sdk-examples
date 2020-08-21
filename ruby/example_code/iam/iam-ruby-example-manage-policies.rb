@@ -8,6 +8,7 @@
 # snippet-keyword:[get_policy method]
 # snippet-keyword:[list_attached_role_policies method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[iam]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

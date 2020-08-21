@@ -8,6 +8,7 @@
 # snippet-keyword:[describe_environments method]
 # snippet-keyword:[update_environment method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[elasticbeanstalk]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

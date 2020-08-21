@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[ses_sendbulktemplatedemail.js demonstrates how to compose an Amazon SES templated email for multiple destinations and queue it for sending.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Email Service]
 //snippet-service:[ses]

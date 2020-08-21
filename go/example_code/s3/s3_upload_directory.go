@@ -1,3 +1,4 @@
+// snippet-sourcetype:[full-example]
 package main
 
 import (

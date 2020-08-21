@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[hbase-snapshot-import.java demonstrates how to configure a step that imports a snapshot from Amazon S3 using the HBase export command.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[HadoopJarStepConfig]

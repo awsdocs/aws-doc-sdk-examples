@@ -53,6 +53,7 @@ try {
 // snippet-end:[sns.php.get_topic_attributes.complete]
 // snippet-sourcedescription:[GetTopicAttributes.php demonstrates how to retrieve the defaults for an AWS SNS Topic.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

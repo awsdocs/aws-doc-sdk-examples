@@ -65,6 +65,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateSecretRotation.php demonstrates how to configure a rotation for a secret value in AWS Secrets Manager using an existing Lambda Function. This example will automatically rotate the secret every 30 days. ]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWS Secrets Manager]

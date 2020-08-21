@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[ComprehendMedicalSample.java demonstrates getting medical entities from text.]
 // snippet-service:[comprehend]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Comprehend Medical]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[AWSComprehendMedical]

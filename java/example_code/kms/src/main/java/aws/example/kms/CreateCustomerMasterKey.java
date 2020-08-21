@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CreateCustomerMasterKey.java demonstrates how to create a customer master key (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[GetItem function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -81,16 +82,16 @@ func main() {
     // snippet-end:[dynamodb.go.read_item.call]
 
     // snippet-start:[dynamodb.go.read_item.unmarshall]
+    if result.Item == nil {
+        msg := "Could not find '" + *title + "'"
+        return nil, errors.New(msg)
+    }
+        
     item := Item{}
 
     err = dynamodbattribute.UnmarshalMap(result.Item, &item)
     if err != nil {
         panic(fmt.Sprintf("Failed to unmarshal Record, %v", err))
-    }
-
-    if item.Title == "" {
-        fmt.Println("Could not find '" + movieName + "' (" + movieYear + ")")
-        return
     }
 
     fmt.Println("Found item:")

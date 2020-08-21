@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot and EC2 instance.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EC2]
 //snippet-service:[ec2]

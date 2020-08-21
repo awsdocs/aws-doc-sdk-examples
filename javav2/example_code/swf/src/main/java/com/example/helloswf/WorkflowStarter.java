@@ -1,13 +1,13 @@
-//snippet-sourcedescription:[WorkflowStarter.java demonstrates how to how to start a workflow.]
+//snippet-sourcedescription:[WorkflowStarter.java demonstrates how to start a workflow.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[swf]
+//snippet-service:[Amazon Simple Workflow Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-// snippet-start:[swf.java.start_workflow.complete]
+//snippet-sourcedate:[8/4/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -19,43 +19,83 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-// snippet-start:[swf.java.start_workflow.import]
+// snippet-start:[swf.java2.start_workflow.complete]
 package com.example.helloswf;
-
+// snippet-start:[swf.java2.start_workflow.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
-import software.amazon.awssdk.services.swf.model.*;
+import software.amazon.awssdk.services.swf.model.WorkflowType;
+import software.amazon.awssdk.services.swf.model.StartWorkflowExecutionResponse;
+import software.amazon.awssdk.services.swf.model.SwfException;
+import software.amazon.awssdk.services.swf.model.StartWorkflowExecutionRequest;
+// snippet-end:[swf.java2.start_workflow.import]
 
-// snippet-end:[swf.java.start_workflow.import]
-// snippet-start:[swf.java.start_workflow.main]
 public class WorkflowStarter {
-    private static final SwfClient swf = SwfClient.builder().build();
+
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
 
     public static void main(String[] args) {
-        String workflow_input = "Amazon SWF";
-        if (args.length > 0) {
-            workflow_input = args[0];
+
+         final String USAGE = "\n" +
+                "Usage:\n" +
+                "    WorkflowStarter <domain><workflowInput><workflow><workflowVersion> \n\n" +
+                "Where:\n" +
+                "    domain - The domain to use (i.e., mydomain) \n" +
+                "    workflowInput - The input to the workflow (i.e., ProcessFile)  \n" +
+                "    workflow - the name of the workflow (i.e., myworkflow)\n" +
+                "    workflowVersion - The workflow version \n" ;
+
+        if (args.length < 4) {
+            System.out.println(USAGE);
+            System.exit(1);
         }
 
+        String domain = args[0];
+        String workflowInput = args[1];
+        String workflow = args[2];
+        String workflowVersion = args[3];
+
+        Region region = Region.US_EAST_1;
+        SwfClient swf = SwfClient
+                .builder()
+                .region(region)
+                .build();
+
         System.out.println("Starting the workflow execution '" + WORKFLOW_EXECUTION +
-                "' with input '" + workflow_input + "'.");
+                "' with input '" + workflowInput + "'.");
 
-        WorkflowType wf_type = WorkflowType.builder()
-            .name(HelloTypes.WORKFLOW)
-            .version(HelloTypes.WORKFLOW_VERSION)
-            .build();
+        startWorkflow(swf, workflowInput, domain, workflow,workflowVersion) ;
+    }
 
-        StartWorkflowExecutionResponse run = swf.startWorkflowExecution(StartWorkflowExecutionRequest.builder()
-            .domain(HelloTypes.DOMAIN)
-            .workflowType(wf_type)
-            .workflowId(WORKFLOW_EXECUTION)
-            .input(workflow_input)
-            .executionStartToCloseTimeout("90")
-            .build());
+    // snippet-start:[swf.java2.start_workflow.main]
+    public static void startWorkflow(SwfClient swf,
+                                      String workflowInput,
+                                      String domain,
+                                      String workflow,
+                                      String workflowVersion) {
 
-        System.out.println("Workflow execution started with the run id '" +
-                run.runId() + "'.");
+        try {
+            WorkflowType wfType = WorkflowType.builder()
+                    .name(workflow)
+                    .version(workflowVersion)
+                    .build();
+
+            StartWorkflowExecutionResponse run = swf.startWorkflowExecution(StartWorkflowExecutionRequest.builder()
+                    .domain(domain)
+                    .workflowType(wfType)
+                    .workflowId(WORKFLOW_EXECUTION)
+                    .input(workflowInput)
+                    .executionStartToCloseTimeout("90")
+                    .build());
+
+            System.out.println("Workflow execution started with the run ID '" +
+                    run.runId() + "'.");
+
+        } catch (SwfException e){
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 }
-// snippet-end:[swf.java.start_workflow.main]
-// snippet-end:[swf.java.start_workflow.complete]
+// snippet-end:[swf.java2.start_workflow.main]
+// snippet-end:[swf.java2.start_workflow.complete]

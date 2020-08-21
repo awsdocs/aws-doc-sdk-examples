@@ -1,0 +1,18 @@
+# Disregard this file. AWS uses it internally to 
+# track code coverage and unit test coverage 
+# within this repository.
+---
+files:
+  - path: auth_federation_token_request_test.rb
+    services: 
+    - s3
+  - path: tests/test_auth_federation_token_request_test.rb
+    services:
+    - s3
+  - path: auth_request_object_keys.rb
+    services:
+    - s3
+  - path: tests/test_auth_request_object_keys.rb
+    services:
+    - s3
+...

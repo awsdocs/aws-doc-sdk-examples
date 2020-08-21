@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetKeyPolicy.java demonstrates how to get the key policy for a customer master key (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

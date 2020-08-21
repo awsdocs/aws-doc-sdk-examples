@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[ReencryptDataKey.java demonstrates how to decrypt an encrypted data key, and then immediately re-encrypt the data key under a different customer master key (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

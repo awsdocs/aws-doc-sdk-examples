@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[sample.js demonstrates how to get started using the AWS SDK for JavaScript.]
 // snippet-service:[nodejs]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Node.js]
 // snippet-sourcetype:[full-example]

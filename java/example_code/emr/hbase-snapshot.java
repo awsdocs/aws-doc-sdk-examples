@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[hbase-snapshot.java demonstrates how to configure a step to create an HBase snapshot from a specified table.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[HadoopJarStepConfig]

@@ -45,6 +45,7 @@ var_dump($result);
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DescribeAddresses.php demonstrates how to describe one or more of your Elastic IP addresses. An Elastic IP address is for use in either the Amazon EC2-Classic platform or in a VPC.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon EC2]

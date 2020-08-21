@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DecryptDataKey.java demonstrates how to decrypt a data key.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

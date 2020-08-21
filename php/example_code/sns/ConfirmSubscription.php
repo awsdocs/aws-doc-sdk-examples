@@ -55,6 +55,7 @@ try {
 // snippet-end:[sns.php.confirm_subscription.complete]
 // snippet-sourcedescription:[ConfirmSubscription.php demonstrates how to send a confirmation token to a AWS SNS topic.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[upload_user_doc.java demonstrates how to upload a document to AWS Workdocs.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-service:[workdocs]
 //snippet-sourcetype:[full-example]

@@ -3,6 +3,8 @@
 # snippet-service:[inspector]
 # snippet-keyword:[Amazon Inspector]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-05-17]

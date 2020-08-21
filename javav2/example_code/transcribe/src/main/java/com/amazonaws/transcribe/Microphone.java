@@ -23,14 +23,14 @@
 
 package com.amazonaws.transcribe;
 
-//snippet-start:[transcribe.java.bidir_streaming_microphone.complete]
+//snippet-start:[transcribe.java2.bidir_streaming_microphone.complete]
 
-//snippet-start:[transcribe.java.bidir_streaming_microphone.import]
+//snippet-start:[transcribe.java2.bidir_streaming_microphone.import]
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
-//snippet-end:[transcribe.java.bidir_streaming_microphone.import]
+//snippet-end:[transcribe.java2.bidir_streaming_microphone.import]
 
 public class Microphone {
 
@@ -44,4 +44,4 @@ public class Microphone {
         return dataLine;
     }
 }
-//snippet-end:[transcribe.java.bidir_streaming_microphone.complete]
+//snippet-end:[transcribe.java2.bidir_streaming_microphone.complete]

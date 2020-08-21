@@ -1,6 +1,7 @@
 // snippet-sourcedescription:[rekognition-image-java-compare-faces.java demonstrates how to compare 2 faces.]
 // snippet-service:[rekognition]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[CompareFaces]

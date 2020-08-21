@@ -1,0 +1,63 @@
+--- 
+files:
+  - path: src/main/java/com/example/iam/AccessKeyLastUsed.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/AttachRolePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreateAccessKey.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreateAccountAlias.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreatePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/CreateUser.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteAccessKey.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteAccountAlias.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeletePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteServerCertificate.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DeleteUser.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/DetachRolePolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/GetPolicy.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListAccessKeys.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListAccountAliases.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListServerCertificates.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/ListUsers.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/UpdateAccessKey.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/UpdateServerCertificate.java
+    services:
+      - iam
+  - path: src/main/java/com/example/iam/UpdateUser.java
+    services:
+      - iam
+  - path: src/test/java/IAMServiceIntegrationTest.java

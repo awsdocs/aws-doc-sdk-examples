@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[pinpoint_send_email_smtp demonstrates how to send a transactional email message by using the Amazon Pinpoint SMTP interface and the Nodemailer module.]
 // snippet-service:[Amazon Pinpoint]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Pinpoint]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[n/a]
@@ -22,6 +23,16 @@
 // snippet-sourcedate:[2019-01-20]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.javascript.pinpoint_send_email_smtp.complete]
+/* 
+This code uses callbacks to handle asynchronous function responses.
+It currently demonstrates using an async-await pattern. 
+AWS supports both the async-await and promises patterns.
+For more information, see the following: 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/calling-services-asynchronously.html
+https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html 
+*/
 
 "use strict";
 const nodemailer = require("nodemailer");

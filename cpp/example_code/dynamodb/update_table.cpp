@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[update_table.cpp demonstrates how to update information about an Amazon DynamoDB table.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon DynamoDB]
 //snippet-service:[dynamodb]

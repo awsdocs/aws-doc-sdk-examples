@@ -15,6 +15,7 @@
  
 //snippet-sourcedescription:[iam_updateaccesskey.js demonstrates how to update the status of an IAM user's access key.]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Identity and Access Management (IAM)]
 //snippet-service:[iam]

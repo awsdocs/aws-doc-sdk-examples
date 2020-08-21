@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This example uses the Pre Token Generation Lambda to add a new claim and suppresses an existing one.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

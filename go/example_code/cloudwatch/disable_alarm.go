@@ -4,6 +4,7 @@
 // snippet-keyword:[AWS CloudWatch]
 // snippet-keyword:[DisableAlarmActions function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

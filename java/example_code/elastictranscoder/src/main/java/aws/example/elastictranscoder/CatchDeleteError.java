@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[CatchDeleteError.java demonstrates how to try to delete a job and catch an error.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Transcoder]
 //snippet-service:[elastictranscoder]

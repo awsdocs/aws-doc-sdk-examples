@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sqs_longpolling_createqueue.js demonstrates how to create an Amazon SQS queue that waits for a message to arrive.]
 //snippet-service:[sqs]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]

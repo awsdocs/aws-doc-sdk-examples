@@ -6,6 +6,7 @@
 # snippet-keyword:[wait_until method]
 # snippet-keyword:[Instance.create_tags method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

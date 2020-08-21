@@ -13,6 +13,8 @@
 # snippet-sourcedescription:[MyCodeCommitFunction.py demonstrates how to use an AWS Lambda function to return the URLs used for cloning an AWS CodeCommit repository to a CloudWatch log.]
 # snippet-service:[codecommit]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[AWS CodeCommit]
 # snippet-keyword:[Code Sample]
 # snippet-keyword:[GetRepository]

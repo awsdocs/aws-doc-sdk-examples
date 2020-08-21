@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[RetireGrant.java demonstrates how to retire a grant for an AWS KMS customer master key.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

@@ -1,0 +1,37 @@
+---
+# Amazon DynamoDB basic usage examples
+files:
+  - path: ddb_batchgetitem.js
+    services:
+      - dynamodb
+  - path: ddb_batchwriteitem.js
+    services:
+      - dynamodb
+  - path: ddb_deleteitem.js
+    services:
+      - dynamodb
+  - path: ddb_describetable.js
+    services:
+      - dynamodb
+  - path: ddb_getitem.js
+    services:
+      - dynamodb
+  - path: ddb_listtables.js
+    services:
+      - dynamodb
+  - path: ddb_putitem.js
+    services:
+      - dynamodb
+  - path: ddb_query.js
+    services:
+      - dynamodb
+  - path: ddb_scan.js
+    services:
+      - dynamodb
+  - path: QueryExample/ddb_batchwriteritem_tv.js
+    services:
+      - dynamodb
+  - path: QueryExample/ddb_createtable_tv.js
+    services:
+      - dynamodb
+...

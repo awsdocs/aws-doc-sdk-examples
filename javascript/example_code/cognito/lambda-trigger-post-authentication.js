@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This post authentication sample Lambda function sends data from a successful sign-in to CloudWatch Logs.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

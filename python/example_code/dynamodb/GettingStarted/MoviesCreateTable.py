@@ -1,61 +1,54 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Python]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.python.codeexample.MoviesCreateTable] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-from __future__ import print_function # Python 2/3 compatibility
+"""
+Purpose
+
+Shows how to create an Amazon DynamoDB table for storing movies.
+Release year is used as a primary partition key and the movie title as a
+secondary sort key.
+"""
+
+# snippet-start:[dynamodb.python.codeexample.MoviesCreateTable]
 import boto3
 
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
 
+def create_movie_table(dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-table = dynamodb.create_table(
-    TableName='Movies',
-    KeySchema=[
-        {
-            'AttributeName': 'year',
-            'KeyType': 'HASH'  #Partition key
-        },
-        {
-            'AttributeName': 'title',
-            'KeyType': 'RANGE'  #Sort key
+    table = dynamodb.create_table(
+        TableName='Movies',
+        KeySchema=[
+            {
+                'AttributeName': 'year',
+                'KeyType': 'HASH'  # Partition key
+            },
+            {
+                'AttributeName': 'title',
+                'KeyType': 'RANGE'  # Sort key
+            }
+        ],
+        AttributeDefinitions=[
+            {
+                'AttributeName': 'year',
+                'AttributeType': 'N'
+            },
+            {
+                'AttributeName': 'title',
+                'AttributeType': 'S'
+            },
+
+        ],
+        ProvisionedThroughput={
+            'ReadCapacityUnits': 10,
+            'WriteCapacityUnits': 10
         }
-    ],
-    AttributeDefinitions=[
-        {
-            'AttributeName': 'year',
-            'AttributeType': 'N'
-        },
-        {
-            'AttributeName': 'title',
-            'AttributeType': 'S'
-        },
+    )
+    return table
 
-    ],
-    ProvisionedThroughput={
-        'ReadCapacityUnits': 10,
-        'WriteCapacityUnits': 10
-    }
-)
 
-print("Table status:", table.table_status)
+if __name__ == '__main__':
+    movie_table = create_movie_table()
+    print("Table status:", movie_table.table_status)
 # snippet-end:[dynamodb.python.codeexample.MoviesCreateTable]

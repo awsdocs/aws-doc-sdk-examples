@@ -17,6 +17,7 @@
 // snippet-sourcedescription:[s3_PhotoViewer.js demonstrates how to allow viewing of photos in albums stored in an Amazon S3 bucket.]
 // snippet-service:[s3]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon S3]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -103,7 +104,7 @@ function listAlbums() {
 // snippet-start:[s3.JavaScript.s3_PhotoViewer.viewAlbum]
 // Show the photos that exist in an album.
 function viewAlbum(albumName) {
-  var albumPhotosKey = encodeURIComponent(albumName) + '/_';
+  var albumPhotosKey = encodeURIComponent(albumName) + '/';
   s3.listObjects({Prefix: albumPhotosKey}, function(err, data) {
     if (err) {
       return alert('There was an error viewing your album: ' + err.message);
@@ -155,6 +156,7 @@ function viewAlbum(albumName) {
       '</div>',
     ]
     document.getElementById('viewer').innerHTML = getHtml(htmlTemplate);
+    document.getElementsByTagName('img')[0].setAttribute('style', 'display:none;');
   });
 }
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbum]

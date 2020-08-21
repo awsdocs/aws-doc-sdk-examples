@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GenerateDataKey.java demonstrates how to generate a data key for KMS. This operation returns plaintext and encrypted copies of the data key that it creates.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

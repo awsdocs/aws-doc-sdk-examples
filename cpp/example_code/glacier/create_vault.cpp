@@ -1,6 +1,7 @@
  
 //snippet-sourcedescription:[create_vault.cpp demonstrates how to create an Amazon Glacier vault.]
 //snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Glacier]
 //snippet-service:[glacier]

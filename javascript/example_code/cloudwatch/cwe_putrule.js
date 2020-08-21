@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[cwe_putrule.js demonstrates how to create or update an Amazon CloudWatch Events rule.]
 //snippet-service:[cw_events]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudWatch Events]
 //snippet-sourcetype:[full-example]

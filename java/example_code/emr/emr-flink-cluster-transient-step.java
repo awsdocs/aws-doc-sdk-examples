@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[emr-flink-cluster-transient-step.java demonstrates how to create a Flink cluster, and then run a step that shuts down the cluster when it completes.]
 // snippet-service:[elasticmapreduce]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon EMR]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[RunJobFlowRequest]

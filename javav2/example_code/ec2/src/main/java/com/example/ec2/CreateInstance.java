@@ -1,12 +1,13 @@
-//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an EC2 instance.]
+//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an Amazon EC2 instance.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[ec2]
+//snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/15/2020]
+//snippet-sourceauthor:[scmacdon]
+
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.create_instance.complete]
-// snippet-start:[ec2.java.create_instance.import]
 
+// snippet-start:[ec2.java2.create_instance.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.InstanceType;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
@@ -30,18 +31,17 @@ import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Tag;
 import software.amazon.awssdk.services.ec2.model.CreateTagsRequest;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
- 
-// snippet-end:[ec2.java.create_instance.import]
+// snippet-end:[ec2.java2.create_instance.import]
+
 /**
  * Creates an EC2 instance
  */
-public class CreateInstance
-{
-    public static void main(String[] args)
-    {
+public class CreateInstance {
+    public static void main(String[] args) {
         final String USAGE =
-            "To run this example, supply an instance name and AMI image id\n" +
-            "Ex: CreateInstance <instance-name> <ami-image-id>\n";
+                "To run this example, supply an instance name and AMI image id\n" +
+                        "Both values can be obtained from the AWS Console\n" +
+                        "Ex: CreateInstance <instance-name> <ami-image-id>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -49,46 +49,53 @@ public class CreateInstance
         }
 
         String name = args[0];
-        String ami_id = args[1];
+        String amiId = args[1];
 
-        // snippet-start:[ec2.java.create_instance.main]
-        Ec2Client ec2 = Ec2Client.create();
+        Region region = Region.US_WEST_2;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
 
-        RunInstancesRequest run_request = RunInstancesRequest.builder()
-            .imageId(ami_id)
-            .instanceType(InstanceType.T1_MICRO)
-            .maxCount(1)
-            .minCount(1)
-            .build();
+        String instanceId = createEC2Instance(ec2,name, amiId) ;
+        System.out.println("The instance ID is "+instanceId);
+    }
 
-        RunInstancesResponse response = ec2.runInstances(run_request);
+    // snippet-start:[ec2.java2.create_instance.main]
+   public static String createEC2Instance(Ec2Client ec2,String name, String amiId ) {
 
-        String instance_id = response.reservationId();
+        RunInstancesRequest runRequest = RunInstancesRequest.builder()
+                .imageId(amiId)
+                .instanceType(InstanceType.T1_MICRO)
+                .maxCount(1)
+                .minCount(1)
+                .build();
+
+        RunInstancesResponse response = ec2.runInstances(runRequest);
+        String instanceId = response.instances().get(0).instanceId();
 
         Tag tag = Tag.builder()
-            .key("Name")
-            .value(name)
-            .build();
+                .key("Name")
+                .value(name)
+                .build();
 
-        CreateTagsRequest tag_request = CreateTagsRequest.builder()
-            .tags(tag)
-            .build();
+        CreateTagsRequest tagRequest = CreateTagsRequest.builder()
+                .resources(instanceId)
+                .tags(tag)
+                .build();
 
         try {
-        	ec2.createTags(tag_request);
-
+            ec2.createTags(tagRequest);
             System.out.printf(
-                "Successfully started EC2 instance %s based on AMI %s",
-                instance_id, ami_id);
-        }
-        catch (Ec2Exception e) {
-        	System.err.println(e.getMessage());
-        	System.exit(1);
-        }
-        // snippet-end:[ec2.java.create_instance.main]
-        System.out.println("Done!");
+                    "Successfully started EC2 instance %s based on AMI %s",
+                    instanceId, amiId);
 
+          return instanceId;
+
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        // snippet-end:[ec2.java2.create_instance.main]
+        return "";
     }
 }
- 
-// snippet-end:[ec2.java.create_instance.complete]

@@ -2,6 +2,8 @@
 # snippet-sourcedescription:[kda-python-datagenerator-anomaly.py demonstrates how to generate sample data for the RANDOM_CUT_FOREST SQL function.]
 # snippet-service:[kinesisanalytics]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-keyword:[Amazon Kinesis Data Analytics]
 # snippet-keyword:[AWS SDK for Python (Boto3)]
 # snippet-keyword:[Code Sample]

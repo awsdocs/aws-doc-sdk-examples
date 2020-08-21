@@ -48,7 +48,7 @@ AWS service. Each service should have its own build directory.
 Build the examples on Windows
 =============================
 
-Run CMake and MsBuild. The compiled and linked executable files are
+Run CMake and MSBuild. The compiled and linked executable files are
 located in the Debug directory.
 
 ::
@@ -61,13 +61,15 @@ Define the CMAKE_PREFIX_PATH variable to specify the directory
 where the AWS SDK for C++ was installed. Also specify the Code Catalog
 directory where the service's examples are located.
 
-On the MsBuild command line, specify the ALL_BUILD.vcxproj argument. 
+On the MSBuild command line, specify the ALL_BUILD.vcxproj argument. 
 Alternatively, in Microsoft Visual Studio, open the ALL_BUILD.vcxproj 
 project and select Build > Build Solution.
 
-Note: MsBuild is included with Microsoft Visual Studio. With the 2017 Community Edition, 
-MsBuild is located in "\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\amd64\\".
-In earlier versions of Visual Studio, MsBuild is located in other directories.
+Note: MSBuild is included with Microsoft Visual Studio. Its location 
+depends on the Visual Studio version.
+
+* 2019 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\"
+* 2017 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\amd64\\"
 
 Build the examples on Linux/macOS
 =================================

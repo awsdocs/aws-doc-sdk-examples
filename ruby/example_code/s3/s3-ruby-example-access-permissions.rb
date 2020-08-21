@@ -7,6 +7,7 @@
 # snippet-keyword:[put_object method]
 # snippet-keyword:[put_object_acl method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[s3]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

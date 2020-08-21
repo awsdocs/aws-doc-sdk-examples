@@ -2,6 +2,7 @@
 // snippet-sourcedescription:[sns_publish_to_topic.go demonstrates how to list, create, and delete a bucket in Amazon S3.]
 // snippet-service:[sns]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-keyword:[Amazon SNS]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Publish]

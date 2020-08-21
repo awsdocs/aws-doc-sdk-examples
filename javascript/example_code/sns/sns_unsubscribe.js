@@ -15,6 +15,7 @@
 //snippet-sourcedescription:[sns_unsubscribe.js demonstrates how to delete a subscription to an Amazon SNS topic.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]

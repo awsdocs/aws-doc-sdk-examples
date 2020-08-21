@@ -53,6 +53,7 @@ try {
 // snippet-end:[sns.php.delete_topic.complete]
 // snippet-sourcedescription:[DeleteTopic.php demonstrates how to delete a topic.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Notification Service]

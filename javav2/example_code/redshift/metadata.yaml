@@ -1,0 +1,23 @@
+--- 
+files:
+  - path: src/main/java/com/example/redshift/ConnectToCluster.java
+    services:
+      - redshift
+  - path: src/main/java/com/example/redshift/CreateAndModifyCluster.java
+    services:
+      - redshift
+  - path: src/main/java/com/example/redshift/DeleteCluster.java
+    services:
+      - redshift
+  - path: src/main/java/com/example/redshift/DescribeClusters.java
+    services:
+      - redshift
+  - path: src/main/java/com/example/redshift/FindReservedNodeOffer.java
+    services:
+      - redshift
+  - path: src/main/java/com/example/redshift/ListEvents.java
+    services:
+      - redshift      
+  - path: src/test/java/AmazonRedshiftServiceIntegrationTest.java
+    services:
+      - redshift  

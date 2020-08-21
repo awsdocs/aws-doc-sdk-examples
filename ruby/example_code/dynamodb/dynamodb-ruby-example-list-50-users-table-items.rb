@@ -4,6 +4,7 @@
 # snippet-keyword:[Amazon DynamoDB]
 # snippet-keyword:[scan method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

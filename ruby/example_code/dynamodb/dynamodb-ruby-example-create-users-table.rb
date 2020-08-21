@@ -5,6 +5,7 @@
 # snippet-keyword:[create_table method]
 # snippet-keyword:[wait_until method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[dynamodb]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

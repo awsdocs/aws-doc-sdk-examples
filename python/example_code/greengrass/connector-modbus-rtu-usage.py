@@ -46,6 +46,7 @@ def function_handler(event, context):
 #snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 #snippet-sourcedescription:[Sends an input message to the Modbus-RTU Protocol Adapter connector.]
 #snippet-keyword:[Python]
+#snippet-sourcesyntax:[python]
 #snippet-keyword:[Code Sample]
 #snippet-keyword:[AWS IoT Greengrass]
 #snippet-keyword:[AWS IoT Greengrass Core SDK]

@@ -3,6 +3,8 @@
 # snippet-service:[elastictranscoder]
 # snippet-keyword:[Amazon Elastic Transcoder]
 # snippet-keyword:[Python]
+# snippet-sourcesyntax:[python]
+# snippet-sourcesyntax:[python]
 # snippet-sourcetype:[snippet]
 # snippet-sourcedate:[2019-02-04]
 # snippet-sourceauthor:[AWS]

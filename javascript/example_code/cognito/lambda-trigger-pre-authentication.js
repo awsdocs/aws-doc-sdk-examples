@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[This sample function prevents users from a specific user pool app client to sign-in to the user pool.]
 // snippet-service:[cognito-idp]
 // snippet-keyword:[JavaScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[Amazon Cognito]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[lambda_trigger]

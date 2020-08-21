@@ -21,13 +21,13 @@
 
 require 'vendor/autoload.php';
 
-use Aws\SES\SESClient; 
+use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
 // snippet-end:[ses.php.create_rule.import]
 
 //Create a SESClient 
 // snippet-start:[ses.php.create_rule.main]
-$SesClient = new Aws\SES\SESClient([
+$SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
     'version' => '2010-12-01',
     'region' => 'us-east-2'
@@ -68,6 +68,7 @@ try {
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[Create_Rule.php demonstrates how to control your incoming email by adding a receipt rule to an existing receipt rule set. This example shows you how to create a receipt rule that sends incoming messages to an Amazon S3 bucket, but you can also send messages to Amazon SNS, and AWS Lambda.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Simple Email Service]

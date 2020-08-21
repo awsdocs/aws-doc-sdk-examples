@@ -20,6 +20,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[s3-multipart-upload-uusing-lowlevel-php-sdk-api.php demonstrates how to upload multiple objects to an Amazon S3 bucket using the low-level createMultipartUpload action.]
 // snippet-keyword:[PHP]
+// snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon S3]
@@ -46,7 +47,6 @@ $result = $s3->createMultipartUpload([
     'Bucket'       => $bucket,
     'Key'          => $keyname,
     'StorageClass' => 'REDUCED_REDUNDANCY',
-    'ACL'          => 'public-read',
     'Metadata'     => [
         'param1' => 'value 1',
         'param2' => 'value 2',

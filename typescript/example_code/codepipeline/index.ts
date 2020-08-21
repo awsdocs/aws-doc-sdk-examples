@@ -13,6 +13,7 @@
 // snippet-sourcedescription:[index.ts provides a hello script in TypeScript]
 // snippet-service:[codepipeline]
 // snippet-keyword:[TypeScript]
+// snippet-sourcesyntax:[javascript]
 // snippet-keyword:[AWS CodePipeline]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]

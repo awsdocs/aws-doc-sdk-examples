@@ -3,10 +3,10 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[ec2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/2/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,58 +20,68 @@
  * permissions and limitations under the License.
  */
 package com.example.ec2;
-// snippet-start:[ec2.java.describe_region_and_zones.complete]
-// snippet-start:[ec2.java.describe_region_and_zones.import]
+// snippet-start:[ec2.java2.describe_region_and_zones.complete]
+// snippet-start:[ec2.java2.describe_region_and_zones.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
 import software.amazon.awssdk.services.ec2.model.Region;
 import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
- 
-// snippet-end:[ec2.java.describe_region_and_zones.import]
+// snippet-end:[ec2.java2.describe_region_and_zones.import]
+
 /**
  * Describes all regions and zones
  */
-public class DescribeRegionsAndZones
-{
-    public static void main(String[] args)
-    {
-        // snippet-start:[ec2.java.describe_region_and_zones.main]
-        // snippet-start:[ec2.java.describe_region_and_zones.client]
+public class DescribeRegionsAndZones {
+
+    public static void main(String[] args) {
+        // snippet-start:[ec2.java2.describe_region_and_zones.main]
+        // snippet-start:[ec2.java2.describe_region_and_zones.client]
         Ec2Client ec2 = Ec2Client.create();
-        // snippet-end:[ec2.java.describe_region_and_zones.client]
-     
-        // snippet-start:[ec2.java.describe_region_and_zones.region]
-        DescribeRegionsResponse regions_response = ec2.describeRegions();
+        // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
-        for(Region region : regions_response.regions()) {
-            System.out.printf(
-                "Found region %s " +
-                "with endpoint %s",
-                region.regionName(),
-                region.endpoint());
-            System.out.println();
-         // snippet-end:[ec2.java.describe_region_and_zones.region]
+        describeEC2RegionsAndZones(ec2);
+
+    }
+    public static void describeEC2RegionsAndZones( Ec2Client ec2) {
+        // snippet-start:[ec2.java2.describe_region_and_zones.region]
+        try {
+
+            DescribeRegionsResponse regionsResponse = ec2.describeRegions();
+
+            for(Region region : regionsResponse.regions()) {
+                System.out.printf(
+                        "Found region %s " +
+                                "with endpoint %s",
+                        region.regionName(),
+                        region.endpoint());
+                System.out.println();
+                // snippet-end:[ec2.java2.describe_region_and_zones.region]
+            }
+
+            // snippet-start:[ec2.java2.describe_region_and_zones.avail_zone]
+            DescribeAvailabilityZonesResponse zonesResponse =
+                    ec2.describeAvailabilityZones();
+
+            for(AvailabilityZone zone : zonesResponse.availabilityZones()) {
+                System.out.printf(
+                        "Found availability zone %s " +
+                                "with status %s " +
+                                "in region %s",
+                        zone.zoneName(),
+                        zone.state(),
+                        zone.regionName());
+                System.out.println();
+                // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
+            }
+
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-
-        // snippet-start:[ec2.java.describe_region_and_zones.avail_zone]
-        DescribeAvailabilityZonesResponse zones_response =
-            ec2.describeAvailabilityZones();
-
-        for(AvailabilityZone zone : zones_response.availabilityZones()) {
-            System.out.printf(
-                "Found availability zone %s " +
-                "with status %s " +
-                "in region %s",
-                zone.zoneName(),
-                zone.state(),
-                zone.regionName());
-            System.out.println();
-         // snippet-end:[ec2.java.describe_region_and_zones.avail_zone]
-
-        }
-        // snippet-end:[ec2.java.describe_region_and_zones.main]
+        // snippet-end:[ec2.java2.describe_region_and_zones.main]
     }
 }
- 
-// snippet-end:[ec2.java.describe_region_and_zones.complete]
+
+// snippet-end:[ec2.java2.describe_region_and_zones.complete]

@@ -4,13 +4,14 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[CreateFunction function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-keyword:[Code Sample]
 // snippet-service:[lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-1-11]
+// snippet-sourcedate:[2020-1-6]
 /*
-   Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This file is licensed under the Apache License, Version 2.0 (the "License").
    You may not use this file except in compliance with the License. A copy of
@@ -25,6 +26,7 @@
 // snippet-start:[lambda.go.create_function.complete]
 package main
 
+// snippet-start:[lambda.go.create_function.imports]
 import (
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
@@ -35,47 +37,10 @@ import (
     "io/ioutil"
     "os"
 )
-
-func createFunction(zipFileName string, bucketName string, functionName string, handler string, resourceArn string, runtime string) {
-    // Initialize a session
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
-
-    // Create Lambda service client
-    svc := lambda.New(sess, &aws.Config{Region: aws.String("us-west-2")})
-
-    contents, err := ioutil.ReadFile(zipFileName + ".zip")
-
-    if err != nil {
-        fmt.Println("Could not read " + zipFileName + ".zip")
-        os.Exit(0)
-    }
-
-    createCode := &lambda.FunctionCode{
-        S3Bucket:        aws.String(bucketName),
-        S3Key:           aws.String(zipFileName),
-        S3ObjectVersion: aws.String(""),
-        ZipFile:         contents,
-    }
-
-    createArgs := &lambda.CreateFunctionInput{
-        Code:         createCode,
-        FunctionName: aws.String(functionName),
-        Handler:      aws.String(handler),
-        Role:         aws.String(resourceArn),
-        Runtime:      aws.String(runtime),
-    }
-
-    result, err := svc.CreateFunction(createArgs)
-    if err != nil {
-        fmt.Println("Cannot create function: " + err.Error())
-    } else {
-        fmt.Println(result)
-    }
-}
+// snippet-end:[lambda.go.create_function.imports]
 
 func main() {
+    // snippet-start:[lambda.go.create_function.vars]
     zipFilePtr := flag.String("z", "", "The name of the ZIP file (without the .zip extension)")
     bucketPtr := flag.String("b", "", "the name of bucket to which the ZIP file is uploaded")
     functionPtr := flag.String("f", "", "The name of the Lambda function")
@@ -85,18 +50,52 @@ func main() {
 
     flag.Parse()
 
-    zipFile := *zipFilePtr
-    bucketName := *bucketPtr
-    functionName := *functionPtr
-    handler := *handlerPtr
-    resourceArn := *resourcePtr
-    runtime := *runtimePtr
-
-    if zipFile == "" || bucketName == "" || functionName == "" || handler == "" || resourceArn == "" || runtime == "" {
+    if *zipFilePtr == "" || *bucketPtr == "" || *functionPtr == "" || *handlerPtr == "" || *resourcePtr == "" || *runtimePtr == "" {
         fmt.Println("You must supply a zip file name, bucket name, function name, handler, ARN, and runtime.")
         os.Exit(0)
     }
+    // snippet-end:[lambda.go.create_function.vars]
 
-    createFunction(zipFile, bucketName, functionName, handler, resourceArn, runtime)
+    // Initialize a session that the SDK will use to load
+    // credentials from the shared credentials file ~/.aws/credentials.
+    // snippet-start:[lambda.go.create_function.session]
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
+
+    svc := lambda.New(sess)
+
+    contents, err := ioutil.ReadFile(*zipFilePtr + ".zip")
+    if err != nil {
+        fmt.Println("Could not read " + *zipFilePtr + ".zip")
+        os.Exit(0)
+    }
+    // snippet-end:[lambda.go.create_function.session]
+
+    // snippet-start:[lambda.go.create_function.structs]
+    createCode := &lambda.FunctionCode{
+        S3Bucket:        bucketPtr,
+        S3Key:           zipFilePtr,
+        S3ObjectVersion: aws.String(""),
+        ZipFile:         contents,
+    }
+
+    createArgs := &lambda.CreateFunctionInput{
+        Code:         createCode,
+        FunctionName: functionPtr,
+        Handler:      handlerPtr,
+        Role:         resourcePtr,
+        Runtime:      runtimePtr,
+    }
+    // snippet-end:[lambda.go.create_function.structs]
+
+    // snippet-start:[lambda.go.create_function.create]
+    result, err := svc.CreateFunction(createArgs)
+    if err != nil {
+        fmt.Println("Cannot create function: " + err.Error())
+    } else {
+        fmt.Println(result)
+    }
+    // snippet-end:[lambda.go.create_function.create]
 }
 // snippet-end:[lambda.go.create_function.complete]

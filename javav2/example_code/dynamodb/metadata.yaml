@@ -1,0 +1,39 @@
+--- 
+files:
+  - path: src/main/java/com/example/dynamodb/CreateTable.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/CreateTableCompositeKey.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/DeleteItem.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/DeleteTable.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/DynamoDBScanItems.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/GetItem.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/ListTables.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/PutItem.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/Query.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/SyncPagination.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/UpdateItem.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/UpdateTable.java
+    services:
+      - dynamodb
+  - path: src/test/java/AWSDynamoServiceIntegrationTest.java

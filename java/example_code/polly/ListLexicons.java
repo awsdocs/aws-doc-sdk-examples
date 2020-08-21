@@ -15,6 +15,7 @@
 // snippet-sourcedescription:[ListLexicons demonstrates how to produce a list of pronunciation lexicons stored in an AWS Region.]
 // snippet-service:[polly]
 // snippet-keyword:[Java]
+// snippet-sourcesyntax:[java]
 // snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-keyword:[ListLexicons]

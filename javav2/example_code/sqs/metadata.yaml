@@ -1,0 +1,18 @@
+--- 
+files:
+  - path: src/main/java/com/example/sqs/DeadLetterQueues.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/LongPolling.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/SQSExample.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/SendReceiveMessages.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/sqs/VisibilityTimeout.java
+    services:
+      - sqs
+  - path: src/test/java/SQSServiceIntegrationTest.java

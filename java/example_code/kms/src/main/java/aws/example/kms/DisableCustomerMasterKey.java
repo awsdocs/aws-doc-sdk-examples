@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[DisableCustomerMasterKey.java demonstrates how to disable a different customer master key (CMK).]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon KMS]
 //snippet-service:[kms]

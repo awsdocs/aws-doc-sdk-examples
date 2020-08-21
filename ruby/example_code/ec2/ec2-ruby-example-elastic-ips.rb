@@ -7,6 +7,7 @@
 # snippet-keyword:[describe_addresses method]
 # snippet-keyword:[release_address method]
 # snippet-keyword:[Ruby]
+# snippet-sourcesyntax:[ruby]
 # snippet-service:[ec2]
 # snippet-keyword:[Code Sample]
 # snippet-sourcetype:[full-example]

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[GetObject.java demonstrates how to get an object within an Amazon S3 bucket.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon S3]
 //snippet-keyword:[getObject]
@@ -21,11 +22,14 @@
    specific language governing permissions and limitations under the License.
 */
 package aws.example.s3;
+
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -33,19 +37,17 @@ import java.io.IOException;
 
 /**
  * Get an object within an Amazon S3 bucket.
- *
+ * 
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class GetObject
-{
-    public static void main(String[] args)
-    {
+public class GetObject {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "To run this example, supply the name of an S3 bucket and object to\n" +
-            "download from it.\n" +
-            "\n" +
-            "Ex: GetObject <bucketname> <filename>\n";
+                "To run this example, supply the name of an S3 bucket and object to\n" +
+                "download from it.\n" +
+                "\n" +
+                "Ex: GetObject <bucketname> <filename>\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -56,7 +58,7 @@ public class GetObject
         String key_name = args[1];
 
         System.out.format("Downloading %s from S3 bucket %s...\n", key_name, bucket_name);
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         try {
             S3Object o = s3.getObject(bucket_name, key_name);
             S3ObjectInputStream s3is = o.getObjectContent();

@@ -4,6 +4,7 @@
 // snippet-keyword:[Amazon DynamoDB]
 // snippet-keyword:[UpdateItem function]
 // snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
 // snippet-service:[dynamodb]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -48,7 +49,7 @@ func main() {
     // snippet-end:[dynamodb.go.update_item.session]
 
     // snippet-start:[dynamodb.go.update_item.call]
-    // Create item in table Movies
+    // Update item in table Movies
     tableName := "Movies"
     movieName := "The Big New Movie"
     movieYear := "2015"

@@ -1,5 +1,6 @@
 //snippet-sourcedescription:[JobStatusNotificationHandler.java provides a handler for job notifications.]
 //snippet-keyword:[Java]
+//snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Elastic Transcoder]
 //snippet-service:[elastictranscoder]
