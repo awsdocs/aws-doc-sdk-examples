@@ -40,6 +40,9 @@ files:
   - path: s3_setbucketwebsite.js
     services:
       - s3
+  - path: s3_putbucketpolicy.js
+    services:
+      - s3
   - path: s3_list1000plusobjects.js
     services:
       - s3
