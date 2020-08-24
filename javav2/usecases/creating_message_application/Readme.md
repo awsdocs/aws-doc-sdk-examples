@@ -621,7 +621,7 @@ The following HTML file represents the **message.html** file.
 
     <div class="input-group mb-3">
     <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
+        <span class="input-group-text" id="basic-addon1">Sender:</span>
     </div>
     <select name="cars" id="username">
         <option value="Scott">Scott</option>
@@ -704,6 +704,7 @@ The following code represents this JS file.
     function handle(event) {
 
       var xml = event.target.responseText;
+       $('#textarea').val("");
       $("#messages").children().remove();
       $(xml).find('Message').each(function () {
       var $field = $(this);
@@ -740,8 +741,8 @@ The following code represents this JS file.
     xhr.send();
     }
 
-    function purgeItems(event) {
-
+   function purgeItems(event) {
+    $('#textarea').val("");
     var msg = event.target.responseText;
     alert(msg);
     populateChat();
