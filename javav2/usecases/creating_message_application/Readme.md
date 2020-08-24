@@ -6,7 +6,7 @@ You can create an AWS application that sends and retrieves messages by using the
 
 In this tutorial, you create a Spring Boot application named AWS Message application. The Spring Boot APIs are used to build a model, different views, and a controller. The following figure shows the AWS Message application.
 
-![AWS Message Application](images/client.png)
+![AWS Message Application](images/client1a.png)
 
 **Cost to complete:** The AWS services you'll use in this example are part of the AWS Free Tier.
 
