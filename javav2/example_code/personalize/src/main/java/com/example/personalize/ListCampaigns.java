@@ -80,5 +80,5 @@ public class ListCampaigns {
         System.exit(1);
     }
   }
-  //snippet-start:[personalize.java2.list_campaigns.main]
+  //snippet-end:[personalize.java2.list_campaigns.main]
 }
