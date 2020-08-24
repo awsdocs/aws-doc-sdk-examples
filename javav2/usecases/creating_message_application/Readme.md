@@ -182,7 +182,7 @@ The **Message** class represents the application’s model.
 
      package com.example;
 
-public class Message {
+    public class Message {
 
     private String id;
     private String body;
