@@ -18,7 +18,7 @@ function populateChat() {
 function handle(event) {
 
     var xml = event.target.responseText;
-
+    $('#textarea').val("");
     $("#messages").children().remove();
 
     $(xml).find('Message').each(function () {
@@ -59,7 +59,7 @@ function purge() {
 }
 
 function purgeItems(event) {
-
+    $('#textarea').val(""); 
     var msg = event.target.responseText;
     alert(msg);
     populateChat();
