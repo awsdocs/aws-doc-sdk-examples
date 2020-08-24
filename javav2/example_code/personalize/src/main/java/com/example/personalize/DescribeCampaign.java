@@ -76,5 +76,5 @@ public class DescribeCampaign {
         System.exit(1);
     }
   }
-    //snippet-emd:[personalize.java2.describe_campaign.main]
+    //snippet-end:[personalize.java2.describe_campaign.main]
 }
