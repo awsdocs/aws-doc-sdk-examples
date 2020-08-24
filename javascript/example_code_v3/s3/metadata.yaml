@@ -55,4 +55,7 @@ files:
   - path: s3.js
     services:
       - s3
+  - path: s3_setcors.js
+      services:
+        - s3
 ...

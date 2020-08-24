@@ -19,7 +19,7 @@ node s3_putbucketpolicy.js
 */
 // snippet-start:[s3.JavaScript.buckets.putbucketpolicyV3]
 // Import an S3 client
-const { S3, S3Client, PutBucketPolicyCommand } = require("@aws-sdk/client-s3");
+const { S3, S3Client } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
