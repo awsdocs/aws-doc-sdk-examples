@@ -256,6 +256,16 @@ The following Java code represents the **MainController** class that handles HTT
     public String root() {
         return "index";
     }
+    
+    //  Purge the queue
+    @RequestMapping(value = "/purge", method = RequestMethod.GET)
+    @ResponseBody
+    String purgeMessages(HttpServletRequest request, HttpServletResponse response) {
+
+        msgService.purgeMyQueue();
+        return "Queue is purged";
+    }
+
 
     // Gets messages
     @RequestMapping(value = "/populate", method = RequestMethod.GET)
@@ -327,6 +337,24 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
        private final String QUEUE_NAME = "Message.fifo";
 
 
+       public void purgeMyQueue() {
+
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
+
+        GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
+                .queueName(QUEUE_NAME)
+                .build();
+
+        PurgeQueueRequest queueRequest = PurgeQueueRequest.builder()
+                .queueUrl(sqsClient.getQueueUrl(getQueueRequest).queueUrl())
+                .build();
+
+        sqsClient.purgeQueue(queueRequest);
+    }
+       
+       
        public String getMessages() {
 
         List attr = new ArrayList<String>();
@@ -523,6 +551,7 @@ The following HTML code represents the **index.html** file.
         <li>The AWS Message application polls the queue for all messages in the FIFO queue.</li>
         <li>The AWS Message application displays the message data in the view. The message body, user name, and an avatar is displayd.</li>
         <li>You can send and view multiple messages by using the AWS Message application. </li>
+         <li>You can purge the queue. </li>
         </ol>
      <div>
     </body>
@@ -599,7 +628,7 @@ The following HTML file represents the **message.html** file.
      </div>
      <textarea class="form-control" id="textarea" aria-label="With textarea"></textarea>
      <button type="button" onclick="pushMessage()" id="send" class="btn btn-success">Send</button>
-     <button type="button" onclick="populateChat()" id="refresh" class="btn btn-success">Refresh</button>
+     <button type="button" onclick="purge()" id="refresh" class="btn btn-success">Purge</button>
      </div>
     </div>
 
@@ -660,7 +689,7 @@ The following code represents this JS file.
      // Post the values to the controller
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", handle, false);
-    xhr.open("GET", "../populate", true);   //buildFormit -- a Spring MVC controller
+    xhr.open("GET", "../populate", true);   
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
     xhr.send();
     }
@@ -693,6 +722,24 @@ The following code represents this JS file.
       });
      }
 
+     function purge() {
+
+    //Post the values to the controller
+    //invokes the getMyForms POST operation
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", purgeItems, false);
+    xhr.open("GET", "../purge", true);   
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
+    }
+
+    function purgeItems(event) {
+
+    var msg = event.target.responseText;
+    alert(msg);
+    populateChat();
+    }
+     
      function pushMessage() {
 
        var user =  $('#username').val();
@@ -701,8 +748,8 @@ The following code represents this JS file.
        // Post the values to the controller
        var xhr = new XMLHttpRequest();
        xhr.addEventListener("load", loadNewItems, false);
-       xhr.open("POST", "../add", true);   //buildFormit -- a Spring MVC controller
-       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+       xhr.open("POST", "../add", true);   
+       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
        xhr.send("user=" + user + "&message=" + message);
        }
 
