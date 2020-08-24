@@ -310,38 +310,47 @@ The following Java code represents the **MainController** class that handles HTT
 
 The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieve message from the queue. Likewise, the **processMessage** method sends a message to a queue.
 
-         package com.example;
+        package com.example;
 
-         import org.springframework.stereotype.Component;
-         import software.amazon.awssdk.regions.Region;
-         import software.amazon.awssdk.services.sqs.SqsClient;
-         import software.amazon.awssdk.services.sqs.model.*;
-         import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
-         import software.amazon.awssdk.services.sqs.model.Message;
-         import org.w3c.dom.Document;
-         import javax.xml.parsers.DocumentBuilder;
-         import javax.xml.parsers.DocumentBuilderFactory;
-         import javax.xml.parsers.ParserConfigurationException;
-         import javax.xml.transform.Transformer;
-         import javax.xml.transform.TransformerException;
-         import javax.xml.transform.TransformerFactory;
-         import javax.xml.transform.dom.DOMSource;
-         import javax.xml.transform.stream.StreamResult;
-         import org.w3c.dom.Element;
-         import java.io.StringWriter;
-         import java.util.*;
+        import org.springframework.stereotype.Component;
+        import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+        import software.amazon.awssdk.regions.Region;
+        import software.amazon.awssdk.services.sqs.SqsClient;
+        import software.amazon.awssdk.services.sqs.model.*;
+        import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+        import software.amazon.awssdk.services.sqs.model.Message;
+        import software.amazon.awssdk.services.sqs.model.PurgeQueueRequest;
+        import org.w3c.dom.Document;
+        import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.DocumentBuilderFactory;
+        import javax.xml.parsers.ParserConfigurationException;
+        import javax.xml.transform.Transformer;
+        import javax.xml.transform.TransformerException;
+        import javax.xml.transform.TransformerFactory;
+        import javax.xml.transform.dom.DOMSource;
+        import javax.xml.transform.stream.StreamResult;
+        import org.w3c.dom.Element;
+        import java.io.StringWriter;
+        import java.util.*;
 
         @Component
         public class SendReceiveMessages {
 
-       private final String QUEUE_NAME = "Message.fifo";
+        private final String QUEUE_NAME = "Message.fifo";
+
+        private SqsClient getClient() {
+            SqsClient sqsClient = SqsClient.builder()
+             .region(Region.US_WEST_2)
+             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+             .build();
+
+        return sqsClient;
+        }
 
 
-       public void purgeMyQueue() {
+        public void purgeMyQueue() {
 
-        SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+        SqsClient sqsClient = getClient();
 
         GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
                 .queueName(QUEUE_NAME)
@@ -352,17 +361,14 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
                 .build();
 
         sqsClient.purgeQueue(queueRequest);
-    }
-       
-       
-       public String getMessages() {
+        }
+
+        public String getMessages() {
 
         List attr = new ArrayList<String>();
         attr.add("Name");
 
-        SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+        SqsClient sqsClient = getClient();
 
         try {
 
@@ -399,13 +405,13 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
 
         return convertToString(toXml(allMessages));
 
-    } catch (SqsException e) {
-        e.getStackTrace();
-     }
+        } catch (SqsException e) {
+            e.getStackTrace();
+        }
         return "";
-    }
+        }
 
-    public void processMessage(com.example.Message msg) {
+        public void processMessage(com.example.Message msg) {
 
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
@@ -446,12 +452,11 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         } catch (SqsException e) {
              e.getStackTrace();
         }
+        }
 
-    }
-
-    // Convert item data retrieved from the Message Queue
-    // into XML to pass back to the view
-    private Document toXml(List<com.example.Message> itemList) {
+        // Convert item data retrieved from the Message Queue
+        // into XML to pass back to the view
+        private Document toXml(List<com.example.Message> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -484,17 +489,17 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
                 name.appendChild( doc.createTextNode(myMessage.getName() ) );
                 item.appendChild( name );
 
+             }
+
+                return doc;
+            } catch(ParserConfigurationException e) {
+            e.printStackTrace();
+            }
+            return null;
             }
 
-            return doc;
-        } catch(ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        return null;
-       }
-
-       private String convertToString(Document xml) {
-        try {
+        private String convertToString(Document xml) {
+            try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
@@ -505,8 +510,8 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
             ex.printStackTrace();
         }
         return null;
-       }
-      }
+    }
+}
       
 ## Create the HTML files
 
