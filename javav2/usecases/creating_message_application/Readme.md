@@ -512,6 +512,8 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         return null;
     }
 }
+
+**Note**: The **EnvironmentVariableCredentialsProvider** is used to create a **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
       
 ## Create the HTML files
 
