@@ -183,7 +183,7 @@ following tasks:
 * Delete Lambda functions.
 * Empty and delete a versioned bucket.
 
-emr### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
+### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
 
 #### Purpose
 
