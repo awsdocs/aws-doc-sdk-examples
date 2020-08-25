@@ -1,12 +1,14 @@
-#  Create a Sample AWS Photo Analyzer application using the AWS SDK for Java
+#  Creating an example AWS photo analyzer application using the AWS SDK for Java
 
-You can create an AWS application that analyzes nature images located in a S3 bucket by using the Amazon Rekognition service. 
-The application can analyze many images and generate a report that breaks down each image into a series of labels. 
+You can create an AWS application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service.
+
+The application can analyze many images and generate a report that breaks down each image into a series of labels.
+
 For example, the following image shows a lake.
 
 ![AWS Photo Analyzer](images/Lake1.png)
 
-After the application analyzes this image, it creates this data. 
+After the application analyzes this image, it creates this data:
 *	Panoramic - 99.99971
 *	Outdoors - 99.99971
 *	Nature - 99.99971
@@ -16,58 +18,58 @@ After the application analyzes this image, it creates this data.
 *	Water - 93.501465
 *	Lake - 87.28128
 
-In addition, this application uses the Simple Email Service (SES) to send a report to a given email recipient. In this tutorial, you create a Spring Boot application named *AWS Photo Analyzer*. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+In addition, this application uses Amazon Simple Email Service (Amazon SES) to send a report to a given email recipient. In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-This application uses these AWS Services: 
+This application uses the following AWS Services:
 *	Amazon Rekognition
 *	Amazon S3
-*	Amazon Simple Email Service
-*	AWS Elastic BeanStalk
+*	Amazon SES
+*	AWS Elastic Beanstalk
 
-**Cost to complete:** The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
+**Cost to complete:** The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 
 #### Topics
 
 + Prerequisites
-+ Understand the AWS Photo Analyzer application.
-+ Create an IntelliJ project named SpringPhotoAnalyzer.
-+ Add the POM dependencies to your project.
-+ Create the Java classes. 
-+ Create the HTML files.
-+ Create the Script files.
-+ Package the project into a Jar file.
-+ Deploy the application to the AWS Elastic Beanstalk.
++ Understand the AWS Photo Analyzer application
++ Create an IntelliJ project named SpringPhotoAnalyzer
++ Add the POM dependencies to your project
++ Create the Java classes
++ Create the HTML files
++ Create the Script files
++ Package the project into a JAR file
++ Deploy the application to Elastic Beanstalk
 
 ## Prerequisites
 
-To follow along with the tutorial, you need the following:
+To complete the tutorial, you need the following:
 
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK. 
-+ Maven 3.6 or higher.
-+ A S3 bucket named **photos[somevalue]**. Besure to use this bucket name in your S3 Java code. For information, see [creating a S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later
++ An Amazon S3 bucket named **photos[somevalue]**. Be sure to use this bucket name in your S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
 
 ## Understand the AWS Photo Analyzer application
 
-The AWS Photo Analyzer application supports uploading images to a S3 bucket. After the images are uploaded, you can view the images that are analyzed.
+The AWS Photo Analyzer application supports uploading images to an Amazon S3 bucket. After the images are uploaded, you can view the images that are analyzed.
 
 ![AWS Photo Analyzer](images/Photo1.png)
 
-To generate a report, enter an email address and choose **Analyze Photos**. 
+To generate a report, enter an email address and choose **Analyze Photos**.
 
 ![AWS Photo Analyzer](images/photo2.png)
 
 ## Create an IntelliJ project named SpringPhotoAnalyzer
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
-3. For **GroupId**, enter **aws-spring**. 
-4. For **ArtifactId**, enter **SpringPhotoAnalyzer**. 
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+3. For **GroupId**, enter **aws-spring**.
+4. For **ArtifactId**, enter **SpringPhotoAnalyzer**.
 6. Choose **Next**.
-7. Choose **Finish**. 
+7. Choose **Finish**.
 
 ## Add the POM dependencies to your project
 
@@ -75,7 +77,7 @@ At this point, you have a new project named **SpringPhotoAnalyzer**.
 
 ![AWS Photo Analyzer](images/photo3.png)
 
-Add the following dependencies for the Amazon services (AWS Java SDK version 2).
+Add the following dependencies for the Amazon services (AWS SDK for Java version 2).
 
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
@@ -89,11 +91,11 @@ Add the following dependencies for the Amazon services (AWS Java SDK version 2).
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>s3</artifactId>
      </dependency>
-   
-   **Note:**  Ensure that you are using Java 1.8 (as shown below).
-   
-   Add the Spring Boot dependencies. The pom.xml file looks like the following.
-   
+
+   **Note:**  Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
+
+   Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
+
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -195,9 +197,9 @@ Add the following dependencies for the Amazon services (AWS Java SDK version 2).
       </build>
      </project>
 
-## Create the Java classes 
+## Create the Java classes
 
-Create a Java package in the main/java folder named **com.example.photo**.
+Create a Java package in the **main/java** folder named **com.example.photo**.
 
 ![AWS Photo Analyzer](images/photo4.png)
 
@@ -205,20 +207,20 @@ The Java files go into this package.
 
 ![AWS Photo Analyzer](images/photo5.png)
 
-Create these Java classes: 
+Create these Java classes:
 
-+ **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images. 
-+ **BucketItem** - Used as a model that stores S3 bucket information.   
++ **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images.
++ **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
 + **PhotoApplication** - Used as the base class for the Spring Boot application.
-+ **PhotoController** - Used as the Spring Boot Controller that handles HTTP requests. 
-+ **SendMessages** - Uses the SES API to send an email message with an attachment. 
-+ **S3Service** - Uses the Amazon S3 API to perform S3 operations. 
-+ **WorkItem** - Used as a model that stores Rekognition data.
++ **PhotoController** - Used as the Spring Boot controller that handles HTTP requests.
++ **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
++ **S3Service** - Uses the Amazon S3 API to perform S3 operations.
++ **WorkItem** - Used as a model that stores Amazon Rekognition data.
 + **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
 
 ### AnalyzePhotos class
 
-The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images. 
+The following Java code represents the ``AnalyzePhotos`` class. This class uses the Amazon Rekognition API to analyze the images.
 
     package com.example.photo;
 
@@ -284,13 +286,13 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
         }
         return null ;
      }
-    } 
+    }
 
-**Note:** In this example, notice that an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to the Elastic Beanstalk where environment variables are set (this is shown later in this tutorial). 
+**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
 
 ### BucketItem class
 
-The following Java code represents the **BucketItem** class that stores S3 object data. 
+The following Java code represents the ``BucketItem`` class that stores S3 object data.
 
     package com.example.photo;
 
@@ -338,7 +340,7 @@ The following Java code represents the **BucketItem** class that stores S3 objec
 
 ### PhotoApplication class
 
-The following Java code represents the **PhotoApplication** class.
+The following Java code represents the ``PhotoApplication`` class.
 
     package com.example.photo;
 
@@ -355,7 +357,7 @@ The following Java code represents the **PhotoApplication** class.
 
 ### PhotoController class
 
-The following Java code represents the **PhotoController** class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the **singleFileUpload** method handles the request.
+The following Java code represents the ``PhotoController`` class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the ``singleFileUpload`` method handles the request.
 
     package com.example.photo;
 
@@ -408,7 +410,7 @@ The following Java code represents the **PhotoController** class that handles HT
     return s3Client.ListAllObjects("scottphoto");
     }
 
-    // generates a report that analyzes photos in a given bucket
+    // Generate a report that analyzes photos in a given bucket
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String report(HttpServletRequest request, HttpServletResponse response) {
@@ -418,10 +420,10 @@ The following Java code represents the **PhotoController** class that handles HT
        // Get a list of key names in the given bucket
        List myKeys =  s3Client.ListBucketObjects("scottphoto");
 
-       // Create a List to store the data
+       // Create a list to store the data
        List myList = new ArrayList<List>();
 
-       // loop through each element in the List
+       // Loop through each element in the List
        int len = myKeys.size();
        for (int z=0 ; z < len; z++) {
 
@@ -429,7 +431,7 @@ The following Java code represents the **PhotoController** class that handles HT
            byte[] keyData = s3Client.getObjectBytes ("scottphoto", key);
            //myMap.put(key, keyData);
 
-           //Analyze the photo
+           // Analyze the photo
           ArrayList item =  photos.DetectLabels(keyData, key);
           myList.add(item);
        }
@@ -438,40 +440,40 @@ The following Java code represents the **PhotoController** class that handles HT
        InputStream excelData = excel.exportExcel(myList);
 
        try {
-           //email the report
+           // Email the report
            sendMessage.sendReport(excelData, email);
 
        } catch (Exception e) {
 
            e.printStackTrace();
        }
-        return "The photos have been analyzed and the report is sent";
+        return "The photos have been analyzed and the report is sent.";
     }
 
-    //Upload an image to send to a S3 bucket
+    // Upload an image to send to an S3 bucket
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         try {
 
-            // Now i can add this to an S3 Bucket
+            // Now you can add this to an S3 bucket
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
 
            // Put the file into the bucket
             s3Client.putObject(bytes, "scottphoto", name);
-       
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         return new ModelAndView(new RedirectView("photo"));
         }
-       } 
+       }
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Besure to replace the bucket name in this code example with your bucket name. 
+The following class uses the Amazon S3 API to perform S3 operations. For example, the ``getObjectBytes`` method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
 
     package com.example.photo;
 
@@ -519,14 +521,14 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         s3 = getClient();
 
         try {
-            // create a GetObjectRequest instance
+            // Create a GetObjectRequest instance
             GetObjectRequest objectRequest = GetObjectRequest
                     .builder()
                     .key(keyName)
                     .bucket(bucketName)
                     .build();
 
-            // get the byte[] from this AWS S3 object
+            // Get the byte[] from this S3 object
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
             return data;
@@ -538,7 +540,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null;
      }
 
-    // Returns the names of all images and data within an XML document
+    // Return the names of all images and data within an XML document
     public String ListAllObjects(String bucketName) {
 
         s3 = getClient();
@@ -579,7 +581,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null ;
       }
 
-    // Returns the names of all images in the given bucket
+    // Return the names of all images in the given bucket
     public List ListBucketObjects(String bucketName) {
 
         s3 = getClient();
@@ -612,13 +614,13 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
     }
 
 
-    // Places an image into a S3 bucket
+    // Place an image into an S3 bucket
     public String putObject(byte[] data, String bucketName, String objectKey) {
 
         s3 = getClient();
 
         try {
-            //Put a file into the bucket
+            // Put a file into the bucket
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
@@ -634,7 +636,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return "";
      }
 
-    // Convert Bucket item data into XML to pass back to the view
+    // Convert bucket item data into XML to pass back to the view
     private Document toXml(List<BucketItem> itemList) {
 
         try {
@@ -703,7 +705,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
 ### SendMessage class
 
-The following Java class represents the **SendMessage** class. This class uses the SES API to send an email message with an attachment that represents the report.
+The following Java code represents the ``SendMessage`` class. This class uses the Amazon SES API to send an email message with an attachment that represents the report.
 
    package com.example.photo;
 
@@ -737,13 +739,13 @@ The following Java class represents the **SendMessage** class. This class uses t
 
     private String sender = "<enter email address>";
 
-    // The subject line for the email.
+    // The subject line for the email
     private String subject = "Analyzed photos report";
 
-    // The email body for recipients with non-HTML email clients.
-    private String bodyText = "Hello,\r\n" + "Please see the attached file for the analyzed photos report.";
+    // The email body for recipients with non-HTML email clients
+    private String bodyText = "Hello,\r\n" + "See the attached file for the analyzed photos report.";
 
-    // The HTML body of the email.
+    // The HTML body of the email
     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>" + "</body>" + "</html>";
 
@@ -764,42 +766,42 @@ The following Java class represents the **SendMessage** class. This class uses t
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object.
+        // Create a new MimeMessage object
         message = new MimeMessage(session);
 
-        // Add subject, from and to lines.
+        // Add subject, from, and to lines
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-        // Create a multipart/alternative child container.
+        // Create a multipart/alternative child container
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts.
+        // Create a wrapper for the HTML and text parts
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part.
+        // Define the text part
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part.
+        // Define the HTML part
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container.
+        // Add the text and HTML parts to the child container
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object.
+        // Add the child container to the wrapper object
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent container
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message.
+        // Add the parent container to the message
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message.
+        // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
         // Define the attachment
@@ -810,10 +812,10 @@ The following Java class represents the **SendMessage** class. This class uses t
         String reportName = "PhotoReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message.
+        // Add the attachment to the message
         msg.addBodyPart(att);
 
-        // Try to send the email.
+        // Try to send the email
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
 
@@ -844,14 +846,14 @@ The following Java class represents the **SendMessage** class. This class uses t
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Email sent with attachment");
+        System.out.println("Email sent with attachment.");
         }
        }
-      
+
  ### WorkItem class
- 
- The following Java code represents the **WorkItem** class. 
- 
+
+ The following Java code represents the ``WorkItem`` class.
+
      package com.example.photo;
 
     public class WorkItem {
@@ -887,7 +889,7 @@ The following Java class represents the **SendMessage** class. This class uses t
 
 ### WriteExcel class
 
-The following Java code represents the **WriteExcel** class.
+The following Java code represents the ``WriteExcel`` class.
 
     package com.example.photo;
 
@@ -913,7 +915,7 @@ The following Java code represents the **WriteExcel** class.
      private WritableCellFormat timesBoldUnderline;
      private WritableCellFormat times;
 
-     // Returns an InputStream that represents the Excel Report
+     // Returns an InputStream that represents the Excel report
      public java.io.InputStream exportExcel( List<List> list) {
 
         try {
@@ -925,14 +927,14 @@ The following Java code represents the **WriteExcel** class.
         return null;
      }
 
-     // Generates the report and returns an inputstream
+     // Generates the report and returns an InputStream
      public java.io.InputStream write( List<List> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a Workbook - pass the OutputStream
+        // Create a workbook - pass the OutputStream
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         //Outer list
         int size = list.size() ;
@@ -940,7 +942,7 @@ The following Java code represents the **WriteExcel** class.
         // Outer list
         for (int i = 0; i < size; i++) {
 
-            //Need to get the WorkItem from each list
+            // Need to get the WorkItem from each list
             List innerList = (List) list.get(i);
             WorkItem wi = (WorkItem)innerList.get(i);
 
@@ -955,7 +957,7 @@ The following Java code represents the **WriteExcel** class.
         workbook.write();
         workbook.close();
 
-        // Get an inputStram that represents the Report
+        // Get an InputStream that represents the report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -964,22 +966,22 @@ The following Java code represents the **WriteExcel** class.
         return is ;
      }
 
-     // Create Headings in the Excel spreadsheet
+     // Create headings in the Excel sheet
      private void createLabel(WritableSheet sheet)
             throws WriteException {
         // Create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        
+
 	  // Define the cell format
         times = new WritableCellFormat(times10pt);
         // Lets automatically wrap the cells
         times.setWrap(true);
 
-        // create create a bold font with unterlines
+        // Create a bold font with underlining
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Lets automatically wrap the cells
+        // Let's automatically wrap the cells
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -993,12 +995,12 @@ The following Java code represents the **WriteExcel** class.
         addCaption(sheet, 2, 0, "Confidence");
        }
 
-      // Write the Work Item Data to the Excel Report
+      // Write the WorkItem data to the Excel Report
       private int createContent(WritableSheet sheet, List<List> list) throws WriteException {
 
         int size = list.size() ;
 
-        //  list
+        //  List
         for (int i = 0; i < size; i++) {
 
                 WorkItem wi = (WorkItem)list.get(i);
@@ -1052,8 +1054,8 @@ The following Java code represents the **WriteExcel** class.
 
     private int countString (String ss) {
         int count = 0;
-        
-	//Counts each character except space
+
+	// Counts each character except space
         for(int i = 0; i < ss.length(); i++) {
             if(ss.charAt(i) != ' ')
                 count++;
@@ -1064,18 +1066,18 @@ The following Java code represents the **WriteExcel** class.
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Photo Analyzer application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a template folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Photo Analyzer application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder, and then create the following HTML files:
 
 + index.html
 + process.html
 + upload.html
 + layout.html
 
-The index.html file is the application's home view. The process.html file represents the view for creating a report. The upload.html file represets the view for uploading image files to an S3 bucket. Finally, the layout.html file represents the menu visible in all views.
+The **index.html** file is the application's home view. The **process.html** file represents the view for creating a report. The **upload.html** file represents the view for uploading image files to an S3 bucket. Finally, the **layout.html** file represents the menu that's visible in all views.
 
 ### index.html
 
-The following HTML code represents the index.html file.
+The following HTML represents the **index.html** file.
 
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1096,19 +1098,19 @@ The following HTML code represents the index.html file.
     <header th:replace="layout :: site-header"/>
     <div class="container">
 
-    <h2>AWS Photo Analyzer Application</h2>
+    <h2>AWS Photo Analyzer application</h2>
 
-    <p>The AWS Photo Analyzer application is a sample application that uses the Amazon Rekognition Service as well as other AWS Services and the Java V2 SDK.
-        Analyzing nature photographs has never been easier! Simply perform these steps:<p>
+    <p>The AWS Photo Analyzer application is an example application that uses the Amazon Rekognition service and other AWS services, and the AWS SDK for Java version 2.
+        Analyzing nature photographs has never been easier! Just perform these steps:<p>
 
     <ol>
-        <li>You can upload a nature photograph to a S3 bucket by choosing the <i>Upload Photos</i> menu item.</li>
-        <li>Choose <i>Choose File</i> and browse to a nature image located on your local desktop.</li>
-        <li>Choose <i>Upload</i> to upload your image to a S3 bucket.</li>
-        <li>You can choose <i>Get Images</i> to view the images located in the S3 bucket. All images in the S3 bucket are displayed in the table. </li>
-        <li>You can analyze the photographs and produce a report by choosing the <i>Analyze Photos</i> menu item. </li>
-        <li>Enter an email address in the email field and choose <i>Analyze Photos</i>.  </li>
-        <li>The Amazon Simple Email Service is used to send an email with an Excel report to the specified email recipient.</li>
+        <li>Upload a nature photograph to an Amazon S3 bucket by choosing the <b>Upload Photos</b> menu item.</li>
+        <li>Choose <b>Choose File</b> and browse to a nature image located on your desktop.</li>
+        <li>Choose <b>Upload</b> to upload your image to an S3 bucket.</li>
+        <li>Choose <b>Get Images</b> to view the images located in the S3 bucket. All images in the bucket are displayed in the table. </li>
+        <li>Analyze the photographs and produce a report by choosing the <b>Analyze Photos</b> menu item. </li>
+        <li>Enter an email address in the email field and choose <b>Analyze Photos</b>.  </li>
+        <li>The Amazon Simple Email Service (Amazon SES) is used to send an email with an Excel report to the specified email recipient.</li>
     </ol>
     </div>
     </body>
@@ -1116,7 +1118,7 @@ The following HTML code represents the index.html file.
 
 ### process.html
 
-The following HTML code represents the **process.html** file.
+The following HTML represents the **process.html** file.
 
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
@@ -1148,23 +1150,23 @@ The following HTML code represents the **process.html** file.
 
     <div class="container">
 
-    <h2>AWS Photo Analyzer Application</h2>
-    <p>You can generate a report that analyzes the images in the S3 bucket. You can send the report to the following email address. </p>
+    <h2>AWS Photo Analyzer application</h2>
+    <p>You can generate a report that analyzes the images in the Amazon S3 bucket. You can send the report to the following email address. </p>
     <label for="email">Email address:</label><br>
     <input type="text" id="email" name="email" value=""><br>
 
     <div>
         <br>
-        <p>Click the following button to obtain a report</p>
+        <p>Choose the button to obtain a report.</p>
         <button onclick="ProcessImages()">Analyze Photos</button>
     </div>
     </div>
     </body>
     </html>
 
-### upoad.html
+### upload.html
 
-The following HTML code represents the **upload.html** file.
+The following HTML represents the **upload.html** file.
 
     <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -1197,8 +1199,8 @@ The following HTML code represents the **upload.html** file.
     <header th:replace="layout :: site-header"/>
 
     <div class="container">
-     <h2>AWS Photo Analyzer Application</h2>
-     <p>Upload images to an S3 Bucket. Each image will be analysed!</p>
+     <h2>AWS Photo Analyzer application</h2>
+     <p>Upload images to an Amazon S3 bucket. Each image will be analyzed!</p>
 
      <form method="POST" onsubmit="myFunction()" action="/upload" enctype="multipart/form-data">
       <input type="file" name="file" /><br/><br/>
@@ -1207,7 +1209,7 @@ The following HTML code represents the **upload.html** file.
     <div>
     <br>
 
-    <p>Click the following button to determine the number of images in the bucket</p>
+    <p>Choose the following button to determine the number of images in the bucket.</p>
 
     <button onclick="getImages()">Get Images</button>
     <table id="myTable" class="display" style="width:100%">
@@ -1244,7 +1246,7 @@ The following HTML code represents the **upload.html** file.
 
 ### layout.html
 
-The following code represents the **layout.html** file that represents the application's menu.
+The following HTML represents the **layout.html** file for the application's menu.
 
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
@@ -1263,15 +1265,15 @@ The following code represents the **layout.html** file that represents the appli
       <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
     </body>
     </html>
-    
+
 ## Create script files
 
-Both the upload and process views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work.
+Both the upload and process views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application won't work.
 
 + items.js
 + message.js
 
-Both files contain application logic that sends a request to the Spring Controller. In addition, these files handle the response and set the data in the view.
+Both files contain application logic that sends a request to the Spring controller. In addition, these files handle the response and set the data in the view.
 
 ### items.js
 
@@ -1313,7 +1315,7 @@ The following JavaScript represents the **items.js** file.
         var date = $field.find('Date').text();
         var size = $field.find('Size').text();
 
-        //Set the new data
+        // Set the new data
         oTable.fnAddData( [
             key,
             name,
@@ -1325,7 +1327,7 @@ The following JavaScript represents the **items.js** file.
 
 ### message.js
 
-The following JavaScript represents the **message.js** file. The **ProcessImages** function sends a request to the **/report** handler in the Controller that generates a report. Notice that an email address is posted to the Controller method. 
+The following JavaScript represents the **message.js** file. The ``ProcessImages`` function sends a request to the ``/report`` handler in the controller that generates a report. Notice that an email address is posted to the ``Controller`` method.
 
     $(function() {
 
@@ -1333,7 +1335,7 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
 
     function ProcessImages() {
 
-     //Post the values to the controller
+     // Post the values to the controller
      var email =  $('#email').val();
      var xhr = new XMLHttpRequest();
      xhr.addEventListener("load", handle, false);
@@ -1346,76 +1348,71 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
        var res = event.target.responseText;
        alert(res) ;
       }
-   
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project.   
+
+**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
 ## Package the project
 
-Package up the project into a .jar (JAR) file that you can deploy to the Elastic Beanstalk by using the following Maven command.
+Package up the project into a .jar (JAR) file that you can deploy to AWS Elastic Beanstalk by using the following Maven command.
 
     mvn package
-    
+
 The JAR file is located in the target folder.    
 
 ![AWS Photo Analyzer](images/photo6.png)
 
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies (without the dependencies, the application does not run on the Elastic Beanstalk). For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
-## Deploy the application to the AWS Elastic Beanstalk
+## Deploy to Elastic Beanstalk
 
 Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments.
 
-If this is your first time accessing this service, you will see a *Welcome to AWS Elastic Beanstalk* page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
+If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll open the Elastic Beanstalk dashboard, which lists all of your applications.
 
-#### To deploy the AWS Tracker application to Elastic Beanstalk
+#### To deploy the AWS Photo Analyzer application to Elastic Beanstalk
 
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
+1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values: 
+3. On the **Create New Application** page, enter the following values:
    + **Application Name** - AWS Photo Analyzer
-   + **Description** - A description for the application 
+   + **Description** - A description for the application
 
 ![AWS Photo Analyzer](images/photo7.png)
 
 4. Choose **Create**.
-5. Choose **Create a new environment**. 
+5. Choose **Create a new environment**.
 6. Choose **Web server environment**.
-7. Choose **Select**. 
+7. Choose **Select**.
 8. In the **Environment information** section, leave the default values.
 9. In the **Platform** section, choose **Managed platform**.
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
 
 ![AWS Photo Analyzer](images/photo8.png)
- 
-11. In the **Application code** section, choose **Upload your code**. 
+
+11. In the **Application code** section, choose **Upload your code**.
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. 
+13. Choose **Create environment**. You'll see the application being created.
 
 ![AWS Photo Analyzer](images/photo9.png)
 
-When you’re done, you will see the application state the **Health** is **Ok** .
+When you’re done, you will see the application state the **Health** is **OK** .
 
 ![AWS Photo Analyzer](images/photo10.png)
 
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.  Once the variables are configured, you'll see the URL for accessing the application. 
+14. To change the port that Spring Boot listens on, add an environment variable named ``SERVER_PORT``, with the value **5000**.
+11. Add a variable named ``AWS_ACCESS_KEY_ID``, and then specify your access key value.
+12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. When the variables are configured, you'll see the URL for accessing the application.
 
 ![AWS Photo Analyzer](images/photo11.png)
 
 **Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
-To access the application, open your browser and enter the URL for your application. You will see the Home page for your application.
+To access the application, open your browser and enter the URL for your application. You will see the home page for your application.
 
 ![AWS Photo Analyzer](images/photo12.png)
 
 ### Next steps
-Congratulations, you have created and deployed the AWS Photo Analyzer application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations! You have created and deployed the AWS Photo Analyzer application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 
-You can read more AWS multi service examples by clicking 
-[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
-
-
-
-
-
+For more AWS multiservice examples, see
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
