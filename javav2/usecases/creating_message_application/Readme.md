@@ -165,7 +165,7 @@ Create a Java package in the **main/java** folder named **com.example**.
 
 ![AWS Messaging application](images/client4.png)
 
-The Java files go into this package.
+The Java files must go into this package.
 
 ![AWS Messaging application](images/client5.png)
 
