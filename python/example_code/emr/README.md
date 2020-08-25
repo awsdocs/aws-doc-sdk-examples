@@ -109,7 +109,7 @@ Shows how to create and run job steps on both short-lived and long-lived cluster
 * Creates short-lived and long-lived clusters and runs job steps on them.
 * Terminates clusters and cleans up all resources.  
 
-**pypi.py**
+**pyspark_estimate_pi.py**
 
 Shows how to write a job step that uses Apache Spark to estimate the value of pi by 
 performing a large number of parallelized calculations on cluster instances. Results

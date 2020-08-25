@@ -6,8 +6,7 @@
 Unit tests for emr_emr_usage_demo.py functions.
 """
 
-from unittest.mock import MagicMock
-
+import time
 import pytest
 import boto3
 from boto3.s3.transfer import S3UploadFailedError
@@ -233,3 +232,23 @@ def test_delete_security_groups(
             emr_usage_demo.delete_security_groups(
                 {key: value['sg'] for key, value in sec_group_info.items()})
         assert exc_info.value.response['Error']['Code'] == error_code
+
+
+def test_delete_security_groups_dependency_violation(make_stubber, monkeypatch):
+    ec2_resource = boto3.resource('ec2')
+    ec2_stubber = make_stubber(ec2_resource.meta.client)
+    sec_group_info = {
+        'sg': ec2_resource.SecurityGroup(f'sg-test'),
+        'id': f'sg-test',
+        'ip_permissions': [],
+        'group_name': f'test-test'}
+
+    monkeypatch.setattr(time, 'sleep', lambda x: None)
+
+    ec2_stubber.stub_describe_security_groups([sec_group_info])
+    ec2_stubber.stub_revoke_security_group_ingress(sec_group_info)
+    ec2_stubber.stub_delete_security_group(
+        sec_group_info['id'], error_code='DependencyViolation')
+    ec2_stubber.stub_delete_security_group(sec_group_info['id'])
+
+    emr_usage_demo.delete_security_groups({'sg': sec_group_info['sg']})

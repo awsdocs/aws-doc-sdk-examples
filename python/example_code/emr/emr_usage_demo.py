@@ -276,13 +276,16 @@ def delete_security_groups(security_groups):
     try:
         for sg in security_groups.values():
             sg.revoke_ingress(IpPermissions=sg.ip_permissions)
+        max_tries = 5
         while True:
             try:
                 for sg in security_groups.values():
                     sg.delete()
                 break
             except ClientError as error:
-                if error.response['Error']['Code'] == 'DependencyViolation':
+                max_tries -= 1
+                if max_tries > 0 and \
+                        error.response['Error']['Code'] == 'DependencyViolation':
                     logger.warning(
                         "Attempt to delete security group got DependencyViolation. "
                         "Waiting for 10 seconds to let things propagate.")
@@ -357,11 +360,11 @@ def demo_short_lived_cluster():
 
     # Set up resources for the demo.
     bucket_name = f'{prefix}-{time.time_ns()}'
-    script_file_name = 'pypi.py'
+    script_file_name = 'pyspark_estimate_pi.py'
     script_key = f'scripts/{script_file_name}'
     bucket = setup_bucket(bucket_name, script_file_name, script_key, s3_resource)
-    job_flow_role, service_role = \
-        create_roles(f'{prefix}-ec2-role', f'{prefix}-service-role', iam_resource)
+    job_flow_role, service_role = create_roles(
+        f'{prefix}-ec2-role', f'{prefix}-service-role', iam_resource)
     security_groups = create_security_groups(prefix, ec2_resource)
 
     # Run the job.
@@ -375,6 +378,7 @@ def demo_short_lived_cluster():
     }
     print("Wait for 10 seconds to give roles and profiles time to propagate...")
     time.sleep(10)
+    max_tries = 5
     while True:
         try:
             cluster_id = emr_basics.run_job_flow(
@@ -384,7 +388,9 @@ def demo_short_lived_cluster():
             print(f"Running job flow for cluster {cluster_id}...")
             break
         except ClientError as error:
-            if error.response['Error']['Code'] == 'ValidationException':
+            max_tries -= 1
+            if max_tries > 0 and \
+                    error.response['Error']['Code'] == 'ValidationException':
                 print("Instance profile is not ready, let's give it more time...")
                 time.sleep(10)
             else:
@@ -452,6 +458,7 @@ def demo_long_lived_cluster():
     print("Wait for 10 seconds to give roles and profiles time to propagate...")
     time.sleep(10)
 
+    max_tries = 5
     while True:
         try:
             cluster_id = emr_basics.run_job_flow(
@@ -461,7 +468,9 @@ def demo_long_lived_cluster():
             print(f"Running job flow for cluster {cluster_id}...")
             break
         except ClientError as error:
-            if error.response['Error']['Code'] == 'ValidationException':
+            max_tries -= 1
+            if max_tries > 0 and \
+                    error.response['Error']['Code'] == 'ValidationException':
                 print("Instance profile is not ready, let's give it more time...")
                 time.sleep(10)
             else:

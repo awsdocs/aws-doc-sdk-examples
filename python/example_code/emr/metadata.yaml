@@ -14,7 +14,7 @@ files:
     services:
       - emr
       - ssm
-  - path: pypi.py
+  - path: pyspark_estimate_pi.py
     services:
       - emr
   - path: pyspark_top_product_keyword.py
