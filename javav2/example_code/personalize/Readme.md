@@ -18,7 +18,7 @@ Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extr
 
 For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
 
-	java com.example.personalize.ListSolutions
+	java com.example.personalize.ListDatasetGroups
 
 
  ## Testing the Amazon Personalize Java files
