@@ -2,7 +2,7 @@
 
 This README discusses how to run and test the Java code examples for Amazon Personalize.
 
-## Running the Amazon SageMaker Java files
+## Running the Amazon Personalize Java files
 
 **IMPORTANT**
 
