@@ -6,7 +6,7 @@ You can create an AWS application that sends and retrieves messages by using the
 
 In this tutorial, you create a Spring Boot application named AWS Messaging. The Spring Boot APIs are used to build a model, different views, and a controller. The following figure shows the AWS Messaging application.
 
-![AWS Messaging application](images/client.png)
+![AWS Message Application](images/client1a.png)
 
 **Cost to complete:** The AWS services you'll use in this example are part of the AWS Free Tier.
 
@@ -36,9 +36,15 @@ To complete the tutorial, you need the following:
 
 ## Understand the AWS Messaging application
 
-To send a message to an Amazon SQS queue, enter the message into the application and choose **Send**. After the message is sent, the application displays the message, as shown in the following figure.
+To send a message to a SQS queue, enter the message into the application and choose Send.  
 
-![AWS Messaging application](images/client2a.png)
+![AWS Message Application](images/client2b.png)
+
+After the message is sent, the application displays the message, as shown in this figure. 
+
+![AWS Message Application](images/client2c.png)
+
+You can choose the **Purge** button to purge the messages from the FIFO queue. This results in the queue being empty and no messages are displayed in the application.  
 
 The following describes how the application handles a message:
 
@@ -250,6 +256,16 @@ The following Java code represents the ``MainController`` class that handles HTT
     public String root() {
         return "index";
     }
+    
+    //  Purge the queue
+    @RequestMapping(value = "/purge", method = RequestMethod.GET)
+    @ResponseBody
+    String purgeMessages(HttpServletRequest request, HttpServletResponse response) {
+
+        msgService.purgeMyQueue();
+        return "Queue is purged";
+    }
+
 
     // Get messages
     @RequestMapping(value = "/populate", method = RequestMethod.GET)
@@ -294,41 +310,65 @@ The following Java code represents the ``MainController`` class that handles HTT
 
 The following class uses the Amazon SQS API to send and retrieve messages. For example, the ``getMessages`` method retrieves a message from the queue. Likewise, the ``processMessage`` method sends a message to a queue.
 
-         package com.example;
+        package com.example;
 
-         import org.springframework.stereotype.Component;
-         import software.amazon.awssdk.regions.Region;
-         import software.amazon.awssdk.services.sqs.SqsClient;
-         import software.amazon.awssdk.services.sqs.model.*;
-         import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
-         import software.amazon.awssdk.services.sqs.model.Message;
-         import org.w3c.dom.Document;
-         import javax.xml.parsers.DocumentBuilder;
-         import javax.xml.parsers.DocumentBuilderFactory;
-         import javax.xml.parsers.ParserConfigurationException;
-         import javax.xml.transform.Transformer;
-         import javax.xml.transform.TransformerException;
-         import javax.xml.transform.TransformerFactory;
-         import javax.xml.transform.dom.DOMSource;
-         import javax.xml.transform.stream.StreamResult;
-         import org.w3c.dom.Element;
-         import java.io.StringWriter;
-         import java.util.*;
+        import org.springframework.stereotype.Component;
+        import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+        import software.amazon.awssdk.regions.Region;
+        import software.amazon.awssdk.services.sqs.SqsClient;
+        import software.amazon.awssdk.services.sqs.model.*;
+        import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+        import software.amazon.awssdk.services.sqs.model.Message;
+        import software.amazon.awssdk.services.sqs.model.PurgeQueueRequest;
+        import org.w3c.dom.Document;
+        import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.DocumentBuilderFactory;
+        import javax.xml.parsers.ParserConfigurationException;
+        import javax.xml.transform.Transformer;
+        import javax.xml.transform.TransformerException;
+        import javax.xml.transform.TransformerFactory;
+        import javax.xml.transform.dom.DOMSource;
+        import javax.xml.transform.stream.StreamResult;
+        import org.w3c.dom.Element;
+        import java.io.StringWriter;
+        import java.util.*;
 
         @Component
         public class SendReceiveMessages {
 
-       private final String QUEUE_NAME = "Message.fifo";
+        private final String QUEUE_NAME = "Message.fifo";
+
+        private SqsClient getClient() {
+            SqsClient sqsClient = SqsClient.builder()
+             .region(Region.US_WEST_2)
+             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+             .build();
+
+        return sqsClient;
+        }
 
 
-       public String getMessages() {
+        public void purgeMyQueue() {
+
+        SqsClient sqsClient = getClient();
+
+        GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
+                .queueName(QUEUE_NAME)
+                .build();
+
+        PurgeQueueRequest queueRequest = PurgeQueueRequest.builder()
+                .queueUrl(sqsClient.getQueueUrl(getQueueRequest).queueUrl())
+                .build();
+
+        sqsClient.purgeQueue(queueRequest);
+        }
+
+        public String getMessages() {
 
         List attr = new ArrayList<String>();
         attr.add("Name");
 
-        SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+        SqsClient sqsClient = getClient();
 
         try {
 
@@ -365,13 +405,13 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
 
         return convertToString(toXml(allMessages));
 
-    } catch (SqsException e) {
-        e.getStackTrace();
-     }
+        } catch (SqsException e) {
+            e.getStackTrace();
+        }
         return "";
-    }
+        }
 
-    public void processMessage(com.example.Message msg) {
+        public void processMessage(com.example.Message msg) {
 
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
@@ -412,12 +452,15 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         } catch (SqsException e) {
              e.getStackTrace();
         }
+        }
+
 
     }
 
-    // Convert item data retrieved from the message queue
-    // into XML to pass back to the view
-    private Document toXml(List<com.example.Message> itemList) {
+        // Convert item data retrieved from the Message Queue
+        // into XML to pass back to the view
+        private Document toXml(List<com.example.Message> itemList) {
+
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -450,17 +493,17 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
                 name.appendChild( doc.createTextNode(myMessage.getName() ) );
                 item.appendChild( name );
 
+             }
+
+                return doc;
+            } catch(ParserConfigurationException e) {
+            e.printStackTrace();
+            }
+            return null;
             }
 
-            return doc;
-        } catch(ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        return null;
-       }
-
-       private String convertToString(Document xml) {
-        try {
+        private String convertToString(Document xml) {
+            try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
@@ -472,8 +515,11 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         }
         return null;
        }
-      }
+     }
+    
 
+**Note**: The **EnvironmentVariableCredentialsProvider** is used to create a **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
+      
 ## Create the HTML files
 
 At this point, you have created all of the Java files required for the AWS Messaging application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder, and then create the following HTML files:
@@ -512,11 +558,13 @@ The following HTML represents the **index.html** file.
      Working with messages has never been easier. Just perform these steps:<p>
 
        <ol>
-        <li>You can send a new message by choosing the <b>Send Messages</b> menu item. Select a user from the form, enter a message, and then choose <b>Send</b>.</li>
-        <li>The AWS Messaging application stores the message in a FIFO queue. This queue ensures that the order of the messages is consistent.</li>
-        <li>The AWS Messaging application polls the queue for all messages in the FIFO queue.</li>
-        <li>The AWS Messaging application displays the message data in the view. The message body, user name, and an avatar are displayed.</li>
-        <li>You can send and view multiple messages by using the AWS Messaging application. </li>
+
+        <li>You can send a new message by choosing the <i>Send Messages</i> menu item. Select a user from the form, enter a message and then choose <i>Send</i>.</li>
+        <li>The AWS Message application stores the message in a First in First Out (FIFO) queue. This queue ensure that the order of the messages are consisent.</li>
+        <li>The AWS Message application polls the queue for all messages in the FIFO queue.</li>
+        <li>The AWS Message application displays the message data in the view. The message body, user name, and an avatar is displayd.</li>
+        <li>You can send and view multiple messages by using the AWS Message application. </li>
+         <li>You can purge the queue. </li>
         </ol>
      <div>
     </body>
@@ -579,7 +627,7 @@ The following is the HTML for the **message.html** file.
 
     <div class="input-group mb-3">
     <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
+        <span class="input-group-text" id="basic-addon1">Sender:</span>
     </div>
     <select name="cars" id="username">
         <option value="Scott">Scott</option>
@@ -593,7 +641,7 @@ The following is the HTML for the **message.html** file.
      </div>
      <textarea class="form-control" id="textarea" aria-label="With textarea"></textarea>
      <button type="button" onclick="pushMessage()" id="send" class="btn btn-success">Send</button>
-     <button type="button" onclick="populateChat()" id="refresh" class="btn btn-success">Refresh</button>
+     <button type="button" onclick="purge()" id="refresh" class="btn btn-success">Purge</button>
      </div>
     </div>
 
@@ -654,7 +702,7 @@ The following code represents this **.js** file.
      // Post the values to the controller
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", handle, false);
-    xhr.open("GET", "../populate", true);   //buildFormit -- a Spring MVC controller
+    xhr.open("GET", "../populate", true);   
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
     xhr.send();
     }
@@ -662,6 +710,7 @@ The following code represents this **.js** file.
     function handle(event) {
 
       var xml = event.target.responseText;
+       $('#textarea').val("");
       $("#messages").children().remove();
       $(xml).find('Message').each(function () {
       var $field = $(this);
@@ -687,6 +736,24 @@ The following code represents this **.js** file.
       });
      }
 
+     function purge() {
+
+    //Post the values to the controller
+    //invokes the getMyForms POST operation
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", purgeItems, false);
+    xhr.open("GET", "../purge", true);   
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
+    }
+
+   function purgeItems(event) {
+    $('#textarea').val("");
+    var msg = event.target.responseText;
+    alert(msg);
+    populateChat();
+    }
+     
      function pushMessage() {
 
        var user =  $('#username').val();
@@ -695,8 +762,8 @@ The following code represents this **.js** file.
        // Post the values to the controller
        var xhr = new XMLHttpRequest();
        xhr.addEventListener("load", loadNewItems, false);
-       xhr.open("POST", "../add", true);   //buildFormit -- a Spring MVC controller
-       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+       xhr.open("POST", "../add", true);   
+       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
        xhr.send("user=" + user + "&message=" + message);
        }
 
