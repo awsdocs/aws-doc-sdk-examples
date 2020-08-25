@@ -13,14 +13,14 @@ The URL for the CAPTCHA image is added to the public challenge parameters as "ca
 and the expected answer is added to the private challenge parameters.
 
 Running the code:
-1. On the AWS Lambda service dashboard, click Create function.
-2. On the Create function page, name the function, and click Create function.
+1. On the AWS Lambda service dashboard, choose Create function.
+2. On the Create function page, name the function, and choose Create function.
 3. Copy and paste the code into the index.js file in the editor, and save the function.
-4. Open the AWS Cognito service.
-5. Click Manage User pools.
-6. Click the User Pool you want to add the trigger to. (If you don't have a User Pool, create one.)
+4. Open the Amazon Cognito service.
+5. Choose Manage User pools.
+6. Choose the User Pool you want to add the trigger to. (If you don't have a user pool, create one.)
 7. In General Settings, click Triggers.
-8. In the Create Auth Challenge pane, select the lambda function.
+8. In the Create Auth Challenge pane, select the Lambda function.
 
 */
 
