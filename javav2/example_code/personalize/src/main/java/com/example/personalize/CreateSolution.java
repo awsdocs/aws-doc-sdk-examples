@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[CreateSolution.java demonstrates how to create an Amazon Personalize solution.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -39,9 +39,9 @@ public class CreateSolution {
                 "Usage:\n" +
                 "    CreateSolution <datasetGroupArn> <solutionName><recipeArn>\n\n" +
                 "Where:\n" +
-                "    datasetGroupArn - The ARN of the dataset group.\n\n" +
-                "    solutionName - The name of the Amazon Personalization campaign\n\n" +
-                "    recipeArn - The ARN of the recipe\n\n" ;
+                "    datasetGroupArn - The Amazon Resource Name (ARN) of the dataset group.\n\n" +
+                "    solutionName - The name of the Amazon Personalize campaign.\n\n" +
+                "    recipeArn - The ARN of the recipe.\n\n" ;
 
         if (args.length < 3) {
             System.out.println(USAGE);

@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ListSolutions.java demonstrates how to list Amazon Personalize solutions.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -42,7 +42,7 @@ public class ListSolutions {
                 "Usage:\n" +
                 "    ListSolutions <datasetGroupArn>\n\n" +
                 "Where:\n" +
-                "    datasetGroupArn - The ARN of the data set group.\n\n";
+                "    datasetGroupArn - The Amazon Resource Name (ARN) of the dataset group.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

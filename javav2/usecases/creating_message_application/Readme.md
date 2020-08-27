@@ -1,14 +1,14 @@
 # Creating an example messaging application using the AWS SDK for Java
 
-You can create an AWS application that sends and retrieves messages by using the AWS SDK for Java and Amazon Simple Queue Service (SQS). Messages are stored in a first in, first out (FIFO) queue that ensures that the order of the messages is consistent. For example, the first message that's  stored in the queue is the first message read from the queue.
+You can create an AWS application that sends and retrieves messages by using the AWS SDK for Java and Amazon Simple Queue Service (Amazon SQS). Messages are stored in a first in, first out (FIFO) queue that ensures that the order of the messages is consistent. For example, the first message that's stored in the queue is the first message read from the queue.
 
 **Note:** For more information about Amazon SQS, see [What is Amazon Simple Queue Service?](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 
 In this tutorial, you create a Spring Boot application named AWS Messaging. The Spring Boot APIs are used to build a model, different views, and a controller. The following figure shows the AWS Messaging application.
 
-![AWS Message Application](images/client1a.png)
+![AWS Messaging application](images/client1a.png)
 
-**Cost to complete:** The AWS services you'll use in this example are part of the AWS Free Tier.
+**Cost to complete:** The AWS services you'll use in this example are part of the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note:** When you're done developing the application, be sure to terminate all of the resources you created to ensure that you're no longer charged for them.
 
@@ -36,15 +36,15 @@ To complete the tutorial, you need the following:
 
 ## Understand the AWS Messaging application
 
-To send a message to a SQS queue, enter the message into the application and choose Send.  
+To send a message to an Amazon SQS queue, enter the message into the application and choose **Send**.  
 
-![AWS Message Application](images/client2b.png)
+![AWS Messaging application](images/client2b.png)
 
-After the message is sent, the application displays the message, as shown in this figure. 
+After the message is sent, the application displays the message, as shown in the following figure.
 
-![AWS Message Application](images/client2c.png)
+![AWS Messaging application](images/client2c.png)
 
-You can choose the **Purge** button to purge the messages from the FIFO queue. This results in the queue being empty and no messages are displayed in the application.  
+You can choose **Purge** to purge the messages from the FIFO queue. This results in an empty queue, and no messages are displayed in the application.  
 
 The following describes how the application handles a message:
 
@@ -256,7 +256,7 @@ The following Java code represents the ``MainController`` class that handles HTT
     public String root() {
         return "index";
     }
-    
+
     //  Purge the queue
     @RequestMapping(value = "/purge", method = RequestMethod.GET)
     @ResponseBody
@@ -457,7 +457,7 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
 
     }
 
-        // Convert item data retrieved from the Message Queue
+        // Convert item data retrieved from the message queue
         // into XML to pass back to the view
         private Document toXml(List<com.example.Message> itemList) {
 
@@ -516,10 +516,10 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         return null;
        }
      }
-    
 
-**Note**: The **EnvironmentVariableCredentialsProvider** is used to create a **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
-      
+
+**Note:** The **EnvironmentVariableCredentialsProvider** is used to create an **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
+
 ## Create the HTML files
 
 At this point, you have created all of the Java files required for the AWS Messaging application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder, and then create the following HTML files:
@@ -528,7 +528,7 @@ At this point, you have created all of the Java files required for the AWS Messa
 + message.html
 + layout.html
 
-The **index.html** file is the application's home view. The **message.html** file represents the view for sending messages. Finally, the **layout.html** file represents the menu that's visible in all views.
+The **index.html** file is the application's home view. The **message.html** file represents the view for sending messages. The **layout.html** file represents the menu that's visible in all views.
 
 ### index.html
 
@@ -559,11 +559,11 @@ The following HTML represents the **index.html** file.
 
        <ol>
 
-        <li>You can send a new message by choosing the <i>Send Messages</i> menu item. Select a user from the form, enter a message and then choose <i>Send</i>.</li>
-        <li>The AWS Message application stores the message in a First in First Out (FIFO) queue. This queue ensure that the order of the messages are consisent.</li>
-        <li>The AWS Message application polls the queue for all messages in the FIFO queue.</li>
-        <li>The AWS Message application displays the message data in the view. The message body, user name, and an avatar is displayd.</li>
-        <li>You can send and view multiple messages by using the AWS Message application. </li>
+        <li>You can send a new message by choosing the <b>Send Messages</b> menu item. Select a user from the form, enter a message, and then choose <b>Send</b>.</li>
+        <li>The AWS Messaging application stores the message in a FIFO queue. This queue ensures that the order of the messages is consistent.</li>
+        <li>The AWS Messaging application polls the queue for all messages in the FIFO queue.</li>
+        <li>The AWS Messaging application displays the message data in the view. The message body, user name, and an avatar are displayed.</li>
+        <li>You can send and view multiple messages by using the AWS Messaging application. </li>
          <li>You can purge the queue. </li>
         </ol>
      <div>
@@ -738,8 +738,8 @@ The following code represents this **.js** file.
 
      function purge() {
 
-    //Post the values to the controller
-    //invokes the getMyForms POST operation
+    // Post the values to the controller
+    // Invokes the getMyForms POST operation
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", purgeItems, false);
     xhr.open("GET", "../purge", true);   
@@ -753,7 +753,7 @@ The following code represents this **.js** file.
     alert(msg);
     populateChat();
     }
-     
+
      function pushMessage() {
 
        var user =  $('#username').val();
@@ -813,7 +813,7 @@ The JAR file is located in the target folder.
 The final step is to deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
 
 ### Next steps
-Congratulations! You have created and deployed the Spring SQS application named AWS Messaging. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
+Congratulations! You have created and deployed the Spring application named AWS Messaging that uses Amazon SQS. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).

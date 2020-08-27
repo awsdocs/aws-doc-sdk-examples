@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DeleteSolution.java demonstrates how to delete an Amazon Personalize solution.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -38,7 +38,7 @@ public class DeleteSolution {
                 "Usage:\n" +
                 "    DeleteSolution <solutionArn>\n\n" +
                 "Where:\n" +
-                "    solutionArn - The ARN of the solution to delete.\n\n";
+                "    solutionArn - The Amazon Resource Name (ARN) of the solution to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

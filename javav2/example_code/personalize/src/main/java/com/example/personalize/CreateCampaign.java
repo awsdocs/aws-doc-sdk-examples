@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[CreateCampaign.java demonstrates how to create an Amazon Personalize campaign.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -39,8 +39,8 @@ public class CreateCampaign {
                 "Usage:\n" +
                 "    CreateCampaign <solutionVersionArn> <name>\n\n" +
                 "Where:\n" +
-                "    solutionVersionArn - The ARN of the solution version.\n\n" +
-                "    name - The name of the Amazon Personalization campaign\n\n" ;
+                "    solutionVersionArn - The Amazon Resource Name (ARN) of the solution version.\n\n" +
+                "    name - The name of the Amazon Personalize campaign.\n\n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -71,7 +71,7 @@ public class CreateCampaign {
                 .build();
 
             CreateCampaignResponse campaignResponse = personalizeClient.createCampaign(createCampaignRequest);
-            System.out.println("The Campaign ARN is "+campaignResponse.campaignArn());
+            System.out.println("The campaign ARN is "+campaignResponse.campaignArn());
 
         } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

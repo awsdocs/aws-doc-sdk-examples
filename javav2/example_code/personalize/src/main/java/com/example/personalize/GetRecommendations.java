@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[GetRecommendations.java demonstrates how to return a list of recommended items.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -41,8 +41,8 @@ public class GetRecommendations {
                 "Usage:\n" +
                 "    GetRecommendations <campaignArn> <userId>\n\n" +
                 "Where:\n" +
-                "    campaignArn - The ARN of the campaign.\n\n" +
-                "    userId - The user ID to provide recommendations for\n\n";
+                "    campaignArn - The Amazon Resource Name (ARN) of the campaign.\n\n" +
+                "    userId - The user ID to provide recommendations for.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -74,8 +74,8 @@ public class GetRecommendations {
             List<PredictedItem> items = recommendationsResponse.itemList();
 
             for (PredictedItem item: items) {
-                System.out.println("Item Id is : "+item.itemId());
-                System.out.println("Item score is : "+item.score());
+                System.out.println("The item ID is : "+item.itemId());
+                System.out.println("The item score is : "+item.score());
             }
         } catch (AwsServiceException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
