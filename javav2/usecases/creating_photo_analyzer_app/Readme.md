@@ -38,9 +38,9 @@ This application uses the following AWS Services:
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
-+ Create the Script files
++ Create the script files
 + Package the project into a JAR file
-+ Deploy the application to Elastic Beanstalk
++ Deploy the application to AWS Elastic Beanstalk
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
-+ An Amazon S3 bucket named **photos[somevalue]**. Be sure to use this bucket name in your S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
++ An Amazon S3 bucket named **photos[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
 
 ## Understand the AWS Photo Analyzer application
 
@@ -92,7 +92,7 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
       <artifactId>s3</artifactId>
      </dependency>
 
-   **Note:**  Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
+   **Note:** Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
 
    Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
 
@@ -209,14 +209,14 @@ The Java files go into this package.
 
 Create these Java classes:
 
-+ **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images.
-+ **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
-+ **PhotoApplication** - Used as the base class for the Spring Boot application.
-+ **PhotoController** - Used as the Spring Boot controller that handles HTTP requests.
-+ **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
-+ **S3Service** - Uses the Amazon S3 API to perform S3 operations.
-+ **WorkItem** - Used as a model that stores Amazon Rekognition data.
-+ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
++ ``AnalyzePhotos`` - Uses the Amazon Rekognition API to analyze the images.
++ ``BucketItem`` - Used as a model that stores Amazon S3 bucket information.   
++ ``PhotoApplication`` - Used as the base class for the Spring Boot application.
++ ``PhotoController`` - Used as the Spring Boot controller that handles HTTP requests.
++ ``SendMessages`` - Uses the Amazon SES API to send an email message with an attachment.
++ ``S3Service`` - Uses the Amazon S3 API to perform S3 operations.
++ ``WorkItem`` - Used as a model that stores Amazon Rekognition data.
++ ``WriteExcel`` – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
 
 ### AnalyzePhotos class
 
@@ -751,7 +751,7 @@ The following Java code represents the ``SendMessage`` class. This class uses th
 
     public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        //Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
@@ -995,7 +995,7 @@ The following Java code represents the ``WriteExcel`` class.
         addCaption(sheet, 2, 0, "Confidence");
        }
 
-      // Write the WorkItem data to the Excel Report
+      // Write the WorkItem data to the Excel report
       private int createContent(WritableSheet sheet, List<List> list) throws WriteException {
 
         int size = list.size() ;
@@ -1005,7 +1005,7 @@ The following Java code represents the ``WriteExcel`` class.
 
                 WorkItem wi = (WorkItem)list.get(i);
 
-                //Get tne work item values
+                // Get the work item values
                 String key = wi.getKey();
                 String label = wi.getName();
                 String confidence = wi.getConfidence();
@@ -1055,7 +1055,7 @@ The following Java code represents the ``WriteExcel`` class.
     private int countString (String ss) {
         int count = 0;
 
-	// Counts each character except space
+	// Counts each character except spaces
         for(int i = 0; i < ss.length(); i++) {
             if(ss.charAt(i) != ' ')
                 count++;
@@ -1073,7 +1073,7 @@ At this point, you have created all of the Java files required for the AWS Photo
 + upload.html
 + layout.html
 
-The **index.html** file is the application's home view. The **process.html** file represents the view for creating a report. The **upload.html** file represents the view for uploading image files to an S3 bucket. Finally, the **layout.html** file represents the menu that's visible in all views.
+The **index.html** file is the application's home view. The **process.html** file represents the view for creating a report. The **upload.html** file represents the view for uploading image files to an S3 bucket. The **layout.html** file represents the menu that's visible in all views.
 
 ### index.html
 
@@ -1110,7 +1110,7 @@ The following HTML represents the **index.html** file.
         <li>Choose <b>Get Images</b> to view the images located in the S3 bucket. All images in the bucket are displayed in the table. </li>
         <li>Analyze the photographs and produce a report by choosing the <b>Analyze Photos</b> menu item. </li>
         <li>Enter an email address in the email field and choose <b>Analyze Photos</b>.  </li>
-        <li>The Amazon Simple Email Service (Amazon SES) is used to send an email with an Excel report to the specified email recipient.</li>
+        <li>Amazon SES is used to send an email with an Excel report to the specified email recipient.</li>
     </ol>
     </div>
     </body>
@@ -1374,8 +1374,8 @@ If this is your first time accessing this service, you will see a **Welcome to A
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
 3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - AWS Photo Analyzer
-   + **Description** - A description for the application
+   + **Application Name** - AWS Photo Analyzer.
+   + **Description** - A description for the application.
 
 ![AWS Photo Analyzer](images/photo7.png)
 
@@ -1401,7 +1401,7 @@ When you’re done, you will see the application state the **Health** is **OK** 
 
 14. To change the port that Spring Boot listens on, add an environment variable named ``SERVER_PORT``, with the value **5000**.
 11. Add a variable named ``AWS_ACCESS_KEY_ID``, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. When the variables are configured, you'll see the URL for accessing the application.
+12. Add a variable named ``AWS_SECRET_ACCESS_KEY``, and then specify your secret key value. When the variables are configured, you'll see the URL for accessing the application.
 
 ![AWS Photo Analyzer](images/photo11.png)
 

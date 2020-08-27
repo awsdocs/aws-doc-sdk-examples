@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ListRecipes.java demonstrates how to list Amazon Personalize recipes.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]

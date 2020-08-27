@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DescribeSolution.java demonstrates how to describe an Amazon Personalize solution.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -39,7 +39,7 @@ public class DescribeSolution {
                 "Usage:\n" +
                 "    DescribeSolution <solutionArn>\n\n" +
                 "Where:\n" +
-                "    solutionArn - The ARN of the solution.\n\n";
+                "    solutionArn - The Amazon Resource Name (ARN) of the solution.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -66,7 +66,7 @@ public class DescribeSolution {
                 .build();
 
         DescribeSolutionResponse response = personalizeClient.describeSolution(solutionRequest);
-        System.out.println("The Solution name is "+response.solution().name());
+        System.out.println("The solution name is "+response.solution().name());
 
         } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

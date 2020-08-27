@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DescribeRecipe.java demonstrates how to describe an Amazon Personalize recipe.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -39,7 +39,7 @@ public class DescribeRecipe {
                 "Usage:\n" +
                 "    DescribeRecipe <recipeArn>\n\n" +
                 "Where:\n" +
-                "    recipeArn - The ARN of the recipe.\n\n";
+                "    recipeArn - The Amazon Resource Name (ARN) of the recipe.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

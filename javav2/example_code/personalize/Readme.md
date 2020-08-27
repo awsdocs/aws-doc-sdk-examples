@@ -23,7 +23,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the Amazon Personalize Java files
 
-You can test the Java code examples for SageMaker by running a test file named **PersonalizeServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Personalize by running a test file named **PersonalizeServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -32,15 +32,15 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Personalize JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a solution name used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Personalize JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a solution name used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **existingSolutionArn** - The ARN value of an existing solution.   
+- **existingSolutionArn** - The Amazon Resource Name (ARN) value of an existing solution.   
 - **solutionVersionArn** - The ARN of the solution version that is used in the **CreateCampaign** test.
 - **campaignName** - The name of a campaign to create.
 - **modelName** - The model name used in various tests.
-- **datasetGroupArn** - The ARN of the dataset group used to create a solution. 
+- **datasetGroupArn** - The ARN of the dataset group used to create a solution.
 - **recipeArn** - The ARN of a recipe used in the **DescribeRecipe** test.
 - **solutionName** - The name of the solution to create.
 - **campaignArn** - The ARN of a campaign used in the **DescribeCampaign** test.
@@ -86,5 +86,5 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] Total time:  19.038 s
 	[INFO] Finished at: 2020-02-10T14:41:51-05:00
 	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project SageMakerServiceIntegrationTest:  There are test failures.
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project PersonalizeServiceIntegrationTest:  There are test failures.
 	[ERROR];

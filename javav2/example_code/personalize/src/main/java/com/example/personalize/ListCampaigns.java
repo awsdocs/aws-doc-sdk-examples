@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ListCampaigns.java demonstrates how to list Amazon Personalize campaigns.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -40,7 +40,7 @@ public class ListCampaigns {
                 "Usage:\n" +
                 "    ListCampaigns <solutionArn>\n\n" +
                 "Where:\n" +
-                "    solutionArn - The ARN of the solution.\n\n";
+                "    solutionArn - The Amazon Resource Name (ARN) of the solution.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -71,8 +71,8 @@ public class ListCampaigns {
 
         List<CampaignSummary> campaigns = response.campaigns();
         for (CampaignSummary campaign: campaigns) {
-            System.out.println("Campaign name is : "+campaign.name());
-            System.out.println("Campaign ARN is : "+campaign.campaignArn());
+            System.out.println("The campaign name is : "+campaign.name());
+            System.out.println("The campaign ARN is : "+campaign.campaignArn());
         }
 
     } catch (PersonalizeException e) {

@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[ListDatasetGroups.java demonstrates how to list Amazon Personalize data set groups.]
+//snippet-sourcedescription:[ListDatasetGroups.java demonstrates how to list Amazon Personalize dataset groups.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -58,8 +58,8 @@ public class ListDatasetGroups {
             List<DatasetGroupSummary> groups = groupsResponse.datasetGroups();
 
             for (DatasetGroupSummary group: groups) {
-                System.out.println("The DataSet name is : "+group.name());
-                System.out.println("The DataSet ARN is : "+group.datasetGroupArn());
+                System.out.println("The dataset name is : "+group.name());
+                System.out.println("The dataset ARN is : "+group.datasetGroupArn());
             }
         } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

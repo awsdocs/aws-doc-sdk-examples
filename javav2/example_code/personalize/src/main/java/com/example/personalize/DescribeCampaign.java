@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DescribeCampaign.java demonstrates how to describe an Amazon Personalize campaign.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Amazon Personalize]
+//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[8/21/2020]
@@ -40,7 +40,7 @@ public class DescribeCampaign {
                 "Usage:\n" +
                 "    DescribeCampaign <campaignArn>\n\n" +
                 "Where:\n" +
-                "    campaignArn - The ARN of the campaign.\n\n" ;
+                "    campaignArn - The Amazon Resource Name (ARN) of the campaign.\n\n" ;
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -68,8 +68,8 @@ public class DescribeCampaign {
 
         DescribeCampaignResponse campaignResponse = personalizeClient.describeCampaign(campaignRequest);
         Campaign myCampaign = campaignResponse.campaign();
-        System.out.println("The Campaign name is "+myCampaign.name());
-        System.out.println("The Campaign status is "+myCampaign.status());
+        System.out.println("The campaign name is "+myCampaign.name());
+        System.out.println("The campaign status is "+myCampaign.status());
 
     } catch (PersonalizeException e) {
         System.err.println(e.awsErrorDetails().errorMessage());
