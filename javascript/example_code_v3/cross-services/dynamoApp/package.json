@@ -1,0 +1,21 @@
+{
+  "name": "Add data app",
+  "version": "1.0.0",
+  "description": "This tutorial demonstrates how to build that enables users to upload items to a DynamoDB table. It also demonstrates how to deployed on an S3 static web host.",
+  "main": "add_data.js",
+  "scripts": {
+    "build:frontend": "webpack add_data.js --mode development --target web --devtool false -o main.js",
+    "test": "exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^1.0.0-alpha.1",
+    "@aws-sdk/client-cognito-identity-browser": "^0.1.0-preview.2",
+    "@aws-sdk/client-dynamodb": "^1.0.0-alpha.1",
+    "@aws-sdk/credential-provider-cognito-identity": "^0.1.0-preview.2",
+    "fs": "^0.0.1-security",
+    "webpack": "^4.44.1"
+  }
+}
