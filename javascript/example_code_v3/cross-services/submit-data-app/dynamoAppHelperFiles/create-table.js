@@ -22,8 +22,9 @@ node create-table.js
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-    DynamoDB,
-    CreateTableCommand, PutItemCommand
+  DynamoDB,
+  CreateTableCommand,
+  PutItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
@@ -31,38 +32,38 @@ const REGION = "eu-west-1"; //e.g. "us-east-1"
 
 // Set the parameters
 const tableParams = {
-    AttributeDefinitions: [
-        {
-            AttributeName: "Id", //ATTRIBUTE_NAME_1
-            AttributeType: "N", //ATTRIBUTE_TYPE
-        }
-    ],
-    KeySchema: [
-        {
-            AttributeName: "Id", //ATTRIBUTE_NAME_1
-            KeyType: "HASH"
-        }
-    ],
-    ProvisionedThroughput: {
-        ReadCapacityUnits: 1,
-        WriteCapacityUnits: 1,
+  AttributeDefinitions: [
+    {
+      AttributeName: "Id", //ATTRIBUTE_NAME_1
+      AttributeType: "N", //ATTRIBUTE_TYPE
     },
-    TableName: "butthisone", //TABLE_NAME
-    StreamSpecification: {
-        StreamEnabled: false,
+  ],
+  KeySchema: [
+    {
+      AttributeName: "Id", //ATTRIBUTE_NAME_1
+      KeyType: "HASH",
     },
+  ],
+  ProvisionedThroughput: {
+    ReadCapacityUnits: 1,
+    WriteCapacityUnits: 1,
+  },
+  TableName: "butthisone", //TABLE_NAME
+  StreamSpecification: {
+    StreamEnabled: false,
+  },
 };
 
 // Create DynamoDB service object
 const dbclient = new DynamoDB(REGION);
 
 const run = async () => {
-    try {
-        const data = await dbclient.send(new CreateTableCommand(tableParams));
-        console.log("Table created.", data.TableDescription.TableName );
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await dbclient.send(new CreateTableCommand(tableParams));
+    console.log("Table created.", data.TableDescription.TableName);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[s3.JavaScript.crossservice.createTableV3]

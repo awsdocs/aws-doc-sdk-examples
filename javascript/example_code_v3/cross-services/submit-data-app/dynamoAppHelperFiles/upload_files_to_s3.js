@@ -24,7 +24,12 @@ Running the code:
  */
 // snippet-start:[s3.JavaScript.crossservice.uploadFilesV3]
 
-const { S3, S3Client, PutBucketWebsiteCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
+const {
+  S3,
+  S3Client,
+  PutBucketWebsiteCommand,
+  PutObjectCommand,
+} = require("@aws-sdk/client-s3");
 const path = require("path");
 const fs = require("fs");
 
@@ -32,9 +37,9 @@ const fs = require("fs");
 const REGION = "eu-west-1"; //e.g. "us-east-1"
 // Set the bucket parameters
 const bucketParams = { Bucket: "BUCKET_NAME" };
-const uploadParams1= { Bucket: bucketParams.Bucket, Key: "index.html" };
-const uploadParams2= { Bucket: bucketParams.Bucket, Key: "error.html" };
-const uploadParams3= { Bucket: bucketParams.Bucket, Key: "main.js" };
+const uploadParams1 = { Bucket: bucketParams.Bucket, Key: "index.html" };
+const uploadParams2 = { Bucket: bucketParams.Bucket, Key: "error.html" };
+const uploadParams3 = { Bucket: bucketParams.Bucket, Key: "main.js" };
 
 var file1 = "index.html";
 var file2 = "error.html";
@@ -46,57 +51,52 @@ const s3Client = new S3Client({});
 
 //Attempt to create the bucket
 const run = async () => {
+  try {
+    const fileStream1 = fs.createReadStream(file1);
+    fileStream1.on("error", function (err) {
+      console.log("File Error", err);
+    });
+    uploadParams1.Body = fileStream1;
+    var path = require("path");
+    uploadParams1.Key = path.basename(file1);
+    // call S3 to retrieve upload file to specified bucket
     try {
-        const fileStream1 = fs.createReadStream(file1);
-        fileStream1.on("error", function (err) {
-            console.log("File Error", err);
-        });
-        uploadParams1.Body = fileStream1;
-        var path = require('path');
-        uploadParams1.Key = path.basename(file1);
-        // call S3 to retrieve upload file to specified bucket
-        try {
-            const data = await s3.send(new PutObjectCommand(uploadParams1));
-            console.log("Success", data);
-        }
-        catch (err) {
-            console.log("Error", err);
-        }
-            const fileStream2 = fs.createReadStream(file2);
-            fileStream2.on("error", function (err) {
-                console.log("File Error", err);
-            });
-        uploadParams2.Body = fileStream2;
-        var path = require('path');
-         uploadParams2.Key = path.basename(file2);
-            // call S3 to retrieve upload file to specified bucket
-            try {
-                const data = await s3.send(new PutObjectCommand(uploadParams2));
-                console.log("Success", data)
-            }catch (err) {
-                console.log("Error", err);
-            }
-            const fileStream3 = fs.createReadStream(file3);
-            fileStream3.on("error", function (err) {
-            console.log("File Error", err);
-        });
-        uploadParams3.Body = fileStream3;
-        var path = require('path');
-        uploadParams3.Key = path.basename(file3);
-            // call S3 to retrieve upload file to specified bucket
-                try {
-                    const data = await s3.send(new PutObjectCommand(uploadParams3));
-                    console.log("Success", data)
-                }
-                catch (err) {
-                    console.log("Error", err);
-                }
+      const data = await s3.send(new PutObjectCommand(uploadParams1));
+      console.log("Success", data);
     } catch (err) {
-            console.log("Error", err);
-        }
-    };
+      console.log("Error", err);
+    }
+    const fileStream2 = fs.createReadStream(file2);
+    fileStream2.on("error", function (err) {
+      console.log("File Error", err);
+    });
+    uploadParams2.Body = fileStream2;
+    var path = require("path");
+    uploadParams2.Key = path.basename(file2);
+    // call S3 to retrieve upload file to specified bucket
+    try {
+      const data = await s3.send(new PutObjectCommand(uploadParams2));
+      console.log("Success", data);
+    } catch (err) {
+      console.log("Error", err);
+    }
+    const fileStream3 = fs.createReadStream(file3);
+    fileStream3.on("error", function (err) {
+      console.log("File Error", err);
+    });
+    uploadParams3.Body = fileStream3;
+    var path = require("path");
+    uploadParams3.Key = path.basename(file3);
+    // call S3 to retrieve upload file to specified bucket
+    try {
+      const data = await s3.send(new PutObjectCommand(uploadParams3));
+      console.log("Success", data);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
 run();
 // snippet-end:[s3.JavaScript.crossservice.uploadFilesV3]
-
-
-

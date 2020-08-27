@@ -35,12 +35,12 @@ const s3 = new S3(REGION);
 
 //Attempt to create the bucket
 const run = async () => {
-    try {
-        const data = await s3.createBucket(bucketParams);
-        console.log("Success", data.$metadata.httpHeaders.location);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await s3.createBucket(bucketParams);
+    console.log("Success", data.$metadata.httpHeaders.location);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[s3.JavaScript.buckets.createBucketV3]

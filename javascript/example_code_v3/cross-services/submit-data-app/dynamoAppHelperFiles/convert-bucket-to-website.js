@@ -21,8 +21,11 @@ node upload_files_to_s3.js
  */
 // snippet-start:[s3.JavaScript.crossservice.addBucketPolicyV3]
 const {
-    S3Client, CreateBucketCommand, PutBucketWebsiteCommand
-    , PutBucketPolicyCommand} = require('@aws-sdk/client-s3');
+  S3Client,
+  CreateBucketCommand,
+  PutBucketWebsiteCommand,
+  PutBucketPolicyCommand,
+} = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "eu-west-1"; //e.g. "us-east-1"
@@ -31,20 +34,16 @@ const REGION = "eu-west-1"; //e.g. "us-east-1"
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME
 
 const readOnlyAnonUserPolicy = {
-    Version: "2012-10-17",
-    Statement: [
-        {
-            Sid: "AddPerm",
-            Effect: "Allow",
-            Principal: "*",
-            Action: [
-                "s3:GetObject"
-            ],
-            Resource: [
-                ""
-            ]
-        }
-    ]
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Sid: "AddPerm",
+      Effect: "Allow",
+      Principal: "*",
+      Action: ["s3:GetObject"],
+      Resource: [""],
+    },
+  ],
 };
 
 // create selected bucket resource string for bucket policy
@@ -52,20 +51,23 @@ var bucketResource = "arn:aws:s3:::" + bucketName + "/*"; //BUCKET_NAME
 readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
 
 // convert policy JSON into string and assign into params
-var bucketPolicyParams = {Bucket: bucketName, Policy: JSON.stringify(readOnlyAnonUserPolicy)};
-
+var bucketPolicyParams = {
+  Bucket: bucketName,
+  Policy: JSON.stringify(readOnlyAnonUserPolicy),
+};
 
 // Instantiate an S3 client
 const s3 = new S3Client(REGION);
 
 const run = async () => {
-    try{
-        const response = await s3.send(new PutBucketPolicyCommand(bucketPolicyParams));
-        console.log('Success, permissions added to bucket', response)
-    }
-    catch(err){
-        console.log('Error', err);
-    }
-}
+  try {
+    const response = await s3.send(
+      new PutBucketPolicyCommand(bucketPolicyParams)
+    );
+    console.log("Success, permissions added to bucket", response);
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
 run();
 // snippet-end:[s3.JavaScript.crossservice.addBucketPolicyV3]

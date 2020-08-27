@@ -23,64 +23,58 @@ node create_and_attach_policy.js
  */
 // snippet-start:[s3.JavaScript.crossservice.createAndAttachPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
-const {IAM} = require("@aws-sdk/client-IAM");
+const { IAM } = require("@aws-sdk/client-IAM");
 // Set the AWS Region
 const REGION = "eu-west-1"; //e.g. "us-east-1"
 const bucketName = "BUCKET_NAME";
 var myManagedPolicy = {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "sns:Publish",
-                "dynamodb:PutItem"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "VisualEditor1",
-            "Effect": "Allow",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::" + bucketName +"/*"
-        }
-    ]
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Sid: "VisualEditor0",
+      Effect: "Allow",
+      Action: ["sns:Publish", "dynamodb:PutItem"],
+      Resource: "*",
+    },
+    {
+      Sid: "VisualEditor1",
+      Effect: "Allow",
+      Action: "s3:GetObject",
+      Resource: "arn:aws:s3:::" + bucketName + "/*",
+    },
+  ],
 };
 
 var params = {
-    PolicyDocument: JSON.stringify(myManagedPolicy),
-    PolicyName: "atestpolicybrmur9",
+  PolicyDocument: JSON.stringify(myManagedPolicy),
+  PolicyName: "atestpolicybrmur9",
 };
 
 // Create the IAM service object
 var iam = new IAM({});
 
 const run = async () => {
+  try {
+    // Create the IAM policy
+    const data = await iam.createPolicy(params);
+    console.log("Policy created", data.Policy.Arn);
+    const policy = data.Policy.Arn;
     try {
-        // Create the IAM policy
-        const data = await iam.createPolicy(params);
-        console.log("Policy created", data.Policy.Arn);
-        const policy = data.Policy.Arn;
-        try{
-            // Set the parameters for attaching the IAM policy to an IAM role
-            const attachParams = {
-                PolicyArn: policy,
-                RoleName: "Cognito_testerbrmur7_UnauthRole"
-            };
-            // Attach the IAM policy to a role
-            const data = await iam.attachRolePolicy(attachParams);
-            console.log("Policy attached successfully");
-        }
-        catch(err){
-            console.log("Unable to attach policy to role", err);
-        }
+      // Set the parameters for attaching the IAM policy to an IAM role
+      const attachParams = {
+        PolicyArn: policy,
+        RoleName: "Cognito_testerbrmur7_UnauthRole",
+      };
+      // Attach the IAM policy to a role
+      const data = await iam.attachRolePolicy(attachParams);
+      console.log("Policy attached successfully");
+    } catch (err) {
+      console.log("Unable to attach policy to role", err);
     }
-    catch(err){
-    console.log('Error', err);
-    }
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 
 // snippet-end:[s3.JavaScript.crossservice.createAndAttachPolicyV3]
-

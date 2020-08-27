@@ -28,26 +28,26 @@ const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-    TableName: "TABLE_NAME",
-    Item: {
-        Id: { N: '1' },
-        Title: { S: 'aTitle' },
-        Name: { S: 'aName' },
-        Body: { S: 'aBody' }
-    },
+  TableName: "TABLE_NAME",
+  Item: {
+    Id: { N: "1" },
+    Title: { S: "aTitle" },
+    Name: { S: "aName" },
+    Body: { S: "aBody" },
+  },
 };
 
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(REGION);
 
 const run = async () => {
-    try {
-        const data = await dbclient.send(new PutItemCommand(params));
-        console.log('success')
-        console.log(data);
-    } catch (err) {
-        console.error(err);
-    }
+  try {
+    const data = await dbclient.send(new PutItemCommand(params));
+    console.log("success");
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
 };
 run();
 // snippet-end:[s3.JavaScript.crossservice.updateTableV3]

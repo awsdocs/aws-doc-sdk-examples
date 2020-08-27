@@ -27,7 +27,7 @@ node add_data.js
 
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 const {
-    fromCognitoIdentityPool
+  fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
 const { DynamoDB, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
@@ -35,63 +35,65 @@ const REGION = "eu-west-1"; //REGION
 
 // Initialize the Amazon Cognito credentials provider
 const region = REGION; //REGION
-const dbclient  = new DynamoDB({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region }),
-        identityPoolId: "eu-west-1:1bb96348-1c94-41b5-8c00-2f333a271a34", // IDENTITY_POOL_ID
-    }),
+const dbclient = new DynamoDB({
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region }),
+    identityPoolId: "eu-west-1:1bb96348-1c94-41b5-8c00-2f333a271a34", // IDENTITY_POOL_ID
+  }),
 });
 
 const sns = new SNSClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region }),
-        identityPoolId: "eu-west-1:1bb96348-1c94-41b5-8c00-2f333a271a34", // IDENTITY_POOL_ID
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region }),
+    identityPoolId: "eu-west-1:1bb96348-1c94-41b5-8c00-2f333a271a34", // IDENTITY_POOL_ID
+  }),
 });
 // snippet-end:[s3.JavaScript.crossservice.addDataV3.config]
 // snippet-start:[s3.JavaScript.crossservice.addDataV3.function]
 const submitData = async () => {
-    const id = document.getElementById('id').value;
-    const title = document.getElementById('title').value;
-    const name = document.getElementById('name').value;
-    const body = document.getElementById('body').value;
-    const tableName = "BUCKET_NAME";
-    const params = {
-        TableName: tableName,
-        Item: {
-            "Id": {"N": id + ""},
-            "Title": {"S": title + ""},
-            "Name": {"N": name + ""},
-            "Body": {"S": body + ""}
-        }
-    };
-    if (id != "" && title != "" && name != "" && body != "") {
-        try {
-            const data = await dbclient.send(new PutItemCommand(params));
-            alert('Data added to table.');
-            try {
-                const messageParams = {
-                    Message: "A new item with ID value was added to the DynamoDB",
-                    PhoneNumber: "PHONE_NUMBER", //PHONE_NUMBER, in the E.164 phone number structure
-                };
-                const data = await sns.send(new PublishCommand(messageParams));
-                console.log("Success, message published. MessageID is " + data.MessageId);
-            } catch (err) {
-                console.error(err, err.stack);
-            }
-        } catch (err) {
-            console.error('An error occurred. Check the console for further information', err);
-        }
-    } else {
-        alert('Enter data in each field.')
+  const id = document.getElementById("id").value;
+  const title = document.getElementById("title").value;
+  const name = document.getElementById("name").value;
+  const body = document.getElementById("body").value;
+  const tableName = "BUCKET_NAME";
+  const params = {
+    TableName: tableName,
+    Item: {
+      Id: { N: id + "" },
+      Title: { S: title + "" },
+      Name: { N: name + "" },
+      Body: { S: body + "" },
+    },
+  };
+  if (id != "" && title != "" && name != "" && body != "") {
+    try {
+      const data = await dbclient.send(new PutItemCommand(params));
+      alert("Data added to table.");
+      try {
+        const messageParams = {
+          Message: "A new item with ID value was added to the DynamoDB",
+          PhoneNumber: "PHONE_NUMBER", //PHONE_NUMBER, in the E.164 phone number structure
+        };
+        const data = await sns.send(new PublishCommand(messageParams));
+        console.log(
+          "Success, message published. MessageID is " + data.MessageId
+        );
+      } catch (err) {
+        console.error(err, err.stack);
+      }
+    } catch (err) {
+      console.error(
+        "An error occurred. Check the console for further information",
+        err
+      );
     }
+  } else {
+    alert("Enter data in each field.");
+  }
 };
 
 window.submitData = submitData;
 // snippet-end:[s3.JavaScript.crossservice.addDataV3.function]
 // snippet-end:[s3.JavaScript.crossservice.addDataV3.complete]
-
-
-
