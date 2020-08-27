@@ -18,7 +18,7 @@ Inputs (replace in code):
 Running the code:
 node create-table.js
  */
-// snippet-end:[s3.JavaScript.crossservice.updateTableV3]
+// snippet-start:[s3.JavaScript.crossservice.updateTableV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
