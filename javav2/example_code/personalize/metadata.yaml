@@ -1,0 +1,38 @@
+--- 
+files:
+ - path: src/main/java/com/example/personalize/CreateCampaign.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/CreateSolution.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/DeleteSolution.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/DescribeCampaign.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/DescribeRecipe.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/DescribeSolution.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/GetRecommendations.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/ListCampaigns.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/ListDatasetGroups.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/ListRecipes.java
+   services:
+     - personalize
+ - path: src/main/java/com/example/personalize/ListSolutions.java
+   services:
+     - personalize     
+ - path: src/test/java/PersonalizeServiceIntegrationTest.java
+   services:
+     - personalize
