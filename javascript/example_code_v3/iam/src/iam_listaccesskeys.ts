@@ -5,49 +5,44 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SD
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_deleteuser.js demonstrates how to delete an IAM user from an AWS account.
+iam_listaccesskeys.ts demonstrates how to retrieve information about the access keys of an IAM user.
 
 Inputs :
 - REGION
-- USER_NAME
+- IAM_USER_NAME
 
 Running the code:
-node iam_deleteuser.js
+node iam_listaccesskeys.ts
  */
-// snippet-start:[iam.JavaScript.users.deleteUserV3]
+
+// snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
-  IAMClient,
-  DeleteUserCommand,
-  GetUserCommand,
-} = require("@aws-sdk/client-iam");
+import { IAMClient, ListAccessKeysCommand } from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = { UserName: "USER_NAME" }; //USER_NAME
+const params = {
+  MaxItems: 5,
+  UserName: "IAM_USER_NAME", //IAM_USER_NAME
+};
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
 
 const run = async () => {
   try {
-    const data = await iam.send(new GetUserCommand(params));
-    try {
-      const results = await iam.send(new DeleteUserCommand(params));
-      console.log("Success", results);
-    } catch (err) {
-      console.log("Error", err);
-    }
+    const data = await iam.send(new ListAccessKeysCommand(params));
+    console.log("Success", data);
   } catch (err) {
-    console.log("User " + process.argv[2] + " does not exist.");
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.users.deleteUserV3]
+// snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
 exports.run = run; //for unit tests only

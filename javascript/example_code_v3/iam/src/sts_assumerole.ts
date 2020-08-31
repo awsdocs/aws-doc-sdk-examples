@@ -8,23 +8,23 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sts-examples-policies.html.
 
 Purpose:
-sts_assumerole.js demonstrates how to use AWS STS to assume an IAM role.
+sts_assumerole.ts demonstrates how to use AWS STS to assume an IAM role.
 
 Inputs :
 - REGION
 - ROLE_TO_ASSUME_ARN
 
 Running the code:
-node sts_assumerule.js  ARN_OF_ROLE_TO_ASSUME
+node sts_assumerule.ts  ARN_OF_ROLE_TO_ASSUME
  */
 // snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   STSClient,
   AssumeRoleCommand,
   GetCallerIdentityCommand,
-} = require("@aws-sdk/client-sts");
+}  from "@aws-sdk/client-sts";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

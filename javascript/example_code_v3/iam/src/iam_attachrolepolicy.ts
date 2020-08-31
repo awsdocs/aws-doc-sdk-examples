@@ -8,25 +8,25 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.
+iam_attachrolepolicy.ts demonstrates how to attach a managed policy to an IAM role.
 
 Inputs :
 - REGION
 - ROLE_NAME
 
 Running the code:
-node iam_attachrolepolicy.js
+node iam_attachrolepolicy.ts
 
  */
 
 // snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import{
   IAMClient,
   ListAttachedRolePoliciesCommand,
   AttachRolePolicyCommand,
-} = require("@aws-sdk/client-iam");
+} from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -8,36 +8,44 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html.
 
 Purpose:
-iam_listservercerts.js demonstrates how to list the IAM SSL/TLS server certificates.
+iam_updateservercert.ts demonstrates how to update the name of an IAM SSL/TLS server certificate.
 
 Inputs :
 - REGION
+- CERTIFICATE_NAME
+- NEW_CERTIFICATE_NAME
 
 Running the code:
-node iam_listservercerts.js
+node iam_updateservercert.ts
  */
-// snippet-start:[iam.JavaScript.certs.listServerCertificatesV3]
+// snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   IAMClient,
-  ListServerCertificatesCommand,
-} = require("@aws-sdk/client-iam");
+  UpdateServerCertificateCommand,
+} from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
+
+// Set the parameters
+var params = {
+  ServerCertificateName: "CERTIFICATE_NAME", //CERTIFICATE_NAME
+  NewServerCertificateName: "NEW_CERTIFICATE_NAME", //NEW_CERTIFICATE_NAME
+};
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
 
 const run = async () => {
   try {
-    const data = await iam.send(new ListServerCertificatesCommand({}));
+    const data = await iam.send(new UpdateServerCertificateCommand(params));
     console.log("Success", data);
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.certs.listServerCertificatesV3]
+// snippet-end:[iam.JavaScript.certs.updateServerCertificateV3]
 exports.run = run; //for unit tests only

@@ -8,50 +8,41 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_createuser.js demonstrates how to create an IAM user for an AWS account.
+iam_updateuser.js demonstrates how to update the name of an IAM user.
 
 Inputs :
 - REGION
-- USER_NAME
+- ORIGINGAL_USER_NAME
+- NEW_USER_NAME
 
 Running the code:
-node iam_createuser.js
+node iam_updateuser.ts
  */
-
-// snippet-start:[iam.JavaScript.users.getUserV3]
+// snippet-start:[iam.JavaScript.users.updateUserV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
-  IAMClient,
-  GetUserCommand,
-  CreateUserCommand,
-} = require("@aws-sdk/client-iam");
+import { IAMClient, UpdateUserCommand } from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = { UserName: "USER_NAME" }; //USER_NAME
+const params = {
+  UserName: "ORIGINGAL_USER_NAME", //ORIGINGAL_USER_NAME
+  NewUserName: "NEW_USER_NAME", //NEW_USER_NAME
+};
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
 
 const run = async () => {
   try {
-    const data = await iam.send(new GetUserCommand(params));
-    console.log(
-      "User " + process.argv[3] + " already exists",
-      data.User.UserId
-    );
+    const data = await iam.send(new UpdateUserCommand(params));
+    console.log("Success, username updated");
   } catch (err) {
-    try {
-      const results = await iam.send(new CreateUserCommand(params));
-      console.log("Success", results);
-    } catch (err) {
-      console.log("Error", err);
-    }
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.users.getUserV3]
+// snippet-end:[iam.JavaScript.users.updateUserV3]
 exports.run = run; //for unit tests only

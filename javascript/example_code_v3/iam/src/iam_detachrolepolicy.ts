@@ -8,23 +8,23 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM role.
+iam_detachrolepolicy.ts demonstrates how to detach a managed policy from an IAM role.
 
 Inputs :
 - REGION
 - ROLE_NAME
 
 Running the code:
-node iam_detachrolepolicy.js
+node iam_detachrolepolicy.ts
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   IAMClient,
   ListAttachedRolePoliciesCommand,
   DetachRolePolicyCommand,
-} = require("@aws-sdk/client-iam");
+} from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

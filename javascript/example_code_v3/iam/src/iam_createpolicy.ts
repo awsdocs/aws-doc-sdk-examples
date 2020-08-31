@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_createpolicy.js demonstrates how to create a managed policy for an AWS account.
+iam_createpolicy.ts demonstrates how to create a managed policy for an AWS account.
 
 Inputs :
 - REGION
@@ -16,12 +16,12 @@ Inputs :
 - DYNAMODB_POLICY_NAME
 
 Running the code:
-node iam_createpolicy.js
+node iam_createpolicy.ts
  */
 // snippet-start:[iam.JavaScript.policies.createPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, CreatePolicyCommand } = require("@aws-sdk/client-iam");
+import { IAMClient, CreatePolicyCommand } from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

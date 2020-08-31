@@ -5,44 +5,41 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SD
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_updateuser.js demonstrates how to update the name of an IAM user.
+iam_createaccesskeys.ts demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.
 
 Inputs :
 - REGION
-- ORIGINGAL_USER_NAME
-- NEW_USER_NAME
+ - IAM_USER_NAME
 
 Running the code:
-node iam_updateuser.js
+node iam_createaccesskeys.ts >newuserkeys.txt
+(This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
-// snippet-start:[iam.JavaScript.users.updateUserV3]
+// snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, UpdateUserCommand } = require("@aws-sdk/client-iam");
+import { IAMClient, CreateAccessKeyCommand } from "@aws-sdk/client-iam";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = {
-  UserName: "ORIGINGAL_USER_NAME", //ORIGINGAL_USER_NAME
-  NewUserName: "NEW_USER_NAME", //NEW_USER_NAME
-};
+const userName = "IAM_USER_NAME"; //IAM_USER_NAME
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
 
 const run = async () => {
   try {
-    const data = await iam.send(new UpdateUserCommand(params));
-    console.log("Success, username updated");
+    const data = await iam.send(new CreateAccessKeyCommand(userName));
+    console.log("Success", data.AccessKey);
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[iam.JavaScript.users.updateUserV3]
+// snippet-end:[iam.JavaScript.keys.createAccessKeyV3]
 exports.run = run; //for unit tests only
