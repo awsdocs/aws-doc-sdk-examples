@@ -1,5 +1,5 @@
 # typescript_environment
-Playground for aws-sdk-v3 sample code
+Playground for aws-sdk-v3 sample code.
 
 This is a workspace where you can find working sample code for aws-sdk.
 
