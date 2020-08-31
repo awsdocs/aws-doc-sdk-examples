@@ -15,4 +15,22 @@ files:
   - path: tests/test_auth_request_object_keys.rb
     services:
     - s3
+  - path: auth_request_test.rb
+    services:
+    - s3
+  - path: tests/test_auth_request_test.rb
+    services:
+    - s3
+  - path: s3-ruby-example-upload-item-to-folder.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-upload-item-to-folder.rb
+    services:
+    - s3
+  - path: s3-ruby-examples-upload-multiple-items.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-examples-upload-multiple-items.rb
+    services:
+    - s3
 ...
