@@ -1,142 +1,146 @@
-#**
- #* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- #*
- #* This file is licensed under the Apache License, Version 2.0 (the "License").
- #* You may not use this file except in compliance with the License. A copy of
- #* the License is located at
- #*
- #* http://aws.amazon.com/apache2.0/
- #*
- #* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
- #* specific language governing permissions and limitations under the License.
-#**
-# snippet-sourcedescription:[auth_federation_token_request_test.rb allows a federated user with a limited set of permissions to lists keys in the specified bucket.] 
-# snippet-service:[s3]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[GET Bucket, GET Object, GET Keys]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-02-11]
-# snippet-sourceauthor:[AWS]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+# This code example allows a federated user with a limited set of
+# permissions to list the objects in the specified Amazon S3 bucket.
+
 # snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'
+require 'json'
 
-USAGE = <<DOC
-
-Usage: ruby auth_federation_token_request_test.rb -b BUCKET -u USER [-r REGION] [-d] [-h]
-
-  Creates a federated policy for USER to list items in BUCKET for one hour.
-
-  BUCKET is required and must already exist.
-
-  USER is required and if not found, is created.
-
-  If REGION is not supplied, defaults to us-west-2.
-
-  -d gives you extra (debugging) information.
-
-  -h displays this message and quits.
-
-DOC
-
-def print_debug(debug, s)
-  if debug
-    puts s
-  end
+# Checks to see whether the specified user exists in IAM; otherwise,
+# creates the user.
+#
+# @param iam [Aws::IAM::Client] An initialized IAM client.
+# @param user_name [String] The user's name.
+# @return [Aws::IAM::Types::User] The existing or new user.
+# @example
+#   iam = Aws::IAM::Client.new(region: 'us-east-1')
+#   user = get_user(iam, 'my-user')
+#   unless user.user_name
+#     exit 1
+#   end
+#   puts "User's name: #{user.user_name}"
+def get_user(iam, user_name)
+  puts "Checking for a user with the name '#{user_name}'..."
+  response = iam.get_user(user_name: user_name)
+  puts "A user with the name '#{user_name}' already exists."
+  return response.user
+# If the user doesn't exist, create them.
+rescue Aws::IAM::Errors::NoSuchEntity
+  puts "A user with the name '#{user_name}' doesn't exist. Creating this user..."
+  response = iam.create_user(user_name: user_name)
+  iam.wait_until(:user_exists, user_name: user_name)
+  puts "Created user with the name '#{user_name}'."
+  return response.user
+rescue StandardError => e
+  puts "Error while accessing or creating the user named '#{user_name}': #{e.message}"
 end
 
-# Get the user if they exist, otherwise create them
-def get_user(region, user_name, debug)
-  iam = Aws::IAM::Client.new(region: 'us-west-2')
-  
-  # See if user exists
-  user = iam.user(user_name)
- 
-  # If user does not exist, create them
-  if user == nil
-    user = iam.create_user(user_name: user_name)
-    iam.wait_until(:user_exists, user_name: user_name)
-    print_debug(debug, "Created new user #{user_name}")
+# Gets temporary AWS credentials for the specified IAM user and permissions.
+#
+# @param sts [Aws::STS::Client] An initialized AWS STS client.
+# @param duration_seconds [Integer] The number of seconds for valid credentials.
+# @param user_name [String] The user's name.
+# @param policy [Hash] The access policy.
+# @return [Aws::STS::Types::Credentials] AWS credentials for API authentication.
+# @example
+#   sts = Aws::STS::Client.new(region: 'us-east-1')
+#   credentials = get_temporary_credentials(sts, duration_seconds, user_name, 
+#     {
+#       'Version' => '2012-10-17',
+#       'Statement' => [
+#         'Sid' => 'Stmt1',
+#         'Effect' => 'Allow',
+#         'Action' => 's3:ListBucket',
+#         'Resource' => 'arn:aws:s3:::my-bucket'
+#       ]
+#     }
+#   )
+#   unless credentials.access_key_id
+#     exit 1
+#   end
+#   puts "Access key ID: #{credentials.access_key_id}"
+def get_temporary_credentials(sts, duration_seconds, user_name, policy)
+  response = sts.get_federation_token(
+    duration_seconds: duration_seconds,
+    name: user_name,
+    policy: policy.to_json
+  )
+  return response.credentials
+rescue StandardError => e
+  puts "Error while getting federation token: #{e.message}"
+end
+
+# Lists the keys and ETags for the objects in the specified Amazon S3 bucket.
+#
+# @param s3 [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The bucket's name.
+# @return [Boolean] true if the objects were listed; otherwise, false.
+# @example
+#   s3 = Aws::S3::Client.new(region: 'us-east-1')
+#   unless can_list_objects_in_bucket?(s3, 'my-bucket')
+#     exit 1
+#   end
+def can_list_objects_in_bucket?(s3, bucket_name)
+  puts "Accessing the contents of the bucket named '#{bucket_name}'..."
+  response = s3.list_objects_v2(
+    bucket: bucket_name,
+    max_keys: 50
+  )
+
+  if response.count.positive?
+    puts "Contents of the bucket named '#{bucket_name}' (first 50 objects):"
+    puts 'Name => ETag'
+    response.contents.each do |obj|
+      puts "#{obj.key} => #{obj.etag}"
+    end
   else
-    print_debug(debug, "Found user #{user_name} in region #{region}")
+    puts "No objects in the bucket named '#{bucket_name}'."
   end
- 
- user
-end
-
-# main
-region = 'us-west-2'
-user_name = ''
-bucket_name = ''
-
-i = 0
-
-while i < ARGV.length
-  case ARGV[i]
-
-    when '-b'
-      i += 1
-      bucket_name = ARGV[i]
-
-    when '-u'
-      i += 1
-      user_name = ARGV[i]
-
-    when '-r'
-      i += 1
-      region = ARGV[i]
-
-    when '-h'
-      puts USAGE
-      exit 0
-
-    else
-      puts 'Unrecognized option: ' + ARGV[i]
-      puts USAGE
-      exit 1
-   
-  end
-
-  i += 1
-end
-
-if bucket_name == ''
-  puts 'You must supply a bucket name'
-  puts USAGE
-  exit 1
-end
-
-if user_name == ''
-  puts 'You must supply a user name'
-  puts USAGE
-  exit 1
-end
-
-# Create a new STS client and get temporary credentials.
-sts = Aws::STS::Client.new(region: region)
-
-creds = sts.get_federation_token({
-  duration_seconds: 3600,
-  name: user_name,
-  policy: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"Stmt1\",\"Effect\":\"Allow\",\"Action\":\"s3:ListBucket\",\"Resource\":\"arn:aws:s3:::#{bucket_name}\"}]}",
-})
-
-# Create an Amazon S3 resource with temporary credentials.
-s3 = Aws::S3::Resource.new(region: region, credentials: creds)
-
-puts "Contents of '%s':" % bucket_name
-puts '  Name => GUID'
-
-begin
-  s3.bucket(bucket_name).objects.limit(50).each do |obj|
-    puts "  #{obj.key} => #{obj.etag}"
-  end
-rescue StandardError => ex
-  puts 'Caught exception accessing bucket ' + bucket_name + ':'
-  puts ex.message
+  return true
+rescue StandardError => e
+  puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
+  return false
 end
 # snippet-end:[s3.ruby.auth_federation_token_request_test.rb]
+
+# Full example call:
+=begin
+region = 'us-east-1'
+user_name = 'my-user'
+bucket_name = 'my-bucket'
+
+iam = Aws::IAM::Client.new(region: region)
+user = get_user(iam, user_name)
+
+unless user.user_name
+  exit 1
+end
+
+puts "User's name: #{user.user_name}"
+sts = Aws::STS::Client.new(region: region)
+credentials = get_temporary_credentials(sts, 3600, user_name,
+  {
+    'Version' => '2012-10-17',
+    'Statement' => [
+      'Sid' => 'Stmt1',
+      'Effect' => 'Allow',
+      'Action' => 's3:ListBucket',
+      'Resource' => "arn:aws:s3:::#{bucket_name}"
+    ]
+  }
+)
+
+unless credentials.access_key_id
+  exit 1
+end
+
+puts "Access key ID: #{credentials.access_key_id}"
+s3 = Aws::S3::Client.new(region: region, credentials: credentials)
+
+unless can_list_objects_in_bucket?(s3, bucket_name)
+  exit 1
+end
+=end

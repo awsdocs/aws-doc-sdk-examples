@@ -36,11 +36,12 @@ To complete the tutorial, you need the following:
 
 ## Understand the AWS Messaging application
 
-To send a message to an Amazon SQS queue, enter the message into the application and choose **Send**.  
+To send a message to a SQS queue, enter the message into the application and choose Send. 
 
 ![AWS Messaging application](images/client2b.png)
 
-After the message is sent, the application displays the message, as shown in the following figure.
+After the message is sent, the application displays the message, as shown in this figure. 
+
 
 ![AWS Messaging application](images/client2c.png)
 
@@ -182,7 +183,7 @@ The ``Message`` class represents the application’s model.
 
      package com.example;
 
-public class Message {
+    public class Message {
 
     private String id;
     private String body;
