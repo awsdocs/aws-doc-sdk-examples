@@ -19,6 +19,8 @@ duplicates, and retrying unprocessed items.
 - Python 3.6 or later
 - Boto3 1.11.10 or later
 - PyTest 5.3.5 or later (to run unit tests)
+- Download and extract the 
+  [example movie data JSON file](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
 
 ## Running the code
 

@@ -43,7 +43,7 @@ files:
   - path: lambda-trigger-pre-token-generation-add-suppress-claims.js
     services:
       - Cognito, Lambda
-  - path: lambda-trigger-pre-token-generation-add-suppress-claims.js
+  - path: lambda-trigger-pre-token-generation-group-membership.js
     services:
       - Cognito, Lambda
 ...

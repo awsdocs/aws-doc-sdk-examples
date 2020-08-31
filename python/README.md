@@ -65,6 +65,25 @@ groups.
 * Clean up security keys and security groups.
 * Permanently terminate instances. 
 
+### [Amazon EMR cluster and command examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/emr/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon EMR API to create
+and manage clusters and job steps. Learn to accomplish the following tasks:
+
+* Create a short-lived cluster that estimates the value of pi using Apache Spark to 
+  parallelize a large number of calculations, writes output to Amazon S3, and
+  terminates itself after completing the job.
+* Create a long-lived cluster that uses Apache Spark to query historical Amazon 
+  review data to discover the top products in various categories with certain 
+  keywords in their product titles.
+* Create security roles and groups to let Amazon EMR manage cluster instances and
+  to let the instances access additional AWS resources.
+* Run commands on cluster instances, such as EMRFS configuration and shell scripts
+  to install additional libraries. 
+* Query clusters for status and terminate them using the API.
+
 ### [AWS IAM getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
 
 #### Purpose
