@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html.
 
 Purpose:
-s3_putbucketpolicy.js demonstrates how add to set a policy on an Amazon S3 bucket to allow anybody read access permissions.
+s3_putbucketpolicy.js demonstrates how to set a policy on an Amazon S3 bucket to enable anybody read access permissions.
 
 Inputs (replace in code):
 - REGION
@@ -41,11 +41,11 @@ const readOnlyAnonUserPolicy = {
   ],
 };
 
-// create selected bucket resource string for bucket policy
+// Create selected bucket resource string for bucket policy
 const bucketResource = "arn:aws:s3:::" + BUCKET_NAME + "/*"; //BUCKET_NAME
 readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
 
-// // convert policy JSON into string and assign into params
+// Convert policy JSON into string and assign into params
 const bucketPolicyParams = {
   Bucket: BUCKET_NAME,
   Policy: JSON.stringify(readOnlyAnonUserPolicy),
