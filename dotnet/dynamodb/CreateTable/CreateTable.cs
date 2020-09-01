@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Amazon;
@@ -10,9 +9,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class CreateTable
+    public class CreateTable
     {
-        static async Task<CreateTableResponse> MakeTableAsync(IAmazonDynamoDB client, string table)
+        public static async Task<CreateTableResponse> MakeTableAsync(IAmazonDynamoDB client, string table)
         {
             var response = await client.CreateTableAsync(new CreateTableRequest
             {

@@ -1,33 +1,35 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListTables", "ListTables\ListTables.csproj", "{04FB2F70-2C8A-4A6B-8CC3-FDAAAAB0CA7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListTables", "ListTables\ListTables.csproj", "{04FB2F70-2C8A-4A6B-8CC3-FDAAAAB0CA7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateTable", "CreateTable\CreateTable.csproj", "{DD14B769-2CAD-400F-8CB1-22E5E6791B01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateTable", "CreateTable\CreateTable.csproj", "{DD14B769-2CAD-400F-8CB1-22E5E6791B01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListItems", "ListItems\ListItems.csproj", "{165F3013-6172-4B4D-A06B-7549E556CE3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListItems", "ListItems\ListItems.csproj", "{165F3013-6172-4B4D-A06B-7549E556CE3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddItem", "AddItem\AddItem.csproj", "{18850BD5-453C-4EB5-9A8E-136649388191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddItem", "AddItem\AddItem.csproj", "{18850BD5-453C-4EB5-9A8E-136649388191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddItems", "AddItems\AddItems.csproj", "{277D6C1E-8A25-4C08-B6C0-D1BE61C84E96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddItems", "AddItems\AddItems.csproj", "{277D6C1E-8A25-4C08-B6C0-D1BE61C84E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateItem", "UpdateItem\UpdateItem.csproj", "{333FDEAE-8305-4A6C-B7B7-1F563BBBC41A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateItem", "UpdateItem\UpdateItem.csproj", "{333FDEAE-8305-4A6C-B7B7-1F563BBBC41A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteItem", "DeleteItem\DeleteItem.csproj", "{7CB4353C-D6F0-474B-BB13-A46201C4F478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeleteItem", "DeleteItem\DeleteItem.csproj", "{7CB4353C-D6F0-474B-BB13-A46201C4F478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetLowProductStock", "GetLowProductStock\GetLowProductStock.csproj", "{D95FB35A-0B76-405B-A5C1-FD3C34B5CE28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetLowProductStock", "GetLowProductStock\GetLowProductStock.csproj", "{D95FB35A-0B76-405B-A5C1-FD3C34B5CE28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOrdersForProduct", "GetOrdersForProduct\GetOrdersForProduct.csproj", "{3B23E976-FAC4-48FF-AA4B-BAC0E20FBBB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetOrdersForProduct", "GetOrdersForProduct\GetOrdersForProduct.csproj", "{3B23E976-FAC4-48FF-AA4B-BAC0E20FBBB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOrdersInDateRange", "GetOrdersInDateRange\GetOrdersInDateRange.csproj", "{F193A0CE-C5BE-4FC5-B0DE-A68D142C17B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetOrdersInDateRange", "GetOrdersInDateRange\GetOrdersInDateRange.csproj", "{F193A0CE-C5BE-4FC5-B0DE-A68D142C17B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateIndex", "CreateIndex\CreateIndex.csproj", "{0A692658-5BFD-4F4F-87B6-9037DC510B7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateIndex", "CreateIndex\CreateIndex.csproj", "{0A692658-5BFD-4F4F-87B6-9037DC510B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteTable", "DeleteTable\DeleteTable.csproj", "{B1FFD56D-23E7-4DB7-8CEE-9B8CAA83343C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeleteTable", "DeleteTable\DeleteTable.csproj", "{B1FFD56D-23E7-4DB7-8CEE-9B8CAA83343C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetItem", "GetItem\GetItem.csproj", "{0F96B4C1-9C2C-4386-82C0-09F64478E9A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetItem", "GetItem\GetItem.csproj", "{0F96B4C1-9C2C-4386-82C0-09F64478E9A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateTableTest", "CreateTableTest\CreateTableTest.csproj", "{A7EA285E-3942-4E85-9D80-9BF051B91EC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,9 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{04FB2F70-2C8A-4A6B-8CC3-FDAAAAB0CA7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -198,5 +197,23 @@ Global
 		{0F96B4C1-9C2C-4386-82C0-09F64478E9A5}.Release|x64.Build.0 = Release|Any CPU
 		{0F96B4C1-9C2C-4386-82C0-09F64478E9A5}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F96B4C1-9C2C-4386-82C0-09F64478E9A5}.Release|x86.Build.0 = Release|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Debug|x64.Build.0 = Debug|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Debug|x86.Build.0 = Debug|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Release|x64.ActiveCfg = Release|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Release|x64.Build.0 = Release|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Release|x86.ActiveCfg = Release|Any CPU
+		{A7EA285E-3942-4E85-9D80-9BF051B91EC5}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31A0253A-F618-42C3-B85C-A932593A397F}
 	EndGlobalSection
 EndGlobal

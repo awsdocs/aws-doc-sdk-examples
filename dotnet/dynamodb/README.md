@@ -147,7 +147,7 @@ We'll use three CSV (comma-separated value) files to define a set of customers,
 orders, and products.
 Then we'll load that data into a relational database and Amazon DynamoDB.
 Finally, we'll run some SQL commands against the relational database,
-and show you the corresponding queries or scan against Amazon DynamoDB.
+and show you the corresponding queries or scan against an Amazon DynamoDB table.
 
 The three sets of data are in:
 
@@ -157,7 +157,7 @@ The three sets of data are in:
 
 ## Default configuration
 
-Every project has an *app.config* file that contains at least the following
+Every project has an *app.config* file that typically contains the following
 configuration values:
 
 ```
@@ -180,76 +180,15 @@ These code examples use the following NuGet packages:
 - AWSSDK.Core, v3.5.0
 - AWSSDK,DynamoDBv2, v3.5.0
 
-All of the following sections contain a static method to implement the stated objective.
-To reduce the amount of code in each section,
-each uses the following template.
-*NOTE*: anything in ALL CAPS (API, RESOURCE) is a placeholder.
-
-```
-using System;
-using System.Threading.Tasks;
-
-using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
-
-namespace DynamoDBCRUD
-{
-    class Program
-    {
-        // Use the interface to facilitate unit testing    
-        static async Task<APIResponse> DOSOMETHINGAsync(IAmazonDynamoDB client, string RESOURCE, ...)
-        {
-            var response = await client.APIAsync(...
-            ...
-	       
-            return response;
-
-        }
-
-        static void Main(string[] args)
-        {
-            var configfile = "../../../app.config";
-            
-            // Get default region and table from config file
-            var efm = new ExeConfigurationFileMap
-            {
-                ExeConfigFilename = configfile
-            };
-
-            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(efm, 
-                ConfigurationUserLevel.None);
-
-            if (configuration.HasFile)
-            {
-                AppSettingsSection appSettings = configuration.AppSettings;
-                region = appSettings.Settings["Region"].Value;
-                table = appSettings.Settings["Table"].Value;
-
-                if ((region == "") || (table == ""))
-                {
-                    Console.WriteLine("You must specify Region and Table values in " + configfile);                    
-                    return;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Could not find " + configfile);
-                return;
-            }                
-
-            var newRegion = RegionEndpoint.GetBySystemName(region);
-            IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
-
-            var response = DOSOMETHINGAsync(client, RESOURCE, ...);
-        }
-    }
-}
-```
-
-## Testing your code
+## Unit tests
 
 We use [moq4](https://github.com/moq/moq4) to create unit tests with mocked objects.
+You can install this and the unit testing Nuget packages with:
+
+```
+dotnet add package moq
+dotnet add package Microsoft.UnitTestFramework.Extensions
+```
 
 A typical unit test looks something like the following,
 which tests a call to **PutTableAsync**:
@@ -365,7 +304,18 @@ The default table name is defined as **Table**,
 the default region is defined as **Region**,
 and the default table names are defined as
 **Customers**, **Orders**, and **Products**
-in *app.config*. 
+in *app.config*.
+
+## Listing all of the items in a table
+
+The **ListItems** project lists all of the items in a table.
+
+The default table name is defined as **Table**,
+and the default region is defined as **Region**
+in *app.config*.
+
+If you previously ran **AddItems**,
+there should be 24 items in the table.
 
 ## Reading data from a table
 
@@ -388,6 +338,9 @@ It requires the following command-line option:
 
 - ```-i``` *ID*, which is the partition ID of the item in the table.
 
+If you previously ran **AddItems**,
+you can retrieve information about items with an *ID* in the range from 0 to 23.
+
 ### Getting orders within a given date range
 
 The **GetOrdersInDateRange** project includes the following method to retrieve
@@ -401,32 +354,27 @@ in *app.config*.
 
 Note the required format of the dates: **yyyy-MM-dd HH:mm:ss**.
 
+If you previously ran **AddItems**,
+this should return three items:
+
 ```
-static async Task<ScanResponse> GetOrdersInDateRangeAsync(IAmazonDynamoDB client, string table, string start, string end)
-{
-    // Convert start and end strings to longs
-    var StartDateTime = DateTime.ParseExact(start, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-    var EndDateTime = DateTime.ParseExact(end, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+Order_Status: delivered
+Order_Customer: 5
+Order_Product: 4
+Order_ID: 11
+Order_Date: Monday, May 11, 2020
 
-    TimeSpan startTimeSpan = StartDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
-    TimeSpan endTimeSpan = EndDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+Order_Status: pending
+Order_Customer: 1
+Order_Product: 6
+Order_ID: 1
+Order_Date: Saturday, July 4, 2020
 
-    var begin = (long)startTimeSpan.TotalSeconds;
-    var finish = (long)endTimeSpan.TotalSeconds;
-
-    var response = await client.ScanAsync(new ScanRequest
-    {
-        TableName = table,
-        ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-            {":startval", new AttributeValue { N = begin.ToString() } },
-            {":endval", new AttributeValue { N = finish.ToString()} }
-        },
-        FilterExpression = "Order_Date > :startval AND Order_Date < :endval",
-        ProjectionExpression = "Order_ID, Order_Customer, Order_Product, Order_Date, Order_Status"
-    });
-
-    return response;
-}
+Order_Status: delivered
+Order_Customer: 6
+Order_Product: 6
+Order_ID: 12
+Order_Date: Saturday, July 4, 2020
 ```
 
 ### Getting orders for a given product
@@ -439,21 +387,21 @@ the default region is defined as **Region**,
 and *productId* is defined by **ProductID**
 in *app.config*.
 
-```
-static async Task<ScanResponse> GetProductOrdersAsync(IAmazonDynamoDB client, string table, string productId)
-{
-    var response = await client.ScanAsync(new ScanRequest
-    {
-        TableName = table,
-        ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-            {":val", new AttributeValue { N = productId }}
-        },
-        FilterExpression = "Order_Product = :val",
-        ProjectionExpression = "Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status"
-    });
+If you previously ran **AddItems**,
+this should return two items:
 
-    return response;
-}
+```
+Order_Status: backordered
+Order_Customer: 2
+Order_Product: 3
+Order_ID: 8
+Order_Date: Tuesday, January 1, 2019
+
+Order_Status: backordered
+Order_Customer: 4
+Order_Product: 3
+Order_ID: 4
+Order_Date: Wednesday, April 1, 2020
 ```
 
 ### Getting products with fewer than a given number in stock
@@ -466,21 +414,14 @@ the default region is defined as **Region**,
 and *minimum* is defined by **Minimum**
 in *app.config*.
 
-```
-static async Task<ScanResponse> GetLowStockAsync(IAmazonDynamoDB client, string table, string minimum)
-{
-    var response = await client.ScanAsync(new ScanRequest
-    {
-        TableName = table,
-        ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-            {":val", new AttributeValue { N = minimum }}
-        },
-        FilterExpression = "Product_Quantity < :val",
-        ProjectionExpression = "Product_ID, Product_Description, Product_Quantity, Product_Cost"
-    });
+If you previously ran **AddItems**,
+this should return one item:
 
-    return response;
-}
+```
+Product_Quantity: 45
+Product_Description: 2'x50' plastic sheeting
+Product_Cost: 450
+Product_ID: 4
 ```
 
 ## Managing indexes
@@ -515,6 +456,11 @@ CreateIndex.exe -i Orders    -m Order_ID    -k number -s Order_Date       -t num
 CreateIndex.exe -i Products  -m Product_ID  -k number -s Product_Quantity -t number
 ```
 
+Note that you cannot execute these commands one right after another.
+You must wait until one GSI is created before you can attempt to create another GSI.
+We recommend you use the Amazon DynamoDB console to monitor the progress
+of creating a GSI to avoid errors.
+
 ## Modifying a table item
 
 Use the **UpdateItem** project to modify the status of an order in the table.
@@ -529,12 +475,12 @@ It takes the following options:
 - ```-s``` *STATUS*, where *STATUS* is the new status value (backordered, delivered, delivering, or pending)
 
 This code example demonstrates two different levels of accessing an item in a table.
-If you set the status (```-s``` *STATUS*) to **pending**,
-the code example uses the **DynamoDBContext** class to load the table.
-If the item is not an order, the update silently fails.
-However, if the set the status to any other valid value,
-the code example uses the lower-level **UpdateItemAsync** method,
-which throws an exception if the item is not an order.
+- If you set the status (```-s``` *STATUS*) to **pending**,
+  the code example uses the **DynamoDBContext** class to load the table.
+  If the item is not an order, the update silently fails.
+- If you set the status to any other valid value,
+  the code example uses the lower-level **UpdateItemAsync** method,
+  which throws an exception if the item is not an order.
 
 ## Deleting an item from a table
 
