@@ -1,0 +1,16 @@
+---
+# Amazon Redshift examples
+files:
+  - path: redshift-create-cluster.js
+    services:
+      - Redshift
+  - path: redshift-delete-cluster.js
+    services:
+      - Redshift
+  - path: redshift-describe-clusters.js
+    services:
+      - Redshift
+  - path: redshift-modify-cluster.js
+    services:
+      - Redshift
+...

@@ -23,7 +23,7 @@
 
 // snippet-start:[s3.cpp.delete_object.code]
 bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey, 
-    const Aws::String& fromBucket)
+    const Aws::String& fromBucket,const Aws::String& region)
 {
     Aws::S3::S3Client s3_client;
     Aws::S3::Model::DeleteObjectRequest request;

@@ -142,7 +142,6 @@ Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
         return Aws::S3::Model::Type::Group;
     return Aws::S3::Model::Type::NOT_SET;
 }
-
 // snippet-start:[s3.cpp.put_object_acl.code]
 bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
     const Aws::String& objectKey, 
@@ -150,11 +149,10 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
     const Aws::String& ownerID, 
     const Aws::String& granteePermission, 
     const Aws::String& granteeType, 
-    Aws::String granteeID = "", 
-    Aws::String granteeDisplayName = "", 
-    Aws::String granteeEmailAddress = "", 
-    Aws::String granteeURI = ""
-)
+    const Aws::String& granteeID, 
+    const Aws::String& granteeDisplayName, 
+    const Aws::String& granteeEmailAddress, 
+    const Aws::String& granteeURI)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
