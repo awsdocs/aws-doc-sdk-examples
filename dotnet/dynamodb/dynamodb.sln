@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeleteTable", "DeleteTable\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetItem", "GetItem\GetItem.csproj", "{0F96B4C1-9C2C-4386-82C0-09F64478E9A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateTableTest", "CreateTableTest\CreateTableTest.csproj", "{A7EA285E-3942-4E85-9D80-9BF051B91EC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateTableTest", "CreateTableTest\CreateTableTest.csproj", "{A7EA285E-3942-4E85-9D80-9BF051B91EC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

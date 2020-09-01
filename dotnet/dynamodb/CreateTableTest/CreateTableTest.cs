@@ -54,7 +54,6 @@ namespace DynamoDBCRUD
             else
             {
                 Logger.LogMessage("Could NOT create table " + tableName);
-                Logger.LogMessage("HTTP result: " + result.HttpStatusCode.ToString());
             }
         }
     }

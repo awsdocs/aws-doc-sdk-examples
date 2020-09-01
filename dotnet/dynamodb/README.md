@@ -183,7 +183,12 @@ These code examples use the following NuGet packages:
 ## Unit tests
 
 We use [moq4](https://github.com/moq/moq4) to create unit tests with mocked objects.
-You can install this and the unit testing Nuget packages with:
+All of the code example projects have a companion unit test,
+where the name of the unit test project is the same as the tested project,
+with a **Test** suffix.
+
+You can install the **moq** and **Extensions** unit testing Nuget packages with
+the following commands:
 
 ```
 dotnet add package moq
@@ -191,7 +196,8 @@ dotnet add package Microsoft.UnitTestFramework.Extensions
 ```
 
 A typical unit test looks something like the following,
-which tests a call to **PutTableAsync**:
+which tests a call to **CreateTableAsync** in the
+**CreateTable** project:
 
 ```
 using Amazon.DynamoDBv2;
@@ -202,10 +208,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
 using Moq;
 
-using System.Threading.Tasks;
+using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace DotNetCoreConsoleTemplate
+namespace DynamoDBCRUD
 {
 
     [TestClass]
@@ -213,23 +220,23 @@ namespace DotNetCoreConsoleTemplate
     {
         string tableName = "testtable";
 
-        private IAmazonDynamodDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
             var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
-             
-            mockDynamoDBClient.Setup(client => client.PutTableAsync(
-                It.IsAny<PutTableRequest>(), 
+
+            mockDynamoDBClient.Setup(client => client.CreateTableAsync(
+                It.IsAny<CreateTableRequest>(),
                 It.IsAny<CancellationToken>()))
-                .Callback<PutTableRequest, CancellationToken>((request, token) =>
+                .Callback<CreateTableRequest, CancellationToken>((request, token) =>
                 {
-                    if(!string.IsNullOrEmpty(tableName))
+                    if (!string.IsNullOrEmpty(tableName))
                     {
                         Assert.AreEqual(tableName, request.TableName);
                     }
                 })
-                .Returns((PutTableRequest r, CancellationToken token) =>
+                .Returns((CreateTableRequest r, CancellationToken token) =>
                 {
-                    return Task.FromResult(new PutTableResponse());
+                    return Task.FromResult(new CreateTableResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
             return mockDynamoDBClient.Object;
@@ -238,13 +245,28 @@ namespace DotNetCoreConsoleTemplate
         [TestMethod]
         public async Task CheckCreateTable()
         {
-            IAmazonDynamodDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
-            var result = await CreateTable.MakeTable(client, tableName);
-            Logger.LogMessage("Created table {0}, tableName);
+            var result = await CreateTable.MakeTableAsync(client, tableName);
+
+            if (result.HttpStatusCode == HttpStatusCode.OK)
+            {
+                Logger.LogMessage("Created table " + tableName);
+            }
+            else
+            {
+                Logger.LogMessage("Could NOT create table " + tableName);
+            }
         }
     }
 }
+```
+
+To run this test,
+navigate to the *CreateTableTest* folder and run:
+
+```
+dotnet test -l "console;verbosity=detailed"
 ```
 
 ## Listing all of the tables in a region
