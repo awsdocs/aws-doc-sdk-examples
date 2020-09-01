@@ -15,16 +15,16 @@ Inputs :
 - ROLE_TO_ASSUME_ARN
 
 Running the code:
-node sts_assumerule.ts  ARN_OF_ROLE_TO_ASSUME
+ts-node sts_assumerule.ts
  */
 // snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import {
+const {
   STSClient,
   AssumeRoleCommand,
   GetCallerIdentityCommand,
-}  from "@aws-sdk/client-sts";
+}  = require ("@aws-sdk/client-sts");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

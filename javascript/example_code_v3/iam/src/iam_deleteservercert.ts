@@ -15,15 +15,15 @@ Inputs :
 - CERTIFICATE_NAME
 
 Running the code:
-node iam_deleteservercert.ts
+ts-node iam_deleteservercert.ts
  */
 // snippet-start:[iam.JavaScript.certs.deleteServerCertificateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import {
+const {
   IAMClient,
   DeleteServerCertificateCommand,
-} from "@aws-sdk/client-iam";
+} = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

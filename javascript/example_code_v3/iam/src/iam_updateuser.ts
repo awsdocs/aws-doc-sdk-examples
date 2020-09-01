@@ -16,12 +16,12 @@ Inputs :
 - NEW_USER_NAME
 
 Running the code:
-node iam_updateuser.ts
+ts-node iam_updateuser.ts
  */
 // snippet-start:[iam.JavaScript.users.updateUserV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { IAMClient, UpdateUserCommand } from "@aws-sdk/client-iam";
+const { IAMClient, UpdateUserCommand } = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

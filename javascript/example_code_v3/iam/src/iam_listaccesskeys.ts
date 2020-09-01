@@ -15,13 +15,13 @@ Inputs :
 - IAM_USER_NAME
 
 Running the code:
-node iam_listaccesskeys.ts
+ts-node iam_listaccesskeys.ts
  */
 
 // snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { IAMClient, ListAccessKeysCommand } from "@aws-sdk/client-iam";
+const { IAMClient, ListAccessKeysCommand } = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

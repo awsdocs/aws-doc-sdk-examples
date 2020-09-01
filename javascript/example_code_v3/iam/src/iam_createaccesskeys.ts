@@ -15,13 +15,13 @@ Inputs :
  - IAM_USER_NAME
 
 Running the code:
-node iam_createaccesskeys.ts >newuserkeys.txt
+ts-node iam_createaccesskeys.ts >newuserkeys.txt
 (This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { IAMClient, CreateAccessKeyCommand } from "@aws-sdk/client-iam";
+const { IAMClient, CreateAccessKeyCommand } = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -14,12 +14,12 @@ Inputs :
 - REGION
 
 Running the code:
-node iam_getpolicy.ts
+ts-node iam_getpolicy.ts
  */
 // snippet-start:[iam.JavaScript.policies.getPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { IAMClient, GetPolicyCommand } from "@aws-sdk/client-iam";
+const { IAMClient, GetPolicyCommand } = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

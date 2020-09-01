@@ -16,15 +16,15 @@ Inputs :
 - NEW_CERTIFICATE_NAME
 
 Running the code:
-node iam_updateservercert.ts
+ts-node iam_updateservercert.ts
  */
 // snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import {
+const {
   IAMClient,
   UpdateServerCertificateCommand,
-} from "@aws-sdk/client-iam";
+} = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

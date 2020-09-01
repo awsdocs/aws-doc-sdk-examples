@@ -15,18 +15,18 @@ Inputs :
 - ROLE_NAME
 
 Running the code:
-node iam_attachrolepolicy.ts
+ts-node iam_attachrolepolicy.ts
 
  */
 
 // snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import{
+const {
   IAMClient,
   ListAttachedRolePoliciesCommand,
   AttachRolePolicyCommand,
-} from "@aws-sdk/client-iam";
+} = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -14,13 +14,13 @@ Inputs :
 - REGION
 
 Running the code:
-node iam_listaccountaliases.ts
+ts-node iam_listaccountaliases.ts
  */
 
 // snippet-start:[iam.JavaScript.alias.listAccountAliasesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { IAMClient, ListAccountAliasesCommand } from "@aws-sdk/client-iam";
+const { IAMClient, ListAccountAliasesCommand } = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

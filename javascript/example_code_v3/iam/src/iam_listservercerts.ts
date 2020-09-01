@@ -14,15 +14,15 @@ Inputs :
 - REGION
 
 Running the code:
-node iam_listservercerts.ts
+ts-node iam_listservercerts.ts
  */
 // snippet-start:[iam.JavaScript.certs.listServerCertificatesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import {
+const {
   IAMClient,
   ListServerCertificatesCommand,
-} from "@aws-sdk/client-iam";
+} = require ("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
