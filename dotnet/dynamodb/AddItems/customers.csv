@@ -1,0 +1,7 @@
+Area,Customer_ID,Customer_Name,Customer_Address,Customer_Email
+Customer,1,Customer One,Address One,one_email@bogus.com
+Customer,2,Customer Two,Address Two,two_email@bogus.com
+Customer,3,Customer Three,Address Three,three_email@bogus.com
+Customer,4,Customer Four,Address Four,four_email@bogus.com
+Customer,5,Customer Five,Address Five,five_email@bogus.com
+Customer,6,Customer Six,Address Six,six_email@bogus.com
