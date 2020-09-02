@@ -35,9 +35,9 @@ public class DeleteContainer {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of a container \n" +
+                "To run this example, supply the name of a container. \n" +
                 "\n" +
-                "Ex: DeleteContainer <container-name>\n";
+                "Example: DeleteContainer <container-name>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

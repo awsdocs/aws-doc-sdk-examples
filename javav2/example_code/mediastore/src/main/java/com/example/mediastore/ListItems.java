@@ -43,9 +43,9 @@ public class ListItems {
     public static void main(String[] args) throws URISyntaxException {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of a container that contains items \n" +
+                "To run this example, supply the name of a container that contains items. \n" +
                 "\n" +
-                "Ex: ListItems <container-name> \n";
+                "Example: ListItems <container-name> \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -80,8 +80,8 @@ public class ListItems {
             if (hasItems) {
                 List<Item> items = itemsResponse.items();
                 for (Item item : items) {
-                    System.out.println("Item name is: " + item.name());
-                    System.out.println("Content type is:  " + item.contentType());
+                    System.out.println("The item name is: " + item.name());
+                    System.out.println("The content type is:  " + item.contentType());
                 }
             } else {
                 System.out.println("There are no items");
