@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# This code example demonstrates how to uploads an item
+# This code example demonstrates how to upload an item
 # (file) to a folder within a bucket in Amazon S3.
 
 # Prerequisites:
