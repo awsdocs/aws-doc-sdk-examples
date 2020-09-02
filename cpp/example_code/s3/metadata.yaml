@@ -1,3 +1,6 @@
+# Disregard this file. AWS uses it internally to 
+# track code coverage and unit test coverage 
+# within this repository.
 ---
 files:
   - path: copy_object.cpp
