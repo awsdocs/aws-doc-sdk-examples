@@ -26,7 +26,7 @@
 
  // snippet-start:[s3.cpp.get_object.code]
 bool AwsDoc::S3::GetObject(const Aws::String& objectKey,
-    const Aws::String& fromBucket)
+    const Aws::String& fromBucket, const Aws::String& region)
 {
     Aws::S3::S3Client s3_client;
     Aws::S3::Model::GetObjectRequest object_request;

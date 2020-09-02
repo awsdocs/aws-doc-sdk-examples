@@ -22,7 +22,7 @@
  * ///////////////////////////////////////////////////////////////////////// */
 
 bool AwsDoc::S3::CopyObject(const Aws::String& objectKey, 
-    const Aws::String& fromBucket, const Aws::String& toBucket)
+    const Aws::String& fromBucket, const Aws::String& toBucket, const Aws::String& region)
 {
     Aws::S3::S3Client s3_client;
     Aws::S3::Model::CopyObjectRequest request;

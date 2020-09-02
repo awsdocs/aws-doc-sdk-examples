@@ -1,85 +1,86 @@
-# Creating Sample Messaging Applications using the AWS SDK for Java
+# Creating an example messaging application using the AWS SDK for Java
 
-You can create an AWS application that sends and retrieves messages by using the AWS Java SDK and the Simple Queue Service (SQS). Messages are stored in a First in First out (FIFO) queue that ensures that the order of the messages are consistent. For example, the first message that is stored in the queue is the first message read from the queue.
+You can create an AWS application that sends and retrieves messages by using the AWS SDK for Java and Amazon Simple Queue Service (Amazon SQS). Messages are stored in a first in, first out (FIFO) queue that ensures that the order of the messages is consistent. For example, the first message that's stored in the queue is the first message read from the queue.
 
-**Note:** For more information about the SQS, see [What is Amazon Simple Queue Service?](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html). 
+**Note:** For more information about Amazon SQS, see [What is Amazon Simple Queue Service?](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 
-In this tutorial, you create a Spring Boot application named AWS Message application. The Spring Boot APIs are used to build a model, different views, and a controller. The following figure shows the AWS Message application.
+In this tutorial, you create a Spring Boot application named AWS Messaging. The Spring Boot APIs are used to build a model, different views, and a controller. The following figure shows the AWS Messaging application.
 
-![AWS Message Application](images/client1a.png)
+![AWS Messaging application](images/client1a.png)
 
-**Cost to complete:** The AWS services you'll use in this example are part of the AWS Free Tier.
+**Cost to complete:** The AWS services you'll use in this example are part of the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
-**Note:** When you're done developing the application, be sure to terminate all of the resources you created to ensure that you're  no longer charged.
+**Note:** When you're done developing the application, be sure to terminate all of the resources you created to ensure that you're no longer charged for them.
 
 #### Topics
 
 + Prerequisites
-+ Understand the AWS Message application.
-+ Create an IntelliJ project named SpringAWSMessage.
-+ Add the POM dependencies to your project.
-+ Create the Java classes. 
-+ Create the HTML files.
-+ Create the Script files.
-+ Package the project into a Jar file.
-+ Deploy the application to the AWS Elastic Beanstalk.
++ Understand the AWS Messaging application
++ Create an IntelliJ project named SpringAWSMessage
++ Add the POM dependencies to your project
++ Create the Java classes
++ Create the HTML files
++ Create the script files
++ Package the project into a JAR file
++ Deploy the application to AWS Elastic Beanstalk
 
 ## Prerequisites
 
-To follow along with the tutorial, you need the following:
+To complete the tutorial, you need the following:
 
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK. 
-+ Maven 3.6 or higher.
-+ A FIFO queue named Message.fifo. For information about creating a queue, see  [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html).
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later
++ A FIFO queue named **Message.fifo** (for information about creating a queue, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html))
 
-## Understand the AWS Message application
+## Understand the AWS Messaging application
 
 To send a message to a SQS queue, enter the message into the application and choose Send. 
 
-![AWS Message Application](images/client2b.png)
+![AWS Messaging application](images/client2b.png)
 
 After the message is sent, the application displays the message, as shown in this figure. 
 
-![AWS Message Application](images/client2c.png)
 
-You can choose the **Purge** button to purge the messages from the FIFO queue. This results in the queue being empty and no messages are displayed in the application.  
+![AWS Messaging application](images/client2c.png)
 
-The following describes how the application handles a message: 
+You can choose **Purge** to purge the messages from the FIFO queue. This results in an empty queue, and no messages are displayed in the application.  
 
-+ The message and user values are posted to a Spring Controller.
-+ The Spring Controller creates a custom **Message** object that stores the message Id value (a GUID value), the message text, and the user.
-+ The Spring Controller passes the **Message** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue
-+ The Spring Controller invokes the Message service’s **getMessages** method to read all of the messages in the queue. This method returns an XML document that contains all messages.
-+ The XML is passed back to the view where the messages are parsed and displayed in the view.  
+The following describes how the application handles a message:
+
+1. The message and user values are posted to a Spring controller.
+2. The Spring controller creates a custom ``Message`` object that stores the message ID value (a GUID), the message text, and the user.
+3. The Spring controller passes the ``Message`` object to a message service that uses the ``software.amazon.awssdk.services.sqs.SqsClient`` client object to store the data into a FIFO queue.
+4. The Spring controller invokes the message service’s ``getMessages`` method to read all of the messages in the queue. This method returns an XML document that contains all messages.
+5. The XML is passed back to the view, where the messages are parsed and displayed in the view.  
 
 ## Create an IntelliJ project named SpringAWSMessage
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
-3. For **GroupId**, enter **aws-springmessage**. 
-4. For **ArtifactId**, enter **SpringAWSMessage**. 
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+3. For **GroupId**, enter **aws-springmessage**.
+4. For **ArtifactId**, enter **SpringAWSMessage**.
 6. Choose **Next**.
-7. Choose **Finish**. 
+7. Choose **Finish**.
 
 ## Add the POM dependencies to your project
 
-At this point, you have a new project named **SpringPhotoAnalyzer**.
+At this point, you have a new project named **SpringAWSMessage**.
 
-![AWS Photo Analyzer](images/client3.png)
+![AWS Messaging application](images/client3.png)
 
-Add the following dependency for the Amazon SQS API (AWS Java SDK version 2).
+Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2).
 
     <dependency>
        <groupId>software.amazon.awssdk</groupId>
        <artifactId>sqs</artifactId>
     </dependency>
-    
-**Note**: Ensure that you are using Java 1.8 as shown in the POM file below.    
 
-  Add the Spring Boot dependencies. The pom.xml file looks like the following.
-  
+**Note:** Ensure that you are using Java 1.8, as shown in the following **pom.xml** file.    
+
+  Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
+
     <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -93,7 +94,7 @@ Add the following dependency for the Amazon SQS API (AWS Java SDK version 2).
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- look up parent from repository -->
     </parent>
 
     <properties>
@@ -159,26 +160,26 @@ Add the following dependency for the Amazon SQS API (AWS Java SDK version 2).
      </build>
     </project>
 
-## Create the Java classes 
+## Create the Java classes
 
-Create a Java package in the main/java folder named **com.example**.
+Create a Java package in the **main/java** folder named **com.example**.
 
-![AWS Message Application](images/client4.png)
+![AWS Messaging application](images/client4.png)
 
-The Java files go into this package.
+The Java files must go into this package.
 
-![AWS Message Application](images/client5.png)
+![AWS Messaging application](images/client5.png)
 
-Create these Java classes: 
+Create the following Java classes:
 
-+ **Message** - Used as the model for this application.
-+ **MessageApplication** - Used as the base class for the Spring Boot application.
-+ **MessageController** - Used as the Spring Boot Controller that handles HTTP requests. 
-+ **SendRecieveMessages** - Uses the Amazon SQS API to process messages.  
-  
++ ``Message`` - Used as the model for this application.
++ ``MessageApplication`` - Used as the base class for the Spring Boot application.
++ ``MessageController`` - Used as the Spring Boot controller that handles HTTP requests.
++ ``SendReceiveMessages`` - Uses the Amazon SQS API to process messages.  
+
 ### Message class
 
-The **Message** class represents the application’s model.
+The ``Message`` class represents the application’s model.
 
      package com.example;
 
@@ -213,10 +214,10 @@ The **Message** class represents the application’s model.
         this.body = body;
      }
     }
-    
+
 ### MessageApplication class
 
-The following Java code represents the **MessageApplication** class. This class represents the entry point into the Spring Boot application. 
+The following Java code represents the ``MessageApplication`` class. This class represents the entry point into the Spring Boot application.
 
      package com.example;
 
@@ -233,7 +234,7 @@ The following Java code represents the **MessageApplication** class. This class 
 
 ### MessageController class
 
-The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
+The following Java code represents the ``MainController`` class that handles HTTP requests. For example, when a new message is posted, the ``addItems`` method handles the request.  
 
      package com.example;
 
@@ -256,7 +257,7 @@ The following Java code represents the **MainController** class that handles HTT
     public String root() {
         return "index";
     }
-    
+
     //  Purge the queue
     @RequestMapping(value = "/purge", method = RequestMethod.GET)
     @ResponseBody
@@ -267,7 +268,7 @@ The following Java code represents the **MainController** class that handles HTT
     }
 
 
-    // Gets messages
+    // Get messages
     @RequestMapping(value = "/populate", method = RequestMethod.GET)
     @ResponseBody
     String getItems(HttpServletRequest request, HttpServletResponse response) {
@@ -276,7 +277,7 @@ The following Java code represents the **MainController** class that handles HTT
        return xml;
     }
 
-    //  Creates a new message
+    // Create a message
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
@@ -284,7 +285,7 @@ The following Java code represents the **MainController** class that handles HTT
         String user = request.getParameter("user");
         String message = request.getParameter("message");
 
-        // generate the ID
+        // Generate the ID
         UUID uuid = UUID.randomUUID();
         String msgId = uuid.toString();
 
@@ -305,10 +306,10 @@ The following Java code represents the **MainController** class that handles HTT
         return "message";
        }
       }
-      
-### SendReceiveMessages  class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieve message from the queue. Likewise, the **processMessage** method sends a message to a queue.
+### SendReceiveMessages class
+
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the ``getMessages`` method retrieves a message from the queue. Likewise, the ``processMessage`` method sends a message to a queue.
 
         package com.example;
 
@@ -435,7 +436,7 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
 
-            // generate the work item ID
+            // Generate the work item ID
             UUID uuid = UUID.randomUUID();
             String msgId1 = uuid.toString();
 
@@ -454,9 +455,13 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         }
         }
 
-        // Convert item data retrieved from the Message Queue
+
+    }
+
+        // Convert item data retrieved from the message queue
         // into XML to pass back to the view
         private Document toXml(List<com.example.Message> itemList) {
+
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -479,12 +484,12 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
                 Element item = doc.createElement( "Message" );
                 root.appendChild( item );
 
-                // Set Id
+                // Set the ID
                 Element id = doc.createElement( "Data" );
                 id.appendChild( doc.createTextNode(myMessage.getBody()));
                 item.appendChild( id );
 
-                // Set Name
+                // Set the name
                 Element name = doc.createElement( "User" );
                 name.appendChild( doc.createTextNode(myMessage.getName() ) );
                 item.appendChild( name );
@@ -510,24 +515,25 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
             ex.printStackTrace();
         }
         return null;
-    }
-}
+       }
+     }
 
-**Note**: The **EnvironmentVariableCredentialsProvider** is used to create a **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
-      
+
+**Note:** The **EnvironmentVariableCredentialsProvider** is used to create an **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
+
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Message application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a template folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Messaging application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder, and then create the following HTML files:
 
 + index.html
 + message.html
 + layout.html
 
-The **index.html** file is the application's home view. The **message.html** file represents the view for sending messages. Finally, the **layout.html** file represents the menu visible in all views.
+The **index.html** file is the application's home view. The **message.html** file represents the view for sending messages. The **layout.html** file represents the menu that's visible in all views.
 
 ### index.html
 
-The following HTML code represents the **index.html** file.
+The following HTML represents the **index.html** file.
 
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -540,24 +546,25 @@ The following HTML code represents the **index.html** file.
     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
 
-    <title>AWS Sample Messaging Application</title>
+    <title>AWS Messaging</title>
     </head>
 
     <body>
     <header th:replace="layout :: site-header"/>
     <div class="container">
 
-    <h2>AWS Sample Message Application</h2>
+    <h2>AWS Messaging application</h2>
 
-    <p>The AWS Sample Messaging application is a sample application that uses the Simple Queue Service as well as other AWS Services and the Java V2 API.
-     Working with messages has never been easier! Simply perform these steps:<p>
+    <p>The AWS Messaging application is an example application that uses Amazon SQS and other AWS services and the AWS SDK for Java version 2 API.
+     Working with messages has never been easier. Just perform these steps:<p>
 
        <ol>
-        <li>You can send a new message by choosing the <i>Send Messages</i> menu item. Select a user from the form, enter a message and then choose <i>Send</i>.</li>
-        <li>The AWS Message application stores the message in a First in First Out (FIFO) queue. This queue ensure that the order of the messages are consisent.</li>
-        <li>The AWS Message application polls the queue for all messages in the FIFO queue.</li>
-        <li>The AWS Message application displays the message data in the view. The message body, user name, and an avatar is displayd.</li>
-        <li>You can send and view multiple messages by using the AWS Message application. </li>
+
+        <li>You can send a new message by choosing the <b>Send Messages</b> menu item. Select a user from the form, enter a message, and then choose <b>Send</b>.</li>
+        <li>The AWS Messaging application stores the message in a FIFO queue. This queue ensures that the order of the messages is consistent.</li>
+        <li>The AWS Messaging application polls the queue for all messages in the FIFO queue.</li>
+        <li>The AWS Messaging application displays the message data in the view. The message body, user name, and an avatar are displayed.</li>
+        <li>You can send and view multiple messages by using the AWS Messaging application. </li>
          <li>You can purge the queue. </li>
         </ol>
      <div>
@@ -566,7 +573,7 @@ The following HTML code represents the **index.html** file.
 
 ### message.html
 
-The following HTML file represents the **message.html** file. 
+The following is the HTML for the **message.html** file.
 
      <!DOCTYPE HTML>
      <html xmlns:th="https://www.thymeleaf.org">
@@ -615,7 +622,7 @@ The following HTML file represents the **message.html** file.
      <header th:replace="layout :: site-header"/>
 
     <div class="container">
-     <h2>AWS Sample Messaging Application</h2>
+     <h2>AWS Messaging application</h2>
     <div id="messages">
     </div>
 
@@ -644,7 +651,7 @@ The following HTML file represents the **message.html** file.
 
     <div id="base" class="messageelement">
         <img src="../public/images/av2.png" th:src="@{/images/av2.png}" alt="Avatar" class="right" style="width:100%;">
-        <p id="text">Sweet! So, what do you wanna do today?</p>
+        <p id="text">Excellent! So, what do you want to do today?</p>
         <span class="time-right">11:02</span>
      </div>
 
@@ -654,7 +661,7 @@ The following HTML file represents the **message.html** file.
 
 ### layout.html
 
-The following code represents the **layout.html** file that represents the application's menu.
+The following is the HTML for the **layout.html** file that represents the application's menu.
 
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
@@ -669,21 +676,21 @@ The following code represents the **layout.html** file that represents the appli
     <header th:fragment="site-header">
      <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
      <a href="#" style="color: white" th:href="@{/}">Home</a>
-     <a href="#" style="color: white" th:href="@{/message}">Send Messages</a>
+     <a href="#" style="color: white" th:href="@{/message}">Send messages</a>
     </header>
     <h1>Welcome</h1>
     <body>
-    <p>Welcome to  AWS Sample SQS app.</p>
+    <p>Welcome to the AWS Messaging example application that uses Amazon SQS.</p>
     </body>
     </html>
-    
+
 ## Create script files
 
-Create a script file named **message.js** that communicates with the Spring controller. This file is used by the **message.html** view. Place the script file in this path:
+Create a script file named **message.js** that communicates with the Spring controller. This file is used by the **message.html** view. Place the script file in the following path.
 
 **resources\public\js**
 
-The following code represents this JS file. 
+The following code represents this **.js** file.
 
      $(function() {
 
@@ -693,61 +700,61 @@ The following code represents this JS file.
 
     function populateChat() {
 
-     // Post the values to the controller
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", handle, false);
-    xhr.open("GET", "../populate", true);   
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send();
-    }
+      // Post the values to the controller
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", handle, false);
+      xhr.open("GET", "../populate", true);   
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+      xhr.send();
+      }
 
-    function handle(event) {
+     function handle(event) {
 
-      var xml = event.target.responseText;
+       var xml = event.target.responseText;
        $('#textarea').val("");
-      $("#messages").children().remove();
-      $(xml).find('Message').each(function () {
-      var $field = $(this);
-      var body = $field.find('Data').text();
-      var name = $field.find('User').text();
+       $("#messages").children().remove();
+       $(xml).find('Message').each(function () {
+       var $field = $(this);
+       var body = $field.find('Data').text();
+       var name = $field.find('User').text();
 
-      // Set the view
-      var userText = body +'<br><br><b>' + name  ;
-      var myTextNode = $("#base").clone();
-      myTextNode.text(userText) ;
-      var image_url;
-      var n = name.localeCompare("Scott");
+       // Set the view
+       var userText = body +'<br><br><b>' + name  ;
+       var myTextNode = $("#base").clone();
+       myTextNode.text(userText) ;
+       var image_url;
+       var n = name.localeCompare("Scott");
 
-      if (n == 0)
+       if (n == 0)
             image_url = "../images/av1.png";
         else
             image_url = "../images/av2.png";
-      
-      var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
-      myTextNode.html(userText) ;
-      myTextNode.append(images_div);
-      $("#messages").append(myTextNode);
-      });
-     }
+
+       var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
+       myTextNode.html(userText) ;
+       myTextNode.append(images_div);
+       $("#messages").append(myTextNode);
+       });
+      }
 
      function purge() {
 
-    //Post the values to the controller
-    //invokes the getMyForms POST operation
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", purgeItems, false);
-    xhr.open("GET", "../purge", true);   
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send();
-    }
+      // Post the values to the controller
+      // Invokes the getMyForms POST operation
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", purgeItems, false);
+      xhr.open("GET", "../purge", true);   
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+      }
 
-   function purgeItems(event) {
-    $('#textarea').val("");
-    var msg = event.target.responseText;
-    alert(msg);
-    populateChat();
-    }
-     
+     function purgeItems(event) {
+      $('#textarea').val("");
+      var msg = event.target.responseText;
+      alert(msg);
+      populateChat();
+      }
+
      function pushMessage() {
 
        var user =  $('#username').val();
@@ -790,24 +797,24 @@ The following code represents this JS file.
         });
         }
 
-**Note**: Be sure to include the CSS and image files located in Github into your project. 
+**Note:** Be sure to include the CSS and image files located on the GitHub website in your project.
 
-## Package the project into an executable JAR
+## Package the project into an executable JAR file
 
-Package up the project into an executable .jar (JAR) file by using the following Maven command.
+Package up the project into an executable **.jar** (JAR) file by using the following Maven command.
 
      mvn package
-     
+
 The JAR file is located in the target folder.
 
-![AWS Message Application](images/client6.png)
+![AWS Messaging Application](images/client6.png)
 
-## Deploy to the Elastic Beanstalk
+## Deploy to Elastic Beanstalk
 
-The final step is to deploy the application to the Elastic Beanstalk. To learn how to deploy a Spring application to the Elastic Beanstalk, see [Creating your first AWS Java Web Application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project). 
+The final step is to deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
 
 ### Next steps
-Congratulations, you have created and deployed the Spring SQS application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations! You have created and deployed the Spring application named AWS Messaging that uses Amazon SQS. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 
-You can read more AWS multi service examples by clicking 
-[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
+For more AWS multiservice examples, see
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
