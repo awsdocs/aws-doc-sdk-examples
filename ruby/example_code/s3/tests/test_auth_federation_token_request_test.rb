@@ -33,7 +33,7 @@ describe '#get_temporary_credentials' do
   }
 
   it 'gets temporary credentials for the specified user and policy' do
-    credentials_data = sts.stub_data(:get_federation_token, 
+    credentials_data = sts.stub_data(:get_federation_token,
       credentials: { access_key_id: access_key_id})
     sts.stub_responses(:get_federation_token, credentials_data)
     credentials = get_temporary_credentials(sts, duration_seconds, user_name, policy)
@@ -41,12 +41,12 @@ describe '#get_temporary_credentials' do
   end
 end
 
-describe '#can_list_objects_in_bucket?' do
-  let(:s3) { Aws::S3::Client.new(stub_responses: true) }
+describe '#list_objects_in_bucket?' do
+  let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
   let(:bucket_name) { 'my-bucket' }
 
   it "lists the objects' keys and ETags in the specified bucket" do
-    objects_data = s3.stub_data(:list_objects_v2, 
+    objects_data = s3_client.stub_data(:list_objects_v2,
       contents: [
         { key: 'my-file-1.txt',
           etag: '265bada5d91e2b3f19bbad42c4f0dd99'
@@ -57,7 +57,7 @@ describe '#can_list_objects_in_bucket?' do
         }
       ]
     )
-    s3.stub_responses(:list_objects_v2, objects_data)
-    expect(can_list_objects_in_bucket?(s3, bucket_name)).to be(true)
+    s3_client.stub_responses(:list_objects_v2, objects_data)
+    expect(list_objects_in_bucket?(s3_client, bucket_name)).to be(true)
   end
 end

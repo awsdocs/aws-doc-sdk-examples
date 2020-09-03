@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative '../auth_request_object_keys.rb'
+require_relative '../auth_request_test.rb'
 
 describe '#list_bucket_objects?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
