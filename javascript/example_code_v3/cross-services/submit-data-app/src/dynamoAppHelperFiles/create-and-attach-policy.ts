@@ -8,9 +8,11 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-create-cognito-id-pool.js is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. create_and_attach_policy.js demonstrates how to create an IAM policy that provides permission to
-publish Amazon SNS messages, add items to Amazon DynamoDB tables, and read access to Amazon S3. It then attaches this policy to
+create-cognito-id-pool.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+create_and_attach_policy.ts demonstrates how to create an IAM policy that provides permission to
+publish Amazon SNS messages, add items the table, and read access to Amazon S3. It then attaches this policy to
 an IAM role.
 
 Inputs (replace in code):
@@ -23,9 +25,9 @@ node create_and_attach_policy.js
  */
 // snippet-start:[s3.JavaScript.crossservice.createAndAttachPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
-const { IAM } = require("@aws-sdk/client-IAM");
+const { IAM } = require("@aws-sdk/client-iam");
 // Set the AWS Region
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 const bucketName = "BUCKET_NAME";
 var myManagedPolicy = {
   Version: "2012-10-17",

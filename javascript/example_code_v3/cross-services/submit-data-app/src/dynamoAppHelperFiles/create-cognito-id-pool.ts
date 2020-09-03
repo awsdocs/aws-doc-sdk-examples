@@ -8,9 +8,10 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-create-cognito-id-pool.js is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. create-cognito-id-pool.js demonstrates how to create an Amazon Cognito identity
-pool with an unauthenticated IAM role.
+create-cognito-id-pool.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table.
+ To run the full tutorial, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+create-cognito-id-pool.ts demonstrates how to create an Amazon Cognito identity pool with an unauthenticated IAM role.
 
 Inputs (replace in code):
 - REGION
@@ -22,7 +23,7 @@ node create-cognito-id-pool.js
 // snippet-start:[s3.JavaScript.crossservice.createAndAttachRoleV3]
 // Import required AWS SDK clients and commands for Node.js
 const { CognitoIdentity } = require("@aws-sdk/client-cognito-identity");
-const { IAM } = require("@aws-sdk/client-IAM");
+const { IAM } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -35,9 +36,8 @@ const createPoolParams = {
 };
 
 // Set the parameters for creating the IAM role
-//docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/IAM.html#createPolicy-property
 // Define the JSON for the trust relationship
-https: const trustRelationship = {
+const trustRelationship = {
   Version: "2012-10-17",
   Statement: [
     {

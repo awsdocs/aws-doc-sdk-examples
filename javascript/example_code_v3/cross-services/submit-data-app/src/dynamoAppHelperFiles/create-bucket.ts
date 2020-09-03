@@ -8,8 +8,10 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_createbucket.js is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. s3_createbucket.js demonstrates how to create an Amazon S3 bucket.
+s3_createbucket.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table.To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+s3_createbucket.ts demonstrates how to create an Amazon S3 bucket.
 
 Inputs (replace in code):
 - REGION

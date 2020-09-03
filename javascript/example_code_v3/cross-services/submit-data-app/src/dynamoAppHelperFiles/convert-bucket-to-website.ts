@@ -8,16 +8,17 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-convert-bucket-to-website.js is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. convert-bucket-to-website.js applies a bucket policy to convert an Amazon S3 bucket
-into a static web host.
+convert-bucket-to-website.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+convert-bucket-to-website.ts applies a bucket policy to convert an Amazon S3 bucket into a static web host.
 
 Inputs (replace in code):
 - REGION
-- BUCKET_NAME - the bucket to convert into static web host
+- BUCKET_NAME
 
 Running the code:
-node upload_files_to_s3.js
+node upload_files_to_s3.ts
  */
 // snippet-start:[s3.JavaScript.crossservice.addBucketPolicyV3]
 const {
@@ -28,7 +29,7 @@ const {
 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create params JSON for S3.createBucket
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME

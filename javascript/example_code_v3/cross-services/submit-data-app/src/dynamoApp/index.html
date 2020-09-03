@@ -8,22 +8,24 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-create_table.html is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. create_table.html is the front-end of the app.
+create_table.html is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+create_table.html is the front-end of the app, and is displayed in the browser.
 
 Running the code:
-node create-table.js-->
+node create-table.ts-->
 
 <!--snippet-start:[s3.JavaScript.crossservice.frontendV3]-->
 
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript" src="./main.ts"></script>
 </head>
 <body>
-<h1>Submit to a DynamoDB Table</h1>
-<p>Submit data to a DynamoDB table </p>
+<h1>Submit an item to an Amazon DynamoDB Table</h1>
+<p>Enter a value for each attribute and choose Submit </p>
 <table style="width:100%">
     <tr>
         <td>ID:</td>

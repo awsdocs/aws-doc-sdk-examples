@@ -8,8 +8,10 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-create-table.js is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. create-table.js demonstrates how to create a DynamoDB table.
+create-table.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table.
+ To run the full tutorial, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+create-table.ts demonstrates how to create a DynamoDB table.
 
 Inputs (replace in code):
 - REGION

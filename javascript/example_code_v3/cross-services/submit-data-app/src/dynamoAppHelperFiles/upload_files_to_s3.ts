@@ -8,9 +8,10 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-upload_files_to_s3.js is part of a tutorial demonstrating how to build and deploy and app to submit
-data to a DynamoDB table. upload_files_to_s3.js creates a bucket, and uploads the index.html, error.html,
-and main.js files to it.
+upload_files_to_s3.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table.
+To run the full tutorial, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+upload_files_to_s3.ts creates a bucket, and uploads the index.html, error.html, and main.js files to it.
 
 Inputs (replace in code):
 - REGION
@@ -30,11 +31,11 @@ const {
   PutBucketWebsiteCommand,
   PutObjectCommand,
 } = require("@aws-sdk/client-s3");
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
 
 // Set the AWS region
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 // Set the bucket parameters
 const bucketParams = { Bucket: "BUCKET_NAME" };
 const uploadParams1 = { Bucket: bucketParams.Bucket, Key: "index.html" };
@@ -45,7 +46,7 @@ var file1 = "index.html";
 var file2 = "error.html";
 var file3 = "main.js";
 
-// Instantiate an S3 client
+// Instantiate S3client and S3 client objects
 const s3 = new S3({});
 const s3Client = new S3Client({});
 
