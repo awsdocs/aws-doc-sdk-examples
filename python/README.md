@@ -216,6 +216,17 @@ perform permitted actions.
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
 
+### [Amazon Transcribe custom vocabulary example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/transcribe/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
+transcribe an audio file to a text file. Learn how to:
+
+* Run a transcription job against an audio file in an Amazon S3 bucket.
+* Create and refine a custom vocabulary to improve the accuracy of the transcription.
+* List and manage transcription jobs and custom vocabularies.
+
 ### [Test tools for Python code examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/test_tools/README.md)
 
 #### Purpose

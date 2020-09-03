@@ -23,6 +23,7 @@ from test_tools.s3control_stubber import S3ControlStubber
 from test_tools.sqs_stubber import SqsStubber
 from test_tools.ssm_stubber import SsmStubber
 from test_tools.sts_stubber import StsStubber
+from test_tools.transcribe_stubber import TranscribeStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -60,6 +61,8 @@ def stubber_factory(service_name):
         return SsmStubber
     elif service_name == 'sts':
         return StsStubber
+    elif service_name == 'transcribe':
+        return TranscribeStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "
