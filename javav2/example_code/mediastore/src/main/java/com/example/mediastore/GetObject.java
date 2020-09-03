@@ -43,9 +43,9 @@ public class GetObject {
 
         final String USAGE = "\n" +
                 "To run this example, supply the path of the object in the container, \n" +
-                " the name of the container, and the path on the local drive where the file is saved (including the file name, ie C:/AWS/myvid.mp4 \")  \n" +
+                " the name of the container, and the path on the local drive where the file is saved (including the file name, for example, C:/AWS/myvid.mp4. \")  \n" +
                 "\n" +
-                "Ex: GetObject <completePath><containerName><savePath>\n";
+                "Example: GetObject <completePath><containerName><savePath>\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);

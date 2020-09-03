@@ -40,9 +40,9 @@ public class DeleteObject {
     public static void main(String[] args) throws URISyntaxException {
 
         final String USAGE = "\n" +
-                "To run this example, supply the path (including the container) of the item to delete and container name\n" +
+                "To run this example, supply the path (including the container) of the item to delete and container name.\n" +
                 "\n" +
-                "Ex: DeleteObject <completePath><containerName> \n";
+                "Example: DeleteObject <completePath><containerName> \n";
 
         if (args.length < 2) {
             System.out.println(USAGE);

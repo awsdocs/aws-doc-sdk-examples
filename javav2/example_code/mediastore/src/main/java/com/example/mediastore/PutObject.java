@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutObject.java demonstrates how to upload a MP4 file to an AWS Elemental MediaStore container.]
+//snippet-sourcedescription:[PutObject.java demonstrates how to upload an MP4 file to an AWS Elemental MediaStore container.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Elemental MediaStore]
@@ -43,9 +43,9 @@ public class PutObject {
     public static void main(String[] args) throws URISyntaxException {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of a container, a file location to use, and path in the container \n" +
+                "To run this example, supply the name of a container, a file location to use, and path in the container. \n" +
                "\n" +
-                "Ex: PutObject <containerName><filePath><completePath>\n";
+                "Example: PutObject <containerName><filePath><completePath>\n";
 
          if (args.length < 3) {
              System.out.println(USAGE);

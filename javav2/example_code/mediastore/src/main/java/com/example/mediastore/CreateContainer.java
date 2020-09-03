@@ -38,10 +38,10 @@ public class CreateContainer {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "CreateContainer - create an AWS Elemental MediaStore container\n\n" +
+                "CreateContainer - Create an AWS Elemental MediaStore container.\n\n" +
                 "Usage: CreateContainer <containerName>\n\n" +
                 "Where:\n" +
-                "  containerName - the name of the container to create.\n";
+                "  containerName - The name of the container to create.\n";
 
          if (args.length < 1) {
             System.out.println(USAGE);
@@ -77,7 +77,7 @@ public class CreateContainer {
                 Thread.sleep(sleepTime * 1000);
                 }
 
-            System.out.println("The container ARN value is "+containerResponse.container().arn());
+            System.out.println("The container Amazon Resource Name (ARN) value is "+containerResponse.container().arn());
             System.out.println("Finished ");
 
         } catch (MediaStoreException | InterruptedException e) {

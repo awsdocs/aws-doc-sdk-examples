@@ -34,9 +34,9 @@ public class DescribeContainer {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of a container \n" +
+                "To run this example, supply the name of a container. \n" +
                 "\n" +
-                "Ex: DescribeContainer <container-name>\n";
+                "Example: DescribeContainer <container-name>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -63,7 +63,7 @@ public class DescribeContainer {
 
         DescribeContainerResponse containerResponse = mediaStoreClient.describeContainer(describeContainerRequest);
         System.out.println("The container name is "+containerResponse.container().name());
-        System.out.println("The container ARN is "+containerResponse.container().arn());
+        System.out.println("The container Amazon Resource Name (ARN) is "+containerResponse.container().arn());
 
         return containerResponse.container().status().toString();
 

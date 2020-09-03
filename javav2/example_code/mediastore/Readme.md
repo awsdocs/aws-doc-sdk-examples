@@ -1,4 +1,4 @@
-# AWS Elemental MediaStore Java code examples 
+# AWS Elemental MediaStore Java code examples
 
 This README discusses how to run and test the Java code examples for AWS Elemental MediaStore.
 
@@ -35,9 +35,9 @@ Define these values to successfully run the JUnit tests:
 
 - **containerName** - The name of a new container.  
 - **existingContainer** – The name of an existing container.
-- **filePath** – The file location of a MP4 file to upload to a container.
-- **putPath** – The container and location where a file is uploaded (ie, Videos5/sampleVideo.mp4).
-- **getPath** –  The container and location where a file is downloaded from (ie, Videos5/sampleVideo.mp4).
+- **filePath** – The file location of an MP4 file to upload to a container.
+- **putPath** – The container and location where a file is uploaded (for example, Videos5/sampleVideo.mp4).
+- **getPath** –  The container and location where a file is downloaded from (for example, Videos5/sampleVideo.mp4).
 - **savePath** – The path on the local drive where the file is saved.
 
 ### Command line
