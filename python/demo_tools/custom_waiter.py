@@ -25,7 +25,7 @@ class CustomWaiter:
     either an accepted result is returned or the number of maximum attempts is reached.
 
     To use, implement a subclass that passes the specific operation, arguments,
-    and acceptors to the super class.
+    and acceptors to the superclass.
 
     For example, to implement a custom waiter for the transcription client that
     waits for both success and failure outcomes of the get_transcription_job function,
@@ -46,7 +46,7 @@ class CustomWaiter:
     def __init__(
             self, name, operation, argument, acceptors, client, delay=10, max_tries=60):
         """
-        Subclasses should pass specific the operations, arguments, and acceptors to
+        Subclasses should pass specific operations, arguments, and acceptors to
         their super class.
 
         :param name: The name of the waiter. This can be any descriptive string.

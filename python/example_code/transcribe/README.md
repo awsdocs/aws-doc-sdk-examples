@@ -1,8 +1,8 @@
-# AWS Transcribe custom vocabulary example
+# Amazon Transcribe custom vocabulary example
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with the AWS Transcribe API to
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
 transcribe an audio file to a text file. Learn how to:
 
 * Run a transcription job against an audio file in an Amazon S3 bucket.
@@ -35,7 +35,7 @@ transcribe an audio file to a text file. Learn how to:
 
 ## Running the code
 
-Run this example at a command prompt with the following command:
+Run this example at a command prompt with the following command.
 
 ```
 python transcribe_basics.py
@@ -67,7 +67,7 @@ Amazon S3 at the beginning of the demo.
 **jabber-vocabulary-table.txt**
 
 A custom vocabulary that includes nonsense words from *Jabberwocky* and pronunciation
-hints for some of the words. This vocabulary is uploaded to AWS Transcribe as part
+hints for some of the words. This vocabulary is uploaded to Amazon Transcribe as part
 of the demo.
 
 **getting_started.py**
@@ -75,7 +75,7 @@ of the demo.
 Shows how to start a job and get information about the job. This script is included
 in the 
 [Getting started](https://docs.aws.amazon.com/transcribe/latest/dg/getting-started-python.html) 
-section of the AWS Transcribe developer guide.
+section of the Amazon Transcribe Developer Guide.
 
 ## Running the tests
 
@@ -90,8 +90,8 @@ python -m pytest
 
 ## Additional information
 
-- [Boto3 AWS Transcribe service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/transcribe.html)
-- [AWS Transcribe documentation](https://docs.aws.amazon.com/transcribe/index.html)
+- [Boto3 Amazon Transcribe service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/transcribe.html)
+- [Amazon Transcribe documentation](https://docs.aws.amazon.com/transcribe/index.html)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

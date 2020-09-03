@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Contains common test fixtures used to run AWS Transcribe tests.
+Contains common test fixtures used to run Amazon Transcribe tests.
 """
 
 import sys

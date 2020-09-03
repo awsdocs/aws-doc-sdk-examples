@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with the AWS Transcribe API to
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
 transcribe an audio file to a text file. Also shows how to define a custom vocabulary
 to improve the accuracy of the transcription.
 
@@ -281,14 +281,14 @@ def delete_vocabulary(vocabulary_name, transcribe_client):
 
 
 def usage_demo():
-    """Shows how to use the AWS Transcribe service."""
+    """Shows how to use the Amazon Transcribe service."""
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
     s3_resource = boto3.resource('s3')
     transcribe_client = boto3.client('transcribe')
 
     print('-'*88)
-    print("Welcome to the AWS Transcribe demo!")
+    print("Welcome to the Amazon Transcribe demo!")
     print('-'*88)
 
     bucket_name = f'jabber-bucket-{time.time_ns()}'

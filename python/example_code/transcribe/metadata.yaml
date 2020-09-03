@@ -1,5 +1,5 @@
 ---
-# AWS Transcribe custom vocabulary example.
+# Amazon Transcribe custom vocabulary example.
 files:
   - path: transcribe_basics.py
     services:
@@ -12,7 +12,7 @@ files:
       - transcribe
 ...
 ---
-# AWS Transcribe getting started example.
+# Amazon Transcribe getting started example.
 files:
   - path: getting_started.py
     services:

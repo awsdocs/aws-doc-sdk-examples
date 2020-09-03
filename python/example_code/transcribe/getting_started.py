@@ -4,11 +4,11 @@
 """
 Purpose
 
-Shows how to use AWS SDK for Python (Boto3) to call AWS Transcribe to make a
+Shows how to use AWS SDK for Python (Boto3) to call Amazon Transcribe to make a
 transcription of an audio file.
 
-This script is intended to be used with the Getting started instructions in the
-AWS Transcribe developer guide here:
+This script is intended to be used with the instructions for getting started in the
+Amazon Transcribe Developer Guide here:
     https://docs.aws.amazon.com/transcribe/latest/dg/getting-started-python.html.
 """
 
