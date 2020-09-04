@@ -15,10 +15,46 @@ files:
   - path: tests/test_auth_request_object_keys.rb
     services:
     - s3
+  - path: .rb
+    services:
+    - s3
+  - path: tests/test_.rb
+    services:
+    - s3
   - path: auth_request_test.rb
     services:
     - s3
   - path: tests/test_auth_request_test.rb
+    services:
+    - s3
+  - path: auth_session_token_request_test.rb
+    services:
+    - s3
+  - path: tests/test_auth_session_token_request_test.rb
+    services:
+    - s3
+  - path: copy_object_between_buckets.rb
+    services:
+    - s3
+  - path: tests/test_copy_object_between_buckets.rb
+    services:
+    - s3
+  - path: create_bucket_snippet.rb
+    services:
+    - s3
+  - path: tests/test_create_bucket_snippet.rb
+    services:
+    - s3
+  - path: create_rsa_keys.rb
+    services:
+    - s3
+  - path: tests/test_create_rsa_keys.rb
+    services:
+    - s3
+  - path: determine_object_encryption_state.rb
+    services:
+    - s3
+  - path: tests/determine_object_encryption_state.rb
     services:
     - s3
   - path: s3-ruby-example-upload-item-to-folder.rb
