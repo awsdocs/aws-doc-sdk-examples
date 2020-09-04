@@ -12,9 +12,9 @@ using Amazon.DynamoDBv2.DocumentModel;
 
 namespace DynamoDBCRUD
 {
-    class AddItem
+    public class AddItem
     {        
-        static async Task<bool> AddItemAsync(IAmazonDynamoDB client, string table, string keystring, string valuestring)
+        public static async Task<bool> AddItemAsync(IAmazonDynamoDB client, string table, string keystring, string valuestring)
         {
             // Get individual keys and values
             string[] keys = keystring.Split(",");
@@ -24,7 +24,7 @@ namespace DynamoDBCRUD
             {
                 Console.WriteLine("Unmatched number of keys and values");
                 return false;
-            }
+            }            
 
             var theTable = Table.LoadTable(client, table);
             var item = new Document();
@@ -60,16 +60,6 @@ namespace DynamoDBCRUD
             await theTable.PutItemAsync(item);
 
             return true;
-        }
-
-        static void Usage()
-        {
-            Console.WriteLine("Usage:");
-            Console.WriteLine("AddItem.exe -k KEYS -v VALUES [-h]");
-            Console.WriteLine("");
-            Console.WriteLine("Both KEYS and VALUES are required");
-            Console.WriteLine("Both should be a comma-separated list, and must have the same number of values");
-            Console.WriteLine(" -h prints this message and quits");
         }
 
         static void Main(string[] args)
@@ -135,9 +125,16 @@ namespace DynamoDBCRUD
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
 
-            Task<bool> response = AddItemAsync(client, table, keys, values);
+            var result = AddItemAsync(client, table, keys, values);
 
-            Console.WriteLine("Added item to " + table + " in " + region);
+            if (result.Result)
+            {
+                Console.WriteLine("Added item to " + table + " in " + region);
+            }
+            else
+            {
+                Console.WriteLine("Did not add item to " + table + " in " + region);
+            }
         }
     }
 }
