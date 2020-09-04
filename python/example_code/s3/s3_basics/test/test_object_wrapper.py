@@ -26,7 +26,7 @@ def test_put_get_delete_object(stub_and_patch, make_unique_name, make_bucket,
     stubber.stub_head_object(bucket.name, object_key)
     stubber.stub_get_object(bucket.name, object_key, object_data)
     stubber.stub_delete_object(bucket.name, object_key)
-    stubber.stub_head_object(bucket.name, object_key, 404)
+    stubber.stub_head_object(bucket.name, object_key, status_code=404)
     stubber.stub_get_object(bucket.name, object_key, error_code='NoSuchKey')
 
     object_wrapper.put_object(bucket, object_key, object_data)

@@ -288,8 +288,8 @@ def usage_demo():
     ]
 
     print(f"Creating movie and actor tables and waiting until they exist...")
-    movie_table = create_table(f'aws-demo-batch-movies-{time.time_ns()}', movie_schema)
-    actor_table = create_table(f'aws-demo-batch-actors-{time.time_ns()}', actor_schema)
+    movie_table = create_table(f'demo-batch-movies-{time.time_ns()}', movie_schema)
+    actor_table = create_table(f'demo-batch-actors-{time.time_ns()}', actor_schema)
     print(f"Created {movie_table.name} and {actor_table.name}.")
 
     print(f"Putting {len(movie_data)} movies into {movie_table.name}.")

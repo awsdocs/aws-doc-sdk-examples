@@ -601,7 +601,7 @@ def main():
     """
     Kicks off the demo.
     """
-    prefix = 'aws-version-demo'
+    prefix = 'demo-versioning'
     obj_prefix = f'{prefix}/'
     bucket_name = f'{prefix}-bucket-' + str(uuid.uuid1())
     role_name = f'{prefix}-s3-batch-role'
