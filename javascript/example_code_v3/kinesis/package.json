@@ -6,7 +6,7 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-s3": "^1.0.0-gamma.6",
+    "@aws-sdk/client-kinesis": "^1.0.0-gamma.6",
     "@aws-sdk/node-http-handler": "^1.0.0-gamma.5",
     "@aws-sdk/types": "^0.1.0-gamma.6",
     "ts-node": "^9.0.0"

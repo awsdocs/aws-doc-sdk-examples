@@ -1,61 +1,55 @@
 ---
 # Amazon S3 examples
 files:
-  - path: photoViewer/s3_PhotoViewer.js
+  - path: photoViewer/s3_PhotoViewer.ts
     services:
       - s3
-  - path: photoExample/s3_PhotoExample.js
+  - path: photoExample/s3_PhotoExample.ts
     services:
       - s3
-  - path: s3_createbucket.js
+  - path: s3_createbucket.ts
     services:
       - s3
-  - path: s3_deletebucket.js
+  - path: s3_deletebucket.ts
     services:
       - s3
-  - path: s3_deletebucketpolicy.js
+  - path: s3_deletebucketpolicy.ts
     services:
       - s3
-  - path: s3_deletebucketwebsite.js
+  - path: s3_deletebucketwebsite.ts
     services:
       - s3
-  - path: s3_getbucketacl.js
+  - path: s3_getbucketacl.ts
     services:
       - s3
-  - path: s3_getbucketpolicy.js
+  - path: s3_getbucketpolicy.ts
     services:
       - s3
-  - path: s3_getbucketwebsite.js
+  - path: s3_getbucketwebsite.ts
     services:
       - s3
-  - path: s3_getcors.js
+  - path: s3_getcors.ts
     services:
       - s3
-  - path: s3_listbuckets.js
+  - path: s3_listbuckets.ts
     services:
       - s3
-  - path: s3_listobjects.js
+  - path: s3_listobjects.ts
     services:
       - s3
-  - path: s3_setbucketwebsite.js
+  - path: s3_setbucketwebsite.ts
     services:
       - s3
-  - path: s3_putbucketpolicy.js
+  - path: s3_list1000plusobjects.ts
     services:
       - s3
-  - path: s3_list1000plusobjects.js
+  - path: s3_upload.ts
     services:
       - s3
-  - path: s3_upload.js
+  - path: s3_upload_putcommand.ts
     services:
       - s3
-  - path: s3_upload_putcommand.js
-    services:
-      - s3
-  - path: s3.js
-    services:
-      - s3
-  - path: s3_setcors.js
+  - path: s3.ts
     services:
       - s3
 ...
