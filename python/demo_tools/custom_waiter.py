@@ -44,7 +44,8 @@ class CustomWaiter:
 
     """
     def __init__(
-            self, name, operation, argument, acceptors, client, delay=10, max_tries=60):
+            self, name, operation, argument, acceptors, client, delay=10, max_tries=60,
+            matcher='path'):
         """
         Subclasses should pass specific operations, arguments, and acceptors to
         their super class.
@@ -63,6 +64,7 @@ class CustomWaiter:
         :param client: The Boto3 client.
         :param delay: The number of seconds to wait between each call to the operation.
         :param max_tries: The maximum number of tries before exiting.
+        :param matcher: The kind of matcher to use.
         """
         self.name = name
         self.operation = operation
@@ -77,7 +79,7 @@ class CustomWaiter:
                     "maxAttempts": max_tries,
                     "acceptors": [{
                         "state": state.value,
-                        "matcher": "path",
+                        "matcher": matcher,
                         "argument": argument,
                         "expected": expected
                     } for expected, state in acceptors.items()]
@@ -95,7 +97,10 @@ class CustomWaiter:
         """
         status = parsed
         for key in self.argument.split('.'):
-            status = status.get(key)
+            if key.endswith('[]'):
+                status = status.get(key[:-2])[0]
+            else:
+                status = status.get(key)
         logger.info(
             "Waiter %s called %s, got %s.", self.name, self.operation, status)
 

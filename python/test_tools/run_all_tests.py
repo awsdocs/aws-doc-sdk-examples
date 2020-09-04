@@ -26,12 +26,14 @@ def main():
         if 'test' in dirs:
             test_dirs.append(root)
 
+    original_path = sys.path.copy()
     root_dir = os.getcwd()
     for test_dir in test_dirs:
         test_path = os.path.join(root_dir, test_dir)
         sys.path.append(test_path)
         os.chdir(test_path)
-        pytest.main()
+        os.system('py -m pytest')
+        sys.path = original_path.copy()
 
 
 if __name__ == '__main__':
