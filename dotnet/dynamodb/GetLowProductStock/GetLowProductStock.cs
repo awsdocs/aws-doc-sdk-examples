@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
+// snippet-start:[dynamodb.dotnet35.GetLowProductStock]
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
@@ -104,3 +107,4 @@ namespace DynamoDBCRUD
         }
     }
 }
+// snippet-end:[dynamodb.dotnet35.GetLowProductStock]

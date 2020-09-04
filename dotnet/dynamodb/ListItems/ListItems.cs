@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
+// snippet-start:[dynamodb.dotnet35.ListItems]
+using System;
 using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,3 +101,4 @@ namespace DynamoDBCRUD
         }
     }
 }
+// snippet-end:[dynamodb.dotnet35.ListItems]

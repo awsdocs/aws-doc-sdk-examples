@@ -1,4 +1,6 @@
-﻿using Amazon.DynamoDBv2;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
+using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
