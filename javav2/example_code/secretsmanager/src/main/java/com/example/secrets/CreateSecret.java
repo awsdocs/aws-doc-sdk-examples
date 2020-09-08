@@ -36,7 +36,7 @@ public class CreateSecret {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the secret (ie, tutorials/MyFirstSecret), and the secret value.  \n" +
+                "To run this example, supply the name of the secret (for example, tutorials/MyFirstSecret), and the secret value.  \n" +
                 "\n" +
                 "Ex: GetSecretValue <secretName><secretValue>\n";
 
@@ -55,7 +55,7 @@ public class CreateSecret {
                 .build();
 
        String secretARN = createNewSecret(secretsClient, secretName, secretValue);
-       System.out.println("The secret ARN is "+ secretARN);
+       System.out.println("The secret Amazon Resource Name (ARN) is "+ secretARN);
     }
 
     //snippet-start:[secretsmanager.java2.create_secret.main]
@@ -64,7 +64,7 @@ public class CreateSecret {
         try {
             CreateSecretRequest secretRequest = CreateSecretRequest.builder()
                 .name(secretName)
-                .description("This secret was created by the AWS Secret Manager Java API")
+                .description("This secret was created by the AWS Secrets Manager Java API")
                 .secretString(secretValue)
                 .build();
 

@@ -35,9 +35,9 @@ public class DeleteSecret {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the secret to delete (ie, tutorials/MyFirstSecret).  \n" +
+                "To run this example, supply the name of the secret to delete (for example, tutorials/MyFirstSecret).  \n" +
                 "\n" +
-                "Ex: DeleteSecret <secretName>\n";
+                "Example: DeleteSecret <secretName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
