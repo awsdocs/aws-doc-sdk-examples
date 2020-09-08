@@ -184,7 +184,7 @@ def permanently_delete_object(bucket, object_key):
 # snippet-end:[s3.python.versioning.permanently_delete_object]
 
 
-def usage_demo_single_object(obj_prefix='aws-version-demo/'):
+def usage_demo_single_object(obj_prefix='demo-versioning/'):
     """
     Demonstrates usage of versioned object functions. This demo uploads a stanza
     of a poem and performs a series of revisions, deletions, and revivals on it.

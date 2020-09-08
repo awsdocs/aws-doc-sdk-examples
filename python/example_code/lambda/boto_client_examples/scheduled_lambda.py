@@ -154,9 +154,9 @@ def usage_demo():
 
     lambda_function_filename = 'lambda_handler_scheduled.py'
     lambda_handler_name = 'lambda_handler_scheduled.lambda_handler'
-    lambda_role_name = 'aws-demo-lambda-role'
-    lambda_function_name = 'aws-demo-lambda-scheduled'
-    event_rule_name = 'aws-demo-event-scheduled'
+    lambda_role_name = 'demo-lambda-role'
+    lambda_function_name = 'demo-lambda-scheduled'
+    event_rule_name = 'demo-event-scheduled'
     event_schedule = 'rate(1 minute)'
 
     iam_resource = boto3.resource('iam')
