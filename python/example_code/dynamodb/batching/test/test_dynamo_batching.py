@@ -5,6 +5,7 @@
 Unit tests for Amazon DynamoDB batching code example.
 """
 
+import time
 import unittest.mock
 from botocore.exceptions import ClientError
 import pytest
@@ -33,7 +34,7 @@ def test_create_table(make_stubber, make_unique_name, error_code):
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_do_batch_get(make_stubber):
+def test_do_batch_get(make_stubber, monkeypatch):
     dyn_stubber = make_stubber(dynamo_batching.dynamodb.meta.client)
     item_count = 5
     request_keys = {
@@ -48,6 +49,8 @@ def test_do_batch_get(make_stubber):
         'test-table2':
             [{'test': {'S': f'test-{index}' for index in range(item_count)}}],
     }
+
+    monkeypatch.setattr(time, 'sleep', lambda x: None)
 
     dyn_stubber.stub_batch_get_item(request_keys, unprocessed_keys=request_keys)
     dyn_stubber.stub_batch_get_item(request_keys, response_items=response_items)

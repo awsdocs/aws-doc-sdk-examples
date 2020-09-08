@@ -11,10 +11,9 @@ processing, and teardown.
 For more detail, including usage and testing instructions, see the README.
 
 Running this demo uses your default AWS credentials to create resources in your
-account and my incur charges.
+account and may incur charges.
 """
 
-import argparse
 from contextlib import contextmanager
 from io import BytesIO
 import json

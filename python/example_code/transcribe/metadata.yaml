@@ -17,7 +17,7 @@ files:
   - path: getting_started.py
     services:
       - transcribe
-  - path: test/test_getting_started.py
+  - path: test/test_transcribe_getting_started.py
     services:
       - transcribe
 ...

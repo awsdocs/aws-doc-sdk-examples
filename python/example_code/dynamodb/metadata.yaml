@@ -46,7 +46,7 @@ files:
   - path: GettingStarted/test/conftest.py
     services:
       - dynamodb
-  - path: GettingStarted/test/test_getting_started.py
+  - path: GettingStarted/test/test_dynamodb_getting_started.py
     services:
       - dynamodb
 ...
