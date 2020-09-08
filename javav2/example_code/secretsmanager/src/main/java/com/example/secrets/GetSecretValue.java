@@ -36,9 +36,9 @@ public class GetSecretValue {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the secret (ie, tutorials/MyFirstSecret).  \n" +
+                "To run this example, supply the name of the secret (for example, tutorials/MyFirstSecret).  \n" +
                 "\n" +
-                "Ex: GetSecretValue <secretName>\n";
+                "Example: GetSecretValue <secretName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

@@ -40,9 +40,9 @@ public class DescribeSecret {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the secret to describe (ie, tutorials/MyFirstSecret).  \n" +
+                "To run this example, supply the name of the secret to describe (for example, tutorials/MyFirstSecret).  \n" +
                 "\n" +
-                "Ex: DescribeSecret <secretName>\n";
+                "Example: DescribeSecret <secretName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

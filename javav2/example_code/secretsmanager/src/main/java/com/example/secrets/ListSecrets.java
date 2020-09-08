@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListSecrets.java demonstrates how to list all of the secrets that are stored by Secrets Manager.]
+//snippet-sourcedescription:[ListSecrets.java demonstrates how to list all of the secrets that are stored by AWS Secrets Manager.]
 //snippet-keyword:[Java]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
@@ -53,7 +53,7 @@ public class ListSecrets {
 
             for (SecretListEntry secret: secrets) {
                 System.out.println("The secret name is "+secret.name());
-                System.out.println("The secret descreiption is "+secret.description());
+                System.out.println("The secret description is "+secret.description());
             }
 
         } catch (SecretsManagerException e) {

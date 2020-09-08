@@ -35,9 +35,9 @@ public class UpdateSecret {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the secret to update (ie, tutorials/MyFirstSecret) and a new secret value.  \n" +
+                "To run this example, supply the name of the secret to update (for example, tutorials/MyFirstSecret) and a new secret value.  \n" +
                 "\n" +
-                "Ex: UpdateSecret <secretName><secretValue>\n";
+                "Example: UpdateSecret <secretName><secretValue>\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
