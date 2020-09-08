@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[dynamodb.dotnet35.AddItems]
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -9,15 +10,22 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
     class AddItems
     {
-        public static async Task<int> AddFromCSVAsync(IAmazonDynamoDB client, string table, string filename, int index)
+        static void DebugPrint(bool debug, string s)
         {
-            var theTable = Table.LoadTable(client, table);
-            var item = new Document();
+            if(debug)
+            {
+                Console.WriteLine(s);
+            }
+        }
+        static async Task<BatchWriteItemResponse> AddFromCSVAsync(bool debug, IAmazonDynamoDB client, string table, string filename, int index)
+        {
+            var writeRequests = new List<WriteRequest>();
 
             // filename is the name of the csv file that contains customer data
             // Column1,...,ColumnN
@@ -26,77 +34,102 @@ namespace DynamoDBCRUD
             System.IO.StreamReader file =
                 new System.IO.StreamReader(filename);
 
+            DebugPrint(debug, "Opened file " + filename);
+
             // Get column names from the first line
             string firstline = file.ReadLine();
-            
+
             string[] headers = firstline.Split(",");
             int numcolumns = headers.Length;
 
             var lineNum = 2;
             string line;
 
+            // Read the rest of the file, line by line
             while ((line = file.ReadLine()) != null)
             {
-                // Split line into columns
-                string[] parts = line.Split(',');
-
-                // if we don't have the right number of parts, something's wrong
-                if (parts.Length != numcolumns)
+                // Batch only supports up to 25 items at a time
+                if (lineNum > 26)
                 {
-                    Console.WriteLine("Did not have " + numcolumns.ToString() + " columns in line " + lineNum.ToString() + " of file " + filename);
-                    return 0;
+                    Console.WriteLine("Found more than 25 items to update");
+                    break;
                 }
 
-                item["ID"] = index.ToString();
+                // Split line into columns
+                string[] values = line.Split(',');
 
-                index++;
+                // if we don't have the right number of parts, something's wrong
+                if (values.Length != numcolumns)
+                {
+                    Console.WriteLine("Did not have " + numcolumns.ToString() + " columns in line " + lineNum.ToString() + " of file " + filename);
+                    return null;
+                }
+
+                var item = new Dictionary<string, AttributeValue>
+                {
+                    { "ID", new AttributeValue { S = index.ToString() } }
+                };
+
+                DebugPrint(debug, "Set ID string attribute to " + index.ToString());
 
                 for (int i = 0; i < numcolumns; i++)
                 {
-                    // if the header contains the word "date", store the value as a long (number)
-                    if (headers[i].ToLower().Contains("date"))
+                    if ((headers[i] == "Customer_ID") || (headers[i] == "Order_ID") || (headers[i] == "Order_Customer") || (headers[i] == "Order_Product") || (headers[i] == "Product_ID") || (headers[i] == "Product_Quantity") || (headers[i] == "Product_Cost"))
+                    {
+                        item.Add(headers[i], new AttributeValue { N = values[i] });
+                        DebugPrint(debug, "Set " + headers[i] + " int attribute to " + values[i]);
+                    }
+                    else if (headers[i] == "Order_Date")
                     {
                         // The datetime format is:
                         // YYYY-MM-DD HH:MM:SS
-                        DateTime MyDateTime = DateTime.ParseExact(parts[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                        DateTime MyDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
                         TimeSpan timeSpan = MyDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
 
-                        item[headers[i]] = (long)timeSpan.TotalSeconds;
+                        item.Add(headers[i], new AttributeValue { N = ((long)timeSpan.TotalSeconds).ToString() });
+                        DebugPrint(debug, "Set " + headers[i] + " int (long) attribute to " + ((long)timeSpan.TotalSeconds).ToString());
                     }
                     else
                     {
-                        // If it's a number, store it as such
-                        try
-                        {
-                            int v = int.Parse(parts[i]);
-                            item[headers[i]] = v;
-                        }
-                        catch
-                        {
-                            item[headers[i]] = parts[i];
-                        }
+                        item.Add(headers[i], new AttributeValue { S = values[i] });
+                        DebugPrint(debug, "Set " + headers[i] + " string attribute to " + values[i]);
                     }
                 }
 
-                await theTable.PutItemAsync(item);
+                DebugPrint(debug, "");
 
-                lineNum++;
+                index++;
+
+                WriteRequest putRequest = new WriteRequest(new PutRequest(item));
+
+                writeRequests.Add(putRequest);
             }
 
-            file.Close();
+            var requestItems = new Dictionary<string, List<WriteRequest>>();
 
-            return index;
+            requestItems.Add(table, writeRequests);            
+
+            var request = new BatchWriteItemRequest
+            {
+                ReturnConsumedCapacity = "TOTAL",
+                RequestItems = requestItems
+            };                    
+
+            var response = await client.BatchWriteItemAsync(request);
+
+            return response;
         }
+        
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var configfile = "../../../app.config";
             var region = "";
             var table = "";
-            string customers = "";
-            string orders = "";
-            string products = "";
+            string filename = "";
+            string index = "";
+            bool debug = false;
             
             // Get default region and table from config file
             var efm = new ExeConfigurationFileMap
@@ -111,13 +144,12 @@ namespace DynamoDBCRUD
                 AppSettingsSection appSettings = configuration.AppSettings;
                 region = appSettings.Settings["Region"].Value;
                 table = appSettings.Settings["Table"].Value;
-                customers = appSettings.Settings["Customers"].Value;
-                orders = appSettings.Settings["Orders"].Value;
-                products = appSettings.Settings["Products"].Value;
+                index = appSettings.Settings["Index"].Value;
+                filename = appSettings.Settings["Filename"].Value;
 
-                if ((region == "") || (table == "") || (customers == "") || (orders == "") || (products == ""))
+                if ((region == "") || (table == "") || (index == "") || (filename == ""))
                 {
-                    Console.WriteLine("You must specify Region, Table, Customers, Orders, and Products values in " + configfile);
+                    Console.WriteLine("You must specify a Region, Table, Index, and Filename in " + configfile);
                     return;
                 }
             }
@@ -127,39 +159,45 @@ namespace DynamoDBCRUD
                 return;
             }
 
+            int i = 0;
+            while (i < args.Length)
+            {
+                switch (args[i])
+                {
+                    case "-d":
+                        debug = true;
+                        break;
+                    default:
+                        break;
+                }
+
+                i++;
+            }
+
+            // Make sure index is an int >= 0
+            int indexVal;
+
+            try
+            {
+                indexVal = int.Parse(index);
+            }
+            catch
+            {
+                Console.WriteLine("Could not parse " + index + " as an int");
+                return;
+            }
+
+            if (indexVal < 0)
+            {
+                Console.WriteLine("The index value " + index + " is less than zero");
+                return;
+            }
+
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
+            var result = await AddFromCSVAsync(debug, client, table, filename, indexVal);
 
-            var index = 0;
-
-            Task<int> result = AddFromCSVAsync(client, table, customers, index);
-
-            index = result.Result;
-
-            if (index == 0)
-            {
-                return;
-            }
-
-            result = AddFromCSVAsync(client, table, orders, index);
-
-            index = result.Result;
-
-            if (index == 0)
-            {
-                return;
-            }
-
-            result = AddFromCSVAsync(client, table, products, index);
-
-            index = result.Result;
-
-            if (index == 0)
-            {
-                return;
-            }
-
-            Console.WriteLine("Done");
+            Console.WriteLine(result.HttpStatusCode);            
         }
     }
 }

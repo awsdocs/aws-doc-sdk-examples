@@ -17,9 +17,9 @@ namespace DynamoDBCRUD
     [TestClass]
     public class AddItemTest
     {
-        string tableName = "testtable";
-        string keys = "Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
-        string values = "Order,1,1,6,2020-07-04 12:00:00,pending";
+        readonly string tableName = "testtable";
+        readonly string keys = "Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
+        readonly string values = "Order,1,1,6,2020-07-04 12:00:00,pending";
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
@@ -54,7 +54,11 @@ namespace DynamoDBCRUD
 
             Logger.LogMessage("Calling AddItem.AddItemAsync(client, tableName, keys, values)");
 
-            var result = await AddItem.AddItemAsync(client, tableName, keys, values);
+            // Create random ID value
+            var _random = new System.Random();
+            string id = _random.Next(100, 1000).ToString();        
+            
+            var result = await AddItem.AddItemAsync(client, tableName, id, keys, values);
 
             if (result)
             {
