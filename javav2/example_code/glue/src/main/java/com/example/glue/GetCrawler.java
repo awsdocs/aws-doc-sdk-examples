@@ -40,6 +40,16 @@ public class GetCrawler {
 
     public static void main(String[] args) {
 
+        final String USAGE = "\n" +
+                "To run this example, supply the name of the crawler.  \n" +
+                "\n" +
+                "Ex: GetCrawler <crawlerName>\n";
+
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
         String crawlerName = args[0];
 
         Region region = Region.US_EAST_1;
