@@ -53,7 +53,7 @@ public class CreateCrawler {
             System.exit(1);
         }
 
-        String IAM = args[0];
+        String iam = args[0];
         String s3Path = args[1];
         String cron = args[2];
         String dbName = args[3];
@@ -64,7 +64,7 @@ public class CreateCrawler {
                 .region(region)
                 .build();
 
-        createGlueCrawler(glueClient, IAM, s3Path, cron,dbName, crawlerName);
+        createGlueCrawler(glueClient, iam, s3Path, cron,dbName, crawlerName);
     }
 
     //snippet-start:[glue.java2.create_crawler.main]
