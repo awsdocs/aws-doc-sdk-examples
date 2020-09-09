@@ -23,26 +23,48 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_job.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetJobRunRequest;
 import software.amazon.awssdk.services.glue.model.GetJobRunResponse;
 import software.amazon.awssdk.services.glue.model.GlueException;
+//snippet-end:[glue.java2.get_job.import]
 
 public class GetJobRun {
 
     public static void main(String[] args) {
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    GetJobRun <jobName><runId><cron><dbName><crawlerName>\n\n" +
+                "Where:\n" +
+                "    jobName - the name of the job \n" +
+                "    runId   - the run id value \n";
+
+        if (args.length < 2) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
+        String jobName = args[0];
+        String runId = args[1];
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
                 .region(region)
                 .build();
 
+        getGlueJobRun(glueClient, jobName, runId);
+    }
+
+    //snippet-start:[glue.java2.get_job.main]
+    public static void getGlueJobRun(GlueClient glueClient, String jobName, String runId) {
 
         try {
               GetJobRunRequest jobRunRequest = GetJobRunRequest.builder()
-                .jobName("glue-job1")
-                .runId("jr_4717fb193c65c4ec564e959bfeea3185be8274eedcab28ef18a78afa6d59751e")
+                .jobName(jobName)
+                .runId(runId)
                 .build();
 
               GetJobRunResponse runResponse = glueClient.getJobRun(jobRunRequest);
@@ -52,4 +74,5 @@ public class GetJobRun {
             System.exit(1);
         }
     }
+    //snippet-end:[glue.java2.get_job.main]
 }
