@@ -23,6 +23,7 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_crawlers.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetCrawlersRequest;
@@ -30,6 +31,7 @@ import software.amazon.awssdk.services.glue.model.GetCrawlersResponse;
 import software.amazon.awssdk.services.glue.model.Crawler;
 import software.amazon.awssdk.services.glue.model.GlueException;
 import java.util.List;
+//snippet-end:[glue.java2.get_crawlers.import]
 
 public class GetCrawlers {
 
@@ -43,6 +45,7 @@ public class GetCrawlers {
         getAllCrawlers(glueClient);
     }
 
+    //snippet-start:[glue.java2.get_crawlers.main]
     public static void getAllCrawlers(GlueClient glueClient){
 
         try {
@@ -63,4 +66,5 @@ public class GetCrawlers {
             System.exit(1);
         }
     }
+    //snippet-end:[glue.java2.get_crawlers.main]
 }
