@@ -23,10 +23,12 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.delete_crawler.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
 import software.amazon.awssdk.services.glue.model.GlueException;
+//snippet-end:[glue.java2.delete_crawler.import]
 
 public class DeleteCrawler {
 
@@ -42,7 +44,7 @@ public class DeleteCrawler {
             System.exit(1);
         }
 
-        String crawlerName = "crawl3"; // args[0] ;
+        String crawlerName = args[0] ;
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
@@ -52,6 +54,7 @@ public class DeleteCrawler {
         deleteSpecificCrawler(glueClient, crawlerName);
     }
 
+    //snippet-start:[glue.java2.delete_crawler.main]
     public static void deleteSpecificCrawler(GlueClient glueClient, String crawlerName) {
 
         try {
@@ -67,4 +70,5 @@ public class DeleteCrawler {
             System.exit(1);
         }
     }
+    //snippet-end:[glue.java2.delete_crawler.main]
 }
