@@ -17,7 +17,7 @@ require 'aws-sdk-core'
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'
 
-# Checks to see whether a user exists in IAM.
+# Checks whether a user exists in IAM.
 #
 # @param iam [Aws::IAM::Client] An initialized IAM client.
 # @param user_name [String] The user's name.
@@ -67,7 +67,7 @@ rescue StandardError => e
   puts "Error while getting the user '#{user_name}': #{e.message}"
 end
 
-# Checks to see whether a role exists in IAM.
+# Checks whether a role exists in IAM.
 #
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
 # @param role_name [String] The role's name.
@@ -85,7 +85,7 @@ end
 
 # Gets credentials for a role in IAM.
 #
-# @param sts_client [Aws::STS::Client] An initialized STS client.
+# @param sts_client [Aws::STS::Client] An initialized AWS STS client.
 # @param role_arn [String] The role's Amazon Resource Name (ARN).
 # @param role_session_name [String] A name for this role's session.
 # @param duration_seconds [Integer] The number of seconds this session is valid.
