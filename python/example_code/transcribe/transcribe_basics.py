@@ -297,15 +297,16 @@ def usage_demo():
         Bucket=bucket_name,
         CreateBucketConfiguration={
             'LocationConstraint': transcribe_client.meta.region_name})
-    media_file_name = 'Jabberwocky.mp3'
+    media_file_name = '.media/Jabberwocky.mp3'
+    media_object_key = 'Jabberwocky.mp3'
     print(f"Uploading media file {media_file_name}.")
-    bucket.upload_file(media_file_name, media_file_name)
-    media_uri = f's3://{bucket.name}/Jabberwocky.mp3'
+    bucket.upload_file(media_file_name, media_object_key)
+    media_uri = f's3://{bucket.name}/{media_object_key}'
 
     job_name_simple = f'Jabber-{time.time_ns()}'
     print(f"Starting transcription job {job_name_simple}.")
     start_job(
-        job_name_simple, f's3://{bucket_name}/Jabberwocky.mp3', 'mp3', 'en-US',
+        job_name_simple, f's3://{bucket_name}/{media_object_key}', 'mp3', 'en-US',
         transcribe_client)
     transcribe_waiter = TranscribeCompleteWaiter(transcribe_client)
     transcribe_waiter.wait(job_name_simple)

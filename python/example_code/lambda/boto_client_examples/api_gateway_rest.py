@@ -121,7 +121,7 @@ def create_rest_api(
         f'{account_id}:{api_id}/*/*/{api_base_path}'
     try:
         lambda_client.add_permission(
-            FunctionName=lambda_function_arn, StatementId=f'aws-demo-invoke',
+            FunctionName=lambda_function_arn, StatementId=f'demo-invoke',
             Action='lambda:InvokeFunction', Principal='apigateway.amazonaws.com',
             SourceArn=source_arn)
         logger.info("Granted permission to let Amazon API Gateway invoke function %s "
@@ -178,9 +178,9 @@ def usage_demo():
 
     lambda_filename = 'lambda_handler_rest.py'
     lambda_handler_name = 'lambda_handler_rest.lambda_handler'
-    lambda_role_name = 'aws-demo-lambda-role'
-    lambda_function_name = 'aws-demo-lambda-rest'
-    api_name = 'aws-demo-lambda-rest-api'
+    lambda_role_name = 'demo-lambda-role'
+    lambda_function_name = 'demo-lambda-rest'
+    api_name = 'demo-lambda-rest-api'
 
     iam_resource = boto3.resource('iam')
     lambda_client = boto3.client('lambda')

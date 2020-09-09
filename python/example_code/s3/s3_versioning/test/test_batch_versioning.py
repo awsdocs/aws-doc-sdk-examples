@@ -22,6 +22,19 @@ def test_custom_retry():
     assert response == 'Success!'
 
 
+@pytest.fixture(scope='module')
+def monkey_module():
+    from _pytest.monkeypatch import MonkeyPatch
+    mpatch = MonkeyPatch()
+    yield mpatch
+    mpatch.undo()
+
+
+@pytest.fixture(scope='module', autouse=True)
+def sleepless(monkey_module):
+    monkey_module.setattr(batch_versioning, 'sleep', lambda x: None)
+
+
 @pytest.mark.parametrize('error_code', ['test-error', 'garbage-error'])
 def test_custom_retry_failure(error_code):
     def callback():

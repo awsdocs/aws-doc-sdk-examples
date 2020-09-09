@@ -233,7 +233,7 @@ def usage_demo():
           "other IAM resources, like users and roles.")
     bucket_arn = f'arn:aws:s3:::made-up-bucket-name'
     policy = create_policy(
-        'aws-iam-demo-policy', 'Policy for IAM demonstration.',
+        'demo-iam-policy', 'Policy for IAM demonstration.',
         ['s3:ListObjects'], bucket_arn)
     print(f"Created policy {policy.policy_name}.")
     policies = list_policies('Local')
