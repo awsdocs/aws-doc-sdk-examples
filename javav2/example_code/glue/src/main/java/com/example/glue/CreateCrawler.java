@@ -68,7 +68,12 @@ public class CreateCrawler {
     }
 
     //snippet-start:[glue.java2.create_crawler.main]
-    public static void createGlueCrawler(GlueClient glueClient, String IAM, String s3Path, String cron,  String dbName,  String crawlerName) {
+    public static void createGlueCrawler(GlueClient glueClient,
+                                         String iam,
+                                         String s3Path,
+                                         String cron,
+                                         String dbName,
+                                         String crawlerName) {
 
       try {
 
@@ -90,7 +95,7 @@ public class CreateCrawler {
                 .name(crawlerName)
                 .description("Created by the AWS Glue Java API")
                 .targets(targets)
-                .role(IAM)
+                .role(iam)
                 .schedule(cron)
                 .build();
 
