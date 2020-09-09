@@ -23,12 +23,14 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_databases.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.Database;
 import software.amazon.awssdk.services.glue.model.GetDatabasesRequest;
 import software.amazon.awssdk.services.glue.model.GetDatabasesResponse;
 import software.amazon.awssdk.services.glue.model.GlueException;
+//snippet-end:[glue.java2.get_databases.import]
 
 import java.util.List;
 
@@ -44,18 +46,17 @@ public class GetDatabases {
         getAllDatabases(glueClient);
     }
 
+    //snippet-start:[glue.java2.get_databases.main]
     public static void getAllDatabases(GlueClient glueClient) {
 
         try {
-        GetDatabasesRequest databasesRequest = GetDatabasesRequest.builder()
+            GetDatabasesRequest databasesRequest = GetDatabasesRequest.builder()
                 .maxResults(10)
                 .build();
 
-
-        GetDatabasesResponse response = glueClient.getDatabases(databasesRequest);
-
-
+            GetDatabasesResponse response = glueClient.getDatabases(databasesRequest);
             List<Database> databases = response.databaseList();
+
             for (Database database: databases) {
                 System.out.println("The Database name is : "+database.name());
             }
@@ -65,4 +66,5 @@ public class GetDatabases {
             System.exit(1);
         }
      }
+    //snippet-main:[glue.java2.get_databases.main]
    }
