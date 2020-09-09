@@ -30,9 +30,8 @@ import software.amazon.awssdk.services.glue.model.Database;
 import software.amazon.awssdk.services.glue.model.GetDatabasesRequest;
 import software.amazon.awssdk.services.glue.model.GetDatabasesResponse;
 import software.amazon.awssdk.services.glue.model.GlueException;
-//snippet-end:[glue.java2.get_databases.import]
-
 import java.util.List;
+//snippet-end:[glue.java2.get_databases.import]
 
 public class GetDatabases {
 
