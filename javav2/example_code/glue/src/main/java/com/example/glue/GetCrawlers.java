@@ -25,7 +25,10 @@ package com.example.glue;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
-import software.amazon.awssdk.services.glue.model.*;
+import software.amazon.awssdk.services.glue.model.GetCrawlersRequest;
+import software.amazon.awssdk.services.glue.model.GetCrawlersResponse;
+import software.amazon.awssdk.services.glue.model.Crawler;
+import software.amazon.awssdk.services.glue.model.GlueException;
 import java.util.List;
 
 public class GetCrawlers {
@@ -44,15 +47,16 @@ public class GetCrawlers {
 
         try {
 
-        GetCrawlersRequest crawlersRequest = GetCrawlersRequest.builder()
+            GetCrawlersRequest crawlersRequest = GetCrawlersRequest.builder()
                 .maxResults(10)
                 .build();
 
-        GetCrawlersResponse response = glueClient.getCrawlers(crawlersRequest);
-        List<Crawler> crawlers = response.crawlers();
-        for (Crawler crawler: crawlers) {
-            System.out.println("The crawler name is : "+crawler.name());
-        }
+            GetCrawlersResponse response = glueClient.getCrawlers(crawlersRequest);
+            List<Crawler> crawlers = response.crawlers();
+
+            for (Crawler crawler: crawlers) {
+                System.out.println("The crawler name is : "+crawler.name());
+            }
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
