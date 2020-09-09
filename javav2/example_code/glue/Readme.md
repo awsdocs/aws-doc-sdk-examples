@@ -2,7 +2,7 @@
 
 This README discusses how to run and test the Java code examples for AWS Glue.
 
-## Running the Amazon Personalize Java files
+## Running the AWS Glue Java files
 
 **IMPORTANT**
 
