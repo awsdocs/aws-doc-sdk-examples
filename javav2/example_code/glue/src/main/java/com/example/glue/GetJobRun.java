@@ -37,7 +37,7 @@ public class GetJobRun {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetJobRun <jobName><runId><cron><dbName><crawlerName>\n\n" +
+                "    GetJobRun <jobName><runId>\n\n" +
                 "Where:\n" +
                 "    jobName - the name of the job \n" +
                 "    runId   - the run id value \n";
