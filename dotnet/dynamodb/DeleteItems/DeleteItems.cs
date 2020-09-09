@@ -1,6 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: MIT-0
-// snippet-start:[dynamodb.dotnet35.DeleteItem]
+// snippet-start:[dynamodb.dotnet35.DeleteItems]
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -134,4 +134,4 @@ namespace DynamoDBCRUD
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.DeleteItem]
+// snippet-end:[dynamodb.dotnet35.DeleteItems]
