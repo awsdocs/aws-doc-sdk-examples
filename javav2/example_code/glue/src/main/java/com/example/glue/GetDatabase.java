@@ -23,6 +23,7 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_database.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetDatabaseRequest;
@@ -33,22 +34,33 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
+//snippet-end:[glue.java2.get_database.import]
 
 public class GetDatabase {
     public static void main(String[] args) {
 
+        final String USAGE = "\n" +
+                "To run this example, supply the name of the database.  \n" +
+                "\n" +
+                "Ex: GetDatabase <databaseName>\n";
 
-        String databaseName = "mydatabase";
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+             
+        String databaseName = args[0];
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
                 .region(region)
                 .build();
 
-        GetSpecificDatabase(glueClient, databaseName);
+        getSpecificDatabase(glueClient, databaseName);
     }
 
-    public static void GetSpecificDatabase(GlueClient glueClient, String databaseName) {
+    //snippet-start:[glue.java2.get_database.main]
+    public static void getSpecificDatabase(GlueClient glueClient, String databaseName) {
 
       try {
             GetDatabaseRequest databasesRequest = GetDatabaseRequest.builder()
@@ -72,4 +84,5 @@ public class GetDatabase {
             System.exit(1);
         }
     }
+    //snippet-end:[glue.java2.get_database.main]
 }
