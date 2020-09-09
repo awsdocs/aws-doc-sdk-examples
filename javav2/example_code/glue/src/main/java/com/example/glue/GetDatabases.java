@@ -65,5 +65,5 @@ public class GetDatabases {
             System.exit(1);
         }
      }
-    //snippet-main:[glue.java2.get_databases.main]
+    //snippet-end:[glue.java2.get_databases.main]
    }
