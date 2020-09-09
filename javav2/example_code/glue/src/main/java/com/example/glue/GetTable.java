@@ -43,7 +43,7 @@ public class GetTable {
                 "    GetTable <dbName><tableName>\n\n" +
                 "Where:\n" +
                 "    dbName - the database name \n" +
-                "    tableName   - the name of the crawler \n";
+                "    tableName   - the name of the table \n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
