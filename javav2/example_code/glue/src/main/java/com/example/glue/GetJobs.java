@@ -49,16 +49,16 @@ public class GetJobs {
     public static void getAllJobs(GlueClient glueClient) {
         try {
 
-        GetJobsRequest jobsRequest = GetJobsRequest.builder()
+            GetJobsRequest jobsRequest = GetJobsRequest.builder()
                 .maxResults(10)
                 .build();
 
-        GetJobsResponse jobsResponse = glueClient.getJobs(jobsRequest);
-        List<Job> jobs = jobsResponse.jobs();
-        for (Job job: jobs) {
-            System.out.println("Job name is : "+job.name());
-          }
-
+            GetJobsResponse jobsResponse = glueClient.getJobs(jobsRequest);
+            List<Job> jobs = jobsResponse.jobs();
+        
+            for (Job job: jobs) {
+                System.out.println("Job name is : "+job.name());
+            }
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
