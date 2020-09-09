@@ -1,11 +1,11 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: MIT-0
-// snippet-start:[dynamodb.dotnet35.GetLowProductStock]
+// snippet-start:[dynamodb.dotnet35.GetOrdersInDateRangeGSI]
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Amazon;
@@ -14,21 +14,34 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class GetLowProductStock
+    public class GetOrdersInDateRangeGSI
     {
-        // Get the products with fewer than minimum items in the warehouse
+        // Get the orders made in range from start to end
         // DynamoDB equivalent of:
-        //   select* from Products where Product_Quantity < '100'
-        static async Task<ScanResponse> GetLowStockAsync(IAmazonDynamoDB client, string table, string minimum)
+        //   select * from Orders where Order_Date between '2020-05-04 05:00:00' and '2020-08-13 09:00:00'
+        public static async Task<QueryResponse> GetOrdersInDateRangeAsync(IAmazonDynamoDB client, string table, string index, string start, string end)
         {
-            var response = await client.ScanAsync(new ScanRequest
+            // Convert start and end strings to longs
+            var StartDateTime = DateTime.ParseExact(start, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            var EndDateTime = DateTime.ParseExact(end, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+
+            TimeSpan startTimeSpan = StartDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+            TimeSpan endTimeSpan = EndDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+
+            var begin = ((long)startTimeSpan.TotalSeconds).ToString();
+            var finish = ((long)endTimeSpan.TotalSeconds).ToString();
+
+            var response = await client.QueryAsync(new QueryRequest
             {
                 TableName = table,
+                IndexName = index,
+                KeyConditionExpression = "Area = :v_area and Order_Date between :v_begin and :v_end",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-                    {":val", new AttributeValue { N = minimum }}
+                    {":v_area", new AttributeValue { S =  "Order" }},
+                    {":v_begin", new AttributeValue { N =  begin }},
+                    {":v_end", new AttributeValue { N = finish }}
                 },
-                FilterExpression = "Product_Quantity < :val",
-                ProjectionExpression = "Product_ID, Product_Description, Product_Quantity, Product_Cost"
+                ScanIndexForward = true
             });
 
             return response;
@@ -39,7 +52,9 @@ namespace DynamoDBCRUD
             var configfile = "../../../app.config";
             var region = "";
             var table = "";
-            string minimum = "";
+            var index = "";
+            var starttime = "";
+            var endtime = "";
 
             // Get default values from config file
             var efm = new ExeConfigurationFileMap
@@ -54,7 +69,9 @@ namespace DynamoDBCRUD
                 AppSettingsSection appSettings = configuration.AppSettings;
                 region = appSettings.Settings["Region"].Value;
                 table = appSettings.Settings["Table"].Value;
-                minimum = appSettings.Settings["Minimum"].Value;
+                index = appSettings.Settings["Index"].Value;
+                starttime = appSettings.Settings["StartTime"].Value;
+                endtime = appSettings.Settings["EndTime"].Value;
             }
             else
             {
@@ -62,17 +79,17 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            // Make sure we have a table, region, and minimum quantity
-            if ((region == "") || (table == "") || (minimum == ""))
+            // Make sure we have a table, region, start time and end time
+            if ((region == "") || (table == "") || (index == "") || (starttime == "") || (endtime == ""))
             {
-                Console.WriteLine("You must specify Region, Table, and Minimum values in " + configfile);
+                Console.WriteLine("You must specify Region, Table, Index, StartTime, and EndTime values in " + configfile);
                 return;
             }
 
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
 
-            var response = GetLowStockAsync(client, table, minimum);
+            var response = GetOrdersInDateRangeAsync(client, table, index, starttime, endtime);
 
             // To adjust date/time value
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -107,4 +124,4 @@ namespace DynamoDBCRUD
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.GetLowProductStock]
+// snippet-end:[dynamodb.dotnet35.GetOrdersInDateRangeGSI]

@@ -45,7 +45,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var configfile = "../../../app.config";
             var region = "";

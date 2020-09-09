@@ -14,7 +14,7 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class AddItems
+    public class AddItems
     {
         static void DebugPrint(bool debug, string s)
         {
@@ -23,37 +23,19 @@ namespace DynamoDBCRUD
                 Console.WriteLine(s);
             }
         }
-        static async Task<BatchWriteItemResponse> AddFromCSVAsync(bool debug, IAmazonDynamoDB client, string table, string filename, int index)
+        public static async Task<BatchWriteItemResponse> AddItemsAsync(bool debug, IAmazonDynamoDB client, string table, string[] inputs, int index)
         {
             var writeRequests = new List<WriteRequest>();
-
-            // filename is the name of the csv file that contains customer data
-            // Column1,...,ColumnN
-            // in lines 2...N
-            // Read the file and display it line by line.  
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(filename);
-
-            DebugPrint(debug, "Opened file " + filename);
-
-            // Get column names from the first line
-            string firstline = file.ReadLine();
-
-            string[] headers = firstline.Split(",");
+                        
+            string[] headers = inputs[0].Split(",");
             int numcolumns = headers.Length;
 
-            var lineNum = 2;
-            string line;
+           string line;
 
             // Read the rest of the file, line by line
-            while ((line = file.ReadLine()) != null)
+            for (int input = 1; input < inputs.Length; input++)
             {
-                // Batch only supports up to 25 items at a time
-                if (lineNum > 26)
-                {
-                    Console.WriteLine("Found more than 25 items to update");
-                    break;
-                }
+                line = inputs[input];
 
                 // Split line into columns
                 string[] values = line.Split(',');
@@ -61,7 +43,8 @@ namespace DynamoDBCRUD
                 // if we don't have the right number of parts, something's wrong
                 if (values.Length != numcolumns)
                 {
-                    Console.WriteLine("Did not have " + numcolumns.ToString() + " columns in line " + lineNum.ToString() + " of file " + filename);
+                    Console.WriteLine("Did not have " + numcolumns.ToString() + " columns in: ");
+                    Console.WriteLine(line);
                     return null;
                 }
 
@@ -106,15 +89,16 @@ namespace DynamoDBCRUD
                 writeRequests.Add(putRequest);
             }
 
-            var requestItems = new Dictionary<string, List<WriteRequest>>();
-
-            requestItems.Add(table, writeRequests);            
+            var requestItems = new Dictionary<string, List<WriteRequest>>
+            {
+                { table, writeRequests }
+            };
 
             var request = new BatchWriteItemRequest
             {
                 ReturnConsumedCapacity = "TOTAL",
                 RequestItems = requestItems
-            };                    
+            };
 
             var response = await client.BatchWriteItemAsync(request);
 
@@ -122,7 +106,8 @@ namespace DynamoDBCRUD
         }
         
 
-        static async Task Main(string[] args)
+        //static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             var configfile = "../../../app.config";
             var region = "";
@@ -195,9 +180,35 @@ namespace DynamoDBCRUD
 
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
-            var result = await AddFromCSVAsync(debug, client, table, filename, indexVal);
 
-            Console.WriteLine(result.HttpStatusCode);            
+            // Open the file
+            // filename is the name of the csv file that contains customer data
+            // Column1,...,ColumnN
+            // in lines 2...N
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file =
+                new System.IO.StreamReader(filename);
+
+            DebugPrint(debug, "Opened file " + filename);
+
+            // Store up to 25 at a time in an array
+            string[] inputs = new string[26];
+
+            // Get column names from the first line
+            string headerline = file.ReadLine();            
+
+            var line = "";
+            var input = 1;
+
+            while (((line = file.ReadLine()) != null) && (input < 26))
+            {
+                inputs[input] = line;
+                input++;
+            }
+            
+            AddItemsAsync(debug, client, table, inputs, indexVal).Wait();
+
+            Console.WriteLine("Done");            
         }
     }
 }

@@ -12,9 +12,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class GetItem
+    public class GetItem
     {
-        static async Task<QueryResponse> GetItemAsync(IAmazonDynamoDB client, string table, string id)
+        public static async Task<QueryResponse> GetItemAsync(IAmazonDynamoDB client, string table, string id)
         {
             var response = await client.QueryAsync(new QueryRequest
             {

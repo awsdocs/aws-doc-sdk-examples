@@ -1,6 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: MIT-0
-// snippet-start:[dynamodb.dotnet35.GetLowProductStock]
+// snippet-start:[dynamodb.dotnet35.GetLowProductStockGSI]
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,21 +14,27 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class GetLowProductStock
+    class GetLowProductStockGSI
     {
         // Get the products with fewer than minimum items in the warehouse
         // DynamoDB equivalent of:
         //   select* from Products where Product_Quantity < '100'
-        static async Task<ScanResponse> GetLowStockAsync(IAmazonDynamoDB client, string table, string minimum)
+        static async Task<QueryResponse> GetLowStockAsync(IAmazonDynamoDB client, string table, string index, string minimum)
         {
-            var response = await client.ScanAsync(new ScanRequest
+            /* Primary key:   Area (string)          = Product
+             * Secondary key: Product_Quantity (int) < minimum
+             */
+
+            var response = await client.QueryAsync(new QueryRequest
             {
                 TableName = table,
+                IndexName = index,
+                KeyConditionExpression = "Area = :v_area and Product_Quantity < :v_quantity",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-                    {":val", new AttributeValue { N = minimum }}
+                    {":v_area", new AttributeValue { S =  "Product" }},
+                    {":v_quantity", new AttributeValue { N =  minimum }}
                 },
-                FilterExpression = "Product_Quantity < :val",
-                ProjectionExpression = "Product_ID, Product_Description, Product_Quantity, Product_Cost"
+                ScanIndexForward = true
             });
 
             return response;
@@ -39,7 +45,8 @@ namespace DynamoDBCRUD
             var configfile = "../../../app.config";
             var region = "";
             var table = "";
-            string minimum = "";
+            var index = "";
+            string minimum = "";            
 
             // Get default values from config file
             var efm = new ExeConfigurationFileMap
@@ -54,6 +61,7 @@ namespace DynamoDBCRUD
                 AppSettingsSection appSettings = configuration.AppSettings;
                 region = appSettings.Settings["Region"].Value;
                 table = appSettings.Settings["Table"].Value;
+                index = appSettings.Settings["Index"].Value;
                 minimum = appSettings.Settings["Minimum"].Value;
             }
             else
@@ -63,16 +71,16 @@ namespace DynamoDBCRUD
             }
 
             // Make sure we have a table, region, and minimum quantity
-            if ((region == "") || (table == "") || (minimum == ""))
+            if ((region == "") || (table == "") || (index == "") || (minimum == ""))
             {
-                Console.WriteLine("You must specify Region, Table, and Minimum values in " + configfile);
+                Console.WriteLine("You must specify Region, Table, Index, and Minimum values in " + configfile);
                 return;
             }
 
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
 
-            var response = GetLowStockAsync(client, table, minimum);
+            var response = GetLowStockAsync(client, table, index, minimum);
 
             // To adjust date/time value
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -107,4 +115,4 @@ namespace DynamoDBCRUD
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.GetLowProductStock]
+// snippet-end:[dynamodb.dotnet35.GetLowProductStockGSI]

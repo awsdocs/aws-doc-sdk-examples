@@ -339,6 +339,42 @@ in *app.config*.
 If you previously ran **AddItems**,
 there should be 24 items in the table.
 
+## Managing indexes
+
+Global secondary indices give you the ability to treat a set of 
+Amazon DynamoDB table keys as if they were a separate table.
+
+### Creating an index
+
+Use the **CreateIndex** project to create an index.
+
+The default table name is defined as **Table**,
+and the default region is defined as **Region**
+in *app.config*.
+
+It requires the following command-line options:
+
+- ```-i``` *INDEX-NAME*, where *INDEX-NAME* is the name of the index
+- ```-m``` *MAIN-KEY*, where *MAIN-KEY* is the partition key of the index
+- ```-k``` *MAIN-KEY-TYPE*, where *MAIN-KEY-TYPE* is one of string or number
+- ```-s``` *SECONDARY-KEY*, where *SECONDARY-KEY* is the sort key of the index
+- ```-t``` *SECONDARY-KEY-TYPE*, where *SECONDARY-KEY-TYPE* is one of string or number
+
+To create a global secondary index (GSI) for the three queries we made in
+*A simple example*,
+execute the following commands:
+
+```
+CreateIndex.exe -i OrderDate       -m Area -k string -s Order_Date       -t number
+CreateIndex.exe -i ProductOrdered  -m Area -k string -s Order_Product    -t number
+CreateIndex.exe -i LowProduct      -m Area -k string -s Product_Quantity -t number
+```
+
+Note that you cannot execute these commands one right after another.
+You must wait until one GSI is created before you can attempt to create another GSI.
+We recommend you use the Amazon DynamoDB console to monitor the progress
+of creating a GSI to avoid errors.
+
 ## Reading data from a table
 
 You can read data from an Amazon DynamoDB table using a number of techniques.
@@ -365,19 +401,24 @@ you can retrieve information about items with an *ID* in the range from 0 to 23.
 
 ### Getting orders within a given date range
 
-The **GetOrdersInDateRange** project includes the following method to retrieve
-all orders for all customers within the date range from *start* to *end*.
+The **GetOrdersInDateRange** and **GetOrdersInDateRangeGSI** projects retrieve
+a list of all orders for all customers within the date range from *start* to *end*.
+The first project scans the table,
+the second uses a global secondary index (GSI) to query the table.
 
 The default table name is defined as **Table**,
 the default region is defined as **Region**,
 *start* is defined by **StartTime**,
 and *end* is defined by **EndTime**
 in *app.config*.
+In addition,
+the *app.config" file for the **GetLowProductStockGSI** 
+project includes **Index**, which defines the GSI.
 
 Note the required format of the dates: **yyyy-MM-dd HH:mm:ss**.
 
 If you previously ran **AddItems**,
-this should return three items:
+both projects should return three items:
 
 ```
 Order_Status: delivered
@@ -401,16 +442,21 @@ Order_Date: Saturday, July 4, 2020
 
 ### Getting orders for a given product
 
-The **GetOrdersForProduct** project includes the following method to retrieve
-all orders of the product with product ID *productId* for all customers.
+The **GetOrdersForProduct** and **GetOrdersForProductGSI** projects retrieve
+a list of all orders of the product with product ID *productId* for all customers.
+The first project scans the table,
+the second uses a global secondary index (GSI) to query the table.
 
 The default table name is defined as **Table**,
 the default region is defined as **Region**,
 and *productId* is defined by **ProductID**
 in *app.config*.
+In addition,
+the *app.config" file for the **GetLowProductStockGSI** 
+project includes **Index**, which defines the GSI.
 
 If you previously ran **AddItems**,
-this should return two items:
+both projects should return two items:
 
 ```
 Order_Status: backordered
@@ -428,16 +474,22 @@ Order_Date: Wednesday, April 1, 2020
 
 ### Getting products with fewer than a given number in stock
 
-The **GetLowProductStock** project includes the following method to retrieve
+The **GetLowProductStock** and **GetLowProductStockGSI** 
+projects retrieve a list of 
 all products with fewer than *minimum* items in stock.
+The first project scans the table,
+the second uses a global secondary index (GSI) to query the table.
 
 The default table name is defined as **Table**,
 the default region is defined as **Region**,
 and *minimum* is defined by **Minimum**
 in *app.config*.
+In addition,
+the *app.config" file for the **GetLowProductStockGSI** 
+project includes **Index**, which defines the GSI.
 
 If you previously ran **AddItems**,
-this should return one item:
+both projects should return one item:
 
 ```
 Product_Quantity: 45
@@ -445,43 +497,6 @@ Product_Description: 2'x50' plastic sheeting
 Product_Cost: 450
 Product_ID: 4
 ```
-
-## Managing indexes
-
-Global secondary indices give you the ability to treat a set of 
-Amazon DynamoDB table keys as if they were a separate table.
-
-### Creating an index
-
-Use the **CreateIndex** project to create an index.
-
-The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
-
-It requires the following command-line options:
-
-- ```-i``` *INDEX-NAME*, where *INDEX-NAME* is the name of the index
-- ```-m``` *MAIN-KEY*, where *MAIN-KEY* is the partition key of the index
-- ```-k``` *MAIN-KEY-TYPE*, where *MAIN-KEY-TYPE* is one of string or number
-- ```-s``` *SECONDARY-KEY*, where *SECONDARY-KEY* is the sort key of the index
-- ```-t``` *SECONDARY-KEY-TYPE*, where *SECONDARY-KEY-TYPE* is one of string or number
-
-To create a global secondary index (GSI) for customers, orders, and products,
-execute the following commands, 
-where the **-m** flag defines the main (partition key) value 
-and the **-s** flag defines the secondary (sort key) value:
-
-```
-CreateIndex.exe -i Customers -m Customer_ID -k number -s Customer_Email   -t string
-CreateIndex.exe -i Orders    -m Order_ID    -k number -s Order_Date       -t number
-CreateIndex.exe -i Products  -m Product_ID  -k number -s Product_Quantity -t number
-```
-
-Note that you cannot execute these commands one right after another.
-You must wait until one GSI is created before you can attempt to create another GSI.
-We recommend you use the Amazon DynamoDB console to monitor the progress
-of creating a GSI to avoid errors.
 
 ## Modifying a table item
 
