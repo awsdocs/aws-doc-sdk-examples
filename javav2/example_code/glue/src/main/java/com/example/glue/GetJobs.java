@@ -23,7 +23,7 @@
 
 package com.example.glue;
 
-//snippet-start:[glue.java2.get_jobs.main]
+//snippet-start:[glue.java2.get_jobs.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetJobsRequest;
@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.glue.model.GetJobsResponse;
 import software.amazon.awssdk.services.glue.model.GlueException;
 import software.amazon.awssdk.services.glue.model.Job;
 import java.util.List;
-//snippet-end:[glue.java2.get_jobs.main]
+//snippet-end:[glue.java2.get_jobs.import]
 
 public class GetJobs {
 
@@ -42,6 +42,11 @@ public class GetJobs {
                 .region(region)
                 .build();
 
+        getAllJobs(glueClient);
+    }
+
+    //snippet-start:[glue.java2.get_jobs.main]
+    public static void getAllJobs(GlueClient glueClient) {
         try {
 
         GetJobsRequest jobsRequest = GetJobsRequest.builder()
@@ -59,4 +64,5 @@ public class GetJobs {
             System.exit(1);
         }
     }
+    //snippet-end:[glue.java2.get_jobs.main]
   }
