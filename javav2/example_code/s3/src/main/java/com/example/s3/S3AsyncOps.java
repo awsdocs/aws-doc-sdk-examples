@@ -52,9 +52,9 @@ public class S3AsyncOps {
              System.exit(1);
          }
                 
-        String bucketName = "buckettestjune20"; // args{0];
-        String key = "book99.pdf"; // args{1];
-        String path = "C:\\AWS\\book99.pdf"; //args[2];
+        String bucketName = args{0];
+        String key =  args{1];
+        String path = args[2];
 
         Region region = Region.US_WEST_2;
         S3AsyncClient client = S3AsyncClient.builder()
