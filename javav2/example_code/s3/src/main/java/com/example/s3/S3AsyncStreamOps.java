@@ -25,6 +25,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.async_stream_ops.import]
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -51,12 +52,18 @@ public class S3AsyncStreamOps {
          String objectKey = args[1];
          String path = args[2];
 
-        S3AsyncClient client = S3AsyncClient.create();
-        final CompletableFuture<GetObjectResponse> futureGet = client.getObject(
-                GetObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(objectKey)
-                        .build(),
+        Region region = Region.US_WEST_2;
+        S3AsyncClient client = S3AsyncClient.builder()
+                .region(region)
+                .build();
+          
+       // Create a GetObjectRequest instance
+        GetObjectRequest objectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(objectKey)
+                .build();
+
+         CompletableFuture<GetObjectResponse> futureGet = client.getObject(objectRequest,
                 AsyncResponseTransformer.toFile(Paths.get(path)));
         futureGet.whenComplete((resp, err) -> {
             try {
@@ -71,7 +78,6 @@ public class S3AsyncStreamOps {
                 client.close();
             }
         });
-
         futureGet.join();
     }
 }
