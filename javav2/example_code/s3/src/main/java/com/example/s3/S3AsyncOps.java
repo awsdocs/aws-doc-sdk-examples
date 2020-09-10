@@ -52,8 +52,8 @@ public class S3AsyncOps {
              System.exit(1);
          }
                 
-        String bucketName = args{0];
-        String key =  args{1];
+        String bucketName = args[0];
+        String key = args[1];
         String path = args[2];
 
         Region region = Region.US_WEST_2;
