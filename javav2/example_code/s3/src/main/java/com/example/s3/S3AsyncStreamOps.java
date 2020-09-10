@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
 // snippet-start:[s3.java2.async_stream_ops.main]
 public class S3AsyncStreamOps {
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
@@ -48,23 +48,29 @@ public class S3AsyncStreamOps {
                 "Example:\n" +
                 "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
 
-         String bucketName = args[0];
-         String objectKey = args[1];
-         String path = args[2];
+        if (args.length < 3) {
+            System.out.println(USAGE);
+            System.exit(1);
+         }
+
+        String bucketName = args[0];
+        String objectKey =  args[1];
+        String path = args[2];
 
         Region region = Region.US_WEST_2;
         S3AsyncClient client = S3AsyncClient.builder()
                 .region(region)
                 .build();
-          
-       // Create a GetObjectRequest instance
+
+        // Create a GetObjectRequest instance
         GetObjectRequest objectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
                 .key(objectKey)
                 .build();
 
-         CompletableFuture<GetObjectResponse> futureGet = client.getObject(objectRequest,
+        CompletableFuture<GetObjectResponse> futureGet = client.getObject(objectRequest,
                 AsyncResponseTransformer.toFile(Paths.get(path)));
+
         futureGet.whenComplete((resp, err) -> {
             try {
                 if (resp != null) {
