@@ -74,7 +74,7 @@ public class S3AsyncStreamOps {
         futureGet.whenComplete((resp, err) -> {
             try {
                 if (resp != null) {
-                    System.out.println(resp);
+                      System.out.println("Object downloaded. Details: " + resp);
                 } else {
                     // Handle error
                     err.printStackTrace();
