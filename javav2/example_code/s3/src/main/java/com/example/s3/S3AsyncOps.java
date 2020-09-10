@@ -73,7 +73,7 @@ public class S3AsyncOps {
         future.whenComplete((resp, err) -> {
             try {
                 if (resp != null) {
-                    System.out.println("my response: " + resp);
+                    System.out.println("Object uploaded. Details: " + resp);
                 } else {
                     // Handle error
                     err.printStackTrace();
