@@ -43,8 +43,8 @@ public class S3AsyncStreamOps {
                 "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
                 "Where:\n" +
                 "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
-                "    objectname - the name pf the object object (i.e., book.pdf)\n" +
-                "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
+                "    objectname - the name of the object (i.e., book.pdf)\n" +
+                "    path - the local path where the file is written (i.e., C:\\AWS\\book.pdf)\n" +
                 "Example:\n" +
                 "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
 
