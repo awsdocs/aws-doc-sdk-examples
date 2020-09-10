@@ -1,10 +1,10 @@
 //snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to use the streaming operations of an S3 asynchronous client]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
-//snippet-service:[s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2020-02-06]
-//snippet-sourceauthor:[soo-aws]
+//snippet-sourcedate:[2/6/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
  * Copyright 2011-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
