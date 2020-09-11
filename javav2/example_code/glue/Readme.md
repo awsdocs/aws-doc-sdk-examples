@@ -23,7 +23,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the AWS Glue Java files
 
-You can test the Java code examples for AWS Glue by running a test file named **GlueServiceIntgrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS Glue by running a test file named **GlueServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
