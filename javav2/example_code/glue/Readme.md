@@ -23,7 +23,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the AWS Glue Java files
 
-You can test the Java code examples for AWS Glue by running a test file named **GlueServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS Glue by running a test file named **GlueServiceTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -36,9 +36,9 @@ Before running the AWS Glue JUnit tests, you must define values in the **config.
 
 Define these values to successfully run the JUnit tests:
 
-- **IAM** - The ARN of the IAM role that has AWS Glue and S3 permissions.   
-- **s3Path** - The Amazon Simple Storage Service (Amazon S3) target that contains data (i.e., CSV data).
-- **cron** - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).
+- **IAM** - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has AWS Glue and Amazon Simple Storage Service (Amazon S3) permissions.   
+- **s3Path** - The Amazon S3 target that contains data (for example, CSV data).
+- **cron** - A cron expression used to specify the schedule (for example, cron(15 12 * * ? *).
 - **crawlerName** - The crawler name used in various tests.
 - **existingCrawlerName** - An existing crawler name that is deleted.
 - **databaseName** - The name of the database used in the **CreateCrawler** test.
@@ -47,7 +47,7 @@ Define these values to successfully run the JUnit tests:
 - **text** - A string used for a text search and used in the **SearchTables** test.
 
 
-**Note**: To set up the CSV data and other requirements needed for the unit tests, follow [Getting Started Using AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/getting-started.html).
+**Note:** To set up the CSV data and other requirements needed for the unit tests, follow [Getting started using AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/getting-started.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -59,7 +59,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running GlueServiceIntgrationTest
+	[INFO] Running GlueServiceTest
 	Test 1 passed
 	Test 2 passed
 	...
@@ -86,5 +86,5 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] Total time:  19.038 s
 	[INFO] Finished at: 2020-02-10T14:41:51-05:00
 	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project PersonalizeServiceIntegrationTest:  There are test failures.
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project GlueServiceTest:  There are test failures.
 	[ERROR];

@@ -42,13 +42,13 @@ public class GetDatabase {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the database.  \n" +
                 "\n" +
-                "Ex: GetDatabase <databaseName>\n";
+                "Example: GetDatabase <databaseName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-             
+
         String databaseName = args[0];
 
         Region region = Region.US_EAST_1;

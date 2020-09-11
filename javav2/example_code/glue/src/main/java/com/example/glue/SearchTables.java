@@ -43,7 +43,7 @@ public class SearchTables {
                 "Usage:\n" +
                 "    SearchTables <text>\n\n" +
                 "Where:\n" +
-                "    text - a string used for a text search. \n";
+                "    text - A string used for a text search. \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

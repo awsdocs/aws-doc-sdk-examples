@@ -42,8 +42,8 @@ public class GetTable {
                 "Usage:\n" +
                 "    GetTable <dbName><tableName>\n\n" +
                 "Where:\n" +
-                "    dbName - the database name \n" +
-                "    tableName   - the name of the table \n";
+                "    dbName - The database name. \n" +
+                "    tableName - The name of the table. \n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -74,14 +74,14 @@ public class GetTable {
             GetTableResponse tableResponse = glueClient.getTable(tableRequest);
             Instant createDate = tableResponse.table().createTime();
 
-            // Convert the Instant to readable date
+            // Convert the Instant to a readable date
             DateTimeFormatter formatter =
                     DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                             .withLocale( Locale.US)
                             .withZone( ZoneId.systemDefault() );
 
             formatter.format( createDate );
-            System.out.println("The create date of the table is " + createDate );
+            System.out.println("Create date of the table is " + createDate );
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -37,7 +37,7 @@ public class DeleteCrawler {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the crawler to delete.  \n" +
                 "\n" +
-                "Ex: DeleteCrawler <crawlerName>\n";
+                "Example: DeleteCrawler <crawlerName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -62,7 +62,7 @@ public class DeleteCrawler {
                     .name(crawlerName)
                     .build();
 
-            // Delete the Crawler
+            // Delete the crawler
             glueClient.deleteCrawler(deleteCrawlerRequest);
             System.out.println(crawlerName +" was deleted");
         } catch (GlueException e) {
