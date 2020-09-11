@@ -55,9 +55,9 @@ public class GetJobs {
 
             GetJobsResponse jobsResponse = glueClient.getJobs(jobsRequest);
             List<Job> jobs = jobsResponse.jobs();
-        
+
             for (Job job: jobs) {
-                System.out.println("Job name is : "+job.name());
+                System.out.println("The job name is : "+job.name());
             }
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

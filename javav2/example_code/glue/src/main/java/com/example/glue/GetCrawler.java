@@ -43,7 +43,7 @@ public class GetCrawler {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the crawler.  \n" +
                 "\n" +
-                "Ex: GetCrawler <crawlerName>\n";
+                "Example: GetCrawler <crawlerName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -78,7 +78,7 @@ public class GetCrawler {
                           .withZone( ZoneId.systemDefault() );
 
             formatter.format( createDate );
-            System.out.println("The create date of the Crawler is " + createDate );
+            System.out.println("The create date of the crawler is " + createDate );
 
       } catch (GlueException e) {
           System.err.println(e.awsErrorDetails().errorMessage());

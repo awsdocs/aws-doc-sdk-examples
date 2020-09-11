@@ -42,11 +42,11 @@ public class CreateCrawler {
                 "Usage:\n" +
                 "    CreateCrawler <IAM><s3Path><cron><dbName><crawlerName>\n\n" +
                 "Where:\n" +
-                "    IAM - the ARN of the IAM role that has AWS Glue and S3 permissions \n" +
-                "    s3Path   - the Amazon Simple Storage Service (Amazon S3) target that contains data (i.e., CSV data)\n" +
-                "    cron   - a cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *))\n" +
-                "    dbName - the database name \n" +
-                "    crawlerName   - the name of the crawler \n" ;
+                "    IAM - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has AWS Glue and Amazon Simple Storage Service (Amazon S3) permissions. \n" +
+                "    s3Path - The Amazon S3 target that contains data (for example, CSV data).\n" +
+                "    cron - A cron expression used to specify the schedule (for example, cron(15 12 * * ? *)).\n" +
+                "    dbName - The database name \n" +
+                "    crawlerName - The name of the crawler. \n" ;
 
         if (args.length < 5) {
             System.out.println(USAGE);
@@ -77,7 +77,7 @@ public class CreateCrawler {
 
       try {
 
-        // Create a S3Target that contains data
+        // Create an S3Target that contains data
         S3Target s3Target = S3Target.builder()
                 .path(s3Path)
                 .build();

@@ -57,7 +57,7 @@ public class GetDatabases {
             List<Database> databases = response.databaseList();
 
             for (Database database: databases) {
-                System.out.println("The Database name is : "+database.name());
+                System.out.println("The database name is : "+database.name());
             }
 
         } catch (GlueException e) {

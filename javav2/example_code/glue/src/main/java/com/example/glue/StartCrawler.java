@@ -38,7 +38,7 @@ public class StartCrawler {
                 "Usage:\n" +
                 "    StartCrawler <crawlerName>\n\n" +
                 "Where:\n" +
-                "    crawlerName - the name of the crawler \n";
+                "    crawlerName - The name of the crawler. \n";
 
         if (args.length < 1) {
              System.out.println(USAGE);

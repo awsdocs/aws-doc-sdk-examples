@@ -39,8 +39,8 @@ public class GetJobRun {
                 "Usage:\n" +
                 "    GetJobRun <jobName><runId>\n\n" +
                 "Where:\n" +
-                "    jobName - the name of the job \n" +
-                "    runId   - the run id value \n";
+                "    jobName - The name of the job. \n" +
+                "    runId   - The run ID value. \n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
