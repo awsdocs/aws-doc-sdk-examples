@@ -34,12 +34,16 @@ const s3 = new S3(REGION);
 const run = async () => {
   try {
     const data = await s3.send(new GetBucketCorsCommand(bucketParams));
-    console.log("Success", JSON.stringify(data.CORSRules));
+    // console.log("Success", JSON.stringify(data.CORSRules));
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.cors.getBucketCorsV3]
-//for unit testing only
-// module.exports = {run};
+
+export {
+  run,
+  bucketParams
+}
+

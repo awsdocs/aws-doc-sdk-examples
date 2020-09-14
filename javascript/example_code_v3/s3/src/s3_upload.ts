@@ -32,21 +32,13 @@ const fs = require("fs");
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-const uploadParams = { Bucket: "BUCKET_NAME", Key: "KEY", Body: "BODY" }; //BUCKET_NAME, KEY (the name of the selected file),
-// BODY (the contents of the uploaded file - leave blank/remove to retain contents of original file.)
-const file = "FILE_NAME"; //FILE_NAME (the name of the file to upload (if you don't specify KEY))
-
-// Create S3 service object
+const uploadParams = { Bucket: "BUCKET_NAME", Key: "FILE_NAME", Body: "OBJECT_TO_UPLOAD" }; //BUCKET_NAME, KEY (the name of the selected file),
 const s3 = new S3(REGION);
 
 // call S3 to retrieve upload file to specified bucket
 const run = async () => {
   // Configure the file stream and obtain the upload parameters
-  const fileStream = fs.createReadStream(file);
-  fileStream.on("error", function (err) {
-    console.log("File Error", err);
-  });
-  uploadParams.Key = path.basename(file);
+
   // call S3 to retrieve upload file to specified bucket
   try {
     const data = await s3.putObject(uploadParams);
@@ -57,5 +49,7 @@ const run = async () => {
 };
 run();
 // snippet-end:[s3.JavaScript.buckets.uploadV3]
-//for unit tests only
-// module.exports = {run};
+
+export {
+  run
+}

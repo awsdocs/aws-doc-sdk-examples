@@ -36,13 +36,15 @@ const s3 = new S3(REGION);
 
 const run = async () => {
   try {
-    const data = await s3.send(new GetBucketAclCommand(bucketParams));
-    console.log("Success", data.Grants);
+    await s3.send(new GetBucketAclCommand(bucketParams));
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.perms.getBucketAclV3]
-//for unit tests only
-// module.exports = {run};
+
+export {
+  run,
+  bucketParams
+}

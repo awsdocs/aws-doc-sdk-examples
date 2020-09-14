@@ -36,12 +36,16 @@ const s3 = new S3(REGION);
 const run = async () => {
   try {
     const data = await s3.createBucket(bucketParams);
-    console.log("Success", data.$metadata.httpHeaders.location);
+    console.log("Success");
   } catch (err) {
     console.log("Error", err);
   }
 };
+
 run();
 // snippet-end:[s3.JavaScript.buckets.createBucketV3]
-//for unit tests only
-// module.exports = {run};
+
+export {
+   run,
+   bucketParams
+}

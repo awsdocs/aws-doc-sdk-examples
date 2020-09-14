@@ -37,15 +37,15 @@ const s3 = new S3(REGION);
 // call S3 to retrieve upload file to specified bucket
 const run = async () => {
   try {
-    const data = await s3.send(new PutObjectCommand(uploadParams));
-    console.log(
-      "Successfully uploaded to " + uploadParams.Bucket + "/" + uploadParams.Key
-    );
+    await s3.send(new PutObjectCommand(uploadParams));
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.buckets.upload_putcommandV3]
-//for unit tests only
-// module.exports = {run};
+
+export {
+  run
+}
+

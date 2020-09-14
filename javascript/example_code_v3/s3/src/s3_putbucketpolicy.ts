@@ -71,4 +71,9 @@ const run = async () => {
 };
 run();
 // snippet-end:[s3.JavaScript.policy.putBucketPolicyV3]
-// module.exports = {run}; //for unit tests only
+
+export {
+  run,
+  bucketParams
+}
+
