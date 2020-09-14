@@ -32,28 +32,28 @@ const bucketParams = { Bucket: "BUCKET_NAME" };
 const s3 = new S3(REGION);
 
 async function run() {
-    // Declare truncated as a flag that we will base our while loop on
-    var truncated = true;
-    // Declare a variable that we will assign the key of the last element in the response to
-    var pageMarker;
-    // While loop that runs until response.truncated is false
-    while(truncated) {
-        try {
-            const response = await s3.listObjects(bucketParams);
-            response.Contents.forEach(item => {
-                console.log(item.Key);
-            });
-            // Log the Key of every item in the response to standard output
-            truncated = response.IsTruncated;
-            // If 'truncated' is true, assign the key of the final element in the response to our variable 'pageMarker'
-            if (truncated) {
-                pageMarker = response.Contents.slice(-1)[0].Key;
-            }
-            // At end of the list, response.truncated is false and our function exits the while loop.
-        } catch(err) {
-            console.log('Error', err)
-        }
+  // Declare truncated as a flag that we will base our while loop on
+  var truncated = true;
+  // Declare a variable that we will assign the key of the last element in the response to
+  var pageMarker;
+  // While loop that runs until response.truncated is false
+  while (truncated) {
+    try {
+      const response = await s3.listObjects(bucketParams);
+      response.Contents.forEach((item) => {
+        console.log(item.Key);
+      });
+      // Log the Key of every item in the response to standard output
+      truncated = response.IsTruncated;
+      // If 'truncated' is true, assign the key of the final element in the response to our variable 'pageMarker'
+      if (truncated) {
+        pageMarker = response.Contents.slice(-1)[0].Key;
+      }
+      // At end of the list, response.truncated is false and our function exits the while loop.
+    } catch (err) {
+      console.log("Error", err);
     }
+  }
 }
 run();
 // snippet-end:[s3.JavaScript.buckets.listManyObjectsV3]

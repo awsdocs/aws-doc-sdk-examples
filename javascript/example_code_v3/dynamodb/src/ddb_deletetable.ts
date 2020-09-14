@@ -31,7 +31,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-  TableName: "TABLE_NAME"
+  TableName: "TABLE_NAME",
 };
 
 // Create DynamoDB service object
@@ -42,9 +42,9 @@ const run = async () => {
     const data = await dbclient.send(new DeleteTableCommand(params));
     console.log("Success, table deleted", data);
   } catch (err) {
-    if (err && err.code === 'ResourceNotFoundException') {
+    if (err && err.code === "ResourceNotFoundException") {
       console.log("Error: Table not found");
-    } else if (err && err.code === 'ResourceInUseException') {
+    } else if (err && err.code === "ResourceInUseException") {
       console.log("Error: Table in use");
     }
   }

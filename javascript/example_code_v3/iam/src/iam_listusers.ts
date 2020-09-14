@@ -20,7 +20,7 @@ ts-node iam_listusers.ts
 // snippet-start:[iam.JavaScript.users.listUsersV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, ListUsersCommand } = require ("@aws-sdk/client-iam");
+const { IAMClient, ListUsersCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

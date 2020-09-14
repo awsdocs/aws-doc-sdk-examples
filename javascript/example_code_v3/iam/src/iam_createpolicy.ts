@@ -21,7 +21,7 @@ ts-node iam_createpolicy.ts
 // snippet-start:[iam.JavaScript.policies.createPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, CreatePolicyCommand } = require ("@aws-sdk/client-iam");
+const { IAMClient, CreatePolicyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

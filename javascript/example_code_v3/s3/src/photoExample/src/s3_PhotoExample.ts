@@ -55,7 +55,7 @@ window.getHTML = getHtml;
 const listAlbums = async () => {
   try {
     const data = await s3.send(
-        new ListObjectsCommand({ Delimiter: "/", Bucket: albumBucketName })
+      new ListObjectsCommand({ Delimiter: "/", Bucket: albumBucketName })
     );
 
     if (data.CommonPrefixes === undefined) {
@@ -80,11 +80,11 @@ const listAlbums = async () => {
         ]);
       });
       var message = albums.length
-          ? getHtml([
+        ? getHtml([
             "<p>Click an album name to view it.</p>",
             "<p>Click the X to delete the album.</p>",
           ])
-          : "<p>You do not have any albums. You need to create an album";
+        : "<p>You do not have any albums. You need to create an album";
       const htmlTemplate = [
         "<h2>Albums</h2>",
         message,
@@ -141,10 +141,10 @@ const viewAlbum = async (albumName) => {
   const albumPhotosKey = encodeURIComponent(albumName) + "/";
   try {
     const data = await s3.send(
-        new ListObjectsCommand({
-          Prefix: albumPhotosKey,
-          Bucket: albumBucketName,
-        })
+      new ListObjectsCommand({
+        Prefix: albumPhotosKey,
+        Bucket: albumBucketName,
+      })
     );
     if (data.Contents.length === 1) {
       var htmlTemplate = [
@@ -173,10 +173,10 @@ const viewAlbum = async (albumName) => {
           "</div>",
           "<div>",
           "<span onclick=\"deletePhoto('" +
-          albumName +
-          "','" +
-          photoKey +
-          "')\">",
+            albumName +
+            "','" +
+            photoKey +
+            "')\">",
           "X",
           "</span>",
           "<span>",
@@ -187,8 +187,8 @@ const viewAlbum = async (albumName) => {
         ]);
       });
       var message = photos.length
-          ? "<p>Click  the X to delete the photo</p>"
-          : "<p>You don't have any photos in this album. You need to add photos.</p>";
+        ? "<p>Click  the X to delete the photo</p>"
+        : "<p>You don't have any photos in this album. You need to add photos.</p>";
       const htmlTemplate = [
         "<h2>",
         "Album: " + albumName,
@@ -224,11 +224,11 @@ const addPhoto = async (albumName) => {
   try {
     const albumPhotosKey = encodeURIComponent(albumName) + "/";
     const data = await s3.send(
-        new ListObjectsCommand({
-          Prefix: albumPhotosKey,
-          Bucket: albumBucketName,
-          ACL: "public-read",
-        })
+      new ListObjectsCommand({
+        Prefix: albumPhotosKey,
+        Bucket: albumBucketName,
+        ACL: "public-read",
+      })
     );
     const file = files[0];
     const fileName = file.name;
@@ -237,7 +237,7 @@ const addPhoto = async (albumName) => {
       Bucket: albumBucketName,
       Key: photoKey,
       Body: file,
-      ACL: "public-read"
+      ACL: "public-read",
     };
     try {
       const data = await s3.putObject(uploadParams);
@@ -307,9 +307,9 @@ window.deleteAlbum = deleteAlbum;
 // snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
 // snippet-end:[s3.JavaScript.photoAlbumExample.completeV3]
 //for units tests only
-module.exports = {listAlbums};  //for unit tests only
-module.exports = {createAlbum};
-module.exports = {viewAlbum};
-module.exports = {addPhoto};
-module.exports = {deletePhoto};
-module.exports = {deleteAlbum};
+module.exports = { listAlbums }; //for unit tests only
+module.exports = { createAlbum };
+module.exports = { viewAlbum };
+module.exports = { addPhoto };
+module.exports = { deletePhoto };
+module.exports = { deleteAlbum };

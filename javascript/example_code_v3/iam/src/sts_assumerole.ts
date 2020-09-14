@@ -24,7 +24,7 @@ const {
   STSClient,
   AssumeRoleCommand,
   GetCallerIdentityCommand,
-}  = require ("@aws-sdk/client-sts");
+} = require("@aws-sdk/client-sts");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

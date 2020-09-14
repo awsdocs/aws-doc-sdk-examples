@@ -21,7 +21,7 @@ ts-node iam_updateaccesskey.ts
 // snippet-start:[iam.JavaScript.keys.updateAccessKeyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, UpdateAccessKeyCommand } = require ("@aws-sdk/client-iam");
+const { IAMClient, UpdateAccessKeyCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

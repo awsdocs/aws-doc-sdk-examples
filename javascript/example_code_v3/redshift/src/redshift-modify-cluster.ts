@@ -23,30 +23,28 @@ ts-node redshift-describe-clusters.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-    Redshift,
-    ModifyClusterCommand
+  Redshift,
+  ModifyClusterCommand,
 } = require("@aws-sdk/client-redshift-node");
 
 // Set the AWS Region
 const REGION = "REGION";
 
 params = {
-    ClusterIdentifier: "CLUSTER_NAME",
-    MasterUserPassword: "NEW_MASTER_USER_PASSWORD"
+  ClusterIdentifier: "CLUSTER_NAME",
+  MasterUserPassword: "NEW_MASTER_USER_PASSWORD",
 };
 
 // Create an Amazon Redshift client service object
 const redshift = new Redshift(REGION);
 
 const run = async () => {
-    try {
-        const data = await redshift.send(new ModifyClusterCommand(params));
-        console.log(data.Cluster.ClusterIdentifier + ' was modified.');
-
-    }
-    catch(err){
-        console.log("Error", err);
-    }
+  try {
+    const data = await redshift.send(new ModifyClusterCommand(params));
+    console.log(data.Cluster.ClusterIdentifier + " was modified.");
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[redshift.javascript.redshift-describe-clustersV3]

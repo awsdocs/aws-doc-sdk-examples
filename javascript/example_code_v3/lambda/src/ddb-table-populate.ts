@@ -131,7 +131,7 @@ const run = async () => {
     Item: { slotPosition: { N: "15" }, imageFile: { S: "club_j.png" } },
   };
   await post(params);
-}
+};
 run();
 
 const post = async (params) => {
@@ -141,7 +141,6 @@ const post = async (params) => {
   } catch (err) {
     console.log("Error", err);
   }
-}
+};
 // snippet-end:[lambda.JavaScript.tutorial.PopulateTableV3]
 // module.exports = {run};  //for unit tests only
-

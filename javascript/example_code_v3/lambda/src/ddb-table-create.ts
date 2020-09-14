@@ -20,7 +20,10 @@ ts-node ddb-table-create.ts
 // snippet-start:[lambda.JavaScript.tutorial.CreateTableV3]
 
 // Load the required clients and packages
-const { DynamoDBClient, CreateTableCommand } = require('@aws-sdk/client-dynamodb');
+const {
+  DynamoDBClient,
+  CreateTableCommand,
+} = require("@aws-sdk/client-dynamodb");
 
 //Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -32,33 +35,33 @@ const ddb = new DynamoDBClient(REGION);
 var tableParams = {
   AttributeDefinitions: [
     {
-      AttributeName: 'slotPosition',
-      AttributeType: 'N'
-    }
+      AttributeName: "slotPosition",
+      AttributeType: "N",
+    },
   ],
   KeySchema: [
     {
-      AttributeName: 'slotPosition',
-      KeyType: 'HASH'
-    }
+      AttributeName: "slotPosition",
+      KeyType: "HASH",
+    },
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 5,
-    WriteCapacityUnits: 5
+    WriteCapacityUnits: 5,
   },
 
   TableName: "TABLE_NAME", //TABLE_NAME
   StreamSpecification: {
-    StreamEnabled: false
-  }
+    StreamEnabled: false,
+  },
 };
 
 const run = async () => {
   try {
     const data = await ddb.send(new CreateTableCommand(tableParams));
-    console.log('Success', data);
-  } catch(err) {
-    console.log('Error', err);
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
   }
 };
 

@@ -31,21 +31,21 @@ const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
-    Token: 'TOKEN', // Required. Token sent to the endpoint by an earlier Subscribe action. */
-    TopicArn: 'TOPIC_ARN', // Required
-    AuthenticateOnUnsubscribe: 'true' // 'true' or 'false'
+  Token: "TOKEN", // Required. Token sent to the endpoint by an earlier Subscribe action. */
+  TopicArn: "TOPIC_ARN", // Required
+  AuthenticateOnUnsubscribe: "true", // 'true' or 'false'
 };
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new ConfirmSubscriptionCommand(params));
-        console.log("Success", data.SubscriptionArn);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new ConfirmSubscriptionCommand(params));
+    console.log("Success", data.SubscriptionArn);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.subscriptions.confirmSubscriptionV3]

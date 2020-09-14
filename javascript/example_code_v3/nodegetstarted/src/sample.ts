@@ -28,31 +28,29 @@ const REGION = "eu-west-1"; // e.g., "us-east-1"
 
 // Set the bucket parameters
 const bucketName = "BUCKET_NAME";
-const bucketParams= {Bucket: bucketName};
+const bucketParams = { Bucket: bucketName };
 
 // Create name for uploaded object key
-const keyName = 'hello_world.txt';
-const objectParams = {Bucket: bucketName, Key: keyName, Body: 'Hello World!'};
+const keyName = "hello_world.txt";
+const objectParams = { Bucket: bucketName, Key: keyName, Body: "Hello World!" };
 
 // Create an S3 client service object
 const s3 = new S3(REGION);
 
-const run = async ()=> {
-    // Create S3 bucket
-    try{
+const run = async () => {
+  // Create S3 bucket
+  try {
     const data = await s3.createBucket(bucketParams);
-    console.log('Success. Bucket created.');
-    }
-    catch(err){
-        console.log('Error', err);
-    }
-   try{
-        const results = await s3.send(new PutObjectCommand(objectParams));
-        console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
-    }
-    catch(err){
-        console.log('Error', err);
-    }
+    console.log("Success. Bucket created.");
+  } catch (err) {
+    console.log("Error", err);
+  }
+  try {
+    const results = await s3.send(new PutObjectCommand(objectParams));
+    console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[GettingStarted.JavaScript.NodeJS.sampleV3]

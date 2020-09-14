@@ -22,7 +22,7 @@ ts-node iam_listservercerts.ts
 const {
   IAMClient,
   ListServerCertificatesCommand,
-} = require ("@aws-sdk/client-iam");
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -18,35 +18,34 @@ Inputs (replace in code):
 For more information about these and additional parameters, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_DescribeClusters.html.
 
 Running the code:
-node redshift-describe-clusters.ts
+ts-node redshift-describe-clusters.ts
 */
 
 // snippet-start:[redshift.javascript.redshift-describe-clustersV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-    Redshift,
-    DescribeClustersCommand
+  Redshift,
+  DescribeClustersCommand,
 } = require("@aws-sdk/client-redshift-node");
 
 // Set the AWS Region
 const REGION = "REGION";
 
 params = {
-    ClusterIdentifier: "CLUSTER_NAME"
+  ClusterIdentifier: "CLUSTER_NAME",
 };
 
 // Create an Amazon Redshift client service object
 const redshift = new Redshift(REGION);
 
 const run = async () => {
-    try {
-        const data = await redshift.send(new DescribeClustersCommand(params));
-        console.log(data);
-    }
-    catch(err){
-        console.log("Error", err);
-    }
+  try {
+    const data = await redshift.send(new DescribeClustersCommand(params));
+    console.log(data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[redshift.javascript.redshift-describe-clustersV3]

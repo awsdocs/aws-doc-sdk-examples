@@ -26,25 +26,24 @@ const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
-    attributes: [
-        'DefaultSMSType',
-        'ATTRIBUTE_NAME'
-        /* more items */
-    ]
+  attributes: [
+    "DefaultSMSType",
+    "ATTRIBUTE_NAME",
+    /* more items */
+  ],
 };
 
 // Create SNS service object
 const sns = new SNS(REGION);
 
 const run = async () => {
-    try {
-        const data = await sns.send(new GetSMSAttributesCommand(params));
-        console.log("RequestId:", data.$metadata.requestId);
-    } catch (err) {
-        console.error(err, err.stack);
-    }
+  try {
+    const data = await sns.send(new GetSMSAttributesCommand(params));
+    console.log("RequestId:", data.$metadata.requestId);
+  } catch (err) {
+    console.error(err, err.stack);
+  }
 };
 run();
 // snippet-end:[sns.JavaScript.SMS.getSMSAttributesV3]
 // module.exports = {run}; //for unit tests only
-

@@ -156,5 +156,5 @@ window.viewAlbum = viewAlbum;
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
 //for unit tests only
-module.exports = {listAlbums};
-module.exports = {viewAlbum};
+module.exports = { listAlbums };
+module.exports = { viewAlbum };

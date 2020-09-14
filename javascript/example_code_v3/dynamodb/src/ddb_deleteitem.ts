@@ -37,9 +37,9 @@ const run = async () => {
     const data = await dbclient.send(new DeleteItemCommand(params));
     console.log("Success, table deleted", data);
   } catch (err) {
-    if (err && err.code === 'ResourceNotFoundException') {
+    if (err && err.code === "ResourceNotFoundException") {
       console.log("Error: Table not found");
-    } else if (err && err.code === 'ResourceInUseException') {
+    } else if (err && err.code === "ResourceInUseException") {
       console.log("Error: Table in use");
     }
   }

@@ -20,7 +20,7 @@ ts-node iam_createaccountalias.ts
 // snippet-start:[iam.JavaScript.alias.deleteAccountAliasV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, DeleteAccountAliasCommand } = require ("@aws-sdk/client-iam");
+const { IAMClient, DeleteAccountAliasCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

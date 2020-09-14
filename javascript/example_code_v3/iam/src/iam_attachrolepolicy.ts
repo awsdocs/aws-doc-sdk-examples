@@ -26,13 +26,13 @@ const {
   IAMClient,
   ListAttachedRolePoliciesCommand,
   AttachRolePolicyCommand,
-} = require ("@aws-sdk/client-iam");
+} = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-const ROLENAME = "ROLE_NAME"
+const ROLENAME = "ROLE_NAME";
 const paramsRoleList = { RoleName: ROLENAME }; //ROLE_NAME
 
 // Create IAM service object
@@ -56,7 +56,7 @@ const run = async () => {
     try {
       var params = {
         PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
-        RoleName: ROLENAME
+        RoleName: ROLENAME,
       };
       const data = await iam.send(new AttachRolePolicyCommand(params));
       console.log("Role attached successfully");

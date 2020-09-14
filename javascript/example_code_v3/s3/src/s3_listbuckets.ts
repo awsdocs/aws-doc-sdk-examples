@@ -22,7 +22,7 @@ s3_getbucketwebsite s3_listobjects.ts
 // Import required AWS SDK clients and commands for Node.js
 const { S3 } = require("@aws-sdk/client-s3");
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create S3 service object
 const s3 = new S3(REGION);
