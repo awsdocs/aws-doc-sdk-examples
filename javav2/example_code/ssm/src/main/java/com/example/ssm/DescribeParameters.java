@@ -76,5 +76,5 @@ public class DescribeParameters {
         }
     // snippet-end:[ssm.Java2.get_params.main]
 }
-// snippet-end:[ssm.Java2.get_params.import.complete]
+// snippet-end:[ssm.Java2.get_params.complete]
 
