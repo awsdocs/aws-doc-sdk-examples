@@ -49,6 +49,9 @@ files:
   - path: s3_upload_putcommand.ts
     services:
       - s3
+  - path: s3_putbucketpolicy.ts
+    services:
+      - s3
   - path: s3.ts
     services:
       - s3
