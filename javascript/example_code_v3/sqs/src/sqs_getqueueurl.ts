@@ -42,4 +42,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.queues.getQueueUrlV3]
-module.exports = {run}; //for unit tests only
+// module.exports = {run}; //for unit tests only

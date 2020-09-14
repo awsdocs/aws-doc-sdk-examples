@@ -44,4 +44,4 @@ const run = async () => {
 };
 // snippet-end:[iam.JavaScript.certs.getServerCertificateV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

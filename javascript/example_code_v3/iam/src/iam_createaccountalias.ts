@@ -42,4 +42,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

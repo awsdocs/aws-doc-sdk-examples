@@ -51,4 +51,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.users.deleteUserV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

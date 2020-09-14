@@ -78,4 +78,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.table.createTableV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

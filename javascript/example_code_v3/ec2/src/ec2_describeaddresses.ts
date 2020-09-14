@@ -43,4 +43,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Addresses.describeAddressesV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

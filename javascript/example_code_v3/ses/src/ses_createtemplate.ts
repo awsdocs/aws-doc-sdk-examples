@@ -55,4 +55,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.templates.createTemplateV3]
-module.exports = {run}; //for unit tests only
+// module.exports = {run}; //for unit tests only

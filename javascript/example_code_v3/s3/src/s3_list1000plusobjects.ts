@@ -58,4 +58,4 @@ async function run() {
 run();
 // snippet-end:[s3.JavaScript.buckets.listManyObjectsV3]
 //for unit tests
-module.exports = {run};
+// module.exports = {run};

@@ -6,27 +6,30 @@ Amazon CloudWatch enables you to collect, access, and correlate this data on a s
 
 This is a workspace where you can find working AWS SDK for JavaScript (V3) Cloudwatch samples. 
 
+**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
+a super-set of JavaScript so these examples can also be run as JavaScript.
 # Getting Started
 
 1. Clone the [AWSDocs Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
 See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
 instructions.
 
-1. Install the dependencies listed in the package.json.
+2. Install the dependencies listed in the package.json.
 
 **Note**: These include the client modules for the AWS services required in these example, 
 which are the *@aws-sdk/client-cloudwatch*, *@aws-sdk/client-cloudwatch-events*, and *@aws-sdk/client-cloudwatch-logs*.
 ```
-npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g // If you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/cloudwatch 
 yarn
 ```
+3. If you prefer to use JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-3. In your text editor, update user variables specified in the 'Inputs' section of the sample file.
+4. In your text editor, update user variables specified in the 'Inputs' section of the sample file.
 
-4. Run sample code:
+5. Run sample code:
 ```
 cd src
-ts-node [sample name].ts // e.g., ts-node cw_deletealarms.ts
+ts-node [sample name].ts // If you prefer to use JavaScript, enter 'node [sample name].js' instead
 ```
 

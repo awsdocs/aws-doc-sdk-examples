@@ -56,4 +56,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
-module.exports = {run};  //for unit tests only
+// module.exports = {run};  //for unit tests only

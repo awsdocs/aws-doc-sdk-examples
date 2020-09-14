@@ -47,4 +47,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

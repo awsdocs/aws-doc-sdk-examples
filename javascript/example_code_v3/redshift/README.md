@@ -5,11 +5,14 @@ This example is available here https://docs.aws.amazon.com/sdk-for-javascript/v3
 
 This is a workspace where you can find working AWS SDK for JavaScript (V3) Amazon Redshift samples. 
 
+**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
+a super-set of JavaScript so these examples can also be run as JavaScript.
+
 # Getting Started
 
 1. Clone the repo to your local environment. See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
-1. Install the dependencies listed in the package.json.
+2. Install the dependencies listed in the package.json.
 
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-redshift-node*.
@@ -18,10 +21,11 @@ npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install no
 cd javascript/example_code_v3/redshift
 yarn
 ```
+3. If you prefer to use JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-3. In your text editor, update user variables specified in the 'Inputs' section of the sample file.
+4. In your text editor, update user variables specified in the 'Inputs' section of the sample file.
 
-4. Run sample code:
+5. Run sample code:
 ```
 cd src
 ts-node [sample name].ts // e.g., ts-node redshift-create-cluster.ts

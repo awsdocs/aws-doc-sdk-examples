@@ -59,4 +59,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.metrics.putMetricDataV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

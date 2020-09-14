@@ -43,4 +43,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.policies.getPolicyV3]
 //for unit tests only
-module.exports = {run};
+// module.exports = {run};

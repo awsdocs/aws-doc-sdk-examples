@@ -5,11 +5,14 @@ AWS Lambda lets you run code without provisioning or managing servers. You pay o
 
 This is a workspace where you can find working AWS SDK for JavaScript (V3) Lambda samples. 
 
+**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
+a super-set of JavaScript so these examples can also be run as JavaScript.
+
 # Getting Started
 
 1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) repo to your local environment. See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
-1. Install the dependencies listed in the package.json.
+2. Install the dependencies listed in the package.json.
 
 **Note**: These include the client modules for the AWS services required in these example, 
 which include *@aws-sdk/client-dynamodb*, *@aws-sdk/client-lambda*, *@aws-sdk/client-iam*, 

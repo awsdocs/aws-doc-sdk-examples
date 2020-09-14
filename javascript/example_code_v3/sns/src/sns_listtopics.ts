@@ -37,4 +37,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.topics.listTopicsV3]
-module.exports = {run}; //for unit tests only
+// module.exports = {run}; //for unit tests only
