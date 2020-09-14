@@ -36,6 +36,6 @@ files:
  - path: src/main/java/com/example/glue/StartCrawler.java
    services:
      - glue     
- - path: src/test/java/GlueServiceIntgrationTest.java
+ - path: src/test/java/GlueServiceIntegrationTest.java
    services:
      - glue
