@@ -20,25 +20,26 @@ node s3_deletebucketpolicy.js
 // snippet-start:[s3.JavaScript.policy.deleteBucketPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3 } = require("@aws-sdk/client-s3/");
+const { S3, DeleteBucketPolicyCommand } = require("@aws-sdk/client-s3/");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the bucket parameters
-const bucketParams = { Bucket: process.argv[3] };
+const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
 const s3 = new S3(REGION);
 
 const run = async () => {
   try {
-    const data = await s3.deleteBucketPolicy(bucketParams);
+    const data = await s3.send(new DeleteBucketPolicyCommand(bucketParams));
     console.log("Success", data + ", bucket policy deleted");
   } catch (err) {
     console.log("Error", err);
   }
 };
+// Invoke run() so these examples run out of the box.
 run();
 // snippet-end:[s3.JavaScript.policy.deleteBucketPolicyV3]
-// module.exports = {run};//for unit tests only
+export = {run};//for unit tests only

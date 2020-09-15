@@ -38,4 +38,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.keypairs.describeKeyPairV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

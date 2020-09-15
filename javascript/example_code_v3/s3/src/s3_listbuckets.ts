@@ -20,7 +20,7 @@ s3_getbucketwebsite s3_listobjects.ts
 // snippet-start:[s3.JavaScript.buckets.listBucketsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3 } = require("@aws-sdk/client-s3");
+const { S3, ListBucketsCommand  } = require("@aws-sdk/client-s3");
 // Set the AWS region
 const REGION = "REGION"; //e.g. "us-east-1"
 
@@ -29,7 +29,7 @@ const s3 = new S3(REGION);
 
 const run = async () => {
   try {
-    const data = await s3.listBuckets({});
+    const data = await s3.send(new ListBucketsCommand({}));
     console.log("Success", data.Buckets);
   } catch (err) {
     console.log("Error", err);
@@ -38,4 +38,4 @@ const run = async () => {
 run();
 // snippet-end:[s3.JavaScript.buckets.listBucketsV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

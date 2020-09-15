@@ -67,4 +67,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.CreateTableV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

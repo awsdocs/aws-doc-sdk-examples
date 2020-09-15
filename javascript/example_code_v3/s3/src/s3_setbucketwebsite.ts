@@ -60,4 +60,4 @@ const run = async () => {
 run();
 // snippet-end:[s3.JavaScript.website.putBucketWebsiteV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

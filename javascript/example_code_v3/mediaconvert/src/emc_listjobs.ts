@@ -47,4 +47,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.jobs.listJobsV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

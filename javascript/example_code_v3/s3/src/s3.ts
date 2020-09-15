@@ -30,19 +30,19 @@ if (process.argv.length < 4) {
 const { S3 } = require("@aws-sdk/client-s3");
 const async = require("async"); // To call AWS operations asynchronously.
 
-var bucket_name = process.argv[2];
-var region = process.argv[3];
+const bucket_name = process.argv[2];
+const region = process.argv[3];
 
-var s3 = new S3({ region });
+const s3 = new S3({ region });
 
-var create_bucket_params = {
+const create_bucket_params = {
   Bucket: bucket_name,
   CreateBucketConfiguration: {
     LocationConstraint: region,
   },
 };
 
-var delete_bucket_params = { Bucket: bucket_name };
+const delete_bucket_params = { Bucket: bucket_name };
 
 // List all of your available buckets in this AWS Region.
 
@@ -79,4 +79,4 @@ run();
 
 // snippet-end:[s3.javascript.bucket_operations.list_create_deleteV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

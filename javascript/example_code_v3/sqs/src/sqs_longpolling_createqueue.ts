@@ -49,4 +49,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.createQueueV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

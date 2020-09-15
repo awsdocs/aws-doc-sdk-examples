@@ -62,4 +62,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.messages.sendMessageV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

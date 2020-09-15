@@ -42,4 +42,4 @@ const run = async () => {
 run();
 // snippet-end:[s3.JavaScript.cors.getBucketCorsV3]
 //for unit testing only
-// module.exports = {run};
+export = {run};

@@ -45,4 +45,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.SMS.publishV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

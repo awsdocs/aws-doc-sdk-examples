@@ -54,4 +54,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[GettingStarted.JavaScript.NodeJS.sampleV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

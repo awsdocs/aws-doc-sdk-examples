@@ -143,4 +143,4 @@ const post = async (params) => {
   }
 };
 // snippet-end:[lambda.JavaScript.tutorial.PopulateTableV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only
