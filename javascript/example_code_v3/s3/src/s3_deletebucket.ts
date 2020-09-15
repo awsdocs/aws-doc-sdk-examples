@@ -40,11 +40,14 @@ const run = async () => {
     console.log("Error", err);
   }
 };
-run();
+
+
 // snippet-end:[s3.JavaScript.buckets.deleteBucketV3]
+
+// Invoke run() so these examples run out of the box.
+run();
+
 //for unit tests only
-
-
 export {
   run,
   bucketParams
