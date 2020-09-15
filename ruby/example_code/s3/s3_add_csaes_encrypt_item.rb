@@ -1,58 +1,118 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Uploads an encrypted item to an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_object method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
-require 'digest/md5'
+require 'aws-sdk-s3'
+require 'openssl'
 
-# Require key as command-line argument
-if ARGV.empty?()
-  puts 'You must supply the key'
-  exit 1
+# Uploads an encrypted object to an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+#
+# @param s3_encryption_client [Aws::S3::EncryptionV2::Client]
+#   An initialized Amazon S3 V2 encryption client.
+# @param bucket_name [String] The name of the bucket.
+# @param object_key [String] The name of the object to upload.
+# @param object_content [String] The content of the object to upload.
+# @return [Boolean] true if the object was encrypted and uploaded;
+#   otherwise, false.
+# @example
+#   s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
+#     region: 'us-east-1',
+#     encryption_key: get_random_aes_256_gcm_key, # See later in this file.
+#     key_wrap_schema: :aes_gcm,
+#     content_encryption_schema: :aes_gcm_no_padding,
+#     security_profile: :v2
+#   )
+#   if encrypted_object_uploaded?(
+#     s3_encryption_client,
+#     'my-bucket',
+#     'my-file.txt',
+#     'This is the content of my-file.txt.'
+#   )
+#     puts 'Uploaded.'
+#   else
+#     puts 'Not uploaded.'
+#   end
+def encrypted_object_uploaded?(
+  s3_encryption_client,
+  bucket_name,
+  object_key,
+  object_content
+)
+  s3_encryption_client.put_object(
+    bucket: bucket_name,
+    key: object_key,
+    body: object_content
+  )
+  return true
+rescue StandardError => e
+  puts "Error uploading object: #{e.message}"
+  return false
 end
 
-encoded_string = ARGV[0]
-key = encoded_string.unpack("m*")[0]
+# Generates a random AES256-GCM key. Call this function if you do not
+#   already have an AES256-GCM key that you want to use to encrypt the
+#   object.
+#
+# @ return [String] The generated AES256-GCM key. You must keep a record of
+#   the key string that is reported. You will not be able to later decrypt the
+#   contents of any object that is encrypted with this key unless you
+#   have this key.
+# @ example
+#     get_random_aes_256_gcm_key
+def get_random_aes_256_gcm_key
+  cipher = OpenSSL::Cipher.new('aes-256-gcm')
+  cipher.encrypt
+  random_key = cipher.random_key
+  random_key_64_string = [random_key].pack('m')
+  random_key_64 = random_key_64_string.unpack('m')[0]
+  puts 'The base 64-encoded string representation of the randomly-' \
+    'generated AES256-GCM key is:'
+  puts random_key_64_string
+  puts 'Keep a record of this key string. You will not be able to later ' \
+    'decrypt the contents of any object that is encrypted with this key ' \
+    'unless you have this key.'
+  return random_key_64
+end
 
-bucket = 'my_bucket'
-item = 'my_item'
+# Full example call:
+def run_me
+  bucket_name = 'my-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-east-1'
+  object_content = File.read(object_key)
 
-# Get contents of item
-contents = File.read(item)
+  # The following call generates a random AES256-GCM key. Alternatively, you can
+  # provide a base64-encoded string representation of an existing key that
+  # you want to use to encrypt the object. For example:#
+  # encryption_key_string = 'XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE='
+  # encryption_key = encryption_key_string.unpack('m')[0]
+  encryption_key = get_random_aes_256_gcm_key
 
-# Create S3 encryption client
-client = Aws::S3::EncryptionV2::Client.new(
-  region: 'us-west-2',
-  encryption_key: key,
-  key_wrap_schema: :aes_gcm, # the key_wrap_schema must be aes_gcm for symmetric keys
-  content_encryption_schema: :aes_gcm_no_padding,
-  security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
-)
+  # Note that in the following call:
+  # - key_wrap_schema must be aes_gcm for symmetric keys.
+  # - To allow reading and decrypting objects that are encrypted by the
+  #   Amazon S3 V1 encryption client instead, use :v2_and_legacy instead of :v2.
+  s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
+    region: region,
+    encryption_key: encryption_key,
+    key_wrap_schema: :aes_gcm,
+    content_encryption_schema: :aes_gcm_no_padding,
+    security_profile: :v2
+  )
 
-# Add encrypted item to bucket
-client.put_object(
-  bucket: bucket,
-  key: item,
-  body: contents
-)
+  if encrypted_object_uploaded?(
+    s3_encryption_client,
+    bucket_name,
+    object_key,
+    object_content
+  )
+    puts 'Uploaded.'
+  else
+    puts 'Not uploaded.'
+  end
+end
 
-puts 'Added encrypted item ' + item + ' to bucket ' + bucket
+run_me if $PROGRAM_NAME == __FILE__
