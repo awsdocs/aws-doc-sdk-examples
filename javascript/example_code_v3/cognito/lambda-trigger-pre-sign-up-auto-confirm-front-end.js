@@ -27,25 +27,25 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-front-endV3]
-var attributeList = [];
-var dataEmail = {
+const attributeList = [];
+const dataEmail = {
   Name: "email",
   Value: "EMAIL", // Your email here
 };
-var dataPhoneNumber = {
+const dataPhoneNumber = {
   Name: "phone_number",
   Value: "PHONE_NUMBER", // Your phone number here with +country code and no delimiters in front
 };
 
-var dataEmailDomain = {
+const dataEmailDomain = {
   Name: "custom:domain",
   Value: "example.com",
 };
-var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
-var attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
+const attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+const attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
   dataPhoneNumber
 );
-var attributeEmailDomain = new AmazonCognitoIdentity.CognitoUserAttribute(
+const attributeEmailDomain = new AmazonCognitoIdentity.CognitoUserAttribute(
   dataEmailDomain
 );
 
@@ -53,7 +53,7 @@ attributeList.push(attributeEmail);
 attributeList.push(attributePhoneNumber);
 attributeList.push(attributeEmailDomain);
 
-var cognitoUser;
+const cognitoUser;
 userPool.signUp("username", "password", attributeList, null, function (
   err,
   result

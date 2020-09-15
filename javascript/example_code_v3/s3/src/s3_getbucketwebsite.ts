@@ -1,22 +1,17 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-
 ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SDK for JavaScript,
 which is scheduled for release later in 2020. The prerelease version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
-
 Purpose:
 s3_getbucketwebsite.ts demonstrates how to retrieve the website configuration of an Amazon S3 bucket.
-
 Inputs :
 - REGION
 - BUCKET_NAME
-
 Running the code:
 ts-node s3_getbucketwebsite.ts
-
 // snippet-start:[s3.JavaScript.website.getBucketWebsiteV3]
  */
 
@@ -33,14 +28,14 @@ const bucketParams = { Bucket: "BUCKET_NAME" };
 const s3 = new S3(REGION);
 
 const run = async () => {
-  try {
-    const data = await s3.send(new GetBucketWebsiteCommand(bucketParams));
-    console.log("Success", data);
-  } catch (err) {
-    console.log("Error", err);
-  }
+    try {
+        const data = await s3.send(new GetBucketWebsiteCommand(bucketParams));
+        console.log("Success", data);
+    } catch (err) {
+        console.log("Error", err);
+    }
 };
 run();
 // snippet-end:[s3.JavaScript.website.getBucketWebsiteV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

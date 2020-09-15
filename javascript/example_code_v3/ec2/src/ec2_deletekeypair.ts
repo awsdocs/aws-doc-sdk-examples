@@ -41,4 +41,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.keypairs.deleteKeyPairV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

@@ -63,11 +63,11 @@ var readOnlyAnonUserPolicy = {
 };
 
 // create selected bucket resource string for bucket policy
-var bucketResource = "arn:aws:s3:::" + bucketName + "/*"; //BUCKET_NAME
+const bucketResource = "arn:aws:s3:::" + bucketName + "/*"; //BUCKET_NAME
 readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
 
 // convert policy JSON into string and assign into params
-var bucketPolicyParams = {
+const bucketPolicyParams = {
   Bucket: bucketName,
   Policy: JSON.stringify(readOnlyAnonUserPolicy),
 };
@@ -98,4 +98,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.BucketSetUpV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

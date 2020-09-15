@@ -28,7 +28,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = { StateValue: "INSUFFICIENT_DATA" };
+const params = { StateValue: "INSUFFICIENT_DATA" };
 
 // Create CloudWatch service object
 const cw = new CloudWatch(REGION);
@@ -47,4 +47,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

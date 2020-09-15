@@ -34,8 +34,8 @@ const {
 } = require("@aws-sdk/credential-provider-cognito-identity");
 
 // Set the paramerter
-var IDENTITY_POOL_ID = "IDENTITY_POOL_ID";
-var ACCOUNT_ID = "ACCOUNT_ID";
+const IDENTITY_POOL_ID = "IDENTITY_POOL_ID";
+const ACCOUNT_ID = "ACCOUNT_ID";
 
 // Initialize the Amazon Cognito credentials provider
 const cognitoidentity = new CognitoIdentityClient({
@@ -46,7 +46,7 @@ const cognitoidentity = new CognitoIdentityClient({
   }),
 });
 
-var getIdParams = {
+const getIdParams = {
   IdentityPoolId: IDENTITY_POOL_ID,
   AccountId: ACCOUNT_ID,
 };
@@ -54,10 +54,10 @@ var getIdParams = {
 const showId = async () => {
   try {
     const data = await cognitoidentity.send(new GetIdCommand(getIdParams));
-    var results = "Cognito Identity ID is " + data.IdentityId;
+    const results = "Cognito Identity ID is " + data.IdentityId;
     document.getElementById("results").innerHTML = results;
   } catch (err) {
-    var results = "Error" + err;
+    const errorResults = "Error" + err;
     document.getElementById("results").innerHTML = results;
   }
 };

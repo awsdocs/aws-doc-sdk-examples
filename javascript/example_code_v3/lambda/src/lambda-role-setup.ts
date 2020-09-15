@@ -87,4 +87,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

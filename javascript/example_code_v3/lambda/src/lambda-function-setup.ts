@@ -34,7 +34,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const lambda = new LambdaClient(REGION);
 
 //Set the parameters
-var params = {
+const params = {
   Code: {
     S3Bucket: "BUCKET_NAME", // BUCKET_NAME
     S3Key: "ZIP_FILE_NAME", // ZIP_FILE_NAME
@@ -56,4 +56,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

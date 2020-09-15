@@ -16,12 +16,15 @@ a super-set of JavaScript so these examples can also be run as JavaScript.
 
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-redshift-node*.
+
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/redshift
 yarn
 ```
-3. If you prefer to use JavaScript, change the sample file extension from ```.ts``` to ```.js```.
+3. If you prefer to use JavaScript:
+- change the sample file extension from ```.ts``` to ```.js```
+- remove the ```module.exports ={*}``` statement from the sample file
 
 4. In your text editor, update user variables specified in the 'Inputs' section of the sample file.
 

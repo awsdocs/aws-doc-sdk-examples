@@ -45,4 +45,4 @@ const run = async () => {
 run();
 // snippet-end:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

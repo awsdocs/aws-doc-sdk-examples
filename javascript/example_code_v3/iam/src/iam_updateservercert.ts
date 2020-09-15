@@ -30,7 +30,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = {
+const params = {
   ServerCertificateName: "CERTIFICATE_NAME", //CERTIFICATE_NAME
   NewServerCertificateName: "NEW_CERTIFICATE_NAME", //NEW_CERTIFICATE_NAME
 };
@@ -49,4 +49,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.certs.updateServerCertificateV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

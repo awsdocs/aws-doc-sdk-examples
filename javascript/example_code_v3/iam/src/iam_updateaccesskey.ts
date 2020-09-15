@@ -27,7 +27,7 @@ const { IAMClient, UpdateAccessKeyCommand } = require("@aws-sdk/client-iam");
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = {
+const params = {
   AccessKeyId: "ACCESS_KEY_ID", //ACCESS_KEY_ID
   Status: "Active",
   UserName: "USER_NAME", //USER_NAME
@@ -47,4 +47,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.keys.updateAccessKeyV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

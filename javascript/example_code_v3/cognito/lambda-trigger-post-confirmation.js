@@ -28,7 +28,7 @@ Running the code:
 const { SES, SendEmailCommand } = require("@aws-sdk/client-ses");
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
-var ses = new SES();
+const ses = new SES();
 
 exports.handler = async (event, context) => {
   console.log(event);

@@ -26,7 +26,7 @@ const {
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = {
+const params = {
   AttributeDefinitions: [
     {
       AttributeName: "Season",
@@ -71,4 +71,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.batch.CreateTableTVV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

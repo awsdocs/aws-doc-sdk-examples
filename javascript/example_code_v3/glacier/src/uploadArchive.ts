@@ -30,7 +30,7 @@ const vaultname = "VAULT_NAME"; // VAULT_NAME
 
 // Create a new service object and buffer
 const buffer = new Buffer.alloc(2.5 * 1024 * 1024); // 2.5MB buffer
-var params = { vaultName: vaultname, body: buffer };
+const params = { vaultName: vaultname, body: buffer };
 
 // Instantiate an S3 Glacier client
 const glacier = new Glacier(REGION);
@@ -46,4 +46,4 @@ const run = async () => {
 run();
 // snippet-end:[glacier.JavaScript.upload.uploadArchiveV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

@@ -28,8 +28,8 @@ const { SQS, ReceiveMessageCommand } = require("@aws-sdk/client-sqs");
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-var queueURL = "SQS_QUEUE_URL"; // SQS_QUEUE_URL
-var params = {
+const queueURL = "SQS_QUEUE_URL"; // SQS_QUEUE_URL
+const params = {
   AttributeNames: ["SentTimestamp"],
   MaxNumberOfMessages: 1,
   MessageAttributeNames: ["All"],
@@ -50,4 +50,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.receiveMessageV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

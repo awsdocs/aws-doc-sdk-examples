@@ -47,4 +47,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.topics.setTopicAttributesV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

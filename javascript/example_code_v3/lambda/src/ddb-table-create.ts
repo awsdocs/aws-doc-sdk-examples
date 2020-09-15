@@ -32,7 +32,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const ddb = new DynamoDBClient(REGION);
 
 // Define the table schema
-var tableParams = {
+const tableParams = {
   AttributeDefinitions: [
     {
       AttributeName: "slotPosition",
@@ -67,4 +67,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.CreateTableV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

@@ -31,7 +31,7 @@ const {
 const REGION = "region"; //e.g. "us-east-1"
 
 // Set the parameters
-var queueURL = "SQS_QUEUE_URL"; //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
+const queueURL = "SQS_QUEUE_URL"; //SQS_QUEUE_URL; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 const params = {
   AttributeNames: ["SentTimestamp"],
   MaxNumberOfMessages: 10,
@@ -66,4 +66,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.messages.receiveMessageV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

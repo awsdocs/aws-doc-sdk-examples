@@ -29,7 +29,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-var params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
+const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
 // Create CloudWatch service object
 const cw = new CloudWatch(REGION);
@@ -45,4 +45,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.disableAlarmActionsV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

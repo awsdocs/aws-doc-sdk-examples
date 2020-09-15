@@ -65,4 +65,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only

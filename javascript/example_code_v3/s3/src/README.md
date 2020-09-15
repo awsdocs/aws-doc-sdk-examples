@@ -23,7 +23,9 @@ npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install no
 cd javascript/example_code_v3/s3
 yarn
 ```
-3. If you prefer to use JavaScript, change the sample file extension from ```.ts``` to ```.js```.
+3. If you prefer to use JavaScript:
+- change the sample file extension from ```.ts``` to ```.js```
+- remove the ```module.exports ={*}``` statement from the sample file
 
 4. In your text editor, update user variables specified in the 'Inputs' section of the sample file.
 

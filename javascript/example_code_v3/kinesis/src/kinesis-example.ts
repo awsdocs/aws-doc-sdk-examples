@@ -45,34 +45,34 @@ AWS.config.credentials.get(function(err) {
         return;
     }
     // create Amazon Kinesis service object
-    var kinesis = new AWS.Kinesis({
+    const kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
     });
     // snippet-end:[kinesis.JavaScript.kinesis-example.config]
 
     // snippet-start:[kinesis.JavaScript.kinesis-example.addEventListener]
     // Get the ID of the Web page element.
-    var blogContent = document.getElementById('BlogContent');
+    const blogContent = document.getElementById('BlogContent');
 
     // Get Scrollable height
-    var scrollableHeight = blogContent.clientHeight;
+    const scrollableHeight = blogContent.clientHeight;
 
-    var recordData = [];
-    var TID = null;
+    const recordData = [];
+    let TID = null;
     blogContent.addEventListener('scroll', function(event) {
         clearTimeout(TID);
         // Prevent creating a record while a user is actively scrolling
         TID = setTimeout(function() {
             // calculate percentage
-            var scrollableElement = event.target;
-            var scrollHeight = scrollableElement.scrollHeight;
-            var scrollTop = scrollableElement.scrollTop;
+            const scrollableElement = event.target;
+            const scrollHeight = scrollableElement.scrollHeight;
+            const scrollTop = scrollableElement.scrollTop;
 
-            var scrollTopPercentage = Math.round((scrollTop / scrollHeight) * 100);
-            var scrollBottomPercentage = Math.round(((scrollTop + scrollableHeight) / scrollHeight) * 100);
+            const scrollTopPercentage = Math.round((scrollTop / scrollHeight) * 100);
+            const scrollBottomPercentage = Math.round(((scrollTop + scrollableHeight) / scrollHeight) * 100);
 
             // Create the Amazon Kinesis record
-            var record = {
+            const record = {
                 Data: JSON.stringify({
                     blog: window.location.href,
                     scrollTopPercentage: scrollTopPercentage,

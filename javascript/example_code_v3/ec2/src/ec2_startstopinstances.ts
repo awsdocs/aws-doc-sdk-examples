@@ -35,13 +35,13 @@ const REGION = "region"; //e.g. "us-east-1"
 const ec2client = new EC2(REGION);
 
 // Set the parameters
-var params = { InstanceIds: "INSTANCE_ID" }; //INSTANCE_ID
+const params = { InstanceIds: "INSTANCE_ID" }; //INSTANCE_ID
 const command = "STATE"; // STATE i.e. "START" or "STOP"
 
 const run = async () => {
   if (command.toUpperCase() === "START") {
     try {
-      var data = await ec2client.send(new StartInstancesCommand(params));
+      const data = await ec2client.send(new StartInstancesCommand(params));
       console.log("Success", data.StartingInstances);
     } catch (err) {
       console.log("Error2", err);
@@ -59,4 +59,4 @@ run();
 
 // snippet-end:[ec2.JavaScript.Instances.start_stopInstancesV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

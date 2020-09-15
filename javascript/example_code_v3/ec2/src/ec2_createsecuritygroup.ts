@@ -43,9 +43,9 @@ const ec2client = new EC2(REGION);
 
 const run = async () => {
   try {
-    var data = await ec2client.send(new DescribeVpcsCommand(params));
-    vpc = data.Vpcs[0].VpcId;
-    var paramsSecurityGroup = {
+    const data = await ec2client.send(new DescribeVpcsCommand(params));
+    const vpc = data.Vpcs[0].VpcId;
+    const paramsSecurityGroup = {
       Description: "DESCRIPTION", //DESCRIPTION
       GroupName: "SECURITY_GROUP_NAME", // SECURITY_GROUP_NAME
       VpcId: vpc,
@@ -54,10 +54,10 @@ const run = async () => {
     console.log("Error", err);
   }
   try {
-    var data = await ec2client.send(new CreateSecurityGroupCommand(params));
+    const data = await ec2client.send(new CreateSecurityGroupCommand(params));
     const SecurityGroupId = data.GroupId;
     console.log("Success", SecurityGroupId);
-    var paramsIngress = {
+    const paramsIngress = {
       GroupId: "SECURITY_GROUP_ID", //SECURITY_GROUP_ID
       IpPermissions: [
         {
@@ -78,7 +78,7 @@ const run = async () => {
     console.log("Error", err);
   }
   try {
-    var data = await ec2client.send(
+    const data = await ec2client.send(
       new AuthorizeSecurityGroupIngressCommand(paramsIngress)
     );
     console.log("Ingress Successfully Set", data);
@@ -89,4 +89,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

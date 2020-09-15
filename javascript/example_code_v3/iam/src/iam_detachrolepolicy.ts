@@ -30,7 +30,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-var paramsRoleList = { RoleName: "ROLE_NAME" }; //ROLE_NAME
+const paramsRoleList = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
 // Create IAM service object
 const iam = new IAMClient(REGION);
@@ -67,4 +67,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

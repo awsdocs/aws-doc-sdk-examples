@@ -46,10 +46,10 @@ const run = async () => {
   try {
     const data = await ec2client.send(new RunInstancesCommand(instanceParams));
     console.log(data.Instances[0].InstanceId);
-    var instanceId = data.Instances[0].InstanceId;
+    const instanceId = data.Instances[0].InstanceId;
     console.log("Created instance", instanceId);
     // Add tags to the instance
-    tagParams = {
+    const tagParams = {
       Resources: [instanceId],
       Tags: [
         {
@@ -71,4 +71,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Instances.create_instancesV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

@@ -58,4 +58,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Instances.monitorInstancesV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

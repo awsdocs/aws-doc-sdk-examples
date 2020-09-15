@@ -59,7 +59,7 @@ const run = async () => {
   try {
     const data = await cw.send(new PutMetricAlarmCommand(params));
     console.log("Alarm action added; RequestID:", data.$metadata.requestId);
-    var paramsEnableAlarmAction = {
+    const paramsEnableAlarmAction = {
       AlarmNames: [params.AlarmName],
     };
     try {
@@ -77,4 +77,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.enableAlarmActionsV3]
 //for unit tests only
-// module.exports = {run};
+export = {run};

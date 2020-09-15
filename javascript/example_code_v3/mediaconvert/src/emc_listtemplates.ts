@@ -27,7 +27,7 @@ const {
 // Set the parameters
 const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 
-var params = {
+const params = {
   ListBy: "NAME",
   MaxResults: 10,
   Order: "ASCENDING",
@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.templates.listJobTemplatesV3]
-// module.exports = {run};  //for unit tests only
+export = {run};  //for unit tests only

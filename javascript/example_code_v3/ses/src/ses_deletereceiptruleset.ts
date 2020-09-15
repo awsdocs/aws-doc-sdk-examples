@@ -41,4 +41,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.rules.deleteReceiptRuleSetV3]
-// module.exports = {run}; //for unit tests only
+export = {run}; //for unit tests only
