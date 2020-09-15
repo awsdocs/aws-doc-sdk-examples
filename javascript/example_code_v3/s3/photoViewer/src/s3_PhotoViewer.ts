@@ -28,7 +28,7 @@ const {
 const { S3, ListObjectsCommand } = require("@aws-sdk/client-s3");
 
 // Initialize the Amazon Cognito credentials provider
-const REGION = "REGION"; //e.g., 'us-east-1'
+const REGION = "region"; //e.g., 'us-east-1'
 const s3 = new S3({
     region: REGION,
     credentials: fromCognitoIdentityPool({
@@ -156,4 +156,7 @@ window.viewAlbum = viewAlbum;
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
 //for unit tests only
-export = { listAlbums, viewAlbum };
+export {
+    listAlbums,
+    viewAlbum
+}
