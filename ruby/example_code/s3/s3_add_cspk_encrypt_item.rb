@@ -9,11 +9,11 @@ require 'aws-sdk-s3'
 require 'openssl'
 
 # Generates a random set of corresponding 2048-bit RSA public and
-#   private key pair strings. Call this function if you do not
+#   private key-pair strings. Call this function if you do not
 #   already have a public/private key pair that you want to use to
 #   encrypt the object content.
 #
-# @return [Hash] The generated public and private key pair strings.
+# @return [Hash] The generated public and private key-pair strings.
 #   You must keep a record of the strings that are reported. You will
 #   not be able to properly encrypt and decrypt the contents of
 #   objects without these keys.
@@ -26,7 +26,7 @@ def create_public_private_rsa_key_pair_strings
     'private_key_string' => private_key,
     'public_key_string' => public_key
   }
-  puts 'The randomly-generated 2048-bit RSA private key string is:'
+  puts 'The randomly generated 2048-bit RSA private key string is:'
   puts private_public_key_strings_pair['private_key_string']
   puts 'The corresponding 2048-bit public key string is:'
   puts private_public_key_strings_pair['public_key_string']
@@ -35,9 +35,9 @@ def create_public_private_rsa_key_pair_strings
   return private_public_key_strings_pair
 end
 
-# Saves a set of corresponding public/private key pair strings to
+# Saves a set of corresponding public/private key-pair strings to
 #   files on disk. Call this function if you have a set of corresponding
-#   key pair strings in memory but you have not yet save them to disk.
+#   key-pair strings in memory but you have not yet saved them to disk.
 #
 # @param public_key_string [String] The public key string to save.
 # @param public_key_file_name [String] The name of the file to save the
