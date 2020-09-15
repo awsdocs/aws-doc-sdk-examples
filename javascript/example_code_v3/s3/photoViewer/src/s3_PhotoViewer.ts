@@ -22,9 +22,7 @@ ts-node s3_PhotoViewer.ts
 
 // Load the required clients and packages
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
-const {
-  fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
+const { fromCognitoIdentityPool } = require("@aws-sdk/credential-provider-cognito-identity");
 const { S3, ListObjectsCommand } = require("@aws-sdk/client-s3");
 
 // Initialize the Amazon Cognito credentials provider
@@ -81,6 +79,7 @@ const listAlbums = async () => {
   } catch (err) {
     return alert("There was an error listing your albums: " + err.message);
   }
+
 };
 // Make the viewAlbum function available to the browser
 window.listAlbums = listAlbums;
@@ -149,6 +148,7 @@ const viewAlbum = async (albumName) => {
   } catch (err) {
     return alert("There was an error viewing your album: " + err.message);
   }
+
 };
 
 // Make the viewAlbum function available to the browser
@@ -159,4 +159,5 @@ window.viewAlbum = viewAlbum;
  export {
   listAlbums,
   viewAlbum
- }
+ };
+

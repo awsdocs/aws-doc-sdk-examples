@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html.
 
 Purpose:
-s3_PhotoExample.js demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.
+s3_PhotoExample.ts demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.
 
 Inputs (replace in code):
 - BUCKET_NAME
@@ -23,9 +23,7 @@ node s3_PhotoExample.js
 
 // Load the required clients and packages
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
-const {
-  fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
+const {  fromCognitoIdentityPool} = require("@aws-sdk/credential-provider-cognito-identity");
 const { S3, ListObjectsCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
@@ -100,6 +98,7 @@ const listAlbums = async () => {
   } catch (err) {
     return alert("There was an error listing your albums: " + err.message);
   }
+
 };
 
 // Make listAlbums function available to the browser
@@ -211,6 +210,7 @@ const viewAlbum = async (albumName) => {
   } catch (err) {
     return alert("There was an error viewing your album: " + err.message);
   }
+
 };
 // Make viewAlbum function available to the browser
 window.viewAlbum = viewAlbum;
@@ -300,6 +300,7 @@ const deleteAlbum = async (albumName) => {
   } catch (err) {
     return alert("There was an error deleting your album1: ", err.message);
   }
+
 };
 // Make deleteAlbum function available to the browser
 window.deleteAlbum = deleteAlbum;
@@ -307,6 +308,7 @@ window.deleteAlbum = deleteAlbum;
 // snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
 // snippet-end:[s3.JavaScript.photoAlbumExample.completeV3]
 //for units tests only
+
 export {
   listAlbums,
   createAlbum,
@@ -314,4 +316,4 @@ export {
   addPhoto,
   deletePhoto,
   deleteAlbum
-}
+};

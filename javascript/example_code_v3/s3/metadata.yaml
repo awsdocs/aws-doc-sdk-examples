@@ -1,0 +1,61 @@
+---
+# Amazon S3 examples
+files:
+  - path: photoViewer/src/s3_PhotoViewer.js
+    services:
+      - s3
+  - path: photoExample/src/s3_PhotoExample.js
+    services:
+      - s3
+  - path: s3_createbucket.js
+    services:
+      - s3
+  - path: s3_deletebucket.js
+    services:
+      - s3
+  - path: s3_deletebucketpolicy.js
+    services:
+      - s3
+  - path: s3_deletebucketwebsite.js
+    services:
+      - s3
+  - path: s3_getbucketacl.js
+    services:
+      - s3
+  - path: s3_getbucketpolicy.js
+    services:
+      - s3
+  - path: s3_getbucketwebsite.js
+    services:
+      - s3
+  - path: s3_getcors.js
+    services:
+      - s3
+  - path: s3_listbuckets.js
+    services:
+      - s3
+  - path: s3_listobjects.js
+    services:
+      - s3
+  - path: s3_setbucketwebsite.js
+    services:
+      - s3
+  - path: s3_putbucketpolicy.js
+    services:
+      - s3
+  - path: s3_list1000plusobjects.js
+    services:
+      - s3
+  - path: s3_upload.js
+    services:
+      - s3
+  - path: s3_upload_putcommand.js
+    services:
+      - s3
+  - path: s3.js
+    services:
+      - s3
+  - path: s3_setcors.js
+    services:
+      - s3
+...
