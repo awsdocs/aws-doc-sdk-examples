@@ -15,6 +15,19 @@ Learn to create, get, remove, and configure buckets and objects.
 - Boto 3 1.11.10 or later
 - PyTest 5.3.5 or later (to run unit tests)
 
+## Cautions
+
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
+
 ## Running the code
 
 Both `bucket_wrapper.py` and `object_wrapper.py` contain `usage_demo` functions
@@ -70,15 +83,6 @@ have actually been cleaned up.
 
 - [Boto 3 Amazon S3 examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-examples.html)
 - [Boto 3 Amazon S3 service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  "AWS Regional Table" on the AWS website.
-- Running this code might result in charges to your AWS account.
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

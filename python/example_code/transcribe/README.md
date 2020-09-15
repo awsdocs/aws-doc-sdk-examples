@@ -32,7 +32,6 @@ transcribe an audio file to a text file. Learn how to:
   on the AWS website.
 - Running this code might result in charges to your AWS account.
 
-
 ## Running the code
 
 Run this example at a command prompt with the following command.
