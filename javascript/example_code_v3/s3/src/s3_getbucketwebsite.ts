@@ -44,5 +44,6 @@ run();
 // snippet-end:[s3.JavaScript.website.getBucketWebsiteV3]
 //for unit tests only
 export {
+  bucketParams,
   run
 }

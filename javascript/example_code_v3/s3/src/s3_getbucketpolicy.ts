@@ -21,7 +21,7 @@ ts-node s3_getbucketpolicy.ts
 // snippet-start:[s3.JavaScript.policy.getBucketPolicyV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3 } = require("@aws-sdk/client-s3");
+const { S3, GetBucketPolicyCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -34,7 +34,7 @@ const s3 = new S3(REGION);
 
 const run = async () => {
   try {
-    const data = await s3.getBucketPolicy(bucketParams);
+    const data = await s3.send(new GetBucketPolicyCommand(bucketParams));
     console.log("Success", data);
   } catch (err) {
     console.log("Error", err);

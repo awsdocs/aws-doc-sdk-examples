@@ -34,7 +34,7 @@ const s3 = new S3(REGION);
 
 const run = async () => {
   try {
-    const data = await s3.send(new DeleteBucketWebsiteCommand(bucketParams));
+    await s3.send(new DeleteBucketWebsiteCommand(bucketParams));
   } catch (err) {
     console.log("Error", err);
   }

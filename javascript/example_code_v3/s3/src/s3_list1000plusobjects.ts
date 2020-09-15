@@ -20,7 +20,7 @@ s3_getbucketwebsite s3_list1000plusObjects.ts
 // snippet-start:[s3.JavaScript.buckets.listManyObjectsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3 } = require("@aws-sdk/client-s3");
+const { S3, ListObjectsCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -39,7 +39,7 @@ async function run() {
   // While loop that runs until response.truncated is false
   while (truncated) {
     try {
-      const response = await s3.listObjects(bucketParams);
+      const response = await s3.send(new ListObjectsCommand(bucketParams)); 
       response.Contents.forEach((item) => {
         console.log(item.Key);
       });
