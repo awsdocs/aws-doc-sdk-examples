@@ -62,4 +62,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.batch.GetItemV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

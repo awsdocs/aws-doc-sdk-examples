@@ -41,4 +41,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.filters.deleteReceiptFilterV3]
-export = {run}; //for unit tests only
+// module.exports = {run}; //for unit tests only

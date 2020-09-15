@@ -21,7 +21,7 @@ ts-node s3_createbucket.ts
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3, CreateBucketCommand } = require("@aws-sdk/client-s3");
+const { S3 } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -35,14 +35,13 @@ const s3 = new S3(REGION);
 //Attempt to create the bucket
 const run = async () => {
   try {
-    const data = await s3.send(new CreateBucketCommand(bucketParams));
-    console.log("Success", data);
+    const data = await s3.createBucket(bucketParams);
+    console.log("Success", data.$metadata.httpHeaders.location);
   } catch (err) {
     console.log("Error", err);
   }
 };
-// Invoke run() so these examples run out of the box.
 run();
 // snippet-end:[s3.JavaScript.buckets.createBucketV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

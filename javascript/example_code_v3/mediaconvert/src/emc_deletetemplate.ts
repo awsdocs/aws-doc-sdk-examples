@@ -44,4 +44,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
-export = {run};  //for unit tests only
+// module.exports = {run};  //for unit tests only

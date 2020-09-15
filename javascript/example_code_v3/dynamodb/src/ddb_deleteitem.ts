@@ -47,4 +47,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.item.deleteItemV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

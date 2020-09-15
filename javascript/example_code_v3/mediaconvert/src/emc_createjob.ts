@@ -180,4 +180,4 @@ const run = async () => {
 run();
 // snippet-end:[mediaconvert.JavaScript.jobs.createJob_createV3]
 // snippet-end:[mediaconvert.JavaScript.jobs.createJobV3]
-export = {run};  //for unit tests only
+// module.exports = {run};  //for unit tests only

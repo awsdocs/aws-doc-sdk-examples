@@ -32,7 +32,7 @@ const REGION = "REGION"; //e.g., 'us-east-1'
 const s3 = new S3({
   region: REGION,
   credentials: fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({ REGION }),
+    client: new CognitoIdentityClient({ region }),
     identityPoolId: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID e.g., eu-west-1:xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxx
   }),
 });
@@ -156,4 +156,5 @@ window.viewAlbum = viewAlbum;
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
 // snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
 //for unit tests only
-export = { listAlbums, viewAlbum };
+module.exports = { listAlbums };
+module.exports = { viewAlbum };

@@ -49,4 +49,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[redshift.javascript.redshift-describe-clustersV3]
-export = {run};  //for unit tests only
+// module.exports = {run};  //for unit tests only

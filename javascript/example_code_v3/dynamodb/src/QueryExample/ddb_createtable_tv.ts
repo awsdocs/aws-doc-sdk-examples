@@ -71,4 +71,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.batch.CreateTableTVV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

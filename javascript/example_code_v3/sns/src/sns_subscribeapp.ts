@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.subscriptions.subscribeAppV3]
-export = {run}; //for unit tests only
+// module.exports = {run}; //for unit tests only

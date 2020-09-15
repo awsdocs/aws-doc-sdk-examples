@@ -77,4 +77,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.enableAlarmActionsV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

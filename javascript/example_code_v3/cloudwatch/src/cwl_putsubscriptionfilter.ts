@@ -51,4 +51,4 @@ const run = async () => {
 };
 // snippet-end:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

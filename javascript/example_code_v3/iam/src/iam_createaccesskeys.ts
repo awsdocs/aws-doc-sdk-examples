@@ -43,4 +43,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.keys.createAccessKeyV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

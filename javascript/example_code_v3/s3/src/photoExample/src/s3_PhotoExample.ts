@@ -307,11 +307,9 @@ window.deleteAlbum = deleteAlbum;
 // snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
 // snippet-end:[s3.JavaScript.photoAlbumExample.completeV3]
 //for units tests only
-export = {
-  listAlbums,
-  createAlbum,
-  viewAlbum,
-  addPhoto,
-  deletePhoto,
-  deleteAlbum,
-};
+module.exports = { listAlbums }; //for unit tests only
+module.exports = { createAlbum };
+module.exports = { viewAlbum };
+module.exports = { addPhoto };
+module.exports = { deletePhoto };
+module.exports = { deleteAlbum };

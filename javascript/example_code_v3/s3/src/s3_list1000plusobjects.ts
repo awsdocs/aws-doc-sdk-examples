@@ -20,7 +20,7 @@ s3_getbucketwebsite s3_list1000plusObjects.ts
 // snippet-start:[s3.JavaScript.buckets.listManyObjectsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3, ListObjectsCommand  } = require("@aws-sdk/client-s3");
+const { S3 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -33,13 +33,13 @@ const s3 = new S3(REGION);
 
 async function run() {
   // Declare truncated as a flag that we will base our while loop on
-  let truncated = true;
+  var truncated = true;
   // Declare a variable that we will assign the key of the last element in the response to
-  let pageMarker;
+  var pageMarker;
   // While loop that runs until response.truncated is false
   while (truncated) {
     try {
-      const response = await s3.send(new ListObjectsCommand(bucketParams));
+      const response = await s3.listObjects(bucketParams);
       response.Contents.forEach((item) => {
         console.log(item.Key);
       });
@@ -52,11 +52,10 @@ async function run() {
       // At end of the list, response.truncated is false and our function exits the while loop.
     } catch (err) {
       console.log("Error", err);
-      truncated = false;
     }
   }
 }
 run();
 // snippet-end:[s3.JavaScript.buckets.listManyObjectsV3]
 //for unit tests
-export = {run};
+// module.exports = {run};

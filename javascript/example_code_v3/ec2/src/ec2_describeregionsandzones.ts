@@ -38,4 +38,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Regions.describeRegionsV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

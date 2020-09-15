@@ -70,4 +70,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.policies.attachRolePolicyV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

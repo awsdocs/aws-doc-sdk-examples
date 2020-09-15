@@ -21,7 +21,7 @@ ts-node s3_deletebucket.ts
 // snippet-start:[s3.JavaScript.buckets.deleteBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3, DeleteBucketCommand  } = require("@aws-sdk/client-s3/");
+const { S3 } = require("@aws-sdk/client-s3/");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
@@ -34,14 +34,13 @@ const s3 = new S3();
 
 const run = async () => {
   try {
-    const data = await s3.send(new DeleteBucketCommand(bucketParams));
+    const data = await s3.deleteBucket(bucketParams);
     console.log("Success - bucket deleted");
   } catch (err) {
     console.log("Error", err);
   }
 };
-// Invoke run() so these examples run out of the box.
 run();
 // snippet-end:[s3.JavaScript.buckets.deleteBucketV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

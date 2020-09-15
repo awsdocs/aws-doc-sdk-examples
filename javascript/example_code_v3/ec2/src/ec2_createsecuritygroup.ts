@@ -89,4 +89,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

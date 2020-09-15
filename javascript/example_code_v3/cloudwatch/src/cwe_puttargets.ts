@@ -53,4 +53,4 @@ const run = async () => {
 run();
 // snippet-end:[cwEvents.JavaScript.cwe.putTargetsV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};

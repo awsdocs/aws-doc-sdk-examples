@@ -59,4 +59,4 @@ run();
 
 // snippet-end:[ec2.JavaScript.Instances.start_stopInstancesV3]
 //for unit tests only
-export = {run};
+// module.exports = {run};
