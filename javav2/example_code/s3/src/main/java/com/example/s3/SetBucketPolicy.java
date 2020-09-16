@@ -49,7 +49,7 @@ public class SetBucketPolicy {
                 "    SetBucketPolicy <bucket> [policyfile]\n\n" +
                 "Where:\n" +
                 "    bucket     - the bucket to set the policy on.\n" +
-                "    policyfile - a JSON file containing the policy\n" +
+                "    policyfile - a JSON file containing the policy (see the S3 Readme for an example)\n" +
                 "Example:\n" +
                 "    SetBucketPolicy testbucket mypolicy.json\n\n";
 
