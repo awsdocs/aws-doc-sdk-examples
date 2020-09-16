@@ -1,59 +1,87 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds a KMS encrypted item to an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_object method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3'  # In v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 
-# Get the key from the command line
-if ARGV.empty?()
-  puts 'You must supply a key'
-  exit 1
+# Uploads an encrypted object to an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+# - An encrypted object to upload to the bucket.
+#
+# @param s3_encryption_client [Aws::S3::EncryptionV2::Client]
+#   An initialized Amazon S3 V2 encryption client.
+# @param bucket_name [String] The name of the bucket.
+# @param object_key [String] The name of the object to upload.
+# @param object_content [String] The content of the object to upload.
+# @return [Boolean] true if the object was encrypted and uploaded;
+#   otherwise, false.
+# @example
+#   s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
+#     region: 'us-east-1',
+#     kms_key_id: '9041e78c-7a20-4db3-929e-828abEXAMPLE',
+#     key_wrap_schema: :kms_context,
+#     content_encryption_schema: :aes_gcm_no_padding,
+#     security_profile: :v2
+#   )
+#   if encrypted_object_uploaded?(
+#     s3_encryption_client,
+#     'my-bucket',
+#     'my-file.txt',
+#     'This is the content of my-file.txt.'
+#   )
+#     puts 'Uploaded.'
+#   else
+#     puts 'Not uploaded.'
+#   end
+def encrypted_object_uploaded?(
+  s3_encryption_client,
+  bucket_name,
+  object_key,
+  object_content
+)
+  s3_encryption_client.put_object(
+    bucket: bucket_name,
+    key: object_key,
+    body: object_content
+  )
+  return true
+rescue StandardError => e
+  puts "Error uploading object: #{e.message}"
+  return false
 end
 
-key = ARGV[0]
+# Full example call:
+def run_me
+  bucket_name = 'my-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-east-1'
+  kms_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
+  object_content = File.read(object_key)
 
-bucket = 'my_bucket'
-item = 'my_item'
+  # Note that in the following call:
+  # - key_wrap_schema must be kms_context for AWS KMS.
+  # - To allow reading and decrypting objects that are encrypted by the
+  #   Amazon S3 V1 encryption client instead, use :v2_and_legacy instead of :v2.
+  s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
+    region: region,
+    kms_key_id: kms_key_id,
+    key_wrap_schema: :kms_context,
+    content_encryption_schema: :aes_gcm_no_padding,
+    security_profile: :v2
+  )
 
-# Get file content as string
-contents = File.read(item)
+  if encrypted_object_uploaded?(
+    s3_encryption_client,
+    bucket_name,
+    object_key,
+    object_content
+  )
+    puts 'Uploaded.'
+  else
+    puts 'Not uploaded.'
+  end
+end
 
-# Create KMS client
-kms = Aws::KMS::Client.new
-
-# Create encryption client
-client = Aws::S3::EncryptionV2::Client.new(
-  kms_key_id: key_id,
-  kms_client: kms,
-  key_wrap_schema: :kms_context, # the key_wrap_schema must be kms_context for KMS
-  content_encryption_schema: :aes_gcm_no_padding,
-  security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
-)
-
-# Add encrypted item to bucket
-client.put_object(
-  body: contents,
-  bucket: bucket,
-  key: item
-)
-
-puts 'Added client-side KMS encrypted item ' + item + ' to bucket ' + bucket
+run_me if $PROGRAM_NAME == __FILE__

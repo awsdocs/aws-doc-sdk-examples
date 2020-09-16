@@ -1,61 +1,79 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds a policy to an S3 bucket that denies un-encrypted uploads.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_bucket_policy method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-iam' # To get user ARN; In v2: require 'aws-sdk'
 require 'aws-sdk-s3'
 
-region = 'us-west-2'
-bucket = 'my_bucket'
-
-# Get ARN for current user
-iam = Aws::IAM::Resource.new(region: region)
-user = iam.current_user
-arn = user.arn
-
-puts 'User ARN: ' + arn
-
-s3 = Aws::S3::Client.new(region: region)
-
-policy = {
-  'Version':'2012-10-17',
-  'Id':'PutObjPolicy',
-  'Statement':[{
-    'Sid':'DenyUnEncryptedObjectUploads',
-    'Effect':'Deny',
-    'Principal':'*',
-    'Action':'s3:PutObject',
-    'Resource':'arn:aws:s3:::' + bucket + '/*',
-    'Condition':{
-      'StringNotEquals':{
-        's3:x-amz-server-side-encryption':'aws:kms'
+# Denies uploads of unencrypted objects to an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - The Amazon S3 bucket to deny uploading unencrypted objects.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The bucket's name.
+# @return [Boolean] true if a policy was added to the bucket to
+#   deny uploading unencrypted objects; otherwise, false.
+# @example
+#   if deny_uploads_without_encryption?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'my-bucket'
+#   )
+#     puts 'Policy added.'
+#   else
+#     puts 'Policy not added.'
+#   end
+def deny_uploads_without_encryption?(s3_client, bucket_name)
+  policy = {
+    'Version': '2012-10-17',
+    'Id': 'PutObjPolicy',
+    'Statement': [
+      {
+        'Sid': 'DenyUnEncryptedObjectUploads',
+        'Effect': 'Deny',
+        'Principal': '*',
+        'Action': 's3:PutObject',
+        'Resource': 'arn:aws:s3:::' + bucket_name + '/*',
+        'Condition': {
+          'StringNotEquals': {
+            's3:x-amz-server-side-encryption': [
+              'AES256',
+              'aws:kms'
+            ]
+          }
+        }
+      },
+      {
+        'Sid': 'DenyUnEncryptedObjectUploads',
+        'Effect': 'Deny',
+        'Principal': '*',
+        'Action': 's3:PutObject',
+        'Resource': 'arn:aws:s3:::' + bucket_name + '/*',
+        'Condition': {
+          'Null': {
+            's3:x-amz-server-side-encryption': 'true'
+          }
+        }
       }
-    }
-  }]
-}.to_json
+    ]
+  }.to_json
+  s3_client.put_bucket_policy(
+    bucket: bucket_name,
+    policy: policy
+  )
+  return true
+rescue StandardError => e
+  puts "Error adding policy: #{e.message}"
+  return false
+end
 
-s3.put_bucket_policy(
-  bucket: bucket,
-  policy: policy
+# Full example call:
+=begin
+if deny_uploads_without_encryption?(
+  Aws::S3::Client.new(region: 'us-east-1'),
+  'my-bucket'
 )
-
-puts 'Successfully added policy to bucket ' + bucket
+  puts 'Policy added.'
+else
+  puts 'Policy not added.'
+end
+=end
