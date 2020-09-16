@@ -25,9 +25,9 @@ def test_create_table(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            dyn_stubber, 'stub_create_table', table_name, schema,
+            dyn_stubber.stub_create_table, table_name, schema,
             {'read': 10, 'write': 10})
-        runner.add(dyn_stubber, 'stub_describe_table', table_name)
+        runner.add(dyn_stubber.stub_describe_table, table_name)
 
     if error_code is None:
         got_table = dynamo_batching.create_table(table_name, schema)
@@ -146,23 +146,23 @@ def test_archive_movies(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            dyn_stubber, 'stub_describe_table', movie_table.name, schema=table_schema,
+            dyn_stubber.stub_describe_table, movie_table.name, schema=table_schema,
             provisioned_throughput={'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10})
         runner.add(
-            dyn_stubber, 'stub_create_table', archive_table_name, table_schema,
+            dyn_stubber.stub_create_table, archive_table_name, table_schema,
             {'read': 10, 'write': 10})
-        runner.add(dyn_stubber, 'stub_describe_table', archive_table_name)
+        runner.add(dyn_stubber.stub_describe_table, archive_table_name)
         runner.add(
-            dyn_stubber, 'stub_batch_write_item', {
+            dyn_stubber.stub_batch_write_item, {
                 archive_table_name: [{
                     'PutRequest': {'Item': item}} for item in movie_list]},
             error_code='ValidationException')
         runner.add(
-            dyn_stubber, 'stub_batch_write_item', {
+            dyn_stubber.stub_batch_write_item, {
                 archive_table_name: [{
                     'PutRequest': {'Item': item}} for item in movie_list]})
         runner.add(
-            dyn_stubber, 'stub_batch_write_item', {
+            dyn_stubber.stub_batch_write_item, {
                 movie_table.name: [{
                     'DeleteRequest': {'Key': item}} for item in movie_list]})
 

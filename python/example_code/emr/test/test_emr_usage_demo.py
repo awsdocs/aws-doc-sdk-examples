@@ -30,10 +30,10 @@ def test_setup_bucket(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            s3_stubber, 'stub_create_bucket', bucket_name,
+            s3_stubber.stub_create_bucket, bucket_name,
             s3_resource.meta.client.meta.region_name)
-        runner.add(s3_stubber, 'stub_head_bucket', bucket_name)
-        runner.add(s3_stubber, 'stub_put_object', bucket_name, script_key)
+        runner.add(s3_stubber.stub_head_bucket, bucket_name)
+        runner.add(s3_stubber.stub_put_object, bucket_name, script_key)
 
     if error_code is None:
         bucket = emr_usage_demo.setup_bucket(
@@ -64,9 +64,9 @@ def test_delete_bucket(
     obj_keys = ['test-key-1', 'test-key-2']
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(s3_stubber, 'stub_list_objects', bucket.name, object_keys=obj_keys)
-        runner.add(s3_stubber, 'stub_delete_objects', bucket.name, obj_keys)
-        runner.add(s3_stubber, 'stub_delete_bucket', bucket.name)
+        runner.add(s3_stubber.stub_list_objects, bucket.name, object_keys=obj_keys)
+        runner.add(s3_stubber.stub_delete_objects, bucket.name, obj_keys)
+        runner.add(s3_stubber.stub_delete_bucket, bucket.name)
 
     if error_code is None:
         emr_usage_demo.delete_bucket(bucket)
@@ -95,22 +95,22 @@ def test_create_roles(
     service_role_name = make_unique_name('srole-')
 
     with stub_runner(error_code_jf, stop_on_method_jf) as runner_jf:
-        runner_jf.add(iam_stubber, 'stub_create_role', job_flow_role_name)
-        runner_jf.add(iam_stubber, 'stub_get_role', job_flow_role_name)
+        runner_jf.add(iam_stubber.stub_create_role, job_flow_role_name)
+        runner_jf.add(iam_stubber.stub_get_role, job_flow_role_name)
         runner_jf.add(
-            iam_stubber, 'stub_attach_role_policy', job_flow_role_name,
+            iam_stubber.stub_attach_role_policy, job_flow_role_name,
             "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role")
-        runner_jf.add(iam_stubber, 'stub_create_instance_profile', job_flow_role_name)
+        runner_jf.add(iam_stubber.stub_create_instance_profile, job_flow_role_name)
         runner_jf.add(
-            iam_stubber, 'stub_add_role_to_instance_profile', job_flow_role_name,
+            iam_stubber.stub_add_role_to_instance_profile, job_flow_role_name,
             job_flow_role_name)
 
     if error_code_jf is None:
         with stub_runner(error_code_svc, stop_on_method_svc) as runner_svc:
-            runner_svc.add(iam_stubber, 'stub_create_role', service_role_name)
-            runner_svc.add(iam_stubber, 'stub_get_role', service_role_name)
+            runner_svc.add(iam_stubber.stub_create_role, service_role_name)
+            runner_svc.add(iam_stubber.stub_get_role, service_role_name)
             runner_svc.add(
-                iam_stubber, 'stub_attach_role_policy', service_role_name,
+                iam_stubber.stub_attach_role_policy, service_role_name,
                 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole')
 
     if error_code_jf is None and error_code_svc is None:
@@ -147,17 +147,17 @@ def test_delete_roles(
     with stub_runner(error_code, stop_on_method) as runner:
         for role in roles:
             runner.add(
-                iam_stubber, 'stub_list_attached_role_policies', role.name,
+                iam_stubber.stub_list_attached_role_policies, role.name,
                 policy)
-            runner.add(iam_stubber, 'stub_detach_role_policy', role.name, policy_arn)
+            runner.add(iam_stubber.stub_detach_role_policy, role.name, policy_arn)
             runner.add(
-                iam_stubber, 'stub_list_instance_profiles_for_role', role.name,
+                iam_stubber.stub_list_instance_profiles_for_role, role.name,
                 [inst_profile])
             runner.add(
-                iam_stubber, 'stub_remove_role_from_instance_profile', inst_profile,
+                iam_stubber.stub_remove_role_from_instance_profile, inst_profile,
                 role.name)
-            runner.add(iam_stubber, 'stub_delete_instance_profile', inst_profile)
-            runner.add(iam_stubber, 'stub_delete_role', role.name)
+            runner.add(iam_stubber.stub_delete_instance_profile, inst_profile)
+            runner.add(iam_stubber.stub_delete_role, role.name)
 
     if error_code is None:
         emr_usage_demo.delete_roles(roles)
@@ -181,13 +181,13 @@ def test_create_security_groups(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            ec2_stubber, 'stub_describe_vpcs', {vpc_id: True},
+            ec2_stubber.stub_describe_vpcs, {vpc_id: True},
             [{'Name': 'isDefault', 'Values': ['true']}])
         runner.add(
-            ec2_stubber, 'stub_create_security_group', 'test-manager',
+            ec2_stubber.stub_create_security_group, 'test-manager',
             'EMR manager group.', vpc_id, sec_groups['manager'])
         runner.add(
-            ec2_stubber, 'stub_create_security_group', 'test-worker',
+            ec2_stubber.stub_create_security_group, 'test-worker',
             'EMR worker group.', vpc_id, sec_groups['worker'])
 
     if error_code is None:
@@ -219,10 +219,10 @@ def test_delete_security_groups(
 
     with stub_runner(error_code, stop_on_method) as runner:
         for sg in sec_group_info.values():
-            runner.add(ec2_stubber, 'stub_describe_security_groups', [sg])
-            runner.add(ec2_stubber, 'stub_revoke_security_group_ingress', sg)
+            runner.add(ec2_stubber.stub_describe_security_groups, [sg])
+            runner.add(ec2_stubber.stub_revoke_security_group_ingress, sg)
         for sg in sec_group_info.values():
-            runner.add(ec2_stubber, 'stub_delete_security_group', sg['id'])
+            runner.add(ec2_stubber.stub_delete_security_group, sg['id'])
 
     if error_code is None:
         emr_usage_demo.delete_security_groups(

@@ -14,15 +14,16 @@ import api_gateway_rest
 
 @pytest.mark.parametrize('error_code,stop_on_method', [
     (None, None),
-    ('TestException', 'create_rest_api'),
-    ('TestException', 'get_resources'),
-    ('TestException', 'create_resource'),
-    ('TestException', 'put_method'),
-    ('TestException', 'put_integration'),
-    ('TestException', 'create_deployment'),
-    ('TestException', 'add_permission'),
+    ('TestException', 'stub_create_rest_api'),
+    ('TestException', 'stub_get_resources'),
+    ('TestException', 'stub_create_resource'),
+    ('TestException', 'stub_put_method'),
+    ('TestException', 'stub_put_integration'),
+    ('TestException', 'stub_create_deployment'),
+    ('TestException', 'stub_add_permission'),
 ])
-def test_create_rest_api(make_stubber, make_unique_name, error_code, stop_on_method):
+def test_create_rest_api(
+        make_stubber, make_unique_name, stub_runner, error_code, stop_on_method):
     apig_client = boto3.client('apigateway')
     apig_stubber = make_stubber(apig_client)
     lambda_client = boto3.client('lambda')
@@ -42,30 +43,21 @@ def test_create_rest_api(make_stubber, make_unique_name, error_code, stop_on_met
         f'arn:aws:execute-api:{apig_client.meta.region_name}:' \
         f'{account_id}:{rest_api_id}/*/*/{api_base_path}'
 
-    with apig_stubber.conditional_stubs(error_code is not None, stop_on_method):
-        apig_stubber.stub_create_rest_api(
-            api_name, rest_api_id,
-            error_code=error_code if stop_on_method == 'create_rest_api' else None)
-        apig_stubber.stub_get_resources(rest_api_id, [
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(apig_stubber.stub_create_rest_api, api_name, rest_api_id)
+        runner.add(apig_stubber.stub_get_resources, rest_api_id, [
             {'id': 'not-the-root-id', 'path': '/not-the-root'},
-            {'id': root_id, 'path': '/'}],
-            error_code=error_code if stop_on_method == 'get_resources' else None)
-        apig_stubber.stub_create_resource(
-            rest_api_id, root_id, api_base_path, resource_id,
-            error_code=error_code if stop_on_method == 'create_resource' else None)
-        apig_stubber.stub_put_method(
-            rest_api_id, resource_id,
-            error_code=error_code if stop_on_method == 'put_method' else None)
-        apig_stubber.stub_put_integration(
-            rest_api_id, resource_id, lambda_uri,
-            error_code=error_code if stop_on_method == 'put_integration' else None)
-        apig_stubber.stub_create_deployment(
-            rest_api_id, api_stage,
-            error_code=error_code if stop_on_method == 'create_deployment' else None)
-    if error_code is None or stop_on_method == 'add_permission':
-        lambda_stubber.stub_add_permission(
-            lambda_func_arn, 'lambda:InvokeFunction', 'apigateway.amazonaws.com',
-            apig_source_arn, error_code=error_code)
+            {'id': root_id, 'path': '/'}])
+        runner.add(
+            apig_stubber.stub_create_resource, rest_api_id, root_id, api_base_path,
+            resource_id)
+        runner.add(apig_stubber.stub_put_method, rest_api_id, resource_id)
+        runner.add(
+            apig_stubber.stub_put_integration, rest_api_id, resource_id, lambda_uri)
+        runner.add(apig_stubber.stub_create_deployment, rest_api_id, api_stage)
+        runner.add(
+            lambda_stubber.stub_add_permission, lambda_func_arn,
+            'lambda:InvokeFunction', 'apigateway.amazonaws.com', apig_source_arn)
 
     if error_code is None:
         got_api_id = api_gateway_rest.create_rest_api(
