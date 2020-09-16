@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[9/16/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -49,20 +49,18 @@ public class SetBucketPolicy {
                 "    SetBucketPolicy <bucket> [policyfile]\n\n" +
                 "Where:\n" +
                 "    bucket     - the bucket to set the policy on.\n" +
-                "    policyfile - an optional JSON file containing the policy\n" +
-                "                 description.\n\n" +
-                "If no policyfile is given, a generic public-read policy will be set on\n" +
-                "the bucket.\n\n" +
+                "    policyfile - a JSON file containing the policy\n" +
                 "Example:\n" +
                 "    SetBucketPolicy testbucket mypolicy.json\n\n";
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String bucketName = args[0];
-        String policyText = getBucketPolicyFromFile(args[1]);
+        String polFile = args[1] ; 
+        String policyText = getBucketPolicyFromFile(polFile);
 
         System.out.println("Setting policy:");
         System.out.println("----");
@@ -84,11 +82,10 @@ public class SetBucketPolicy {
     public static void setPolicy(S3Client s3, String bucketName, String polText) {
 
         try {
-
-            String policyText = getBucketPolicyFromFile(polText);
+           // String policyText = getBucketPolicyFromFile(polText);
             PutBucketPolicyRequest policyReq = PutBucketPolicyRequest.builder()
                     .bucket(bucketName)
-                    .policy(policyText)
+                    .policy(polText)
                     .build();
             s3.putBucketPolicy(policyReq);
         } catch (S3Exception e) {
@@ -100,17 +97,17 @@ public class SetBucketPolicy {
 
     // Loads a JSON-formatted policy from a file, verifying it with the Policy
     // class.
-    private static String getBucketPolicyFromFile(String policFile) {
+    public static String getBucketPolicyFromFile(String policyFile) {
 
         StringBuilder fileText = new StringBuilder();
         try {
             List<String> lines = Files.readAllLines(
-                    Paths.get(policFile), Charset.forName("UTF-8"));
+                    Paths.get(policyFile), Charset.forName("UTF-8"));
             for (String line : lines) {
                 fileText.append(line);
             }
         } catch (IOException e) {
-            System.out.format("Problem reading file: \"%s\"", policFile);
+            System.out.format("Problem reading file: \"%s\"", policyFile);
             System.out.println(e.getMessage());
         }
 
