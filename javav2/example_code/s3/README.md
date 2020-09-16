@@ -38,7 +38,7 @@ Define these values to successfully run the JUnit tests:
 
 - **bucketName** - The name of the bucket to use. For example, **buckettestfeb7**.
 
-- **bucketNamePolicy** - The name of an existing bucket to which a policy is applied. 
+- **bucketNamePolicy** - The name of an existing bucket to which a policy is applied (used in the **setBucketPolicy** and **getBucketPolicy** tests). 
 
 - **presignBucket** - The name of the bucket to use in presign operations. For example, **bucketpresign**.
 
