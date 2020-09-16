@@ -80,11 +80,12 @@ def test_put_or_post_state_data(make_stubber, method, error_code):
 
 @pytest.mark.parametrize('item_count,error_code,stop_on_method', [
     (10, None, None),
-    (5, 'TestException', 'query'),
+    (5, 'TestException', 'stub_query'),
     (0, None, None),
-    (17, 'TestException', 'batch_write_item')
+    (17, 'TestException', 'stub_batch_write_item')
 ])
-def test_delete_state_data(make_stubber, item_count, error_code, stop_on_method):
+def test_delete_state_data(
+        make_stubber, stub_runner, item_count, error_code, stop_on_method):
     dyn_resource = boto3.resource('dynamodb')
     dyn_stubber = make_stubber(dyn_resource.meta.client)
     table = dyn_resource.Table('test-table')
@@ -95,17 +96,16 @@ def test_delete_state_data(make_stubber, item_count, error_code, stop_on_method)
         'date': (datetime.date.today() - datetime.timedelta(days=index)).isoformat()
     } for index in range(1, item_count+1)]
 
-    with dyn_stubber.conditional_stubs(error_code is not None, stop_on_method):
-        dyn_stubber.stub_query(
-            table.name, items, key_condition=Key('state').eq(state),
-            error_code=error_code if stop_on_method == 'query' else None)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(
+            dyn_stubber.stub_query, table.name, items,
+            key_condition=Key('state').eq(state))
         if item_count > 0:
-            dyn_stubber.stub_batch_write_item(
+            runner.add(
+                dyn_stubber.stub_batch_write_item,
                 request_items={
                     table.name: [{'DeleteRequest': {'Key': item}} for item in items]
-                },
-                error_code=error_code if stop_on_method == 'batch_write_item' else None
-            )
+                })
 
     if error_code is None:
         storage.delete_state_data(state)

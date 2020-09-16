@@ -25,6 +25,19 @@ information, see [In-Memory Acceleration with DynamoDB Accelerator (DAX)](https:
     - Amazon DAX Client for Python 1.1.7 or later
 - PyTest 5.3.5 or later (to run unit tests)
 
+## Cautions
+
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
+
 ## Running the code
 
 The files in this example are designed to be used as part of the Python sample 
@@ -67,15 +80,6 @@ python -m pytest
 
 - [Boto3 Amazon DynamoDB examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html)
 - [Boto3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  "AWS Regional Table" on the AWS website.
-- Running this code might result in charges to your AWS account.
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

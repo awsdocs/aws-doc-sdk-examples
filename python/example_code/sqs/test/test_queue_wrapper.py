@@ -174,8 +174,8 @@ def test_get_queue_nonexistent(make_stubber, make_unique_name):
     queue_name = make_unique_name('queue')
     url = 'url-' + queue_name
 
-    sqs_stubber.stub_get_queue_url(queue_name, url,
-                                   error_code='AWS.SimpleQueueService.NonExistentQueue')
+    sqs_stubber.stub_get_queue_url(
+        queue_name, url, error_code='AWS.SimpleQueueService.NonExistentQueue')
 
     with pytest.raises(ClientError) as exc_info:
         queue_wrapper.get_queue(queue_name)
@@ -262,8 +262,8 @@ def test_remove_queue(make_stubber, make_unique_name):
 
     sqs_stubber.stub_create_queue(queue_name, {}, url)
     sqs_stubber.stub_delete_queue(url)
-    sqs_stubber.stub_get_queue_url(queue_name, url,
-                                   error_code='AWS.SimpleQueueService.NonExistentQueue')
+    sqs_stubber.stub_get_queue_url(
+        queue_name, url, error_code='AWS.SimpleQueueService.NonExistentQueue')
 
     queue = queue_wrapper.create_queue(queue_name)
     queue_wrapper.remove_queue(queue)

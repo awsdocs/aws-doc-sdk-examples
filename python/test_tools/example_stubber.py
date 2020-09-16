@@ -27,24 +27,10 @@ class ExampleStubber(Stubber):
         """
         self.use_stubs = use_stubs
         self.region_name = client.meta.region_name
-        self.defer_stubs = False
-        self.deferred_stubs = []
         if self.use_stubs:
             super().__init__(client)
         else:
             self.client = client
-
-    @contextlib.contextmanager
-    def conditional_stubs(self, defer_condition, stop_on_method):
-        self.defer_stubs = defer_condition
-        yield
-        if self.defer_stubs:
-            self.defer_stubs = False
-            for stub in self.deferred_stubs:
-                self._stub_bifurcator(**stub)
-                if stub['method'] == stop_on_method:
-                    break
-        self.deferred_stubs = []
 
     def add_response(self, method, service_response, expected_params=None):
         """When using stubs, add a stubbed response."""
@@ -68,18 +54,13 @@ class ExampleStubber(Stubber):
 
     def _stub_bifurcator(
             self, method, expected_params=None, response=None, error_code=None):
-        if self.defer_stubs:
-            self.deferred_stubs.append(
-                {'method': method, 'expected_params': expected_params,
-                 'response': response, 'error_code': error_code})
+        if expected_params is None:
+            expected_params = {}
+        if response is None:
+            response = {}
+        if error_code is None:
+            self.add_response(
+                method, expected_params=expected_params, service_response=response)
         else:
-            if expected_params is None:
-                expected_params = {}
-            if response is None:
-                response = {}
-            if error_code is None:
-                self.add_response(
-                    method, expected_params=expected_params, service_response=response)
-            else:
-                self.add_client_error(
-                    method, expected_params=expected_params, service_error_code=error_code)
+            self.add_client_error(
+                method, expected_params=expected_params, service_error_code=error_code)

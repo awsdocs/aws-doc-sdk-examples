@@ -12,18 +12,22 @@ import pytest
 import dynamo_batching
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_create_table(make_stubber, make_unique_name, error_code):
+@pytest.mark.parametrize('error_code,stop_on_method', [
+    (None, None),
+    ('TestException', 'stub_create_table')])
+def test_create_table(
+        make_stubber, make_unique_name, stub_runner, error_code, stop_on_method):
     dyn_stubber = make_stubber(dynamo_batching.dynamodb.meta.client)
     table_name = make_unique_name('table-')
     schema = [
         {'name': 'hash_item', 'type': 'N', 'key_type': 'HASH'},
         {'name': 'range_item', 'type': 'S', 'key_type': 'RANGE'}]
 
-    with dyn_stubber.conditional_stubs(error_code is not None, 'create_table'):
-        dyn_stubber.stub_create_table(
-            table_name, schema, {'read': 10, 'write': 10}, error_code)
-        dyn_stubber.stub_describe_table(table_name)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(
+            dyn_stubber.stub_create_table, table_name, schema,
+            {'read': 10, 'write': 10})
+        runner.add(dyn_stubber.stub_describe_table, table_name)
 
     if error_code is None:
         got_table = dynamo_batching.create_table(table_name, schema)
@@ -124,14 +128,13 @@ def test_get_batch_data(monkeypatch, item_count, error_code):
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
-@pytest.mark.parametrize('item_count,error_code,error_method,stop_on_method', [
-    (20, None, None, None),
-    (10, 'TestException', 'create_table', 'create_table'),
-    (10, 'TestException', 'archive_batch_dups', 'batch_write_item'),
-    (10, 'ValidationException', 'archive_batch_dups', None),
+@pytest.mark.parametrize('item_count,error_code,stop_on_method', [
+    (20, None, None),
+    (10, 'TestException', 'stub_create_table'),
+    (10, 'TestException', 'stub_batch_write_item'),
 ])
 def test_archive_movies(
-        make_stubber, item_count, error_code, error_method, stop_on_method):
+        make_stubber, stub_runner, item_count, error_code, stop_on_method):
     dyn_stubber = make_stubber(dynamo_batching.dynamodb.meta.client)
     movie_table = dynamo_batching.dynamodb.Table('movie-test')
     movie_list = [
@@ -141,31 +144,29 @@ def test_archive_movies(
         {'name': 'title', 'type': 'S', 'key_type': 'RANGE'}]
     archive_table_name = f'{movie_table.name}-archive'
 
-    with dyn_stubber.conditional_stubs(error_code is not None, stop_on_method):
-        dyn_stubber.stub_describe_table(
-            movie_table.name, schema=table_schema, provisioned_throughput={
-                'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10})
-        dyn_stubber.stub_create_table(
-            archive_table_name, table_schema, {'read': 10, 'write': 10},
-            error_code=error_code if error_method == 'create_table' else None)
-        dyn_stubber.stub_describe_table(archive_table_name)
-        dyn_stubber.stub_batch_write_item({
-            archive_table_name: [{
-                'PutRequest': {'Item': item}}
-                for item in movie_list]},
-            error_code=error_code if error_method == 'archive_batch_dups' else None)
-        dyn_stubber.stub_batch_write_item({
-            archive_table_name: [{
-                'PutRequest': {'Item': item}}
-                for item in movie_list]},
-            error_code=error_code if error_method == 'archive_batch_no_dups' else None)
-        dyn_stubber.stub_batch_write_item({
-            movie_table.name: [{
-                'DeleteRequest': {'Key': item}}
-                for item in movie_list]},
-            error_code=error_code if error_method == 'movie_batch' else None)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(
+            dyn_stubber.stub_describe_table, movie_table.name, schema=table_schema,
+            provisioned_throughput={'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10})
+        runner.add(
+            dyn_stubber.stub_create_table, archive_table_name, table_schema,
+            {'read': 10, 'write': 10})
+        runner.add(dyn_stubber.stub_describe_table, archive_table_name)
+        runner.add(
+            dyn_stubber.stub_batch_write_item, {
+                archive_table_name: [{
+                    'PutRequest': {'Item': item}} for item in movie_list]},
+            error_code='ValidationException')
+        runner.add(
+            dyn_stubber.stub_batch_write_item, {
+                archive_table_name: [{
+                    'PutRequest': {'Item': item}} for item in movie_list]})
+        runner.add(
+            dyn_stubber.stub_batch_write_item, {
+                movie_table.name: [{
+                    'DeleteRequest': {'Key': item}} for item in movie_list]})
 
-    if error_code is None or stop_on_method is None:
+    if error_code is None:
         got_table = dynamo_batching.archive_movies(movie_table, movie_list)
         assert got_table.name == archive_table_name
     else:
