@@ -2,7 +2,7 @@
 // snippet-sourcedescription:[CreateOpsItem.java demonstrates how to create a new OpsItem.]
 // snippet-service:[ssm]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon Simple Systems Management]
+// snippet-keyword:[AWS Systems Manager]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-10]
@@ -41,10 +41,10 @@ public class CreateOpsItem {
                     "Usage:\n" +
                     "    CreateOpsItem <title><source><category><severity>\n\n" +
                     "Where:\n" +
-                    "    title - the Ops item title\n" +
-                    "    source - the origin of the OpsItem, such as Amazon EC2 or Systems Manager\n" +
-                    "    category - a category to assign to an OpsItem.\n" +
-                    "    severity - a severity to assign to an OpsItem.\n";
+                    "    title - The OpsItem title.\n" +
+                    "    source - The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.\n" +
+                    "    category - A category to assign to an OpsItem.\n" +
+                    "    severity - A severity to assign to an OpsItem.\n";
 
             if (args.length < 4) {
                 System.out.println(USAGE);
@@ -62,7 +62,7 @@ public class CreateOpsItem {
                 .region(region)
                 .build();
 
-            System.out.println("The Id of the OpsItem is " +createNewOpsItem(ssmClient, title, source, category, severity));
+            System.out.println("The ID of the OpsItem is " +createNewOpsItem(ssmClient, title, source, category, severity));
     }
 
     //snippet-start:[ssm.java2.create_ops.main]
@@ -74,7 +74,7 @@ public class CreateOpsItem {
 
         try {
             CreateOpsItemRequest opsItemRequest = CreateOpsItemRequest.builder()
-                .description("Created by the SSM Java API")
+                .description("Created by the AWS Systems Manager Java API")
                 .title(title)
                 .source(source)
                 .category(category)

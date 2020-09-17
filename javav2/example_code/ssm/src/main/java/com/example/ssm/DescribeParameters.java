@@ -1,8 +1,8 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetSimpleSystemsManagementParas.java demonstrates how to get information about SSM parameters by using a ssmClient object]
+// snippet-sourcedescription:[DescribeParameters.java demonstrates how to get information about AWS Systems Manager parameters by using an ssmClient object.]
 // snippet-service:[ssm]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon Simple Systems Management]
+// snippet-keyword:[AWS Systems Manager]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-10]
@@ -58,12 +58,12 @@ public class DescribeParameters {
                     .maxResults(10)
                     .build();
 
-                // Get SSM Parameters (you can define them in the AWS Console)
+                // Get Systems Manager parameters (you can define them in the AWS Management Console)
                 DescribeParametersResponse desResponse = ssmClient.describeParameters(desRequest);
 
                 List<ParameterMetadata> params = desResponse.parameters();
 
-                //Iterate through the list
+                // Iterate through the list
                 Iterator<ParameterMetadata> paramIterator = params.iterator();
                 while(paramIterator.hasNext()) {
                     ParameterMetadata paraMeta = paramIterator.next();
@@ -77,4 +77,3 @@ public class DescribeParameters {
     // snippet-end:[ssm.Java2.get_params.main]
 }
 // snippet-end:[ssm.Java2.get_params.complete]
-

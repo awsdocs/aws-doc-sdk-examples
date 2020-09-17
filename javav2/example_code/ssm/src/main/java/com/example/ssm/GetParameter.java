@@ -2,7 +2,7 @@
 // snippet-sourcedescription:[GetParameter.java demonstrates how to get a parameter value.]
 // snippet-service:[ssm]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon Simple Systems Management]
+// snippet-keyword:[AWS Systems Manager]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-10]
@@ -42,7 +42,7 @@ public class GetParameter {
                 "Usage:\n" +
                 "    GetParameter <paraName>\n\n" +
                 "Where:\n" +
-                "    paraName - the name of the parameter\n";
+                "    paraName - The name of the parameter.\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
