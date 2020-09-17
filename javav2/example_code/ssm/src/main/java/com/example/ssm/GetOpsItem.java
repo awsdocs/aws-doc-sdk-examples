@@ -1,8 +1,8 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetSimpleSystemsManagementOps.java demonstrates how to get information about an OpsItem by using the ID value]
+// snippet-sourcedescription:[GetOpsItem.java demonstrates how to get information about an OpsItem by using the ID value.]
 // snippet-service:[ssm]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon Simple Systems Management]
+// snippet-keyword:[AWS Systems Manager]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-10]
@@ -41,9 +41,9 @@ public class GetOpsItem {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetSimpleSystemsManagementOps <opsID>\n\n" +
+                "    GetOpsItem <opsID>\n\n" +
                 "Where:\n" +
-                "    opsID - the Ops item ID value\n";
+                "    opsID - The OpsItem ID value.\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -70,7 +70,7 @@ public class GetOpsItem {
                     .opsItemId(opsID)
                     .build();
 
-            // Get SSM Parameters (you can define them in the AWS Console)
+            // Get SSM parameters (you can define them in the AWS Management Console)
             GetOpsItemResponse opsItem = ssmClient.getOpsItem(opsRequest);
             OpsItem item = opsItem.opsItem();
 
@@ -86,4 +86,3 @@ public class GetOpsItem {
     }
 }
 // snippet-end:[ssm.Java2.get_ops.complete]
-

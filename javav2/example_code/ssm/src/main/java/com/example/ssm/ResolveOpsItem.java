@@ -2,7 +2,7 @@
 // snippet-sourcedescription:[ResolveOpsItem.java demonstrates how to resolve an OpsItem.]
 // snippet-service:[ssm]
 // snippet-keyword:[Java]
-// snippet-keyword:[Amazon Simple Systems Management]
+// snippet-keyword:[AWS Systems Manager]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-10]
@@ -41,7 +41,7 @@ public class ResolveOpsItem {
                 "Usage:\n" +
                 "    ResolveOpsItem <opsID>\n\n" +
                 "Where:\n" +
-                "    opsID - the Ops item ID value\n";
+                "    opsID - The OpsItem ID value.\n";
 
         if (args.length < 1) {
           System.out.println(USAGE);
