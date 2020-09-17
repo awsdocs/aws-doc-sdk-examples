@@ -595,6 +595,8 @@ The JAR is located in the target folder, as shown in the following figure.
 
 ![AWS Tracking Application](images/greet8.png)
 
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+
 ## Create the DynamoDB table named Greeting
 
 You can use the DynamoDB Java API to create a table. The code to create a table is listed at the following URL:
