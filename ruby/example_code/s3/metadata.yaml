@@ -54,7 +54,7 @@ files:
   - path: determine_object_encryption_state.rb
     services:
     - s3
-  - path: tests/determine_object_encryption_state.rb
+  - path: tests/test_determine_object_encryption_state.rb
     services:
     - s3
   - path: s3_add_bucket_ssekms_encryption_policy.rb
@@ -84,7 +84,49 @@ files:
   - path: s3_add_cspk_encrypt_item.rb
     services:
     - s3
-    - path: tests/test_s3_add_cspk_encrypt_item.rb
+  - path: tests/test_s3_add_cspk_encrypt_item.rb
+    services:
+    - s3
+  - path: s3_add_default_sse_encryption.rb
+    services:
+    - s3
+  - path: tests/test_s3_add_default_sse_encryption.rb
+    services:
+    - s3
+  - path: s3_add_sseck_encrypt_item.rb
+    services:
+    - s3
+  - path: tests/test_s3_add_sseck_encrypt_item.rb
+    services:
+    - s3
+  - path: s3_add_ssekms_encrypt_item.rb
+    services:
+    - s3
+  - path: tests/test_s3_add_ssekms_encrypt_item.rb
+    services:
+    - s3
+  - path: s3_add_sses3_encrypt_item.rb
+    services:
+    - s3
+  - path: tests/test_s3_add_sses3_encrypt_item.rb
+    services:
+    - s3
+  - path: s3_get_csaes_decrypt_item.rb
+    services:
+    - s3
+  - path: tests/test_s3_get_csaes_decrypt_item.rb
+    services:
+    - s3    
+  - path: s3_get_cskms_decrypt_item.rb
+    services:
+    - s3
+  - path: tests/test_s3_get_cskms_decrypt_item.rb
+    services:
+    - s3
+  - path: s3_get_cspk_decrypt_item.rb
+    services:
+    - s3
+  - path: tests/test_s3_get_cspk_decrypt_item.rb
     services:
     - s3
   - path: s3-ruby-example-upload-item-to-folder.rb
