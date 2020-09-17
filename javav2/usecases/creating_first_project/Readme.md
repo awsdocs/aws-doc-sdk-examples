@@ -265,7 +265,7 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
     	@Autowired
     	private PublishTextSMS msg;
 
-    	@GetMapping("/greeting")
+    	@GetMapping("/")
     	public String greetingForm(Model model) {
           model.addAttribute("greeting", new Greeting());
           return "greeting";
@@ -595,6 +595,8 @@ The JAR is located in the target folder, as shown in the following figure.
 
 ![AWS Tracking Application](images/greet8.png)
 
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+
 ## Create the DynamoDB table named Greeting
 
 You can use the DynamoDB Java API to create a table. The code to create a table is listed at the following URL:
@@ -643,11 +645,7 @@ If this is your first time accessing this service, you see the **Welcome to AWS 
 
 ![AWS Tracking Application](images/greet14.png)
 
-To access the application, open your browser and use the following syntax.
-
-**URL/greeting**
-
-You need **/greeting** at the end of the URL so that a request is made to the /greeting controller in the **GreetingController** class. When you enter the full URL (including **/greeting**) into a browser, you see the form. 
+To access the application, open your browser and enter the full URL into a browser. 
 
 ![AWS Blog Application](images/greet15.png)
 
