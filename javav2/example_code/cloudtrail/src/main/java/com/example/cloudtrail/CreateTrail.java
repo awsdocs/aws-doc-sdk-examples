@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import software.amazon.awssdk.services.cloudtrail.model.CloudTrailException;
 import software.amazon.awssdk.services.cloudtrail.model.CreateTrailRequest;
 import software.amazon.awssdk.services.cloudtrail.model.CreateTrailResponse;
-//snippet-start:[cloudtrail.java2.create_trail.import]
+//snippet-end:[cloudtrail.java2.create_trail.import]
 
 public class CreateTrail {
 
@@ -77,5 +77,5 @@ public class CreateTrail {
             System.exit(1);
         }
     }
-    //snippet-main:[cloudtrail.java2.create_trail.main]
+    //snippet-end:[cloudtrail.java2.create_trail.main]
 }
