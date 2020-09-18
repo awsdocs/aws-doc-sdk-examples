@@ -15,9 +15,10 @@ describe '#get_decrypted_object_content' do
     data
   end
 
-  # Given data from stub_put, stub a get for the same object
-  # during get get_object is called twice, once to get the full body and
-  # again with a range to get just the auth_tag.
+  # Given data from stub_put, stub a getter for the same object.
+  # During the get operation, get_object is called twice: once to
+  #   get the full body, and once again with a range to get just the
+  #   auth_tag.
   def stub_get(s3_client, data, stub_auth_tag)
     resp_headers = Hash[*data[:metadata].map { |k, v| ["x-amz-meta-#{k.to_s}", v] }.flatten(1)]
     resp_headers['content-length'] = data[:enc_body].length

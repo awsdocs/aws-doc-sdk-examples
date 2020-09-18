@@ -16,8 +16,8 @@ require 'digest/md5'
 # @param bucket_name [String] The name of the bucket.
 # @param object_key [String] The name to assign to the uploaded object.
 # @param content_to_encrypt [String] The content to be encrypted.
-# @param encryption_key [String] The decoded representation of the base64
-#   encoded encryption key string to be used for encryption.
+# @param encryption_key [String] The decoded representation of the
+#   base64-encoded encryption key string to be used for encryption.
 # @return [Boolean] true if the encrypted object was successfully uploaded;
 #   otherwise, false.
 # @example

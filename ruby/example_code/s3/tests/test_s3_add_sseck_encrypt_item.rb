@@ -15,7 +15,7 @@ describe '#customer_key_sse_encrypted_object_uploaded?' do
   let(:content_to_encrypt) { 'This is the content of my-file.txt.' }
   let(:encryption_key) { get_random_aes_256_gcm_key }
 
-  it 'adds an object encrypted with a customer key to a bucket' do
+  it 'adds an object encrypted with an AES256-GCM key to a bucket' do
     expect(customer_key_sse_encrypted_object_uploaded?(
       s3_client,
       bucket_name,

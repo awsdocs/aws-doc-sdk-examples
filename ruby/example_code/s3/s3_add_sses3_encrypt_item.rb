@@ -4,13 +4,11 @@
 require 'aws-sdk-s3'
 
 # Adds an encrypted object to an Amazon S3 bucket. The encryption is performed
-#   on the server by using the default aws/s3 AWS KMS managed
-#   customer master key (CMK).
+#   on the server by using the aws/s3 AWS managed customer master key (CMK).
 #
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
-# - An AWS KMS customer managed key (CMK).
 #
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @param bucket_name [String] The name of the bucket.
