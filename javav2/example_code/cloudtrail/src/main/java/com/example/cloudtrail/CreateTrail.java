@@ -2,7 +2,7 @@
 // snippet-sourcedescription:[CreateTrail.java demonstrates how to create a trail.]
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Java]
-// snippet-keyword:[AWS CloudTrai]
+// snippet-keyword:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-15]
