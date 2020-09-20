@@ -24,13 +24,12 @@ The following figure shows you the structure of the Java project.
 
 + Prerequisites
 + Understand the AWS Tracker application.
-+ Create an IntelliJ project named AWSItemTracker.
++ Create an IntelliJ project named ItemTrackerDynamoDB.
 + Add the Spring POM dependencies to your project.	
 + Setup the Java packages in your project.
 + Create the Java classes.
 + Create the HTML files.
 + Create script files. 
-+ Set up the RDS instance.
 + Create a JAR file for the application. 
 + Deploy the application to Elastic Beanstalk.
 
@@ -42,9 +41,10 @@ To follow along with the tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK. 
 + Maven 3.6 or higher.
++ A DynamoDB table named **Work** with a key named **id**.
 
-## Understand the AWS Tracker application
-The *AWS Tracker* application uses a model that is based on a work item and contains these attributes: 
+## Understand the DynamoDB Item Tracker application
+The *DynamoDB Item Tracker* application uses a model that is based on a work item and contains these attributes: 
 
 + **date** - The start date of the item. 
 + **description** - The description of the item.
@@ -55,14 +55,14 @@ The *AWS Tracker* application uses a model that is based on a work item and cont
 
 The following figure shows the login page. 
 
-![AWS Tracking Application](images/newtrack1.png)
+![AWS Tracking Application](images/pic2.png)
 
 When a user logs into the system, they see the **Home** page.
 
-![AWS Tracking Application](images/AWSItemsAll4.png)
+![AWS Tracking Application](images/pic3.png)
 
 #### Application functionality
-A user can perform these tasks in the AWS Tracker application: 
+A user can perform these tasks in the *DynamoDB Item Tracker^ application: 
 
 + Enter an item into the system
 + View all active items
@@ -72,15 +72,15 @@ A user can perform these tasks in the AWS Tracker application:
 
 The following figure shows the new item section. 
 
-![AWS Tracking Application](images/AWT1.png)
+![AWS Tracking Application](images/pic4.png)
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from an Amazon RDS database and displayed in the web application.
 
-![AWS Tracking Application](images/AWSItemsAll3.png)
+![AWS Tracking Application](images/pic5.png)
 
 The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
-![AWS Tracking Application](images/AWT12.png)
+![AWS Tracking Application](images/pic6.png)
 
 #### Work table
 The database is MySQL and contains a table named **Work**. The table contains the following fields:
