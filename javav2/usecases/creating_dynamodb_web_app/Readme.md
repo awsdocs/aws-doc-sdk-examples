@@ -55,7 +55,7 @@ The *DynamoDB Item Tracker* application uses a model that is based on a work ite
 
 The following figure shows the login page. 
 
-![AWS Tracking Application](images/pic2.png)
+![AWS Tracking Application](images/pic7.png)
 
 When a user logs into the system, they see the **Home** page.
 
