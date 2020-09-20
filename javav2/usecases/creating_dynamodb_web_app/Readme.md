@@ -425,14 +425,14 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
  
 #### To create the SecureWebApp and WebSecurityConfig classes 
 
-1. Create the **com.ecample.secureweb** package. 
+1. Create the **com.example.secureweb** package. 
 2. Create the **SecureWebApp** class and paste the code into it.
 3. Create the **WebSecurityConfig** class and paste the code into it.
 
 
 ### Create the main controller class
 
-In the **com.aws.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
+In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
 **Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial. 
 
@@ -601,17 +601,17 @@ The following Java code represents the **MainController** class.
 
 #### To create the MainController class 
 
-1. In the **com.aws.securingweb** package, create the **MainController** class. 
+1. In the **com.example.secureweb** package, create the **MainController** class. 
 2. Copy the code from the **MainController** class and paste it into this class in your project.
 
 ### Create the WorkItem class
 
-Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
+Create a Java package named **com.example.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
 
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
 
-    package com.aws.entities;
+    package com.example.entities;
 
     public class WorkItem {
 
@@ -672,446 +672,415 @@ The following Java code represents the **WorkItem** class.
      }	
 
 #### To create the WorkItem class
-1. In the **com.aws.entities** package, create the **WorkItem** class. 
+1. In the **com.example.entities** package, create the **WorkItem** class. 
 2. Copy the code from the **WorkItem** class and paste it into this class in your project.
 
 
-### Create the JDBC Classes
+### Create the service classes
 
-Create a Java package named **com.aws.jdbc**. Next, create these Java classes that are required to perform database operations:
+The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
 
-+ **ConnectionHelper** - Creates a connection to the RDS MySQL instance. 
-+ **InjectWorkService** - Injects items into the MySQL instance. 
-+ **RetrieveItems** - Retrieves items from the MySQL instance. 
++ **DynamoDBService** - Uses the DynamoDB Java V2 API to interact with the **Work** table. 
++ **Work** - Is used by the Enhanced DynamoDB client object. 
++ **SendMessages** - Uses the Amazon SES API to send email messages.
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
 
-**Note**: This tutorial uses the JDBC API to interact with the MySQL instance. For more information about using Amazon RDS, see [Amazon Relational Database Service](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html).  
+#### DynamoDBService class 
+The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. 
 
-#### ConnectionHelper class
+The following Java code reprents the **DynamoDBService** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
 
-The following Java code represents the **ConnectionHelper** class.
+	package com.example.services;
 
-    package com.aws.jdbc;
+	import com.example.entities.WorkItem;
+	import org.w3c.dom.Document;
+	import org.w3c.dom.Element;
+	import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+	import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+	import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+	import software.amazon.awssdk.regions.Region;	
+	import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+	import software.amazon.awssdk.services.dynamodb.model.*;
+	import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+	import javax.xml.parsers.DocumentBuilder;
+	import javax.xml.parsers.DocumentBuilderFactory;
+	import software.amazon.awssdk.enhanced.dynamodb.Expression;
+	import javax.xml.parsers.ParserConfigurationException;
+	import javax.xml.transform.Transformer;
+	import javax.xml.transform.TransformerException;
+	import javax.xml.transform.TransformerFactory;
+	import javax.xml.transform.dom.DOMSource;
+	import javax.xml.transform.stream.StreamResult;
+	import java.io.StringWriter;
+	import java.text.SimpleDateFormat;
+	import java.time.Instant;
+	import java.time.LocalDate;
+	import java.time.LocalDateTime;
+	import java.time.ZoneOffset;
+	import java.util.*;
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
+	/*
+    	Before running this code example, create a table named Work with a PK named id
+ 	*/
+	public class DynamoDBService {
 
-    public class ConnectionHelper {
+   	private DynamoDbClient getClient() {
 
-      private String url;
-      private static ConnectionHelper instance;
-      
-      private ConnectionHelper() {
-          url = "jdbc:mysql://localhost:3306/mydb";
-       }
+       	// Create a DynamoDbClient object
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+               .region(region)
+               .build();
 
-      public static Connection getConnection() throws SQLException {
-         if (instance == null) {
-            instance = new ConnectionHelper();
-         }
-         try {
+       return ddb;
+   	}
 
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root");
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.getStackTrace();
-        }
-        return null;
+
+   	// Get a single item from the Work table based on the Key
+     	public String getItem(String idValue) {
+
+        DynamoDbClient ddb = getClient();
+        String status = "";
+        String description = "";
+
+        HashMap<String, AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
+        keyToGet.put("id", AttributeValue.builder()
+                .s(idValue)
+                .build());
+
+        // Create a GetItemRequest object
+        GetItemRequest request = GetItemRequest.builder()
+                .key(keyToGet)
+                .tableName("Work")
+                .build();
+
+          try {
+            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+
+            // Get keys and values and get description and status
+            for (Map.Entry<String,AttributeValue > entry : returnedItem.entrySet()) {
+                String k = entry.getKey();
+                AttributeValue v = entry.getValue();
+
+                if (k.compareTo("description") == 0) {
+                    description = v.s();
+                } else if (k.compareTo("status") == 0) {
+                    status = v.s();
+                }
+            }
+            return convertToString(toXmlItem(idValue,description,status));
+
+            } catch (DynamoDbException e) {
+              System.err.println(e.getMessage());
+              System.exit(1);
+            }
+           return "";
     	}
-    
-       public static void close(Connection connection) {
-         try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-      }
-     }
-    
-**Note**: The **URL** value is *localhost:3306*. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance. 
 
-#### InjectWorkService class
-
-The following Java code represents the **InjectWorkService** class.
-
-    package com.aws.jdbc;
-
-    import java.sql.Connection;
-    import java.sql.PreparedStatement;
-    import java.sql.SQLException;
-    import java.text.ParseException;
-    import java.text.SimpleDateFormat;
-    import java.time.LocalDateTime;
-    import java.time.format.DateTimeFormatter;
-    import java.util.Date;
-    import java.util.UUID;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
-
-    @Component
-    public class InjectWorkService {
-
-      // Inject a new submission
-      public String modifySubmission(String id, String desc, String status) {
-        
-	Connection c = null;
-        int rowCount= 0;
-         
-	try {
-        
-	  // Create a Connection object
-          c = ConnectionHelper.getConnection();
-
-          // Use prepared statements
-          PreparedStatement ps = null;
-
-          String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
-          ps = c.prepareStatement(query);
-          ps.setString(1, desc);
-          ps.setString(2, status);
-          ps.execute();
-          return id;
-      } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Inject a new submission
-    public String injestNewSubmission(WorkItem item) {
-    
-       Connection c = null;
-       int rowCount= 0;
-       try {
-
-          // Create a Connection object
-          c = ConnectionHelper.getConnection();
-
-         // Use a prepared statement
-         PreparedStatement ps = null;
-
-        // Convert rev to int
-        String name = item.getName();
-        String guide = item.getGuide();
-        String description = item.getDescription();
-        String status = item.getStatus();
-
-        // generate the work item ID
-        UUID uuid = UUID.randomUUID();
-        String workId = uuid.toString();
-
-        // Date conversion
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String sDate1 = dtf.format(now);
-        Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-        java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
-
-        // Inject an item into the system
-        String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
-        ps = c.prepareStatement(insert);
-        ps.setString(1, workId);
-        ps.setString(2, name);
-        ps.setDate(3, sqlDate);
-        ps.setString(4, description);
-        ps.setString(5, guide );
-        ps.setString(6, status );
-        ps.setBoolean(7, false);
-        ps.execute();
-        return workId;
-
-     } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-      }
-    }
-
-#### RetrieveItems class
-
-The following Java code represents the **RetrieveItems** class. 
-
-    package com.aws.jdbc;
-
-    import java.io.StringWriter;
-    import java.sql.Connection;
-    import java.sql.ResultSet;
-    import java.sql.Statement;
-    import java.sql.PreparedStatement;
-    import java.sql.SQLException;
-    import java.util.ArrayList ;
-    import java.util.List;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
-    import org.w3c.dom.Document;
-    import javax.xml.parsers.DocumentBuilder;
-    import javax.xml.parsers.DocumentBuilderFactory;
-    import org.w3c.dom.Element;
-    import javax.xml.parsers.ParserConfigurationException;
-    import javax.xml.transform.Transformer;
-    import javax.xml.transform.TransformerException;
-    import javax.xml.transform.TransformerFactory;
-    import javax.xml.transform.dom.DOMSource;
-    import javax.xml.transform.stream.StreamResult;
-
-
-    @Component	
-    public class RetrieveItems {
-
-        // Retrieves an item based on the ID
-        public String flipItemArchive(String id ) {
-
-        Connection c = null;
-        String query = "";
-
-        try {
-          
-	    // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            // Specify the SQL Statement to query data
-            query = "update work set archive = ? where idwork ='" +id + "' ";
-
-            PreparedStatement updateForm = c.prepareStatement(query);
-            updateForm.setBoolean(1, true);
-            updateForm.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-
-    // Retrieves archive data from the MySQL database
-    public String getArchiveData(String username) {
-
-        Connection c = null;
-
-        // Define a list in which work items are stored
-        List<WorkItem> itemList = new ArrayList<WorkItem>();
-        int rowCount = 0;
-        String query = "";
-        WorkItem item = null;
-
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            int arch = 1;
-
-            // Specify the SQL Statement to query data
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                // For each record, create a WorkItem object
-                item = new WorkItem();
-
-                // Populate the WorkItem object
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
-
-                // Push the WorkItem object to the list
-                itemList.add(item);
-            }
-
-            return convertToString(toXml(itemList));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Retrieves an item based on the ID
-    public String getItemSQL(String id ) {
-
-        Connection c = null;
-
-        // Define a list in which all work items are stored
-        String query = "";
-        String status="" ;
-        String description="";
-
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            //Specify the SQL Statement to query data
-            query = "Select description, status FROM work where idwork ='" +id + "' ";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                description = rs.getString(1);
-                status = rs.getString(2);
-            }
-            return convertToString(toXmlItem(id,description,status));
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Get Items data from MySQL
-    public List<WorkItem> getItemsDataSQLReport(String username) {
-
-        Connection c = null;
-
-        //Define a list in which all work items are stored
-        List<WorkItem> itemList = new ArrayList<WorkItem>();
-        int rowCount = 0;
-        String query = "";
-        WorkItem item = null;
-
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            int arch = 0;
-
-            // Specify the SQL Statement to query data
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                // For each record-- create a WorkItem instance
-                item = new WorkItem();
-
-                // Populate WorkItem with data from MySQL
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
-
-                // Push the WorkItem Object to the list
-                itemList.add(item);
+   	// Retrieves items from the DynamoDB table
+    	public  ArrayList<WorkItem> getListItems() {
+
+        // Create a DynamoDbEnhancedClient
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
+
+        try{
+            // Create a DynamoDbTable object
+            DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            // Get items in the Work table
+            Iterator<Work> results = custTable.scan().items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList();
+
+            while (results.hasNext()) {
+
+                // Populate a WorkItem
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
+
+                //Push the workItem to the list
+                itemList.add(workItem);
             }
             return itemList;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-        return null;
+        System.out.println("Done");
+
+        return null ;
+        }
+
+    	// Archives an item based on the key
+    	public String archiveItem(String id){
+        DynamoDbClient ddb = getClient();
+
+        HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
+
+        itemKey.put("id", AttributeValue.builder()
+                .s(id)
+                .build());
+
+        HashMap<String, AttributeValueUpdate> updatedValues =
+                new HashMap<String,AttributeValueUpdate>();
+
+        // Update the column specified by name with updatedVal
+        updatedValues.put("archive", AttributeValueUpdate.builder()
+                .value(AttributeValue.builder()
+                        .s("Closed").build())
+                .action(AttributeAction.PUT)
+                .build());
+
+        UpdateItemRequest request = UpdateItemRequest.builder()
+                .tableName("Work")
+                .key(itemKey)
+                .attributeUpdates(updatedValues)
+                .build();
+
+        try {
+            ddb.updateItem(request);
+            return"The item was successfully archived";
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
+       }
+
+
+    	// Updates items in the Work Table
+    	public String UpdateItem(String id, String status){
+        DynamoDbClient ddb = getClient();
+
+        HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
+
+        itemKey.put("id", AttributeValue.builder()
+                .s(id)
+                .build());
+
+        HashMap<String, AttributeValueUpdate> updatedValues =
+                new HashMap<String,AttributeValueUpdate>();
+
+        // Update the column specified by name with updatedVal
+        updatedValues.put("status", AttributeValueUpdate.builder()
+                .value(AttributeValue.builder()
+                 .s(status).build())
+                .action(AttributeAction.PUT)
+                .build());
+
+        UpdateItemRequest request = UpdateItemRequest.builder()
+                .tableName("Work")
+                .key(itemKey)
+                .attributeUpdates(updatedValues)
+                .build();
+
+        try {
+            ddb.updateItem(request);
+            return"The Status for the the item was successfully updated";
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
     }
 
+   	// Retrieves items from the DynamoDB table
+  	 public String getOpenItems() {
 
-    // Get Items Data from MySQL
-    public String getItemsDataSQL(String username) {
+       // Create a DynamoDbEnhancedClient
+       DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+               .dynamoDbClient(getClient())
+               .build();
 
-        Connection c = null;
+       try{
+           // Create a DynamoDbTable object
+           DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-        // Define a list in which all work items are stored
-        List<WorkItem> itemList = new ArrayList<WorkItem>();
-        int rowCount = 0;
-        String query = "";
-        WorkItem item = null;
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
+           AttributeValue attr = AttributeValue.builder()
+                   .s("Open")
+                   .build();
 
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
+           Map<String, AttributeValue> myMap = new HashMap<>();
+           myMap.put(":val1",attr);
 
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
+           Map<String, String> myExMap = new HashMap<>();
+           myExMap.put("#archive", "archive");
 
-            int arch = 0;
+           // Set the Expression so only Closed items are queried from the Work table
+           Expression expression = Expression.builder()
+                   .expressionValues(myMap)
+                   .expressionNames(myExMap)
+                   .expression("#archive = :val1")
+                   .build();
 
-            // Specify the SQL Statement to query data
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
+           ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                   .filterExpression(expression)
+                   .limit(15)
+                   .build();
 
-            while (rs.next()) {
+           // Get items in the Record table and write out the ID values
+           Iterator<Work> results = custTable.scan(enhancedRequest).items().iterator();
+           WorkItem workItem ;
+           ArrayList<WorkItem> itemList = new ArrayList();
 
-                // For each record-- create a WorkItem instance
-                item = new WorkItem();
+           while (results.hasNext()) {
 
-                //Populate WorkItem object with data
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
+               // Populate a WorkItem
+               workItem = new WorkItem();
+               Work work = results.next();
+               workItem.setName(work.getName());
+               workItem.setGuide(work.getGuide());
+               workItem.setDescription(work.getDescription());
+               workItem.setStatus(work.getStatus());
+               workItem.setDate(work.getDate());
+               workItem.setId(work.getId());
 
-                // Push the WorkItem Object to the list
-                itemList.add(item);
+               //Push the workItem to the list
+               itemList.add(workItem);
+           }
+
+           return convertToString(toXml(itemList));
+
+       } catch (DynamoDbException e) {
+           System.err.println(e.getMessage());
+           System.exit(1);
+       }
+       System.out.println("Done");
+
+       return "" ;
+   }
+
+
+
+    // Get Closed Items
+    // Retrieves items from the DynamoDB table
+    public String getClosedItems() {
+
+        // Create a DynamoDbEnhancedClient
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
+
+        try{
+            // Create a DynamoDbTable object
+            DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            AttributeValue attr = AttributeValue.builder()
+                    .s("Closed")
+                    .build();
+
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1",attr);
+
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#archive", "archive");
+
+            // Set the Expression so only Closed items are queried from the Work table
+            Expression expression = Expression.builder()
+                    .expressionValues(myMap)
+                    .expressionNames(myExMap)
+                    .expression("#archive = :val1")
+                    .build();
+
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                    .filterExpression(expression)
+                    .limit(15)
+                    .build();
+
+            // Get items in the Record table and write out the ID values
+            Iterator<Work> results = custTable.scan(enhancedRequest).items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList();
+
+            while (results.hasNext()) {
+
+                // Populate a WorkItem
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
+
+                //Push the workItem to the list
+                itemList.add(workItem);
             }
+
             return convertToString(toXml(itemList));
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-        return null;
-    }
+        System.out.println("Done");
 
-    // Convert Work item data retrieved from MySQL
-    // into XML to pass back to the view
-    private Document toXml(List<WorkItem> itemList) {
+        return "" ;
+      }
+
+     public void setItem(WorkItem item) {
+
+        // Create a DynamoDbEnhancedClient
+         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
+
+        putRecord(enhancedClient, item) ;
+     }
+
+
+      // Put an item into a DynamoDB table
+      public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
+
+        try {
+            // Create a DynamoDbTable object
+            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            // Create an Instant object
+            LocalDate localDate = LocalDate.parse("2020-04-07");
+            LocalDateTime localDateTime = localDate.atStartOfDay();
+            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
+
+            String myGuid = java.util.UUID.randomUUID().toString();
+
+            // Populate the table
+            Work record = new Work();
+            record.setUsername(item.getName());
+            record.setId(myGuid);
+            record.setDescription(item.getDescription());
+            record.setDate(now()) ;
+            record.setStatus(item.getStatus());
+            record.setArchive("Open");
+            record.setGuide(item.getGuide());
+
+            // Put the customer data into a DynamoDB table
+            workTable.putItem(record);
+
+          } catch (DynamoDbException e) {
+             System.err.println(e.getMessage());
+             System.exit(1);
+          }
+  	  }
+
+    	// Convert Work item data retrieved from MySQL
+	// into XML to pass back to the view
+        private Document toXml(List<WorkItem> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -1163,14 +1132,14 @@ The following Java code represents the **RetrieveItems** class.
                 Element status = doc.createElement( "Status" );
                 status.appendChild( doc.createTextNode(myItem.getStatus() ) );
                 item.appendChild( status );
-            }
+             }
 
             return doc;
-        } catch(ParserConfigurationException e) {
+           } catch(ParserConfigurationException e) {
             e.printStackTrace();
-        }
-        return null;
-    }
+           }
+          return null;
+    	  }
 
         private String convertToString(Document xml) {
          try {
@@ -1180,25 +1149,31 @@ The following Java code represents the **RetrieveItems** class.
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+          } catch(TransformerException ex) {
             ex.printStackTrace();
-        }
-        return null;
-    }
+         }
+         return null;
+         }
+    
+         private String now() {
+          String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+          return sdf.format(cal.getTime());
+    	 }
 
+    	  // Convert Work item data retrieved from MySQL
+    	  // into an XML schema to pass back to client
+    	  private Document toXmlItem(String id2, String desc2, String status2) {
 
-       // Convert Work item data retrieved from MySQL
-       // into an XML schema to pass back to client
-       private Document toXmlItem(String id2, String desc2, String status2) {
+            try {
+               DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+               DocumentBuilder builder = factory.newDocumentBuilder();
+               Document doc = builder.newDocument();
 
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.newDocument();
-
-            //Start building the XML
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
+             //Start building the XML
+             Element root = doc.createElement( "Items" );
+             doc.appendChild( root );
 
             Element item = doc.createElement( "Item" );
             root.appendChild( item );
@@ -1220,26 +1195,13 @@ The following Java code represents the **RetrieveItems** class.
 
             return doc;
 
-        } catch(ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        return null;
-      }
-     }
+           } catch(ParserConfigurationException e) {
+             e.printStackTrace();
+          }
+          return null;
+         }
+       }
 
-#### To create the JDBC classes 
-
-1. Create the **com.aws.jdbc** package. 
-2. Create the **ConnectionHelper** class and paste the Java code into the class.  
-3. Create the **InjectWorkService** class and paste the Java code into the class.
-4. Create the **RetrieveItems** class and paste the Java code into the class.
-
-### Create the service classes
-
-The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
-
-+ **SendMessages** - Uses the Amazon SES API to send email messages.
-+ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
 
 #### SendMessage class 
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
