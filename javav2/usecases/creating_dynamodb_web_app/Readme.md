@@ -83,34 +83,34 @@ The user can select the email recipient from the **Select Manager** list and cho
 ![AWS Tracking Application](images/pic6.png)
 
 #### Work table
-The database is MySQL and contains a table named **Work**. The table contains the following fields:
+The DynamoDB table is named **Work** and contains the following fields:
 
-+ **idwork** - A VARCHAR(45) value that represents the PK. 
-+ **date** - A date value that specifies the date the item was created.
-+ **description** - A VARCHAR(400) value that describes the item. 
-+ **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
-+ **status** - A VARCHAR(400) value that describes the status.
-+ **username** - A VARCHAR(45) value that represents the user who entered the item. 
-+ **archive** - A TINYINT(4) value that represents whether this is an active or archive item. 
++ **id** - Represents the PK. 
++ **date** - Specifies the date the item was created.
++ **description** - A value that describes the item. 
++ **guide** - A value that represents the deliverable being worked on.
++ **status** - A value that describes the status.
++ **username** - A value that represents the user who entered the item. 
++ **archive** - A value that represents whether this is an active or archive item. 
 
-The following figure shows the **work** table. 
+The following figure shows the **Work** table. 
 
-![AWS Tracking Application](images/trackMySQL2.png)
+![AWS Tracking Application](images/pic7.png)
 
-## Create an IntelliJ project named AWSItemTracker
+## Create an IntelliJ project named ItemTrackerDynamoDB
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
 2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
 3. For **GroupId**, enter **aws-spring**. 
-4. For **ArtifactId**, enter **AWSItemTracker**. 
+4. For **ArtifactId**, enter **ItemTrackerDynamoDB**. 
 6. Choose **Next**.
 7. Choose **Finish**. 
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **AWSItemTracker**. 
+At this point, you have a new project named **ItemTrackerDynamoDB**. 
 
-![AWS Tracking Application](images/track5.png)
+![AWS Tracking Application](images/pic8.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
   
@@ -156,39 +156,45 @@ Add the following dependency for the Amazon SES API (AWS SDK for Java version 2)
 Ensure that the **pom.xml** file looks like the following. 
 
      <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0"
+	<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-     <groupId>aws-spring</groupId>
-     <artifactId>AWSItemTracker</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <packaging>jar</packaging>
-
-     <parent>
+    <groupId>ItemTrackerDynamoDB</groupId>
+    <artifactId>ItemTrackerDynamoDB</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
-     </parent>
-
-     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </parent>
+    <properties>
+       <java.version>1.8</java.version>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.30</version>
+                <version>2.11.11</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+            <version>2.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
+            <version>2.11.4-PREVIEW</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -216,28 +222,16 @@ Ensure that the **pom.xml** file looks like the following.
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.8.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.13.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -322,19 +316,19 @@ Ensure that the **pom.xml** file looks like the following.
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
-     </project>
+       </build>
+      </project>
 
 
 ## Set up the Java packages in your project
 
-Create a Java package in the **main/java** folder named **com.aws**. 
+Create a Java package in the **main/java** folder named **com.example**. 
 
-![AWS Tracking Application](images/track6.png)
+![AWS Tracking Application](images/pic9.png)
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/newtrack7_1.png)
+![AWS Tracking Application](images/pic10.png)
 
 These packages contain the following:
 
