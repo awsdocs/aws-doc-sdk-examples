@@ -74,7 +74,7 @@ The following figure shows the new item section.
 
 ![AWS Tracking Application](images/pic4.png)
 
-A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from an Amazon RDS database and displayed in the web application.
+A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB Work table and displayed in the web application.
 
 ![AWS Tracking Application](images/pic5.png)
 
