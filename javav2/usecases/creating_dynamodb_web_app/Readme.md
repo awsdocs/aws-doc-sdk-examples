@@ -333,9 +333,8 @@ The Java files go into the following subpackages.
 These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
-+ **jdbc** - Contains Java files that use the JDBC API to interact with the RDS database.
-+ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
-+ **securingweb** - Contains Java files required for Spring security. 
++ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
++ **secureweb** - Contains Java files required for Spring security. 
 
 ## Create the Java classes
 
@@ -343,31 +342,31 @@ Create the Java classes, including the Spring security classes that secure the w
 
 ### Create the Spring security classes
 
-Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
+Create a Java package named **com.aws.secureweb**. Next, create these classes in this package:
 
-+ **SecuringWebApplication** 
++ **SecureWebApp** 
 + **WebSecurityConfig**
 
-#### SecuringWebApplication class 
-The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. 
+#### SecureWebApp class 
+The following Java code represents the **SecuringWebApp** class. This is the entry point into a Spring boot application. 
 
-    package com.aws.securingweb;
+    package com.aws.secureweb;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
 
     @SpringBootApplication
-    public class SecuringWebApplication {
+    public class SecureWebApp {
 
     public static void main(String[] args) throws Throwable {
-        SpringApplication.run(SecuringWebApplication.class, args);
+        SpringApplication.run(SecureWebApp.class, args);
      }
     }
 
 #### WebSecurityConfig class 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. 
 
-    package com.aws.securingweb;
+    package com.aws.secureweb;
 
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
@@ -424,16 +423,16 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
    
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
  
-#### To create the SecuringWebApplication and WebSecurityConfig classes 
+#### To create the SecureWebApp and WebSecurityConfig classes 
 
-1. Create the **com.aws.securingweb** package. 
-2. Create the **SecuringWebApplication** class and paste the code into it.
+1. Create the **com.ecample.secureweb** package. 
+2. Create the **SecureWebApp** class and paste the code into it.
 3. Create the **WebSecurityConfig** class and paste the code into it.
 
 
 ### Create the main controller class
 
-In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
+In the **com.aws.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
 **Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial. 
 
@@ -441,162 +440,164 @@ In the **com.aws.securingweb** package, create the controller class named **Main
 
 The following Java code represents the **MainController** class. 
 
-    package com.aws.securingweb;
+   	package com.example.secureweb;
 
-    import com.aws.entities.WorkItem;
-    import com.aws.jdbc.RetrieveItems;
-    import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.ui.Model;
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.ResponseBody;
-    import org.springframework.web.bind.annotation.RequestMethod;
-    import com.aws.jdbc.InjectWorkService;
-    import com.aws.services.WriteExcel;
-    import com.aws.services.SendMessages;
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import java.io.IOException;
-    import java.util.List;
+	import com.example.entities.WorkItem;
+	import com.example.services.DynamoDBService;
+	import org.springframework.security.core.context.SecurityContextHolder;
+	import org.springframework.stereotype.Controller;
+	import org.springframework.ui.Model;
+	import org.springframework.web.bind.annotation.GetMapping;
+	import org.springframework.web.bind.annotation.RequestMapping;
+	import org.springframework.web.bind.annotation.ResponseBody;
+	import org.springframework.web.bind.annotation.RequestMethod;
+	import com.example.services.WriteExcel;
+	import com.example.services.SendMessages;
+	import javax.servlet.http.HttpServletRequest;
+	import javax.servlet.http.HttpServletResponse;
+	import java.io.IOException;
+	import java.util.List;
 
-    @Controller
-    public class MainController {
+	@Controller
+	public class MainController {
 
-    @GetMapping("/")
-    public String root() {
-      return "index";
-    }
+    	@GetMapping("/")
+    	public String root() {
+         return "index";
+    	}
 
-    @GetMapping("/login")
-    public String login(Model model) {
-      return "login";
-    }
+    	@GetMapping("/login")
+    	public String login(Model model) {
+        return "login";
+       }
 
-    @GetMapping("/add")
-     public String designer() {
-         return "add";
-    }
+    	@GetMapping("/add")
+    	public String designer() {
+          return "add";
+      	}
 
-    @GetMapping("/items")
-    public String items() {
-     return "items";
-    }
+    	@GetMapping("/items")
+    	public String items() {
+         return "items";
+    	}
 
-    // Adds a new item to the database
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
-    String addItems(HttpServletRequest request, HttpServletResponse response) {
+    	// Adds a new item to the DynamoDB database
+    	@RequestMapping(value = "/add", method = RequestMethod.POST)
+    	@ResponseBody
+    	String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-      //Get the Logged in User
-      String name = getLoggedUser();
+        //Get the Logged in User
+        String name = getLoggedUser();
 
-      String guide = request.getParameter("guide");
-      String description = request.getParameter("description");
-      String status = request.getParameter("status");
-      InjectWorkService iw = new InjectWorkService();
+        String guide = request.getParameter("guide");
+        String description = request.getParameter("description");
+        String status = request.getParameter("status");
 
-      // Create a Work Item object to pass to the injestNewSubmission method
-      WorkItem myWork = new WorkItem();
-      myWork.setGuide(guide);
-      myWork.setDescription(description);
-      myWork.setStatus(status);
-      myWork.setName(name);
+        // Add the data to the DynamoDB table
+        DynamoDBService iw = new DynamoDBService();
 
-      iw.injestNewSubmission(myWork);
-      return "Item added";
-    }
+        // Create a Work Item object to pass to the injestNewSubmission method
+        WorkItem myWork = new WorkItem();
+        myWork.setGuide(guide);
+        myWork.setDescription(description);
+        myWork.setStatus(status);
+        myWork.setName(name);
 
-    // Builds and emails a report
-    @RequestMapping(value = "/report", method = RequestMethod.POST)
-    @ResponseBody
-    String getReport(HttpServletRequest request, HttpServletResponse response) {
+        iw.setItem(myWork);
+        return "Item added";
+    	}
 
-      //Get the Logged in User
-      String name = getLoggedUser();
+    	// Builds and emails a report
+    	@RequestMapping(value = "/report", method = RequestMethod.POST)
+    	@ResponseBody
+    	String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-      String email = request.getParameter("email");
-      RetrieveItems ri = new RetrieveItems();
-      List<WorkItem> theList = ri.getItemsDataSQLReport(name);
-      WriteExcel writeExcel = new WriteExcel();
-      SendMessages sm = new SendMessages();
-      java.io.InputStream is = writeExcel.exportExcel(theList);
+        //Get the Logged in User
+        String name = getLoggedUser();
 
-      try {
-       	  sm.sendReport(is, email);
-      	}catch (IOException e) {
-       	  e.getStackTrace();
-       	}
-       	return "Report is created";
-     }
+        DynamoDBService ri = new DynamoDBService();
 
-    // Archives a work item
-    @RequestMapping(value = "/archive", method = RequestMethod.POST)
-    @ResponseBody
-    String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
-        
-      String id = request.getParameter("id");
-      RetrieveItems ri = new RetrieveItems();
-      ri.flipItemArchive(id );
-      return id ;
-    }
+        String email = request.getParameter("email");
+        DynamoDBService iw = new DynamoDBService();
 
-    // Modifies the value of a work item
-    @RequestMapping(value = "/changewi", method = RequestMethod.POST)
-    @ResponseBody
-    String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
-    
-      String id = request.getParameter("id");
-      String description = request.getParameter("description");
-      String status = request.getParameter("status");
+        List<WorkItem> theList = iw.getListItems();
+        WriteExcel writeExcel = new WriteExcel();
+        SendMessages sm = new SendMessages();
+        java.io.InputStream is = writeExcel.exportExcel(theList);
 
-      InjectWorkService ws = new InjectWorkService();
-      String value = ws.modifySubmission(id, description, status);
-      return value;
-    }
+        try {
+            sm.sendReport(is, email);
+        }catch (IOException e) {
+           e.getStackTrace();
+       }
+        return "Report is created";
+     	}
 
-    // Retrieve all items for a given user
-    @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
-    @ResponseBody
-    String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+    	// Archives a work item
+    	@RequestMapping(value = "/archive", method = RequestMethod.POST)
+    	@ResponseBody
+    	String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
-      //Get the Logged in User
-      String name = getLoggedUser();
+        String id = request.getParameter("id");
+        DynamoDBService dbService = new DynamoDBService();
+        dbService.archiveItem(id );
+        return id ;
+    	}
 
-      RetrieveItems ri = new RetrieveItems();
-      String type = request.getParameter("type");
+    	// Modifies the value of a work item
+    	@RequestMapping(value = "/changewi", method = RequestMethod.POST)
+    	@ResponseBody
+    	String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
-      //Pass back all data from the database
-      String xml="";
+        String id = request.getParameter("id");
+        String status = request.getParameter("status");
 
-      if (type.equals("active")) {
-       	  xml = ri.getItemsDataSQL(name);
-       	  return xml;
-      } else {
-         xml = ri.getArchiveData(name);
+        DynamoDBService dbService = new DynamoDBService();
+        dbService.UpdateItem(id, status);
+        return id;
+    	}
+
+    	// Retrieve items
+    	@RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+    	@ResponseBody
+    	String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+
+        //Get the Logged in User
+        String name = getLoggedUser();
+        String type = request.getParameter("type");
+
+        //Pass back items from the DynamoDB table
+        String xml="";
+        DynamoDBService iw = new DynamoDBService();
+
+         if (type.compareTo("archive") ==0)
+            xml = iw.getClosedItems();
+         else
+            xml = iw.getOpenItems();
+
          return xml;
-      }
-    }
+    	}
 
-    // Returns a work item to modify
-    @RequestMapping(value = "/modify", method = RequestMethod.POST)
-    @ResponseBody
-    String modifyWork(HttpServletRequest request, HttpServletResponse response) {
-    
-      String id = request.getParameter("id");
-      RetrieveItems ri = new RetrieveItems();
-      String xmlRes = ri.getItemSQL(id) ;
-      return xmlRes;
-     }
 
-    private String getLoggedUser() {
+    	// Returns a work item to modify
+    	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+    	@ResponseBody
+    	String modifyWork(HttpServletRequest request, HttpServletResponse response) {
 
-     // Get the logged-in Useruser
-      org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-     String name = user2.getUsername();
-     return name;
-     }
-    }
+        String id = request.getParameter("id");
+        DynamoDBService dbService = new DynamoDBService();
+        String xmlRes = dbService.getItem(id) ;
+        return xmlRes;
+    	}
+
+    	private String getLoggedUser() {
+
+        // Get the logged-in Useruser
+        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = user2.getUsername();
+        return name;
+    	}
+	}
 
 #### To create the MainController class 
 
