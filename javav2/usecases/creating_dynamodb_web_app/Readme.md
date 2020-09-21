@@ -468,18 +468,18 @@ The following Java code represents the **MainController** class.
 
     	@GetMapping("/login")
     	public String login(Model model) {
-        return "login";
-       }
+         return "login";
+        }
 
     	@GetMapping("/add")
     	public String designer() {
-          return "add";
-      	}
+         return "add";
+      	 }
 
     	@GetMapping("/items")
     	public String items() {
          return "items";
-    	}
+    	 }
 
     	// Adds a new item to the DynamoDB database
     	@RequestMapping(value = "/add", method = RequestMethod.POST)
