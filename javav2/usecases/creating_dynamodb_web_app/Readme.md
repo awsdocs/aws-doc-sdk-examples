@@ -342,7 +342,7 @@ Create the Java classes, including the Spring security classes that secure the w
 
 ### Create the SecureWebApp class
 
-In the **com.example** package, create a class named **SecuringWebApp**. This is the entry point into the Spring boot application. The following Java code represents this class.
+In the **com.example** package, create a class named **SecureWebApp**. This is the entry point into the Spring boot application and uses the **@SpringBootApplication** annotation. The following Java code represents this class.
 
     package com.example;
 
