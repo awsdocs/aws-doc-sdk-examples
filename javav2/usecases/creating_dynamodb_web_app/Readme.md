@@ -2478,8 +2478,6 @@ Sign in to the AWS Management Console, and then open the Elastic Beanstalk conso
 
 If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
 
-![AWS Tracking Application](images/pic12.png)
-
 #### To deploy the DynamoDB Tracker application to Elastic Beanstalk
 
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
