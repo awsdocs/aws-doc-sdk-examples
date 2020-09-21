@@ -210,6 +210,7 @@ public class DynamoDBService {
     }
 
    // Retrieves items from the DynamoDB table
+   // Get Open items from the DynamoDB table
    public String getOpenItems() {
 
        // Create a DynamoDbEnhancedClient
@@ -219,7 +220,7 @@ public class DynamoDBService {
 
        try{
            // Create a DynamoDbTable object
-           DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+           DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
            AttributeValue attr = AttributeValue.builder()
                    .s("Open")
@@ -243,8 +244,8 @@ public class DynamoDBService {
                    .limit(15)
                    .build();
 
-           // Get items in the Record table and write out the ID values
-           Iterator<Work> results = custTable.scan(enhancedRequest).items().iterator();
+           // Scan items
+           Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
            WorkItem workItem ;
            ArrayList<WorkItem> itemList = new ArrayList();
 
@@ -288,7 +289,7 @@ public class DynamoDBService {
 
         try{
             // Create a DynamoDbTable object
-            DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
             AttributeValue attr = AttributeValue.builder()
                     .s("Closed")
@@ -313,7 +314,7 @@ public class DynamoDBService {
                     .build();
 
             // Get items in the Record table and write out the ID values
-            Iterator<Work> results = custTable.scan(enhancedRequest).items().iterator();
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
             WorkItem workItem ;
             ArrayList<WorkItem> itemList = new ArrayList();
 
@@ -510,3 +511,8 @@ public class DynamoDBService {
         return null;
     }
 }
+
+
+
+
+
