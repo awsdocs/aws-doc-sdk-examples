@@ -1,6 +1,6 @@
 #  Creating the DynamoDB web application item tracker
 
-You can develop a secure web application that tracks and reports on work items by using the following AWS services:
+You can develop a web application that tracks and reports on work items by using the following AWS services:
 
 + DynamoDB to store the data
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
