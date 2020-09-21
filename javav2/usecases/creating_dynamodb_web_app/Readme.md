@@ -1198,90 +1198,85 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 #### Work class 
 The **Work** class is used with the DynamoDB Enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation. 
 
-	package com.example.services;
+    package com.example.services;
 
-	import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
-	import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-	import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-	@DynamoDbBean
-	public class Work {
+    @DynamoDbBean
+     public class Work {
 
-    	private String id;
-    	private String date;
-    	private String description ;
-    	private String guide;
-    	private String username ;
-    	private String status  ;
-    	private String archive   ;
+       private String id;
+       private String date;
+       private String description ;
+       private String guide;
+       private String username ;
+       private String status  ;
+       private String archive   ;
 
-    	@DynamoDbPartitionKey
-    	public String getId() {
-          return this.id;
-    	}
-
-    	public void setId(String id) {
-
-         this.id = id;
-    	}
-
-     	@DynamoDbSortKey
-    	public String getName() {
-          return this.username;
+       @DynamoDbPartitionKey
+       public String getId() {
+         return this.id;
        }
 
-    	public void setArchive(String archive) {
+       public void setId(String id) {
+        this.id = id;
+       }
 
-          this.archive = archive;
-    	}
+       @DynamoDbSortKey
+       public String getName() {
+        return this.username;
+        }
 
-    	public String getArchive() {
-          return this.archive;
-    	}
+       public void setArchive(String archive) {
+        this.archive = archive;
+        }
 
-    	public void setStatus(String status) {
+       public String getArchive() {
+         return this.archive;
+        }
 
-          this.status = status;
-     	}
+       public void setStatus(String status) {
+         this.status = status;
+       }
 
-    	public String getStatus() {
-          return this.status;
-    	}
+       public String getStatus() {
+        return this.status;
+       }
 
-    	public void setUsername(String username) {
+      public void setUsername(String username) {
+       this.username = username;
+      }
 
-          this.username = username;
-    	}
+      public String getUsername() {
+       return this.username;
+      }
 
-    	public String getUsername() {
-          return this.username;
-    	}
+      public void setGuide(String guide) {
+        this.guide = guide;
+   	}
 
-    	public void setGuide(String guide) {
+      public String getGuide() {
+        return this.guide;
+      }
 
-          this.guide = guide;
-    	}
+      public String getDate() {
+       return this.date;
+       }
 
-    	public String getGuide() {
-          return this.guide;
-    	}
+      public void setDate(String date) {
+       this.date = date;
+      }
 
-    	public String getDate() {
-          return this.date;
-    	}
+      public String getDescription() {
+       return description;
+      }
 
-    	public void setDate(String date) {
-          this.date = date;
-  	  }
-
-    	public String getDescription() {
-          return description;
-    	}
-
-	public void setDescription(String description) {
-          this.description = description;
-  	 }
-	}
+     public void setDescription(String description) {
+      this.description = description;
+       }
+      }
 
 	
 #### SendMessage class 
