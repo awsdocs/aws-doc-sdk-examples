@@ -340,17 +340,11 @@ These packages contain the following:
 
 Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
-### Create the Spring security classes
+### Create the SecureWebApp class
 
-Create a Java package named **com.aws.secureweb**. Next, create these classes in this package:
+In the **com.example** package, create a class named **SecuringWebApp**. This is the entry point into the Spring boot application. The following Java code represents this class.
 
-+ **SecureWebApp** 
-+ **WebSecurityConfig**
-
-#### SecureWebApp class 
-The following Java code represents the **SecuringWebApp** class. This is the entry point into a Spring boot application. 
-
-    package com.aws.secureweb;
+    package com.example;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -363,10 +357,19 @@ The following Java code represents the **SecuringWebApp** class. This is the ent
      }
     }
 
+
+### Create the Spring security classes
+
+Create a Java package named **com.aws.secureweb**. Next, create these classes in this package:
+
++ **WebSecurityConfig**
++ **MainController**
+
 #### WebSecurityConfig class 
+
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. 
 
-    package com.aws.secureweb;
+    package com.example.secureweb;
 
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
@@ -423,13 +426,6 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
    
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
  
-#### To create the SecureWebApp and WebSecurityConfig classes 
-
-1. Create the **com.example.secureweb** package. 
-2. Create the **SecureWebApp** class and paste the code into it.
-3. Create the **WebSecurityConfig** class and paste the code into it.
-
-
 ### Create the main controller class
 
 In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
@@ -596,6 +592,11 @@ The following Java code represents the **MainController** class.
     	}
 	}
 
+#### To create the WebSecurityConfig classes 
+
+1. Create the **com.example.secureweb** package. 
+2. Create the **WebSecurityConfig** class and paste the code into it.
+
 #### To create the MainController class 
 
 1. In the **com.example.secureweb** package, create the **MainController** class. 
@@ -675,7 +676,7 @@ The following Java code represents the **WorkItem** class.
 
 ### Create the service classes
 
-The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
+The service classes contain Java application logic that invokes AWS services. In this section, you create these classes: 
 
 + **DynamoDBService** - Uses the DynamoDB Java V2 API to interact with the **Work** table. 
 + **Work** - Is used by the Enhanced DynamoDB client object. 
@@ -683,7 +684,7 @@ The service classes contain Java application logic that uses AWS services. In th
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
 
 #### DynamoDBService class 
-The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code reprents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query Active or Closed items. For example, in the **getClosedItems** method, only closed items are retrived. 
+The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code reprents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query Active or Closed items. For example, in the **getClosedItems** method, only closed items are retrieved. 
 
 Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
 
@@ -784,7 +785,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 .dynamoDbClient(getClient())
                 .build();
 
-        try{
+        try {
             // Create a DynamoDbTable object
             DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
@@ -897,8 +898,8 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         return "";
     }
 
-   	// Retrieves items from the DynamoDB table
-  	 public String getOpenItems() {
+     // Get Open items from the DynamoDB table
+     public String getOpenItems() {
 
        // Create a DynamoDbEnhancedClient
        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -963,8 +964,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
        return "" ;
    }
 
-    // Get Closed Items
-    // Retrieves items from the DynamoDB table
+    // Get Closed Items from the DynamoDB table
     public String getClosedItems() {
 
         // Create a DynamoDbEnhancedClient
@@ -1771,7 +1771,7 @@ The following HTML code represents the **index.html** file. This file represents
         <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
         <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
         <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.Only Active data is sent in a report.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.</li>
         <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
