@@ -724,7 +724,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
    	private DynamoDbClient getClient() {
 
-       	// Create a DynamoDbClient object
+        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
