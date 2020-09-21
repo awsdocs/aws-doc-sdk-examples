@@ -550,32 +550,32 @@ The following Java code represents the **MainController** class.
           return id;
           }
 
-    	// Retrieve items
-    	@RequestMapping(value = "/retrieve", method = RequestMethod.POST)
-    	@ResponseBody
-    	String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+      // Retrieve items
+      @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+      @ResponseBody
+      String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
-        String type = request.getParameter("type");
+       //Get the Logged in User
+       String name = getLoggedUser();
+       String type = request.getParameter("type");
 
-        //Pass back items from the DynamoDB table
-        String xml="";
-        DynamoDBService iw = new DynamoDBService();
+       //Pass back items from the DynamoDB table
+       String xml="";
+       DynamoDBService iw = new DynamoDBService();
 
-        if (type.compareTo("archive") ==0)
+       if (type.compareTo("archive") ==0)
             xml = iw.getClosedItems();
-        else
+       else
             xml = iw.getOpenItems();
 
-         return xml;
-    	}
+       return xml;
+       }
 
 
-    	// Returns a work item to modify
-    	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-    	@ResponseBody
-    	String modifyWork(HttpServletRequest request, HttpServletResponse response) {
+      // Returns a work item to modify
+      @RequestMapping(value = "/modify", method = RequestMethod.POST)
+      @ResponseBody
+      String modifyWork(HttpServletRequest request, HttpServletResponse response) {
 
         String id = request.getParameter("id");
         DynamoDBService dbService = new DynamoDBService();
@@ -583,14 +583,14 @@ The following Java code represents the **MainController** class.
         return xmlRes;
     	}
 
-    	private String getLoggedUser() {
+     private String getLoggedUser() {
 
-        // Get the logged-in Useruser
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = user2.getUsername();
-        return name;
-    	}
-	}
+      // Get the logged-in Useruser
+      org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      String name = user2.getUsername();
+      return name;
+      }
+     }
 
 #### To create the WebSecurityConfig classes 
 
@@ -613,60 +613,60 @@ The following Java code represents the **WorkItem** class.
 
     public class WorkItem {
 
-     private String id;
-     private String name;
-     private String guide ;
-     private String date;
-     private String description;
-     private String status;
+    private String id;
+    private String name;
+    private String guide ;
+    private String date;
+    private String description;
+    private String status;
 
-     public void setId (String id) {
-         this.id = id;
+    public void setId (String id) {
+      this.id = id;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+
+    public void setStatus (String status) {
+      this.status = status;
+    }
+
+    public String getStatus() {
+      return this.status;
+    }
+
+    public void setDescription (String description) {
+      this.description = description;
+    }
+
+    public String getDescription() {
+     return this.description;
      }
 
-     public String getId() {
-         return this.id;
+    public void setDate (String date) {
+     this.date = date;
      }
 
-     public void setStatus (String status) {
-        this.status = status;
-     }
+    public String getDate() {
+      return this.date;
+    }
 
-     public String getStatus() {
-       return this.status;
-     }
+    public void setName (String name) {
+     this.name = name;
+    }
 
-     public void setDescription (String description) {
-        this.description = description;
-     }
+    public String getName() {
+     return this.name;
+    }
 
-     public String getDescription() {
-       return this.description;
-     }
+    public void setGuide (String guide) {
+     this.guide = guide;
+    }
 
-     public void setDate (String date) {
-       this.date = date;
+    public String getGuide() {
+     return this.guide;
      }
-
-     public String getDate() {
-       return this.date;
-     }
-
-     public void setName (String name) {
-       this.name = name;
-     }
-
-     public String getName() {
-       return this.name;
-     }
-
-     public void setGuide (String guide) {
-      this.guide = guide;
-     }
-
-     public String getGuide() {
-      return this.guide;
-      }
      }	
 
 #### To create the WorkItem class
@@ -688,129 +688,128 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to inter
 
 Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
 
-	package com.example.services;
+     package com.example.services;
 
-	import com.example.entities.WorkItem;
-	import org.w3c.dom.Document;
-	import org.w3c.dom.Element;
-	import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-	import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-	import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-	import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-	import software.amazon.awssdk.regions.Region;	
-	import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-	import software.amazon.awssdk.services.dynamodb.model.*;
-	import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
-	import javax.xml.parsers.DocumentBuilder;
-	import javax.xml.parsers.DocumentBuilderFactory;
-	import software.amazon.awssdk.enhanced.dynamodb.Expression;
-	import javax.xml.parsers.ParserConfigurationException;
-	import javax.xml.transform.Transformer;
-	import javax.xml.transform.TransformerException;
-	import javax.xml.transform.TransformerFactory;
-	import javax.xml.transform.dom.DOMSource;
-	import javax.xml.transform.stream.StreamResult;
-	import java.io.StringWriter;
-	import java.text.SimpleDateFormat;
-	import java.time.Instant;
-	import java.time.LocalDate;
-	import java.time.LocalDateTime;
-	import java.time.ZoneOffset;
-	import java.util.*;
+     import com.example.entities.WorkItem;
+     import org.w3c.dom.Document;
+     import org.w3c.dom.Element;
+     import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+     import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+     import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+     import software.amazon.awssdk.regions.Region;	
+     import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+     import software.amazon.awssdk.services.dynamodb.model.*;
+     import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+     import javax.xml.parsers.DocumentBuilder;
+     import javax.xml.parsers.DocumentBuilderFactory;
+     import software.amazon.awssdk.enhanced.dynamodb.Expression;
+     import javax.xml.parsers.ParserConfigurationException;
+     import javax.xml.transform.Transformer;
+     import javax.xml.transform.TransformerException;
+     import javax.xml.transform.TransformerFactory;
+     import javax.xml.transform.dom.DOMSource;
+     import javax.xml.transform.stream.StreamResult;
+     import java.io.StringWriter;
+     import java.text.SimpleDateFormat;
+     import java.time.Instant;
+     import java.time.LocalDate;
+     import java.time.LocalDateTime;
+     import java.time.ZoneOffset;
+     import java.util.*;
 
-	/*
-    	Before running this code example, create a table named Work with a PK named id
- 	*/
-	public class DynamoDBService {
+     /*
+      Before running this code example, create a table named Work with a PK named id
+      */
+     public class DynamoDBService {
 
-   	private DynamoDbClient getClient() {
+     private DynamoDbClient getClient() {
 
-        // Create a DynamoDbClient object
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-               .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-	       .region(region)
-               .build();
+      // Create a DynamoDbClient object
+      Region region = Region.US_EAST_1;
+      DynamoDbClient ddb = DynamoDbClient.builder()
+         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+	 .region(region)
+         .build();
 
        return ddb;
-   	}
+       }
 
+     // Get a single item from the Work table based on the Key
+     public String getItem(String idValue) {
 
-   	// Get a single item from the Work table based on the Key
-     	public String getItem(String idValue) {
+      DynamoDbClient ddb = getClient();
+      String status = "";
+      String description = "";
 
-        DynamoDbClient ddb = getClient();
-        String status = "";
-        String description = "";
+     HashMap<String, AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
+     keyToGet.put("id", AttributeValue.builder()
+            .s(idValue)
+            .build());
 
-        HashMap<String, AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
-        keyToGet.put("id", AttributeValue.builder()
-                .s(idValue)
-                .build());
+     // Create a GetItemRequest object
+     GetItemRequest request = GetItemRequest.builder()
+           .key(keyToGet)
+           .tableName("Work")
+           .build();
 
-        // Create a GetItemRequest object
-        GetItemRequest request = GetItemRequest.builder()
-                .key(keyToGet)
-                .tableName("Work")
-                .build();
+     try {
+         Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
 
-          try {
-            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+         // Get keys and values and get description and status
+          for (Map.Entry<String,AttributeValue > entry : returnedItem.entrySet()) {
+            String k = entry.getKey();
+            AttributeValue v = entry.getValue();
 
-            // Get keys and values and get description and status
-            for (Map.Entry<String,AttributeValue > entry : returnedItem.entrySet()) {
-                String k = entry.getKey();
-                AttributeValue v = entry.getValue();
+           if (k.compareTo("description") == 0) {
+              description = v.s();
+           } else if (k.compareTo("status") == 0) {
+              status = v.s();
+           }
+          }
+          return convertToString(toXmlItem(idValue,description,status));
 
-                if (k.compareTo("description") == 0) {
-                    description = v.s();
-                } else if (k.compareTo("status") == 0) {
-                    status = v.s();
-                }
-            }
-            return convertToString(toXmlItem(idValue,description,status));
+       } catch (DynamoDbException e) {
+         System.err.println(e.getMessage());
+         System.exit(1);
+       }
+       return "";
+       }	
 
-            } catch (DynamoDbException e) {
-              System.err.println(e.getMessage());
-              System.exit(1);
-            }
-           return "";
-    	}
-
-   	// Retrieves items from the DynamoDB table
+       // Retrieves items from the DynamoDB table
     	public  ArrayList<WorkItem> getListItems() {
 
         // Create a DynamoDbEnhancedClient
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(getClient())
-                .build();
+           .dynamoDbClient(getClient())
+           .build();
 
         try {
-            // Create a DynamoDbTable object
-            DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+          // Create a DynamoDbTable object
+          DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-            // Get items in the Work table
-            Iterator<Work> results = custTable.scan().items().iterator();
-            WorkItem workItem ;
-            ArrayList<WorkItem> itemList = new ArrayList();
+          // Get items in the Work table
+          Iterator<Work> results = custTable.scan().items().iterator();
+          WorkItem workItem ;
+          ArrayList<WorkItem> itemList = new ArrayList();
 
-            while (results.hasNext()) {
+          while (results.hasNext()) {
 
-                // Populate a WorkItem
-                workItem = new WorkItem();
-                Work work = results.next();
-                workItem.setName(work.getName());
-                workItem.setGuide(work.getGuide());
-                workItem.setDescription(work.getDescription());
-                workItem.setStatus(work.getStatus());
-                workItem.setDate(work.getDate());
-                workItem.setId(work.getId());
+           // Populate a WorkItem
+           workItem = new WorkItem();
+           Work work = results.next();
+           workItem.setName(work.getName());
+           workItem.setGuide(work.getGuide());
+           workItem.setDescription(work.getDescription());
+           workItem.setStatus(work.getStatus());
+           workItem.setDate(work.getDate());
+           workItem.setId(work.getId());
 
-                //Push the workItem to the list
-                itemList.add(workItem);
-            }
-            return itemList;
-
+           //Push the workItem to the list
+           itemList.add(workItem);
+           }
+           
+	   return itemList;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -818,37 +817,36 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         System.out.println("Done");
 
         return null ;
-        }
+      }
 
-    	// Archives an item based on the key
-    	public String archiveItem(String id){
+      // Archives an item based on the key
+      public String archiveItem(String id){
         DynamoDbClient ddb = getClient();
 
-        HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
+       HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
+      itemKey.put("id", AttributeValue.builder()
+           .s(id)
+           .build());
 
-        itemKey.put("id", AttributeValue.builder()
-                .s(id)
-                .build());
-
-        HashMap<String, AttributeValueUpdate> updatedValues =
+      HashMap<String, AttributeValueUpdate> updatedValues =
                 new HashMap<String,AttributeValueUpdate>();
 
-        // Update the column specified by name with updatedVal
-        updatedValues.put("archive", AttributeValueUpdate.builder()
-                .value(AttributeValue.builder()
-                 .s("Closed").build())
-                .action(AttributeAction.PUT)
-                .build());
+      // Update the column specified by name with updatedVal
+      updatedValues.put("archive", AttributeValueUpdate.builder()
+           .value(AttributeValue.builder()
+           .s("Closed").build())
+           .action(AttributeAction.PUT)
+           .build());
 
-        UpdateItemRequest request = UpdateItemRequest.builder()
-                .tableName("Work")
-                .key(itemKey)
-                .attributeUpdates(updatedValues)
-                .build();
+      UpdateItemRequest request = UpdateItemRequest.builder()
+         .tableName("Work")
+         .key(itemKey)
+         .attributeUpdates(updatedValues)
+         .build();
 
-        try {
-            ddb.updateItem(request);
-            return"The item was successfully archived";
+       try {
+          ddb.updateItem(request);
+         return"The item was successfully archived";
         } catch (ResourceNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -857,11 +855,11 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             System.exit(1);
         }
         return "";
-       }
+        }
 
-    	// Updates items in the Work Table
-    	public String UpdateItem(String id, String status){
-        DynamoDbClient ddb = getClient();
+      // Updates items in the Work Table
+      public String UpdateItem(String id, String status){
+         DynamoDbClient ddb = getClient();
 
         HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
 
@@ -896,12 +894,12 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             System.exit(1);
         }
         return "";
-    }
+        }
 
-     // Get Open items from the DynamoDB table
-     public String getOpenItems() {
+      // Get Open items from the DynamoDB table
+      public String getOpenItems() {
 
-       // Create a DynamoDbEnhancedClient
+      // Create a DynamoDbEnhancedClient
        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                .dynamoDbClient(getClient())
                .build();
@@ -951,21 +949,21 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
                //Push the workItem to the list
                itemList.add(workItem);
-           }
+              }
 
-           return convertToString(toXml(itemList));
+             return convertToString(toXml(itemList));
 
-       } catch (DynamoDbException e) {
+         } catch (DynamoDbException e) {
            System.err.println(e.getMessage());
            System.exit(1);
-       }
-       System.out.println("Done");
+         }
+         System.out.println("Done");
 
        return "" ;
-   }
+       }
 
-    // Get Closed Items from the DynamoDB table
-    public String getClosedItems() {
+      // Get Closed Items from the DynamoDB table
+      public String getClosedItems() {
 
         // Create a DynamoDbEnhancedClient
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -1021,16 +1019,15 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
             return convertToString(toXml(itemList));
 
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("Done");
-
+          } catch (DynamoDbException e) {
+             System.err.println(e.getMessage());
+             System.exit(1);
+          }
+         System.out.println("Done");
         return "" ;
-      }
+        }
 
-     public void setItem(WorkItem item) {
+       public void setItem(WorkItem item) {
 
         // Create a DynamoDbEnhancedClient
          DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -1038,46 +1035,47 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 .build();
 
         putRecord(enhancedClient, item) ;
-     }
+        }
 
-      // Put an item into a DynamoDB table
-      public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
+       // Put an item into a DynamoDB table
+       public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
-        try {
-            // Create a DynamoDbTable object
-            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+         try {
+        
+	     // Create a DynamoDbTable object
+             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-            // Create an Instant object
-            LocalDate localDate = LocalDate.parse("2020-04-07");
-            LocalDateTime localDateTime = localDate.atStartOfDay();
-            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
+             // Create an Instant object
+             LocalDate localDate = LocalDate.parse("2020-04-07");
+             LocalDateTime localDateTime = localDate.atStartOfDay();
+             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            String myGuid = java.util.UUID.randomUUID().toString();
+             String myGuid = java.util.UUID.randomUUID().toString();  
 
-            // Populate the table
-            Work record = new Work();
-            record.setUsername(item.getName());
-            record.setId(myGuid);
-            record.setDescription(item.getDescription());
-            record.setDate(now()) ;
-            record.setStatus(item.getStatus());
-            record.setArchive("Open");
-            record.setGuide(item.getGuide());
+             // Populate the table
+             Work record = new Work();
+             record.setUsername(item.getName());
+             record.setId(myGuid);
+             record.setDescription(item.getDescription());
+             record.setDate(now()) ;
+             record.setStatus(item.getStatus());
+             record.setArchive("Open");
+             record.setGuide(item.getGuide());
 
-            // Put the customer data into a DynamoDB table
-            workTable.putItem(record);
+             // Put the customer data into a DynamoDB table
+             workTable.putItem(record);
 
-          } catch (DynamoDbException e) {
-             System.err.println(e.getMessage());
-             System.exit(1);
-          }
-  	  }
+             } catch (DynamoDbException e) {
+               System.err.println(e.getMessage());
+               System.exit(1);
+            }
+  	   }
 
-    	// Convert Work item data retrieved from MySQL
-	// into XML to pass back to the view
-        private Document toXml(List<WorkItem> itemList) {
+    	 // Convert Work item data retrieved from MySQL
+	 // into XML to pass back to the view
+         private Document toXml(List<WorkItem> itemList) {
 
-        try {
+         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
@@ -1129,15 +1127,15 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 item.appendChild( status );
              }
 
-            return doc;
-           } catch(ParserConfigurationException e) {
-            e.printStackTrace();
-           }
-          return null;
-    	  }
+              return doc;
+             } catch(ParserConfigurationException e) {
+              e.printStackTrace();
+            }
+           return null;
+    	   }
 
-        private String convertToString(Document xml) {
-         try {
+          private String convertToString(Document xml) {
+           try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
@@ -1155,7 +1153,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
           Calendar cal = Calendar.getInstance();
           SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
           return sdf.format(cal.getTime());
-    	 }
+    	  }
 
     	  // Convert Work item data retrieved from MySQL
     	  // into an XML schema to pass back to client
@@ -1190,12 +1188,12 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
             return doc;
 
-           } catch(ParserConfigurationException e) {
-             e.printStackTrace();
+             } catch(ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+            return null;
+           }
           }
-          return null;
-         }
-       }
 
 #### Work class 
 The **Work** class is used with the DynamoDB Enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation. 
