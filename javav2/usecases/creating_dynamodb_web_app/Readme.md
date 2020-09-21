@@ -1907,7 +1907,7 @@ The following code represents the **items.html** file. This file enables users t
 
     </div>
     <br>
-    <div class="container">
+    <div id="modform" class="container">
 
     <h3>Modify an Item</h3>
     <p>You can modify items.</p>
