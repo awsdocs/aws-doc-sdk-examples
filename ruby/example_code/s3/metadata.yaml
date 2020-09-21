@@ -111,6 +111,30 @@ files:
   - path: tests/test_s3_add_sses3_encrypt_item.rb
     services:
     - s3
+  - path: s3_create_AES_key.rb
+    services:
+    - s3
+  - path: tests/test_s3_create_AES_key.rb
+    services:
+    - s3
+  - path: s3_encrypt_file_upload.rb
+    services:
+    - s3
+  - path: tests/test_s3_encrypt_file_upload.rb
+    services:
+    - s3
+  - path: s3_get_bucket_acls.rb
+    services:
+    - s3
+  - path: tests/test_s3_get_bucket_acls.rb
+    services:
+    - s3
+  - path: s3_get_bucket_object_acls.rb
+    services:
+    - s3
+  - path: tests/test_s3_get_bucket_object_acls.rb
+    services:
+    - s3
   - path: s3_get_csaes_decrypt_item.rb
     services:
     - s3
@@ -129,6 +153,18 @@ files:
   - path: tests/test_s3_get_cspk_decrypt_item.rb
     services:
     - s3
+  - path: s3_ruby_bucket_cors.rb
+    services:
+    - s3
+  - path: tests/test_s3_ruby_bucket_cors.rb
+    services:
+    - s3
+  - path: s3_ruby_bucket_website.rb
+    services:
+    - s3
+  - path: tests/test_s3_ruby_bucket_website.rb
+    services:
+    - s3  
   - path: s3-ruby-example-upload-item-to-folder.rb
     services:
     - s3
