@@ -38,7 +38,7 @@ public class DynamoDBService {
        // Create a DynamoDbClient object
        Region region = Region.US_EAST_1;
        DynamoDbClient ddb = DynamoDbClient.builder()
-              // .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+               .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                .region(region)
                .build();
 
