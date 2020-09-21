@@ -15,9 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    DynamoDBService dbService;
+
+    @Autowired
+    SendMessages sendMsg;
+
+    @Autowired
+    WriteExcel excel;
 
     @GetMapping("/")
     public String root() {
@@ -51,9 +61,6 @@ public class MainController {
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Add the data to the DynamoDB table
-        DynamoDBService iw = new DynamoDBService();
-
         // Create a Work Item object to pass to the injestNewSubmission method
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
@@ -61,11 +68,11 @@ public class MainController {
         myWork.setStatus(status);
         myWork.setName(name);
 
-        iw.setItem(myWork);
+        dbService.setItem(myWork);
         return "Item added";
     }
 
-    // Builds and emails a report
+    // Builds and emails a report with all items
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
@@ -73,18 +80,13 @@ public class MainController {
         //Get the Logged in User
         String name = getLoggedUser();
 
-        DynamoDBService ri = new DynamoDBService();
-
         String email = request.getParameter("email");
-        DynamoDBService iw = new DynamoDBService();
 
-        List<WorkItem> theList = iw.getListItems();
-        WriteExcel writeExcel = new WriteExcel();
-        SendMessages sm = new SendMessages();
-        java.io.InputStream is = writeExcel.exportExcel(theList);
+        List<WorkItem> theList = dbService.getListItems();
+        java.io.InputStream is = excel.exportExcel(theList);
 
         try {
-            sm.sendReport(is, email);
+            sendMsg.sendReport(is, email);
         }catch (IOException e) {
            e.getStackTrace();
        }
@@ -97,7 +99,6 @@ public class MainController {
     String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
         String id = request.getParameter("id");
-        DynamoDBService dbService = new DynamoDBService();
         dbService.archiveItem(id );
         return id ;
     }
@@ -109,8 +110,6 @@ public class MainController {
 
         String id = request.getParameter("id");
         String status = request.getParameter("status");
-
-        DynamoDBService dbService = new DynamoDBService();
         dbService.UpdateItem(id, status);
         return id;
     }
@@ -124,14 +123,13 @@ public class MainController {
         String name = getLoggedUser();
         String type = request.getParameter("type");
 
-        //Pass back items from the DynamoDB table
+        // Pass back items from the DynamoDB table
         String xml="";
-        DynamoDBService iw = new DynamoDBService();
 
-         if (type.compareTo("archive") ==0)
-            xml = iw.getClosedItems();
+        if (type.compareTo("archive") ==0)
+            xml = dbService.getClosedItems();
          else
-            xml = iw.getOpenItems();
+            xml = dbService.getOpenItems();
 
          return xml;
     }
@@ -143,7 +141,6 @@ public class MainController {
     String modifyWork(HttpServletRequest request, HttpServletResponse response) {
 
         String id = request.getParameter("id");
-        DynamoDBService dbService = new DynamoDBService();
         String xmlRes = dbService.getItem(id) ;
         return xmlRes;
     }
