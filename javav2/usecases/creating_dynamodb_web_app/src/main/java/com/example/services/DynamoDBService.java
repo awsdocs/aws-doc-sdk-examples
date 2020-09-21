@@ -27,10 +27,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
+import import org.springframework.stereotype.Component;
 
-/*
+ /*
     Before running this code example, create a table named Work with a PK named id
  */
+@Component
 public class DynamoDBService {
 
    private DynamoDbClient getClient() {
