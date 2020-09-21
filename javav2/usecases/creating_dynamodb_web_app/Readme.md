@@ -62,7 +62,7 @@ When a user logs into the system, they see the **Home** page.
 ![AWS Tracking Application](images/pic3.png)
 
 #### Application functionality
-A user can perform these tasks in the *DynamoDB Item Tracker^ application: 
+A user can perform these tasks in the *DynamoDB Item Tracker* application: 
 
 + Enter an item into the system
 + View all active items
@@ -78,14 +78,14 @@ A user can retrieve *active* or *archive* items. For example, a user can choose 
 
 ![AWS Tracking Application](images/pic5.png)
 
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
 ![AWS Tracking Application](images/pic6.png)
 
 #### Work table
 The DynamoDB table is named **Work** and contains the following fields:
 
-+ **id** - Represents the PK. 
++ **id** - Represents the key. 
 + **date** - Specifies the date the item was created.
 + **description** - A value that describes the item. 
 + **guide** - A value that represents the deliverable being worked on.
