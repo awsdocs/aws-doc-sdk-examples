@@ -795,18 +795,18 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
           while (results.hasNext()) {
 
-           // Populate a WorkItem
-           workItem = new WorkItem();
-           Work work = results.next();
-           workItem.setName(work.getName());
-           workItem.setGuide(work.getGuide());
-           workItem.setDescription(work.getDescription());
-           workItem.setStatus(work.getStatus());
-           workItem.setDate(work.getDate());
-           workItem.setId(work.getId());
+            // Populate a WorkItem
+            workItem = new WorkItem();
+            Work work = results.next();
+            workItem.setName(work.getName());
+            workItem.setGuide(work.getGuide());
+            workItem.setDescription(work.getDescription());
+            workItem.setStatus(work.getStatus());
+            workItem.setDate(work.getDate());
+            workItem.setId(work.getId());
 
-           //Push the workItem to the list
-           itemList.add(workItem);
+            //Push the workItem to the list
+            itemList.add(workItem);
            }
            
 	   return itemList;
@@ -906,7 +906,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
        try{
            // Create a DynamoDbTable object
-           DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+           DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
            AttributeValue attr = AttributeValue.builder()
                    .s("Open")
@@ -930,8 +930,8 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                    .limit(15)
                    .build();
 
-           // Get items in the Record table and write out the ID values
-           Iterator<Work> results = custTable.scan(enhancedRequest).items().iterator();
+           // Scan items 
+           Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
            WorkItem workItem ;
            ArrayList<WorkItem> itemList = new ArrayList();
 
@@ -972,7 +972,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
         try{
             // Create a DynamoDbTable object
-            DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
             AttributeValue attr = AttributeValue.builder()
                     .s("Closed")
@@ -996,8 +996,8 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                     .limit(15)
                     .build();
 
-            // Get items in the Record table and write out the ID values
-            Iterator<Work> results = custTable.scan(enhancedRequest).items().iterator();
+            // Get items
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
             WorkItem workItem ;
             ArrayList<WorkItem> itemList = new ArrayList();
 
@@ -1034,8 +1034,8 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 .dynamoDbClient(getClient())
                 .build();
 
-        putRecord(enhancedClient, item) ;
-        }
+          putRecord(enhancedClient, item) ;
+          }
 
        // Put an item into a DynamoDB table
        public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
