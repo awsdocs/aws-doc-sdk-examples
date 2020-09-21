@@ -40,7 +40,7 @@ describe '#get_decrypted_object_content' do
     )
   end
 
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
   let(:object_key) { 'my-file.txt' }
   let(:object_content) { 'This is the content of my-file.txt.' }
   let(:encryption_key_string) { 'XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE=' }

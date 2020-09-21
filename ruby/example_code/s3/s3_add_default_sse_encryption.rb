@@ -20,7 +20,7 @@ require 'aws-sdk-s3'
 # @example
 #   exit 1 unless default_bucket_encryption_sse_cmk_set?(
 #     Aws::S3::Client.new(region: 'us-east-1'),
-#     'my-bucket',
+#     'doc-example-bucket',
 #     '9041e78c-7a20-4db3-929e-828abEXAMPLE'
 #   )
 def default_bucket_encryption_sse_cmk_set?(
@@ -48,7 +48,7 @@ rescue StandardError => e
 end
 
 def run_me
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   kms_master_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
   region = 'us-east-1'
   s3_client = Aws::S3::Client.new(region: region)

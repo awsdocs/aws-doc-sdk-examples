@@ -10,7 +10,7 @@ describe '#customer_key_sse_encrypted_object_uploaded?' do
       server_side_encryption: 'AES256'
     }
   })}
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
   let(:object_key) { 'my-file.txt' }
   let(:content_to_encrypt) { 'This is the content of my-file.txt.' }
   let(:encryption_key) { get_random_aes_256_gcm_key }

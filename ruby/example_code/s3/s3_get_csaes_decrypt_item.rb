@@ -28,7 +28,7 @@ require 'aws-sdk-s3'
 #   )
 #   puts get_decrypted_object_content(
 #     s3_encryption_client,
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt'
 #   )
 def get_decrypted_object_content(
@@ -50,7 +50,7 @@ end
 
 # Full example call:
 def run_me
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   region = 'us-east-1'
 

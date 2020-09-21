@@ -23,7 +23,7 @@ require 'digest/md5'
 # @example
 #   exit 1 unless customer_key_sse_encrypted_object_uploaded?(
 #     Aws::S3::Client.new(region: 'us-east-1'),
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.',
 #     get_random_aes_256_gcm_key # See later in this file.
@@ -75,7 +75,7 @@ def get_random_aes_256_gcm_key
 end
 
 def run_me
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   content_to_encrypt = 'This is the content of my-file.txt.'
   region = 'us-east-1'

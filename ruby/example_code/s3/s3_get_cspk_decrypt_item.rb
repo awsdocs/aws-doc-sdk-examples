@@ -24,7 +24,7 @@ require 'openssl'
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
 #   puts get_decrypted_object_content(
 #     s3_client,
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt',
 #     'my-private-key.pem'
 #   )
@@ -50,7 +50,7 @@ end
 
 # Full example call:
 def run_me
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   region = 'us-east-1'
   s3_client = Aws::S3::Client.new(region: region)

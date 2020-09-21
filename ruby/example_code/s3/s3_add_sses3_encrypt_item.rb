@@ -19,7 +19,7 @@ require 'aws-sdk-s3'
 # @example
 #   exit 1 unless kms_sse_encrypted_object_uploaded?(
 #     Aws::S3::Client.new(region: 'us-east-1'),
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.'
 #   )
@@ -42,7 +42,7 @@ rescue StandardError => e
 end
 
 def run_me
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   content_to_encrypt = 'This is the content of my-file.txt.'
   region = 'us-east-1'
