@@ -4,7 +4,7 @@
 require_relative '../s3_add_cskms_encrypt_item'
 
 describe '#encrypted_object_uploaded?' do
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
   let(:object_key) { 'my-file.txt' }
   let(:object_content) { 'This is the content of my-file.txt.' }
   let(:kms_key_id) { '9041e78c-7a20-4db3-929e-828abEXAMPLE' }

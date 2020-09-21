@@ -72,7 +72,7 @@ end
 
 describe '#bucket_exists?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
 
   it 'checks whether the bucket exists' do
     buckets_data = s3_client.stub_data(
@@ -86,7 +86,7 @@ end
 
 describe '#list_objects_in_bucket?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
 
   it "lists the objects' keys and ETags in the specified bucket" do
     objects_data = s3_client.stub_data(

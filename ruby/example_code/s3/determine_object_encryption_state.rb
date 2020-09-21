@@ -19,7 +19,7 @@ require 'aws-sdk-s3'
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
 #   puts get_server_side_encryption_state(
 #     s3_client,
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt'
 #   )
 def get_server_side_encryption_state(s3_client, bucket_name, object_key)
@@ -35,20 +35,22 @@ end
 # snippet-end:[s3.ruby.determine_object_encryption_state.rb]
 
 # Full example call:
-=begin
-bucket_name = 'my-bucket'
-object_key = 'my-file.txt'
-region = 'us-east-1'
-s3_client = Aws::S3::Client.new(region: region)
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-puts "Getting server-side encryption state for object '#{object_key}' " \
-  "in bucket '#{bucket_name}'..."
+  puts "Getting server-side encryption state for object '#{object_key}' " \
+    "in bucket '#{bucket_name}'..."
 
-state = get_server_side_encryption_state(
-  s3_client,
-  bucket_name,
-  object_key
-)
+  state = get_server_side_encryption_state(
+    s3_client,
+    bucket_name,
+    object_key
+  )
 
-puts "Encryption state is #{state}."
-=end
+  puts "Encryption state is #{state}."
+end
+
+run_me if $PROGRAM_NAME == __FILE__

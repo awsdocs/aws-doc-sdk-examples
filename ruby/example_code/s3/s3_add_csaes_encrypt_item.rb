@@ -27,7 +27,7 @@ require 'openssl'
 #   )
 #   if encrypted_object_uploaded?(
 #     s3_encryption_client,
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.'
 #   )
@@ -79,7 +79,7 @@ end
 
 # Full example call:
 def run_me
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   region = 'us-east-1'
   object_content = File.read(object_key)
