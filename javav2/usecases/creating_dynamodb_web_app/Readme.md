@@ -486,22 +486,21 @@ The following Java code represents the **MainController** class.
     	@ResponseBody
     	String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
+         //Get the Logged in User
+         String name = getLoggedUser();
+         String guide = request.getParameter("guide");
+         String description = request.getParameter("description");
+         String status = request.getParameter("status");
 
-        String guide = request.getParameter("guide");
-        String description = request.getParameter("description");
-        String status = request.getParameter("status");
+         // Add the data to the DynamoDB table
+         DynamoDBService iw = new DynamoDBService();
 
-        // Add the data to the DynamoDB table
-        DynamoDBService iw = new DynamoDBService();
-
-        // Create a Work Item object to pass to the injestNewSubmission method
-        WorkItem myWork = new WorkItem();
-        myWork.setGuide(guide);
-        myWork.setDescription(description);
-        myWork.setStatus(status);
-        myWork.setName(name);
+         // Create a Work Item object to pass to the injestNewSubmission method
+         WorkItem myWork = new WorkItem();
+         myWork.setGuide(guide);
+         myWork.setDescription(description);
+         myWork.setStatus(status);
+         myWork.setName(name);
 
         iw.setItem(myWork);
         return "Item added";
@@ -510,26 +509,25 @@ The following Java code represents the **MainController** class.
     	// Builds and emails a report
     	@RequestMapping(value = "/report", method = RequestMethod.POST)
     	@ResponseBody
-    	String getReport(HttpServletRequest request, HttpServletResponse response) {
+    	 String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
+         //Get the Logged in User
+         String name = getLoggedUser();
 
-        DynamoDBService ri = new DynamoDBService();
+         DynamoDBService ri = new DynamoDBService();
+         String email = request.getParameter("email");
+         DynamoDBService iw = new DynamoDBService();
 
-        String email = request.getParameter("email");
-        DynamoDBService iw = new DynamoDBService();
+         List<WorkItem> theList = iw.getListItems();
+         WriteExcel writeExcel = new WriteExcel();
+         SendMessages sm = new SendMessages();
+         java.io.InputStream is = writeExcel.exportExcel(theList);
 
-        List<WorkItem> theList = iw.getListItems();
-        WriteExcel writeExcel = new WriteExcel();
-        SendMessages sm = new SendMessages();
-        java.io.InputStream is = writeExcel.exportExcel(theList);
-
-        try {
+         try {
             sm.sendReport(is, email);
-        }catch (IOException e) {
+         }catch (IOException e) {
            e.getStackTrace();
-       }
+         }
         return "Report is created";
      	}
 
@@ -538,37 +536,36 @@ The following Java code represents the **MainController** class.
     	@ResponseBody
     	String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
-        String id = request.getParameter("id");
-        DynamoDBService dbService = new DynamoDBService();
-        dbService.archiveItem(id );
-        return id ;
-    	}
+         String id = request.getParameter("id");
+         DynamoDBService dbService = new DynamoDBService();
+         dbService.archiveItem(id );
+         return id ;
+    	 }
 
-    	// Modifies the value of a work item
-    	@RequestMapping(value = "/changewi", method = RequestMethod.POST)
-    	@ResponseBody
-    	String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
+    	 // Modifies the value of a work item
+    	 @RequestMapping(value = "/changewi", method = RequestMethod.POST)
+    	 @ResponseBody
+    	  String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
+          String id = request.getParameter("id");
+          String status = request.getParameter("status");
 
-        String id = request.getParameter("id");
-        String status = request.getParameter("status");
+          DynamoDBService dbService = new DynamoDBService();
+          dbService.UpdateItem(id, status);
+          return id;
+          }
 
-        DynamoDBService dbService = new DynamoDBService();
-        dbService.UpdateItem(id, status);
-        return id;
-    	}
-
-    	// Retrieve items
-    	@RequestMapping(value = "/retrieve", method = RequestMethod.POST)
-    	@ResponseBody
+    	 // Retrieve items
+    	 @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+    	 @ResponseBody
     	String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
-        String type = request.getParameter("type");
+         //Get the Logged in User
+         String name = getLoggedUser();
+         String type = request.getParameter("type");
 
-        //Pass back items from the DynamoDB table
-        String xml="";
-        DynamoDBService iw = new DynamoDBService();
+         //Pass back items from the DynamoDB table
+         String xml="";
+         DynamoDBService iw = new DynamoDBService();
 
          if (type.compareTo("archive") ==0)
             xml = iw.getClosedItems();
