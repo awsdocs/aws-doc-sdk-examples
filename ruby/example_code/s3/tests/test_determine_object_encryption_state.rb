@@ -4,7 +4,7 @@
 require_relative '../determine_object_encryption_state'
 
 describe '#get_server_side_encryption_state' do
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
   let(:object_key) { 'my-file.txt' }
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
 

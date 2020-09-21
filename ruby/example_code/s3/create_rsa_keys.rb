@@ -42,23 +42,25 @@ rescue StandardError => e
 end
 
 # Full example call:
-=begin
-public_key_file_name = 'public_key.pem'
-public_key_file = File.new(public_key_file_name, 'w')
-private_key_file_name = 'private_key.pem'
-private_key_file = File.new(private_key_file_name, 'w')
-passphrase = 'my-passphrase'
+def run_me
+  public_key_file_name = 'public_key.pem'
+  public_key_file = File.new(public_key_file_name, 'w')
+  private_key_file_name = 'private_key.pem'
+  private_key_file = File.new(private_key_file_name, 'w')
+  passphrase = 'my-passphrase'
 
-puts "Creating public key file at '#{public_key_file_name}', and " \
-  "creating private key file at '#{private_key_file_name}' with passphrase " \
-  "'#{passphrase}'..."
+  puts "Creating public key file at '#{public_key_file_name}', and " \
+    "creating private key file at '#{private_key_file_name}' with passphrase " \
+    "'#{passphrase}'..."
 
-if public_and_private_key_created?(
-  public_key_file,
-  private_key_file,
-  passphrase)
-  puts 'Public and private key file pair created.'
-else
-  exit 1
+  if public_and_private_key_created?(
+    public_key_file,
+    private_key_file,
+    passphrase)
+    puts 'Public and private key file pair created.'
+  else
+    exit 1
+  end
 end
-=end
+
+run_me if $PROGRAM_NAME == __FILE__

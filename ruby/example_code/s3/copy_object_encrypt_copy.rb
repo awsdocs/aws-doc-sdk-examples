@@ -26,9 +26,9 @@ require 'aws-sdk-s3'
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
 #   if object_copied_with_encryption?(
 #     s3_client,
-#     'my-source-bucket',
+#     'doc-example-bucket1',
 #     'my-source-file.txt',
-#     'my-target-bucket',
+#     'doc-example-bucket2',
 #     'my-target-file.txt',
 #     'AES256'
 #   )
@@ -57,19 +57,21 @@ end
 # snippet-end:[s3.ruby.copy_object_encrypt_copy.rb]
 
 # Full example call:
-=begin
-s3_client = Aws::S3::Client.new(region: 'us-east-1')
+def run_me
+  s3_client = Aws::S3::Client.new(region: 'us-east-1')
 
-if object_copied_with_encryption?(
-  s3_client,
-  'my-source-bucket',
-  'my-source-file.txt',
-  'my-target-bucket',
-  'my-target-file.txt',
-  'AES256'
-)
-  puts 'Copied.'
-else
-  puts 'Not copied.'
+  if object_copied_with_encryption?(
+    s3_client,
+    'doc-example-bucket1',
+    'my-source-file.txt',
+    'doc-example-bucket2',
+    'my-target-file.txt',
+    'AES256'
+  )
+    puts 'Copied.'
+  else
+    puts 'Not copied.'
+  end
 end
-=end
+
+run_me if $PROGRAM_NAME == __FILE__

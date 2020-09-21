@@ -19,7 +19,7 @@ require 'aws-sdk-s3'
 # @example
 #   if deny_uploads_without_server_side_aws_kms_encryption?(
 #     Aws::S3::Client.new(region: 'us-east-1'),
-#     'my-bucket'
+#     'doc-example-bucket'
 #   )
 #     puts 'Policy added.'
 #   else
@@ -67,13 +67,15 @@ rescue StandardError => e
 end
 
 # Full example call:
-=begin
-if deny_uploads_without_server_side_aws_kms_encryption?(
-  Aws::S3::Client.new(region: 'us-east-1'),
-  'my-bucket'
-)
-  puts 'Policy added.'
-else
-  puts 'Policy not added.'
+def run_me
+  if deny_uploads_without_server_side_aws_kms_encryption?(
+    Aws::S3::Client.new(region: 'us-east-1'),
+    'doc-example-bucket'
+  )
+    puts 'Policy added.'
+  else
+    puts 'Policy not added.'
+  end
 end
-=end
+
+run_me if $PROGRAM_NAME == __FILE__
