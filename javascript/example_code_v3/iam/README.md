@@ -20,7 +20,7 @@ which are the *@aws-sdk/client-iam* and *@aws-sdk/client-sts*.
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/iam
-yarn
+npm install
 ```
 
 3. If you prefer to use JavaScript:

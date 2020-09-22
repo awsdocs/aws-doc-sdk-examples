@@ -18,11 +18,10 @@ Running the code:
 ts-node ddb-table-create.ts
 */
 // snippet-start:[lambda.JavaScript.tutorial.CreateTableV3]
-
 // Load the required clients and packages
 const {
   DynamoDBClient,
-  CreateTableCommand,
+  CreateTableCommand
 } = require("@aws-sdk/client-dynamodb");
 
 //Set the AWS Region
@@ -67,4 +66,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.CreateTableV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

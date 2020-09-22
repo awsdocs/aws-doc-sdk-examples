@@ -22,9 +22,9 @@ ts-node cw_enablealarmactions.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  CloudWatch,
+  CloudWatchClient,
   PutMetricAlarmCommand,
-  EnableAlarmActionsCommand,
+  EnableAlarmActionsCommand
 } = require("@aws-sdk/client-cloudwatch");
 
 // Set the AWS Region
@@ -53,7 +53,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cw = new CloudWatch(REGION);
+const cw = new CloudWatchClient(REGION);
 
 const run = async () => {
   try {
@@ -77,4 +77,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.enableAlarmActionsV3]
 //for unit tests only
-export = {run};
+export = { run };

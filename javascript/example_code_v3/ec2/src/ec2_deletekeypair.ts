@@ -18,17 +18,16 @@ Running the code:
 ts-node ec2_deletekeypair.ts
  */
 // snippet-start:[ec2.JavaScript.keypairs.deleteKeyPairV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { EC2, DeleteKeyPairCommand } = require("@aws-sdk/client-ec2");
+const { EC2Client, DeleteKeyPairCommand } = require("@aws-sdk/client-ec2");
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { KeyName: "KEY_PAIR_NAME" }; //KEY_PAIR_NAME
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
@@ -41,4 +40,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.keypairs.deleteKeyPairV3]
 //for unit tests only
-export = {run};
+export = { run };

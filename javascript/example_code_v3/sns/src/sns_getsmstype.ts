@@ -19,7 +19,7 @@ ts-node sns_getsmstype.ts
 
 // snippet-start:[sns.JavaScript.SMS.getSMSAttributesV3]
 // Import required AWS SDK clients and commands for Node.js
-const { SNS, GetSMSAttributesCommand } = require("@aws-sdk/client-sns");
+const { SNSClient, GetSMSAttributesCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -34,7 +34,7 @@ var params = {
 };
 
 // Create SNS service object
-const sns = new SNS(REGION);
+const sns = new SNSClient(REGION);
 
 const run = async () => {
   try {
@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.SMS.getSMSAttributesV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

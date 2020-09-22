@@ -18,7 +18,6 @@ Running the code:
 ts-node iam_createaccountalias.ts
  */
 // snippet-start:[iam.JavaScript.alias.deleteAccountAliasV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, DeleteAccountAliasCommand } = require("@aws-sdk/client-iam");
 
@@ -32,9 +31,6 @@ const params = { AccountAlias: "ALIAS" }; // ALIAS
 const iam = new IAMClient(REGION);
 
 const run = async () => {
-  // Load the AWS SDK for Node.js
-
-  // Create IAM service object
   try {
     const data = await iam.send(new DeleteAccountAliasCommand(params));
     console.log("Success", data);

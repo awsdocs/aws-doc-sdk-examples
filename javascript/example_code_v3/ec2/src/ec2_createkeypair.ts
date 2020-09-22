@@ -18,18 +18,17 @@ Running the code:
 node ec2_createkeypair.ts
  */
 // snippet-start:[ec2.JavaScript.keypairs.createKeyPairV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { EC2, CreateKeyPairCommand } = require("@aws-sdk/client-ec2");
+const { EC2Client, CreateKeyPairCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { KeyName: "MY_KEY_PAIR" }; //MY_KEY_PAIR
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
@@ -42,4 +41,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.keypairs.createKeyPairV3]
 //for unit tests only
-export = {run};
+export = { run };

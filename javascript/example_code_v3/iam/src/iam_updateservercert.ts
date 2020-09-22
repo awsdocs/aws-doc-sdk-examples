@@ -19,7 +19,6 @@ Running the code:
 ts-node iam_updateservercert.ts
  */
 // snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
@@ -49,4 +48,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.certs.updateServerCertificateV3]
 //for unit tests only
-export = {run};
+export = { run };

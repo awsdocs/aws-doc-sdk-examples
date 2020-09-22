@@ -24,7 +24,7 @@ const {
   S3Client,
   CreateBucketCommand,
   PutBucketWebsiteCommand,
-  PutBucketPolicyCommand,
+  PutBucketPolicyCommand
 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
@@ -33,7 +33,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 // Create params JSON for S3.createBucket
 const bucketName = "BUCKET_NAME"; //BUCKET_NAME
 const bucketParams = {
-  Bucket: bucketName,
+  Bucket: bucketName
 };
 
 // Create params JSON for S3.setBucketWebsite
@@ -69,7 +69,7 @@ readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
 // convert policy JSON into string and assign into params
 const bucketPolicyParams = {
   Bucket: bucketName,
-  Policy: JSON.stringify(readOnlyAnonUserPolicy),
+  Policy: JSON.stringify(readOnlyAnonUserPolicy)
 };
 
 // Instantiate an S3 client
@@ -98,4 +98,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.BucketSetUpV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

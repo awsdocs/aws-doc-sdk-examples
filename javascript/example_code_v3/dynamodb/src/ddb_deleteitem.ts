@@ -12,22 +12,31 @@ ddb_deleteitem.ts demonstrates how to delete an item from an Amazon DynamoDB tab
 
 Inputs (replace in code):
 - REGION
-- TABLE_NAME
+- TABLE
+- KEY_NAME
+- VALUE
 
 Running the code:
 ts-node ddb_deleteitem.ts
 
 */
 // snippet-start:[dynamodb.JavaScript.item.deleteItemV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   DynamoDBClient,
-  DeleteItemCommand,
+  DeleteItemCommand
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
+
+// Set the parameters
+var params = {
+  TableName: 'TABLE_NAME',
+  Key: {
+    'KEY_NAME': {N: 'VALUE'}
+  }
+};
 
 // Create DynamoDB service object
 const dbclient = new DynamoDBClient(REGION);
@@ -47,4 +56,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.item.deleteItemV3]
 //for unit tests only
-export = {run};
+export = { run };

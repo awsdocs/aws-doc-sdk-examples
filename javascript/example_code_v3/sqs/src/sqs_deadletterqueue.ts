@@ -19,12 +19,11 @@ Running the code:
 ts-node sqs_deadletterqueue.ts
 */
 // snippet-start:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SQS, SetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
+const { SQSClient, SetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
@@ -37,7 +36,7 @@ var params = {
 };
 
 // Create SQS service object
-const sqs = new SQS(REGION);
+const sqs = new SQSClient(REGION);
 
 const run = async () => {
   try {
@@ -52,4 +51,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

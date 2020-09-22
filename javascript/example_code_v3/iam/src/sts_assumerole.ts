@@ -18,12 +18,11 @@ Running the code:
 ts-node sts_assumerule.ts
  */
 // snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   STSClient,
   AssumeRoleCommand,
-  GetCallerIdentityCommand,
+  GetCallerIdentityCommand
 } = require("@aws-sdk/client-sts");
 
 // Set the AWS Region
@@ -65,4 +64,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

@@ -21,5 +21,5 @@ which include *@aws-sdk/client-dynamodb*, *@aws-sdk/client-lambda*, *@aws-sdk/cl
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/lambda
-yarn
+npm install
 ```

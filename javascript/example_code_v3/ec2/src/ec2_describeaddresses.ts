@@ -19,10 +19,10 @@ ts-node ec2_describeaddresses.ts
 // snippet-start:[ec2.JavaScript.Addresses.describeAddressesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { EC2, DescribeAddressesCommand } = require("@aws-sdk/client-ec2");
+const { EC2Client, DescribeAddressesCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
@@ -30,7 +30,7 @@ const params = {
 };
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
@@ -43,4 +43,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Addresses.describeAddressesV3]
 //for unit tests only
-export = {run};
+export = { run };

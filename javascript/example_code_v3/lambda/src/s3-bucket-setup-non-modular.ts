@@ -20,7 +20,7 @@ ts-node s3-bucket-setup-non-modular.ts
 // snippet-start:[lambda.JavaScript.BucketSetUp.NonModularV3]
 
 // Import a non-modular S3 client
-const { S3 } = require("@aws-sdk/client-s3");
+const { S3Client } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -44,7 +44,7 @@ const staticHostParams = {
 };
 
 // Instantiate the S3 client
-const s3 = new S3(REGION);
+const s3 = new S3Client(REGION);
 
 const run = async () => {
   // Call S3 to create the bucket
@@ -64,4 +64,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.BucketSetUp.NonModularV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

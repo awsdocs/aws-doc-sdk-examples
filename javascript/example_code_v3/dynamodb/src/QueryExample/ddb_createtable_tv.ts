@@ -15,11 +15,10 @@ Running the code:
 node ddb_createtable_tv.ts
 */
 // snippet-start:[dynamodb.JavaScript.batch.CreateTableTVV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   DynamoDBClient,
-  CreateTableCommand,
+  CreateTableCommand
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region

@@ -20,11 +20,10 @@ ts-node lambda-function-setup.ts
 */
 
 // snippet-start:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
-
 // Load the Lambda client
 const {
   LambdaClient,
-  CreateFunctionCommand,
+  CreateFunctionCommand
 } = require("@aws-sdk/client-lambda");
 
 //Set the AWS Region
@@ -56,4 +55,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

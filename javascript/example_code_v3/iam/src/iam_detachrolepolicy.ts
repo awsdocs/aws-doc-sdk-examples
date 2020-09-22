@@ -18,12 +18,11 @@ Running the code:
 ts-node iam_detachrolepolicy.ts
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
   ListAttachedRolePoliciesCommand,
-  DetachRolePolicyCommand,
+  DetachRolePolicyCommand
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
@@ -67,4 +66,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
 //for unit tests only
-export = {run};
+export = { run };

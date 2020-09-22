@@ -18,12 +18,11 @@ Running the code:
 ts-node ses_listidentities.ts
 */
 // snippet-start:[ses.JavaScript.identities.listIdentitiesV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SES, ListIdentitiesCommand } = require("@aws-sdk/client-ses");
+const { SESClient, ListIdentitiesCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
@@ -32,16 +31,16 @@ var params = {
 };
 
 // Create SES service object
-const ses = new SES(REGION);
+const ses = new SESClient(REGION);
 
 const run = async () => {
   try {
     const data = await ses.send(new ListIdentitiesCommand(params));
-    console.log("Success. Your SES" + process.argv[3] + "identities:", data);
+    console.log("Success.", data);
   } catch (err) {
     console.error(err, err.stack);
   }
 };
 run();
 // snippet-end:[ses.JavaScript.identities.listIdentitiesV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

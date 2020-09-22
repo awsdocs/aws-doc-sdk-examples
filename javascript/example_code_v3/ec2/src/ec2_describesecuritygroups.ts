@@ -21,13 +21,16 @@ ts-node ec2_describesecuritygroups.ts
 // snippet-start:[ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { EC2, DescribeSecurityGroupsCommand } = require("@aws-sdk/client-ec2");
+const {
+  EC2Client,
+  DescribeSecurityGroupsCommand,
+} = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 // Set the parameters
 const params = { GroupIds: ["SECURITY_GROUP_ID"] }; //SECURITY_GROUP_ID
@@ -46,4 +49,4 @@ run();
 
 // snippet-end:[ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 //for unit tests only
-export = {run};
+export = { run };

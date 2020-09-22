@@ -20,7 +20,7 @@ ts-node uploadArchive.ts
 
 // snippet-start:[glacier.JavaScript.upload.uploadArchiveV3]
 // Load the SDK for JavaScript
-const { Glacier, UploadArchiveCommand } = require("@aws-sdk/client-glacier");
+const { GlacierClient, UploadArchiveCommand } = require("@aws-sdk/client-glacier");
 
 // Set the AWS Region
 const REGION = "REGION"; // e.g. 'us-east-1'
@@ -33,7 +33,7 @@ const buffer = new Buffer.alloc(2.5 * 1024 * 1024); // 2.5MB buffer
 const params = { vaultName: vaultname, body: buffer };
 
 // Instantiate an S3 Glacier client
-const glacier = new Glacier(REGION);
+const glacier = new GlacierClient(REGION);
 
 const run = async () => {
   try {
@@ -46,4 +46,4 @@ const run = async () => {
 run();
 // snippet-end:[glacier.JavaScript.upload.uploadArchiveV3]
 //for unit tests only
-export = {run};
+export = { run };

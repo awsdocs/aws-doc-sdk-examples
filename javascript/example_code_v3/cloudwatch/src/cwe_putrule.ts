@@ -20,7 +20,7 @@ ts-node cw_deletealarm.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  CloudWatchEvents,
+  CloudWatchEventsClient,
   PutRuleCommand,
 } = require("@aws-sdk/client-cloudwatch-events");
 
@@ -36,7 +36,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cwevents = new CloudWatchEvents(REGION);
+const cwevents = new CloudWatchEventsClient(REGION);
 
 const run = async () => {
   try {
@@ -49,4 +49,4 @@ const run = async () => {
 run();
 // snippet-end:[cwEvents.JavaScript.cwe.putRuleV3]
 //for unit tests only
-export = {run};
+export = { run };

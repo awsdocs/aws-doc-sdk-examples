@@ -18,7 +18,6 @@ ts-node iam_listaccountaliases.ts
  */
 
 // snippet-start:[iam.JavaScript.alias.listAccountAliasesV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, ListAccountAliasesCommand } = require("@aws-sdk/client-iam");
 
@@ -42,4 +41,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.alias.listAccountAliasesV3]
 //for unit tests only
-export = {run};
+export = { run };

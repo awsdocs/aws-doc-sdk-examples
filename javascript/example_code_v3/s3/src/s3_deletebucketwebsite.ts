@@ -17,26 +17,26 @@ ts-node s3_deletebucketwebsite.ts
 
 // Import required AWS SDK clients and commands for Node.js
 
-const { S3, DeleteBucketWebsiteCommand } = require("@aws-sdk/client-s3");
+const { S3Client, DeleteBucketWebsiteCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create the parameters for calling
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
-const s3 = new S3(REGION);
+const s3 = new S3Client(REGION);
 
 const run = async () => {
-    try {
-        const data = await s3.send(new DeleteBucketWebsiteCommand(bucketParams));
-        console.log("Success", data);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await s3.send(new DeleteBucketWebsiteCommand(bucketParams));
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[s3.JavaScript.website.deleteBucketWebsiteV3]
 //for unit tests only
-export = {run};
+export = { run };

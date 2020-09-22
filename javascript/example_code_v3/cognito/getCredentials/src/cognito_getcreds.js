@@ -27,7 +27,7 @@ Running the code:
 // Load the required clients and packages
 const {
   CognitoIdentityClient,
-  GetIdCommand,
+  GetIdCommand
 } = require("@aws-sdk/client-cognito-identity");
 const {
   fromCognitoIdentityPool,
@@ -42,13 +42,13 @@ const cognitoidentity = new CognitoIdentityClient({
   region: "REGION",
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region: "REGION" }),
-    identityPoolId: IDENTITY_POOL_ID,
+    identityPoolId: IDENTITY_POOL_ID
   }),
 });
 
 const getIdParams = {
   IdentityPoolId: IDENTITY_POOL_ID,
-  AccountId: ACCOUNT_ID,
+  AccountId: ACCOUNT_ID
 };
 
 const showId = async () => {

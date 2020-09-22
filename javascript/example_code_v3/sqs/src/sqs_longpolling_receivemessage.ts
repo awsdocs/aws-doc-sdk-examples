@@ -22,10 +22,10 @@ ts-node sqs_longpolling_receivemessage.ts
 // snippet-start:[sqs.JavaScript.longPoll.receiveMessageV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { SQS, ReceiveMessageCommand } = require("@aws-sdk/client-sqs");
+const { SQSClient, ReceiveMessageCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const queueURL = "SQS_QUEUE_URL"; // SQS_QUEUE_URL
@@ -38,7 +38,7 @@ const params = {
 };
 
 // Create SQS service object
-const sqs = new SQS(REGION);
+const sqs = new SQSClient(REGION);
 
 const run = async () => {
   try {
@@ -50,4 +50,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.receiveMessageV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

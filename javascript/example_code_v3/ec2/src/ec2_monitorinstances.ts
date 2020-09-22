@@ -20,10 +20,9 @@ ts-node ec2_monitorinstances.ts
  */
 
 // snippet-start:[ec2.JavaScript.Instances.monitorInstancesV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
-  EC2,
+  EC2Client,
   MonitorInstancesCommand,
   UnmonitorInstancesCommand,
 } = require("@aws-sdk/client-ec2");
@@ -32,7 +31,7 @@ const {
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 // Set the parameters
 const params = { InstanceIds: "INSTANCE_ID" }; // INSTANCE_ID
@@ -58,4 +57,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Instances.monitorInstancesV3]
 //for unit tests only
-export = {run};
+export = { run };

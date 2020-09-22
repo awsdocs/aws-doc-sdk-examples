@@ -14,28 +14,27 @@ Running the code:
 ts-node s3_listobjects.ts
 */
 // snippet-start:[s3.JavaScript.buckets.listObjectsV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { S3, ListObjectsCommand  } = require("@aws-sdk/client-s3");
+const { S3Client, ListObjectsCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create the parameters for the bucket
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
-const s3 = new S3(REGION);
+const s3 = new S3Client(REGION);
 
 const run = async () => {
-    try {
-        const data = await s3.send(new ListObjectsCommand(bucketParams));
-        console.log("Success", data);
-    } catch (err) {
-        console.log("Error", err);
-    }
+  try {
+    const data = await s3.send(new ListObjectsCommand(bucketParams));
+    console.log("Success", data);
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 run();
 // snippet-end:[s3.JavaScript.buckets.listObjectsV3]
 //for unit tests only
-export = {run};
+export = { run };

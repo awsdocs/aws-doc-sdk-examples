@@ -21,7 +21,7 @@ ts-node cwl_describesubscriptionfilters.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  CloudWatchLogs,
+  CloudWatchLogsClient,
   DescribeSubscriptionFiltersCommand,
 } = require("@aws-sdk/client-cloudwatch-logs");
 
@@ -35,7 +35,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cwl = new CloudWatchLogs(REGION);
+const cwl = new CloudWatchLogsClient(REGION);
 
 const run = async () => {
   try {
@@ -48,4 +48,4 @@ const run = async () => {
 run();
 // snippet-end:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3V3]
 //for unit tests only
-export = {run};
+export = { run };

@@ -18,7 +18,6 @@ Running the code:
 ts-node iam_deleteservercert.ts
  */
 // snippet-start:[iam.JavaScript.certs.deleteServerCertificateV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
@@ -45,4 +44,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.certs.deleteServerCertificateV3]
 //for unit tests only
-export = {run};
+export = { run };

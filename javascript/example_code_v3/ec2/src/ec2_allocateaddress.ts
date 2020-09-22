@@ -18,26 +18,25 @@ Running the code:
 ts-node ec2_allocateaddress.ts
 */
 // snippet-start:[ec2.JavaScript.Addresses.allocateAddressV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
-  EC2,
+  EC2Client,
   AllocateAddressCommand,
-  AssociateAddressCommand,
+  AssociateAddressCommand
 } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const paramsAllocateAddress = { Domain: "vpc" };
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
-    const data = await ec2client.allocateAddress(paramsAllocateAddress);
+    const data = await ec2client.send(new AllocateAddressCommand(paramsAllocateAddress));
     console.log("Address allocated:", data.AllocationId);
     var paramsAssociateAddress = {
       AllocationId: data.AllocationId,
@@ -47,9 +46,7 @@ const run = async () => {
     console.log("Address Not Allocated", err);
   }
   try {
-    const results = await ec2client.send(
-      new AssociateAddressCommand(paramsAssociateAddress)
-    );
+    const results = await ec2client.send(new AssociateAddressCommand(paramsAssociateAddress));
     console.log("Address associated:", results.AssociationId);
   } catch (err) {
     console.log("Address Not Associated", err);
@@ -58,4 +55,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]
 //for unit tests only
-export = {run};
+export = { run };

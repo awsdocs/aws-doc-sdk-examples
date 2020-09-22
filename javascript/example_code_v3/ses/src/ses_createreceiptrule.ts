@@ -13,7 +13,7 @@ received messages in an Amazon S3 bucket.
 
 Inputs (replace in code):
 - REGION
-- S3_BUCKET_NAME
+- BUCKET_NAME
 - EMAIL_ADDRESS | DOMAIN
 - RULE_NAME
 - RULE_SET_NAME
@@ -22,12 +22,11 @@ Running the code:
 ts-node ses_createreceiptrule.ts
 */
 // snippet-start:[ses.JavaScript.rules.createReceiptRuleV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SES, CreateReceiptRuleCommand } = require("@aws-sdk/client-ses");
+const { SESClient, CreateReceiptRuleCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1" // REGION
+const REGION = "REGION"; //e.g. "us-east-1" // REGION
 
 // Set the parameters
 const params = {
@@ -35,7 +34,7 @@ const params = {
     Actions: [
       {
         S3Action: {
-          BucketName: "S3_BUCKET_NAME", // S3_BUCKET_NAME
+          BucketName: "BUCKET_NAME", // S3_BUCKET_NAME
           ObjectKeyPrefix: "email",
         },
       },
@@ -53,7 +52,7 @@ const params = {
 };
 
 // Create SES service object
-const ses = new SES(REGION);
+const ses = new SESClient(REGION);
 
 const run = async () => {
   try {
@@ -65,4 +64,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

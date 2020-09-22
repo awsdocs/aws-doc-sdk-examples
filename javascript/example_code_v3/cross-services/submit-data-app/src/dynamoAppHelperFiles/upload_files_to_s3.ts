@@ -23,13 +23,12 @@ Running the code:
 2. Run the following in the command line:
     node upload_files_to_s3.js
  */
-// snippet-start:[s3.JavaScript.crossservice.uploadFilesV3]
-
+// snippet-start:[s3.JavaScript.cross-service.uploadFilesV3]
+// Import required AWS SDK clients and commands for Node.js
 const {
-  S3,
   S3Client,
   PutBucketWebsiteCommand,
-  PutObjectCommand,
+  PutObjectCommand
 } = require("@aws-sdk/client-s3");
 import path from "path";
 import fs from "fs";
@@ -47,7 +46,6 @@ var file2 = "error.html";
 var file3 = "main.js";
 
 // Instantiate S3client and S3 client objects
-const s3 = new S3({});
 const s3Client = new S3Client({});
 
 //Attempt to create the bucket
@@ -62,7 +60,7 @@ const run = async () => {
     uploadParams1.Key = path.basename(file1);
     // call S3 to retrieve upload file to specified bucket
     try {
-      const data = await s3.send(new PutObjectCommand(uploadParams1));
+      const data = await s3Client.send(new PutObjectCommand(uploadParams1));
       console.log("Success", data);
     } catch (err) {
       console.log("Error", err);
@@ -76,7 +74,7 @@ const run = async () => {
     uploadParams2.Key = path.basename(file2);
     // call S3 to retrieve upload file to specified bucket
     try {
-      const data = await s3.send(new PutObjectCommand(uploadParams2));
+      const data = await s3Client.send(new PutObjectCommand(uploadParams2));
       console.log("Success", data);
     } catch (err) {
       console.log("Error", err);
@@ -90,7 +88,7 @@ const run = async () => {
     uploadParams3.Key = path.basename(file3);
     // call S3 to retrieve upload file to specified bucket
     try {
-      const data = await s3.send(new PutObjectCommand(uploadParams3));
+      const data = await s3Client.send(new PutObjectCommand(uploadParams3));
       console.log("Success", data);
     } catch (err) {
       console.log("Error", err);
@@ -100,4 +98,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.crossservice.uploadFilesV3]
+// snippet-end:[s3.JavaScript.cross-service.uploadFilesV3]
+//for unit tests only
+exports.run = run;

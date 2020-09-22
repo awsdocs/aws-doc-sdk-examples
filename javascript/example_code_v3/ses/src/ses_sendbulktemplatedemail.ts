@@ -21,12 +21,14 @@ Running the code:
 ts-node ses_sendbulktemplatedemail.ts
  */
 // snippet-start:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SES, SendBulkTemplatedEmailCommand } = require("@aws-sdk/client-ses");
+const {
+  SESClient,
+  SendBulkTemplatedEmailCommand
+} = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 var params = {
@@ -53,7 +55,7 @@ var params = {
 };
 
 // Create SES service object
-const ses = new SES(REGION);
+const ses = new SESClient(REGION);
 
 const run = async () => {
   try {
@@ -65,4 +67,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

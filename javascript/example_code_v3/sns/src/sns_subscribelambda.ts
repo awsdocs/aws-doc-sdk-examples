@@ -20,12 +20,11 @@ Running the code:
 ts-node sns_subscribelambda.ts
  */
 // snippet-start:[sns.JavaScript.subscriptions.subscribeLambdaV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SNS, SubscribeCommand } = require("@aws-sdk/client-sns");
+const { SNSClient, SubscribeCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
@@ -35,7 +34,7 @@ const params = {
 };
 
 // Create SNS service object
-const sns = new SNS(REGION);
+const sns = new SNSClient(REGION);
 
 const run = async () => {
   try {
@@ -47,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.subscriptions.subscribeLambdaV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

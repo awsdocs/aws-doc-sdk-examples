@@ -21,7 +21,7 @@ ts-node emc_getendpoint.ts
 // Import required AWS-SDK clients and commands for Node.js
 const {
   MediaConvertClient,
-  DescribeEndpointsCommand,
+  DescribeEndpointsCommand
 } = require("@aws-sdk/client-mediaconvert");
 
 //set the parameters
@@ -29,7 +29,7 @@ const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 const params = { MaxResults: 0 };
 
 //Set the MediaConvert Service Object
-const mediaconvert = new MediaConvert(endpoint);
+const mediaconvert = new MediaConvertClient(endpoint);
 
 const run = async () => {
   try {
@@ -44,5 +44,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
-
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

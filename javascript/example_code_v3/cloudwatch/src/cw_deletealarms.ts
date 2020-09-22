@@ -21,7 +21,7 @@ ts-node cw_deletealarm.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  CloudWatch,
+  CloudWatchClient,
   DeleteAlarmsCommand,
 } = require("@aws-sdk/client-cloudwatch");
 
@@ -32,7 +32,7 @@ const REGION = "REGION"; //e.g., "us-east-1"
 const params = { AlarmNames: "ALARM_NAMES" }; // e.g., "Web_Server_CPU_Utilization"
 
 // Create CloudWatch service object
-const cw = new CloudWatch(REGION);
+const cw = new CloudWatchClient(REGION);
 
 const run = async () => {
   try {
@@ -45,4 +45,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.alarms.deleteAlarmsV3]
 //for unit tests only
-export = {run};
+export = { run };

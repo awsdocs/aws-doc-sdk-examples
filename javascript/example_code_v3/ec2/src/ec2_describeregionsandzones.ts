@@ -17,15 +17,14 @@ Running the code:
 ts-node ec2_describeresionsandzones.ts
 */
 // snippet-start:[ec2.JavaScript.Regions.describeRegionsV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { EC2, DescribeRegionsCommand } = require("@aws-sdk/client-ec2");
+const { EC2Client, DescribeRegionsCommand } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
@@ -38,4 +37,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Regions.describeRegionsV3]
 //for unit tests only
-export = {run};
+export = { run };

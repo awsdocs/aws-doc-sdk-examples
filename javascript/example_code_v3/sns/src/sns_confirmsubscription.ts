@@ -22,9 +22,11 @@ Running the code:
 ts-node sns_confirmsubsrciption.ts
 */
 // snippet-start:[sns.JavaScript.subscriptions.confirmSubscriptionV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SNS, ConfirmSubscriptionCommand } = require("@aws-sdk/client-sns");
+const {
+  SNSClient,
+  ConfirmSubscriptionCommand
+} = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -37,7 +39,7 @@ const params = {
 };
 
 // Create SNS service object
-const sns = new SNS(REGION);
+const sns = new SNSClient(REGION);
 
 const run = async () => {
   try {
@@ -50,4 +52,4 @@ const run = async () => {
 run();
 // snippet-end:[sns.JavaScript.subscriptions.confirmSubscriptionV3]
 //for unit tests only
-export = {run};
+export = { run };

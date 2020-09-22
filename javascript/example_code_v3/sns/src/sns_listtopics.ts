@@ -17,15 +17,14 @@ Running the code:
 ts-node sns_listtopics.ts
  */
 // snippet-start:[sns.JavaScript.topics.listTopicsV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SNS, ListTopicsCommand } = require("@aws-sdk/client-sns");
+const { SNSClient, ListTopicsCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create SNS service object
-const sns = new SNS(REGION);
+const sns = new SNSClient(REGION);
 
 const run = async () => {
   try {
@@ -37,4 +36,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.topics.listTopicsV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

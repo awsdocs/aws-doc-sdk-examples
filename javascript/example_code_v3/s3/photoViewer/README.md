@@ -17,6 +17,6 @@ which include *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/s3/src/photoViewer/src
-yarn
+npm install
 ```
 3. Follow the steps in the [AWS documentation for this examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-photos-view.html).

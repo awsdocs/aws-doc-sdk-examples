@@ -20,7 +20,6 @@ Running the code:
 ts-node ddb_getitem.ts
 */
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
@@ -46,4 +45,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.item.getItemV3]
 //for unit tests only
-export = {run};
+export = { run };

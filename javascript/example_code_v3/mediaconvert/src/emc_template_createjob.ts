@@ -23,8 +23,8 @@ ts-node emc_template_createjob.ts
 // snippet-start:[mediaconvert.JavaScript.templates.createJobV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {
-  MediaConvert,
-  CreateJobCommand,
+  MediaConvertClient,
+  CreateJobCommand
 } = require("@aws-sdk/client-mediaconvert");
 
 //Set the parameters
@@ -62,7 +62,7 @@ const params = {
 };
 
 //Set the MediaConvert Service Object
-const mediaconvert = new MediaConvert(endpoint);
+const mediaconvert = new MediaConvertClient(endpoint);
 
 const run = async () => {
   try {
@@ -74,4 +74,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.templates.createJobV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only
