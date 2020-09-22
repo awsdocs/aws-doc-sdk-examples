@@ -334,7 +334,7 @@ These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains Java files required for Spring security. 
++ **secureweb** - Contains a Java class for Spring security and the Java Controller class. 
 
 **Note**: The only class that is in **com.example** is **SecureWebApp**. All other classes are in the sub-packages. 
 
@@ -362,7 +362,7 @@ In the **com.example** package, create a class named **SecureWebApp**. This is t
 
 ### Create the Spring security classes
 
-Create a Java package named **com.aws.secureweb**. Next, create these classes in this package:
+Create a Java package named **com.example.secureweb**. Next, create these classes in this package:
 
 + **WebSecurityConfig**
 + **MainController**
@@ -605,7 +605,7 @@ The following Java code represents the **MainController** class.
 
 ### Create the WorkItem class
 
-Create a Java package named **com.example.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
+Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
 
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
@@ -673,7 +673,6 @@ The following Java code represents the **WorkItem** class.
 #### To create the WorkItem class
 1. In the **com.example.entities** package, create the **WorkItem** class. 
 2. Copy the code from the **WorkItem** class and paste it into this class in your project.
-
 
 ### Create the service classes
 
@@ -1620,7 +1619,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the *DynamoDB Item Tracker* application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a template folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the *DynamoDB Item Tracker* application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder and then create the following HTML files:
 
 + **login.html**
 + **index.html**
@@ -2472,7 +2471,7 @@ The JAR file is located in the target folder.
 
 ![AWS Tracking Application](images/pic11.png)
 
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy the application to Elastic Beanstalk
 
