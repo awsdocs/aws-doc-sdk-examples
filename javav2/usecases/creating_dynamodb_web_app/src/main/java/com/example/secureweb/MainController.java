@@ -1,18 +1,3 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
-
 package com.example.secureweb;
 
 import com.example.entities.WorkItem;
@@ -93,7 +78,6 @@ public class MainController {
     String getReport(HttpServletRequest request, HttpServletResponse response) {
 
         String email = request.getParameter("email");
-
         List<WorkItem> theList = dbService.getListItems();
         java.io.InputStream is = excel.exportExcel(theList);
 
@@ -131,9 +115,7 @@ public class MainController {
     @ResponseBody
     String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
-        String type = request.getParameter("type");
+       String type = request.getParameter("type");
 
         // Pass back items from the DynamoDB table
         String xml="";
@@ -160,7 +142,7 @@ public class MainController {
     private String getLoggedUser() {
 
         // Get the logged-in Useruser
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user2.getUsername();
         return name;
     }
