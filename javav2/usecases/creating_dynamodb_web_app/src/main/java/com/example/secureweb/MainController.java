@@ -92,9 +92,6 @@ public class MainController {
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
-
         String email = request.getParameter("email");
 
         List<WorkItem> theList = dbService.getListItems();
