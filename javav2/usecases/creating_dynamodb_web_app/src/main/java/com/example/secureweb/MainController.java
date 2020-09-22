@@ -61,7 +61,7 @@ public class MainController {
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method
+        // Create a WorkItem object 
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
