@@ -336,6 +336,8 @@ These packages contain the following:
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
 + **secureweb** - Contains Java files required for Spring security. 
 
+**Note**: The only class that is in **com.example** is SecureWebApp. All other classes are in the sub-packages. 
+
 ## Create the Java classes
 
 Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
