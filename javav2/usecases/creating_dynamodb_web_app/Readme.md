@@ -585,7 +585,7 @@ The following Java code represents the **MainController** class.
       String name = user2.getUsername();
       return name;
      }
-}
+     }
 
 #### To create the WebSecurityConfig classes 
 
