@@ -64,7 +64,7 @@ When a user logs into the application, they see the **Home** page.
 #### Application functionality
 A user can perform these tasks in the *DynamoDB Item Tracker* application: 
 
-+ Enter an item into the system
++ Enter an item
 + View all active items
 + View archived items that are complete 
 + Modify active items
