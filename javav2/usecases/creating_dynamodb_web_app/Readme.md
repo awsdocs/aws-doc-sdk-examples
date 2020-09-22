@@ -555,8 +555,6 @@ The following Java code represents the **MainController** class.
      @ResponseBody
      String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
-        String name = getLoggedUser();
         String type = request.getParameter("type");
 
         // Pass back items from the DynamoDB table
