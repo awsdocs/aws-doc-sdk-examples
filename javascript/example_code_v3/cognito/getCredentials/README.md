@@ -16,7 +16,7 @@ which are *@aws-sdk/client-cognito-identity* and "@aws-sdk/credential-provider-c
 ```
 npm install ts-node -g  // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/cognito 
-yarn
+npm install
 ```
 
 3. In your text editor, update user variables specified in the 'Inputs' section of the sample file.

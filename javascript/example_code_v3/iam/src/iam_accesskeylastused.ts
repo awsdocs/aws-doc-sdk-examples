@@ -18,11 +18,10 @@ Running the code:
 ts-node iam_accesskeylastused.ts
  */
 // snippet-start:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
-  GetAccessKeyLastUsedCommand,
+  GetAccessKeyLastUsedCommand
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
@@ -45,4 +44,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
 //for unit tests only
-export = {run};
+export = { run };

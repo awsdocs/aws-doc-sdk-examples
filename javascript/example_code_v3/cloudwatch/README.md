@@ -21,7 +21,7 @@ which are the *@aws-sdk/client-cloudwatch*, *@aws-sdk/client-cloudwatch-events*,
 ```
 npm install ts-node -g // If you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/cloudwatch 
-yarn
+npm install
 ```
 3. If you prefer to use JavaScript:
 - change the sample file extension from ```.ts``` to ```.js```

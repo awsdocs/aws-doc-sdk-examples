@@ -20,17 +20,17 @@ Inputs (replace in code):
 Running the code:
 node create-table.js
  */
-// snippet-start:[s3.JavaScript.crossservice.createTableV3]
+// snippet-start:[s3.JavaScript.cross-service.createTableV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  DynamoDB,
+  DynamoDBClient,
   CreateTableCommand,
   PutItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const tableParams = {
@@ -50,14 +50,14 @@ const tableParams = {
     ReadCapacityUnits: 1,
     WriteCapacityUnits: 1,
   },
-  TableName: "butthisone", //TABLE_NAME
+  TableName: "TABLE_NAME", //TABLE_NAME
   StreamSpecification: {
     StreamEnabled: false,
   },
 };
 
 // Create DynamoDB service object
-const dbclient = new DynamoDB(REGION);
+const dbclient = new DynamoDBClient(REGION);
 
 const run = async () => {
   try {
@@ -68,4 +68,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.crossservice.createTableV3]
+// snippet-end:[s3.JavaScript.cross-service.createTableV3]
+//for unit tests only
+exports.run = run;

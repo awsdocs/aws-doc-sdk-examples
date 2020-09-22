@@ -20,12 +20,11 @@ ts-node iam_attachrolepolicy.ts
  */
 
 // snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
   ListAttachedRolePoliciesCommand,
-  AttachRolePolicyCommand,
+  AttachRolePolicyCommand
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
@@ -70,4 +69,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.policies.attachRolePolicyV3]
 //for unit tests only
-export = {run};
+export = { run };

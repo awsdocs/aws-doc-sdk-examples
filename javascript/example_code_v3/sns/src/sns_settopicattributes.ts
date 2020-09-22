@@ -22,10 +22,10 @@ ts-node sns_settopicattributes.ts
 // snippet-start:[sns.JavaScript.topics.setTopicAttributesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { SNS, SetTopicAttributesCommand } = require("@aws-sdk/client-sns");
+const { SNSClient, SetTopicAttributesCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
@@ -35,7 +35,7 @@ const params = {
 };
 
 // Create SNS service object
-const sns = new SNS(REGION);
+const sns = new SNSClient(REGION);
 
 const run = async () => {
   try {
@@ -47,4 +47,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.topics.setTopicAttributesV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

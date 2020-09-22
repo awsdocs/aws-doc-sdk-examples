@@ -7,8 +7,8 @@
   "author": "Doug-AWS, AllanFly120",
   "license": "MIT",
   "scripts": {
-    "build:frontend": "webpack MyLambdaApp/index.js --mode development --target web --devtool false -o MyLambdaApp/main.js",
-    "build:backend": "webpack slotpull.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build:frontend": "webpack MyLambdaApp/index.ts --mode development --target web --devtool false -o MyLambdaApp/main.ts",
+    "build:backend": "webpack slotpull.ts --mode development --target node --devtool false --output-library-target umd -o index.ts",
     "test": "exit 0"
   },
   "dependencies": {

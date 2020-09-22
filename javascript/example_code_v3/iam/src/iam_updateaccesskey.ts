@@ -19,7 +19,6 @@ ts-node iam_updateaccesskey.ts
  */
 
 // snippet-start:[iam.JavaScript.keys.updateAccessKeyV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, UpdateAccessKeyCommand } = require("@aws-sdk/client-iam");
 
@@ -47,4 +46,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.keys.updateAccessKeyV3]
 //for unit tests only
-export = {run};
+export = { run };

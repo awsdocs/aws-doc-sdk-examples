@@ -21,7 +21,7 @@ ts-node cwe_puttargets.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  CloudWatchEvents,
+  CloudWatchEventsClient,
   PutTargetsCommand,
 } = require("@aws-sdk/client-cloudwatch-events");
 
@@ -40,7 +40,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cwevents = new CloudWatchEvents(REGION);
+const cwevents = new CloudWatchEventsClient(REGION);
 
 const run = async () => {
   try {
@@ -53,4 +53,4 @@ const run = async () => {
 run();
 // snippet-end:[cwEvents.JavaScript.cwe.putTargetsV3]
 //for unit tests only
-export = {run};
+export = { run };

@@ -21,7 +21,7 @@ which include *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/s3
-yarn
+npm install
 ```
 3. If you prefer to use JavaScript:
 - change the sample file extension from ```.ts``` to ```.js```

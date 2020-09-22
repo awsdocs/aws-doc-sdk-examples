@@ -18,9 +18,8 @@ Running the code:
 ts-node sqs_sendmessage.ts
  */
 // snippet-start:[sqs.JavaScript.messages.sendMessageV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SQS, SendMessageCommand } = require("@aws-sdk/client-sqs");
+const { SQSClient, SendMessageCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
@@ -50,7 +49,7 @@ const params = {
 };
 
 // Create SQS service object
-const sqs = new SQS(REGION);
+const sqs = new SQSClient(REGION);
 
 const run = async () => {
   try {
@@ -62,4 +61,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.messages.sendMessageV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

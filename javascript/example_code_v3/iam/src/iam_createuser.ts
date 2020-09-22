@@ -19,12 +19,11 @@ ts-node iam_createuser.js
  */
 
 // snippet-start:[iam.JavaScript.users.getUserV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
   GetUserCommand,
-  CreateUserCommand,
+  CreateUserCommand
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
@@ -55,4 +54,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.users.getUserV3]
 //for unit tests only
-export = {run};
+export = { run };

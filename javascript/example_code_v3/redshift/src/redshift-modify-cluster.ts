@@ -19,12 +19,11 @@ Running the code:
 ts-node redshift-describe-clusters.ts
 */
 
-// snippet-start:[redshift.javascript.redshift-describe-clustersV3]
-
+// snippet-start:[redshift.javascript.redshift-modify-clustersV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
-  Redshift,
-  ModifyClusterCommand,
+  RedshiftClient,
+  ModifyClusterCommand
 } = require("@aws-sdk/client-redshift-node");
 
 // Set the AWS Region
@@ -36,7 +35,7 @@ params = {
 };
 
 // Create an Amazon Redshift client service object
-const redshift = new Redshift(REGION);
+const redshift = new RedshiftClient(REGION);
 
 const run = async () => {
   try {
@@ -47,5 +46,5 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[redshift.javascript.redshift-describe-clustersV3]
-export = {run};  //for unit tests only
+// snippet-end:[redshift.javascript.redshift-modify-clustersV3]
+export = { run }; //for unit tests only

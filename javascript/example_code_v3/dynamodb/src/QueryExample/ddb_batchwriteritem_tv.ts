@@ -15,7 +15,6 @@ Running the code:
 ts-node ddb_batchwriteritem_tv.ts
 */
 // snippet-start:[dynamodb.JavaScript.batch.BatchWriterItemTVV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   DynamoDBClient,
@@ -23,10 +22,10 @@ const {
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create DynamoDB service object
-const client = new DynamoDBClient(REGION);
+const dbclient = new DynamoDBClient(REGION);
 
 // Set the parameters
 const params = {

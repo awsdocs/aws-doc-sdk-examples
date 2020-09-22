@@ -20,6 +20,6 @@ They also include third-party Node.js modules, fs (file-server), path, and webpa
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/cross-services/submit-data-app 
-yarn
+npm install
 ```
 

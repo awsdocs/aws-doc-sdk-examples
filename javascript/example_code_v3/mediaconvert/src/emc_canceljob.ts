@@ -18,11 +18,10 @@ Running the code:
 ts-node emc_canceljob.ts
 */
 // snippet-start:[mediaconvert.JavaScript.jobs.cancelJobV3]
-
 // Import required AWS-SDK clients and commands for Node.js
 const {
-  MediaConvert,
-  CancelJobCommand,
+  MediaConvertClient,
+  CancelJobCommand
 } = require("@aws-sdk/client-mediaconvert");
 
 // Set the parameters
@@ -30,7 +29,7 @@ const endpoint = { endpoint: "ACCOUNT_ENDPOINT" }; //ACCOUNT_ENDPOINT
 const params = { Id: "JOB_ID" }; //JOB_ID
 
 // Create MediaConvert service object
-const mediaconvert = new MediaConvert(endpoint);
+const mediaconvert = new MediaConvertClient(endpoint);
 
 const run = async () => {
   try {
@@ -42,4 +41,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.jobs.cancelJobV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

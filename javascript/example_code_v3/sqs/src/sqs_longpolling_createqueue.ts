@@ -18,12 +18,11 @@ Running the code:
 ts-node sqs_longpolling_createqueue.ts
 */
 // snippet-start:[sqs.JavaScript.longPoll.createQueueV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SQS, CreateQueueCommand } = require("@aws-sdk/client-sqs");
+const { SQSClient, CreateQueueCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
@@ -34,7 +33,7 @@ const params = {
 };
 
 // Create SQS service object
-const sqs = new SQS(REGION);
+const sqs = new SQSClient(REGION);
 
 const run = async () => {
   try {
@@ -49,4 +48,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.createQueueV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

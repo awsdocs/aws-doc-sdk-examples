@@ -18,7 +18,6 @@ Running the code:
 ts-node ddb_describetable.ts
 */
 // snippet-start:[dynamodb.JavaScript.table.describeTableV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   DynamoDBClient,
@@ -26,7 +25,7 @@ const {
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { TableName: "TABLE_NAME" }; //TABLE_NAME
@@ -45,4 +44,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.table.describeTableV3]
 //for unit tests only
-export = {run};
+export = { run };

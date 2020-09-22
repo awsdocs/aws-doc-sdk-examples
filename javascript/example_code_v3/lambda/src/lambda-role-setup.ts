@@ -22,7 +22,7 @@ ts-node lambda-role-setup.ts
 const {
   IAMClient,
   CreateRoleCommand,
-  AttachRolePolicyCommand,
+  AttachRolePolicyCommand
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
@@ -87,4 +87,4 @@ const run = async () => {
 
 run();
 // snippet-end:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

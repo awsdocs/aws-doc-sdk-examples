@@ -18,15 +18,17 @@ Running the code:
 ts-node ec2_rebootinstances.ts
 */
 // snippet-start:[ec2.JavaScript.Instances.rebootInstancesV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { EC2, RebootInstancesCommandInput } = require("@aws-sdk/client-ec2");
+const {
+  EC2Client,
+  RebootInstancesCommandInput,
+} = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 // Set the parameters
 const params = { InstanceIds: "INSTANCE_ID" }; //INSTANCE_ID
@@ -41,4 +43,4 @@ const run = async () => {
 };
 // snippet-end:[ec2.JavaScript.Instances.rebootInstancesV3]
 //for unit tests only
-export = {run};
+export = { run };

@@ -20,7 +20,7 @@ ts-node cw_putmetricdata.ts
 
 // Import required AWS SDK clients and commands for Node.js
 const {
-  CloudWatch,
+  CloudWatchClient,
   PutMetricDataCommand,
 } = require("@aws-sdk/client-cloudwatch");
 
@@ -46,7 +46,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cw = new CloudWatch(REGION);
+const cw = new CloudWatchClient(REGION);
 
 const run = async () => {
   try {
@@ -59,4 +59,4 @@ const run = async () => {
 run();
 // snippet-end:[cw.JavaScript.metrics.putMetricDataV3]
 //for unit tests only
-export = {run};
+export = { run };

@@ -19,16 +19,15 @@ Running the code:
 ts-node ec2_createinstances.ts
 */
 // snippet-start:[ec2.JavaScript.Instances.create_instancesV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
-  EC2,
+  EC2Client,
   CreateTagsCommand,
-  RunInstancesCommand,
+  RunInstancesCommand
 } = require("@aws-sdk/client-ec2");
 
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const instanceParams = {
@@ -40,7 +39,7 @@ const instanceParams = {
 };
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
@@ -71,4 +70,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.Instances.create_instancesV3]
 //for unit tests only
-export = {run};
+export = { run };

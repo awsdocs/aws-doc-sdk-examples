@@ -22,11 +22,10 @@ Running the code:
 ts-node ddb_batchwriteitem.ts
 */
 // snippet-start:[dynamodb.JavaScript.batch.WriteItemV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   DynamoDBClient,
-  BatchWriteItemCommand,
+  BatchWriteItemCommand
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
@@ -72,4 +71,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.batch.WriteItemV3]
 //for unit tests only
-export = {run};
+export = { run };

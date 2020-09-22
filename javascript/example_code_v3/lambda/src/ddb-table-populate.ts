@@ -19,7 +19,6 @@ ts-node ddb-table-populate.ts
 */
 
 // snippet-start:[lambda.JavaScript.tutorial.PopulateTableV3]
-
 // Load the DynamoDB client
 const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 
@@ -143,4 +142,4 @@ const post = async (params) => {
   }
 };
 // snippet-end:[lambda.JavaScript.tutorial.PopulateTableV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

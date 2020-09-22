@@ -22,11 +22,10 @@ ts-node ddb_createtable.ts
 */
 
 // snippet-start:[dynamodb.JavaScript.table.createTableV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   DynamoDBClient,
-  CreateTableCommand,
+  CreateTableCommand
 } = require("@aws-sdk/client-dynamodb");
 
 // Set the AWS Region
@@ -78,4 +77,4 @@ const run = async () => {
 run();
 // snippet-end:[dynamodb.JavaScript.table.createTableV3]
 //for unit tests only
-export = {run};
+export = { run };

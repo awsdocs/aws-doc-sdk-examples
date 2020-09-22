@@ -18,7 +18,6 @@ Running the code:
 ts-node iam_createaccountalias.ts
  */
 // snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, CreateAccountAliasCommand } = require("@aws-sdk/client-iam");
 
@@ -42,4 +41,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
 //for unit tests only
-export = {run};
+export = { run };

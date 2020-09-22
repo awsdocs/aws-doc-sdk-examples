@@ -19,7 +19,6 @@ ts-node iam_createaccesskeys.ts >newuserkeys.txt
 (This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, CreateAccessKeyCommand } = require("@aws-sdk/client-iam");
 
@@ -43,4 +42,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.keys.createAccessKeyV3]
 //for unit tests only
-export = {run};
+export = { run };

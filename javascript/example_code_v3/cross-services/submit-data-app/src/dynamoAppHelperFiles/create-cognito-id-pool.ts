@@ -20,10 +20,14 @@ Inputs (replace in code):
 Running the code:
 node create-cognito-id-pool.js
  */
-// snippet-start:[s3.JavaScript.crossservice.createAndAttachRoleV3]
+// snippet-start:[s3.JavaScript.cross-service.createRoleV3]
 // Import required AWS SDK clients and commands for Node.js
-const { CognitoIdentity } = require("@aws-sdk/client-cognito-identity");
-const { IAM } = require("@aws-sdk/client-iam");
+const {
+  CognitoIdentity,
+  SetIdentityPoolRolesCommand,
+  CreateIdentityPoolCommand,
+} = require("@aws-sdk/client-cognito-identity");
+const { IAMClient, CreateRoleCommand } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -65,18 +69,20 @@ const params = {
 };
 
 // Create the IAM and Cognito service objects
-const IAMClient = new IAM({});
+const iamClient = new IAMClient({});
 const CogClient = new CognitoIdentity({});
 
 const run = async () => {
   try {
     // Create the identity pool
-    const data = await CogClient.createIdentityPool(createPoolParams);
+    const data = await CogClient.send(
+      new CreateIdentityPoolCommand(createPoolParams)
+    );
     console.log("Identity pool created", data.IdentityPoolId);
     const newPoolID = data.IdentityPoolId;
     try {
       //create the unauthenticaed IAM role
-      const data = await IAMClient.createRole(params);
+      const data = await iamClient.send(new CreateRoleCommand(params));
       console.log("Role created", data.Role.Arn);
       const roleARN = data.Role.Arn;
       try {
@@ -87,7 +93,9 @@ const run = async () => {
             unauthenticated: roleARN,
           },
         };
-        const data = await CogClient.setIdentityPoolRoles(attachRoleParams);
+        const data = await CogClient.send(
+          new SetIdentityPoolRolesCommand(attachRoleParams)
+        );
         console.log(
           "Role " +
             params.RoleName +
@@ -105,4 +113,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.crossservice.createAndAttachRoleV3]
+// snippet-end:[s3.JavaScript.cross-service.createRoleV3]
+//for unit tests only
+exports.run = run;

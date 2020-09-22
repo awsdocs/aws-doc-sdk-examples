@@ -19,16 +19,15 @@ Running the code:
 ts-node sqs_changingvisibility.ts
  */
 // snippet-start:[sqs.JavaScript.visibility.receiveMessageV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
-  SQS,
+  SQSClient,
   ReceiveMessageCommand,
   ChangeMessageVisibilityCommand,
 } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const queueURL = "https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME"; // REGION, ACCOUNT_ID, QUEUE_NAME
@@ -40,7 +39,7 @@ const params = {
 };
 
 // Create SQS service object
-const sqs = new SQS(REGION);
+const sqs = new SQSClient(REGION);
 
 const run = async () => {
   try {
@@ -68,4 +67,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.visibility.receiveMessageV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

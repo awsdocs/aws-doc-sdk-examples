@@ -7,6 +7,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted atic
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-receipt-rules.html.
 
+
 Purpose:
 ses_deletereceiptruleset.ts demonstrates how to delete an Amazon SES receipt rule set.
 
@@ -18,18 +19,17 @@ Running the code:
 ts-node ses_deletereceiptruleset.ts
  */
 // snippet-start:[ses.JavaScript.rules.deleteReceiptRuleSetV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SES, DeleteReceiptRuleSetCommand } = require("@aws-sdk/client-ses");
+const { SESClient, DeleteReceiptRuleSetCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { RuleSetName: "RULE_SET_NAME" }; //RULE_SET_NAME
 
 // Create SES service object
-const ses = new SES(REGION);
+const ses = new SESClient(REGION);
 
 const run = async () => {
   try {

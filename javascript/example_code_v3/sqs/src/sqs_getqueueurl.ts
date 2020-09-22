@@ -19,18 +19,17 @@ ts-node ssqs_getqueueurl.ts
  */
 
 // snippet-start:[sqs.JavaScript.queues.getQueueUrlV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SQS, GetQueueUrlCommand } = require("@aws-sdk/client-sqs");
+const { SQSClient, GetQueueUrlCommand } = require("@aws-sdk/client-sqs");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { QueueName: "SQS_QUEUE_NAME" }; //SQS_QUEUE_NAME
 
 // Create SQS service object
-const sns = new SQS(REGION);
+const sns = new SQSClient(REGION);
 
 const run = async () => {
   try {
@@ -42,4 +41,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.queues.getQueueUrlV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

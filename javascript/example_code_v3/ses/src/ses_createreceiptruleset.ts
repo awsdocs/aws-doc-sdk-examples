@@ -18,9 +18,11 @@ Running the code:
 ts-node ses_createreceiptruleset.ts
 */
 // snippet-start:[ses.JavaScript.rules.createReceiptRuleSetV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SES, CreateReceiptRuleSetCommand } = require("@aws-sdk/client-ses");
+const {
+  SESClient,
+  CreateReceiptRuleSetCommand
+} = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1" // REGION
@@ -29,7 +31,7 @@ const REGION = "region"; //e.g. "us-east-1" // REGION
 const params = { RuleSetName: "RULE_SET_NAME" }; //RULE_SET_NAME
 
 // Create SES service object
-const ses = new SES(REGION);
+const ses = new SESClient(REGION);
 
 const run = async () => {
   try {
@@ -44,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleSetV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

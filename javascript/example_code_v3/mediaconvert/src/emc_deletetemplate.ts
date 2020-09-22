@@ -20,7 +20,7 @@ ts-node emc_deletetemplate.ts
 // snippet-start:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
 const {
-  MediaConvert,
+  MediaConvertClient,
   DeleteJobTemplateCommand,
 } = require("@aws-sdk/client-mediaconvert");
 
@@ -29,7 +29,7 @@ const endpoint = { endpoint: "ACCOUNT_END_POINT" }; //ACCOUNT_END_POINT
 const params = { Name: "TEMPLATE_NAME" }; //TEMPLATE_NAME
 
 //Set the MediaConvert Service Object
-const mediaconvert = new MediaConvert(endpoint);
+const mediaconvert = new MediaConvertClient(endpoint);
 
 const run = async () => {
   try {
@@ -44,4 +44,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
-export = {run};  //for unit tests only
+export = { run }; //for unit tests only

@@ -24,7 +24,7 @@ node s3_createbucket.js
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3 } = require("@aws-sdk/client-s3");
+const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -33,12 +33,12 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
-const s3 = new S3(REGION);
+const s3 = new S3Client(REGION);
 
 //Attempt to create the bucket
 const run = async () => {
   try {
-    const data = await s3.createBucket(bucketParams);
+    const data = await s3.send(new CreateBucketCommand(bucketParams));
     console.log("Success", data.$metadata.httpHeaders.location);
   } catch (err) {
     console.log("Error", err);

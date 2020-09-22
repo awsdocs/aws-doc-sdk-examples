@@ -18,7 +18,6 @@ ts-node iam_listusers.ts
  */
 
 // snippet-start:[iam.JavaScript.users.listUsersV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, ListUsersCommand } = require("@aws-sdk/client-iam");
 
@@ -45,4 +44,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.users.listUsersV3]
 //for unit tests only
-export = {run};
+export = { run };

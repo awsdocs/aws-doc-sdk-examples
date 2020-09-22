@@ -22,8 +22,7 @@ Running the code:
 ts-node redshift-create-cluster.ts
 */
 
-// snippet-start:[redshift.javascript.redshift-create-clusterV3]
-
+// snippet-start:[redshift.javascript.redshift-delete-clusterV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
   Redshift,
@@ -33,7 +32,7 @@ const {
 // Set the AWS Region
 const REGION = "REGION";
 
-params = {
+const params = {
   ClusterIdentifier: "CLUSTER_NAME",
   SkipFinalClusterSnapshot: false,
   FinalClusterSnapshotIdentifier: "CLUSTER_SNAPSHOT_ID",
@@ -51,5 +50,5 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[redshift.javascript.redshift-create-clusterV3]
-export = {run};  //for unit tests only
+// snippet-end:[redshift.javascript.redshift-delete-clusterV3]
+export = { run }; //for unit tests only

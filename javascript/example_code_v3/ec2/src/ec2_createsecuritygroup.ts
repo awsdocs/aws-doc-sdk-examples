@@ -21,16 +21,15 @@ Running the code:
 ts-node ec2_createsecuritygroup.ts
  */
 // snippet-start:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
-  EC2,
+  EC2Client,
   DescribeVpcsCommand,
   CreateSecurityGroupCommand,
   AuthorizeSecurityGroupIngressCommand,
 } = require("@aws-sdk/client-ec2");
 // Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { KeyName: "KEY_PAIR_NAME" }; //KEY_PAIR_NAME
@@ -39,7 +38,7 @@ const params = { KeyName: "KEY_PAIR_NAME" }; //KEY_PAIR_NAME
 const vpc = null;
 
 // Create EC2 service object
-const ec2client = new EC2(REGION);
+const ec2client = new EC2Client(REGION);
 
 const run = async () => {
   try {
@@ -57,6 +56,10 @@ const run = async () => {
     const data = await ec2client.send(new CreateSecurityGroupCommand(params));
     const SecurityGroupId = data.GroupId;
     console.log("Success", SecurityGroupId);
+  } catch (err) {
+    console.log("Error", err);
+  }
+  try {
     const paramsIngress = {
       GroupId: "SECURITY_GROUP_ID", //SECURITY_GROUP_ID
       IpPermissions: [
@@ -74,10 +77,6 @@ const run = async () => {
         },
       ],
     };
-  } catch (err) {
-    console.log("Error", err);
-  }
-  try {
     const data = await ec2client.send(
       new AuthorizeSecurityGroupIngressCommand(paramsIngress)
     );
@@ -89,4 +88,4 @@ const run = async () => {
 run();
 // snippet-end:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
 //for unit tests only
-export = {run};
+export = { run };

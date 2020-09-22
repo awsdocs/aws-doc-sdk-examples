@@ -20,7 +20,7 @@ ts-node createVault.ts
 
 // snippet-start:[glacier.JavaScript.vault.createVaultV3]
 // Load the SDK for JavaScript
-const { Glacier, CreateVaultCommand } = require("@aws-sdk/client-glacier");
+const { GlacierClient, CreateVaultCommand } = require("@aws-sdk/client-glacier");
 
 // Set the AWS Region
 const REGION = "REGION"; // e.g. 'us-east-1'
@@ -30,7 +30,7 @@ const vaultname = "VAULT_NAME"; // VAULT_NAME
 const params = { vaultName: vaultname };
 
 // Instantiate an S3 Glacier client
-const glacier = new Glacier(REGION);
+const glacier = new GlacierClient(REGION);
 
 const run = async () => {
   try {
@@ -43,4 +43,4 @@ const run = async () => {
 run();
 // snippet-end:[glacier.JavaScript.vault.createVaultV3]
 //for unit tests only
-export = {run};
+export = { run };

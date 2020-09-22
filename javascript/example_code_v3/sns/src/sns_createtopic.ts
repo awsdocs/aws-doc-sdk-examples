@@ -18,12 +18,11 @@ Running the code:
 ts-node sns_createtopic.ts
  */
 // snippet-start:[sns.JavaScript.topics.createTopicV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const { SNS, CreateTopicCommand } = require("@aws-sdk/client-sns");
+const { SNSClient, CreateTopicCommand } = require("@aws-sdk/client-sns");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { Name: "TOPIC_NAME" }; //TOPIC_NAME
@@ -41,4 +40,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.topics.createTopicV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

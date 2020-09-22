@@ -23,10 +23,10 @@ ts-node ses_sendtemplatedemail.ts
 // snippet-start:[ses.JavaScript.email.sendTemplatedEmailV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { SES, SendTemplatedEmailCommand } = require("@aws-sdk/client-ses");
+const { SESClient, SendTemplatedEmailCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = {
@@ -47,7 +47,7 @@ const params = {
 };
 
 // Create SES service object
-const ses = new SES(REGION);
+const ses = new SESClient(REGION);
 
 const run = async () => {
   try {
@@ -59,4 +59,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.email.sendTemplatedEmailV3]
-export = {run}; //for unit tests only
+export = { run }; //for unit tests only

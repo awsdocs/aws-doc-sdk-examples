@@ -19,7 +19,6 @@ Running the code:
 ts-node iam_deleteaccesskey.ts
  */
 // snippet-start:[iam.JavaScript.keys.deleteAccessKeyV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const { IAMClient, DeleteAccessKeyCommand } = require("@aws-sdk/client-iam");
 
@@ -46,4 +45,4 @@ const run = async () => {
 run();
 // snippet-end:[iam.JavaScript.keys.deleteAccessKeyV3]
 //for unit tests only
-export = {run};
+export = { run };

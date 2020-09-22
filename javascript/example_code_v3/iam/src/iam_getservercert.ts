@@ -18,11 +18,10 @@ Running the code:
 ts-node iam_getservercert.ts
  */
 // snippet-start:[iam.JavaScript.certs.getServerCertificateV3]
-
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
-  GetServerCertificateCommand,
+  GetServerCertificateCommand
 } = require("@aws-sdk/client-iam");
 
 // Set the AWS Region
@@ -44,4 +43,4 @@ const run = async () => {
 };
 // snippet-end:[iam.JavaScript.certs.getServerCertificateV3]
 //for unit tests only
-export = {run};
+export = { run };

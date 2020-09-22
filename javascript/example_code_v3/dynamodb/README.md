@@ -22,7 +22,7 @@ which is *@aws-sdk/client-dynamodb*.
 ```
 npm install ts-node -g // if you prefer to use JavaScript, enter 'npm install node -g' instead
 cd javascript/example_code_v3/dynamodb
-yarn
+npm install
 ```
 
 3. If you prefer to use JavaScript:
