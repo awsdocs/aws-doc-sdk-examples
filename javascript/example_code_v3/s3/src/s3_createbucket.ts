@@ -39,6 +39,6 @@ const run = async () => {
     }
 };
 run();
-// snippet-start:[s3.JavaScript.buckets.createBucketV3]
+// snippet-end:[s3.JavaScript.buckets.createBucketV3]
 //for unit tests only
 export = { run };
