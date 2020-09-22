@@ -141,7 +141,7 @@ public class MainController {
 
     private String getLoggedUser() {
 
-        // Get the logged-in Useruser
+        // Get the logged-in user
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user2.getUsername();
         return name;
