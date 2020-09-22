@@ -517,11 +517,7 @@ The following Java code represents the **MainController** class.
      @ResponseBody
      String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-      //Get the Logged in User
-      String name = getLoggedUser();
-
       String email = request.getParameter("email");
-
       List<WorkItem> theList = dbService.getListItems();
       java.io.InputStream is = excel.exportExcel(theList);
 
