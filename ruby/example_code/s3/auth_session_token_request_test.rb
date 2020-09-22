@@ -117,7 +117,7 @@ end
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless bucket_exists?(s3_client, 'my-bucket')
+#   exit 1 unless bucket_exists?(s3_client, 'doc-example-bucket')
 def bucket_exists?(s3_client, bucket_name)
   response = s3_client.list_buckets
   response.buckets.each do |bucket|
@@ -135,7 +135,7 @@ end
 # @return [Boolean] true if the objects were listed; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless list_objects_in_bucket?(s3_client, 'my-bucket')
+#   exit 1 unless list_objects_in_bucket?(s3_client, 'doc-example-bucket')
 def list_objects_in_bucket?(s3_client, bucket_name)
   puts "Accessing the contents of the bucket named '#{bucket_name}'..."
   response = s3_client.list_objects_v2(
@@ -159,68 +159,70 @@ end
 # snippet-end:[s3.ruby.auth_session_token_request_test.rb]
 
 # Full example call:
-=begin
-user_name = 'my-user'
-region = 'us-east-1'
-iam_client = Aws::IAM::Client.new(region: region)
-user = ''
-role_name = 'AmazonS3ReadOnly'
-role_arn = 'arn:aws:iam::123456789012:role/' + role_name
-role_session_name = 'ReadAmazonS3Bucket'
-duration_seconds = 3600
-sts_client = Aws::STS::Client.new(region: region)
-bucket_name = 'my-bucket'
+def run_me
+  user_name = 'my-user'
+  region = 'us-east-1'
+  iam_client = Aws::IAM::Client.new(region: region)
+  user = ''
+  role_name = 'AmazonS3ReadOnly'
+  role_arn = 'arn:aws:iam::111111111111:role/' + role_name
+  role_session_name = 'ReadAmazonS3Bucket'
+  duration_seconds = 3600
+  sts_client = Aws::STS::Client.new(region: region)
+  bucket_name = 'doc-example-bucket'
 
-puts "Getting or creating user '#{user_name}'..."
+  puts "Getting or creating user '#{user_name}'..."
 
-if user_exists?(iam_client, user_name)
-  user = get_user(iam_client, user_name)
-else
-  user = create_user(iam_client, user_name)
+  if user_exists?(iam_client, user_name)
+    user = get_user(iam_client, user_name)
+  else
+    user = create_user(iam_client, user_name)
+  end
+
+  if user.empty?
+    puts "Cannot get or create user '#{user_name}'. Stopping program."
+    exit 1
+  else
+    puts "Got or created user '#{user_name}'."
+  end
+
+  puts "Checking whether the role '#{role_name}' exists..."
+
+  if role_exists?(iam_client, role_name)
+    puts "The role '#{role_name}' exists."
+  else
+    puts "The role '#{role_name}' does not exist. Stopping program."
+  end
+
+  puts 'Getting credentials...'
+
+  credentials = get_credentials(sts_client, role_arn, role_session_name, duration_seconds)
+
+  if credentials.nil?
+    puts 'Cannot get credentials. Stopping program.'
+    exit 1
+  else
+    puts 'Got credentials.'
+  end
+
+  s3_client = Aws::S3::Client.new(
+    region: region,
+    credentials: credentials
+  )
+
+  puts "Checking whether the bucket '#{bucket_name}' exists..."
+
+  if bucket_exists?(s3_client, bucket_name)
+    puts "The bucket '#{bucket_name}' exists."
+  else
+    puts "The role '#{bucket_name}' does not exist. Stopping program."
+    exit 1
+  end
+
+  unless list_objects_in_bucket?(s3_client, bucket_name)
+    puts "Cannot access the bucket '#{bucket_name}'. Stopping program."
+    exit 1
+  end
 end
 
-if user.empty?
-  puts "Cannot get or create user '#{user_name}'. Stopping program."
-  exit 1
-else
-  puts "Got or created user '#{user_name}'."
-end
-
-puts "Checking whether the role '#{role_name}' exists..."
-
-if role_exists?(iam_client, role_name)
-  puts "The role '#{role_name}' exists."
-else
-  puts "The role '#{role_name}' does not exist. Stopping program."
-end
-
-puts 'Getting credentials...'
-
-credentials = get_credentials(sts_client, role_arn, role_session_name, duration_seconds)
-
-if credentials.nil?
-  puts 'Cannot get credentials. Stopping program.'
-  exit 1
-else
-  puts 'Got credentials.'
-end
-
-s3_client = Aws::S3::Client.new(
-  region: region,
-  credentials: credentials
-)
-
-puts "Checking whether the bucket '#{bucket_name}' exists..."
-
-if bucket_exists?(s3_client, bucket_name)
-  puts "The bucket '#{bucket_name}' exists."
-else
-  puts "The role '#{bucket_name}' does not exist. Stopping program."
-  exit 1
-end
-
-unless list_objects_in_bucket?(s3_client, bucket_name)
-  puts "Cannot access the bucket '#{bucket_name}'. Stopping program."
-  exit 1
-end
-=end
+run_me if $PROGRAM_NAME == __FILE__

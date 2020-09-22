@@ -5,9 +5,9 @@ require_relative '../copy_object_encrypt_copy'
 
 describe '#object_copied_with_encryption?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:source_bucket_name) { 'my-source-bucket' }
+  let(:source_bucket_name) { 'doc-example-bucket1' }
   let(:source_object_key) { 'my-file.txt' }
-  let(:target_bucket_name) { 'my-target-bucket' }
+  let(:target_bucket_name) { 'doc-example-bucket2' }
   let(:target_object_key) { 'my-copied-file.txt' }
   let(:encryption_type) { 'AES256' }
 

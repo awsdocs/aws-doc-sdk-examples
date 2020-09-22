@@ -104,7 +104,7 @@ end
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
 #   if encrypted_object_uploaded?(
 #     s3_client,
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.'
 #   )
@@ -137,7 +137,7 @@ def run_me
   private_key_string = key_strings['private_key_string']
   private_key_file = 'my-private-key.pem'
   content_to_encrypt = 'Hello, World!'
-  bucket_name = 'my-bucket'
+  bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   region = 'us-east-1'
   s3_client = Aws::S3::Client.new(region: region)

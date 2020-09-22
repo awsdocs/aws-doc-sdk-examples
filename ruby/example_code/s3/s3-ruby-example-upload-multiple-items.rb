@@ -30,7 +30,7 @@ end
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless bucket_exists?(s3_client, 'my-bucket')
+#   exit 1 unless bucket_exists?(s3_client, 'doc-example-bucket')
 def bucket_exists?(s3_client, bucket_name)
   response = s3_client.list_buckets
   response.buckets.each do |bucket|
@@ -49,7 +49,7 @@ end
 # @return [Boolean] true if the file was uploaded; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless upload_file_to_bucket?(s3_client, 'my-bucket', 'my-file.txt')
+#   exit 1 unless upload_file_to_bucket?(s3_client, 'doc-example-bucket', 'my-file.txt')
 def upload_file_to_bucket?(s3_client, bucket_name, file_name)
   s3_client.put_object(
     body: file_name,
@@ -63,56 +63,58 @@ rescue StandardError => e
 end
 
 # Full example call:
-=begin
-proposed_file_names = ['my-file-1.txt', 'my-file-2.txt']
-existing_file_names = []
-uploaded_file_names = []
-bucket_name = 'my-bucket'
-region = 'us-east-1'
-s3_client = Aws::S3::Client.new(region: region)
+def run_me
+  proposed_file_names = ['my-file-1.txt', 'my-file-2.txt']
+  existing_file_names = []
+  uploaded_file_names = []
+  bucket_name = 'doc-example-bucket'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-puts 'Checking whether the specified files exist and are indeed files...'
-proposed_file_names.each do |file_name|
-  if file_exists_and_file?(file_name)
-    puts "The file '#{file_name}' exists and is a file."
-    existing_file_names.push(file_name)
+  puts 'Checking whether the specified files exist and are indeed files...'
+  proposed_file_names.each do |file_name|
+    if file_exists_and_file?(file_name)
+      puts "The file '#{file_name}' exists and is a file."
+      existing_file_names.push(file_name)
+    else
+      puts "The file '#{file_name}' does not exist or is not a file and will " \
+        'not be uploaded.'
+    end
+  end
+
+  if existing_file_names.count.positive?
+    puts "\nThe list of existing file names is:"
+    puts existing_file_names
   else
-    puts "The file '#{file_name}' does not exist or is not a file and will " \
-      'not be uploaded.'
+    puts "\nNone of the specified files exist. Stopping program."
+    exit 1
+  end
+
+  puts "\nChecking whether the specified bucket exists..."
+  if bucket_exists?(s3_client, bucket_name)
+    puts "The bucket '#{bucket_name}' exists."
+  else
+    puts "The bucket '#{bucket_name}' does not exist. Stopping program."
+    exit 1
+  end
+
+  puts "\nUploading files..."
+  existing_file_names.each do |file_name|
+    if upload_file_to_bucket?(s3_client, bucket_name, file_name)
+      puts "The file '#{file_name}' was uploaded."
+      uploaded_file_names.push(file_name)
+    else
+      puts "The file '#{file_name}' could not be uploaded."
+    end
+  end
+
+  if uploaded_file_names.count.positive?
+    puts "\nThe list of uploaded file names is:"
+    puts uploaded_file_names
+  else
+    puts "\nNone of the existing files were uploaded. Stopping program."
+    exit 1
   end
 end
 
-if existing_file_names.count.positive?
-  puts "\nThe list of existing file names is:"
-  puts existing_file_names
-else
-  puts "\nNone of the specified files exist. Stopping program."
-  exit 1
-end
-
-puts "\nChecking whether the specified bucket exists..."
-if bucket_exists?(s3_client, bucket_name)
-  puts "The bucket '#{bucket_name}' exists."
-else
-  puts "The bucket '#{bucket_name}' does not exist. Stopping program."
-  exit 1
-end
-
-puts "\nUploading files..."
-existing_file_names.each do |file_name|
-  if upload_file_to_bucket?(s3_client, bucket_name, file_name)
-    puts "The file '#{file_name}' was uploaded."
-    uploaded_file_names.push(file_name)
-  else
-    puts "The file '#{file_name}' could not be uploaded."
-  end
-end
-
-if uploaded_file_names.count.positive?
-  puts "\nThe list of uploaded file names is:"
-  puts uploaded_file_names
-else
-  puts "\nNone of the existing files were uploaded. Stopping program."
-  exit 1
-end
-=end
+run_me if $PROGRAM_NAME == __FILE__

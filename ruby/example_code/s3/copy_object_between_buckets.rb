@@ -22,9 +22,9 @@ require 'aws-sdk-s3'
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
 #   exit 1 unless object_copied?(
 #     s3_client,
-#     'my-source-bucket',
+#     'doc-example-bucket1',
 #     'my-source-file.txt',
-#     'my-target-bucket',
+#     'doc-example-bucket2',
 #     'my-target-file.txt'
 #   )
 def object_copied?(
@@ -45,27 +45,29 @@ end
 # snippet-end:[s3.ruby.copy_object_between_buckets.rb]
 
 # Full example call:
-=begin
-source_bucket_name = 'my-source-bucket'
-source_key = 'my-source-file.txt'
-target_bucket_name = 'my-target-bucket'
-target_key = 'my-target-file.txt'
-region = 'us-east-1'
+def run_me
+  source_bucket_name = 'doc-example-bucket1'
+  source_key = 'my-source-file.txt'
+  target_bucket_name = 'doc-example-bucket2'
+  target_key = 'my-target-file.txt'
+  region = 'us-east-1'
 
-s3_client = Aws::S3::Client.new(region: region)
+  s3_client = Aws::S3::Client.new(region: region)
 
-puts "Copying object '#{source_key}' from bucket '#{source_bucket_name}' " \
-  "to bucket '#{target_bucket_name}'..."
+  puts "Copying object '#{source_key}' from bucket '#{source_bucket_name}' " \
+    "to bucket '#{target_bucket_name}'..."
 
-if object_copied?(
-  s3_client,
-  source_bucket_name,
-  source_key,
-  target_bucket_name,
-  target_key)
-  puts 'The object was copied.'
-else
-  puts 'The object was not copied. Stopping program.'
-  exit 1
+  if object_copied?(
+    s3_client,
+    source_bucket_name,
+    source_key,
+    target_bucket_name,
+    target_key)
+    puts 'The object was copied.'
+  else
+    puts 'The object was not copied. Stopping program.'
+    exit 1
+  end
 end
-=end
+
+run_me if $PROGRAM_NAME == __FILE__

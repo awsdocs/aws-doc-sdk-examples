@@ -13,7 +13,7 @@ end
 
 describe '#bucket_exists?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
 
   it 'checks whether the bucket exists' do
     buckets_data = s3_client.stub_data(
@@ -27,7 +27,7 @@ end
 
 describe '#upload_file_to_bucket?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
   let(:file_name) { 'my-file.txt' }
 
   it 'checks whether file was uploaded to the bucket' do

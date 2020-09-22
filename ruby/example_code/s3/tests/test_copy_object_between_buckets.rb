@@ -5,9 +5,9 @@ require_relative '../copy_object_between_buckets'
 
 describe '#object_copied?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:source_bucket_name) { 'my-source-bucket' }
+  let(:source_bucket_name) { 'doc-example-bucket1' }
   let(:source_key) { 'my-source-file.txt' }
-  let(:target_bucket_name) { 'my-target-bucket' }
+  let(:target_bucket_name) { 'doc-example-bucket2' }
   let(:target_key) { 'my-target-file.txt' }
 
   it 'confirms the object was copied' do

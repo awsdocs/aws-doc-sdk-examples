@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative '../auth_federation_token_request_test.rb'
+require_relative '../auth_federation_token_request_test'
 
 describe '#get_user' do
   let(:iam) { Aws::IAM::Client.new(stub_responses: true) }
@@ -27,7 +27,7 @@ describe '#get_temporary_credentials' do
         'Sid' => 'Stmt1',
         'Effect' => 'Allow',
         'Action' => 's3:ListBucket',
-        'Resource' => 'arn:aws:s3:::my-bucket'
+        'Resource' => 'arn:aws:s3:::doc-example-bucket'
       ]
     }
   }
@@ -43,7 +43,7 @@ end
 
 describe '#list_objects_in_bucket?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
 
   it "lists the objects' keys and ETags in the specified bucket" do
     objects_data = s3_client.stub_data(:list_objects_v2,
