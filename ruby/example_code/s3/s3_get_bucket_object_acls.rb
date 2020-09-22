@@ -1,53 +1,65 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Gets the ACL for an S3 bucket item.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[get_object_acl method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
-require 'os'
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-# Required on Windows
-# See: https://github.com/aws/aws-sdk-core-ruby/issues/166
-if OS.windows?
-  Aws.use_bundled_cert!
-end
+require 'aws-sdk-s3'
 
-# main
-if ARGV.length < 2
-  puts 'You must supply a bucket and object name'
-  exit 1
-end
-
-bucket_name = ARGV[0]
-object_name = ARGV[1]
-
-client = Aws::S3::Client.new(region: 'us-west-2')
-
-resp = client.get_object_acl({bucket: bucket_name, key: object_name})
-
-puts
-puts "Owner           #{resp.owner.display_name}"
-puts
-
-resp.grants.each do |g|
-  if g.grantee.display_name == nil
-    puts 'Grantee     EVERYONE'
+# Lists the access control lists (ACLs) for an object in an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+# - An object in the bucket.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param object_key [String] The name of the object.
+# @return [String] Information about the ACLs.
+# @example
+#   list_object_acls(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt'
+#   )
+def list_object_acls(s3_client, bucket_name, object_key)
+  response = s3_client.get_object_acl(bucket: bucket_name, key: object_key)
+  if response.grants.count.zero?
+    puts 'No ACLs for this object.'
   else
-    puts 'Grantee     ' + g.grantee.display_name
+    puts
+    puts "Owner       #{response.owner.display_name}"
+    puts
+    response.grants.each do |grant|
+      grantee = grant.grantee
+      if grantee.type == 'Group'
+        puts 'Grantee     GROUP'
+        puts 'URI         ' + grantee.uri
+      else
+        if grantee.display_name.nil?
+          puts 'Grantee     EVERYONE'
+        else
+          puts 'Grantee     ' + grantee.display_name
+        end
+        if grantee.id.nil?
+          puts 'ID          NONE'
+        else
+          puts 'ID          ' + grantee.id
+        end
+      end
+      puts 'Permission  ' + grant.permission
+      puts
+    end
   end
-
-  if g.grantee.id == nil
-    puts 'ID          ' + '-'
-  else
-    puts 'ID          ' + g.grantee.id
-  end
-
-  puts 'Permission  ' + g.permission
-  puts
+rescue StandardError => e
+  puts "Error getting bucket ACLs: #{e.message}"
 end
+
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  list_object_acls(s3_client, bucket_name, object_key)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

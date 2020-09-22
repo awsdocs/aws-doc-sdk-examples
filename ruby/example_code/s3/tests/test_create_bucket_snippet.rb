@@ -5,7 +5,7 @@ require_relative '../create_bucket_snippet'
 
 describe '#bucket_created?' do
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
 
   it 'confirms the bucket was created' do
     bucket_data = s3_client.stub_data(

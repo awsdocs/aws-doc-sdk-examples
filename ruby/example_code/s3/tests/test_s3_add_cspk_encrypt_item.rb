@@ -4,7 +4,7 @@
 require_relative '../s3_add_cspk_encrypt_item'
 
 describe '#encrypted_object_uploaded?' do
-  let(:bucket_name) { 'my-bucket' }
+  let(:bucket_name) { 'doc-example-bucket' }
   let(:object_key) { 'my-file.txt' }
   let(:encrypted_object_content) { '***my-encrypted-content***' }
   let(:s3_client) do
