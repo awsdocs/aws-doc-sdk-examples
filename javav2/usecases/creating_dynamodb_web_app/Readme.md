@@ -57,7 +57,7 @@ The following figure shows the login page.
 
 ![AWS Tracking Application](images/pic2.png)
 
-When a user logs into the system, they see the **Home** page.
+When a user logs into the application, they see the **Home** page.
 
 ![AWS Tracking Application](images/pic3.png)
 
