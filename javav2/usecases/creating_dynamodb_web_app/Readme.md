@@ -1,18 +1,18 @@
-#  Creating a secure Spring application using AWS services
+#  Creating the DynamoDB web application item tracker
 
-You can develop a secure Spring application that tracks and reports on work items by using the following AWS services:
+You can develop a web application that tracks and reports on work items by using the following AWS services:
 
-+ Amazon Relational Database Service (Amazon RDS)
++ DynamoDB to store the data
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
 + AWS Elastic Beanstalk
 
-The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named *DynamoDB Item Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
+This tutorial guides you through creating the *DynamoDB Item Tracker* application. Once the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
 The following figure shows you the structure of the Java project.
 
-![AWS Tracking Application](images/newtrack3_1.png)
+![AWS Tracking Application](images/pic1a.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
@@ -24,13 +24,12 @@ The following figure shows you the structure of the Java project.
 
 + Prerequisites
 + Understand the AWS Tracker application.
-+ Create an IntelliJ project named AWSItemTracker.
++ Create an IntelliJ project named ItemTrackerDynamoDB.
 + Add the Spring POM dependencies to your project.	
 + Setup the Java packages in your project.
 + Create the Java classes.
 + Create the HTML files.
 + Create script files. 
-+ Set up the RDS instance.
 + Create a JAR file for the application. 
 + Deploy the application to Elastic Beanstalk.
 
@@ -42,9 +41,10 @@ To follow along with the tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK. 
 + Maven 3.6 or higher.
++ A DynamoDB table named **Work** with a key named **id**.
 
-## Understand the AWS Tracker application
-The *AWS Tracker* application uses a model that is based on a work item and contains these attributes: 
+## Understand the DynamoDB Item Tracker application
+The *DynamoDB Item Tracker* application uses a model that is based on a work item and contains these attributes: 
 
 + **date** - The start date of the item. 
 + **description** - The description of the item.
@@ -55,16 +55,16 @@ The *AWS Tracker* application uses a model that is based on a work item and cont
 
 The following figure shows the login page. 
 
-![AWS Tracking Application](images/newtrack1.png)
+![AWS Tracking Application](images/pic2.png)
 
-When a user logs into the system, they see the **Home** page.
+When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/AWSItemsAll4.png)
+![AWS Tracking Application](images/pic3.png)
 
 #### Application functionality
-A user can perform these tasks in the AWS Tracker application: 
+A user can perform these tasks in the *DynamoDB Item Tracker* application: 
 
-+ Enter an item into the system
++ Enter an item
 + View all active items
 + View archived items that are complete 
 + Modify active items
@@ -72,45 +72,45 @@ A user can perform these tasks in the AWS Tracker application:
 
 The following figure shows the new item section. 
 
-![AWS Tracking Application](images/AWT1.png)
+![AWS Tracking Application](images/pic4.png)
 
-A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from an Amazon RDS database and displayed in the web application.
+A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB Work table and displayed in the web application.
 
-![AWS Tracking Application](images/AWSItemsAll3.png)
+![AWS Tracking Application](images/pic5.png)
 
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
-![AWS Tracking Application](images/AWT12.png)
+![AWS Tracking Application](images/pic6.png)
 
 #### Work table
-The database is MySQL and contains a table named **Work**. The table contains the following fields:
+The DynamoDB table is named **Work** and contains the following fields:
 
-+ **idwork** - A VARCHAR(45) value that represents the PK. 
-+ **date** - A date value that specifies the date the item was created.
-+ **description** - A VARCHAR(400) value that describes the item. 
-+ **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
-+ **status** - A VARCHAR(400) value that describes the status.
-+ **username** - A VARCHAR(45) value that represents the user who entered the item. 
-+ **archive** - A TINYINT(4) value that represents whether this is an active or archive item. 
++ **id** - Represents the key. 
++ **date** - Specifies the date the item was created.
++ **description** - A value that describes the item. 
++ **guide** - A value that represents the deliverable being worked on.
++ **status** - A value that describes the status.
++ **username** - A value that represents the user who entered the item. 
++ **archive** - A value that represents whether this is an active or archive item. 
 
-The following figure shows the **work** table. 
+The following figure shows the **Work** table. 
 
-![AWS Tracking Application](images/trackMySQL2.png)
+![AWS Tracking Application](images/pic7.png)
 
-## Create an IntelliJ project named AWSItemTracker
+## Create an IntelliJ project named ItemTrackerDynamoDB
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
 2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
 3. For **GroupId**, enter **aws-spring**. 
-4. For **ArtifactId**, enter **AWSItemTracker**. 
+4. For **ArtifactId**, enter **ItemTrackerDynamoDB**. 
 6. Choose **Next**.
 7. Choose **Finish**. 
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **AWSItemTracker**. 
+At this point, you have a new project named **ItemTrackerDynamoDB**. 
 
-![AWS Tracking Application](images/track5.png)
+![AWS Tracking Application](images/pic8.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
   
@@ -156,39 +156,45 @@ Add the following dependency for the Amazon SES API (AWS SDK for Java version 2)
 Ensure that the **pom.xml** file looks like the following. 
 
      <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0"
+	<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-     <groupId>aws-spring</groupId>
-     <artifactId>AWSItemTracker</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <packaging>jar</packaging>
-
-     <parent>
+    <groupId>ItemTrackerDynamoDB</groupId>
+    <artifactId>ItemTrackerDynamoDB</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
-     </parent>
-
-     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </parent>
+    <properties>
+       <java.version>1.8</java.version>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.30</version>
+                <version>2.11.11</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+            <version>2.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
+            <version>2.11.4-PREVIEW</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -216,28 +222,16 @@ Ensure that the **pom.xml** file looks like the following.
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.8.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.13.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -322,74 +316,77 @@ Ensure that the **pom.xml** file looks like the following.
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
-     </project>
+       </build>
+      </project>
 
 
 ## Set up the Java packages in your project
 
-Create a Java package in the **main/java** folder named **com.aws**. 
+Create a Java package in the **main/java** folder named **com.example**. 
 
-![AWS Tracking Application](images/track6.png)
+![AWS Tracking Application](images/pic9.png)
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/newtrack7_1.png)
+![AWS Tracking Application](images/pic10.png)
 
 These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
-+ **jdbc** - Contains Java files that use the JDBC API to interact with the RDS database.
-+ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
-+ **securingweb** - Contains Java files required for Spring security. 
++ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
++ **secureweb** - Contains a Java class for Spring security and the Java Controller class. 
+
+**Note**: The only class that is in **com.example** is **SecureWebApp**. All other classes are in the sub-packages. 
 
 ## Create the Java classes
 
 Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
-### Create the Spring security classes
+### Create the SecureWebApp class
 
-Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
+In the **com.example** package, create a class named **SecureWebApp**. This is the entry point into the Spring boot application and uses the **@SpringBootApplication** annotation. The following Java code represents this class.
 
-+ **SecuringWebApplication** 
-+ **WebSecurityConfig**
-
-#### SecuringWebApplication class 
-The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. 
-
-    package com.aws.securingweb;
+    package com.example;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
 
     @SpringBootApplication
-    public class SecuringWebApplication {
+    public class SecureWebApp {
 
     public static void main(String[] args) throws Throwable {
-        SpringApplication.run(SecuringWebApplication.class, args);
+        SpringApplication.run(SecureWebApp.class, args);
      }
     }
 
+
+### Create the Spring security classes
+
+Create a Java package named **com.example.secureweb**. Next, create these classes in this package:
+
++ **WebSecurityConfig**
++ **MainController**
+
 #### WebSecurityConfig class 
+
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. 
 
-    package com.aws.securingweb;
+    package com.example.secureweb;
 
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
+    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
     import org.springframework.security.config.annotation.web.builders.HttpSecurity;
     import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
     import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-    import org.springframework.security.core.userdetails.User;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import org.springframework.security.core.userdetails.UserDetailsService;
-    import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
     @Configuration
     @EnableWebSecurity
     public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-     @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -414,32 +411,27 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         http.csrf().disable();
     }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
 
-        return new InMemoryUserDetailsManager(user);
-     }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder())
+                .withUser("user")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER");
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     }
    
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
  
-#### To create the SecuringWebApplication and WebSecurityConfig classes 
-
-1. Create the **com.aws.securingweb** package. 
-2. Create the **SecuringWebApplication** class and paste the code into it.
-3. Create the **WebSecurityConfig** class and paste the code into it.
-
-
 ### Create the main controller class
 
-In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
+In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
 **Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial. 
 
@@ -447,678 +439,639 @@ In the **com.aws.securingweb** package, create the controller class named **Main
 
 The following Java code represents the **MainController** class. 
 
-    package com.aws.securingweb;
+     package com.example.secureweb;
 
-    import com.aws.entities.WorkItem;
-    import com.aws.jdbc.RetrieveItems;
-    import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.ui.Model;
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.ResponseBody;
-    import org.springframework.web.bind.annotation.RequestMethod;
-    import com.aws.jdbc.InjectWorkService;
-    import com.aws.services.WriteExcel;
-    import com.aws.services.SendMessages;
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import java.io.IOException;
-    import java.util.List;
+     import com.example.entities.WorkItem;
+     import com.example.services.DynamoDBService;
+     import org.springframework.security.core.context.SecurityContextHolder;
+     import org.springframework.stereotype.Controller;
+     import org.springframework.ui.Model;
+     import org.springframework.web.bind.annotation.GetMapping;
+     import org.springframework.web.bind.annotation.RequestMapping;
+     import org.springframework.web.bind.annotation.ResponseBody;
+     import org.springframework.web.bind.annotation.RequestMethod;
+     import com.example.services.WriteExcel;
+     import com.example.services.SendMessages;
+     import javax.servlet.http.HttpServletRequest;
+     import javax.servlet.http.HttpServletResponse;
+     import java.io.IOException;
+     import java.util.List;
+     import org.springframework.beans.factory.annotation.Autowired;
 
-    @Controller
-    public class MainController {
+     @Controller
+     public class MainController {
 
-    @GetMapping("/")
-    public String root() {
-      return "index";
-    }
+     @Autowired
+     DynamoDBService dbService;
 
-    @GetMapping("/login")
-    public String login(Model model) {
-      return "login";
-    }
+     @Autowired
+     SendMessages sendMsg;
 
-    @GetMapping("/add")
-     public String designer() {
-         return "add";
-    }
+     @Autowired
+     WriteExcel excel;
 
-    @GetMapping("/items")
-    public String items() {
-     return "items";
-    }
-
-    // Adds a new item to the database
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
-    String addItems(HttpServletRequest request, HttpServletResponse response) {
-
-      //Get the Logged in User
-      String name = getLoggedUser();
-
-      String guide = request.getParameter("guide");
-      String description = request.getParameter("description");
-      String status = request.getParameter("status");
-      InjectWorkService iw = new InjectWorkService();
-
-      // Create a Work Item object to pass to the injestNewSubmission method
-      WorkItem myWork = new WorkItem();
-      myWork.setGuide(guide);
-      myWork.setDescription(description);
-      myWork.setStatus(status);
-      myWork.setName(name);
-
-      iw.injestNewSubmission(myWork);
-      return "Item added";
-    }
-
-    // Builds and emails a report
-    @RequestMapping(value = "/report", method = RequestMethod.POST)
-    @ResponseBody
-    String getReport(HttpServletRequest request, HttpServletResponse response) {
-
-      //Get the Logged in User
-      String name = getLoggedUser();
-
-      String email = request.getParameter("email");
-      RetrieveItems ri = new RetrieveItems();
-      List<WorkItem> theList = ri.getItemsDataSQLReport(name);
-      WriteExcel writeExcel = new WriteExcel();
-      SendMessages sm = new SendMessages();
-      java.io.InputStream is = writeExcel.exportExcel(theList);
-
-      try {
-       	  sm.sendReport(is, email);
-      	}catch (IOException e) {
-       	  e.getStackTrace();
-       	}
-       	return "Report is created";
+     @GetMapping("/")
+     public String root() {
+        return "index";
      }
 
-    // Archives a work item
-    @RequestMapping(value = "/archive", method = RequestMethod.POST)
-    @ResponseBody
-    String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
-        
+     @GetMapping("/login")
+     public String login(Model model) {
+        return "login";
+     }
+
+     @GetMapping("/add")
+     public String designer() {
+        return "add";
+     }
+
+     @GetMapping("/items")
+     public String items() {
+        return "items";
+     }
+
+     // Adds a new item to the DynamoDB database
+     @RequestMapping(value = "/add", method = RequestMethod.POST)
+     @ResponseBody
+     String addItems(HttpServletRequest request, HttpServletResponse response) {
+
+        //Get the Logged in User
+        String name = getLoggedUser();
+
+        String guide = request.getParameter("guide");
+        String description = request.getParameter("description");
+        String status = request.getParameter("status");
+
+        // Create a Work Item object to pass to the injestNewSubmission method
+        WorkItem myWork = new WorkItem();
+        myWork.setGuide(guide);
+        myWork.setDescription(description);
+        myWork.setStatus(status);
+        myWork.setName(name);
+
+        dbService.setItem(myWork);
+        return "Item added";
+      }
+
+     // Builds and emails a report with all items
+     @RequestMapping(value = "/report", method = RequestMethod.POST)
+     @ResponseBody
+     String getReport(HttpServletRequest request, HttpServletResponse response) {
+
+      String email = request.getParameter("email");
+      List<WorkItem> theList = dbService.getListItems();
+      java.io.InputStream is = excel.exportExcel(theList);
+
+     try {
+        sendMsg.sendReport(is, email);
+     }catch (IOException e) {
+       e.getStackTrace();
+     }
+     return "Report is created";
+     }
+
+     // Archives a work item
+     @RequestMapping(value = "/archive", method = RequestMethod.POST)
+     @ResponseBody
+     String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
+
       String id = request.getParameter("id");
-      RetrieveItems ri = new RetrieveItems();
-      ri.flipItemArchive(id );
+      dbService.archiveItem(id );
       return id ;
-    }
+      }
 
-    // Modifies the value of a work item
-    @RequestMapping(value = "/changewi", method = RequestMethod.POST)
-    @ResponseBody
-    String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
-    
-      String id = request.getParameter("id");
-      String description = request.getParameter("description");
-      String status = request.getParameter("status");
+     // Modifies the value of a work item
+     @RequestMapping(value = "/changewi", method = RequestMethod.POST)
+     @ResponseBody
+     String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
-      InjectWorkService ws = new InjectWorkService();
-      String value = ws.modifySubmission(id, description, status);
-      return value;
-    }
+        String id = request.getParameter("id");
+        String status = request.getParameter("status");
+        dbService.UpdateItem(id, status);
+        return id;
+     }
 
-    // Retrieve all items for a given user
-    @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
-    @ResponseBody
-    String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+     // Retrieve items
+     @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+     @ResponseBody
+     String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-      //Get the Logged in User
-      String name = getLoggedUser();
+        String type = request.getParameter("type");
 
-      RetrieveItems ri = new RetrieveItems();
-      String type = request.getParameter("type");
+        // Pass back items from the DynamoDB table
+        String xml="";
 
-      //Pass back all data from the database
-      String xml="";
+        if (type.compareTo("archive") ==0)
+            xml = dbService.getClosedItems();
+         else
+            xml = dbService.getOpenItems();
 
-      if (type.equals("active")) {
-       	  xml = ri.getItemsDataSQL(name);
-       	  return xml;
-      } else {
-         xml = ri.getArchiveData(name);
          return xml;
       }
-    }
 
-    // Returns a work item to modify
-    @RequestMapping(value = "/modify", method = RequestMethod.POST)
-    @ResponseBody
-    String modifyWork(HttpServletRequest request, HttpServletResponse response) {
-    
+     // Returns a work item to modify
+     @RequestMapping(value = "/modify", method = RequestMethod.POST)
+     @ResponseBody
+     String modifyWork(HttpServletRequest request, HttpServletResponse response) {
+
       String id = request.getParameter("id");
-      RetrieveItems ri = new RetrieveItems();
-      String xmlRes = ri.getItemSQL(id) ;
+      String xmlRes = dbService.getItem(id) ;
       return xmlRes;
      }
 
-    private String getLoggedUser() {
+     private String getLoggedUser() {
 
-     // Get the logged-in Useruser
+      // Get the logged-in user
       org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-     String name = user2.getUsername();
-     return name;
+      String name = user2.getUsername();
+      return name;
      }
-    }
+     }
+
+#### To create the WebSecurityConfig classes 
+
+1. Create the **com.example.secureweb** package. 
+2. Create the **WebSecurityConfig** class and paste the code into it.
 
 #### To create the MainController class 
 
-1. In the **com.aws.securingweb** package, create the **MainController** class. 
+1. In the **com.example.secureweb** package, create the **MainController** class. 
 2. Copy the code from the **MainController** class and paste it into this class in your project.
 
 ### Create the WorkItem class
 
-Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
+Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
 
 #### WorkItem class
 The following Java code represents the **WorkItem** class. 
 
-    package com.aws.entities;
+    package com.example.entities;
 
     public class WorkItem {
 
-     private String id;
-     private String name;
-     private String guide ;
-     private String date;
-     private String description;
-     private String status;
+    private String id;
+    private String name;
+    private String guide ;
+    private String date;
+    private String description;
+    private String status;
 
-     public void setId (String id) {
-         this.id = id;
+    public void setId (String id) {
+      this.id = id;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+
+    public void setStatus (String status) {
+      this.status = status;
+    }
+
+    public String getStatus() {
+      return this.status;
+    }
+
+    public void setDescription (String description) {
+      this.description = description;
+    }
+
+    public String getDescription() {
+     return this.description;
      }
 
-     public String getId() {
-         return this.id;
+    public void setDate (String date) {
+     this.date = date;
      }
 
-     public void setStatus (String status) {
-        this.status = status;
-     }
+    public String getDate() {
+      return this.date;
+    }
 
-     public String getStatus() {
-       return this.status;
-     }
+    public void setName (String name) {
+     this.name = name;
+    }
 
-     public void setDescription (String description) {
-        this.description = description;
-     }
+    public String getName() {
+     return this.name;
+    }
 
-     public String getDescription() {
-       return this.description;
-     }
+    public void setGuide (String guide) {
+     this.guide = guide;
+    }
 
-     public void setDate (String date) {
-       this.date = date;
+    public String getGuide() {
+     return this.guide;
      }
-
-     public String getDate() {
-       return this.date;
-     }
-
-     public void setName (String name) {
-       this.name = name;
-     }
-
-     public String getName() {
-       return this.name;
-     }
-
-     public void setGuide (String guide) {
-      this.guide = guide;
-     }
-
-     public String getGuide() {
-      return this.guide;
-      }
      }	
 
 #### To create the WorkItem class
-1. In the **com.aws.entities** package, create the **WorkItem** class. 
+1. In the **com.example.entities** package, create the **WorkItem** class. 
 2. Copy the code from the **WorkItem** class and paste it into this class in your project.
 
+### Create the service classes
 
-### Create the JDBC Classes
+The service classes contain Java application logic that invokes AWS services. In this section, you create these classes: 
 
-Create a Java package named **com.aws.jdbc**. Next, create these Java classes that are required to perform database operations:
++ **DynamoDBService** - Uses the DynamoDB Java V2 API to interact with the **Work** table. 
++ **Work** - Is used by the Enhanced DynamoDB client object. 
++ **SendMessages** - Uses the Amazon SES API to send email messages.
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
 
-+ **ConnectionHelper** - Creates a connection to the RDS MySQL instance. 
-+ **InjectWorkService** - Injects items into the MySQL instance. 
-+ **RetrieveItems** - Retrieves items from the MySQL instance. 
+#### DynamoDBService class 
+The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code reprents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query Active or Closed items. For example, in the **getClosedItems** method, only closed items are retrieved. 
 
-**Note**: This tutorial uses the JDBC API to interact with the MySQL instance. For more information about using Amazon RDS, see [Amazon Relational Database Service](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html).  
+Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
 
-#### ConnectionHelper class
+     package com.example.services;
 
-The following Java code represents the **ConnectionHelper** class.
+     import com.example.entities.WorkItem;
+     import org.w3c.dom.Document;
+     import org.w3c.dom.Element;
+     import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+     import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+     import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+     import software.amazon.awssdk.regions.Region;	
+     import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+     import software.amazon.awssdk.services.dynamodb.model.*;
+     import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+     import javax.xml.parsers.DocumentBuilder;
+     import javax.xml.parsers.DocumentBuilderFactory;
+     import software.amazon.awssdk.enhanced.dynamodb.Expression;
+     import javax.xml.parsers.ParserConfigurationException;
+     import javax.xml.transform.Transformer;
+     import javax.xml.transform.TransformerException;
+     import javax.xml.transform.TransformerFactory;
+     import javax.xml.transform.dom.DOMSource;
+     import javax.xml.transform.stream.StreamResult;
+     import java.io.StringWriter;
+     import java.text.SimpleDateFormat;
+     import java.time.Instant;
+     import java.time.LocalDate;
+     import java.time.LocalDateTime;
+     import java.time.ZoneOffset;
+     import java.util.*;
+     import org.springframework.stereotype.Component;
 
-    package com.aws.jdbc;
+     /*
+      Before running this code example, create a table named Work with a PK named id
+      */
+     @Component
+     public class DynamoDBService {
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
+     private DynamoDbClient getClient() {
 
-    public class ConnectionHelper {
+      // Create a DynamoDbClient object
+      Region region = Region.US_EAST_1;
+      DynamoDbClient ddb = DynamoDbClient.builder()
+         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+	 .region(region)
+         .build();
 
-      private String url;
-      private static ConnectionHelper instance;
-      
-      private ConnectionHelper() {
-          url = "jdbc:mysql://localhost:3306/mydb";
+       return ddb;
        }
 
-      public static Connection getConnection() throws SQLException {
-         if (instance == null) {
-            instance = new ConnectionHelper();
-         }
-         try {
+     // Get a single item from the Work table based on the Key
+     public String getItem(String idValue) {
 
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root");
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.getStackTrace();
+      DynamoDbClient ddb = getClient();
+      String status = "";
+      String description = "";
+
+     HashMap<String, AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
+     keyToGet.put("id", AttributeValue.builder()
+            .s(idValue)
+            .build());
+
+     // Create a GetItemRequest object
+     GetItemRequest request = GetItemRequest.builder()
+           .key(keyToGet)
+           .tableName("Work")
+           .build();
+
+     try {
+         Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+
+         // Get keys and values and get description and status
+          for (Map.Entry<String,AttributeValue > entry : returnedItem.entrySet()) {
+            String k = entry.getKey();
+            AttributeValue v = entry.getValue();
+
+           if (k.compareTo("description") == 0) {
+              description = v.s();
+           } else if (k.compareTo("status") == 0) {
+              status = v.s();
+           }
+          }
+          return convertToString(toXmlItem(idValue,description,status));
+
+       } catch (DynamoDbException e) {
+         System.err.println(e.getMessage());
+         System.exit(1);
+       }
+       return "";
+       }	
+
+       // Retrieves items from the DynamoDB table
+    	public  ArrayList<WorkItem> getListItems() {
+
+        // Create a DynamoDbEnhancedClient
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+           .dynamoDbClient(getClient())
+           .build();
+
+        try {
+          // Create a DynamoDbTable object
+          DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+          // Get items in the Work table
+          Iterator<Work> results = custTable.scan().items().iterator();
+          WorkItem workItem ;
+          ArrayList<WorkItem> itemList = new ArrayList();
+
+          while (results.hasNext()) {
+
+            // Populate a WorkItem
+            workItem = new WorkItem();
+            Work work = results.next();
+            workItem.setName(work.getName());
+            workItem.setGuide(work.getGuide());
+            workItem.setDescription(work.getDescription());
+            workItem.setStatus(work.getStatus());
+            workItem.setDate(work.getDate());
+            workItem.setId(work.getId());
+
+            //Push the workItem to the list
+            itemList.add(workItem);
+           }
+           
+	   return itemList;
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-        return null;
-    	}
-    
-       public static void close(Connection connection) {
-         try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Done");
+
+        return null ;
       }
-     }
-    
-**Note**: The **URL** value is *localhost:3306*. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance. 
 
-#### InjectWorkService class
+      // Archives an item based on the key
+      public String archiveItem(String id){
+        DynamoDbClient ddb = getClient();
 
-The following Java code represents the **InjectWorkService** class.
+       HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
+      itemKey.put("id", AttributeValue.builder()
+           .s(id)
+           .build());
 
-    package com.aws.jdbc;
+      HashMap<String, AttributeValueUpdate> updatedValues =
+                new HashMap<String,AttributeValueUpdate>();
 
-    import java.sql.Connection;
-    import java.sql.PreparedStatement;
-    import java.sql.SQLException;
-    import java.text.ParseException;
-    import java.text.SimpleDateFormat;
-    import java.time.LocalDateTime;
-    import java.time.format.DateTimeFormatter;
-    import java.util.Date;
-    import java.util.UUID;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
+      // Update the column specified by name with updatedVal
+      updatedValues.put("archive", AttributeValueUpdate.builder()
+           .value(AttributeValue.builder()
+           .s("Closed").build())
+           .action(AttributeAction.PUT)
+           .build());
 
-    @Component
-    public class InjectWorkService {
+      UpdateItemRequest request = UpdateItemRequest.builder()
+         .tableName("Work")
+         .key(itemKey)
+         .attributeUpdates(updatedValues)
+         .build();
 
-      // Inject a new submission
-      public String modifySubmission(String id, String desc, String status) {
-        
-	Connection c = null;
-        int rowCount= 0;
-         
-	try {
-        
-	  // Create a Connection object
-          c = ConnectionHelper.getConnection();
-
-          // Use prepared statements
-          PreparedStatement ps = null;
-
-          String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
-          ps = c.prepareStatement(query);
-          ps.setString(1, desc);
-          ps.setString(2, status);
-          ps.execute();
-          return id;
-      } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Inject a new submission
-    public String injestNewSubmission(WorkItem item) {
-    
-       Connection c = null;
-       int rowCount= 0;
        try {
-
-          // Create a Connection object
-          c = ConnectionHelper.getConnection();
-
-         // Use a prepared statement
-         PreparedStatement ps = null;
-
-        // Convert rev to int
-        String name = item.getName();
-        String guide = item.getGuide();
-        String description = item.getDescription();
-        String status = item.getStatus();
-
-        // generate the work item ID
-        UUID uuid = UUID.randomUUID();
-        String workId = uuid.toString();
-
-        // Date conversion
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String sDate1 = dtf.format(now);
-        Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-        java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
-
-        // Inject an item into the system
-        String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
-        ps = c.prepareStatement(insert);
-        ps.setString(1, workId);
-        ps.setString(2, name);
-        ps.setDate(3, sqlDate);
-        ps.setString(4, description);
-        ps.setString(5, guide );
-        ps.setString(6, status );
-        ps.setBoolean(7, false);
-        ps.execute();
-        return workId;
-
-     } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
+          ddb.updateItem(request);
+         return"The item was successfully archived";
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-        return null;
-      }
-    }
+        return "";
+        }
 
-#### RetrieveItems class
+      // Updates items in the Work Table
+      public String UpdateItem(String id, String status){
+         DynamoDbClient ddb = getClient();
 
-The following Java code represents the **RetrieveItems** class. 
+        HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
 
-    package com.aws.jdbc;
+        itemKey.put("id", AttributeValue.builder()
+                .s(id)
+                .build());
 
-    import java.io.StringWriter;
-    import java.sql.Connection;
-    import java.sql.ResultSet;
-    import java.sql.Statement;
-    import java.sql.PreparedStatement;
-    import java.sql.SQLException;
-    import java.util.ArrayList ;
-    import java.util.List;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
-    import org.w3c.dom.Document;
-    import javax.xml.parsers.DocumentBuilder;
-    import javax.xml.parsers.DocumentBuilderFactory;
-    import org.w3c.dom.Element;
-    import javax.xml.parsers.ParserConfigurationException;
-    import javax.xml.transform.Transformer;
-    import javax.xml.transform.TransformerException;
-    import javax.xml.transform.TransformerFactory;
-    import javax.xml.transform.dom.DOMSource;
-    import javax.xml.transform.stream.StreamResult;
+        HashMap<String, AttributeValueUpdate> updatedValues =
+                new HashMap<String,AttributeValueUpdate>();
 
+        // Update the column specified by name with updatedVal
+        updatedValues.put("status", AttributeValueUpdate.builder()
+                .value(AttributeValue.builder()
+                 .s(status).build())
+                .action(AttributeAction.PUT)
+                .build());
 
-    @Component	
-    public class RetrieveItems {
-
-        // Retrieves an item based on the ID
-        public String flipItemArchive(String id ) {
-
-        Connection c = null;
-        String query = "";
+        UpdateItemRequest request = UpdateItemRequest.builder()
+                .tableName("Work")
+                .key(itemKey)
+                .attributeUpdates(updatedValues)
+                .build();
 
         try {
-          
-	    // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            // Specify the SQL Statement to query data
-            query = "update work set archive = ? where idwork ='" +id + "' ";
-
-            PreparedStatement updateForm = c.prepareStatement(query);
-            updateForm.setBoolean(1, true);
-            updateForm.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
+            ddb.updateItem(request);
+            return"The Status for the the item was successfully updated";
+        } catch (ResourceNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-        return null;
-    }
+        return "";
+        }
 
+      // Get Open items from the DynamoDB table
+      public String getOpenItems() {
 
-    // Retrieves archive data from the MySQL database
-    public String getArchiveData(String username) {
+      // Create a DynamoDbEnhancedClient
+       DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+               .dynamoDbClient(getClient())
+               .build();
 
-        Connection c = null;
+       try{
+           // Create a DynamoDbTable object
+           DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-        // Define a list in which work items are stored
-        List<WorkItem> itemList = new ArrayList<WorkItem>();
-        int rowCount = 0;
-        String query = "";
-        WorkItem item = null;
+           AttributeValue attr = AttributeValue.builder()
+                   .s("Open")
+                   .build();
 
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
+           Map<String, AttributeValue> myMap = new HashMap<>();
+           myMap.put(":val1",attr);
 
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
+           Map<String, String> myExMap = new HashMap<>();
+           myExMap.put("#archive", "archive");
 
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
+           // Set the Expression so only Closed items are queried from the Work table
+           Expression expression = Expression.builder()
+                   .expressionValues(myMap)
+                   .expressionNames(myExMap)
+                   .expression("#archive = :val1")
+                   .build();
 
-            int arch = 1;
+           ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                   .filterExpression(expression)
+                   .limit(15)
+                   .build();
 
-            // Specify the SQL Statement to query data
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
+           // Scan items 
+           Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
+           WorkItem workItem ;
+           ArrayList<WorkItem> itemList = new ArrayList();
 
-            while (rs.next()) {
-                // For each record, create a WorkItem object
-                item = new WorkItem();
+           while (results.hasNext()) {
 
-                // Populate the WorkItem object
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
+               // Populate a WorkItem
+               workItem = new WorkItem();
+               Work work = results.next();
+               workItem.setName(work.getName());
+               workItem.setGuide(work.getGuide());
+               workItem.setDescription(work.getDescription());
+               workItem.setStatus(work.getStatus());
+               workItem.setDate(work.getDate());
+               workItem.setId(work.getId());
 
-                // Push the WorkItem object to the list
-                itemList.add(item);
+               //Push the workItem to the list
+               itemList.add(workItem);
+              }
+
+             return convertToString(toXml(itemList));
+
+         } catch (DynamoDbException e) {
+           System.err.println(e.getMessage());
+           System.exit(1);
+         }
+         System.out.println("Done");
+
+       return "" ;
+       }
+
+      // Get Closed Items from the DynamoDB table
+      public String getClosedItems() {
+
+        // Create a DynamoDbEnhancedClient
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
+
+        try{
+            // Create a DynamoDbTable object
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            AttributeValue attr = AttributeValue.builder()
+                    .s("Closed")
+                    .build();
+
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1",attr);
+
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#archive", "archive");
+
+            // Set the Expression so only Closed items are queried from the Work table
+            Expression expression = Expression.builder()
+                    .expressionValues(myMap)
+                    .expressionNames(myExMap)
+                    .expression("#archive = :val1")
+                    .build();
+
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                    .filterExpression(expression)
+                    .limit(15)
+                    .build();
+
+            // Get items
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList();
+
+            while (results.hasNext()) {
+
+                // Populate a WorkItem
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
+
+                //Push the workItem to the list
+                itemList.add(workItem);
             }
 
             return convertToString(toXml(itemList));
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
+          } catch (DynamoDbException e) {
+             System.err.println(e.getMessage());
+             System.exit(1);
+          }
+         System.out.println("Done");
+        return "" ;
         }
-        return null;
-    }
 
-    // Retrieves an item based on the ID
-    public String getItemSQL(String id ) {
+       public void setItem(WorkItem item) {
 
-        Connection c = null;
+        // Create a DynamoDbEnhancedClient
+         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
 
-        // Define a list in which all work items are stored
-        String query = "";
-        String status="" ;
-        String description="";
+          putRecord(enhancedClient, item) ;
+          }
 
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
+       // Put an item into a DynamoDB table
+       public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
+         try {
+        
+	     // Create a DynamoDbTable object
+             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
+             // Create an Instant object
+             LocalDate localDate = LocalDate.parse("2020-04-07");
+             LocalDateTime localDateTime = localDate.atStartOfDay();
+             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            //Specify the SQL Statement to query data
-            query = "Select description, status FROM work where idwork ='" +id + "' ";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
+             String myGuid = java.util.UUID.randomUUID().toString();  
 
-            while (rs.next()) {
-                description = rs.getString(1);
-                status = rs.getString(2);
+             // Populate the table
+             Work record = new Work();
+             record.setUsername(item.getName());
+             record.setId(myGuid);
+             record.setDescription(item.getDescription());
+             record.setDate(now()) ;
+             record.setStatus(item.getStatus());
+             record.setArchive("Open");
+             record.setGuide(item.getGuide());
+
+             // Put the customer data into a DynamoDB table
+             workTable.putItem(record);
+
+             } catch (DynamoDbException e) {
+               System.err.println(e.getMessage());
+               System.exit(1);
             }
-            return convertToString(toXmlItem(id,description,status));
+  	   }
 
+    	 // Convert Work data into XML to pass back to the view
+         private Document toXml(List<WorkItem> itemList) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Get Items data from MySQL
-    public List<WorkItem> getItemsDataSQLReport(String username) {
-
-        Connection c = null;
-
-        //Define a list in which all work items are stored
-        List<WorkItem> itemList = new ArrayList<WorkItem>();
-        int rowCount = 0;
-        String query = "";
-        WorkItem item = null;
-
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            int arch = 0;
-
-            // Specify the SQL Statement to query data
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                // For each record-- create a WorkItem instance
-                item = new WorkItem();
-
-                // Populate WorkItem with data from MySQL
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
-
-                // Push the WorkItem Object to the list
-                itemList.add(item);
-            }
-            return itemList;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-
-    // Get Items Data from MySQL
-    public String getItemsDataSQL(String username) {
-
-        Connection c = null;
-
-        // Define a list in which all work items are stored
-        List<WorkItem> itemList = new ArrayList<WorkItem>();
-        int rowCount = 0;
-        String query = "";
-        WorkItem item = null;
-        try {
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            ResultSet rs = null;
-            Statement s = c.createStatement();
-            Statement scount = c.createStatement();
-
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
-
-            int arch = 0;
-
-            // Specify the SQL Statement to query data
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-
-                // For each record-- create a WorkItem instance
-                item = new WorkItem();
-
-                //Populate WorkItem object with data
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
-
-                // Push the WorkItem Object to the list
-                itemList.add(item);
-            }
-            return convertToString(toXml(itemList));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Convert Work item data retrieved from MySQL
-    // into XML to pass back to the view
-    private Document toXml(List<WorkItem> itemList) {
-
-        try {
+         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
@@ -1168,42 +1121,47 @@ The following Java code represents the **RetrieveItems** class.
                 Element status = doc.createElement( "Status" );
                 status.appendChild( doc.createTextNode(myItem.getStatus() ) );
                 item.appendChild( status );
+             }
+
+              return doc;
+             } catch(ParserConfigurationException e) {
+              e.printStackTrace();
             }
+           return null;
+    	   }
 
-            return doc;
-        } catch(ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-        private String convertToString(Document xml) {
-         try {
+          private String convertToString(Document xml) {
+           try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+          } catch(TransformerException ex) {
             ex.printStackTrace();
-        }
-        return null;
-    }
+         }
+         return null;
+         }
+    
+         private String now() {
+          String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+          Calendar cal = Calendar.getInstance();
+          SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+          return sdf.format(cal.getTime());
+    	  }
 
+    	  // Convert Work data into an XML schema to pass back to client
+    	  private Document toXmlItem(String id2, String desc2, String status2) {
 
-       // Convert Work item data retrieved from MySQL
-       // into an XML schema to pass back to client
-       private Document toXmlItem(String id2, String desc2, String status2) {
+            try {
+               DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+               DocumentBuilder builder = factory.newDocumentBuilder();
+               Document doc = builder.newDocument();
 
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.newDocument();
-
-            //Start building the XML
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
+             //Start building the XML
+             Element root = doc.createElement( "Items" );
+             doc.appendChild( root );
 
             Element item = doc.createElement( "Item" );
             root.appendChild( item );
@@ -1225,33 +1183,103 @@ The following Java code represents the **RetrieveItems** class.
 
             return doc;
 
-        } catch(ParserConfigurationException e) {
-            e.printStackTrace();
+             } catch(ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+            return null;
+           }
+          }
+
+#### Work class 
+The **Work** class is used with the DynamoDB Enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation. 
+
+    package com.example.services;
+
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+
+    @DynamoDbBean
+     public class Work {
+
+       private String id;
+       private String date;
+       private String description ;
+       private String guide;
+       private String username ;
+       private String status  ;
+       private String archive   ;
+
+       @DynamoDbPartitionKey
+       public String getId() {
+         return this.id;
+       }
+
+       public void setId(String id) {
+        this.id = id;
+       }
+
+       @DynamoDbSortKey
+       public String getName() {
+        return this.username;
         }
-        return null;
+
+       public void setArchive(String archive) {
+        this.archive = archive;
+        }
+
+       public String getArchive() {
+         return this.archive;
+        }
+
+       public void setStatus(String status) {
+         this.status = status;
+       }
+
+       public String getStatus() {
+        return this.status;
+       }
+
+      public void setUsername(String username) {
+       this.username = username;
       }
-     }
 
-#### To create the JDBC classes 
+      public String getUsername() {
+       return this.username;
+      }
 
-1. Create the **com.aws.jdbc** package. 
-2. Create the **ConnectionHelper** class and paste the Java code into the class.  
-3. Create the **InjectWorkService** class and paste the Java code into the class.
-4. Create the **RetrieveItems** class and paste the Java code into the class.
+      public void setGuide(String guide) {
+        this.guide = guide;
+   	}
 
-### Create the service classes
+      public String getGuide() {
+        return this.guide;
+      }
 
-The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
+      public String getDate() {
+       return this.date;
+       }
 
-+ **SendMessages** - Uses the Amazon SES API to send email messages.
-+ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
+      public void setDate(String date) {
+       this.date = date;
+      }
 
+      public String getDescription() {
+       return description;
+      }
+
+     public void setDescription(String description) {
+      this.description = description;
+       }
+      }
+
+	
 #### SendMessage class 
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
 
-    package com.aws.services;
+    package com.example.services;
 
     import org.apache.commons.io.IOUtils;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -1276,7 +1304,9 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
     import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
     import software.amazon.awssdk.services.ses.model.RawMessage;
     import software.amazon.awssdk.services.ses.model.SesException;
+    import org.springframework.stereotype.Component;
 
+    @Component
     public class SendMessages {
 
      private String sender = "tblue@nomailserver.com";
@@ -1399,9 +1429,9 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
 
 #### WriteExcel class
 
-The **WriteExcel** class dynamically creates an Excel report with the MySQL data marked as active. The following code represents this class. 
+The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class. 
 
-    package com.aws.services;
+    package com.rxample.services;
 
     import jxl.CellView;
     import jxl.Workbook;
@@ -1495,12 +1525,12 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Work Item Data to the Excel Report
+    // Write the Item Data to the Excel Report
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
 
-        // Add customer data to the Excel report
+        // Add data to the Excel report
         for (int i = 0; i < size; i++) {
 
             WorkItem wi = list.get(i);
@@ -1574,13 +1604,15 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     
 #### To create the service classes
 
-1. Create the **com.aws.services** package. 
-2. Create the **SendMessages** class and add the Java code to it.   
-3. Create the **WriteExcel** class and add the Java code to it.
+1. Create the **com.example.services** package. 
+2. Create the **DynamoDBService** class and add the Java code to it.
+3. Create the **SendMessages** class and add the Java code to it.   
+4. Create the **WriteExcel** class and add the Java code to it.
+5. Create the **Work** class and add the Java code to it. 
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Tracking application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a template folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the *DynamoDB Item Tracker* application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder and then create the following HTML files:
 
 + **login.html**
 + **index.html**
@@ -1717,24 +1749,24 @@ The following HTML code represents the **index.html** file. This file represents
       <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
       <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-      <h2>AWS Item Tracker</h2>
+      <h2>AWS DynamoDB Item Tracker</h2>
 
-      <p>The AWS Item Tracker application is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+    <p>The AWS DynamoDB Item Tracker sample application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
-     <ol>
-    <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
-    <li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
-    <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
-    <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
-    <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
-    <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
-    <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
-    <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.Only Active data is sent in a report.</li>
-    <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+    <ol>
+        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+        <li>The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API.</li>
+        <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
+        <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
+        <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
+        <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
+        <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.</li>
+        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
-    </body>
-    </html>
+</body>
+</html>
  
 #### add.html
 
@@ -1755,7 +1787,7 @@ The following code represents the **add.html** file that enables users to add ne
 	<body>
 	<header th:replace="layout :: site-header"/>
 	<div class="container">
-	<h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+	<h3>Welcome <span sec:authentication="principal.username">User</span> to DynamoDB Item Tracker</h3>
     	<p>Add new items by filling in this table and clicking <i>Create Item</i></p>
 
 	<div class="row">
@@ -1822,7 +1854,7 @@ The following code represents the **items.html** file. This file enables users t
 
 	<div class="container">
 
-    	<h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+    	<h3>Welcome <span sec:authentication="principal.username">User</span> to DynamoDB Item Tracker</h3>
     	<h3 id="info3">Get Items</h3>
 	<p>You can manage items in this view.</p>
 
@@ -1862,7 +1894,7 @@ The following code represents the **items.html** file. This file enables users t
 
     </div>
     <br>
-    <div class="container">
+    <div id="modform" class="container">
 
     <h3>Modify an Item</h3>
     <p>You can modify items.</p>
@@ -2096,109 +2128,110 @@ The following JavaScript code represents the **items.js** file that is used in t
     	$( "#dialogtemplate2" ).dialog();
 
     	$('#myTable').DataTable( {
-         scrollY:        "500px",
-         scrollX:        true,
-         scrollCollapse: true,
-         paging:         true,
-         columnDefs: [
+        scrollY:        "500px",
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         true,
+        columnDefs: [
             { width: 200, targets: 0 }
         ],
         fixedColumns: true
-    } );
+    	} );
 
-    var table = $('#myTable').DataTable();
-    $('#myTable tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
+    	var table = $('#myTable').DataTable();
+    	$('#myTable tbody').on( 'click', 'tr', function () {
+        
+	if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
         else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    } );
+    	} );
 
 
-    //Disable the reportbutton
-    $('#reportbutton').prop("disabled",true);
-    $('#reportbutton').css("color", "#0d010d");
+    	// Disable the reportbutton
+    	$('#reportbutton').prop("disabled",true);
+    	$('#reportbutton').css("color", "#0d010d");
 
-     });
+	});
 
 
-    function modItem()
-    {
+	function modItem()
+	{
+        var id = $('#id').val();
+        var description = $('#description').val();
+        var status = $('#status').val();
 
-    var id = $('#id').val();
-    var description = $('#description').val();
-    var status = $('#status').val();
-
-    if (id == "")
+        if (id == "")
         {
             alert("Please select an item from the table");
             return;
         }
 
-    if (description.length > 350)
+        if (description.length > 350)
         {
             alert("Description has too many characters");
             return;
         }
 
-    //var status = $("textarea#status").val();
-    if (status.length > 350)
+        if (status.length > 350)
         {
             alert("Status has too many characters");
             return;
         }
 
-        //invokes the getMyForms POST operation
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("load", loadMods, false);
-        xhr.open("POST", "../changewi", true);   //buildFormit -- a Spring MVC controller
+        xhr.open("POST", "../changewi", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
         xhr.send("id=" + id + "&description=" + description+ "&status=" + status);
-    }
+    	}
+
+	function loadMods(event) {
+
+    	var msg = event.target.responseText;
+    	alert("You have successfully modfied item "+msg)
+
+    	$('#id').val("");
+    	$('#description').val("");
+    	$('#status').val("");
+
+    	//Refresh the grid
+    	GetItems();
+	}
 
 
-     //Handler for the changewi call
-     function loadMods(event) {
+	// Populate the table with work items
+	function GetItems() {
+    	var xhr = new XMLHttpRequest();
+    	var type="active";
+    	xhr.addEventListener("load", loadItems, false);
+    	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
+    	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+    	xhr.send("type=" + type);
+	}
 
-    var msg = event.target.responseText;
-    alert("You have successfully modfied item "+msg)
+	function loadItems(event) {
 
-    $('#id').val("");
-    $('#description').val("");
-    $('#status').val("");
+    	// Enable the buttons
+    	$('#singlebutton').prop("disabled",false);
+    	$('#updatebutton').prop("disabled",false);
+    	$('#reportbutton').prop("disabled",false);
+    	$('#reportbutton').css("color", "#FFFFFF");
+    	$('#singlebutton').css("color", "#FFFFFF");
+    	$('#updatebutton').css("color", "#FFFFFF");
+    	$('#archive').prop("disabled",false);
+    	$('#archive').css("color", "#FFFFFF");
 
-    //Refresh the grid
-    GetItems();
-     }
+    	$("#modform").show();
 
-    //populate the table with work items
-    function GetItems() {
-    
-    var xhr = new XMLHttpRequest();
-    var type="active";
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("type=" + type);
-    }
+    	var xml = event.target.responseText;
+    	var oTable = $('#myTable').dataTable();
+    	oTable.fnClearTable(true);
 
-    //Handler for the GetItems call
-    //This will populate the Data Table widget
-    function loadItems(event) {
-
-    // Enable the reportbutton
-    $('#reportbutton').prop("disabled",false);
-    $('#reportbutton').css("color", "#FFFFFF");
-
-    //Refresh the URL for Form Preview
-    var xml = event.target.responseText;
-    var oTable = $('#myTable').dataTable();
-    oTable.fnClearTable(true);
-
-    $(xml).find('Item').each(function () {
+    	$(xml).find('Item').each(function () {
 
         var $field = $(this);
         var id = $field.find('Id').text();
@@ -2216,53 +2249,50 @@ The following JavaScript code represents the **items.js** file that is used in t
             date,
             description,
             status,,]
-        );
-    });
+        	);
+    	});
 
-    document.getElementById("info3").innerHTML = "Active Items";
-    }
+    	document.getElementById("info3").innerHTML = "Active Items";
+	}
 
+	function ModifyItem() {
+    	 var table = $('#myTable').DataTable();
+    	 var myId="";
+    	 var arr = [];
+    
+    	$.each(table.rows('.selected').data(), function() {
 
-    function ModifyItem() {
-      
-    var table = $('#myTable').DataTable();
-    var myId="";
-    var arr = [];
-    $.each(table.rows('.selected').data(), function() {
+          var value = this[0];
+          myId = value;
+    	 });
 
-        var value = this[0];
-        myId = value;
-    });
-
-    if (myId == "")
-    {
+      if (myId == "") {
         alert("You need to select a row");
         return;
-    }
+      }
 
-    //Need to check its not an Archive item
-    var h3Val =  document.getElementById("info3").innerHTML;
-    if (h3Val=="Archive Items")
-    {
-        alert("You cannot modify an Archived item");
-        return;
-    }
+      //Need to check its not an Archive item
+    	var h3Val =  document.getElementById("info3").innerHTML;
+    	
+	if (h3Val=="Archive Items") {
+          alert("You cannot modify an Archived item");
+          return;
+    	}
+
+       // Post to modify
+       var xhr = new XMLHttpRequest();
+       xhr.addEventListener("load", onModifyLoad, false);
+       xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
+       xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
+       xhr.send("id=" + myId);
+	}
 
 
-    // Post to modify
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", onModifyLoad, false);
-    xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    xhr.send("id=" + myId);
-     }
+	// Handler for the uploadSave call
+	function onModifyLoad(event) {
 
-
-     //Handler for the ModifyItem call
-     function onModifyLoad(event) {
-
-     var xml = event.target.responseText;
-     $(xml).find('Item').each(function () {
+     	var xml = event.target.responseText;
+    	$(xml).find('Item').each(function () {
 
         var $field = $(this);
         var id = $field.find('Id').text();
@@ -2274,12 +2304,11 @@ The following JavaScript code represents the **items.js** file that is used in t
         $('#description').val(description);
         $('#status').val(status);
 
-    });
-    }
+    	});
+	}
 
 
-    function Report() {
-
+       function Report() {
         var email = $('#manager option:selected').text();
 
         // Post to report
@@ -2288,79 +2317,84 @@ The following JavaScript code represents the **items.js** file that is used in t
         xhr.open("POST", "../report", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
         xhr.send("email=" + email);
-    }
+    	}
 
 	function onReport(event) {
-         var data = event.target.responseText;
-         alert(data);
-     }
 
-	function GetArcItems()
-	{
+    	 var data = event.target.responseText;
+    	 alert(data);
+	 }
+
+
+	 function GetArcItems(){
     
-    	var xhr = new XMLHttpRequest();
-   	var type="archive";
-    
-    	xhr.addEventListener("load", loadArcItems, false);
-    	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	xhr.send("type=" + type);
+    	  var xhr = new XMLHttpRequest();
+    	  var type="archive";
+    	  xhr.addEventListener("load", loadArcItems, false);
+    	  xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
+    	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+    	  xhr.send("type=" + type);
+	  }
+
+ 	function loadArcItems(event) {
+
+    	 // Disable buttons when Achive button
+    	  $('#reportbutton').prop("disabled",true);
+    	  $('#reportbutton').css("color", "#0d010d");
+    	  $('#singlebutton').prop("disabled",true);
+    	  $('#singlebutton').css("color", "#0d010d");
+    	  $('#updatebutton').prop("disabled",true);
+    	  $('#updatebutton').css("color", "#0d010d");
+    	  $('#archive').prop("disabled",true);
+    	  $('#archive').css("color", "#0d010d");
+
+      	  $("#modform").hide();
+
+    	 var xml = event.target.responseText;
+    	 var oTable = $('#myTable').dataTable();
+    	 oTable.fnClearTable(true);
+
+    	 $(xml).find('Item').each(function () {
+
+          var $field = $(this);
+          var id = $field.find('Id').text();
+          var name = $field.find('Name').text();
+          var guide = $field.find('Guide').text();
+          var date = $field.find('Date').text();
+          var description = $field.find('Description').text();
+          var status = $field.find('Status').text();
+
+          //Set the new data
+          oTable.fnAddData( [
+            id,
+            name,
+            guide,
+            date,
+            description,
+            status,,]
+           );
+          });
+
+          document.getElementById("info3").innerHTML = "Archive Items";
+
 	}
 
-	//Handler for the Report call
-	function loadArcItems(event) {
+	 function archiveItem() {
+    	  var table = $('#myTable').DataTable();
+    	  var myId="";
+    	  var arr = [];
+    	
+	 $.each(table.rows('.selected').data(), function() {
 
-    	// Enable the reportbutton
-    	$('#reportbutton').prop("disabled",true);
-    	$('#reportbutton').css("color", "#0d010d");
+          var value = this[0];
+          myId = value;
+    	  });
 
-    	//Refresh the URL for Form Preview
-    	var xml = event.target.responseText;
-    	var oTable = $('#myTable').dataTable();
-    	oTable.fnClearTable(true);
-
-    	$(xml).find('Item').each(function () {
-
-        	var $field = $(this);
-        	var id = $field.find('Id').text();
-        	var name = $field.find('Name').text();
-        	var guide = $field.find('Guide').text();
-        	var date = $field.find('Date').text();
-        	var description = $field.find('Description').text();
-        	var status = $field.find('Status').text();
-
-        	//Set the new data
-        	oTable.fnAddData( [
-            		id,
-            		name,
-            		guide,
-            		date,
-            		description,
-            		status,,]
-        		);
-    		});
-
-    		document.getElementById("info3").innerHTML = "Archive Items";
-		}
-
-	function archiveItem()
-	{
-    	var table = $('#myTable').DataTable();
-    	var myId="";
-    	var arr = [];
-    	$.each(table.rows('.selected').data(), function() {
-
-        	var value = this[0];
-        	myId = value;
-    	});
-
-    	if (myId == "")
-    	 {
+    	if (myId == "") {
          alert("You need to select a row");
          return;
-      	}
+    	}
 
-    	// Post to modify
     	var xhr = new XMLHttpRequest();
     	xhr.addEventListener("load", onArch, false);
     	xhr.open("POST", "../archive", true);   //buildFormit -- a Spring MVC controller
@@ -2368,15 +2402,14 @@ The following JavaScript code represents the **items.js** file that is used in t
     	xhr.send("id=" + myId);
 	}
 
-
-	//Handler for the uploadSave call
 	function onArch(event) {
 
-    	var xml = event.target.responseText;
-    	alert("Item "+xml +" is achived now");
+    	 var xml = event.target.responseText;
+    	 alert("Item "+xml +" is achived now");
+    
     	//Refresh the grid
     	GetItems();
-	}
+       }
 
  #### contact_me.js file
 
@@ -2421,122 +2454,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project. 
 
-## Set up the RDS instance 
-
-In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application. 
-
-#### To set up a MySQL DB instance
-
-1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
-2. In the upper-right corner of the AWS Management Console, choose the AWS Region in which you want to create the DB instance. This example uses the US West (Oregon) Region.
-3. In the navigation pane, choose **Databases**.
-4. Choose **Create database**.
-![AWS Tracking Application](images/trackCreateDB.png)
-
-5. On the **Create database** page, make sure that the **Standard Create** option is chosen, and then choose MySQL.
-![AWS Tracking Application](images/trackerSQL.png)
-
-6. In the **Templates** section, choose **Free tier**.
-
-![AWS Tracking Application](images/Rdstemplates.png)
-
-7. In the **Settings** section, set these values:
-
-+ **DB instance identifier** – awstracker
-+ **Master username** – root
-+ **Auto generate a password** – Disable the option
-+ **Master password** – root1234
-+ **Confirm password** – root1234 
-
-![AWS Tracking Application](images/trackSettings.png)
-
-8. In the **DB instance size** section, set these values:
-
-+ **DB instance performance type** – Burstable
-+ **DB instance class**  – db.t2.micro
-
-9. In the **Storage** section, use the default values.
-
-10. In the **Connectivity** section, open **Additional connectivity configuration** and set these values:
-
-+ **Virtual Private Cloud (VPC)** – Choose the default.
-
-+ **Subnet group** – Choose the default.
-
-+ **Publicly accessible** – Yes
-
-+ **VPC security groups** – Choose an existing VPC security group that is configured for access.
-
-+ **Availability Zone** – No Preference
-
-+ **Database port** – 3306
-
-11. Open the **Additional configuration** section, and enter **awstracker** for the Initial database name. Keep the default settings for the other options.
-
-12. To create your Amazon RDS MySQL DB instance, choose **Create database**. Your new DB instance appears in the Databases list with the status **Creating**.
-
-13. Wait for the Status of your new DB instance to show as **Available**. Then choose the DB instance name to show its details.
-
-**Note:** You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
-
-#### Obtain the endpoint
-
-In the **Connectivity & security** section, view the **Endpoint** and **Port** of the DB instance.
-
-![AWS Tracking Application](images/trackEndpoint.png)
-
-#### Modify the ConnectionHelper class
-
-Modify the **ConnectionHelper** class by updating the **url** value with the endpoint of the database. 
-      
-      url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
-
-In the previous line of code, notice **awstracker**. This is the database schema. In addition, update this line of code with the correct user name and password. 
-
-     Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root1234");
-
-**Note:** If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database. 
-
-#### Create the database schema and table
-
-You can use MySQL Workbench to connect to the RDS MySQL instance and create a database schema and the work table. To connect to the database, open MySQL Workbench and connect to database. 
-
-![AWS Tracking Application](images/trackMySQLWB.png)
-
-**Note:** If you have issues connecting to the database, be sure to recheck your inbound rules. 
-
-Create a schema named **awstracker** by using this SQL command.
-
-    CREATE SCHEMA awstracker;
-    
-In the **awstracker** schema, create a table named **work** by using this SQL command.
-
-    CREATE TABLE work(
-        idwork VARCHAR(45) PRIMARY KEY,
-        date Date,
-        description VARCHAR(400),
-        guide VARCHAR(45),
-        status VARCHAR(400),
-        username VARCHAR(45),
-        archive BOOLEAN
-    )  ENGINE=INNODB;
-
-After you're done, you see a new table in your database. 
-
-![AWS Tracking Application](images/trackTable.png)
-
-Enter a new record into this table by using these values: 
-
-+ **idwork** - 4ea93f34-a45a-481e-bdc6-26c003bb93fc
-+ **date** - 2020-01-20
-+ **description** - Need to test all examples 
-+ **guide** - AWS Devloper Guide
-+ **status** - Tested all of the Amazon S3 examples
-+ **username** - user
-+ **archive** - 0
-
-## Create a JAR file for the AWS Tracker application 
+## Create a JAR file for the DynamoDB Tracker application 
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
 
@@ -2544,9 +2462,9 @@ Package up the project into a .jar (JAR) file that you can deploy to Elastic Bea
 	
 The JAR file is located in the target folder.
 
-![AWS Tracking Application](images/AWT5png.png)
+![AWS Tracking Application](images/pic11.png)
 
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy the application to Elastic Beanstalk
 
@@ -2554,18 +2472,13 @@ Sign in to the AWS Management Console, and then open the Elastic Beanstalk conso
 
 If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
 
-![AWS Tracking Application](images/SpringBean.png)
-
-#### To deploy the AWS Tracker application to Elastic Beanstalk
+#### To deploy the DynamoDB Tracker application to Elastic Beanstalk
 
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
 3. On the **Create New Application** page, enter the following values: 
-   + **Application Name** - AWS Tracker
+   + **Application Name** - DynamoDB Tracker
    + **Description** - A description for the application 
-
-![AWS Tracking Application](images/AWT6.png)
-
 4. Choose **Create**.
 5. Choose **Create a new environment**. 
 6. Choose **Web server environment**.
@@ -2573,36 +2486,31 @@ If this is your first time accessing this service, you will see a **Welcome to A
 8. In the **Environment information** section, leave the default values.
 9. In the **Platform** section, choose **Managed platform**.
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
-
-![AWS Tracking Application](images/AWT7.png)
- 
 11. In the **Application code** section, choose **Upload your code**. 
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
 13. Choose **Create environment**. You'll see the application being created. 
 
-![AWS Tracking Application](images/AWT8.png)
+![AWS Tracking Application](images/pic13.png)
 
 When you’re done, you will see the application state the **Health** is **Ok** .
-
-![AWS Tracking Application](images/AWT9.png)
 
 14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
 12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.  Once the variables are configured, you'll see the URL for accessing the application. 
 
-![AWS Tracking Application](images/AWT10.png)
+![AWS Tracking Application](images/pic14.png)
 
 **Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
 To access the application, open your browser and enter the URL for your application. You will see the login page for your application.
 
-![AWS Blog Application](images/AWT11.png)
 
 ### Next steps
-Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS Services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations, you have created and deployed the DynamoDB Tracker application that interacts with AWS Services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 You can read more AWS multi service examples by clicking 
 [Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
+
 
 
 
