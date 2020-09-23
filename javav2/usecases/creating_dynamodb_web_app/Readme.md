@@ -1067,8 +1067,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             }
   	   }
 
-    	 // Convert Work item data retrieved from MySQL
-	 // into XML to pass back to the view
+    	 // Convert Work data into XML to pass back to the view
          private Document toXml(List<WorkItem> itemList) {
 
          try {
@@ -1151,8 +1150,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
           return sdf.format(cal.getTime());
     	  }
 
-    	  // Convert Work item data retrieved from MySQL
-    	  // into an XML schema to pass back to client
+    	  // Convert Work data into an XML schema to pass back to client
     	  private Document toXmlItem(String id2, String desc2, String status2) {
 
             try {
