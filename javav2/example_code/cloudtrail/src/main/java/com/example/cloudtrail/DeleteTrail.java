@@ -38,7 +38,7 @@ public class DeleteTrail {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the trail.  \n" +
                 "\n" +
-                "Ex: DeleteTrail <trailName>\n";
+                "Example: DeleteTrail <trailName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

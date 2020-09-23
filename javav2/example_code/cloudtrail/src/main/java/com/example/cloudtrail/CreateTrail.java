@@ -38,9 +38,9 @@ public class CreateTrail {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the trail and an S3 bucket name.  \n" +
+                "To run this example, supply the name of the trail and an Amazon S3 bucket name.  \n" +
                 "\n" +
-                "Ex: GetTrailStatus <trailName><s3BucketName>\n";
+                "Example: GetTrailStatus <trailName><s3BucketName>\n";
 
          if (args.length < 2) {
              System.out.println(USAGE);
