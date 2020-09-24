@@ -6,7 +6,7 @@ You can develop a web application that tracks and reports on work items by using
 + Amazon Simple Email Service to send email messages
 + AWS Elastic Beanstalk to host the application 
 
-**Note**: The AWS SDK for Java SDK version 2 is used to access Amazon SES and DynamoDB. 
+**Note**: The AWS SDK for Java version 2 is used to access Amazon SES and DynamoDB. 
 
 The application you create is named *DynamoDB Item Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
