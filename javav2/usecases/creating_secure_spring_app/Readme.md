@@ -1,4 +1,4 @@
-#  Creating a secure Spring application using AWS services
+#  Creating the Amazon Relational Database Service web application item tracker
 
 You can develop a secure Spring application that tracks and reports on work items by using the following AWS services:
 
