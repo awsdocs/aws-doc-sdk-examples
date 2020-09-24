@@ -1,80 +1,128 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds one or more CORS methods to an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_bucket_cors method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+
+# Adds a cross-origin resource sharing (CORS) configuration containing
+#   a single rule to an Amazon S3 bucket.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An Amazon S3 bucket.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
-
-profile_name = 'david'
-region = 'us-east-1'
-bucket = 'doc-sample-bucket'
-
-# S3 - Configuring an S3 Bucket
-
-# Create a S3 client
-s3 = Aws::S3::Client.new(profile: profile_name, region:region)
-
-# Setting a Bucket CORS Configuration
-
-# Create array of allowed methods parameter based on command line parameters
-allowed_methods = []
-ARGV.each do |arg|
-  case arg.upcase
-  when "POST"
-    allowed_methods << "POST"
-  when "GET"
-    allowed_methods << "GET"
-  when "PUT"
-    allowed_methods << "PUT"
-  when "PATCH"
-    allowed_methods << "PATCH"
-  when "DELETE"
-    allowed_methods << "DELETE"
-  when "HEAD"
-    allowed_methods << "HEAD"
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param allowed_methods [Array] The types of requests to allow, such as GET.
+# @param allowed_origins [Array] The origins to allow, for example
+#   http://www.example.com.
+# @param allowed_headers [Array] The preflight request headers to allow, for
+#   example x-amz-*.
+# @param expose_headers [Array] The headers in the response that you want
+#   callers to be able to access from their applications, for example
+#   Content-Type.
+# @param max_age_seconds [Integer] The maximum number of seconds
+#   that your browser can cache the response for a preflight request
+#   as identified by the resource, the HTTP method, and the origin.
+# @returns [Boolean] true if the CORS rule was successfully set;
+#   otherwise, false.
+# @example
+#   exit 1 unless if bucket_cors_rule_set?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     %w[GET PUT POST DELETE],
+#     %w[http://www.example.com],
+#     %w[*],
+#     %w[x-amz-server-side-encryption x-amz-request-id x-amz-id-2],
+#     3000
+#   )
+def bucket_cors_rule_set?(
+  s3_client,
+  bucket_name,
+  allowed_methods = %w[GET PUT POST DELETE HEAD],
+  allowed_origins = %w[*],
+  allowed_headers = nil,
+  expose_headers = nil,
+  max_age_seconds = nil
+)
+  methods = []
+  if allowed_methods.count.zero?
+    puts 'Error: No CORS methods provided.'
+    return false
   else
-    puts "#{arg} is not a valid HTTP method"
+    allowed_methods.each do |method|
+      case method.upcase
+      when 'GET', 'PUT', 'POST', 'DELETE', 'HEAD'
+        methods.append(method)
+      else
+        puts "Error: '#{method}' is not an allowed CORS method."
+        return false
+      end
+    end
+  end
+  s3_client.put_bucket_cors(
+    bucket: bucket_name,
+    cors_configuration: {
+      cors_rules: [
+        {
+          allowed_headers: allowed_headers,
+          allowed_methods: methods,
+          allowed_origins: allowed_origins,
+          expose_headers: expose_headers,
+          max_age_seconds: max_age_seconds
+        }
+      ]
+    }
+  )
+  return true
+rescue StandardError => e
+  puts "Error setting CORS methods: #{e.message}"
+  return false
+end
+
+# Gets the cross-origin resource sharing (CORS) rules for an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @returns [Array<Aws::S3::Types::CORSRule>] The list of CORS rules.
+# @example
+#   puts bucket_cors_rules(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket')
+def bucket_cors_rules(s3_client, bucket_name)
+  response = s3_client.get_bucket_cors(bucket: bucket_name)
+  response.cors_rules
+rescue StandardError => e
+  puts "Error getting CORS rules: #{e.message}"
+end
+
+def run_me
+  bucket_name = 'doc-example-bucket'
+  allowed_methods = %w[GET PUT POST DELETE]
+  allowed_origins = %w[http://www.example.com]
+  allowed_headers = %w[*]
+  expose_headers = %w[x-amz-server-side-encryption x-amz-request-id x-amz-id-2]
+  max_age_seconds = 3000
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  if bucket_cors_rule_set?(
+    s3_client,
+    bucket_name,
+    allowed_methods,
+    allowed_origins,
+    allowed_headers,
+    expose_headers,
+    max_age_seconds
+  )
+    puts 'CORS rule set. Current rules:'
+    puts bucket_cors_rules(s3_client, bucket_name)
+  else
+    puts 'CORS rule not set.'
   end
 end
 
-# Create CORS configuration hash
-cors_configuration = {
-  cors_rules: [
-    {
-      allowed_methods: allowed_methods,
-      allowed_origins: ["*"],
-      expose_headers: ["ExposeHeader"],
-    },
-  ]
-}
-
-# Set the new CORS configuration on the selected bucket
-s3.put_bucket_cors(
-  bucket: bucket,
-  cors_configuration: cors_configuration
-)
-
-# Retrieving a Bucket CORS Configuration
-resp = s3.get_bucket_cors(bucket: bucket)
-puts resp.cors_rules
-
-# To run the example, type the following at the command line including one or more HTTP methods as shown
-# ruby doc_sample_code_s3_bucket_cors.rb get post
+run_me if $PROGRAM_NAME == __FILE__

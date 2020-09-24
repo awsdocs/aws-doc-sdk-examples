@@ -150,33 +150,6 @@ def fixture_make_bucket(request, make_unique_name):
     return _make_bucket
 
 
-class StubController:
-    default_error = 'TestException'
-
-    def __init__(self):
-        self.stubs = []
-
-    def add(self, func, args=None, kwargs=None):
-        if not kwargs:
-            kwargs = {}
-        self.stubs.append({'func': func, 'args': args, 'kwargs': kwargs})
-
-    def run(self, func_name=None, error_code=default_error, stop_on_error=True,
-            stop_always=False):
-        for index, stub in enumerate(self.stubs):
-            stub_error = error_code if func_name == stub['func'].__name__ else None
-            stub['func'](*stub['args'], **stub['kwargs'], error_code=stub_error)
-            if stop_always:
-                break
-            elif stop_on_error and stub_error:
-                break
-
-
-@pytest.fixture
-def stub_controller():
-    return StubController()
-
-
 class StubRunner:
     """
     Adds stubbed responses until a specified method name is encountered.
@@ -188,18 +161,20 @@ class StubRunner:
         self.error_code = error_code
         self.stop_on_method = stop_on_method
 
-    def add(self, stubber, func, *func_args, **func_kwargs):
+    def add(self, func, *func_args, keep_going=False, **func_kwargs):
         """
         Adds a stubbed function response to the list.
 
         :param stubber: The stubber that implements the specified function.
         :param func: The name of the stub function.
+        :param keep_going: When True, continue to process stub responses that follow
+                           this function. Otherwise, stop on this function.
         :param func_args: The positional arguments of the stub function.
         :param func_kwargs: The keyword arguments of the stub function.
         """
         self.stubs.append({
-            'stubber': stubber, 'func': func, 'func_args': func_args,
-            'func_kwargs': func_kwargs
+            'func': func, 'keep_going': keep_going,
+            'func_args': func_args, 'func_kwargs': func_kwargs
         })
 
     def run(self):
@@ -212,11 +187,10 @@ class StubRunner:
         all stubbed calls or raise errors and exit early.
         """
         for stub in self.stubs:
-            if self.stop_on_method == stub['func']:
+            if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
                 stub['func_kwargs']['error_code'] = self.error_code
-            stub_func = getattr(stub['stubber'], stub['func'])
-            stub_func(*stub['func_args'], **stub['func_kwargs'])
-            if self.stop_on_method == stub['func']:
+            stub['func'](*stub['func_args'], **stub['func_kwargs'])
+            if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
                 break
 
 

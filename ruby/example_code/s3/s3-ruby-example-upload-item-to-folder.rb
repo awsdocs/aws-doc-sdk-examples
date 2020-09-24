@@ -29,7 +29,7 @@ end
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless bucket_exists?(s3_client, 'my-bucket')
+#   exit 1 unless bucket_exists?(s3_client, 'doc-example-bucket')
 def bucket_exists?(s3_client, bucket_name)
   response = s3_client.list_buckets
   response.buckets.each do |bucket|
@@ -48,7 +48,7 @@ end
 # @return [Boolean] true if the folder exists; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless folder_exists?(s3_client, 'my-bucket', 'my-folder/')
+#   exit 1 unless folder_exists?(s3_client, 'doc-example-bucket', 'my-folder/')
 def folder_exists?(s3_client, bucket_name, folder_name)
   response = s3_client.list_objects_v2(bucket: bucket_name)
   if response.count.positive?
@@ -72,7 +72,7 @@ end
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
 #   exit 1 unless upload_file_to_folder?(
 #     s3_client,
-#     'my-bucket',
+#     'doc-example-bucket',
 #     'my-folder/',
 #     'my-file.txt')
 def upload_file_to_folder?(s3_client, bucket_name, folder_name, file_name)
@@ -88,44 +88,46 @@ rescue StandardError => e
 end
 
 # Full example call:
-=begin
-file_name = 'my-file-1.txt'
-bucket_name = 'my-bucket'
-folder_name = 'my-folder/'
-region = 'us-east-1'
-s3_client = Aws::S3::Client.new(region: region)
+def run_me
+  file_name = 'my-file-1.txt'
+  bucket_name = 'doc-example-bucket'
+  folder_name = 'my-folder/'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-puts 'Checking whether the specified file exists and is indeed a file...'
-if file_exists_and_file?(file_name)
-  puts "The file '#{file_name}' exists and is a file."
-else
-  puts "The file '#{file_name}' does not exist or is not a file and will " \
-      'not be uploaded. Stopping program.'
-  exit 1
+  puts 'Checking whether the specified file exists and is indeed a file...'
+  if file_exists_and_file?(file_name)
+    puts "The file '#{file_name}' exists and is a file."
+  else
+    puts "The file '#{file_name}' does not exist or is not a file and will " \
+        'not be uploaded. Stopping program.'
+    exit 1
+  end
+
+  puts "\nChecking whether the specified bucket exists..."
+  if bucket_exists?(s3_client, bucket_name)
+    puts "The bucket '#{bucket_name}' exists."
+  else
+    puts "The bucket '#{bucket_name}' does not exist. Stopping program."
+    exit 1
+  end
+
+  puts "\nChecking whether the specified folder exists..."
+  if folder_exists?(s3_client, bucket_name, folder_name)
+    puts "The folder '#{folder_name}' exists."
+  else
+    puts "The folder '#{folder_name}' does not exist in the bucket " \
+      "'#{bucket_name}' or access to the bucket is denied. Stopping program."
+    exit 1
+  end
+
+  puts "\nUploading file..."
+  if upload_file_to_folder?(s3_client, bucket_name, folder_name, file_name)
+    puts "The file '#{file_name}' was uploaded."
+  else
+    puts "The file '#{file_name}' could not be uploaded. Stopping program."
+    exit 1
+  end
 end
 
-puts "\nChecking whether the specified bucket exists..."
-if bucket_exists?(s3_client, bucket_name)
-  puts "The bucket '#{bucket_name}' exists."
-else
-  puts "The bucket '#{bucket_name}' does not exist. Stopping program."
-  exit 1
-end
-
-puts "\nChecking whether the specified folder exists..."
-if folder_exists?(s3_client, bucket_name, folder_name)
-  puts "The folder '#{folder_name}' exists."
-else
-  puts "The folder '#{folder_name}' does not exist in the bucket " \
-    "'#{bucket_name}' or access to the bucket is denied. Stopping program."
-  exit 1
-end
-
-puts "\nUploading file..."
-if upload_file_to_folder?(s3_client, bucket_name, folder_name, file_name)
-  puts "The file '#{file_name}' was uploaded."
-else
-  puts "The file '#{file_name}' could not be uploaded. Stopping program."
-  exit 1
-end
-=end
+run_me if $PROGRAM_NAME == __FILE__

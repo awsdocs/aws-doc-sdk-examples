@@ -1,37 +1,65 @@
-#**
- #* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- #*
- #* This file is licensed under the Apache License, Version 2.0 (the "License").
- #* You may not use this file except in compliance with the License. A copy of
- #* the License is located at
- #*
- #* http://aws.amazon.com/apache2.0/
- #*
- #* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
- #* specific language governing permissions and limitations under the License.
-#**
-# snippet-sourcedescription:[s3_encrypt_file_upload.rb demonstrates how to specify that a file uploaded to Amazon S3 be encrypted at rest.] 
-# snippet-service:[s3]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ENCRYPT UPLOAD File]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-02-11]
-# snippet-sourceauthor:[AWS]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
 # snippet-start:[s3.ruby.s3_encrypt_file_upload.rb]
-# The following example demonstrates how to specify that a file uploaded to Amazon S3 be encrypted at rest.
-require 'aws-sdk-s3' 
+require 'aws-sdk-s3'
 
-regionName = 'us-west-2' 
-bucketName = 'my-bucket' 
-key = 'key' 
-filePath = 'local/path/to/file'
-encryptionType = 'AES256'
-
-s3 = Aws::S3::Resource.new(region:regionName) 
-obj = s3.bucket(bucketName).object(key) 
-obj.upload_file(filePath, :server_side_encryption => encryptionType)
+# Uploads a file to an Amazon S3 bucket and then encrypts the file server-side
+#   by using the 256-bit Advanced Encryption Standard (AES-256) block cipher.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param object_key [String] The name for the uploaded object.
+# @param object_content [String] The content to upload into the object.
+# @return [Boolean] true if the file was successfully uploaded and then
+#   encrypted; otherwise, false.
+# @example
+#   exit 1 unless upload_file_encrypted_aes256_at_rest?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     'This is the content of my-file.txt.'
+#   )
+def upload_file_encrypted_aes256_at_rest?(
+  s3_client,
+  bucket_name,
+  object_key,
+  object_content
+)
+  s3_client.put_object(
+    bucket: bucket_name,
+    key: object_key,
+    body: object_content,
+    server_side_encryption: 'AES256'
+  )
+  return true
+rescue StandardError => e
+  puts "Error uploading object: #{e.message}"
+  return false
+end
 # snippet-end:[s3.ruby.s3_encrypt_file_upload.rb]
+
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  object_content = 'This is the content of my-file.txt.'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  if upload_file_encrypted_aes256_at_rest?(
+    s3_client,
+    bucket_name,
+    object_key,
+    object_content
+  )
+    puts 'File uploaded and encrypted.'
+  else
+    puts 'File not uploaded.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

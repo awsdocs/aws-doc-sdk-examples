@@ -24,3 +24,4 @@ venv
 composer.*
 vendor/
 main.zip
+node_modules

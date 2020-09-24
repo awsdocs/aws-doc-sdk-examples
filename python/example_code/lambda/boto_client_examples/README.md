@@ -37,7 +37,7 @@ to achieve similar results more easily and with additional features.
   User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are 
   available only in specific Regions. For more information, see the 
-  [AWS Regional Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
   on the AWS website.
 - Running this code might result in charges to your AWS account.
 

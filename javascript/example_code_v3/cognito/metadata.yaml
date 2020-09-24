@@ -1,7 +1,7 @@
 ---
 # Amazon Cognito examples
 files:
-  - path: getCredentials/cognito_getcreds.js
+  - path: getCredentials/src/cognito_getcreds.js
     services:
       - Cognito, Lambda
   - path: lambda-trigger-auth-challenge-define.js

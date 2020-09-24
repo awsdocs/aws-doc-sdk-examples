@@ -1,0 +1,54 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with Version 3 (V3) of the AWS SDK for JavaScript,
+which is scheduled for release later in 2020. The prerelease version of the SDK is available
+at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for V3 is also
+scheduled for release later in 2020, and the topic containing this example will be hosted at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
+
+Purpose:
+create_table.html is part of a tutorial demonstrating how to build and deploy an app to submit
+data to an Amazon DynamoDB table. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
+create_table.html is the front-end of the app, and is displayed in the browser.
+
+Running the code:
+node create-table.ts-->
+
+<!--snippet-start:[s3.JavaScript.crossservice.frontendV3]-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="./main.ts"></script>
+</head>
+<body>
+<h1>Submit an item to an Amazon DynamoDB Table</h1>
+<p>Enter a value for each attribute and choose Submit </p>
+<table style="width:100%">
+    <tr>
+        <td>ID:</td>
+        <td><input type="text" id="id" name="id"/></td>
+    </tr>
+    <tr>
+        <td>Title:</td>
+        <td><input type="text" id="title" name="title"/></td>
+    </tr>
+    <tr>
+        <td>Name:</td>
+        <td><input type="text" id="name" name="name"/></td>
+    </tr>
+    <tr>
+        <td>Body:</td>
+        <td><input type="text" id="body" name="body"/></td>
+    </tr>
+        <td></td>
+        <td><button type="button" onclick="submitData();">Submit</button></td>
+        <script src="./main.js"></script>
+    </tr>
+</table>
+</body>
+</html>
+<!--snippet-end:[s3.JavaScript.crossservice.frontendV3]-->
+
