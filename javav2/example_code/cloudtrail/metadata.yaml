@@ -1,0 +1,29 @@
+--- 
+files:
+ - path: src/main/java/com/example/cloudtrail/CreateTrail.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/DeleteTrail.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/DescribeTrails.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/GetEventSelectors.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/GetTrailLoggingTime.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/LookupEvents.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/PutEventSelectors.java
+   services:
+     - cloudtrail
+ - path: src/main/java/com/example/cloudtrail/StartLogging.java
+   services:
+     - cloudtrail
+ - path: src/test/java/CloudTrailTest.java
+   services:
+     - cloudtrail
