@@ -61,7 +61,7 @@ The following figure shows the login page.
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/pic3.png)
+![AWS Tracking Application](images/pic3a.png)
 
 #### Application functionality
 A user can perform these tasks in the *DynamoDB Item Tracker* application: 
