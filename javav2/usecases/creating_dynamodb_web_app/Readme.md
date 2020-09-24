@@ -3,8 +3,10 @@
 You can develop a web application that tracks and reports on work items by using the following AWS services:
 
 + DynamoDB to store the data
-+ Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
-+ AWS Elastic Beanstalk
++ Amazon Simple Email Service to send email messages
++ AWS Elastic Beanstalk to host the application 
+
+**Note**: The AWS SDK for Java version 2 is used to access Amazon SES and DynamoDB. 
 
 The application you create is named *DynamoDB Item Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
@@ -59,7 +61,7 @@ The following figure shows the login page.
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/pic3.png)
+![AWS Tracking Application](images/pic3a.png)
 
 #### Application functionality
 A user can perform these tasks in the *DynamoDB Item Tracker* application: 
@@ -78,7 +80,7 @@ A user can retrieve *active* or *archive* items. For example, a user can choose 
 
 ![AWS Tracking Application](images/pic5.png)
 
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
 
 ![AWS Tracking Application](images/pic6.png)
 
@@ -433,7 +435,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial. 
+**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of this method is shown later in this tutorial. 
 
 #### MainController class
 

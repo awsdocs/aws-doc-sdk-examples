@@ -14,7 +14,7 @@ require 'aws-sdk-s3'
 # @return [Boolean] true if all operations succeed; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-east-1')
-#   exit 1 unless list_bucket_objects?(s3_client, 'my-bucket')
+#   exit 1 unless list_bucket_objects?(s3_client, 'doc-example-bucket')
 def list_bucket_objects?(s3_client, bucket_name)
   puts "Accessing the bucket named '#{bucket_name}'..."
   objects = s3_client.list_objects_v2(
@@ -39,10 +39,12 @@ end
 # snippet-end:[s3.ruby.auth_request_object_keys.rb]
 
 # Full example call:
-=begin
-region = 'us-east-1'
-bucket_name = 'my-bucket'
-s3_client = Aws::S3::Client.new(region: region)
+def run_me
+  region = 'us-east-1'
+  bucket_name = 'doc-example-bucket'
+  s3_client = Aws::S3::Client.new(region: region)
 
-exit 1 unless list_bucket_objects?(s3_client, bucket_name)
-=end
+  exit 1 unless list_bucket_objects?(s3_client, bucket_name)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

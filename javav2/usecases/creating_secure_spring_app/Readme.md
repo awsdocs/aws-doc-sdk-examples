@@ -1,4 +1,4 @@
-#  Creating a secure Spring application using AWS services
+#  Creating the Amazon Relational Database Service item tracker
 
 You can develop a secure Spring application that tracks and reports on work items by using the following AWS services:
 
@@ -377,19 +377,18 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
+    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
     import org.springframework.security.config.annotation.web.builders.HttpSecurity;
     import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
     import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-    import org.springframework.security.core.userdetails.User;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import org.springframework.security.core.userdetails.UserDetailsService;
-    import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
     @Configuration
     @EnableWebSecurity
     public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-     @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -414,18 +413,19 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         http.csrf().disable();
     }
 
-    @Bean
     @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder())
+                .withUser("user")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER");
+    }
 
-        return new InMemoryUserDetailsManager(user);
-     }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     }
    
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
