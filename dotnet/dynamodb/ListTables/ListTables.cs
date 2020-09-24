@@ -23,7 +23,7 @@ namespace DynamoDBCRUD
         static void Main(string[] args)
         {            
             var region = "";
-            var configfile = "../../../app.config";
+            var configfile = "app.config";
 
             // Get default region from config file
             var efm = new ExeConfigurationFileMap
