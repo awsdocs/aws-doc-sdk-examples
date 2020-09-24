@@ -98,7 +98,7 @@ public class EnhancedScanRecordsWithExpression {
                     .build();
 
             // Get items in the Record table and write out the ID value
-            Iterator<Work> results = table.scan().items().iterator();
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
 
             while (results.hasNext()) {
 
