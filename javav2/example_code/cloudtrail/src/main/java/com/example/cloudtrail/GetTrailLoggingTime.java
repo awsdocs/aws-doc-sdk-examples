@@ -45,7 +45,7 @@ public class GetTrailLoggingTime {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the trail.  \n" +
                 "\n" +
-                "Ex: GetTrailStatus <trailName>\n";
+                "Example: GetTrailStatus <trailName>\n";
 
          if (args.length < 1) {
              System.out.println(USAGE);

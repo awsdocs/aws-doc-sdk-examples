@@ -41,7 +41,7 @@ public class PutEventSelectors {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the trail.  \n" +
                 "\n" +
-                "Ex: PutEventSelectors <trailName>\n";
+                "Example: PutEventSelectors <trailName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

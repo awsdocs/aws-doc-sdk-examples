@@ -41,7 +41,7 @@ public class DescribeTrails {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the trail.  \n" +
                 "\n" +
-                "Ex: DescribeTrails <trailName>\n";
+                "Example: DescribeTrails <trailName>\n";
 
          if (args.length < 1) {
              System.out.println(USAGE);

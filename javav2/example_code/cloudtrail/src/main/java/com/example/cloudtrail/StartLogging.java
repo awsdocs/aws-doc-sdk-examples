@@ -40,7 +40,7 @@ public class StartLogging {
         final String USAGE = "\n" +
                 "To run this example, supply the name of the trail.  \n" +
                 "\n" +
-                "Ex: StartLogging <trailName>\n";
+                "Example: StartLogging <trailName>\n";
 
          if (args.length < 1) {
              System.out.println(USAGE);
