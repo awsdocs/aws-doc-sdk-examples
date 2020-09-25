@@ -1,16 +1,16 @@
 #  Create AWS serverless workflows by using the AWS SDK for Java
 
 You can create an AWS serverless workflow by using the AWS SDK for Java and AWS Step Functions.
-Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run 
+Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run
 code without provisioning or managing servers.
 
-**Note:** You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are 
-implemented by using the Lambda Java API. For more information about Lambda, see 
+**Note:** You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are
+implemented by using the Lambda Java API. For more information about Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
-In this tutorial, you create a workflow that creates support tickets for an organization. Each workflow step performs an operation on the ticket. This tutorial shows you how to use Java to process workflow data. For example, you'll learn how to read data that's passed to the workflow, how to pass data between steps, and how to invoke AWS services from the workflow. 
+In this tutorial, you create a workflow that creates support tickets for an organization. Each workflow step performs an operation on the ticket. This tutorial shows you how to use Java to process workflow data. For example, you'll learn how to read data that's passed to the workflow, how to pass data between steps, and how to invoke AWS services from the workflow.
 
-**Cost to complete**: The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
+**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
@@ -23,7 +23,7 @@ In this tutorial, you create a workflow that creates support tickets for an orga
 + Create an IntelliJ project named LambdaFunctions
 + Add the POM dependencies to your project
 + Create Lambda functions by using the Lambda API in the AWS SDK for Java
-+ Package the project that contains Lambda functions 
++ Package the project that contains Lambda functions
 + Deploy Lambda functions
 + Add Lambda functions to workflows
 + Invoke the workflow from the AWS Console
@@ -32,7 +32,7 @@ In this tutorial, you create a workflow that creates support tickets for an orga
 To follow along with the tutorial, you need the following:
 + An AWS Account.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK. 
++ Java 1.8 JDK.
 + Maven 3.6 or higher.
 + An Amazon DynamoDB table named **Case** with a key named **Id**. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
@@ -42,10 +42,10 @@ The following figure shows the workflow you'll create with this tutorial.
 
 ![AWS Tracking Application](images/lambda1.png)
 
-The following is what happens at each step in the workflow: 
+The following is what happens at each step in the workflow:
 + **Start** -  Initiates the workflow.
-+ **Open Case** – Handles a support ticket ID value by passing it to the workflow. 
-+ **Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table. 
++ **Open Case** – Handles a support ticket ID value by passing it to the workflow.
++ **Assign Case** – Assigns the support case to an employee and stores the data in a DynamoDB table.
 + **Send Email** – Sends the employee an email message by using the Amazon Simple Email Service (Amazon SES) to inform them there is a new ticket.
 + **End** - Stops the workflow.
 
@@ -55,7 +55,7 @@ Create the following two IAM roles:
 + **lambda-support** - Used to invoke Lamdba functions.
 + **workflow-support** - Used to enable AWS Step Functions to invoke the workflow.
 
-This tutorial uses the DynamoDB and Amazon SES services. The ``lambda-support`` role has to have policies that enable it to invoke these services from a Lambda function.  
+This tutorial uses the DynamoDB and Amazon SES services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.  
 
 #### To create an IAM role
 
@@ -79,15 +79,15 @@ This tutorial uses the DynamoDB and Amazon SES services. The ``lambda-support`` 
 
 ![AWS Tracking Application](images/lambda17.png)
 
-9. Choose **Create role**. 
+9. Choose **Create role**.
 
-10. Choose **lambda-support** to view the overview page. 
+10. Choose **lambda-support** to view the overview page.
 
 11. Choose **Attach Policies**.
 
 12. Search for **AmazonDynamoDBFullAccess**, and then choose **Attach policy**.
 
-13. Search for **AmazonSESFullAccess**, and then choose **Attach policy**. When you're done, you can see the permissions. 
+13. Search for **AmazonSESFullAccess**, and then choose **Attach policy**. When you're done, you can see the permissions.
 
 ![AWS Tracking Application](images/lambda16.png)
 
@@ -95,7 +95,7 @@ This tutorial uses the DynamoDB and Amazon SES services. The ``lambda-support`` 
 
 ## Create a serverless workflow by using Step functions
 
-You can create a workflow that processes support tickets. To define a workflow by using Step Functions, you create an Amazon States Language (JSON-based) document to define your state machine. An Amazon States Language document describes each step. After you define the document, Step functions provides a visual representation of the workflow. The following figure shows the Amazon States Language document and the visual representation of the workflow. 
+You can create a workflow that processes support tickets. To define a workflow by using Step Functions, you create an Amazon States Language (JSON-based) document to define your state machine. An Amazon States Language document describes each step. After you define the document, Step functions provides a visual representation of the workflow. The following figure shows the Amazon States Language document and the visual representation of the workflow.
 
 ![AWS Tracking Application](images/Lambda2.png)
 
@@ -105,13 +105,13 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 1. Open the AWS Step Functions console at https://us-west-2.console.aws.amazon.com/states/home.
 
-2. Choose **Create State Machine**. 
+2. Choose **Create State Machine**.
 
 3. Choose **Author with code snippets**. In the **Type** area, choose **Standard**.
 
 ![AWS Tracking Application](images/lambda3.png)
 
-4. Specify the Amazon States Language document by entering the following code. 
+4. Specify the Amazon States Language document by entering the following code.
 
         {
         "Comment": "A simple AWS Step Functions state machine that automates a call center support session.",
@@ -121,7 +121,7 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
         "Type": "Task",
         "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
         "Next": "Assign Case"
-          }, 
+          },
          "Assign Case": {
          "Type": "Task",
          "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
@@ -134,11 +134,11 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
           }
           }
          }
-**Note:** Don't worry about the errors related to the Lambda resource values. You'll update these values later in this tutorial. 
+**Note:** Don't worry about the errors related to the Lambda resource values. You'll update these values later in this tutorial.
 
-5. Choose **Next**. 
+5. Choose **Next**.
 
-6. In the name field, enter **SupportStateMachine**. 
+6. In the name field, enter **SupportStateMachine**.
 
 7. In the **Permission** section, choose **Choose an existing role**.  
 
@@ -177,7 +177,7 @@ Add the following dependency for the Amazon SES API (AWS SDK for Java version 2)
        <artifactId>ses</artifactId>
        <version>2.10.41</version>
      </dependency>
-     
+
 Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java version 2).
 
      <dependency>
@@ -319,22 +319,22 @@ The pom.xml file looks like the following.
 
 Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are three workflow steps that each correspond to a Java class. There are also two extra classes that invoke the Amazon DynamoDB service and the Amazon SES service.  
 
-The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**. 
+The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**.
 
 ![AWS Tracking Application](images/lambda9.png)
 
-To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow. 
+To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
-Create these Java classes, which are described in the following sections: 
+Create these Java classes, which are described in the following sections:
 + **Handler** - Used as the first step in the workflow that processes the ticket ID value.  
 + **Handler2** - Used as the second step in the workflow that assigns the ticket to an employee and stores the data in a database.
-+ **Handler3** - Used as the third step in the workflow that sends an email message to the employee to notify them about the ticket. 
-+ **PersistCase** - Uses the Amazon DynamoDB API to store the data in a DynamoDB table. 
-+ **SendMessage** - Uses the Amazon SES API to send an email message. 
++ **Handler3** - Used as the third step in the workflow that sends an email message to the employee to notify them about the ticket.
++ **PersistCase** - Uses the Amazon DynamoDB API to store the data in a DynamoDB table.
++ **SendMessage** - Uses the Amazon SES API to send an email message.
 
 ### Handler class
 
-This Java code represents the **Handler** class. The class creates a Lamdba function that reads the ticket ID value that is passed to the workflow. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object. The **handleRequest** method returns the ticket ID value that is passed to the second step in the workflow. 
+This Java code represents the **Handler** class. The class creates a Lamdba function that reads the ticket ID value that is passed to the workflow. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object. The **handleRequest** method returns the ticket ID value that is passed to the second step in the workflow.
 
      package example;
 
@@ -365,7 +365,7 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
         return myCaseID;
        }
       }
-     
+
 ### Handler2 class
 
 The **Handler2** class is the second step in the workflow and uses basic Java application logic to select an employee to assign the ticket. Then a **PersistCase** object is created and used to store the ticket data in a DynamoDB table named **Case**. The email address of the employee is passed to the third step.
@@ -375,7 +375,7 @@ The **Handler2** class is the second step in the workflow and uses basic Java ap
       import com.amazonaws.services.lambda.runtime.Context;
       import com.amazonaws.services.lambda.runtime.LambdaLogger;
       import com.amazonaws.services.lambda.runtime.RequestHandler;
-      
+
       // Handler value: example.Handler
      public class Handler2 implements RequestHandler<String, String> {
 
@@ -414,7 +414,7 @@ The **Handler2** class is the second step in the workflow and uses basic Java ap
 
 ### Handler3 class
 
-The **Handler3** class is the third step in the workflow and creates a **SendMessage** object. An email message is sent to the employee to notify them about the new ticket. The email address that is passed from the second step is used. 
+The **Handler3** class is the third step in the workflow and creates a **SendMessage** object. An email message is sent to the employee to notify them about the new ticket. The email address that is passed from the second step is used.
 
        package example;
 
@@ -431,11 +431,11 @@ The **Handler3** class is the third step in the workflow and creates a **SendMes
        {
         LambdaLogger logger = context.getLogger();
         String email = event ;
-        
+
 	// log execution details
         logger.log("Email value " + email);
         SendMessage msg = new SendMessage();
-        
+
        try {
            msg.sendMessage(email);
 
@@ -446,11 +446,11 @@ The **Handler3** class is the third step in the workflow and creates a **SendMes
 
         return "";
      }
-    } 
+    }
 
 ### PersistCase class
 
-The following class uses the Amazon DynamoDB API to store the data in a table. For more information, see [DynamoDB examples using the AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb.html). 
+The following class uses the Amazon DynamoDB API to store the data in a table. For more information, see [DynamoDB examples using the AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb.html).
 
        package example;
 
@@ -471,7 +471,7 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
        /*
         Prior to running this code example, create a table named Case with a PK named id
        */
-      
+
       public class PersistCase {
 
       // Puts an item into a DynamoDB table
@@ -562,7 +562,7 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
             this.regDate = registrationDate;
         }
        }
-      } 
+      }
 
 ### SendMessage class
 
@@ -700,16 +700,16 @@ The following Java class represents the **SendMessage** class. This class uses t
 Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
 
     mvn package
-    
+
 The JAR file is located in the **target** folder (which is a child folder of the project folder).
 
 ![AWS Tracking Application](images/lambda10.png)
 
 ## Deploy the Lambda functions
 
-1. Open the Lambda console at https://us-west-2.console.aws.amazon.com/lambda/home. 
+1. Open the Lambda console at https://us-west-2.console.aws.amazon.com/lambda/home.
 
-2. Choose **Create Function**. 
+2. Choose **Create Function**.
 
 3. Choose **Author from scratch**.
 
@@ -727,17 +727,17 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
-10. For **Handler**, enter the fully qualified name of the function, for example, **example.Handler::handleRequest** (**example.Handler** specifies the package and class followed by :: and method name). 
+10. For **Handler**, enter the fully qualified name of the function, for example, **example.Handler::handleRequest** (**example.Handler** specifies the package and class followed by :: and method name).
 
 ![AWS Tracking Application](images/lambda11.png)
 
-11. Choose **Save.** 
+11. Choose **Save.**
 
 12. Repeat this procedure for the **Handler2** and **Handler3** classes. Name the corresponding Lambda functions **TicStep2** and **TicStep3**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.  
 
 ## Add the Lambda functions to workflows
 
-Open the Lambda console. Notice that you can view the Lambda Amazon Resource Name (ARN) value in the upper-right corner. 
+Open the Lambda console. Notice that you can view the Lambda Amazon Resource Name (ARN) value in the upper-right corner.
 
 ![AWS Tracking Application](images/lambda12A.png)
 
@@ -745,7 +745,7 @@ Copy the value and then paste it into step 1 of the Amazon States Language docum
 
 ![AWS Tracking Application](images/lambda13A.png)
 
-Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions. 
+Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions.
 
 ## Execute your workflow by using the Step Functions console
 
@@ -758,22 +758,22 @@ You can invoke the workflow on the Step Functions console.  An execution receive
 
 #### To execute your workflow
 
-1. On the Step Functions console, choose **Start execution**. 
+1. On the Step Functions console, choose **Start execution**.
 
 2. In the **Input** section, pass the JSON data. View the workflow. As each step is completed, it turns green.
 
 ![AWS Tracking Application](images/lambda1.png)
 
-If the step turns red, an error occurred. You can click the step and view the logs that are accessible from the right side. 
+If the step turns red, an error occurred. You can click the step and view the logs that are accessible from the right side.
 
 ![AWS Tracking Application](images/lambda14.png)
 
-When the workflow is finished, you can view the data in the DynamoDB table. 
+When the workflow is finished, you can view the data in the DynamoDB table.
 
 ![AWS Tracking Application](images/lambda15.png)
 
 ### Next steps
 Congratulations, you have created an AWS serverless workflow by using the AWS SDK for Java. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
-You can read more AWS multi service examples by clicking 
-[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
+For more AWS multiservice examples, see
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).

@@ -23,9 +23,9 @@ To build and run these examples, you need the following:
 * `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`_ (downloaded and extracted somewhere on
   your machine)
 * AWS credentials, either configured in a local AWS credentials file or set by using the
-  ``AWS_ACCESS_KEY_ID`` and ``AWS_SECRET_ACCESS_KEY`` environment variables.
+  **AWS_ACCESS_KEY_ID** and **AWS_SECRET_ACCESS_KEY** environment variables.
 * You should also set the *AWS Region* within which the operations will be performed. If a Region is
-  not set, the default Region used is ``us-east-1``.
+  not set, the default Region used is **us-east-1**.
 
 For information about how to set AWS credentials and the Region for use with the AWS SDK for Java,
 see `Set up AWS credentials and Region for development
@@ -44,18 +44,18 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating your first AWS Java web application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 + **Creating_rds_item_tracker** - A tutorial that discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
-+ **Creating_dynamodb_item_tracker** - A tutorial that discusses using DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items. 
++ **Creating_dynamodb_item_tracker** - A tutorial that discusses using DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 + **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
-+ **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Simple Queue Service (SQS) to create a basic messaging web application. 
++ **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Simple Queue Service (SQS) to create a basic messaging web application.
 
 
 AWS service examples
 --------------------
 
-The AWS service-specific Java examples are located in the **example_code** folder. The examples are divided into directories by AWS service (``s3``, ``sqs``, and so on). Within
-each, you'll find a ``pom.xml`` file used for building the examples with Maven, and a ``Makefile``
-that wraps the Maven commands for those of you who also have ``make`` installed.
+The AWS service-specific Java examples are located in the **example_code** folder. The examples are divided into directories by AWS service (**s3**, **sqs**, and so on). Within
+each, you'll find a **pom.xml** file used for building the examples with Maven, and a **Makefile**
+that wraps the Maven commands for those of you who also have **make** installed.
 
 
 Build and run the service examples
@@ -116,9 +116,9 @@ You can use the Apache Maven Shade Plugin to package your JAR file with the arti
 
 
 
-For example, if you execute this command from the ``s3`` directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the **target** folder.
+For example, if you execute this command from the **s3** directory, you will find a JAR file named **S3J2Project-1.0-SNAPSHOT.jar** in the **target** folder.
 
-Or, if you have ``make``, you can begin the build process by typing::
+Or, if you have **make**, you can begin the build process by typing::
 
    make
 
@@ -127,8 +127,8 @@ for Java) that it needs for building.
 
 Once the examples are built, you can run them to see them in action.
 
-.. note:: If you are running on a platform with ``make``, you can also use the provided Makefiles to
-   build the examples, by running ``make`` in any directory with a ``Makefile`` present. You must
+.. note:: If you are running on a platform with **make**, you can also use the provided Makefiles to
+   build the examples, by running **make** in any directory with a **Makefile** present. You must
    still have Maven installed, however (the Makefile wraps Maven commands).
 
 
@@ -154,12 +154,12 @@ Because you built the JAR file that contains the dependencies, you can run an ex
 For systems with Bash support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As an alternative to setting the ``CLASSPATH`` and specifying the full namespace of the class to
-run, we've included a ``bash`` script, ``run_example.sh``, that you can use on Linux, Unix, or OS X
+As an alternative to setting the **CLASSPATH** and specifying the full namespace of the class to
+run, we've included a **bash** script, **run_example.sh**, that you can use on Linux, Unix, or OS X
 (or on Windows by using `Cygwin <https://www.cygwin.com/>`_, `MingW <http://www.mingw.org/>`_, or
 `Bash on Ubuntu on Windows <https://msdn.microsoft.com/en-us/commandline/wsl/about>`_).
 
-You can execute ``run_example.sh`` as shown::
+You can execute **run_example.sh** as shown::
 
     ./run_example.sh S3BucketOps
 
