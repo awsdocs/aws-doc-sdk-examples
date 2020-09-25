@@ -165,6 +165,42 @@ files:
   - path: tests/test_s3_ruby_bucket_website.rb
     services:
     - s3  
+  - path: s3_ruby_create_bucket.rb
+    services:
+    - s3
+  - path: tests/test_s3_ruby_create_bucket.rb
+    services:
+    - s3
+  - path: s3_set_bucket_acls.rb
+    services:
+    - s3
+  - path: tests/test_s3_set_bucket_acls.rb
+    services:
+    - s3
+  - path: s3_set_bucket_object_acls.rb
+    services:
+    - s3
+  - path: tests/test_s3_set_bucket_object_acls.rb
+    services:
+    - s3
+  - path: s3-ruby-example-access-permissions.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-access-permissions.rb
+    services:
+    - s3
+  - path: s3-ruby-example-add-cspk-item.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-add-cspk-item.rb
+    services:
+    - s3
+  - path: s3-ruby-example-get-cspk-item.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-get-cspk-item.rb
+    services:
+    - s3
   - path: s3-ruby-example-upload-item-to-folder.rb
     services:
     - s3

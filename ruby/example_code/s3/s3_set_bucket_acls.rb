@@ -1,80 +1,76 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Gives read access, by email address, to an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[get_bucket_acl method]
-# snippet-keyword:[put_bucket_acl method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+
+# Sets the access control list (ACL) on an Amazon S3 bucket for the
+#   given owner.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An Amazon S3 bucket.
+# - The owner's canonical ID.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
-require 'os'
-
-# Required on Windows
-# See: https://github.com/aws/aws-sdk-core-ruby/issues/166
-if OS.windows?
-  Aws.use_bundled_cert!
-end
-
-permission = 'READ'
-
-if ARGV.length < 2
-  puts 'You must supply a bucket name and email address'
-  exit 1
-end
-
-bucket_name = ARGV[0]
-address = ARGV[1]
-
-if ARGV.length > 2
-  permission = ARGV[2]
-end
-
-client = Aws::S3::Client.new(region: 'us-west-2')
-
-resp = client.get_bucket_acl({bucket: bucket_name})
-
-owner = resp.owner.display_name
-owner_id = resp.owner.id
-
-grants = resp.grants
-
-# Create new grantee
-new_grant = {
-    grantee: {
-        email_address: address,
-        type: 'AmazonCustomerByEmail',
-    },
-    permission: permission,
-}
-
-# Add them to the existing grants
-grants << new_grant
-
-params = {
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param permission [String] The bucket permission level. Allowed values
+#   include READ, READ_ACP, WRITE, WRITE_ACP, and FULL_CONTROL.
+# @param owner_id [String] The canonical ID of the owner.
+# @return [Boolean] true if the ACL was set; otherwise, false.
+# @example
+#   exit 1 unless bucket_acl_set_for_owner_id?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'READ',
+#     'b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE'
+#   )
+def bucket_acl_set_for_owner_id?(
+  s3_client,
+  bucket_name,
+  permission,
+  owner_id
+)
+  s3_client.put_bucket_acl(
     access_control_policy: {
-        grants: grants,
-        owner: {
-            display_name: owner,
+      grants: [
+        {
+          grantee: {
             id: owner_id,
-        },
+            type: 'CanonicalUser'
+          },
+          permission: permission
+        }
+      ],
+      owner: {
+        id: owner_id
+      }
     },
-    bucket: bucket_name,
-}
+    bucket: bucket_name
+  )
+  return true
+rescue StandardError => e
+  puts "Error setting bucket ACL: #{e.message}"
+  return false
+end
 
-client.put_bucket_acl(params)
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  permission = 'READ'
+  owner_id = 'b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  if bucket_acl_set_for_owner_id?(
+    s3_client,
+    bucket_name,
+    permission,
+    owner_id
+  )
+    puts 'Bucket ACL set.'
+  else
+    puts 'Bucket ACL not set.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

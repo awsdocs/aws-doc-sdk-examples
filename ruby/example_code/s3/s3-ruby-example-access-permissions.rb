@@ -1,77 +1,220 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Give public read access to an S3 bucket and item.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[get_bucket_acl method]
-# snippet-keyword:[put_bucket_acl method]
-# snippet-keyword:[put_object method]
-# snippet-keyword:[put_object_acl method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+require 'net/http'
+
+# Sets the access control list (ACL) for an Amazon S3 bucket
+#   for public access.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An Amazon S3 bucket.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The bucket's name.
+# @param access_level [String] The access level for the bucket. Allowed values
+#   include private, public-read, public-read-write, and authenticated-read.
+# @return [Boolean] true if the ACL was set; otherwise, false.
+# @example
+#   exit 1 unless bucket_acl_set?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'private'
+#   )
+def bucket_acl_set?(s3_client, bucket_name, access_level)
+  s3_client.put_bucket_acl(
+    bucket: bucket_name,
+    acl: access_level
+  )
+  return true
+rescue StandardError => e
+  puts "Error setting bucket ACL: #{e.message}"
+  return false
+end
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+# Uploads an object to an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The bucket's name.
+# @param object_key [String] The name of the object.
+# @param object_content [String] The content to add to the object.
+# @return [Boolean] true if the object was uploaded; otherwise, false.
+# @example
+#   exit 1 unless object_uploaded?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     'This is the content of my-file.txt.'
+#   )
+def object_uploaded?(s3_client, bucket_name, object_key, object_content)
+  s3_client.put_object(
+    bucket: bucket_name,
+    key: object_key,
+    body: object_content
+  )
+  return true
+rescue StandardError => e
+  puts "Error uploading object: #{e.message}"
+  return false
+end
 
-# Create a S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
+# Sets the access control list (ACL) for an object in an
+#   Amazon S3 bucket for public access.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+# - An object in the bucket.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The bucket's name.
+# @param object_key [String] The name of the object.
+# @param access_level [String] The access level for the bucket. Allowed values
+#   include private, public-read, public-read-write, and authenticated-read.
+# @return [Boolean] true if the ACL was set; otherwise, false.
+# @example
+#   exit 1 unless object_acl_set?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     'private'
+#   )
+def object_acl_set?(s3_client, bucket_name, object_key, access_level)
+  s3_client.put_object_acl(
+    bucket: bucket_name,
+    key: object_key,
+    acl: access_level
+  )
+  return true
+rescue StandardError => e
+  puts "Error setting object ACL: #{e.message}"
+  return false
+end
 
-bucket = 'my-bucket'
-# Sets a bucket to public-read
-client.put_bucket_acl({
-  acl: "public-read",
-  bucket: bucket,
-})
+# Prints information about the Amazon S3 bucket at the given path.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+#
+# @param bucket_name [String] The bucket's name.
+# @param region [String] The AWS region for the bucket.
+# @example
+#   object_content_by_bucket_unsigned_request(
+#     'doc-example-bucket',
+#     'us-east-1'
+#   )
+def object_content_by_bucket_unsigned_request(bucket_name, region)
+  bucket_path = "https://s3.#{region}.amazonaws.com/#{bucket_name}"
+  response = Net::HTTP.get(URI(bucket_path))
+  puts "Content of unsigned request to '#{bucket_path}':\n\n#{response}\n\n"
+end
 
-object_key = "my-key"
-# Put an object in the public bucket
-client.put_object({
-  bucket: bucket,
-  key: object_key,
-  body: 'Hello World',
-})
+# Prints information about the Amazon S3 object in the bucket
+#   at the given path.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+# - An object in the bucket.
+#
+# @param bucket_name [String] The bucket's name.
+# @param object_key [String] The name of the object in the bucket.
+# @param region [String] The AWS region for the bucket.
+# @example
+#   object_content_by_object_unsigned_request(
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     'us-east-1'
+#   )
+def object_content_by_object_unsigned_request(bucket_name, object_key, region)
+  object_path = "https://s3.#{region}.amazonaws.com/#{bucket_name}/#{object_key}"
+  response = Net::HTTP.get(URI(object_path))
+  puts "Content of unsigned request to '#{object_path}':\n\n#{response}\n\n"
+end
 
-# Accessing an object in the bucket with unauthorize request
-bucket_path = "http://#{bucket}.s3-us-west-2.amazonaws.com/"
-resp = Net::HTTP.get(URI(bucket_path))
-puts "Content of unsigned request to #{bucket_path}:\n\n#{resp}\n\n"
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  object_content = 'This is the content of my-file.txt.'
+  access_level_before = 'private'
+  access_level_after = 'public-read'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-# However, accessing the object is denied since object Acl is not public-read
-object_path = "http://#{bucket}.s3-us-west-2.amazonaws.com/#{object_key}"
-resp = Net::HTTP.get(URI(object_path))
-puts "Content of unsigned request to #{object_path}:\n\n#{resp}\n\n"
+  # Set the initial access level of the bucket to 'private'
+  #   for public access.
+  if bucket_acl_set?(s3_client, bucket_name, access_level_before)
+    puts "1. Initial bucket ACL set to '#{access_level_before}' " \
+      "for public access.\n\n"
+  else
+    puts "1. Initial bucket ACL not set to '#{access_level_before}' " \
+      'for public access. Stopping program.'
+    exit 1
+  end
 
-# Setting the object to public-read
-client.put_object_acl({
-  acl: "public-read",
-  bucket: bucket,
-  key: object_key,
-})
-object_path = "http://#{bucket}.s3-us-west-2.amazonaws.com/#{object_key}"
-puts "Now I can access object (#{object_key}) :\n#{Net::HTTP.get(URI(object_path))}\n\n"
+  # What happens when you try to access the bucket? (It should be denied.)
+  puts "2. After initial bucket ACL set to '#{access_level_before}' " \
+    "for public access, trying to access the bucket:\n\n"
+  object_content_by_bucket_unsigned_request(bucket_name, region)
 
-# Setting bucket to private again
-client.put_bucket_acl({
-  bucket: bucket,
-  acl: 'private',
-})
+  # Upload an object to the bucket.
+  if object_uploaded?(s3_client, bucket_name, object_key, object_content)
+    puts "3. Object uploaded to bucket.\n\n"
+  else
+    puts '3. Object not uploaded to bucket. Stopping program. ' \
+      "Note that the bucket ACL is still set to '#{access_level_before}' " \
+      'for public access.'
+    exit 1
+  end
 
-# Get current bucket Acl
-resp = client.get_bucket_acl(bucket: bucket)
-puts resp.grants
+  # What happens when you try to access the object now?
+  #   (It should still be denied.)
+  puts "4. After object uploaded, trying to access the object:\n\n"
+  object_content_by_object_unsigned_request(bucket_name, object_key, region)
 
-resp = Net::HTTP.get(URI(bucket_path))
-puts "Content of unsigned request to #{bucket_path}:\n\n#{resp}\n\n"
+  # Now set the initial access level of the object to 'public-read'
+  #   for public access.
+  if object_acl_set?(s3_client, bucket_name, object_key, access_level_after)
+    puts "5. Object ACL set to '#{access_level_after}' for public access.\n\n"
+  else
+    puts "5. Object ACL not set to '#{access_level_after}' for public " \
+      'access. Stopping program. ' \
+      "Note that the bucket ACL is still set to '#{access_level_before}' " \
+      'for public access.'
+    exit 1
+  end
+
+  # What happens when you try to access the object now? (It should now work.)
+  puts "6. After object ACL set to '#{access_level_after}' for public " \
+    "access, trying to access the object:\n\n"
+  object_content_by_object_unsigned_request(bucket_name, object_key, region)
+
+  # Now set the access level for the object to 'private' for public access.
+  if object_acl_set?(s3_client, bucket_name, object_key, access_level_before)
+    puts "7. Object ACL now set to '#{access_level_before}' " \
+      "for public access.\n\n"
+  else
+    puts "7. Object ACL not set to '#{access_level_before}' " \
+      'for public access. Stopping program. ' \
+      "Note that the bucket ACL is still set to '#{access_level_before}'."
+    exit 1
+  end
+
+  # What happens when you try to access the object now?
+  #   (It should now be denied.)
+  puts "8. After object ACL set to '#{access_level_before}' " \
+    "for public access, trying to access the object:\n\n"
+  object_content_by_object_unsigned_request(bucket_name, object_key, region)
+
+  puts '9. Program ends. Note that the bucket ACL is still set to ' \
+    "'#{access_level_before}' for public access."
+end
+
+run_me if $PROGRAM_NAME == __FILE__
