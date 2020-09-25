@@ -47,7 +47,7 @@ namespace DynamoDBCRUD
 
         static void Main()
         {
-            var configfile = "../../../app.config";
+            var configfile = "app.config";
             var region = "";
             var table = "";
             var starttime = "";

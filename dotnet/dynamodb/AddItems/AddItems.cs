@@ -109,7 +109,7 @@ namespace DynamoDBCRUD
         //static async Task Main(string[] args)
         static void Main(string[] args)
         {
-            var configfile = "../../../app.config";
+            var configfile = "app.config";
             var region = "";
             var table = "";
             string filename = "";
