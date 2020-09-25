@@ -112,7 +112,8 @@ ALLOW_LIST = {
     'ses/commands/DeleteReceiptRuleSetCommand',
     'ses/commands/CreateReceiptRuleSetCommand',
     'ses/commands/VerifyDomainIdentityCommand',
-    'ses/commands/VerifyDomainIdentityCommand'
+    'ses/commands/VerifyDomainIdentityCommand',
+    'com/amazondynamodb/latest/developerguide'
 }
 
 
