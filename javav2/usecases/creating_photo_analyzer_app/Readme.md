@@ -1249,22 +1249,32 @@ The following HTML represents the **upload.html** file.
 The following HTML represents the **layout.html** file for the application's menu.
 
      <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org">
+      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head th:fragment="site-head">
       <meta charset="UTF-8" />
       <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
       <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-      <meta th:include="this :: head" th:remove="tag"/>
-    </head>
-    <body>
+       <meta th:include="this :: head" th:remove="tag"/>
+      </head>
+      <body>
       <!-- th:hef calls a controller method - which returns the view -->
-     <body th:fragment="site-header">
+      <header th:fragment="site-header">
       <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
       <a href="#" style="color: white" th:href="@{/}">Home</a>
       <a href="#" style="color: white" th:href="@{/photo}">Upload Photos</a>
       <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
-    </body>
-    </html>
+      <div id="logged-in-info">
+
+        <form method="post" th:action="@{/logout}">
+            <input type="submit"  value="Logout"/>
+        </form>
+         </div>
+        </header>
+        <h1>Welcome</h1>
+        <body>
+        <p>Welcome to  AWS Photo Analyzer.</p>
+        </body>
+        </html>
 
 ## Create script files
 
