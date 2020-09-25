@@ -1,21 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: MIT-0
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
-
-using Moq;
-
+using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DynamoDBCRUD
-{
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
 
-    [TestClass]
+using Moq;
+
+using Xunit;
+
+namespace DynamoDBCRUD
+{        
     public class CreateTableTest
     {
         readonly string _tableName = "testtable";
@@ -31,7 +29,8 @@ namespace DynamoDBCRUD
                 {
                     if (!string.IsNullOrEmpty(_tableName))
                     {
-                        Assert.AreEqual(_tableName, request.TableName);
+                        bool areEqual = _tableName == request.TableName;
+                        Assert.True(areEqual, "The provided table name is not the one used to create the table");
                     }
                 })
                 .Returns((CreateTableRequest r, CancellationToken token) =>
@@ -42,21 +41,15 @@ namespace DynamoDBCRUD
             return mockDynamoDBClient.Object;
         }
 
-        [TestMethod]
+        [Fact]
         public async Task CheckCreateTable()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
             var result = await CreateTable.MakeTableAsync(client, _tableName);
 
-            if (result.HttpStatusCode == HttpStatusCode.OK)
-            {
-                Logger.LogMessage("Created table " + _tableName);
-            }
-            else
-            {
-                Logger.LogMessage("Could NOT create table " + _tableName);
-            }
+            bool ok = result.HttpStatusCode == HttpStatusCode.OK;
+            Assert.True(ok, "Could NOT create table " + _tableName);
         }
     }
 }
