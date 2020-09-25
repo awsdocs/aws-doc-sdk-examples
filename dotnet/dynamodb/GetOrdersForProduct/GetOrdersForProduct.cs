@@ -14,12 +14,12 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class GetOrdersForProduct
+    public class GetOrdersForProduct
     {
         // Get the orders for product with ID productId
         // DynamoDB equivalent of:
         //   select* from Orders where Order_Product = '3'
-        static async Task<ScanResponse> GetProductOrdersAsync(IAmazonDynamoDB client, string table, string productId)
+        public static async Task<ScanResponse> GetProductOrdersAsync(IAmazonDynamoDB client, string table, string productId)
         {
             var response = await client.ScanAsync(new ScanRequest
             {

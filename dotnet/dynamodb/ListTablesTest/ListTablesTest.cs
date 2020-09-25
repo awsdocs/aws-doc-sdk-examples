@@ -1,14 +1,57 @@
-using System;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
+
+using Moq;
+
 using Xunit;
+using Xunit.Abstractions;
 
-namespace ListTablesTest
+namespace DynamoDBCRUD 
 {
-    public class UnitTest1
+    public class ListTablesTest
     {
-        [Fact]
-        public void Test1()
-        {
+        private readonly ITestOutputHelper output;
 
+        public ListTablesTest(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
+        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        {
+            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+
+            mockDynamoDBClient.Setup(client => client.ListTablesAsync(
+                It.IsAny<ListTablesRequest>(),
+                It.IsAny<CancellationToken>()))
+                .Callback<ListTablesRequest, CancellationToken>((request, token) =>
+                {})
+                .Returns((ListTablesRequest r, CancellationToken token) =>
+                {
+                    return Task.FromResult(new ListTablesResponse { HttpStatusCode = HttpStatusCode.OK });
+                });
+
+            return mockDynamoDBClient.Object;
+        }
+
+        [Fact]
+        public async Task Test1()
+        {
+            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+
+            var result = await ListTables.ShowTablesAsync(client);
+
+            bool gotResult = result != null;
+            Assert.True(gotResult, "Could NOT get result");
+
+            bool ok = result.HttpStatusCode == HttpStatusCode.OK;
+            Assert.True(ok, "Could NOT get tables ");
+
+            output.WriteLine("Got tables");
         }
     }
 }

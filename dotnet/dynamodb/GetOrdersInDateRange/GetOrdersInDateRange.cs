@@ -14,12 +14,12 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class GetOrdersInDateRange
+    public class GetOrdersInDateRange
     {
         // Get the orders made in range from start to end
         // DynamoDB equivalent of:
         //   select * from Orders where Order_Date between '2020-05-04 05:00:00' and '2020-08-13 09:00:00'
-        static async Task<ScanResponse> GetOrdersInDateRangeAsync(IAmazonDynamoDB client, string table, string start, string end)
+        public static async Task<ScanResponse> GetOrdersInDateRangeAsync(IAmazonDynamoDB client, string table, string start, string end)
         {
             // Convert start and end strings to longs
             var StartDateTime = DateTime.ParseExact(start, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);

@@ -14,12 +14,12 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class GetLowProductStockGSI
+    public class GetLowProductStockGSI
     {
         // Get the products with fewer than minimum items in the warehouse
         // DynamoDB equivalent of:
         //   select* from Products where Product_Quantity < '100'
-        static async Task<QueryResponse> GetLowStockAsync(IAmazonDynamoDB client, string table, string index, string minimum)
+        public static async Task<QueryResponse> GetLowStockAsync(IAmazonDynamoDB client, string table, string index, string minimum)
         {
             /* Primary key:   Area (string)          = Product
              * Secondary key: Product_Quantity (int) < minimum

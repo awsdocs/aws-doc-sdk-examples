@@ -12,9 +12,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class ListItems
+    public class ListItems
     {
-        static async Task<ScanResponse> GetItemsAsync(IAmazonDynamoDB client, string table)
+        public static async Task<ScanResponse> GetItemsAsync(IAmazonDynamoDB client, string table)
         {
             var response = await client.ScanAsync(new ScanRequest
             {

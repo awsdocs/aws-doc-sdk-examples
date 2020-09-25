@@ -11,9 +11,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class ListTables
+    public class ListTables
     {
-        static async Task<ListTablesResponse> ShowTablesAsync(IAmazonDynamoDB client)
+        public static async Task<ListTablesResponse> ShowTablesAsync(IAmazonDynamoDB client)
         {
             var response = await client.ListTablesAsync(new ListTablesRequest { });
 
