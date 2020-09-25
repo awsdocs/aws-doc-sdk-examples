@@ -1,0 +1,55 @@
+files:
+  - path: GetItem/GetItem.cs
+    services:
+      - dynamodb
+  - path: GetItemTest/GetItemTest.cs
+    services:
+      - dynamodb
+  - path: GetLowProductStock/GetLowProductStock.cs
+    services:
+      - dynamodb
+  - path: GetLowProductStockTest/GetLowProductStockTest.cs
+    services:
+      - dynamodb
+  - path: GetLowProductStockGSI/GetLowProductStockGSI.cs
+    services:
+      - dynamodb
+  - path: GetLowProductStockGSITest/GetLowProductStockGSITest.cs
+    services:
+      - dynamodb
+  - path: GetOrdersForProduct/GetOrdersForProduct.cs
+    services:
+      - dynamodb
+  - path: GetOrdersForProductTest/GetOrdersForProductTest.cs
+    services:
+      - dynamodb
+  - path: GetOrdersForProductGSI/GetOrdersForProductGSI.cs
+    services:
+      - dynamodb
+  - path: GetOrdersForProductGSITest/GetOrdersForProductGSITest.cs
+    services:
+      - dynamodb
+  - path: GetOrdersInDateRange/GetOrdersInDateRange.cs
+    services:
+      - dynamodb
+  - path: GetOrdersInDateRangeTest/GetOrdersInDateRangeTest.cs
+    services:
+      - dynamodb
+  - path: GetOrdersInDateRangeGSI/GetOrdersInDateRangeGSI.cs
+    services:
+      - dynamodb
+  - path: GetOrdersInDateRangeGSITest/GetOrdersInDateRangeGSITest.cs
+    services:
+      - dynamodb
+  - path: ListItems/ListItems.cs
+    services:
+      - dynamodb
+  - path: ListItemsTest/ListItemsTest.cs
+    services:
+      - dynamodb
+  - path: ListTables/ListTables.cs
+    services:
+      - dynamodb
+  - path: ListTablesTest/ListTablesTest.cs
+    services:
+      - dynamodb

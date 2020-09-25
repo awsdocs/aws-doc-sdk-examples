@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListTables", "ListTables\Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListTablesTest", "ListTablesTest\ListTablesTest.csproj", "{8D827324-66A6-4D75-80B4-4CA9BA321AA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOrdersInDateRangeGSITest", "GetOrdersInDateRangeGSITest\GetOrdersInDateRangeGSITest.csproj", "{5849FAFE-C5F0-4AE3-889B-B118640121D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -240,5 +242,17 @@ Global
 		{8D827324-66A6-4D75-80B4-4CA9BA321AA2}.Release|x64.Build.0 = Release|Any CPU
 		{8D827324-66A6-4D75-80B4-4CA9BA321AA2}.Release|x86.ActiveCfg = Release|Any CPU
 		{8D827324-66A6-4D75-80B4-4CA9BA321AA2}.Release|x86.Build.0 = Release|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Debug|x64.Build.0 = Debug|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Debug|x86.Build.0 = Debug|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Release|x64.ActiveCfg = Release|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Release|x64.Build.0 = Release|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{5849FAFE-C5F0-4AE3-889B-B118640121D4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
