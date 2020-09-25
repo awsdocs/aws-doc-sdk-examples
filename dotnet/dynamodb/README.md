@@ -6,16 +6,17 @@ as described in the Amazon DynamoDB Developer Guide at
 [From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html).
 
 All of these code examples are written in C#, 
-using the beta version of the AWS SDK for .NET.
-Getting the 3.5 bits is straightforward using the command line 
+using the V3.5 version of the AWS SDK for .NET.
+Getting the 3.5 version of the SDK is straightforward using the command line 
 from the same folder as your ```.csproj``` file.
-For example, to load the beta version of the Amazon DynamoDB bits:
+For example, to add a reference to the latest (V3.5) version of Amazon DynamoDB
+to your project:
 
 ```
-dotnet add package AWSSDK.DynamoDBv2 --version 3.5.0-beta
+dotnet add package AWSSDK.DynamoDBv2
 ```
 
-## Using asynch/await
+## Using async/await
 
 Read the 
 [Migrating to Version 3.5 of the AWS SDK for .NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-v35.html) 
@@ -172,7 +173,7 @@ This means there are few command-line arguments for any executable.
 
 ## General code pattern
 
-It's important that you understand the new asynch/await programming model in the
+It's important that you understand the new async/await programming model in the
 [AWS SDK for .NET](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide).
 
 These code examples use the following NuGet packages:
@@ -218,7 +219,7 @@ namespace DynamoDBCRUD
     [TestClass]
     public class CreateTableTest
     {
-        string tableName = "testtable";
+        readonly string _tableName = "testtable";
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
@@ -229,9 +230,9 @@ namespace DynamoDBCRUD
                 It.IsAny<CancellationToken>()))
                 .Callback<CreateTableRequest, CancellationToken>((request, token) =>
                 {
-                    if (!string.IsNullOrEmpty(tableName))
+                    if (!string.IsNullOrEmpty(_tableName))
                     {
-                        Assert.AreEqual(tableName, request.TableName);
+                        Assert.AreEqual(_tableName, request.TableName);
                     }
                 })
                 .Returns((CreateTableRequest r, CancellationToken token) =>
@@ -247,15 +248,15 @@ namespace DynamoDBCRUD
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
-            var result = await CreateTable.MakeTableAsync(client, tableName);
+            var result = await CreateTable.MakeTableAsync(client, _tableName);
 
             if (result.HttpStatusCode == HttpStatusCode.OK)
             {
-                Logger.LogMessage("Created table " + tableName);
+                Logger.LogMessage("Created table " + _tableName);
             }
             else
             {
-                Logger.LogMessage("Could NOT create table " + tableName);
+                Logger.LogMessage("Could NOT create table " + _tableName);
             }
         }
     }
@@ -308,9 +309,9 @@ There must be the same number of keys as values.
 
 - If the item is a customer, the schema should match that in *customers.csv*,
   with one additional key, ID, which defines the partition ID for the item.
-- If the item is an order, the schema should match that in *orders.csv,
+- If the item is an order, the schema should match that in *orders.csv*,
   with one additional key, ID, which defines the partition ID for the item*.
-- If the item is a product, the schema should match that in *products.csv,
+- If the item is a product, the schema should match that in *products.csv*,
   with one additional key, ID, which defines the partition ID for the item*.
 
 It's up to you to determine the appropriate partition key value (ID).
@@ -380,7 +381,7 @@ of creating a GSI to avoid errors.
 You can read data from an Amazon DynamoDB table using a number of techniques.
 
 - By the item's primary key
-- By searchng for a particular item or items based on the value of one or more keys
+- By searching for a particular item or items based on the value of one or more keys
 
 ### Reading an item using its primary key
 

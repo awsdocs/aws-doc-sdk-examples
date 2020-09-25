@@ -18,7 +18,7 @@ namespace DynamoDBCRUD
     [TestClass]
     public class CreateTableTest
     {
-        string tableName = "testtable";
+        readonly string _tableName = "testtable";
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
@@ -29,9 +29,9 @@ namespace DynamoDBCRUD
                 It.IsAny<CancellationToken>()))
                 .Callback<CreateTableRequest, CancellationToken>((request, token) =>
                 {
-                    if (!string.IsNullOrEmpty(tableName))
+                    if (!string.IsNullOrEmpty(_tableName))
                     {
-                        Assert.AreEqual(tableName, request.TableName);
+                        Assert.AreEqual(_tableName, request.TableName);
                     }
                 })
                 .Returns((CreateTableRequest r, CancellationToken token) =>
@@ -47,15 +47,15 @@ namespace DynamoDBCRUD
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
-            var result = await CreateTable.MakeTableAsync(client, tableName);
+            var result = await CreateTable.MakeTableAsync(client, _tableName);
 
             if (result.HttpStatusCode == HttpStatusCode.OK)
             {
-                Logger.LogMessage("Created table " + tableName);
+                Logger.LogMessage("Created table " + _tableName);
             }
             else
             {
-                Logger.LogMessage("Could NOT create table " + tableName);
+                Logger.LogMessage("Could NOT create table " + _tableName);
             }
         }
     }
