@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetFindings.java demonstrates how to List detector id values for existing Amazon GuardDuty detector resources.]
+// snippet-sourcedescription:[GetFindings.java demonstrates how to List detector ID values for existing Amazon GuardDuty detector resources.]
 // snippet-service:[Amazon GuardDuty]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon GuardDuty]
@@ -41,9 +41,9 @@ public class GetFindings {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the findingId value and the detectorId value.  \n" +
+                "To run this example, supply the finding ID value and the detector ID value.  \n" +
                 "\n" +
-                "Ex: GetFindings <findingId><detectorId>\n";
+                "Example: GetFindings <findingId><detectorId>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

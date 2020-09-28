@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetDetector.java demonstrates how to obtain a detector using its id value.]
+// snippet-sourcedescription:[GetDetector.java demonstrates how to obtain a detector using its ID value.]
 // snippet-service:[Amazon GuardDuty]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon GuardDuty]
@@ -38,9 +38,9 @@ public class GetDetector {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the detector Id value. \n" +
+                "To run this example, supply the detector ID value. \n" +
                 "\n" +
-                "Ex: GetDetector <detectorId>\n";
+                "Example: GetDetector <detectorId>\n";
 
         if (args.length < 1) {
            System.out.println(USAGE);

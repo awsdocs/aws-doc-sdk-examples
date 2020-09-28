@@ -1,4 +1,4 @@
-# Amazon GuardDuty  Java code examples
+# Amazon GuardDuty Java code examples
 
 This README discusses how to run and test the Java code examples for Amazon GuardDuty.
 
@@ -34,8 +34,8 @@ Before running the Amazon GuardDuty JUnit tests, you must define values in the *
 
 Define these values to successfully run the JUnit tests:
 
-- **detectorId** - The detector Id value.   
-- **findingId** - The finding Id value.
+- **detectorId** - The detector ID value.   
+- **findingId** - The finding ID value.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -74,6 +74,5 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] Total time:  19.038 s
 	[INFO] Finished at: 2020-02-10T14:41:51-05:00
 	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project PersonalizeServiceIntegrationTest:  There are test failures.
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project GuarddutyTest:  There are test failures.
 	[ERROR];
-
