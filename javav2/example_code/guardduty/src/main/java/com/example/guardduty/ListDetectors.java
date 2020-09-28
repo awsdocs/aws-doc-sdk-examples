@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListDetectors.java demonstrates how to List detector id valuess of all the existing Amazon GuardDuty detector resources.]
+// snippet-sourcedescription:[ListDetectors.java demonstrates how to List detector ID valuess of all the existing Amazon GuardDuty detector resources.]
 // snippet-service:[Amazon GuardDuty]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon GuardDuty]
@@ -53,7 +53,7 @@ public class ListDetectors {
             List<String> detectors = response.detectorIds();
 
             for (String detector: detectors) {
-                System.out.println("The detector id is : "+detector);
+                System.out.println("The detector ID is : "+detector);
             }
 
         } catch (GuardDutyException e) {
