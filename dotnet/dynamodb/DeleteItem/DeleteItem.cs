@@ -13,9 +13,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class DeleteItem
+    public class DeleteItem
     {
-        static async Task<DeleteItemResponse> RemoveItemAsync(IAmazonDynamoDB client, string table, string id, string area)
+        public static async Task<DeleteItemResponse> RemoveItemAsync(IAmazonDynamoDB client, string table, string id, string area)
         {
             var request = new DeleteItemRequest
             {
@@ -103,8 +103,6 @@ namespace DynamoDBCRUD
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
 
             var resp = RemoveItemAsync(client, table, partition, sort);
-
-            //    Task<DeleteItemResponse> response = RemoveItemAsync(debug, client, table, partition, sort);
 
             if (resp.Result.HttpStatusCode == HttpStatusCode.OK)
             {
