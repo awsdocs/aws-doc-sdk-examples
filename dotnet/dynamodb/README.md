@@ -537,14 +537,14 @@ the example silently fails to delete the item from the table.
 
 ## Deleting items from a table
 
-Use the **DeleteItems** project to delete an item from the table.
+Use the **** project to delete an item from the table.
 
 The default table name is defined as **Table**,
 and the default region is defined as **Region**
 in *app.config*.
 
 - ```-a``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
-- ```-i``` *IDS*, where *IDS* is a list of ID values; all ID values must be for the associated *AREA*.
+- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values must be for the associated *AREA*.
 
 ## Deleting a table
 

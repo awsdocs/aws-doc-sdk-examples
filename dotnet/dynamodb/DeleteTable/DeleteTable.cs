@@ -11,9 +11,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class DeleteTable
+    public class DeleteTable
     {
-        static async Task<DeleteTableResponse> RemoveTableAsync(IAmazonDynamoDB client, string table)
+        public static async Task<DeleteTableResponse> RemoveTableAsync(IAmazonDynamoDB client, string table)
         {
             var response = await client.DeleteTableAsync(new DeleteTableRequest
             {

@@ -13,9 +13,9 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    class DeleteItem
+    public class DeleteItems
     {
-        static async Task<BatchWriteItemResponse> RemoveItemsAsync(IAmazonDynamoDB client, string table, string idstring, string area)
+        public static async Task<BatchWriteItemResponse> RemoveItemsAsync(IAmazonDynamoDB client, string table, string idstring, string area)
         {
             var ids = idstring.Split(" ");
 
