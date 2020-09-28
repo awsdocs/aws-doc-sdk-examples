@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,11 +14,11 @@ using Xunit.Abstractions;
 
 namespace DynamoDBCRUD 
 {
-    public class CreateIndexTest
+    public class DeleteItemTest
     {
         private readonly ITestOutputHelper output;
 
-        public CreateIndexTest(ITestOutputHelper output)
+        public DeleteItemTest(ITestOutputHelper output)
         {
             this.output = output;
         }
@@ -43,7 +45,7 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async Task Test1()
+        public async Task CheckDeleteItem()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 

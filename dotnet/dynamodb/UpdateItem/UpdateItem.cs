@@ -57,9 +57,9 @@ namespace DynamoDBCRUD
         }
     }
 
-    class UpdateItem
+    public class UpdateItem
     {
-        static async Task<UpdateItemResponse> ModifyOrderStatusAsync(IAmazonDynamoDB client, string table, string id, string status)
+        public static async Task<UpdateItemResponse> ModifyOrderStatusAsync(IAmazonDynamoDB client, string table, string id, string status)
         {
             var request = new UpdateItemRequest
             {

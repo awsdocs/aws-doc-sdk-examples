@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CreateIndex\CreateIndex.csproj" />
-    <ProjectReference Include="..\ListTables\ListTables.csproj" />
   </ItemGroup>
 
 </Project>

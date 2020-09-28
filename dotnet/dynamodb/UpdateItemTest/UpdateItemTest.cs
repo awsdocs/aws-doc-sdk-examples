@@ -14,46 +14,51 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace DynamoDBCRUD
-{        
-    public class CreateTableTest
+{
+    public class UpdateItemTest
     {
         private readonly ITestOutputHelper output;
 
-        public CreateTableTest(ITestOutputHelper output)
+        public UpdateItemTest(ITestOutputHelper output)
         {
             this.output = output;
         }
-
+    
         readonly string _tableName = "testtable";
+        readonly string _id = "3";
+        readonly string _status = "pending";
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
             var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.CreateTableAsync(
-                It.IsAny<CreateTableRequest>(),
+            mockDynamoDBClient.Setup(client => client.UpdateItemAsync(
+                It.IsAny<UpdateItemRequest>(),
                 It.IsAny<CancellationToken>()))
-                .Callback<CreateTableRequest, CancellationToken>((request, token) =>
+                .Callback<UpdateItemRequest, CancellationToken>((request, token) =>
                 {})
-                .Returns((CreateTableRequest r, CancellationToken token) =>
+                .Returns((UpdateItemRequest r, CancellationToken token) =>
                 {
-                    return Task.FromResult(new CreateTableResponse { HttpStatusCode = HttpStatusCode.OK });
+                    return Task.FromResult(new UpdateItemResponse { HttpStatusCode = HttpStatusCode.OK  });
                 });
 
             return mockDynamoDBClient.Object;
         }
 
         [Fact]
-        public async Task CheckCreateTable()
+        public async Task CheckUpdateItem()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            
+            var result = await UpdateItem.ModifyOrderStatusAsync(client, _tableName, _id, _status);
 
-            var result = await CreateTable.MakeTableAsync(client, _tableName);
+            bool gotResult = result != null;
+            Assert.True(gotResult, "Could NOT get result");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT create table " + _tableName);
+            Assert.True(ok, "Could NOT update item");
 
-            output.WriteLine("Created table");
+            output.WriteLine("Updated item");
         }
     }
 }

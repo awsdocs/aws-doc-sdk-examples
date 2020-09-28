@@ -34,13 +34,7 @@ namespace DynamoDBCRUD
                 It.IsAny<DeleteTableRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<DeleteTableRequest, CancellationToken>((request, token) =>
-                {
-                    if (!string.IsNullOrEmpty(_tableName))
-                    {
-                        bool areEqual = _tableName == request.TableName;
-                        Assert.True(areEqual, "The provided table name is not the one used to create the table");
-                    }
-                })
+                {})
                 .Returns((DeleteTableRequest r, CancellationToken token) =>
                 {
                     return Task.FromResult(new DeleteTableResponse { HttpStatusCode = HttpStatusCode.OK });
@@ -56,7 +50,7 @@ namespace DynamoDBCRUD
 
             var result = await DeleteTable.RemoveTableAsync(client, _tableName);
 	    
-	    bool gotResult = result != null;
+            bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;

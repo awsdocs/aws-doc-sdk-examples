@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +24,6 @@ namespace DynamoDBCRUD
         }
 
         readonly string _tableName = "testtable";
-        // CreateIndex.exe -i OrderDate -m Area -k string -s Order_Date -t number
         readonly string _indexName = "Test";
         readonly string _partitionKey = "Key";
         readonly string _partitionKeyType = "string";
@@ -47,7 +48,7 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async Task Test1()
+        public async Task CheckCreateIndex()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
