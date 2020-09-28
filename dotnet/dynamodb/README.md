@@ -1,4 +1,4 @@
-# Amazon DynamoDB code examples in C#
+# Amazon DynamoDB code examples in C\#
 
 This folder contains code examples for moving from SQL to NoSQL, 
 specifically Amazon DynamoDB,
