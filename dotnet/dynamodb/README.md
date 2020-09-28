@@ -269,23 +269,9 @@ If you want more information, run:
 dotnet test -l "console;verbosity=detailed"
 ```
 
-## Listing all of the tables in a region
-
-Use the **ListTables** project to list all of the tables in a region.
-
-The default region is defined as **Region** in *app.config*.
-
 ## Creating a table
 
 Use the **CreateTable** project to create a table.
-
-The default table name is defined as **Table**
-and the default region is defined as **Region**
-in *app.config*.
-
-## Listing the items in a table
-
-Use the **ListItems** project to list the items in a table.
 
 The default table name is defined as **Table**
 and the default region is defined as **Region**
@@ -327,17 +313,6 @@ the default region is defined as **Region**,
 and the default table names are defined as
 **Customers**, **Orders**, and **Products**
 in *app.config*.
-
-## Listing all of the items in a table
-
-The **ListItems** project lists all of the items in a table.
-
-The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
-
-If you previously ran **AddItems**,
-there should be 24 items in the table.
 
 ## Managing indexes
 
@@ -381,122 +356,6 @@ You can read data from an Amazon DynamoDB table using a number of techniques.
 
 - By the item's primary key
 - By searching for a particular item or items based on the value of one or more keys
-
-### Reading an item using its primary key
-
-Use the **GetItem** project 
-to retrieve information about the customer, order, 
-or product with the given primary key.
-
-The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
-
-It requires the following command-line option:
-
-- ```-i``` *ID*, which is the partition ID of the item in the table.
-
-If you previously ran **AddItems**,
-you can retrieve information about items with an *ID* in the range from 0 to 23.
-
-### Getting orders within a given date range
-
-The **GetOrdersInDateRange** and **GetOrdersInDateRangeGSI** projects retrieve
-a list of all orders for all customers within the date range from *start* to *end*.
-The first project scans the table,
-the second uses a global secondary index (GSI) to query the table.
-
-The default table name is defined as **Table**,
-the default region is defined as **Region**,
-*start* is defined by **StartTime**,
-and *end* is defined by **EndTime**
-in *app.config*.
-In addition,
-the *app.config" file for the **GetLowProductStockGSI** 
-project includes **Index**, which defines the GSI.
-
-Note the required format of the dates: **yyyy-MM-dd HH:mm:ss**.
-
-If you previously ran **AddItems**,
-both projects should return three items:
-
-```
-Order_Status: delivered
-Order_Customer: 5
-Order_Product: 4
-Order_ID: 11
-Order_Date: Monday, May 11, 2020
-
-Order_Status: pending
-Order_Customer: 1
-Order_Product: 6
-Order_ID: 1
-Order_Date: Saturday, July 4, 2020
-
-Order_Status: delivered
-Order_Customer: 6
-Order_Product: 6
-Order_ID: 12
-Order_Date: Saturday, July 4, 2020
-```
-
-### Getting orders for a given product
-
-The **GetOrdersForProduct** and **GetOrdersForProductGSI** projects retrieve
-a list of all orders of the product with product ID *productId* for all customers.
-The first project scans the table,
-the second uses a global secondary index (GSI) to query the table.
-
-The default table name is defined as **Table**,
-the default region is defined as **Region**,
-and *productId* is defined by **ProductID**
-in *app.config*.
-In addition,
-the *app.config" file for the **GetLowProductStockGSI** 
-project includes **Index**, which defines the GSI.
-
-If you previously ran **AddItems**,
-both projects should return two items:
-
-```
-Order_Status: backordered
-Order_Customer: 2
-Order_Product: 3
-Order_ID: 8
-Order_Date: Tuesday, January 1, 2019
-
-Order_Status: backordered
-Order_Customer: 4
-Order_Product: 3
-Order_ID: 4
-Order_Date: Wednesday, April 1, 2020
-```
-
-### Getting products with fewer than a given number in stock
-
-The **GetLowProductStock** and **GetLowProductStockGSI** 
-projects retrieve a list of 
-all products with fewer than *minimum* items in stock.
-The first project scans the table,
-the second uses a global secondary index (GSI) to query the table.
-
-The default table name is defined as **Table**,
-the default region is defined as **Region**,
-and *minimum* is defined by **Minimum**
-in *app.config*.
-In addition,
-the *app.config" file for the **GetLowProductStockGSI** 
-project includes **Index**, which defines the GSI.
-
-If you previously ran **AddItems**,
-both projects should return one item:
-
-```
-Product_Quantity: 45
-Product_Description: 2'x50' plastic sheeting
-Product_Cost: 450
-Product_ID: 4
-```
 
 ## Modifying a table item
 
