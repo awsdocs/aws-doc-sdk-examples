@@ -103,7 +103,7 @@ end
 # - An Amazon S3 bucket.
 #
 # @param bucket_name [String] The bucket's name.
-# @param region [String] The AWS region for the bucket.
+# @param region [String] The AWS Region for the bucket.
 # @example
 #   object_content_by_bucket_unsigned_request(
 #     'doc-example-bucket',
@@ -125,7 +125,7 @@ end
 #
 # @param bucket_name [String] The bucket's name.
 # @param object_key [String] The name of the object in the bucket.
-# @param region [String] The AWS region for the bucket.
+# @param region [String] The AWS Region for the bucket.
 # @example
 #   object_content_by_object_unsigned_request(
 #     'doc-example-bucket',
