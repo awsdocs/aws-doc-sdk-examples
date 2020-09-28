@@ -12,11 +12,11 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace CreateIndex
+namespace DynamoDBCRUD
 {
-    class CreateIndex
+    public class CreateIndex
     {
-        static async Task<UpdateTableResponse> AddIndexAsync(IAmazonDynamoDB client, string table, string indexname, string partitionkey, string partitionkeytype, string sortkey, string sortkeytype)
+        public static async Task<UpdateTableResponse> AddIndexAsync(IAmazonDynamoDB client, string table, string indexname, string partitionkey, string partitionkeytype, string sortkey, string sortkeytype)
         {
             if (null == client)
             {
