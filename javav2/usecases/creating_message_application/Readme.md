@@ -36,11 +36,11 @@ To complete the tutorial, you need the following:
 
 ## Understand the AWS Messaging application
 
-To send a message to a SQS queue, enter the message into the application and choose Send. 
+To send a message to a SQS queue, enter the message into the application and choose Send.
 
 ![AWS Messaging application](images/client2b.png)
 
-After the message is sent, the application displays the message, as shown in this figure. 
+After the message is sent, the application displays the message, as shown in this figure.
 
 
 ![AWS Messaging application](images/client2c.png)
@@ -50,9 +50,9 @@ You can choose **Purge** to purge the messages from the FIFO queue. This results
 The following describes how the application handles a message:
 
 1. The message and user values are posted to a Spring controller.
-2. The Spring controller creates a custom ``Message`` object that stores the message ID value (a GUID), the message text, and the user.
-3. The Spring controller passes the ``Message`` object to a message service that uses the ``software.amazon.awssdk.services.sqs.SqsClient`` client object to store the data into a FIFO queue.
-4. The Spring controller invokes the message service’s ``getMessages`` method to read all of the messages in the queue. This method returns an XML document that contains all messages.
+2. The Spring controller creates a custom **Message** object that stores the message ID value (a GUID), the message text, and the user.
+3. The Spring controller passes the **Message** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue.
+4. The Spring controller invokes the message service’s **getMessages** method to read all of the messages in the queue. This method returns an XML document that contains all messages.
 5. The XML is passed back to the view, where the messages are parsed and displayed in the view.  
 
 ## Create an IntelliJ project named SpringAWSMessage
@@ -172,14 +172,14 @@ The Java files must go into this package.
 
 Create the following Java classes:
 
-+ ``Message`` - Used as the model for this application.
-+ ``MessageApplication`` - Used as the base class for the Spring Boot application.
-+ ``MessageController`` - Used as the Spring Boot controller that handles HTTP requests.
-+ ``SendReceiveMessages`` - Uses the Amazon SQS API to process messages.  
++ **Message** - Used as the model for this application.
++ **MessageApplication** - Used as the base class for the Spring Boot application.
++ **MessageController** - Used as the Spring Boot controller that handles HTTP requests.
++ **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
 
 ### Message class
 
-The ``Message`` class represents the application’s model.
+The **Message** class represents the application’s model.
 
      package com.example;
 
@@ -217,7 +217,7 @@ The ``Message`` class represents the application’s model.
 
 ### MessageApplication class
 
-The following Java code represents the ``MessageApplication`` class. This class represents the entry point into the Spring Boot application.
+The following Java code represents the **MessageApplication** class. This class represents the entry point into the Spring Boot application.
 
      package com.example;
 
@@ -234,7 +234,7 @@ The following Java code represents the ``MessageApplication`` class. This class 
 
 ### MessageController class
 
-The following Java code represents the ``MainController`` class that handles HTTP requests. For example, when a new message is posted, the ``addItems`` method handles the request.  
+The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
 
      package com.example;
 
@@ -309,7 +309,7 @@ The following Java code represents the ``MainController`` class that handles HTT
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the ``getMessages`` method retrieves a message from the queue. Likewise, the ``processMessage`` method sends a message to a queue.
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
 
         package com.example;
 
