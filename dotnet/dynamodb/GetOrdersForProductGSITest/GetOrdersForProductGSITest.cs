@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,19 +51,19 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async Task Test1()
+        public async Task CheckGetOrdersForProductGSI()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
             var result = await GetOrdersForProductGSI.GetProductOrdersAsync(client, _tableName, _index, _productId);
 
             bool gotResult = result != null;
-            Assert.True(gotResult, "Could NOT get results from scanning table " + _tableName);
+            Assert.True(gotResult, "Could NOT get results from scanning table");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT get results from scanning table " + _tableName);
+            Assert.True(ok, "Could NOT get items from scanning table");
 
-            output.WriteLine("Got results from table");
+            output.WriteLine("Got items from table");
         }
     }
 }

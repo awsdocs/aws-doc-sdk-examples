@@ -1,4 +1,5 @@
-// using System;
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: MIT-0
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async Task Test1()
+        public async Task CheckGetItem()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
