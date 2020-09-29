@@ -36,9 +36,9 @@ public class DeleteHostedZone {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the hosted zone id.  \n" +
+                "To run this example, supply the hosted zone ID.  \n" +
                 "\n" +
-                "Ex: DeleteHostedZone <id>\n";
+                "Example: DeleteHostedZone <id>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -64,9 +64,9 @@ public class DeleteHostedZone {
                     .id(hostedZoneId)
                     .build();
 
-            // Delete the Hosted Zone
+            // Delete the hosted zone
             route53Client.deleteHostedZone(deleteHostedZoneRequestRequest);
-            System.out.println("The hosted zone was deleted");
+            System.out.println("The hosted zone was deleted.");
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -75,4 +75,3 @@ public class DeleteHostedZone {
     }
     // snippet-end:[route53.java2.delete_hosted_zone.main]
 }
-

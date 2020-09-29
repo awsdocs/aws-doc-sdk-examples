@@ -54,7 +54,7 @@ public class ListHealthChecks {
             List<HealthCheck> checklist = checksResponse.healthChecks();
 
             for (HealthCheck check: checklist) {
-                System.out.println("The health check id is: "+check.id());
+                System.out.println("The health check ID is: "+check.id());
                 System.out.println("The health threshold is: "+check.healthCheckConfig().healthThreshold());
                 System.out.println("The type is: "+check.healthCheckConfig().typeAsString());
             }

@@ -40,7 +40,7 @@ public class CreateHostedZone {
         final String USAGE = "\n" +
                 "To run this example, supply the fully qualified domain nName.  \n" +
                 "\n" +
-                "Ex: CreateHostedZone <domainName>\n";
+                "Example: CreateHostedZone <domainName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -56,7 +56,7 @@ public class CreateHostedZone {
                 .build();
 
         String zoneId = createZone(route53Client, domainName);
-        System.out.println("The hosted zone id is "+zoneId);
+        System.out.println("The hosted zone ID is "+zoneId);
     }
 
     // snippet-start:[route53.java2.create_hosted_zone.main]
@@ -64,7 +64,7 @@ public class CreateHostedZone {
 
         try {
 
-           // You must use a unique CallerReference string every time you submit a CreateHostedZone request
+           // You must use a unique CallerReference string each time you submit a CreateHostedZone request
           String callerReference = java.util.UUID.randomUUID().toString();
 
             CreateHostedZoneRequest zoneRequest = CreateHostedZoneRequest.builder()
@@ -72,7 +72,7 @@ public class CreateHostedZone {
                     .name(domainName)
                     .build();
 
-            // Create the Hosted Zone
+            // Create the hosted zone
             CreateHostedZoneResponse zoneResponse = route53Client.createHostedZone(zoneRequest);
             return zoneResponse.hostedZone().id();
 
@@ -84,4 +84,3 @@ public class CreateHostedZone {
     }
     // snippet-end:[route53.java2.create_hosted_zone.main]
 }
-

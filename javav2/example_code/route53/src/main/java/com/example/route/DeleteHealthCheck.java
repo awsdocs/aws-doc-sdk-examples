@@ -37,9 +37,9 @@ public class DeleteHealthCheck {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the health check id.  \n" +
+                "To run this example, supply the health check ID.  \n" +
                 "\n" +
-                "Ex: DeleteHealthCheck <id>\n";
+                "Example: DeleteHealthCheck <id>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -68,7 +68,7 @@ public class DeleteHealthCheck {
 
             // Delete the Health Check
             route53Client.deleteHealthCheck(delRequest);
-            System.out.println("The hosted zone was deleted");
+            System.out.println("The hosted zone was deleted.");
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -77,5 +77,3 @@ public class DeleteHealthCheck {
     }
     // snippet-end:[route53.java2.delete_health_check.main]
 }
-
-
