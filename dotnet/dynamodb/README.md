@@ -277,6 +277,29 @@ The default table name is defined as **Table**
 and the default region is defined as **Region**
 in *app.config*.
 
+You can create this table as an on-demand table,
+which means that read/write capacity is not fixed
+and you are billed by what you use,
+by replacing:
+
+```
+ProvisionedThroughput = new ProvisionedThroughput
+{
+    ReadCapacityUnits = 10,
+    WriteCapacityUnits = 5
+}
+```
+
+with:
+
+```
+BillingMode = BillingMode.PAY_PER_REQUEST
+```
+
+See 
+[Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)
+in the *Amazon DynamoDB Developer Guide* for details.
+
 ## Adding an item to the table
 
 Use the **AddItem** project to add an item to a table.
