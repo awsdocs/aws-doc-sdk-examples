@@ -393,9 +393,7 @@ It takes the following options:
 - ```-i``` *ID*, where *ID* is the value of the order's ORDER_ID attribute
 - ```-s``` *STATUS*, where *STATUS* is the new status value (backordered, delivered, delivering, or pending)
 
-This code example demonstrates two different levels of accessing an item in a table.
-- If you set the status (```-s``` *STATUS*) to **pending**,
-  the code example uses the **DynamoDBContext** class to load the table.
+
   If the item is not an order, the update silently fails.
 - If you set the status to any other valid value,
   the code example uses the lower-level **UpdateItemAsync** method,

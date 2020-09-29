@@ -4,59 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
-    // DO NOT CHANGE THE TABLE ENTRY IN app.config!!!
-    [DynamoDBTable("CustomersOrdersProducts")]
-    public class Entry
-    {
-        [DynamoDBHashKey] // Partition key
-        public string ID
-        {
-            get; set;
-        }
-        [DynamoDBRangeKey] // Sort key
-        public string Area
-        {
-            get; set;
-        }
-        [DynamoDBProperty]
-        public int Order_ID
-        {
-            get; set;
-        }
-        [DynamoDBProperty]
-        public int Order_Customer
-        {
-            get; set;
-        }
-        [DynamoDBProperty]
-        public int Order_Product
-        {
-            get; set;
-        }
-        [DynamoDBProperty]
-        public long Order_Date
-        {
-            get; set;
-        }
-        [DynamoDBProperty]
-        public string Order_Status
-        {
-            get; set;
-        }
-    }
-
     public class UpdateItem
     {
         public static async Task<UpdateItemResponse> ModifyOrderStatusAsync(IAmazonDynamoDB client, string table, string id, string status)
@@ -92,28 +48,6 @@ namespace DynamoDBCRUD
             var response = await client.UpdateItemAsync(request);
 
             return response;
-        }
-
-
-        static async Task<Entry> UpdateTableItemAsync(IAmazonDynamoDB client, string id, string status)
-        {
-            DynamoDBContext context = new DynamoDBContext(client);
-
-            // Retrieve the existing order
-            Entry orderRetrieved = await context.LoadAsync<Entry>(id, "Order");
-
-            // Update status
-            orderRetrieved.Order_Status = status;
-            await context.SaveAsync(orderRetrieved);
-
-            // Retrieve the updated item
-            Entry updatedOrder = await context.LoadAsync<Entry>(id, "Order", new DynamoDBOperationConfig
-            {
-                ConsistentRead = true
-            },
-            new System.Threading.CancellationToken());
-
-            return updatedOrder;
         }
 
         static void Main(string[] args)
@@ -178,34 +112,17 @@ namespace DynamoDBCRUD
 
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
-
-            if (status == "pending")
+                       
+            // Silenty eats issue if id does not identify an order
+            var reply = ModifyOrderStatusAsync(client, table, id, status);
+            
+            if (reply.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                var response = UpdateTableItemAsync(client, id, status);
-
-                // Throws an exception here if id does not identify an order
-                if (response.Result.Order_Status == status)
-                {
-                    Console.WriteLine("Successfully updated item in " + table + " in region " + region);
-                }
-                else
-                {
-                    Console.WriteLine("Could not update order status");
-                }
+                Console.WriteLine("Successfully updated item in " + table + " in region " + region);
             }
             else
             {
-                // Silenty eats issue if id does not identify an order
-                var reply = ModifyOrderStatusAsync(client, table, id, status);
-
-                if (reply.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    Console.WriteLine("Successfully updated item in " + table + " in region " + region);
-                }
-                else
-                {
-                    Console.WriteLine("Could not update order status");
-                }
+                Console.WriteLine("Could not update order status");
             }
         }
     }
