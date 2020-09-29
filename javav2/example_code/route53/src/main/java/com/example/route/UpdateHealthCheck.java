@@ -76,7 +76,7 @@ public class UpdateHealthCheck {
             System.exit(1);
         }
     }
-    // snippet-start:[route53.java2.update_health_check.main]
+    // snippet-end:[route53.java2.update_health_check.main]
 }
 
 
