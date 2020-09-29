@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteHostedZone.java demonstrates how to get the status of a specific health check.]
+// snippet-sourcedescription:[GetHealthCheck.java demonstrates how to get the status of a specific health check.]
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon Route 53]
@@ -40,9 +40,9 @@ public class GetHealthCheckStatus {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the health check id.  \n" +
+                "To run this example, supply the health check ID.  \n" +
                 "\n" +
-                "Ex: GetHealthCheckStatus <id>\n";
+                "Example: GetHealthCheckStatus <id>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -68,7 +68,7 @@ public class GetHealthCheckStatus {
                     .healthCheckId(healthCheckId)
                     .build();
 
-            // Create the Hosted Zone
+            // Create the hosted zone
             GetHealthCheckStatusResponse statusResponse = route53Client.getHealthCheckStatus(statusRequest);
             List<HealthCheckObservation> observations = statusResponse.healthCheckObservations();
             for (HealthCheckObservation observation: observations) {
@@ -82,4 +82,3 @@ public class GetHealthCheckStatus {
     }
     // snippet-end:[route53.java2.get_health_check_status.main]
 }
-

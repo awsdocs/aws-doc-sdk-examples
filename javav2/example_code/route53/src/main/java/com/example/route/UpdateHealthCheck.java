@@ -38,9 +38,9 @@ public class UpdateHealthCheck {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the health check id.  \n" +
+                "To run this example, supply the health check ID.  \n" +
                 "\n" +
-                "Ex: UpdateHealthCheck <id>\n";
+                "Example: UpdateHealthCheck <id>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -67,9 +67,9 @@ public class UpdateHealthCheck {
                     .disabled(true)
                     .build();
 
-            // Update the Health Check
+            // Update the health check
             UpdateHealthCheckResponse healthResponse = route53Client.updateHealthCheck(checkRequest);
-            System.out.println("The health check with id "+ healthResponse.healthCheck().id() +" was updated!");
+            System.out.println("The health check with ID "+ healthResponse.healthCheck().id() +" was updated!");
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -78,5 +78,3 @@ public class UpdateHealthCheck {
     }
     // snippet-end:[route53.java2.update_health_check.main]
 }
-
-

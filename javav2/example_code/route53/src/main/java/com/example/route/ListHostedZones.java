@@ -54,7 +54,7 @@ public class ListHostedZones {
             List<HostedZone> checklist = zonesResponse.hostedZones();
 
             for (HostedZone check: checklist) {
-                System.out.println("The name is : "+check.name());
+                System.out.println("The name is: "+check.name());
             }
 
         } catch (Route53Exception e) {

@@ -40,7 +40,7 @@ public class CreateHealthCheck {
         final String USAGE = "\n" +
                 "To run this example, supply the fully qualified domain name.  \n" +
                 "\n" +
-                "Ex: CreateHealthCheck <domainName>\n";
+                "Example: CreateHealthCheck <domainName>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -56,7 +56,7 @@ public class CreateHealthCheck {
                 .build();
 
         String id = createCheck(route53Client, domainName);
-        System.out.println("The health check id is "+ id);
+        System.out.println("The health check ID is "+ id);
     }
 
     // snippet-start:[route53.java2.create_health_check.main]
@@ -64,7 +64,7 @@ public class CreateHealthCheck {
 
         try {
 
-            // You must use a unique CallerReference string every time you submit a CreateHostedZone request
+            // You must use a unique CallerReference string each time you submit a CreateHostedZone request
             String callerReference = java.util.UUID.randomUUID().toString();
 
             HealthCheckConfig config = HealthCheckConfig.builder()
@@ -78,7 +78,7 @@ public class CreateHealthCheck {
                      .healthCheckConfig(config)
                      .build();
 
-            // Create the Health Check and return the id value
+            // Create the health check and return the ID value
             CreateHealthCheckResponse healthResponse = route53Client.createHealthCheck(healthCheckRequest);
             return healthResponse.healthCheck().id();
 
@@ -90,5 +90,3 @@ public class CreateHealthCheck {
     }
     // snippet-end:[route53.java2.create_health_check.main]
 }
-
-
