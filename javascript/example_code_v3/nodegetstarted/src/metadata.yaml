@@ -1,7 +1,0 @@
----
-# AWS NodeGetStarted examples
-files:
-  - path: sample.ts
-    services:
-      - s3
-...
