@@ -393,11 +393,8 @@ It takes the following options:
 - ```-i``` *ID*, where *ID* is the value of the order's ORDER_ID attribute
 - ```-s``` *STATUS*, where *STATUS* is the new status value (backordered, delivered, delivering, or pending)
 
-
-  If the item is not an order, the update silently fails.
-- If you set the status to any other valid value,
-  the code example uses the lower-level **UpdateItemAsync** method,
-  which throws an exception if the item is not an order.
+The update sets the **Order_Status** field of the item.
+It does not check whether the *ID* applies to a customer, order, or product.
 
 ## Deleting an item from a table
 
