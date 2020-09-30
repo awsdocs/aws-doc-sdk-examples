@@ -13,6 +13,7 @@ This file is deployed to AWS Lambda as part of the Chalice deployment.
 import logging
 import urllib.parse
 from chalice import Chalice
+from chalice.app import RequestTimeoutError
 import chalicelib.library_data
 
 logger = logging.getLogger(__name__)
@@ -32,6 +33,17 @@ def get_storage():
     return _STORAGE
 
 
+def storage_timeout(func):
+    def _timeout(*args, **kwargs):
+        try:
+            result = func(*args, **kwargs)
+        except chalicelib.library_data.DataServiceNotReadyException as err:
+            raise RequestTimeoutError(err)
+        else:
+            return result
+    return _timeout
+
+
 @app.route('/')
 def index():
     """Briefly describes the REST API."""
@@ -40,6 +52,7 @@ def index():
 
 
 @app.route('/books', methods=['GET'])
+@storage_timeout
 def list_books():
     """
     Lists the books in the library.
@@ -50,6 +63,7 @@ def list_books():
 
 
 @app.route('/books', methods=['POST'])
+@storage_timeout
 def add_book():
     """
     Adds a book to the library. The author is also added.
@@ -67,6 +81,7 @@ def add_book():
 
 
 @app.route('/books/{author_id}', methods=['GET'])
+@storage_timeout
 def list_books_by_author(author_id):
     """
     Lists books in the library written by the specified author.
@@ -79,6 +94,7 @@ def list_books_by_author(author_id):
 
 
 @app.route('/authors', methods=['GET'])
+@storage_timeout
 def list_authors():
     """
     Lists the authors in the library.
@@ -89,6 +105,7 @@ def list_authors():
 
 
 @app.route('/patrons', methods=['GET'])
+@storage_timeout
 def list_patrons():
     """
     Lists the patrons of the library.
@@ -99,6 +116,7 @@ def list_patrons():
 
 
 @app.route('/patrons', methods=['POST'])
+@storage_timeout
 def add_patron():
     """
     Adds a patron to the library.
@@ -115,6 +133,7 @@ def add_patron():
 
 
 @app.route('/patrons/{patron_id}', methods=['DELETE'])
+@storage_timeout
 def delete_patron(patron_id):
     """
     Removes a patron from the library.
@@ -126,6 +145,7 @@ def delete_patron(patron_id):
 
 
 @app.route('/lending', methods=['GET'])
+@storage_timeout
 def list_borrowed_books():
     """
     Lists the books that are currently lent out from the library.
@@ -136,6 +156,7 @@ def list_borrowed_books():
 
 
 @app.route('/lending/{book_id}/{patron_id}', methods=['PUT', 'DELETE'])
+@storage_timeout
 def book_lending(book_id, patron_id):
     """
     Borrows or returns a book.

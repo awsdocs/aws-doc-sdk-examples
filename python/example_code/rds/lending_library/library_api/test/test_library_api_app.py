@@ -9,8 +9,10 @@ class provided by AWS Chalice to simplify route testing.
 import json
 from unittest.mock import MagicMock
 import pytest
+from chalice.app import RequestTimeoutError
 from chalice.test import Client
 import app
+from chalicelib.library_data import DataServiceNotReadyException
 
 
 @pytest.fixture
@@ -43,6 +45,15 @@ def test_list_books(mock_storage):
         response = client.http.get('/books')
         mock_storage.get_books.assert_called_with()
         assert response.json_body == {'books': ['book1', 'book2']}
+
+
+def test_list_books_timeout(mock_storage):
+    mock_storage.get_books = MagicMock(
+        side_effect=DataServiceNotReadyException('Timeout test'))
+
+    with Client(app.app) as client:
+        response = client.http.get('/books')
+        assert response.status_code == 408
 
 
 def test_add_book(mock_storage):

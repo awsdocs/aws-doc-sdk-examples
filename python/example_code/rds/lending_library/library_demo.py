@@ -94,19 +94,19 @@ def fill_db_tables(books_url, storage):
     :return The count of authors and the count of books added to the database.
     """
     logger.info("Getting book count from %s.", books_url)
-    response = requests.get(f'{books_url}&limit=1').json()
+    response = requests.get(f'{books_url}&limit=1')
     logger.info("Response %s.", response.status_code)
-    work_count = response['work_count']
+    work_count = response.json()['work_count']
     book_count = 200
     offset = random.randint(1, work_count - book_count)
     logger.info("Getting random slice of %s books.", book_count)
     response = requests.get(
-        f'{books_url}&limit={book_count}&offset={offset}').json()
+        f'{books_url}&limit={book_count}&offset={offset}')
     logger.info("Response %s.", response.status_code)
     books = [{
         'title': item['title'],
         'author': item['authors'][0]['name']
-    } for item in response['works']
+    } for item in response.json()['works']
         if len(item['authors']) > 0 and item['authors'][0]['name'].isascii()
         and item['title'].isascii()]
     logger.info("Found %s books.", len(books))
@@ -136,7 +136,8 @@ def do_deploy_database(cluster_name, secret_name):
     admin_password = secrets_client.get_random_password(
         PasswordLength=20, ExcludeCharacters='/@"')['RandomPassword']
 
-    print(f"Creating database {db_name} in cluster {cluster_name}.")
+    print(f"Creating database {db_name} in cluster {cluster_name}. This typically "
+          f"takes a few minutes.")
     cluster, secret = create_resources(
         cluster_name, db_name, admin_name, admin_password, rds_client,
         secret_name, secrets_client)
@@ -182,6 +183,8 @@ def do_deploy_rest(stack_name):
     bucket.delete()
     print(f"Deleted bucket {bucket.name}.")
 
+    return find_api_url(stack_name)
+
 
 def do_rest_demo(stack_name):
     """
@@ -197,7 +200,10 @@ def do_rest_demo(stack_name):
 
     print(f"Getting books from {books_url}.")
     response = requests.get(books_url)
-    print(f"Response: {response.status_code}")
+    if response.status_code == 408:
+        raise TimeoutError(response.json()['Message'])
+    else:
+        print(f"Response: {response.status_code}")
     books = response.json()
     print(f"Got {len(books['books'])} books. The first five are:")
     pprint(books['books'][:5])
@@ -275,14 +281,20 @@ def main():
         print("Next, run 'py library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == 'deploy_rest':
         print("Deploying the REST API components.")
-        do_deploy_rest(stack_name)
-        print("Next, run 'py library_demo.py demo_rest' to see a demonstration of "
-              "how to call the REST API by using the Requests package.")
+        api_url = do_deploy_rest(stack_name)
+        print(f"Next, send HTTP requests to {api_url} or run "
+              f"'py library_demo.py demo_rest' "
+              f"to see a demonstration of how to call the REST API by using the "
+              f"Requests package.")
     elif args.action == 'demo_rest':
         print("Demonstrating how to call the REST API by using the Requests package.")
-        do_rest_demo(stack_name)
-        print("Next, give it a try yourself or run 'py library_demo.py cleanup' "
-              "to delete all demo resources.")
+        try:
+            do_rest_demo(stack_name)
+        except TimeoutError as err:
+            print(err)
+        else:
+            print("Next, give it a try yourself or run 'py library_demo.py cleanup' "
+                  "to delete all demo resources.")
     elif args.action == 'cleanup':
         print("Cleaning up all resources created for the demo.")
         do_cleanup(stack_name, cluster_name, secret_name)

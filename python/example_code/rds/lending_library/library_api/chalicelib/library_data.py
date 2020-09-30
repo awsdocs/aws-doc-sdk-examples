@@ -23,6 +23,10 @@ from .mysql_helper import create_table, insert, update, query, unpack_query_resu
 logger = logging.getLogger(__name__)
 
 
+class DataServiceNotReadyException(Exception):
+    pass
+
+
 class Storage:
     """
     Wraps calls to the Amazon RDS Data Service.
@@ -144,7 +148,13 @@ class Storage:
                 run_args['transactionId'] = transaction_id
             result = self._rdsdata_client.execute_statement(**run_args)
             logger.info("Ran statement on %s.", self._db_name)
-        except ClientError:
+        except ClientError as error:
+            if error.response['Error']['Code'] == 'BadRequestException' and \
+                    'Communications link failure' in error.response['Error']['Message']:
+                raise DataServiceNotReadyException(
+                    'The Aurora Data Service is not ready, probably because it entered '
+                    'pause mode after 5 minutes of inactivity. Wait a minute for your '
+                    'cluster to resume and try your request again.') from error
             logger.exception("Run statement on %s failed.", self._db_name)
             raise
         else:
