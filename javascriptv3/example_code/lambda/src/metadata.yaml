@@ -1,0 +1,22 @@
+---
+# AWS Lambda examples
+files:
+  - path: ddb-table-create.ts
+    services:
+      - DynamoDB
+  - path: ddb-table-populate.ts
+    services:
+      - DynamoDB
+  - path: lambda-function-setup.ts
+    services:
+      - Lambda
+  - path: lambda-role-setup.ts
+    services:
+      - Lambda
+  - path: s3-bucket-setup.ts
+    services:
+      - S3
+  - path: s3-bucket-setup-non-modular.ts
+    services:
+      - S3
+...
