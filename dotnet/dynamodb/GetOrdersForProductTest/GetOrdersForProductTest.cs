@@ -60,7 +60,7 @@ namespace DynamoDBCRUD
             Assert.True(gotResult, "Could NOT get results from scanning table");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT get itemss from scanning table");
+            Assert.True(ok, "Could NOT get items from scanning table");
 
             output.WriteLine("Got items from table");
         }

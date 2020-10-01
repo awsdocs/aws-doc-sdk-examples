@@ -95,7 +95,7 @@ namespace DynamoDBCRUD
             var keys = "";
             var values = "";
 
-            // Get default region and table from config file
+            // Get default Region and table from config file
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile
@@ -147,7 +147,7 @@ namespace DynamoDBCRUD
 
             if ((keys == "") || (values == "") || (id == ""))
             {
-                Console.WriteLine("You must supply a comma-separate list of keys (-k \"key 1 ... keyN\") a comma-separated list of values (-v \"value1 ... valueN\") and an ID (-i ID)");
+                Console.WriteLine("You must supply a comma-separated list of keys (-k \"key 1 ... keyN\") a comma-separated list of values (-v \"value1 ... valueN\") and an ID (-i ID)");
                 return;
             }
 

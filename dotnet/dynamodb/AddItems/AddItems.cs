@@ -40,7 +40,7 @@ namespace DynamoDBCRUD
                 // Split line into columns
                 string[] values = line.Split(',');
 
-                // if we don't have the right number of parts, something's wrong
+                // If we don't have the right number of parts, something's wrong
                 if (values.Length != numcolumns)
                 {
                     Console.WriteLine("Did not have " + numcolumns.ToString() + " columns in: ");
@@ -116,7 +116,7 @@ namespace DynamoDBCRUD
             string index = "";
             bool debug = false;
             
-            // Get default region and table from config file
+            // Get default Region and table from config file
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile
@@ -182,7 +182,7 @@ namespace DynamoDBCRUD
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
 
             // Open the file
-            // filename is the name of the csv file that contains customer data
+            // filename is the name of the .csv file that contains customer data
             // Column1,...,ColumnN
             // in lines 2...N
             // Read the file and display it line by line.  

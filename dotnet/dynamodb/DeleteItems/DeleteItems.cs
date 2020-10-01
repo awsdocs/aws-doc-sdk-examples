@@ -27,7 +27,7 @@ namespace DynamoDBCRUD
                 var writeRequest = new WriteRequest
                 {
                     // For the operation to delete an item, if you provide a primary key value
-                    // that does not exist in the table, there is no error, it is just a no-op.
+                    // that does not exist in the table, there is no error. It is just a no-op.
                     DeleteRequest = new DeleteRequest
                     {
                         Key = new Dictionary<string, AttributeValue>()
@@ -68,7 +68,7 @@ namespace DynamoDBCRUD
             var idstring = "";
             var area = "";
 
-            // Get default region and table from config file
+            // Get default Region and table from config file
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile

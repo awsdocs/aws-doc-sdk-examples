@@ -79,7 +79,7 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            // Make sure we have a table, region, start time and end time
+            // Make sure we have a table, Region, start time and end time
             if ((region == "") || (table == "") || (index == "") || (starttime == "") || (endtime == ""))
             {
                 Console.WriteLine("You must specify Region, Table, Index, StartTime, and EndTime values in " + configfile);

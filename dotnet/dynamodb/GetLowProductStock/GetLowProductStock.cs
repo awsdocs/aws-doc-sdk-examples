@@ -62,7 +62,7 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            // Make sure we have a table, region, and minimum quantity
+            // Make sure we have a table, Region, and minimum quantity
             if ((region == "") || (table == "") || (minimum == ""))
             {
                 Console.WriteLine("You must specify Region, Table, and Minimum values in " + configfile);

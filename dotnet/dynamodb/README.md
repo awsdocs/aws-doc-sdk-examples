@@ -1,7 +1,6 @@
 # Amazon DynamoDB code examples in C\#
 
-This folder contains code examples for moving from SQL to NoSQL, 
-specifically Amazon DynamoDB,
+This folder contains code examples for moving from SQL to the Amazon DynamoDB service,
 as described in the Amazon DynamoDB Developer Guide at
 [From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html).
 
@@ -18,15 +17,15 @@ dotnet add package AWSSDK.DynamoDBv2
 
 ## Using async/await
 
-Read the 
+See
 [Migrating to Version 3.5 of the AWS SDK for .NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-v35.html) 
-topic for details.
+for details.
 
 ## Before you write any code
 
-Read the
+See
 [Best Practices for Modeling Relational Data in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html)
-topic in the Amazon DynamoDB Developer Guide for information about moving 
+in the Amazon DynamoDB Developer Guide for information about moving 
 from a relational database to Amazon DynamoDB.
 
 **IMPORTANT**
@@ -60,8 +59,8 @@ select * from Orders where Order_Product = '3'
 select * from Products where Product_Quantity < '100'
 ```
 
-Given the data in *customers.csv*, *orders.csv*, and *products.csv*,
-these queries return (as CSV):
+Given the data in **customers.csv**, **orders.csv**, and **products.csv**,
+these queries return (as .csv):
 
 ```
 Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status
@@ -82,18 +81,18 @@ Product_ID,Product_Description,Product_Quantity,Product_Cost
 Amazon DynamoDB supports the following data types,
 so you might have to create a new data model:
 
-- Scalar Types
+- Scalar types
 
   A scalar type can represent exactly one value.
   The scalar types are number, string, binary, Boolean, and null.
 
-- Document Types
+- Document types
  
   A document type can represent a complex structure with nested attributes,
   such as you would find in a JSON document.
   The document types are list and map.
 
-- Set Types
+- Set types
 
   A set type can represent multiple scalar values.
   The set types are string set, number set, and binary set.
@@ -104,7 +103,7 @@ Many, if not most, stored procedures can be implemented using
 
 Determine the type of primary key you want:
 
-- Partition key, which is a unique identifier for the item in the table.
+- Partition key. This is a unique identifier for the item in the table.
   If you use a partition key, every key must be unique.
   The table we create in these code examples will contain 
   a partition key that uniquely identifies a record,
@@ -122,7 +121,7 @@ and how to use them when you access a table.
 
 ## Modeling Customers, Orders, and Products in Amazon DynamoDB
 
-Your Amazon DynamoDB schema to model these tables might look like:
+Your Amazon DynamoDB schema to model these tables might look like this:
 
 | Key | Data Type | Description |
 | --- | --- | ---
@@ -144,7 +143,7 @@ Your Amazon DynamoDB schema to model these tables might look like:
 
 ## Creating the example databases
 
-We'll use three CSV (comma-separated value) files to define a set of customers,
+We'll use three .csv (comma-separated value) files to define a set of customers,
 orders, and products.
 Then we'll load that data into a relational database and Amazon DynamoDB.
 Finally, we'll run some SQL commands against the relational database,
@@ -152,13 +151,13 @@ and show you the corresponding queries or scan against an Amazon DynamoDB table.
 
 The three sets of data are in:
 
-- *customers.csv*, which defines six customers
-- *orders.csv*, which defines 12 orders
-- *products.csv*, which defines six products
+- **customers.csv**, which defines six customers
+- **orders.csv**, which defines 12 orders
+- **products.csv**, which defines six products
 
 ## Default configuration
 
-Every project has an *app.config* file that typically contains the following
+Every project has an **app.config** file that typically contains the following
 configuration values:
 
 ```
@@ -167,9 +166,9 @@ key="Table" value="CustomersOrdersProducts"
 ```
 
 Therefore, all of the projects that require a table name use the default table
-**CustomersOrdersProducts** in the default region **us-west-2**.
+**CustomersOrdersProducts** in the default Region **us-west-2**.
 Similar values exist for most variable values in all projects.
-This means there are few command-line arguments for any executable.
+This means there are few command-line arguments for any executable file.
 
 ## General code pattern
 
@@ -257,7 +256,7 @@ namespace DynamoDBCRUD
 ```
 
 To run this test,
-navigate to the *CreateTableTest* folder and run:
+navigate to the **CreateTableTest** folder and run:
 
 ```
 dotnet test
@@ -274,8 +273,8 @@ dotnet test -l "console;verbosity=detailed"
 Use the **CreateTable** project to create a table.
 
 The default table name is defined as **Table**
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.
 
 You can create this table as an on-demand table,
 which means that read/write capacity is not fixed
@@ -305,8 +304,8 @@ in the *Amazon DynamoDB Developer Guide* for details.
 Use the **AddItem** project to add an item to a table.
 
 The default table name is defined as **Table**
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.
 
 It requires the following options:
 
@@ -315,11 +314,11 @@ It requires the following options:
 
 There must be the same number of keys as values.
 
-- If the item is a customer, the schema should match that in *customers.csv*,
+- If the item is a customer, the schema should match that in **customers.csv**,
   with one additional key, ID, which defines the partition ID for the item.
-- If the item is an order, the schema should match that in *orders.csv*,
+- If the item is an order, the schema should match that in **orders.csv**,
   with one additional key, ID, which defines the partition ID for the item*.
-- If the item is a product, the schema should match that in *products.csv*,
+- If the item is a product, the schema should match that in **products.csv**,
   with one additional key, ID, which defines the partition ID for the item*.
 
 It's up to you to determine the appropriate partition key value (ID).
@@ -329,13 +328,13 @@ the values of that item are overwritten.
 ## Uploading items to a table
 
 The **AddItems** project incorporates data from three comma-separated value 
-(CSV) files to populate a table.
+(.csv) files to populate a table.
 
 The default table name is defined as **Table**,
-the default region is defined as **Region**,
+the default Region is defined as **Region**,
 and the default table names are defined as
 **Customers**, **Orders**, and **Products**
-in *app.config*.
+in **app.config**.
 
 ## Managing indexes
 
@@ -347,8 +346,8 @@ Amazon DynamoDB table keys as if they were a separate table.
 Use the **CreateIndex** project to create an index.
 
 The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.
 
 It requires the following command-line options:
 
@@ -368,7 +367,7 @@ CreateIndex.exe -i ProductOrdered  -m Area -k string -s Order_Product    -t numb
 CreateIndex.exe -i LowProduct      -m Area -k string -s Product_Quantity -t number
 ```
 
-Note that you cannot execute these commands one right after another.
+Note that you cannot execute these commands one after another.
 You must wait until one GSI is created before you can attempt to create another GSI.
 We recommend you use the Amazon DynamoDB console to monitor the progress
 of creating a GSI to avoid errors.
@@ -385,8 +384,8 @@ You can read data from an Amazon DynamoDB table using a number of techniques.
 Use the **UpdateItem** project to modify the status of an order in the table.
 
 The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.
 
 It takes the following options:
 
@@ -401,8 +400,8 @@ It does not check whether the *ID* applies to a customer, order, or product.
 Use the **DeleteItem** project to delete an item from the table.
 
 The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.
 
 It takes the following option:
 
@@ -417,8 +416,8 @@ the example silently fails to delete the item from the table.
 Use the **** project to delete an item from the table.
 
 The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.
 
 - ```-a``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
 - ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values must be for the associated *AREA*.
@@ -428,5 +427,5 @@ in *app.config*.
 Use the **DeleteTable** project to delete a table.
 
 The default table name is defined as **Table**,
-and the default region is defined as **Region**
-in *app.config*.
+and the default Region is defined as **Region**
+in **app.config**.

@@ -58,7 +58,7 @@ namespace DynamoDBCRUD
             var id = "";
             var status = "";
 
-            // Get default region and table from config file
+            // Get default Region and table from config file
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile
@@ -113,7 +113,7 @@ namespace DynamoDBCRUD
             var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
                        
-            // Silenty eats issue if id does not identify an order
+            // Silenty ignores issue if id does not identify an order
             var reply = ModifyOrderStatusAsync(client, table, id, status);
             
             if (reply.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)

@@ -41,7 +41,7 @@ namespace DynamoDBCRUD
             var table = "";
             var id = "3";
 
-            // Get default region and table from config file
+            // Get default Region and table from config file
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile
