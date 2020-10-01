@@ -87,8 +87,7 @@ public class CreateFunction {
 
         try {
             // Create a SdkBytes object that represents the Lambda code
-            File myFile = new File(filePath);
-            InputStream is = new FileInputStream(myFile);
+            InputStream is = new FileInputStream(filePath); 
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
             // Create a FunctionCode object
