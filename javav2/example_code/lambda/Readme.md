@@ -38,7 +38,7 @@ If you do not define all values, the JUnit tests fail.
 Define these values to successfully run the JUnit tests:
 
 - **completeFunctionName** - A fully qualified function name (for example, arn:aws:lambda:us-east-1:000008047983:function:myLambda).   
-- **functionName** – The name of a new function name (for example. myLambda function).
+- **functionName** – The name of a new function name (for example, myLambda).
 - **filePath** - the path to the ZIP or JAR where the code is located.
 - **role** - The role ARN that has Lambda permissions.
 - **handler** - The fully qualifed method name (for example, example.Handler::handleRequest).
