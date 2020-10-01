@@ -27,7 +27,7 @@ def progress_bar(seconds):
 
 
 def unique_name(base_name):
-    return f'aws-assume-role-demo-{base_name}-{time.time_ns()}'
+    return f'demo-assume-role-{base_name}-{time.time_ns()}'
 
 
 def setup(iam_resource):
@@ -233,10 +233,10 @@ def usage_demo():
     try:
         sts_client = boto3.client(
             'sts', aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret)
-        try_to_assume_role_without_mfa(role.arn, 'aws-sts-demo-session', sts_client)
+        try_to_assume_role_without_mfa(role.arn, 'demo-sts-session', sts_client)
         mfa_totp = input('Enter the code from your registered MFA device: ')
         list_buckets_from_assumed_role_with_mfa(
-            role.arn, 'aws-sts-demo-session', virtual_mfa_device.serial_number,
+            role.arn, 'demo-sts-session', virtual_mfa_device.serial_number,
             mfa_totp, sts_client)
     finally:
         teardown(user, virtual_mfa_device, role)

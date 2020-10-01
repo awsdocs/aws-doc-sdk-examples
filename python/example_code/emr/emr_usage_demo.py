@@ -351,7 +351,7 @@ def demo_short_lived_cluster():
     print(f"Welcome to the Amazon EMR short-lived cluster demo.")
     print('-'*88)
 
-    prefix = f'aws-demo-short-emr'
+    prefix = f'demo-short-emr'
 
     s3_resource = boto3.resource('s3')
     iam_resource = boto3.resource('iam')
@@ -440,7 +440,7 @@ def demo_long_lived_cluster():
     print(f"Welcome to the Amazon EMR long-lived cluster demo.")
     print('-'*88)
 
-    prefix = 'aws-demo-long-emr'
+    prefix = 'demo-long-emr'
 
     s3_resource = boto3.resource('s3')
     iam_resource = boto3.resource('iam')
@@ -488,7 +488,7 @@ def demo_long_lived_cluster():
         '20', 'Grocery', 'cheese', cluster_id, bucket, script_key, emr_client)
 
     review_bucket_folders = s3_resource.meta.client.list_objects_v2(
-        Bucket='amazon-reviews-pds', Prefix='parquet/', Delimiter='/', MaxKeys=100)
+        Bucket='demo-reviews-pds', Prefix='parquet/', Delimiter='/', MaxKeys=100)
     categories = [
         cat['Prefix'].split('=')[1][:-1] for cat in
         review_bucket_folders['CommonPrefixes']]

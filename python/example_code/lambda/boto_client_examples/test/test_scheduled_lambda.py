@@ -34,13 +34,13 @@ def test_schedule_lambda_function(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            eventbridge_stubber, 'stub_put_rule',
+            eventbridge_stubber.stub_put_rule,
             event_rule_name, event_schedule, event_rule_arn)
         runner.add(
-            lambda_stubber, 'stub_add_permission', lambda_func_name,
+            lambda_stubber.stub_add_permission, lambda_func_name,
             'lambda:InvokeFunction', 'events.amazonaws.com', event_rule_arn)
         runner.add(
-            eventbridge_stubber, 'stub_put_targets',
+            eventbridge_stubber.stub_put_targets,
             event_rule_name, [{'Id': lambda_func_name, 'Arn': lambda_func_arn}],
             failed_count=failed_target_count)
 
@@ -113,10 +113,10 @@ def test_delete_event(make_stubber, stub_runner, error_code, stop_on_method):
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            eventbridge_stubber, 'stub_remove_targets',
+            eventbridge_stubber.stub_remove_targets,
             event_rule_name, [lambda_func_name])
         runner.add(
-            eventbridge_stubber, 'stub_delete_rule', event_rule_name)
+            eventbridge_stubber.stub_delete_rule, event_rule_name)
 
     if error_code is None:
         scheduled_lambda.delete_event_rule(

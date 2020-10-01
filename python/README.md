@@ -139,6 +139,13 @@ This example brings together some of the same information you can find in the
 tutorials in the 
 [AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
 
+### [AWS Organizations policy examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/organizations/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create and manage AWS Organizations
+policies.
+
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
 #### Purpose
@@ -208,6 +215,17 @@ perform permitted actions.
 * Construct a URL that gives federated users direct access to an account through the
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
+
+### [Amazon Transcribe custom vocabulary example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/transcribe/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
+transcribe an audio file to a text file. Learn how to:
+
+* Run a transcription job against an audio file in an Amazon S3 bucket.
+* Create and refine a custom vocabulary to improve the accuracy of the transcription.
+* List and manage transcription jobs and custom vocabularies.
 
 ### [Test tools for Python code examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/test_tools/README.md)
 

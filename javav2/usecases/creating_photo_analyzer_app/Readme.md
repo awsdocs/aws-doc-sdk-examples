@@ -20,13 +20,13 @@ After the application analyzes this image, it creates this data:
 
 In addition, this application uses Amazon Simple Email Service (Amazon SES) to send a report to a given email recipient. In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-This application uses the following AWS Services:
+This application uses the following AWS services:
 *	Amazon Rekognition
 *	Amazon S3
 *	Amazon SES
 *	AWS Elastic Beanstalk
 
-**Cost to complete:** The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
+**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 
@@ -209,18 +209,18 @@ The Java files go into this package.
 
 Create these Java classes:
 
-+ ``AnalyzePhotos`` - Uses the Amazon Rekognition API to analyze the images.
-+ ``BucketItem`` - Used as a model that stores Amazon S3 bucket information.   
-+ ``PhotoApplication`` - Used as the base class for the Spring Boot application.
-+ ``PhotoController`` - Used as the Spring Boot controller that handles HTTP requests.
-+ ``SendMessages`` - Uses the Amazon SES API to send an email message with an attachment.
-+ ``S3Service`` - Uses the Amazon S3 API to perform S3 operations.
-+ ``WorkItem`` - Used as a model that stores Amazon Rekognition data.
-+ ``WriteExcel`` – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
++ **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images.
++ **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
++ **PhotoApplication** - Used as the base class for the Spring Boot application.
++ **PhotoController** - Used as the Spring Boot controller that handles HTTP requests.
++ **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
++ **S3Service** - Uses the Amazon S3 API to perform S3 operations.
++ **WorkItem** - Used as a model that stores Amazon Rekognition data.
++ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
 
 ### AnalyzePhotos class
 
-The following Java code represents the ``AnalyzePhotos`` class. This class uses the Amazon Rekognition API to analyze the images.
+The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images.
 
     package com.example.photo;
 
@@ -292,7 +292,7 @@ The following Java code represents the ``AnalyzePhotos`` class. This class uses 
 
 ### BucketItem class
 
-The following Java code represents the ``BucketItem`` class that stores S3 object data.
+The following Java code represents the **BucketItem** class that stores S3 object data.
 
     package com.example.photo;
 
@@ -340,7 +340,7 @@ The following Java code represents the ``BucketItem`` class that stores S3 objec
 
 ### PhotoApplication class
 
-The following Java code represents the ``PhotoApplication`` class.
+The following Java code represents the **PhotoApplication** class.
 
     package com.example.photo;
 
@@ -357,7 +357,7 @@ The following Java code represents the ``PhotoApplication`` class.
 
 ### PhotoController class
 
-The following Java code represents the ``PhotoController`` class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the ``singleFileUpload`` method handles the request.
+The following Java code represents the **PhotoController** class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the **singleFileUpload** method handles the request.
 
     package com.example.photo;
 
@@ -473,7 +473,7 @@ The following Java code represents the ``PhotoController`` class that handles HT
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the ``getObjectBytes`` method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
+The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
 
     package com.example.photo;
 
@@ -705,7 +705,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
 ### SendMessage class
 
-The following Java code represents the ``SendMessage`` class. This class uses the Amazon SES API to send an email message with an attachment that represents the report.
+The following Java code represents the **SendMessage** class. This class uses the Amazon SES API to send an email message with an attachment that represents the report.
 
    package com.example.photo;
 
@@ -852,7 +852,7 @@ The following Java code represents the ``SendMessage`` class. This class uses th
 
  ### WorkItem class
 
- The following Java code represents the ``WorkItem`` class.
+ The following Java code represents the **WorkItem** class.
 
      package com.example.photo;
 
@@ -889,7 +889,7 @@ The following Java code represents the ``SendMessage`` class. This class uses th
 
 ### WriteExcel class
 
-The following Java code represents the ``WriteExcel`` class.
+The following Java code represents the **WriteExcel** class.
 
     package com.example.photo;
 
@@ -1249,22 +1249,32 @@ The following HTML represents the **upload.html** file.
 The following HTML represents the **layout.html** file for the application's menu.
 
      <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org">
+      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head th:fragment="site-head">
       <meta charset="UTF-8" />
       <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
       <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-      <meta th:include="this :: head" th:remove="tag"/>
-    </head>
-    <body>
+       <meta th:include="this :: head" th:remove="tag"/>
+      </head>
+      <body>
       <!-- th:hef calls a controller method - which returns the view -->
-     <body th:fragment="site-header">
+      <header th:fragment="site-header">
       <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
       <a href="#" style="color: white" th:href="@{/}">Home</a>
       <a href="#" style="color: white" th:href="@{/photo}">Upload Photos</a>
       <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
-    </body>
-    </html>
+      <div id="logged-in-info">
+
+        <form method="post" th:action="@{/logout}">
+            <input type="submit"  value="Logout"/>
+        </form>
+         </div>
+        </header>
+        <h1>Welcome</h1>
+        <body>
+        <p>Welcome to  AWS Photo Analyzer.</p>
+        </body>
+        </html>
 
 ## Create script files
 
@@ -1327,7 +1337,7 @@ The following JavaScript represents the **items.js** file.
 
 ### message.js
 
-The following JavaScript represents the **message.js** file. The ``ProcessImages`` function sends a request to the ``/report`` handler in the controller that generates a report. Notice that an email address is posted to the ``Controller`` method.
+The following JavaScript represents the **message.js** file. The **ProcessImages** function sends a request to the **/report** handler in the controller that generates a report. Notice that an email address is posted to the **Controller** method.
 
     $(function() {
 
@@ -1399,9 +1409,9 @@ When you’re done, you will see the application state the **Health** is **OK** 
 
 ![AWS Photo Analyzer](images/photo10.png)
 
-14. To change the port that Spring Boot listens on, add an environment variable named ``SERVER_PORT``, with the value **5000**.
-11. Add a variable named ``AWS_ACCESS_KEY_ID``, and then specify your access key value.
-12. Add a variable named ``AWS_SECRET_ACCESS_KEY``, and then specify your secret key value. When the variables are configured, you'll see the URL for accessing the application.
+14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
+11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
+12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. When the variables are configured, you'll see the URL for accessing the application.
 
 ![AWS Photo Analyzer](images/photo11.png)
 

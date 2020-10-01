@@ -27,6 +27,8 @@ public class AmazonS3ServiceIntegrationTest {
     private static String presignKey="";
     private static String presignBucket="";
     private static String path="";
+    private static String bucketNamePolicy="";
+
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -34,9 +36,9 @@ public class AmazonS3ServiceIntegrationTest {
         // Run tests on Real AWS Resources
         region = Region.US_WEST_2;
         s3 = S3Client.builder()
-            .region(region)
-            .build();
-        
+                .region(region)
+                .build();
+
         presigner = S3Presigner.builder()
                 .region(region)
                 .build();
@@ -64,6 +66,7 @@ public class AmazonS3ServiceIntegrationTest {
             presignKey = prop.getProperty("presignKey");
             presignBucket= prop.getProperty("presignBucket");
             path = prop.getProperty("path");
+            bucketNamePolicy = prop.getProperty("bucketNamePolicy");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -107,7 +110,9 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(5)
     public void setBucketPolicy() {
 
-     SetBucketPolicy.setPolicy(s3, bucketName, policyText);
+     String polText = SetBucketPolicy.getBucketPolicyFromFile(policyText);
+     assertTrue(!polText.isEmpty());
+     SetBucketPolicy.setPolicy(s3, bucketNamePolicy, polText);
      System.out.println("Test 5 passed");
     }
 
@@ -115,7 +120,7 @@ public class AmazonS3ServiceIntegrationTest {
     @Order(6)
     public void getBucketPolicy() {
 
-    String polText = GetBucketPolicy.getPolicy(s3, bucketName );
+    String polText = GetBucketPolicy.getPolicy(s3, bucketNamePolicy);
     assertTrue(!polText.isEmpty());
     System.out.println("Test 6 passed");
     }

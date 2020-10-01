@@ -190,8 +190,8 @@ def usage_demo():
 
     lambda_function_filename = 'lambda_handler_basic.py'
     lambda_handler_name = 'lambda_handler_basic.lambda_handler'
-    lambda_role_name = 'aws-demo-lambda-role'
-    lambda_function_name = 'aws-demo-lambda-function'
+    lambda_role_name = 'demo-lambda-role'
+    lambda_function_name = 'demo-lambda-function'
 
     iam_resource = boto3.resource('iam')
     lambda_client = boto3.client('lambda')

@@ -36,11 +36,11 @@ To complete the tutorial, you need the following:
 
 ## Understand the AWS Messaging application
 
-To send a message to a SQS queue, enter the message into the application and choose Send. 
+To send a message to a SQS queue, enter the message into the application and choose Send.
 
 ![AWS Messaging application](images/client2b.png)
 
-After the message is sent, the application displays the message, as shown in this figure. 
+After the message is sent, the application displays the message, as shown in this figure.
 
 
 ![AWS Messaging application](images/client2c.png)
@@ -50,9 +50,9 @@ You can choose **Purge** to purge the messages from the FIFO queue. This results
 The following describes how the application handles a message:
 
 1. The message and user values are posted to a Spring controller.
-2. The Spring controller creates a custom ``Message`` object that stores the message ID value (a GUID), the message text, and the user.
-3. The Spring controller passes the ``Message`` object to a message service that uses the ``software.amazon.awssdk.services.sqs.SqsClient`` client object to store the data into a FIFO queue.
-4. The Spring controller invokes the message service’s ``getMessages`` method to read all of the messages in the queue. This method returns an XML document that contains all messages.
+2. The Spring controller creates a custom **Message** object that stores the message ID value (a GUID), the message text, and the user.
+3. The Spring controller passes the **Message** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue.
+4. The Spring controller invokes the message service’s **getMessages** method to read all of the messages in the queue. This method returns an XML document that contains all messages.
 5. The XML is passed back to the view, where the messages are parsed and displayed in the view.  
 
 ## Create an IntelliJ project named SpringAWSMessage
@@ -172,14 +172,14 @@ The Java files must go into this package.
 
 Create the following Java classes:
 
-+ ``Message`` - Used as the model for this application.
-+ ``MessageApplication`` - Used as the base class for the Spring Boot application.
-+ ``MessageController`` - Used as the Spring Boot controller that handles HTTP requests.
-+ ``SendReceiveMessages`` - Uses the Amazon SQS API to process messages.  
++ **Message** - Used as the model for this application.
++ **MessageApplication** - Used as the base class for the Spring Boot application.
++ **MessageController** - Used as the Spring Boot controller that handles HTTP requests.
++ **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
 
 ### Message class
 
-The ``Message`` class represents the application’s model.
+The **Message** class represents the application’s model.
 
      package com.example;
 
@@ -217,7 +217,7 @@ The ``Message`` class represents the application’s model.
 
 ### MessageApplication class
 
-The following Java code represents the ``MessageApplication`` class. This class represents the entry point into the Spring Boot application.
+The following Java code represents the **MessageApplication** class. This class represents the entry point into the Spring Boot application.
 
      package com.example;
 
@@ -234,7 +234,7 @@ The following Java code represents the ``MessageApplication`` class. This class 
 
 ### MessageController class
 
-The following Java code represents the ``MainController`` class that handles HTTP requests. For example, when a new message is posted, the ``addItems`` method handles the request.  
+The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
 
      package com.example;
 
@@ -309,7 +309,7 @@ The following Java code represents the ``MainController`` class that handles HTT
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the ``getMessages`` method retrieves a message from the queue. Likewise, the ``processMessage`` method sends a message to a queue.
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
 
         package com.example;
 
@@ -700,60 +700,60 @@ The following code represents this **.js** file.
 
     function populateChat() {
 
-     // Post the values to the controller
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", handle, false);
-    xhr.open("GET", "../populate", true);   
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send();
-    }
+      // Post the values to the controller
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", handle, false);
+      xhr.open("GET", "../populate", true);   
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+      xhr.send();
+      }
 
-    function handle(event) {
+     function handle(event) {
 
-      var xml = event.target.responseText;
+       var xml = event.target.responseText;
        $('#textarea').val("");
-      $("#messages").children().remove();
-      $(xml).find('Message').each(function () {
-      var $field = $(this);
-      var body = $field.find('Data').text();
-      var name = $field.find('User').text();
+       $("#messages").children().remove();
+       $(xml).find('Message').each(function () {
+       var $field = $(this);
+       var body = $field.find('Data').text();
+       var name = $field.find('User').text();
 
-      // Set the view
-      var userText = body +'<br><br><b>' + name  ;
-      var myTextNode = $("#base").clone();
-      myTextNode.text(userText) ;
-      var image_url;
-      var n = name.localeCompare("Scott");
+       // Set the view
+       var userText = body +'<br><br><b>' + name  ;
+       var myTextNode = $("#base").clone();
+       myTextNode.text(userText) ;
+       var image_url;
+       var n = name.localeCompare("Scott");
 
-      if (n == 0)
+       if (n == 0)
             image_url = "../images/av1.png";
         else
             image_url = "../images/av2.png";
 
-      var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
-      myTextNode.html(userText) ;
-      myTextNode.append(images_div);
-      $("#messages").append(myTextNode);
-      });
-     }
+       var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
+       myTextNode.html(userText) ;
+       myTextNode.append(images_div);
+       $("#messages").append(myTextNode);
+       });
+      }
 
      function purge() {
 
-    // Post the values to the controller
-    // Invokes the getMyForms POST operation
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", purgeItems, false);
-    xhr.open("GET", "../purge", true);   
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send();
-    }
+      // Post the values to the controller
+      // Invokes the getMyForms POST operation
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", purgeItems, false);
+      xhr.open("GET", "../purge", true);   
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send();
+      }
 
-   function purgeItems(event) {
-    $('#textarea').val("");
-    var msg = event.target.responseText;
-    alert(msg);
-    populateChat();
-    }
+     function purgeItems(event) {
+      $('#textarea').val("");
+      var msg = event.target.responseText;
+      alert(msg);
+      populateChat();
+      }
 
      function pushMessage() {
 
@@ -808,6 +808,8 @@ Package up the project into an executable **.jar** (JAR) file by using the follo
 The JAR file is located in the target folder.
 
 ![AWS Messaging Application](images/client6.png)
+
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy to Elastic Beanstalk
 

@@ -16,12 +16,14 @@ from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.lambda_stubber import LambdaStubber
+from test_tools.organizations_stubber import OrganizationsStubber
 from test_tools.pinpoint_stubber import PinpointStubber
 from test_tools.s3_stubber import S3Stubber
 from test_tools.s3control_stubber import S3ControlStubber
 from test_tools.sqs_stubber import SqsStubber
 from test_tools.ssm_stubber import SsmStubber
 from test_tools.sts_stubber import StsStubber
+from test_tools.transcribe_stubber import TranscribeStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -45,6 +47,8 @@ def stubber_factory(service_name):
         return IamStubber
     elif service_name == 'lambda':
         return LambdaStubber
+    elif service_name == 'organizations':
+        return OrganizationsStubber
     elif service_name == 'pinpoint':
         return PinpointStubber
     elif service_name == 's3':
@@ -57,6 +61,8 @@ def stubber_factory(service_name):
         return SsmStubber
     elif service_name == 'sts':
         return StsStubber
+    elif service_name == 'transcribe':
+        return TranscribeStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "

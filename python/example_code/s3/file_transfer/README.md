@@ -21,6 +21,19 @@ thread usage and time to transfer.
 - An Amazon S3 bucket to hold uploaded objects
 - A folder on your local drive to hold created and downloaded files
 
+## Cautions
+
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
+
 ## Running the code
 
 Interactively demonstrates the code in file_transfer.py by running the following

@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 def make_unique_name(name):
-    return f'aws-ec2-demo-{name}-{time.time_ns()}'
+    return f'demo-ec2-{name}-{time.time_ns()}'
 
 
 def setup_demo(current_ip_address, ami_image_id, key_file_name):

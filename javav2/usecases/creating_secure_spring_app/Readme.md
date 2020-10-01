@@ -1,4 +1,4 @@
-#  Creating a secure Spring application using AWS services
+#  Creating the Amazon Relational Database Service item tracker
 
 You can develop a secure Spring application that tracks and reports on work items by using the following AWS services:
 
@@ -16,44 +16,44 @@ The following figure shows you the structure of the Java project.
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
-**Cost to complete:** The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
+**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
 + Prerequisites
-+ Understand the AWS Tracker application.
-+ Create an IntelliJ project named AWSItemTracker.
-+ Add the Spring POM dependencies to your project.	
-+ Setup the Java packages in your project.
-+ Create the Java classes.
-+ Create the HTML files.
-+ Create script files. 
-+ Set up the RDS instance.
-+ Create a JAR file for the application. 
++ Understand the AWS Tracker application
++ Create an IntelliJ project named AWSItemTracker
++ Add the Spring POM dependencies to your project
++ Setup the Java packages in your project
++ Create the Java classes
++ Create the HTML files
++ Create script files
++ Set up the RDS instance
++ Create a JAR file for the application
 + Deploy the application to Elastic Beanstalk.
 
 ## Prerequisites
 
-To follow along with the tutorial, you need the following:
+To complete the tutorial, you need the following:
 
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK. 
-+ Maven 3.6 or higher.
++ An AWS Account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java 1.8 JDK
++ Maven 3.6 or later
 
 ## Understand the AWS Tracker application
-The *AWS Tracker* application uses a model that is based on a work item and contains these attributes: 
+The AWS Tracker application uses a model that is based on a work item and contains these attributes:
 
-+ **date** - The start date of the item. 
++ **date** - The start date of the item.
 + **description** - The description of the item.
-+ **guide** - The deliverable that this item has an impact on. 
++ **guide** - The deliverable that this item has an impact on.
 + **username** - The person who performs the work item.
-+ **status** - The status of the item. 
++ **status** - The status of the item.
 + **archive** - Whether this item is completed or is still being worked on.
 
-The following figure shows the login page. 
+The following figure shows the login page.
 
 ![AWS Tracking Application](images/newtrack1.png)
 
@@ -62,15 +62,15 @@ When a user logs into the system, they see the **Home** page.
 ![AWS Tracking Application](images/AWSItemsAll4.png)
 
 #### Application functionality
-A user can perform these tasks in the AWS Tracker application: 
+A user can perform these tasks in the AWS Tracker application:
 
 + Enter an item into the system
 + View all active items
-+ View archived items that are complete 
++ View archived items that are complete
 + Modify active items
-+ Send a report to an email recipient 
++ Send a report to an email recipient
 
-The following figure shows the new item section. 
+The following figure shows the new item section.
 
 ![AWS Tracking Application](images/AWT1.png)
 
@@ -78,49 +78,49 @@ A user can retrieve *active* or *archive* items. For example, a user can choose 
 
 ![AWS Tracking Application](images/AWSItemsAll3.png)
 
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
 ![AWS Tracking Application](images/AWT12.png)
 
 #### Work table
 The database is MySQL and contains a table named **Work**. The table contains the following fields:
 
-+ **idwork** - A VARCHAR(45) value that represents the PK. 
++ **idwork** - A VARCHAR(45) value that represents the PK.
 + **date** - A date value that specifies the date the item was created.
-+ **description** - A VARCHAR(400) value that describes the item. 
++ **description** - A VARCHAR(400) value that describes the item.
 + **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
 + **status** - A VARCHAR(400) value that describes the status.
-+ **username** - A VARCHAR(45) value that represents the user who entered the item. 
-+ **archive** - A TINYINT(4) value that represents whether this is an active or archive item. 
++ **username** - A VARCHAR(45) value that represents the user who entered the item.
++ **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
 
-The following figure shows the **work** table. 
+The following figure shows the **work** table.
 
 ![AWS Tracking Application](images/trackMySQL2.png)
 
 ## Create an IntelliJ project named AWSItemTracker
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
-3. For **GroupId**, enter **aws-spring**. 
-4. For **ArtifactId**, enter **AWSItemTracker**. 
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+3. For **GroupId**, enter **aws-spring**.
+4. For **ArtifactId**, enter **AWSItemTracker**.
 6. Choose **Next**.
-7. Choose **Finish**. 
+7. Choose **Finish**.
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **AWSItemTracker**. 
+At this point, you have a new project named **AWSItemTracker**.
 
 ![AWS Tracking Application](images/track5.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
-  
+
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
       </parent>
-    
+
 In the **dependencies** element, add the following Spring Boot **dependency** elements.
 
     <dependency>
@@ -142,18 +142,18 @@ In the **dependencies** element, add the following Spring Boot **dependency** el
        </exclusion>
       </exclusions>
     </dependency>
-      
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2). 
+
+Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
 
  	<dependency>
           <groupId>software.amazon.awssdk</groupId>
           <artifactId>ses</artifactId>
           <version>2.10.41</version>
         </dependency>
-    
-**Note**: Ensure that you are using Java 1.8 (as shown below).
-  
-Ensure that the **pom.xml** file looks like the following. 
+
+**Note:** Ensure that you are using Java 1.8 (as shown below).
+
+Ensure that the **pom.xml** file looks like the following.
 
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -328,7 +328,7 @@ Ensure that the **pom.xml** file looks like the following.
 
 ## Set up the Java packages in your project
 
-Create a Java package in the **main/java** folder named **com.aws**. 
+Create a Java package in the **main/java** folder named **com.aws**.
 
 ![AWS Tracking Application](images/track6.png)
 
@@ -338,10 +338,10 @@ The Java files go into the following subpackages.
 
 These packages contain the following:
 
-+ **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
++ **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **jdbc** - Contains Java files that use the JDBC API to interact with the RDS database.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
-+ **securingweb** - Contains Java files required for Spring security. 
++ **securingweb** - Contains Java files required for Spring security.
 
 ## Create the Java classes
 
@@ -351,11 +351,11 @@ Create the Java classes, including the Spring security classes that secure the w
 
 Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
 
-+ **SecuringWebApplication** 
++ **SecuringWebApplication**
 + **WebSecurityConfig**
 
-#### SecuringWebApplication class 
-The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. 
+#### SecuringWebApplication class
+The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application.
 
     package com.aws.securingweb;
 
@@ -370,26 +370,25 @@ The following Java code represents the **SecuringWebApplication** class. This is
      }
     }
 
-#### WebSecurityConfig class 
-The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. 
+#### WebSecurityConfig class
+The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
     package com.aws.securingweb;
 
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
+    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
     import org.springframework.security.config.annotation.web.builders.HttpSecurity;
     import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
     import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-    import org.springframework.security.core.userdetails.User;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import org.springframework.security.core.userdetails.UserDetailsService;
-    import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
     @Configuration
     @EnableWebSecurity
     public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-     @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -414,25 +413,26 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         http.csrf().disable();
     }
 
-    @Bean
     @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
-     }
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder())
+                .withUser("user")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER");
     }
-   
-**Note**: In this example, the user credentials to log into the application are **user** and **password**.  
- 
-#### To create the SecuringWebApplication and WebSecurityConfig classes 
 
-1. Create the **com.aws.securingweb** package. 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    }
+
+**Note**: In this example, the user credentials to log into the application are **user** and **password**.  
+
+#### To create the SecuringWebApplication and WebSecurityConfig classes
+
+1. Create the **com.aws.securingweb** package.
 2. Create the **SecuringWebApplication** class and paste the code into it.
 3. Create the **WebSecurityConfig** class and paste the code into it.
 
@@ -441,11 +441,11 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial. 
+**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial.
 
 #### MainController class
 
-The following Java code represents the **MainController** class. 
+The following Java code represents the **MainController** class.
 
     package com.aws.securingweb;
 
@@ -494,7 +494,7 @@ The following Java code represents the **MainController** class.
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-      //Get the Logged in User
+      // Get the Logged in User
       String name = getLoggedUser();
 
       String guide = request.getParameter("guide");
@@ -518,7 +518,7 @@ The following Java code represents the **MainController** class.
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-      //Get the Logged in User
+      // Get the Logged in User
       String name = getLoggedUser();
 
       String email = request.getParameter("email");
@@ -540,7 +540,7 @@ The following Java code represents the **MainController** class.
     @RequestMapping(value = "/archive", method = RequestMethod.POST)
     @ResponseBody
     String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
-        
+
       String id = request.getParameter("id");
       RetrieveItems ri = new RetrieveItems();
       ri.flipItemArchive(id );
@@ -551,7 +551,7 @@ The following Java code represents the **MainController** class.
     @RequestMapping(value = "/changewi", method = RequestMethod.POST)
     @ResponseBody
     String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
-    
+
       String id = request.getParameter("id");
       String description = request.getParameter("description");
       String status = request.getParameter("status");
@@ -588,7 +588,7 @@ The following Java code represents the **MainController** class.
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
     String modifyWork(HttpServletRequest request, HttpServletResponse response) {
-    
+
       String id = request.getParameter("id");
       RetrieveItems ri = new RetrieveItems();
       String xmlRes = ri.getItemSQL(id) ;
@@ -597,16 +597,16 @@ The following Java code represents the **MainController** class.
 
     private String getLoggedUser() {
 
-     // Get the logged-in Useruser
+     // Get the logged-in user
       org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
      String name = user2.getUsername();
      return name;
      }
     }
 
-#### To create the MainController class 
+#### To create the MainController class
 
-1. In the **com.aws.securingweb** package, create the **MainController** class. 
+1. In the **com.aws.securingweb** package, create the **MainController** class.
 2. Copy the code from the **MainController** class and paste it into this class in your project.
 
 ### Create the WorkItem class
@@ -614,7 +614,7 @@ The following Java code represents the **MainController** class.
 Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
 
 #### WorkItem class
-The following Java code represents the **WorkItem** class. 
+The following Java code represents the **WorkItem** class.
 
     package com.aws.entities;
 
@@ -674,10 +674,10 @@ The following Java code represents the **WorkItem** class.
      public String getGuide() {
       return this.guide;
       }
-     }	
+     }
 
 #### To create the WorkItem class
-1. In the **com.aws.entities** package, create the **WorkItem** class. 
+1. In the **com.aws.entities** package, create the **WorkItem** class.
 2. Copy the code from the **WorkItem** class and paste it into this class in your project.
 
 
@@ -685,9 +685,9 @@ The following Java code represents the **WorkItem** class.
 
 Create a Java package named **com.aws.jdbc**. Next, create these Java classes that are required to perform database operations:
 
-+ **ConnectionHelper** - Creates a connection to the RDS MySQL instance. 
-+ **InjectWorkService** - Injects items into the MySQL instance. 
-+ **RetrieveItems** - Retrieves items from the MySQL instance. 
++ **ConnectionHelper** - Creates a connection to the RDS MySQL instance.
++ **InjectWorkService** - Injects items into the MySQL instance.
++ **RetrieveItems** - Retrieves items from the MySQL instance.
 
 **Note**: This tutorial uses the JDBC API to interact with the MySQL instance. For more information about using Amazon RDS, see [Amazon Relational Database Service](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html).  
 
@@ -705,7 +705,7 @@ The following Java code represents the **ConnectionHelper** class.
 
       private String url;
       private static ConnectionHelper instance;
-      
+
       private ConnectionHelper() {
           url = "jdbc:mysql://localhost:3306/mydb";
        }
@@ -723,7 +723,7 @@ The following Java code represents the **ConnectionHelper** class.
         }
         return null;
     	}
-    
+
        public static void close(Connection connection) {
          try {
             if (connection != null) {
@@ -734,8 +734,8 @@ The following Java code represents the **ConnectionHelper** class.
         }
       }
      }
-    
-**Note**: The **URL** value is *localhost:3306*. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance. 
+
+**Note:** The **URL** value is **localhost:3306**. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
 
 #### InjectWorkService class
 
@@ -760,12 +760,12 @@ The following Java code represents the **InjectWorkService** class.
 
       // Inject a new submission
       public String modifySubmission(String id, String desc, String status) {
-        
+
 	Connection c = null;
         int rowCount= 0;
-         
+
 	try {
-        
+
 	  // Create a Connection object
           c = ConnectionHelper.getConnection();
 
@@ -788,7 +788,7 @@ The following Java code represents the **InjectWorkService** class.
 
     // Inject a new submission
     public String injestNewSubmission(WorkItem item) {
-    
+
        Connection c = null;
        int rowCount= 0;
        try {
@@ -805,7 +805,7 @@ The following Java code represents the **InjectWorkService** class.
         String description = item.getDescription();
         String status = item.getStatus();
 
-        // generate the work item ID
+        // Generate the work item ID
         UUID uuid = UUID.randomUUID();
         String workId = uuid.toString();
 
@@ -841,7 +841,7 @@ The following Java code represents the **InjectWorkService** class.
 
 #### RetrieveItems class
 
-The following Java code represents the **RetrieveItems** class. 
+The following Java code represents the **RetrieveItems** class.
 
     package com.aws.jdbc;
 
@@ -867,7 +867,7 @@ The following Java code represents the **RetrieveItems** class.
     import javax.xml.transform.stream.StreamResult;
 
 
-    @Component	
+    @Component
     public class RetrieveItems {
 
         // Retrieves an item based on the ID
@@ -877,7 +877,7 @@ The following Java code represents the **RetrieveItems** class.
         String query = "";
 
         try {
-          
+
 	    // Create a Connection object
             c = ConnectionHelper.getConnection();
 
@@ -889,7 +889,7 @@ The following Java code represents the **RetrieveItems** class.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            // Specify the SQL Statement to query data
+            // Specify the SQL statement to query data
             query = "update work set archive = ? where idwork ='" +id + "' ";
 
             PreparedStatement updateForm = c.prepareStatement(query);
@@ -930,7 +930,7 @@ The following Java code represents the **RetrieveItems** class.
 
             int arch = 1;
 
-            // Specify the SQL Statement to query data
+            // Specify the SQL statement to query data
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -983,7 +983,7 @@ The following Java code represents the **RetrieveItems** class.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            //Specify the SQL Statement to query data
+            //Specify the SQL statement to query data
             query = "Select description, status FROM work where idwork ='" +id + "' ";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -1008,7 +1008,7 @@ The following Java code represents the **RetrieveItems** class.
 
         Connection c = null;
 
-        //Define a list in which all work items are stored
+        // Define a list in which all work items are stored
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
@@ -1028,7 +1028,7 @@ The following Java code represents the **RetrieveItems** class.
 
             int arch = 0;
 
-            // Specify the SQL Statement to query data
+            // Specify the SQL statement to query data
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -1083,7 +1083,7 @@ The following Java code represents the **RetrieveItems** class.
 
             int arch = 0;
 
-            // Specify the SQL Statement to query data
+            // Specify the SQL statement to query data
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -1201,24 +1201,24 @@ The following Java code represents the **RetrieveItems** class.
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            //Start building the XML
+            // Start building the XML
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
             Element item = doc.createElement( "Item" );
             root.appendChild( item );
 
-            //Set Id
+            // Set Id
             Element id = doc.createElement( "Id" );
             id.appendChild( doc.createTextNode(id2 ) );
             item.appendChild( id );
 
-            //Set Description
+            // Set Description
             Element desc = doc.createElement( "Description" );
             desc.appendChild( doc.createTextNode(desc2 ) );
             item.appendChild( desc );
 
-            //Set Status
+            // Set Status
             Element status = doc.createElement( "Status" );
             status.appendChild( doc.createTextNode(status2 ) );
             item.appendChild( status );
@@ -1232,24 +1232,24 @@ The following Java code represents the **RetrieveItems** class.
       }
      }
 
-#### To create the JDBC classes 
+#### To create the JDBC classes
 
-1. Create the **com.aws.jdbc** package. 
+1. Create the **com.aws.jdbc** package.
 2. Create the **ConnectionHelper** class and paste the Java code into the class.  
 3. Create the **InjectWorkService** class and paste the Java code into the class.
 4. Create the **RetrieveItems** class and paste the Java code into the class.
 
 ### Create the service classes
 
-The service classes contain Java application logic that uses AWS services. In this section, you create these classes: 
+The service classes contain Java application logic that uses AWS services. In this section, you create these classes:
 
 + **SendMessages** - Uses the Amazon SES API to send email messages.
-+ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
-#### SendMessage class 
+#### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
+The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
 
     package com.aws.services;
 
@@ -1281,19 +1281,19 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
 
      private String sender = "tblue@nomailserver.com";
 
-     // The subject line for the email.
+     // The subject line for the email
      private String subject = "Weekly AWS Status Report";
 
-     // The email body for recipients with non-HTML email clients.
+     // The email body for recipients with non-HTML email clients
      private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
-     // The HTML body of the email.
+     // The HTML body of the email
      private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
      public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        //Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
@@ -1308,42 +1308,42 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object.
+        // Create a new MimeMessage object
         message = new MimeMessage(session);
 
-        // Add subject, from and to lines.
+        // Add subject, from and to lines
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-        // Create a multipart/alternative child container.
+        // Create a multipart/alternative child container
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts.
+        // Create a wrapper for the HTML and text parts
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part.
+        // Define the text part
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part.
+        // Define the HTML part
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container.
+        // Add the text and HTML parts to the child container
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object.
+        // Add the child container to the wrapper object
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent container
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message.
+        // Add the parent container to the message
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message.
+        // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
         // Define the attachment
@@ -1354,7 +1354,7 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
         String reportName = "WorkReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message.
+        // Add the attachment to the message
         msg.addBodyPart(att);
 
        // Send the email
@@ -1394,12 +1394,12 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
         System.out.println("Email sent with attachment");
       }
      }
-    
+
 **Note:** Update the email **sender** address with a verified email address.      
 
 #### WriteExcel class
 
-The **WriteExcel** class dynamically creates an Excel report with the MySQL data marked as active. The following code represents this class. 
+The **WriteExcel** class dynamically creates an Excel report with the MySQL data marked as active. The following code represents this class.
 
     package com.aws.services;
 
@@ -1426,7 +1426,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    // Returns an InputStream that represents the Excel Report
+    // Returns an InputStream that represents the Excel report
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
@@ -1475,11 +1475,11 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         // Lets automatically wrap the cells
         times.setWrap(true);
 
-        // create create a bold font with unterlines
+        // Create a bold font with underlining
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Lets automatically wrap the cells
+        // Automatically wrap the cells
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1495,7 +1495,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Work Item Data to the Excel Report
+    // Write the Work Item Data to the Excel report
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
@@ -1571,16 +1571,16 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return count;
      }
     }
-    
+
 #### To create the service classes
 
-1. Create the **com.aws.services** package. 
+1. Create the **com.aws.services** package.
 2. Create the **SendMessages** class and add the Java code to it.   
 3. Create the **WriteExcel** class and add the Java code to it.
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Tracking application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a template folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Tracking application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder and then create the following HTML files:
 
 + **login.html**
 + **index.html**
@@ -1592,7 +1592,7 @@ The **login.html** file is the login page where a user logs into the application
 
 #### login.html
 
-The following HTML code represents the login form. 
+The following HTML code represents the login form.
 
     	<!DOCTYPE html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
@@ -1719,26 +1719,26 @@ The following HTML code represents the **index.html** file. This file represents
 
       <h2>AWS Item Tracker</h2>
 
-      <p>The AWS Item Tracker application is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+      <p>The AWS Item Tracker application is a sample application that uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
      <ol>
-    <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+    <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form and then choose <b>Create Item</b>.</li>
     <li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
-    <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
-    <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
-    <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
-    <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
-    <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
-    <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.Only Active data is sent in a report.</li>
+    <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Next, choose <b>Get Active Items</b> in the dialog box.</li>
+    <li>You can modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
+    <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
+    <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
+    <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
+    <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>.Only Active data is sent in a report.</li>
     <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
     </body>
     </html>
- 
+
 #### add.html
 
-The following code represents the **add.html** file that enables users to add new items. 
+The following code represents the **add.html** file that enables users to add new items.
 
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -1756,7 +1756,7 @@ The following code represents the **add.html** file that enables users to add ne
 	<header th:replace="layout :: site-header"/>
 	<div class="container">
 	<h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-    	<p>Add new items by filling in this table and clicking <i>Create Item</i></p>
+    	<p>Add new items by filling in this table and clicking <b>Create Item</b></p>
 
 	<div class="row">
     	<div class="col-lg-8 mx-auto">
@@ -1794,7 +1794,7 @@ The following code represents the **add.html** file that enables users to add ne
 
 #### items.html
 
-The following code represents the **items.html** file. This file enables users to modify items and send reports. 
+The following code represents the **items.html** file. This file enables users to modify items and send reports.
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2036,10 +2036,10 @@ The following code represents the **items.html** file. This file enables users t
 	</body>
 	</html>
 
-**Note:** Replace the default email addresses with real email addresses in this file. 
+**Note:** Replace the default email addresses with real email addresses in this file.
 #### layout.html
 
-The following code represents the **layout.html** file that represents the application's menu. 
+The following code represents the **layout.html** file that represents the application's menu.
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2069,27 +2069,27 @@ The following code represents the **layout.html** file that represents the appli
 	</body>
 	</html>
 
-#### To create the HTML files 
+#### To create the HTML files
 
 1. In the **resources** folder, create a folder named **templates**.  
-2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file. 
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file. 
-4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file. 
+2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file.
+3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file.
+4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file.
 5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
-6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file. 
+6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file.
 
-## Create script files 
+## Create script files
 
-Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work. 
+Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work.
 
 + **items.js**
 + **contact_me.js**
 
-Both files contain application logic that sends a request to the Spring MainController. In addition, these files handle the response and set the data in the view. 
+Both files contain application logic that sends a request to the Spring MainController. In addition, these files handle the response and set the data in the view.
 
 #### items.js file
 
-The following JavaScript code represents the **items.js** file that is used in the **items.html** view. 
+The following JavaScript code represents the **items.js** file that is used in the **items.html** view.
 
 	$(function() {
 
@@ -2160,7 +2160,7 @@ The following JavaScript code represents the **items.js** file that is used in t
     }
 
 
-     //Handler for the changewi call
+     // Handler for the changewi call
      function loadMods(event) {
 
     var msg = event.target.responseText;
@@ -2170,13 +2170,13 @@ The following JavaScript code represents the **items.js** file that is used in t
     $('#description').val("");
     $('#status').val("");
 
-    //Refresh the grid
+    // Refresh the grid
     GetItems();
      }
 
-    //populate the table with work items
+    // Populate the table with work items
     function GetItems() {
-    
+
     var xhr = new XMLHttpRequest();
     var type="active";
     xhr.addEventListener("load", loadItems, false);
@@ -2185,15 +2185,15 @@ The following JavaScript code represents the **items.js** file that is used in t
     xhr.send("type=" + type);
     }
 
-    //Handler for the GetItems call
-    //This will populate the Data Table widget
+    // Handler for the GetItems call
+    // This will populate the Data Table widget
     function loadItems(event) {
 
     // Enable the reportbutton
     $('#reportbutton').prop("disabled",false);
     $('#reportbutton').css("color", "#FFFFFF");
 
-    //Refresh the URL for Form Preview
+    // Refresh the URL for Form Preview
     var xml = event.target.responseText;
     var oTable = $('#myTable').dataTable();
     oTable.fnClearTable(true);
@@ -2208,7 +2208,7 @@ The following JavaScript code represents the **items.js** file that is used in t
         var description = $field.find('Description').text();
         var status = $field.find('Status').text();
 
-        //Set the new data
+        // Set the new data
         oTable.fnAddData( [
             id,
             name,
@@ -2224,7 +2224,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 
 
     function ModifyItem() {
-      
+
     var table = $('#myTable').DataTable();
     var myId="";
     var arr = [];
@@ -2240,7 +2240,7 @@ The following JavaScript code represents the **items.js** file that is used in t
         return;
     }
 
-    //Need to check its not an Archive item
+    // Need to check its not an Archive item
     var h3Val =  document.getElementById("info3").innerHTML;
     if (h3Val=="Archive Items")
     {
@@ -2269,7 +2269,7 @@ The following JavaScript code represents the **items.js** file that is used in t
         var description = $field.find('Description').text();
         var status = $field.find('Status').text();
 
-        //Set the fields
+        // Set the fields
         $('#id').val(id);
         $('#description').val(description);
         $('#status').val(status);
@@ -2297,10 +2297,10 @@ The following JavaScript code represents the **items.js** file that is used in t
 
 	function GetArcItems()
 	{
-    
+
     	var xhr = new XMLHttpRequest();
    	var type="archive";
-    
+
     	xhr.addEventListener("load", loadArcItems, false);
     	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
     	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
@@ -2310,11 +2310,11 @@ The following JavaScript code represents the **items.js** file that is used in t
 	//Handler for the Report call
 	function loadArcItems(event) {
 
-    	// Enable the reportbutton
+    	// Enable the report button
     	$('#reportbutton').prop("disabled",true);
     	$('#reportbutton').css("color", "#0d010d");
 
-    	//Refresh the URL for Form Preview
+    	// Refresh the URL for Form Preview
     	var xml = event.target.responseText;
     	var oTable = $('#myTable').dataTable();
     	oTable.fnClearTable(true);
@@ -2329,7 +2329,7 @@ The following JavaScript code represents the **items.js** file that is used in t
         	var description = $field.find('Description').text();
         	var status = $field.find('Status').text();
 
-        	//Set the new data
+        	// Set the new data
         	oTable.fnAddData( [
             		id,
             		name,
@@ -2369,7 +2369,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 	}
 
 
-	//Handler for the uploadSave call
+	// Handler for the uploadSave call
 	function onArch(event) {
 
     	var xml = event.target.responseText;
@@ -2380,7 +2380,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 
  #### contact_me.js file
 
-The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view. 
+The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view.
 
 	$(function() {
 
@@ -2409,7 +2409,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
         xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
     } );// END of the Send button click
 
-    //Handler for the click SendButton call
+    // Handler for the click SendButton call
     function loadNewItems(event) {
 
         var msg = event.target.responseText;
@@ -2419,11 +2419,11 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
       });
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project. 
+**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project.
 
-## Set up the RDS instance 
+## Set up the RDS instance
 
-In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application. 
+In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application.
 
 #### To set up a MySQL DB instance
 
@@ -2446,7 +2446,7 @@ In this step, you create an Amazon RDS MySQL DB instance that maintains the data
 + **Master username** – root
 + **Auto generate a password** – Disable the option
 + **Master password** – root1234
-+ **Confirm password** – root1234 
++ **Confirm password** – root1234
 
 ![AWS Tracking Application](images/trackSettings.png)
 
@@ -2487,29 +2487,29 @@ In the **Connectivity & security** section, view the **Endpoint** and **Port** o
 
 #### Modify the ConnectionHelper class
 
-Modify the **ConnectionHelper** class by updating the **url** value with the endpoint of the database. 
-      
+Modify the **ConnectionHelper** class by updating the **url** value with the endpoint of the database.
+
       url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
 
-In the previous line of code, notice **awstracker**. This is the database schema. In addition, update this line of code with the correct user name and password. 
+In the previous line of code, notice **awstracker**. This is the database schema. In addition, update this line of code with the correct user name and password.
 
      Class.forName("com.mysql.jdbc.Driver").newInstance();
             return DriverManager.getConnection(instance.url, "root","root1234");
 
-**Note:** If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database. 
+**Note:** If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database.
 
 #### Create the database schema and table
 
-You can use MySQL Workbench to connect to the RDS MySQL instance and create a database schema and the work table. To connect to the database, open MySQL Workbench and connect to database. 
+You can use MySQL Workbench to connect to the RDS MySQL instance and create a database schema and the work table. To connect to the database, open MySQL Workbench and connect to database.
 
 ![AWS Tracking Application](images/trackMySQLWB.png)
 
-**Note:** If you have issues connecting to the database, be sure to recheck your inbound rules. 
+**Note:** If you have issues connecting to the database, be sure to recheck your inbound rules.
 
 Create a schema named **awstracker** by using this SQL command.
 
     CREATE SCHEMA awstracker;
-    
+
 In the **awstracker** schema, create a table named **work** by using this SQL command.
 
     CREATE TABLE work(
@@ -2522,29 +2522,31 @@ In the **awstracker** schema, create a table named **work** by using this SQL co
         archive BOOLEAN
     )  ENGINE=INNODB;
 
-After you're done, you see a new table in your database. 
+After you're done, you see a new table in your database.
 
 ![AWS Tracking Application](images/trackTable.png)
 
-Enter a new record into this table by using these values: 
+Enter a new record into this table by using these values:
 
 + **idwork** - 4ea93f34-a45a-481e-bdc6-26c003bb93fc
 + **date** - 2020-01-20
-+ **description** - Need to test all examples 
++ **description** - Need to test all examples
 + **guide** - AWS Devloper Guide
 + **status** - Tested all of the Amazon S3 examples
 + **username** - user
 + **archive** - 0
 
-## Create a JAR file for the AWS Tracker application 
+## Create a JAR file for the AWS Tracker application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
 
 	mvn package
-	
+
 The JAR file is located in the target folder.
 
 ![AWS Tracking Application](images/AWT5png.png)
+
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy the application to Elastic Beanstalk
 
@@ -2556,27 +2558,27 @@ If this is your first time accessing this service, you will see a **Welcome to A
 
 #### To deploy the AWS Tracker application to Elastic Beanstalk
 
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
+1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values: 
+3. On the **Create New Application** page, enter the following values:
    + **Application Name** - AWS Tracker
-   + **Description** - A description for the application 
+   + **Description** - A description for the application
 
 ![AWS Tracking Application](images/AWT6.png)
 
 4. Choose **Create**.
-5. Choose **Create a new environment**. 
+5. Choose **Create a new environment**.
 6. Choose **Web server environment**.
-7. Choose **Select**. 
+7. Choose **Select**.
 8. In the **Environment information** section, leave the default values.
 9. In the **Platform** section, choose **Managed platform**.
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
 
 ![AWS Tracking Application](images/AWT7.png)
- 
-11. In the **Application code** section, choose **Upload your code**. 
+
+11. In the **Application code** section, choose **Upload your code**.
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. 
+13. Choose **Create environment**. You'll see the application being created.
 
 ![AWS Tracking Application](images/AWT8.png)
 
@@ -2585,8 +2587,8 @@ When you’re done, you will see the application state the **Health** is **Ok** 
 ![AWS Tracking Application](images/AWT9.png)
 
 14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.  Once the variables are configured, you'll see the URL for accessing the application. 
+11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
+12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.  Once the variables are configured, you'll see the URL for accessing the application.
 
 ![AWS Tracking Application](images/AWT10.png)
 
@@ -2597,10 +2599,7 @@ To access the application, open your browser and enter the URL for your applicat
 ![AWS Blog Application](images/AWT11.png)
 
 ### Next steps
-Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS Services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
-You can read more AWS multi service examples by clicking 
-[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
-
-
-
+For more AWS multiservice examples,
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).

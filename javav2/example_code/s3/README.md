@@ -38,6 +38,8 @@ Define these values to successfully run the JUnit tests:
 
 - **bucketName** - The name of the bucket to use. For example, **buckettestfeb7**.
 
+- **bucketNamePolicy** - The name of an existing bucket to which a policy is applied (used in the **setBucketPolicy** and **getBucketPolicy** tests). 
+
 - **presignBucket** - The name of the bucket to use in presign operations. For example, **bucketpresign**.
 
 - **objectKey** – The name of the object to use. For example, **book.pdf**.
@@ -61,21 +63,22 @@ Define these values to successfully run the JUnit tests:
 For the purpose of the JUnit tests, you can use the following example content for the policy text. Be sure to specify the correct Amazon Resource Name (ARN) bucket name in the **Resource** section; otherwise, your test is not successful.
 
 	{
-		"Version": "2012-10-17",
-		"Id": "S3PolicyId1",
-		"Statement": [
-		{
-			"Sid": "IPAllow",
-			"Effect": "Deny",
-			"Principal": "*",
-			"Action": "s3:*",
-			"Resource": "arn:aws:s3:::examplebucket/*",
-			"Condition": {
-				"NotIpAddress": {"aws:SourceIp": "54.240.143.0/24"}
-			}
-		}
-	  ]
-	}
+   	  "Version":"2012-10-17",
+   	  "Statement":[
+      	{
+         "Sid":"PublicRead",
+         "Effect":"Allow",
+         "Principal":"*",
+         "Action":[
+            "s3:GetObject",
+            "s3:GetObjectVersion"
+         ],
+         "Resource":[
+            "arn:aws:s3:::<change to an existing bucket>/*"
+         ]
+      }
+   ]
+}
 
 ### Command line
 

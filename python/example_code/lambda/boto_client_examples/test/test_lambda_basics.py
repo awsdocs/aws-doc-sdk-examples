@@ -25,24 +25,21 @@ def test_create_lambda_deployment_package(monkeypatch):
 @pytest.mark.parametrize(
     'error_code,stop_on_method', [
         (None, None),
-        ('TestException', 'create_role'),
-        ('TestException', 'attach_role_policy')
+        ('TestException', 'stub_create_role'),
+        ('TestException', 'stub_attach_role_policy')
     ])
 def test_create_iam_role_for_lambda(
-        make_stubber, make_unique_name, error_code, stop_on_method):
+        make_stubber, make_unique_name, stub_runner, error_code, stop_on_method):
     iam_resource = boto3.resource('iam')
     iam_stubber = make_stubber(iam_resource.meta.client)
     role_name = make_unique_name('role-')
 
-    with iam_stubber.conditional_stubs(error_code is not None, stop_on_method):
-        iam_stubber.stub_create_role(
-            role_name,
-            error_code=error_code if stop_on_method == 'create_role' else None)
-        iam_stubber.stub_get_role(role_name)
-        iam_stubber.stub_attach_role_policy(
-            role_name,
-            'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
-            error_code=error_code if stop_on_method == 'attach_role_policy' else None)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(iam_stubber.stub_create_role, role_name)
+        runner.add(iam_stubber.stub_get_role, role_name)
+        runner.add(
+            iam_stubber.stub_attach_role_policy, role_name,
+            'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole')
 
     if error_code is None:
         got_role = lambda_basics.create_iam_role_for_lambda(

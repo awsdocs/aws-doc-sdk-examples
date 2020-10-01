@@ -12,6 +12,8 @@ namespace Amazon.DocSamples.S3
     {
         private const string bucketName = "*** bucket name ***"; 
         private const string objectKey = "*** object key ***";
+        // Specify how long the presigned URL lasts, in hours
+        private const double timeoutDuration = 12;
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 s3Client;
@@ -19,9 +21,9 @@ namespace Amazon.DocSamples.S3
         public static void Main()
         {
             s3Client = new AmazonS3Client(bucketRegion);
-            string urlString = GeneratePreSignedURL();
+            string urlString = GeneratePreSignedURL(timeoutDuration);
         }
-        static string GeneratePreSignedURL()
+        static string GeneratePreSignedURL(double duration)
         {
             string urlString = "";
             try
@@ -30,7 +32,7 @@ namespace Amazon.DocSamples.S3
                 {
                     BucketName = bucketName,
                     Key = objectKey,
-                    Expires = DateTime.Now.AddMinutes(5)
+                    Expires = DateTime.UtcNow.AddHours(duration)
                 };
                 urlString = s3Client.GetPreSignedURL(request1);
             }

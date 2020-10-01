@@ -15,6 +15,8 @@ namespace Amazon.DocSamples.S3
         private const string bucketName = "*** provide bucket name ***";
         private const string objectKey  = "*** provide the name for the uploaded object ***";
         private const string filePath   = "*** provide the full path name of the file to upload ***";
+        // Specify how long the presigned URL lasts, in hours
+        private const double timeoutDuration = 12;
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2; 
         private static IAmazonS3 s3Client;
@@ -22,7 +24,7 @@ namespace Amazon.DocSamples.S3
         public static void Main()
         {
             s3Client = new AmazonS3Client(bucketRegion);
-            var url = GeneratePreSignedURL();
+            var url = GeneratePreSignedURL(timeoutDuration);
             UploadObject(url);
         }
 
@@ -45,14 +47,14 @@ namespace Amazon.DocSamples.S3
             HttpWebResponse response = httpRequest.GetResponse() as HttpWebResponse;
         }
 
-        private static string GeneratePreSignedURL()
+        private static string GeneratePreSignedURL(double duration)
         {
             var request = new GetPreSignedUrlRequest
             {
                 BucketName = bucketName,
                 Key        = objectKey,
                 Verb       = HttpVerb.PUT,
-                Expires    = DateTime.Now.AddMinutes(5)
+                Expires    = DateTime.UtcNow.AddHours(duration)
             };
 
            string url = s3Client.GetPreSignedURL(request);
