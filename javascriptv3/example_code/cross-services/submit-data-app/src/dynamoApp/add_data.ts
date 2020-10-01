@@ -21,8 +21,8 @@ Inputs (replace in code):
 Running the code:
 node add_data.ts
  */
-// snippet-start:[s3.JavaScript.crossservice.addDataV3.complete]
-// snippet-start:[s3.JavaScript.crossservice.addDataV3.config]
+// snippet-start:[s3.JavaScript.cross-service.addDataV3.complete]
+// snippet-start:[s3.JavaScript.cross-service.addDataV3.config]
 // Import required AWS SDK clients and commands for Node.js
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 const {
@@ -52,8 +52,8 @@ const sns = new SNSClient({
     identityPoolId: IDENTITY_POOL_ID,
   }),
 });
-// snippet-end:[s3.JavaScript.crossservice.addDataV3.config]
-// snippet-start:[s3.JavaScript.crossservice.addDataV3.function]
+// snippet-end:[s3.JavaScript.cross-service.addDataV3.config]
+// snippet-start:[s3.JavaScript.cross-service.addDataV3.function]
 const submitData = async () => {
   //Set the parameters
   // Capture the values entered in each field in the browser (by id).
@@ -113,7 +113,7 @@ const submitData = async () => {
 };
 // Expose the function to the browser
 window.submitData = submitData;
-// snippet-end:[s3.JavaScript.crossservice.addDataV3.function]
-// snippet-end:[s3.JavaScript.crossservice.addDataV3.complete]
+// snippet-end:[s3.JavaScript.cross-service.addDataV3.function]
+// snippet-end:[s3.JavaScript.cross-service.addDataV3.complete]
 // For unit tests only
 exports.run = run();

@@ -23,7 +23,7 @@ Inputs (replace in code):
 Running the code:
 node create_and_attach_policy.js
  */
-// snippet-start:[s3.JavaScript.cross-service.createAndAttachPolicyV3]
+// snippet-start:[s3.JavaScript.cross-service.addBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
   IAMClient,
@@ -84,6 +84,6 @@ const run = async () => {
 };
 run();
 
-// snippet-end:[s3.JavaScript.cross-service.createAndAttachPolicyV3]
+// snippet-end:[s3.JavaScript.cross-service.addBucketPolicyV3]
 // For unit tests only
 exports.run = run();
