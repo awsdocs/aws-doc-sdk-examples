@@ -50,6 +50,7 @@ public class MergeBranches {
             System.exit(1);
         }
 
+        /* Read the name from command args*/
         String repoName = args[0];
         String targetBranch = args[1];
         String sourceReference = args[2];
