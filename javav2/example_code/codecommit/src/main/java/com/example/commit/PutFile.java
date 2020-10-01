@@ -48,7 +48,7 @@ public class PutFile {
                 "Where:\n" +
                 "    repoName - the name of the repository,\n" +
                 "    branchName -  the name of the branch,\n" +
-                "    filePath  - the location od the file on the local drive (i.e., C:\\AWS\\uploadGlacier.txt),\n" +
+                "    filePath  - the location of the file on the local drive (i.e., C:\\AWS\\uploadGlacier.txt),\n" +
                 "    email -  the email of the user whom uploads the file,\n" +
                 "    name -  the name of the user,\n" +
                 "    repoPath -  the location in the repo to store the file,\n" +
