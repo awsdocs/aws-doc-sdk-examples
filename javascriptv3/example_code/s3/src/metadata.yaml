@@ -32,8 +32,8 @@ files:
     services:
       - s3
   - path: s3_setcors.ts
-      services:
-        - s3
+    services:
+      - s3
   - path: s3_listbuckets.ts
     services:
       - s3
