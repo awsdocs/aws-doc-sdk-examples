@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
-// SPDX-License-Identifier: MIT-0
+// SPDX - License - Identifier: Apache - 2.0
 // snippet-start:[dynamodb.dotnet35.GetItem]
 using System;
 using System.Collections.Generic;

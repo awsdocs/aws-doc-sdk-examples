@@ -1,3 +1,5 @@
+[]: # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+[]: # SPDX - License - Identifier: Apache - 2.0
 # Amazon DynamoDB code examples in C\#
 
 This folder contains code examples for moving from SQL to the Amazon DynamoDB service,
