@@ -43,7 +43,7 @@ import java.io.InputStream;
  *  This code example requires a ZIP or JAR that represents the code of the Lambda function.
  *  If you do not have a ZIP or JAR, please refer to the following document:
  *
- *  https://github.com/scmacdon/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
+ *  https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
  */
 public class CreateFunction {
 
