@@ -38,7 +38,7 @@ public class MergeBranches {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreatePullRequest <repoName> <targetBranch> <sourceReference> <destinationCommitId>\n\n" +
+                "    MergeBranches <repoName> <targetBranch> <sourceReference> <destinationCommitId>\n\n" +
                 "Where:\n" +
                 "    repoName - the name of the repository,\n" +
                 "    targetBranch -  the branch where the merge is applied,\n" +
