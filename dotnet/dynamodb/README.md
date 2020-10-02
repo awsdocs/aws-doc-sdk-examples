@@ -417,9 +417,9 @@ It does not check whether the *ID* applies to a customer, order, or product.
 ### Running the unit test
 
 The **UpdateItemDataModelTest** project is the unit test for the **UpdateItemDataModel** project.
-It requires that you use the local, in memory version of the DynamoDB service.
+It requires that you use the local, in-memory version of the DynamoDB service.
 You can find further information on downloading and installing DynamoDB Local
-[here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
+[Setting Up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
 
 Invoke the DynamoDB Local with the following command line from the folder that contains
 **DynamoDBLocal.jar** and the **DynamoDBLocal_lib** folder:
