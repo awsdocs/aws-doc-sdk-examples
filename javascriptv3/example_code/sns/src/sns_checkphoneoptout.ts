@@ -45,4 +45,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
-export = { run }; //for unit tests only
+

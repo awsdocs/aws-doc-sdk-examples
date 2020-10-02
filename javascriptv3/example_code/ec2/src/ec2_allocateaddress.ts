@@ -54,5 +54,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]
-//for unit tests only
-export = { run };
+

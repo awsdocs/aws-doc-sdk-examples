@@ -55,4 +55,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
-export = { run }; //for unit tests only
+

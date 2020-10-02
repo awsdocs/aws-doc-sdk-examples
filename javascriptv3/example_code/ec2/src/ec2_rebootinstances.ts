@@ -42,5 +42,4 @@ const run = async () => {
   }
 };
 // snippet-end:[ec2.JavaScript.Instances.rebootInstancesV3]
-//for unit tests only
-export = { run };
+

@@ -55,5 +55,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[cwEvents.JavaScript.cwe.putEventsV3]
-//for unit tests only
-export = { run };
+

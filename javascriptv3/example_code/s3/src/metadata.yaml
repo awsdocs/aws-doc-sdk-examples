@@ -1,10 +1,10 @@
 ---
 # Amazon S3 examples
 files:
-  - path: photoViewer/src/s3_PhotoViewer.ts
+  - path: ../photoViewer/src/s3_PhotoViewer.ts
     services:
       - s3
-  - path: photoExample/src/s3_PhotoExample.ts
+  - path: ../photoExample/src/s3_PhotoExample.ts
     services:
       - s3
   - path: s3_createbucket.ts

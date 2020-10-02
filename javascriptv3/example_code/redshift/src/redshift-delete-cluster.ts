@@ -51,4 +51,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[redshift.javascript.redshift-delete-clusterV3]
-export = { run }; //for unit tests only
+

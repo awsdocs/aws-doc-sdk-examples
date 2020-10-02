@@ -74,4 +74,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[mediaconvert.JavaScript.templates.createJobV3]
-export = { run }; //for unit tests only
+

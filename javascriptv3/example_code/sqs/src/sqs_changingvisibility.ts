@@ -67,4 +67,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.visibility.receiveMessageV3]
-export = { run }; //for unit tests only
+

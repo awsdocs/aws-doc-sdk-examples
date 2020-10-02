@@ -40,4 +40,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.templates.listTemplatesV3]
-export = { run }; //for unit tests only
+

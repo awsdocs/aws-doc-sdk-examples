@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.SMS.setSMSAttributesV3]
-export = { run }; //for unit tests only
+

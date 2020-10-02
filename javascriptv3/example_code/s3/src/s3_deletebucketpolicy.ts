@@ -38,4 +38,4 @@ const run = async () => {
 // Invoke run() so these examples run out of the box.
 run();
 // snippet-end:[s3.JavaScript.policy.deleteBucketPolicyV3]
-export = { run }; //for unit tests only
+

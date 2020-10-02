@@ -21,7 +21,7 @@ npm install ts-node -g // If using JavaScript, enter 'npm install node -g' inste
 cd javascriptv3/example_code/sqs
 npm install
 ```
-3. If you're using JavaScript, do the following:
+3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 - Change the sample file extension from ```.ts``` to ```.js```
 - Remove the ```module.exports ={*}``` statement from the sample file
 

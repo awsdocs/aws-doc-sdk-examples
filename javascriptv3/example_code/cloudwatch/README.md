@@ -23,7 +23,7 @@ npm install ts-node -g // If you prefer to use JavaScript, enter 'npm install no
 cd javascriptv3/example_code/cloudwatch 
 npm install
 ```
-3. If you're using JavaScript, do the following:
+3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 - Change the sample file extension from ```.ts``` to ```.js```
 - Remove the ```module.exports ={*}``` statement from the sample file
 
