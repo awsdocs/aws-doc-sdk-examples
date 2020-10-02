@@ -80,7 +80,7 @@ namespace DynamoDBCRUD
        
         public static async Task<bool> AddItemAsync(IAmazonDynamoDB client, string table, string id, string keystring, string valuestring)
         {
-            // Get individual keys and values
+            // Get the individual keys and values.
             string[] keys = keystring.Split(",");
             string[] values = valuestring.Split(",");
 
@@ -153,11 +153,11 @@ namespace DynamoDBCRUD
 
             IDynamoDBContext context = CreateMockDynamoDBContext(client);
 
-            // Create the table
+            // Create the table.
             var makeTableResult = MakeTableAsync(client, _tableName);
             output.WriteLine("Created table " + makeTableResult.Result.TableDescription.TableName);
             
-            // Add item to the table
+            // Add an item to the table.
             var result = AddItemAsync(client, _tableName, _id, _keys, _values);
 
             if (result.Result)
@@ -169,10 +169,10 @@ namespace DynamoDBCRUD
                 output.WriteLine("Did not add item to " + _tableName);
             }
 
-            // Update the item            
+            // Update the item.
             var updateResult = await UpdateItemDataModel.UpdateTableItemAsync(context, _id, _status);
 
-            // Make sure it was updated correctly
+            // Make sure it was updated correctly.
             bool gotResult = updateResult != null;
             Assert.True(gotResult, "Could NOT get result");
 
@@ -181,7 +181,7 @@ namespace DynamoDBCRUD
 
             output.WriteLine("Updated item");
 
-            // Delete the table
+            // Delete the table.
             var removeResult = RemoveTableAsync(client, _tableName);
 
             if (removeResult.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)

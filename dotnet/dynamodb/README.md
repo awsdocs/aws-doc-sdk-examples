@@ -1,5 +1,5 @@
-[]: # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-[]: # SPDX - License - Identifier: Apache - 2.0
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+     SPDX - License - Identifier: Apache - 2.0 -->
 # Amazon DynamoDB code examples in C\#
 
 This folder contains code examples for moving from SQL to the Amazon DynamoDB service,
@@ -418,7 +418,7 @@ It does not check whether the *ID* applies to a customer, order, or product.
 
 The **UpdateItemDataModelTest** project is the unit test for the **UpdateItemDataModel** project.
 It requires that you use the local, in-memory version of the DynamoDB service.
-You can find further information on downloading and installing DynamoDB Local
+For further information on downloading and installing DynamoDB Local, see
 [Setting Up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
 
 Invoke the DynamoDB Local with the following command line from the folder that contains
