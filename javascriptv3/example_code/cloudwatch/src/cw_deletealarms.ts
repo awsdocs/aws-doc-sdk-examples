@@ -44,5 +44,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[cw.JavaScript.alarms.deleteAlarmsV3]
-//for unit tests only
-export = { run };
+

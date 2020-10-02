@@ -44,5 +44,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
-//for unit tests only
-export = { run };
+

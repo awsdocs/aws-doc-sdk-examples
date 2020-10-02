@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.subscriptions.subscribeLambdaV3]
-export = { run }; //for unit tests only
+

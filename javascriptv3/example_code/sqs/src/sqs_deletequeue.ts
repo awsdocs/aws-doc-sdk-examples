@@ -40,4 +40,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.queues.deleteQueueV3]
-export = { run }; //for unit tests only
+

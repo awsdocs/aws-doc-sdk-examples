@@ -66,4 +66,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[s3.JavaScript.policy.putBucketPolicyV3]
-export = { run }; //for unit tests only
+

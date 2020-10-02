@@ -43,5 +43,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.certs.deleteServerCertificateV3]
-//for unit tests only
-export = { run };
+

@@ -51,5 +51,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[dynamodb.JavaScript.table.queryV3]
-//for unit tests only
-export = { run };
+

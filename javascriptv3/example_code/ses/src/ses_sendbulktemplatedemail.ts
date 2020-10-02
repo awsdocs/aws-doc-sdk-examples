@@ -67,4 +67,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
-export = { run }; //for unit tests only
+

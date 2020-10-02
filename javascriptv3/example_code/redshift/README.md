@@ -22,9 +22,7 @@ npm install ts-node -g // If using JavaScript, enter 'npm install node -g' inste
 cd javascriptv3/example_code/redshift
 npm install
 ```
-3. If you're using JavaScript, do the following:
-- Change the sample file extension from ```.ts``` to ```.js```
-- Remove the ```module.exports ={*}``` statement from the sample file
+3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
 4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
