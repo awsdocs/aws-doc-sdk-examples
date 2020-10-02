@@ -1,16 +1,12 @@
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT NODE.JS EXAMPLES: The examples works with Version 3 (v3) of the AWS SDK for JavaScript,
-which is scheduled for release later in 2020. The prerelease version of the version 3 of the SDK is available `here <at https://github.com/aws/aws-sdk-js-v3>`_ .
-The 'SDK for JavaScript Developer Guide' for V3 is also scheduled for release later in 2020, and the topic containing this example will be hosted
-`here <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-managing-visibility-timeout.html`_ .
-
 ###############################
 AWS SDK for JavaScript version 3 (v3) examples
 ###############################
 
 These are examples for the AWS SDK for JavaScript (v3) public documentation.
+
+The prerelease version of the version 3 of the SDK is available `here <at https://github.com/aws/aws-sdk-js-v3>`_ .
+The 'SDK for JavaScript Developer Guide' for V3 is also scheduled for release later in 2020, and the topic containing this example will be hosted
+`here <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-managing-visibility-timeout.html`_ .
 
 **NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
 
@@ -40,3 +36,8 @@ You can find detailed documentation for the AWS SDK for JavaScript at:
 
 - `AWS SDK for JavaScript Developer Guide <http://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide>`_(release pending)
 - `AWS SDK for JavaScript API Reference <http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html>`_
+
+
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
