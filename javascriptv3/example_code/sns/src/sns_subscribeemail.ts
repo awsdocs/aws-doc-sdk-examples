@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sns.JavaScript.subscriptions.subscribeEmailV3]
-export = { run }; //for unit tests only
+

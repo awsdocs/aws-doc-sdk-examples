@@ -37,5 +37,4 @@ const run = async () => {
 // Invoke run() so these examples run out of the box.
 run();
 // snippet-end:[s3.JavaScript.buckets.deleteBucketV3]
-//for unit tests only
-export = { run };
+

@@ -42,5 +42,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3]
-//for unit tests only
-export = { run };
+

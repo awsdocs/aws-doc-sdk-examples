@@ -50,4 +50,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.longPoll.receiveMessageV3]
-export = { run }; //for unit tests only
+

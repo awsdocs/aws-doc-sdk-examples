@@ -42,5 +42,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[glacier.JavaScript.vault.createVaultV3]
-//for unit tests only
-export = { run };
+

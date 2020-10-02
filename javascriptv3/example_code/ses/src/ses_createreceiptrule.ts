@@ -64,4 +64,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleV3]
-export = { run }; //for unit tests only
+

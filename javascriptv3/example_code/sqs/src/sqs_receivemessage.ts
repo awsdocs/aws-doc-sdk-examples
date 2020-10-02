@@ -65,4 +65,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[sqs.JavaScript.messages.receiveMessageV3]
-export = { run }; //for unit tests only
+

@@ -64,5 +64,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[cw.JavaScript.alarms.putMetricAlarmV3]
-//for unit tests only
-export = { run };
+

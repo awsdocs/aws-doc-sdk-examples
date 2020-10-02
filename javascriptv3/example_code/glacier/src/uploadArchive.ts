@@ -45,5 +45,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[glacier.JavaScript.upload.uploadArchiveV3]
-//for unit tests only
-export = { run };
+

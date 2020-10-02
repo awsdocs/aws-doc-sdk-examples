@@ -64,4 +64,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.BucketSetUp.NonModularV3]
-export = { run }; //for unit tests only
+
