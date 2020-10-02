@@ -1,4 +1,4 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT NODE.JS EXAMPLES: The examples works with Version 3 (v3) of the AWS SDK for JavaScript,
@@ -38,6 +38,5 @@ Documentation
 
 You can find detailed documentation for the AWS SDK for JavaScript at:
 
-- `AWS SDK for JavaScript Developer Guide <http://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide>`_
- (release pending)
+- `AWS SDK for JavaScript Developer Guide <http://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide>`_(release pending)
 - `AWS SDK for JavaScript API Reference <http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html>`_
