@@ -45,4 +45,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.users.updateUserV3]
-export = { run }; //for unit tests only
+

@@ -53,5 +53,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[s3.JavaScript.buckets.uploadV3]
-//for unit tests only
-export = { run };
+

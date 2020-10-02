@@ -69,5 +69,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ec2.JavaScript.Instances.create_instancesV3]
-//for unit tests only
-export = { run };
+

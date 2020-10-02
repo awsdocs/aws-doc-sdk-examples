@@ -57,4 +57,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[ses.JavaScript.filters.createReceiptFilterV3]
-export = { run }; //for unit tests only
+

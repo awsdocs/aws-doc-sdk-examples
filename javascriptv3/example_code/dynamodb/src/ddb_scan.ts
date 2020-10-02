@@ -48,5 +48,4 @@ async function run() {
 }
 run();
 // snippet-end:[dynamodb.JavaScript.table.scanV3]
-//for unit tests only
-export = { run };
+

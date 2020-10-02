@@ -26,7 +26,7 @@ cd javascriptv3/example_code/ec2
 npm install
 ```
 
-3. If you're using JavaScript, do the following:
+3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 - Change the sample file extension from ```.ts``` to ```.js```
 - Remove the ```module.exports ={*}``` statement from the sample file
 

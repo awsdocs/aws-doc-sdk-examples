@@ -65,5 +65,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
-//for unit tests only
-export = { run };
+

@@ -50,5 +50,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[dynamodb.JavaScript.item.deleteTableV3]
-//for unit tests only
-export = { run };
+

@@ -38,5 +38,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[s3.JavaScript.perms.getBucketAclV3]
-//for unit tests only
-export = { run };
+

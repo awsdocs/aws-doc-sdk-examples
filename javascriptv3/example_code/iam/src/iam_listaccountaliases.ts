@@ -40,5 +40,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.alias.listAccountAliasesV3]
-//for unit tests only
-export = { run };
+

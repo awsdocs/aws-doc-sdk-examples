@@ -43,5 +43,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
-//for unit tests only
-export = { run };
+

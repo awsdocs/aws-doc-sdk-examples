@@ -84,5 +84,4 @@ const run = async () => {
 run();
 
 // snippet-end:[s3.javascript.bucket_operations.list_create_deleteV3]
-//for unit tests only
-export = { run };
+

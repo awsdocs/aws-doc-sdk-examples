@@ -65,5 +65,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.createPolicyV3]
-//for unit tests only
-export = { run };
+
