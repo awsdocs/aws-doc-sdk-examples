@@ -1,35 +1,26 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: MIT-0
 using System;
-using System.Net;
-using System.Threading;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Amazon.DynamoDBv2.DataModel;
 
-using Moq;
-
 using Xunit;
 using Xunit.Abstractions;
-using Amazon.DynamoDBv2.DocumentModel;
-using System.Collections.Generic;
-using System.Linq;
-using Amazon;
-using Amazon.Runtime;
-using System.Globalization;
-using Amazon.Runtime.SharedInterfaces;
 
 namespace DynamoDBCRUD
 {
     public class UpdateItemDataModelTest
     {
         private readonly string _endpointURL = "http://localhost:8000";
-        private readonly string _tableName = "testtable";
-        private static readonly string _id = "16";        
-        private readonly string _keys = "ID,Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
-        private readonly string _values = _id + ",Order,11,5,4,2020-05-11 12:00:00,delivered";
+        private readonly string _tableName = "CustomersOrdersProducts";
+        private static readonly string _id = "16";
+        private readonly string _keys = "Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
+        private readonly string _values = "Order,11,5,4,2020-05-11 12:00:00,delivered";
         private readonly string _status = "pending";
         private readonly ITestOutputHelper output;
 
@@ -44,13 +35,6 @@ namespace DynamoDBCRUD
             var mockDynamoDBContext = new DynamoDBContext(client);
 
             return mockDynamoDBContext;
-        }
-
-        public static async Task<ListTablesResponse> ShowTablesAsync(IAmazonDynamoDB client)
-        {
-            var response = await client.ListTablesAsync(new ListTablesRequest { });
-
-            return response;
         }
 
         public static async Task<CreateTableResponse> MakeTableAsync(IAmazonDynamoDB client, string table)
@@ -93,7 +77,7 @@ namespace DynamoDBCRUD
 
             return response;
         }
-
+       
         public static async Task<bool> AddItemAsync(IAmazonDynamoDB client, string table, string id, string keystring, string valuestring)
         {
             // Get individual keys and values
@@ -161,38 +145,22 @@ namespace DynamoDBCRUD
         [Fact]
         public async Task CheckUpdateItemDataModel()
         {
-            output.WriteLine("Creating client with endpoint URL: " + _endpointURL);
-
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
-            clientConfig.Timeout = TimeSpan.FromSeconds(10); // Timeout after 10 seconds
+            clientConfig.ServiceURL = _endpointURL;            
             var client = new AmazonDynamoDBClient(clientConfig);
+
+            output.WriteLine("Created client with endpoint URL: " + _endpointURL);
+
             IDynamoDBContext context = CreateMockDynamoDBContext(client);
-
-            // Get list of existing tables to make sure the local DynamoDB service is running
-            try
-            {
-                output.WriteLine("Getting list of tables");
-
-                Task<ListTablesResponse> response = ShowTablesAsync(client);
-                output.WriteLine("Found " + response.Result.TableNames.Count.ToString() + " tables");
-            }
-            catch (Exception e)
-            {
-                output.WriteLine("Could not get list of tables. Make sure the local DynamoDB is running");
-                output.WriteLine("Got exception:");
-                output.WriteLine(e.Message);
-                return;
-            }           
 
             // Create the table
             var makeTableResult = MakeTableAsync(client, _tableName);
             output.WriteLine("Created table " + makeTableResult.Result.TableDescription.TableName);
+            
+            // Add item to the table
+            var result = AddItemAsync(client, _tableName, _id, _keys, _values);
 
-            // Add an item that matches the update
-            var addResult = AddItemAsync(client, _tableName, _id, _keys, _values);
-
-            if (addResult.Result)
+            if (result.Result)
             {
                 output.WriteLine("Added item to " + _tableName);
             }

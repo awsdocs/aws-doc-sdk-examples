@@ -61,6 +61,10 @@ ipch/
 *.sdf
 *.cachefile
 
+# Visual Studio
+# .NET Core does not use solution files
+*.sln
+
 # Visual Studio profiler
 *.psess
 *.vsp
