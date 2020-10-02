@@ -38,7 +38,7 @@ Define these values to successfully run the JUnit tests:
 - **sender** - An email address that represents the sender.   
 - **recipient** - An email address that represents the recipient.
 - **subject** - The  the  subject line.
-- **fileLocation** - The location of an Excel file to use as an attachment (ie, C:\\AWS\\WorkReport.xls).
+- **fileLocation** - The location of an Excel file to use as an attachment (ie, C:/AWS/WorkReport.xls).
 
 **Note**: The email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
