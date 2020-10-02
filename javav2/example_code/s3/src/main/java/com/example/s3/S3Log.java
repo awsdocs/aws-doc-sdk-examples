@@ -23,6 +23,7 @@ package com.example.s3;
 // snippet-start:[s3.java2.logging.import]
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
@@ -36,7 +37,11 @@ public class S3Log {
     public static void main (String[] args) {
         System.out.println("testing logging setup for " + S3Log.class);
 
-        S3Client s3 = S3Client.builder().build();
+        Region region = Region.US_WEST_2;
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
+        
         ListBucketsRequest listBucketsRequest = ListBucketsRequest.builder().build();
         ListBucketsResponse listBucketsResponse = s3.listBuckets(listBucketsRequest);
         listBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
