@@ -21,7 +21,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the Amazon Simple Email Service files
 
-You can test the Java code examples for  AWS Lambda by running a test file named **LambdaTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for  Amazon Simple Email Service by running a test file named **SESTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -30,20 +30,17 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the  AWS Lambda JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an function name used for various tests. 
+Before running the Amazon Simple Email Service JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an sender email address used for various tests. 
 If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **completeFunctionName** - A fully qualified function name (for example, arn:aws:lambda:us-east-1:000008047983:function:myLambda).   
-- **functionName** – The name of a new function name (for example, myLambda).
-- **filePath** - the path to the ZIP or JAR where the code is located.
-- **role** - The role ARN that has Lambda permissions.
-- **handler** - The fully qualifed method name (for example, example.Handler::handleRequest).
+- **sender** - An email address that represents the sender.   
+- **recipient** – An email address that represents the recipient.
+- **subject** - The  the  subject line.
+- **fileLocation** - The location of an Excel file to use as an attachments (ie, C:\\AWS\\WorkReport.xls).
 
-**Note**: The **CreateFunction** test requires a ZIP or JAR that represents the code of the Lambda function. If you do not have a ZIP or JAR, please refer to the following document:
- 
- https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
+**Note**: n email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -55,14 +52,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running LambdaTest
+	[INFO] Running SESTest
 	Test 1 passed
 	Test 2 passed
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
