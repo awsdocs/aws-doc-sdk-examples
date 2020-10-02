@@ -1,12 +1,11 @@
 # TypeScript environment for Amazon S3 examples
-Environment for AWS SDK for JavaScript (V3) Amazon S3 examples. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html).
+Environment for AWS SDK for JavaScript (v3) Amazon S3 examples. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html).
 
 Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) S3 examples. 
+This is a workspace where you can find working AWS SDK for JavaScript (v3) S3 examples. 
 
-**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
-a super-set of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
 
 
 # Getting started
@@ -24,8 +23,7 @@ cd javascriptv3/example_code/s3
 npm install
 ```
 3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
-- Change the sample file extension from ```.ts``` to ```.js```
-- Remove the ```module.exports ={*}``` statement from the sample file
+
 
 4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 

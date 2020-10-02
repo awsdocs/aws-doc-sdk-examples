@@ -1,12 +1,11 @@
 # TypeScript environment for Amazon Simple Queue Service (SQS) examples
-Environment for AWS SDK for JavaScript (V3) AWS Simple Queue Service (SQS) examples. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html).
+Environment for AWS SDK for JavaScript (v3) AWS Simple Queue Service (SQS) examples. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html).
 
 Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) SQS examples. 
+This is a workspace where you can find working AWS SDK for JavaScript (v3) SQS examples. 
 
-**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
-a super-set of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
 
 # Getting started
 
@@ -22,8 +21,6 @@ cd javascriptv3/example_code/sqs
 npm install
 ```
 3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
-- Change the sample file extension from ```.ts``` to ```.js```
-- Remove the ```module.exports ={*}``` statement from the sample file
 
 4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 

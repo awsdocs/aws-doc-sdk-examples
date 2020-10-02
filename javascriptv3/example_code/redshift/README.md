@@ -1,12 +1,11 @@
 # TypeScript environment for Amazon Redshift examples
-Environment for AWS SDK for JavaScript (V3) examples for Amazon Redshift. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html).
+Environment for AWS SDK for JavaScript (v3) examples for Amazon Redshift. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html).
 
 This example is available here https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) Amazon Redshift examples. 
+This is a workspace where you can find working AWS SDK for JavaScript (v3) Amazon Redshift examples. 
 
-**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
-a super-set of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
 
 # Getting started
 

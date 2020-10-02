@@ -1,12 +1,11 @@
 # TypeScript environment for Amazon Lambda examples
-Environment for AWS SDK for JavaScript (V3) Amazon Lambda tutorial. For more information, see the [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html).
+Environment for AWS SDK for JavaScript (v3) Amazon Lambda tutorial. For more information, see the [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html).
 
 AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) Lambda examples. 
+This is a workspace where you can find working AWS SDK for JavaScript (v3) Lambda examples. 
 
-**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
-a super-set of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
 
 # Getting started
 

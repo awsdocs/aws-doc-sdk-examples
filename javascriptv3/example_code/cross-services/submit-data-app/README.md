@@ -1,9 +1,9 @@
 # TypeScript environment for the SubmitData App tutorial
-Environment for AWS SDK for JavaScript (V3) submitData App tutorial. For more information, see the 
+Environment for AWS SDK for JavaScript (v3) submitData App tutorial. For more information, see the 
 [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html).
 
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) submitData App tutorial. 
+This is a workspace where you can find working AWS SDK for JavaScript (v3) submitData App tutorial. 
 
 # Getting started
 
@@ -13,7 +13,7 @@ instructions.
 
 1. Install the dependencies listed in the ~/javascript/example_v3/cross-services/submit-data-app/package.json.
 
-**Note**: These include the AWS SDK for JavaScript (V3) client modules for the AWS services required in this example, 
+**Note**: These include the AWS SDK for JavaScript (v3) client modules for the AWS services required in this example, 
 which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/client-cognito-identity-browser*, *@aws-sdk/client-dynamodb*,
 *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-sns*, *@aws-sdk/client-s3*, and *@aws-sdk/client-iam*.
 They also include third-party Node.js modules, fs (file-server), path, and webpack.

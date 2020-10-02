@@ -1,13 +1,12 @@
 # TypeScript environment for Amazon Cloudwatch examples
-Environment for AWS SDK for JavaScript (V3) AWS Cloudwatch examples. For more information, see the 
+Environment for AWS SDK for JavaScript (v3) AWS Cloudwatch examples. For more information, see the 
 [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html).
 
 Amazon CloudWatch enables you to collect, access, and correlate this data on a single platform from across all your AWS resources, applications, and services.
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) Cloudwatch examples. 
+This is a workspace where you can find working AWS SDK for JavaScript (v3) Cloudwatch examples. 
 
-**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
-a super-set of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
 # Getting started
 
 1. Clone the [AWSDocs Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
@@ -24,8 +23,7 @@ cd javascriptv3/example_code/cloudwatch
 npm install
 ```
 3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
-- Change the sample file extension from ```.ts``` to ```.js```
-- Remove the ```module.exports ={*}``` statement from the sample file
+
 
 4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
