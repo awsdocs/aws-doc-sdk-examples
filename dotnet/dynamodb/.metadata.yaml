@@ -1,0 +1,7 @@
+files:
+  - path: UpdateItemDataModel/UpdateItemDataModel.cs
+    services:
+      - dynamodb
+  - path: UpdateItemDataModelTest/UpdateItemDataModelTest.cs
+    services:
+      - dynamodb
