@@ -40,7 +40,7 @@ Define these values to successfully run the JUnit tests:
 - **subject** - The  the  subject line.
 - **fileLocation** - The location of an Excel file to use as an attachments (ie, C:\\AWS\\WorkReport.xls).
 
-**Note**: n email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+**Note**: The email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
