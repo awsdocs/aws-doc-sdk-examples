@@ -1,6 +1,10 @@
 # TypeScript environment for Amazon Cloudwatch examples
-Environment for AWS SDK for JavaScript (v3) AWS Cloudwatch examples. For more information, see the 
-[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html).
+Environment for AWS SDK for JavaScript (v3) AWS Cloudwatch examples. 
+
+The preview version of the SDK is available [here](https://github.com/aws/aws-sdk-js-v3). 
+
+For more information about these examples, see the 
+[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html) (release pending).
 
 Amazon CloudWatch enables you to collect, access, and correlate this data on a single platform from across all your AWS resources, applications, and services.
 

@@ -1,6 +1,10 @@
 # TypeScript environment for Amazon IAM examples
-Environment for AWS SDK for JavaScript (v3) AWS Identity and Access Management (IAM) examples. For more information, see the 
-[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples.html).
+Environment for AWS SDK for JavaScript (v3) AWS Identity and Access Management (IAM) examples. 
+
+The preview version of the SDK is available [here](https://github.com/aws/aws-sdk-js-v3). 
+
+For more information about these examples, see the 
+[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples.html) (release pending).
 
 IAM enables you to manage access to AWS services and resources securely.
 

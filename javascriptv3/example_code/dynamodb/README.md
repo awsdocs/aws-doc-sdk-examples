@@ -1,6 +1,10 @@
 # TypeScript environment for Amazon DynamoDB examples
-Environment for AWS SDK for JavaScript (v3) AWS DynamoDB examples. For more information, see the 
-[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html).
+Environment for AWS SDK for JavaScript (v3) AWS DynamoDB examples. 
+
+The preview version of the SDK is available [here](https://github.com/aws/aws-sdk-js-v3). 
+
+For more information about these examples, see the 
+[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) (release pending).
 
 Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multiregion, multimaster, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications. 
 
