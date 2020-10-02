@@ -13,136 +13,217 @@ using Moq;
 
 using Xunit;
 using Xunit.Abstractions;
+using Amazon.DynamoDBv2.DocumentModel;
+using System.Collections.Generic;
+using System.Linq;
+using Amazon;
+using Amazon.Runtime;
+using System.Globalization;
+using Amazon.Runtime.SharedInterfaces;
 
 namespace DynamoDBCRUD
 {
     public class UpdateItemDataModelTest
     {
+        private readonly string _endpointURL = "http://localhost:8000";
+        private readonly string _tableName = "testtable";
+        private static readonly string _id = "16";        
+        private readonly string _keys = "ID,Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
+        private readonly string _values = _id + ",Order,11,5,4,2020-05-11 12:00:00,delivered";
+        private readonly string _status = "pending";
         private readonly ITestOutputHelper output;
 
         public UpdateItemDataModelTest(ITestOutputHelper output)
         {
             this.output = output;
         }
-    
-        readonly string _id = "16";
-        readonly string _status = "pending";
 
-        // We need to mock IDynamoDBContext.LoadAsync<Entry>(string, string)
-        private IDynamoDBContext CreateMockDynamoDBContext()
+        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new Mock<IDynamoDBContext>();
+           
+            var mockDynamoDBContext = new DynamoDBContext(client);
 
-            /*
-             * Mock the following LoadAsync signatures:
-             * LoadAsync(object, CancellationToken), where object is the hash key
-             * LoadAsync(object, DynamoDBOperationConfig, CancellationToken), where object is the hash key
-             * LoadAsync(object, object, CancellationToken), where object, object are the hash key and sort key
-             * LoadAsync(object, object, DynamoDBOperationConfig, CancellationToken), where object, object are the hash key and sort key
-             * LoadAsync(T, CancellationToken), where T should be an Entry object
-             * LoadAsync(T, DynamoDBOperationConfig, CancellationToken), where T should be an Entry object
-             */
+            return mockDynamoDBContext;
+        }
 
-            // Mock LoadAsync(object, CancellationToken), where object is the hash key
-            mockDynamoDBContext.Setup(context => context.LoadAsync(
-                It.IsAny<Object>(),
-                It.IsAny<CancellationToken>()))
-                .Callback<Object, CancellationToken>((hashKey, token) =>
-                { })
-                .Returns((Object e, CancellationToken token) =>
+        public static async Task<ListTablesResponse> ShowTablesAsync(IAmazonDynamoDB client)
+        {
+            var response = await client.ListTablesAsync(new ListTablesRequest { });
+
+            return response;
+        }
+
+        public static async Task<CreateTableResponse> MakeTableAsync(IAmazonDynamoDB client, string table)
+        {
+            var response = await client.CreateTableAsync(new CreateTableRequest
+            {
+                TableName = table,
+                AttributeDefinitions = new List<AttributeDefinition>
                 {
-                    return Task.FromResult((Object)new Entry { ID = _id, Order_Status = _status });
-                });            
-
-            // Mock LoadAsync(object, DynamoDBOperationConfig, CancellationToken), where object is the hash key
-            mockDynamoDBContext.Setup(context => context.LoadAsync(
-                It.IsAny<Object>(),
-                It.IsAny<DynamoDBOperationConfig>(),
-                It.IsAny<CancellationToken>()))
-                .Callback<Object, DynamoDBOperationConfig, CancellationToken>((hashKey, config, token) => { })
-                .Returns((Object hashKey, DynamoDBContextConfig config, CancellationToken token) =>
+                    new AttributeDefinition
+                    {
+                        AttributeName = "ID",
+                        AttributeType = "S"
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "Area",
+                        AttributeType = "S"
+                    }
+                },
+                KeySchema = new List<KeySchemaElement>
                 {
-                    return Task.FromResult((Object)new Entry { ID = _id, Order_Status = _status });
-                });
-
-            /*
-             * 
-            // Mock LoadAsync(object, object, CancellationToken), where object, object are the hash key and sort key
-            mockDynamoDBContext.Setup(context => context.LoadAsync(
-                It.IsAny<Object>(),
-                It.IsAny<Object>(),  // Complains that Object isn't DynamoDBOperationConfig
-                It.IsAny<CancellationToken>()))
-                .Callback<Object, Object, CancellationToken>((hashKey, sortKey, token) =>
-                { })
-                .Returns((Object hashKey, Object sortKey, CancellationToken token) =>
+                    new KeySchemaElement
+                    {
+                        AttributeName = "ID",
+                        KeyType = "HASH"
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "Area",
+                        KeyType = "RANGE"
+                    }
+                },
+                ProvisionedThroughput = new ProvisionedThroughput
                 {
-                    return Task.FromResult((Object)new Entry { ID = _id, Order_Status = _status });
-                });
+                    ReadCapacityUnits = 10,
+                    WriteCapacityUnits = 5
+                }
+            });
 
-            */
+            return response;
+        }
 
-            /*            
+        public static async Task<bool> AddItemAsync(IAmazonDynamoDB client, string table, string id, string keystring, string valuestring)
+        {
+            // Get individual keys and values
+            string[] keys = keystring.Split(",");
+            string[] values = valuestring.Split(",");
 
-            // Mock LoadAsync(object, object, DynamoDBOperationConfig, CancellationToken), where object, object are the hash key and sort key
-            // I see LoadAsync underlined in red and get:
-            // CS0411: The type arguments for method 'IDynamoDBContext.LoadAsync<T>(object, object, DynamoDBOperationConfig, CancellationToken)' 
-            // cannot be inferred from the usage. Try specifying the type arguments explicitly.
-            mockDynamoDBContext.Setup(context => context.LoadAsync( // CS0411: 
-                It.IsAny<Object>(),
-                It.IsAny<Object>(),
-                It.IsAny<DynamoDBOperationConfig>(),
-                It.IsAny<CancellationToken>()))
-                .Callback<Object, Object, DynamoDBOperationConfig, CancellationToken>((hashKey, sortKey, config, token) =>
-                { })
-                .Returns((Object hashKey, Object sortKey, DynamoDBContextConfig config, CancellationToken token) =>
+            var item = new Dictionary<string, AttributeValue>
+            {
+                { "ID", new AttributeValue { S = id } }
+            };
+
+            for (int i = 0; i < keys.Length; i++)
+            {
+                if ((keys[i] == "Customer_ID") || (keys[i] == "Order_ID") || (keys[i] == "Order_Customer") || (keys[i] == "Order_Product") || (keys[i] == "Product_ID") || (keys[i] == "Product_Quantity") || (keys[i] == "Product_Cost"))
                 {
-                    return Task.FromResult(new Entry { ID = _id, Order_Status = _status });
-                });
-            
-            */
-
-            // Mock LoadAsync(T, CancellationToken), where T should be an Entry object
-            mockDynamoDBContext.Setup(context => context.LoadAsync(
-                It.IsAny<Entry>(),
-                It.IsAny<CancellationToken>()))
-                .Callback<Entry, CancellationToken>((e, token) =>
-                { })
-                .Returns((Entry e, CancellationToken token) =>
+                    item.Add(keys[i], new AttributeValue { N = values[i] });
+                }
+                else if (keys[i] == "Order_Date")
                 {
-                    return Task.FromResult(new Entry { ID = _id, Order_Status = _status });
-                });
+                    DateTime MyDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
+                    TimeSpan timeSpan = MyDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
 
-            // Mock LoadAsync(T, DynamoDBOperationConfig, CancellationToken), where T should be an Entry object
-            mockDynamoDBContext.Setup(context => context.LoadAsync(
-                It.IsAny<Entry>(),
-                It.IsAny<DynamoDBOperationConfig>(),
-                It.IsAny<CancellationToken>()))
-                .Callback<Entry, DynamoDBOperationConfig, CancellationToken>((entry, config, token) =>
-                { })
-                .Returns((Entry e, DynamoDBOperationConfig config, CancellationToken token) =>
+                    item.Add(keys[i], new AttributeValue { N = ((long)timeSpan.TotalSeconds).ToString() });
+                }
+                else
                 {
-                    return Task.FromResult(new Entry { ID = _id, Order_Status = _status });
-                });
+                    item.Add(keys[i], new AttributeValue { S = values[i] });
+                }
+            }
 
+            PutItemRequest request = new PutItemRequest
+            {
+                TableName = table,
+                Item = item
+            };
 
-            return mockDynamoDBContext.Object;
+            var response = false;
+
+            try
+            {
+                await client.PutItemAsync(request);
+                response = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Caught exception adding item to table:");
+                Console.WriteLine(e.Message);
+            }
+
+            return response;
+
+        }
+
+        public static async Task<DeleteTableResponse> RemoveTableAsync(IAmazonDynamoDB client, string table)
+        {
+            var response = await client.DeleteTableAsync(new DeleteTableRequest
+            {
+                TableName = table
+            });
+
+            return response;
         }
 
         [Fact]
         public async Task CheckUpdateItemDataModel()
         {
-            IDynamoDBContext context = CreateMockDynamoDBContext();
-            
-            var result = await UpdateItemDataModel.UpdateTableItemAsync(context, _id, _status);
+            output.WriteLine("Creating client with endpoint URL: " + _endpointURL);
 
-            bool gotResult = result != null;
+            var clientConfig = new AmazonDynamoDBConfig();
+            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.Timeout = TimeSpan.FromSeconds(10); // Timeout after 10 seconds
+            var client = new AmazonDynamoDBClient(clientConfig);
+            IDynamoDBContext context = CreateMockDynamoDBContext(client);
+
+            // Get list of existing tables to make sure the local DynamoDB service is running
+            try
+            {
+                output.WriteLine("Getting list of tables");
+
+                Task<ListTablesResponse> response = ShowTablesAsync(client);
+                output.WriteLine("Found " + response.Result.TableNames.Count.ToString() + " tables");
+            }
+            catch (Exception e)
+            {
+                output.WriteLine("Could not get list of tables. Make sure the local DynamoDB is running");
+                output.WriteLine("Got exception:");
+                output.WriteLine(e.Message);
+                return;
+            }           
+
+            // Create the table
+            var makeTableResult = MakeTableAsync(client, _tableName);
+            output.WriteLine("Created table " + makeTableResult.Result.TableDescription.TableName);
+
+            // Add an item that matches the update
+            var addResult = AddItemAsync(client, _tableName, _id, _keys, _values);
+
+            if (addResult.Result)
+            {
+                output.WriteLine("Added item to " + _tableName);
+            }
+            else
+            {
+                output.WriteLine("Did not add item to " + _tableName);
+            }
+
+            // Update the item            
+            var updateResult = await UpdateItemDataModel.UpdateTableItemAsync(context, _id, _status);
+
+            // Make sure it was updated correctly
+            bool gotResult = updateResult != null;
             Assert.True(gotResult, "Could NOT get result");
 
-            bool ok = (result.ID == _id) && (result.Order_Status == _status);
+            bool ok = (updateResult.ID == _id) && (updateResult.Order_Status == _status);
             Assert.True(ok, "Could NOT update item");
 
             output.WriteLine("Updated item");
+
+            // Delete the table
+            var removeResult = RemoveTableAsync(client, _tableName);
+
+            if (removeResult.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                output.WriteLine("Removed table " + _tableName);
+            }
+            else
+            {
+                output.WriteLine("Could not remove table " + _tableName);
+            }
         }
     }
 }

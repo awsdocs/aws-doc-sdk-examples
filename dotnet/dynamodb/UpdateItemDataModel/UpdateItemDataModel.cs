@@ -84,7 +84,7 @@ namespace DynamoDBCRUD
             // Retrieve the updated item
             Entry updatedOrder = await context.LoadAsync<Entry>(id, "Order", new DynamoDBOperationConfig
             {
-                ConsistentRead = true
+                ConsistentRead = true,
             },
             new System.Threading.CancellationToken());
 
