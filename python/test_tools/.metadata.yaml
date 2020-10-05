@@ -50,4 +50,17 @@ files:
     services:
       - sts
   - path: stubber_factory.py
+  - path: rds_stubber.py
+    services:
+      - rds
+  - path: rdsdata_stubber.py
+    services:
+      - rds-data
+  - path: run_all_tests.py
+  - path: secretsmanager_stubber.py
+    services:
+      - secretsmanager
+  - path: transcribe_stubber.py
+    services:
+      - transcribe
 ...
