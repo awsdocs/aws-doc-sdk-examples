@@ -8,7 +8,6 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
-// using Amazon.SecurityToken;
 
 namespace DynamoDBCRUD
 {
@@ -20,23 +19,57 @@ namespace DynamoDBCRUD
 
             try
             {
-                var deleteTableResponse = DeleteTable(client, "ProductCatalog");
-                deleteTableResponse     = DeleteTable(client, "Forum");
-                deleteTableResponse     = DeleteTable(client, "Thread");
-                deleteTableResponse     = DeleteTable(client, "Reply");
+                // Create tables
 
-                // Create tables (using the AWS SDK for .NET low-level API).
+                Console.WriteLine("Creating ProductCatalog table");
                 var createTableResponse = CreateTableProductCatalog(client);
-                createTableResponse     = CreateTableForum(client);
-                createTableResponse     = CreateTableThread(client); // ForumTitle, Subject */
-                createTableResponse     = CreateTableReply(client);
 
-                // Load data (using the .NET SDK document API)
+                Console.WriteLine("Creating Forum table");
+                createTableResponse = CreateTableForum(client);
+
+                Console.WriteLine("Creating Thread table");
+                createTableResponse = CreateTableThread(client);
+
+                Console.WriteLine("Creating Reply table");
+                createTableResponse = CreateTableReply(client);
+
+                Console.WriteLine();
+                Console.WriteLine("Press ENTER to continue");
+                Console.ReadLine();
+
+                // Load data into tables
+
+                Console.WriteLine("Loading data into ProductCatalog table");
                 LoadSampleProducts(client);
+
+                Console.WriteLine("Loading data into Forum table");
                 LoadSampleForums(client);
+
+                Console.WriteLine("Loading data into Thread table");
                 LoadSampleThreads(client);
+
+                Console.WriteLine("Loading data into Reply table");
                 LoadSampleReplies(client);
 
+                Console.WriteLine(); 
+                Console.WriteLine("Press ENTER to continue");
+                Console.ReadLine();
+
+                // Delete tables
+
+                Console.WriteLine("Deleting ProductCatalog table");
+                var deleteTableResponse = DeleteTable(client, "ProductCatalog");
+
+                Console.WriteLine("Deleting Forum table");
+                deleteTableResponse = DeleteTable(client, "Forum");
+
+                Console.WriteLine("Deleting Thread table");
+                deleteTableResponse = DeleteTable(client, "Thread");
+
+                Console.WriteLine("Deleting Reply table");
+                deleteTableResponse = DeleteTable(client, "Reply");
+
+                Console.WriteLine(); 
                 Console.WriteLine("Sample complete!");
                 Console.WriteLine("Press ENTER to continue");
                 Console.ReadLine();
@@ -45,7 +78,7 @@ namespace DynamoDBCRUD
             catch (Exception e) { Console.WriteLine(e.Message); }
         }
 
-        private static async Task<DeleteTableResponse> DeleteTable(IAmazonDynamoDB client, string tableName)
+        public static async Task<DeleteTableResponse> DeleteTable(IAmazonDynamoDB client, string tableName)
         {
             var response = await client.DeleteTableAsync(new DeleteTableRequest
             {
@@ -55,7 +88,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        private static async Task<CreateTableResponse> CreateTableProductCatalog(IAmazonDynamoDB client)
+        public static async Task<CreateTableResponse> CreateTableProductCatalog(IAmazonDynamoDB client)
         {
             string tableName = "ProductCatalog";
 
@@ -88,7 +121,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        private static async Task<CreateTableResponse> CreateTableForum(IAmazonDynamoDB client)
+        public static async Task<CreateTableResponse> CreateTableForum(IAmazonDynamoDB client)
         {
             string tableName = "Forum";
 
@@ -121,7 +154,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        private static async Task<CreateTableResponse> CreateTableThread(IAmazonDynamoDB client)
+        public static async Task<CreateTableResponse> CreateTableThread(IAmazonDynamoDB client)
         {
             string tableName = "Thread";
 
@@ -164,7 +197,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        private static async Task<CreateTableResponse> CreateTableReply(IAmazonDynamoDB client)
+        public static async Task<CreateTableResponse> CreateTableReply(IAmazonDynamoDB client)
         {
             string tableName = "Reply";
             var response = await client.CreateTableAsync(new CreateTableRequest
@@ -229,7 +262,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        private static async Task<DescribeTableResponse> WaitTillTableCreated(IAmazonDynamoDB client, string tableName,
+        public static async Task<DescribeTableResponse> WaitTillTableCreated(IAmazonDynamoDB client, string tableName,
                              CreateTableResponse response)
         {
             DescribeTableResponse resp = new DescribeTableResponse();
@@ -255,7 +288,7 @@ namespace DynamoDBCRUD
             return resp;
         }
 
-        private static async Task<DescribeTableResponse> WaitTillTableDeleted(IAmazonDynamoDB client, string tableName,
+        public static async Task<DescribeTableResponse> WaitTillTableDeleted(IAmazonDynamoDB client, string tableName,
                              DeleteTableResponse response)
         {
             DescribeTableResponse resp = new DescribeTableResponse();
@@ -280,7 +313,7 @@ namespace DynamoDBCRUD
             return resp;
         }
 
-        private static void LoadSampleProducts(IAmazonDynamoDB client)
+        public static void LoadSampleProducts(IAmazonDynamoDB client)
         {
             Table productCatalogTable = Table.LoadTable(client, "ProductCatalog");
             // ********** Add Books *********************
@@ -308,6 +341,7 @@ namespace DynamoDBCRUD
             book2["PageCount"] = 600;
             book2["InPublication"] = true;
             book2["ProductCategory"] = "Book";
+
             productCatalogTable.PutItemAsync(book2);
 
             var book3 = new Document();
@@ -320,6 +354,7 @@ namespace DynamoDBCRUD
             book3["PageCount"] = 700;
             book3["InPublication"] = false;
             book3["ProductCategory"] = "Book";
+
             productCatalogTable.PutItemAsync(book3);
 
             // ************ Add bikes. *******************
@@ -332,6 +367,7 @@ namespace DynamoDBCRUD
             bicycle1["Price"] = 100;
             bicycle1["Color"] = new List<string> { "Red", "Black" };
             bicycle1["ProductCategory"] = "Bike";
+
             productCatalogTable.PutItemAsync(bicycle1);
 
             var bicycle2 = new Document();
@@ -343,6 +379,7 @@ namespace DynamoDBCRUD
             bicycle2["Price"] = 200;
             bicycle2["Color"] = new List<string> { "Green", "Black" };
             bicycle2["ProductCategory"] = "Bicycle";
+
             productCatalogTable.PutItemAsync(bicycle2);
 
             var bicycle3 = new Document();
@@ -354,6 +391,7 @@ namespace DynamoDBCRUD
             bicycle3["Price"] = 300;
             bicycle3["Color"] = new List<string> { "Red", "Green", "Black" };
             bicycle3["ProductCategory"] = "Bike";
+
             productCatalogTable.PutItemAsync(bicycle3);
 
             var bicycle4 = new Document();
@@ -365,6 +403,7 @@ namespace DynamoDBCRUD
             bicycle4["Price"] = 400;
             bicycle4["Color"] = new List<string> { "Red" };
             bicycle4["ProductCategory"] = "Bike";
+
             productCatalogTable.PutItemAsync(bicycle4);
 
             var bicycle5 = new Document();
@@ -376,10 +415,11 @@ namespace DynamoDBCRUD
             bicycle5["Price"] = 500;
             bicycle5["Color"] = new List<string> { "Red", "Black" };
             bicycle5["ProductCategory"] = "Bike";
+
             productCatalogTable.PutItemAsync(bicycle5);
         }
 
-        private static void LoadSampleForums(IAmazonDynamoDB client)
+        public static void LoadSampleForums(IAmazonDynamoDB client)
         {
             Table forumTable = Table.LoadTable(client, "Forum");
 
@@ -400,7 +440,7 @@ namespace DynamoDBCRUD
             forumTable.PutItemAsync(forum2);
         }
 
-        private static void LoadSampleThreads(IAmazonDynamoDB client)
+        public static void LoadSampleThreads(IAmazonDynamoDB client)
         {
             Table threadTable = Table.LoadTable(client, "Thread");
 
@@ -446,7 +486,7 @@ namespace DynamoDBCRUD
             threadTable.PutItemAsync(thread3);
         }
 
-        private static void LoadSampleReplies(IAmazonDynamoDB client)
+        public static void LoadSampleReplies(IAmazonDynamoDB client)
         {
             Table replyTable = Table.LoadTable(client, "Reply");
 
