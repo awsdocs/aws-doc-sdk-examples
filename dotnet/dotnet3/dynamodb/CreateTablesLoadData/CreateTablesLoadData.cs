@@ -513,4 +513,4 @@ namespace com.amazonaws.codesamples
         }
     }
 }
-// snippet-end:[dynamodb.dotNET.CodeExample.CreateTablesLoadData]
+// snippet-end:[dynamodb.dotnet3.CreateTablesLoadData]
