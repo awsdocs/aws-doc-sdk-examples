@@ -1,41 +1,73 @@
-#**
- #* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- #*
- #* This file is licensed under the Apache License, Version 2.0 (the "License").
- #* You may not use this file except in compliance with the License. A copy of
- #* the License is located at
- #*
- #* http://aws.amazon.com/apache2.0/
- #*
- #* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
- #* specific language governing permissions and limitations under the License.
-#**
-# snippet-sourcedescription:[copy_object_between_buckets demonstrates the preceding tasks using the "copy_object" method to copy an object from one bucket to another.] 
-# snippet-service:[s3]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[COPY object]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-02-11]
-# snippet-sourceauthor:[AWS]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
 # snippet-start:[s3.ruby.copy_object_between_buckets.rb]
 require 'aws-sdk-s3'
 
-source_bucket_name = '*** Provide bucket name ***'
-target_bucket_name = '*** Provide bucket name ***'
-source_key = '*** Provide source key ***'
-target_key = '*** Provide target key ***'
+# Copies an object from one Amazon S3 bucket to another.
+#
+# Prerequisites:
+#
+# - Two S3 buckets (a source bucket and a target bucket).
+# - An object in the source bucket to be copied.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param source_bucket_name [String] The source bucket's name.
+# @param source_key [String] The name of the object
+#   in the source bucket to be copied.
+# @param target_bucket_name [String] The target bucket's name.
+# @param target_key [String] The name of the copied object.
+# @return [Boolean] true if the object was copied; otherwise, false.
+# @example
+#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   exit 1 unless object_copied?(
+#     s3_client,
+#     'doc-example-bucket1',
+#     'my-source-file.txt',
+#     'doc-example-bucket2',
+#     'my-target-file.txt'
+#   )
+def object_copied?(
+  s3_client,
+  source_bucket_name,
+  source_key,
+  target_bucket_name,
+  target_key)
 
-begin
-  s3 = Aws::S3::Client.new(region: 'us-west-2')
-  s3.copy_object(bucket: target_bucket_name, copy_source: source_bucket_name + '/' + source_key, key: target_key)
-rescue StandardError => ex
-  puts 'Caught exception copying object ' + source_key + ' from bucket ' + source_bucket_name + ' to bucket ' + target_bucket_name + ' as ' + target_key + ':'
-  puts ex.message
+  return true if s3_client.copy_object(
+    bucket: target_bucket_name,
+    copy_source: source_bucket_name + '/' + source_key,
+    key: target_key
+  )
+rescue StandardError => e
+  puts "Error while copying object: #{e.message}"
+end
+# snippet-end:[s3.ruby.copy_object_between_buckets.rb]
+
+# Full example call:
+def run_me
+  source_bucket_name = 'doc-example-bucket1'
+  source_key = 'my-source-file.txt'
+  target_bucket_name = 'doc-example-bucket2'
+  target_key = 'my-target-file.txt'
+  region = 'us-east-1'
+
+  s3_client = Aws::S3::Client.new(region: region)
+
+  puts "Copying object '#{source_key}' from bucket '#{source_bucket_name}' " \
+    "to bucket '#{target_bucket_name}'..."
+
+  if object_copied?(
+    s3_client,
+    source_bucket_name,
+    source_key,
+    target_bucket_name,
+    target_key)
+    puts 'The object was copied.'
+  else
+    puts 'The object was not copied. Stopping program.'
+    exit 1
+  end
 end
 
-puts 'Copied ' +  source_key + ' from bucket ' + source_bucket_name + ' to bucket ' + target_bucket_name + ' as ' + target_key
-# snippet-end:[s3.ruby.copy_object_between_buckets.rb]
+run_me if $PROGRAM_NAME == __FILE__

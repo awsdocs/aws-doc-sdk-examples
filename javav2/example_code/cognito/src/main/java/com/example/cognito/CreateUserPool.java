@@ -5,8 +5,8 @@
 //snippet-keyword:[Amazon Cognito]
 //snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/16/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[8/14/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -39,7 +39,7 @@ public class CreateUserPool {
                 "Usage:\n" +
                 "    CreateUserPool <userPoolName> \n\n" +
                 "Where:\n" +
-                "    userPoolName - the name to give your user pool when created\n\n" +
+                "    userPoolName - The name to give your user pool when it's created.\n\n" +
                 "Example:\n" +
                 "    CreateTable HelloTable\n";
 
@@ -55,20 +55,19 @@ public class CreateUserPool {
                 .build();
 
         String id = createPool(cognitoclient,userPoolName);
-        System.out.println("User Pool ID: " + id);
+        System.out.println("User pool ID: " + id);
     }
 
     //snippet-start:[cognito.java2.create_user_pool.main]
     public static String createPool(CognitoIdentityProviderClient cognitoclient,String userPoolName ) {
 
         try {
-            CreateUserPoolResponse response = cognitoclient.createUserPool(
+            CreateUserPoolResponse repsonse = cognitoclient.createUserPool(
                     CreateUserPoolRequest.builder()
                             .poolName(userPoolName)
                             .build()
             );
-
-           return response.userPool().id();
+           return repsonse.userPool().id();
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

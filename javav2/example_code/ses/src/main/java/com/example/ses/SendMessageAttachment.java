@@ -1,5 +1,15 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using a SesClient object]
+// snippet-service:[ses]
+// snippet-keyword:[Java]
+// snippet-keyword:[Amazon Simple Email Service]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2020-10-02]
+// snippet-sourceauthor:[AWS-scmacdon]
+
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -13,21 +23,11 @@
  *
  */
 
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using a SesClient object]
-// snippet-service:[ses]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Simple Email Service]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-01-20]
-// snippet-sourceauthor:[AWS-scmacdon]
-
 // snippet-start:[ses.java2.sendmessageattachment.complete]
 package com.example.ses;
 
 // snippet-start:[ses.java2.sendmessageattachment.import]
-import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import javax.activation.DataHandler;
@@ -49,117 +49,121 @@ import java.util.Properties;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 import software.amazon.awssdk.services.ses.model.RawMessage;
+import software.amazon.awssdk.services.ses.model.SesException;
 // snippet-end:[ses.java2.sendmessageattachment.import]
 
 
 public class SendMessageAttachment {
 
-    // This value is set as an input parameter
-    private static String SENDER = "";
-
-    // This value is set as an input parameter
-    // It specifies the location of the Excel file to use as an attachment
-    private static String FileLocation = "";
-
-    // This value is set as an input parameter
-    private static String RECIPIENT = "";
-
-     // This value is set as an input parameter
-    private static String SUBJECT = "";
-
-
-    // The email body for recipients with non-HTML email clients
-    private static String BODY_TEXT = "Hello,\r\n" + "Please see the attached file for a list "
-            + "of customers to contact.";
-
-    // The HTML body of the email
-    private static String BODY_HTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
-
     public static void main(String[] args) throws IOException {
 
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    SendMessage <sender><recipient><subject> \n\n" +
+                "Where:\n" +
+                "    sender - an email address that represents the sender \n"+
+                "    recipient -  an email address that represents the recipient \n"+
+                "    subject - the  subject line \n" +
+                "    fileLocation - the location of an Excel file to use as an attachment \n" ;
+
         if (args.length < 4) {
-            System.out.println("Please specify a sender email address, a recipient email address, a subject line, and file location");
+            System.out.println(USAGE);
             System.exit(1);
         }
 
-        // snippet-start:[ses.java2.sendmessageattachment.main]
-        SENDER = args[0];
-        RECIPIENT = args[1];
-        SUBJECT = args[2];
-        FileLocation = args[3];
+        /* Read the name from command args*/
+        String sender = args[0];
+        String recipient = args[1];
+        String subject = args[2];
+        String fileLocation = args[3]; // select an .XLS file
 
-        java.io.File theFile = new java.io.File(FileLocation);
-        byte[] fileContent = Files.readAllBytes(theFile.toPath());
+        // The email body for recipients with non-HTML email clients.
+        String bodyText = "Hello,\r\n" + "Please see the attached file for a list "
+                + "of customers to contact.";
+
+        // The HTML body of the email.
+        String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+                + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
+
+        Region region = Region.US_WEST_2;
+        SesClient client = SesClient.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
 
         try {
-            send(fileContent);
+            sendemailAttachment(client, sender,recipient, subject,bodyText,bodyHTML,fileLocation );
 
         } catch (IOException | MessagingException e) {
             e.getStackTrace();
         }
     }
 
-    public static void send(byte[] attachment) throws AddressException, MessagingException, IOException {
+    // snippet-start:[ses.java2.sendmessageattachment.main]
+    public static void sendemailAttachment(SesClient client,
+                            String sender,
+                            String recipient,
+                            String subject,
+                            String bodyText,
+                            String bodyHTML,
+                            String fileLocation) throws AddressException, MessagingException, IOException {
 
-        Session session = Session.getDefaultInstance(new Properties());
+        java.io.File theFile = new java.io.File(fileLocation);
+        byte[] fileContent = Files.readAllBytes(theFile.toPath());
 
-        // Create a new MimeMessage object
+       Session session = Session.getDefaultInstance(new Properties());
+
+        // Create a new MimeMessage object.
         MimeMessage message = new MimeMessage(session);
 
-        // Add subject, from and to lines
-        message.setSubject(SUBJECT, "UTF-8");
-        message.setFrom(new InternetAddress(SENDER));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT));
+        // Add subject, from and to lines.
+        message.setSubject(subject, "UTF-8");
+        message.setFrom(new InternetAddress(sender));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
-        // Create a multipart/alternative child container
+        // Create a multipart/alternative child container.
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts
+        // Create a wrapper for the HTML and text parts.
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part
+        // Define the text part.
         MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent(BODY_TEXT, "text/plain; charset=UTF-8");
+        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part
+        // Define the HTML part.
         MimeBodyPart htmlPart = new MimeBodyPart();
-        htmlPart.setContent(BODY_HTML, "text/html; charset=UTF-8");
+        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container
+        // Add the text and HTML parts to the child container.
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object
+        // Add the child container to the wrapper object.
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container
+        // Create a multipart/mixed parent container.
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message
+        // Add the parent container to the message.
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message
+        // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
 
         // Define the attachment
         MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        DataSource fds = new ByteArrayDataSource(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
-        // Set the attachment name
         String reportName = "WorkReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message
+        // Add the attachment to the message.
         msg.addBodyPart(att);
 
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-
-            Region region = Region.US_WEST_2;
-
-            SesClient client = SesClient.builder().region(region).build();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             message.writeTo(outputStream);
@@ -181,9 +185,11 @@ public class SendMessageAttachment {
 
             client.sendRawEmail(rawEmailRequest);
 
-        } catch (SdkException e) {
-            e.getStackTrace();
+        } catch (SesException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
+        System.out.println("Email sent with attachment");
         // snippet-end:[ses.java2.sendmessageattachment.main]
     }
 }

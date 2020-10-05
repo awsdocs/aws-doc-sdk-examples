@@ -1,0 +1,49 @@
+---
+# Amazon EC2 basic usage examples
+files:
+  - path: ec2_allocateaddress.ts
+    services:
+      - ec2
+  - path: ec2_createinstances.ts
+    services:
+      - ec2
+  - path: ec2_createkeypair.ts
+    services:
+      - ec2
+  - path: ec2_createsecuritygroup.ts
+    services:
+      - ec2
+  - path: ec2_deletekeypair.ts
+    services:
+      - ec2
+  - path: ec2_deletesecuritygroup.ts
+    services:
+      - ec2
+  - path: ec2_describeaddresses.ts
+    services:
+      - ec2
+  - path: ec2_describeinstances.ts
+    services:
+      - ec2
+  - path: ec2_describekeypairs.ts
+    services:
+      - ec2
+  - path: ec2_describeregionsandzones.ts
+    services:
+      - ec2
+  - path: ec2_describesecuritygroups.ts
+    services:
+      - ec2
+  - path: ec2_monitorinstances.ts
+    services:
+      - ec2
+  - path: ec2_rebootinstances.ts
+    services:
+      - ec2
+  - path: ec2_releaseaddress.ts
+    services:
+      - ec2
+  - path: ec2_startstopinstances.ts
+    services:
+      - ec2
+...

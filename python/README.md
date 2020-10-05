@@ -65,6 +65,25 @@ groups.
 * Clean up security keys and security groups.
 * Permanently terminate instances. 
 
+### [Amazon EMR cluster and command examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/emr/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon EMR API to create
+and manage clusters and job steps. Learn to accomplish the following tasks:
+
+* Create a short-lived cluster that estimates the value of pi using Apache Spark to 
+  parallelize a large number of calculations, writes output to Amazon S3, and
+  terminates itself after completing the job.
+* Create a long-lived cluster that uses Apache Spark to query historical Amazon 
+  review data to discover the top products in various categories with certain 
+  keywords in their product titles.
+* Create security roles and groups to let Amazon EMR manage cluster instances and
+  to let the instances access additional AWS resources.
+* Run commands on cluster instances, such as EMRFS configuration and shell scripts
+  to install additional libraries. 
+* Query clusters for status and terminate them using the API.
+
 ### [AWS IAM getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
 
 #### Purpose
@@ -119,6 +138,29 @@ table to serve REST requests.
 This example brings together some of the same information you can find in the
 tutorials in the 
 [AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
+
+### [AWS Organizations policy examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/organizations/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create and manage AWS Organizations
+policies.
+
+### [Amazon Aurora serverless REST API lending library example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rds/lending_library/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database 
+Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an 
+Amazon Aurora database. The web service is fully serverless and represents
+a simple lending library where patrons can borrow and return books. Learn how to:
+
+* Create and manage a serverless Amazon Aurora database cluster.
+* Use AWS Secrets Manager to manage database credentials.
+* Implement a data storage layer that uses Amazon RDS Data Service to move data into
+and out of the database.  
+* Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
+* Use the Requests package to send requests to the web service.
 
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
@@ -189,6 +231,17 @@ perform permitted actions.
 * Construct a URL that gives federated users direct access to an account through the
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
+
+### [Amazon Transcribe custom vocabulary example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/transcribe/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
+transcribe an audio file to a text file. Learn how to:
+
+* Run a transcription job against an audio file in an Amazon S3 bucket.
+* Create and refine a custom vocabulary to improve the accuracy of the transcription.
+* List and manage transcription jobs and custom vocabularies.
 
 ### [Test tools for Python code examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/test_tools/README.md)
 

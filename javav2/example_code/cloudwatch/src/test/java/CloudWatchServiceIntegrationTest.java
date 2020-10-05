@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
-import software.amazon.awssdk.services.cloudwatch.model.*;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import com.example.cloudwatch.*;
@@ -15,8 +14,9 @@ import java.util.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CloudWatchServiceIntegrationTest {
 
-    private static CloudWatchClient cw = null;
-    private static CloudWatchLogsClient cloudWatchLogsClient = null;
+    private static CloudWatchClient cw ;
+    private static CloudWatchLogsClient cloudWatchLogsClient ;
+    private static CloudWatchEventsClient cwe;
     private static String logGroup="";
     private static String alarmName="";
     private static String streamName ="";
@@ -35,7 +35,14 @@ public class CloudWatchServiceIntegrationTest {
         cw = CloudWatchClient.builder()
                 .region(region)
                 .build();
-        cloudWatchLogsClient = CloudWatchLogsClient.builder().build();
+
+        cloudWatchLogsClient = CloudWatchLogsClient.builder()
+                .region(region)
+                .build();
+
+        cwe = CloudWatchEventsClient.builder()
+                        .region(region)
+                        .build();
 
         try (InputStream input = CloudWatchServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -78,13 +85,7 @@ public class CloudWatchServiceIntegrationTest {
     @Order(2)
     public void CreateAlarm() {
 
-        try {
-            PutMetricAlarm.putMetricAlarm(cw,alarmName,instanceId );
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
+        PutMetricAlarm.putMetricAlarm(cw,alarmName,instanceId );
         System.out.printf("\n Test 2 passed");
     }
 
@@ -92,43 +93,24 @@ public class CloudWatchServiceIntegrationTest {
     @Order(3)
     public void DescribeAlarms() {
 
-        try {
-            DescribeAlarms.deleteCWAlarms(cw);
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.printf("\n Test 3 passed");
+       DescribeAlarms.deleteCWAlarms(cw);
+       System.out.printf("\n Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void CreateSubscriptionFilters() {
 
-       try {
-         PutSubscriptionFilter.putSubFilters(cloudWatchLogsClient, filterName, filterPattern, logGroup, roleArn, destinationArn);
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.printf("\n Test 4 passed");
+       PutSubscriptionFilter.putSubFilters(cloudWatchLogsClient, filterName, filterPattern, logGroup, roleArn, destinationArn);
+       System.out.printf("\n Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void DescribeSubscriptionFilters() {
 
-        try {
-            DescribeSubscriptionFilters.describeFilters(cloudWatchLogsClient,logGroup);
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.printf("\n Test 5 passed");
+       DescribeSubscriptionFilters.describeFilters(cloudWatchLogsClient,logGroup);
+       System.out.printf("\n Test 5 passed");
     }
 
 
@@ -136,89 +118,47 @@ public class CloudWatchServiceIntegrationTest {
     @Order(6)
     public void DisableAlarmActions() {
 
-       try {
-           DisableAlarmActions.disableActions(cw, alarmName);
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("\n Test 6 passed");
+      DisableAlarmActions.disableActions(cw, alarmName);
+      System.out.println("\n Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void EnableAlarmActions() {
 
-       try {
-            EnableAlarmActions.enableActions(cw, alarmName) ;
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("\n Test 7 passed");
+      EnableAlarmActions.enableActions(cw, alarmName) ;
+      System.out.println("\n Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void GetLogEvents() {
 
-        try {
-                GetLogEvents.getCWLogEvebts(cloudWatchLogsClient,logGroup,streamName);
-            } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        GetLogEvents.getCWLogEvebts(cloudWatchLogsClient,logGroup,streamName);
         System.out.println("\n Test 8 passed");
     }
-
 
     @Test
     @Order(9)
     void PutCloudWatchEvent() {
 
-        CloudWatchEventsClient cwe =
-                CloudWatchEventsClient.builder().build();
-
-        try {
-            PutEvents.putCWEvents(cwe,ruleResource );
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 9 passed");
+       PutEvents.putCWEvents(cwe,ruleResource );
+       System.out.println("\n Test 9 passed");
     }
 
     @Test
     @Order(10)
     public void GetMetricData() {
 
-       try {
-
-        GetMetricData.getMetData(cw);
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("\n Test 10 passed");
+      GetMetricData.getMetData(cw);
+      System.out.println("\n Test 10 passed");
     }
 
     @Test
     @Order(11)
     public void DeleteSubscriptionFilter() {
 
-        try {
-           DeleteSubscriptionFilter.deleteSubFilter(cloudWatchLogsClient, filterName,logGroup );
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
+        DeleteSubscriptionFilter.deleteSubFilter(cloudWatchLogsClient, filterName,logGroup );
         System.out.println("\n Test 11 passed");
     }
 
@@ -226,19 +166,7 @@ public class CloudWatchServiceIntegrationTest {
     @Order(12)
     public void DeleteAlarm() {
 
-      try {
-          DeleteAlarm.deleteCWAlarm(cw, alarmName);
-
-        } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        System.out.println("\n Test 12 passed");
+      DeleteAlarm.deleteCWAlarm(cw, alarmName);
+      System.out.println("\n Test 12 passed");
     }
 }
-
-
-
-
-

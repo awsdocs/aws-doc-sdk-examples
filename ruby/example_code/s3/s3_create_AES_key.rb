@@ -1,35 +1,38 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates a 128-bit AES key.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[AES key]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
 require 'openssl'
 
-# Create key
-cipher = OpenSSL::Cipher::AES.new(128, :CBC)
-cipher.encrypt
-key = cipher.random_key
+# Generates a random AES256-GCM key. Call this function if you do not
+#   already have an AES256-GCM key that you want to use to encrypt an
+#   object.
+#
+# @return [String] The generated AES256-GCM key. You must keep a record of
+#   the key that is reported. You will not be able to later decrypt the
+#   contents of any object that is encrypted with this key unless you
+#   have this key.
+# @example
+#     get_random_aes_256_gcm_key
+def get_random_aes_256_gcm_key
+  cipher = OpenSSL::Cipher.new('aes-256-gcm')
+  cipher.encrypt
+  random_key = cipher.random_key
+  random_key_64_string = [random_key].pack('m')
+  random_key_64 = random_key_64_string.unpack('m')[0]
+  puts 'The base64-encoded, ASCII-based string representation of the ' \
+    'randomly-generated AES256-GCM key is:'
+  puts random_key_64_string
+  puts 'Keep a record of this key. You will not be able to later ' \
+    'decrypt the contents of any object that is encrypted with this key ' \
+    'unless you have this key.'
+  random_key_64
+end
 
-# Convert it to text and display the text value
-encoded_string = Base64.encode64(key)
-puts encoded_string
+def run_me
+  puts 'Generating a random AES256-GCM key...'
+  encryption_key = get_random_aes_256_gcm_key
+  puts 'The base64-decoded representation of this ASCII-based key string is:'
+  puts encryption_key
+end
 
-# To decode the encoded string:
-#   key = encoded_string.unpack("m*")[0]
+run_me if $PROGRAM_NAME == __FILE__

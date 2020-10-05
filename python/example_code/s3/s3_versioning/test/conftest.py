@@ -5,6 +5,7 @@
 Contains common test fixtures used to run Amazon S3 versioning tests.
 """
 from urllib import parse
+import time
 from botocore.stub import ANY
 
 import sys

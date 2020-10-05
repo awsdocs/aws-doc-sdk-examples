@@ -1,0 +1,29 @@
+--- 
+files:
+ - path: src/main/java/com/example/route/CreateHealthCheck.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/CreateHostedZone.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/DeleteHealthCheck.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/DeleteHostedZone.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/GetHealthCheckStatus.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/ListHealthChecks.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/ListHostedZones.java
+   services:
+     - route 53
+ - path: src/main/java/com/example/route/UpdateHealthCheck.java
+   services:
+     - route 53
+ - path: src/test/java/Route53Test.java
+   services:
+     - route 53

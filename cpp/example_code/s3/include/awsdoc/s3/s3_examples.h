@@ -4,6 +4,7 @@
 #pragma once
 
 #include <aws/core/Aws.h>
+#include <aws/s3/S3Client.h>
 #include <aws/s3/model/BucketLocationConstraint.h>
 #include <awsdoc/s3/S3_EXPORTS.h>
 
@@ -40,26 +41,27 @@ namespace AwsDoc
         AWSDOC_S3_API bool PutBucketAcl(const Aws::String& bucketName, 
             const Aws::String& ownerID, 
             const Aws::String& granteePermission, 
-            const Aws::String& granteeType, 
+            const Aws::String& granteeType,
+            const Aws::String& region, 
             const Aws::String& granteeID = "", 
             const Aws::String& granteeDisplayName = "",
             const Aws::String& granteeEmailAddress = "",
-            const Aws::String& granteeURI = "",
-            const Aws::String& region = "");
+            const Aws::String& granteeURI = "");
         AWSDOC_S3_API bool PutBucketPolicy(const Aws::String& bucketName,
             const Aws::String& policyBody, const Aws::String& region = "");
         AWSDOC_S3_API bool PutObject(const Aws::String& bucketName,
             const Aws::String& objectName,
             const Aws::String& region = "");
         AWSDOC_S3_API bool PutObjectAcl(const Aws::String& bucketName, 
-            const Aws::String& objectKey, 
-            const Aws::String& ownerID, const Aws::String& granteePermission, 
+            const Aws::String& objectKey,
+            const Aws::String& region, 
+            const Aws::String& ownerID,
+            const Aws::String& granteePermission, 
             const Aws::String& granteeType, 
             const Aws::String& granteeID = "",
             const Aws::String& granteeDisplayName = "",
             const Aws::String& granteeEmailAddress = "",
-            const Aws::String& granteeURI = "",
-            const Aws::String& region = "");
+            const Aws::String& granteeURI = "");
         AWSDOC_S3_API bool PutObjectAsync(const Aws::S3::S3Client& s3Client,
             const Aws::String& bucketName,
             const Aws::String& objectName,

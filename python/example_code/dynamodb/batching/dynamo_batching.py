@@ -15,6 +15,7 @@ removing duplicates, and retrying unprocessed items.
 import decimal
 import json
 import logging
+import os
 import pprint
 import time
 import boto3
@@ -243,11 +244,19 @@ def usage_demo():
     print("Welcome to the Amazon DynamoDB batch usage demo.")
     print('-'*88)
 
-    movies_file_name = '../GettingStarted/moviedata.json'
+    movies_file_name = 'moviedata.json'
     print(f"Getting movie data from {movies_file_name}.")
-    with open(movies_file_name) as json_file:
-        movie_data = json.load(json_file, parse_float=decimal.Decimal)
-        movie_data = movie_data[:500]  # Only use the first 500 movies for the demo.
+    try:
+        with open(movies_file_name) as json_file:
+            movie_data = json.load(json_file, parse_float=decimal.Decimal)
+            movie_data = movie_data[:500]  # Only use the first 500 movies for the demo.
+    except FileNotFoundError:
+        print(f"The file moviedata.json was not found in the current working directory "
+              f"{os.getcwd()}.\n"
+              f"1. Download the zip file from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip.\n"
+              f"2. Extract '{movies_file_name}' to {os.getcwd()}.\n"
+              f"3. Run the usage demo again.")
+        return
 
     # Build a second table centered around actors.
     actor_set = {}
@@ -279,8 +288,8 @@ def usage_demo():
     ]
 
     print(f"Creating movie and actor tables and waiting until they exist...")
-    movie_table = create_table(f'aws-demo-batch-movies-{time.time_ns()}', movie_schema)
-    actor_table = create_table(f'aws-demo-batch-actors-{time.time_ns()}', actor_schema)
+    movie_table = create_table(f'demo-batch-movies-{time.time_ns()}', movie_schema)
+    actor_table = create_table(f'demo-batch-actors-{time.time_ns()}', actor_schema)
     print(f"Created {movie_table.name} and {actor_table.name}.")
 
     print(f"Putting {len(movie_data)} movies into {movie_table.name}.")

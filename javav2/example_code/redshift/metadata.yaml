@@ -12,10 +12,10 @@ files:
   - path: src/main/java/com/example/redshift/DescribeClusters.java
     services:
       - redshift
-  - path: src/main/java/example/redshift/FindReservedNodeOffer.java
+  - path: src/main/java/com/example/redshift/FindReservedNodeOffer.java
     services:
       - redshift
-  - path: src/main/java/example/redshift/ListEvents.java
+  - path: src/main/java/com/example/redshift/ListEvents.java
     services:
       - redshift      
   - path: src/test/java/AmazonRedshiftServiceIntegrationTest.java

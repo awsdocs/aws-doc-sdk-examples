@@ -14,6 +14,21 @@ and update and query movies in various ways.
 - Python 3.6 or later
 - Boto 3 1.11.10 or later
 - PyTest 5.3.5 or later (to run unit tests)
+- Download and extract the 
+  [example movie data JSON file](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
+
+## Cautions
+
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
 
 ## Running the code
 
@@ -53,15 +68,6 @@ python -m pytest
 
 - [Boto3 Amazon DynamoDB examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html)
 - [Boto3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  "AWS Regional Table" on the AWS website.
-- Running this code might result in charges to your AWS account.
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

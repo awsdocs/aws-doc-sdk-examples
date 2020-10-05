@@ -1,84 +1,72 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates, populates, and deletes a static website from an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[create_bucket method]
-# snippet-keyword:[delete_bucket_website method]
-# snippet-keyword:[get_bucket_website method]
-# snippet-keyword:[put_bucket_website method]
-# snippet-keyword:[put_object method]
-# snippet-keyword:[Resource.delete method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+require 'aws-sdk-s3'
+
+# Configures an Amazon S3 bucket as a static website.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An Amazon S3 bucket.
+# - A file in the bucket representing the website's home or
+#     default page.
+# - A file in the bucket representing the website's error page.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
-
-# Using Random UUIDs to Avoid Collisions when Testing
-require 'securerandom'
-bucket = "example-test-bucket-#{SecureRandom.uuid}"
-
-# Setup
-s3 = Aws::S3::Client.new(region: "us-west-2")
-s3.create_bucket(bucket: bucket)
-
-# When Bucket Has No Website Configuration
-begin
-  s3.get_bucket_website(bucket: bucket)
-rescue Aws::S3::Errors::NoSuchWebsiteConfiguration
-  puts "No bucket website configuration present."
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param index_document [String] The file name of the home or default page
+#   of the website.
+# @param error_document [String] The file name of the page returned when a
+#   website error occurs.
+# @return [Boolean] true if the bucket was successfully configured;
+#   otherwise, false.
+# @example
+#   exit 1 unless bucket_website_configured?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'index.html',
+#     '404.html'
+#   )
+def bucket_website_configured?(
+  s3_client,
+  bucket_name,
+  index_document,
+  error_document
+)
+  s3_client.put_bucket_website(
+    bucket: bucket_name,
+    website_configuration: {
+      index_document: {
+        suffix: index_document
+      },
+      error_document: {
+        key: error_document
+      }
+    }
+  )
+  return true
+rescue StandardError => e
+  puts "Error configuring bucket as a static website: #{e.message}"
+  return false
 end
 
-# Adding Simple Pages & Website Configuration
-s3.put_object(
-  bucket: bucket,
-  key: "index.html",
-  body: "Hello, Amazon S3!",
-  acl: "public-read"
-)
-s3.put_object(
-  bucket: bucket,
-  key: "error.html",
-  body: "Page not found!",
-  acl: "public-read"
-)
-s3.put_bucket_website(
-  bucket: bucket,
-  website_configuration: {
-    index_document: {
-      suffix: "index.html"
-    },
-    error_document: {
-      key: "error.html"
-    }
-  }
-)
+def run_me
+  bucket_name = 'doc-example-bucket'
+  index_document = 'index.html'
+  error_document = '404.html'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-# Accessing as a Website
-index_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/"
-error_path = "http://#{bucket}.s3-website-us-west-2.amazonaws.com/nonexistent.html"
+  if bucket_website_configured?(
+    s3_client,
+    bucket_name,
+    index_document,
+    error_document
+  )
+    puts 'Bucket configured as a static website.'
+  else
+    puts 'Bucket not configured as a static website.'
+  end
+end
 
-puts "Index Page Contents:\n#{Net::HTTP.get(URI(index_path))}\n\n"
-puts "Error Page Contents:\n#{Net::HTTP.get(URI(error_path))}\n\n"
-
-# Removing Website Configuration
-s3.delete_bucket_website(bucket: bucket)
-
-# Cleanup
-b = Aws::S3::Resource.new(region: "us-west-2").bucket(bucket)
-b.delete! # Recursively deletes objects as well.
+run_me if $PROGRAM_NAME == __FILE__
