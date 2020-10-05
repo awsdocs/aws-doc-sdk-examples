@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html.
 
 Purpose:
-sqs_longpolling_existingqueue.ts demonstrates how to change the amount of time an AWS SQS queue waits for a message to arrive.
+sqs_longpolling_existingqueue.ts demonstrates how to change the amount of time an Amazon SQS queue waits for a message to arrive.
 
 Inputs (replace in code):
 - REGION

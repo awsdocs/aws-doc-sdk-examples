@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html.
 
 Purpose:
-sqs_longpolling_receivemessage.ts demonstrates how to retrieve messages from an AWS SQS queue using long-polling support.
+sqs_longpolling_receivemessage.ts demonstrates how to retrieve messages from an Amazon SQS queue using long-polling support.
 
 Inputs (replace in code):
 - REGION

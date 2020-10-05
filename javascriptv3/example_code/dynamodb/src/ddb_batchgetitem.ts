@@ -9,7 +9,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html.
 
 Purpose:
-ddb_batchgetitem.ts demonstrates how to retrieve items from an AWS DynamoDB table.
+ddb_batchgetitem.ts demonstrates how to retrieve items from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION

@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-ip-filters.html.
 
 Purpose:
-ses_listreceiptfilters.ts demonstrates how to list the AWS SES IP filters for an AWS account.
+ses_listreceiptfilters.ts demonstrates how to list the Amazon SES IP filters for an AWS account.
 
 Inputs (replace in code):
 - REGION

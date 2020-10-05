@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-elastic-ip-addresses.html
 
 Purpose:
-ec2_allocateaddress.ts demonstrates how to allocate and associate an Elastic IP address to an AWS EC2 instance.
+ec2_allocateaddress.ts demonstrates how to allocate and associate an Elastic IP address to an Amazon EC2 instance.
 
 Inputs (replace in code):
 - REGION

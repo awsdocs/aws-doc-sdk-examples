@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
-redshift-modify-cluster.ts demonstrates how to modify an AWS Redshift cluster. This example shows how to change the main user password.
+redshift-modify-cluster.ts demonstrates how to modify an Amazon Redshift cluster. This example shows how to change the main user password.
 For more information about other cluster settings you can modify, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_ModifyCluster.html.
 
 Inputs (replace in code):
@@ -34,7 +34,7 @@ params = {
   MasterUserPassword: "NEW_MASTER_USER_PASSWORD",
 };
 
-// Create an AWS Redshift client service object
+// Create an Amazon Redshift client service object
 const redshift = new RedshiftClient(REGION);
 
 const run = async () => {

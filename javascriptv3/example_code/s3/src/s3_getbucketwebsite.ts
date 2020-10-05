@@ -6,7 +6,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
 Purpose:
-s3_getbucketwebsite.ts demonstrates how to retrieve the website configuration of an AWS S3 bucket.
+s3_getbucketwebsite.ts demonstrates how to retrieve the website configuration of an Amazon S3 bucket.
 Inputs :
 - REGION
 - BUCKET_NAME

@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-ses_sendemail.ts demonstrates how to send an email using AWS SES.
+ses_sendemail.ts demonstrates how to send an email using Amazon SES.
 
 Inputs (replace in code):
 - REGION

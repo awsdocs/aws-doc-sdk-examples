@@ -6,7 +6,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html.
 Purpose:
-s3_deletebucketpolicy.js demonstrates how to delete an AWS S3 bucket policy.]
+s3_deletebucketpolicy.js demonstrates how to delete an Amazon S3 bucket policy.]
 Inputs (replace in code):
 - REGION
 - BUCKET_NAME

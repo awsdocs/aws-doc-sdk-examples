@@ -1,5 +1,5 @@
 ---
-# AWS Cloudwatch basic usage examples
+# Amazon Cloudwatch basic usage examples
 files:
   - path: cw_deletealarms.ts
     services:

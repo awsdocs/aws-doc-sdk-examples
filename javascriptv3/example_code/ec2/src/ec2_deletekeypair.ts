@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-key-pairs.html
 
 Purpose:
-ec2_deletekeypair.ts demonstrates how to delete a key pair from an AWS EC2 instance.
+ec2_deletekeypair.ts demonstrates how to delete a key pair from an Amazon EC2 instance.
 
 Inputs (replace in code):
 - REGION

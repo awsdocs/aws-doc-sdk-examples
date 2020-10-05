@@ -1,5 +1,5 @@
 ---
-# AWS DynamoDB basic usage examples
+# Amazon DynamoDB basic usage examples
 files:
   - path: ddb_batchgetitem.ts
     services:

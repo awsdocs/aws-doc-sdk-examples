@@ -1,5 +1,5 @@
 ---
-# AWS S3 examples
+# Amazon S3 examples
 files:
   - path: ../photoViewer/src/s3_PhotoViewer.ts
     services:

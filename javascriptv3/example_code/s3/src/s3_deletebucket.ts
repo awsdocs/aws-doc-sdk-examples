@@ -6,7 +6,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 Purpose:
-s3_deletebucket.ts demonstrates how to delete an AWS S3 bucket.
+s3_deletebucket.ts demonstrates how to delete an Amazon S3 bucket.
 Inputs (replace in code):
 - REGION
 - BUCKET_NAME

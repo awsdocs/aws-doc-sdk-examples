@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html.
 
 Purpose:
-sns_settopicattributes.ts demonstrates how to set the attributes of an AWS SNS topic.
+sns_settopicattributes.ts demonstrates how to set the attributes of an Amazon SNS topic.
 
 Inputs (replace in code):
 - REGION

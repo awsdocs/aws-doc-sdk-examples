@@ -18,7 +18,7 @@
 // snippet-service:[kinesis]
 // snippet-keyword:[JavaScript]
 // snippet-sourcesyntax:[javascript]
-// snippet-keyword:[AWS Kinesis]
+// snippet-keyword:[Amazon Kinesis]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[]
@@ -35,7 +35,7 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 });
 
 AWS.config.region = "REGION";
-// We're going to partition AWS Kinesis records based on an identity.
+// We're going to partition Amazon Kinesis records based on an identity.
 // We need to get credentials first, then attach our event listeners.
 AWS.config.credentials.get(function (err) {
   // attach event listener
@@ -44,7 +44,7 @@ AWS.config.credentials.get(function (err) {
     console.error(err);
     return;
   }
-  // create AWS Kinesis service object
+  // create Amazon Kinesis service object
   const kinesis = new AWS.Kinesis({
     apiVersion: "2013-12-02",
   });
@@ -73,7 +73,7 @@ AWS.config.credentials.get(function (err) {
         ((scrollTop + scrollableHeight) / scrollHeight) * 100
       );
 
-      // Create the AWS Kinesis record
+      // Create the Amazon Kinesis record
       const record = {
         Data: JSON.stringify({
           blog: window.location.href,
@@ -89,12 +89,12 @@ AWS.config.credentials.get(function (err) {
   // snippet-end:[kinesis.JavaScript.kinesis-example.addEventListener]
 
   // snippet-start:[kinesis.JavaScript.kinesis-example.putRecords]
-  // upload data to AWS Kinesis every second if data exists
+  // upload data to Amazon Kinesis every second if data exists
   setInterval(function () {
     if (!recordData.length) {
       return;
     }
-    // upload data to AWS Kinesis
+    // upload data to Amazon Kinesis
     kinesis.putRecords(
       {
         Records: recordData,

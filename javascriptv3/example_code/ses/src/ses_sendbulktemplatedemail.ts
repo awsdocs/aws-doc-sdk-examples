@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ses-examples-sending-email.html.
 
 Purpose:
-ses_sendbulktemplatedemail.ts demonstrates how to compose an AWS SES templated email for
+ses_sendbulktemplatedemail.ts demonstrates how to compose an Amazon SES templated email for
 multiple destinations and queue it for sending.
 
 Inputs (replace in code):

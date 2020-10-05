@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-creating-template.html.
 
 Purpose:
-ses_createtemplate.ts demonstrates how to create an AWS SES email template.
+ses_createtemplate.ts demonstrates how to create an Amazon SES email template.
 
 Inputs (replace in code):
 - REGION

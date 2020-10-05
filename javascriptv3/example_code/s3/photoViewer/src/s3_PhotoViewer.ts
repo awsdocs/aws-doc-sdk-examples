@@ -8,7 +8,7 @@ which is pending release.  The preview version of the SDK is available
     https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-photos-view.html
 
     Purpose:
-    s3_PhotoViewer.ts demonstrates how to allow viewing of photos in albums stored in an AWS S3 bucket.
+    s3_PhotoViewer.ts demonstrates how to allow viewing of photos in albums stored in an Amazon S3 bucket.
 
     Inputs (replace in code):
     - REGION

@@ -7,7 +7,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
 Purpose:
 s3_setbucketwebsite.ts applies a bucket website configuration to a selected bucket, and is part of an exmample
-of using an AWS S3 bucket as a static web host.
+of using an Amazon S3 bucket as a static web host.
 Inputs (replace in code):
 - INDEX_PAGE
 - ERROR_PAGE

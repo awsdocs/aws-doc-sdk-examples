@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-receipt-rules.html.
 
 Purpose:
-ses_deletereceiptrule.ts demonstrates how to delete an AWS SES receipt rule.
+ses_deletereceiptrule.ts demonstrates how to delete an Amazon SES receipt rule.
 
 Inputs (replace in code):
 - REGION

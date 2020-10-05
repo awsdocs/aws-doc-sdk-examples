@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html.
 
 Purpose:
-sqs_receivemessage.ts demonstrates how to receive and delete a message from an AWS SQS queue.
+sqs_receivemessage.ts demonstrates how to receive and delete a message from an Amazon SQS queue.
 
 Inputs (replace in code):
 - REGION

@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
 
 Purpose:
-ddb_deletetable.ts demonstrates how to delete an AWS DynamoDB table.
+ddb_deletetable.ts demonstrates how to delete an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION

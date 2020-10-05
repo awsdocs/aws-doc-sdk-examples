@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-security-groups.html
 
 Purpose:
-ec2_describeresionsandzones.ts demonstrates how to retrieve information about AWS EC2 regions and availability zones.
+ec2_describeresionsandzones.ts demonstrates how to retrieve information about Amazon EC2 regions and availability zones.
 
 Inputs (replace in code):
 - REGION

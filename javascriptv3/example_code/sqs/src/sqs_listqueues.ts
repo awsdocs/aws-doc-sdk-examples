@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html.
 
 Purpose:
-sqs_listqueues.ts demonstrates how to retrieve a list of AWS SQS queues for an AWS account.
+sqs_listqueues.ts demonstrates how to retrieve a list of Amazon SQS queues for an AWS account.
 
 Inputs (replace in code):
 - REGION

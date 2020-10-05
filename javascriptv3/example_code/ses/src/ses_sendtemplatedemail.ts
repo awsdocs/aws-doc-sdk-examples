@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ses-examples-sending-email.html.
 
 Purpose:
-ses_sendtemplatedemail.ts demonstrates how to compose an AWS SES templated email and
+ses_sendtemplatedemail.ts demonstrates how to compose an Amazon SES templated email and
 queue it for sending.
 
 Inputs (replace in code):

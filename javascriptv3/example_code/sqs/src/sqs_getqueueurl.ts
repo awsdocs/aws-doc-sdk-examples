@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html.
 
 Purpose:
-sqs_getqueueurl.ts demonstrates how to retrieve the URL of an AWS SQS queue.
+sqs_getqueueurl.ts demonstrates how to retrieve the URL of an Amazon SQS queue.
 
 Inputs (replace in code):
 - REGION

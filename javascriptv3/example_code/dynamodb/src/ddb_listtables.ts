@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
 
 Purpose:
-ddb_listtables.ts demonstrates how to retrieve a list of AWS DynamoDB table names.
+ddb_listtables.ts demonstrates how to retrieve a list of Amazon DynamoDB table names.
 
 Inputs (replace in code):
 - REGION

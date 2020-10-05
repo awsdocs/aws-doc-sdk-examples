@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html.
 
 Purpose:
-sns_listsubscriptions.ts demonstrates how to retrieve a list of AWS SNS subscriptions.
+sns_listsubscriptions.ts demonstrates how to retrieve a list of Amazon SNS subscriptions.
 
 Inputs (replace in code):
 - REGION

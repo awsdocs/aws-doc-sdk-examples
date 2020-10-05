@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html.
 
 Purpose:
-sns_subscribeemail.ts demonstrates how to initiate a subscription to an AWS SNS topic with delivery to an email address.]
+sns_subscribeemail.ts demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an email address.]
 
 Inputs (replace in code):
 - REGION

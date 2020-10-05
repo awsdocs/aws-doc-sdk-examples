@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-managing-identities.html.
 
 Purpose:
-ses_verifyemailidentity.ts demonstrates how to send an AWS SES verification email.
+ses_verifyemailidentity.ts demonstrates how to send an Amazon SES verification email.
 
 Inputs (replace in code):
 - REGION

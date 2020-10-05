@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html.
 
 Purpose:
-sns_unsubscribe.ts demonstrates how to delete a subscription to an AWS SNS topic.
+sns_unsubscribe.ts demonstrates how to delete a subscription to an Amazon SNS topic.
 
 Inputs (replace in code):
 - REGION

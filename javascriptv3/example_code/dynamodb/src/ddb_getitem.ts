@@ -7,7 +7,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
 
 Purpose:
-ddb_getitem.ts demonstrates how to retrieve the attributes of an item from an AWS DynamoDB table.
+ddb_getitem.ts demonstrates how to retrieve the attributes of an item from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION

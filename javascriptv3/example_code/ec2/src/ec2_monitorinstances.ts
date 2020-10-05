@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-managing-instances.html
 
 Purpose:
-ec2_monitorinstances.ts demonstrates how to enable detailed monitoring for AWS EC2 instances.
+ec2_monitorinstances.ts demonstrates how to enable detailed monitoring for Amazon EC2 instances.
 
 Inputs (replace in code):
 - REGION

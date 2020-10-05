@@ -1,11 +1,11 @@
-# TypeScript environment for AWS Elemental MediaConvert (EMC) examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) AWS EMC examples. 
+# TypeScript environment for Amazon Elemental MediaConvert (EMC) examples
+This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon EMC examples. 
  
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html) for the topic containing these examples.
 
-AWS EMC is a file-based video transcoding service with broadcast-grade features.
+Amazon EMC is a file-based video transcoding service with broadcast-grade features.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 

@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Develo
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html.
 
 Purpose:
-s3_setcors.js demonstrates how to set the CORS configuration of an AWS S3 bucket.
+s3_setcors.js demonstrates how to set the CORS configuration of an Amazon S3 bucket.
 
 Inputs:
 - REGION (into command line below)

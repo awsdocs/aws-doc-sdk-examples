@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-example-uploadrchive.html.
 
 Purpose:
-uploadArchive.js demonstrates how to upload an archive to AWS S3 Glacier.
+uploadArchive.js demonstrates how to upload an archive to Amazon S3 Glacier.
 
 Inputs (into code):
 - REGION

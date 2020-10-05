@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-creating-template.html.
 
 Purpose:
-ses_listtemplates.ts demonstrates how to list the available AWS SES email templates.
+ses_listtemplates.ts demonstrates how to list the available Amazon SES email templates.
 
 Inputs (replace in code):
 - REGION

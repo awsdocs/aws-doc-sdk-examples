@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
-redshift-create-cluster.ts demonstrates how to create an AWS Redshift cluster.
+redshift-create-cluster.ts demonstrates how to create an Amazon Redshift cluster.
 
 Inputs (replace in code):
 - REGION: The AWS Region

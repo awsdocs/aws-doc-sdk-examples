@@ -7,7 +7,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-function-prep.html.
 Purpose:
-lambda-function-setup.ts demonstrates how to create an AWS Lambda function.
+lambda-function-setup.ts demonstrates how to create an Amazon Lambda function.
 
 Inputs (replace in code):
 - REGION

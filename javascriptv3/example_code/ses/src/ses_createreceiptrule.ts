@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-receipt-rules.html.
 
 Purpose:
-ses_createreceiptrule.ts demonstrates how to create a receipt rule in AWS SES to save
+ses_createreceiptrule.ts demonstrates how to create a receipt rule in Amazon SES to save
 received messages in an Amazon S3 bucket.
 
 Inputs (replace in code):

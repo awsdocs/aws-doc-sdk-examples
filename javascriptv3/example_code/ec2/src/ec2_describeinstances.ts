@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-managing-instances.html
 
 Purpose:
-ec2_describeinstances.ts demonstrates how to retrieve information about one or more AWS EC2 instances.
+ec2_describeinstances.ts demonstrates how to retrieve information about one or more Amazon EC2 instances.
 
 Inputs (replace in code):
 - REGION

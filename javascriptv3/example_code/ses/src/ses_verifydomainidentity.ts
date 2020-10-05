@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-managing-identities.html.
 
 Purpose:
-ses_verifydomainidentity.ts demonstrates how to add a domain to the list of AWS SES identities and attempts to verify it.
+ses_verifydomainidentity.ts demonstrates how to add a domain to the list of Amazon SES identities and attempts to verify it.
 
 Inputs (replace in code):
 - REGION

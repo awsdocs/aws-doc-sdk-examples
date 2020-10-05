@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html.
 
 Purpose:
-sns_listtopics.ts demonstrates how to retrieve a list of AWS SNS topics.
+sns_listtopics.ts demonstrates how to retrieve a list of Amazon SNS topics.
 
 Inputs (replace in code):
 - REGION

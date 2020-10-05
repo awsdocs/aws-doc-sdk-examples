@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-managing-identities.html.
 
 Purpose:
-ses_deleteidentity.ts demonstrates how to delete an AWS SES identity.
+ses_deleteidentity.ts demonstrates how to delete an Amazon SES identity.
 
 Inputs (replace in code):
 - REGION

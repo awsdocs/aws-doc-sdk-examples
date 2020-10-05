@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-ip-filters.html.
 
 Purpose:
-ses_createreceiptfilter.ts demonstrates how to create an AWS SES IP address filter.
+ses_createreceiptfilter.ts demonstrates how to create an Amazon SES IP address filter.
 
 Inputs (replace in code):
 - REGION

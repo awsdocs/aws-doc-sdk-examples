@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-creating-template.html.
 
 Purpose:
-ses_gettemplate.ts demonstrates how to retrieve an AWS SES email template.
+ses_gettemplate.ts demonstrates how to retrieve an Amazon SES email template.
 
 Inputs (replace in code):
 - REGION

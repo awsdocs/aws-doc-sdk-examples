@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-nodejs.html.
 
 Purpose:
-s3.ts demonstrates how to list, create, and delete a bucket in AWS S3.
+s3.ts demonstrates how to list, create, and delete a bucket in Amazon S3.
 
 Inputs (replace in command line input below):
 - REGION

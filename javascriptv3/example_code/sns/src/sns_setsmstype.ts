@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html.
 
 Purpose:
-sns_setsmstype.ts demonstrates how to use AWS SNS to set default SMS attributes.
+sns_setsmstype.ts demonstrates how to use Amazon SNS to set default SMS attributes.
 
 Inputs (replace in code):
 - REGION

@@ -6,7 +6,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 Purpose:
-s3_putbucketpolicy.ts is an example that demonstrates how to attach a permissions policy to an AWS S3 bucket.
+s3_putbucketpolicy.ts is an example that demonstrates how to attach a permissions policy to an Amazon S3 bucket.
 Inputs (replace in code):
 - REGION
 - IDENTITY_POOL_ID

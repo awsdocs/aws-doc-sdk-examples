@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
 
 Purpose:
-ddb_createtable.ts demonstrates how to create an AWS DynamoDB table.
+ddb_createtable.ts demonstrates how to create an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION

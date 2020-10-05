@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-dead-letter-queues.html.
 
 Purpose:
-sqs_deadletterqueue.ts demonstrates how to enable the dead-letter functionality of an AWS SQS queue.
+sqs_deadletterqueue.ts demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.
 
 Inputs (replace in code):
 - REGION

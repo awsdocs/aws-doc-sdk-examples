@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//sns-examples-sending-sms.html.
 
 Purpose:
-sns_publishsms.ts demonstrates how to use AWS SNS to send an SMS text message to a phone number.
+sns_publishsms.ts demonstrates how to use Amazon SNS to send an SMS text message to a phone number.
 
 Inputs (replace in code):
 - REGION

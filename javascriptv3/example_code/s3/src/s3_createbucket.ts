@@ -7,7 +7,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_createbucket.ts demonstrates how to create an AWS S3 bucket.
+s3_createbucket.ts demonstrates how to create an Amazon S3 bucket.
 
 Inputs (replace in code):
 - REGION

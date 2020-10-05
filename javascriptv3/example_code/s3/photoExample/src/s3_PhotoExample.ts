@@ -6,7 +6,7 @@ at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html.
 Purpose:
-s3_PhotoExample.js demonstrates how to manipulate photos in albums stored in an AWS S3 bucket.
+s3_PhotoExample.js demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.
 Inputs (replace in code):
 - BUCKET_NAME
 - REGION

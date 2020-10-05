@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-key-pairs.html
 
 Purpose:
-ec2_createkeypair.ts demonstrates how to create an RSA key pair for an AWS EC2 instance.
+ec2_createkeypair.ts demonstrates how to create an RSA key pair for an Amazon EC2 instance.
 
 Inputs (replace in code):
 - REGION
