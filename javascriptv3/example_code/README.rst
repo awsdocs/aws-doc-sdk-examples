@@ -4,7 +4,7 @@ AWS SDK for JavaScript version 3 (v3) examples
 
 These are examples for the AWS SDK for JavaScript v3 public documentation.
 
-The `preview of version 3 of the SDK <at https://github.com/aws/aws-sdk-js-v3>`_ is available.
+The `preview of version 3 of the SDK at <https://github.com/aws/aws-sdk-js-v3>`_ is available.
 
 The topic containing this example is in the `AWS SDK for JavaScript Developer Guide v3 <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-managing-visibility-timeout.html>`_ .
 
