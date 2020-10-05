@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) AWS SQS examples.
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html) for the topic containing these examples.
 
 AWS SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
 

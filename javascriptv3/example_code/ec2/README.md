@@ -3,7 +3,7 @@ This is a workspace where you can find working AWS SDK for JavaScript version 3 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-examples.html) for the topic containing these examples.
  
 AWS EC2 is a web service that provides secure, resizable compute capacity in the cloud. 
 It is designed to make web-scale cloud computing easier for developers.
