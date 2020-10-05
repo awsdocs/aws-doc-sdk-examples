@@ -1,13 +1,11 @@
-# TypeScript environment for Amazon Glacier examples
-Environment for AWS SDK for JavaScript version 3 (v3) AWS Glacier examples. 
+# TypeScript environment for Amazon S3 Glacier examples
+This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon S3 Glacier examples. 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) for the topic containing these examples.
 
 Amazon S3 Glacier and S3 Glacier Deep Archive are a secure, durable, and extremely low-cost Amazon S3 cloud storage classes for data archiving and long-term backup. 
-
-This is a workspace where you can find working AWS SDK for JavaScript v3 Glacier examples. 
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
