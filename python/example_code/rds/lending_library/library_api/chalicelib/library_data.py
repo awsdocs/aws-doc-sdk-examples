@@ -16,8 +16,9 @@ import os
 import boto3
 from botocore.exceptions import ClientError
 from .mysql_helper import Table, Column, ForeignKey
-from .mysql_helper import create_table, insert, update, query, unpack_query_results, \
-    unpack_insert_results, delete
+from .mysql_helper import (
+    create_table, insert, update, query, unpack_query_results, unpack_insert_results,
+    delete)
 
 
 logger = logging.getLogger(__name__)
@@ -149,12 +150,13 @@ class Storage:
             result = self._rdsdata_client.execute_statement(**run_args)
             logger.info("Ran statement on %s.", self._db_name)
         except ClientError as error:
-            if error.response['Error']['Code'] == 'BadRequestException' and \
-                    'Communications link failure' in error.response['Error']['Message']:
+            if (error.response['Error']['Code'] == 'BadRequestException'
+                    and 'Communications link failure'
+                    in error.response['Error']['Message']):
                 raise DataServiceNotReadyException(
                     'The Aurora Data Service is not ready, probably because it entered '
-                    'pause mode after 5 minutes of inactivity. Wait a minute for your '
-                    'cluster to resume and try your request again.') from error
+                    'pause mode after five minutes of inactivity. Wait a minute for '
+                    'your cluster to resume and try your request again.') from error
             logger.exception("Run statement on %s failed.", self._db_name)
             raise
         else:
@@ -247,8 +249,8 @@ class Storage:
 
     def add_book(self, book):
         """
-        Adds a book and its author to the database. This functions uses a database
-        transaction to ensure that both the author and the book are added if one
+        Adds a book and its author to the database. This function uses a database
+        transaction to ensure that both the author and the book are added. If one
         of the inserts fails, the transaction is rolled back and nothing is
         added.
 
@@ -339,7 +341,7 @@ class Storage:
     def get_borrowed_books(self):
         """
         Gets a list of books currently borrowed from the library. A borrowed book
-        is one that has an entry in the Lending table where it's 'Lent' date is in the
+        is one that has an entry in the Lending table where its 'Lent' date is in the
         past and it has no 'Returned' date.
 
         :return: The list of currently borrowed books.

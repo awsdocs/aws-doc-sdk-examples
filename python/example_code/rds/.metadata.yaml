@@ -1,5 +1,5 @@
 ---
-# Amazon Aurora Lending Library example
+# Amazon Aurora lending library example
 files:
   - path: lending_library/library_demo.py
     services:

@@ -272,7 +272,7 @@ def main():
     stack_name = 'LendingLibrary'
 
     print('-'*88)
-    print("Welcome to the Amazon Relational Database Service (RDS) demo.")
+    print("Welcome to the Amazon Relational Database Service (Amazon RDS) demo.")
     print('-'*88)
 
     if args.action == 'deploy_database':

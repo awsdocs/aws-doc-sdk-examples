@@ -23,7 +23,7 @@ class RdsStubber(ExampleStubber):
         Initializes the object with a specific client and configures it for
         stubbing or AWS passthrough.
 
-        :param client: A Boto 3 Amazon RDS client.
+        :param client: A Boto3 Amazon RDS client.
         :param use_stubs: When True, use stubs to intercept requests. Otherwise,
                           pass requests through to AWS.
         """

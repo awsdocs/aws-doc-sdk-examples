@@ -48,7 +48,7 @@ class CustomWaiter:
             matcher='path'):
         """
         Subclasses should pass specific operations, arguments, and acceptors to
-        their super class.
+        their superclass.
 
         :param name: The name of the waiter. This can be any descriptive string.
         :param operation: The operation to wait for. This must match the casing of
