@@ -7,7 +7,7 @@ instructions.
 
 2. Navigate to the *javascript3/example_code* folder.
 ```
-cd javascript3/example_code
+cd javascriptv3/example_code
 ```
 
 3. Install Jest using npm.
