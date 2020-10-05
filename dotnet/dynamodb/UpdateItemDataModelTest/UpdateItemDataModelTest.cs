@@ -36,112 +36,7 @@ namespace DynamoDBCRUD
 
             return mockDynamoDBContext;
         }
-
-        public static async Task<CreateTableResponse> MakeTableAsync(IAmazonDynamoDB client, string table)
-        {
-            var response = await client.CreateTableAsync(new CreateTableRequest
-            {
-                TableName = table,
-                AttributeDefinitions = new List<AttributeDefinition>
-                {
-                    new AttributeDefinition
-                    {
-                        AttributeName = "ID",
-                        AttributeType = "S"
-                    },
-                    new AttributeDefinition
-                    {
-                        AttributeName = "Area",
-                        AttributeType = "S"
-                    }
-                },
-                KeySchema = new List<KeySchemaElement>
-                {
-                    new KeySchemaElement
-                    {
-                        AttributeName = "ID",
-                        KeyType = "HASH"
-                    },
-                    new KeySchemaElement
-                    {
-                        AttributeName = "Area",
-                        KeyType = "RANGE"
-                    }
-                },
-                ProvisionedThroughput = new ProvisionedThroughput
-                {
-                    ReadCapacityUnits = 10,
-                    WriteCapacityUnits = 5
-                }
-            });
-
-            return response;
-        }
-       
-        public static async Task<bool> AddItemAsync(IAmazonDynamoDB client, string table, string id, string keystring, string valuestring)
-        {
-            // Get the individual keys and values.
-            string[] keys = keystring.Split(",");
-            string[] values = valuestring.Split(",");
-
-            var item = new Dictionary<string, AttributeValue>
-            {
-                { "ID", new AttributeValue { S = id } }
-            };
-
-            for (int i = 0; i < keys.Length; i++)
-            {
-                if ((keys[i] == "Customer_ID") || (keys[i] == "Order_ID") || (keys[i] == "Order_Customer") || (keys[i] == "Order_Product") || (keys[i] == "Product_ID") || (keys[i] == "Product_Quantity") || (keys[i] == "Product_Cost"))
-                {
-                    item.Add(keys[i], new AttributeValue { N = values[i] });
-                }
-                else if (keys[i] == "Order_Date")
-                {
-                    DateTime MyDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-
-                    TimeSpan timeSpan = MyDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
-
-                    item.Add(keys[i], new AttributeValue { N = ((long)timeSpan.TotalSeconds).ToString() });
-                }
-                else
-                {
-                    item.Add(keys[i], new AttributeValue { S = values[i] });
-                }
-            }
-
-            PutItemRequest request = new PutItemRequest
-            {
-                TableName = table,
-                Item = item
-            };
-
-            var response = false;
-
-            try
-            {
-                await client.PutItemAsync(request);
-                response = true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Caught exception adding item to table:");
-                Console.WriteLine(e.Message);
-            }
-
-            return response;
-
-        }
-
-        public static async Task<DeleteTableResponse> RemoveTableAsync(IAmazonDynamoDB client, string table)
-        {
-            var response = await client.DeleteTableAsync(new DeleteTableRequest
-            {
-                TableName = table
-            });
-
-            return response;
-        }
-
+   
         [Fact]
         public async Task CheckUpdateItemDataModel()
         {
@@ -154,11 +49,11 @@ namespace DynamoDBCRUD
             IDynamoDBContext context = CreateMockDynamoDBContext(client);
 
             // Create the table.
-            var makeTableResult = MakeTableAsync(client, _tableName);
+            var makeTableResult = CreateTable.MakeTableAsync(client, _tableName);
             output.WriteLine("Created table " + makeTableResult.Result.TableDescription.TableName);
             
             // Add an item to the table.
-            var result = AddItemAsync(client, _tableName, _id, _keys, _values);
+            var result = AddItem.AddItemAsync(client, _tableName, _id, _keys, _values);
 
             if (result.Result)
             {
@@ -182,7 +77,7 @@ namespace DynamoDBCRUD
             output.WriteLine("Updated item");
 
             // Delete the table.
-            var removeResult = RemoveTableAsync(client, _tableName);
+            var removeResult = DeleteTable.RemoveTableAsync(client, _tableName);
 
             if (removeResult.Result.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {

@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AddItem\AddItem.csproj" />
+    <ProjectReference Include="..\CreateTable\CreateTable.csproj" />
+    <ProjectReference Include="..\DeleteTable\DeleteTable.csproj" />
     <ProjectReference Include="..\UpdateItemDataModel\UpdateItemDataModel.csproj" />
   </ItemGroup>
 
