@@ -75,7 +75,7 @@ public class DeployApplication {
         System.out.println("The deployment Id is "+deploymentId);
     }
 
-    // snippet-start:[ccodedeploy.java2._deploy_app.main]
+    // snippet-start:[codedeploy.java2._deploy_app.main]
     public static String createAppDeployment(CodeDeployClient deployClient,
                                            String appName,
                                            String bucketName,
