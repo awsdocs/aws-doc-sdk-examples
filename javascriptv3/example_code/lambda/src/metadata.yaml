@@ -1,5 +1,5 @@
 ---
-# AWS Lambda examples
+# Amazon Lambda examples
 files:
   - path: ddb-table-create.ts
     services:
