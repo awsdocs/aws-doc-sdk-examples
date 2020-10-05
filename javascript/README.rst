@@ -9,7 +9,7 @@
    limitations under the License.
 
 ###############################
-AWS SDK for JavaScript examples
+AWS SDK for JavaScript (version 2) examples
 ###############################
 
 These are examples for the AWS SDK for JavaScript public documentation.

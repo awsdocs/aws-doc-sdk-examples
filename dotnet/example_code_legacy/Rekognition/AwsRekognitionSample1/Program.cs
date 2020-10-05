@@ -15,7 +15,7 @@ namespace NETRekognitionConsole
     {
         static void IdentifyFaces(string filename)
         {
-            // Using USWest2, not the default region
+            // Using USWest2, not the default Region
             AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
 
             // Request needs image bytes, so read and add to request
