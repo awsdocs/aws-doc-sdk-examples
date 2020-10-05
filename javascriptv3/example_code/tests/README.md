@@ -1,8 +1,8 @@
 # Unit tests for AWS SDK for JavaScript (version 3)
 Run the unit tests using [Jest](https://jestjs.io/).
 
-1. Clone the [AWSDocs Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
-See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
+1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
+See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
 instructions.
 
 2. Navigate to the *javascript3/example_code* folder.

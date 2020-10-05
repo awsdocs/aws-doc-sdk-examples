@@ -1,20 +1,20 @@
-# TypeScript environment for Amazon Lambda examples
-Environment for AWS SDK for JavaScript (v3) Amazon Elemental MediaConvert examples. 
+# TypeScript environment for AWS Lambda examples
+Environment for AWS SDK for JavaScript version 3 (v3) AWS Elemental MediaConvert examples. 
 
-The preview version of the SDK is available [here](https://github.com/aws/aws-sdk-js-v3). 
+The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-For more information about these examples, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html) (release pending).
+After it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html) for the topic containing these examples.
 
 AWS Elemental MediaConvert is a file-based video transcoding service with broadcast-grade features.
 
-This is a workspace where you can find working AWS SDK for JavaScript (v3) AWS Elemental MediaConvert examples. 
+This is a workspace where you can find working AWS SDK for JavaScript v3 AWS Elemental MediaConvert examples. 
 
-**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
 
 # Getting started
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) repo to your local environment. See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
+1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
 2. Install the dependencies listed in the package.json.
 

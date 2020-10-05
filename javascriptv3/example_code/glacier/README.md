@@ -1,21 +1,20 @@
 # TypeScript environment for Amazon Glacier examples
-Environment for AWS SDK for JavaScript (v3) AWS Glacier examples. 
+Environment for AWS SDK for JavaScript version 3 (v3) AWS Glacier examples. 
 
-The preview version of the SDK is available [here](https://github.com/aws/aws-sdk-js-v3). 
+The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-For more information about these examples, see the 
-[AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) (release pending).
+After it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) for the topic containing these examples.
 
 Amazon S3 Glacier and S3 Glacier Deep Archive are a secure, durable, and extremely low-cost Amazon S3 cloud storage classes for data archiving and long-term backup. 
 
-This is a workspace where you can find working AWS SDK for JavaScript (v3) Glacier examples. 
+This is a workspace where you can find working AWS SDK for JavaScript v3 Glacier examples. 
 
-**NOTE:** The AWS SDK for JavaScript (v3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript.
+**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
 # Getting started
 
-1. Clone the [AWSDocs Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
-   See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
+1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
+   See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
    instructions.
 
 2. Install the dependencies listed in the package.json.
