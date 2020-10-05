@@ -5,7 +5,6 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 Once it's released, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) for the topic containing these examples.
 
-
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
 # Getting started

@@ -1,5 +1,5 @@
 ---
-# Amazon EC2 basic usage examples
+# AWS EC2 basic usage examples
 files:
   - path: ec2_allocateaddress.ts
     services:

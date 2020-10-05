@@ -1,5 +1,5 @@
 ---
-# Amazon Redshift examples
+# AWS Redshift examples
 files:
   - path: redshift-create-cluster.ts
     services:

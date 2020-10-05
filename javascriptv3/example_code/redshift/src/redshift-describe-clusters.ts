@@ -2,13 +2,13 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The prerelease version of the SDK is available
+which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
-redshift-describe-clusters.ts demonstrates how to return properties of provisioned Amazon Redshift clusters, including general
+redshift-describe-clusters.ts demonstrates how to return properties of provisioned AWS Redshift clusters, including general
 cluster properties, cluster database properties, maintenance and backup properties, and security and access properties.
 
 Inputs (replace in code):
@@ -35,7 +35,7 @@ const params = {
   ClusterIdentifier: "CLUSTER_NAME",
 };
 
-// Create an Amazon Redshift client service object
+// Create an AWS Redshift client service object
 const redshift = new RedshiftClient(REGION);
 
 const run = async () => {

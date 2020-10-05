@@ -1,5 +1,5 @@
 ---
-# Amazon SQS basic usage examples
+# AWS SQS basic usage examples
 files:
   - path: sqs_changingvisibility.ts
     services:

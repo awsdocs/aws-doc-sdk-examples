@@ -1,5 +1,5 @@
 ---
-# Amazon SES basic usage examples
+# AWS SES basic usage examples
 files:
   - path: ses_createreceiptfilter.ts
     services:

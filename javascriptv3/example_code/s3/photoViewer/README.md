@@ -1,7 +1,7 @@
-# TypeScript environment for Amazon S3 examples
-Environment for AWS SDK for JavaScript version 3 (v3) Amazon S3 Photo Viewer tutorial. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-photos-view.html).
+# TypeScript environment for AWS Simple Storage Service (S3) examples
+Environment for AWS SDK for JavaScript version 3 (v3) AWS S3 Photo Viewer tutorial. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-photos-view.html).
 
-Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
+Amazon Simple Storage Service (AWS S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
 This is a workspace where you can find working AWS SDK for JavaScript v3 S3 examples. 
 

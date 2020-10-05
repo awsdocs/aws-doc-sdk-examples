@@ -1,11 +1,11 @@
-# TypeScript environment for Amazon Kinesis examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Kinesis examples. 
+# TypeScript environment for AWS Kinesis examples
+This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) AWS Kinesis examples. 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html) for the topic containing these examples.
 
-Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information.
+AWS Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 

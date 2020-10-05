@@ -1,5 +1,5 @@
 ---
-# Amazon SNS basic usage examples
+# AWS SNS basic usage examples
 files:
   - path: sns_checkphoneoptout.ts
     services:

@@ -2,7 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The prerelease version of the SDK is available
+which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
@@ -13,7 +13,7 @@ redshift-delete-cluster.ts demonstrates how to delete an Amazon RedShift cluster
 Inputs (replace in code):
 - REGION: The AWS Region
 - CLUSTER_NAME:  The name of the cluster
-- SkipFinalClusterSnapshot: Determines whether a final snapshot of the cluster is created before Amazon Redshift deletes the cluster.
+- SkipFinalClusterSnapshot: Determines whether a final snapshot of the cluster is created before AWS Redshift deletes the cluster.
 - CLUSTER_SNAPSHOT_ID: Required if 'SkipFinalClusterSnapshot' is 'false', for example mycluster-xxxx-xx-xx-xx-xx-xx
 
 For more information about these and additional parameters, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_CreateCluster.html.
@@ -38,7 +38,7 @@ const params = {
   FinalClusterSnapshotIdentifier: "CLUSTER_SNAPSHOT_ID",
 };
 
-// Create an Amazon Redshift client service object
+// Create an AWS Redshift client service object
 const redshift = new Redshift(REGION);
 
 const run = async () => {

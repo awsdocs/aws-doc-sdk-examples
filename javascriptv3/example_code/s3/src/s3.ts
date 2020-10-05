@@ -2,13 +2,13 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The prerelease version of the SDK is available
+which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-nodejs.html.
 
 Purpose:
-s3.ts demonstrates how to list, create, and delete a bucket in Amazon S3.
+s3.ts demonstrates how to list, create, and delete a bucket in AWS S3.
 
 Inputs (replace in command line input below):
 - REGION

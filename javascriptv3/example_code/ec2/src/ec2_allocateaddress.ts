@@ -2,13 +2,13 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The prerelease version of the SDK is available
+which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
 scheduled for release later in 2020, and the topic containing this example will be hosted at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-elastic-ip-addresses.html
 
 Purpose:
-ec2_allocateaddress.ts demonstrates how to allocate and associate an Elastic IP address to an Amazon EC2 instance.
+ec2_allocateaddress.ts demonstrates how to allocate and associate an Elastic IP address to an AWS EC2 instance.
 
 Inputs (replace in code):
 - REGION
