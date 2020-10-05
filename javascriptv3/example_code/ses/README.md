@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) Amazon Simple Email Servic
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available.
  
-After it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html) for the topic containing these examples.
 
 Amazon Simple Email Service (SES) is a cost-effective, flexible, and scalable email service that enables developers to send mail from within any application.
 

@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) AWS Identity and Access Ma
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-After it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples.html) for the topic containing these examples.
 
 IAM enables you to manage access to AWS services and resources securely.
 

@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) examples for getting start
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-After it's released, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) for the topic containing these examples.
+Once it's released, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) for the topic containing these examples.
 
 This is a workspace where you can find working AWS SDK for JavaScript v3 'Node Get Started' examples. 
 

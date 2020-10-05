@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) AWS Cloudwatch examples.
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-After it's released, see the [AWS SDK for JavaScript Developer Guide]((https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS SDK for JavaScript Developer Guide]((https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html) for the topic containing these examples.
 
 Amazon CloudWatch enables you to collect, access, and correlate this data on a single platform from across all your AWS resources, applications, and services.
 

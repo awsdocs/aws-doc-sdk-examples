@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) AWS Elemental MediaConvert
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-After it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html) for the topic containing these examples.
 
 AWS Elemental MediaConvert is a file-based video transcoding service with broadcast-grade features.
 

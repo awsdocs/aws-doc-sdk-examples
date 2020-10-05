@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) AWS Glacier examples.
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-After it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) for the topic containing these examples.
+Once it's released, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) for the topic containing these examples.
 
 Amazon S3 Glacier and S3 Glacier Deep Archive are a secure, durable, and extremely low-cost Amazon S3 cloud storage classes for data archiving and long-term backup. 
 
