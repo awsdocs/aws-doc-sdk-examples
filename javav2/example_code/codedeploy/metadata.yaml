@@ -24,6 +24,6 @@ files:
   - path: src/main/java/com/example/deploy/ListDeploymentGroups.java
     services:
       - codedeploy
-  - path: src/test/java/CodeCommitTest.java
+  - path: src/test/java/CodeDeployTest.java
     services:
       - codedeploy
