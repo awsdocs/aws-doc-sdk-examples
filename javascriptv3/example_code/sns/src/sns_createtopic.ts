@@ -28,7 +28,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { Name: "TOPIC_NAME" }; //TOPIC_NAME
 
 // Create SNS service object
-const sns = new SNS(REGION);
+const sns = new SNSClient(REGION);
 
 const run = async () => {
   try {

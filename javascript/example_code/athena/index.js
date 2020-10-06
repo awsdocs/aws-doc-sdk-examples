@@ -29,7 +29,7 @@
 
 // snippet-start:[athena.JavaScript.index.complete]
 const AWS = require('aws-sdk')
-const Queue = require('async/queue')
+const Queue = require('async.queue')
 const _ = require('lodash')
 
 const ATHENA_DB = 'default'
