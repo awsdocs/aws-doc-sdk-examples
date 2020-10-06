@@ -146,6 +146,22 @@ tutorials in the
 Shows how to use the AWS SDK for Python (Boto3) to create and manage AWS Organizations
 policies.
 
+### [Amazon Aurora serverless REST API lending library example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rds/lending_library/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database 
+Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an 
+Amazon Aurora database. The web service is fully serverless and represents
+a simple lending library where patrons can borrow and return books. Learn how to:
+
+* Create and manage a serverless Amazon Aurora database cluster.
+* Use AWS Secrets Manager to manage database credentials.
+* Implement a data storage layer that uses Amazon RDS Data Service to move data into
+and out of the database.  
+* Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
+* Use the Requests package to send requests to the web service.
+
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
 #### Purpose

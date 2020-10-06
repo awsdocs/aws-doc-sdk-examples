@@ -1,13 +1,14 @@
 # TypeScript environment for Amazon Cognito examples
-Environment for AWS SDK for JavaScript (V3) Amazon Cognito examples. For more information, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html).
+Environment for AWS SDK for JavaScript version 3 (v3) Amazon Cognito examples. The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+For more information about these examples, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html).
 
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. Amazon Cognito scales to millions of users and supports sign-in with social identity providers, such as Facebook, Google, and Amazon, and enterprise identity providers via SAML 2.0.
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) Amazon Cognito examples. 
+This is a workspace where you can find working AWS SDK for JavaScript v3 Amazon Cognito examples. 
 
 # Getting started
 
-1. Clone the repo to your local environment. See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
+1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
 1. Install the dependencies listed in the package.json.
 

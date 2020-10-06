@@ -1,16 +1,19 @@
 # TypeScript environment for Amazon Lambda examples
-Environment for AWS SDK for JavaScript (V3) Amazon Lambda tutorial. For more information, see the [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html).
+This is a workspace where you can find working AWS SDK for JavaScript v3 Amazon Lambda examples. 
 
-AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
+The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-This is a workspace where you can find working AWS SDK for JavaScript (V3) Lambda examples. 
+Once it's released, see the [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html) for the topic containing these examples.
 
-**NOTE:** The AWS SDK for JavaScript (V3) is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript is
-a super-set of JavaScript so these examples can also be run as JavaScript.
+Amazon Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
+
+This is a workspace where you can find working AWS SDK for JavaScript v3 Lambda examples. 
+
+**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
 # Getting started
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) repo to your local environment. See [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
+1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
 2. Install the dependencies listed in the package.json.
 
