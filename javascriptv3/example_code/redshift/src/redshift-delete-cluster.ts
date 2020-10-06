@@ -25,7 +25,7 @@ ts-node redshift-create-cluster.ts
 // snippet-start:[redshift.javascript.redshift-delete-clusterV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
-  Redshift,
+  RedshiftClient,
   DeleteClusterCommand,
 } = require("@aws-sdk/client-redshift-node");
 
@@ -39,7 +39,7 @@ const params = {
 };
 
 // Create an Amazon Redshift client service object
-const redshift = new Redshift(REGION);
+const redshift = new RedshiftClient(REGION);
 
 const run = async () => {
   try {
