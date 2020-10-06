@@ -1,29 +1,29 @@
 --- 
 files:
- - path: src/main/java/com/example/deploy/CreateApplication.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/CreateDeploymentGroup.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/DeleteApplication.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/DeleteDeploymentGroup.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/DeployApplication.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/GetDeployment.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/ListApplications.java
-   services:
-     - codedeploy
- - path: src/main/java/com/example/deploy/ListDeploymentGroups.java
-   services:
-     - codedeploy
+  - path: src/main/java/com/example/deploy/CreateApplication.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/CreateDeploymentGroup.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/DeleteApplication.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/DeleteDeploymentGroup.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/DeployApplication.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/GetDeployment.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/ListApplications.java
+    services:
+      - codedeploy
+  - path: src/main/java/com/example/deploy/ListDeploymentGroups.java
+    services:
+      - codedeploy
   - path: src/test/java/CodeCommitTest.java
-   services:
-     - codedeploy
+    services:
+      - codedeploy
