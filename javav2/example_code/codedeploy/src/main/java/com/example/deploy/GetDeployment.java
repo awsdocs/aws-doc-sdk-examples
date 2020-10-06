@@ -40,7 +40,7 @@ public class GetDeployment {
                 "Usage:\n" +
                 "    GetDeployment <deploymentId> \n\n" +
                 "Where:\n" +
-                "    appName - the id of the deployment \n";
+                "    deploymentId - the id of the deployment \n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
