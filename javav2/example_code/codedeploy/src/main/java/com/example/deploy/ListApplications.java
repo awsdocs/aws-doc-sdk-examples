@@ -28,9 +28,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
 import software.amazon.awssdk.services.codedeploy.model.ListApplicationsResponse;
-// snippet-end:[codedeploy.java2._list_apps.import]
-
 import java.util.List;
+// snippet-end:[codedeploy.java2._list_apps.import]
 
 public class ListApplications {
 
