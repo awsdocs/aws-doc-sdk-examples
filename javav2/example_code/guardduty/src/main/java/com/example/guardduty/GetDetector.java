@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetDetector.java demonstrates how to obtain a detector using its ID value.]
+// snippet-sourcedescription:[GetDetector.java demonstrates how to retrieve a detector using its ID value.]
 // snippet-service:[Amazon GuardDuty]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon GuardDuty]
