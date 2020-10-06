@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListDetectors.java demonstrates how to List detector ID valuess of all the existing Amazon GuardDuty detector resources.]
+// snippet-sourcedescription:[ListDetectors.java demonstrates how to list detector ID valuess of all the existing Amazon GuardDuty detector resources.]
 // snippet-service:[Amazon GuardDuty]
 // snippet-keyword:[Java]
 // snippet-keyword:[Amazon GuardDuty]
