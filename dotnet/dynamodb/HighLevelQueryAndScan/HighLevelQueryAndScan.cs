@@ -1,13 +1,12 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData]
+// snippet-start:[dynamodb.dotnet35.HighLevelQueryAndScan]
 using System;
 using System.Collections.Generic;
 
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-// using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBCRUD
 {
@@ -282,3 +281,4 @@ namespace DynamoDBCRUD
         }
     }
 }
+// snippet-end:[dynamodb.dotnet35.HighLevelQueryAndScan]
