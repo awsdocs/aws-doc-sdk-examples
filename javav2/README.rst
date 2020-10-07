@@ -23,8 +23,7 @@ To build and run these examples, you need the following:
 * `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`_ (downloaded and extracted somewhere on
   your machine)
 * AWS credentials, either configured in a local AWS credentials file or set by using the
-  **AWS_ACCESS_KEY_ID** and **AWS_SECRET_ACCESS_KEY** environment variables. All Java Version 2 examples assume that you have setup your credentials in the credentials file in the .aws folder. For information about how to set AWS credentials and the Region for use with the AWS SDK for Java,
-see `Set up AWS credentials and Region for development
+  **AWS_ACCESS_KEY_ID** and **AWS_SECRET_ACCESS_KEY** environment variables. All Java Version 2 examples assume that you have setup your credentials in the credentials file in the .aws folder. For information about how to set AWS credentials and the Region for use with the AWS SDK for Java, see `Set up AWS credentials and Region for development
 <http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS
 SDK for Java Developer Guide*.
 * You should also set the *AWS Region* within which the operations will be performed. If a Region is
