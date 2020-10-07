@@ -30,7 +30,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
 import software.amazon.awssdk.services.sts.model.StsException;
-// snippet-start:[sts.java2.get_call_id.import]
+// snippet-end:[sts.java2.get_call_id.import]
 
 public class GetCallerIdentity {
 
