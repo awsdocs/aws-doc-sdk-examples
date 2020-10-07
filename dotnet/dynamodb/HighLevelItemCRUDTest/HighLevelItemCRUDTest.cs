@@ -1,23 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Threading.Tasks;
+
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.Model;
+
 using Xunit;
 using Xunit.Abstractions;
 
 namespace DynamoDBCRUD
 {
-    public class CreateTablesLoadDataTest
+    public class HighLevelItemCRUDTest
     {
         private readonly ITestOutputHelper output;
 
-        public CreateTablesLoadDataTest(ITestOutputHelper output)
+        public HighLevelItemCRUDTest(ITestOutputHelper output)
         {
             this.output = output;
         }
@@ -57,30 +56,31 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async void CheckCreateTablesLoadData()
+        public async void CheckHighLevelItemCRUD()
         {
             var portUsed = IsPortInUse(port);
-            if(portUsed)            
+            if (portUsed)
             {
                 throw new Exception("You must run local DynamoDB on port 8000");
             }
-            
+
             var clientConfig = new AmazonDynamoDBConfig();
             clientConfig.ServiceURL = _endpointURL;
             var client = new AmazonDynamoDBClient(clientConfig);
+            var context = CreateMockDynamoDBContext(client);
 
-            // Create, load, and delete a table
-            var createResult = CreateTablesLoadData.CreateTableForum(client);
-            output.WriteLine("Waiting for Forum table to be created");
+            // Create ProductCatalog table
+            output.WriteLine("Creating ProductCatalog table");
+            await CreateTablesLoadData.CreateTableProductCatalog(client);
 
-            await CreateTablesLoadData.WaitTillTableCreated(client, "Forum", createResult.Result);
-            output.WriteLine("Created Forum table");
+            output.WriteLine("Adding and deleting a book to/from ProductCatalog table");
+            HighLevelItemCRUD.TestCRUDOperations(context);
 
-            CreateTablesLoadData.LoadSampleForums(client);
-            output.WriteLine("Loaded data into Forum table");
+            // Delete ProductCatalog table
+            output.WriteLine("Deleting ProductCatalog table");
+            await CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
 
-            var deleteResult = CreateTablesLoadData.DeleteTable(client, "Forum");
-            output.WriteLine("Deleted Forum table");
+            output.WriteLine("Done");
         }
     }
 }
