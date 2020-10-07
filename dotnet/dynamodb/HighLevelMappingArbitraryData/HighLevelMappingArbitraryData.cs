@@ -137,4 +137,4 @@ namespace DynamoDBCRUD
         }
     }
 }
-// snippet-emd:[dynamodb.dotnet35.HighLevelMappingArbitraryData]
+// snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryData]
