@@ -195,10 +195,58 @@ files:
   - path: tests/test_s3-ruby-example-add-cspk-item.rb
     services:
     - s3
+  - path: s3-ruby-example-add-notification.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-add-notification.rb
+    services:
+    - s3
+  - path: s3-ruby-example-bucket-accessible.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-bucket-accessible.rb
+    services:
+    - s3
+  - path: s3-ruby-example-bucket-exists.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-bucket-exists.rb
+    services:
+    - s3
+  - path: s3-ruby-example-bucket-policy.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-bucket-policy.rb
+    services:
+    - s3
+  - path: s3-ruby-example-create-bucket.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-create-bucket.rb
+    services:
+    - s3
+  - path: s3-ruby-example-create-rsa-keys.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-create-rsa-keys.rb
+    services:
+    - s3
+  - path: s3-ruby-example-find-open-buckets.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-find-open-buckets.rb
+    services:
+    - s3
   - path: s3-ruby-example-get-cspk-item.rb
     services:
     - s3
   - path: tests/test_s3-ruby-example-get-cspk-item.rb
+    services:
+    - s3
+  - path: s3-ruby-example-get-item.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-get-item.rb
     services:
     - s3
   - path: s3-ruby-example-upload-item-to-folder.rb
