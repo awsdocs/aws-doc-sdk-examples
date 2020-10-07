@@ -29,8 +29,8 @@ To build and run these examples, you need the following:
   
          Region region = Region.US_WEST_2;
          S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+                  .region(region)
+                  .build();
 
 
 AWS Java code examples
