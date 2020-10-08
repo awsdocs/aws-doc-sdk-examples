@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sns/commands/ListTopicsCommand", () => ({
     this.ListTopicsCommand = mockListTopics;
   },
 }));
-const { run } = require("../../sns/sns_listtopics.js");
+const { run } = require("../../sns/src/sns_listtopics.js");
 
 //test function
 test("has to mock SNS#listtopics", async (done) => {

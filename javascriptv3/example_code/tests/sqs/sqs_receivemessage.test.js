@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sqs/commands/ReceiveMessageCommand", () => ({
     this.ReceiveMessageCommand = mockReceiveMessages;
   },
 }));
-const { run } = require("../../sqs/sqs_receivemessage.js");
+const { run } = require("../../sqs/src/sqs_receivemessage.js");
 
 //test function
 test("has to mock SQS#receivemessage", async (done) => {

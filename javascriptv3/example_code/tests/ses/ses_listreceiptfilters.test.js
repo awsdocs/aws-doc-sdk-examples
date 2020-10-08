@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ses/commands/ListReceiptFiltersCommand", () => ({
     this.ListReceiptFiltersCommand = mockListReceiptFilters;
   },
 }));
-const { run } = require("../../ses/ses_listreceiptfilters.js");
+const { run } = require("../../ses/src/ses_listreceiptfilters.js");
 
 //test function
 test("has to mock SES#listreceiptfilters", async (done) => {

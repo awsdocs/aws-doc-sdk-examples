@@ -28,7 +28,7 @@ files:
   - path: ddb_scan.ts
     services:
       - dynamodb
-  - path: QueryExample/ddb_batchwriteritem_tv.ts
+  - path: QueryExample/ddb_batchwriteitem_tv.ts
     services:
       - dynamodb
   - path: QueryExample/ddb_createtable_tv.ts

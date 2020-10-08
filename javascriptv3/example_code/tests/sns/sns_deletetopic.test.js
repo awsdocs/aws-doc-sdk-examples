@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sns/commands/DeleteTopicCommand", () => ({
     this.DeleteTopicCommand = mockDeleteTopic;
   },
 }));
-const { run } = require("../../sns/sns_deletetopic.js");
+const { run } = require("../../sns/src/sns_deletetopic.js");
 
 //test function
 test("has to mock SNS#deletetopic", async (done) => {

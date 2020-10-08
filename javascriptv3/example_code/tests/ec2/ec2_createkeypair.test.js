@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ec2/commands/CreateKeyPairCommand", () => ({
     this.CreateKeyPairCommand = mockCreateKeyPair;
   },
 }));
-const { params, run } = require("../../ec2/ec2_createkeypair");
+const { params, run } = require("../../ec2/src/ec2_createkeypair");
 
 //test function
 test("has to mock ec2#createKeyPair", async (done) => {

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ec2/commands/DescribeRegionsCommand", () => ({
     this.DescribeRegionsCommand = mockDescribeRegions;
   },
 }));
-const { params, run } = require("../../ec2/ec2_describeregionsandzones");
+const { params, run } = require("../../ec2/src/ec2_describeregionsandzones");
 
 //test function
 test("has to mock ec2#describeRegionsandZones", async (done) => {

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-iam/commands/GetServerCertificateCommand", () => ({
     this.GetServerCertificateCommand = mockGetServerCert;
   },
 }));
-const { params, run } = require("../../iam/iam_getservercert.js");
+const { params, run } = require("../../iam/src/iam_getservercert.js");
 
 //test function
 test("has to mock iam#getservercert", async (done) => {
