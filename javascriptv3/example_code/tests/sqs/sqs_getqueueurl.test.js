@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sqs/commands/GetQueueUrlCommand", () => ({
     this.GetQueueUrlCommand = mockGetQueueUrl;
   },
 }));
-const { run } = require("../../sqs/sqs_getqueueurl.js");
+const { run } = require("../../sqs/src/sqs_getqueueurl.js");
 
 //test function
 test("has to mock SQS#getqueueurl", async (done) => {

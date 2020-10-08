@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ses/commands/VerifyDomainIdentityCommand", () => ({
     this.VerifyDomainIdentityCommand = mockSendTemplateEmail;
   },
 }));
-const { run } = require("../../ses/ses_sendtemplatedemail.js");
+const { run } = require("../../ses/src/ses_sendtemplatedemail.js");
 
 //test function
 test("has to mock SES#sendtemplatedemail", async (done) => {

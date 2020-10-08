@@ -7,7 +7,7 @@ jest.mock(
     },
   })
 );
-const { params, run } = require("../../cloudwatch/cwe_puttargets");
+const { params, run } = require("../../cloudwatch/src/cwe_puttargets");
 
 //test function
 test("has to mock cloudwatch-events#puttargets", async (done) => {

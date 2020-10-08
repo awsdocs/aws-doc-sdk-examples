@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ses/commands/CreateTemplateCommand", () => ({
     this.CreateTemplateCommand = mockCreateTemplate;
   },
 }));
-const { run } = require("../../ses/ses_createtemplate.js");
+const { run } = require("../../ses/src/ses_createtemplate.js");
 
 //test function
 test("has to mock SES#createTemplate", async (done) => {

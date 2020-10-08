@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-mediaconvert/commands/CreateJobCommand", () => ({
     this.CreateJobCommand = mockCreateJob;
   },
 }));
-const { params, run } = require("../../mediaconvert/emc_createjob");
+const { params, run } = require("../../mediaconvert/src/emc_createjob");
 
 //test function
 test("has to mock mediaconvert#createjob", async (done) => {

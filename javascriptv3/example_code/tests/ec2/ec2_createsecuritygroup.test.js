@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ec2/commands/DeleteKeyPairCommand", () => ({
     this.DeleteKeyPairCommand = mockDeleteKeyPair;
   },
 }));
-const { params, run } = require("../../ec2/ec2_deletekeypair");
+const { params, run } = require("../../ec2/src/ec2_deletekeypair");
 
 //test function
 test("has to mock ec2#deleteKeyPair", async (done) => {

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sns/commands/PublishCommand", () => ({
     this.PublishCommand = mockPublishCommand;
   },
 }));
-const { run } = require("../../sns/sns_publishsms.js");
+const { run } = require("../../sns/src/sns_publishsms.js");
 
 //test function
 test("has to mock SNS#publishsms", async (done) => {

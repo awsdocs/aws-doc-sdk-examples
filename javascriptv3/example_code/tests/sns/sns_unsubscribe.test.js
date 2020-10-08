@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sns/commands/UnsubscribeCommand", () => ({
     this.UnsubscribeCommand = mockUnscribe;
   },
 }));
-const { run } = require("../../sns/sns_unsubscribe.js");
+const { run } = require("../../sns/src/sns_unsubscribe.js");
 
 //test function
 test("has to mock SNS#unsubscribe", async (done) => {

@@ -16,7 +16,7 @@ Inputs (replace in code):
 - CLUSTER_NAME:  The name of the cluster
 
 Running the code:
-ts-node redshift-describe-clusters.ts
+ts-node redshift-modify-cluster.ts
 */
 
 // snippet-start:[redshift.javascript.redshift-modify-clustersV3]
@@ -29,7 +29,8 @@ const {
 // Set the AWS Region
 const REGION = "REGION";
 
-params = {
+// Set the parameters
+const params = {
   ClusterIdentifier: "CLUSTER_NAME",
   MasterUserPassword: "NEW_MASTER_USER_PASSWORD",
 };

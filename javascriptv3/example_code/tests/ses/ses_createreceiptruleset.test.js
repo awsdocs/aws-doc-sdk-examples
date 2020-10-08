@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ses/commands/CreateReceiptRuleSetCommand", () => ({
     this.CreateReceiptRuleSetCommand = mockCreateReceiptFilter;
   },
 }));
-const { run } = require("../../ses/ses_createreceiptruleset.js");
+const { run } = require("../../ses/src/ses_createreceiptruleset.js");
 
 //test function
 test("has to mock SES#ses_createreceiptruleset", async (done) => {
