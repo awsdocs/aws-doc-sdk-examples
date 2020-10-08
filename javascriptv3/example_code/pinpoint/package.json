@@ -1,5 +1,5 @@
 {
-  "name": "aws-sdk-v3-redshift-examples",
+  "name": "aws-sdk-v3-pinpoint-examples",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/redshift.git",
