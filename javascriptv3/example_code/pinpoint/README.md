@@ -28,6 +28,6 @@ npm install
 5. Run sample code:
 ```
 cd src
-ts-node [example name].ts // e.g., ts-node redshift-create-cluster.ts
+ts-node [example name].ts // e.g., ts-node pinpoint-create-cluster.ts
 ```
 
