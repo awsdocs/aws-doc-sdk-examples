@@ -51,7 +51,7 @@ const cw = new CloudWatchClient(REGION);
 const run = async () => {
   try {
     const data = await cw.send(new PutMetricDataCommand(params));
-    console.log("Success, alarm deleted; requestID:", data.$metadata.requestId);
+    console.log("Success", data.$metadata.requestId);
   } catch (err) {
     console.log("Error", err);
   }

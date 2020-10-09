@@ -1,0 +1,600 @@
+---
+# unit tests
+files:
+  - path: cloudwatch/cw_deletealarms.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cw_describealarms.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cw_disablealarmactions.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cw_enablealarmactions.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cw_listmetrics.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cw_putmetricalarm.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cw_putmetricdata.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cwe_putevents.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cwe_putrule.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cwe_puttargets.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cwl_deletesubscriptionfilter.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cwl_describesubscriptionfilters.test.ts
+    services:
+      - cloudwatch
+
+  - path: cloudwatch/cwl_putsubscriptionfilter.test.ts
+    services:
+      - cloudwatch
+
+  - path: dynamodb/ddb_batchgetitem.test.ts
+    services:
+      - cloudwatch
+
+  - path: dynamodb/ddb_batchwriteitem.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_createtable.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_deleteitem.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_deletetable.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_describetable.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_getitem.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_listtables.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_putitem.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_query.test.ts
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddb_scan.test.ts
+    services:
+      - dynamodb
+
+  - path: ec2/ec2_allocatedadress.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_createinstances.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_createkeypair.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_createsecuritygroup.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_deletekeypair.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_deletesecuritygroup.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_describeaddresses.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_describeinstances.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_describekeypairs.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_describeregionsandzones.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_desribesecuritygroups.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_monitorinstances.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_rebootinstances.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_releaseaddress.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_startinstances.test.ts
+    services:
+      - ec2
+
+  - path: ec2/ec2_stopinstances.test.ts
+    services:
+      - ec2
+
+  - path: glacier/createvault.test.ts
+    services:
+      - glacier
+
+  - path: glacier/uploadarchive.test.ts
+    services:
+      - glacier
+
+  - path: iam/iam_accesskeylastused.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_attachrolepolicy.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_createaccesskeys.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_createaccountalias.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_createpolicy.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_createuser.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_deleteaccesskey.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_deleteaccountalias.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_deleteservercert.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_deleteuser.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_detachrolepolicy.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_getpolicy.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_getservercert.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_listaccesskeys.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_listaccountaliases.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_listservercerts.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_listusers.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_updateaccesskey.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_updateservercert.test.ts
+    services:
+      - iam
+
+  - path: iam/iam_updateuser.test.ts
+    services:
+      - iam
+
+  - path: iam/sts_assumerole.test.ts
+    services:
+      - iam
+
+  - path: lambda/ddb-table-create.test.ts
+    services:
+      - lambda
+
+  - path: lambda/ddb-table-populate.test.ts
+    services:
+      - lambda
+
+  - path: lambda/lambda-function-setup.test.ts
+    services:
+      - lambda
+
+  - path: lambda/lambda-role-setup.test.ts
+    services:
+      - lambda
+
+  - path: lambda/s3-bucket-setup-non-modular.test.ts
+    services:
+      - lambda
+
+  - path: mediaconvert/emc_canceljob.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_create_jobtemplate.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_createjob.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_deletetemplate.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_getendpoint.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_listjobs.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_listtemplates.test.ts
+    services:
+      - mediaconvert
+
+  - path: mediaconvert/emc_template_createjob.test.ts
+    services:
+      - mediaconvert
+
+  - path: nodegetstarted/emc_canceljob.test.ts
+    services:
+      - emc
+
+  - path: pinpoint/pinpoint_send_email_message.test.ts
+    services:
+      - pinpoint
+
+  - path: pinpoint/pinpoint_send_sms_message.test.ts
+    services:
+      - pinpoint
+
+  - path: redshift/redshift-create-cluster.test.ts
+    services:
+      - redshift
+
+  - path: redshift/redshift-delete-cluster.test.ts
+    services:
+      - redshift
+
+  - path: redshift/redshift-describe-clusters.test.ts
+    services:
+      - redshift
+
+  - path: redshift/redshift-modify-cluster.test.ts
+    services:
+      - redshift
+
+  - path: s3/s3.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_createbucket.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_deletebucket.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_deletebucketpolicy.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_deletebuketwebsite.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_getbucketacl.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_getbucketpolicy.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_getbucketwebsite.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_getcors.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_list1000plusobjects.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_listbuckets.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_listobjects.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_photoexample.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_photoviewer.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_putbucketpolicy.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_setbucketwebsite.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_setcors.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_upload.test.ts
+    services:
+      - s3
+
+  - path: s3/s3_upload_comand.test.ts
+    services:
+      - s3
+
+  - path: ses/ses_createreceiptfilter.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_createreceiptrule.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_createreceiptruleset.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_createtemplate.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_deleteidentity.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_deletereceiptfilter.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_deletereceiptrule.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_deletereceiptruleset.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_deletetemplate.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_gettemplate.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_listidentities.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_listreceiptfilters.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_listtemplates.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_sendbulktemplatedemail.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_sendemail.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_sendtemplatedemail.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_updatetemplate.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_verifydomainidentity.test.ts
+    services:
+      - ses
+
+  - path: ses/ses_verifyemailidentity.test.ts
+    services:
+      - ses
+
+  - path: sns/sns_checkphoneoptout.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_confirmsubscription.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_createtopic.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_deletetopic.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_getsmstype.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_gettopicattributes.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_listnumbersoptedout.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_listsubscriptions.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_listtopics.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_publishsms.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_publishtotopic.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_setsmstype.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_settopicattributes.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_subscribeapp.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_subscribeemail.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_subscribelambda.test.ts
+    services:
+      - sns
+
+  - path: sns/sns_unsubscribe.test.ts
+    services:
+      - sns
+
+  - path: sqs/sqs_changingvisibility.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_createqueue.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_deadletterqueue.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_deletequeue.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_getqueueurl.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_listqueues.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_longpolling_createqueue.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_longpolling_existingqueue.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_longpolling_receivemessage.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_receivemessage.test.ts
+    services:
+      - sqs
+
+  - path: sqs/sqs_sendmessage.test.ts
+    services:
+      - sqs
+
+---

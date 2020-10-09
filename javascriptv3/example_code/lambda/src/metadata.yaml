@@ -19,4 +19,10 @@ files:
   - path: s3-bucket-setup-non-modular.ts
     services:
       - S3
+  - path: shotpull.ts
+    services:
+      - S3
+  - path: ../MyLambdaApp/index.ts
+    services:
+      - S3
 ...
