@@ -55,7 +55,7 @@ const run = async () => {
   try {
     const data = await cw.send(new PutMetricAlarmCommand(params));
     console.log(
-      "Success, action enabled on alarm; requestID:",
+      "Success",
       data.$metadata.requestId
     );
   } catch (err) {

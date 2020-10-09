@@ -1,0 +1,25 @@
+---
+# 'submit data app' cross-service examples
+files:
+  - path: convert-bucket-to-website.ts
+    services:
+      - s3
+  - path: create-and-attach-policy.ts
+    services:
+      - iam
+  - path: create-bucket.ts
+    services:
+      - s3
+  - path: update-table.ts
+    services:
+      - dynamodb
+  - path: create-table.ts
+    services:
+      - dynamodb
+  - path: upload-files.ts
+    services:
+      - s3
+  - path: ../dynamoApp/add_data.ts
+    services:
+      - s3
+...

@@ -6,7 +6,7 @@ which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-pinpoint_send_sms_message.ts demonstrates how to send a transactional email message by using the SendEmail operation in the Amazon Pinpoint Email API.]
+pinpoint_send_email_message.ts demonstrates how to send a transactional email message using Amazon Pinpoint.
 
 Inputs (replace in code):
 - REGION: The AWS Region
@@ -16,12 +16,11 @@ Inputs (replace in code):
 - CC_ADDRESSES (optional)
 - BCC_ADDRESSES (optional)
 
-For more information about these and additional parameters, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_CreateCluster.html.
-
 Running the code:
-ts-node pinpoint_send_sms_message.ts
+ts-node pinpoint_send_email_message.ts
 */
-// snippet-start:[pinpoint_send_email_message_sms_email.javascript.pinpoint_send_email_message_v3]
+// snippet-start:[pinpoint.javascript.pinpoint_send_email_message_v3]
+
 // Import required AWS SDK clients and commands for Node.js
 const {
   PinpointClient,
@@ -29,21 +28,21 @@ const {
 } = require("@aws-sdk/client-pinpoint");
 
 ("use strict");
+
 // Set the AWS Region
 const REGION = "REGION";
 
-// The address on the "To" line. If your Amazon Pinpoint account is in
-// the sandbox, this address also has to be verified.
-// Note: All recipient addresses in this example are in arrays, which makes it
-// easier to specify multiple recipients. Alternatively, you can make these
-// variables strings, and then modify the To/Cc/BccAddresses attributes in the
-// params variable so that it passes an array for each recipient type.
+/* The address on the "To" line. If your Amazon Pinpoint account is in
+the sandbox, this address also has to be verified.
+Note: All recipient addresses in this example are in arrays, which makes it
+easier to specify multiple recipients. Alternatively, you can make these
+variables strings, and then modify the To/Cc/BccAddresses attributes in the
+params variable so that it passes an array for each recipient type.*/
 const senderAddress = "SENDER_ADDRESS";
 const toAddress = "RECIPIENT_ADDRESS";
 const projectId = "PINPOINT_PROJECT_ID"; //e.g., XXXXXXXX66e4e9986478cXXXXXXXXX
 
-// CC and BCC addresses. If your account is in the sandbox, these
-// addresses have to be verified.
+// CC and BCC addresses. If your account is in the sandbox, these addresses have to be verified.
 var ccAddresses = ["cc_recipient1@example.com", "cc_recipient2@example.com"];
 var bccAddresses = ["bcc_recipient@example.com"];
 
@@ -75,8 +74,7 @@ var body_html = `<html>
 var tag0 = { Name: "key0", Value: "value0" };
 var tag1 = { Name: "key1", Value: "value1" };
 
-// The character encoding the you want to use for the subject line and
-// message body of the email.
+// The character encoding for the subject line and message body of the email.
 var charset = "UTF-8";
 
 const params = {
@@ -115,7 +113,7 @@ const params = {
   },
 };
 
-//Create a new Pinpoint object
+// Create a new Pinpoint client object.
 const pinpointClient = new PinpointClient(REGION);
 
 const run = async () => {
@@ -126,8 +124,8 @@ const run = async () => {
       data["MessageResponse"]["Result"][toAddress]["MessageId"]
     );
   } catch (err) {
-    console.log(err.message);
+    console.log("Error", err.message);
   }
 };
 run();
-// snippet-end:[pinpoint_send_email_message_sms_email.javascript.pinpoint_send_email_message_v3]
+// snippet-end:[pinpoint.javascript.pinpoint_send_email_message_v3]

@@ -49,4 +49,7 @@ files:
   - path: sns_confirmsubscription.ts
     services:
       - sns
+  - path: sns_getsmstype.ts
+    services:
+      - sns
 ...

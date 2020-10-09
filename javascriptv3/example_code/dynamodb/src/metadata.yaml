@@ -7,6 +7,12 @@ files:
   - path: ddb_batchwriteitem.ts
     services:
       - dynamodb
+  - path: ddb_createtable.ts
+    services:
+      - dynamodb
+  - path: ddb_deletetable.ts
+    services:
+      - dynamodb
   - path: ddb_deleteitem.ts
     services:
       - dynamodb
