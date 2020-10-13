@@ -129,8 +129,11 @@ def read_metadata(file_path, examples):
         try:
             meta_docs = yaml.safe_load_all(meta_stream)
             for example_meta in meta_docs:
-                example_meta['metadata_path'] = file_path
-                examples.append(example_meta)
+                if example_meta is None:
+                    print(f"Empty section found in {file_path}.")
+                else:
+                    example_meta['metadata_path'] = file_path
+                    examples.append(example_meta)
         except (ScannerError, ParserError) as err:
             print(f"Yaml parser error in {file_path}, skipping.")
             print(err)
