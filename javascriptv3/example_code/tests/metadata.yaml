@@ -1,600 +1,603 @@
 ---
 # unit tests
 files:
-  - path: cloudwatch/cw_deletealarms.test.ts
+  - path: cloudwatch/cw_deletealarms.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cw_describealarms.test.ts
+  - path: cloudwatch/cw_describealarms.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cw_disablealarmactions.test.ts
+  - path: cloudwatch/cw_disablealarmactions.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cw_enablealarmactions.test.ts
+  - path: cloudwatch/cw_enablealarmactions.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cw_listmetrics.test.ts
+  - path: cloudwatch/cw_listmetrics.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cw_putmetricalarm.test.ts
+  - path: cloudwatch/cw_putmetricalarm.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cw_putmetricdata.test.ts
+  - path: cloudwatch/cw_putmetricdata.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cwe_putevents.test.ts
+  - path: cloudwatch/cwe_putevents.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cwe_putrule.test.ts
+  - path: cloudwatch/cwe_putrule.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cwe_puttargets.test.ts
+  - path: cloudwatch/cwe_puttargets.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cwl_deletesubscriptionfilter.test.ts
+  - path: cloudwatch/cwl_deletesubscriptionfilter.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cwl_describesubscriptionfilters.test.ts
+  - path: cloudwatch/cwl_describesubscriptionfilters.test.js
     services:
       - cloudwatch
 
-  - path: cloudwatch/cwl_putsubscriptionfilter.test.ts
+  - path: cloudwatch/cwl_putsubscriptionfilter.test.js
     services:
       - cloudwatch
 
-  - path: dynamodb/ddb_batchgetitem.test.ts
+  - path: dynamodb/ddb_batchgetitem.test.js
     services:
       - cloudwatch
 
-  - path: dynamodb/ddb_batchwriteitem.test.ts
+  - path: dynamodb/ddb_batchwriteitem.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_createtable.test.ts
+  - path: dynamodb/ddb_createtable.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_deleteitem.test.ts
+  - path: dynamodb/ddb_deleteitem.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_deletetable.test.ts
+  - path: dynamodb/ddb_deletetable.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_describetable.test.ts
+  - path: dynamodb/ddb_describetable.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_getitem.test.ts
+  - path: dynamodb/ddb_getitem.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_listtables.test.ts
+  - path: dynamodb/ddb_listtables.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_putitem.test.ts
+  - path: dynamodb/ddb_putitem.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_query.test.ts
+  - path: dynamodb/ddb_query.test.js
     services:
       - dynamodb
 
-  - path: dynamodb/ddb_scan.test.ts
+  - path: dynamodb/ddb_scan.test.js
     services:
       - dynamodb
 
-  - path: ec2/ec2_allocatedadress.test.ts
+  - path: ec2/ec2_allocatedadress.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_createinstances.test.ts
+  - path: ec2/ec2_createinstances.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_createkeypair.test.ts
+  - path: ec2/ec2_createkeypair.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_createsecuritygroup.test.ts
+  - path: ec2/ec2_createsecuritygroup.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_deletekeypair.test.ts
+  - path: ec2/ec2_deletekeypair.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_deletesecuritygroup.test.ts
+  - path: ec2/ec2_deletesecuritygroup.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_describeaddresses.test.ts
+  - path: ec2/ec2_describeaddresses.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_describeinstances.test.ts
+  - path: ec2/ec2_describeinstances.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_describekeypairs.test.ts
+  - path: ec2/ec2_describekeypairs.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_describeregionsandzones.test.ts
+  - path: ec2/ec2_describeregionsandzones.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_desribesecuritygroups.test.ts
+  - path: ec2/ec2_desribesecuritygroups.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_monitorinstances.test.ts
+  - path: ec2/ec2_monitorinstances.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_rebootinstances.test.ts
+  - path: ec2/ec2_rebootinstances.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_releaseaddress.test.ts
+  - path: ec2/ec2_releaseaddress.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_startinstances.test.ts
+  - path: ec2/ec2_startinstances.test.js
     services:
       - ec2
 
-  - path: ec2/ec2_stopinstances.test.ts
+  - path: ec2/ec2_stopinstances.test.js
     services:
       - ec2
 
-  - path: glacier/createvault.test.ts
+  - path: glacier/createvault.test.js
     services:
       - glacier
 
-  - path: glacier/uploadarchive.test.ts
+  - path: glacier/uploadarchive.test.js
     services:
       - glacier
 
-  - path: iam/iam_accesskeylastused.test.ts
+  - path: iam/iam_accesskeylastused.test.js
     services:
       - iam
 
-  - path: iam/iam_attachrolepolicy.test.ts
+  - path: iam/iam_attachrolepolicy.test.js
     services:
       - iam
 
-  - path: iam/iam_createaccesskeys.test.ts
+  - path: iam/iam_createaccesskeys.test.js
     services:
       - iam
 
-  - path: iam/iam_createaccountalias.test.ts
+  - path: iam/iam_createaccountalias.test.js
     services:
       - iam
 
-  - path: iam/iam_createpolicy.test.ts
+  - path: iam/iam_createpolicy.test.js
     services:
       - iam
 
-  - path: iam/iam_createuser.test.ts
+  - path: iam/iam_createuser.test.js
     services:
       - iam
 
-  - path: iam/iam_deleteaccesskey.test.ts
+  - path: iam/iam_deleteaccesskey.test.js
     services:
       - iam
 
-  - path: iam/iam_deleteaccountalias.test.ts
+  - path: iam/iam_deleteaccountalias.test.js
     services:
       - iam
 
-  - path: iam/iam_deleteservercert.test.ts
+  - path: iam/iam_deleteservercert.test.js
     services:
       - iam
 
-  - path: iam/iam_deleteuser.test.ts
+  - path: iam/iam_deleteuser.test.js
     services:
       - iam
 
-  - path: iam/iam_detachrolepolicy.test.ts
+  - path: iam/iam_detachrolepolicy.test.js
     services:
       - iam
 
-  - path: iam/iam_getpolicy.test.ts
+  - path: iam/iam_getpolicy.test.js
     services:
       - iam
 
-  - path: iam/iam_getservercert.test.ts
+  - path: iam/iam_getservercert.test.js
     services:
       - iam
 
-  - path: iam/iam_listaccesskeys.test.ts
+  - path: iam/iam_listaccesskeys.test.js
     services:
       - iam
 
-  - path: iam/iam_listaccountaliases.test.ts
+  - path: iam/iam_listaccountaliases.test.js
     services:
       - iam
 
-  - path: iam/iam_listservercerts.test.ts
+  - path: iam/iam_listservercerts.test.js
     services:
       - iam
 
-  - path: iam/iam_listusers.test.ts
+  - path: iam/iam_listusers.test.js
     services:
       - iam
 
-  - path: iam/iam_updateaccesskey.test.ts
+  - path: iam/iam_updateaccesskey.test.js
     services:
       - iam
 
-  - path: iam/iam_updateservercert.test.ts
+  - path: iam/iam_updateservercert.test.js
     services:
       - iam
 
-  - path: iam/iam_updateuser.test.ts
+  - path: iam/iam_updateuser.test.js
     services:
       - iam
 
-  - path: iam/sts_assumerole.test.ts
+  - path: iam/sts_assumerole.test.js
     services:
       - iam
 
-  - path: lambda/ddb-table-create.test.ts
+  - path: lambda/ddb-table-create.test.js
     services:
       - lambda
 
-  - path: lambda/ddb-table-populate.test.ts
+  - path: lambda/ddb-table-populate.test.js
     services:
       - lambda
 
-  - path: lambda/lambda-function-setup.test.ts
+  - path: lambda/lambda-function-setup.test.js
     services:
       - lambda
 
-  - path: lambda/lambda-role-setup.test.ts
+  - path: lambda/lambda-role-setup.test.js
     services:
       - lambda
 
-  - path: lambda/s3-bucket-setup-non-modular.test.ts
+  - path: lambda/s3-bucket-setup-non-modular.test.js
     services:
       - lambda
 
-  - path: mediaconvert/emc_canceljob.test.ts
+  - path: mediaconvert/emc_canceljob.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_create_jobtemplate.test.ts
+  - path: mediaconvert/emc_create_jobtemplate.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_createjob.test.ts
+  - path: mediaconvert/emc_createjob.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_deletetemplate.test.ts
+  - path: mediaconvert/emc_deletetemplate.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_getendpoint.test.ts
+  - path: mediaconvert/emc_getendpoint.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_listjobs.test.ts
+  - path: mediaconvert/emc_listjobs.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_listtemplates.test.ts
+  - path: mediaconvert/emc_listtemplates.test.js
     services:
       - mediaconvert
 
-  - path: mediaconvert/emc_template_createjob.test.ts
+  - path: mediaconvert/emc_template_createjob.test.js
     services:
       - mediaconvert
 
-  - path: nodegetstarted/emc_canceljob.test.ts
+  - path: nodegetstarted/emc_canceljob.test.js
     services:
       - emc
 
-  - path: pinpoint/pinpoint_send_email_message.test.ts
+  - path: pinpoint/pinpoint_send_email_message.test.js
     services:
       - pinpoint
 
-  - path: pinpoint/pinpoint_send_sms_message.test.ts
+  - path: pinpoint/pinpoint_send_sms_message.test.js
     services:
       - pinpoint
 
-  - path: redshift/redshift-create-cluster.test.ts
+  - path: redshift/redshift-create-cluster.test.js
     services:
       - redshift
 
-  - path: redshift/redshift-delete-cluster.test.ts
+  - path: redshift/redshift-delete-cluster.test.js
     services:
       - redshift
 
-  - path: redshift/redshift-describe-clusters.test.ts
+  - path: redshift/redshift-describe-clusters.test.js
     services:
       - redshift
 
-  - path: redshift/redshift-modify-cluster.test.ts
+  - path: redshift/redshift-modify-cluster.test.js
     services:
       - redshift
 
-  - path: s3/s3.test.ts
+  - path: s3/s3.test.js
     services:
       - s3
 
-  - path: s3/s3_createbucket.test.ts
+  - path: s3/s3_createbucket.test.js
     services:
       - s3
 
-  - path: s3/s3_deletebucket.test.ts
+  - path: s3/s3_deletebucket.test.js
     services:
       - s3
 
-  - path: s3/s3_deletebucketpolicy.test.ts
+  - path: s3/s3_deletebucketpolicy.test.js
     services:
       - s3
 
-  - path: s3/s3_deletebuketwebsite.test.ts
+  - path: s3/s3_deletebuketwebsite.test.js
     services:
       - s3
 
-  - path: s3/s3_getbucketacl.test.ts
+  - path: s3/s3_getbucketacl.test.js
     services:
       - s3
 
-  - path: s3/s3_getbucketpolicy.test.ts
+  - path: s3/s3_getbucketpolicy.test.js
     services:
       - s3
 
-  - path: s3/s3_getbucketwebsite.test.ts
+  - path: s3/s3_getbucketwebsite.test.js
     services:
       - s3
 
-  - path: s3/s3_getcors.test.ts
+  - path: s3/s3_getcors.test.js
     services:
       - s3
 
-  - path: s3/s3_list1000plusobjects.test.ts
+  - path: s3/s3_list1000plusobjects.test.js
     services:
       - s3
 
-  - path: s3/s3_listbuckets.test.ts
+  - path: s3/s3_listbuckets.test.js
     services:
       - s3
 
-  - path: s3/s3_listobjects.test.ts
+  - path: s3/s3_listobjects.test.js
     services:
       - s3
 
-  - path: s3/s3_photoexample.test.ts
+  - path: s3/s3_photoexample.test.js
     services:
       - s3
 
-  - path: s3/s3_photoviewer.test.ts
+  - path: s3/s3_photoviewer.test.js
     services:
       - s3
 
-  - path: s3/s3_putbucketpolicy.test.ts
+  - path: s3/s3_putbucketpolicy.test.js
     services:
       - s3
 
-  - path: s3/s3_setbucketwebsite.test.ts
+  - path: s3/s3_setbucketwebsite.test.js
     services:
       - s3
 
-  - path: s3/s3_setcors.test.ts
+  - path: s3/s3_setcors.test.js
     services:
       - s3
 
-  - path: s3/s3_upload.test.ts
+  - path: s3/s3_upload.test.js
     services:
       - s3
 
-  - path: s3/s3_upload_comand.test.ts
+  - path: s3/s3_upload_comand.test.js
     services:
       - s3
 
-  - path: ses/ses_createreceiptfilter.test.ts
+  - path: ses/ses_createreceiptfilter.test.js
     services:
       - ses
 
-  - path: ses/ses_createreceiptrule.test.ts
+  - path: secrets/secrets_getsecretvalue.test.js
+    services:
+      - secrets
+
+  - path: ses/ses_createreceiptrule.test.js
     services:
       - ses
 
-  - path: ses/ses_createreceiptruleset.test.ts
+  - path: ses/ses_createreceiptruleset.test.js
     services:
       - ses
 
-  - path: ses/ses_createtemplate.test.ts
+  - path: ses/ses_createtemplate.test.js
     services:
       - ses
 
-  - path: ses/ses_deleteidentity.test.ts
+  - path: ses/ses_deleteidentity.test.js
     services:
       - ses
 
-  - path: ses/ses_deletereceiptfilter.test.ts
+  - path: ses/ses_deletereceiptfilter.test.js
     services:
       - ses
 
-  - path: ses/ses_deletereceiptrule.test.ts
+  - path: ses/ses_deletereceiptrule.test.js
     services:
       - ses
 
-  - path: ses/ses_deletereceiptruleset.test.ts
+  - path: ses/ses_deletereceiptruleset.test.js
     services:
       - ses
 
-  - path: ses/ses_deletetemplate.test.ts
+  - path: ses/ses_deletetemplate.test.js
     services:
       - ses
 
-  - path: ses/ses_gettemplate.test.ts
+  - path: ses/ses_gettemplate.test.js
     services:
       - ses
 
-  - path: ses/ses_listidentities.test.ts
+  - path: ses/ses_listidentities.test.js
     services:
       - ses
 
-  - path: ses/ses_listreceiptfilters.test.ts
+  - path: ses/ses_listreceiptfilters.test.js
     services:
       - ses
 
-  - path: ses/ses_listtemplates.test.ts
+  - path: ses/ses_listtemplates.test.js
     services:
       - ses
 
-  - path: ses/ses_sendbulktemplatedemail.test.ts
+  - path: ses/ses_sendbulktemplatedemail.test.js
     services:
       - ses
 
-  - path: ses/ses_sendemail.test.ts
+  - path: ses/ses_sendemail.test.js
     services:
       - ses
 
-  - path: ses/ses_sendtemplatedemail.test.ts
+  - path: ses/ses_sendtemplatedemail.test.js
     services:
       - ses
 
-  - path: ses/ses_updatetemplate.test.ts
+  - path: ses/ses_updatetemplate.test.js
     services:
       - ses
 
-  - path: ses/ses_verifydomainidentity.test.ts
+  - path: ses/ses_verifydomainidentity.test.js
     services:
       - ses
 
-  - path: ses/ses_verifyemailidentity.test.ts
+  - path: ses/ses_verifyemailidentity.test.js
     services:
       - ses
 
-  - path: sns/sns_checkphoneoptout.test.ts
+  - path: sns/sns_checkphoneoptout.test.js
     services:
       - sns
 
-  - path: sns/sns_confirmsubscription.test.ts
+  - path: sns/sns_confirmsubscription.test.js
     services:
       - sns
 
-  - path: sns/sns_createtopic.test.ts
+  - path: sns/sns_createtopic.test.js
     services:
       - sns
 
-  - path: sns/sns_deletetopic.test.ts
+  - path: sns/sns_deletetopic.test.js
     services:
       - sns
 
-  - path: sns/sns_getsmstype.test.ts
+  - path: sns/sns_getsmstype.test.js
     services:
       - sns
 
-  - path: sns/sns_gettopicattributes.test.ts
+  - path: sns/sns_gettopicattributes.test.js
     services:
       - sns
 
-  - path: sns/sns_listnumbersoptedout.test.ts
+  - path: sns/sns_listnumbersoptedout.test.js
     services:
       - sns
 
-  - path: sns/sns_listsubscriptions.test.ts
+  - path: sns/sns_listsubscriptions.test.js
     services:
       - sns
 
-  - path: sns/sns_listtopics.test.ts
+  - path: sns/sns_listtopics.test.js
     services:
       - sns
 
-  - path: sns/sns_publishsms.test.ts
+  - path: sns/sns_publishsms.test.js
     services:
       - sns
 
-  - path: sns/sns_publishtotopic.test.ts
+  - path: sns/sns_publishtotopic.test.js
     services:
       - sns
 
-  - path: sns/sns_setsmstype.test.ts
+  - path: sns/sns_setsmstype.test.js
     services:
       - sns
 
-  - path: sns/sns_settopicattributes.test.ts
+  - path: sns/sns_settopicattributes.test.js
     services:
       - sns
 
-  - path: sns/sns_subscribeapp.test.ts
+  - path: sns/sns_subscribeapp.test.js
     services:
       - sns
 
-  - path: sns/sns_subscribeemail.test.ts
+  - path: sns/sns_subscribeemail.test.js
     services:
       - sns
 
-  - path: sns/sns_subscribelambda.test.ts
+  - path: sns/sns_subscribelambda.test.js
     services:
       - sns
 
-  - path: sns/sns_unsubscribe.test.ts
+  - path: sns/sns_unsubscribe.test.js
     services:
       - sns
 
-  - path: sqs/sqs_changingvisibility.test.ts
+  - path: sqs/sqs_changingvisibility.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_createqueue.test.ts
+  - path: sqs/sqs_createqueue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_deadletterqueue.test.ts
+  - path: sqs/sqs_deadletterqueue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_deletequeue.test.ts
+  - path: sqs/sqs_deletequeue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_getqueueurl.test.ts
+  - path: sqs/sqs_getqueueurl.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_listqueues.test.ts
+  - path: sqs/sqs_listqueues.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_longpolling_createqueue.test.ts
+  - path: sqs/sqs_longpolling_createqueue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_longpolling_existingqueue.test.ts
+  - path: sqs/sqs_longpolling_existingqueue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_longpolling_receivemessage.test.ts
+  - path: sqs/sqs_longpolling_receivemessage.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_receivemessage.test.ts
+  - path: sqs/sqs_receivemessage.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_sendmessage.test.ts
+  - path: sqs/sqs_sendmessage.test.js
     services:
       - sqs
-
----
+...
