@@ -1,0 +1,40 @@
+# Be sure to list any .cs supporting files that don't contain service calls
+#   (such as test files) with just the path and no services block.
+# Otherwise, they'll be picked up as not yet cleaned.
+#
+---
+#Code example Getting Started
+files:
+ - path: Getting_Started_VS/Getting-Started-VS/Program.cs
+   services:
+     - rds
+     - s3
+ - path: Getting_Started_VS/Getting_Started_VS_Tests/ProgramTests.cs
+...
+#
+# ---
+# High-value example 2
+# files:
+#  - path: <file path relative to this metadata.yaml>
+#    services:
+#      - s3
+#      - sqs
+#  - path: <file 2>
+#    services:
+#      - dynamodb
+#
+# ...
+# ---
+# Code cleanup example 1
+#  files:
+#   - path: folder/blah/file.cs
+#    services:
+#      - Blah
+# ...
+# ---
+# Deleted files
+#  files:
+#   - path: example_code_legacy/PinpointEmail/pinpoint_send_email_message_email_api.cs
+#    services:
+#      - PinpointEmail
+# ...
