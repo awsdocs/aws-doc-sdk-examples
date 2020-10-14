@@ -54,7 +54,7 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async void CheckLowLevelGlobalSecondaryIndexExample()
+        public async void CheckLowLevelGlobalSecondaryIndexExampleTest()
         {
             var portUsed = IsPortInUse(port);
             if (portUsed)

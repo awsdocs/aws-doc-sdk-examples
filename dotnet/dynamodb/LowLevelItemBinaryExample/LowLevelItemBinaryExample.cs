@@ -153,3 +153,4 @@ namespace DynamoDBCRUD
         }
     }
 }
+// snippet-end:[dynamodb.dotnet35.LowLevelItemBinaryExample]

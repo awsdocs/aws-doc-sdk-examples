@@ -12,11 +12,11 @@ using Xunit.Abstractions;
 
 namespace DynamoDBCRUD
 {
-    public class CreateTablesLoadDataTest
+    public class GetItemTest
     {
         private readonly ITestOutputHelper output;
 
-        public CreateTablesLoadDataTest(ITestOutputHelper output)
+        public GetItemTest(ITestOutputHelper output)
         {
             this.output = output;
         }
@@ -56,30 +56,25 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async void CheckCreateTablesLoadData()
+        public void CheckGetItem()
         {
             var portUsed = IsPortInUse(port);
-            if(portUsed)            
+            if (portUsed)
             {
                 throw new Exception("You must run local DynamoDB on port 8000");
             }
-            
+
+            /*
+
             var clientConfig = new AmazonDynamoDBConfig();
             clientConfig.ServiceURL = _endpointURL;
             var client = new AmazonDynamoDBClient(clientConfig);
 
-            // Create, load, and delete a table
-            var createResult = CreateTablesLoadData.CreateTableForum(client);
-            output.WriteLine("Waiting for Forum table to be created");
+            TryDaxGetItem.GetKeys(client);
 
-            await CreateTablesLoadData.WaitTillTableCreated(client, "Forum", createResult.Result);
-            output.WriteLine("Created Forum table");
+            */
 
-            CreateTablesLoadData.LoadSampleForums(client);
-            output.WriteLine("Loaded data into Forum table");
-
-            var deleteResult = CreateTablesLoadData.DeleteTable(client, "Forum");
-            output.WriteLine("Deleted Forum table");
+            output.WriteLine("Done");
         }
     }
 }
