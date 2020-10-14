@@ -8,7 +8,7 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html.
 
 Purpose:
-sns_createtopic.ts demonstrates how to create an Amazom SNS topic to which notifications can be published.
+sns_createtopic.ts demonstrates how to create an Amazon SNS topic to which notifications can be published.
 
 Inputs (replace in code):
 - REGION
