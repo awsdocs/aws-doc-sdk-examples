@@ -1,36 +1,34 @@
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace LowLevelQueryTest
 {
     public class LowLevelQueryTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public LowLevelQueryTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private readonly string _endpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -43,7 +41,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -56,32 +54,32 @@ namespace DynamoDBCRUD
         [Fact]
         public async void CheckLowLevelQuery()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = _endpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
             // Create reply table.
-            output.WriteLine("Creating Reply table");
-            await CreateTablesLoadData.CreateTableReply(client);
+            _output.WriteLine("Creating Reply table");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableReply(client);
 
-            output.WriteLine("Retrieving replies for a thread");
-            LowLevelQuery.FindRepliesForAThread(client);
-            output.WriteLine("Retrieving replies for a thread with a limit");
-            LowLevelQuery.FindRepliesForAThreadSpecifyOptionalLimit(client);
-            output.WriteLine("Retrieving replies for threads in the last 15 days");
-            LowLevelQuery.FindRepliesInLast15DaysWithConfig(client);
-            output.WriteLine("Retrieving replies for a thread posted in interval");
-            LowLevelQuery.FindRepliesPostedWithinTimePeriod(client);
+            _output.WriteLine("Retrieving replies for a thread");
+            LowLevelQuery.LowLevelQuery.FindRepliesForAThread(client);
+            _output.WriteLine("Retrieving replies for a thread with a limit");
+            LowLevelQuery.LowLevelQuery.FindRepliesForAThreadSpecifyOptionalLimit(client);
+            _output.WriteLine("Retrieving replies for threads in the last 15 days");
+            LowLevelQuery.LowLevelQuery.FindRepliesInLast15DaysWithConfig(client);
+            _output.WriteLine("Retrieving replies for a thread posted in interval");
+            LowLevelQuery.LowLevelQuery.FindRepliesPostedWithinTimePeriod(client);
 
             // Delete reply table.
-            output.WriteLine("Deleting Reply table");
-            await CreateTablesLoadData.DeleteTable(client, "Reply");
+            _output.WriteLine("Deleting Reply table");
+            await CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "Reply");
         }
     }
 }

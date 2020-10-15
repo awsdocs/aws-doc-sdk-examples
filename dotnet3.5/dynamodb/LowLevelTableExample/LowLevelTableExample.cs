@@ -4,11 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelTableExample
 {
     public class LowLevelTableExample
     {
@@ -65,7 +64,7 @@ namespace DynamoDBCRUD
             string status = tableDescription.TableStatus;
             Console.WriteLine(_tableName + " - " + status);
 
-            WaitUntilTableReady(client, _tableName);
+            WaitUntilTableReady(client);
 
             return true;
         }
@@ -126,9 +125,9 @@ namespace DynamoDBCRUD
                 }
             };
 
-            var response = await client.UpdateTableAsync(request);
+            await client.UpdateTableAsync(request);
 
-            WaitUntilTableReady(client, _tableName);
+            WaitUntilTableReady(client);
 
             return true;
         }
@@ -141,16 +140,16 @@ namespace DynamoDBCRUD
                 TableName = _tableName
             };
 
-            var response = await client.DeleteTableAsync(request);
+            await client.DeleteTableAsync(request);
 
             Console.WriteLine("Table is being deleted...");
 
             return true;
         }
 
-        private static async void WaitUntilTableReady(AmazonDynamoDBClient client, string tableName)
+        private static async void WaitUntilTableReady(AmazonDynamoDBClient client)
         {
-            string status = null;
+            string status;
             // Let us wait until table is created. Call DescribeTable.
             do
             {
@@ -168,7 +167,7 @@ namespace DynamoDBCRUD
             } while (status != "ACTIVE");
         }
         
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 
@@ -213,7 +212,6 @@ namespace DynamoDBCRUD
             {
                 Console.WriteLine("Could not delete example table.");
                 Console.WriteLine("You must delete the " + _tableName + " table yourself");
-                return;
             }
         }
     }

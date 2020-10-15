@@ -6,13 +6,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace AddItems
 {
     public class AddItems
     {
@@ -66,9 +64,9 @@ namespace DynamoDBCRUD
                     {
                         // The datetime format is:
                         // YYYY-MM-DD HH:MM:SS
-                        DateTime MyDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                        DateTime myDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
-                        TimeSpan timeSpan = MyDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+                        TimeSpan timeSpan = myDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
 
                         item.Add(headers[i], new AttributeValue { N = ((long)timeSpan.TotalSeconds).ToString() });
                         DebugPrint(debug, "Set " + headers[i] + " int (long) attribute to " + ((long)timeSpan.TotalSeconds).ToString());
@@ -110,10 +108,10 @@ namespace DynamoDBCRUD
         static void Main(string[] args)
         {
             var configfile = "app.config";
-            var region = "";
-            var table = "";
-            string filename = "";
-            string index = "";
+            string region;
+            string table;
+            string filename;
+            string index;
             bool debug = false;
             
             // Get default Region and table from config file
@@ -151,8 +149,6 @@ namespace DynamoDBCRUD
                 {
                     case "-d":
                         debug = true;
-                        break;
-                    default:
                         break;
                 }
 
@@ -195,9 +191,9 @@ namespace DynamoDBCRUD
             string[] inputs = new string[26];
 
             // Get column names from the first line
-            string headerline = file.ReadLine();            
+            file.ReadLine();
 
-            var line = "";
+            string line;
             var input = 1;
 
             while (((line = file.ReadLine()) != null) && (input < 26))

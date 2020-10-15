@@ -4,17 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
 
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace GetLowProductStockGSI
 {
-    public class GetLowProductStockGSI
+    public class GetLowProductStockGsi
     {
         // Get the products with fewer than minimum items in the warehouse
         // DynamoDB equivalent of:
@@ -105,7 +103,7 @@ namespace DynamoDBCRUD
                         }
                         else
                         {
-                            Console.WriteLine(attr + ": " + item[attr].N.ToString());
+                            Console.WriteLine(attr + ": " + item[attr].N);
                         }
                     }
                 }

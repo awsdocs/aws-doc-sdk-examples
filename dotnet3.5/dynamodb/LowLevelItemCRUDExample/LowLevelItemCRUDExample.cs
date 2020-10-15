@@ -3,21 +3,20 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelItemCRUDExample]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelItemCRUDExample
 {
-    public class LowLevelItemCRUDExample
+    public class LowLevelItemCrudExample
     {
-        private static string tableName = "ProductCatalog";
+        private static string _tableName = "ProductCatalog";
 
         public static void CreateItem(AmazonDynamoDBClient client)
         {
             var request = new PutItemRequest
             {
-                TableName = tableName,
+                TableName = _tableName,
                 Item = new Dictionary<string, AttributeValue>()
             {
                 { "Id", new AttributeValue {
@@ -51,7 +50,7 @@ namespace DynamoDBCRUD
         {
             var request = new GetItemRequest
             {
-                TableName = tableName,
+                TableName = _tableName,
                 Key = new Dictionary<string, AttributeValue>()
             {
                 { "Id", new AttributeValue {
@@ -101,7 +100,7 @@ namespace DynamoDBCRUD
 
                 UpdateExpression = "ADD #A :auth SET #NA = :new REMOVE #I",
 
-                TableName = tableName,
+                TableName = _tableName,
                 ReturnValues = "ALL_NEW" // Give me all attributes of the updated item.
             };
 
@@ -141,7 +140,7 @@ namespace DynamoDBCRUD
                 UpdateExpression = "SET #P = :newprice",
                 ConditionExpression = "#P = :currprice",
 
-                TableName = tableName,
+                TableName = _tableName,
                 ReturnValues = "ALL_NEW" // Give me all attributes of the updated item.
             };
 
@@ -157,7 +156,7 @@ namespace DynamoDBCRUD
         {
             var request = new DeleteItemRequest
             {
-                TableName = tableName,
+                TableName = _tableName,
                 Key = new Dictionary<string, AttributeValue>()
             {
                 { "Id", new AttributeValue {
@@ -207,7 +206,7 @@ namespace DynamoDBCRUD
             Console.WriteLine("************************************************");
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 

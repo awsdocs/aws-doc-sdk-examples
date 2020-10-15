@@ -1,26 +1,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
+
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-
 using Moq;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace AddItemsTest
 {
     public class AddItemsTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public AddItemsTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
@@ -28,11 +26,11 @@ namespace DynamoDBCRUD
         readonly string _keys = "Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
         readonly string _values = "Order,1,1,6,2020-07-04 12:00:00,pending";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.BatchWriteItemAsync(
+            mockDynamoDbClient.Setup(client => client.BatchWriteItemAsync(
                 It.IsAny<BatchWriteItemRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<BatchWriteItemRequest, CancellationToken>((request, token) =>
@@ -42,19 +40,19 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new BatchWriteItemResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckAddItems()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
             var inputs = new string[2];
             inputs[0] = _keys;
             inputs[1] = _values;
 
-            var result = await AddItems.AddItemsAsync(false, client, _tableName, inputs, _id);
+            var result = await AddItems.AddItems.AddItemsAsync(false, client, _tableName, inputs, _id);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -62,7 +60,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT add items");
 
-            output.WriteLine("Added items");
+            _output.WriteLine("Added items");
         }
     }
 }

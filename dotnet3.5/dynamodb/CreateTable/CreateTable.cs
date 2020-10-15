@@ -5,12 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace CreateTable
 {
     public class CreateTable
     {
@@ -58,8 +57,8 @@ namespace DynamoDBCRUD
         static void Main()
         {
             var configfile = "app.config";
-            var region = "";
-            var table = "";
+            string region;
+            string table;
                         
             // Get default Region and table from config file
             var efm = new ExeConfigurationFileMap

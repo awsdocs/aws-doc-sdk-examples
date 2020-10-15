@@ -10,29 +10,29 @@ using Amazon.DynamoDBv2.DataModel;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace MidlevelItemCRUDTest
 {
-    public class MidlevelItemCRUDTest
+    public class MidlevelItemCrudTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
-        public MidlevelItemCRUDTest(ITestOutputHelper output)
+        public MidlevelItemCrudTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private readonly string _endpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -45,7 +45,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -56,44 +56,44 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async void CheckMidlevelItemCRUD()
+        public async void CheckMidlevelItemCrud()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = _endpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
             // Create and load ProductCatalog table.
-            output.WriteLine("Creating ProductCatalog table");
-            await CreateTablesLoadData.CreateTableProductCatalog(client);
+            _output.WriteLine("Creating ProductCatalog table");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableProductCatalog(client);
 
-            output.WriteLine("Loading ProductCatalog table");
-            var productCatalog = MidlevelItemCRUD.LoadTable(client, MidlevelItemCRUD._tableName);
+            _output.WriteLine("Loading ProductCatalog table");
+            var productCatalog = MidlevelItemCRUD.MidlevelItemCrud.LoadTable(client, MidlevelItemCRUD.MidlevelItemCrud.TableName);
 
             // Create, retrieve, and update Book item.
-            output.WriteLine("Creating Book item");
-            MidlevelItemCRUD.CreateBookItem(client, productCatalog);
-            output.WriteLine("Retrieving Book item");
-            MidlevelItemCRUD.RetrieveBook(client, productCatalog);
-            output.WriteLine("Updating Book item");
-            MidlevelItemCRUD.UpdateMultipleAttributes(client, productCatalog);
-            output.WriteLine("Updating Book item price");
-            MidlevelItemCRUD.UpdateBookPriceConditionally(client, productCatalog);
+            _output.WriteLine("Creating Book item");
+            MidlevelItemCRUD.MidlevelItemCrud.CreateBookItem(client, productCatalog);
+            _output.WriteLine("Retrieving Book item");
+            MidlevelItemCRUD.MidlevelItemCrud.RetrieveBook(client, productCatalog);
+            _output.WriteLine("Updating Book item");
+            MidlevelItemCRUD.MidlevelItemCrud.UpdateMultipleAttributes(client, productCatalog);
+            _output.WriteLine("Updating Book item price");
+            MidlevelItemCRUD.MidlevelItemCrud.UpdateBookPriceConditionally(client, productCatalog);
 
             // Delete Book item.
-            output.WriteLine("Deleting item");
-            MidlevelItemCRUD.DeleteBook(client, productCatalog);
+            _output.WriteLine("Deleting item");
+            MidlevelItemCRUD.MidlevelItemCrud.DeleteBook(client, productCatalog);
 
             // Delete ProductCatalog table.
-            output.WriteLine("Deleting ProductCatalog table");
-            await CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
+            _output.WriteLine("Deleting ProductCatalog table");
+            await CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
 
-            output.WriteLine("Done");
+            _output.WriteLine("Done");
         }
     }
 }

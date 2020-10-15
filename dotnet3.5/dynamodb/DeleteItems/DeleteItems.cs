@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace DeleteItems
 {
     public class DeleteItems
     {
@@ -106,8 +105,6 @@ namespace DynamoDBCRUD
                     case "-i":
                         i++;
                         idstring = args[i];
-                        break;
-                    default:
                         break;
                 }
 

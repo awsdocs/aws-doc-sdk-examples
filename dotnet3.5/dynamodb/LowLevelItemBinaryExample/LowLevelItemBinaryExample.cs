@@ -3,14 +3,14 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelItemBinaryExample]
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelItemBinaryExample
 {
     public class LowLevelItemBinaryExample
     {
@@ -130,13 +130,13 @@ namespace DynamoDBCRUD
             }
         }
         
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 
             // Reply table primary key.
             string replyIdPartitionKey = "Amazon DynamoDB#DynamoDB Thread 1";
-            string replyDateTimeSortKey = Convert.ToString(DateTime.UtcNow);
+            string replyDateTimeSortKey = Convert.ToString(DateTime.UtcNow, CultureInfo.InvariantCulture);
 
             var result = CreateItem(client, replyIdPartitionKey, replyDateTimeSortKey);
             

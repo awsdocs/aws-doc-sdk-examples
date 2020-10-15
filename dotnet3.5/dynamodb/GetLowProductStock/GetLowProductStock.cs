@@ -4,15 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace GetLowProductStock
 {
     public class GetLowProductStock
     {
@@ -97,7 +94,7 @@ namespace DynamoDBCRUD
                         }
                         else
                         {
-                            Console.WriteLine(attr + ": " + item[attr].N.ToString());
+                            Console.WriteLine(attr + ": " + item[attr].N);
                         }
                     }
                 }

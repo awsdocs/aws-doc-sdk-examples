@@ -3,12 +3,11 @@
 // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 
-namespace DynamoDBCRUD
+namespace HighLevelMappingArbitraryData
 {
     [DynamoDBTable("ProductCatalog")]
     public class Book
@@ -24,7 +23,7 @@ namespace DynamoDBCRUD
             get; set;
         }
         [DynamoDBProperty]
-        public string ISBN
+        public string Isbn
         {
             get; set;
         }
@@ -82,7 +81,7 @@ namespace DynamoDBCRUD
             if (primitive == null || !(primitive.Value is String) || string.IsNullOrEmpty((string)primitive.Value))
                 throw new ArgumentOutOfRangeException();
 
-            string[] data = ((string)(primitive.Value)).Split(new string[] { " x " }, StringSplitOptions.None);
+            string[] data = ((string)(primitive.Value)).Split(new[] { " x " }, StringSplitOptions.None);
             if (data.Length != 3) throw new ArgumentOutOfRangeException();
 
             DimensionType complexData = new DimensionType
@@ -110,7 +109,7 @@ namespace DynamoDBCRUD
             {
                 Id = 501,
                 Title = "AWS SDK for .NET Object Persistence Model Handling Arbitrary Data",
-                ISBN = "999-9999999999",
+                Isbn = "999-9999999999",
                 BookAuthors = new List<string> { "Author 1", "Author 2" },
                 Dimensions = myBookDimensions
             };

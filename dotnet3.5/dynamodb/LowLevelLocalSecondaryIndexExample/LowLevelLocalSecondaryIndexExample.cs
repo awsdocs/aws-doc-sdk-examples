@@ -4,11 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelLocalSecondaryIndexExample
 {
     public class LowLevelLocalSecondaryIndexExample
     {
@@ -23,8 +22,8 @@ namespace DynamoDBCRUD
                     ProvisionedThroughput =
                     new ProvisionedThroughput()
                     {
-                        ReadCapacityUnits = (long)1,
-                        WriteCapacityUnits = (long)1
+                        ReadCapacityUnits = 1,
+                        WriteCapacityUnits = 1
                     }
                 };
 
@@ -757,7 +756,7 @@ namespace DynamoDBCRUD
             }
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 

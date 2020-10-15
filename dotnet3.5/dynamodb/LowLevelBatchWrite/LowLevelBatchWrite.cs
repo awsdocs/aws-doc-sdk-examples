@@ -3,11 +3,10 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelBatchWrite]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelBatchWrite
 {
     public class LowLevelBatchWrite
     {
@@ -126,7 +125,7 @@ namespace DynamoDBCRUD
             Console.WriteLine("Total # of batch write API calls made: {0}", callCount);
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 

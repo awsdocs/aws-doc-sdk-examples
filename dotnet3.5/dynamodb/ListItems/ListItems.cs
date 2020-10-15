@@ -5,12 +5,11 @@ using System;
 using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace ListItems
 {
     public class ListItems
     {
@@ -24,7 +23,7 @@ namespace DynamoDBCRUD
             return response;
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var configfile = "app.config";
             var region = "";
@@ -92,7 +91,7 @@ namespace DynamoDBCRUD
                     }
                     else if (item[attr].N != null)
                     {
-                        output.Append(attr + ": " + item[attr].N.ToString() + ", ");
+                        output.Append(attr + ": " + item[attr].N + ", ");
                     }
                 }
 

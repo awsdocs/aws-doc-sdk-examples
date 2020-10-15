@@ -3,11 +3,10 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelBatchGet]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelBatchGet
 {
     public class LowLevelBatchGet
     {
@@ -132,7 +131,7 @@ namespace DynamoDBCRUD
             Console.WriteLine("************************************************");
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 

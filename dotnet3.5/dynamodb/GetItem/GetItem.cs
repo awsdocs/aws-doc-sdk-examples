@@ -5,12 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace GetItem
 {
     public class GetItem
     {
@@ -49,8 +48,6 @@ namespace DynamoDBCRUD
                     case "-i":
                         i++;
                         id = args[i];
-                        break;
-                    default:
                         break;
                 }
 
@@ -104,7 +101,7 @@ namespace DynamoDBCRUD
                     }
                     else if (item[attr].N != null)
                     {
-                        Console.WriteLine(attr + ": " + item[attr].N.ToString());
+                        Console.WriteLine(attr + ": " + item[attr].N);
                     }
                 }
 

@@ -12,26 +12,26 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD 
+namespace GetLowProductStockGSITest 
 {
-    public class GetLowProductStockGSITest
+    public class GetLowProductStockGsiTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
-        public GetLowProductStockGSITest(ITestOutputHelper output)
+        public GetLowProductStockGsiTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
         readonly string _index = "LowProduct";
         readonly string _minimum = "100";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.QueryAsync(
+            mockDynamoDbClient.Setup(client => client.QueryAsync(
                 It.IsAny<QueryRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<QueryRequest, CancellationToken>((request, token) =>
@@ -47,15 +47,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new QueryResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
-        public async Task CheckGetLowProductStockGSI()
+        public async Task CheckGetLowProductStockGsi()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await GetLowProductStockGSI.GetLowStockAsync(client, _tableName, _index, _minimum);
+            var result = await GetLowProductStockGSI.GetLowProductStockGsi.GetLowStockAsync(client, _tableName, _index, _minimum);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -63,7 +63,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT get info from table");
 
-            output.WriteLine("Got info from table");
+            _output.WriteLine("Got info from table");
         }
     }
 }

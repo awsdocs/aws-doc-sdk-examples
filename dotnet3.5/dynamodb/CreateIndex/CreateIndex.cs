@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace CreateIndex
 {
     public class CreateIndex
     {
@@ -145,13 +144,13 @@ namespace DynamoDBCRUD
         static void Main(string[] args)
         {
             var configfile = "app.config";
-            var region = "";
-            var table = "";
-            var indexname = "";
-            var mainkey = "";
-            var mainkeytype = "";
-            var secondarykey = "";
-            var secondarykeytype = "";
+            string region;
+            string table;
+            var indexName = "";
+            var mainKey = "";
+            var mainKeyType = "";
+            var secondaryKey = "";
+            var secondaryKeyType = "";
 
             int i = 0;
             while (i < args.Length)
@@ -160,25 +159,23 @@ namespace DynamoDBCRUD
                 {
                     case "-i":
                         i++;
-                        indexname = args[i];
+                        indexName = args[i];
                         break;
                     case "-m":
                         i++;
-                        mainkey = args[i];
+                        mainKey = args[i];
                         break;
                     case "-k":
                         i++;
-                        mainkeytype = args[i];
+                        mainKeyType = args[i];
                         break;
                     case "-s":
                         i++;
-                        secondarykey = args[i];
+                        secondaryKey = args[i];
                         break;
                     case "-t":
                         i++;
-                        secondarykeytype = args[i];
-                        break;
-                    default:
+                        secondaryKeyType = args[i];
                         break;
                 }
 
@@ -188,31 +185,31 @@ namespace DynamoDBCRUD
             bool empty = false;
             StringBuilder sb = new StringBuilder("You must supply a non-empty ");
 
-            if (indexname == "")
+            if (indexName == "")
             {
                 empty = true;
                 sb.Append("index name (-i INDEX), ");
             }
             
-            if (mainkey == "")
+            if (mainKey == "")
             {
                 empty = true;
                 sb.Append("mainkey (-m PARTITION-KEY), ");
             }
             
-            if (mainkeytype == "")
+            if (mainKeyType == "")
             {
                 empty = true;
                 sb.Append("main key type (-k TYPE), ");
             }
 
-            if (secondarykey == "")
+            if (secondaryKey == "")
             {
                 empty = true;
                 sb.Append("secondary key (-s SORT-KEY), ");
             }
             
-            if (secondarykeytype == "")
+            if (secondaryKeyType == "")
             {
                 empty = true;
                 sb.Append("secondary key type (-t TYPE), ");
@@ -224,13 +221,13 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            if ((mainkeytype != "string") && (mainkeytype != "number"))
+            if ((mainKeyType != "string") && (mainKeyType != "number"))
             {
                 Console.WriteLine("The main key type must be string or number");
                 return;
             }
 
-            if ((secondarykeytype != "string") && (secondarykeytype != "number"))
+            if ((secondaryKeyType != "string") && (secondaryKeyType != "number"))
             {
                 Console.WriteLine("The secondary key type must be string or number");
                 return;
@@ -265,7 +262,7 @@ namespace DynamoDBCRUD
            var newRegion = RegionEndpoint.GetBySystemName(region);
             IAmazonDynamoDB client = new AmazonDynamoDBClient(newRegion);
 
-            Task<UpdateTableResponse> response = AddIndexAsync(client, table, indexname, mainkey, mainkeytype, secondarykey, secondarykeytype);
+            Task<UpdateTableResponse> response = AddIndexAsync(client, table, indexName, mainKey, mainKeyType, secondaryKey, secondaryKeyType);
 
             Console.WriteLine("Task status:   " + response.Status);
             Console.WriteLine("Result status: " + response.Result.HttpStatusCode);

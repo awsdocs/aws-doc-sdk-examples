@@ -3,13 +3,13 @@
 // snippet-start:[dynamodb.dotnet35.CreateTablesLoadData]
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace CreateTablesLoadData
 {
     public class CreateTablesLoadData
     {
@@ -224,7 +224,7 @@ namespace DynamoDBCRUD
 
             Int32 sleepDuration = 1000; // One second
 
-            while (status != "ACTIVE")
+            while ((status != "ACTIVE") && (sleepDuration < 10000)) // Don't wait more than 10 seconds
             {
                 System.Threading.Thread.Sleep(sleepDuration);
 
@@ -232,6 +232,8 @@ namespace DynamoDBCRUD
                 {
                     TableName = tableName
                 });
+
+                status = resp.Table.TableStatus;
 
                 sleepDuration *= 2;
             }
@@ -249,7 +251,7 @@ namespace DynamoDBCRUD
 
             Int32 sleepDuration = 1000; // One second
 
-            while (status == "DELETING")
+            while ((status == "DELETING") && (sleepDuration < 10000))
             {
                 System.Threading.Thread.Sleep(sleepDuration);
 
@@ -257,6 +259,8 @@ namespace DynamoDBCRUD
                 {
                     TableName = tableName
                 });
+
+                status = resp.Table.TableStatus;
 
                 sleepDuration *= 2;
             }
@@ -281,12 +285,14 @@ namespace DynamoDBCRUD
 
             productCatalogTable.PutItemAsync(book1);
 
-            var book2 = new Document();
-
-            book2["Id"] = 102;
-            book2["Title"] = "Book 102 Title";
-            book2["ISBN"] = "222-2222222222";
-            book2["Authors"] = new List<string> { "Author 1", "Author 2" }; ;
+            var book2 = new Document
+            {
+                ["Id"] = 102,
+                ["Title"] = "Book 102 Title",
+                ["ISBN"] = "222-2222222222",
+                ["Authors"] = new List<string> { "Author 1", "Author 2" }
+            };
+            
             book2["Price"] = 20;
             book2["Dimensions"] = "8.5 x 11.0 x 0.8";
             book2["PageCount"] = 600;
@@ -299,7 +305,7 @@ namespace DynamoDBCRUD
             book3["Id"] = 103;
             book3["Title"] = "Book 103 Title";
             book3["ISBN"] = "333-3333333333";
-            book3["Authors"] = new List<string> { "Author 1", "Author2", "Author 3" }; ;
+            book3["Authors"] = new List<string> { "Author 1", "Author2", "Author 3" };
             book3["Price"] = 2000;
             book3["Dimensions"] = "8.5 x 11.0 x 1.5";
             book3["PageCount"] = 700;
@@ -451,38 +457,46 @@ namespace DynamoDBCRUD
             replyTable.PutItemAsync(thread1Reply1);
 
             // Reply 2 - thread 1.
-            var thread1reply2 = new Document();
-            thread1reply2["Id"] = "Amazon DynamoDB#DynamoDB Thread 1"; // Hash attribute.
-            thread1reply2["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0)); // Range attribute.
-            thread1reply2["Message"] = "DynamoDB Thread 1 Reply 2 text";
-            thread1reply2["PostedBy"] = "User B";
+            var thread1Reply2 = new Document
+            {
+                ["Id"] = "Amazon DynamoDB#DynamoDB Thread 1", // Hash attribute.
+                ["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(14, 0, 0, 0)), // Range attribute.
+                ["Message"] = "DynamoDB Thread 1 Reply 2 text",
+                ["PostedBy"] = "User B"
+            };
 
-            replyTable.PutItemAsync(thread1reply2);
+            replyTable.PutItemAsync(thread1Reply2);
 
             // Reply 3 - thread 1.
-            var thread1Reply3 = new Document();
-            thread1Reply3["Id"] = "Amazon DynamoDB#DynamoDB Thread 1"; // Hash attribute.
-            thread1Reply3["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(7, 0, 0, 0)); // Range attribute.
-            thread1Reply3["Message"] = "DynamoDB Thread 1 Reply 3 text";
-            thread1Reply3["PostedBy"] = "User B";
+            var thread1Reply3 = new Document
+            {
+                ["Id"] = "Amazon DynamoDB#DynamoDB Thread 1", // Hash attribute.
+                ["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(7, 0, 0, 0)), // Range attribute.
+                ["Message"] = "DynamoDB Thread 1 Reply 3 text",
+                ["PostedBy"] = "User B"
+            };
 
             replyTable.PutItemAsync(thread1Reply3);
 
             // Reply 1 - thread 2.
-            var thread2Reply1 = new Document();
-            thread2Reply1["Id"] = "Amazon DynamoDB#DynamoDB Thread 2"; // Hash attribute.
-            thread2Reply1["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(7, 0, 0, 0)); // Range attribute.
-            thread2Reply1["Message"] = "DynamoDB Thread 2 Reply 1 text";
-            thread2Reply1["PostedBy"] = "User A";
+            var thread2Reply1 = new Document
+            {
+                ["Id"] = "Amazon DynamoDB#DynamoDB Thread 2", // Hash attribute.
+                ["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(7, 0, 0, 0)), // Range attribute.
+                ["Message"] = "DynamoDB Thread 2 Reply 1 text",
+                ["PostedBy"] = "User A"
+            };
 
             replyTable.PutItemAsync(thread2Reply1);
 
             // Reply 2 - thread 2.
-            var thread2Reply2 = new Document();
-            thread2Reply2["Id"] = "Amazon DynamoDB#DynamoDB Thread 2"; // Hash attribute.
-            thread2Reply2["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(1, 0, 0, 0)); // Range attribute.
-            thread2Reply2["Message"] = "DynamoDB Thread 2 Reply 2 text";
-            thread2Reply2["PostedBy"] = "User A";
+            var thread2Reply2 = new Document
+            {
+                ["Id"] = "Amazon DynamoDB#DynamoDB Thread 2", // Hash attribute.
+                ["ReplyDateTime"] = DateTime.UtcNow.Subtract(new TimeSpan(1, 0, 0, 0)), // Range attribute.
+                ["Message"] = "DynamoDB Thread 2 Reply 2 text",
+                ["PostedBy"] = "User A"
+            };
 
             replyTable.PutItemAsync(thread2Reply2);
         }
@@ -494,35 +508,35 @@ namespace DynamoDBCRUD
             // Delete tables
 
             Console.WriteLine("Deleting ProductCatalog table");
-            var deleteTableResponse = DeleteTable(client, "ProductCatalog");
+            var deleteTable = DeleteTable(client, "ProductCatalog");
 
-            if (null == deleteTableResponse)
+            if (deleteTable.Result.HttpStatusCode != HttpStatusCode.OK)
             {
-                Console.WriteLine("ProductCatalog table did not exist");
+                Console.WriteLine("Could not delete ProductCatalog table");
             }
 
             Console.WriteLine("Deleting Forum table");
-            deleteTableResponse = DeleteTable(client, "Forum");
+            deleteTable = DeleteTable(client, "Forum");
 
-            if (null == deleteTableResponse)
+            if (deleteTable.Result.HttpStatusCode != HttpStatusCode.OK)
             {
-                Console.WriteLine("ProductCatalog table did not exist");
+                Console.WriteLine("Could not delete Forum table");
             }
 
             Console.WriteLine("Deleting Thread table");
-            deleteTableResponse = DeleteTable(client, "Thread");
+            deleteTable = DeleteTable(client, "Thread");
 
-            if (null == deleteTableResponse)
+            if (deleteTable.Result.HttpStatusCode != HttpStatusCode.OK)
             {
-                Console.WriteLine("Thread table did not exist");
+                Console.WriteLine("Could not delete Thread table");
             }
 
             Console.WriteLine("Deleting Reply table");
-            deleteTableResponse = DeleteTable(client, "Reply");
+            deleteTable = DeleteTable(client, "Reply");
 
-            if (null == deleteTableResponse)
+            if (deleteTable.Result.HttpStatusCode != HttpStatusCode.OK)
             {
-                Console.WriteLine("Reply table did not exist");
+                Console.WriteLine("Could not delete Reply table");
             }
 
             // Create tables

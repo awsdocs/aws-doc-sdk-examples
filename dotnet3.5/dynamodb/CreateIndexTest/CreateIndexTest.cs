@@ -1,26 +1,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
+
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-
 using Moq;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD 
+namespace CreateIndexTest 
 {
     public class CreateIndexTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public CreateIndexTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
@@ -30,11 +28,11 @@ namespace DynamoDBCRUD
         readonly string _sortKey = "Date";
         readonly string _sortKeyType = "number";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.UpdateTableAsync(
+            mockDynamoDbClient.Setup(client => client.UpdateTableAsync(
                 It.IsAny<UpdateTableRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<UpdateTableRequest, CancellationToken>((request, token) =>
@@ -44,15 +42,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new UpdateTableResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckCreateIndex()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await CreateIndex.AddIndexAsync(client, _tableName, _indexName, _partitionKey, _partitionKeyType, _sortKey, _sortKeyType);
+            var result = await CreateIndex.CreateIndex.AddIndexAsync(client, _tableName, _indexName, _partitionKey, _partitionKeyType, _sortKey, _sortKeyType);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -60,7 +58,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT create index");
 
-            output.WriteLine("Created index");
+            _output.WriteLine("Created index");
         }
     }
 }

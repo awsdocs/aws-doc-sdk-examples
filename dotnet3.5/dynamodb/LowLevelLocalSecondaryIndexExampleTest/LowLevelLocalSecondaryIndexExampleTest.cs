@@ -1,36 +1,34 @@
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace LowLevelLocalSecondaryIndexExampleTest
 {
     public class LowLevelLocalSecondaryIndexExampleTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public LowLevelLocalSecondaryIndexExampleTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private readonly string _endpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -43,7 +41,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -56,24 +54,24 @@ namespace DynamoDBCRUD
         [Fact]
         public void Test1()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = _endpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
-            LowLevelLocalSecondaryIndexExample.CreateTable(client);
-            LowLevelLocalSecondaryIndexExample.LoadData(client);
+            LowLevelLocalSecondaryIndexExample.LowLevelLocalSecondaryIndexExample.CreateTable(client);
+            LowLevelLocalSecondaryIndexExample.LowLevelLocalSecondaryIndexExample.LoadData(client);
 
-            LowLevelLocalSecondaryIndexExample.Query(client, null);
-            LowLevelLocalSecondaryIndexExample.Query(client, "IsOpenIndex");
-            LowLevelLocalSecondaryIndexExample.Query(client, "OrderCreationDateIndex");
+            LowLevelLocalSecondaryIndexExample.LowLevelLocalSecondaryIndexExample.Query(client, null);
+            LowLevelLocalSecondaryIndexExample.LowLevelLocalSecondaryIndexExample.Query(client, "IsOpenIndex");
+            LowLevelLocalSecondaryIndexExample.LowLevelLocalSecondaryIndexExample.Query(client, "OrderCreationDateIndex");
 
-            LowLevelLocalSecondaryIndexExample.DeleteTable(client);
+            LowLevelLocalSecondaryIndexExample.LowLevelLocalSecondaryIndexExample.DeleteTable(client);
         }
     }
 }

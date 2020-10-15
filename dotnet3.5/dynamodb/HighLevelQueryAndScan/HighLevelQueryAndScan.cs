@@ -3,12 +3,11 @@
 // snippet-start:[dynamodb.dotnet35.HighLevelQueryAndScan]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 
-namespace DynamoDBCRUD
+namespace HighLevelQueryAndScan
 {
     
     [DynamoDBTable("Reply")]
@@ -147,7 +146,7 @@ namespace DynamoDBCRUD
         {
             get; set;
         }
-        public string ISBN
+        public string Isbn
         {
             get; set;
         }
@@ -177,7 +176,7 @@ namespace DynamoDBCRUD
 
             Console.WriteLine("\nGetBook: Printing result.....");
             Console.WriteLine("Title: {0} \n No.Of threads:{1} \n No. of messages: {2}",
-                      bookItem.Title, bookItem.ISBN, bookItem.PageCount);
+                      bookItem.Title, bookItem.Isbn, bookItem.PageCount);
         }
 
         public static async void FindRepliesInLast15Days(IDynamoDBContext context,
@@ -247,18 +246,14 @@ namespace DynamoDBCRUD
             scs.Add(sc1);
             scs.Add(sc2);
 
-            var cfg = new DynamoDBOperationConfig
-            {
-                QueryFilter = scs
-            };
-
             AsyncSearch<Book> response = context.ScanAsync<Book>(scs);
 
             IEnumerable<Book> itemsWithWrongPrice = await response.GetRemainingAsync();
                 
             Console.WriteLine("\nFindProductsPricedLessThanZero: Printing result.....");
+
             foreach (Book r in itemsWithWrongPrice)
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}", r.Id, r.Title, r.Price, r.ISBN);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}", r.Id, r.Title, r.Price, r.Isbn);
         }
 
         static void Main(string[] args)

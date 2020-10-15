@@ -1,33 +1,31 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
+
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-
 using Moq;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD 
+namespace ListTablesTest 
 {
     public class ListTablesTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public ListTablesTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.ListTablesAsync(
+            mockDynamoDbClient.Setup(client => client.ListTablesAsync(
                 It.IsAny<ListTablesRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<ListTablesRequest, CancellationToken>((request, token) =>
@@ -37,15 +35,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new ListTablesResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckListTables()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await ListTables.ShowTablesAsync(client);
+            var result = await ListTables.ListTables.ShowTablesAsync(client);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -53,7 +51,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT get tables ");
 
-            output.WriteLine("Got tables");
+            _output.WriteLine("Got tables");
         }
     }
 }

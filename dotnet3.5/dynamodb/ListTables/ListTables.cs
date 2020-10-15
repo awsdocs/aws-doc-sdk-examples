@@ -4,23 +4,22 @@
 using System;
 using System.Configuration;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace ListTables
 {
     public class ListTables
     {
         public static async Task<ListTablesResponse> ShowTablesAsync(IAmazonDynamoDB client)
         {
-            var response = await client.ListTablesAsync(new ListTablesRequest { });
+            var response = await client.ListTablesAsync(new ListTablesRequest());
 
             return response;
         }
 
-        static void Main(string[] args)
+        static void Main()
         {            
             var region = "";
             var configfile = "app.config";

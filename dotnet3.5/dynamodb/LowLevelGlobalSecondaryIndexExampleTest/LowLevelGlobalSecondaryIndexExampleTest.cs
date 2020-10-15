@@ -1,36 +1,34 @@
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace LowLevelGlobalSecondaryIndexExampleTest
 {
     public class LowLevelGlobalSecondaryIndexExampleTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public LowLevelGlobalSecondaryIndexExampleTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private readonly string _endpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -43,7 +41,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -56,18 +54,18 @@ namespace DynamoDBCRUD
         [Fact]
         public async void CheckLowLevelGlobalSecondaryIndexExampleTest()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = _endpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
-            output.WriteLine("Creating table");
-            var result = await LowLevelGlobalSecondaryIndexExample.CreateTable(client);
+            _output.WriteLine("Creating table");
+            var result = await LowLevelGlobalSecondaryIndexExample.LowLevelGlobalSecondaryIndexExample.CreateTable(client);
 
             if (!result)
             {
@@ -75,8 +73,8 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            output.WriteLine("Loading data into table");
-            result = await LowLevelGlobalSecondaryIndexExample.LoadData(client);
+            _output.WriteLine("Loading data into table");
+            result = await LowLevelGlobalSecondaryIndexExample.LowLevelGlobalSecondaryIndexExample.LoadData(client);
 
             if (!result)
             {
@@ -84,24 +82,24 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            output.WriteLine("Creating date index");
-            result = await LowLevelGlobalSecondaryIndexExample.QueryIndex(client, "CreateDateIndex");
+            _output.WriteLine("Creating date index");
+            result = await LowLevelGlobalSecondaryIndexExample.LowLevelGlobalSecondaryIndexExample.QueryIndex(client, "CreateDateIndex");
 
             if (!result)
             {
                 Console.WriteLine("Could not create date index");
                 return;
             }
-            output.WriteLine("Creating title index");
-            result = await LowLevelGlobalSecondaryIndexExample.QueryIndex(client, "TitleIndex");
+            _output.WriteLine("Creating title index");
+            result = await LowLevelGlobalSecondaryIndexExample.LowLevelGlobalSecondaryIndexExample.QueryIndex(client, "TitleIndex");
 
             if (!result)
             {
                 Console.WriteLine("Could not create title index");
                 return;
             }
-            output.WriteLine("Creating due date index");
-            result = await LowLevelGlobalSecondaryIndexExample.QueryIndex(client, "DueDateIndex");
+            _output.WriteLine("Creating due date index");
+            result = await LowLevelGlobalSecondaryIndexExample.LowLevelGlobalSecondaryIndexExample.QueryIndex(client, "DueDateIndex");
 
             if (!result)
             {
@@ -109,8 +107,8 @@ namespace DynamoDBCRUD
                 return;
             }
 
-            output.WriteLine("Deleting table");
-            result = await LowLevelGlobalSecondaryIndexExample.DeleteTable(client);
+            _output.WriteLine("Deleting table");
+            result = await LowLevelGlobalSecondaryIndexExample.LowLevelGlobalSecondaryIndexExample.DeleteTable(client);
 
             if (!result)
             {

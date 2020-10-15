@@ -12,25 +12,25 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace GetLowProductStockTest
 {
     public class GetLowProductStockTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public GetLowProductStockTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";        
         readonly string _minimum = "100";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.ScanAsync(
+            mockDynamoDbClient.Setup(client => client.ScanAsync(
                 It.IsAny<ScanRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<ScanRequest, CancellationToken>((request, token) =>
@@ -46,15 +46,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new ScanResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckGetLowProductStock()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await GetLowProductStock.GetLowStockAsync(client, _tableName, _minimum);
+            var result = await GetLowProductStock.GetLowProductStock.GetLowStockAsync(client, _tableName, _minimum);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get results from scanning table");
@@ -62,7 +62,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT get items from scanning table");
 
-            output.WriteLine("Got items from table");
+            _output.WriteLine("Got items from table");
         }
     }
 }

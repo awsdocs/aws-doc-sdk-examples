@@ -3,11 +3,10 @@
 // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItem]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 
-namespace DynamoDBCRUD
+namespace HighLevelBatchWriteItem
 {
     [DynamoDBTable("Reply")]
     public class Reply
@@ -145,7 +144,7 @@ namespace DynamoDBCRUD
         {
             get; set;
         }
-        public string ISBN
+        public string Isbn
         {
             get; set;
         }
@@ -175,7 +174,7 @@ namespace DynamoDBCRUD
             {
                 Id = 902,
                 InPublication = true,
-                ISBN = "902-11-11-1111",
+                Isbn = "902-11-11-1111",
                 PageCount = "100",
                 Price = 10,
                 ProductCategory = "Book",
@@ -185,7 +184,7 @@ namespace DynamoDBCRUD
             {
                 Id = 903,
                 InPublication = true,
-                ISBN = "903-11-11-1111",
+                Isbn = "903-11-11-1111",
                 PageCount = "200",
                 Price = 10,
                 ProductCategory = "Book",

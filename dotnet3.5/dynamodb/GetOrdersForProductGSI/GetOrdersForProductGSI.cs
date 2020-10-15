@@ -4,17 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace GetOrdersForProductGSI
 {
-    public class GetOrdersForProductGSI
+    public class GetOrdersForProductGsi
     {
         // Get the orders for product with ID productId
         // DynamoDB equivalent of:
@@ -117,7 +114,7 @@ namespace DynamoDBCRUD
                         }
                         else
                         {
-                            Console.WriteLine(attr + ": " + item[attr].N.ToString());
+                            Console.WriteLine(attr + ": " + item[attr].N);
                         }
                     }
                 }

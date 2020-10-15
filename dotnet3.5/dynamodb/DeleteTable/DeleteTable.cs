@@ -9,7 +9,7 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace DeleteTable
 {
     public class DeleteTable
     {
@@ -23,7 +23,7 @@ namespace DynamoDBCRUD
             return response;
         }
                 
-        static void Main(string[] args)
+        static void Main()
         {
             var configfile = "app.config";
             var region = "";

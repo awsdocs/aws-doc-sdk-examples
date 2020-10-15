@@ -9,7 +9,7 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 
-namespace DynamoDBCRUD
+namespace UpdateItemDataModel
 {
     // If you change the table name elsewhere
     // (as in an app.config in another project),
@@ -18,7 +18,7 @@ namespace DynamoDBCRUD
     public class Entry
     {
         [DynamoDBHashKey] // The partition key for the table.
-        public string ID
+        public string Id
         {
             get; set;
         }
@@ -28,27 +28,27 @@ namespace DynamoDBCRUD
             get; set;
         }
         [DynamoDBProperty]
-        public int Order_ID
+        public int OrderId
         {
             get; set;
         }
         [DynamoDBProperty]
-        public int Order_Customer
+        public int OrderCustomer
         {
             get; set;
         }
         [DynamoDBProperty]
-        public int Order_Product
+        public int OrderProduct
         {
             get; set;
         }
         [DynamoDBProperty]
-        public long Order_Date
+        public long OrderDate
         {
             get; set;
         }
         [DynamoDBProperty]
-        public string Order_Status
+        public string OrderStatus
         {
             get; set;
         }
@@ -74,15 +74,14 @@ namespace DynamoDBCRUD
             }
 
             // Update the status of the order.
-            orderRetrieved.Order_Status = status;
+            orderRetrieved.OrderStatus = status;
             await context.SaveAsync(orderRetrieved);
 
             // Retrieve the updated item.
             Entry updatedOrder = await context.LoadAsync<Entry>(id, "Order", new DynamoDBOperationConfig
             {
                 ConsistentRead = true,
-            },
-            new System.Threading.CancellationToken());
+            });
 
             return updatedOrder;
         }
@@ -132,8 +131,6 @@ namespace DynamoDBCRUD
                         i++;
                         status = args[i];
                         break;
-                    default:
-                        break;
                 }
 
                 i++;
@@ -152,7 +149,7 @@ namespace DynamoDBCRUD
             var response = UpdateTableItemAsync(context, id, status);
 
             // Update the status regardless of whether id identifies an order.
-            if (response.Result.Order_Status == status)
+            if (response.Result.OrderStatus == status)
             {
                 Console.WriteLine("Successfully updated the order's status.");
             }

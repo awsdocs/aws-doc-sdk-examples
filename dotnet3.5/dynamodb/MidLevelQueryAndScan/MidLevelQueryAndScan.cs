@@ -8,7 +8,7 @@ using System.Linq;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 
-namespace DynamoDBCRUD
+namespace MidLevelQueryAndScan
 {
     public class MidLevelQueryAndScan
     {
@@ -28,8 +28,6 @@ namespace DynamoDBCRUD
 
         public static async void FindRepliesInLast15Days(Table table, string forumName, string threadSubject)
         {
-            string Attribute = forumName + "#" + threadSubject;
-
             DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
             QueryFilter filter = new QueryFilter("Id", QueryOperator.Equal, "Id");
             filter.AddCondition("ReplyDateTime", QueryOperator.GreaterThan, twoWeeksAgoDate);
@@ -37,13 +35,14 @@ namespace DynamoDBCRUD
             // Use Query overloads that takes the minimum required query parameters.
             Search search = table.Query(filter);
 
-            List<Document> documentSet = new List<Document>();
             do
             {
-                documentSet = await search.GetNextSetAsync();
+                var documentSet = await search.GetNextSetAsync();
                 Console.WriteLine("\nFindRepliesInLast15Days: printing ............");
+
                 foreach (var document in documentSet)
                     PrintDocument(document);
+
             } while (!search.IsDone);
         }
 
@@ -68,16 +67,16 @@ namespace DynamoDBCRUD
 
             Search search = table.Query(config);
 
-            List<Document> documentList = new List<Document>();
-
             do
             {
-                documentList = await search.GetNextSetAsync();
+                var documentList = await search.GetNextSetAsync();
                 Console.WriteLine("\nFindRepliesPostedWithinTimePeriod: printing replies posted within dates: {0} and {1} ............", startDate, endDate);
+                
                 foreach (var document in documentList)
                 {
                     PrintDocument(document);
                 }
+
             } while (!search.IsDone);
         }
 
@@ -86,7 +85,7 @@ namespace DynamoDBCRUD
             DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
             QueryFilter filter = new QueryFilter("Id", QueryOperator.Equal, forumName + "#" + threadName);
             filter.AddCondition("ReplyDateTime", QueryOperator.GreaterThan, twoWeeksAgoDate);
-            // You are specifying optional parameters so use QueryOperationConfig.
+            
             QueryOperationConfig config = new QueryOperationConfig()
             {
                 Filter = filter,
@@ -99,13 +98,14 @@ namespace DynamoDBCRUD
 
             Search search = table.Query(config);
 
-            List<Document> documentSet = new List<Document>();
             do
             {
-                documentSet = await search.GetNextSetAsync();
+                var documentSet = await search.GetNextSetAsync();
                 Console.WriteLine("\nFindRepliesInLast15DaysWithConfig: printing ............");
+
                 foreach (var document in documentSet)
                     PrintDocument(document);
+
             } while (!search.IsDone);
         }
 
@@ -117,12 +117,14 @@ namespace DynamoDBCRUD
             {
                 string stringValue = null;
                 var value = document[attribute];
+
                 if (value is Primitive)
                     stringValue = value.AsPrimitive().Value.ToString();
                 else if (value is PrimitiveList)
                     stringValue = string.Join(",", (from primitive
                                     in value.AsPrimitiveList().Entries
                                                     select primitive.Value).ToArray());
+
                 Console.WriteLine("{0} - {1}", attribute, stringValue);
             }
         }

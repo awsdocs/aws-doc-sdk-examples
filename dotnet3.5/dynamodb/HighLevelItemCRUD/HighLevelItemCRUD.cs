@@ -3,11 +3,10 @@
 // snippet-start:[dynamodb.dotnet35.HighLevelItemCRUD]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 
-namespace DynamoDBCRUD
+namespace HighLevelItemCRUD
 {
     [DynamoDBTable("ProductCatalog")]
     public class Book
@@ -23,7 +22,7 @@ namespace DynamoDBCRUD
             get; set;
         }
         [DynamoDBProperty]
-        public string ISBN
+        public string Isbn
         {
             get; set;
         }
@@ -34,40 +33,40 @@ namespace DynamoDBCRUD
         }
     }
 
-    public class HighLevelItemCRUD
+    public class HighLevelItemCrud
     {
-        public static async void TestCRUDOperations(IDynamoDBContext context)
+        public static async void TestCrudOperations(IDynamoDBContext context)
         {
-            int bookID = 1001; // Some unique value.
+            int bookId = 1001; // Some unique value.
             Book myBook = new Book
             {
-                Id = bookID,
+                Id = bookId,
                 Title = "object persistence-AWS SDK for.NET SDK-Book 1001",
-                ISBN = "111-1111111001",
+                Isbn = "111-1111111001",
                 BookAuthors = new List<string> { "Author 1", "Author 2" },
             };
 
             // Save the book.
             await context.SaveAsync(myBook);
             // Retrieve the book.
-            Book bookRetrieved = await context.LoadAsync<Book>(bookID);
+            Book bookRetrieved = await context.LoadAsync<Book>(bookId);
 
             // Update few properties.
-            bookRetrieved.ISBN = "222-2222221001";
+            bookRetrieved.Isbn = "222-2222221001";
             bookRetrieved.BookAuthors = new List<string> { " Author 1", "Author x" }; // Replace existing authors list with this.
             await context.SaveAsync(bookRetrieved);
 
             // Retrieve the updated book. This time add the optional ConsistentRead parameter using DynamoDBContextConfig object.
-            Book updatedBook = await context.LoadAsync<Book>(bookID, new DynamoDBContextConfig
+            await context.LoadAsync<Book>(bookId, new DynamoDBContextConfig
             {
                 ConsistentRead = true
             });
 
             // Delete the book.
-            await context.DeleteAsync<Book>(bookID);
+            await context.DeleteAsync<Book>(bookId);
 
             // Try to retrieve deleted book. It should return null.
-            Book deletedBook = await context.LoadAsync<Book>(bookID, new DynamoDBContextConfig
+            Book deletedBook = await context.LoadAsync<Book>(bookId, new DynamoDBContextConfig
             {
                 ConsistentRead = true
             });
@@ -77,11 +76,11 @@ namespace DynamoDBCRUD
                 Console.WriteLine("Book is deleted");
             }
         }
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
             DynamoDBContext context = new DynamoDBContext(client);
-            TestCRUDOperations(context);
+            TestCrudOperations(context);
         }
     }
 }

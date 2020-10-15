@@ -12,26 +12,26 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD 
+namespace DeleteItemsTest 
 {
     public class DeleteItemsTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public DeleteItemsTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
         readonly string _ids = "1 2 3";
         readonly string _area = "test";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.BatchWriteItemAsync(
+            mockDynamoDbClient.Setup(client => client.BatchWriteItemAsync(
                 It.IsAny<BatchWriteItemRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<BatchWriteItemRequest, CancellationToken>((request, token) =>
@@ -41,15 +41,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new BatchWriteItemResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckDeleteItems()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await DeleteItems.RemoveItemsAsync(client, _tableName, _ids, _area);
+            var result = await DeleteItems.DeleteItems.RemoveItemsAsync(client, _tableName, _ids, _area);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -57,7 +57,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT delete items");
 
-            output.WriteLine("Deleted items");
+            _output.WriteLine("Deleted items");
         }
     }
 }

@@ -10,29 +10,29 @@ using Amazon.DynamoDBv2.DataModel;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace HighLevelItemCRUDTest
 {
-    public class HighLevelItemCRUDTest
+    public class HighLevelItemCrudTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
-        public HighLevelItemCRUDTest(ITestOutputHelper output)
+        public HighLevelItemCrudTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private static readonly string EndpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -45,7 +45,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -56,31 +56,31 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async void CheckHighLevelItemCRUD()
+        public async void CheckHighLevelItemCrud()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = EndpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
-            var context = CreateMockDynamoDBContext(client);
+            var context = CreateMockDynamoDbContext(client);
 
             // Create ProductCatalog table
-            output.WriteLine("Creating ProductCatalog table");
-            await CreateTablesLoadData.CreateTableProductCatalog(client);
+            _output.WriteLine("Creating ProductCatalog table");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableProductCatalog(client);
 
-            output.WriteLine("Adding and deleting a book to/from ProductCatalog table");
-            HighLevelItemCRUD.TestCRUDOperations(context);
+            _output.WriteLine("Adding and deleting a book to/from ProductCatalog table");
+            HighLevelItemCRUD.HighLevelItemCrud.TestCrudOperations(context);
 
             // Delete ProductCatalog table
-            output.WriteLine("Deleting ProductCatalog table");
-            await CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
+            _output.WriteLine("Deleting ProductCatalog table");
+            await CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
 
-            output.WriteLine("Done");
+            _output.WriteLine("Done");
         }
     }
 }

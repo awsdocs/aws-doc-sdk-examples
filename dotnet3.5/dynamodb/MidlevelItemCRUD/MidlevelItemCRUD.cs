@@ -4,16 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 
-namespace DynamoDBCRUD
+namespace MidlevelItemCRUD
 {
-    public class MidlevelItemCRUD
+    public class MidlevelItemCrud
     {
-        public static string _tableName = "ProductCatalog";
-        public static int _sampleBookId = 555;
+        public static string TableName = "ProductCatalog";
+        public static int SampleBookId = 555;
 
         public static Table LoadTable(AmazonDynamoDBClient client, string tableName)
         {
@@ -26,8 +25,8 @@ namespace DynamoDBCRUD
         {
             Console.WriteLine("\n*** Executing CreateBookItem() ***");
             var book = new Document();
-            book["Id"] = _sampleBookId;
-            book["Title"] = "Book " + _sampleBookId;
+            book["Id"] = SampleBookId;
+            book["Title"] = "Book " + SampleBookId;
             book["Price"] = 19.99;
             book["ISBN"] = "111-1111111111";
             book["Authors"] = new List<string> { "Author 1", "Author 2", "Author 3" };
@@ -49,7 +48,7 @@ namespace DynamoDBCRUD
                 AttributesToGet = new List<string> { "Id", "ISBN", "Title", "Authors", "Price" },
                 ConsistentRead = true
             };
-            Document document = await productCatalog.GetItemAsync(_sampleBookId, config);
+            Document document = await productCatalog.GetItemAsync(SampleBookId, config);
             Console.WriteLine("RetrieveBook: Printing book retrieved...");
             PrintDocument(client, document);
         }
@@ -58,7 +57,7 @@ namespace DynamoDBCRUD
         {
             Console.WriteLine("\n*** Executing UpdateMultipleAttributes() ***");
             Console.WriteLine("\nUpdating multiple attributes....");
-            int partitionKey = _sampleBookId;
+            int partitionKey = SampleBookId;
 
             var book = new Document();
             book["Id"] = partitionKey;
@@ -83,7 +82,7 @@ namespace DynamoDBCRUD
         {
             Console.WriteLine("\n*** Executing UpdateBookPriceConditionally() ***");
 
-            int partitionKey = _sampleBookId;
+            int partitionKey = SampleBookId;
 
             var book = new Document();
             book["Id"] = partitionKey;
@@ -114,7 +113,7 @@ namespace DynamoDBCRUD
                 // Return the deleted item.
                 ReturnValues = ReturnValues.AllOldAttributes
             };
-            Document document = await productCatalog.DeleteItemAsync(_sampleBookId, config);
+            Document document = await productCatalog.DeleteItemAsync(SampleBookId, config);
             Console.WriteLine("DeleteBook: Printing deleted just deleted...");
 
             PrintDocument(client, document);
@@ -155,7 +154,7 @@ namespace DynamoDBCRUD
         static void Main()
         {
             var client = new AmazonDynamoDBClient();
-            var productCatalog = LoadTable(client, _tableName);
+            var productCatalog = LoadTable(client, TableName);
         
             CreateBookItem(client, productCatalog);
             RetrieveBook(client, productCatalog);

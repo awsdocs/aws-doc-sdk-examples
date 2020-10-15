@@ -6,13 +6,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace AddItem
 {
     public class AddItem
     {
@@ -51,9 +49,9 @@ namespace DynamoDBCRUD
                 {
                     // The datetime format is:
                     // YYYY-MM-DD HH:MM:SS
-                    DateTime MyDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                    DateTime myDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
-                    TimeSpan timeSpan = MyDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+                    TimeSpan timeSpan = myDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
 
                     item.Add(keys[i], new AttributeValue { N = ((long)timeSpan.TotalSeconds).ToString() });
                 }
@@ -89,8 +87,6 @@ namespace DynamoDBCRUD
         static void Main(string[] args)
         {
             var configfile = "app.config";
-            var region = "";
-            var table = "";
             var id = "";
             var keys = "";
             var values = "";
@@ -103,6 +99,8 @@ namespace DynamoDBCRUD
 
             Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(efm, ConfigurationUserLevel.None);
 
+            string region;
+            string table;
             if (configuration.HasFile)
             {
                 AppSettingsSection appSettings = configuration.AppSettings;
@@ -137,8 +135,6 @@ namespace DynamoDBCRUD
                     case "-v":
                         i++;
                         values = args[i];
-                        break;
-                    default:
                         break;
                 }
 

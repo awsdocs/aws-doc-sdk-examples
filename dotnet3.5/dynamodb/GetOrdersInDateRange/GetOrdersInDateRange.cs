@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace GetOrdersInDateRange
 {
     public class GetOrdersInDateRange
     {
@@ -22,11 +21,11 @@ namespace DynamoDBCRUD
         public static async Task<ScanResponse> GetOrdersInDateRangeAsync(IAmazonDynamoDB client, string table, string start, string end)
         {
             // Convert start and end strings to longs
-            var StartDateTime = DateTime.ParseExact(start, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-            var EndDateTime = DateTime.ParseExact(end, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            var startDateTime = DateTime.ParseExact(start, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            var endDateTime = DateTime.ParseExact(end, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
-            TimeSpan startTimeSpan = StartDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
-            TimeSpan endTimeSpan = EndDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+            TimeSpan startTimeSpan = startDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
+            TimeSpan endTimeSpan = endDateTime - new DateTime(1970, 1, 1, 0, 0, 0);
 
             var begin = (long)startTimeSpan.TotalSeconds;
             var finish = (long)endTimeSpan.TotalSeconds;
@@ -110,7 +109,7 @@ namespace DynamoDBCRUD
                         }
                         else
                         {
-                            Console.WriteLine(attr + ": " + item[attr].N.ToString());
+                            Console.WriteLine(attr + ": " + item[attr].N);
                         }
                     }
                 }

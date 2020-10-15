@@ -1,38 +1,29 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
-
 using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace CreateTablesLoadDataTest
 {
     public class CreateTablesLoadDataTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public CreateTablesLoadDataTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
-
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
-        {
-            var mockDynamoDBContext = new DynamoDBContext(client);
-
-            return mockDynamoDBContext;
-        }
-
-        private bool IsPortInUse(int port)
+        private const string _ip = "localhost";
+        private static readonly int _port = 8000;
+        private static readonly string EndpointUrl = "http://" + _ip + ":" + _port;
+        
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -45,7 +36,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -58,28 +49,28 @@ namespace DynamoDBCRUD
         [Fact]
         public async void CheckCreateTablesLoadData()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if(portUsed)            
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
             
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = EndpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
             // Create, load, and delete a table
-            await CreateTablesLoadData.CreateTableForum(client);
-            output.WriteLine("Waiting for Forum table to be created");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableForum(client);
+            _output.WriteLine("Waiting for Forum table to be created");
 
             //await CreateTablesLoadData.WaitTillTableCreated(client, "Forum", createResult.Result);
-            output.WriteLine("Created Forum table");
+            _output.WriteLine("Created Forum table");
 
-            CreateTablesLoadData.LoadSampleForums(client);
-            output.WriteLine("Loaded data into Forum table");
+            CreateTablesLoadData.CreateTablesLoadData.LoadSampleForums(client);
+            _output.WriteLine("Loaded data into Forum table");
 
-            var deleteResult = CreateTablesLoadData.DeleteTable(client, "Forum");
-            output.WriteLine("Deleted Forum table");
+            _ = CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "Forum");
+            _output.WriteLine("Deleted Forum table");
         }
     }
 }

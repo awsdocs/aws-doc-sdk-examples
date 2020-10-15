@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
+
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,26 +13,26 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD 
+namespace DeleteItemTest 
 {
     public class DeleteItemTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public DeleteItemTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
         readonly string _id = "1";
         readonly string _area = "test";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.DeleteItemAsync(
+            mockDynamoDbClient.Setup(client => client.DeleteItemAsync(
                 It.IsAny<DeleteItemRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<DeleteItemRequest, CancellationToken>((request, token) =>
@@ -41,15 +42,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new DeleteItemResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckDeleteItem()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await DeleteItem.RemoveItemAsync(client, _tableName, _id, _area);
+            var result = await DeleteItem.DeleteItem.RemoveItemAsync(client, _tableName, _id, _area);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -57,7 +58,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT delete item");
 
-            output.WriteLine("Deleted item");
+            _output.WriteLine("Deleted item");
         }
     }
 }

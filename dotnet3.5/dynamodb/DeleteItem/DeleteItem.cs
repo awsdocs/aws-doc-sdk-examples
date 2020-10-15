@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
-
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace DeleteItem
 {
     public class DeleteItem
     {
@@ -85,8 +84,6 @@ namespace DynamoDBCRUD
                     case "-s":
                         i++;
                         sort = args[i];
-                        break;
-                    default:
                         break;
                 }
 

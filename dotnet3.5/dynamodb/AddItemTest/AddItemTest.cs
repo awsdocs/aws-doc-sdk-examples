@@ -1,26 +1,24 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
+
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-
 using Moq;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace AddItemTest
 {
     public class AddItemTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public AddItemTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
@@ -28,11 +26,11 @@ namespace DynamoDBCRUD
         readonly string _keys = "Area,Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status";
         readonly string _values = "Order,1,1,6,2020-07-04 12:00:00,pending";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.PutItemAsync(
+            mockDynamoDbClient.Setup(client => client.PutItemAsync(
                 It.IsAny<PutItemRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<PutItemRequest, CancellationToken>((request, token) =>
@@ -42,19 +40,19 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new PutItemResponse { HttpStatusCode = HttpStatusCode.OK  });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckAddItem()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await AddItem.AddItemAsync(client, _tableName, _id, _keys, _values);
+            var result = await AddItem.AddItem.AddItemAsync(client, _tableName, _id, _keys, _values);
                                     
             Assert.True(result, "Could NOT delete items");
 
-            output.WriteLine("Deleted items");
+            _output.WriteLine("Deleted items");
         }
     }
 }

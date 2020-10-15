@@ -3,23 +3,22 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelQuery]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Util;
 
-namespace DynamoDBCRUD
+namespace LowLevelQuery
 {
     public class LowLevelQuery
     {
         // Query a specific forum and thread.
-        private static readonly string _forumName = "Amazon DynamoDB";
-        private static readonly string _threadSubject = "DynamoDB Thread 1";
+        private static readonly string ForumName = "Amazon DynamoDB";
+        private static readonly string ThreadSubject = "DynamoDB Thread 1";
 
         public static async void FindRepliesPostedWithinTimePeriod(AmazonDynamoDBClient client)
         {
             Console.WriteLine("*** Executing FindRepliesPostedWithinTimePeriod() ***");
-            string replyId = _forumName + "#" + _threadSubject;
+            string replyId = ForumName + "#" + ThreadSubject;
             // You must provide date value based on your test data.
             DateTime startDate = DateTime.UtcNow - TimeSpan.FromDays(21);
             string start = startDate.ToString(AWSSDKUtils.ISO8601DateFormat);
@@ -62,7 +61,7 @@ namespace DynamoDBCRUD
         public static async void FindRepliesInLast15DaysWithConfig(AmazonDynamoDBClient client)
         {
             Console.WriteLine("*** Executing FindRepliesInLast15DaysWithConfig() ***");
-            string replyId = _forumName + "#" + _threadSubject;
+            string replyId = ForumName + "#" + ThreadSubject;
 
             DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
             string twoWeeksAgoString =
@@ -104,7 +103,7 @@ namespace DynamoDBCRUD
         public static async void FindRepliesForAThreadSpecifyOptionalLimit(AmazonDynamoDBClient client)
         {
             Console.WriteLine("*** Executing FindRepliesForAThreadSpecifyOptionalLimit() ***");
-            string replyId = _forumName + "#" + _threadSubject;
+            string replyId = ForumName + "#" + ThreadSubject;
 
             Dictionary<string, AttributeValue> lastKeyEvaluated = null;
             do
@@ -144,7 +143,7 @@ namespace DynamoDBCRUD
         public static async void FindRepliesForAThread(AmazonDynamoDBClient client)
         {
             Console.WriteLine("*** Executing FindRepliesForAThread() ***");
-            string replyId = _forumName + "#" + _threadSubject;
+            string replyId = ForumName + "#" + ThreadSubject;
 
             var request = new QueryRequest
             {
@@ -188,7 +187,7 @@ namespace DynamoDBCRUD
             Console.WriteLine("************************************************");
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 

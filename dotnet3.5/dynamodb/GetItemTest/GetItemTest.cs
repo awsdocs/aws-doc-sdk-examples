@@ -12,25 +12,25 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace GetItemTest
 {
     public class GetItemTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public GetItemTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         readonly string _tableName = "testtable";
         readonly string _id = "25";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.QueryAsync(
+            mockDynamoDbClient.Setup(client => client.QueryAsync(
                 It.IsAny<QueryRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<QueryRequest, CancellationToken>((request, token) =>
@@ -46,15 +46,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new QueryResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckGetItem()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
 
-            var result = await GetItem.GetItemAsync(client, _tableName, _id);
+            var result = await GetItem.GetItem.GetItemAsync(client, _tableName, _id);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result from querying table " + _tableName);
@@ -62,7 +62,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT get item # " + _id + " from table " + _tableName);
 
-            output.WriteLine("Got item from table");
+            _output.WriteLine("Got item from table");
         }
     }
 }

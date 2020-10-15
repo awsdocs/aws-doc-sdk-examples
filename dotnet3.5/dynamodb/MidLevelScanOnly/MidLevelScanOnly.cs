@@ -8,7 +8,7 @@ using System.Linq;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 
-namespace DynamoDBCRUD
+namespace MidLevelScanOnly
 {
     public class MidLevelScanOnly
     {
@@ -20,13 +20,14 @@ namespace DynamoDBCRUD
 
             Search search = productCatalogTable.Scan(scanFilter);
 
-            List<Document> documentList = new List<Document>();
             do
             {
-                documentList = await search.GetNextSetAsync();
+                var documentList = await search.GetNextSetAsync();
                 Console.WriteLine("\nFindProductsWithNegativePrice: printing ............");
+
                 foreach (var document in documentList)
                     PrintDocument(document);
+
             } while (!search.IsDone);
         }
 
@@ -45,13 +46,14 @@ namespace DynamoDBCRUD
 
             Search search = productCatalogTable.Scan(config);
 
-            List<Document> documentList = new List<Document>();
             do
             {
-                documentList = await search.GetNextSetAsync();
+                var documentList = await search.GetNextSetAsync();
                 Console.WriteLine("\nFindProductsWithNegativePriceWithConfig: printing ............");
+
                 foreach (var document in documentList)
                     PrintDocument(document);
+
             } while (!search.IsDone);
         }
 
@@ -72,12 +74,12 @@ namespace DynamoDBCRUD
                 Console.WriteLine("{0} - {1}", attribute, stringValue);
             }
         }
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 
             Table productCatalogTable = Table.LoadTable(client, "ProductCatalog");
-            // Scan example.
+            
             FindProductsWithNegativePrice(client, productCatalogTable);
             FindProductsWithNegativePriceWithConfig(client, productCatalogTable);
         }

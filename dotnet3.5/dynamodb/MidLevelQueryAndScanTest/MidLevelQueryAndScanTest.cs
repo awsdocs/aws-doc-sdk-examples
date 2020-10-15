@@ -11,29 +11,29 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace MidLevelQueryAndScanTest
 {
     public class MidLevelQueryAndScanTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public MidLevelQueryAndScanTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private readonly string _endpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -46,7 +46,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -59,42 +59,42 @@ namespace DynamoDBCRUD
         [Fact]
         public async void CheckMidLevelQueryAndScan()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = _endpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
             // Create tables.
-            output.WriteLine("Creating Reply table");
-            await CreateTablesLoadData.CreateTableReply(client);
-            output.WriteLine("Creating ProductCatalog table");
-            await CreateTablesLoadData.CreateTableProductCatalog(client);
+            _output.WriteLine("Creating Reply table");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableReply(client);
+            _output.WriteLine("Creating ProductCatalog table");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableProductCatalog(client);
 
             // Query examples.
             Table replyTable = Table.LoadTable(client, "Reply");
             string forumName = "Amazon DynamoDB";
             string threadSubject = "DynamoDB Thread 2";
-            MidLevelQueryAndScan.FindRepliesInLast15Days(replyTable, forumName, threadSubject);
-            MidLevelQueryAndScan.FindRepliesInLast15DaysWithConfig(replyTable, forumName, threadSubject);
-            MidLevelQueryAndScan.FindRepliesPostedWithinTimePeriod(replyTable, forumName, threadSubject);
+            MidLevelQueryAndScan.MidLevelQueryAndScan.FindRepliesInLast15Days(replyTable, forumName, threadSubject);
+            MidLevelQueryAndScan.MidLevelQueryAndScan.FindRepliesInLast15DaysWithConfig(replyTable, forumName, threadSubject);
+            MidLevelQueryAndScan.MidLevelQueryAndScan.FindRepliesPostedWithinTimePeriod(replyTable, forumName, threadSubject);
 
             // Get Example.
             Table productCatalogTable = Table.LoadTable(client, "ProductCatalog");
             int productId = 101;
-            MidLevelQueryAndScan.GetProduct(productCatalogTable, productId);
+            MidLevelQueryAndScan.MidLevelQueryAndScan.GetProduct(productCatalogTable, productId);
 
             // Delete tables.
-            output.WriteLine("Deleting Reply table");
-            await CreateTablesLoadData.DeleteTable(client, "Reply");
-            output.WriteLine("Deleting ProductCatalog table");
-            await CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
+            _output.WriteLine("Deleting Reply table");
+            await CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "Reply");
+            _output.WriteLine("Deleting ProductCatalog table");
+            await CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
 
-            output.WriteLine("Done");
+            _output.WriteLine("Done");
         }
     }
 }

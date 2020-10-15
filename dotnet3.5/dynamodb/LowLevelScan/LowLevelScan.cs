@@ -3,11 +3,10 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelScan]
 using System;
 using System.Collections.Generic;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelScan
 {
     public class LowLevelScan
     {
@@ -65,7 +64,7 @@ namespace DynamoDBCRUD
             Console.WriteLine("************************************************");
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 

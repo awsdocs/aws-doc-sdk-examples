@@ -4,11 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelParallelScan
 {
     public class LowLevelParallelScan
     {        
@@ -79,7 +78,7 @@ namespace DynamoDBCRUD
                 Console.Write("{0}, ", itemIndex);
                 bool result = await CreateItem(client, itemIndex.ToString());
 
-                if (!result) return result;
+                if (!result) return false;
             }
 
             Console.WriteLine();
@@ -165,7 +164,7 @@ namespace DynamoDBCRUD
             string status = tableDescription.TableStatus;
             Console.WriteLine(_tableName + " - " + status);
 
-            WaitUntilTableReady(client, _tableName);
+            WaitUntilTableReady(client);
 
             return true;
         }
@@ -187,7 +186,7 @@ namespace DynamoDBCRUD
             return true;
         }
 
-        private static async void WaitUntilTableReady(AmazonDynamoDBClient client, string tableName)
+        private static async void WaitUntilTableReady(AmazonDynamoDBClient client)
         {
             string status = null;
             // Let us wait until table is created. Call DescribeTable.
@@ -216,7 +215,7 @@ namespace DynamoDBCRUD
 
         private static async void WaitUntilTableDeleted(AmazonDynamoDBClient client, string tableName)
         {
-            string status = null;
+            string status;
             // Let us wait until table is deleted. Call DescribeTable.
             do
             {
@@ -241,7 +240,7 @@ namespace DynamoDBCRUD
             } while (status == "DELETING");
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             var client = new AmazonDynamoDBClient();
 
@@ -270,7 +269,6 @@ namespace DynamoDBCRUD
             {
                 Console.WriteLine("Could not delete table");
                 Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
-                return;
             }
         }
     }

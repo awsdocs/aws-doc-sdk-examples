@@ -1,6 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
-using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,26 +12,26 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace UpdateItemTest
 {
     public class UpdateItemTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public UpdateItemTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
     
         readonly string _tableName = "testtable";
         readonly string _id = "3";
         readonly string _status = "pending";
 
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        private IAmazonDynamoDB CreateMockDynamoDbClient()
         {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+            var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.UpdateItemAsync(
+            mockDynamoDbClient.Setup(client => client.UpdateItemAsync(
                 It.IsAny<UpdateItemRequest>(),
                 It.IsAny<CancellationToken>()))
                 .Callback<UpdateItemRequest, CancellationToken>((request, token) =>
@@ -42,15 +41,15 @@ namespace DynamoDBCRUD
                     return Task.FromResult(new UpdateItemResponse { HttpStatusCode = HttpStatusCode.OK  });
                 });
 
-            return mockDynamoDBClient.Object;
+            return mockDynamoDbClient.Object;
         }
 
         [Fact]
         public async Task CheckUpdateItem()
         {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+            IAmazonDynamoDB client = CreateMockDynamoDbClient();
             
-            var result = await UpdateItem.ModifyOrderStatusAsync(client, _tableName, _id, _status);
+            var result = await UpdateItem.UpdateItem.ModifyOrderStatusAsync(client, _tableName, _id, _status);
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Could NOT get result");
@@ -58,7 +57,7 @@ namespace DynamoDBCRUD
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Could NOT update item");
 
-            output.WriteLine("Updated item");
+            _output.WriteLine("Updated item");
         }
     }
 }

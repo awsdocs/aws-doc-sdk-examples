@@ -4,15 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
 
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace GetOrdersForProduct
 {
     public class GetOrdersForProduct
     {
@@ -56,7 +54,7 @@ namespace DynamoDBCRUD
                 table = appSettings.Settings["Table"].Value;
                 id = appSettings.Settings["ProductID"].Value;
 
-                if ((region == "") || (table == "") || (id == ""))
+                if (region == "" || table == "" || id == "")
                 {
                     Console.WriteLine("You must specify Region, Table, and ProductID values in " + configfile);
                     return;
@@ -67,13 +65,11 @@ namespace DynamoDBCRUD
                 Console.WriteLine("Could not find " + configfile);
                 return;
             }
-            
-            int val;
 
             try
             {
-                val = int.Parse(id);
-                
+                var val = int.Parse(id);
+
                 if (val < 1)
                 {
                     Console.WriteLine("The product ID must be > 0");
@@ -114,7 +110,7 @@ namespace DynamoDBCRUD
                         }
                         else
                         {
-                            Console.WriteLine(attr + ": " + item[attr].N.ToString());
+                            Console.WriteLine(attr + ": " + item[attr].N);
                         }
                     }
                 }

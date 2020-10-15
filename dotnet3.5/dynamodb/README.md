@@ -458,15 +458,13 @@ in **app.config**.
 
 ## About the code examples
 
-37 - 18 = 19
-
 In addition to the code example described in the previous section,
 this directory contains the following code examples.
 
+### Create some tables and load data into them
 
-### ???
-
-Use the **CreateTablesLoadData** project to 
+Use the **CreateTablesLoadData** project to create the tables
+**ProductCatalog**, **Forum**, **Thread**, and **Reply**.
 
 ### HighLevelBatchWriteItem
 

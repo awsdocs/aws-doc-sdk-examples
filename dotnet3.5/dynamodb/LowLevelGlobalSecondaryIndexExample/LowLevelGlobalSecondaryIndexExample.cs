@@ -4,15 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace DynamoDBCRUD
+namespace LowLevelGlobalSecondaryIndexExample
 {
     public class LowLevelGlobalSecondaryIndexExample
     {
-       public static String _tableName = "Issues";
+       public static String TableName = "Issues";
 
         public static async Task<bool> CreateTable(AmazonDynamoDBClient client)
         {
@@ -116,11 +115,11 @@ namespace DynamoDBCRUD
 
             var createTableRequest = new CreateTableRequest
             {
-                TableName = _tableName,
+                TableName = TableName,
                 ProvisionedThroughput = new ProvisionedThroughput
                 {
-                    ReadCapacityUnits = (long)1,
-                    WriteCapacityUnits = (long)1
+                    ReadCapacityUnits = 1,
+                    WriteCapacityUnits = 1
                 },
                 AttributeDefinitions = attributeDefinitions,
                 KeySchema = tableKeySchema,
@@ -129,50 +128,52 @@ namespace DynamoDBCRUD
             }
             };
 
-            Console.WriteLine("Creating table " + _tableName + "...");
+            Console.WriteLine("Creating table " + TableName + "...");
             await client.CreateTableAsync(createTableRequest);
 
-            WaitUntilTableReady(client, _tableName);
+            WaitUntilTableReady(client, TableName);
 
             return true;
         }
 
         public static async Task<bool> LoadData(AmazonDynamoDBClient client)
         {
-            Console.WriteLine("Loading data into table " + _tableName + "...");
+            Console.WriteLine("Loading data into table " + TableName + "...");
 
             // IssueId, Title,
             // Description,
             // CreateDate, LastUpdateDate, DueDate,
             // Priority, Status
 
-            var result = await putItem(client, "A-101", "Compilation error",
+            var result = await PutItem(client, "A-101", "Compilation error",
                 "Can't compile Project X - bad version number. What does this mean?",
                 "2013-11-01", "2013-11-02", "2013-11-10",
                 1, "Assigned");
 
             if (!result) return false;
 
-            result = await putItem(client, "A-102", "Can't read data file",
+            result = await PutItem(client, "A-102", "Can't read data file",
                 "The main data file is missing, or the permissions are incorrect",
                 "2013-11-01", "2013-11-04", "2013-11-30",
                 2, "In progress");
 
-            result = await putItem(client, "A-103", "Test failure",
+            if (!result) return false;
+
+            result = await PutItem(client, "A-103", "Test failure",
                 "Functional test of Project X produces errors",
                 "2013-11-01", "2013-11-02", "2013-11-10",
                 1, "In progress");
 
             if (!result) return false;
 
-            result = await putItem(client, "A-104", "Compilation error",
+            result = await PutItem(client, "A-104", "Compilation error",
                 "Variable 'messageCount' was not initialized.",
                 "2013-11-15", "2013-11-16", "2013-11-30",
                 3, "Assigned");
 
             if (!result) return false;
 
-            result = await putItem(client, "A-105", "Network issue",
+            result = await PutItem(client, "A-105", "Network issue",
                 "Can't ping IP address 127.0.0.1. Please fix this.",
                 "2013-11-15", "2013-11-16", "2013-11-19",
                 5, "Assigned");
@@ -182,7 +183,7 @@ namespace DynamoDBCRUD
             return true;
         }
 
-        private static async Task<bool> putItem(
+        private static async Task<bool> PutItem(
             AmazonDynamoDBClient client,
             String issueId, String title,
             String description,
@@ -233,7 +234,7 @@ namespace DynamoDBCRUD
 
             await client.PutItemAsync(new PutItemRequest
             {
-                TableName = _tableName,
+                TableName = TableName,
                 Item = item
             });
 
@@ -248,7 +249,7 @@ namespace DynamoDBCRUD
 
             QueryRequest queryRequest = new QueryRequest
             {
-                TableName = _tableName,
+                TableName = TableName,
                 IndexName = indexName,
                 ScanIndexForward = true
             };
@@ -335,13 +336,13 @@ namespace DynamoDBCRUD
 
         public static async Task<bool> DeleteTable(AmazonDynamoDBClient client)
         {
-            Console.WriteLine("Deleting table " + _tableName + "...");
+            Console.WriteLine("Deleting table " + TableName + "...");
             await client.DeleteTableAsync(new DeleteTableRequest
             {
-                TableName = _tableName
+                TableName = TableName
             });
 
-            WaitForTableToBeDeleted(client, _tableName);
+            WaitForTableToBeDeleted(client, TableName);
 
             return true;
         }
@@ -424,7 +425,7 @@ namespace DynamoDBCRUD
             if (!result.Result)
             {
                 Console.WriteLine("Could not create date index");
-                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
                 return;
             }
             result = QueryIndex(client, "TitleIndex");
@@ -432,7 +433,7 @@ namespace DynamoDBCRUD
             if (!result.Result)
             {
                 Console.WriteLine("Could not create title index");
-                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
                 return;
             }
             result = QueryIndex(client, "DueDateIndex");
@@ -440,7 +441,7 @@ namespace DynamoDBCRUD
             if (!result.Result)
             {
                 Console.WriteLine("Could not create due date index");
-                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
                 return;
             }
 
@@ -449,7 +450,7 @@ namespace DynamoDBCRUD
             if (!result.Result)
             {
                 Console.WriteLine("Could not delete table");
-                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
             }
         }
     }

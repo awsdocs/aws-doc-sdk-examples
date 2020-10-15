@@ -1,36 +1,34 @@
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
-
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace LowLevelScanTest
 {
     public class LowLevelScanTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public LowLevelScanTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
-        private static string ip = "localhost";
-        private static int port = 8000;
-        private readonly string _endpointURL = "http://" + ip + ":" + port.ToString();
+        private static string _ip = "localhost";
+        private static int _port = 8000;
+        private readonly string _endpointUrl = "http://" + _ip + ":" + _port;
 
-        private IDynamoDBContext CreateMockDynamoDBContext(AmazonDynamoDBClient client)
+        private IDynamoDBContext CreateMockDynamoDbContext(AmazonDynamoDBClient client)
         {
-            var mockDynamoDBContext = new DynamoDBContext(client);
+            var mockDynamoDbContext = new DynamoDBContext(client);
 
-            return mockDynamoDBContext;
+            return mockDynamoDbContext;
         }
 
-        private bool IsPortInUse(int port)
+        private bool IsPortInUse()
         {
             bool isAvailable = true;
 
@@ -43,7 +41,7 @@ namespace DynamoDBCRUD
 
             foreach (IPEndPoint endpoint in tcpConnInfoArray)
             {
-                if (endpoint.Port == port)
+                if (endpoint.Port == _port)
                 {
                     isAvailable = false;
                     break;
@@ -56,28 +54,28 @@ namespace DynamoDBCRUD
         [Fact]
         public async void CheckLowLevelScan()
         {
-            var portUsed = IsPortInUse(port);
+            var portUsed = IsPortInUse();
             if (portUsed)
             {
-                throw new Exception("You must run local DynamoDB on port 8000");
+                throw new Exception("You must run local DynamoDB on port " + _port);
             }
 
             var clientConfig = new AmazonDynamoDBConfig();
-            clientConfig.ServiceURL = _endpointURL;
+            clientConfig.ServiceURL = _endpointUrl;
             var client = new AmazonDynamoDBClient(clientConfig);
 
             // Create ProductCatalog table.
-            output.WriteLine("Creating ProductCatalog table.");
-            await CreateTablesLoadData.CreateTableProductCatalog(client);
+            _output.WriteLine("Creating ProductCatalog table.");
+            await CreateTablesLoadData.CreateTablesLoadData.CreateTableProductCatalog(client);
 
-            output.WriteLine("Retrieving products < $0");
-            LowLevelScan.FindProductsForPriceLessThanZero(client);
+            _output.WriteLine("Retrieving products < $0");
+            LowLevelScan.LowLevelScan.FindProductsForPriceLessThanZero(client);
 
             // Delete ProductCatalog table.
-            output.WriteLine("Deleting ProductCatalog table.");
-            await CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
+            _output.WriteLine("Deleting ProductCatalog table.");
+            await CreateTablesLoadData.CreateTablesLoadData.DeleteTable(client, "ProductCatalog");
 
-            output.WriteLine("Done");
+            _output.WriteLine("Done");
         }
     }
 }
