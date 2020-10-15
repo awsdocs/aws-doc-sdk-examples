@@ -249,16 +249,76 @@ files:
   - path: tests/test_s3-ruby-example-get-item.rb
     services:
     - s3
+  - path: s3-ruby-example-head-bucket.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-head-bucket.rb
+    services:
+    - s3
+  - path: s3-ruby-example-list-bucket-items.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-list-bucket-items.rb
+    services:
+    - s3
+  - path: s3-ruby-example-set-item-props.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-set-item-props.rb
+    services:
+    - s3
+  - path: s3-ruby-example-show-50-buckets.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-show-50-buckets.rb
+    services:
+    - s3
+  - path: s3-ruby-example-show-buckets-in-region.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-show-buckets-in-region.rb
+    services:
+    - s3
+  - path: s3-ruby-example-upload-item.rb
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-upload-item.rb
+    services:
+    - s3
   - path: s3-ruby-example-upload-item-to-folder.rb
     services:
     - s3
   - path: tests/test_s3-ruby-example-upload-item-to-folder.rb
     services:
     - s3
+  - path: s3-ruby-example-upload-item-with-metadata.rb 
+    services:
+    - s3
+  - path: tests/test_s3-ruby-example-upload-item-with-metadata.rb 
+    services:
+    - s3
   - path: s3-ruby-example-upload-multiple-items.rb
     services:
     - s3
   - path: tests/test_s3-ruby-example-upload-multiple-items.rb
+    services:
+    - s3
+  - path: upload_files_using_managed_file_uploader.rb 
+    services:
+    - s3
+  - path: tests/test_upload_files_using_managed_file_uploader.rb 
+    services:
+    - s3
+  - path: upload_files_using_put_object_method.rb 
+    services:
+    - s3
+  - path: tests/test_upload_files_using_put_object_method.rb 
+    services:
+    - s3
+  - path: upload_object_presigned_url.rb 
+    services:
+    - s3
+  - path: tests/test_upload_object_presigned_url.rb 
     services:
     - s3
 ...

@@ -1,47 +1,86 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Copies an S3 bucket item to another bucket and makes it publicly readable with AES256 encryption.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[copy_object method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+require 'aws-sdk-s3'
+
+# Copies an object from one Amazon Simple Storage Service (Amazon S3)
+#   bucket to another. You can also set an access control list
+#   (ACL) and an S3 storage class on the copied object.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - A source S3 bucket and a target S3 bucket.
+# - An object in the source bucket to copy.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param source_object_path [String] The path and file name of the
+#   object to copy.
+# @param target_bucket_name [String] The name of the destination bucket.
+# @param target_object_path [String] The path and file name of the
+#   copied object in the destination bucket.
+# @param canned_acl [String] A predetermined ACL. Allowed values include
+#   'private', 'public-read', 'public-read-write', 'authenticated-read',
+#   'aws-exec-read', 'bucket-owner-read', and 'bucket-owner-full-control'.
+#   If not specified, the default is 'private'.
+# @param storage_class [String] The S3 storage class for the copied object.
+#   Allowed values include 'STANDARD', 'REDUCED_REDUNDANCY', 'STANDARD_IA',
+#   'ONEZONE_IA', 'INTELLIGENT_TIERING', 'GLACIER', and 'DEEP_ARCHIVE'.
+#   If not specified, the default is 'STANDARD'.
+# @return [Boolean] true if the object was copied; otherwise, false.
+# @example
+#   exit 1 unless object_copied_with_additional_properties?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket/my-file.txt',
+#     'doc-example-bucket1',
+#     'copied-files/my-copied-file.txt',
+#     'bucket-owner-read',
+#     'STANDARD_IA'
+#   )
+def object_copied_with_additional_properties?(
+  s3_client,
+  source_object_path,
+  target_bucket_name,
+  target_object_path,
+  canned_acl = 'private',
+  storage_class = 'STANDARD'
+)
+  s3_client.copy_object(
+    bucket: target_bucket_name,
+    copy_source: source_object_path,
+    key: target_object_path,
+    acl: canned_acl,
+    storage_class: storage_class
+  )
+  return true
+rescue StandardError => e
+  puts "Error copying object: #{e.message}"
+  return false
+end
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  source_object_path = 'doc-example-bucket/my-file.txt'
+  target_bucket_name = 'doc-example-bucket1'
+  target_object_path = 'copied-files/my-copied-file.txt'
+  canned_acl = 'bucket-owner-read'
+  storage_class = 'STANDARD_IA'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-args_list = {}
-args_list[:bucket] = 'my-bucket'
-args_list[:key]    = 'my-item'
+  if object_copied_with_additional_properties?(
+    s3_client,
+    source_object_path,
+    target_bucket_name,
+    target_object_path,
+    canned_acl,
+    storage_class
+  )
+    puts "Object copied from '#{source_object_path}' to " \
+      "'#{target_bucket_name}/#{target_object_path}'."
+  else
+    puts "Object '#{source_object_path}' not copied to " \
+      "'#{target_bucket_name}/#{target_object_path}'."
+  end
+end
 
-# Where we are getting the source to copy from
-args_list[:copy_source] = 'my-bucket/my-item'
-
-# The acl can be any of:
-# private, public-read, public-read-write, authenticated-read, aws-exec-read, bucket-owner-read, bucket-owner-full-control
-args_list[:acl] = 'public-read'
-
-# The encryption can be any of:
-# AES256, aws:kms
-args_list[:server_side_encryption] = 'AES256'
-
-# The storage_class can be any of:
-# STANDARD, REDUCED_REDUNDANCY, STANDARD_IA
-args_list[:storage_class] = 'REDUCED_REDUNDANCY'
-
-client = Aws::S3::Client.new(region: 'us-west-2')
-
-client.copy_object(args_list)
+run_me if $PROGRAM_NAME == __FILE__
