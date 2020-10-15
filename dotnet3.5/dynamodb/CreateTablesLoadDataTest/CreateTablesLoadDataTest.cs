@@ -69,10 +69,10 @@ namespace DynamoDBCRUD
             var client = new AmazonDynamoDBClient(clientConfig);
 
             // Create, load, and delete a table
-            var createResult = CreateTablesLoadData.CreateTableForum(client);
+            await CreateTablesLoadData.CreateTableForum(client);
             output.WriteLine("Waiting for Forum table to be created");
 
-            await CreateTablesLoadData.WaitTillTableCreated(client, "Forum", createResult.Result);
+            //await CreateTablesLoadData.WaitTillTableCreated(client, "Forum", createResult.Result);
             output.WriteLine("Created Forum table");
 
             CreateTablesLoadData.LoadSampleForums(client);

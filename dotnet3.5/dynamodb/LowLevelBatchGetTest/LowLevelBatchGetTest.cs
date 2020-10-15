@@ -6,7 +6,6 @@ using System.Net.NetworkInformation;
 
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 
 using Xunit;
 using Xunit.Abstractions;

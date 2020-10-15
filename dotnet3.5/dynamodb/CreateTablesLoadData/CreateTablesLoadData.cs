@@ -4,91 +4,34 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
 
 namespace DynamoDBCRUD
 {
     public class CreateTablesLoadData
     {
-        public static void Main(string[] args)
-        {
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-
-            try
-            {
-                // Create tables
-
-                Console.WriteLine("Creating ProductCatalog table");
-                var createTableResponse = CreateTableProductCatalog(client);
-
-                Console.WriteLine("Creating Forum table");
-                createTableResponse = CreateTableForum(client);
-
-                Console.WriteLine("Creating Thread table");
-                createTableResponse = CreateTableThread(client);
-
-                Console.WriteLine("Creating Reply table");
-                createTableResponse = CreateTableReply(client);
-
-                Console.WriteLine();
-                Console.WriteLine("Press ENTER to continue");
-                Console.ReadLine();
-
-                // Load data into tables
-
-                Console.WriteLine("Loading data into ProductCatalog table");
-                LoadSampleProducts(client);
-
-                Console.WriteLine("Loading data into Forum table");
-                LoadSampleForums(client);
-
-                Console.WriteLine("Loading data into Thread table");
-                LoadSampleThreads(client);
-
-                Console.WriteLine("Loading data into Reply table");
-                LoadSampleReplies(client);
-
-                Console.WriteLine(); 
-                Console.WriteLine("Press ENTER to continue");
-                Console.ReadLine();
-
-                // Delete tables
-
-                Console.WriteLine("Deleting ProductCatalog table");
-                var deleteTableResponse = DeleteTable(client, "ProductCatalog");
-
-                Console.WriteLine("Deleting Forum table");
-                deleteTableResponse = DeleteTable(client, "Forum");
-
-                Console.WriteLine("Deleting Thread table");
-                deleteTableResponse = DeleteTable(client, "Thread");
-
-                Console.WriteLine("Deleting Reply table");
-                deleteTableResponse = DeleteTable(client, "Reply");
-
-                Console.WriteLine(); 
-                Console.WriteLine("Sample complete!");
-                Console.WriteLine("Press ENTER to continue");
-                Console.ReadLine();
-            }
-            catch (AmazonServiceException e) { Console.WriteLine(e.Message); }
-            catch (Exception e) { Console.WriteLine(e.Message); }
-        }
-
         public static async Task<DeleteTableResponse> DeleteTable(IAmazonDynamoDB client, string tableName)
         {
-            var response = await client.DeleteTableAsync(new DeleteTableRequest
+            try
             {
-                TableName = tableName
-            });
+                var response = await client.DeleteTableAsync(new DeleteTableRequest
+                {
+                    TableName = tableName
+                });
 
-            return response;
+                return response;
+            }
+            catch (ResourceNotFoundException)
+            {
+                // There is no such table.
+                return null;
+            }
         }
 
-        public static async Task<CreateTableResponse> CreateTableProductCatalog(IAmazonDynamoDB client)
+        public static async Task<DescribeTableResponse> CreateTableProductCatalog(IAmazonDynamoDB client)
         {
             string tableName = "ProductCatalog";
 
@@ -118,10 +61,12 @@ namespace DynamoDBCRUD
                 }
             });
 
-            return response;
+            var result = await WaitTillTableCreated(client, tableName, response);
+
+            return result;
         }
 
-        public static async Task<CreateTableResponse> CreateTableForum(IAmazonDynamoDB client)
+        public static async Task<DescribeTableResponse> CreateTableForum(IAmazonDynamoDB client)
         {
             string tableName = "Forum";
 
@@ -151,10 +96,12 @@ namespace DynamoDBCRUD
                 }
             });
 
-            return response;
+            var result = await WaitTillTableCreated(client, tableName, response);
+
+            return result;
         }
 
-        public static async Task<CreateTableResponse> CreateTableThread(IAmazonDynamoDB client)
+        public static async Task<DescribeTableResponse> CreateTableThread(IAmazonDynamoDB client)
         {
             string tableName = "Thread";
 
@@ -194,10 +141,12 @@ namespace DynamoDBCRUD
                 }
             });
 
-            return response;
+            var result = await WaitTillTableCreated(client, tableName, response);
+
+            return result;
         }
 
-        public static async Task<CreateTableResponse> CreateTableReply(IAmazonDynamoDB client)
+        public static async Task<DescribeTableResponse> CreateTableReply(IAmazonDynamoDB client)
         {
             string tableName = "Reply";
             var response = await client.CreateTableAsync(new CreateTableRequest
@@ -259,7 +208,9 @@ namespace DynamoDBCRUD
                 }
             });
 
-            return response;
+            var result = await WaitTillTableCreated(client, tableName, response);
+
+            return result;
         }
 
         public static async Task<DescribeTableResponse> WaitTillTableCreated(IAmazonDynamoDB client, string tableName,
@@ -272,16 +223,16 @@ namespace DynamoDBCRUD
             string status = tableDescription.TableStatus;
 
             Int32 sleepDuration = 1000; // One second
-            
+
             while (status != "ACTIVE")
             {
                 System.Threading.Thread.Sleep(sleepDuration);
-                
+
                 resp = await client.DescribeTableAsync(new DescribeTableRequest
                 {
                     TableName = tableName
-                });                
-               
+                });
+
                 sleepDuration *= 2;
             }
 
@@ -524,7 +475,6 @@ namespace DynamoDBCRUD
             thread2Reply1["Message"] = "DynamoDB Thread 2 Reply 1 text";
             thread2Reply1["PostedBy"] = "User A";
 
-
             replyTable.PutItemAsync(thread2Reply1);
 
             // Reply 2 - thread 2.
@@ -535,7 +485,91 @@ namespace DynamoDBCRUD
             thread2Reply2["PostedBy"] = "User A";
 
             replyTable.PutItemAsync(thread2Reply2);
-        }    
+        }
+
+        public static void Main()
+        {
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+
+            // Delete tables
+
+            Console.WriteLine("Deleting ProductCatalog table");
+            var deleteTableResponse = DeleteTable(client, "ProductCatalog");
+
+            if (null == deleteTableResponse)
+            {
+                Console.WriteLine("ProductCatalog table did not exist");
+            }
+
+            Console.WriteLine("Deleting Forum table");
+            deleteTableResponse = DeleteTable(client, "Forum");
+
+            if (null == deleteTableResponse)
+            {
+                Console.WriteLine("ProductCatalog table did not exist");
+            }
+
+            Console.WriteLine("Deleting Thread table");
+            deleteTableResponse = DeleteTable(client, "Thread");
+
+            if (null == deleteTableResponse)
+            {
+                Console.WriteLine("Thread table did not exist");
+            }
+
+            Console.WriteLine("Deleting Reply table");
+            deleteTableResponse = DeleteTable(client, "Reply");
+
+            if (null == deleteTableResponse)
+            {
+                Console.WriteLine("Reply table did not exist");
+            }
+
+            // Create tables
+
+            Console.WriteLine("Creating ProductCatalog table");
+            var createTableResponse = CreateTableProductCatalog(client);
+
+            Console.WriteLine("The status of the ProductCatalog table is " + createTableResponse.Status);
+
+            Console.WriteLine("Creating Forum table");
+            createTableResponse = CreateTableForum(client);
+
+            Console.WriteLine("The status of the Forum table is " + createTableResponse.Status);
+
+            Console.WriteLine("Creating Thread table");
+            createTableResponse = CreateTableThread(client);
+
+            Console.WriteLine("The status of the Thread table is " + createTableResponse.Status);
+
+            Console.WriteLine("Creating Reply table");
+            createTableResponse = CreateTableReply(client);
+
+            Console.WriteLine("The status of the Reply table is " + createTableResponse.Status);
+
+            Console.WriteLine();
+            Console.WriteLine("Press ENTER to continue");
+            Console.ReadLine();
+
+            // Load data into tables
+
+            Console.WriteLine("Loading data into ProductCatalog table");
+            LoadSampleProducts(client);
+
+            Console.WriteLine("Loading data into Forum table");
+            LoadSampleForums(client);
+
+            Console.WriteLine("Loading data into Thread table");
+            LoadSampleThreads(client);
+
+            Console.WriteLine("Loading data into Reply table");
+            LoadSampleReplies(client);
+
+            Console.WriteLine();
+            Console.WriteLine("Sample complete!");
+            Console.WriteLine("Press ENTER to continue");
+            Console.ReadLine();
+        }  
     }
 }
 // snippet-end:[dynamodb.dotnet35.CreateTablesLoadData]

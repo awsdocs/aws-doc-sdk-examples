@@ -3,9 +3,9 @@
 // snippet-start:[dynamodb.dotnet35.MidLevelBatchWriteItem]
 using System;
 using System.Collections.Generic;
+
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.Runtime;
 
 namespace DynamoDBCRUD
 {

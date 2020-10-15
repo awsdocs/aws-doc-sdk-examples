@@ -4,9 +4,9 @@ This folder contains code examples using the AWS SDK for .NET (the SDK) for Amaz
 
 The document contains the following section:
 
-- Migrating to v3.5 of the SDK
-- Moving from an SQL database to Amazon DynamoDB, with examples
-- About the code examples
+- [Migrating to v3.5 of the SDK](#Migrating-to-version-3.5-of-the-SDK)
+- [Moving from an SQL database to Amazon DynamoDB, with examples](#Moving-from-an-SQL-database-to-a-NoSQL-database)
+- [About the other code examples](#About-the-code-examples)
 
 All of these code examples are written in C#, 
 using the V3.5 version of the SDK.
@@ -222,7 +222,12 @@ See
 [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)
 in the *Amazon DynamoDB Developer Guide* for details.
 
-### ListItems
+### Listing the items in a table
+
+Use the **ListItems** project to list the items in a table.
+
+The default table name is defined as **Table**
+in **app.config**.
 
 ### Adding an item to the table
 
@@ -304,19 +309,69 @@ You can read data from an Amazon DynamoDB table using a number of techniques.
 - By the item's primary key
 - By searching for a particular item or items based on the value of one or more keys
 
-### ListItems
+#### List the products low in stock
 
-### GetLowProductStock
+Use the **GetLowProductStock** project to retrieve a list of products
+below a threshold.
 
-### GetLowProductStockGSI
+The default table name is defined as **Table**,
+the default Region is defined as **Region**,
+and the minimum threshold is defined as **Minimum**
+in **app.config**.
 
-### GetOrdersForProduct
+#### List the products low in stock using a global secondary index
 
-### GetOrdersForProductGSI
+Use the **GetLowProductStockGSI** project to retrieve a list of products
+below a threshold using a global secondary index.
 
-### GetOrdersInDateRange
+The default table name is defined as **Table**,
+the default Region is defined as **Region**,
+the global secondary index is defined as **Index**,
+and the minimum threshold is defined as **Minimum**
+in **app.config**.
 
-### GetOrdersInDateRangeGSI
+#### List the orders for a product
+
+Use the **GetOrdersForProduct** project to retrieve a list of orders for a product.
+
+The default table name is defined as **Table**,
+the default Region is defined as **Region**,
+and the ID of the product is defined as **ProductID**
+in **app.config**.
+
+#### List the orders for a product using a global secondary index
+
+Use the **GetOrdersForProductGSI** project to retrieve a list of orders for a product
+using a global secondary index.
+
+The default table name is defined as **Table**,
+the default Region is defined as **Region**,
+the global secondary index is defined as **Index**,
+and the ID of the product is defined as **ProductID**
+in **app.config**.
+
+#### List the orders in a date range
+
+Use the **GetOrdersInDateRange** project to retrieve a list of orders
+within a date range.
+
+The default table name is defined as **Table**,
+the default Region is defined as **Region**,
+the starting date/time is defined as **StartTime**,
+and the stopping date/time is defined as **EndTime**
+in **app.config**.
+
+#### List the orders in a date range using a global secondary index
+
+Use the **GetOrdersInDateRangeGSI** project to retrieve a list of orders
+within a date range using a global secondary index.
+
+The default table name is defined as **Table**,
+the default Region is defined as **Region**,
+the global secondary index is defined as **Index**,
+the starting date/time is defined as **StartTime**,
+and stopping date/time is defined as **EndTime**
+in **app.config**.
 
 ### Modifying a table item
 
@@ -379,18 +434,19 @@ It takes the following option:
 - ```-s``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
 
 If you provide an *AREA* value that does not match that of the item,
-the example silently fails to delete the item from the table.
+the item is not deleted from the table.
 
 ### Deleting items from a table
 
-Use the **** project to delete an item from the table.
+Use the **DeleteItems** project to delete an item from the table.
 
 The default table name is defined as **Table**,
 and the default Region is defined as **Region**
 in **app.config**.
 
 - ```-a``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
-- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values must be for the associated *AREA*.
+- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values should be for the associated *AREA*.
+  If the **area** value of any item does not match *AREA*, the item is not deleted from the table. 
 
 ### Deleting a table
 

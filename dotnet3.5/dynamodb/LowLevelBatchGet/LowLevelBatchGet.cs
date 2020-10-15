@@ -3,9 +3,9 @@
 // snippet-start:[dynamodb.dotnet35.LowLevelBatchGet]
 using System;
 using System.Collections.Generic;
+
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
 
 namespace DynamoDBCRUD
 {
