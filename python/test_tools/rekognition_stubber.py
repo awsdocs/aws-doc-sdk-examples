@@ -10,12 +10,10 @@ from test_tools.example_stubber import ExampleStubber
 
 class RekognitionStubber(ExampleStubber):
     """
-    A class that implements a variety of stub functions that are used by the
-    Amazon Rekognition unit tests.
+    A class that implements stub functions used by Amazon Rekognition unit tests.
 
-    The stubbed functions all expect certain parameters to be passed to them as
-    part of the tests, and will raise errors when the actual parameters differ from
-    the expected.
+    The stubbed functions expect certain parameters to be passed to them as
+    part of the tests, and raise errors if the parameters are not as expected.
     """
     def __init__(self, client, use_stubs=True):
         """

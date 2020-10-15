@@ -94,8 +94,9 @@ the service format to an object format.
 Shows how to use Amazon Rekognition video detection APIs. The `usage_demo` script 
 starts detection jobs that detect things like faces, objects, and people in a video. 
 Because video detection is performed asynchronously, the demo also shows how to create 
-a notification channel that uses Amazon Simple Notification Service and
-Amazon Simple Queue Service to let the code poll for a job completion message.
+a notification channel that uses Amazon Simple Notification Service (Amazon SNS) and
+Amazon Simple Queue Service (Amazon SQS) to let the code poll for a job completion 
+message.
 
 ## Running the tests
 
