@@ -64,7 +64,7 @@ public class CreateTableWaiter {
                 .region(region)
                 .build();
 
-        //create a waiter object
+        // Create a DynamoDbWaiter object
         DynamoDbWaiter dbWaiter = ddb.waiter();
 
         String result = createTable(ddb, dbWaiter, tableName, key);
