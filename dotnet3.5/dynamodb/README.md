@@ -28,7 +28,7 @@ for details.
 
 ## Moving from an SQL database to a NoSQL database
 
-Some of the code examples are part of a series to aid in moving from an SQL database to a NoSQL database,
+Tthe code examples in the **FromSQL** directory are part of a series to aid in moving from an SQL database to a NoSQL database,
 as described in the Amazon DynamoDB Developer Guide at
 [From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html)
 
