@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateTable.java demonstrates how to create an Amazon DynamoDB table.]
+//snippet-sourcedescription:[CreateTable.java demonstrates how to create an Amazon DynamoDB table using a waiter.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -20,20 +20,25 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.create_table.import]
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
+import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.KeyType;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
+import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
-import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
-import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
-import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
-import software.amazon.awssdk.services.dynamodb.model.KeyType;
-import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
-import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 // snippet-end:[dynamodb.java2.create_table.import]
 
 /**
- * Creates an Amazon DynamoDB table
+ * Creates an AWS DynamoDB table.
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
@@ -69,12 +74,15 @@ public class CreateTable {
                 .region(region)
                 .build();
 
-        String result = createTable(ddb,tableName, key);
+        // Create a waiter object
+        DynamoDbWaiter dbWaiter = ddb.waiter();
+
+        String result = createTable(ddb, dbWaiter, tableName, key);
         System.out.println("New table is "+result);
     }
 
     // snippet-start:[dynamodb.java2.create_table.main]
-    public static String createTable(DynamoDbClient ddb, String tableName, String key) {
+    public static String createTable(DynamoDbClient ddb, DynamoDbWaiter dbWaiter, String tableName, String key) {
 
         // Create the CreateTableRequest object
         CreateTableRequest request = CreateTableRequest.builder()
@@ -96,13 +104,25 @@ public class CreateTable {
         String newTable ="";
         try {
             CreateTableResponse response = ddb.createTable(request);
+
+            // Create a DescribeTableRequest object required for waiter functionality
+            DescribeTableRequest tableRequest = DescribeTableRequest.builder()
+                    .tableName(tableName)
+                    .build();
+
+            // Wait until the table is created
+            WaiterResponse<DescribeTableResponse> waiterResponse =  dbWaiter.waitUntilTableExists(r -> r.tableName(tableName));
+
+            // print out the matched response with a tableStatus of ACTIVE
+            waiterResponse.matched().response().ifPresent(System.out::println);
+
             newTable = response.tableDescription().tableName();
             return newTable;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.create_table.main]
-        return "";
+       return "";
     }
+    // snippet-end:[dynamodb.java2.create_table.main]
 }
