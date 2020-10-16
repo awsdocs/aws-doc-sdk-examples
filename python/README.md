@@ -162,6 +162,20 @@ and out of the database.
 * Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
 * Use the Requests package to send requests to the web service.
 
+### [Amazon Rekognition image and video detection example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
+recognize people, objects, and text in images and videos.
+
+* Detect faces, celebrities, objects, and text in an image.
+* Create a collection of indexed faces and search for faces in your collection 
+that match a reference image.
+* Detect faces, celebrities, and objects in a video.
+* Create a notification channel so your code can determine when a video
+detection job has completed.
+
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
 #### Purpose
