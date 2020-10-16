@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit;
  *
  *  https://s3.amazonaws.com/<bucketname>/template.yml
  *
- *  Also, the role that you use must have CloudFormation permissions as well as S3 and EC2 permissions. For more information,
+ *  Also, the IAM role that you use must have CloudFormation permissions as well as S3 and EC2 permissions. For more information,
  *  see "Getting started with AWS CloudFormation" in the AWS CloudFormation User Guide.
  *
  */
@@ -61,7 +61,7 @@ public class CreateStack {
                "Where:\n" +
                "    stackName - the name of the stack \n" +
                "    roleARN - the ARN of the role that has CloudFormation permissions \n" +
-               "    location - the location of file containing the template body. (ie, https://s3.amazonaws.com/<bucketname>/template.yml) \n"+
+               "    location - the location of file containing the template body that is located in an Amazon S3 bucket (ie, https://s3.amazonaws.com/<bucketname>/template.yml) \n"+
                "    key - the key associated with the parameter \n" +
                "    value - the input value associated with the parameter. \n" ;
 
