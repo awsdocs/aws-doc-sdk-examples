@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 // snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[dotNET]
@@ -8,33 +10,18 @@
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[dynamodb.dotNET.CodeExample.00a_Constants] 
-
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDB_intro
 {
-  public partial class Ddb_Intro
+  public partial class DdbIntro
   {
     /*==========================================================================
      *      Constant/Static Values Used by this introductory sample
      *==========================================================================*/
-    public const string commaSep = ", ";
-    public const string stepString =
+    public const string CommaSep = ", ";
+    public const string StepString =
       "\n--------------------------------------------------------------------------------------" +
       "\n    STEP {0}:  {1}" +
       "\n--------------------------------------------------------------------------------------";
@@ -43,53 +30,53 @@ namespace DynamoDB_intro
      *    1.  The data used to create a new table
      *---------------------------------------------------------*/
     // movies_table_name
-    public const string movies_table_name = "Movies";
+    public const string MoviesTableName = "Movies";
 
     // key names for the Movies table
-    public const string partition_key_name = "year";
-    public const string sort_key_name      = "title";
+    public const string PartitionKeyName = "year";
+    public const string SortKeyName      = "title";
 
     // movie_items_attributes
-    public static List<AttributeDefinition> movie_items_attributes
+    public static List<AttributeDefinition> MovieItemsAttributes
       = new List<AttributeDefinition>
     {
       new AttributeDefinition
       {
-        AttributeName = partition_key_name,
+        AttributeName = PartitionKeyName,
         AttributeType = "N"
       },
       new AttributeDefinition
       {
-        AttributeName = sort_key_name,
+        AttributeName = SortKeyName,
         AttributeType = "S"
       }
     };
 
     // movies_key_schema
-    public static List<KeySchemaElement> movies_key_schema
+    public static List<KeySchemaElement> MoviesKeySchema
       = new List<KeySchemaElement>
     {
       new KeySchemaElement
       {
-        AttributeName = partition_key_name,
+        AttributeName = PartitionKeyName,
         KeyType = "HASH"
       },
       new KeySchemaElement
       {
-        AttributeName = sort_key_name,
+        AttributeName = SortKeyName,
         KeyType = "RANGE"
       }
     };
 
     // movies_table_provisioned_throughput
-    public static ProvisionedThroughput movies_table_provisioned_throughput
+    public static ProvisionedThroughput MoviesTableProvisionedThroughput
       = new ProvisionedThroughput( 1, 1 );
 
 
     /*---------------------------------------------------------
      *    2.  The path to the JSON movies data file to load
      *---------------------------------------------------------*/
-    public const string movieDataPath = "./moviedata.json";
+    public const string MovieDataPath = "./moviedata.json";
   }
 }
 // snippet-end:[dynamodb.dotNET.CodeExample.00a_Constants]

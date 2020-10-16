@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 // snippet-sourcedescription:[ ]
 // snippet-service:[dynamodb]
 // snippet-keyword:[dotNET]
@@ -8,20 +10,6 @@
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[dynamodb.dotNET.CodeExample.00b_DDB_Attributes] 
-
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -30,25 +18,39 @@ using Amazon.DynamoDBv2.DocumentModel;
 
 namespace DynamoDB_intro
 {
-  public static partial class Ddb_Intro
+  public static partial class DdbIntro
   {
-    public const string listStart = "{0}\n{1}\"{2}\": [";
-    public const string listEnd   = "\n{0}]";
-    public const string objStart  = "{0}\n{1}\"{2}\": {{";
-    public const string objEnd    = "\n{0}}";
-    public const string kv_num    = "{0}\n{1}\"{2}\": {3}";
-    public const string kv_str    = "{0}\n{1}\"{2}\": \"{3}\"";
-    public const string val_str   = "{0}\n{1}  \"{2}\"";
-    static string shortFormatStrA = "          {0}:  \"{1}\"\n" +
+    public const string ListStart = "{0}\n{1}\"{2}\": [";
+    public const string ListEnd   = "\n{0}]";
+    public const string ObjStart  = "{0}\n{1}\"{2}\": {{";
+    public const string ObjEnd    = "\n{0}}";
+    public const string KvNum    = "{0}\n{1}\"{2}\": {3}";
+    public const string KvStr    = "{0}\n{1}\"{2}\": \"{3}\"";
+    public const string ValStr   = "{0}\n{1}  \"{2}\"";
+    static string _shortFormatStrA = "          {0}:  \"{1}\"\n" +
                                      "                  -- lead: {2}\n" +
                                      "                  -- genres: {3}\n" +
                                      "                  -- running time: {4}";
-    static string shortFormatStrB = "          {0}:  \"{1}\"\n" +
+    static string _shortFormatStrB = "          {0}:  \"{1}\"\n" +
                                      "                  -- lead: {2}\n" +
                                      "                  -- director(s): {3}\n" +
                                      "                  -- running time: {4}";
 
-
+    public static void showDocument(Document doc)
+    {
+            /*
+             * The new movie:
+             *
+             *  ["year"] = year,
+                    ["title"] = title,
+                    ["info"] = Document.FromJson(
+                        "{\"plot\" : \"Nothing happens at all.\",\"rating\" : 0}")
+             */
+            var year = doc["year"];
+            if (null != year) Console.WriteLine("Year:  " + year);
+            var title = doc["title"];
+            if (null != year) Console.WriteLine("Title: " + title);
+    }
 
     /*--------------------------------------------------------------------------
      *                 showMovieAttrsShort
@@ -68,11 +70,11 @@ namespace DynamoDB_intro
       else
         rtm = "?";
       if( info.ContainsKey( "genres") )
-        Console.WriteLine( shortFormatStrA, movie["year"].N, movie["title"].S,
+        Console.WriteLine( _shortFormatStrA, movie["year"].N, movie["title"].S,
                            firstAttrValToString( info["actors"] ),
                            attrValToString( info["genres"], 0 ), rtm );
       else if( info.ContainsKey( "directors") )
-        Console.WriteLine( shortFormatStrB, movie["year"].N, movie["title"].S,
+        Console.WriteLine( _shortFormatStrB, movie["year"].N, movie["title"].S,
                            firstAttrValToString( info["actors"] ),
                            attrValToString( info["directors"], 0 ), rtm );
     }
@@ -96,13 +98,13 @@ namespace DynamoDB_intro
       else
         rtm = "?";
       if( infoDoc.ContainsKey( "genres") )
-        Console.WriteLine( shortFormatStrA, movie["year"], movie["title"],
+        Console.WriteLine( _shortFormatStrA, movie["year"], movie["title"],
                            infoDoc["actors"].AsArrayOfString( )[0],
-                           string.Join( commaSep, infoDoc["genres"].AsArrayOfString( ) ), rtm );
+                           string.Join( CommaSep, infoDoc["genres"].AsArrayOfString( ) ), rtm );
       else if( infoDoc.ContainsKey( "directors" ) )
-        Console.WriteLine( shortFormatStrB, movie["year"], movie["title"],
+        Console.WriteLine( _shortFormatStrB, movie["year"], movie["title"],
                            infoDoc["actors"].AsArrayOfString( )[0],
-                           string.Join( commaSep, infoDoc["directors"].AsArrayOfString( ) ), rtm );
+                           string.Join( CommaSep, infoDoc["directors"].AsArrayOfString( ) ), rtm );
     }
 
 
@@ -115,15 +117,15 @@ namespace DynamoDB_intro
       string next = "";
 
       sb.Append( "{" );
-      sb.Append( string.Format( kv_num, "", "  ", "year", movie["year"].N ) );
-      sb.Append( string.Format( kv_str, ",", "  ", "title", movie["title"].S ) );
+      sb.Append( string.Format( KvNum, "", "  ", "year", movie["year"].N ) );
+      sb.Append( string.Format( KvStr, ",", "  ", "title", movie["title"].S ) );
       if( movie.ContainsKey( "info" ) )
       {
         Dictionary<string, AttributeValue> info = movie["info"].M;
-        sb.Append( string.Format( objStart, ",", "  ", "info" ) );
+        sb.Append( string.Format( ObjStart, ",", "  ", "info" ) );
         if( info.ContainsKey( "plot" ) )
         {
-          sb.Append( string.Format( kv_str, next, "    ", "plot", info["plot"].S ) );
+          sb.Append( string.Format( KvStr, next, "    ", "plot", info["plot"].S ) );
           next = ",";
         }
         if( info.ContainsKey( "running_time_secs" ) )
@@ -131,40 +133,40 @@ namespace DynamoDB_intro
           int rsecs;
           if( int.TryParse( info["running_time_secs"].N, out rsecs ) )
           {
-            sb.Append( string.Format( kv_str, next, "    ", "run-time",
+            sb.Append( string.Format( KvStr, next, "    ", "run-time",
                                       movieRunTime( rsecs ) ) );
             next = ",";
           }
         }
         if( info.ContainsKey( "rating" ) )
         {
-          sb.Append( string.Format( kv_num, next, "    ", "rating", info["rating"].N ) );
+          sb.Append( string.Format( KvNum, next, "    ", "rating", info["rating"].N ) );
           next = ",";
         }
         if( info.ContainsKey( "directors" ) )
         {
-          sb.Append( string.Format( listStart, next, "    ", "directors" ) );
+          sb.Append( string.Format( ListStart, next, "    ", "directors" ) );
           sb.Append( attrValToLines( movie["directors"], 0,  "      " ) );
-          sb.Append( string.Format( listEnd, "    " ) );
+          sb.Append( string.Format( ListEnd, "    " ) );
           next = ",";
         }
         if( info.ContainsKey( "genres" ) )
         {
-          sb.Append( string.Format( listStart, next, "    ", "genres" ) );
+          sb.Append( string.Format( ListStart, next, "    ", "genres" ) );
           sb.Append( attrValToLines( movie["genres"], 0, "      " ) );
-          sb.Append( string.Format( listEnd, "    " ) );
+          sb.Append( string.Format( ListEnd, "    " ) );
           next = ",";
         }
         if( info.ContainsKey( "actors" ) )
         {
-          sb.Append( string.Format( kv_str, next, "    ", "lead",
+          sb.Append( string.Format( KvStr, next, "    ", "lead",
                                     firstAttrValToString( info["actors"] ) ) );
           next = ",";
           if( attrValLength( info["actors"] ) > 1 )
           {
-            sb.Append( string.Format( listStart, next, "    ", "actors" ) );
+            sb.Append( string.Format( ListStart, next, "    ", "actors" ) );
             sb.Append( attrValToLines( info["actors"], 1, "      " ) );
-            sb.Append( string.Format( listEnd, "    " ) );
+            sb.Append( string.Format( ListEnd, "    " ) );
           }
         }
       }
@@ -186,12 +188,12 @@ namespace DynamoDB_intro
       else if( attrVal.SS.Count > 0 )
       {
         string[] strs = attrVal.SS.ToArray( );
-        str = string.Join( commaSep, strs, startIndex, strs.Length - startIndex );
+        str = string.Join( CommaSep, strs, startIndex, strs.Length - startIndex );
       }
       else if( attrVal.NS.Count > 0 )
       {
         string[] strs = attrVal.NS.ToArray( );
-        str = string.Join( commaSep, strs, startIndex, strs.Length - startIndex );
+        str = string.Join( CommaSep, strs, startIndex, strs.Length - startIndex );
       }
       else if( attrVal.L.Count > 0 )
         str = attrListToString( attrVal.L, startIndex );
@@ -233,7 +235,7 @@ namespace DynamoDB_intro
         if( str != null )
         {
           if( i > 0 )
-            sb.Append( commaSep );
+            sb.Append( CommaSep );
           sb.Append( str );
         }
       }
@@ -250,12 +252,12 @@ namespace DynamoDB_intro
       if( attrVal.S != null )
       {
         if( startIndex == 0 )
-          return ( string.Format( val_str, next, indent, attrVal.S ) );
+          return ( string.Format( ValStr, next, indent, attrVal.S ) );
       }
       else if( attrVal.N != null )
       {
         if( startIndex == 0 )
-          return ( string.Format( val_str, next, indent, attrVal.N ) );
+          return ( string.Format( ValStr, next, indent, attrVal.N ) );
       }
       else
       {
@@ -268,7 +270,7 @@ namespace DynamoDB_intro
             string[] strs = attrVal.SS.ToArray( );
             for( int i = startIndex; i < strs.Length; i++ )
             {
-              sb.Append( string.Format( val_str, next, indent, strs[i] ) );
+              sb.Append( string.Format( ValStr, next, indent, strs[i] ) );
               next = ",";
             }
           }
@@ -280,7 +282,7 @@ namespace DynamoDB_intro
             string[] strs = attrVal.NS.ToArray( );
             for( int i = startIndex; i < strs.Length; i++ )
             {
-              sb.Append( string.Format( val_str, next, indent, strs[i] ) );
+              sb.Append( string.Format( ValStr, next, indent, strs[i] ) );
               next = ",";
             }
           }
@@ -291,7 +293,7 @@ namespace DynamoDB_intro
           {
             for( int i = startIndex; i < attrVal.L.Count; i++ )
             {
-              sb.Append( string.Format( val_str, next, indent, attrValToString( attrVal.L[i], 0 ) ) );
+              sb.Append( string.Format( ValStr, next, indent, attrValToString( attrVal.L[i], 0 ) ) );
               next = ",";
             }
           }
@@ -317,7 +319,7 @@ namespace DynamoDB_intro
         if( str != null )
         {
           if( i > 0 )
-            sb.Append( commaSep );
+            sb.Append( CommaSep );
           sb.Append( str );
         }
       }

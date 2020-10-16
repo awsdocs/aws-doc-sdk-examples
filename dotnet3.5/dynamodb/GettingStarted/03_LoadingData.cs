@@ -1,39 +1,27 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[dotNET]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.dotNET.CodeExample.03_LoadingData] 
+// snippet-start:[dynamodb.dotnet35.03_LoadingData]
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.DocumentModel;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DynamoDB_intro
+namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-
         /*--------------------------------------------------------------------------
          *     LoadingData_async
          *--------------------------------------------------------------------------*/
-        public static async Task<bool> LoadingData_async(Table table, string filePath)
+        public static async Task LoadingData_async(Table table, string filePath)
         {
-            var movieArray = await ReadJsonMovieFile_async(filePath);
+            JArray movieArray;
 
+            movieArray = await ReadJsonMovieFile_async(filePath);
             if (movieArray != null)
                 await LoadJsonMovieData_async(table, movieArray);
-
-            return true;
         }
 
         /*--------------------------------------------------------------------------
@@ -46,37 +34,52 @@ namespace DynamoDB_intro
             JArray movieArray = null;
 
             Console.WriteLine("  -- Reading the movies data from a JSON file...");
-           
+            OperationSucceeded = false;
+            OperationFailed = false;
+
             try
             {
                 sr = new StreamReader(jsonMovieFilePath);
                 jtr = new JsonTextReader(sr);
-                movieArray = (JArray)await JToken.ReadFromAsync(jtr);
+                movieArray = (JArray) await JToken.ReadFromAsync(jtr);
+                OperationSucceeded = true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("     ERROR: could not read the file!\n          Reason: {0}.", ex.Message);
+                OperationFailed = true;
             }
             finally
             {
                 if (jtr != null)
                     jtr.Close();
+
                 if (sr != null)
                     sr.Close();
             }
-            
-            return movieArray;
-        }
 
+            if (OperationSucceeded)
+            {
+                Console.WriteLine("     -- Succeeded in reading the JSON file!");
+                return (movieArray);
+            }
+
+            return (null);
+        }
 
         /*--------------------------------------------------------------------------
          *                LoadJsonMovieData_async
          *--------------------------------------------------------------------------*/
-        public static async Task<bool> LoadJsonMovieData_async(Table moviesTable, JArray moviesArray)
+        public static async Task LoadJsonMovieData_async(Table moviesTable, JArray moviesArray)
         {
+            OperationSucceeded = false;
+            OperationFailed = false;
+
             int n = moviesArray.Count;
-            Console.Write("     -- Starting to load {0:#,##0} movie records into the Movies table asynchronously...\n" + "" +
-              "        Wrote: ", n);
+            Console.Write("     -- Starting to load {0:#,##0} movie records into the Movies table asynchronously...\n" +
+                          "" +
+                          "        Wrote: ", n);
+
             for (int i = 0, j = 99; i < n; i++)
             {
                 try
@@ -84,6 +87,7 @@ namespace DynamoDB_intro
                     string itemJson = moviesArray[i].ToString();
                     Document doc = Document.FromJson(itemJson);
                     Task putItem = moviesTable.PutItemAsync(doc);
+
                     if (i >= j)
                     {
                         j++;
@@ -92,15 +96,24 @@ namespace DynamoDB_intro
                             Console.Write("\n               ");
                         j += 99;
                     }
+
                     await putItem;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return false;
+                    Console.WriteLine("\n     ERROR: Could not write the movie record #{0:#,##0}, because:\n       {1}",
+                        i, ex.Message);
+                    OperationFailed = true;
+                    break;
                 }
             }
 
-            return true;
+            if (!OperationFailed)
+            {
+                OperationSucceeded = true;
+                Console.WriteLine("\n     -- Finished writing all movie records to DynamoDB!");
+            }
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.03_LoadingData]
+}
+// snippet-end:[dynamodb.dotnet35.03_LoadingData]
