@@ -74,15 +74,15 @@ public class CreateTable {
                 .region(region)
                 .build();
 
-        // Create a waiter object
-        DynamoDbWaiter dbWaiter = ddb.waiter();
-
-        String result = createTable(ddb, dbWaiter, tableName, key);
+        String result = createTable(ddb, tableName, key);
         System.out.println("New table is "+result);
     }
 
     // snippet-start:[dynamodb.java2.create_table.main]
-    public static String createTable(DynamoDbClient ddb, DynamoDbWaiter dbWaiter, String tableName, String key) {
+    public static String createTable(DynamoDbClient ddb, String tableName, String key) {
+
+        // Create a waiter object
+        DynamoDbWaiter dbWaiter = ddb.waiter();
 
         // Create the CreateTableRequest object
         CreateTableRequest request = CreateTableRequest.builder()
