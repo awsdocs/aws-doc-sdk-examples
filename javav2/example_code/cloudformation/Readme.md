@@ -52,14 +52,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running CloudTrailTest
+	[INFO] Running CloudFormationTest
 	Test 1 passed
 	Test 2 passed
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
