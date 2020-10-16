@@ -33,7 +33,7 @@ public class AWSDynamoServiceIntegrationTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        // Run tests on Real AWS Resources
+        // Run tests on real AWS Resources
         Region region = Region.US_WEST_2;
         ddb = DynamoDbClient.builder().region(region).build();
         try (InputStream input = AWSDynamoServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
