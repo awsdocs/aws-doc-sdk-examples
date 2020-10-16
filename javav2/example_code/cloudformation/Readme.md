@@ -36,9 +36,9 @@ Before running the AWS CloudFormation JUnit tests, you must define values in the
 
 Define these values to successfully run the JUnit tests:
 
-- **stackName** -  The name of the stack.  
-- **roleARN** – The ARN of the role that has CloudFormation permissions.
-- **location** – The location of file containing the template body. (ie, https://s3.amazonaws.com/<bucketname>/template.yml).
+- **stackName** - The name of the stack.  
+- **roleARN** – The Amazon Resource Number (ARN) of the role that has CloudFormation permissions.
+- **location** – The location of the file containing the template body (ie, https://s3.amazonaws.com/<bucketname>/template.yml).
 - **key** – The key associated with the parameter.
 - **value** – The value associated with the parameter.
 
