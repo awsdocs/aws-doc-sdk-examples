@@ -348,3 +348,4 @@ namespace GettingStarted
         }
     }
 }
+// snippet-end:[dynamodb.dotnet35.00_Main]
