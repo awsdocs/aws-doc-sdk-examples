@@ -189,7 +189,12 @@ These code examples use the following NuGet packages:
 - AWSSDK.Core, v3.5+
 - AWSSDK,DynamoDBv2, v3.5+
 
-### ListTables
+### Listing your tables
+
+Use the **ListTables** project to list your tables in a region.
+
+The default Region is defined as **Region**
+in **app.config**.
 
 ### Creating a table
 
