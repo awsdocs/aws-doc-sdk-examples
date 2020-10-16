@@ -38,7 +38,7 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 // snippet-end:[dynamodb.java2.create_table.import]
 
 /**
- * Creates an AWS DynamoDB table.
+ * Creates an Amazon DynamoDB table.
  *
  * This code expects that you have AWS credentials set up, as described here:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
