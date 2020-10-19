@@ -1,5 +1,14 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to get an item by using the DynamoDbAsyncClient object]
+//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[Code Sample]
+//snippet-service:[DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[8/7/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -12,20 +21,10 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to get an item by using the DynamoDbAsyncClient object]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-11-19]
-// snippet-sourceauthor:[AWS]
-
 // snippet-start:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
 package com.example.dynamodbasync;
 // snippet-start:[dynamoasyn.java2.get_item.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
@@ -34,59 +33,68 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-
 // snippet-end:[dynamoasyn.java2.get_item.import]
+
 public class DynamoDBAsyncGetItem {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetItem <table> <name> [projection_expression]\n\n" +
+                "    DynamoDBAsyncGetItem <table> <key> <keyVal>\n\n" +
                 "Where:\n" +
-                "    table - the table to get an item from.\n" +
-                "    name  - the item to get.\n\n" +
-                "You can add an optional projection expression (a quote-delimited,\n" +
-                "comma-separated list of attributes to retrieve) to limit the\n" +
-                "fields returned from the table.\n\n" +
-                "Example:\n" +
-                "    GetItem HelloTable World\n" +
-                "    GetItem SiteColors text \"default, bold\"\n";
+                "    table - the table from which an item is retrieved (i.e., Music3)\n" +
+                "    key -  the key used in the table (i.e., Artist) \n" +
+                "    keyval  - the key value that represents the item to get (i.e., Famous Band)\n" +
+                " Example:\n" +
+                "    Music3 Artist Famous Band\n" +
+                "  **Warning** This program will actually retrieve an item\n" +
+                "            that you specify!\n";
 
-        if (args.length < 2) {
+        if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // snippet-start:[dynamoasyc.java2.get_item.main]
-        //Get both input arguments
         String tableName = args[0];
-        String name = args[1];
-        System.out.format("Retrieving item \"%s\" from \"%s\"\n", name, tableName );
+        String key = args[1];
+        String keyVal = args[2];
+
+        // Create the DynamoDbAsyncClient object
+        Region region = Region.US_WEST_2;
+        DynamoDbAsyncClient client = DynamoDbAsyncClient.builder()
+                .region(region)
+                .build();
+
+        System.out.format("Retrieving item \"%s\" from \"%s\"\n", keyVal, tableName );
+        getItem(client, tableName, key, keyVal);
+    }
+
+    // snippet-start:[dynamoasyc.java2.get_item.main]
+    public static void getItem(DynamoDbAsyncClient client, String tableName, String key,  String keyVal) {
 
         HashMap<String, AttributeValue> keyToGet =
                 new HashMap<String, AttributeValue>();
 
-        keyToGet.put("Name", AttributeValue.builder().s(name).build());
+        keyToGet.put(key, AttributeValue.builder()
+                .s(keyVal).build());
 
         try {
 
-            DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
-
-            //Create a GetItemRequest instance
+            // Create a GetItemRequest instance
             GetItemRequest request = GetItemRequest.builder()
                     .key(keyToGet)
                     .tableName(tableName)
                     .build();
 
-            //Invoke the DynamoDbAsyncClient object's getItem
+            // Invoke the DynamoDbAsyncClient object's getItem
             java.util.Collection<software.amazon.awssdk.services.dynamodb.model.AttributeValue> returnedItem = client.getItem(request).join().item().values();
 
-            //Convert Set to Map
+            // Convert Set to Map
             Map<String, AttributeValue> map = returnedItem.stream().collect(Collectors.toMap(AttributeValue::s, s->s));
             Set<String> keys = map.keySet();
-            for (String key : keys) {
-                System.out.format("%s: %s\n", key, map.get(key).toString());
+            for (String sinKey : keys) {
+                System.out.format("%s: %s\n", sinKey, map.get(sinKey).toString());
             }
 
         } catch (DynamoDbException e) {
