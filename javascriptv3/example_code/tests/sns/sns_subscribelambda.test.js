@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sns/commands/SubscribeCommand", () => ({
     this.SubscribeCommand = mockSubscribeLambda;
   },
 }));
-const { run } = require("../../sns/sns_subscribelambda.js");
+const { run } = require("../../sns/src/sns_subscribelambda.js");
 
 //test function
 test("has to mock SNS#subscribelambda", async (done) => {

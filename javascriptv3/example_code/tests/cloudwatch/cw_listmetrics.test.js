@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-cloudwatch/commands/PutMetricAlarmCommand", () => ({
     this.PutMetricAlarmCommand = mockListMetrics;
   },
 }));
-const { params, run } = require("../../cloudwatch/cw_listmetrics");
+const { params, run } = require("../../cloudwatch/src/cw_listmetrics");
 
 //test function
 test("has to mock cloudwatch#listmetrics", async (done) => {

@@ -44,7 +44,7 @@ const cw = new CloudWatchClient(REGION);
 const run = async () => {
   try {
     const data = await cw.send(new ListMetricsCommand(params));
-    console.log("Metrics", JSON.stringify(data.Metrics));
+    console.log("Success. Metrics:", JSON.stringify(data.Metrics));
   } catch (err) {
     console.log("Error", err);
   }

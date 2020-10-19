@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-cloudwatch-events/commands/PutRuleCommand", () => ({
     this.PutRuleCommand = mockPutRule;
   },
 }));
-const { params, run } = require("../../cloudwatch/cwe_putrule");
+const { params, run } = require("../../cloudwatch/src/cwe_putrule");
 
 //test function
 test("has to mock cloudwatch-events#putrule", async (done) => {

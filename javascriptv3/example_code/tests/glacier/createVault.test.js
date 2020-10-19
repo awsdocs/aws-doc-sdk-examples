@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-glacier/commands/CreateVaultCommand", () => ({
         this.CreateVaultCommand = mockCreateVault;
     },
 }));
-const { run } = require("../../glacier/createVault");
+const { run } = require("../../glacier/src/createVault");
 
 //test function
 test("has to mock glacier#createvault", async (done) => {

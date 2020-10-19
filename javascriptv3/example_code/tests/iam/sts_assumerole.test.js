@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sts/commands/AssumeRoleCommand", () => ({
     this.AssumeRoleCommand = mockAssumeRole;
   },
 }));
-const { params, run } = require("../../iam/sts_assumerole.js");
+const { params, run } = require("../../iam/src/sts_assumerole.js");
 
 //test function
 test("has to mock iam#assumerole", async (done) => {

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-cloudwatch/commands/DeleteAlarmsCommand", () => ({
     this.DeleteAlarmsCommand = mockDeleteAlarms;
   },
 }));
-const { params, run } = require("../../cloudwatch/cw_deletealarms");
+const { params, run } = require("../../cloudwatch/src/cw_deletealarms");
 
 //test function
 test("has to mock cloudwatch#deletealarms", async (done) => {

@@ -48,7 +48,7 @@ const params = {
   Port: "PORT_NUMBER", // Optional - defaults to '5439' if not specified
 };
 
-// Create an Amazon Redhsift client service object
+// Create an Amazon Redshift client service object
 const redshift = new RedshiftClient(REGION);
 
 const run = async () => {

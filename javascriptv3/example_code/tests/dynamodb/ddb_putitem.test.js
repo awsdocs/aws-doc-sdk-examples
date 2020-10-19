@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-dynamodb/commands/PutItemCommand", () => ({
     this.PutItemCommand = mockPutItem;
   },
 }));
-const { params, run } = require("../../dynamodb/ddb_putitem");
+const { params, run } = require("../../dynamodb/src/ddb_putitem");
 
 //test function
 test("has to mock db#putItem", async (done) => {

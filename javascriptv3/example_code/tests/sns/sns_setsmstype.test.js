@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sns/commands/SetSMSAttributesCommand", () => ({
     this.SetSMSAttributesCommand = mockSetSMSAttributes;
   },
 }));
-const { run } = require("../../sns/sns_setsmstype.js");
+const { run } = require("../../sns/src/sns_setsmstype.js");
 
 //test function
 test("has to mock SNS#setsmstype", async (done) => {

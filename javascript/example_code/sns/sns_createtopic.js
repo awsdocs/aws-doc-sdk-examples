@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[sns_createtopic.js demonstrates how to create an Amazom SNS topic to which notifications can be published.]
+//snippet-sourcedescription:[sns_createtopic.js demonstrates how to create an Amazon SNS topic to which notifications can be published.]
 //snippet-service:[sns]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
@@ -23,7 +23,7 @@
 //snippet-sourceauthor:[AWS-JSDG]
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-managing-topics.html 
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-managing-topics.html
 
 // snippet-start:[sns.JavaScript.topics.createTopic]
 // Load the AWS SDK for Node.js
