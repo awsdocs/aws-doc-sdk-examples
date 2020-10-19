@@ -4,7 +4,7 @@
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[10/15/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourceauthor:[scmacdon- aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
