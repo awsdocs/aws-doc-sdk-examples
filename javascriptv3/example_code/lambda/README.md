@@ -3,7 +3,7 @@ This is a workspace where you can find working AWS SDK for JavaScript v3 Amazon 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html) for the topic containing these examples.
+The [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html) contains these examples.
 
 Amazon Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
 

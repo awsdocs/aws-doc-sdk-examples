@@ -3,7 +3,7 @@ This is a workspace where you can find working AWS SDK for JavaScript version 3 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html) for the topic containing these examples.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html) contains these examples.
 
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
