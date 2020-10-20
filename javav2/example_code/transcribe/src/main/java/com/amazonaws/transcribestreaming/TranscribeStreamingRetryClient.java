@@ -9,6 +9,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
+// snippet-start:[transcribe.java-streaming-retry-client]
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -23,7 +24,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-// snippet-start:[transcribe.java-streaming-retry-client]
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -38,7 +38,6 @@ import software.amazon.awssdk.services.transcribestreaming.model.AudioStream;
 import software.amazon.awssdk.services.transcribestreaming.model.BadRequestException;
 import software.amazon.awssdk.services.transcribestreaming.model.StartStreamTranscriptionRequest;
 import software.amazon.awssdk.services.transcribestreaming.model.StartStreamTranscriptionResponseHandler;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -62,11 +61,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Create a TranscribeStreamingRetryClient with given credential and configuration
-     *
-     * @param creds    Creds to use for transcription
-     * @param endpoint Endpoint to use for transcription
-     * @param region   Region to use for transcriptions
-     * @throws URISyntaxException if the endpoint is not a URI
      */
     public TranscribeStreamingRetryClient(AwsCredentialsProvider creds,
                                           String endpoint, Region region) throws URISyntaxException {
@@ -83,8 +77,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Initiate TranscribeStreamingRetryClient with TranscribeStreamingAsyncClient
-     *
-     * @param client TranscribeStreamingAsyncClient
      */
 
     public TranscribeStreamingRetryClient(TranscribeStreamingAsyncClient client) {
@@ -93,8 +85,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Get Max retries
-     *
-     * @return Max retries
      */
     public int getMaxRetries() {
         return maxRetries;
@@ -102,8 +92,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Set Max retries
-     *
-     * @param maxRetries Max retries
      */
     public void setMaxRetries(int maxRetries) {
         this.maxRetries = maxRetries;
@@ -111,8 +99,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Get sleep time
-     *
-     * @return sleep time between retries
      */
     public int getSleepTime() {
         return sleepTime;
@@ -120,8 +106,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Set sleep time between retries
-     *
-     * @param sleepTime sleep time
      */
     public void setSleepTime(int sleepTime) {
         this.sleepTime = sleepTime;
@@ -129,11 +113,6 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * Initiate a Stream Transcription with retry.
-     *
-     * @param request         StartStreamTranscriptionRequest to use to start transcription
-     * @param publisher       The source audio stream as Publisher
-     * @param responseHandler StreamTranscriptionBehavior object that defines how the response needs to be handled.
-     * @return Completable future to handle stream response.
      */
 
     public CompletableFuture<Void> startStreamTranscription(final StartStreamTranscriptionRequest request,
@@ -148,13 +127,8 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * Recursively call startStreamTranscription() to be called till the request is completed or till we run out of retries.
+     * Recursively call startStreamTranscription() until the request is completed or we run out of retries.
      *
-     * @param request         StartStreamTranscriptionRequest
-     * @param publisher       The source audio stream as Publisher
-     * @param responseHandler StreamTranscriptionBehavior object that defines how the response needs to be handled.
-     * @param finalFuture     final future to finish on completing the chained futures.
-     * @param retryAttempt    Current attempt number
      */
     private void recursiveStartStream(final StartStreamTranscriptionRequest request,
                                       final Publisher<AudioStream> publisher,
@@ -224,8 +198,6 @@ public class TranscribeStreamingRetryClient {
     /**
      * Check if the exception can be retried.
      *
-     * @param e Exception that occurred
-     * @return True if the exception is retriable
      */
     private boolean isExceptionRetriable(Throwable e) {
         e.printStackTrace();
