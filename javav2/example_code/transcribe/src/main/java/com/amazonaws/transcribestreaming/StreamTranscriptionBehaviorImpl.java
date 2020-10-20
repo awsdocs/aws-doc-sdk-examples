@@ -9,7 +9,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[transcribe.java-streaming-client-behavior-imp]
+
 
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -25,6 +25,7 @@
  * specific language governing permissions and limitations under the License.
  *
  */
+// snippet-start:[transcribe.java-streaming-client-behavior-imp]
 package com.amazonaws.transcribestreaming;
 
 import software.amazon.awssdk.services.transcribestreaming.model.Result;
