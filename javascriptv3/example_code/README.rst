@@ -1,14 +1,17 @@
 ###############################
-AWS SDK for JavaScript version 3 (v3) examples
+AWS SDK for JavaScript v3 examples
 ###############################
 
-These are examples for the AWS SDK for JavaScript v3 public documentation.
+These are examples for the AWS SDK for JavaScript version 3 (v3) public documentation.
 
-The `preview of version 3 of the SDK at <https://github.com/aws/aws-sdk-js-v3>`_ is available.
+The preview of the `AWS SDK for JavaScript v3 <https://github.com/aws/aws-sdk-js-v3>`_ is available.
 
-Once it's released, the `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/>`_ will contain the topics for these example.
+The `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/>`_ contains topics for these example.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see the `TypeScript homepage <https://www.typescriptlang.org/>`_ .
+
+**Note**: Examples for AWS SDK for JavaScript version 2 (v2) are available in the `javascript/example_code <https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascript/example_code/>`_ folder in this repo.
+
 
 Prerequisites
 =============

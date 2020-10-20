@@ -1,11 +1,10 @@
 ###############################
-AWS SDK for JavaScript (version 2) examples
+AWS SDK for JavaScript v2 examples
 ###############################
 
+These are examples for the AWS SDK for JavaScript version 2 (v2) public documentation.
 
-These are examples for the AWS SDK for JavaScript public documentation.
-
-
+**Note**: Examples for AWS SDK for JavaScript version 3 (v3) are available in the `javascriptv3/example_code <https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/>`_ folder in this repo.
 
 Prerequisites
 =============
