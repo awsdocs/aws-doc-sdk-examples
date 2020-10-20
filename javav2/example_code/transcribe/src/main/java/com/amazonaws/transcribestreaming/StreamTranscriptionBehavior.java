@@ -52,7 +52,7 @@ public interface StreamTranscriptionBehavior {
 
 
     /**
-     * Defines what to do on stream completion
+     * Defines what to do on stream completion.
      */
     void onComplete();
 }
