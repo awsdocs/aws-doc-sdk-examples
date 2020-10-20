@@ -25,6 +25,7 @@
  * specific language governing permissions and limitations under the License.
  *
  */
+// snippet-start:[transcribe.java-streaming-client-behavior-imp]
 package com.amazonaws.transcribestreaming;
 
 import software.amazon.awssdk.services.transcribestreaming.model.Result;
