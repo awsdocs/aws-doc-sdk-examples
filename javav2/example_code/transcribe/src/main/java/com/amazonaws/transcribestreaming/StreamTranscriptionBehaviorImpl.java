@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StreamTranscriptionBehaviorImpl.java demonstrates how to   .]
+//snippet-sourcedescription:[StreamTranscriptionBehaviorImpl.java demonstrates how to implement StreamTranscriptionBehavior.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
 // snippet-sourcesyntax:[java]
@@ -12,31 +12,25 @@
 // snippet-start:[transcribe.java-streaming-client-behavior-imp]
 
 /**
- * Implementation of StreamTranscriptionBehavior to define how a stream response is handled.
- *
- * COPYRIGHT:
- *
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://aws.amazon.com/apache2.0/
  *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
  */
 package com.amazonaws.transcribestreaming;
 
-import com.amazonaws.transcribestreaming.StreamTranscriptionBehavior;
 import software.amazon.awssdk.services.transcribestreaming.model.Result;
 import software.amazon.awssdk.services.transcribestreaming.model.StartStreamTranscriptionResponse;
 import software.amazon.awssdk.services.transcribestreaming.model.TranscriptEvent;
 import software.amazon.awssdk.services.transcribestreaming.model.TranscriptResultStream;
-
 import java.util.List;
 
 public class StreamTranscriptionBehaviorImpl implements StreamTranscriptionBehavior {
