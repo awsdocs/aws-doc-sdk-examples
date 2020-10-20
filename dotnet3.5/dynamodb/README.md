@@ -466,45 +466,119 @@ in **app.config**.
 In addition to the code example described in the previous section,
 this directory contains the following code examples.
 
+These examples use three different levels of the SDK:
+
+1. LowLevel* projects use the low-level APIs, 
+   such as **PutItemAsync** from the 
+   [AmazonDynamoDBClient](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TDynamoDBClient.html)
+   class.
+1. MidLevel* projects use the mid-level APIs,
+   such as **LoadTable** from the
+   [Table](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TTable.html)
+   class.
+1. HighLevel* projects use the high-level APIs, such as **LoadAsync** from the 
+   [DynamoDBContext](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TDynamoDBContext.html) 
+   class.
+
 ### Create some tables and load data into them
 
 Use the **CreateTablesLoadData** project to create the tables
 **ProductCatalog**, **Forum**, **Thread**, and **Reply**.
 
-### HighLevelBatchWriteItem
+### Add items to a table and add items to multiple tables
 
-### HighLevelItemCRUD
+Use the **HighLevelBatchWriteItem** project to do the following:
 
-### HighLevelMappingArbitraryData
+- Add two books to the **ProductCatalog** table.
+- Add an item to the **Forum** table and an item to the **Thread** table.
 
-### HighLevelQueryAndScan
+### Perform high-level CRUD operations on a table item
 
-### LowLevelBatchGet
+Use the **HighLevelItemCRUD** project to do the following
+CRUD (create, read, update, delete) operations on a table item:
 
-### LowLevelBatchWrite
+- Add an item to the **ProductCatalog** table.
+- Update some of the item's properties.
+- Retrieve the updated item.
+- Delete the item.
 
-### LowLevelGlobalSecondaryIndexExample
+### Add, retrieve, and update a table item
 
-### LowLevelItemBinaryExample
+Use the **HighLevelMappingArbitraryData** project to 
+add, retrieve, and update an item in the **ProductCatalog** table.
 
-### LowLevelItemCRUDExample
+### Retrieve items by criteria from a table
 
-### LowLevelLocalSecondaryIndexExample
+Use the **HighLevelQueryAndScan** project to do the following:
 
-### LowLevelParallelScan
-
-### LowLevelQuery
-
-### LowLevelScan
-
-### LowLevelTableExample
-
-### MidLevelBatchWriteItem
-
-### MidlevelItemCRUD
-
-### MidLevelQueryAndScan
-
-### MidLevelScanOnly
+- Retrieve an item from the **ProductCatalog** table.
+- Retrieve items posted in the last 15 days in the **Forum** table.
+- Retrieve items posted in the last specified (30 by default) number of days in the **Forum** table.
+- Retrieve items from the **ProductCatalog** table with a cost less than zero.
 
 ### 
+
+Use the **LowLevelBatchGet** project to 
+
+### 
+
+Use the **LowLevelBatchWrite** project to 
+
+### 
+
+Use the **LowLevelGlobalSecondaryIndexExample** project to 
+
+### 
+
+Use the **LowLevelItemBinaryExample** project 
+
+### Perform low-level CRUD operations on a table item
+
+Use the **LowLevelItemCRUDExample** project to do the following
+CRUD (create, read, update, delete) operations on a table item:
+
+- Create a new item in the **ProductCatalog** table.
+- Retrieve the item.
+- Add some attributes to the item.
+- Update some item attributes based on a condition.
+- Delete the item.
+
+### 
+
+Use the **LowLevelLocalSecondaryIndexExample** project to 
+
+### 
+
+Use the **LowLevelParallelScan** project to 
+
+### 
+
+Use the **LowLevelQuery** project to 
+
+### 
+
+Use the **LowLevelScan** project to 
+
+### 
+
+Use the **LowLevelTableExample** project to 
+
+### 
+
+Use the **MidLevelBatchWriteItem** project to 
+
+### 
+
+Use the **MidlevelItemCRUD** project to do the following
+CRUD (create, read, update, delete) operations on a table item:
+
+
+
+### 
+
+Use the **MidLevelQueryAndScan** project to 
+
+### 
+
+Use the **MidLevelScanOnly** project to 
+
