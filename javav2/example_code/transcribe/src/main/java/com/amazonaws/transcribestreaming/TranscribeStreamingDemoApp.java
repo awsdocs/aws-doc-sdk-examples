@@ -35,7 +35,6 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.TranscribeStreamingAsyncClient;
 import software.amazon.awssdk.services.transcribestreaming.model.*;
-
 import javax.sound.sampled.*;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -163,7 +162,7 @@ public class TranscribeStreamingDemoApp {
         private ExecutorService executor = Executors.newFixedThreadPool(1);
         private AtomicLong demand = new AtomicLong(0);
 
-        private SubscriptionImpl(Subscriber<? super AudioStream> s, InputStream inputStream) {
+        SubscriptionImpl(Subscriber<? super AudioStream> s, InputStream inputStream) {
             this.subscriber = s;
             this.inputStream = inputStream;
         }
