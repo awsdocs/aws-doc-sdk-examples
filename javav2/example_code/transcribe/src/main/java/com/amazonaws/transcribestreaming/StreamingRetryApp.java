@@ -81,12 +81,12 @@ public class StreamingRetryApp {
                 new AudioStreamPublisher(
                         new FileInputStream(new File("FileName"))),
                 /**
-                 * Object that defines the behavior on how to handle the stream
+                 * Object that defines the behavior on how to handle the stream.
                  */
                 new StreamTranscriptionBehaviorImpl());
 
         /**
-         * Synchronous wait for stream to close, and close client connection
+         * Synchronous wait for stream to close, and close client connection.
          */
         result.get();
         client.close();
