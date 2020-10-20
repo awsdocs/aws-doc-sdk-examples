@@ -6,7 +6,7 @@ These are examples for the AWS SDK for JavaScript version 3 (v3) public document
 
 The preview of the `AWS SDK for JavaScript v3 <https://github.com/aws/aws-sdk-js-v3>`_ is available.
 
-The `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/>`_ contains topics for these example.
+The `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/>`_ contains topics for these examples.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see the `TypeScript homepage <https://www.typescriptlang.org/>`_ .
 
@@ -19,7 +19,7 @@ Prerequisites
 To build and run these examples, you need to:
 
 - Set up the project environment to run these TypeScript examples with Node.js, and install the required AWS SDK for JavaScript and third-party modules. Follow the instructions in the README.md in the folder with the examples you're running; for example, `instructions for Amazon S3 examples <https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javascriptv3/example_code/s3/README.md>`_.
-- Create a shared configurations file with your user credentials. The `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html>`_ in for more information.
+- Create a shared configurations file with your user credentials. See the `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html>`_ for more information.
 
 Running the examples
 ====================
