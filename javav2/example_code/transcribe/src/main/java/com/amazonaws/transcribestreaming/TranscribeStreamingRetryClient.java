@@ -60,7 +60,7 @@ public class TranscribeStreamingRetryClient {
     private int sleepTime = DEFAULT_MAX_SLEEP_TIME_MILLS;
 
     /**
-     * Create a TranscribeStreamingRetryClient with given credential and configuration
+     * Create a TranscribeStreamingRetryClient.
      */
     public TranscribeStreamingRetryClient(AwsCredentialsProvider creds,
                                           String endpoint, Region region) throws URISyntaxException {
@@ -76,7 +76,7 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * Initiate TranscribeStreamingRetryClient with TranscribeStreamingAsyncClient
+     * Initiate TranscribeStreamingRetryClient with TranscribeStreamingAsyncClient.
      */
 
     public TranscribeStreamingRetryClient(TranscribeStreamingAsyncClient client) {
@@ -84,28 +84,28 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * Get Max retries
+     * Get Max retries.
      */
     public int getMaxRetries() {
         return maxRetries;
     }
 
     /**
-     * Set Max retries
+     * Set Max retries.
      */
     public void setMaxRetries(int maxRetries) {
         this.maxRetries = maxRetries;
     }
 
     /**
-     * Get sleep time
+     * Get sleep time.
      */
     public int getSleepTime() {
         return sleepTime;
     }
 
     /**
-     * Set sleep time between retries
+     * Set sleep time between retries.
      */
     public void setSleepTime(int sleepTime) {
         this.sleepTime = sleepTime;
@@ -175,7 +175,7 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * StartStreamTranscriptionResponseHandler implements subscriber of transcript stream
-     * Output is printed to standard output
+     * Output is printed to standard output.
      */
     private StartStreamTranscriptionResponseHandler getResponseHandler(
             StreamTranscriptionBehavior transcriptionBehavior) {
