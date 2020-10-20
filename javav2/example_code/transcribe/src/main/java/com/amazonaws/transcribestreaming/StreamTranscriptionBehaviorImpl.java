@@ -9,7 +9,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
-
+// snippet-start:[transcribe.java-streaming-client-behavior-imp]
 
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -25,7 +25,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-// snippet-start:[transcribe.java-streaming-client-behavior-imp]
 package com.amazonaws.transcribestreaming;
 
 import software.amazon.awssdk.services.transcribestreaming.model.Result;
@@ -45,8 +44,6 @@ public class StreamTranscriptionBehaviorImpl implements StreamTranscriptionBehav
 
     @Override
     public void onStream(TranscriptResultStream e) {
-        // EventResultStream has other fields related to the timestamp of the transcripts in it.
-        // Please refer to the javadoc of TranscriptResultStream for more details
         List<Result> results = ((TranscriptEvent) e).transcript().results();
         if (results.size() > 0) {
             if (results.get(0).alternatives().size() > 0)
