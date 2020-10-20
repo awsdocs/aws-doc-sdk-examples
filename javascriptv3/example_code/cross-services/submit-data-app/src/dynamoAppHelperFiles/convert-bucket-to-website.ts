@@ -18,7 +18,7 @@ Inputs (replace in code):
 - BUCKET_NAME
 
 Running the code:
-node upload_files_to_s3.ts
+node upload-files-to-s3.ts
  */
 // snippet-start:[s3.JavaScript.cross-service.addBucketPolicyV3]
 const {

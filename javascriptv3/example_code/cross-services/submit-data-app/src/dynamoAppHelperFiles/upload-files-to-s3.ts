@@ -8,10 +8,10 @@ scheduled for release later in 2020, and the topic containing this example will 
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-upload_files_to_s3.ts is part of a tutorial demonstrating how to build and deploy an app to submit
+upload-files-to-s3.ts is part of a tutorial demonstrating how to build and deploy an app to submit
 data to an Amazon DynamoDB table.
 To run the full tutorial, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html.
-upload_files_to_s3.ts creates a bucket, and uploads the index.html, error.html, and main.js files to it.
+upload-files-to-s3.ts creates a bucket, and uploads the index.html, error.html, and main.js files to it.
 
 Inputs (replace in code):
 - REGION
