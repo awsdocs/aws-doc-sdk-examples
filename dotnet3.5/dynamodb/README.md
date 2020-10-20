@@ -1,36 +1,29 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+     SPDX - License - Identifier: Apache - 2.0 -->
 # Amazon DynamoDB code examples in C\#
 
-This folder contains code examples using the AWS SDK for .NET (the SDK) for Amazon DynamoDB service.
-
-The document contains the following section:
-
-- [Migrating to v3.5 of the SDK](#Migrating-to-version-3.5-of-the-SDK)
-- [Moving from an SQL database to Amazon DynamoDB, with examples](#Moving-from-an-SQL-database-to-a-NoSQL-database)
-- [About the other code examples](#About-the-code-examples)
+This folder contains code examples for moving from SQL to the Amazon DynamoDB service,
+as described in the Amazon DynamoDB Developer Guide at
+[From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html).
 
 All of these code examples are written in C#, 
-using the V3.5 version of the SDK.
+using the V3.5 version of the AWS SDK for .NET.
 Getting the 3.5 version of the SDK is straightforward using the command line 
 from the same folder as your ```.csproj``` file.
-For example, to add a reference to the latest (V3.5) version of the core AWS SDK for .NET and Amazon DynamoDB
-packages to your project, run the following commands.
+For example, to add a reference to the latest (V3.5) version of Amazon DynamoDB
+to your project:
 
 ```
-dotnet add package AWSSDK.Core
 dotnet add package AWSSDK.DynamoDBv2
 ```
 
-## Migrating to version 3.5 of the SDK
+## Using async/await
 
 See
 [Migrating to Version 3.5 of the AWS SDK for .NET](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-v35.html) 
 for details.
 
-## Moving from an SQL database to a NoSQL database
-
-Tthe code examples in the **FromSQL** directory are part of a series to aid in moving from an SQL database to a NoSQL database,
-as described in the Amazon DynamoDB Developer Guide at
-[From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html)
+## Before you write any code
 
 See
 [Best Practices for Modeling Relational Data in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html)
@@ -85,7 +78,7 @@ Product_ID,Product_Description,Product_Quantity,Product_Cost
 4,"2'x50' plastic sheeting",45,450
 ```
 
-### Modeling data in Amazon DynamoDB
+## Modeling data in Amazon DynamoDB
 
 Amazon DynamoDB supports the following data types,
 so you might have to create a new data model:
@@ -128,7 +121,7 @@ Determine the type of primary key you want:
 We'll show you how to create all of these when you create a table,
 and how to use them when you access a table.
 
-### Modeling Customers, Orders, and Products in Amazon DynamoDB
+## Modeling Customers, Orders, and Products in Amazon DynamoDB
 
 Your Amazon DynamoDB schema to model these tables might look like this:
 
@@ -150,7 +143,7 @@ Your Amazon DynamoDB schema to model these tables might look like this:
 | Product_Quantity | Number | How many are in the warehouse
 | Product_Cost | Number | The cost, in cents, of one product
 
-### Creating the example databases
+## Creating the example databases
 
 We'll use three .csv (comma-separated value) files to define a set of customers,
 orders, and products.
@@ -164,7 +157,7 @@ The three sets of data are in:
 - **orders.csv**, which defines 12 orders
 - **products.csv**, which defines six products
 
-### Default configuration
+## Default configuration
 
 Every project has an **app.config** file that typically contains the following
 configuration values:
@@ -179,24 +172,105 @@ Therefore, all of the projects that require a table name use the default table
 Similar values exist for most variable values in all projects.
 This means there are few command-line arguments for any executable file.
 
-### General code pattern
+## General code pattern
 
 It's important that you understand the new async/await programming model in the
 [AWS SDK for .NET](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide).
 
 These code examples use the following NuGet packages:
 
-- AWSSDK.Core, v3.5+
-- AWSSDK,DynamoDBv2, v3.5+
+- AWSSDK.Core, v3.5.0
+- AWSSDK,DynamoDBv2, v3.5.0
 
-### Listing your tables
+## Unit tests
 
-Use the **ListTables** project to list your tables in a region.
+We use [moq4](https://github.com/moq/moq4) to create unit tests with mocked objects.
+All of the code example projects have a companion unit test,
+where the name of the unit test project is the same as the tested project,
+with a **Test** suffix.
 
-The default Region is defined as **Region**
-in **app.config**.
+You can install the **moq** and **Extensions** unit testing Nuget packages with
+the following commands:
 
-### Creating a table
+```
+dotnet add package moq
+dotnet add package Microsoft.UnitTestFramework.Extensions
+```
+
+A typical unit test looks something like the following,
+which tests a call to **CreateTableAsync** in the
+**CreateTable** project:
+
+```
+using System;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
+
+using Moq;
+
+using Xunit;
+
+namespace DynamoDBCRUD
+{        
+    public class CreateTableTest
+    {
+        readonly string _tableName = "testtable";
+
+        private IAmazonDynamoDB CreateMockDynamoDBClient()
+        {
+            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
+
+            mockDynamoDBClient.Setup(client => client.CreateTableAsync(
+                It.IsAny<CreateTableRequest>(),
+                It.IsAny<CancellationToken>()))
+                .Callback<CreateTableRequest, CancellationToken>((request, token) =>
+                {
+                    if (!string.IsNullOrEmpty(_tableName))
+                    {
+                        bool areEqual = _tableName == request.TableName;
+                        Assert.True(areEqual, "The provided table name is not the one used to create the table");
+                    }
+                })
+                .Returns((CreateTableRequest r, CancellationToken token) =>
+                {
+                    return Task.FromResult(new CreateTableResponse { HttpStatusCode = HttpStatusCode.OK });
+                });
+
+            return mockDynamoDBClient.Object;
+        }
+
+        [Fact]
+        public async Task CheckCreateTable()
+        {
+            IAmazonDynamoDB client = CreateMockDynamoDBClient();
+
+            var result = await CreateTable.MakeTableAsync(client, _tableName);
+
+            bool ok = result.HttpStatusCode == HttpStatusCode.OK;
+            Assert.True(ok, "Could NOT create table " + _tableName);
+        }
+    }
+}
+```
+
+To run this test,
+navigate to the **CreateTableTest** folder and run:
+
+```
+dotnet test
+```
+
+If you want more information, run:
+
+```
+dotnet test -l "console;verbosity=detailed"
+```
+
+## Creating a table
 
 Use the **CreateTable** project to create a table.
 
@@ -227,14 +301,7 @@ See
 [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)
 in the *Amazon DynamoDB Developer Guide* for details.
 
-### Listing the items in a table
-
-Use the **ListItems** project to list the items in a table.
-
-The default table name is defined as **Table**
-in **app.config**.
-
-### Adding an item to the table
+## Adding an item to the table
 
 Use the **AddItem** project to add an item to a table.
 
@@ -260,9 +327,9 @@ It's up to you to determine the appropriate partition key value (ID).
 If you provide the same value as an existing table item,
 the values of that item are overwritten.
 
-### Uploading items to a table
+## Uploading items to a table
 
-Use the **AddItems** project to incorporate data from a comma-separated value 
+The **AddItems** project incorporates data from three comma-separated value 
 (.csv) files to populate a table.
 
 The default table name is defined as **Table**,
@@ -271,12 +338,12 @@ and the default table names are defined as
 **Customers**, **Orders**, and **Products**
 in **app.config**.
 
-### Managing indexes
+## Managing indexes
 
 Global secondary indices give you the ability to treat a set of 
 Amazon DynamoDB table keys as if they were a separate table.
 
-#### Creating an index
+### Creating an index
 
 Use the **CreateIndex** project to create an index.
 
@@ -307,78 +374,14 @@ You must wait until one GSI is created before you can attempt to create another 
 We recommend you use the Amazon DynamoDB console to monitor the progress
 of creating a GSI to avoid errors.
 
-### Reading data from a table
+## Reading data from a table
 
 You can read data from an Amazon DynamoDB table using a number of techniques.
 
 - By the item's primary key
 - By searching for a particular item or items based on the value of one or more keys
 
-#### List the products low in stock
-
-Use the **GetLowProductStock** project to retrieve a list of products
-below a threshold.
-
-The default table name is defined as **Table**,
-the default Region is defined as **Region**,
-and the minimum threshold is defined as **Minimum**
-in **app.config**.
-
-#### List the products low in stock using a global secondary index
-
-Use the **GetLowProductStockGSI** project to retrieve a list of products
-below a threshold using a global secondary index.
-
-The default table name is defined as **Table**,
-the default Region is defined as **Region**,
-the global secondary index is defined as **Index**,
-and the minimum threshold is defined as **Minimum**
-in **app.config**.
-
-#### List the orders for a product
-
-Use the **GetOrdersForProduct** project to retrieve a list of orders for a product.
-
-The default table name is defined as **Table**,
-the default Region is defined as **Region**,
-and the ID of the product is defined as **ProductID**
-in **app.config**.
-
-#### List the orders for a product using a global secondary index
-
-Use the **GetOrdersForProductGSI** project to retrieve a list of orders for a product
-using a global secondary index.
-
-The default table name is defined as **Table**,
-the default Region is defined as **Region**,
-the global secondary index is defined as **Index**,
-and the ID of the product is defined as **ProductID**
-in **app.config**.
-
-#### List the orders in a date range
-
-Use the **GetOrdersInDateRange** project to retrieve a list of orders
-within a date range.
-
-The default table name is defined as **Table**,
-the default Region is defined as **Region**,
-the starting date/time is defined as **StartTime**,
-and the stopping date/time is defined as **EndTime**
-in **app.config**.
-
-#### List the orders in a date range using a global secondary index
-
-Use the **GetOrdersInDateRangeGSI** project to retrieve a list of orders
-within a date range using a global secondary index.
-
-The default table name is defined as **Table**,
-the default Region is defined as **Region**,
-the global secondary index is defined as **Index**,
-the starting date/time is defined as **StartTime**,
-and stopping date/time is defined as **EndTime**
-in **app.config**.
-
-### Modifying a table item
+## Modifying a table item
 
 Use the **UpdateItem** project to modify the status of an order in the table.
 
@@ -394,7 +397,7 @@ It takes the following options:
 The update sets the **Order_Status** field of the item.
 It does not check whether the *ID* applies to a customer, order, or product.
 
-### Modifying a table item using the DynamoDB DataModel
+## Modifying a table item using the DynamoDB DataModel
 
 Use the **UpdateItemDataModel** project to modify the status of an order in the table
 using the DynamoDBContext class.
@@ -411,7 +414,7 @@ It takes the following options:
 The update sets the **Order_Status** field of the item.
 It does not check whether the *ID* applies to a customer, order, or product.
 
-#### Running the unit test
+### Running the unit test
 
 The **UpdateItemDataModelTest** project is the unit test for the **UpdateItemDataModel** project.
 It requires that you use the local, in-memory version of the DynamoDB service.
@@ -425,7 +428,7 @@ Invoke the DynamoDB Local with the following command line from the folder that c
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -inMemory
 ```
 
-### Deleting an item from a table
+## Deleting an item from a table
 
 Use the **DeleteItem** project to delete an item from the table.
 
@@ -439,146 +442,23 @@ It takes the following option:
 - ```-s``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
 
 If you provide an *AREA* value that does not match that of the item,
-the item is not deleted from the table.
+the example silently fails to delete the item from the table.
 
-### Deleting items from a table
+## Deleting items from a table
 
-Use the **DeleteItems** project to delete an item from the table.
+Use the **** project to delete an item from the table.
 
 The default table name is defined as **Table**,
 and the default Region is defined as **Region**
 in **app.config**.
 
 - ```-a``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
-- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values should be for the associated *AREA*.
-  If the **area** value of any item does not match *AREA*, the item is not deleted from the table. 
+- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values must be for the associated *AREA*.
 
-### Deleting a table
+## Deleting a table
 
 Use the **DeleteTable** project to delete a table.
 
 The default table name is defined as **Table**,
 and the default Region is defined as **Region**
 in **app.config**.
-
-## About the code examples
-
-In addition to the code example described in the previous section,
-this directory contains the following code examples.
-
-These examples use three different levels of the SDK:
-
-1. LowLevel* projects use the low-level APIs, 
-   such as **PutItemAsync** from the 
-   [AmazonDynamoDBClient](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TDynamoDBClient.html)
-   class.
-1. MidLevel* projects use the mid-level APIs,
-   such as **LoadTable** from the
-   [Table](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TTable.html)
-   class.
-1. HighLevel* projects use the high-level APIs, such as **LoadAsync** from the 
-   [DynamoDBContext](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TDynamoDBContext.html) 
-   class.
-
-### Create some tables and load data into them
-
-Use the **CreateTablesLoadData** project to create the tables
-**ProductCatalog**, **Forum**, **Thread**, and **Reply**.
-
-### Add items to a table and add items to multiple tables
-
-Use the **HighLevelBatchWriteItem** project to do the following:
-
-- Add two books to the **ProductCatalog** table.
-- Add an item to the **Forum** table and an item to the **Thread** table.
-
-### Perform high-level CRUD operations on a table item
-
-Use the **HighLevelItemCRUD** project to do the following
-CRUD (create, read, update, delete) operations on a table item:
-
-- Add an item to the **ProductCatalog** table.
-- Update some of the item's properties.
-- Retrieve the updated item.
-- Delete the item.
-
-### Add, retrieve, and update a table item
-
-Use the **HighLevelMappingArbitraryData** project to 
-add, retrieve, and update an item in the **ProductCatalog** table.
-
-### Retrieve items by criteria from a table
-
-Use the **HighLevelQueryAndScan** project to do the following:
-
-- Retrieve an item from the **ProductCatalog** table.
-- Retrieve items posted in the last 15 days in the **Forum** table.
-- Retrieve items posted in the last specified (30 by default) number of days in the **Forum** table.
-- Retrieve items from the **ProductCatalog** table with a cost less than zero.
-
-### 
-
-Use the **LowLevelBatchGet** project to 
-
-### 
-
-Use the **LowLevelBatchWrite** project to 
-
-### 
-
-Use the **LowLevelGlobalSecondaryIndexExample** project to 
-
-### 
-
-Use the **LowLevelItemBinaryExample** project 
-
-### Perform low-level CRUD operations on a table item
-
-Use the **LowLevelItemCRUDExample** project to do the following
-CRUD (create, read, update, delete) operations on a table item:
-
-- Create a new item in the **ProductCatalog** table.
-- Retrieve the item.
-- Add some attributes to the item.
-- Update some item attributes based on a condition.
-- Delete the item.
-
-### 
-
-Use the **LowLevelLocalSecondaryIndexExample** project to 
-
-### 
-
-Use the **LowLevelParallelScan** project to 
-
-### 
-
-Use the **LowLevelQuery** project to 
-
-### 
-
-Use the **LowLevelScan** project to 
-
-### 
-
-Use the **LowLevelTableExample** project to 
-
-### 
-
-Use the **MidLevelBatchWriteItem** project to 
-
-### 
-
-Use the **MidlevelItemCRUD** project to do the following
-CRUD (create, read, update, delete) operations on a table item:
-
-
-
-### 
-
-Use the **MidLevelQueryAndScan** project to 
-
-### 
-
-Use the **MidLevelScanOnly** project to 
-

@@ -14,55 +14,56 @@ using Xunit.Abstractions;
 
 namespace DynamoDBCRUD
 {
-    public class GetItemTest
+    public class GetOrdersInDateRangeTest
     {
         private readonly ITestOutputHelper output;
 
-        public GetItemTest(ITestOutputHelper output)
+        public GetOrdersInDateRangeTest(ITestOutputHelper output)
         {
             this.output = output;
         }
 
         readonly string _tableName = "testtable";
-        readonly string _id = "25";
+        readonly string _start = "2020-05-04 05:00:00";
+        readonly string _end = "2020-08-13 09:00:00";
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
             var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.QueryAsync(
-                It.IsAny<QueryRequest>(),
+            mockDynamoDBClient.Setup(client => client.ScanAsync(
+                It.IsAny<ScanRequest>(),
                 It.IsAny<CancellationToken>()))
-                .Callback<QueryRequest, CancellationToken>((request, token) =>
+                .Callback<ScanRequest, CancellationToken>((request, token) =>
                 {
                     if (!string.IsNullOrEmpty(_tableName))
                     {
-                        bool areEqual = _tableName == request.TableName;                        
+                        bool areEqual = _tableName == request.TableName;
                         Assert.True(areEqual, "The provided table name is not the one used to access the table");
                     }
                 })
-                .Returns((QueryRequest r, CancellationToken token) =>
+                .Returns((ScanRequest r, CancellationToken token) =>
                 {
-                    return Task.FromResult(new QueryResponse { HttpStatusCode = HttpStatusCode.OK });
+                    return Task.FromResult(new ScanResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
             return mockDynamoDBClient.Object;
         }
 
         [Fact]
-        public async Task CheckGetItem()
+        public async Task CheckGetOrdersInDateRange()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
-            var result = await GetItem.GetItemAsync(client, _tableName, _id);
+            var result = await GetOrdersInDateRange.GetOrdersInDateRangeAsync(client, _tableName, _start, _end);
 
             bool gotResult = result != null;
-            Assert.True(gotResult, "Could NOT get result from querying table " + _tableName);
+            Assert.True(gotResult, "Could NOT get results from scanning table");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT get item # " + _id + " from table " + _tableName);
+            Assert.True(ok, "Could NOT get items from scanning table");
 
-            output.WriteLine("Got item from table");
+            output.WriteLine("Got items from table");
         }
     }
 }

@@ -12,19 +12,20 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace DynamoDBCRUD 
 {
-    public class GetItemTest
+    public class GetLowProductStockGSITest
     {
         private readonly ITestOutputHelper output;
 
-        public GetItemTest(ITestOutputHelper output)
+        public GetLowProductStockGSITest(ITestOutputHelper output)
         {
             this.output = output;
         }
 
         readonly string _tableName = "testtable";
-        readonly string _id = "25";
+        readonly string _index = "LowProduct";
+        readonly string _minimum = "100";
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
@@ -37,7 +38,7 @@ namespace DynamoDBCRUD
                 {
                     if (!string.IsNullOrEmpty(_tableName))
                     {
-                        bool areEqual = _tableName == request.TableName;                        
+                        bool areEqual = _tableName == request.TableName;
                         Assert.True(areEqual, "The provided table name is not the one used to access the table");
                     }
                 })
@@ -50,19 +51,19 @@ namespace DynamoDBCRUD
         }
 
         [Fact]
-        public async Task CheckGetItem()
+        public async Task CheckGetLowProductStockGSI()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
-            var result = await GetItem.GetItemAsync(client, _tableName, _id);
+            var result = await GetLowProductStockGSI.GetLowStockAsync(client, _tableName, _index, _minimum);
 
             bool gotResult = result != null;
-            Assert.True(gotResult, "Could NOT get result from querying table " + _tableName);
+            Assert.True(gotResult, "Could NOT get result");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT get item # " + _id + " from table " + _tableName);
+            Assert.True(ok, "Could NOT get info from table");
 
-            output.WriteLine("Got item from table");
+            output.WriteLine("Got info from table");
         }
     }
 }

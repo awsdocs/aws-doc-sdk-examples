@@ -12,57 +12,56 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DynamoDBCRUD
+namespace DynamoDBCRUD 
 {
-    public class GetItemTest
+    public class ListItemsTest
     {
         private readonly ITestOutputHelper output;
 
-        public GetItemTest(ITestOutputHelper output)
+        public ListItemsTest(ITestOutputHelper output)
         {
             this.output = output;
         }
 
-        readonly string _tableName = "testtable";
-        readonly string _id = "25";
+        readonly string _tableName = "testtable";        
 
         private IAmazonDynamoDB CreateMockDynamoDBClient()
         {
             var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
 
-            mockDynamoDBClient.Setup(client => client.QueryAsync(
-                It.IsAny<QueryRequest>(),
+            mockDynamoDBClient.Setup(client => client.ScanAsync(
+                It.IsAny<ScanRequest>(),
                 It.IsAny<CancellationToken>()))
-                .Callback<QueryRequest, CancellationToken>((request, token) =>
+                .Callback<ScanRequest, CancellationToken>((request, token) =>
                 {
                     if (!string.IsNullOrEmpty(_tableName))
                     {
-                        bool areEqual = _tableName == request.TableName;                        
+                        bool areEqual = _tableName == request.TableName;
                         Assert.True(areEqual, "The provided table name is not the one used to access the table");
                     }
                 })
-                .Returns((QueryRequest r, CancellationToken token) =>
+                .Returns((ScanRequest r, CancellationToken token) =>
                 {
-                    return Task.FromResult(new QueryResponse { HttpStatusCode = HttpStatusCode.OK });
+                    return Task.FromResult(new ScanResponse { HttpStatusCode = HttpStatusCode.OK });
                 });
 
             return mockDynamoDBClient.Object;
         }
 
         [Fact]
-        public async Task CheckGetItem()
+        public async Task CheckListItems()
         {
             IAmazonDynamoDB client = CreateMockDynamoDBClient();
 
-            var result = await GetItem.GetItemAsync(client, _tableName, _id);
+            var result = await ListItems.GetItemsAsync(client, _tableName);
 
             bool gotResult = result != null;
-            Assert.True(gotResult, "Could NOT get result from querying table " + _tableName);
+            Assert.True(gotResult, "Could NOT get result from scanning table");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT get item # " + _id + " from table " + _tableName);
+            Assert.True(ok, "Could NOT get items from scanning table");
 
-            output.WriteLine("Got item from table");
+            output.WriteLine("Got items from table");
         }
     }
 }
