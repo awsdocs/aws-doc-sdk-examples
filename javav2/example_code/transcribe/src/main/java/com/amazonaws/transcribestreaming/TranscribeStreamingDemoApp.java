@@ -52,8 +52,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
-    private static Subscription currentSubscription;
-
     private static TranscribeStreamingAsyncClient client;
 
     public static void main(String args[]) throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException {
@@ -140,6 +138,7 @@ public class TranscribeStreamingDemoApp {
 
     private static class AudioStreamPublisher implements Publisher<AudioStream> {
         private final InputStream inputStream;
+        private static Subscription currentSubscription;
 
 
         private AudioStreamPublisher(InputStream inputStream) {
