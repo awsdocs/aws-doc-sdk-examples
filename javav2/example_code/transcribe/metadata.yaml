@@ -1,0 +1,14 @@
+--- 
+files:
+ - path: src/main/java/com/amazonaws/transcribe/AudioStreamPublisher.java
+   services:
+     - transcribe
+ - path: src/main/java/com/amazonaws/transcribe/BidirectionalStreaming.java
+   services:
+     - transcribe
+ - path: src/main/java/com/amazonaws/transcribe/Microphone.java
+   services:
+     - transcribe
+ - path: src/test/java/TranscribeTest.java
+   services:
+     - transcribe
