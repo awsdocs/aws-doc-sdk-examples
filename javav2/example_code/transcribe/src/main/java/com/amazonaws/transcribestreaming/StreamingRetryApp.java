@@ -9,6 +9,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
+
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -23,7 +24,6 @@
  * specific language governing permissions and limitations under the License.
  *
  */
-// snippet-start:[transcribe.java-streaming-retry-app]
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -42,9 +42,8 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import com.amazonaws.transcribestreaming.TranscribeStreamingDemoApp;
 
-
+// snippet-start:[transcribe.java-streaming-retry-app]
 public class StreamingRetryApp {
     private static final String endpoint = "endpoint";
     private static final Region region = Region.US_EAST_1;
@@ -54,7 +53,7 @@ public class StreamingRetryApp {
 
     public static void main(String args[]) throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException, FileNotFoundException {
         /**
-         * Create Transcribe streaming retry client using AWS credentials.
+         * Create Amazon Transcribe streaming retry client.
          */
 
         TranscribeStreamingRetryClient client = new TranscribeStreamingRetryClient(EnvironmentVariableCredentialsProvider.create() ,endpoint, region);
@@ -65,7 +64,7 @@ public class StreamingRetryApp {
                 .mediaSampleRateHertz(sample_rate)
                 .build();
         /**
-         * Start real-time speech recognition. The Transcribe streaming java client uses the Reactive-streams 
+         * Start real-time speech recognition. The Amazon Transcribe streaming java client uses the Reactive-streams
          * interface. For reference on Reactive-streams: 
          *     https://github.com/reactive-streams/reactive-streams-jvm
          */
