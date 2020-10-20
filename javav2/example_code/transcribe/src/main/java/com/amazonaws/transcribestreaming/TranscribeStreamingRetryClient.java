@@ -23,6 +23,7 @@
  * specific language governing permissions and limitations under the License.
  *
  */
+// snippet-end:[transcribe.java-streaming-retry-client]
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
