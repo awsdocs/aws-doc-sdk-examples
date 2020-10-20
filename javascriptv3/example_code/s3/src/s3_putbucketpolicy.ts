@@ -2,8 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+at https://github.com/aws/aws-sdk-js-v3. This example is in 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 Purpose:
 s3_putbucketpolicy.ts is an example that demonstrates how to attach a permissions policy to an Amazon S3 bucket.

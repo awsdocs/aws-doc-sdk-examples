@@ -16,7 +16,7 @@ Prerequisites
 To build and run these examples, you need to:
 
 - Set up the project environment to run these TypeScript examples with Node.js, and install the required AWS SDK for JavaScript and third-party modules. Follow the instructions in the README.md in the folder with the examples you're running; for example, `instructions for Amazon S3 examples <https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javascriptv3/example_code/s3/README.md>`_.
-- Create a shared configurations file with your user credentials. Once it's released, see the `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html>`_ in for more information.
+- Create a shared configurations file with your user credentials. The `AWS SDK for JavaScript v3 Developer Guide <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html>`_ in for more information.
 
 Running the examples
 ====================

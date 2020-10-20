@@ -3,7 +3,7 @@ This is a workspace where you can find working AWS SDK for JavaScript version 3 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available.
  
-Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html) for the topic containing these examples.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html) contains these examples.
 
 Amazon SES is a cost-effective, flexible, and scalable email service that enables developers to send mail from within any application.
 
