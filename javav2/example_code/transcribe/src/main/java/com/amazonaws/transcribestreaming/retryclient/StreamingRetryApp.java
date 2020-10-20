@@ -26,18 +26,16 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package com.amazonaws.transcribestreaming.retryclient;
+package com.amazonaws.transcribestreaming;
 
-import com.amazonaws.transcribestreaming.TranscribeStreamingDemoApp;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import org.reactivestreams.Subscription;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioStream;
 import software.amazon.awssdk.services.transcribestreaming.model.LanguageCode;
 import software.amazon.awssdk.services.transcribestreaming.model.StartStreamTranscriptionRequest;
-
 import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,8 +44,8 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import com.amazonaws.transcribestreaming.TranscribeStreamingDemoApp;
 
-import static com.amazonaws.transcribestreaming.TranscribeStreamingDemoApp.getCredentials;
 
 public class StreamingRetryApp {
     private static final String endpoint = "endpoint";
@@ -99,6 +97,7 @@ public class StreamingRetryApp {
 
     private static class AudioStreamPublisher implements Publisher<AudioStream> {
         private final InputStream inputStream;
+        private static Subscription currentSubscription;
 
         private AudioStreamPublisher(InputStream inputStream) {
             this.inputStream = inputStream;
@@ -106,7 +105,7 @@ public class StreamingRetryApp {
 
         @Override
         public void subscribe(Subscriber<? super AudioStream> s) {
-            if (s.currentSubscription == null) {
+            if (this.currentSubscription == null) {
                 this.currentSubscription = new TranscribeStreamingDemoApp.SubscriptionImpl(s, inputStream);
             } else {
                 this.currentSubscription.cancel();
