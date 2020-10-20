@@ -9,7 +9,6 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[transcribe.java-streaming-retry-client]
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
