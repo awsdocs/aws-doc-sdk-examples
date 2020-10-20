@@ -182,10 +182,10 @@ files:
   - path: LowLevelBatchGetTest/LowLevelBatchGetTest.cs
     services:
       - dynamodb
-  - path: LowLevelBatchGet/LowLevelBatchGet.cs
+  - path: LowLevelBatchWrite/LowLevelBatchWrite.cs
     services:
       - dynamodb
-  - path: LowLevelBatchGetTest/LowLevelBatchGetTest.cs
+  - path: LowLevelBatchWriteTest/LowLevelBatchWriteTest.cs
     services:
       - dynamodb
   - path: LowLevelGlobalSecondaryIndexExample/LowLevelGlobalSecondaryIndexExample.cs
@@ -209,7 +209,7 @@ files:
   - path: LowLevelLocalSecondaryIndexExample/LowLevelLocalSecondaryIndexExample.cs
     services:
       - dynamodb
-  - path: LowLevelLocalSecondaryIndexExampleTest/LowLevelLocalSecondaryIndexExample.cs
+  - path: LowLevelLocalSecondaryIndexExampleTest/LowLevelLocalSecondaryIndexExampleTest.cs
     services:
       - dynamodb
   - path: LowLevelParallelScan/LowLevelParallelScan.cs
