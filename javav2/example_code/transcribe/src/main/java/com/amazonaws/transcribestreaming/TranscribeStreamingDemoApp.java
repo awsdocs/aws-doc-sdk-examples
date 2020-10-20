@@ -9,7 +9,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[transcribe.java-streaming-demo]
+
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -24,6 +24,8 @@
  * specific language governing permissions and limitations under the License.
  *
  */
+
+// snippet-start:[transcribe.java-streaming-demo]
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
