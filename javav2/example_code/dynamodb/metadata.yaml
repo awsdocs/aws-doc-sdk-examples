@@ -12,7 +12,34 @@ files:
   - path: src/main/java/com/example/dynamodb/DeleteTable.java
     services:
       - dynamodb
+  - path: src/main/java/com/example/dynamodb/DescribeTable.java
+    services:
+      - dynamodb      
   - path: src/main/java/com/example/dynamodb/DynamoDBScanItems.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedBatchWriteItems.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedGetItem.java
+    services:
+      - dynamodb      
+  - path: src/main/java/com/example/dynamodb/EnhancedPutItem.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedQueryRecords.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedQueryRecordsWithFilter.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedScanRecords.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedScanRecordsWithExpression.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/EnhancedTableSchema.java
     services:
       - dynamodb
   - path: src/main/java/com/example/dynamodb/GetItem.java
@@ -36,4 +63,12 @@ files:
   - path: src/main/java/com/example/dynamodb/UpdateTable.java
     services:
       - dynamodb
+  - path: src/main/java/com/example/dynamodb/Work.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/Issues.java
+    services:
+      - dynamodb
   - path: src/test/java/AWSDynamoServiceIntegrationTest.java
+    services:
+      - dynamodb
