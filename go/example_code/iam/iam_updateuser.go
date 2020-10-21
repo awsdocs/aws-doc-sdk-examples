@@ -1,6 +1,6 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Udates an IAM user.]
+// snippet-sourcedescription:[Updates an IAM user.]
 // snippet-keyword:[AWS Identity and Access Management]
 // snippet-keyword:[UpdateUser function]
 // snippet-keyword:[Go]

@@ -61,7 +61,7 @@ namespace DynamoDB_intro
       }
       if( report )
       {
-        Console.WriteLine( "     Here is the updated movie informtion:" );
+        Console.WriteLine( "     Here is the updated movie information:" );
         Console.WriteLine( movieAttributesToJson( updateResponse.Attributes ) );
       }
       operationSucceeded = true;

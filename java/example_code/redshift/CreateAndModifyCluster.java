@@ -105,7 +105,7 @@ public class CreateAndModifyCluster {
 
     private static void waitForClusterReady() throws InterruptedException {
         Boolean clusterReady = false;
-        System.out.println("Wating for cluster to become available.");
+        System.out.println("Waiting for cluster to become available.");
         while (!clusterReady) {
             DescribeClustersResult result = client.describeClusters(new DescribeClustersRequest()
         .withClusterIdentifier(clusterIdentifier));

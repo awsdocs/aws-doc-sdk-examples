@@ -100,7 +100,7 @@ def test_setup_security_group(
     [(None, None),
      (['test-security-group'], None),
      (None, 'TestException')])
-def test_create_intances(
+def test_create_instances(
         make_stubber, make_unique_name, security_groups, error_code):
     ec2_stubber = make_stubber(ec2_setup.ec2.meta.client)
     image_id = 'ami-1234567890EXAMPLE'

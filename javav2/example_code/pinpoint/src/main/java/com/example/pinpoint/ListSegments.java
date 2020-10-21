@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListSegements.java demonstrates how to list segments in an application.]
+//snippet-sourcedescription:[ListSegments.java demonstrates how to list segments in an application.]
 //snippet-keyword:[Java]
 //snippet-sourcesyntax:[java]
 //snippet-keyword:[Code Sample]
@@ -70,7 +70,7 @@ public class ListSegments {
             List<SegmentResponse> segments = response.segmentsResponse().item();
 
             for(SegmentResponse segment: segments) {
-                System.out.println("Segement " + segment.id() + " " + segment.name() + " " + segment.lastModifiedDate());
+                System.out.println("Segment " + segment.id() + " " + segment.name() + " " + segment.lastModifiedDate());
             }
         } catch ( PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

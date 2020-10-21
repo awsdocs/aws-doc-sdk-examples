@@ -167,7 +167,7 @@ public class TranscribeStreamingRetryClient {
                 getResponseHandler(responseHandler));
         result.whenComplete((r, e) -> {
             if (e != null) {
-                log.debug("Error occured:", e);
+                log.debug("Error occurred:", e);
 
                 if (retryAttempt <= maxRetries && isExceptionRetriable(e)) {
                     log.debug("Retriable error occurred and will be retried.");

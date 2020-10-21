@@ -1456,7 +1456,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         workbook.write();
         workbook.close();
 
-        // Get an inputStram that represents the Report
+        // Get an inputStream that represents the Report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -2164,7 +2164,7 @@ The following JavaScript code represents the **items.js** file that is used in t
      function loadMods(event) {
 
     var msg = event.target.responseText;
-    alert("You have successfully modfied item "+msg)
+    alert("You have successfully modified item "+msg)
 
     $('#id').val("");
     $('#description').val("");
@@ -2373,7 +2373,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 	function onArch(event) {
 
     	var xml = event.target.responseText;
-    	alert("Item "+xml +" is achived now");
+    	alert("Item "+xml +" is archived now");
     	//Refresh the grid
     	GetItems();
 	}

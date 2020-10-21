@@ -492,7 +492,7 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
             // Create a DynamoDbTable object
             DynamoDbTable<Case> caseTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
 
-            // Create an Instat object
+            // Create an Instant object
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);

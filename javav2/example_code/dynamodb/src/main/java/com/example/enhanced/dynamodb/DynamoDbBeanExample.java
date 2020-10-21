@@ -62,7 +62,7 @@ public class DynamoDbBeanExample {
             //Create a DynamoDbTable object
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            //Create am Instat
+            //Create an Instant
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
