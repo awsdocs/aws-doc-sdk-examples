@@ -63,7 +63,10 @@ files:
   - path: src/main/java/com/example/dynamodb/UpdateTable.java
     services:
       - dynamodb
-   - path: src/main/java/com/example/dynamodb/Work.java
+  - path: src/main/java/com/example/dynamodb/Work.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/dynamodb/Issues.java
     services:
       - dynamodb
   - path: src/test/java/AWSDynamoServiceIntegrationTest.java
