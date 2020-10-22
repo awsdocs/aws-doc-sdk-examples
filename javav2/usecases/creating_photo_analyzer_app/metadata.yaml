@@ -24,4 +24,21 @@ files:
   - path: src/main/java/com/example/photo/WriteExcel.java
     services:
       - s3
-  
+  - path: src/main/resources/templates/upload.html
+    services:
+      - s3  
+  - path: src/main/resources/templates/process.html
+    services:
+      - s3  
+  - path: src/main/resources/templates/layout.html
+    services:
+      - s3   
+  - path: src/main/resources/templates/index.html
+    services:
+      - s3      
+  - path: src/main/resources/public/js/items.js
+    services:
+      - s3   
+  - path: src/main/resources/public/js/message.js
+    services:
+      - s3   
