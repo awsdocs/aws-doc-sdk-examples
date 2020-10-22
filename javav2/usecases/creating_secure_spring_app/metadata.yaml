@@ -12,13 +12,13 @@ files:
   - path: src/main/java/com/aws/jdbc/RetrieveItems.java
     services:
       - rds
- - path: src/main/java/com/aws/securingweb/MainController.java
+  - path: src/main/java/com/aws/securingweb/MainController.java
     services:
       - rds
- - path: src/main/java/com/aws/securingweb/SecuringWebApplication.java
+  - path: src/main/java/com/aws/securingweb/SecuringWebApplication.java
     services:
       - rds
- - path: src/main/java/com/aws/securingweb/WebSecurityConfig.java
+  - path: src/main/java/com/aws/securingweb/WebSecurityConfig.java
     services:
       - rds
   - path: src/main/java/com/aws/services/SendMessages.java
@@ -27,5 +27,3 @@ files:
   - path: src/main/java/com/aws/services/WriteExcel.java
     services:
       - ses
-
-  
