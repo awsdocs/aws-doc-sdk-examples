@@ -14,5 +14,11 @@ files:
       - dynamodb
   - path: src/main/java/com/example/handlingformsubmission/PublishTextSMS.java
     services:
-      - sns
+      - dynamodb
+  - path: src/main/resources/templates/greeting.html
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/result.html
+    services:
+      - dynamodb
   
