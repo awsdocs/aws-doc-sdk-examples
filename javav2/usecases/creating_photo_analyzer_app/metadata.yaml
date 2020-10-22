@@ -1,0 +1,27 @@
+--- 
+files:
+  - path: src/main/java/com/example/photo/AnalyzePhotos.java
+    services:
+      - rekognition
+  - path: src/main/java/com/example/photo/BucketItem.java
+    services:
+      - s3
+  - path: src/main/java/com/example/photo/PhotoApplication.java
+    services:
+      - rekognition
+  - path: src/main/java/com/example/photo/PhotoController.java
+    services:
+      - rekognition
+  - path: src/main/java/com/example/photo/S3Service.java
+    services:
+      - s3
+  - path: src/main/java/com/example/photo/SendMessages.java
+    services:
+      - ses
+  - path: src/main/java/com/example/photo/WorkItem.java
+    services:
+      - s3
+  - path: src/main/java/com/example/photo/WriteExcel.java
+    services:
+      - s3
+  
