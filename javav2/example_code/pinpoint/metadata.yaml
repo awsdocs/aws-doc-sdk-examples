@@ -1,5 +1,11 @@
 --- 
 files:
+ - path: src/main/java/com/example/pinpoint/AddExampleEndpoints.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/AddExampleUser.java
+   services:
+     - pinpoint
  - path: src/main/java/com/example/pinpoint/CreateApp.java
    services:
      - pinpoint
@@ -24,10 +30,15 @@ files:
  - path: src/main/java/com/example/pinpoint/ListSegments.java
    services:
      - pinpoint
+ - path: src/main/java/com/example/pinpoint/LookUpEndpoint.java
+   services:
+     - pinpoint
  - path: src/main/java/com/example/pinpoint/SendMessage.java
    services:
      - pinpoint
  - path: src/main/java/com/example/pinpoint/UpdateChannel.java
    services:
      - pinpoint
- 
+ - path: src/test/java/AmazonPinpointServiceIntegrationTest.java
+   services:
+     - pinpoint

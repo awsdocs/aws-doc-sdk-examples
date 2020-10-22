@@ -21,6 +21,9 @@ files:
   - path: src/main/java/com/example/s3/GetBucketPolicy.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/GetObjectData.java
+    services:
+      - s3
   - path: src/main/java/com/example/s3/GetObjectPresignedUrl.java
     services:
       - s3
@@ -28,6 +31,15 @@ files:
     services:
       - s3
   - path: src/main/java/com/example/s3/ListObjects.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/PutObject.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/PutObjectRetention.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/S3Log.java
     services:
       - s3
   - path: src/main/java/com/example/s3/S3AsyncOps.java
@@ -56,4 +68,4 @@ files:
       - s3
   - path: src/test/java/AmazonS3ServiceIntegrationTest.java
     services:
-      - s3
+      - s3     
