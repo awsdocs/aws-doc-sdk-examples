@@ -24,5 +24,24 @@ files:
   - path: src/main/java/com/example/services/WriteExcel.java
     services:
       - dynamodb
- 
-  
+  - path: src/main/resources/templates/login.html
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/layout.html
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/items.html
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/index.html
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/add.html
+    services:
+      - dynamodb
+  - path: src/main/resources/public/js/contact_me.js
+    services:
+      - dynamodb
+  - path: src/main/resources/public/js/items.js
+    services:
+      - dynamodb 
