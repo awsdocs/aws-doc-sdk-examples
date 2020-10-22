@@ -1,6 +1,6 @@
 --- 
 files:
-  - path: src/main/java/com/aws/example/entities/WorkItem.java
+  - path: src/main/java/com/aws/entities/WorkItem.java
     services:
       - rds
   - path: src/main/java/com/aws/jdbc/ConnectionHelper.java
