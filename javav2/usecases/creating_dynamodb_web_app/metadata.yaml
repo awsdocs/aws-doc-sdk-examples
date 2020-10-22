@@ -1,6 +1,6 @@
 --- 
 files:
-  - path: src/main/java/com/example/example/entities/WorkItem.java
+  - path: src/main/java/com/example/entities/WorkItem.java
     services:
       - dynamodb
   - path: src/main/java/com/example/secureweb/MainController.java
