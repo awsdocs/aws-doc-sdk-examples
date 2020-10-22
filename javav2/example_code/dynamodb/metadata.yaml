@@ -72,3 +72,6 @@ files:
   - path: src/test/java/AWSDynamoServiceIntegrationTest.java
     services:
       - dynamodb
+  - path: src/test/java/EnhancedClientIntegrationTest.java
+    services:
+      - dynamodb     
