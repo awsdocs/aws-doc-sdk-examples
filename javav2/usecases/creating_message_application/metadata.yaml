@@ -1,0 +1,16 @@
+--- 
+files:
+  - path: src/main/java/com/example/Message.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/MessageApplication.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/MessageController.java
+    services:
+      - sqs
+  - path: src/main/java/com/example/SendReceiveMessages.java
+    services:
+      - sqs
+ 
+  
