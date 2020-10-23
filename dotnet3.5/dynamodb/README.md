@@ -7,13 +7,14 @@ as described in the Amazon DynamoDB Developer Guide at
 [From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html).
 
 All of these code examples are written in C#, 
-using the V3.5 version of the AWS SDK for .NET.
-Getting the 3.5 version of the SDK is straightforward using the command line 
+using the version 3.5 of the AWS SDK for .NET (the SDK).
+Getting the SDK is straightforward using the command line 
 from the same folder as your ```.csproj``` file.
-For example, to add a reference to the latest (V3.5) version of Amazon DynamoDB
+For example, to add a reference to the latest version of the SDK and Amazon DynamoDB
 to your project:
 
 ```
+dotnet add package AWSSDK.Core
 dotnet add package AWSSDK.DynamoDBv2
 ```
 
@@ -32,7 +33,7 @@ from a relational database to Amazon DynamoDB.
 
 **IMPORTANT**
 
-NoSQL design requires a different mindset than RDBMS design. 
+NoSQL design requires a different mindset than a relational database management system (RDBMS) design. 
 For an RDBMS, you can create a normalized data model without thinking about access patterns. 
 You can then extend it later when new questions and query requirements arise. 
 By contrast, in Amazon DynamoDB, 

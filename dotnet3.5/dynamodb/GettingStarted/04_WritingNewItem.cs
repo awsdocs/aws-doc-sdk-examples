@@ -9,9 +9,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *     WritingNewMovie
-         *--------------------------------------------------------------------------*/
         public static async Task WritingNewMovie_async(Document newItem)
         {
             OperationSucceeded = false;

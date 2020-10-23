@@ -10,23 +10,21 @@ namespace GettingStarted
     public static partial class DdbIntro
     {
         /*-----------------------------------------------------------------------------------
-      *  If you are creating a client for the DynamoDB service, make sure your credentials
-      *  are set up first, as explained in:
-      *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html,
-      *
-      *  If you are creating a client for DynamoDBLocal (for testing purposes),
-      *  DynamoDB-Local should be started first. For most simple testing, you can keep
-      *  data in memory only, without writing anything to disk.  To do this, use the
-      *  following command line:
-      *
-      *    java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -inMemory
-      *
-      *  For information about DynamoDBLocal, see:
-      *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html.
-      *-----------------------------------------------------------------------------------*/
-        /*--------------------------------------------------------------------------
-         *          createClient
-         *--------------------------------------------------------------------------*/
+         *  If you are creating a client for the Amazon DynamoDB service, make sure your credentials
+         *  are set up first, as explained in:
+         *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html,
+         *
+         *  If you are creating a client for DynamoDBLocal (for testing purposes),
+         *  DynamoDB-Local should be started first. For most simple testing, you can keep
+         *  data in memory only, without writing anything to disk.  To do this, use the
+         *  following command line:
+         *
+         *    java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -inMemory
+         *
+         *  For information about DynamoDBLocal, see:
+         *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html.
+         *-----------------------------------------------------------------------------------*/
+        
         public static bool CreateClient(bool useDynamoDbLocal)
         {
             if (useDynamoDbLocal)
@@ -60,7 +58,7 @@ namespace GettingStarted
                     return (false);
                 }
 
-                // If DynamoDB-Local does seem to be running, so create a client
+                // DynamoDB-Local is running, so create a client.
                 Console.WriteLine("  -- Setting up a DynamoDB-Local client (DynamoDB Local seems to be running)");
                 AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                 ddbConfig.ServiceURL = "http://localhost:8000";

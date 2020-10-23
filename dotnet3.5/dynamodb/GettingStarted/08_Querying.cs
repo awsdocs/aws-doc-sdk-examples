@@ -11,9 +11,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                             SearchListing_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> SearchListing_async(Search search)
         {
             int i = 0;
@@ -51,10 +48,7 @@ namespace GettingStarted
             OperationSucceeded = true;
             return (true);
         }
-
-        /*--------------------------------------------------------------------------
-         *                             ClientQuerying_async
-         *--------------------------------------------------------------------------*/
+        
         public static async Task<bool> ClientQuerying_async(QueryRequest qRequest)
         {
             OperationSucceeded = false;

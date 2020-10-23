@@ -12,9 +12,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *     LoadingData_async
-         *--------------------------------------------------------------------------*/
         public static async Task LoadingData_async(Table table, string filePath)
         {
             JArray movieArray;
@@ -24,9 +21,6 @@ namespace GettingStarted
                 await LoadJsonMovieData_async(table, movieArray);
         }
 
-        /*--------------------------------------------------------------------------
-         *                             ReadJsonMovieFile_async
-         *--------------------------------------------------------------------------*/
         public static async Task<JArray> ReadJsonMovieFile_async(string jsonMovieFilePath)
         {
             StreamReader sr = null;
@@ -67,9 +61,6 @@ namespace GettingStarted
             return (null);
         }
 
-        /*--------------------------------------------------------------------------
-         *                LoadJsonMovieData_async
-         *--------------------------------------------------------------------------*/
         public static async Task LoadJsonMovieData_async(Table moviesTable, JArray moviesArray)
         {
             OperationSucceeded = false;

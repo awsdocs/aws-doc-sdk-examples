@@ -10,9 +10,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                             ClientScanning_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> ClientScanning_async(ScanRequest sRequest)
         {
             OperationSucceeded = false;

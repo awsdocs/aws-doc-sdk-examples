@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 namespace GettingStarted
 { public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                DeletingTable_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> DeletingTable_async(string tableName)
         {
             OperationSucceeded = false;

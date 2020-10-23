@@ -9,9 +9,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                             UpdatingMovie_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> UpdatingMovie_async(UpdateItemRequest updateRequest, bool report)
         {
             UpdateItemResponse updateResponse = null;
@@ -33,6 +30,7 @@ namespace GettingStarted
             catch (Exception ex)
             {
                 Console.WriteLine("     -- FAILED to update the movie item, because:\n       {0}.", ex.Message);
+
                 if (updateResponse != null)
                     Console.WriteLine("     -- The status code was " + updateResponse.HttpStatusCode.ToString());
                 OperationFailed = true; return (false);
@@ -40,7 +38,7 @@ namespace GettingStarted
 
             if (report)
             {
-                Console.WriteLine("     Here is the updated movie informtion:");
+                Console.WriteLine("     Here is the updated movie information:");
                 Console.WriteLine(MovieAttributesToJson(updateResponse.Attributes));
             }
 

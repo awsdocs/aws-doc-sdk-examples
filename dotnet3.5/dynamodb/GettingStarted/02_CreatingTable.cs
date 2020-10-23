@@ -10,20 +10,19 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                       CreatingTable_async
-         *--------------------------------------------------------------------------*/
         public static async Task CreatingTable_async(string newTableName,
                                    List<AttributeDefinition> tableAttributes,
                                    List<KeySchemaElement> tableKeySchema,
                                    ProvisionedThroughput provisionedThroughput)
         {
             Console.WriteLine("  -- Creating a new table named {0}...", newTableName);
+
             if (await checkingTableExistence_async(newTableName))
             {
                 Console.WriteLine("     -- No need to create a new table...");
                 return;
             }
+
             if (OperationFailed)
                 return;
 
@@ -35,9 +34,6 @@ namespace GettingStarted
             await newTbl;
         }
 
-        /*--------------------------------------------------------------------------
-         *                      checkingTableExistence_async
-         *--------------------------------------------------------------------------*/
         static async Task<bool> checkingTableExistence_async(string tblNm)
         {
             DescribeTableResponse descResponse;
@@ -63,15 +59,14 @@ namespace GettingStarted
                     OperationFailed = true;
                     return (true);
                 }
+
                 DdbIntro.MoviesTableDescription = descResponse.Table;
                 return (true);
             }
+
             return (false);
         }
-
-        /*--------------------------------------------------------------------------
-         *                CreateNewTable_async
-         *--------------------------------------------------------------------------*/
+        
         public static async Task<bool> CreateNewTable_async(string tableName,
                                                              List<AttributeDefinition> tableAttributes,
                                                              List<KeySchemaElement> tableKeySchema,
@@ -80,7 +75,6 @@ namespace GettingStarted
             CreateTableRequest request;
             CreateTableResponse response;
 
-            // Build the 'CreateTableRequest' structure for the new table
             request = new CreateTableRequest
             {
                 TableName = tableName,
@@ -108,7 +102,6 @@ namespace GettingStarted
                 return (false);
             }
 
-            // Report the status of the new table...
             Console.WriteLine("     Status of the new table: '{0}'.", response.TableDescription.TableStatus);
             DdbIntro.MoviesTableDescription = response.TableDescription;
             return (true);

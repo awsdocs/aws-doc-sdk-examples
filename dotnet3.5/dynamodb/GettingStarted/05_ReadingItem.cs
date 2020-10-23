@@ -9,9 +9,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                             ReadingMovie_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> ReadingMovie_async(int year, string title, bool report)
         {
             // Create Primitives for the HASH and RANGE portions of the primary key
@@ -24,6 +21,7 @@ namespace GettingStarted
             try
             {
                 Task<Document> readMovie = MoviesTable.GetItemAsync(hash, range, Token);
+
                 if (report)
                     Console.WriteLine("  -- Reading the {0} movie \"{1}\" from the Movies table...", year, title);
                 MovieRecord = await readMovie;

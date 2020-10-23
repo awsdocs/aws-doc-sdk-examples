@@ -27,9 +27,6 @@ namespace GettingStarted
                                          "                  -- director(s): {3}\n" +
                                          "                  -- running time: {4}";
 
-        /*--------------------------------------------------------------------------
-         *                 showMovieAttrsShort
-         *--------------------------------------------------------------------------*/
         public static void ShowMovieAttrsShort(Dictionary<string, AttributeValue> movie)
         {
             Dictionary<string, AttributeValue> info = movie["info"].M;
@@ -54,9 +51,6 @@ namespace GettingStarted
                                    AttrValToString(info["directors"], 0), rtm);
         }
 
-        /*--------------------------------------------------------------------------
-         *                 showMovieDocShort
-         *--------------------------------------------------------------------------*/
         public static void ShowMovieDocShort(Document movie)
         {
             Document infoDoc = movie["info"].AsDocument();
@@ -81,9 +75,6 @@ namespace GettingStarted
                                    string.Join(CommaSep, infoDoc["directors"].AsArrayOfString()), rtm);
         }
 
-        /*--------------------------------------------------------------------------
-         *                   movieAttributesToJson
-         *--------------------------------------------------------------------------*/
         public static string MovieAttributesToJson(Dictionary<string, AttributeValue> movie)
         {
             StringBuilder sb = new StringBuilder();
@@ -147,9 +138,6 @@ namespace GettingStarted
             return (sb.ToString());
         }
 
-        /*--------------------------------------------------------------------------
-         *                   attrValToString
-         *--------------------------------------------------------------------------*/
         public static string AttrValToString(AttributeValue attrVal, int startIndex)
         {
             string str = null;
@@ -172,10 +160,7 @@ namespace GettingStarted
                 str = AttrListToString(attrVal.L, startIndex);
             return (str);
         }
-
-        /*--------------------------------------------------------------------------
-         *                   firstAttrValToString
-         *--------------------------------------------------------------------------*/
+        
         public static string FirstAttrValToString(AttributeValue attrVal)
         {
             string str = null;
@@ -193,9 +178,6 @@ namespace GettingStarted
             return (str);
         }
 
-        /*--------------------------------------------------------------------------
-         *                   attrListToString
-         *--------------------------------------------------------------------------*/
         public static string AttrListToString(List<AttributeValue> attrList, int startIndex)
         {
             StringBuilder sb = new StringBuilder();
@@ -214,9 +196,6 @@ namespace GettingStarted
             return (sb.ToString());
         }
 
-        /*--------------------------------------------------------------------------
-         *                   attrValToLines
-         *--------------------------------------------------------------------------*/
         public static string AttrValToLines(AttributeValue attrVal, int startIndex, string indent)
         {
             string next = "";
@@ -274,9 +253,6 @@ namespace GettingStarted
             return ("");
         }
 
-        /*--------------------------------------------------------------------------
-         *                   attrListToLines
-         *--------------------------------------------------------------------------*/
         public static string AttrListToLines(List<AttributeValue> attrList,
                                               int startIndex, string indent)
         {
@@ -296,9 +272,6 @@ namespace GettingStarted
             return (sb.ToString());
         }
 
-        /*--------------------------------------------------------------------------
-         *                   attrValLength
-         *--------------------------------------------------------------------------*/
         public static int AttrValLength(AttributeValue attrVal)
         {
             if (attrVal.L.Count > 0)
@@ -312,9 +285,6 @@ namespace GettingStarted
             return (0);
         }
 
-        /*--------------------------------------------------------------------------
-         *                   movieRunTime
-         *--------------------------------------------------------------------------*/
         public static string MovieRunTime(int runSeconds)
         {
             StringBuilder sb = new StringBuilder();

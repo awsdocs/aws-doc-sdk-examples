@@ -9,9 +9,6 @@ namespace GettingStarted
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                       DeletingItem_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> DeletingItem_async(Table table, int year, string title,
             Expression condition = null)
         {
