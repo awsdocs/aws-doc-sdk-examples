@@ -10,7 +10,7 @@ the code examples within that service directory.
 To build and run the code examples in this collection, you need the following:
 
 - The AWS SDK for .NET. For more information, see the [AWS SDK for .NET
-Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html).
+Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide).
 
 - AWS credentials, either configured in a local AWS credentials file, or by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.  For more information, see the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/overview.html).
 
@@ -21,7 +21,7 @@ follow the instructions in the README file for the service.
 In general, follow these steps:
 
 1. Navigate to the directory containing a **.sln** file.
-2. Build the solution using the ```dotnet build SOLUTION.sln```, 
+2. Build the solution using ```dotnet build SOLUTION.sln```, 
    where SOLUTION.sln is the name of the **.sln** file.
 3. Navigate to the directory containing the code example
    and a **.csproj** file.
@@ -33,7 +33,7 @@ All of the code example projects have a companion unit test,
 where the name of the unit test project is the same as the tested project,
 with a **Test** suffix.
 
-We use [Xunit]() as the framework for our unit tests and
+We use [Xunit](https://xunit.net/) as the framework for our unit tests and
 in most cases use [moq4](https://github.com/moq/moq4) to create unit tests with mocked objects.
 You can create an Xunit project and install the **moq** Nuget package in that project with
 the following commands:

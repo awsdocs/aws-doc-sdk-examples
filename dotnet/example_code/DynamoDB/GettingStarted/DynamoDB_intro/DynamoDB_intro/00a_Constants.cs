@@ -17,9 +17,6 @@ namespace DynamoDB_intro
 {
   public partial class DdbIntro
   {
-    /*==========================================================================
-     *      Constant/Static Values Used by this introductory sample
-     *==========================================================================*/
     public const string CommaSep = ", ";
     public const string StepString =
       "\n--------------------------------------------------------------------------------------" +
@@ -29,7 +26,6 @@ namespace DynamoDB_intro
     /*---------------------------------------------------------
      *    1.  The data used to create a new table
      *---------------------------------------------------------*/
-    // movies_table_name
     public const string MoviesTableName = "Movies";
 
     // key names for the Movies table
@@ -67,16 +63,14 @@ namespace DynamoDB_intro
         KeyType = "RANGE"
       }
     };
-
-    // movies_table_provisioned_throughput
+        
     public static ProvisionedThroughput MoviesTableProvisionedThroughput
       = new ProvisionedThroughput( 1, 1 );
 
-
     /*---------------------------------------------------------
-     *    2.  The path to the JSON movies data file to load
+     *    The JSON movies data file to load
      *---------------------------------------------------------*/
-    public const string MovieDataPath = "./moviedata.json";
+    public const string MovieDataPath = "./.moviedata.json";
   }
 }
 // snippet-end:[dynamodb.dotNET.CodeExample.00a_Constants]

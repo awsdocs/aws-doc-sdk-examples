@@ -18,10 +18,7 @@ namespace DynamoDB_intro
 {
   public static partial class DdbIntro
   {
-    /*--------------------------------------------------------------------------
-     *                             ReadingMovie_async
-     *--------------------------------------------------------------------------*/
-    public static async Task<Document> ReadingMovie_async(int year, string title)
+      public static async Task<Document> ReadingMovie_async(int year, string title)
     {
       // Create Primitives for the HASH and RANGE portions of the primary key
       Primitive hash = new Primitive(year.ToString(), true);

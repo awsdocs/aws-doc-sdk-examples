@@ -17,9 +17,6 @@ namespace DynamoDB_intro
 {
   public static partial class DdbIntro
   {
-    /*--------------------------------------------------------------------------
-     *                DeletingTable_async
-     *--------------------------------------------------------------------------*/
     public static async Task<bool> DeletingTable_async(string tableName)
     {
       var tblDelete = await Client.DeleteTableAsync(tableName);

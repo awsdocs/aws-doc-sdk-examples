@@ -37,7 +37,7 @@ namespace MidLevelScanOnlyTest
         {
             bool isAvailable = true;
 
-            // Evaluate current system tcp connections. This is the same information provided
+            // Evaluate current system TCP connections. This is the same information provided
             // by the netstat command line application, just in .Net strongly-typed object
             // form.  We will look through the list, and if our port we would like to use
             // in our TcpClient is occupied, we will set isAvailable to false.

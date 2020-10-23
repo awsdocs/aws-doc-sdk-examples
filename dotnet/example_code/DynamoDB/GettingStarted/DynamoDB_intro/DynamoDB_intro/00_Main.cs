@@ -36,10 +36,7 @@ namespace DynamoDB_intro
         public static CancellationToken Token = Source.Token;
         public static readonly int year = 2018;
         public static readonly string title = "The Big New Movie";
-
-        /*--------------------------------------------------------------------------
-         *                Main
-         *--------------------------------------------------------------------------*/
+        
         public static void Main()
         {
             bool response;

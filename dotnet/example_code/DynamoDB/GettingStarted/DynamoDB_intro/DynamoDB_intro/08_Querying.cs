@@ -20,9 +20,6 @@ namespace DynamoDB_intro
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                             SearchListing_async
-         *--------------------------------------------------------------------------*/
         public static async Task<List<List<Document>>> SearchListing_async(Search search)
         {
             List<List<Document>> docsList = new List<List<Document>>();
@@ -44,9 +41,6 @@ namespace DynamoDB_intro
             return docsList;
         }
 
-        /*--------------------------------------------------------------------------
-         *                             ClientQuerying_async
-         *--------------------------------------------------------------------------*/
         public static async Task<QueryResponse> ClientQuerying_async(QueryRequest qRequest)
         {
             var response = await Client.QueryAsync(qRequest);

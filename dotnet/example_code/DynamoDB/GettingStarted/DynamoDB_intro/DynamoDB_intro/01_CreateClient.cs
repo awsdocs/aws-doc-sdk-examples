@@ -20,7 +20,7 @@ namespace DynamoDB_intro
   public static partial class DdbIntro
   {
         /*-----------------------------------------------------------------------------------
-          *  If you are creating a client for the DynamoDB service, make sure your credentials
+          *  If you are creating a client for the Amazon DynamoDB service, make sure your credentials
           *  are set up first, as explained in:
           *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html,
           *
@@ -44,7 +44,7 @@ namespace DynamoDB_intro
         {
             bool isAvailable = true;
 
-            // Evaluate current system tcp connections. This is the same information provided
+            // Evaluate current system TCP connections. This is the same information provided
             // by the netstat command line application, just in .Net strongly-typed object
             // form.  We will look through the list, and if our port we would like to use
             // in our TcpClient is occupied, we will set isAvailable to false.
@@ -62,9 +62,7 @@ namespace DynamoDB_intro
 
             return isAvailable;
         }
-        /*--------------------------------------------------------------------------
-         *          createClient
-         *--------------------------------------------------------------------------*/
+       
     public static bool createClient(bool useDynamoDbLocal)
     {
       if (useDynamoDbLocal)
@@ -79,7 +77,7 @@ namespace DynamoDB_intro
             return (false);
         }
 
-        // If DynamoDB-Local does seem to be running, so create a client
+        // DynamoDB-Local is running, so create a client
         Console.WriteLine( "  -- Setting up a DynamoDB-Local client (DynamoDB Local seems to be running)" );
         AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
         ddbConfig.ServiceURL = EndpointUrl;

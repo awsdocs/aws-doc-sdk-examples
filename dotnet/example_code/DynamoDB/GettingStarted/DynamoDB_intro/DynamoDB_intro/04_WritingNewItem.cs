@@ -18,9 +18,6 @@ namespace DynamoDB_intro
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *     CheckingForMovie
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> CheckingForMovie_async(Document newItem)
         {
             int year = (int)newItem["year"];
@@ -31,9 +28,6 @@ namespace DynamoDB_intro
             return response.Count > 0;
         }
 
-        /*--------------------------------------------------------------------------
-         *     WritingNewMovie
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> WritingNewMovie_async(Document newItem)
         {
             var result = false;

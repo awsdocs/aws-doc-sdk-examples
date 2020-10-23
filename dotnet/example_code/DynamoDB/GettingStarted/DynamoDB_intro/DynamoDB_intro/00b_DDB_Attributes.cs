@@ -51,10 +51,7 @@ namespace DynamoDB_intro
             var title = doc["title"];
             if (null != year) Console.WriteLine("Title: " + title);
     }
-
-    /*--------------------------------------------------------------------------
-     *                 showMovieAttrsShort
-     *--------------------------------------------------------------------------*/
+        
     public static void showMovieAttrsShort( Dictionary<string, AttributeValue> movie )
     {
       Dictionary<string, AttributeValue> info = movie["info"].M;
@@ -79,10 +76,6 @@ namespace DynamoDB_intro
                            attrValToString( info["directors"], 0 ), rtm );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                 showMovieDocShort
-     *--------------------------------------------------------------------------*/
     public static void showMovieDocShort( Document movie )
     {
       Document infoDoc = movie["info"].AsDocument( );
@@ -107,10 +100,6 @@ namespace DynamoDB_intro
                            string.Join( CommaSep, infoDoc["directors"].AsArrayOfString( ) ), rtm );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                   movieAttributesToJson
-     *--------------------------------------------------------------------------*/
     public static string movieAttributesToJson( Dictionary<string, AttributeValue> movie )
     {
       StringBuilder sb = new StringBuilder();
@@ -173,10 +162,7 @@ namespace DynamoDB_intro
       sb.Append( "\n}" );
       return ( sb.ToString( ) );
     }
-
-    /*--------------------------------------------------------------------------
-     *                   attrValToString
-     *--------------------------------------------------------------------------*/
+        
     public static string attrValToString( AttributeValue attrVal, int startIndex )
     {
       string str = null;
@@ -200,10 +186,6 @@ namespace DynamoDB_intro
       return ( str );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                   firstAttrValToString
-     *--------------------------------------------------------------------------*/
     public static string firstAttrValToString( AttributeValue attrVal )
     {
       string str = null;
@@ -221,9 +203,6 @@ namespace DynamoDB_intro
       return ( str );
     }
 
-    /*--------------------------------------------------------------------------
-     *                   attrListToString
-     *--------------------------------------------------------------------------*/
     public static string attrListToString( List<AttributeValue> attrList, int startIndex )
     {
       StringBuilder sb = new StringBuilder();
@@ -242,10 +221,6 @@ namespace DynamoDB_intro
       return ( sb.ToString( ) );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                   attrValToLines
-     *--------------------------------------------------------------------------*/
     public static string attrValToLines( AttributeValue attrVal, int startIndex, string indent )
     {
       string next = "";
@@ -303,10 +278,6 @@ namespace DynamoDB_intro
       return ( "" );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                   attrListToLines
-     *--------------------------------------------------------------------------*/
     public static string attrListToLines( List<AttributeValue> attrList,
                                           int startIndex,string indent )
     {
@@ -326,10 +297,6 @@ namespace DynamoDB_intro
       return ( sb.ToString( ) );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                   attrValLength
-     *--------------------------------------------------------------------------*/
     public static int attrValLength( AttributeValue attrVal )
     {
       if( attrVal.L.Count > 0 )
@@ -343,10 +310,6 @@ namespace DynamoDB_intro
       return ( 0 );
     }
 
-
-    /*--------------------------------------------------------------------------
-     *                   movieRunTime
-     *--------------------------------------------------------------------------*/
     public static string movieRunTime( int runSeconds )
     {
       StringBuilder sb = new StringBuilder();

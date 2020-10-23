@@ -22,10 +22,6 @@ namespace DynamoDB_intro
 {
     public static partial class DdbIntro
     {
-
-        /*--------------------------------------------------------------------------
-         *     LoadingData_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> LoadingData_async(Table table, string filePath)
         {
             var movieArray = await ReadJsonMovieFile_async(filePath);
@@ -35,10 +31,7 @@ namespace DynamoDB_intro
 
             return true;
         }
-
-        /*--------------------------------------------------------------------------
-         *                             ReadJsonMovieFile_async
-         *--------------------------------------------------------------------------*/
+        
         public static async Task<JArray> ReadJsonMovieFile_async(string jsonMovieFilePath)
         {
             StreamReader sr = null;
@@ -59,19 +52,13 @@ namespace DynamoDB_intro
             }
             finally
             {
-                if (jtr != null)
-                    jtr.Close();
-                if (sr != null)
-                    sr.Close();
+                jtr?.Close();
+                sr?.Close();
             }
             
             return movieArray;
         }
 
-
-        /*--------------------------------------------------------------------------
-         *                LoadJsonMovieData_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> LoadJsonMovieData_async(Table moviesTable, JArray moviesArray)
         {
             int n = moviesArray.Count;

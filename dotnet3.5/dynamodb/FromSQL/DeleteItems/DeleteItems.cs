@@ -122,8 +122,6 @@ namespace DeleteItems
 
             var resp = RemoveItemsAsync(client, table, idstring, area);
 
-            //    Task<DeleteItemResponse> response = RemoveItemAsync(debug, client, table, partition, sort);
-
             if (resp.Result.HttpStatusCode == HttpStatusCode.OK)
             {
                 Console.WriteLine("Removed item from " + table + " table in " + region + " region");

@@ -18,9 +18,6 @@ namespace DynamoDB_intro
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                             UpdatingMovie_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> UpdatingMovie_async(UpdateItemRequest updateRequest)
         {
             var result = false;

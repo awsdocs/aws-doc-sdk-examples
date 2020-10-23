@@ -19,9 +19,6 @@ namespace DynamoDB_intro
 {
     public static partial class DdbIntro
     {
-        /*--------------------------------------------------------------------------
-         *                      checkingTableExistence_async
-         *--------------------------------------------------------------------------*/
         public static async Task<bool> CheckingTableExistence_async(string tblNm)
         {
             var response = await DdbIntro.Client.ListTablesAsync();
@@ -62,7 +59,7 @@ namespace DynamoDB_intro
         {
             TableDescription result = null;
 
-            // If the table exists, get its description
+            // If the table exists, get its description.
             try
             {
                 var response = await DdbIntro.Client.DescribeTableAsync(tableName);

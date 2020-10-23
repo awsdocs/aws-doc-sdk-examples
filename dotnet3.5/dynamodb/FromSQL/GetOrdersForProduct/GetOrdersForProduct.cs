@@ -16,7 +16,7 @@ namespace GetOrdersForProduct
     {
         // Get the orders for product with ID productId
         // DynamoDB equivalent of:
-        //   select* from Orders where Order_Product = '3'
+        //   select * from Orders where Order_Product = '3'
         public static async Task<ScanResponse> GetProductOrdersAsync(IAmazonDynamoDB client, string table, string productId)
         {
             var response = await client.ScanAsync(new ScanRequest

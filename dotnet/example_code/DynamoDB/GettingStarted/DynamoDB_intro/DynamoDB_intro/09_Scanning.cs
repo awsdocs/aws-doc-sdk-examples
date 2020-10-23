@@ -19,9 +19,6 @@ namespace DynamoDB_intro
 {
   public static partial class DdbIntro
   {
-    /*--------------------------------------------------------------------------
-     *                             ClientScanning_async
-     *--------------------------------------------------------------------------*/
     public static async Task<ScanResponse> ClientScanning_async(ScanRequest sRequest)
     {
       var response = await Client.ScanAsync(sRequest);
