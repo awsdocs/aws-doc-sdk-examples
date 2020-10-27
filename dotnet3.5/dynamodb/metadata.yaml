@@ -191,7 +191,7 @@ files:
   - path: LowLevelGlobalSecondaryIndexExample/LowLevelGlobalSecondaryIndexExample.cs
     services:
       - dynamodb
-  - path: LowLevelGlobalSecondaryIndexExampleTest/LowLevelGlobalSecondaryIndexExampleTest.cs
+  - path: LowLevelGSIIndexExampleTest/LowLevelGSIIndexExampleTest.cs
     services:
       - dynamodb
   - path: LowLevelItemBinaryExample/LowLevelItemBinaryExample.cs
