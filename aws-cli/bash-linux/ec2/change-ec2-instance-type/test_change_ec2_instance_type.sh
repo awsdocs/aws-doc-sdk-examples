@@ -65,7 +65,7 @@ if [ "$INTERACTIVE" == "true" ]; then iecho "Tests running in interactive mode."
 
 iecho ""
 iecho "***************SETUP STEPS******************"
-    # First, get the AMI ID for the one running the latest Amazon Linix 2.
+    # First, get the AMI ID for the one running the latest Amazon Linux 2.
     iecho -n "Retrieving the AMI ID for the latest Amazon Linux 2 AMI..."
     AMI_ID=$(aws ec2 describe-images \
                 --owners 'amazon' \

@@ -16,7 +16,7 @@ files:
   - path: create-table.ts
     services:
       - dynamodb
-  - path: upload-files.ts
+  - path: upload-files-to-s3.ts
     services:
       - s3
   - path: ../dynamoApp/add_data.ts
