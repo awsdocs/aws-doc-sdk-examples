@@ -52,7 +52,7 @@ public class KMSEncryptionExample {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CopyObject <objectname><bucketName> <objectPath><outPath><keyId>\n\n" +
+                "    KMSEncryptionExample <objectname><bucketName> <objectPath><outPath><keyId>\n\n" +
                 "Where:\n" +
                 "    objectname - the name of the object \n\n" +
                 "    bucketName - the bucket name that contains the object (i.e., bucket1)\n" +
