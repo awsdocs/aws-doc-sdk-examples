@@ -69,7 +69,7 @@ public class S3ObjectOperations {
                 "Example:\n" +
                 "    S3ObjectOperations bucket1 key\n\n";
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
