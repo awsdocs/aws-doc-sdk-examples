@@ -57,7 +57,7 @@ public class IAMServiceIntegrationTest {
 
     @Test
     @Order(2)
-    public void CreatUser() {
+    public void CreateUser() {
 
         String result = CreateUser.createIAMUser(iam, userName);
         assertTrue(!result.isEmpty());

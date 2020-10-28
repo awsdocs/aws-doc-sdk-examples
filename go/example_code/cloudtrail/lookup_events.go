@@ -81,7 +81,7 @@ func main() {
         fmt.Println("Time:   ", aws.TimeValue(event.EventTime))
         fmt.Println("User:   ", aws.StringValue(event.Username))
 
-        fmt.Println("Resourcs:")
+        fmt.Println("Resources:")
 
         for _, resource := range event.Resources {
             fmt.Println("  Name:", aws.StringValue(resource.ResourceName))

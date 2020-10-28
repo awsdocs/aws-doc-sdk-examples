@@ -62,7 +62,7 @@ func main() {
 
     err := MakeClusterSnapshot(svc, clusterID)
     if err != nil {
-        fmt.Println("Got an error creating snapshop for cluster " + *clusterID)
+        fmt.Println("Got an error creating snapshot for cluster " + *clusterID)
         return
     }
 
@@ -75,7 +75,7 @@ func main() {
     })
     // snippet-end:[rds.go.create_db_cluster_snapshot.wait]
     if err != nil {
-        fmt.Println("Got an error waiting for snapshop for cluster " + *clusterID)
+        fmt.Println("Got an error waiting for snapshot for cluster " + *clusterID)
         return
     }
 

@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[describe_db_clusers.cpp demonstrates how to retrieve information about Amazon Neptune provisioned DB clusters.]
+//snippet-sourcedescription:[describe_db_clusters.cpp demonstrates how to retrieve information about Amazon Neptune provisioned DB clusters.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
