@@ -32,7 +32,7 @@ public class CreateAccessPoint {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CopyObject <accountId><bucketName> <name>\n\n" +
+                "    CreateAccessPoint <accountId><bucketName> <name>\n\n" +
                 "Where:\n" +
                 "    accountId - the account id that owns the S3 bucket \n\n" +
                 "    bucketName - the bucket name \n" +
@@ -44,9 +44,9 @@ public class CreateAccessPoint {
         }
 
         /* Read the name from command args*/
-        String accountId = "814548047983"; //args[0];
-        String bucketName = "buckettestsept"; //args[1];
-        String name = "example-ap3";  //args[2];
+        String accountId = args[0];
+        String bucketName = args[1];
+        String name = args[2];
 
         //Create the S3Client object
         Region region = Region.US_EAST_1;
