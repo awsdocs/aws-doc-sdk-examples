@@ -36,5 +36,4 @@ namespace DynamoDB_intro
         }
     }
 }
-
 // snippet-end:[dynamodb.dotNET.CodeExample.06_UpdatingItem]

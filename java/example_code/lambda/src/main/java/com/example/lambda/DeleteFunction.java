@@ -54,7 +54,7 @@ public class DeleteFunction {
             DeleteFunctionRequest delFunc = new DeleteFunctionRequest();
             delFunc.withFunctionName(functionName);
 
-            //Delete the functiom
+            //Delete the function
             awsLambda.deleteFunction(delFunc);
             System.out.println("The function is deleted");
 

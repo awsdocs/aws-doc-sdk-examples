@@ -87,7 +87,7 @@ public class Query {
                 new HashMap<String,AttributeValue>();
         attrValues.put(":"+partitionKeyName, AttributeValue.builder().s(partitionKeyVal).build());
 
-        // Cretae a QueryRequest object
+        // Create a QueryRequest object
         QueryRequest queryReq = QueryRequest.builder()
                 .tableName(tableName)
                 .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)

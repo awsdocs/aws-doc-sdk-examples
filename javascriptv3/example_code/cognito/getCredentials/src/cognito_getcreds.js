@@ -32,7 +32,7 @@ const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
 
-// Set the paramerter
+// Set the parameter
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID";
 const ACCOUNT_ID = "ACCOUNT_ID";
 

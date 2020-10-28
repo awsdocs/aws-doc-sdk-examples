@@ -92,7 +92,7 @@
  * Prerequisites: An existing bucket.
  *
  * Inputs:
- * - bucketName: The name of the bucket to get ACL informaton for. For example,
+ * - bucketName: The name of the bucket to get ACL information for. For example,
  *   "my-bucket".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  *

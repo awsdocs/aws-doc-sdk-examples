@@ -108,7 +108,7 @@ public class CreateAndDescribeSnapshot {
 
     private static Boolean waitForSnapshotAvailable(String snapshotId) throws InterruptedException {
         Boolean snapshotAvailable = false;
-        System.out.println("Wating for snapshot to become available.");
+        System.out.println("Waiting for snapshot to become available.");
         while (!snapshotAvailable) {
             DescribeClusterSnapshotsResult result = client.describeClusterSnapshots(new DescribeClusterSnapshotsRequest()
                 .withSnapshotIdentifier(snapshotId));
