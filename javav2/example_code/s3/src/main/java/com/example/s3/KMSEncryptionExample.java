@@ -54,7 +54,7 @@ public class KMSEncryptionExample {
                 "Usage:\n" +
                 "    CopyObject <objectname><bucketName> <objectPath><outPath><keyId>\n\n" +
                 "Where:\n" +
-                "    objectname - the name of the object (i.e., book.pdf)\n\n" +
+                "    objectname - the name of the object \n\n" +
                 "    bucketName - the bucket name that contains the object (i.e., bucket1)\n" +
                 "    objectPath - the path to a TXT file to encrypt and place into a S3 bucket (i.e., C:\\AWS\\test.txt)\n" +
                 "    outPath - the path where a text file is written to after it's decrypted (i.e., C:\\AWS\\testPlain.txt)\n" +
