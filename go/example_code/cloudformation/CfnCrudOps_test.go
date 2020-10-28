@@ -31,7 +31,7 @@ type Config struct {
 
 var configFileName = "config.json"
 
-// Gloval variable for configuration set in config.json
+// Global variable for configuration set in config.json
 var globalConfig Config
 
 func PopulateConfiguration() error {

@@ -55,8 +55,8 @@ public class ListIdentityPools {
                 .maxResults(15)
                 .build();
 
-            ListIdentityPoolsResponse poolReponse = cognitoclient.listIdentityPools(poolsRequest);
-            List<IdentityPoolShortDescription> pools = poolReponse.identityPools();
+            ListIdentityPoolsResponse poolResponse = cognitoclient.listIdentityPools(poolsRequest);
+            List<IdentityPoolShortDescription> pools = poolResponse.identityPools();
 
             for (IdentityPoolShortDescription pool: pools) {
                 System.out.println("Pool ID: "+pool.identityPoolId());

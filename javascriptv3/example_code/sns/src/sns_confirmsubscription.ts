@@ -18,7 +18,7 @@ https://sns.us-east-1.amazonaws.com/confirmation.html?TopicArn=arn:aws:sns:us-ea
 - AuthenticateOnUnsubscribe: either 'true' or 'false'
 
 Running the code:
-ts-node sns_confirmsubsrciption.ts
+ts-node sns_confirmsubscription.ts
 */
 // snippet-start:[sns.JavaScript.subscriptions.confirmSubscriptionV3]
 // Import required AWS SDK clients and commands for Node.js

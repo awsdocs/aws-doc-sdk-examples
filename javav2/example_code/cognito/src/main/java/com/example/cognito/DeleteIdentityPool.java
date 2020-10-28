@@ -41,21 +41,21 @@ public class DeleteIdentityPool {
                 "Where:\n" +
                 "    identityPoolId  - The AWS Region and GUID of your identity pool.\n\n" ;
 
-        String identityPoold = args[0];
+        String identityPoolId = args[0];
 
         CognitoIdentityClient cognitoIdclient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        deleteIdPool(cognitoIdclient, identityPoold);
+        deleteIdPool(cognitoIdclient, identityPoolId);
     }
 
     //snippet-start:[cognito.java2.deleteidpool.main]
-    public static void deleteIdPool(CognitoIdentityClient cognitoIdclient, String identityPoold) {
+    public static void deleteIdPool(CognitoIdentityClient cognitoIdclient, String identityPoolId) {
         try {
 
         DeleteIdentityPoolRequest identityPoolRequest = DeleteIdentityPoolRequest.builder()
-                .identityPoolId(identityPoold)
+                .identityPoolId(identityPoolId)
                 .build();
 
         cognitoIdclient.deleteIdentityPool(identityPoolRequest);

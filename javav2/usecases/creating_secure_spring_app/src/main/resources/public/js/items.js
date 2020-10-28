@@ -66,7 +66,7 @@ function modItem()
 function loadMods(event) {
 
     var msg = event.target.responseText;
-    alert("You have successfully modfied item "+msg)
+    alert("You have successfully modified item "+msg)
 
     $('#id').val("");
     $('#description').val("");
@@ -266,7 +266,7 @@ function archiveItem()
 function onArch(event) {
 
     var xml = event.target.responseText;
-    alert("Item "+xml +" is achived now");
+    alert("Item "+xml +" is archived now");
     //Refresh the grid
     GetItems();
 }
