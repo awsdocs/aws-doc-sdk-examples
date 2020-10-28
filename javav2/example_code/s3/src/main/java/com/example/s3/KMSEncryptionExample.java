@@ -81,7 +81,7 @@ public class KMSEncryptionExample {
         // Encrypt data and place the encrypted data into an Amazon S3 bucket
         putEncryptData(s3, objectKey, bucketName,  objectPath, keyId);
 
-        // Ontain the encrypted data, decrypt it and write out the data to a file
+        // Get the encrypted data, decrypt it and write out the data to a text file
         getEncryptedData (s3, bucketName, objectKey, outPath, keyId );
     }
 
