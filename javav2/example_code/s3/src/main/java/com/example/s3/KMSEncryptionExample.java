@@ -43,6 +43,10 @@ import java.io.IOException;
 import java.io.FileInputStream;
 // snippet-end:[s3.java2.kms.import]
 
+/**
+ * Before running this code example, you need to create a key by using the AWS Key Management Service. 
+ * For information, see "Creating keys" in the AWS Key Management Service Developer Guide.
+ */
 public class KMSEncryptionExample {
 
     public static void main(String[] args) {
