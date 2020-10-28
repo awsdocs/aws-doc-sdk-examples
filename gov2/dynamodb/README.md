@@ -60,7 +60,7 @@ ok      PATH 6.593s
 
 If you want to see any log messages, enter:
 
-`go test -test.v`
+`go test -v`
 
 You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
