@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[RetryClient.java is a client that manages the connection to Amazon Transcribe and retries sending data when there are errors on the connection.]
+// snippet-sourcedescription:[RetryClient.java is an example that manages the connection to Amazon Transcribe and retries sending data when there are errors on the connection.]
 // snippet-service:[transcribe]
 // snippet-keyword:[Java]
 // snippet-sourcesyntax:[java]
@@ -9,7 +9,7 @@
 // snippet-sourcetype:[snippet]
 // snippet-sourcedate:[2019-01-10]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[transcribe.java-streaming-retry-client]
+
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -24,6 +24,8 @@
  * specific language governing permissions and limitations under the License.
  *
  */
+
+// snippet-start:[transcribe.java-streaming-retry-client]
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
