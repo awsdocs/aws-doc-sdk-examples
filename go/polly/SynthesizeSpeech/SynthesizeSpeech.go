@@ -49,7 +49,7 @@ func MakeSpeech(svc pollyiface.PollyAPI, fileName *string) (*polly.SynthesizeSpe
 
 func main() {
     // snippet-start:[polly.go.synthesize_speech.args]
-    fileName := flag.String("f", "", "The file to tranlate into speech")
+    fileName := flag.String("f", "", "The file to translate into speech")
     flag.Parse()
 
     if *fileName == "" {

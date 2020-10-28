@@ -308,7 +308,7 @@ namespace AwsInstanceProfile1
                 request.NewServerCertificateName = "NEW_Certificate_NAME";
                 var response = iamClient.UpdateServerCertificate(request);
                 if (response.HttpStatusCode.ToString() == "OK")
-                    Console.WriteLine("Update succesful");
+                    Console.WriteLine("Update successful");
                 else
                     Console.WriteLine("HTTpStatusCode returned = " + response.HttpStatusCode.ToString());
             }

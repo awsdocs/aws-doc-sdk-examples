@@ -7,7 +7,7 @@ jest.mock("@aws-sdk/client-iam/commands/DeleteAccountAliasCommand", () => ({
 const { params, run } = require("../../iam/src/iam_deleteaccountalias.js");
 
 //test function
-test("has to mock iam#deleteaccontalias", async (done) => {
+test("has to mock iam#deleteaccountalias", async (done) => {
   await run();
   expect(mockDeleteAccountAlias).toHaveBeenCalled;
   done();

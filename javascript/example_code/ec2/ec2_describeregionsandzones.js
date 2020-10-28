@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
 */
 
-//snippet-sourcedescription:[ec2_describeresionsandzones.js demonstrates how to retrieve information about Amazon EC2 regions and availability zones.]
+//snippet-sourcedescription:[ec2_describeregionsandzones.js demonstrates how to retrieve information about Amazon EC2 regions and availability zones.]
 //snippet-service:[ec2]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]

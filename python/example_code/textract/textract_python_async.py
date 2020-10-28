@@ -12,7 +12,7 @@
 # snippet-sourcedate:[2019-8-26]
 # snippet-sourceauthor:[reesch (AWS)]
 # snippet-start:[textract.python.textract_python_async.complete]
-#Asyncrhonously processes text in a document stored in an S3 bucket. For set up information, see https://docs.aws.amazon.com/textract/latest/dg/async.html
+#Asynchronously processes text in a document stored in an S3 bucket. For set up information, see https://docs.aws.amazon.com/textract/latest/dg/async.html
 import boto3
 import json
 import sys

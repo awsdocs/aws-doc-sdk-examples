@@ -158,7 +158,7 @@ public class KinesisStreamEx {
 
             @Override
             public void responseReceived(SubscribeToShardResponse response) {
-                System.out.println("Receieved initial response");
+                System.out.println("Received initial response");
             }
 
             @Override

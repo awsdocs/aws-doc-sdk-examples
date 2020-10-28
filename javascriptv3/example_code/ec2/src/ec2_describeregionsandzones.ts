@@ -7,13 +7,13 @@ at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for Jav
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-security-groups.html
 
 Purpose:
-ec2_describeresionsandzones.ts demonstrates how to retrieve information about Amazon EC2 regions and availability zones.
+ec2_describeregionsandzones.ts demonstrates how to retrieve information about Amazon EC2 regions and availability zones.
 
 Inputs (replace in code):
 - REGION
 
 Running the code:
-ts-node ec2_describeresionsandzones.ts
+ts-node ec2_describeregionsandzones.ts
 */
 // snippet-start:[ec2.JavaScript.Regions.describeRegionsV3]
 // Import required AWS SDK clients and commands for Node.js

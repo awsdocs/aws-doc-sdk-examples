@@ -66,7 +66,7 @@ function modItem()
 function loadMods(event) {
 
     var msg = event.target.responseText;
-    alert("You have successfully modfied item "+msg)
+    alert("You have successfully modified item "+msg)
 
     $('#id').val("");
     $('#description').val("");
@@ -214,7 +214,7 @@ function GetArcItems()
 
 function loadArcItems(event) {
 
-    // Disable buttons when Achive button
+    // Disable buttons when Archive button
     $('#reportbutton').prop("disabled",true);
     $('#reportbutton').css("color", "#0d010d");
     $('#singlebutton').prop("disabled",true);
@@ -286,7 +286,7 @@ function archiveItem()
 function onArch(event) {
 
     var xml = event.target.responseText;
-    alert("Item "+xml +" is achived now");
+    alert("Item "+xml +" is archived now");
     //Refresh the grid
     GetItems();
 }

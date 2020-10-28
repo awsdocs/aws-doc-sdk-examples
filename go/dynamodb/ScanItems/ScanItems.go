@@ -99,7 +99,7 @@ func ScanTableItems(sess *session.Session, year *int, table *string, minRating *
 func main() {
     // snippet-start:[dynamodb.go.scan_table_items.args]
     tableName := flag.String("t", "", "The name of the table")
-    minRating := flag.Float64("r", -1.0, "The minumum rating of the movies to retrieve")
+    minRating := flag.Float64("r", -1.0, "The minimum rating of the movies to retrieve")
     year := flag.Int("y", -1, "The year the movies to retrieve were released")
     flag.Parse()
 
