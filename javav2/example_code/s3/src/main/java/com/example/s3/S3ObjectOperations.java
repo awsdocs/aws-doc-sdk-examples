@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create Amazon S3 buckets using Waiters, upload objects into that bucket, list objects in that bucket and finally delete the bucket.]
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create an Amazon S3 bucket by using waiters, upload objects into the bucket, list objects in the bucket and finally delete the bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -27,7 +27,6 @@ package com.example.s3;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Random;
-
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -80,11 +79,10 @@ public class S3ObjectOperations {
         // snippet-start:[s3.java2.s3_object_operations.upload]
         Region region = Region.US_WEST_2;
         s3 = S3Client.builder().region(region).build();
-
         String key = "key";
         createBucket(s3, bucket, region);
 
-         // Put Object
+         // Put the object into a bucket
         s3.putObject(PutObjectRequest.builder()
                         .bucket(bucket)
                         .key(key)
@@ -93,12 +91,11 @@ public class S3ObjectOperations {
         // snippet-end:[s3.java2.s3_object_operations.upload]
 
 
-        // Multipart Upload a file
+        // Multipart upload
         String multipartKey = "multiPartKey";
         multipartUpload(bucket, multipartKey);
 
-        // List all objects in bucket
-
+        // List all objects in the bucket
         // snippet-start:[s3.java2.s3_object_operations.pagination]
         // Use manual pagination
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
@@ -123,7 +120,7 @@ public class S3ObjectOperations {
         }
         // snippet-end:[s3.java2.s3_object_operations.pagination]
         // snippet-start:[s3.java2.s3_object_operations.iterative]
-        // Build the list objects request
+        // Build the ListObjectsV2Request object
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
@@ -148,7 +145,7 @@ public class S3ObjectOperations {
         }
         // snippet-end:[s3.java2.s3_object_operations.forloop]
 
-        // Get Object
+        // Get an object
         // snippet-start:[s3.java2.s3_object_operations.download]
         GetObjectRequest objectRequest = GetObjectRequest.builder()
                 .bucket(bucket)
@@ -158,13 +155,13 @@ public class S3ObjectOperations {
         s3.getObject(objectRequest);
         // snippet-end:[s3.java2.s3_object_operations.download]
 
-        // Delete Object
+        // Delete an object
         // snippet-start:[s3.java2.s3_object_operations.delete]
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
         s3.deleteObject(deleteObjectRequest);
         // snippet-end:[s3.java2.s3_object_operations.delete]
 
-        // Delete Object
+        // Delete an object
         deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
         s3.deleteObject(deleteObjectRequest);
 
@@ -172,10 +169,10 @@ public class S3ObjectOperations {
         System.out.println("Done");
     }
 
-    // Create a bucket using Waiters
+    // Create a bucket by using a S3Waiter object
     public static void createBucket( S3Client s3Client, String bucketName, Region region) {
 
-        // Create a Waiter object
+        // Create a S3Waiter object
         S3Waiter s3Waiter = s3Client.waiter();
 
         try {
@@ -187,10 +184,10 @@ public class S3ObjectOperations {
                                    .build())
                     .build();
 
-            // Create a s3 bucket
+            // Invoke the createBucket method
             s3Client.createBucket(bucketRequest);
 
-            // Create a HeadBucketRequest object required for waiter functionality
+            // Create a HeadBucketRequest object
             HeadBucketRequest bucketRequestWait = HeadBucketRequest.builder()
                     .bucket(bucketName)
                     .build();
@@ -198,7 +195,7 @@ public class S3ObjectOperations {
             // Wait until the bucket is created
             WaiterResponse<HeadBucketResponse> waiterResponse = s3Waiter.waitUntilBucketExists(bucketRequestWait);
 
-            // print out the matched response
+            // Print out the matched response
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println(bucketName +" is ready");
 
@@ -208,13 +205,14 @@ public class S3ObjectOperations {
         }
     }
 
+    // Delete a bucket
     public static void deleteBucket(S3Client client, String bucket) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
         client.deleteBucket(deleteBucketRequest);
     }
 
     /**
-     * Uploading an object to S3 in parts
+     * Upload an object in parts
      */
     private static void multipartUpload(String bucketName, String key) throws IOException {
 
