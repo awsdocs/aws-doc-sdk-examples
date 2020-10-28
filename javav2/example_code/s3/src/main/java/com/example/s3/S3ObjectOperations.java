@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create an Amazon S3 bucket by using waiters, upload objects into the bucket, list objects in the bucket and finally delete the bucket.]
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create an Amazon S3 bucket by using a S3Waiter object. In addition, this code example demonstrates how to perform other tasks such as uploading an object into an Amazon S3 bucket.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -62,42 +62,43 @@ public class S3ObjectOperations {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    S3ObjectOperations <bucket>\n\n" +
+                "    S3ObjectOperations <bucket><key>\n\n" +
                 "Where:\n" +
                 "    bucket - the bucket to create.\n\n" +
+                "    key - the key to use.\n\n" +
                 "Example:\n" +
-                "    S3ObjectOperations bucket1\n\n";
+                "    S3ObjectOperations bucket1 key\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
+        /* Read the bucket name and key from command args*/
         String bucket = args[0];
+        String key = args[1];
 
         // snippet-start:[s3.java2.s3_object_operations.upload]
         Region region = Region.US_WEST_2;
-        s3 = S3Client.builder().region(region).build();
-        String key = "key";
+        s3 = S3Client.builder()
+                .region(region)
+                .build();
+
         createBucket(s3, bucket, region);
 
-         // Put the object into a bucket
-        s3.putObject(PutObjectRequest.builder()
-                        .bucket(bucket)
-                        .key(key)
-                        .build(),
-                RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
+        PutObjectRequest objectRequest = PutObjectRequest.builder()
+                .bucket(bucket)
+                .key(key)
+                .build();
+
+        s3.putObject(objectRequest, RequestBody.fromByteBuffer(getRandomByteBuffer(10_000)));
         // snippet-end:[s3.java2.s3_object_operations.upload]
 
-
-        // Multipart upload
+        // Multipart upload example
         String multipartKey = "multiPartKey";
         multipartUpload(bucket, multipartKey);
 
-        // List all objects in the bucket
         // snippet-start:[s3.java2.s3_object_operations.pagination]
-        // Use manual pagination
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
@@ -120,7 +121,6 @@ public class S3ObjectOperations {
         }
         // snippet-end:[s3.java2.s3_object_operations.pagination]
         // snippet-start:[s3.java2.s3_object_operations.iterative]
-        // Build the ListObjectsV2Request object
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucket)
                 .maxKeys(1)
@@ -137,34 +137,39 @@ public class S3ObjectOperations {
         // Helper method to work with paginated collection of items directly
         listRes.contents().stream()
                 .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
+
         // snippet-end:[s3.java2.s3_object_operations.stream]
         // snippet-start:[s3.java2.s3_object_operations.forloop]
-        // Use simple for loop if stream is not necessary
         for (S3Object content : listRes.contents()) {
             System.out.println(" Key: " + content.key() + " size = " + content.size());
         }
         // snippet-end:[s3.java2.s3_object_operations.forloop]
 
-        // Get an object
-        // snippet-start:[s3.java2.s3_object_operations.download]
-        GetObjectRequest objectRequest = GetObjectRequest.builder()
+         // snippet-start:[s3.java2.s3_object_operations.download]
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucket)
                 .key(key)
                 .build();
 
-        s3.getObject(objectRequest);
+        s3.getObject(getObjectRequest);
         // snippet-end:[s3.java2.s3_object_operations.download]
 
-        // Delete an object
         // snippet-start:[s3.java2.s3_object_operations.delete]
-        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(key).build();
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(bucket)
+                .key(key)
+                .build();
+
         s3.deleteObject(deleteObjectRequest);
         // snippet-end:[s3.java2.s3_object_operations.delete]
 
         // Delete an object
-        deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucket).key(multipartKey).build();
-        s3.deleteObject(deleteObjectRequest);
+        deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(bucket)
+                .key(multipartKey)
+                .build();
 
+        s3.deleteObject(deleteObjectRequest);
         deleteBucket(s3,bucket);
         System.out.println("Done");
     }
@@ -172,7 +177,6 @@ public class S3ObjectOperations {
     // Create a bucket by using a S3Waiter object
     public static void createBucket( S3Client s3Client, String bucketName, Region region) {
 
-        // Create a S3Waiter object
         S3Waiter s3Waiter = s3Client.waiter();
 
         try {
@@ -184,18 +188,13 @@ public class S3ObjectOperations {
                                    .build())
                     .build();
 
-            // Invoke the createBucket method
             s3Client.createBucket(bucketRequest);
-
-            // Create a HeadBucketRequest object
             HeadBucketRequest bucketRequestWait = HeadBucketRequest.builder()
                     .bucket(bucketName)
                     .build();
 
-            // Wait until the bucket is created
+            // Wait until the bucket is created and print out the response
             WaiterResponse<HeadBucketResponse> waiterResponse = s3Waiter.waitUntilBucketExists(bucketRequestWait);
-
-            // Print out the matched response
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println(bucketName +" is ready");
 
@@ -205,8 +204,7 @@ public class S3ObjectOperations {
         }
     }
 
-    // Delete a bucket
-    public static void deleteBucket(S3Client client, String bucket) {
+   public static void deleteBucket(S3Client client, String bucket) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
         client.deleteBucket(deleteBucketRequest);
     }
@@ -218,7 +216,7 @@ public class S3ObjectOperations {
 
         int mB = 1024 * 1024;
         // snippet-start:[s3.java2.s3_object_operations.upload_multi_part]
-        // First create a multipart upload and get upload id
+        // First create a multipart upload and get the upload id
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
                 .bucket(bucketName)
                 .key(key)
