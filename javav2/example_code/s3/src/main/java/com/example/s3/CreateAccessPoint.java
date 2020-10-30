@@ -24,13 +24,13 @@ public class CreateAccessPoint {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+         final String USAGE = "\n" +
                 "Usage:\n" +
                 "    CreateAccessPoint <accountId><bucketName><accessPointName>\n\n" +
                 "Where:\n" +
-                "    accountId - the account id that owns the Amazon S3 bucket \n\n" +
-                "    bucketName - the bucket name \n" +
-                "    accessPointName - the access point name \n";
+                "    accountId - the account id that owns the Amazon S3 bucket. \n\n" +
+                "    bucketName - the Amazon S3 bucket name. \n" +
+                "    accessPointName - the access point name. \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
