@@ -42,7 +42,7 @@ public class CreateAccessPoint {
         String bucketName = args[1];
         String accessPointName = args[2];
 
-        //Create the S3ControlClient object
+        // Create the S3ControlClient object
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
                 .region(region)
