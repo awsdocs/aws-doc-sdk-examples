@@ -43,13 +43,14 @@ import java.io.FileInputStream;
 public class KMSEncryptionExample {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        
+       final String USAGE = "\n" +
                 "Usage:\n" +
                 "    KMSEncryptionExample <objectName><bucketName><objectPath><outPath><keyId>\n\n" +
                 "Where:\n" +
                 "    objectName - the name of the object (for example, book.pdf). \n\n" +
-                "    bucketName - the bucket name that contains the object (for example, bucket1). \n" +
-                "    objectPath - the path to a TXT file to encrypt and place into a S3 bucket (for example, C:\\AWS\\test.txt).\n" +
+                "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" +
+                "    objectPath - the path to a TXT file to encrypt and place into an Amazon S3 bucket (for example, C:\\AWS\\test.txt).\n" +
                 "    outPath - the path where a text file is written to after it's decrypted (for example, C:\\AWS\\testPlain.txt).\n" +
                 "    keyId - the id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS KMS console.\n";
 
