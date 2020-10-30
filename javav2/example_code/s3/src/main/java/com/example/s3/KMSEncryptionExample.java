@@ -57,7 +57,7 @@ public class KMSEncryptionExample {
              System.exit(1);
         }
 
-        // Read the command arguments
+        // Read the command line arguments
         String objectName = args[0];
         String bucketName = args[1];
         String objectPath = args[2];
