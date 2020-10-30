@@ -26,11 +26,11 @@ public class CreateAccessPoint {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateAccessPoint <accountId><bucketName> <name>\n\n" +
+                "    CreateAccessPoint <accountId><bucketName><accessPointName>\n\n" +
                 "Where:\n" +
                 "    accountId - the account id that owns the Amazon S3 bucket \n\n" +
                 "    bucketName - the bucket name \n" +
-                "    accessPointName - the name of the access point \n";
+                "    accessPointName - the access point name \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -42,9 +42,8 @@ public class CreateAccessPoint {
         String bucketName = args[1];
         String accessPointName = args[2];
 
-        //Create the S3Client object
+        //Create the S3ControlClient object
         Region region = Region.US_EAST_1;
-
         S3ControlClient s3ControlClient = S3ControlClient.builder()
                 .region(region)
                 .build();
