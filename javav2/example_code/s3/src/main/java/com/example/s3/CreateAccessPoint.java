@@ -37,7 +37,7 @@ public class CreateAccessPoint {
             System.exit(1);
         }
 
-        /* Read the command args*/
+        // Read the command arguments
         String accountId = args[0];
         String bucketName = args[1];
         String accessPointName = args[2];
