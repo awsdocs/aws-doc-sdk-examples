@@ -17,8 +17,8 @@ instructions.
 
 2. Install the dependencies listed in the package.json.
 
-**Note**: These include the client module for the AWS services required in these example, 
-which is *@aws-sdk/client-dynamodb*.
+**Note**: These include the client modules for the AWS services required in these example, 
+which are *@aws-sdk/client-dynamodb* and *@aws-sdk/util-dynamodb*.
 ```
 npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/dynamodb
