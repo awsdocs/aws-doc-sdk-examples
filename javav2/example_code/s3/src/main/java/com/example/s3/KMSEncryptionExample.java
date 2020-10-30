@@ -35,6 +35,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.FileInputStream;
 // snippet-end:[s3.java2.kms.import]
+
 /**
  * Before running this code example, you need to create a key by using the AWS Key Management Service.
  * For information, see "Creating keys" in the AWS Key Management Service Developer Guide.
@@ -46,11 +47,11 @@ public class KMSEncryptionExample {
                 "Usage:\n" +
                 "    KMSEncryptionExample <objectName><bucketName><objectPath><outPath><keyId>\n\n" +
                 "Where:\n" +
-                "    objectName - the name of the object (for example, book.pdf)\n\n" +
-                "    bucketName - the bucket name that contains the object (for example, bucket1)\n" +
-                "    objectPath - the path to a TXT file to encrypt and place into a S3 bucket (for example, C:\\AWS\\test.txt)\n" +
-                "    outPath - the path where a text file is written to after it's decrypted (for example, C:\\AWS\\testPlain.txt)\n" +
-                "    keyId - the id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS KMS console\n";
+                "    objectName - the name of the object (for example, book.pdf). \n\n" +
+                "    bucketName - the bucket name that contains the object (for example, bucket1). \n" +
+                "    objectPath - the path to a TXT file to encrypt and place into a S3 bucket (for example, C:\\AWS\\test.txt).\n" +
+                "    outPath - the path where a text file is written to after it's decrypted (for example, C:\\AWS\\testPlain.txt).\n" +
+                "    keyId - the id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS KMS console.\n";
 
          if (args.length < 5) {
              System.out.println(USAGE);
@@ -70,7 +71,7 @@ public class KMSEncryptionExample {
                 .region(region)
                 .build();
 
-         putEncryptData(s3, objectName, bucketName,  objectPath, keyId);
+         putEncryptData(s3, objectName, bucketName, objectPath, keyId);
          getEncryptedData (s3, bucketName, objectName, outPath, keyId );
     }
 
@@ -101,7 +102,7 @@ public class KMSEncryptionExample {
     }
 
     // Obtain the encrypted data, decrypt it, and write the data to a text file
-    private static void getEncryptedData(S3Client s3,
+    public static void getEncryptedData(S3Client s3,
                                          String bucketName,
                                          String objectName,
                                          String path,
