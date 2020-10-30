@@ -1,5 +1,5 @@
-//snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create an access point for an Amazon S3 bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create an access point for an Amazon Simple Storage Service (S3) bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
@@ -8,13 +8,7 @@
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.s3;
@@ -34,19 +28,19 @@ public class CreateAccessPoint {
                 "Usage:\n" +
                 "    CreateAccessPoint <accountId><bucketName> <name>\n\n" +
                 "Where:\n" +
-                "    accountId - the account id that owns the S3 bucket \n\n" +
+                "    accountId - the account id that owns the Amazon S3 bucket \n\n" +
                 "    bucketName - the bucket name \n" +
-                "    name - the name of the access point \n";
+                "    accessPointName - the name of the access point \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
+        /* Read the command args*/
         String accountId = args[0];
         String bucketName = args[1];
-        String name = args[2];
+        String accessPointName = args[2];
 
         //Create the S3Client object
         Region region = Region.US_EAST_1;
@@ -55,25 +49,25 @@ public class CreateAccessPoint {
                 .region(region)
                 .build();
 
-        createSpecificAccessPoint(s3ControlClient, accountId, bucketName, name );
+        createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName );
     }
 
     // snippet-start:[s3.java2.create_access_point.main]
+    // This method creates an access point for the given Amazon S3 bucket
     public static void createSpecificAccessPoint(S3ControlClient s3ControlClient,
                                                  String accountId,
                                                  String bucketName,
-                                                 String name ) {
-
+                                                 String accessPointName ) {
 
         try {
             CreateAccessPointRequest accessPointRequest = CreateAccessPointRequest.builder()
                 .accountId(accountId)
                 .bucket(bucketName)
-                .name(name)
+                .name(accessPointName)
                 .build();
 
             s3ControlClient.createAccessPoint(accessPointRequest);
-            System.out.println("The Access Point was created" );
+            System.out.println("The access point was created" );
 
         } catch (S3ControlException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
