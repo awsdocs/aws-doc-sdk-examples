@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[KMSEncryptionExample.java demonstrates how to use the AWS Key Management Service (AWS KMS) service to encrypt data prior to placing the data into an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[KMSEncryptionExample.java demonstrates how to use the AWS Key Management Service(AWS KMS) service to encrypt data prior to placing the data into an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -39,7 +39,7 @@ import java.io.FileInputStream;
 
 /**
  * Before running this code example, you need to create a key by using the AWS Key Management Service.
- * For information, see "Creating keys" in the AWS Key Management Service.
+ * For information, see "Creating keys" in the AWS Key Management Service Developer Guide.
  */
 public class KMSEncryptionExample {
 
@@ -59,7 +59,7 @@ public class KMSEncryptionExample {
              System.exit(1);
         }
 
-        /* Read the values from the command args*/
+        /* Read the command args*/
         String objectName = args[0];
         String bucketName = args[1];
         String objectPath = args[2];
@@ -102,7 +102,7 @@ public class KMSEncryptionExample {
         }
     }
 
-    // Obtain the encrypted data, decrypt it and write out the data to a file
+    // Obtain the encrypted data, decrypt it, and write the data to a text file
     private static void getEncryptedData(S3Client s3,
                                          String bucketName,
                                          String objectName,
