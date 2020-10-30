@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[KMSEncryptionExample.java demonstrates how to use the AWS Key Management Service(AWS KMS) service to encrypt data prior to placing the data into an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[KMSEncryptionExample.java demonstrates how to use the AWS Key Management Service (AWS KMS) service to encrypt data prior to placing the data into an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
