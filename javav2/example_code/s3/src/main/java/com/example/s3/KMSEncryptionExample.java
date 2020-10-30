@@ -29,14 +29,12 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.FileInputStream;
 // snippet-end:[s3.java2.kms.import]
-
 /**
  * Before running this code example, you need to create a key by using the AWS Key Management Service.
  * For information, see "Creating keys" in the AWS Key Management Service Developer Guide.
