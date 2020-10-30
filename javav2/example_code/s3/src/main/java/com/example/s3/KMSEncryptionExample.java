@@ -46,7 +46,7 @@ public class KMSEncryptionExample {
         
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "    KMSEncryptionExample <objectName><bucketName><objectPath><outPath><keyId>\n\n" +
+                "    KMSEncryptionExample <objectName> <bucketName> <objectPath> <outPath> <keyId>\n\n" +
                 "Where:\n" +
                 "    objectName - the name of the object. \n\n" +
                 "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" +
