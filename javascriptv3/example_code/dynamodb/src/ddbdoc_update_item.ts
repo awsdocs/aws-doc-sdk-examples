@@ -35,9 +35,10 @@ const params = {
   // Define expressions for the new or updated attributes
   UpdateExpression: "set ATTRIBUTE_NAME_1 = :t, ATTRIBUTE_NAME_2 = :s", // For example, "'set Title = :t, Subtitle = :s'"
   /*
-  Convert the attribute JavaScript object you are deleting to the required DynamoDB format. The format of values
-  specifies the datatype. The following list demonstrates different datatype formatting requirements:
-  HashKey: "hashKey",
+  Convert the attribute JavaScript object you are updating to the required
+  DynamoDB record. The format of values specifies the datatype. The
+  following list demonstrates different datatype formatting requirements:
+  String: "String",
   NumAttribute: 1,
   BoolAttribute: true,
   ListAttribute: [1, "two", false],
@@ -50,7 +51,7 @@ const params = {
   }),
 };
 
-// Create DynamoDB document client
+// Create DynamoDB client
 const client = new DynamoDB({ region: "REGION" });
 
 const run = async () => {

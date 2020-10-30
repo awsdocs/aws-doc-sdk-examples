@@ -26,9 +26,10 @@ const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 const params = {
   TableName: "TABLE_NAME",
   /*
-  Convert the JavaScript object defining the objects to the required DynamoDB format.The format of values
-  specifies the datatype. The following list demonstrates different datatype formatting requirements:
-  HashKey: "hashKey",
+  Convert the JavaScript object defining the objects to the required
+  DynamoDB record. The format of values specifies the datatype. The
+  following list demonstrates different datatype formatting requirements:
+  String: "String",
   NumAttribute: 1,
   BoolAttribute: true,
   ListAttribute: [1, "two", false],
@@ -46,7 +47,7 @@ const params = {
   FilterExpression: "contains (Subtitle, :topic)",
 };
 
-// Create DynamoDB document client
+// Create DynamoDB client
 const client = new DynamoDB({ region: "us-east-1" });
 
 const run = async () => {

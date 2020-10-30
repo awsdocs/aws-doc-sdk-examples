@@ -30,9 +30,11 @@ const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 const params = {
   TableName: "TABLE_NAME",
   /*
-  Convert the key JavaScript object you are retrieving to the required DynamoDB format. The format of values specifies
-  the datatype. The following list demonstrates different datatype formatting requirements:
-  HashKey: "hashKey",
+  Convert the key JavaScript object you are retrieving to the
+  required DynamoDB record. The format of values specifies
+  the datatype. The following list demonstrates different
+  datatype formatting requirements:
+  String: "String",
   NumAttribute: 1,
   BoolAttribute: true,
   ListAttribute: [1, "two", false],
@@ -45,14 +47,14 @@ const params = {
   }),
 };
 
-// Create DynamoDB document client
+// Create DynamoDB client
 const client = new DynamoDB({ region: "REGION" });
 
 const run = async () => {
   try {
     const { Item } = await client.getItem(params);
     // Convert the DynamoDB record you retrieved into a JavaScript object
-    unmarshall(Item);
+    const item = unmarshall(Item);
     // Print the JavaScript object to console
     console.log(Item);
   } catch (err) {

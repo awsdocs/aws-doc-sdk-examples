@@ -31,9 +31,11 @@ const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 // Set the parameters
 const TableName = "TABLE_NAME";
 /*
-Convert the key JavaScript object you are creating or replacing to the required DynamoDB format. The format
-of values specifies the datatype. The following list demonstrates different datatype formatting requirements:
-HashKey: "hashKey",
+Convert the key JavaScript object you are creating or replacing
+to the required DynamoDB record. The format of values specifies
+the datatype. The following list demonstrates different datatype
+formatting requirements:
+String: "String",
 NumAttribute: 1,
 BoolAttribute: true,
 ListAttribute: [1, "two", false],
@@ -48,7 +50,7 @@ const input = {
 // Marshall util converts then JavaScript object to DynamoDB format
 const Item = marshall(input);
 
-// Create DynamoDB document client
+// Create DynamoDB client
 const client = new DynamoDB({ region:"REGION" });
 
 const run = async () => {
