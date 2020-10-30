@@ -26,7 +26,7 @@ public class CreateAccessPoint {
 
          final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateAccessPoint <accountId><bucketName><accessPointName>\n\n" +
+                "    CreateAccessPoint <accountId> <bucketName> <accessPointName>\n\n" +
                 "Where:\n" +
                 "    accountId - the account id that owns the Amazon S3 bucket. \n\n" +
                 "    bucketName - the Amazon S3 bucket name. \n" +
