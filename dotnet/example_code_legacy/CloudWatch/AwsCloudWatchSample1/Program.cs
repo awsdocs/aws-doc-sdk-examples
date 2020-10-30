@@ -99,7 +99,7 @@ namespace AWSSDKDocSamples.CloudWatch
                         {
                             "RESOURCE_ARN"
                         },
-                        Source = "com.compnay.myapp"
+                        Source = "com.company.myapp"
                     }
                 }
             };

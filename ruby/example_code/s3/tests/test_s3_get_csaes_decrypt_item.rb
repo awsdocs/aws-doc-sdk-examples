@@ -4,7 +4,7 @@
 require_relative '../s3_get_csaes_decrypt_item'
 
 describe '#get_decrypted_object_content' do
-  # Captures the data (metadata and body) put to an Amason S3 object.
+  # Captures the data (metadata and body) put to an Amazon S3 object.
   def stub_put(s3_client)
     data = {}
     s3_client.stub_responses(:put_object, lambda { |context|

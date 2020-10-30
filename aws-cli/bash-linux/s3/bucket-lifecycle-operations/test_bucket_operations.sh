@@ -27,7 +27,7 @@ function usage {
     echo "   account that can incur charges. It is your responsibility to"
     echo "   ensure that no resources are left in your account after the script"
     echo "   completes. If an error occurs during the operation of the script,"
-    echo "   then resources can remain that you might need to delete manaully."
+    echo "   then resources can remain that you might need to delete manually."
 }
 
     # Set default values.

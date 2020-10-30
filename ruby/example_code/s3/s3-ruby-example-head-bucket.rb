@@ -1,33 +1,43 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Determines whether you have access to an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[head_bucket method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 
-client = Aws::S3::Client.new(region: 'us-west-2')
-
-begin
-  client.head_bucket({bucket: 'bucket_name', use_accelerate_endpoint: false})
-  # We know bucket exists
+# Determines whether an Amazon Simple Storage Service (Amazon S3)
+#   bucket exists and you have permission to access it.
+#
+# Prerequisites:
+#
+# - An S3 bucket.
+#
+# @param
+# @param
+# @return [Boolean] true if the bucket exists and you have permission to
+#   access it; otherwise, false.
+# @example
+#   exit 1 unless bucket_exists_and_accessible?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket'
+#   )
+def bucket_exists_and_accessible?(s3_client, bucket_name)
+  s3_client.head_bucket(bucket: bucket_name)
+  return true
 rescue StandardError
-  puts 'Bucket does not exist'
+  return false
 end
+
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  if bucket_exists_and_accessible?(s3_client, bucket_name)
+    puts "Bucket '#{bucket_name}' exists and is accessible to you."
+  else
+    puts "Bucket '#{bucket_name}' does not exist " \
+      'or is not accessible to you.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

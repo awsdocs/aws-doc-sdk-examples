@@ -1,34 +1,46 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Saves an S3 bucket item as a file.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[Resource.bucket method]
-# snippet-keyword:[Bucket.object method]
-# snippet-keyword:[Object.getmethod]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+
+# Downloads an object from an Amazon Simple Storage Service (Amazon S3) bucket.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param bucket_name [String] The name of the bucket containing the object.
+# @param object_key [String] The name of the object to download.
+# @param local_path [String] The path on your local computer to download
+#   the object.
+# @return [Boolean] true if the object was downloaded; otherwise, false.
+# @example
+#   exit 1 unless object_downloaded?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     './my-file.txt'
+#   )
+def object_downloaded?(s3_client, bucket_name, object_key, local_path)
+  s3_client.get_object(
+    response_target: local_path,
+    bucket: bucket_name,
+    key: object_key
+  )
+rescue StandardError => e
+  puts "Error getting object: #{e.message}"
+end
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  local_path = "./#{object_key}"
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-s3 = Aws::S3::Resource.new(region: 'us-west-2')
+  if object_downloaded?(s3_client, bucket_name, object_key, local_path)
+    puts "Object '#{object_key}' in bucket '#{bucket_name}' " \
+      "downloaded to '#{local_path}'."
+  else
+    puts "Object '#{object_key}' in bucket '#{bucket_name}' not downloaded."
+  end
+end
 
-# Create the object to retrieve
-obj = s3.bucket('my-bucket').object('my-item')
-
-# Get the item's content and save it to a file
-obj.get(response_target: './my-code/my-item.txt')
+run_me if $PROGRAM_NAME == __FILE__

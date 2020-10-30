@@ -162,7 +162,7 @@ int main()
             return 1;
         }
         std::cout << std::endl;
-        if (!AwsDoc::S3Encryption::SimpleEncryptionMaterialsWithGCMAADExample(bucketName.c_str(), (objectKey + "simplie-encryption-materials-with-gcm-aad").c_str()))
+        if (!AwsDoc::S3Encryption::SimpleEncryptionMaterialsWithGCMAADExample(bucketName.c_str(), (objectKey + "simple-encryption-materials-with-gcm-aad").c_str()))
         {
             return 1;
         }
