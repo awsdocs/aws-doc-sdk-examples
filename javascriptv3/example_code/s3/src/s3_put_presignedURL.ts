@@ -11,18 +11,17 @@ s3_put_presignedURL.ts creates a presigned URL to upload a file to an S3 bucket.
 Note: This example immediately deletes the object and bucket.
 
 Inputs (replace in code):
-- BUCKET_NAME
+- REGION
 - KEY
 - BODY
-- FILE_NAME
-- REGION
+
 Running the code:
 ts-node s3_put_presignedURL.ts
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
 
-// snippet-end:[s3.JavaScript.buckets.presignedurlv3]
+// snippet-start:[s3.JavaScript.buckets.presignedurlv3]
 const { S3, PutObjectCommand } = require("@aws-sdk/client-s3");
 const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
 const { createRequest } = require("@aws-sdk/util-create-request");
@@ -37,10 +36,11 @@ let signedUrl;
 let response;
 const signatureVersion = "v4";
 // Variable to create random name for S3 bucket
-const Bucket = `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`;
+const BUCKET = `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`;
 // Variable to create random name for object to upload to S3 bucket
-const Key = `test-object-${Math.ceil(Math.random() * 10 ** 10)}`;
-const Body = "Body";
+const KEY = `test-object-${Math.ceil(Math.random() * 10 ** 10)}`;
+const BODY = "BODY";
+const EXPIRATION = 60 * 60 * 1000;
 
 // Create AWS S3 client object
 const v3Client = new S3({ REGION });
@@ -48,9 +48,9 @@ const v3Client = new S3({ REGION });
 const run = async () => {
   try {
     //Create an S3 bucket
-    console.log(`Creating bucket ${Bucket}`);
-    await v3Client.createBucket({ Bucket });
-    console.log(`Waiting for "${Bucket}" bucket creation...`);
+    console.log(`Creating bucket ${BUCKET}`);
+    await v3Client.createBucket({ BUCKET });
+    console.log(`Waiting for "${BUCKET}" bucket creation...`);
   } catch (err) {
     console.log("Error creating bucket", err);
   }
@@ -60,10 +60,10 @@ const run = async () => {
     // Create request
     const request = await createRequest(
       v3Client,
-      new PutObjectCommand({ Key, Bucket })
+      new PutObjectCommand({ KEY, BUCKET })
     );
     // Define the duration until expiration of the presigned URL
-    const expiration = new Date(Date.now() + 60 * 60 * 1000);
+    const expiration = new Date(Date.now() + EXPIRATION);
 
     // Create and format Presigned URL
     signedUrl = formatUrl(await signer.presign(request, expiration));
