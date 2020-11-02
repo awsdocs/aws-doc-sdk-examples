@@ -4,7 +4,7 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
 ddbdoc_update_query.ts demonstrates how to use DynamoDB utilities to retrieve items from an Amazon DynamoDB table.
@@ -19,16 +19,17 @@ ts-node ddbdoc_update_query.ts
 // snippet-start:[dynamodb.JavaScript.docClient.queryV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, QueryCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
 const params = {
   TableName: "TABLE_NAME",
   /*
-  Convert the JavaScript object defining the objects to the required DynamoDB format.The format of values
-  specifies the datatype. The following list demonstrates different datatype formatting requirements:
-  HashKey: "hashKey",
+  Convert the JavaScript object defining the objects to the required
+  DynamoDB record. The format of values specifies the datatype. The
+  following list demonstrates different datatype formatting requirements:
+  String: "String",
   NumAttribute: 1,
   BoolAttribute: true,
   ListAttribute: [1, "two", false],
@@ -46,12 +47,12 @@ const params = {
   FilterExpression: "contains (Subtitle, :topic)",
 };
 
-// Create DynamoDB document client
-const client = new DynamoDB({ region: "us-east-1" });
+// Create DynamoDB client
+const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
-    const data = await client.query(params);
+    const data = await client.send(new QueryCommand(params));
     console.log("Success - query");
     console.log(data.Items);
   } catch (err) {

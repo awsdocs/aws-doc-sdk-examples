@@ -4,7 +4,7 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
 ddbdoc_get_item.ts demonstrates how to use DynamoDB utilities to retrieve a set of attributes for an item in an Amazon DynamoDB table..
@@ -23,16 +23,18 @@ ts-node ddbdoc_get_item.ts
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
 const params = {
   TableName: "TABLE_NAME",
   /*
-  Convert the key JavaScript object you are retrieving to the required DynamoDB format. The format of values specifies
-  the datatype. The following list demonstrates different datatype formatting requirements:
-  HashKey: "hashKey",
+  Convert the key JavaScript object you are retrieving to the
+  required DynamoDB record. The format of values specifies
+  the datatype. The following list demonstrates different
+  datatype formatting requirements:
+  String: "String",
   NumAttribute: 1,
   BoolAttribute: true,
   ListAttribute: [1, "two", false],
@@ -45,14 +47,14 @@ const params = {
   }),
 };
 
-// Create DynamoDB document client
-const client = new DynamoDB({ region: "REGION" });
+// Create DynamoDB client
+const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
-    const { Item } = await client.getItem(params);
+    const { Item } = await client.send(new GetItemCommand(params));
     // Convert the DynamoDB record you retrieved into a JavaScript object
-    unmarshall(Item);
+    const item = unmarshall(Item);
     // Print the JavaScript object to console
     console.log(Item);
   } catch (err) {
