@@ -1,0 +1,36 @@
+# Disregard this file. AWS uses it internally to 
+# track code coverage and unit test coverage 
+# within this repository.
+---
+files:
+  - path: ec2-ruby-example-attach-igw-vpc.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-attach-igw-vpc.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-create-instance.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-create-instance.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-create-key-pair.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-create-key-pair.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-create-route-table.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-create-route-table.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-create-security-group.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-create-security-group.rb
+    services:
+    - ec2
+...
