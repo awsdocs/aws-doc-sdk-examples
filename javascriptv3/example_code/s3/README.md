@@ -17,8 +17,9 @@ Amazon S3 is an object storage service that offers industry-leading scalability,
 2. Install the dependencies listed in the package.json.
 
 **Note**: These dependencies include the client modules for the AWS services that this example requires, 
-which is *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and 
-*@aws-sdk/credential-provider-cognito-identity*.
+which is *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, 
+*@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/s3-request-presigner*, *@aws-sdk/util-create-request*, 
+*@aws-sdk/util-format-url*, and *node-fetch*.
 ```
 npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/s3
