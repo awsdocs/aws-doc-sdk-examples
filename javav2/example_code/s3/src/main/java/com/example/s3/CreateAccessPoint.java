@@ -30,7 +30,7 @@ public class CreateAccessPoint {
                 "Where:\n" +
                 "    accountId - the account id that owns the Amazon S3 bucket. \n\n" +
                 "    bucketName - the Amazon S3 bucket name. \n" +
-                "    accessPointName - the access point name. \n";
+                "    accessPointName - the access point name (for example, myaccesspoint). \n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
