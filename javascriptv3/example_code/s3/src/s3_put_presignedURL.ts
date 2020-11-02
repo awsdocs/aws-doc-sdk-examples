@@ -22,7 +22,7 @@ Uploads the specified file to the specified bucket.
 */
 
 // snippet-start:[s3.JavaScript.buckets.presignedurlv3]
-const { S3, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3, CreateBucketCommand, DeleteObjectCommand, PutObjectCommand, DeleteBucketCommand } = require("@aws-sdk/client-s3");
 const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
 const { createRequest } = require("@aws-sdk/util-create-request");
 const { formatUrl } = require("@aws-sdk/util-format-url");
@@ -49,7 +49,7 @@ const run = async () => {
   try {
     //Create an S3 bucket
     console.log(`Creating bucket ${BUCKET}`);
-    await v3Client.createBucket({ BUCKET });
+    await v3Client.send(new CreateBucketCommand(BUCKET));
     console.log(`Waiting for "${BUCKET}" bucket creation...`);
   } catch (err) {
     console.log("Error creating bucket", err);
@@ -58,7 +58,8 @@ const run = async () => {
     //Create S3RequestPresigner ojbect
     const signer = new S3RequestPresigner({ ...v3Client.config });
     // Create request
-    const request = await createRequest(
+    const request =
+        await createRequest(
       v3Client,
       new PutObjectCommand({ KEY, BUCKET })
     );
@@ -87,15 +88,15 @@ const run = async () => {
   }
   try {
     // Delete the object
-    console.log(`\nDeleting object "${Key}" from bucket`);
-    await v3Client.deleteObject({ BUCKET, KEY });
+    console.log(`\nDeleting object "${KEY}" from bucket`);
+    await v3Client.send(new DeleteObjectCommand(BUCKET, KEY));
   } catch (err) {
     console.log("Error deleting object", err);
   }
   try {
     // Delete the bucket
     console.log(`\nDeleting bucket ${BUCKET}`);
-    await v3Client.deleteBucket({ BUCKET });
+    await v3Client.send(new DeleteBucketCommand(BUCKET));
   } catch (err) {
     console.log("Error deleting bucket", err);
   }
