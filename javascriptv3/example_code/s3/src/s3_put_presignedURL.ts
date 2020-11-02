@@ -67,18 +67,20 @@ const run = async () => {
 
     // Create and format Presigned URL
     signedUrl = formatUrl(await signer.presign(request, expiration));
-    console.log(`\nPutting "${Key}" using signedUrl with body "${Body}" in v3`);
+    console.log(`\nPutting "${KEY}" using signedUrl with body "${BODY}" in v3`);
   } catch (err) {
     console.log("Error creating presigned URL", err);
   }
   try {
     // Upload the object to the S3 bucket using the presigned URL
+    // Use node-fetch to make the HTTP request to upload the file the
+    // presigned URL
     response = await fetch(signedUrl, {
       method: "PUT",
       headers: {
         "content-type": "application/octet-stream",
       },
-      body: Body,
+      body: BODY,
     });
   } catch (err) {
     console.log("Error uploading object", err);
@@ -86,14 +88,14 @@ const run = async () => {
   try {
     // Delete the object
     console.log(`\nDeleting object "${Key}" from bucket`);
-    await v3Client.deleteObject({ Bucket, Key });
+    await v3Client.deleteObject({ BUCKET, KEY });
   } catch (err) {
     console.log("Error deleting object", err);
   }
   try {
     // Delete the bucket
-    console.log(`\nDeleting bucket ${Bucket}`);
-    await v3Client.deleteBucket({ Bucket });
+    console.log(`\nDeleting bucket ${BUCKET}`);
+    await v3Client.deleteBucket({ BUCKET });
   } catch (err) {
     console.log("Error deleting bucket", err);
   }

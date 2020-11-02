@@ -97,6 +97,26 @@ files:
     services:
       - dynamodb
 
+  - path: dynamodb/ddbdoc_delete_item.test.js
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddbdoc_get_item.test.js
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddbdoc_put_item.test.js
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddbdoc_update_item.test.js
+    services:
+      - dynamodb
+
+  - path: dynamodb/ddbdoc_query_item.test.js
+    services:
+      - dynamodb
+
   - path: ec2/ec2_allocatedadress.test.js
     services:
       - ec2
@@ -406,6 +426,10 @@ files:
       - s3
 
   - path: s3/s3_upload_comand.test.js
+    services:
+      - s3
+
+  - path: s3/s3_put_presignedURL.test.js
     services:
       - s3
 

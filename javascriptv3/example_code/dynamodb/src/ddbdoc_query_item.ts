@@ -19,7 +19,7 @@ ts-node ddbdoc_update_query.ts
 // snippet-start:[dynamodb.JavaScript.docClient.queryV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, QueryCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
@@ -48,11 +48,11 @@ const params = {
 };
 
 // Create DynamoDB client
-const client = new DynamoDB({ region: "us-east-1" });
+const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
-    const data = await client.query(params);
+    const data = await client.send(new QueryCommand(params));
     console.log("Success - query");
     console.log(data.Items);
   } catch (err) {
