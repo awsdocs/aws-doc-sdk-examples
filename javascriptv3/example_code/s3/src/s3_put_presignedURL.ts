@@ -6,7 +6,7 @@ at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for Jav
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-put_presignedURL.ts creates a presigned URL to upload a file to an S3 bucket.
+s3_put_presignedURL.ts creates a presigned URL to upload a file to an S3 bucket.
 
 Note: This example immediately deletes the object and bucket.
 
@@ -17,7 +17,7 @@ Inputs (replace in code):
 - FILE_NAME
 - REGION
 Running the code:
-ts-node put_presignedURL.ts
+ts-node s3_put_presignedURL.ts
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
