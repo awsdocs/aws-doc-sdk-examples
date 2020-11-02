@@ -12,6 +12,7 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.update_server_certificate.complete]
 // snippet-start:[iam.java2.update_server_certificate.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
