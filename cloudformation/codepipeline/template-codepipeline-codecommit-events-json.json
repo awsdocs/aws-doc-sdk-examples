@@ -28,7 +28,7 @@
             "Default": "master"
         },
         "RepositoryName": {
-            "Description": "CodeComit repository name",
+            "Description": "CodeCommit repository name",
             "Type": "String",
             "Default": "myrepo"
         },

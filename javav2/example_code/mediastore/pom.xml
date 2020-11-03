@@ -31,14 +31,12 @@
     </build>
     <dependencyManagement>
         <dependencies>
-            <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/bom -->
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.14.2</version>
+                <version>2.15.14</version>
                 <type>pom</type>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -54,14 +52,11 @@
             <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
             <version>1.4.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
@@ -73,13 +68,11 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/personalizeruntime -->
-        <dependency>
+         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>mediastore</artifactId>
             <version>2.14.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/mediastoredata -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>mediastoredata</artifactId>

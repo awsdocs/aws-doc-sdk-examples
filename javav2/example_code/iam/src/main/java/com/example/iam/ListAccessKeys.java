@@ -1,24 +1,15 @@
-//snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list all access keys associated with an IAM user.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list access keys associated with an AWS Identity and Access Management (IAM) user.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.list_access_keys.import]
@@ -29,32 +20,36 @@ import software.amazon.awssdk.services.iam.model.ListAccessKeysResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 // snippet-end:[iam.java2.list_access_keys.import]
-/**
- * List all access keys associated with an IAM user
- */
+
 public class ListAccessKeys {
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply an IAM  username\n" +
-                        "Ex: ListAccessKeys <username>\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    ListAccessKeys <userName> \n\n" +
+                "Where:\n" +
+                "    userName - the name of the user for which access keys are retrieved. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        String username = args[0];
+
+        // Read the command line argument
+        String userName = args[0];
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .build();
 
-        listKeys(iam,username) ;
+        listKeys(iam,userName) ;
+        System.out.println("Done");
+        iam.close();
     }
 
     // snippet-start:[iam.java2.list_access_keys.main]
-    public static void listKeys( IamClient iam,String username ){
+    public static void listKeys( IamClient iam,String userName ){
 
         try {
             boolean done = false;
@@ -65,11 +60,11 @@ public class ListAccessKeys {
 
             if(newMarker == null) {
                 ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                        .userName(username).build();
+                        .userName(userName).build();
                 response = iam.listAccessKeys(request);
             } else {
                 ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                        .userName(username)
+                        .userName(userName)
                         .marker(newMarker).build();
                 response = iam.listAccessKeys(request);
             }
@@ -86,11 +81,11 @@ public class ListAccessKeys {
                 newMarker = response.marker();
             }
         }
-    } catch (IamException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
-        System.out.println("Done");
-        // snippet-end:[iam.java2.list_access_keys.main]
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+       // snippet-end:[iam.java2.list_access_keys.main]
     }
 }

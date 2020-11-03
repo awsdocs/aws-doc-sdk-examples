@@ -19,7 +19,7 @@ Uploads the specified file to the specified bucket.
 */
 // snippet-start:[s3.JavaScript.buckets.uploadV3]
 // Import required AWS SDK clients and commands for Node.js
-const { S3Client } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const path = require("path");
 const fs = require("fs");
 

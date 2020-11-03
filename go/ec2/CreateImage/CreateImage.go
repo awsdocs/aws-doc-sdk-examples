@@ -78,7 +78,7 @@ func main() {
 
     resp, err := MakeImage(svc, description, instanceID, name)
     if err != nil {
-        fmt.Println("Got an error createing image:")
+        fmt.Println("Got an error creating image:")
         fmt.Println(err)
         return
     }

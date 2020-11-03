@@ -41,7 +41,7 @@ public class ImportSegment {
                 "Usage: ImportSegment <appId> <bucket> <key> <roleArn> \n\n" +
                 "Where:\n" +
                 "  appId - the application ID to create a segment for.\n\n" +
-                "  bucket - the name of the Amazon S3 bucket that contains the segment definitons.\n\n" +
+                "  bucket - the name of the Amazon S3 bucket that contains the segment definitions.\n\n" +
                 "  key - the key of the S3 object. " +
                 "  roleArn - ARN of the role that allows Amazon Pinpoint to access S3. You need to set trust management for this to work. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html";
 

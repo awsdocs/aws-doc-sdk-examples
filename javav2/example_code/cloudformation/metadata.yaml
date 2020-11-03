@@ -1,0 +1,17 @@
+--- 
+files:
+ - path: src/main/java/com/example/cloudformation/CreateStack.java
+   services:
+     - cloudformation
+ - path: src/main/java/com/example/cloudformation/DeleteStack.java
+   services:
+     - cloudformation
+ - path: src/main/java/com/example/cloudformation/DescribeStacks.java
+   services:
+     - cloudformation
+ - path: src/main/java/com/example/cloudformation/GetTemplate.java
+   services:
+     - cloudformation
+ - path: src/test/java/CloudFormationTest.java
+   services:
+     - cloudformation

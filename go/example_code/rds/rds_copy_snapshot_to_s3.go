@@ -65,7 +65,7 @@ func main() {
 	IndentifierSanpshotTime := currentTime.Format("20060102")
 	exportIdentifier := exportRDSSnapshotName + IndentifierSanpshotTime
 
-	// Getting latest snapsnot from rds snapshot list
+	// Getting latest snapshot from rds snapshot list
 	for _, s := range result.DBSnapshots {
 
 		if strings.Contains(*s.DBSnapshotArn, rdsSnapshot) {

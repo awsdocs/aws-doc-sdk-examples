@@ -1,58 +1,84 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds an item to an S3 bucket, encrypting it with a public key.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_object method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3' # v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 require 'openssl'
 
-bucket = 'my_bucket'
-item = 'my_item'
-key_file = 'public_key.pem'
-
-# Get file content as string
-contents = File.read(item)
-public_key = File.read(key_file)
-
-key = OpenSSL::PKey::RSA.new(public_key)
-
-begin
-  # encryption client
-  enc_client = Aws::S3::EncryptionV2::Client.new(
-    encryption_key: key,
-    key_wrap_schema: :rsa_oaep_sha1, # the key_wrap_schema must be rsa_oaep_sha1 for asymmetric keys
-    content_encryption_schema: :aes_gcm_no_padding,
-    security_profile: :v2 # use :v2_and_legacy to allow reading/decrypting objects encrypted by the V1 encryption client
+# Uploads an object to an Amazon S3 bucket. The object's contents
+#   are encrypted with an RSA public key.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+#
+# @param s3_encryption_client [Aws::S3::EncryptionV2::Client] An initialized
+#   Amazon S3 encryption client.
+# @param bucket_name [String] The bucket's name.
+# @param object_key [String] The name of the object.
+# @param object_content [String] The content to add to the object.
+# @return [Boolean] true if the object was uploaded; otherwise, false.
+# @example
+#   exit 1 unless object_uploaded_with_public_key_encryption?(
+#     Aws::S3::EncryptionV2::Client.new(
+#       encryption_key: OpenSSL::PKey::RSA.new(File.read('my-public-key.pem')),
+#       key_wrap_schema: :rsa_oaep_sha1,
+#       content_encryption_schema: :aes_gcm_no_padding,
+#       security_profile: :v2,
+#       region: 'us-east-1'
+#     ),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     'This is the content of my-file.txt.'
+#   )
+def object_uploaded_with_public_key_encryption?(
+  s3_encryption_client,
+  bucket_name,
+  object_key,
+  object_content
+)
+  s3_encryption_client.put_object(
+    bucket: bucket_name,
+    key: object_key,
+    body: object_content
   )
-
-  # Add encrypted item to bucket
-  enc_client.put_object(
-    body: contents,
-    bucket: bucket,
-    key: item_name
-  )
-
-  puts 'Added ' + item_name + ' to bucket ' + bucket + ' using key from ' + key_file
-rescue StandardError
-  puts 'Could not add item'
-  puts 'Error:'
-  puts ex.message
+  return true
+rescue StandardError => e
+  puts "Error uploading object: #{e.message}"
+  return false
 end
+
+# Full example call:
+# Prerequisites: an RSA key pair.
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  object_content = 'This is the content of my-file.txt.'
+  region = 'us-east-1'
+  public_key_file = 'my-public-key.pem'
+  public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
+
+  # When initializing this Amazon S3 encryption client, note:
+  # - For key_wrap_schema, use rsa_oaep_sha1 for asymmetric keys.
+  # - For security_profile, for reading or decrypting objects encrypted
+  #     by the v1 encryption client, use :v2_and_legacy instead.
+  s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
+    encryption_key: public_key,
+    key_wrap_schema: :rsa_oaep_sha1,
+    content_encryption_schema: :aes_gcm_no_padding,
+    security_profile: :v2,
+    region: region
+  )
+
+  if object_uploaded_with_public_key_encryption?(
+    s3_encryption_client,
+    bucket_name,
+    object_key,
+    object_content
+  )
+    puts 'Object uploaded.'
+  else
+    puts 'Object not uploaded.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

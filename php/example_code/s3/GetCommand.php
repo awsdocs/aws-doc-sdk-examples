@@ -51,7 +51,7 @@ $promise->wait();
 // snippet-end:[s3.php.command_pool_get_command.main]
 // snippet-end:[s3.php.command_pool_get_command.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetCommand.php demonstrates how to send a few comands using a Command Pool.]
+// snippet-sourcedescription:[GetCommand.php demonstrates how to send a few commands using a Command Pool.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

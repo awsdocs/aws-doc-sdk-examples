@@ -16,7 +16,7 @@ import (
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 // Output:
-//     If success, the list of snapshopts and nil
+//     If success, the list of snapshots and nil
 //     Otherwise, nil and an error from the call to DescribeDBSnapshots
 func GetInstanceSnapShots(sess *session.Session) (*rds.DescribeDBSnapshotsOutput, error) {
     svc := rds.New(sess)

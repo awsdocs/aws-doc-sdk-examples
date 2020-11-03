@@ -98,7 +98,7 @@ func main() {
 
     result, err := CallFunction(svc, maxItems, function)
     if err != nil {
-        fmt.Println("Got drror calling " + *function + ":")
+        fmt.Println("Got error calling " + *function + ":")
         fmt.Println(err)
         return
     }

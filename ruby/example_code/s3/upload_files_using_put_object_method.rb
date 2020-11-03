@@ -1,34 +1,53 @@
-#**
- #* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- #*
- #* This file is licensed under the Apache License, Version 2.0 (the "License").
- #* You may not use this file except in compliance with the License. A copy of
- #* the License is located at
- #*
- #* http://aws.amazon.com/apache2.0/
- #*
- #* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
- #* specific language governing permissions and limitations under the License.
-#**
-# snippet-sourcedescription:[upload_files_using_put_object_method.rb shows how to upload an object using the #put method of Amazon S3 object. This is useful if the object is a string or an I/O object that is not a file on disk.] 
-# snippet-service:[s3]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[PUT Object]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-02-11]
-# snippet-sourceauthor:[AWS]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
 # snippet-start:[s3.ruby.upload_files_using_put_object_method.rb]
 require 'aws-sdk-s3'
 
-s3 = Aws::S3::Resource.new(region:'us-west-2')
-obj = s3.bucket('bucket-name').object('key')
-
-# I/O object
-File.open('/path/to/source.file', 'rb') do |file|
-  obj.put(body: file)
+# Uploads an object to a bucket in Amazon Simple Storage Service (Amazon S3).
+#
+# Prerequisites:
+#
+# - An S3 bucket.
+# - An object to upload to the bucket.
+#
+# @param s3_client [Aws::S3::Resource] An initialized S3 resource.
+# @param bucket_name [String] The name of the bucket.
+# @param object_key [String] The name of the object.
+# @param file_path [String] The path and file name of the object to upload.
+# @return [Boolean] true if the object was uploaded; otherwise, false.
+# @example
+#   exit 1 unless object_uploaded?(
+#     Aws::S3::Resource.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     './my-file.txt'
+#   )
+def object_uploaded?(s3_resource, bucket_name, object_key, file_path)
+  object = s3_resource.bucket(bucket_name).object(object_key)
+  File.open(file_path, 'rb') do |file|
+    object.put(body: file)
+  end
+  return true
+rescue StandardError => e
+  puts "Error uploading object: #{e.message}"
+  return false
 end
 # snippet-end:[s3.ruby.upload_files_using_put_object_method.rb]
+
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  file_path = "./#{object_key}"
+  region = 'us-east-1'
+  s3_resource = Aws::S3::Resource.new(region: region)
+
+  if object_uploaded?(s3_resource, bucket_name, object_key, file_path)
+    puts "Object '#{object_key}' uploaded to bucket '#{bucket_name}'."
+  else
+    puts "Object '#{object_key}' not uploaded to bucket '#{bucket_name}'."
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__
