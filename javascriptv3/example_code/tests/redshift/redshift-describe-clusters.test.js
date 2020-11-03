@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-redshift-node", () => ({
 }));
 const { run } = require("../../redshift/src/redshift-create-cluster");
 
-//test function
 test("has to mock RedShift#describeClusters", async (done) => {
     await run();
     expect(mockDescribeClusters).toHaveBeenCalled;

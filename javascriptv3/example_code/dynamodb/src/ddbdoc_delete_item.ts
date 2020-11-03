@@ -7,7 +7,7 @@ at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for Jav
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
-ddbdoc_get_item.ts demonstrates how to use DynamoDB utilities to delete an item from an Amazon DynamoDB table.
+ddbdoc_get_item.ts demonstrates how to use Amazon DynamoDB utilities to delete an item from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - TABLE_NAME
@@ -22,7 +22,7 @@ ts-node ddbdoc_get_item.ts
 */
 // snippet-start:[dynamodb.JavaScript.docClient.deleteV3]
 
-// Import required AWS SDK clients and commands for Node.js
+// Import the required AWS SDK clients and command for Node.js
 const { DynamoDBClient, DeleteItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
@@ -31,7 +31,7 @@ const params = {
   TableName: "TABLE_NAME",
   /*
   Convert the key JavaScript object you are deleting to the
-  required DynamoDB record. The format of values specifies
+  required Amazon DynamoDB record. The format of values specifies
   the datatype. The following list demonstrates different
   datatype formatting requirements:
   String: "String",

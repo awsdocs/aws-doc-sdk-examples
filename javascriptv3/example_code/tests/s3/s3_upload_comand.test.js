@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3/commands/PutObjectCommand", () => ({
 }));
 const { bucketParams, run } = require("../../s3/s3_setbucketpolicy");
 
-//test function
 test("has to mock S3#uploadObject", async (done) => {
   await run();
   expect(mockUploadObject).toHaveBeenCalled;
