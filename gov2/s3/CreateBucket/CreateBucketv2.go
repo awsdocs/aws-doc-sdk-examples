@@ -36,6 +36,7 @@ type S3CreateBucketAPI interface {
 func MakeBucket(c context.Context, api S3CreateBucketAPI, input *s3.CreateBucketInput) (*s3.CreateBucketOutput, error) {
 	// snippet-start:[s3.go-v2.CreateBucket.call]
 	resp, err := api.CreateBucket(c, input)
+	// snippet-end:[s3.go-v2.CreateBucket.call]
 
 	return resp, err
 }

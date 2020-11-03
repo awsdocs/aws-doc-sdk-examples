@@ -57,7 +57,7 @@ func main() {
 	}
 	// snippet-end:[s3.go-v2.ListObjects.args]
 
-	// snippet-start:[s3.go-v2.ListObject.configclient]
+	// snippet-start:[s3.go-v2.ListObjects.configclient]
 	cfg, err := config.LoadDefaultConfig()
 	if err != nil {
 		panic("configuration error, " + err.Error())

@@ -43,7 +43,7 @@ func PutFile(c context.Context, api S3PutObjectAPI, input *s3.PutObjectInput) (*
 }
 
 func main() {
-	// snippet-start:[s3.go-v2.upload_object.args]
+	// snippet-start:[s3.go-v2.PutObject.args]
 	bucket := flag.String("b", "", "The bucket to upload the file to")
 	filename := flag.String("f", "", "The file to upload")
 	flag.Parse()
@@ -52,7 +52,7 @@ func main() {
 		fmt.Println("You must supply a bucket name (-b BUCKET) and file name (-f FILE)")
 		return
 	}
-	// snippet-end:[s3.go-v2.upload_object.args]
+	// snippet-end:[s3.go-v2.PutObject.args]
 
 	// snippet-start:[s3.go-v2.PutObject.configclient]
 	cfg, err := config.LoadDefaultConfig()
@@ -73,8 +73,6 @@ func main() {
 
 	defer file.Close()
 
-	// snippet-start:[s3.go-v2.PutObject.call]
-
 	input := &s3.PutObjectInput{
 		Bucket: bucket,
 		Key:    filename,
@@ -89,4 +87,4 @@ func main() {
 	}
 }
 
-// snippet-end:[s3.go-v2.upload_object]
+// snippet-end:[s3.go-v2.PutObject]

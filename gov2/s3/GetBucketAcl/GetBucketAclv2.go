@@ -3,7 +3,7 @@
 // snippet-start:[s3.go-v2.GetBucketAcl]
 package main
 
-// snippet-start:[s3.go-v2.get_bucket_acl.imports]
+// snippet-start:[s3.go-v2.GetBucketAcl.imports]
 import (
 	"context"
 	"flag"
@@ -22,8 +22,8 @@ type S3GetBucketACLAPI interface {
 		params *s3.GetBucketAclInput,
 		optFns ...func(*s3.Options)) (*s3.GetBucketAclOutput, error)
 }
+// snippet-end:[s3.go-v2.GetBucketAcl.interface]
 
-// snippet-end:[SERVICE.go-v2.FILENAME.interface]
 
 // FindBucketACL retrieves the access control list (ACL) for an Amazon S3 bucket.
 // Inputs:
@@ -70,7 +70,7 @@ func main() {
 		fmt.Println("Got an error retrieving ACL for " + *bucket)
 	}
 
-	// snippet-start:[s3.go-v2.get_bucket_acl.print]
+	// snippet-start:[s3.go-v2.GetBucketAcl.print]
 	fmt.Println("Owner:", *result.Owner.DisplayName)
 	fmt.Println("")
 	fmt.Println("Grants")
