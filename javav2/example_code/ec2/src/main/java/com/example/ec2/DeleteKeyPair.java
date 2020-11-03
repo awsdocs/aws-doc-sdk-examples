@@ -1,25 +1,15 @@
-//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete an Amazon EC2 key pair.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) key pair.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/11/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourcedate:[11/01/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.ec2;
 
@@ -37,16 +27,19 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 public class DeleteKeyPair {
 
     public static void main(String[] args) {
-        final String USAGE =
-                "To run this example, supply a key pair name\n" +
-                        "Ex: DeleteKeyPair <key-pair-name>\n";
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "DeleteKeyPair <keyPair> \n\n" +
+                "Where:\n" +
+                "    keyPair - a key pair name (for example, TestKeyPair)."  ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-
-        String keyName = args[0];
+        // Read the command line argument
+        String keyPair = args[0];
 
         //Create an Ec2Client object
         Region region = Region.US_WEST_2;
@@ -54,23 +47,24 @@ public class DeleteKeyPair {
                 .region(region)
                 .build();
 
-        deleteKeys(ec2,keyName);
+        deleteKeys(ec2,keyPair);
+        ec2.close();
     }
 
     // snippet-start:[ec2.java2.delete_key_pair.main]
-    public static void deleteKeys(Ec2Client ec2, String keyName) {
+    public static void deleteKeys(Ec2Client ec2, String keyPair) {
 
        try {
 
            DeleteKeyPairRequest request = DeleteKeyPairRequest.builder()
-                .keyName(keyName)
+                .keyName(keyPair)
                 .build();
 
            DeleteKeyPairResponse response = ec2.deleteKeyPair(request);
 
             // snippet-end:[ec2.java2.delete_key_pair.main]
             System.out.printf(
-                "Successfully deleted key pair named %s", keyName);
+                "Successfully deleted key pair named %s", keyPair);
 
         } catch (Ec2Exception e) {
            System.err.println(e.awsErrorDetails().errorMessage());
