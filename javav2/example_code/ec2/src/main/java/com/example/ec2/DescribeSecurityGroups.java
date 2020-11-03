@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) security groups.]
+//snippet-sourcedescription:[DescribeSecurityGroups.java demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Security Groups.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -30,7 +30,7 @@ public class DescribeSecurityGroups {
     public static void main(String[] args) {
         final String USAGE =
                 "To run this example, supply a group id\n" +
-                        "Ex: DescribeSecurityGroups <group-id>\n";
+                        "Ex: DescribeSecurityGroups <groupId>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -38,8 +38,6 @@ public class DescribeSecurityGroups {
         }
 
         String groupId = args[0];
-
-        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -47,13 +45,12 @@ public class DescribeSecurityGroups {
 
         describeEC2SecurityGroups(ec2, groupId);
         ec2.close();
-
     }
-        // snippet-start:[ec2.java2.describe_security_groups.main]
+
+    // snippet-start:[ec2.java2.describe_security_groups.main]
      public static void describeEC2SecurityGroups(Ec2Client ec2, String groupId) {
 
         try {
-
             DescribeSecurityGroupsRequest request =
                 DescribeSecurityGroupsRequest.builder()
                         .groupIds(groupId).build();
@@ -63,7 +60,7 @@ public class DescribeSecurityGroups {
 
              for(SecurityGroup group : response.securityGroups()) {
                 System.out.printf(
-                    "Found security group with id %s, " +
+                    "Found Security Group with id %s, " +
                             "vpc id %s " +
                             "and description %s",
                     group.groupId(),

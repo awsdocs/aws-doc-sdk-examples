@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) regions and zones.]
+//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Regions and Zones.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -21,9 +21,6 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
 // snippet-end:[ec2.java2.describe_region_and_zones.import]
 
-/**
- * Describes all regions and zones.
- */
 public class DescribeRegionsAndZones {
 
     public static void main(String[] args) {
@@ -44,7 +41,7 @@ public class DescribeRegionsAndZones {
 
             for(Region region : regionsResponse.regions()) {
                 System.out.printf(
-                        "Found region %s " +
+                        "Found Region %s " +
                                 "with endpoint %s",
                         region.regionName(),
                         region.endpoint());
@@ -58,7 +55,7 @@ public class DescribeRegionsAndZones {
 
             for(AvailabilityZone zone : zonesResponse.availabilityZones()) {
                 System.out.printf(
-                        "Found availability zone %s " +
+                        "Found Availability Zone %s " +
                                 "with status %s " +
                                 "in region %s",
                         zone.zoneName(),

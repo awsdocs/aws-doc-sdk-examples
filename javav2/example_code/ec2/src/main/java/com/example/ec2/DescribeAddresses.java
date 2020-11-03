@@ -17,16 +17,13 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_addresses.import]
 
-/**
- * Describes all elastic IP addresses
- */
 public class DescribeAddresses {
 
     public static void main(String[] args) {
 
-        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -39,10 +36,11 @@ public class DescribeAddresses {
     // snippet-start:[ec2.java2.describe_addresses.main]
     public static void describeEC2Address(Ec2Client ec2 ) {
 
-        DescribeAddressesResponse response = ec2.describeAddresses();
+        try {
+            DescribeAddressesResponse response = ec2.describeAddresses();
 
-        for(Address address : response.addresses()) {
-            System.out.printf(
+            for(Address address : response.addresses()) {
+                System.out.printf(
                     "Found address with public IP %s, " +
                             "domain %s, " +
                             "allocation id %s " +
@@ -51,7 +49,11 @@ public class DescribeAddresses {
                     address.domain(),
                     address.allocationId(),
                     address.networkInterfaceId());
+            }
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-        // snippet-end:[ec2.java2.describe_addresses.main]
+     // snippet-end:[ec2.java2.describe_addresses.main]
     }
 }

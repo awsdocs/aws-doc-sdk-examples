@@ -35,8 +35,8 @@ public class DescribeAccount {
                 .build();
 
         describeEC2Account(ec2);
+        System.out.print("Done");
         ec2.close();
-
      }
 
      // snippet-start:[ec2.java2.describe_account.main]
@@ -44,7 +44,6 @@ public class DescribeAccount {
 
         try{
             DescribeAccountAttributesResponse accountResults = ec2.describeAccountAttributes();
-
             List<AccountAttribute> accountList = accountResults.accountAttributes();
 
             for (ListIterator iter = accountList.listIterator(); iter.hasNext(); ) {
@@ -53,13 +52,11 @@ public class DescribeAccount {
                 System.out.print("\n The name of the attribute is "+attribute.attributeName());
                 List<AccountAttributeValue> values = attribute.attributeValues();
 
-                //iterate through the attribute values
                 for (ListIterator iterVals = values.listIterator(); iterVals.hasNext(); ) {
                     AccountAttributeValue myValue = (AccountAttributeValue) iterVals.next();
                     System.out.print("\n The value of the attribute is "+myValue.attributeValue());
                 }
             }
-            System.out.print("Done");
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -19,9 +19,6 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 // snippet-end:[ec2.java2.reboot_instance.import]
 
-/**
- * Reboots an EC2 instance.
- */
 public class RebootInstance {
 
     public static void main(String[] args) {
@@ -37,10 +34,7 @@ public class RebootInstance {
             System.exit(1);
         }
 
-        // Read the command line argument
         String instanceId = args[0];
-
-        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -54,7 +48,6 @@ public class RebootInstance {
     public static void rebootEC2Instance(Ec2Client ec2, String instanceId) {
 
       try {
-
             RebootInstancesRequest request = RebootInstancesRequest.builder()
                 .instanceIds(instanceId)
                     .build();
@@ -65,7 +58,7 @@ public class RebootInstance {
     } catch (Ec2Exception e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
-      }
+     }
   }
     // snippet-end:[ec2.java2.reboot_instance.main]
 }

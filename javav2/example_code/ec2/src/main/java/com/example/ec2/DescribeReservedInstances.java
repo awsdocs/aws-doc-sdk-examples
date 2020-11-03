@@ -21,30 +21,28 @@ import software.amazon.awssdk.services.ec2.model.ReservedInstances;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
 
-/**
- * Describes reserved instances
- */
 public class DescribeReservedInstances {
 
     public static void main(String[] args) {
-        final String USAGE =
-                "To run this example, supply a group id\n" +
-                        "Ex: DescribeReservedInstances <vpc-id>\n";
+
+           final String USAGE = "\n" +
+                "Usage:\n" +
+                "DescribeReservedInstances <instanceId>\n\n" +
+                "Where:\n" +
+                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String instanceID = args[0];
-
-        //Create an Ec2Client object
+        String instanceId = args[0];
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
                 .build();
 
-        describeReservedEC2Instances(ec2, instanceID);
+        describeReservedEC2Instances(ec2, instanceId);
         ec2.close();
     }
     // snippet-start:[ec2.java2.describe_reserved_instances.main]
@@ -57,7 +55,7 @@ public class DescribeReservedInstances {
 
             for (ReservedInstances instance : response.reservedInstances()) {
                 System.out.printf(
-                    "Found a reserved instance with id %s, " +
+                    "Found a Reserved Instance with id %s, " +
                             "in AZ %s, " +
                             "type %s, " +
                             "state %s " +

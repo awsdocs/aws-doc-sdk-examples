@@ -25,9 +25,6 @@ import software.amazon.awssdk.services.ec2.model.Instance;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
-/**
- * Locates all running EC2 instances using a Filter.
- */
 public class FindRunningInstances {
     public static void main(String[] args) {
 
@@ -41,31 +38,28 @@ public class FindRunningInstances {
     }
 
    // snippet-start:[ec2.java2.running_instances.main]
+   // This method creates a Filter to find all running instances
    public static void findRunningEC2Instances(Ec2Client ec2) {
 
        try {
-
            String nextToken = null;
 
            do {
-                // Create a Filter to find all running instances
                 Filter filter = Filter.builder()
                     .name("instance-state-name")
                     .values("running")
                     .build();
 
-                //Create a DescribeInstancesRequest
                 DescribeInstancesRequest request = DescribeInstancesRequest.builder()
                     .filters(filter)
                     .build();
 
-                // Find the running instances
                 DescribeInstancesResponse response = ec2.describeInstances(request);
 
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
                     System.out.printf(
-                            "Found reservation with id %s, " +
+                            "Found Reservation with id %s, " +
                                     "AMI %s, " +
                                     "type %s, " +
                                     "state %s " +

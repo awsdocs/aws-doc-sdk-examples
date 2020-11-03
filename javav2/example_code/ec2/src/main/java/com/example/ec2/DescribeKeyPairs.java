@@ -20,14 +20,10 @@ import software.amazon.awssdk.services.ec2.model.KeyPairInfo;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_key_pairs.import]
 
-/**
- * Describes all instance key pairs
- */
 public class DescribeKeyPairs {
 
     public static void main(String[] args) {
 
-        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -50,8 +46,7 @@ public class DescribeKeyPairs {
                             "and fingerprint %s",
                     keyPair.keyName(),
                     keyPair.keyFingerprint());
-             System.out.println("");
-            }
+             }
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

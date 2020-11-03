@@ -42,7 +42,6 @@ public class CreateInstance {
             System.exit(1);
         }
 
-        // Read the command line arguments
         String name = args[0];
         String amiId = args[1];
 
@@ -52,7 +51,7 @@ public class CreateInstance {
                 .build();
 
         String instanceId = createEC2Instance(ec2,name, amiId) ;
-        System.out.println("The instance ID is "+instanceId);
+        System.out.println("The Amazon EC2 Instance ID is "+instanceId);
         ec2.close();
     }
 
@@ -82,7 +81,7 @@ public class CreateInstance {
         try {
             ec2.createTags(tagRequest);
             System.out.printf(
-                    "Successfully started EC2 instance %s based on AMI %s",
+                    "Successfully started EC2 Instance %s based on AMI %s",
                     instanceId, amiId);
 
           return instanceId;

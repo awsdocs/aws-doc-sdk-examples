@@ -20,9 +20,6 @@ import software.amazon.awssdk.services.ec2.model.ReleaseAddressRequest;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 // snippet-end:[ec2.java2.release_instance.import]
 
-/**
- * Releases an elastic IP address
- */
 public class ReleaseAddress {
 
     public static void main(String[] args) {
@@ -38,12 +35,9 @@ public class ReleaseAddress {
             System.exit(1);
         }
 
-        // Read the command line argument
-        String allocId = args[0];
-
-        //Create an Ec2Client object
-        Region region = Region.US_WEST_2;
-        Ec2Client ec2 = Ec2Client.builder()
+       String allocId = args[0];
+       Region region = Region.US_WEST_2;
+       Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
                 .build();
 

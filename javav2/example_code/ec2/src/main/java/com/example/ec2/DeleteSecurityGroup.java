@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) security group.]
+//snippet-sourcedescription:[DeleteSecurityGroup.java demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -19,9 +19,7 @@ import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.delete_security_group.import]
-/**
- * Deletes an EC2 security group
- */
+
 public class DeleteSecurityGroup {
 
     public static void main(String[] args) {
@@ -37,10 +35,7 @@ public class DeleteSecurityGroup {
             System.exit(1);
         }
 
-        // Read the command line argument
         String groupId = args[0];
-
-        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -58,10 +53,9 @@ public class DeleteSecurityGroup {
                 .groupId(groupId)
                 .build();
 
-            DeleteSecurityGroupResponse response = ec2.deleteSecurityGroup(request);
-
+            ec2.deleteSecurityGroup(request);
             System.out.printf(
-                "Successfully deleted security group with id %s", groupId);
+                "Successfully deleted Security Group with id %s", groupId);
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -39,11 +39,9 @@ public class MonitorInstance {
             System.exit(1);
         }
 
-        // Read the command line arguments
         String instanceId = args[0];
         boolean monitor = Boolean.valueOf(args[1]);
 
-        // Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -56,7 +54,6 @@ public class MonitorInstance {
         }
         ec2.close();
     }
-
 
     public static void monitorInstance( Ec2Client ec2, String instanceId) {
         // snippet-start:[ec2.java2.monitor_instance.main]
@@ -71,7 +68,7 @@ public class MonitorInstance {
                 instanceId);
     }
 
-    public static void unmonitorInstance( Ec2Client ec2, String instanceId) {
+    public static void unmonitorInstance(Ec2Client ec2, String instanceId) {
         // snippet-start:[ec2.java2.monitor_instance.stop]
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();

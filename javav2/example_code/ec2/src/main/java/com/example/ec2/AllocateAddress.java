@@ -41,9 +41,7 @@ public class AllocateAddress {
             System.exit(1);
         }
 
-        // Read the command line argument
         String instanceId = args[0];
-
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)

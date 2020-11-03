@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) security group.]
+//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
@@ -25,9 +25,6 @@ import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.IpRange;
 // snippet-end:[ec2.java2.create_security_group.import]
 
-/**
- * Creates an EC2 security group.
- */
 public class CreateSecurityGroup {
 
     public static void main(String[] args) {
@@ -38,19 +35,17 @@ public class CreateSecurityGroup {
                 "Where:\n" +
                 "    groupName - a group name (for example, TestKeyPair). \n\n"  +
                 "    groupDesc - a group description  (for example, TestKeyPair). \n\n"  +
-                "    vpcId - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
+                "    vpc-id - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
 
         if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Read the command line arguments
         String groupName = args[0];
         String groupDesc = args[1];
         String vpcId = args[2];
 
-        //Create an Ec2Client object
         // snippet-start:[ec2.java2.create_security_group.client]
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
@@ -58,10 +53,9 @@ public class CreateSecurityGroup {
                 .build();
         // snippet-end:[ec2.java2.create_security_group.client]
 
-
         String id = createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
         System.out.printf(
-                "Successfully created security group with this ID %s",
+                "Successfully created Security Group with this ID %s",
                 id);
         ec2.close();
     }
@@ -110,7 +104,7 @@ public class CreateSecurityGroup {
 
             // snippet-end:[ec2.java2.create_security_group.main]
             System.out.printf(
-                "Successfully added ingress policy to security group %s",
+                "Successfully added ingress policy to Security Group %s",
                 groupName);
 
             return resp.groupId();

@@ -21,9 +21,6 @@ import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.delete_key_pair.import]
 
-/**
- * Deletes a key pair.
- */
 public class DeleteKeyPair {
 
     public static void main(String[] args) {
@@ -38,10 +35,8 @@ public class DeleteKeyPair {
             System.out.println(USAGE);
             System.exit(1);
         }
-        // Read the command line argument
-        String keyPair = args[0];
 
-        //Create an Ec2Client object
+        String keyPair = args[0];
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)

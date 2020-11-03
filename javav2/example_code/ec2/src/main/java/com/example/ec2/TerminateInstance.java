@@ -32,15 +32,12 @@ public class TerminateInstance {
                 "Where:\n" +
                 "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Read the command line argument
         String instanceId = args[0];
-
-        // Create an Ec2Client object
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -53,7 +50,7 @@ public class TerminateInstance {
     // snippet-start:[ec2.java2.terminate_instance]
     public static void terminateEC2( Ec2Client ec2, String instanceID) {
 
-            try{
+           try{
                 TerminateInstancesRequest ti = TerminateInstancesRequest.builder()
                     .instanceIds(instanceID)
                     .build();
