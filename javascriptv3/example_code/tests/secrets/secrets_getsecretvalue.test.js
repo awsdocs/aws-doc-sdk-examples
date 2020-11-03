@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-secrets-manager", () => ({
 }));
 const { run } = require("../../secrets/src/secrets_getsecretvalue");
 
-//test function
 test("has to mock Secrets#getSecrets", async (done) => {
     await run();
     expect(mockGetSecrets).toHaveBeenCalled;

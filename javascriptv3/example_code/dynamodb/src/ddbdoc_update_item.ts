@@ -7,7 +7,7 @@ at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for Jav
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-document-client.html.
 
 Purpose:
-ddbdoc_update_item.ts demonstrates how to use DynamoDB utilities to create or update an item in an Amazon DynamoDB table.
+ddbdoc_update_item.ts demonstrates how to use Amazon DynamoDB utilities to create or update an item in an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - TABLE_NAME
@@ -22,7 +22,7 @@ ts-node ddbdoc_update_item.ts
 */
 // snippet-start:[dynamodb.JavaScript.docClient.updateV3]
 
-// Import required AWS SDK clients and commands for Node.js
+// Import the required AWS SDK clients and command for Node.js
 const { DynamoDBClient, UpdateItemCommand} = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
@@ -38,7 +38,7 @@ const params = {
   UpdateExpression: "set ATTRIBUTE_NAME_1 = :t, ATTRIBUTE_NAME_2 = :s", // For example, "'set Title = :t, Subtitle = :s'"
   /*
   Convert the attribute JavaScript object you are updating to the required
-  DynamoDB record. The format of values specifies the datatype. The
+  Amazon  DynamoDB record. The format of values specifies the datatype. The
   following list demonstrates different datatype formatting requirements:
   String: "String",
   NumAttribute: 1,

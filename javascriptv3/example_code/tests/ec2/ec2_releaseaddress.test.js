@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ec2/commands/ReleaseAddressCommand", () => ({
 }));
 const { params, run } = require("../../ec2/src/ec2_releaseaddress");
 
-//test function
 test("has to mock ec2#releaseAddresses", async (done) => {
   await run();
   expect(mockReleaseAddressesCommand).toHaveBeenCalled;

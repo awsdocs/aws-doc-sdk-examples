@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3/commands/PutObjectCommand", () => ({
 }));
 const {  run } = require("../../nodegetstarted/src/sample");
 
-//test function
 test("has to mock getstarted#putobject", async (done) => {
   await run();
   expect(mockGetStarted).toHaveBeenCalled;

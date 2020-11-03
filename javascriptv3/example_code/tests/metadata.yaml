@@ -585,11 +585,11 @@ x
     services:
       - sqs
 
-  - path: sqs/sqs_createqueue.test.js
+  - path: sqs/createqueue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_deadletterqueue.test.js
+  - path: sqs/deadletterqueue.test.js
     services:
       - sqs
 
@@ -624,4 +624,17 @@ x
   - path: sqs/sqs_sendmessage.test.js
     services:
       - sqs
+
+  - path: transcribe_create_job.test.js
+    services:
+      - Transcribe
+
+  - path: transcribe_delete_job.test.js
+    services:
+      - Transcribe
+
+  - path: transcribe_list_jobs.test.js
+    services:
+      - Transcribe
+
 ...
