@@ -23,7 +23,7 @@ ts-node ddbdoc_get_item.ts
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
@@ -48,11 +48,11 @@ const params = {
 };
 
 // Create DynamoDB client
-const client = new DynamoDB({ region: "REGION" });
+const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
-    const { Item } = await client.getItem(params);
+    const { Item } = await client.send(new GetItemCommand(params));
     // Convert the DynamoDB record you retrieved into a JavaScript object
     const item = unmarshall(Item);
     // Print the JavaScript object to console

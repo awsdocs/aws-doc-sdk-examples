@@ -14,6 +14,8 @@ Inputs (replace in code):
 - REGION
 - VALUE_1
 - VALUE_2
+- NEW_ATTRIBUTE_VALUE_1
+- NEW_ATTRIBUTE_VALUE_2
 
 Running the code:
 ts-node ddbdoc_update_item.ts
@@ -21,7 +23,7 @@ ts-node ddbdoc_update_item.ts
 // snippet-start:[dynamodb.JavaScript.docClient.updateV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, UpdateItemCommand} = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
@@ -52,11 +54,11 @@ const params = {
 };
 
 // Create DynamoDB client
-const client = new DynamoDB({ region: "REGION" });
+const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
-    const { Item } = await client.updateItem(params);
+    const { Item } = await client.send(new UpdateItemCommand(params));
     console.log("Success - updated");
   } catch (err) {
     console.log("Error", err);

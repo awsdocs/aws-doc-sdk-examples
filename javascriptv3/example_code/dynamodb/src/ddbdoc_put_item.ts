@@ -25,7 +25,7 @@ ts-node ddbdoc_put_item.ts
 // snippet-start:[dynamodb.JavaScript.docClient.putV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
@@ -51,11 +51,11 @@ const input = {
 const Item = marshall(input);
 
 // Create DynamoDB client
-const client = new DynamoDB({ region:"REGION" });
+const client = new DynamoDBClient({ region:"REGION" });
 
 const run = async () => {
     try {
-        const data = await client.putItem({ TableName, Item });
+        const data = await client.send(new PutItemCommand(TableName, Item));
         console.log('Success - put')}
     catch(err){
         console.log('Error', err)}
