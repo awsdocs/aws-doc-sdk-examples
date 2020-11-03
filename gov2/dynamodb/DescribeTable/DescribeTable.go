@@ -15,6 +15,7 @@ import (
 // snippet-end:[dynamodb.gov2.DescribeTable.imports]
 
 // DynamoDBDescribeTableAPI defines the interface for DescribeTable function.
+// We use this interface to enable unit testing.
 // snippet-start:[dynamodb.gov2.DescribeTable.interface]
 type DynamoDBDescribeTableAPI interface {
     DescribeTable(ctx context.Context,
@@ -50,8 +51,8 @@ func main() {
         panic("unable to load SDK config, " + err.Error())
     }
 
-    // Using the Config value, create the DynamoDB client
-    // Create a new DynamoDB Service Client
+    // Create a DynamoDB client
+    // using the default credentials and region
     client := dynamodb.NewFromConfig(cfg)
     // snippet-end:[dynamodb.gov2.DescribeTable.config_and_client]
 
