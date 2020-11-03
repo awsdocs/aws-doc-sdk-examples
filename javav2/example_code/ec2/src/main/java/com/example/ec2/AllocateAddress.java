@@ -34,7 +34,7 @@ public class AllocateAddress {
                 "Usage:\n" +
                 "AllocateAddress <instanceId>\n\n" +
                 "Where:\n" +
-                "    accountId - an instance id value that you can obtain from the AWS Console. \n\n" ;
+                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
