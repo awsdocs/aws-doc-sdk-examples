@@ -23,7 +23,7 @@ ts-node ddbdoc_get_item.ts
 // snippet-start:[dynamodb.JavaScript.docClient.deleteV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, DeleteItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
@@ -52,7 +52,7 @@ const client = new DynamoDB({ region: "REGION" });
 
 const run = async () => {
   try {
-    const { Item } = await client.deleteItem(params);
+    const { Item } = await client.send(new DeleteItemCommand(params));
     console.log("Success -deleted");
   } catch (err) {
     console.log("Error", err);
