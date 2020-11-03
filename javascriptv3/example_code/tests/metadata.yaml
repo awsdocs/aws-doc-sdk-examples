@@ -581,15 +581,15 @@ x
     services:
       - sns
 
-  - path: sqs/transcribe_create_job.test.js
+  - path: sqs/sqs_changingvisibility.test.js
     services:
       - sqs
 
-  - path: sqs/transcribe_list_jobs.test.js
+  - path: sqs/createqueue.test.js
     services:
       - sqs
 
-  - path: sqs/transcribe_delete_job.test.js
+  - path: sqs/deadletterqueue.test.js
     services:
       - sqs
 
