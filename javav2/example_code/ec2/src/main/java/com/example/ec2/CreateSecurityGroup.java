@@ -38,7 +38,7 @@ public class CreateSecurityGroup {
                 "Where:\n" +
                 "    groupName - a group name (for example, TestKeyPair). \n\n"  +
                 "    groupDesc - a group description  (for example, TestKeyPair). \n\n"  +
-                "    vpc-id - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
+                "    vpcId - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
 
         if (args.length != 3) {
             System.out.println(USAGE);
