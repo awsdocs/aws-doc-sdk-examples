@@ -1,34 +1,52 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists up to 50 of your S3 buckets in the specified region.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[get_bucket_location method]
-# snippet-keyword:[Resource.buckets method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 
-region = 'us-west-2'
-s3 = Aws::S3::Resource.new(region: region)
-
-s3.buckets.limit(50).each do |b|
-  if s3.client.get_bucket_location(bucket: b.name).location_constraint == region
-    puts "#{b.name}"
+# Checks to see which Amazon Simple Storage Service (Amazon S3)
+#   buckets accessible to you and were initially created with the target
+#   AWS Region specified.
+#
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param region [String] The Region to check.
+# @example
+#   list_accessible_buckets_in_region(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'us-east-1'
+#   )
+def list_accessible_buckets_in_region(s3_client, region)
+  buckets = s3_client.list_buckets.buckets
+  buckets_in_region = []
+  buckets.each do |bucket|
+    bucket_region = s3_client.get_bucket_location(
+      bucket: bucket.name
+    ).location_constraint
+    if bucket_region == region
+      buckets_in_region << bucket.name
+    end
   end
+  if buckets_in_region.count.zero?
+    puts "No buckets accessible to you and also set to region '#{region}' " \
+      'when initially created.'
+    exit 1
+  else
+    puts "Buckets accessible to you and also set to region '#{region}' " \
+      'when initially created:'
+    buckets_in_region.each do |bucket_name|
+      puts bucket_name
+    end
+  end
+rescue StandardError => e
+  puts "Error getting information about buckets: #{e.message}"
+  exit 1
 end
+
+# Full example call:
+def run_me
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  list_accessible_buckets_in_region(s3_client, region)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

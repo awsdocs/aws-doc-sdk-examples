@@ -1,0 +1,50 @@
+--- 
+files:
+  - path: src/main/java/com/aws/entities/WorkItem.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/jdbc/ConnectionHelper.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/jdbc/InjectWorkService.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/jdbc/RetrieveItems.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/securingweb/MainController.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/securingweb/SecuringWebApplication.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/securingweb/WebSecurityConfig.java
+    services:
+      - rds
+  - path: src/main/java/com/aws/services/SendMessages.java
+    services:
+      - ses
+  - path: src/main/java/com/aws/services/WriteExcel.java
+    services:
+      - ses 
+  - path: src/main/resources/templates/login.html
+    services:
+      - rds
+  - path: src/main/resources/templates/layout.html
+    services:
+      - rds
+  - path: src/main/resources/templates/items.html
+    services:
+      - rds
+  - path: src/main/resources/templates/index.html
+    services:
+      - rds
+  - path: src/main/resources/templates/add.html
+    services:
+      - rds
+  - path: src/main/resources/public/js/contact_me.js
+    services:
+      - rds
+  - path: src/main/resources/public/js/items.js
+    services:
+      - rds       

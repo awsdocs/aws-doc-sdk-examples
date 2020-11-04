@@ -1,35 +1,92 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates a gateway, adds tags to it, and attaches it to a VPC.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[attach_to_vpc method]
-# snippet-keyword:[create_internet_gateway method]
-# snippet-keyword:[create_tags method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-ec2'
+
+# Creates an internet gateway and then attaches it to a virtual private cloud
+#   (VPC) in Amazon Virtual Private Cloud (Amazon VPC).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - A VPC in Amazon VPC.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param ec2_resource [Aws::EC2::Resource] An initialized
+#   Amazon Elastic Compute Cloud (Amazon EC2) resource object.
+# @param vpc_id [String] The ID of the VPC to attach the internet gateway.
+# @param tag_key [String] The key of the tag to attach to the internet gateway.
+# @param tag_value [String] The value of the tag to attach to the
+#   internet gateway.
+# @return [Boolean] true if the internet gateway was created and attached;
+#   otherwise, false.
+# @example
+#   exit 1 unless internet_gateway_created_and_attached?(
+#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     'vpc-6713dfEX'
+#   )
+def internet_gateway_created_and_attached?(
+  ec2_resource,
+  vpc_id,
+  tag_key,
+  tag_value
+)
+  igw = ec2_resource.create_internet_gateway
+  puts "The internet gateway's ID is '#{igw.id}'."
+  igw.attach_to_vpc(vpc_id: vpc_id)
+  igw.create_tags(
+    tags: [
+      {
+        key: tag_key,
+        value: tag_value
+      }
+    ]
+  )
+  return true
+rescue StandardError => e
+  puts "Error creating or attaching internet gateway: #{e.message}"
+  puts 'If the internet gateway was created but not attached, you should ' \
+    'clean up by deleting the internet gateway.'
+  return false
+end
 
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  vpc_id = ''
+  tag_key = ''
+  tag_value = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage: ruby ec2-ruby-example-attach-igw-vpc.rb ' \
+      'VPC_ID TAG_KEY TAG_VALUE REGION'
+    puts 'Example: ruby ec2-ruby-example-attach-igw-vpc.rb ' \
+      'vpc-6713dfEX my-key my-value us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    vpc_id = 'vpc-6713dfEX'
+    tag_key = 'my-key'
+    tag_value = 'my-value'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    vpc_id = ARGV[0]
+    tag_key = ARGV[1]
+    tag_value = ARGV[2]
+    region = ARGV[3]
+  end
 
-ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
+  ec2_resource = Aws::EC2::Resource.new(region: region)
 
-igw = ec2.create_internet_gateway
+  if internet_gateway_created_and_attached?(
+    ec2_resource,
+    vpc_id,
+    tag_key,
+    tag_value
+  )
+    puts "Created and attached internet gateway to VPC '#{vpc_id}'."
+  else
+    puts "Could not create or attach internet gateway to VPC '#{vpc_id}'."
+  end
+end
 
-igw.create_tags({ tags: [{ key: 'Name', value: 'MyGroovyIGW' }]})
-igw.attach_to_vpc(vpc_id: VPC_ID)
-
-puts igw.id
+run_me if $PROGRAM_NAME == __FILE__

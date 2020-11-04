@@ -2,15 +2,15 @@
 
 You can develop a web application that tracks and reports on work items by using the following AWS services:
 
-+ DynamoDB to store the data
-+ Amazon Simple Email Service to send email messages
-+ AWS Elastic Beanstalk to host the application 
++ Amazon DynamoDB to store the data
++ Amazon Simple Email Service (Amazon SES) to send email messages
++ AWS Elastic Beanstalk to host the application
 
-**Note**: The AWS SDK for Java version 2 is used to access Amazon SES and DynamoDB. 
+**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
 
-The application you create is named *DynamoDB Item Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-This tutorial guides you through creating the *DynamoDB Item Tracker* application. Once the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
+This tutorial guides you through creating the **DynamoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
 The following figure shows you the structure of the Java project.
 
@@ -18,44 +18,44 @@ The following figure shows you the structure of the Java project.
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
-**Cost to complete:** The AWS Services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc). 
+**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
 + Prerequisites
-+ Understand the AWS Tracker application.
-+ Create an IntelliJ project named ItemTrackerDynamoDB.
-+ Add the Spring POM dependencies to your project.	
-+ Setup the Java packages in your project.
-+ Create the Java classes.
-+ Create the HTML files.
-+ Create script files. 
-+ Create a JAR file for the application. 
-+ Deploy the application to Elastic Beanstalk.
++ Understand the AWS tracker application
++ Create an IntelliJ project named ItemTrackerDynamoDB
++ Add the Spring POM dependencies to your project
++ Set up the Java packages in your project
++ Create the Java classes
++ Create the HTML files
++ Create script files
++ Create a JAR file for the application
++ Deploy the application to Elastic Beanstalk
 
 ## Prerequisites
 
-To follow along with the tutorial, you need the following:
+To complete the tutorial, you need the following:
 
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK. 
-+ Maven 3.6 or higher.
-+ A DynamoDB table named **Work** with a key named **id**.
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java 1.8 JDK
++ Maven 3.6 or later
++ A DynamoDB table named **Work** with a key named **id**
 
 ## Understand the DynamoDB Item Tracker application
-The *DynamoDB Item Tracker* application uses a model that is based on a work item and contains these attributes: 
+The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
 
-+ **date** - The start date of the item. 
++ **date** - The start date of the item.
 + **description** - The description of the item.
-+ **guide** - The deliverable that this item has an impact on. 
++ **guide** - The deliverable that this item has an impact on.
 + **username** - The person who performs the work item.
-+ **status** - The status of the item. 
++ **status** - The status of the item.
 + **archive** - Whether this item is completed or is still being worked on.
 
-The following figure shows the login page. 
+The following figure shows the login page.
 
 ![AWS Tracking Application](images/pic2.png)
 
@@ -64,65 +64,65 @@ When a user logs into the application, they see the **Home** page.
 ![AWS Tracking Application](images/pic3a.png)
 
 #### Application functionality
-A user can perform these tasks in the *DynamoDB Item Tracker* application: 
+A user can perform these tasks in the **DynamoDB Item Tracker** application:
 
 + Enter an item
 + View all active items
-+ View archived items that are complete 
++ View archived items that are complete
 + Modify active items
-+ Send a report to an email recipient 
++ Send a report to an email recipient
 
-The following figure shows the new item section. 
+The following figure shows the new item section.
 
 ![AWS Tracking Application](images/pic4.png)
 
-A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB Work table and displayed in the web application.
+A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB **Work** table and displayed in the web application.
 
 ![AWS Tracking Application](images/pic5.png)
 
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report. 
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the List in the previous figure). Items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
 ![AWS Tracking Application](images/pic6.png)
 
 #### Work table
 The DynamoDB table is named **Work** and contains the following fields:
 
-+ **id** - Represents the key. 
++ **id** - Represents the key.
 + **date** - Specifies the date the item was created.
-+ **description** - A value that describes the item. 
++ **description** - A value that describes the item.
 + **guide** - A value that represents the deliverable being worked on.
 + **status** - A value that describes the status.
-+ **username** - A value that represents the user who entered the item. 
-+ **archive** - A value that represents whether this is an active or archive item. 
++ **username** - A value that represents the user who entered the item.
++ **archive** - A value that represents whether this is an active or archive item.
 
-The following figure shows the **Work** table. 
+The following figure shows the **Work** table.
 
 ![AWS Tracking Application](images/pic7.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDB
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**. 
-3. For **GroupId**, enter **aws-spring**. 
-4. For **ArtifactId**, enter **ItemTrackerDynamoDB**. 
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+3. For **GroupId**, enter **aws-spring**.
+4. For **ArtifactId**, enter **ItemTrackerDynamoDB**.
 6. Choose **Next**.
-7. Choose **Finish**. 
+7. Choose **Finish**.
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **ItemTrackerDynamoDB**. 
+At this point, you have a new project named **ItemTrackerDynamoDB**.
 
 ![AWS Tracking Application](images/pic8.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
-  
+
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
       </parent>
-    
+
 In the **dependencies** element, add the following Spring Boot **dependency** elements.
 
     <dependency>
@@ -144,18 +144,18 @@ In the **dependencies** element, add the following Spring Boot **dependency** el
        </exclusion>
       </exclusions>
     </dependency>
-      
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2). 
+
+Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
 
  	<dependency>
           <groupId>software.amazon.awssdk</groupId>
           <artifactId>ses</artifactId>
           <version>2.10.41</version>
         </dependency>
-    
-**Note**: Ensure that you are using Java 1.8 (as shown below).
-  
-Ensure that the **pom.xml** file looks like the following. 
+
+**Note:** Ensure that you are using Java 1.8 (as shown below).
+
+Ensure that the **pom.xml** file looks like the following.
 
      <?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -324,7 +324,7 @@ Ensure that the **pom.xml** file looks like the following.
 
 ## Set up the Java packages in your project
 
-Create a Java package in the **main/java** folder named **com.example**. 
+Create a Java package in the **main/java** folder named **com.example**.
 
 ![AWS Tracking Application](images/pic9.png)
 
@@ -334,11 +334,11 @@ The Java files go into the following subpackages.
 
 These packages contain the following:
 
-+ **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**. 
++ **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains a Java class for Spring security and the Java Controller class. 
++ **secureweb** - Contains a Java class for Spring security and the Java controller class.
 
-**Note**: The only class that is in **com.example** is **SecureWebApp**. All other classes are in the sub-packages. 
+**Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
 ## Create the Java classes
 
@@ -364,14 +364,14 @@ In the **com.example** package, create a class named **SecureWebApp**. This is t
 
 ### Create the Spring security classes
 
-Create a Java package named **com.example.secureweb**. Next, create these classes in this package:
+Create a Java package named **com.example.secureweb**. Next, create these classes in this package.
 
 + **WebSecurityConfig**
 + **MainController**
 
-#### WebSecurityConfig class 
+#### WebSecurityConfig class
 
-The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. 
+The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
     package com.example.secureweb;
 
@@ -428,18 +428,18 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
     }
     }
-   
-**Note**: In this example, the user credentials to log into the application are **user** and **password**.  
- 
+
+**Note:** In this example, the user credentials to log in to the application are **user** and **password**.  
+
 ### Create the main controller class
 
 In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of this method is shown later in this tutorial. 
+**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of this method is shown later in this tutorial.
 
 #### MainController class
 
-The following Java code represents the **MainController** class. 
+The following Java code represents the **MainController** class.
 
      package com.example.secureweb;
 
@@ -497,14 +497,14 @@ The following Java code represents the **MainController** class.
      @ResponseBody
      String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
+        // Get the logged-in user
         String name = getLoggedUser();
 
         String guide = request.getParameter("guide");
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method
+        // Create a Work Item object to pass to the injectNewSubmission method
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
@@ -590,14 +590,14 @@ The following Java code represents the **MainController** class.
      }
      }
 
-#### To create the WebSecurityConfig classes 
+#### To create the WebSecurityConfig classes
 
-1. Create the **com.example.secureweb** package. 
+1. Create the **com.example.secureweb** package.
 2. Create the **WebSecurityConfig** class and paste the code into it.
 
-#### To create the MainController class 
+#### To create the MainController class
 
-1. In the **com.example.secureweb** package, create the **MainController** class. 
+1. In the **com.example.secureweb** package, create the **MainController** class.
 2. Copy the code from the **MainController** class and paste it into this class in your project.
 
 ### Create the WorkItem class
@@ -605,7 +605,7 @@ The following Java code represents the **MainController** class.
 Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
 
 #### WorkItem class
-The following Java code represents the **WorkItem** class. 
+The following Java code represents the **WorkItem** class.
 
     package com.example.entities;
 
@@ -665,25 +665,25 @@ The following Java code represents the **WorkItem** class.
     public String getGuide() {
      return this.guide;
      }
-     }	
+     }
 
 #### To create the WorkItem class
-1. In the **com.example.entities** package, create the **WorkItem** class. 
+1. In the **com.example.entities** package, create the **WorkItem** class.
 2. Copy the code from the **WorkItem** class and paste it into this class in your project.
 
 ### Create the service classes
 
-The service classes contain Java application logic that invokes AWS services. In this section, you create these classes: 
+The service classes contain Java application logic that invokes AWS services. In this section, you create these classes:
 
-+ **DynamoDBService** - Uses the DynamoDB Java V2 API to interact with the **Work** table. 
-+ **Work** - Is used by the Enhanced DynamoDB client object. 
++ **DynamoDBService** - Uses the DynamoDB Java V2 API to interact with the **Work** table.
++ **Work** - Is used by the Enhanced DynamoDB client object.
 + **SendMessages** - Uses the Amazon SES API to send email messages.
-+ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs). 
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
-#### DynamoDBService class 
-The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code reprents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query Active or Closed items. For example, in the **getClosedItems** method, only closed items are retrieved. 
+#### DynamoDBService class
+The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code represents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query active or closed items. For example, in the **getClosedItems** method, only closed items are retrieved.
 
-Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
+Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
 
      package com.example.services;
 
@@ -694,7 +694,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
      import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
      import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
      import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-     import software.amazon.awssdk.regions.Region;	
+     import software.amazon.awssdk.regions.Region;
      import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
      import software.amazon.awssdk.services.dynamodb.model.*;
      import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
@@ -773,7 +773,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
          System.exit(1);
        }
        return "";
-       }	
+       }
 
        // Retrieves items from the DynamoDB table
     	public  ArrayList<WorkItem> getListItems() {
@@ -804,10 +804,10 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             workItem.setDate(work.getDate());
             workItem.setId(work.getId());
 
-            //Push the workItem to the list
+            // Push the workItem to the list
             itemList.add(workItem);
            }
-           
+
 	   return itemList;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -856,7 +856,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         return "";
         }
 
-      // Updates items in the Work Table
+      // Updates items in the Work table
       public String UpdateItem(String id, String status){
          DynamoDbClient ddb = getClient();
 
@@ -884,7 +884,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
         try {
             ddb.updateItem(request);
-            return"The Status for the the item was successfully updated";
+            return"The Status for the item was successfully updated";
         } catch (ResourceNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -929,7 +929,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                    .limit(15)
                    .build();
 
-           // Scan items 
+           // Scan items
            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
            WorkItem workItem ;
            ArrayList<WorkItem> itemList = new ArrayList();
@@ -946,7 +946,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                workItem.setDate(work.getDate());
                workItem.setId(work.getId());
 
-               //Push the workItem to the list
+               // Push the workItem to the list
                itemList.add(workItem);
               }
 
@@ -961,7 +961,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
        return "" ;
        }
 
-      // Get Closed Items from the DynamoDB table
+      // Get Closed items from the DynamoDB table
       public String getClosedItems() {
 
         // Create a DynamoDbEnhancedClient
@@ -1012,7 +1012,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
 
-                //Push the workItem to the list
+                // Push the workItem to the list
                 itemList.add(workItem);
             }
 
@@ -1040,7 +1040,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
        public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
          try {
-        
+
 	     // Create a DynamoDbTable object
              DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
@@ -1145,7 +1145,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
          }
          return null;
          }
-    
+
          private String now() {
           String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
           Calendar cal = Calendar.getInstance();
@@ -1161,19 +1161,19 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                DocumentBuilder builder = factory.newDocumentBuilder();
                Document doc = builder.newDocument();
 
-             //Start building the XML
+             // Start building the XML
              Element root = doc.createElement( "Items" );
              doc.appendChild( root );
 
             Element item = doc.createElement( "Item" );
             root.appendChild( item );
 
-            //Set Id
+            // Set Id
             Element id = doc.createElement( "Id" );
             id.appendChild( doc.createTextNode(id2 ) );
             item.appendChild( id );
 
-            //Set Description
+            // Set Description
             Element desc = doc.createElement( "Description" );
             desc.appendChild( doc.createTextNode(desc2 ) );
             item.appendChild( desc );
@@ -1192,8 +1192,8 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
            }
           }
 
-#### Work class 
-The **Work** class is used with the DynamoDB Enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation. 
+#### Work class
+The **Work** class is used with the DynamoDB enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation.
 
     package com.example.services;
 
@@ -1275,11 +1275,11 @@ The **Work** class is used with the DynamoDB Enhanced client and maps the **Work
        }
       }
 
-	
-#### SendMessage class 
+
+#### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code reprents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials. 
+The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
 
     package com.example.services;
 
@@ -1313,19 +1313,19 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
 
      private String sender = "tblue@nomailserver.com";
 
-     // The subject line for the email.
+     // The subject line for the email
      private String subject = "Weekly AWS Status Report";
 
-     // The email body for recipients with non-HTML email clients.
+     // The email body for recipients with non-HTML email clients
      private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
-     // The HTML body of the email.
+     // The HTML body of the email
      private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
+            + "<p>See the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
      public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        //Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
@@ -1340,42 +1340,42 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object.
+        // Create a new MimeMessage object
         message = new MimeMessage(session);
 
-        // Add subject, from and to lines.
+        // Add subject, from, and to lines
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-        // Create a multipart/alternative child container.
+        // Create a multipart/alternative child container
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts.
+        // Create a wrapper for the HTML and text parts
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part.
+        // Define the text part
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part.
+        // Define the HTML part
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container.
+        // Add the text and HTML parts to the child container
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object.
+        // Add the child container to the wrapper object
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent container
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message.
+        // Add the parent container to the message
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message.
+        // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
         // Define the attachment
@@ -1426,12 +1426,12 @@ The following Java code reprents the **SendMessage** class. Notice that an **Env
         System.out.println("Email sent with attachment");
       }
      }
-    
+
 **Note:** Update the email **sender** address with a verified email address.      
 
 #### WriteExcel class
 
-The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class. 
+The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
     package com.rxample.services;
 
@@ -1458,7 +1458,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    // Returns an InputStream that represents the Excel Report
+    // Returns an InputStream that represents the Excel report
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
@@ -1470,14 +1470,14 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return null;
     }
 
-    // Generates the report and returns an inputstream
+    // Generates the report and returns an InputStream
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a Workbook - pass the OutputStream
+        // Create a workbook, pass the OutputStream
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
@@ -1488,7 +1488,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         workbook.write();
         workbook.close();
 
-        // Get an inputStram that represents the Report
+        // Get an InputStream that represents the report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -1497,21 +1497,21 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return is ;
     }
 
-    // Create Headings in the Excel spreadsheet
+    // Create headings in the Excel spreadsheet
     private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a times font
+        // Create a Times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
         // Define the cell format
         times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells
+        // Automatically wrap the cells
         times.setWrap(true);
 
-        // create create a bold font with unterlines
+        // Create a bold font with underlining
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Lets automatically wrap the cells
+        // Automatically wrap the cells
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1527,7 +1527,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Item Data to the Excel Report
+    // Write the ItemData to the Excel report
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
@@ -1537,7 +1537,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
             WorkItem wi = list.get(i);
 
-            //Get tne work item values
+            // Get the work item values
             String name = wi.getName();
             String guide = wi.getGuide();
             String date = wi.getDate();
@@ -1595,7 +1595,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
     private int countString (String ss) {
         int count = 0;
-        //Counts each character except space
+        // Counts each character except spaces
         for(int i = 0; i < ss.length(); i++) {
             if(ss.charAt(i) != ' ')
                 count++;
@@ -1603,18 +1603,18 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return count;
      }
     }
-    
+
 #### To create the service classes
 
-1. Create the **com.example.services** package. 
+1. Create the **com.example.services** package.
 2. Create the **DynamoDBService** class and add the Java code to it.
 3. Create the **SendMessages** class and add the Java code to it.   
 4. Create the **WriteExcel** class and add the Java code to it.
-5. Create the **Work** class and add the Java code to it. 
+5. Create the **Work** class and add the Java code to it.
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the *DynamoDB Item Tracker* application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the **DynamoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
 
 + **login.html**
 + **index.html**
@@ -1622,11 +1622,11 @@ At this point, you have created all of the Java files required for the *DynamoDB
 + **items.html**
 + **layout.html**
 
-The **login.html** file is the login page where a user logs into the application. This HTML file contains a form that sends a request to the **/login** handler that is defined in the **MainController** class. After a successful login, the **index.html** file is used as the application's home view. The **add.html** file represents the view for adding an item to the system. The **items.html** file is used to view and modify the items. Finally, the **layout.html** file represents the menu visible in all views.  
+The **login.html** file is the login page where a user logs in to the application. This HTML file contains a form that sends a request to the **/login** handler that is defined in the **MainController** class. After a successful login, the **index.html** file is used as the application's home view. The **add.html** file represents the view for adding an item to the system. The **items.html** file is used to view and modify the items. Finally, the **layout.html** file represents the menu that is visible in all views.  
 
 #### login.html
 
-The following HTML code represents the login form. 
+The following HTML code represents the login form.
 
     	<!DOCTYPE html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
@@ -1751,28 +1751,27 @@ The following HTML code represents the **index.html** file. This file represents
       <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
       <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-      <h2>AWS DynamoDB Item Tracker</h2>
+      <h2>Amazon DynamoDB Item Tracker</h2>
 
-    <p>The AWS DynamoDB Item Tracker sample application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+    <p>The Amazon DynamoDB Item Tracker sample application uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
     <ol>
-        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
-        <li>The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API.</li>
-        <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
-        <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
-        <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
-        <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
-        <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.</li>
-        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+        <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form, and then choose <b>Create Item</b>.The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API. </li>
+        <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Then choose <b>Get Active Items</b> in the dialog box.</li>
+        <li>Modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
+        <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
+        <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
+        <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>. The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+
     </ol>
     <div>
 </body>
 </html>
- 
+
 #### add.html
 
-The following code represents the **add.html** file that enables users to add new items. 
+The following code represents the **add.html** file that enables users to add new items.
 
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -1790,7 +1789,7 @@ The following code represents the **add.html** file that enables users to add ne
 	<header th:replace="layout :: site-header"/>
 	<div class="container">
 	<h3>Welcome <span sec:authentication="principal.username">User</span> to DynamoDB Item Tracker</h3>
-    	<p>Add new items by filling in this table and clicking <i>Create Item</i></p>
+    	<p>Add new items by filling in this table and clicking <b>Create Item</b></p>
 
 	<div class="row">
     	<div class="col-lg-8 mx-auto">
@@ -1828,7 +1827,7 @@ The following code represents the **add.html** file that enables users to add ne
 
 #### items.html
 
-The following code represents the **items.html** file. This file enables users to modify items and send reports. 
+The following code represents the **items.html** file. This file enables users to modify items and send reports.
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1898,7 +1897,7 @@ The following code represents the **items.html** file. This file enables users t
     <br>
     <div id="modform" class="container">
 
-    <h3>Modify an Item</h3>
+    <h3>Modify an item</h3>
     <p>You can modify items.</p>
 
     <form>
@@ -2070,10 +2069,10 @@ The following code represents the **items.html** file. This file enables users t
 	</body>
 	</html>
 
-**Note:** Replace the default email addresses with real email addresses in this file. 
+**Note:** Replace the default email addresses with real email addresses in this file.
 #### layout.html
 
-The following code represents the **layout.html** file that represents the application's menu. 
+The following code represents the **layout.html** file that represents the application's menu.
 
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -2084,7 +2083,7 @@ The following code represents the **layout.html** file that represents the appli
     	 <meta th:include="this :: head" th:remove="tag"/>
 	</head>
 	<body>
-	<!-- th:hef calls a controller method - which returns the view -->
+	<!-- th:href calls a controller method - which returns the view -->
 	<header th:fragment="site-header">
     	<a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
     	<a href="#" style="color: white" th:href="@{/}">Home</a>
@@ -2103,27 +2102,27 @@ The following code represents the **layout.html** file that represents the appli
 	</body>
 	</html>
 
-#### To create the HTML files 
+#### To create the HTML files
 
 1. In the **resources** folder, create a folder named **templates**.  
-2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file. 
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file. 
-4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file. 
+2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file.
+3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file.
+4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file.
 5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
-6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file. 
+6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file.
 
-## Create script files 
+## Create script files
 
-Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work. 
+Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work.
 
 + **items.js**
 + **contact_me.js**
 
-Both files contain application logic that sends a request to the Spring MainController. In addition, these files handle the response and set the data in the view. 
+Both files contain application logic that sends a request to the Spring MainController. In addition, these files handle the response and set the data in the view.
 
 #### items.js file
 
-The following JavaScript code represents the **items.js** file that is used in the **items.html** view. 
+The following JavaScript code represents the **items.js** file that is used in the **items.html** view.
 
 	$(function() {
 
@@ -2142,7 +2141,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 
     	var table = $('#myTable').DataTable();
     	$('#myTable tbody').on( 'click', 'tr', function () {
-        
+
 	if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
@@ -2168,7 +2167,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 
         if (id == "")
         {
-            alert("Please select an item from the table");
+            alert("Select an item from the table");
             return;
         }
 
@@ -2194,7 +2193,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 	function loadMods(event) {
 
     	var msg = event.target.responseText;
-    	alert("You have successfully modfied item "+msg)
+    	alert("You have successfully modified item "+msg)
 
     	$('#id').val("");
     	$('#description').val("");
@@ -2243,7 +2242,7 @@ The following JavaScript code represents the **items.js** file that is used in t
         var description = $field.find('Description').text();
         var status = $field.find('Status').text();
 
-        //Set the new data
+        // Set the new data
         oTable.fnAddData( [
             id,
             name,
@@ -2261,7 +2260,7 @@ The following JavaScript code represents the **items.js** file that is used in t
     	 var table = $('#myTable').DataTable();
     	 var myId="";
     	 var arr = [];
-    
+
     	$.each(table.rows('.selected').data(), function() {
 
           var value = this[0];
@@ -2273,9 +2272,9 @@ The following JavaScript code represents the **items.js** file that is used in t
         return;
       }
 
-      //Need to check its not an Archive item
+      // Need to check that it's not an Archive item
     	var h3Val =  document.getElementById("info3").innerHTML;
-    	
+
 	if (h3Val=="Archive Items") {
           alert("You cannot modify an Archived item");
           return;
@@ -2301,7 +2300,7 @@ The following JavaScript code represents the **items.js** file that is used in t
         var description = $field.find('Description').text();
         var status = $field.find('Status').text();
 
-        //Set the fields
+        // Set the fields
         $('#id').val(id);
         $('#description').val(description);
         $('#status').val(status);
@@ -2329,7 +2328,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 
 
 	 function GetArcItems(){
-    
+
     	  var xhr = new XMLHttpRequest();
     	  var type="archive";
     	  xhr.addEventListener("load", loadArcItems, false);
@@ -2340,7 +2339,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 
  	function loadArcItems(event) {
 
-    	 // Disable buttons when Achive button
+    	 // Disable buttons when Archive button
     	  $('#reportbutton').prop("disabled",true);
     	  $('#reportbutton').css("color", "#0d010d");
     	  $('#singlebutton').prop("disabled",true);
@@ -2366,7 +2365,7 @@ The following JavaScript code represents the **items.js** file that is used in t
           var description = $field.find('Description').text();
           var status = $field.find('Status').text();
 
-          //Set the new data
+          // Set the new data
           oTable.fnAddData( [
             id,
             name,
@@ -2385,7 +2384,7 @@ The following JavaScript code represents the **items.js** file that is used in t
     	  var table = $('#myTable').DataTable();
     	  var myId="";
     	  var arr = [];
-    	
+
 	 $.each(table.rows('.selected').data(), function() {
 
           var value = this[0];
@@ -2407,15 +2406,15 @@ The following JavaScript code represents the **items.js** file that is used in t
 	function onArch(event) {
 
     	 var xml = event.target.responseText;
-    	 alert("Item "+xml +" is achived now");
-    
-    	//Refresh the grid
+    	 alert("Item "+xml +" is archived now");
+
+    	// Refresh the grid
     	GetItems();
        }
 
  #### contact_me.js file
 
-The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view. 
+The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view.
 
 	$(function() {
 
@@ -2444,7 +2443,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
         xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
     } );// END of the Send button click
 
-    //Handler for the click SendButton call
+    // Handler for the click SendButton call
     function loadNewItems(event) {
 
         var msg = event.target.responseText;
@@ -2454,51 +2453,51 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
       });
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project. 
+**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
-## Create a JAR file for the DynamoDB Tracker application 
+## Create a JAR file for the DynamoDB Tracker application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
 
 	mvn package
-	
+
 The JAR file is located in the target folder.
 
 ![AWS Tracking Application](images/pic11.png)
 
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy the application to Elastic Beanstalk
 
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev or prod-web, prod-worker, qa-web, qa-worker).
+Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev, or prod-web, prod-worker, qa-web, qa-worker).
 
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
+If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
 
 #### To deploy the DynamoDB Tracker application to Elastic Beanstalk
 
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home. 
+1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values: 
+3. On the **Create New Application** page, enter the following values:
    + **Application Name** - DynamoDB Tracker
-   + **Description** - A description for the application 
+   + **Description** - A description for the application
 4. Choose **Create**.
-5. Choose **Create a new environment**. 
+5. Choose **Create a new environment**.
 6. Choose **Web server environment**.
-7. Choose **Select**. 
+7. Choose **Select**.
 8. In the **Environment information** section, leave the default values.
 9. In the **Platform** section, choose **Managed platform**.
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
-11. In the **Application code** section, choose **Upload your code**. 
+11. In the **Application code** section, choose **Upload your code**.
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. 
+13. Choose **Create environment**. You'll see the application being created.
 
 ![AWS Tracking Application](images/pic13.png)
 
 When you’re done, you will see the application state the **Health** is **Ok** .
 
 14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value. 
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value.  Once the variables are configured, you'll see the URL for accessing the application. 
+11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
+12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
 
 ![AWS Tracking Application](images/pic14.png)
 
@@ -2508,11 +2507,7 @@ To access the application, open your browser and enter the URL for your applicat
 
 
 ### Next steps
-Congratulations, you have created and deployed the DynamoDB Tracker application that interacts with AWS Services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations, you have created and deployed the DynamoDB Item Tracker application that interacts with AWS services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re no longer charged.
 
-You can read more AWS multi service examples by clicking 
-[Usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases). 
-
-
-
-
+For more AWS multiservice examples, see
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).

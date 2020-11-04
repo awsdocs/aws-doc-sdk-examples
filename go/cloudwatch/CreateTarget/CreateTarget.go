@@ -28,7 +28,7 @@ import (
 // Inputs:
 //     sess is the current session, which provides configuration for the SDK's service clients
 //     rule is the name of the rule
-//     lammbdaARN is the ARN of the Lambda function that is invoked
+//     lambdaARN is the ARN of the Lambda function that is invoked
 //     targetID is the identifier for the target
 // Output:
 //     If successful, a PutTargetsOutput and nil

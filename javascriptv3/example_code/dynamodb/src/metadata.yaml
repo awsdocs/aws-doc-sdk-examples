@@ -1,0 +1,58 @@
+---
+# Amazon DynamoDB basic usage examples
+files:
+  - path: ddb_batchgetitem.ts
+    services:
+      - dynamodb
+  - path: ddb_batchwriteitem.ts
+    services:
+      - dynamodb
+  - path: ddb_createtable.ts
+    services:
+      - dynamodb
+  - path: ddb_deletetable.ts
+    services:
+      - dynamodb
+  - path: ddb_deleteitem.ts
+    services:
+      - dynamodb
+  - path: ddb_describetable.ts
+    services:
+      - dynamodb
+  - path: ddb_getitem.ts
+    services:
+      - dynamodb
+  - path: ddb_listtables.ts
+    services:
+      - dynamodb
+  - path: ddb_putitem.ts
+    services:
+      - dynamodb
+  - path: ddb_query.ts
+    services:
+      - dynamodb
+  - path: ddb_scan.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_delete_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_get_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_put_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_update_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_query_item.ts
+    services:
+      - dynamodb
+  - path: QueryExample/ddb_batchwriteitem_tv.ts
+    services:
+      - dynamodb
+  - path: QueryExample/ddb_createtable_tv.ts
+    services:
+      - dynamodb
+...

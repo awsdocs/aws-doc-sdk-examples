@@ -27,7 +27,7 @@ require 'json'
 # Create dynamodb client in us-west-2 region
 dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')
 
-file = File.read('movie_data.json')
+file = File.read('.movie_data.json')
 movies = JSON.parse(file)
 movies.each{|movie|
 

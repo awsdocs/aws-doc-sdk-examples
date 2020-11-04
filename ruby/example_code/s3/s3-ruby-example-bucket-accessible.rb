@@ -1,43 +1,52 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[s3-ruby-example-bucket-accessible.rb determines whether you can access an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[get_bucket_location method]
-# snippet-keyword:[Resource.buckets.any method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+
+# Checks whether an Amazon Simple Storage Service (Amazon S3) bucket
+#   exists in an AWS Region.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An S3 bucket.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
-
-s3 = Aws::S3::Resource.new(region: 'us-west-2')
-
-# Does such a bucket exist?
-found_bucket = s3.buckets.any? { |b| b.name == 'my-bucket' }
-
-if !found_bucket
-  puts 'Bucket does not exist'
-else
-  # Is it in this region?
-  found_bucket = s3.client.get_bucket_location(bucket: 'my-bucket').location_constraint == 'us-east-1'
-
-  if found_bucket
-    puts 'Bucket exists in this region'
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param region [Array] The Region to check for.
+# @return [Boolean] true if the bucket exists in the specified Region;
+#   otherwise, false.
+# @example
+#   exit 1 unless bucket_in_region?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'us-east-1'
+#   )
+def bucket_in_region?(s3_client, bucket_name, region)
+  location = s3_client.get_bucket_location(bucket: bucket_name).location_constraint
+  if region == location
+    return true
   else
-    puts 'Bucket does not exist in this region'
+    return false
+  end
+rescue StandardError => e
+  puts "Error accessing bucket: #{e.message}"
+  return false
+end
+
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  if bucket_in_region?(s3_client, bucket_name, region)
+    puts "Bucket '#{bucket_name}' exists in Region '#{region}'."
+  else
+    puts "Bucket '#{bucket_name}' does not exist, " \
+      "does not exist in AWS Region '#{region}', " \
+      'the Region was not specified when the bucket was initially created, ' \
+      'or the bucket is not otherwise accessible to you.'
   end
 end
+
+run_me if $PROGRAM_NAME == __FILE__

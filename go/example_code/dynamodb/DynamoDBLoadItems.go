@@ -53,7 +53,7 @@ type Item struct {
 // snippet-start:[dynamodb.go.load_items.func]
 // Get table items from JSON file
 func getItems() []Item {
-    raw, err := ioutil.ReadFile("./movie_data.json")
+    raw, err := ioutil.ReadFile("./.movie_data.json")
     if err != nil {
         fmt.Println(err.Error())
         os.Exit(1)
@@ -79,7 +79,7 @@ func main() {
     // snippet-end:[dynamodb.go.load_items.session]
 
     // snippet-start:[dynamodb.go.load_items.call]
-    // Get table items from movie_data.json
+    // Get table items from .movie_data.json
     items := getItems()
 
     // Add each item to Movies table:

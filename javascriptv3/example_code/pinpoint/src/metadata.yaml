@@ -1,0 +1,10 @@
+---
+# Amazon Pinpoint examples
+files:
+  - path: pinpoint_send_email_message.ts
+    services:
+      - Pinpoint
+  - path: pinpoint_send_sms_message.ts
+    services:
+      - Pinpoint
+...

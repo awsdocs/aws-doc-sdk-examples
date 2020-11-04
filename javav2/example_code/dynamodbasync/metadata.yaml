@@ -1,0 +1,17 @@
+--- 
+files:
+ - path: src/main/java/com/example/dynamodbasync/AsyncPagination.java
+   services:
+     - dynamodb
+ - path: src/main/java/com/example/dynamodbasync/DynamoDBAsyncCreateTable.java
+   services:
+     - dynamodb
+ - path: src/main/java/com/example/dynamodbasync/DynamoDBAsyncGetItem.java
+   services:
+     - dynamodb
+ - path: src/main/java/com/example/dynamodbasync/DynamoDBAsyncListTables.java
+   services:
+     - dynamodb
+ - path: src/test/java/DynamoDBAsyncTest.java
+   services:
+     - dynamodb
