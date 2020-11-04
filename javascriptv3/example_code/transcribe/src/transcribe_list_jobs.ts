@@ -10,21 +10,29 @@ transcribe_list_jobs.ts demonstrates how to retrieve a list of Amazon Transcribe
 
 Inputs (replace in code):
 - REGION
-- JOB_NAME
+- KEYWORD
 
 Running the code:
 ts-node transcribe_list_jobs.ts
  */
 // snippet-start:[transcribe.JavaScript.jobs.listJobsV3]
+// Import the required AWS SDK clients and commands for Node.js
+
 const {
   TranscribeClient,
   ListTranscriptionJobsCommand,
 } = require("@aws-sdk/client-transcribe");
 
-const client = new TranscribeClient({ region: "REGION" });
+// Set the AWS Region
+const REGION = "REGION"; // For example, "us-east-1"
+
+// Set the parameters
 const params = {
-  JobNameContains: "KEY_WORD" // Returns only transcription job names containing this string
+  JobNameContains: "KEYWORD", // Returns only transcription job names containing this string
 };
+
+// Create an Amazon Transcribe service client object
+const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {
   try {
