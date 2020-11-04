@@ -6,7 +6,7 @@ which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_create_job.ts demonstrates how to create an Amazon Transcribe transcription job.
+transcribe_create_medical_job.ts demonstrates how to create an Amazon Transcribe medical transcription job.
 
 Inputs (replace in code):
 - REGION
@@ -16,13 +16,13 @@ Inputs (replace in code):
 - SOURCE_LOCATION
 
 Running the code:
-ts-node transcribe_create_job.ts
+ts-node transcribe_create_medical_job.ts
  */
 // snippet-start:[transcribe.JavaScript.jobs.createJobsV3]
 // Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
-  StartTranscriptionJobCommand,
+  StartMedicalTranscriptionJobCommand,
 } = require("@aws-sdk/client-transcribe");
 
 // Set the AWS Region
@@ -44,7 +44,9 @@ const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {
   try {
-    const data = await client.send(new StartTranscriptionJobCommand(params));
+    const data = await client.send(
+      new StartMedicalTranscriptionJobCommand(params)
+    );
     console.log("Success - put", data);
   } catch (err) {
     console.log("Error", err);

@@ -637,4 +637,16 @@ x
     services:
       - Transcribe
 
+  - path: transcribe_create_job.test.js
+    services:
+      - Transcribe
+
+  - path: transcribe_delete_job.test.js
+    services:
+      - Transcribe
+
+  - path: transcribe_list_jobs.test.js
+    services:
+      - Transcribe
+
 ...

@@ -6,23 +6,21 @@ which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_create_job.ts demonstrates how to create an Amazon Transcribe transcription job.
+transcribe_list_medical_jobs.ts demonstrates how to retrieve a list of Amazon Transcribe medical transcription jobs.
 
 Inputs (replace in code):
 - REGION
-- JOB_NAME
-- LANGUAGE_CODE
-- SOURCE_FILE_FORMAT
-- SOURCE_LOCATION
+- KEYWORD
 
 Running the code:
-ts-node transcribe_create_job.ts
+ts-node transcribe_list_medical_jobs.ts
  */
-// snippet-start:[transcribe.JavaScript.jobs.createJobsV3]
+// snippet-start:[transcribe.JavaScript.jobs.listJobsV3]
 // Import the required AWS SDK clients and commands for Node.js
+
 const {
   TranscribeClient,
-  StartTranscriptionJobCommand,
+  ListMedicalTranscriptionJobsCommand,
 } = require("@aws-sdk/client-transcribe");
 
 // Set the AWS Region
@@ -30,13 +28,7 @@ const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
-  TranscriptionJobName: "JOB_NAME",
-  LanguageCode: "LANGUAGE_CODE", // For example, 'en-US'
-  MediaFormat: "SOURCE_FILE_FORMAT", // For example, 'wav'
-  Media: {
-    MediaFileUri: "SOURCE_LOCATION",
-    // For example, "https://transcribe-demo.s3-REGION.amazonaws.com/hello_world.wav"
-  },
+  JobNameContains: "KEYWORD", // Returns only transcription job names containing this string
 };
 
 // Create an Amazon Transcribe service client object
@@ -44,11 +36,13 @@ const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {
   try {
-    const data = await client.send(new StartTranscriptionJobCommand(params));
-    console.log("Success - put", data);
+    const data = await client.send(
+      new ListMedicalTranscriptionJobsCommand(params)
+    );
+    console.log("Success", data.TranscriptionJobSummaries);
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[transcribe.JavaScript.jobs.createJobsV3]
+// snippet-end:[transcribe.JavaScript.jobs.listJobsV3]
