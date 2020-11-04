@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ec2/commands/AllocateAddressCommand", () => ({
 }));
 const { params, run } = require("../../ec2/src/ec2_rebootinstances");
 
-//test function
 test("has to mock ec2#rebootInstances", async (done) => {
   await run();
   expect(mockRebootInstancesCommand).toHaveBeenCalled;

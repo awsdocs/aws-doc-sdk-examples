@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-dynamodb/commands/DescribeTableCommand", () => ({
 }));
 const { params, run } = require("../../dynamodb/src/ddb_describetable");
 
-//test function
 test("has to mock db#describeTable", async (done) => {
   await run();
   expect(mockDesribeTable).toHaveBeenCalled;

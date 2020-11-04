@@ -8,7 +8,6 @@ const {
   run,
 } = require("../../lambda/tutorial/slotassets/lambda-function-setup");
 
-//test function
 test("has to mock lambda#functionsetup", async (done) => {
   await run();
   expect(mockLambdaFunSetup).toHaveBeenCalled;
