@@ -26,7 +26,7 @@ const {
 } = require("@aws-sdk/client-transcribe");
 
 // Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
@@ -39,7 +39,7 @@ const params = {
   },
 };
 
-// Create an Amazon Transcribe client service object
+// Create an Amazon Transcribe service client object
 const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {

@@ -10,7 +10,7 @@ transcribe_list_medical_jobs.ts demonstrates how to retrieve a list of Amazon Tr
 
 Inputs (replace in code):
 - REGION
-- KEY_WORD
+- KEYWORD
 
 Running the code:
 ts-node transcribe_list_medical_jobs.ts
@@ -24,14 +24,14 @@ const {
 } = require("@aws-sdk/client-transcribe");
 
 // Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
-  JobNameContains: "KEY_WORD", // Returns only transcription job names containing this string
+  JobNameContains: "KEYWORD", // Returns only transcription job names containing this string
 };
 
-// Create an Amazon Transcribe client service object
+// Create an Amazon Transcribe service client object
 const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {
