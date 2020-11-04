@@ -1,0 +1,5 @@
+{
+  "SourceBucket": "mysourcebucket",
+  "DestinationBucket": "mydestinationbucket",
+  "ItemKey": "myitemkey"
+}
