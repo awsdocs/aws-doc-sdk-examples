@@ -8,22 +8,21 @@ import (
 	"testing"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"github.com/aws/aws-sdk-go/aws"
 )
 
-type S3GetBucketAclImpl struct{}
+type S3GetObjectAclImpl struct{}
 
-func (dt S3GetBucketAclImpl) GetBucketAcl(ctx context.Context,
-	params *s3.GetBucketAclInput,
-	optFns ...func(*s3.Options)) (*s3.GetBucketAclOutput, error) {
-
+func (dt S3GetObjectAclImpl) GetObjectAcl(ctx context.Context,
+	params *s3.GetObjectAclInput,
+	optFns ...func(*s3.Options)) (*s3.GetObjectAclOutput, error) {
 	grants := make([]*types.Grant, 1)
 	grantee := &types.Grantee{DisplayName: aws.String("theuser")}
 	grants[0] = &types.Grant{Grantee: grantee}
 
-	output := &s3.GetBucketAclOutput{
+	output := &s3.GetObjectAclOutput{
 		Grants: grants,
 	}
 
@@ -32,6 +31,7 @@ func (dt S3GetBucketAclImpl) GetBucketAcl(ctx context.Context,
 
 type Config struct {
 	BucketName string `json:"BucketName"`
+	KeyName    string `json:"KeyName"`
 }
 
 var configFileName = "config.json"
@@ -51,15 +51,15 @@ func populateConfiguration(t *testing.T) error {
 		return err
 	}
 
-	if globalConfig.BucketName == "" {
-		msg := "You must specify a value for BucketName in " + configFileName
+	if globalConfig.BucketName == "" || globalConfig.KeyName == "" {
+		msg := "You must supply a value for BucketName and KeyName in " + configFileName
 		return errors.New(msg)
 	}
 
 	return nil
 }
 
-func TestGetBucketAcl(t *testing.T) {
+func TestGetObjectAcl(t *testing.T) {
 	thisTime := time.Now()
 	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
 	t.Log("Starting unit test at " + nowString)
@@ -70,18 +70,19 @@ func TestGetBucketAcl(t *testing.T) {
 	}
 
 	// Build the request with its input parameters
-	input := s3.GetBucketAclInput{
+	input := s3.GetObjectAclInput{
 		Bucket: &globalConfig.BucketName,
+		Key:    &globalConfig.KeyName,
 	}
 
-	api := &S3GetBucketAclImpl{}
+	api := &S3GetObjectAclImpl{}
 
-	resp, err := FindBucketAcl(context.Background(), *api, &input)
+	resp, err := FindObjectAcl(context.Background(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)
 		return
 	}
 
-	t.Log("Grantee for bucket " + globalConfig.BucketName + ": " + *resp.Grants[0].Grantee.DisplayName)
+	t.Log("Grantee for object " + globalConfig.KeyName + ": " + *resp.Grants[0].Grantee.DisplayName)
 }

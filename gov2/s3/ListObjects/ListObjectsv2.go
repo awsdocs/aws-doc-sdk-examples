@@ -3,7 +3,6 @@
 // snippet-start:[s3.go-v2.ListObjects]
 package main
 
-// snippet-start:[s3.go-v2.ListObjects.imports]
 import (
 	"context"
 	"flag"
@@ -13,17 +12,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// snippet-end:[s3.go-v2.ListObjects.imports]
-
 // S3ListObjectsAPI defines the interface for the ListObjectsV2 function.
-// snippet-start:[s3.go-v2.ListObjects.interface]
+// We use this interface to test the function using a mocked service.
 type S3ListObjectsAPI interface {
 	ListObjectsV2(ctx context.Context,
 		params *s3.ListObjectsV2Input,
 		optFns ...func(*s3.Options)) (*s3.ListObjectsV2Output, error)
 }
-
-// snippet-end:[s3.go-v2.ListObjects.interface]
 
 // GetObjects retrieves the objects in an Amazon S3 bucket
 // Inputs:
@@ -35,9 +30,7 @@ type S3ListObjectsAPI interface {
 //     Otherwise, nil and an error from the call to ListObjectsV2
 func GetObjects(c context.Context, api S3ListObjectsAPI, input *s3.ListObjectsV2Input) (*s3.ListObjectsV2Output, error) {
 	// Get the list of items
-	// snippet-start:[s3.go-v2.ListObjects.call]
 	resp, err := api.ListObjectsV2(c, input)
-	// snippet-end:[s3.go-v2.ListObjects.call]
 
 	return resp, err
 }
@@ -47,7 +40,6 @@ func GetObjects(c context.Context, api S3ListObjectsAPI, input *s3.ListObjectsV2
 // Usage:
 //    go run s3_list_objects.go BUCKET_NAME
 func main() {
-	// snippet-start:[s3.go-v2.ListObjects.args]
 	bucket := flag.String("b", "", "The name of the bucket")
 	flag.Parse()
 
@@ -55,16 +47,13 @@ func main() {
 		fmt.Println("You must supply the name of a bucket (-b BUCKET)")
 		return
 	}
-	// snippet-end:[s3.go-v2.ListObjects.args]
 
-	// snippet-start:[s3.go-v2.ListObjects.configclient]
 	cfg, err := config.LoadDefaultConfig()
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
 
 	client := s3.NewFromConfig(cfg)
-	// snippet-end:[s3.go-v2.ListObjects.configclient]
 
 	input := &s3.ListObjectsV2Input{
 		Bucket: bucket,
@@ -77,7 +66,6 @@ func main() {
 		return
 	}
 
-	// snippet-start:[s3.go-v2.ListObjects.print]
 	fmt.Println("Objects in " + *bucket + ":")
 
 	for _, item := range resp.Contents {
@@ -90,7 +78,6 @@ func main() {
 
 	fmt.Println("Found", len(resp.Contents), "items in bucket", *bucket)
 	fmt.Println("")
-	// snippet-end:[s3.go-v2.ListObjects.print]
 }
 
 // snippet-end:[s3.go-v2.ListObjects]

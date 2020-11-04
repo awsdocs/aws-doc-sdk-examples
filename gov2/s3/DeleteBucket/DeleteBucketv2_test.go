@@ -9,23 +9,21 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	"github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"github.com/aws/aws-sdk-go/aws"
 )
 
-type S3GetBucketAclImpl struct{}
+type S3DeleteBucketImpl struct{}
 
-func (dt S3GetBucketAclImpl) GetBucketAcl(ctx context.Context,
-	params *s3.GetBucketAclInput,
-	optFns ...func(*s3.Options)) (*s3.GetBucketAclOutput, error) {
+func (dt S3DeleteBucketImpl) DeleteBucket(ctx context.Context,
+	params *s3.DeleteBucketInput,
+	optFns ...func(*s3.Options)) (*s3.DeleteBucketOutput, error) {
+	/*
+	   desc := &types.???{
+	       ARG:      VALUE,
+	       // ...
+	   }
+	*/
 
-	grants := make([]*types.Grant, 1)
-	grantee := &types.Grantee{DisplayName: aws.String("theuser")}
-	grants[0] = &types.Grant{Grantee: grantee}
-
-	output := &s3.GetBucketAclOutput{
-		Grants: grants,
-	}
+	output := &s3.DeleteBucketOutput{}
 
 	return output, nil
 }
@@ -52,14 +50,16 @@ func populateConfiguration(t *testing.T) error {
 	}
 
 	if globalConfig.BucketName == "" {
-		msg := "You must specify a value for BucketName in " + configFileName
+		msg := "You must supply a BucketName value in " + configFileName
 		return errors.New(msg)
 	}
+
+	t.Log("BucketName: " + globalConfig.BucketName)
 
 	return nil
 }
 
-func TestGetBucketAcl(t *testing.T) {
+func TestDeleteBucket(t *testing.T) {
 	thisTime := time.Now()
 	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
 	t.Log("Starting unit test at " + nowString)
@@ -70,18 +70,18 @@ func TestGetBucketAcl(t *testing.T) {
 	}
 
 	// Build the request with its input parameters
-	input := s3.GetBucketAclInput{
+	input := s3.DeleteBucketInput{
 		Bucket: &globalConfig.BucketName,
 	}
 
-	api := &S3GetBucketAclImpl{}
+	api := &S3DeleteBucketImpl{}
 
-	resp, err := FindBucketAcl(context.Background(), *api, &input)
+	_, err = RemoveBucket(context.Background(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)
 		return
 	}
 
-	t.Log("Grantee for bucket " + globalConfig.BucketName + ": " + *resp.Grants[0].Grantee.DisplayName)
+	t.Log("Deleted bucket " + globalConfig.BucketName)
 }

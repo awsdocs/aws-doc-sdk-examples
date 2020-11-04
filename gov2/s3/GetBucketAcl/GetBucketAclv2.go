@@ -3,7 +3,6 @@
 // snippet-start:[s3.go-v2.GetBucketAcl]
 package main
 
-// snippet-start:[s3.go-v2.GetBucketAcl.imports]
 import (
 	"context"
 	"flag"
@@ -13,19 +12,15 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// snippet-end:[s3.go-v2.GetBucketAcl.imports]
-
-// S3GetBucketACLAPI defines the interface for the GetBucketAcl function.
-// snippet-start:[s3.go-v2.GetBucketAcl.interface]
-type S3GetBucketACLAPI interface {
+// S3GetBucketAclAPI defines the interface for the GetBucketAcl function.
+// We use this interface to test the function using a mocked service.
+type S3GetBucketAclAPI interface {
 	GetBucketAcl(ctx context.Context,
 		params *s3.GetBucketAclInput,
 		optFns ...func(*s3.Options)) (*s3.GetBucketAclOutput, error)
 }
-// snippet-end:[s3.go-v2.GetBucketAcl.interface]
 
-
-// FindBucketACL retrieves the access control list (ACL) for an Amazon S3 bucket.
+// FindBucketAcl retrieves the access control list (ACL) for an Amazon S3 bucket.
 // Inputs:
 //     c is the context of the method call, which includes the Region
 //     api is the interface that defines the method call
@@ -33,16 +28,13 @@ type S3GetBucketACLAPI interface {
 // Output:
 //     If success, a GetBucketAclOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to GetBucketAcl
-func FindBucketACL(c context.Context, api S3GetBucketACLAPI, input *s3.GetBucketAclInput) (*s3.GetBucketAclOutput, error) {
-	// snippet-start:[s3.go-v2.GetBucketAcl.call]
+func FindBucketAcl(c context.Context, api S3GetBucketAclAPI, input *s3.GetBucketAclInput) (*s3.GetBucketAclOutput, error) {
 	result, err := api.GetBucketAcl(c, input)
-	// snippet-end:[s3.go-v2.GetBucketAcl.call]
 
 	return result, err
 }
 
 func main() {
-	// snippet-start:[s3.go-v2.GetBucketAcl.args]
 	bucket := flag.String("b", "", "The bucket for which the ACL is returned")
 	flag.Parse()
 
@@ -50,27 +42,23 @@ func main() {
 		fmt.Println("You must supply a bucket name (-b BUCKET)")
 		return
 	}
-	// snippet-end:[s3.go-v2.GetBucketAcl.args]
 
-	// snippet-start:[s3.go-v2.GetBucketAcl.configclient]
 	cfg, err := config.LoadDefaultConfig()
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
 
 	client := s3.NewFromConfig(cfg)
-	// snippet-end:[s3.go-v2.GetBucketAcl.configclient]
 
 	input := &s3.GetBucketAclInput{
 		Bucket: bucket,
 	}
 
-	result, err := FindBucketACL(context.Background(), client, input)
+	result, err := FindBucketAcl(context.Background(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving ACL for " + *bucket)
 	}
 
-	// snippet-start:[s3.go-v2.GetBucketAcl.print]
 	fmt.Println("Owner:", *result.Owner.DisplayName)
 	fmt.Println("")
 	fmt.Println("Grants")
@@ -87,7 +75,6 @@ func main() {
 		fmt.Println("  Permission:", string(g.Permission))
 		fmt.Println("")
 	}
-	// snippet-end:[s3.go-v2.GetBucketAcl.print]
 }
 
 // snippet-end:[s3.go-v2.GetBucketAcl]

@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[s3.go-v2.CreateBucket]
+// snippet-start:[s3.go-v2.DeleteBucket]
 package main
 
 import (
@@ -12,26 +12,26 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// S3CreateBucketAPI defines the interface for the CreateBucket function.
+// S3DeleteBucketAPI defines the interface for the DeleteBucket function.
 // We use this interface to test the function using a mocked service.
-type S3CreateBucketAPI interface {
-	CreateBucket(ctx context.Context,
-		params *s3.CreateBucketInput,
-		optFns ...func(*s3.Options)) (*s3.CreateBucketOutput, error)
+type S3DeleteBucketAPI interface {
+	DeleteBucket(ctx context.Context,
+		params *s3.DeleteBucketInput,
+		optFns ...func(*s3.Options)) (*s3.DeleteBucketOutput, error)
 }
 
-// MakeBucket creates an Amazon S3 bucket
+// RemoveBucket deletes a bucket
 // Inputs:
 //     c is the context of the method call, which includes the Region
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a CreateBucketOutput object containing the result of the service call and nil
-//     Otherwise, nil and an error from the call to CreateBucket
-func MakeBucket(c context.Context, api S3CreateBucketAPI, input *s3.CreateBucketInput) (*s3.CreateBucketOutput, error) {
-	resp, err := api.CreateBucket(c, input)
+//     If success, a DeleteBucketOutput object containing the result of the service call and nil
+//     Otherwise, an error from the call to CreateBucket
+func RemoveBucket(c context.Context, api S3DeleteBucketAPI, input *s3.DeleteBucketInput) (*s3.DeleteBucketOutput, error) {
+	result, err := api.DeleteBucket(c, input)
 
-	return resp, err
+	return result, err
 }
 
 func main() {
@@ -50,14 +50,14 @@ func main() {
 
 	client := s3.NewFromConfig(cfg)
 
-	input := &s3.CreateBucketInput{
+	input := &s3.DeleteBucketInput{
 		Bucket: bucket,
 	}
 
-	_, err = MakeBucket(context.Background(), client, input)
+	_, err = RemoveBucket(context.Background(), client, input)
 	if err != nil {
-		fmt.Println("Could not create bucket " + *bucket)
+		fmt.Println("Could not delete bucket " + *bucket)
 	}
 }
 
-// snippet-end:[s3.go-v2.CreateBucket]
+// snippet-end:[s3.go-v2.DeleteBucket]
