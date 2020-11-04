@@ -6,20 +6,21 @@ which is pending release.  The preview version of the SDK is available
 at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_delete_job.ts demonstrates how to delete an Amazon Transcribe transcription job.
+transcribe_delete_medical_job.ts demonstrates how to delete an Amazon Transcribe medical transcription job.
 
 Inputs (replace in code):
 - REGION
 - JOB_NAME
 
+
 Running the code:
-ts-node transcribe_create_job.ts
+ts-node transcribe_create_medical_job.ts
  */
 // snippet-start:[transcribe.JavaScript.jobs.deleteJobsV3]
 // Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
-  DeleteTranscriptionJobCommand
+  DeleteMedicalTranscriptionJobCommand,
 } = require("@aws-sdk/client-transcribe");
 
 // Set the AWS Region
@@ -35,7 +36,9 @@ const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {
   try {
-    const data = await client.send(new DeleteTranscriptionJobCommand(params));
+    const data = await client.send(
+      new DeleteMedicalTranscriptionJobCommand(params)
+    );
     console.log("Success - deleted");
   } catch (err) {
     console.log("Error", err);

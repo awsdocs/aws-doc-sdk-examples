@@ -19,12 +19,16 @@ Running the code:
 ts-node transcribe_create_job.ts
  */
 // snippet-start:[transcribe.JavaScript.jobs.createJobsV3]
+// Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
   StartTranscriptionJobCommand,
 } = require("@aws-sdk/client-transcribe");
 
-const client = new TranscribeClient({ region: "REGION" });
+// Set the AWS Region
+const REGION = "REGION"; //e.g. "us-east-1"
+
+// Set the parameters
 const params = {
   TranscriptionJobName: "JOB_NAME",
   LanguageCode: "LANGUAGE_CODE", // For example, 'en-US'
@@ -34,6 +38,9 @@ const params = {
     // For example, "https://transcribe-demo.s3-REGION.amazonaws.com/hello_world.wav"
   },
 };
+
+// Create an Amazon Transcribe client service object
+const client = new TranscribeClient({ region: REGION });
 
 const run = async () => {
   try {
