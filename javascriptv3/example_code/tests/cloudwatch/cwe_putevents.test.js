@@ -9,7 +9,6 @@ jest.mock(
 );
 const { params, run } = require("../../cloudwatch/src/cwe_putevents");
 
-//test function
 test("has to mock cloudwatch-events#putevents", async (done) => {
   await run();
   expect(mockPutEvents).toHaveBeenCalled;

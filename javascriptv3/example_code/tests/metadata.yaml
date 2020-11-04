@@ -424,7 +424,7 @@ files:
   - path: s3/s3_upload.test.js
     services:
       - s3
-
+x
   - path: s3/s3_upload_comand.test.js
     services:
       - s3
@@ -585,11 +585,11 @@ files:
     services:
       - sqs
 
-  - path: sqs/sqs_createqueue.test.js
+  - path: sqs/createqueue.test.js
     services:
       - sqs
 
-  - path: sqs/sqs_deadletterqueue.test.js
+  - path: sqs/deadletterqueue.test.js
     services:
       - sqs
 
@@ -624,4 +624,17 @@ files:
   - path: sqs/sqs_sendmessage.test.js
     services:
       - sqs
+
+  - path: transcribe_create_job.test.js
+    services:
+      - Transcribe
+
+  - path: transcribe_delete_job.test.js
+    services:
+      - Transcribe
+
+  - path: transcribe_list_jobs.test.js
+    services:
+      - Transcribe
+
 ...

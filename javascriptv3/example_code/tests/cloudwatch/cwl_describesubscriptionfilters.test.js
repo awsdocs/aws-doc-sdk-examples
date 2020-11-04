@@ -12,7 +12,6 @@ const {
   run,
 } = require("../../cloudwatch/cwl_describesubscriptionfilters");
 
-//test function
 test("has to mock cloudwatch-logs#describesubscriptionfilters", async (done) => {
   await run();
   expect(mockDescribeSubFilters).toHaveBeenCalled;

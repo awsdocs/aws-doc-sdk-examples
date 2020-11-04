@@ -6,6 +6,12 @@ files:
   - path: src/main/java/com/example/s3/DeleteBucketPolicy.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/CreateAccessPoint.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/KMSEncryptionExample.java
+    services:
+      - s3
   - path: src/main/java/com/example/s3/DeleteObjects.java
     services:
       - s3

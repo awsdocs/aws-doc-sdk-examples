@@ -1,49 +1,45 @@
-//snippet-sourcedescription:[CreateUser.java demonstrates how to create an IAM user.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[CreateUser.java demonstrates how to create an AWS Identity and Access Management (IAM) user by using waiters.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.create_user.import]
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.iam.model.CreateUserRequest;
 import software.amazon.awssdk.services.iam.model.CreateUserResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
+import software.amazon.awssdk.services.iam.waiters.IamWaiter;
+import software.amazon.awssdk.services.iam.model.GetUserRequest;
+import software.amazon.awssdk.services.iam.model.GetUserResponse;
 // snippet-end:[iam.java2.create_user.import]
-/**
- * Creates an IAM user
- */
+
 public class CreateUser {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply a username\n" +
-                        "Ex: CreateUser <username>\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    CreateUser <username> \n\n" +
+                "Where:\n" +
+                "    username - the name of the user to create. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
+        // Read the command line argument
         String username = args[0];
 
         Region region = Region.AWS_GLOBAL;
@@ -53,16 +49,29 @@ public class CreateUser {
 
         String result = createIAMUser(iam, username) ;
         System.out.println("Successfully created user: " +result);
-
+        iam.close();
     }
+
     // snippet-start:[iam.java2.create_user.main]
     public static String createIAMUser(IamClient iam, String username ) {
 
         try {
+            // Create an IamWaiter object
+            IamWaiter iamWaiter = iam.waiter();
+
             CreateUserRequest request = CreateUserRequest.builder()
-                .userName(username).build();
+                    .userName(username)
+                    .build();
 
             CreateUserResponse response = iam.createUser(request);
+
+            // Wait until the user is created
+            GetUserRequest userRequest = GetUserRequest.builder()
+                    .userName(response.user().userName())
+                    .build();
+
+            WaiterResponse<GetUserResponse> waitUntilUserExists = iamWaiter.waitUntilUserExists(userRequest);
+            waitUntilUserExists.matched().response().ifPresent(System.out::println);
             return response.user().userName();
 
         } catch (IamException e) {
