@@ -1,4 +1,4 @@
 {
-  "BucketName": "mytestbucket",
-  "KeyName": "mytestkey"
+  "BucketName": "doc-example-bucket",
+  "ObjectName": "mytestobject"
 }

@@ -66,7 +66,6 @@ func TestCreateBucket(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// Build the request with its input parameters
 	input := s3.CreateBucketInput{
 		Bucket: &globalConfig.BucketName,
 	}

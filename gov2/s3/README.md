@@ -18,11 +18,11 @@ in the AWS SDK for Go Developer Guide.
 
 This example copies an Amazon S3 object from one bucket to another.
 
-`go run CopyObject.go -f SOURCE -t DESTINATION -i ITEM`
+`go run CopyObject.go -s SOURCE -d DESTINATION -o OBJECT`
 
 - _SOURCE_ is the name of the bucket containing the item to copy.
 - _DESTINATION_ is the name of the bucket to which the item is copied.
-- _ITEM_ is the name of the item to copy.
+- _OBJECT_ is the name of the object to copy.
 
 The unit test accepts similar values in _config.json_.
 
@@ -48,12 +48,12 @@ The unit test accepts a similar value in _config.json_.
 
 ### DeleteObject/DeleteObject.go
 
-This example deletes an Amazon S3 bucket item.
+This example deletes an Amazon S3 bucket object.
 
-`go run DeleteObject.go -b BUCKET -i ITEM`
+`go run DeleteObject.go -b BUCKET -o OBJECT`
 
 - _BUCKET_ is the name of the bucket containing the item to delete.
-- _ITEM_ is the name of the item to delete.
+- _OBJECT_ is the name of the object to delete.
 
 The unit test accepts similar values in _config.json_.
 
@@ -69,12 +69,12 @@ The unit test accepts a similar value in _config.json_.
 
 ### GetObjectAcl/GetObjectAcl.go
 
-This example retrieves the access control list (ACL) for an Amazon S3 bucket item.
+This example retrieves the access control list (ACL) for an Amazon S3 bucket object.
 
-`go run GetObjectAcl.go -b BUCKET -i ITEM`
+`go run GetObjectAcl.go -b BUCKET -o OBJECT`
 
 - _BUCKET_ is the name of the bucket containing the item.
-- _ITEM_ is the name of the item for which the ACL is retrieved.
+- _OBJECT_ is the name of the object for which the ACL is retrieved.
 
 The unit test accepts similar values in _config.json_.
 
@@ -86,17 +86,17 @@ This example lists your Amazon S3 buckets.
 
 ### ListObjects/ListObjects.go
 
-This example lists the items in an Amazon S3 bucket.
+This example lists the objects in an Amazon S3 bucket.
 
 `go run ListObjects.go -b BUCKET`
 
-- _BUCKET_ is the name of the bucket for which the items are listed.
+- _BUCKET_ is the name of the bucket for which the objects are listed.
 
 The unit test accepts a similar value in _config.json_.
 
 ### PutObject/PutObject.go
 
-This example creates an Amazon S3 bucket item from a local file.
+This example creates an Amazon S3 bucket object from a local file.
 
 `go run PutObject.go -b BUCKET -f FILE`
 

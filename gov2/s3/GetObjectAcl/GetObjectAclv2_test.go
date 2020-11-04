@@ -31,7 +31,7 @@ func (dt S3GetObjectAclImpl) GetObjectAcl(ctx context.Context,
 
 type Config struct {
 	BucketName string `json:"BucketName"`
-	KeyName    string `json:"KeyName"`
+	ObjectName string `json:"ObjectName"`
 }
 
 var configFileName = "config.json"
@@ -51,8 +51,8 @@ func populateConfiguration(t *testing.T) error {
 		return err
 	}
 
-	if globalConfig.BucketName == "" || globalConfig.KeyName == "" {
-		msg := "You must supply a value for BucketName and KeyName in " + configFileName
+	if globalConfig.BucketName == "" || globalConfig.ObjectName == "" {
+		msg := "You must supply a value for BucketName and ObjectName in " + configFileName
 		return errors.New(msg)
 	}
 
@@ -72,7 +72,7 @@ func TestGetObjectAcl(t *testing.T) {
 	// Build the request with its input parameters
 	input := s3.GetObjectAclInput{
 		Bucket: &globalConfig.BucketName,
-		Key:    &globalConfig.KeyName,
+		Key:    &globalConfig.ObjectName,
 	}
 
 	api := &S3GetObjectAclImpl{}
@@ -84,5 +84,5 @@ func TestGetObjectAcl(t *testing.T) {
 		return
 	}
 
-	t.Log("Grantee for object " + globalConfig.KeyName + ": " + *resp.Grants[0].Grantee.DisplayName)
+	t.Log("Grantee for object " + globalConfig.ObjectName + ": " + *resp.Grants[0].Grantee.DisplayName)
 }

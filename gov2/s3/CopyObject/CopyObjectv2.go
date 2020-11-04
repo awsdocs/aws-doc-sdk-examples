@@ -3,7 +3,6 @@
 // snippet-start:[s3.go-v2.CopyObject]
 package main
 
-// snippet-start:[s3.go-v2.CopyObject.imports]
 import (
 	"context"
 	"flag"
@@ -13,62 +12,50 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// snippet-end:[s3.go-v2.CopyObject.imports]
-
-// S3CopyObjectAPI defines the interface for the Amazon S3 CopyObject function.
+// S3CopyObjectAPI defines the interface for the Amazon Simple Storage Service (Amazon S3) CopyObject function.
 // We use this interface to enable unit testing.
-// snippet-start:[s3.go-v2.CopyObject.interface]
 type S3CopyObjectAPI interface {
 	CopyObject(ctx context.Context,
 		params *s3.CopyObjectInput,
 		optFns ...func(*s3.Options)) (*s3.CopyObjectOutput, error)
 }
 
-// snippet-end:[s3.go-v2.CopyObject.interface]
-
-// CopyItem copies an Amazon S3 item to another Amazon S3 bucket.
+// CopyItem copies an Amazon S3 object from one bucket to another.
 // Inputs:
-//     c is the context of the method call, which includes the Region
+//     c is the context of the method call, which includes the AWS Region
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil
-//     Otherwise, nil and an error from the call to FUNCTION
+//     If success, a CopyObjectOutput object containing the result of the service call and nil.
+//     Otherwise, nil and an error from the call to CopyObject.
 func CopyItem(c context.Context, api S3CopyObjectAPI, input *s3.CopyObjectInput) (*s3.CopyObjectOutput, error) {
-	// snippet-start:[s3.go-v2.CopyObject.call]
-	// Copy the item
 	resp, err := api.CopyObject(c, input)
-	// snippet-end:[s3.go-v2.CopyObject.call]
 
 	return resp, err
 }
 
 func main() {
-	// snippet-start:[s3.go-v2.CopyObject.args]
-	sourceBucket := flag.String("f", "", "The bucket containing the object to copy")
-	targetBucket := flag.String("t", "", "The bucket to which the object is copied")
-	item := flag.String("i", "", "The object to copy")
+	sourceBucket := flag.String("s", "", "The source bucket containing the object to copy")
+	destinationBucket := flag.String("d", "", "The destination bucket to which the object is copied")
+	objectName := flag.String("o", "", "The object to copy")
 	flag.Parse()
 
-	if *sourceBucket == "" || *targetBucket == "" || *item == "" {
-		fmt.Println("You must supply the bucket to copy from (-f BUCKET), to (-t BUCKET), and item to copy (-i ITEM")
+	if *sourceBucket == "" || *destinationBucket == "" || *objectName == "" {
+		fmt.Println("You must supply the bucket to copy from (-s BUCKET), to (-td BUCKET), and object to copy (-o OBJECT")
 		return
 	}
-	// snippet-end:[s3.go-v2.CopyObject.args]
 
-	// snippet-start:[s3.go-v2.CopyObject.configclient]
 	cfg, err := config.LoadDefaultConfig()
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
 
 	client := s3.NewFromConfig(cfg)
-	// snippet-end:[s3.go-v2.CopyObject.configclient]
 
 	input := &s3.CopyObjectInput{
-		Bucket:     targetBucket,
-		CopySource: sourceBucket,
-		Key:        item,
+		Bucket:     sourceBucket,
+		CopySource: destinationBucket,
+		Key:        objectName,
 	}
 
 	_, err = CopyItem(context.Background(), client, input)
@@ -78,9 +65,7 @@ func main() {
 		return
 	}
 
-	// snippet-start:[s3.go-v2.CopyObject.print]
-	fmt.Println("Copied " + *item + " from " + *sourceBucket + " to " + *targetBucket)
-	// snippet-end:[s3.go-v2.CopyObject.print]
+	fmt.Println("Copied " + *objectName + " from " + *sourceBucket + " to " + *destinationBucket)
 }
 
 // snippet-end:[s3.go-v2.CopyObject]
