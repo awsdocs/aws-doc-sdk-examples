@@ -1,164 +1,100 @@
-import com.example.iam.*;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iam.IamClient;
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class IAMServiceIntegrationTest {
-
-    private static IamClient iam;
-    private static String userName="";
-    private static String policyName="";
-    private static String roleName="";
-    private static String policyARN=""; // Set in test 3
-    private static String accessKey="" ;
-    private static String keyId ="" ; // set in test 4
-    private static String accountAlias="";
-
-    @BeforeAll
-    public static void setUp() throws IOException {
-
-        Region region = Region.AWS_GLOBAL;
-        iam =  IamClient.builder().region(region).build();
-
-        try (InputStream input = IAMServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
-            Properties prop = new Properties();
-            prop.load(input);
-            // Populate the data members required for all tests
-            userName = prop.getProperty("userName");
-            policyName= prop.getProperty("policyName");
-            policyARN= prop.getProperty("policyARN");
-            roleName=prop.getProperty("roleName");
-            accountAlias=prop.getProperty("accountAlias");
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Test
-    @Order(1)
-    public void whenInitializingAWSIAMService_thenNotNull() {
-        assertNotNull(iam);
-        System.out.printf("\n Test 1 passed");
-    }
-
-    @Test
-    @Order(2)
-    public void CreatUser() {
-
-        String result = CreateUser.createIAMUser(iam, userName);
-        assertTrue(!result.isEmpty());
-        System.out.println("\n Test 2 passed");
-    }
-
-    @Test
-    @Order(3)
-    public void CreatePolicy() {
-
-         policyARN = CreatePolicy.createIAMPolicy(iam, policyName);
-         assertTrue(!policyARN.isEmpty());
-         System.out.println("\n Test 3 passed");
-    }
-
-    @Test
-    @Order(4)
-    public void CreateAccessKey() {
-
-        keyId = CreateAccessKey.createIAMAccessKey(iam,userName);
-        assertTrue(!keyId.isEmpty());
-        System.out.println("\n Test 4 passed");
-    }
-
-    @Test
-    @Order(5)
-    public void AttachRolePolicy() {
-
-       AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN );
-       System.out.println("\n Test 5 passed");
-    }
-
-    @Test
-    @Order(6)
-    public void DetachRolePolicy() {
-
-        DetachRolePolicy.detachPolicy(iam, roleName, policyARN);
-        System.out.println("\n Test 6 passed");
-    }
-
-    @Test
-    @Order(7)
-    public void GetPolicy() {
-
-        GetPolicy.getIAMPolicy(iam, policyARN);
-        System.out.println("\n Test 7 passed");
-    }
-
-    @Test
-    @Order(8)
-    public void ListAccessKeys() {
-
-        ListAccessKeys.listKeys(iam,userName);
-        System.out.println("\n Test 8 passed");
-    }
-
-    @Test
-    @Order(9)
-    public void ListUsers() {
-
-       ListUsers.listAllUsers(iam);
-       System.out.println("\n Test 9 passed");
-   }
-
-    @Test
-    @Order(10)
-   public void CreateAccountAlias() {
-
-       CreateAccountAlias.createIAMAccountAlias(iam, accountAlias);
-       System.out.println("\n Test 10 passed");
-    }
-
-    @Test
-    @Order(11)
-    public void DeleteAccountAlias() {
-
-        DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias);
-        System.out.println("\n Test 11 passed");
-    }
-
-    @Test
-    @Order(12)
-    public void DeletePolicy() {
-
-       DeletePolicy.deleteIAMPolicy(iam, policyARN);
-       System.out.println("\n Test 12 passed");
-    }
-
-    @Test
-    @Order(13)
-   public void DeleteAccessKey() {
-
-       DeleteAccessKey.deleteKey(iam, userName, keyId);
-       System.out.println("\n Test 13 passed");
-   }
-
-    @Test
-    @Order(14)
-    public void DeleteUser() {
-
-        DeleteUser.deleteIAMUser(iam,userName);
-        System.out.println("\n Test 14 passed");
-    }
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>S3J2Project</groupId>
+    <artifactId>S3J2Project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+       <java.version>1.8</java.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>2.15.14</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.4.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.4.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.4.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>kms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3control</artifactId>
+            <version>2.15.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
