@@ -57,7 +57,7 @@ public class IAMServiceIntegrationTest {
 
     @Test
     @Order(2)
-    public void CreatUser() {
+    public void CreateUser() {
 
         String result = CreateUser.createIAMUser(iam, userName);
         assertTrue(!result.isEmpty());
@@ -86,8 +86,15 @@ public class IAMServiceIntegrationTest {
     @Order(5)
     public void AttachRolePolicy() {
 
-       AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN );
-       System.out.println("\n Test 5 passed");
+        try {
+            //Wait 20 secs for the policy to be created - otherwise the test fails
+            TimeUnit.SECONDS.sleep(20);
+            AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN );
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("\n Test 5 passed");
     }
 
     @Test
