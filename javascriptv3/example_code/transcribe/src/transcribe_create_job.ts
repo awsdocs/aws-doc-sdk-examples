@@ -18,7 +18,7 @@ Inputs (replace in code):
 Running the code:
 ts-node transcribe_create_job.ts
  */
-// snippet-start:[transcribe.JavaScript.jobs.createJobsV3]
+// snippet-start:[transcribe.JavaScript.jobs.createJobV3]
 // Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
@@ -51,4 +51,4 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[transcribe.JavaScript.jobs.createJobsV3]
+// snippet-end:[transcribe.JavaScript.jobs.createJobV3]

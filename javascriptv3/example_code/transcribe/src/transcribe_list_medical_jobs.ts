@@ -15,7 +15,7 @@ Inputs (replace in code):
 Running the code:
 ts-node transcribe_list_medical_jobs.ts
  */
-// snippet-start:[transcribe.JavaScript.jobs.listJobsV3]
+// snippet-start:[transcribe.JavaScript.jobs.listMedicalJobsV3]
 // Import the required AWS SDK clients and commands for Node.js
 
 const {
@@ -39,10 +39,10 @@ const run = async () => {
     const data = await client.send(
       new ListMedicalTranscriptionJobsCommand(params)
     );
-    console.log("Success", data.TranscriptionJobSummaries);
+    console.log("Success", data.MedicalTranscriptionJobName);
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[transcribe.JavaScript.jobs.listJobsV3]
+// snippet-end:[transcribe.JavaScript.jobs.listMedicalJobsV3]
