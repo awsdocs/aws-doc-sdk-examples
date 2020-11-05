@@ -20,14 +20,14 @@ type SNSCreateTopicAPI interface {
 		optFns ...func(*sns.Options)) (*sns.CreateTopicOutput, error)
 }
 
-// MakeTopic creates an Amazon Simple Notification Service (Amazon SNS) topic
+// MakeTopic creates an Amazon Simple Notification Service (Amazon SNS) topic.
 // Inputs:
-//     c is the context of the method call, which includes the Region
-//     api is the interface that defines the method call
+//     c is the context of the method call, which includes the AWS Region.
+//     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a CreateTopicOutput object containing the result of the service call and nil
-//     Otherwise, nil and an error from the call to CreateTopic
+//     If success, a CreateTopicOutput object containing the result of the service call and nil.
+//     Otherwise, nil and an error from the call to CreateTopic.
 func MakeTopic(c context.Context, api SNSCreateTopicAPI, input *sns.CreateTopicInput) (*sns.CreateTopicOutput, error) {
 	results, err := api.CreateTopic(c, input)
 
@@ -63,5 +63,4 @@ func main() {
 
 	fmt.Println(*results.TopicArn)
 }
-
 // snippet-end:[sns.go-v2.CreateTopic]

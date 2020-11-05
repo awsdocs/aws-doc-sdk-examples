@@ -15,7 +15,7 @@ type SNSListSubscriptionsImpl struct{}
 func (dt SNSListSubscriptionsImpl) ListSubscriptions(ctx context.Context,
 	params *sns.ListSubscriptionsInput,
 	optFns ...func(*sns.Options)) (*sns.ListSubscriptionsOutput, error) {
-	// Create a dummy list of two subscriptions
+	// Create a dummy list of two subscriptions.
 	subscriptions := make([]*types.Subscription, 2)
 	subscriptions[0] = &types.Subscription{
 		SubscriptionArn: aws.String("dummysubscriptionarn1"),
@@ -38,7 +38,6 @@ func TestListSubscriptions(t *testing.T) {
 	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
 	t.Log("Starting unit test at " + nowString)
 
-	// Build the request with its input parameters
 	input := sns.ListSubscriptionsInput{}
 
 	api := &SNSListSubscriptionsImpl{}

@@ -64,7 +64,6 @@ func TestCreateTopic(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// Build the request with its input parameters
 	input := sns.CreateTopicInput{
 		Name: &globalConfig.TopicName,
 	}

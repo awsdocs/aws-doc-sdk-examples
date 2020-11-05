@@ -19,14 +19,14 @@ type SNSListSubscriptionsAPI interface {
 		optFns ...func(*sns.Options)) (*sns.ListSubscriptionsOutput, error)
 }
 
-// GetSubscriptions retrieves a list of your Amazon Simple Notification Service (Amazon SNS) subscriptions
+// GetSubscriptions retrieves a list of your Amazon Simple Notification Service (Amazon SNS) subscriptions.
 // Inputs:
-//     c is the context of the method call, which includes the Region
-//     api is the interface that defines the method call
+//     c is the context of the method call, which includes the AWS Region.
+//     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a ListSubscriptionsOutput object containing the result of the service call and nil
-//     Otherwise, nil and an error from the call to ListSubscriptions
+//     If success, a ListSubscriptionsOutput object containing the result of the service call and nil.
+//     Otherwise, nil and an error from the call to ListSubscriptions.
 func GetSubscriptions(c context.Context, api SNSListSubscriptionsAPI, input *sns.ListSubscriptionsInput) (*sns.ListSubscriptionsOutput, error) {
 	result, err := api.ListSubscriptions(c, input)
 
@@ -59,5 +59,4 @@ func main() {
 		fmt.Println("")
 	}
 }
-
 // snippet-end:[sns.go-v2.ListSubscriptions]

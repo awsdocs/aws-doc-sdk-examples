@@ -26,13 +26,13 @@ The unit test accepts a similar value in _config.json_.
 
 ###  ListSubscriptions/ListSubscriptions.go
 
-This example lists the topic and subscription Amazon Resource Names (ARNs) for your Amazon SNS subscripions.
+This example lists the topic and subscription Amazon Resource Names (ARNs) for your Amazon SNS subscriptions.
 
 `go run ListSubscriptions.go`
 
 ### ListTopics/ListTopics.go
 
-This example lists the ARNs for your an Amazon SNS topics.
+This example lists the ARNs for your Amazon SNS topics.
 
 `go run ListTopics.go`
 
