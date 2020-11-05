@@ -24,7 +24,7 @@
 //snippet-keyword:[ProcessReady]
 //snippet-keyword:[ProcessEnding]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-12]
+// snippet-sourcedate:[2020-11-5]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[gamelift.dotnet.game-server.unity]
 using UnityEngine;
